@@ -1,0 +1,22 @@
+# LaTeX build by-products
+*.aux
+*.log
+*.nav
+*.snm
+*.toc
+*.out
+*.vrb
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.xdv
+*.bbl
+*.blg
+# Answer keys and instructor-only material stay off this public repository
+*_key.pdf
+*instructor*
+# Local copies made for the claude.ai artifact
+**/activity/influence-line-explorer.html
+# OS / editor
+.DS_Store
+Thumbs.db

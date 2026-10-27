@@ -1,0 +1,69 @@
+% ---------------------------------------------------------------------------
+%  s2figs.tex -- shared TikZ drawings for Lab S2 (Influence Lines)
+%  Geometry in mm: A=0, B=250, C=440, D=690, E=880, F=1130.
+%  \ILscale (cm per mm) is set by the including document before use.
+% ---------------------------------------------------------------------------
+\usetikzlibrary{arrows.meta,calc,patterns,decorations.pathreplacing}
+\providecommand{\ILscale}{0.0115}
+\colorlet{s2load}{orange!80!black}
+\colorlet{s2reac}{blue!65!black}
+\colorlet{s2hinge}{violet!80!black}
+\colorlet{s2neg}{red!75!black}
+
+% support symbols (anchored at beam centre line)
+% offsets are given in cm so that the symbols keep their size whatever the x scale
+\newcommand{\ILpin}[1]{%
+  \draw[thick] (#1,-0.08) -- ++(-0.18cm,-0.3cm) -- ++(0.36cm,0) -- cycle;
+  \draw[thick] ($(#1,-0.39)+(-0.26cm,0)$) -- ++(0.52cm,0);
+  \foreach \t in {-0.22,-0.11,0,0.11,0.22} \draw ($(#1,-0.39)+(\t cm,0)$) -- ++(-0.08cm,-0.1cm);}
+\newcommand{\ILroller}[1]{%
+  \draw[thick] (#1,-0.08) -- ++(-0.18cm,-0.3cm) -- ++(0.36cm,0) -- cycle;
+  \draw[thick] ($(#1,-0.45)+(-0.1cm,0)$) circle [radius=0.06cm] ($(#1,-0.45)+(0.1cm,0)$) circle [radius=0.06cm];
+  \draw[thick] ($(#1,-0.52)+(-0.26cm,0)$) -- ++(0.52cm,0);
+  \foreach \t in {-0.22,-0.11,0,0.11,0.22} \draw ($(#1,-0.52)+(\t cm,0)$) -- ++(-0.08cm,-0.1cm);}
+\newcommand{\ILhingeat}[1]{\fill[white] (#1,0) circle [radius=0.11cm]; \draw[thick,s2hinge] (#1,0) circle [radius=0.11cm];}
+
+% ---- the bridge model (elevation), with halts and span dimensions -----------
+% optional argument: extra TikZ code drawn in the same picture (loads, arrows)
+\newcommand{\ILbridge}[1][]{%
+\begin{tikzpicture}[x=\ILscale cm,y=1cm,>=Stealth,font=\small]
+  \pgfmathsetmacro{\xB}{250}\pgfmathsetmacro{\xC}{440}\pgfmathsetmacro{\xD}{690}\pgfmathsetmacro{\xE}{880}\pgfmathsetmacro{\xF}{1130}
+  % beams
+  \draw[line width=2.4pt] (0,0) -- (430,0);
+  \draw[line width=2.4pt] (450,0) -- (680,0);
+  \draw[line width=2.4pt] (700,0) -- (1130,0);
+  \ILhingeat{440}\ILhingeat{690}
+  \ILpin{0}\ILroller{250}\ILroller{880}\ILpin{1130}
+  % halts
+  \foreach \x/\l in {0/A,250/B,440/C,690/D,880/E,1130/F}
+    \node[below,font=\small\bfseries] at (\x,-0.62) {\l};
+  \foreach \x/\l in {100/1,200/2,300/3,400/4,500/5,600/6,700/7,800/8,900/9,1000/10,1100/11}
+    {\draw (\x,-0.05) -- (\x,-0.22); \node[below,font=\scriptsize] at (\x,-0.22) {\l};}
+  % dimensions
+  \draw[|<->|] (0,-1.15) -- (250,-1.15) node[midway,below,font=\scriptsize] {250};
+  \draw[|<->|] (250,-1.15) -- (440,-1.15) node[midway,below,font=\scriptsize] {190};
+  \draw[|<->|] (440,-1.15) -- (690,-1.15) node[midway,below,font=\scriptsize] {250};
+  \draw[|<->|] (690,-1.15) -- (880,-1.15) node[midway,below,font=\scriptsize] {190};
+  \draw[|<->|] (880,-1.15) -- (1130,-1.15) node[midway,below,font=\scriptsize] {250};
+  \node[font=\scriptsize,anchor=west] at (1140,-1.15) {mm};
+  #1
+\end{tikzpicture}}
+
+% a downward load arrow at x (mm) with label
+\newcommand{\ILload}[3][1.1]{\draw[->,very thick,s2load] (#2,#1) -- (#2,0.14) node[pos=0,above,font=\small\bfseries,s2load] {#3};}
+% an upward reaction arrow at x with label (positive); negative drawn downward in red
+\newcommand{\ILreaction}[3][0.9]{\draw[->,very thick,s2reac] (#2,-0.95-#1) -- (#2,-0.72) node[pos=0,below,font=\small,s2reac] {#3};}
+\newcommand{\ILreactionneg}[3][0.9]{\draw[->,very thick,s2neg] (#2,-0.72) -- (#2,-0.95-#1) node[below,font=\small,s2neg] {#3};}
+
+% ---- influence line plot: #1 = reaction name, #2 = list of x/y vertices -----
+% #3 (optional) extra code; ordinate scale 1 unit = \ILyscale cm
+\providecommand{\ILyscale}{1.0}
+\newcommand{\ILilplot}[3][]{%
+\begin{tikzpicture}[x=\ILscale cm,y=\ILyscale cm,>=Stealth,font=\small]
+  \draw[gray!50,dashed] (250,-0.95) -- (250,1.95) (440,-0.95) -- (440,1.95) (690,-0.95) -- (690,1.95) (880,-0.95) -- (880,1.95);
+  \draw[->] (0,0) -- (1180,0) node[right,font=\scriptsize] {$x$ (mm)};
+  \foreach \x/\l in {0/A,250/B,440/C,690/D,880/E,1130/F} \node[below,font=\scriptsize\bfseries] at (\x,-0.02) {\l};
+  \draw[very thick,s2reac] plot coordinates {#3};
+  \node[anchor=south west,font=\small] at (0,1.5) {IL for #2};
+  #1
+\end{tikzpicture}}

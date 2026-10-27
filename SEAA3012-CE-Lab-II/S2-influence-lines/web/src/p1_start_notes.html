@@ -1,0 +1,346 @@
+<div class="wrap">
+<header class="top">
+  <div>
+    <div class="eyebrow">SEAA 3012 Civil Engineering Laboratory II · Lab S2 · UTM</div>
+    <h1>Influence Lines</h1>
+    <p class="sub"><span class="en">Lecture notes, slides, an interactive model of the bridge, exercises with instant feedback, and a data sheet for your laboratory readings.</span><span class="ms">Nota kuliah, slides, model jambatan interaktif, latihan dengan feedback serta-merta, dan data sheet untuk bacaan makmal anda.</span></p>
+  </div>
+  <div class="tools">
+    <button class="toolbtn" id="snbtn" type="button" aria-controls="drawer" aria-expanded="false"><span class="en">Short notes</span><span class="ms">Nota ringkas</span></button>
+    <div class="seg" role="group" aria-label="Language / Bahasa"><button type="button" data-setlang="ms" aria-pressed="false">BM</button><button type="button" data-setlang="en" aria-pressed="true">EN</button></div>
+    <button class="iconbtn" id="themebtn" type="button" aria-label="Theme: automatic" title="Theme"></button>
+  </div>
+</header>
+<div class="navwrap">
+  <nav class="tabs" role="tablist" aria-label="Sections">
+    <button class="tab" role="tab" data-view="start" id="t-start"><span class="en">Start</span><span class="ms">Mula</span></button>
+    <button class="tab" role="tab" data-view="notes" id="t-notes"><span class="en">Notes</span><span class="ms">Nota</span><span class="bd" data-bd="notes"></span></button>
+    <button class="tab" role="tab" data-view="slides" id="t-slides">Slides<span class="bd" data-bd="slides"></span></button>
+    <button class="tab" role="tab" data-view="explorer" id="t-explorer">Explorer<span class="bd" data-bd="explorer"></span></button>
+    <button class="tab" role="tab" data-view="exercises" id="t-exercises"><span class="en">Exercises</span><span class="ms">Latihan</span><span class="bd" data-bd="exercises"></span></button>
+    <button class="tab" role="tab" data-view="lab" id="t-lab"><span class="en">Lab</span><span class="ms">Makmal</span><span class="bd" data-bd="lab"></span></button>
+  </nav>
+  <div class="prog"><span class="pct"><span class="en">Progress</span><span class="ms">Kemajuan</span></span><div class="bar" id="pbar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Progress"><i></i></div><span class="pct" id="ppct">0 %</span></div>
+</div>
+
+<main>
+<!-- =============================================================== START -->
+<section class="view" data-view="start" id="v-start" role="tabpanel" aria-labelledby="t-start">
+  <div class="start-hero">
+    <div class="card">
+      <h2><span class="en">One laboratory session, five parts</span><span class="ms">Satu sesi makmal, lima bahagian</span></h2>
+      <p class="en">The laboratory model is a cantilever bridge 1130 mm long: two anchor beams with cantilever arms and a suspended span on hinges at C and D. You will move a mass along it, read six dial gauges, and compare what you measure with the influence lines that statics predicts.</p>
+      <p class="ms">Model makmal ini ialah cantilever bridge sepanjang 1130 mm: dua anchor beam dengan cantilever arm, dan suspended span yang ditumpu pada hinge di C dan D. Anda akan menggerakkan jisim di sepanjang jambatan, membaca enam dial gauge, dan membandingkan hasil ukuran dengan influence line yang diramal oleh statik.</p>
+      <h3 style="font-size:15px;margin:14px 0 4px"><span class="en">After this session you should be able to</span><span class="ms">Selepas sesi ini, anda sepatutnya boleh</span></h3>
+      <ol class="lo en">
+        <li>define an influence line and tell it apart from a shear-force or bending-moment diagram;</li>
+        <li>derive the influence lines of the reactions and hinge forces of the model by statics alone;</li>
+        <li>sketch and check an influence line with the Müller–Breslau principle;</li>
+        <li>use an influence line for a single load, a pair of loads and a distributed load, and find the critical position;</li>
+        <li>reduce your gauge readings, compare them with theory and explain the differences.</li>
+      </ol>
+      <ol class="lo ms">
+        <li>mentakrif influence line dan membezakannya daripada shear-force diagram atau bending-moment diagram;</li>
+        <li>menerbitkan influence line bagi reaction dan hinge force model ini menggunakan statik sahaja;</li>
+        <li>melakar dan menyemak influence line dengan prinsip Müller–Breslau;</li>
+        <li>menggunakan influence line untuk satu load, sepasang load dan distributed load, serta mencari critical position;</li>
+        <li>memproses bacaan gauge, membandingkannya dengan teori dan menjelaskan perbezaannya.</li>
+      </ol>
+    </div>
+    <figure style="margin:0">
+      <img src="data:image/jpeg;base64,%%PHOTO%%" alt="The bridge model in the Structures Laboratory, with dial gauges under the supports and two masses on the deck">
+      <figcaption class="muted" style="font-size:13px;margin-top:6px"><span class="en">The bridge model in the Structures Laboratory, Faculty of Civil Engineering.</span><span class="ms">Model jambatan di Makmal Struktur, Fakulti Kejuruteraan Awam.</span></figcaption>
+    </figure>
+  </div>
+
+  <div class="grid2" style="margin-top:18px">
+    <div class="card" id="nextcard">
+      <h2><span class="en">Next step</span><span class="ms">Langkah seterusnya</span></h2>
+      <p class="lead" id="nexttxt" style="margin:6px 0 12px"></p>
+      <button class="btn" type="button" id="nextbtn"><span class="en">Go</span><span class="ms">Pergi</span></button>
+    </div>
+    <div class="card">
+      <h2><span class="en">Suggested route</span><span class="ms">Cadangan urutan</span></h2>
+      <p class="lead en" style="margin:6px 0 0">Before the laboratory: Notes, then Explorer (answer the six prediction questions). In the laboratory: Lab, Test 1 and Test 2. After the laboratory: Exercises, then the report. Everything you enter is kept in this browser only; nothing is sent anywhere.</p>
+      <p class="lead ms" style="margin:6px 0 0">Sebelum makmal: Nota, kemudian Explorer (jawab enam prediction question). Dalam makmal: tab Makmal, Test 1 dan Test 2. Selepas makmal: Latihan, kemudian laporan. Semua yang anda masukkan disimpan dalam browser ini sahaja; tiada data dihantar ke mana-mana.</p>
+    </div>
+  </div>
+
+  <div class="paths">
+    <button class="path" type="button" data-go="notes"><em><span class="en">about 30 min</span><span class="ms">lebih kurang 30 min</span></em><b><span class="en">Notes</span><span class="ms">Nota</span></b><span><span class="en">Theory, step-by-step derivation, two worked examples, data reduction and errors.</span><span class="ms">Teori, derivation langkah demi langkah, dua worked example, data reduction dan error.</span></span></button>
+    <button class="path" type="button" data-go="slides"><em>21 slides</em><b>Slides</b><span><span class="en">For the lecture. Press Present for full screen; use the arrow keys.</span><span class="ms">Untuk kuliah. Tekan Present untuk full screen; guna arrow keys.</span></span></button>
+    <button class="path" type="button" data-go="explorer"><em><span class="en">interactive</span><span class="ms">interaktif</span></em><b>Explorer</b><span><span class="en">Drag the load along the bridge and watch every influence line respond.</span><span class="ms">Seret load di sepanjang jambatan dan perhatikan setiap influence line berubah.</span></span></button>
+    <button class="path" type="button" data-go="exercises"><em><span class="en">10 questions · 60 min</span><span class="ms">10 soalan · 60 min</span></em><b><span class="en">Exercises</span><span class="ms">Latihan</span></b><span><span class="en">Type your answers and check them; worked solutions open after your first check.</span><span class="ms">Taip jawapan dan semak; worked solution dibuka selepas semakan pertama.</span></span></button>
+    <button class="path" type="button" data-go="lab"><em><span class="en">in the laboratory</span><span class="ms">dalam makmal</span></em><b><span class="en">Lab</span><span class="ms">Makmal</span></b><span><span class="en">Enter your gauge readings, compare with theory, copy the table into your report.</span><span class="ms">Masukkan bacaan gauge, bandingkan dengan teori, salin jadual ke dalam laporan.</span></span></button>
+  </div>
+
+  <div class="card" style="margin-top:18px">
+    <h2><span class="en">Learning record</span><span class="ms">Rekod pembelajaran</span></h2>
+    <p class="lead en">What you have done on this page, kept in this browser. Copy it into your report, or send it to your instructor if asked.</p>
+    <p class="lead ms">Aktiviti anda pada page ini, disimpan dalam browser ini. Salin ke dalam laporan, atau hantar kepada pensyarah jika diminta.</p>
+    <div id="record"></div>
+    <div class="recbar">
+      <button class="btn ghost" type="button" id="reccopy"><span class="en">Copy record</span><span class="ms">Salin rekod</span></button>
+      <button class="btn ghost" type="button" id="recreset"><span class="en">Reset all progress</span><span class="ms">Set semula semua kemajuan</span></button>
+      <span class="muted" id="recmsg" style="font-size:13.5px"></span>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================================== NOTES -->
+<section class="view" data-view="notes" id="v-notes" role="tabpanel" aria-labelledby="t-notes" hidden>
+<div class="notes">
+  <aside class="toc" aria-label="Contents">
+    <b><span class="en">Contents</span><span class="ms">Kandungan</span></b>
+    <ol>
+      <li><a href="#n1" data-toc="n1"><span class="en">1 Why influence lines?</span><span class="ms">1 Mengapa influence line?</span></a></li>
+      <li><a href="#n2" data-toc="n2"><span class="en">2 The laboratory model</span><span class="ms">2 Model makmal</span></a></li>
+      <li><a href="#n3" data-toc="n3"><span class="en">3 Deriving the influence lines</span><span class="ms">3 Menerbitkan influence line</span></a></li>
+      <li><a href="#n4" data-toc="n4"><span class="en">4 Müller–Breslau principle</span><span class="ms">4 Prinsip Müller–Breslau</span></a></li>
+      <li><a href="#n5" data-toc="n5"><span class="en">5 Using an influence line</span><span class="ms">5 Menggunakan influence line</span></a></li>
+      <li><a href="#n6" data-toc="n6"><span class="en">6 The experiment</span><span class="ms">6 Eksperimen</span></a></li>
+      <li><a href="#n7" data-toc="n7"><span class="en">7 Sources of error</span><span class="ms">7 Sumber error</span></a></li>
+      <li><a href="#n8" data-toc="n8"><span class="en">8 Beyond the laboratory</span><span class="ms">8 Di luar makmal</span></a></li>
+      <li><a href="#n9"><span class="en">Summary and references</span><span class="ms">Ringkasan dan rujukan</span></a></li>
+    </ol>
+    <div class="rt" id="tocstat"></div>
+  </aside>
+  <article class="article" id="notesart">
+    <div class="ntools">
+      <div class="seg" role="group" aria-label="Notes view">
+        <button type="button" data-nmode="full" aria-pressed="true"><span class="en">Full notes</span><span class="ms">Nota penuh</span></button>
+        <button type="button" data-nmode="key" aria-pressed="false"><span class="en">Key points only</span><span class="ms">Isi penting sahaja</span></button>
+      </div>
+      <span class="muted" id="nstat"></span>
+    </div>
+
+    <!-- ---------------------------------------------------------------- 1 -->
+    <section class="nsec" id="n1" data-rt="3">
+    <h2><span class="en">1 Why influence lines?</span><span class="ms">1 Mengapa influence line?</span></h2>
+    <details class="kp"><summary><span class="en">Key points</span><span class="ms">Isi penting</span></summary>
+      <ul class="en"><li>An influence line gives one response at a <b>fixed point</b> as a <b>unit load moves</b>.</li><li>It is not a shear-force or bending-moment diagram: there the loads are fixed and the section moves.</li><li>Superposition makes it reusable for any pattern of loads.</li></ul>
+      <ul class="ms"><li>Influence line memberi satu response pada <b>titik tetap</b> semasa <b>unit load bergerak</b>.</li><li>Ia bukan shear-force atau bending-moment diagram: dalam diagram itu load tetap dan section yang berubah.</li><li>Superposition membolehkan ia digunakan semula untuk sebarang susunan load.</li></ul>
+    </details>
+    <div class="sb">
+    <p class="en">Most structures are designed for loads that stay where they are: the weight of a floor, the water in a tank. A bridge, a crane girder or a gantry rail carries loads that <em>move</em>, and the designer must answer a question that a shear-force diagram cannot: <em>where</em> must the vehicle stand to produce the largest reaction at a pier, the largest shear at a section, or the largest moment at midspan? The influence line answers it directly.</p>
+    <p class="ms">Kebanyakan struktur direka untuk load yang kekal di tempatnya: berat lantai, air dalam tangki. Jambatan, crane girder atau gantry rail pula membawa load yang <em>bergerak</em>, dan pereka perlu menjawab soalan yang tidak dapat dijawab oleh shear-force diagram: di <em>mana</em> kenderaan perlu berada untuk menghasilkan reaction terbesar pada pier, shear terbesar pada sesuatu section, atau moment terbesar di midspan? Influence line menjawabnya secara terus.</p>
+    <div class="def"><b class="t"><span class="en">Definition</span><span class="ms">Takrif</span></b><span class="en">The <b>influence line</b> of a response quantity \(R\) (a reaction, a shear force, a bending moment, a deflection) at a <em>fixed</em> point of a structure is the graph of that quantity against the position \(x\) of a <em>unit</em> concentrated load moving across the structure. Its ordinate is written \(\eta_R(x)\) and has the units of \(R\) per unit load (dimensionless for a reaction).</span><span class="ms"><b>Influence line</b> bagi suatu response \(R\) (reaction, shear force, bending moment, deflection) pada titik yang <em>tetap</em> ialah graf kuantiti itu melawan kedudukan \(x\) bagi <em>unit</em> concentrated load yang bergerak merentasi struktur. Ordinate-nya ditulis \(\eta_R(x)\) dan mempunyai unit \(R\) per unit load (tanpa dimensi bagi reaction).</span></div>
+    <div class="tbl"><table>
+      <thead><tr><th class="l"></th><th class="l">Shear-force / bending-moment diagram</th><th class="l">Influence line</th></tr></thead>
+      <tbody>
+        <tr><td class="l"><span class="en">What is fixed</span><span class="ms">Apa yang tetap</span></td><td class="l"><span class="en">the loads</span><span class="ms">load</span></td><td class="l"><span class="en">the point where \(R\) is evaluated</span><span class="ms">titik di mana \(R\) dinilai</span></td></tr>
+        <tr><td class="l"><span class="en">What varies along the abscissa</span><span class="ms">Apa yang berubah pada paksi-x</span></td><td class="l"><span class="en">the section where \(V\) or \(M\) is read</span><span class="ms">section di mana \(V\) atau \(M\) dibaca</span></td><td class="l"><span class="en">the position \(x\) of the unit load</span><span class="ms">kedudukan \(x\) unit load</span></td></tr>
+        <tr><td class="l"><span class="en">What the ordinate means</span><span class="ms">Maksud ordinate</span></td><td class="l"><span class="en">\(V\) or \(M\) at that section, for the given loads</span><span class="ms">\(V\) atau \(M\) pada section itu, untuk load yang diberi</span></td><td class="l"><span class="en">\(R\) at the fixed point, for a unit load standing at \(x\)</span><span class="ms">\(R\) pada titik tetap, untuk unit load di \(x\)</span></td></tr>
+      </tbody></table></div>
+    <p class="en">For a linear elastic structure the response is proportional to the load and the effects of several loads add (superposition). That is what makes the influence line useful: once \(\eta_R(x)\) is known for a unit load, the effect of <em>any</em> pattern of concentrated or distributed loads follows by multiplication and addition (Section 5).</p>
+    <p class="ms">Bagi struktur linear elastic, response berkadar dengan load dan kesan beberapa load boleh dijumlahkan (superposition). Inilah yang menjadikan influence line berguna: sebaik sahaja \(\eta_R(x)\) diketahui untuk unit load, kesan <em>sebarang</em> susunan concentrated load atau distributed load diperoleh melalui pendaraban dan penambahan (Section 5).</p>
+    <div class="qc" data-qc="qc1" data-ans="b"><div class="h"><span class="en">Quick check</span><span class="ms">Semakan pantas</span></div>
+      <p><span class="en">On the influence line for \(R_A\), the horizontal axis is …</span><span class="ms">Pada influence line bagi \(R_A\), paksi mendatar ialah …</span></p>
+      <div class="opts"><button class="opt" type="button" data-v="a"><span class="en">the section where \(R_A\) is read</span><span class="ms">section di mana \(R_A\) dibaca</span></button><button class="opt" type="button" data-v="b"><span class="en">the position of the unit load</span><span class="ms">kedudukan unit load</span></button><button class="opt" type="button" data-v="c"><span class="en">the magnitude of the load</span><span class="ms">magnitud load</span></button></div>
+      <p class="fb" hidden><span class="en">\(R_A\) is always read at A; what changes is where the unit load stands.</span><span class="ms">\(R_A\) sentiasa dibaca di A; yang berubah ialah kedudukan unit load.</span></p></div>
+    </div>
+    <div class="sfoot"><label class="readck"><input type="checkbox" data-read="n1"><span class="en">Mark as read</span><span class="ms">Tanda sudah dibaca</span></label><span class="readtime"><span class="en">≈ 3 min read</span><span class="ms">≈ 3 min bacaan</span></span></div>
+    </section>
+
+    <!-- ---------------------------------------------------------------- 2 -->
+    <section class="nsec" id="n2" data-rt="3">
+    <h2><span class="en">2 The laboratory model</span><span class="ms">2 Model makmal</span></h2>
+    <details class="kp"><summary><span class="en">Key points</span><span class="ms">Isi penting</span></summary>
+      <ul class="en"><li>ABC and DEF: beams on two supports with a 190 mm cantilever; CD: suspended span on hinges C and D.</li><li>4 unknown reactions, 2 equilibrium equations + 2 hinge conditions: statically determinate.</li><li>So every influence line is straight-segmented, kinked only at hinges.</li><li>Reactions positive upwards; \(R_C\), \(R_D\) positive pressing down on the tips.</li></ul>
+      <ul class="ms"><li>ABC dan DEF: beam atas dua support dengan cantilever 190 mm; CD: suspended span pada hinge C dan D.</li><li>4 reaction yang tidak diketahui, 2 persamaan equilibrium + 2 syarat hinge: statically determinate.</li><li>Maka setiap influence line terdiri daripada segmen lurus, berbengkok hanya di hinge.</li><li>Reaction positif ke atas; \(R_C\), \(R_D\) positif apabila menekan ke bawah pada hujung cantilever.</li></ul>
+    </details>
+    <div class="sb">
+    <p class="en">The model is a cantilever bridge of the type patented by Heinrich Gerber in 1866 and used, at a very different scale, in the Forth Bridge: two anchor spans with cantilever arms, and a <em>suspended span</em> that rests on the tips of the arms through hinges.</p>
+    <p class="ms">Model ini ialah cantilever bridge jenis yang dipatenkan oleh Heinrich Gerber pada 1866 dan digunakan, pada skala yang jauh berbeza, pada Forth Bridge: dua anchor span dengan cantilever arm, dan <em>suspended span</em> yang terletak di hujung arm melalui hinge.</p>
+    <figure><svg class="fig" data-fig="model" role="img" aria-label="Elevation of the bridge model with supports, hinges, halts and span dimensions"></svg>
+      <figcaption><span class="en">Elevation of the model. A and F are pins, B and E rollers; C and D are the hinges of the suspended span; 1–11 are the halts at which the mass is placed. Gauges under A, B, E and F read the support reactions; those under C and D read the hinge forces.</span><span class="ms">Pandangan sisi model. A dan F ialah pin, B dan E roller; C dan D ialah hinge suspended span; 1–11 ialah halt tempat jisim diletakkan. Gauge di bawah A, B, E dan F membaca support reaction; gauge di C dan D membaca hinge force.</span></figcaption></figure>
+    <p class="en"><b>Members.</b> Beam ABC is simply supported at A and B with a cantilever BC of 190 mm. Beam DEF is its mirror image. The suspended span CD (250 mm) rests on the cantilever tips: the hinges transmit a vertical force but no bending moment.</p>
+    <p class="ms"><b>Anggota.</b> Beam ABC disokong mudah di A dan B dengan cantilever BC sepanjang 190 mm. Beam DEF ialah imej cerminnya. Suspended span CD (250 mm) terletak di hujung cantilever: hinge memindahkan daya menegak tetapi tidak memindahkan bending moment.</p>
+    <p class="en"><b>Determinacy.</b> No horizontal load is applied, so there are four unknown vertical reactions \(R_A, R_B, R_E, R_F\). Statics gives two useful equations for the whole structure (\(\sum F_y = 0\), \(\sum M = 0\)) and each internal hinge one more (\(M = 0\) at C and at D): four equations for four unknowns. The structure is <b>statically determinate</b>, every influence line follows from equilibrium alone with no need for \(EI\), and every influence line is made of straight segments.</p>
+    <p class="ms"><b>Determinacy.</b> Tiada load mendatar dikenakan, jadi terdapat empat reaction menegak yang tidak diketahui, \(R_A, R_B, R_E, R_F\). Statik memberi dua persamaan berguna bagi keseluruhan struktur (\(\sum F_y = 0\), \(\sum M = 0\)) dan setiap hinge dalaman memberi satu lagi (\(M = 0\) di C dan di D): empat persamaan untuk empat anu. Struktur ini <b>statically determinate</b>; setiap influence line diperoleh daripada equilibrium sahaja tanpa memerlukan \(EI\), dan setiap influence line terdiri daripada segmen lurus.</p>
+    <p class="en"><b>Sign convention.</b> Support reactions are positive upwards. The hinge forces \(R_C\) and \(R_D\) are the forces the suspended span presses on the cantilever tips (positive downwards on the tip); they are what the gauges at C and D register. Positions are measured from A, \(0 \le x \le 1130\) mm.</p>
+    <p class="ms"><b>Sign convention.</b> Support reaction positif ke atas. Hinge force \(R_C\) dan \(R_D\) ialah daya yang dikenakan oleh suspended span ke atas hujung cantilever (positif ke bawah pada hujung); inilah yang direkod oleh gauge di C dan D. Kedudukan diukur dari A, \(0 \le x \le 1130\) mm.</p>
+    </div>
+    <div class="sfoot"><label class="readck"><input type="checkbox" data-read="n2"><span class="en">Mark as read</span><span class="ms">Tanda sudah dibaca</span></label><span class="readtime"><span class="en">≈ 3 min read</span><span class="ms">≈ 3 min bacaan</span></span></div>
+    </section>
+
+    <!-- ---------------------------------------------------------------- 3 -->
+    <section class="nsec" id="n3" data-rt="7">
+    <h2><span class="en">3 Deriving the influence lines</span><span class="ms">3 Menerbitkan influence line</span></h2>
+    <details class="kp"><summary><span class="en">Key points</span><span class="ms">Isi penting</span></summary>
+      <ul class="en"><li>Analyse the suspended span first; take moments about a support every time.</li><li>On ABC: \(\eta_A = (250-x)/250\), \(\eta_B = x/250\); at the tip C: −0.76 and 1.76.</li><li>On CD: \(\eta_C = (690-x)/250\), \(\eta_D = (x-440)/250\); then \(\eta_A = -0.76\,\eta_C\), \(\eta_B = 1.76\,\eta_C\).</li><li>Check: \(\eta_A+\eta_B+\eta_E+\eta_F = 1\) at every \(x\).</li></ul>
+      <ul class="ms"><li>Analisis suspended span dahulu; ambil moment terhadap support setiap kali.</li><li>Pada ABC: \(\eta_A = (250-x)/250\), \(\eta_B = x/250\); di hujung C: −0.76 dan 1.76.</li><li>Pada CD: \(\eta_C = (690-x)/250\), \(\eta_D = (x-440)/250\); kemudian \(\eta_A = -0.76\,\eta_C\), \(\eta_B = 1.76\,\eta_C\).</li><li>Semakan: \(\eta_A+\eta_B+\eta_E+\eta_F = 1\) bagi setiap \(x\).</li></ul>
+    </details>
+    <div class="sb">
+    <p class="en">The derivation uses one idea three times: <em>take moments about a support</em>. The order matters: the suspended span is analysed first, because it is the only member whose loads reach the others.</p>
+    <p class="ms">Derivation ini menggunakan satu idea sebanyak tiga kali: <em>ambil moment terhadap support</em>. Urutan penting: suspended span dianalisis dahulu, kerana hanya anggota ini yang load-nya sampai kepada anggota lain.</p>
+    <figure><svg class="fig" data-fig="fbd" role="img" aria-label="Free-body diagrams of beam ABC and of the suspended span"></svg>
+      <figcaption><span class="en">Free-body diagrams for Steps 1–3. In (c) the pull-down at A is drawn in the direction it actually acts.</span><span class="ms">Free-body diagram bagi Langkah 1–3. Dalam (c), tarikan ke bawah di A dilukis mengikut arah sebenar ia bertindak.</span></figcaption></figure>
+    <div class="step"><h4><span class="en">Step 1 · Unit load on beam ABC</span><span class="ms">Langkah 1 · Unit load pada beam ABC</span> \((0 \le x \le 440)\)</h4><div class="bd">
+      <p><span class="en">Isolate ABC (panel a). It carries the unit load at \(x\) and the reactions \(R_A\), \(R_B\); the hinge at C is unloaded because the suspended span carries nothing. Moments about B:</span><span class="ms">Asingkan ABC (panel a). Ia membawa unit load di \(x\) serta reaction \(R_A\), \(R_B\); hinge di C tidak dibebani kerana suspended span tidak membawa apa-apa. Moment terhadap B:</span></p>
+      \[ R_A\cdot 250 - 1\cdot(250-x) = 0 \;\Longrightarrow\; \eta_A(x) = \frac{250-x}{250},\qquad \eta_B(x) = 1-\eta_A(x) = \frac{x}{250}. \]
+      <p><span class="en">Nothing in this result stops at \(x = 250\): for a load on the cantilever the lever arm \((250 - x)\) is negative, so \(\eta_A\) is negative (support A must hold the beam down) and \(\eta_B\) exceeds 1. At the tip, \(\eta_A(440) = -190/250 = -0.76\) and \(\eta_B(440) = 440/250 = 1.76\).</span><span class="ms">Tiada apa dalam keputusan ini yang berhenti di \(x = 250\): bagi load pada cantilever, lever arm \((250 - x)\) adalah negatif, maka \(\eta_A\) negatif (support A perlu menahan beam ke bawah) dan \(\eta_B\) melebihi 1. Di hujung, \(\eta_A(440) = -190/250 = -0.76\) dan \(\eta_B(440) = 440/250 = 1.76\).</span></p></div></div>
+    <div class="step"><h4><span class="en">Step 2 · Unit load on the suspended span CD</span><span class="ms">Langkah 2 · Unit load pada suspended span CD</span> \((440 \le x \le 690)\)</h4><div class="bd">
+      <p><span class="en">CD is a simply supported beam of span 250 mm resting on the hinges (panel b), so the hinge forces follow the lever rule:</span><span class="ms">CD ialah simply supported beam dengan span 250 mm yang terletak pada hinge (panel b), jadi hinge force mengikut lever rule:</span></p>
+      \[ \eta_C(x) = \frac{690-x}{250},\qquad \eta_D(x) = \frac{x-440}{250},\qquad \eta_C+\eta_D = 1. \]</div></div>
+    <div class="step"><h4><span class="en">Step 3 · Carry the hinge force into beam ABC</span><span class="ms">Langkah 3 · Pindahkan hinge force ke beam ABC</span></h4><div class="bd">
+      <p><span class="en">With the load on CD, beam ABC carries only the downward force \(\eta_C\) at its tip (panel c). This is Step 1 with the load \(\eta_C\) standing at \(x = 440\):</span><span class="ms">Apabila load berada pada CD, beam ABC hanya membawa daya ke bawah \(\eta_C\) di hujungnya (panel c). Ini sama seperti Langkah 1 dengan load \(\eta_C\) di \(x = 440\):</span></p>
+      \[ \eta_A(x) = \eta_C(x)\,\frac{250-440}{250} = -0.76\,\eta_C(x),\qquad \eta_B(x) = \eta_C(x)\,\frac{440}{250} = 1.76\,\eta_C(x). \]
+      <p><span class="en">At C both expressions for \(\eta_A\) give \(-0.76\), so the line is continuous; at D, \(\eta_C = 0\) and therefore \(\eta_A = \eta_B = 0\).</span><span class="ms">Di C kedua-dua ungkapan bagi \(\eta_A\) memberi \(-0.76\), jadi garisnya selanjar; di D, \(\eta_C = 0\) dan oleh itu \(\eta_A = \eta_B = 0\).</span></p></div></div>
+    <div class="step"><h4><span class="en">Step 4 · Unit load on beam DEF</span><span class="ms">Langkah 4 · Unit load pada beam DEF</span> \((690 \le x \le 1130)\)</h4><div class="bd">
+      <p><span class="en">DEF is the mirror image of ABC about the centre of the model (\(x = 565\) mm), with E playing the part of B and F that of A:</span><span class="ms">DEF ialah imej cermin ABC terhadap tengah model (\(x = 565\) mm), dengan E mengambil peranan B dan F peranan A:</span></p>
+      \[ \eta_F(x) = \frac{x-880}{250},\qquad \eta_E(x) = \frac{1130-x}{250}. \]
+      <p><span class="en">For a load on CD the hinge force \(\eta_D\) is carried by DEF exactly as \(\eta_C\) was by ABC: \(\eta_E = 1.76\,\eta_D\), \(\eta_F = -0.76\,\eta_D\). A load on ABC never reaches DEF, and vice versa, because the suspended span is then unloaded and transmits nothing.</span><span class="ms">Bagi load pada CD, hinge force \(\eta_D\) dibawa oleh DEF sama seperti \(\eta_C\) dibawa oleh ABC: \(\eta_E = 1.76\,\eta_D\), \(\eta_F = -0.76\,\eta_D\). Load pada ABC tidak pernah sampai ke DEF, dan sebaliknya, kerana suspended span ketika itu tidak dibebani dan tidak memindahkan apa-apa.</span></p></div></div>
+    <div class="step"><h4><span class="en">Step 5 · Assemble and check</span><span class="ms">Langkah 5 · Gabung dan semak</span></h4><div class="bd">
+      <p><span class="en">Three checks catch most mistakes: (i) \(\eta_A+\eta_B+\eta_E+\eta_F = 1\) for every \(x\); (ii) the two formulae agree at the hinges; (iii) the slopes are \(-1/250\) per mm on ABC and \(+0.76/250\) on CD, and a kink can occur only at a hinge, never at B, which lies inside the rigid beam ABC.</span><span class="ms">Tiga semakan menangkap kebanyakan kesilapan: (i) \(\eta_A+\eta_B+\eta_E+\eta_F = 1\) bagi setiap \(x\); (ii) dua formula bersetuju di hinge; (iii) slope ialah \(-1/250\) per mm pada ABC dan \(+0.76/250\) pada CD, dan bengkokan hanya boleh berlaku di hinge, tidak sekali-kali di B, yang terletak di dalam rigid beam ABC.</span></p></div></div>
+    <div class="tbl"><table data-table="ordinates" aria-label="Theoretical ordinates at the halts"></table></div>
+    <figure><svg class="fig" data-fig="ils4" role="img" aria-label="Influence lines for R_A, R_B, R_C and R_E under the bridge"></svg>
+      <figcaption><span class="en">Influence lines for \(R_A\), \(R_B\), the hinge force \(R_C\) and \(R_E\), drawn under the bridge on the same horizontal scale. \(R_D\) and \(R_F\) are the mirror images of \(R_C\) and \(R_A\).</span><span class="ms">Influence line bagi \(R_A\), \(R_B\), hinge force \(R_C\) dan \(R_E\), dilukis di bawah jambatan pada skala mendatar yang sama. \(R_D\) dan \(R_F\) ialah imej cermin \(R_C\) dan \(R_A\).</span></figcaption></figure>
+    <div class="qc" data-qc="qc2" data-ans="b"><div class="h"><span class="en">Quick check</span><span class="ms">Semakan pantas</span></div>
+      <p><span class="en">A unit load stands at the tip C. What is \(\eta_B\)?</span><span class="ms">Unit load berada di hujung C. Berapakah \(\eta_B\)?</span></p>
+      <div class="opts"><button class="opt" type="button" data-v="a">1.00</button><button class="opt" type="button" data-v="b">1.76</button><button class="opt" type="button" data-v="c">0.76</button></div>
+      <p class="fb" hidden><span class="en">\(\eta_B(440) = 440/250 = 1.76\): B carries the load and also balances the pull-down at A.</span><span class="ms">\(\eta_B(440) = 440/250 = 1.76\): B membawa load dan juga mengimbangi tarikan ke bawah di A.</span></p></div>
+    </div>
+    <div class="sfoot"><label class="readck"><input type="checkbox" data-read="n3"><span class="en">Mark as read</span><span class="ms">Tanda sudah dibaca</span></label><span class="readtime"><span class="en">≈ 7 min read</span><span class="ms">≈ 7 min bacaan</span></span></div>
+    </section>
+
+    <!-- ---------------------------------------------------------------- 4 -->
+    <section class="nsec" id="n4" data-rt="4">
+    <h2><span class="en">4 The Müller–Breslau principle</span><span class="ms">4 Prinsip Müller–Breslau</span></h2>
+    <details class="kp"><summary><span class="en">Key points</span><span class="ms">Isi penting</span></summary>
+      <ul class="en"><li>Release the restraint, impose a unit displacement: the deflected shape is the influence line.</li><li>Exact ordinates for determinate structures (rigid links); shape only for indeterminate ones.</li><li>Kinks only at hinges and at the released restraint.</li></ul>
+      <ul class="ms"><li>Lepaskan restraint, kenakan unit displacement: deflected shape ialah influence line.</li><li>Ordinate tepat bagi struktur determinate (rigid link); bentuk sahaja bagi struktur indeterminate.</li><li>Bengkokan hanya di hinge dan di restraint yang dilepaskan.</li></ul>
+    </details>
+    <div class="sb">
+    <div class="def"><b class="t"><span class="en">Müller–Breslau principle</span><span class="ms">Prinsip Müller–Breslau</span></b><span class="en">Remove the restraint corresponding to the response \(R\) and give the released structure a unit displacement in the direction of \(R\). The deflected shape of the structure is the influence line of \(R\).</span><span class="ms">Buang restraint yang sepadan dengan response \(R\) dan berikan released structure satu unit displacement pada arah \(R\). Deflected shape struktur itu ialah influence line bagi \(R\).</span></div>
+    <p class="en">For \(R_A\): remove the support at A and lift that end by one unit. Beam ABC is rigid between its support and the hinge, so it rotates about B: A rises by 1 and the tip C, 190 mm on the other side of B, drops by \(190/250 = 0.76\). The suspended span follows C and stays straight, dropping linearly to zero at D; beam DEF does not move. The result is exactly the influence line of Section 3, signs included.</p>
+    <p class="ms">Bagi \(R_A\): buang support di A dan angkat hujung itu sebanyak satu unit. Beam ABC adalah rigid antara support dan hinge, jadi ia berputar terhadap B: A naik sebanyak 1 dan hujung C, 190 mm di sebelah lain B, turun sebanyak \(190/250 = 0.76\). Suspended span mengikut C dan kekal lurus, turun secara linear ke sifar di D; beam DEF tidak bergerak. Hasilnya tepat sama dengan influence line dalam Section 3, termasuk tanda.</p>
+    <div class="demo">
+      <b><span class="en">Try it:</span><span class="ms">Cuba:</span></b> <span class="en">release a restraint and impose the displacement.</span><span class="ms">lepaskan satu restraint dan kenakan displacement.</span>
+      <div class="row"><span class="chips" id="mbchips" aria-label="Restraint to release"></span></div>
+      <div class="row" style="flex-wrap:nowrap"><label for="mbd" class="muted" style="white-space:nowrap">displacement δ</label><input type="range" id="mbd" min="0" max="1" step="0.01" value="1" style="accent-color:var(--accent)"><span class="num" id="mbdv">1.00</span></div>
+      <svg class="fig" data-fig="mbdemo" role="img" aria-label="Müller–Breslau deflected shape"></svg>
+    </div>
+    <p class="en">Two remarks. The principle gives exact ordinates only for statically determinate structures, where the released structure is a mechanism of straight rigid links; for an indeterminate beam the released structure bends and the principle gives the shape only. And the kinks of the deflected shape lie at the hinges and at the released restraint, never inside a rigid member: a quick visual check of any influence line you compute.</p>
+    <p class="ms">Dua catatan. Prinsip ini memberi ordinate yang tepat hanya bagi struktur statically determinate, di mana released structure ialah mechanism yang terdiri daripada rigid link yang lurus; bagi beam indeterminate, released structure melentur dan prinsip ini hanya memberi bentuk. Selain itu, bengkokan pada deflected shape terletak di hinge dan di restraint yang dilepaskan, tidak sekali-kali di dalam anggota rigid: semakan visual yang pantas bagi mana-mana influence line yang anda kira.</p>
+    <div class="qc" data-qc="qc3" data-ans="a"><div class="h"><span class="en">Quick check</span><span class="ms">Semakan pantas</span></div>
+      <p><span class="en">Release B and lift it by 1. Beam ABC rotates about A. The tip C …</span><span class="ms">Lepaskan B dan angkat sebanyak 1. Beam ABC berputar terhadap A. Hujung C …</span></p>
+      <div class="opts"><button class="opt" type="button" data-v="a"><span class="en">rises by 440/250 = 1.76</span><span class="ms">naik sebanyak 440/250 = 1.76</span></button><button class="opt" type="button" data-v="b"><span class="en">drops by 0.76</span><span class="ms">turun sebanyak 0.76</span></button><button class="opt" type="button" data-v="c"><span class="en">stays at zero</span><span class="ms">kekal sifar</span></button></div>
+      <p class="fb" hidden><span class="en">A rigid bar pinned at A and lifted by 1 at 250 mm rises in proportion to the distance from A: \(440/250 = 1.76\) at C, the peak of \(\eta_B\).</span><span class="ms">Bar rigid yang di-pin di A dan diangkat 1 pada 250 mm naik berkadar dengan jarak dari A: \(440/250 = 1.76\) di C, iaitu puncak \(\eta_B\).</span></p></div>
+    </div>
+    <div class="sfoot"><label class="readck"><input type="checkbox" data-read="n4"><span class="en">Mark as read</span><span class="ms">Tanda sudah dibaca</span></label><span class="readtime"><span class="en">≈ 4 min read</span><span class="ms">≈ 4 min bacaan</span></span></div>
+    </section>
+
+    <!-- ---------------------------------------------------------------- 5 -->
+    <section class="nsec" id="n5" data-rt="6">
+    <h2><span class="en">5 Using an influence line</span><span class="ms">5 Menggunakan influence line</span></h2>
+    <details class="kp"><summary><span class="en">Key points</span><span class="ms">Isi penting</span></summary>
+      <ul class="en"><li>\(R = \sum P_i\,\eta_R(x_i)\); for a UDL, \(R = w\times\) area under the line.</li><li>Piecewise-linear lines: the extreme of a load train occurs with one load on a vertex.</li><li>Compound load of Test 2: most negative \(R_A = -4.94\) kgf with the 5 kg mass at C.</li><li>A UDL over the whole model gives \(R_A = -42.2\,w\): the deck lifts at A.</li></ul>
+      <ul class="ms"><li>\(R = \sum P_i\,\eta_R(x_i)\); bagi UDL, \(R = w\times\) area di bawah garis.</li><li>Garis piecewise linear: nilai ekstrem bagi load train berlaku apabila satu load berada pada vertex.</li><li>Compound load Test 2: \(R_A\) paling negatif \(= -4.94\) kgf dengan jisim 5 kg di C.</li><li>UDL pada seluruh model memberi \(R_A = -42.2\,w\): deck terangkat di A.</li></ul>
+    </details>
+    <div class="sb">
+    <p class="en">By superposition, for a single load \(P\) at \(x_1\), a series of loads \(P_i\) at \(x_i\), and a uniformly distributed load \(w\) between \(a\) and \(b\):</p>
+    <p class="ms">Melalui superposition, bagi satu load \(P\) di \(x_1\), satu siri load \(P_i\) di \(x_i\), dan uniformly distributed load \(w\) antara \(a\) dan \(b\):</p>
+    \[ R = P\,\eta_R(x_1),\qquad R = \sum_i P_i\,\eta_R(x_i),\qquad R = \int_a^b w\,\eta_R(x)\,\mathrm{d}x = w\times(\text{area under the IL from } a \text{ to } b). \]
+    <p class="en">With masses in kg the reactions come out in kgf, which is what the laboratory gauges read.</p>
+    <p class="ms">Dengan jisim dalam kg, reaction yang diperoleh dalam kgf, iaitu unit bacaan gauge makmal.</p>
+    <h3><span class="en">5.1 Critical position of a series of loads</span><span class="ms">5.1 Critical position bagi satu siri load</span></h3>
+    <p class="en">Every influence line of the model is piecewise linear, so \(\sum_i P_i\,\eta_R(x_i)\) is a piecewise linear function of the position of the load group, and a piecewise linear function reaches its extremes at a vertex. The largest (or most negative) value therefore occurs when <em>one of the loads stands on a vertex of the influence line</em>; only a few positions need to be tried.</p>
+    <p class="ms">Setiap influence line model ini adalah piecewise linear, jadi \(\sum_i P_i\,\eta_R(x_i)\) ialah fungsi piecewise linear terhadap kedudukan kumpulan load, dan fungsi piecewise linear mencapai nilai ekstrem pada vertex. Nilai terbesar (atau paling negatif) oleh itu berlaku apabila <em>salah satu load berada pada vertex influence line</em>; hanya beberapa kedudukan perlu dicuba.</p>
+    <div class="step"><h4><span class="en">Worked example 1 · The compound load of Test 2</span><span class="ms">Worked example 1 · Compound load bagi Test 2</span></h4><div class="bd">
+      <p><span class="en">The 5 kg mass stands at a halt and the 2.5 kg mass 100 mm to its right; the pair moves to the right, so the 2.5 kg mass is in front. With the 5 kg mass at \(x\):</span><span class="ms">Jisim 5 kg berada pada satu halt dan jisim 2.5 kg 100 mm di sebelah kanannya; pasangan ini bergerak ke kanan, jadi jisim 2.5 kg berada di hadapan. Dengan jisim 5 kg di \(x\):</span></p>
+      \[ R_A(x) = 5\,\eta_A(x) + 2.5\,\eta_A(x+100)\quad\text{(kgf)}. \]
+      <p><span class="en"><em>5 kg mass at A:</em> \(R_A = 5(1.0)+2.5(0.6) = 6.5\) kgf. <em>5 kg mass at C:</em> \(\eta_A(540) = -0.76\times(690-540)/250 = -0.456\), so \(R_A = -3.80 - 1.14 = -4.94\) kgf. <em>2.5 kg mass at C</em> (5 kg mass at 340 mm): \(R_A = 5(-0.36) + 2.5(-0.76) = -3.70\) kgf. The most severe pull-down at A occurs with the <em>heavier</em> load on the vertex C. The largest \(R_B\), 11.44 kgf, is more than 1.5 times the total mass of 7.5 kg.</span><span class="ms"><em>Jisim 5 kg di A:</em> \(R_A = 5(1.0)+2.5(0.6) = 6.5\) kgf. <em>Jisim 5 kg di C:</em> \(\eta_A(540) = -0.76\times(690-540)/250 = -0.456\), maka \(R_A = -3.80 - 1.14 = -4.94\) kgf. <em>Jisim 2.5 kg di C</em> (jisim 5 kg di 340 mm): \(R_A = 5(-0.36) + 2.5(-0.76) = -3.70\) kgf. Tarikan ke bawah paling teruk di A berlaku apabila load yang <em>lebih berat</em> berada pada vertex C. \(R_B\) terbesar, 11.44 kgf, melebihi 1.5 kali jumlah jisim 7.5 kg.</span></p></div></div>
+    <div class="tbl"><table data-table="compound" aria-label="Compound load reactions"></table></div>
+    <h3><span class="en">5.2 Distributed load: area under the influence line</span><span class="ms">5.2 Distributed load: area di bawah influence line</span></h3>
+    <p class="en">The areas under \(\eta_A\) are, by the triangle rule, \(+\tfrac12(250)(1.0) = +125\) mm over AB, \(\tfrac12(190)(-0.76) = -72.2\) mm over BC and \(\tfrac12(250)(-0.76) = -95.0\) mm over CD, and zero over DEF.</p>
+    <p class="ms">Area di bawah \(\eta_A\), menggunakan petua segi tiga, ialah \(+\tfrac12(250)(1.0) = +125\) mm pada AB, \(\tfrac12(190)(-0.76) = -72.2\) mm pada BC dan \(\tfrac12(250)(-0.76) = -95.0\) mm pada CD, dan sifar pada DEF.</p>
+    <div class="step"><h4><span class="en">Worked example 2 · A uniformly distributed load</span><span class="ms">Worked example 2 · Uniformly distributed load</span></h4><div class="bd">
+      <p><span class="en">A load \(w = 0.01\) kg/mm (2.5 kg spread over 250 mm): over AB only, \(R_A = 0.01\times125 = 1.25\) kgf (half the load, as for a simple span); over BC and CD, \(R_A = 0.01\times(-167.2) = -1.67\) kgf; over the whole model, \(R_A = 0.01\times(125-72.2-95.0) = -0.42\) kgf. A bridge of this type loaded uniformly along its whole length <em>lifts</em> at A, and the support must be able to hold the deck down.</span><span class="ms">Load \(w = 0.01\) kg/mm (2.5 kg tersebar atas 250 mm): pada AB sahaja, \(R_A = 0.01\times125 = 1.25\) kgf (separuh load, seperti simple span); pada BC dan CD, \(R_A = 0.01\times(-167.2) = -1.67\) kgf; pada seluruh model, \(R_A = 0.01\times(125-72.2-95.0) = -0.42\) kgf. Jambatan jenis ini yang dibebani secara seragam sepanjang keseluruhannya akan <em>terangkat</em> di A, dan support mesti mampu menahan deck ke bawah.</span></p>
+      <details><summary><span class="en">Check by statics</span><span class="ms">Semakan dengan statik</span></summary><p><span class="en">Beam ABC carries \(w(250+190)\) directly plus half the suspended span, \(125w\), at C. Moments about B:</span><span class="ms">Beam ABC membawa \(w(250+190)\) secara terus ditambah separuh suspended span, \(125w\), di C. Moment terhadap B:</span> \(R_A\cdot250 = 250w(125) - 190w(95) - 125w(190) = -10\,550\,w\), <span class="en">so</span><span class="ms">maka</span> \(R_A = -42.2\,w\)<span class="en">, the same as the area.</span><span class="ms">, sama dengan area.</span></p></details></div></div>
+    <div class="qc" data-qc="qc4" data-ans="c"><div class="h"><span class="en">Quick check</span><span class="ms">Semakan pantas</span></div>
+      <p><span class="en">For a train of loads on a piecewise-linear influence line, the extreme response occurs when …</span><span class="ms">Bagi load train pada influence line yang piecewise linear, response ekstrem berlaku apabila …</span></p>
+      <div class="opts"><button class="opt" type="button" data-v="a"><span class="en">the train is centred on the span</span><span class="ms">load train berada di tengah span</span></button><button class="opt" type="button" data-v="b"><span class="en">the resultant of the loads is at a support</span><span class="ms">resultant load berada di support</span></button><button class="opt" type="button" data-v="c"><span class="en">one of the loads stands on a vertex</span><span class="ms">salah satu load berada pada vertex</span></button></div>
+      <p class="fb" hidden><span class="en">The sum is piecewise linear in the position of the train, so its extremes are at breakpoints: one load on a vertex.</span><span class="ms">Jumlahnya piecewise linear terhadap kedudukan load train, jadi nilai ekstremnya berada pada breakpoint: satu load pada vertex.</span></p></div>
+    </div>
+    <div class="sfoot"><label class="readck"><input type="checkbox" data-read="n5"><span class="en">Mark as read</span><span class="ms">Tanda sudah dibaca</span></label><span class="readtime"><span class="en">≈ 6 min read</span><span class="ms">≈ 6 min bacaan</span></span></div>
+    </section>
+
+    <!-- ---------------------------------------------------------------- 6 -->
+    <section class="nsec" id="n6" data-rt="3">
+    <h2><span class="en">6 The experiment and its data reduction</span><span class="ms">6 Eksperimen dan data reduction</span></h2>
+    <details class="kp"><summary><span class="en">Key points</span><span class="ms">Isi penting</span></summary>
+      <ul class="en"><li>\(\eta_{\text{test}} = \text{reading}\times0.05/m\), with \(m = 2.5\) kg in Test 1.</li><li>Compare by absolute difference; percentages only where the ordinate is large.</li><li>Equilibrium check at every halt: \((a+b+e+f)\times0.05 \approx 2.5\) kgf.</li></ul>
+      <ul class="ms"><li>\(\eta_{\text{test}} = \text{reading}\times0.05/m\), dengan \(m = 2.5\) kg dalam Test 1.</li><li>Bandingkan dengan perbezaan mutlak; peratusan hanya apabila ordinate besar.</li><li>Equilibrium check pada setiap halt: \((a+b+e+f)\times0.05 \approx 2.5\) kgf.</li></ul>
+    </details>
+    <div class="sb">
+    <p class="en"><b>What is measured.</b> A 2.5 kg mass is placed at each of the seventeen halts in turn (Test 1), then the 5 kg + 2.5 kg pair (Test 2). At each halt the six dial gauges are read. One division corresponds to 0.05 kgf, so the experimental ordinate per unit load is</p>
+    <p class="ms"><b>Apa yang diukur.</b> Jisim 2.5 kg diletakkan pada setiap tujuh belas halt secara bergilir (Test 1), kemudian pasangan 5 kg + 2.5 kg (Test 2). Pada setiap halt, enam dial gauge dibaca. Satu division bersamaan 0.05 kgf, jadi ordinate eksperimen per unit load ialah</p>
+    \[ \eta_{\text{test}} = \frac{(\text{reading in divisions})\times 0.05}{m},\qquad m = 2.5\ \text{kg (Test 1)}. \]
+    <p class="en">For Test 2, reading × 0.05 is the reaction in kgf, comparable with the compound-load table.</p>
+    <p class="ms">Bagi Test 2, bacaan × 0.05 ialah reaction dalam kgf, boleh dibandingkan dengan jadual compound load.</p>
+    <p class="en"><b>How to compare.</b> Report the difference \(\eta_{\text{test}}-\eta_{\text{theory}}\) at every halt. A percentage difference is meaningful only where the theoretical ordinate is not small: at halt 2, where \(\eta_A = 0.2\), a gauge error of one division (0.02 per unit load) is already 10 %, and where the theoretical value is zero the percentage is undefined. Judge the agreement by the absolute difference and by the shape of the line.</p>
+    <p class="ms"><b>Cara membandingkan.</b> Laporkan perbezaan \(\eta_{\text{test}}-\eta_{\text{theory}}\) pada setiap halt. Perbezaan peratusan hanya bermakna apabila ordinate teori tidak kecil: di halt 2, di mana \(\eta_A = 0.2\), error gauge satu division (0.02 per unit load) sudah 10 %, dan apabila nilai teori sifar, peratusan tidak tertakrif. Nilai persetujuan berdasarkan perbezaan mutlak dan bentuk garis.</p>
+    <p class="en"><b>Equilibrium check.</b> With the mass at any halt the four support gauges should add up to the applied mass: \((a+b+e+f)\times0.05 \approx 2.5\) kgf. Check it before leaving the laboratory, while the readings can still be repeated. The Lab tab does this for you.</p>
+    <p class="ms"><b>Equilibrium check.</b> Dengan jisim di mana-mana halt, jumlah bacaan empat support gauge sepatutnya sama dengan jisim yang dikenakan: \((a+b+e+f)\times0.05 \approx 2.5\) kgf. Semak sebelum keluar makmal, ketika bacaan masih boleh diulang. Tab Makmal melakukannya untuk anda.</p>
+    </div>
+    <div class="sfoot"><label class="readck"><input type="checkbox" data-read="n6"><span class="en">Mark as read</span><span class="ms">Tanda sudah dibaca</span></label><span class="readtime"><span class="en">≈ 3 min read</span><span class="ms">≈ 3 min bacaan</span></span></div>
+    </section>
+
+    <!-- ---------------------------------------------------------------- 7 -->
+    <section class="nsec" id="n7" data-rt="3">
+    <h2><span class="en">7 Sources of error</span><span class="ms">7 Sumber error</span></h2>
+    <details class="kp"><summary><span class="en">Key points</span><span class="ms">Isi penting</span></summary>
+      <ul class="en"><li>Placement ±5 mm and gauge ±1 division each give about ±0.02 per unit load.</li><li>Combined in quadrature: about ±0.03, the same at every halt.</li><li>That is 3 % at A but 15 % at halt 2: use absolute differences.</li></ul>
+      <ul class="ms"><li>Kedudukan ±5 mm dan gauge ±1 division masing-masing memberi lebih kurang ±0.02 per unit load.</li><li>Digabung secara quadrature: lebih kurang ±0.03, sama pada setiap halt.</li><li>Itu 3 % di A tetapi 15 % di halt 2: guna perbezaan mutlak.</li></ul>
+    </details>
+    <div class="sb">
+    <div class="tbl"><table>
+      <thead><tr><th class="l"><span class="en">Source</span><span class="ms">Sumber</span></th><th class="l"><span class="en">Estimate</span><span class="ms">Anggaran</span></th><th><span class="en">Effect on</span><span class="ms">Kesan pada</span> \(\eta_A\)</th></tr></thead>
+      <tbody>
+        <tr><td class="l"><span class="en">Mass placed ±5 mm from the halt</span><span class="ms">Jisim diletak ±5 mm dari halt</span></td><td class="l">slope × Δx: (1/250)(5) on ABC, (0.76/250)(5) on CD</td><td>±0.020; ±0.015</td></tr>
+        <tr><td class="l"><span class="en">Gauge resolution, ±1 division</span><span class="ms">Resolusi gauge, ±1 division</span></td><td class="l">0.05/2.5</td><td>±0.020</td></tr>
+        <tr><td class="l"><span class="en">Zero drift between readings</span><span class="ms">Zero drift antara bacaan</span></td><td class="l"><span class="en">re-zero after each halt; otherwise 1–2 divisions</span><span class="ms">re-zero selepas setiap halt; jika tidak, 1–2 division</span></td><td>±0.02–0.04</td></tr>
+        <tr><td class="l"><span class="en">Friction in hinges and gauges</span><span class="ms">Geseran dalam hinge dan gauge</span></td><td class="l"><span class="en">systematic; lowers the sum of the support readings</span><span class="ms">sistematik; merendahkan jumlah bacaan support</span></td><td><span class="en">see the sum check</span><span class="ms">lihat semakan jumlah</span></td></tr>
+      </tbody></table></div>
+    <p class="en">Combining the first two in quadrature gives about ±0.03 per unit load, the same at every halt. Against an ordinate of 1.0 at A this is 3 %; against 0.2 at halt 2 it is 15 %. That is the quantitative reason for comparing by absolute difference.</p>
+    <p class="ms">Menggabungkan dua yang pertama secara quadrature memberi lebih kurang ±0.03 per unit load, sama pada setiap halt. Berbanding ordinate 1.0 di A, ini 3 %; berbanding 0.2 di halt 2, ia 15 %. Itulah sebab kuantitatif untuk membandingkan dengan perbezaan mutlak.</p>
+    <div class="qc" data-qc="qc5" data-ans="c"><div class="h"><span class="en">Quick check</span><span class="ms">Semakan pantas</span></div>
+      <p><span class="en">The theoretical ordinate is 0.20 and the uncertainty is ±0.03. The percentage difference a perfect experiment could still show is up to …</span><span class="ms">Ordinate teori ialah 0.20 dan uncertainty ±0.03. Perbezaan peratusan yang masih boleh ditunjukkan oleh eksperimen yang sempurna ialah sehingga …</span></p>
+      <div class="opts"><button class="opt" type="button" data-v="a">3 %</button><button class="opt" type="button" data-v="b">6 %</button><button class="opt" type="button" data-v="c">15 %</button></div>
+      <p class="fb" hidden>\(0.03/0.20 = 0.15\). <span class="en">The same ±0.03 is only 3 % of the ordinate at A.</span><span class="ms">±0.03 yang sama hanya 3 % daripada ordinate di A.</span></p></div>
+    </div>
+    <div class="sfoot"><label class="readck"><input type="checkbox" data-read="n7"><span class="en">Mark as read</span><span class="ms">Tanda sudah dibaca</span></label><span class="readtime"><span class="en">≈ 3 min read</span><span class="ms">≈ 3 min bacaan</span></span></div>
+    </section>
+
+    <!-- ---------------------------------------------------------------- 8 -->
+    <section class="nsec" id="n8" data-rt="2">
+    <h2><span class="en">8 Beyond the laboratory</span><span class="ms">8 Di luar makmal</span></h2>
+    <details class="kp"><summary><span class="en">Key points</span><span class="ms">Isi penting</span></summary>
+      <ul class="en"><li>Bridge design places standard vehicle and lane loads using influence lines or surfaces.</li><li>Continuous girders have curved lines; Müller–Breslau still shows which spans to load.</li><li>Gerber bridges: forces by statics alone, at the price of end supports designed for uplift.</li></ul>
+      <ul class="ms"><li>Rekabentuk jambatan meletakkan standard vehicle load dan lane load menggunakan influence line atau influence surface.</li><li>Continuous girder mempunyai garis melengkung; Müller–Breslau masih menunjukkan span mana yang perlu dibebani.</li><li>Gerber bridge: daya diperoleh dengan statik sahaja, dengan harga end support yang perlu direka untuk uplift.</li></ul>
+    </details>
+    <div class="sb">
+    <p class="en">Bridge decks are designed for standard vehicle and lane loads placed, by means of influence lines or influence surfaces, where they produce the largest effects at each section. For continuous (indeterminate) girders the influence lines are curved and need an elastic analysis, but the Müller–Breslau sketch still tells the engineer which spans to load. The cantilever bridge, with its determinate hinges, made the long steel spans of the late nineteenth century possible because its forces could be found by statics alone; the price is end supports that must be designed for uplift, as Worked example 2 shows.</p>
+    <p class="ms">Deck jambatan direka untuk standard vehicle load dan lane load yang diletakkan, menggunakan influence line atau influence surface, di kedudukan yang menghasilkan kesan terbesar pada setiap section. Bagi continuous girder (indeterminate), influence line melengkung dan memerlukan analisis elastik, tetapi lakaran Müller–Breslau masih memberitahu jurutera span mana yang perlu dibebani. Cantilever bridge, dengan hinge yang determinate, membolehkan span keluli yang panjang pada akhir abad kesembilan belas kerana dayanya boleh dicari dengan statik sahaja; harganya ialah end support yang mesti direka untuk uplift, seperti yang ditunjukkan dalam Worked example 2.</p>
+    </div>
+    <div class="sfoot"><label class="readck"><input type="checkbox" data-read="n8"><span class="en">Mark as read</span><span class="ms">Tanda sudah dibaca</span></label><span class="readtime"><span class="en">≈ 2 min read</span><span class="ms">≈ 2 min bacaan</span></span></div>
+    </section>
+
+    <section class="nsec" id="n9">
+    <h2><span class="en">Summary</span><span class="ms">Ringkasan</span></h2>
+    <div class="def">
+      <p style="margin:4px 0">\(\eta_A = (250-x)/250\) <span class="en">on</span><span class="ms">pada</span> ABC, \(-0.76\,\eta_C\) <span class="en">on</span><span class="ms">pada</span> CD, 0 <span class="en">on</span><span class="ms">pada</span> DEF; \(\eta_B = x/250\) <span class="en">on</span><span class="ms">pada</span> ABC, \(1.76\,\eta_C\) <span class="en">on</span><span class="ms">pada</span> CD.</p>
+      <p style="margin:4px 0">\(\eta_C = (690-x)/250\), \(\eta_D = (x-440)/250\) <span class="en">on CD, zero elsewhere;</span><span class="ms">pada CD, sifar di tempat lain;</span> \(\eta_E\), \(\eta_F\) <span class="en">mirror</span><span class="ms">ialah imej cermin</span> \(\eta_B\), \(\eta_A\). <span class="en">Check:</span><span class="ms">Semakan:</span> \(\eta_A+\eta_B+\eta_E+\eta_F = 1\).</p>
+      <p style="margin:4px 0">\(R = \sum P_i\,\eta_R(x_i)\); <span class="en">for a distributed load</span><span class="ms">bagi distributed load</span> \(R = w\times\) area. <span class="en">The extreme of a load train occurs with one load on a vertex.</span><span class="ms">Nilai ekstrem load train berlaku dengan satu load pada vertex.</span></p>
+      <p style="margin:4px 0">\(\eta_{\text{test}} = \text{reading}\times0.05/m\); <span class="en">compare by absolute difference; quote percentages only at large ordinates.</span><span class="ms">bandingkan dengan perbezaan mutlak; nyatakan peratusan hanya pada ordinate besar.</span></p>
+    </div>
+    <h3><span class="en">References</span><span class="ms">Rujukan</span></h3>
+    <p style="font-size:15px">Hibbeler, R. C. (2018). <em>Structural Analysis</em>, 10th ed. Pearson, chapter 6.<br>
+    Kassimali, A. (2020). <em>Structural Analysis</em>, 6th ed. Cengage, chapter 8.<br>
+    Müller-Breslau, H. (1886). <em>Die neueren Methoden der Festigkeitslehre und der Statik der Baukonstruktionen</em>. Leipzig.<br>
+    Faculty of Civil Engineering, UTM (2026). <em>Civil Engineering Laboratory II: Laboratory Manual and Data Sheets</em>, experiment S2.</p>
+    </section>
+  </article>
+</div>
+</section>

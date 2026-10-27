@@ -1,0 +1,188 @@
+% ---------------------------------------------------------------------------
+%  Exercise sheet -- Lab S2: Influence Lines
+%  Student version : xelatex -jobname=s2_exercises_student s2_exercises.tex
+%  Instructor key  : xelatex -jobname=s2_exercises_key "\def\showkey{1}\input{s2_exercises.tex}"
+% ---------------------------------------------------------------------------
+\documentclass[11pt,a4paper]{article}
+\usepackage{iftex}
+\ifPDFTeX\usepackage[utf8]{inputenc}\usepackage[T1]{fontenc}\usepackage{lmodern}\else
+\usepackage{fontspec}\usepackage{unicode-math}\setmainfont{Latin Modern Roman}\setsansfont{Latin Modern Sans}\setmathfont{Latin Modern Math}\fi
+\usepackage[a4paper,margin=22mm,headheight=14pt]{geometry}
+\usepackage{amsmath,mathtools,booktabs,array,multirow,siunitx,graphicx,xcolor,enumitem,caption,fancyhdr,tikz,tcolorbox,microtype,comment}
+\usepackage[hidelinks]{hyperref}
+\tcbuselibrary{skins,breakable}
+\graphicspath{{../figures/}}
+\input{../shared/s2figs}
+\input{../shared/s2tables}
+\renewcommand{\ILscale}{0.0118}
+\sisetup{per-mode=symbol}
+\captionsetup{font=small,labelfont=bf,skip=4pt}
+\setlist{nosep,leftmargin=*,itemsep=3pt}
+\setlength{\parindent}{0pt}\setlength{\parskip}{5pt plus 1pt}
+\newcommand{\il}[1]{\eta_{#1}}
+\newif\ifkey \keyfalse \ifdefined\showkey\keytrue\fi
+\ifkey
+  \newtcolorbox{answer}{enhanced,colback=green!5,colframe=green!45!black,fonttitle=\bfseries,title={Answer},left=5pt,right=5pt,top=3pt,bottom=3pt,arc=1.5pt,boxrule=0.5pt,breakable}
+\else
+  \excludecomment{answer}
+\fi
+\newcommand{\qmarks}[1]{ {\small(#1 marks)}}
+\newcommand{\workspace}[1]{\ifkey\else\vspace{#1}\fi}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small\itshape SEAA 3012 Civil Engineering Laboratory II}
+\fancyhead[R]{\small\itshape Lab S2 -- Exercises\ifkey\ (instructor key)\fi}
+\fancyfoot[C]{\small\thepage}
+\newtcolorbox{activitybox}[1][]{enhanced,colback=orange!6,colframe=orange!75!black,fonttitle=\bfseries,title={#1},left=5pt,right=5pt,top=4pt,bottom=4pt,arc=2pt,boxrule=0.6pt}
+% blank IL grid for sketches
+\newcommand{\ilgrid}[1]{%
+\begin{tikzpicture}[x=\ILscale cm,y=0.75cm,font=\scriptsize]
+  \foreach \v in {-1,-0.5,0.5,1,1.5,2} \draw[gray!35] (0,\v) -- (1130,\v);
+  \foreach \x in {0,50,...,1130} \draw[gray!25] (\x,-1) -- (\x,2);
+  \draw[gray!70,dashed] (250,-1) -- (250,2) (440,-1) -- (440,2) (690,-1) -- (690,2) (880,-1) -- (880,2);
+  \draw[thick] (0,0) -- (1130,0);
+  \foreach \v in {-1,-0.5,0.5,1,1.5,2} \node[left] at (0,\v) {\v};
+  \foreach \x/\l in {0/A,250/B,440/C,690/D,880/E,1130/F} \node[below,font=\scriptsize\bfseries] at (\x,-1.05) {\l};
+  \node[anchor=south west] at (0,2.05) {#1};
+\end{tikzpicture}}
+
+\begin{document}
+\begin{center}
+{\LARGE\bfseries Exercises: Influence Lines}\\[4pt]
+{\large Lab S2 -- Cantilever (Gerber) Bridge Model\ifkey\ --- \textcolor{green!45!black}{Instructor key}\fi}\\[4pt]
+{\small Name: \underline{\hspace{5cm}}\quad Matric No.: \underline{\hspace{3.5cm}}\quad Group: \underline{\hspace{2cm}}}
+\end{center}
+
+\begin{activitybox}[Before you start]
+\begin{minipage}[c]{0.78\textwidth}
+All questions refer to the laboratory model (geometry below; $\il{R}(x)$ denotes the influence line of $R$ for a unit load at $x$ measured from A, support reactions positive upwards, hinge forces positive when pressing down on the cantilever tips). Work on paper first; the \emph{Influence Line Explorer} (scan the code) lets you check Questions 1, 3, 4 and 10 afterwards. Total: 60 marks (plus 4 bonus).
+\end{minipage}\hfill
+\begin{minipage}[c]{0.19\textwidth}\centering\includegraphics[width=\linewidth]{qr_s2_explorer}\end{minipage}
+\end{activitybox}
+
+\begin{center}\ILbridge\end{center}
+
+\section*{Part A -- Reading and deriving influence lines}
+
+\textbf{Question 1.}\qmarks{6} Using the formulae derived in the lecture notes, find the ordinates
+\begin{enumerate}[label=(\alph*)]
+  \item $\il{A}$ and $\il{B}$ for a unit load at $x = 150$, $350$ and \SI{560}{mm};
+  \item $\il{E}$ and $\il{F}$ for a unit load at $x = 760$ and \SI{1000}{mm}.
+\end{enumerate}
+Check each pair with $\il{A} + \il{B} + \il{E} + \il{F} = 1$.
+\workspace{3.2cm}
+\begin{answer}
+(a) $x = 150$ (on AB): $\il{A} = (250-150)/250 = 0.400$, $\il{B} = 0.600$.
+$x = 350$ (on BC): $\il{A} = (250-350)/250 = -0.400$, $\il{B} = 1.400$.
+$x = 560$ (on CD): $\il{C} = (690-560)/250 = 0.520$, so $\il{A} = -0.76(0.520) = -0.395$ and $\il{B} = 1.76(0.520) = 0.915$; the remaining $\il{D} = 0.480$ goes to E and F ($\il{E} = 0.845$, $\il{F} = -0.365$), and the four support ordinates sum to 1.000.\\
+(b) $x = 760$ (on DE): $\il{E} = (1130-760)/250 = 1.480$, $\il{F} = (760-880)/250 = -0.480$; $x = 1000$ (on EF): $\il{E} = 0.520$, $\il{F} = 0.480$. In both cases $\il{A} = \il{B} = 0$ and the sum is 1.
+\end{answer}
+
+\textbf{Question 2.}\qmarks{8} Starting from the free-body diagram of the suspended span and of beam DEF, derive the influence lines of the hinge force $R_D$ and of the reaction $R_F$ for $0 \le x \le \SI{1130}{mm}$. Give the expressions for each range of $x$ and sketch both lines to scale on the grids below, marking the ordinates at C, D, E and F.
+
+\ilgrid{$R_D$}\\[6pt]
+\ilgrid{$R_F$}
+\begin{answer}
+$\il{D}(x) = (x-440)/250$ for $440 \le x \le 690$, zero elsewhere (lever rule on CD; 0 at C, 1 at D). For DEF, moments about E give $R_F \cdot 250 = 1\cdot(x - 880)$ when the load is on DEF, so $\il{F}(x) = (x-880)/250$ for $690 \le x \le 1130$: $-0.76$ at D, 0 at E, 1 at F. For a load on CD the tip D carries $\il{D}$ downward, hence $\il{F} = -0.76\,\il{D}(x)$ for $440 \le x \le 690$, and $\il{F} = 0$ for $x \le 440$. The sketch of $R_F$ is the mirror image of the IL of $R_A$: 0 from A to C, straight to $-0.76$ at D, straight up through 0 at E to $1.0$ at F.
+\end{answer}
+
+\section*{Part B -- Using influence lines}
+
+\textbf{Question 3.}\qmarks{8} A model vehicle has two axles \SI{150}{mm} apart carrying \SI{4}{kg} (leading) and \SI{2}{kg} (trailing). It moves from A to F.
+\begin{enumerate}[label=(\alph*)]
+  \item Explain why the largest value of $R_B$ must occur with one of the two axles standing on a vertex of $\il{B}$.
+  \item Find the position of the vehicle that gives the largest $R_B$ and the value of $R_B$ (in kgf).
+  \item Find the position that gives the most negative $R_A$ and the value of $R_A$.
+\end{enumerate}
+\workspace{4.5cm}
+\begin{answer}
+(a) $R_B = 4\,\il{B}(x) + 2\,\il{B}(x-150)$ is a sum of piecewise linear functions of $x$, hence itself piecewise linear; a piecewise linear function attains its maximum at a breakpoint, i.e.\ when one axle is at a vertex of the IL.\\
+(b) Vertex C ($\il{B} = 1.76$) is the candidate. Leading axle at C ($x = 440$, trailing at 290): $R_B = 4(1.76) + 2(290/250) = 7.04 + 2.32 = 9.36$~kgf. Trailing axle at C (leading at 590, on CD): $\il{B}(590) = 1.76(100/250) = 0.704$, $R_B = 4(0.704) + 2(1.76) = 6.34$~kgf. Largest $R_B = 9.36$~kgf with the \SI{4}{kg} axle at C.\\
+(c) Leading axle at C: $R_A = 4(-0.76) + 2\,\il{A}(290) = -3.04 + 2(-0.16) = -3.36$~kgf. Trailing axle at C: $4\,\il{A}(590) + 2(-0.76) = 4(-0.304) - 1.52 = -2.74$~kgf. Most negative $R_A = -3.36$~kgf, again with the heavier axle at C.
+\end{answer}
+
+\textbf{Question 4.}\qmarks{8} A uniformly distributed load $w = \SI{0.02}{kg/mm}$ is placed (a) over AB only, (b) over the suspended span CD only, (c) over the whole model. For each case find $R_A$, $R_B$ and the hinge force $R_C$ from the areas under the influence lines. For case (c) check that the four support reactions add up to the total load.
+\workspace{5cm}
+\begin{answer}
+Areas: $\il{A}$: $+125$ (AB), $-72.2$ (BC), $-95.0$ (CD), 0 (DEF) mm. $\il{B}$: $+125$ (AB), $+262.2$ (BC), $+220$ (CD) mm. $\il{C}$: $+125$ mm over CD only.\\
+(a) AB only: $R_A = 0.02(125) = 2.50$, $R_B = 2.50$, $R_C = 0$ kgf.\\
+(b) CD only: $R_A = 0.02(-95) = -1.90$, $R_B = 0.02(220) = 4.40$, $R_C = 0.02(125) = 2.50$ kgf.\\
+(c) Whole model: $R_A = 0.02(125 - 72.2 - 95.0) = -0.84$, $R_B = 0.02(607.2) = 12.14$, $R_C = 2.50$ kgf; by symmetry $R_E = 12.14$ and $R_F = -0.84$. Sum $= -0.84 + 12.14 + 12.14 - 0.84 = 22.6$ kgf $= 0.02 \times 1130$. \checkmark
+\end{answer}
+
+\textbf{Question 5.}\qmarks{6} Use the Müller--Breslau principle to sketch the influence lines of $R_E$ and $R_F$ (release the support, impose a unit displacement, draw the deflected shape). Mark the ordinates at C, D, E and F. From the sketches, state which supports can experience uplift and for which positions of the load.
+
+\ilgrid{$R_E$ (Müller--Breslau)}\\[6pt]
+\ilgrid{$R_F$ (Müller--Breslau)}
+\begin{answer}
+$R_E$: release E and lift it by 1; DEF rotates about F: E rises 1, D rises $440/250 = 1.76$; CD follows D and drops linearly to 0 at C; ABC unmoved. Ordinates: C 0, D 1.76, E 1, F 0. $R_F$: release F and lift it by 1; DEF rotates about E: F rises 1, D drops $190/250 = 0.76$; CD goes from $-0.76$ at D to 0 at C. Ordinates: C 0, D $-0.76$, E 0, F 1. Uplift (negative reaction) occurs at F whenever the load is between C and E (and at A for a load between B and D); B and E never see uplift.
+\end{answer}
+
+\section*{Part C -- The experiment}
+
+\textbf{Question 6.}\qmarks{8} The readings below are \emph{illustrative} dial-gauge readings for gauge A with the \SI{2.5}{kg} mass at each halt (Test 1); one division $= \SI{0.05}{kgf}$. Complete the table: convert each reading to the experimental ordinate $\il{\text{test}}$, write the theoretical ordinate, and the difference. Plot both lines on the grid and comment on the agreement in two or three sentences.
+
+\begin{center}\small
+\begin{tabular}{@{}c r r c c c@{}}
+\toprule
+Halt & $x$ (mm) & Reading (div) & $\il{\text{test}}$ & $\il{\text{theory}}$ & Difference\\
+\midrule
+\TabPracticeStudent
+\bottomrule
+\end{tabular}
+\end{center}
+\ilgrid{$R_A$: theory and experiment}
+\begin{answer}
+$\il{\text{test}} = \text{reading} \times 0.05/2.5 = \text{reading}/50$.
+\begin{center}\small
+\begin{tabular}{@{}c r r r r r r@{}}
+\toprule
+Halt & $x$ & Reading & $\il{\text{test}}$ & $\il{\text{theory}}$ & Difference & Rel.\ (\%)\\
+\midrule
+\TabPracticeKey
+\bottomrule
+\end{tabular}
+\end{center}
+Relative difference $= (\il{\text{test}} - \il{\text{theory}})/|\il{\text{theory}}| \times 100$, quoted only where $|\il{\text{theory}}| \ge 0.1$. Comment: every difference is within $\pm 0.04$, i.e.\ within two gauge divisions, and the points fall on the two straight segments with the kink at C; the sign change at B and the zero readings beyond D are reproduced. The largest relative differences ($-10\,\%$ at halt 3, $+6.7\,\%$ at halt 4) occur at small ordinates and are consistent with a one-division error, not with a systematic defect.
+\end{answer}
+
+\textbf{Question 7.}\qmarks{6}
+\begin{enumerate}[label=(\alph*)]
+  \item The mass can be placed within $\pm\SI{5}{mm}$ of a halt and the gauge is read to $\pm 1$ division. Estimate the resulting uncertainty of an experimental ordinate of $\il{A}$ for a halt on AB and for a halt on CD.
+  \item Taking the combined uncertainty as $\pm 0.03$ per unit load in round numbers, for which halts with a non-zero theoretical ordinate could this uncertainty alone give a percentage difference larger than 10\,\%? Hence explain why the report should compare ordinates by absolute difference.
+\end{enumerate}
+\workspace{3.5cm}
+\begin{answer}
+(a) Position: $\Delta\eta = |\text{slope}| \Delta x = (1/250)(5) = 0.020$ on AB and BC; $(0.76/250)(5) = 0.015$ on CD. Gauge: $1 \times 0.05/2.5 = 0.020$. Combined (quadrature): $\sqrt{0.020^2 + 0.020^2} \approx 0.028$ on ABC and $\approx 0.025$ on CD; about $\pm 0.03$ in round numbers.\\
+(b) 10\,\% of the ordinate is less than 0.03 wherever $|\il{A}| < 0.3$: halts 2 ($0.2$), 3 ($-0.2$), 6 ($-0.27$), and all halts with zero ordinate (B, D, 7--F), where the percentage is undefined. Only A, 1, 4, C and 5 have ordinates large enough for a percentage to be meaningful. The absolute difference has the same uncertainty ($\pm 0.03$) at every halt and is therefore the fair measure of agreement along the whole line.
+\end{answer}
+
+\textbf{Question 8.}\qmarks{4} With the \SI{2.5}{kg} mass at halt 4, the four support gauges read $a = -28$, $b = 77$, $e = 0$ and $f = 0$ divisions. Check the equilibrium of the model and interpret the result.
+\workspace{2.5cm}
+\begin{answer}
+Sum $= (-28 + 77 + 0 + 0) \times 0.05 = 2.45$ kgf against 2.50 kgf applied: 2\,\% low, i.e.\ one division. Theory gives $a = -0.6 \times 50 = -30$ and $b = 1.6 \times 50 = 80$; both read slightly low in magnitude, which suggests friction in the gauge mechanisms or a small zero offset rather than an error in the mass position (which would move $a$ and $b$ in opposite senses). Acceptable; re-zero and repeat if the shortfall exceeds about two divisions.
+\end{answer}
+
+\section*{Part D -- Discussion}
+
+\textbf{Question 9.}\qmarks{6} Answer briefly.
+\begin{enumerate}[label=(\alph*)]
+  \item Why does the Gerber arrangement (two hinges in the central span) make the bridge statically determinate, and what does this imply for the shape of every influence line?
+  \item If the hinges at C and D were replaced by rigid welds, so that ABCDEF became a continuous beam on four supports, how would the influence line of $R_A$ change? Sketch its shape with the Müller--Breslau principle.
+  \item Give one practical reason why a designer must know that $R_A$ can be negative.
+\end{enumerate}
+\workspace{4cm}
+\begin{answer}
+(a) Four vertical reactions against two equilibrium equations plus two hinge conditions ($M = 0$ at C and D): four equations, four unknowns, so all reactions follow from statics. Because no elastic analysis is involved, the released structure in the Müller--Breslau construction is a mechanism of rigid links, and every influence line consists of straight segments with kinks only at hinges and at the released support.\\
+(b) The beam becomes indeterminate to the second degree. Releasing A and lifting it by one unit now bends the beam: the influence line is a smooth curve, positive over AB, negative over BE (with its minimum somewhere inside span BE rather than at C) and slightly positive again over EF, decaying towards F. The vertices and straight segments disappear, and ordinates require $EI$-based analysis.\\
+(c) A negative reaction means the bearing at A must hold the deck down: the support must be anchored (holding-down bolts, tie-down bearings or a counterweight), otherwise the end of the deck lifts off its bearing when a heavy vehicle is on the cantilever or suspended span. The same influence line tells the designer that the bearing at B must carry up to 1.76 times a load standing at C.
+\end{answer}
+
+\textbf{Question 10 (challenge, bonus).}\qmarks{4} For the laboratory compound load (\SI{2.5}{kg} mass \SI{100}{mm} to the right of the \SI{5}{kg} mass, moving right), show that the most negative $R_A$ is $-4.94$~kgf and find the position that gives the largest hinge force $R_C$ and its value.
+\workspace{3cm}
+\begin{answer}
+$R_A$: 5~kg mass at C gives $5(-0.76) + 2.5\,\il{A}(540) = -3.80 + 2.5(-0.456) = -4.94$ kgf; 2.5~kg mass at C (5~kg mass at 340) gives $5(-0.36) + 2.5(-0.76) = -3.70$ kgf; no other vertex of $\il{A}$ is negative, so $-4.94$ kgf is the minimum. $R_C$: $\il{C}$ peaks at C with value 1. 5~kg mass at C: $5(1) + 2.5\,\il{C}(540) = 5 + 2.5(0.6) = 6.50$ kgf. 2.5~kg mass at C (5~kg mass at 340, off the span): $2.5(1) = 2.50$ kgf. Largest hinge force $R_C = 6.50$ kgf with the \SI{5}{kg} mass at C; it is less than the total mass (7.5 kg) because part of the 2.5~kg load goes to D.
+\end{answer}
+
+\vfill
+{\small\textit{End of exercises. Marks: Part A 14, Part B 22, Part C 18, Part D 6 (total 60), plus 4 bonus marks for Question 10.}}
+\end{document}

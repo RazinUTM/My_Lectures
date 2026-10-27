@@ -1,0 +1,56 @@
+% ---------------------------------------------------------------------------
+%  One-page activity handout -- Lab S2: predict, scan, check
+%  Build: xelatex s2_activity_sheet.tex
+% ---------------------------------------------------------------------------
+\documentclass[10pt,a4paper]{article}
+\usepackage{iftex}
+\ifPDFTeX\usepackage[utf8]{inputenc}\usepackage[T1]{fontenc}\usepackage{lmodern}\else
+\usepackage{fontspec}\usepackage{unicode-math}\setmainfont{Latin Modern Roman}\setsansfont{Latin Modern Sans}\setmathfont{Latin Modern Math}\fi
+\usepackage[a4paper,margin=15mm]{geometry}
+\usepackage{amsmath,booktabs,array,siunitx,graphicx,xcolor,enumitem,tikz,tcolorbox,microtype}
+\tcbuselibrary{skins}
+\graphicspath{{../figures/}}
+\input{../shared/s2figs}
+\renewcommand{\ILscale}{0.0115}
+\setlist{nosep,leftmargin=*}
+\setlength{\parindent}{0pt}\setlength{\parskip}{4pt}
+\pagestyle{empty}
+\newcommand{\il}[1]{\eta_{#1}}
+\newcommand{\pbox}[1]{\begin{tcolorbox}[enhanced,colback=white,colframe=black!50,boxrule=0.4pt,arc=1pt,left=4pt,right=4pt,top=2pt,bottom=2pt,height=#1]\end{tcolorbox}}
+\begin{document}
+\begin{minipage}[c]{0.76\textwidth}
+{\LARGE\bfseries Predict -- scan -- check}\\[3pt]
+{\large Lab S2 Influence Lines: in-class activity (15 minutes, in pairs)}\\[6pt]
+Name(s): \underline{\hspace{6cm}}\quad Group: \underline{\hspace{2cm}}\\[4pt]
+Write your prediction \emph{first}, in ink. Then scan the code (it opens the \emph{Explorer} tab of the Lab S2 course page), test it, and write what you found and why. A wrong prediction with a good explanation of what you learned earns full credit.
+\end{minipage}\hfill
+\begin{minipage}[c]{0.2\textwidth}\centering\includegraphics[width=\linewidth]{qr_s2_explorer}\\{\scriptsize Lab S2 page, Explorer tab}\end{minipage}
+
+\begin{center}\ILbridge\end{center}
+
+\begin{enumerate}[label=\textbf{\arabic*.},itemsep=3pt]
+\item \textbf{Sign of $R_A$.} A single mass stands at halt 4 (on the cantilever, 150 mm past B). Is the reaction at A upward, zero or downward? Prediction and reason:
+\pbox{1.35cm}
+Explorer result ($\il{A}$ at $x = 400$): \underline{\hspace{2cm}}\quad A negative reaction means: \underline{\hspace{4.8cm}}
+
+\item \textbf{Largest $R_B$.} Where must a single mass stand for the largest reaction at B, and will $R_B$ be smaller or larger than the mass itself? Prediction:
+\pbox{1.25cm}
+Explorer: position \underline{\hspace{1.4cm}}, $\il{B} = $ \underline{\hspace{1.4cm}}. Why can a reaction exceed the load? \underline{\hspace{3.9cm}}
+
+\item \textbf{The far side.} The mass is at halt 8 (between D and E). Predict $R_A$ and $R_B$, then check. What does the hinge at D transmit when the suspended span is unloaded?
+\pbox{1.35cm}
+
+\item \textbf{Compound load.} Switch to the \SI{5}{kg} + \SI{2.5}{kg} pair. Predict the position of the \SI{5}{kg} mass that gives the most negative $R_A$ and the value in kgf; then find it by trial.
+\pbox{1.25cm}
+Explorer: position \underline{\hspace{1.5cm}}, $R_A = $ \underline{\hspace{1.5cm}} kgf. Which mass stands on the vertex C, and why does that give the extreme? \underline{\hspace{4cm}}
+
+\item \textbf{Distributed load.} Tick \emph{shade the areas} for $R_A$. Predict the sign of $R_A$ when a uniform load covers the whole model; then read the three areas and the net value.
+\pbox{1.25cm}
+Explorer: areas $+$\underline{\hspace{1.2cm}} mm and \underline{\hspace{1.2cm}} mm, net \underline{\hspace{1.2cm}} mm, so $R_A = $ \underline{\hspace{1.2cm}}$\,w$.
+\end{enumerate}
+
+\vspace{2pt}
+\begin{tcolorbox}[enhanced,colback=orange!6,colframe=orange!75!black,boxrule=0.5pt,arc=1.5pt,left=5pt,right=5pt,top=3pt,bottom=3pt]
+\textbf{In the laboratory:} after Test 1, open the \emph{Lab} tab of the same page and type your gauge-A readings into the Test 1 table. Note the largest absolute difference from theory and at which halt it occurs: \underline{\hspace{2cm}} at halt \underline{\hspace{1cm}}. Is it within the $\pm 0.03$ expected from a $\pm 5$ mm placement error and $\pm 1$ division? \underline{\hspace{3cm}}
+\end{tcolorbox}
+\end{document}

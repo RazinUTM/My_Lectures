@@ -2,6 +2,8 @@
 
 Teaching material, Faculty of Civil Engineering, Universiti Teknologi Malaysia. One folder per course.
 
+Website (GitHub Pages): <https://razinutm.github.io/My_Lectures/>
+
 ## Courses
 
 | Course | Folder | Contents |
@@ -13,6 +15,8 @@ Teaching material, Faculty of Civil Engineering, Universiti Teknologi Malaysia. 
 ```
 My_Lectures/
 ├── README.md                     this index
+├── index.html                    landing page of the website
+├── .nojekyll                     serve files as they are (no Jekyll build)
 ├── SEAA3012-CE-Lab-II/           one folder per course: <course code>-<short name>
 │   ├── README.md                 list of topics in the course
 │   └── S2-influence-lines/       one folder per topic, lab or week

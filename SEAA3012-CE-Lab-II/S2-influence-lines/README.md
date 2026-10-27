@@ -25,6 +25,9 @@ one per tab (`qr_s2_explorer.png`, `qr_s2_notes.png`, …).
 | BM / EN switch | Malay explanations, technical terms kept in English |
 | Theme switch (automatic, light, dark) | display preference |
 | Explorer: R_A, R_B, R_C influence lines switched on or off | view one, two or three lines under the bridge |
+| Explorer: custom group of three loads with chosen values and spacings | any vehicle or load train |
+| Explorer: hover or tap a reaction for its step-by-step calculation | links each number to the free-body diagrams |
+| Lab: example readings for Test 1 and Test 2 | shows what a comparison with theory looks like |
 
 Everything a student enters is stored only in that student's browser (`localStorage`); nothing is
 collected or sent anywhere.

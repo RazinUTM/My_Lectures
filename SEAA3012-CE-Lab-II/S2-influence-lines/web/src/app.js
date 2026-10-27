@@ -8,7 +8,7 @@ var KEY="s2-il-v3";
 function ld(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
 function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
 function fresh(){return {lang:"en",theme:"auto",nmode:"full",read:{},qc:{},seen:{},slide:0,
-  exp:{x:0,mode:"unit",keys:["R_A","R_B"],area:false},
+  exp:{x:0,mode:"unit",keys:["R_A","R_B","R_C"],area:false,P:[5,2.5,1],a:[100,150]},
   pred:{ans:{},t0:0,t1:0},
   ex:{v:{},sel:{},chk:{},first:{},att:{},hint:{},conf:{},confAt:{},timer:{el:0,run:false,t0:0},done:0},
   lab:{ck:{},t1:{g:"R_A",k:"0.05",m:"2.5",v:[]},t2:{g:"R_A",k:"0.05",v:[]},eq:{},done1:false,done2:false,big:null},
@@ -61,7 +61,13 @@ function f1(v){var s=(Math.abs(v)<0.05?0:v).toFixed(1).replace(/\.0$/,"");return
 function f2(v){var s=(Math.abs(v)<5e-3?0:v).toFixed(2);return s.replace("-","−")}
 function f3(v){var s=(Math.abs(v)<5e-4?0:v).toFixed(3);return s.replace("-","−")}
 function mmss(ms){var s=Math.max(0,Math.round(ms/1000)),m=Math.floor(s/60);return (m<10?"0":"")+m+":"+((s%60)<10?"0":"")+(s%60)}
-function loadsFor(x,mode){if(mode==="unit")return [[x,1]];if(mode==="m25")return [[x,2.5]];var l=[[x,5]];if(x+100<=xF)l.push([x+100,2.5]);return l}
+/* loads on the bridge as [position, value, index]; the leading load P1 stands at x, the others follow to its right */
+function groupOf(mode){if(mode==="cmp")return {P:[5,2.5,0],a:[100,0]};return {P:ST.exp.P,a:ST.exp.a}}
+function allLoads(x,mode){if(mode==="unit")return [[x,1,0]];if(mode==="m25")return [[x,2.5,0]];var g=groupOf(mode),pos=[x,x+g.a[0],x+g.a[0]+g.a[1]],l=[];
+  for(var i=0;i<3;i++)if(g.P[i]>0)l.push([pos[i],g.P[i],i]);return l}
+function loadsFor(x,mode){return allLoads(x,mode).filter(function(l){return l[0]<=xF+1e-9})}
+function offLoads(x,mode){return allLoads(x,mode).filter(function(l){return l[0]>xF+1e-9})}
+function kg(v){return String(+(+v).toFixed(2))}
 function valueOf(key,x,mode){var s=0;loadsFor(x,mode).forEach(function(l){s+=l[1]*IL[key](l[0])});return s}
 function comp(key,x){return valueOf(key,x,"cmp")}
 
@@ -99,7 +105,11 @@ function figureSVG(c){
   var hasLoad=(c.x!=null),loads=hasLoad?loadsFor(c.x,mode):[];
   var top=6,beamY=0,hb=0;
   if(c.bridge!==false){
-    beamY=hasLoad?(66*G+18*fs):(14*G+10);
+    /* load labels: greedy rows so that labels of closely spaced loads never overlap */
+    var labs=loads.map(function(l){var t=mode==="unit"?"1":(kg(l[1])+" kg"),w=t.length*0.6*16*fs+10*G,cx=Math.max(w/2+2,Math.min(W-w/2-2,px(l[0])));return {x:px(l[0]),cx:cx,t:t,w:w,r:0}}),rowEnd=[];
+    labs.forEach(function(L){for(var r=0;r<4;r++){if(rowEnd[r]===undefined||L.cx-L.w/2>rowEnd[r]){L.r=r;rowEnd[r]=L.cx+L.w/2;return}}L.r=3});
+    var nrows=labs.reduce(function(m,L){return Math.max(m,L.r+1)},1);
+    beamY=hasLoad?(66*G+18*fs+(nrows-1)*22*fs):(14*G+10);
     var lab1=beamY+44*G+15*fs,lab2=lab1+6+13*fs,arrTop=lab2+10*G,valY=arrTop+56*G+15*fs;
     hb=c.reactions?valY+10:(c.dims?lab2+22+12*fs:lab2+10);
     out.push(Ln(px(0),beamY,px(xC)-9*G,beamY,"var(--fg)",7*G),Ln(px(xC)+9*G,beamY,px(xD)-9*G,beamY,"var(--fg)",7*G),Ln(px(xD)+9*G,beamY,px(xF),beamY,"var(--fg)",7*G));
@@ -110,10 +120,10 @@ function figureSVG(c){
       else{out.push(Ln(px(h[1]),beamY+3.5*G,px(h[1]),beamY+14*G,"var(--muted)",1.5*G));out.push(T(px(h[1]),lab2,h[0],{size:13*fs,anchor:"middle",fill:"var(--muted)"}))}});
     if(c.dims){var dy=lab2+14+12*fs;[[0,250,"250"],[250,440,"190"],[440,690,"250"],[690,880,"190"],[880,1130,"250"]].forEach(function(d){out.push(dim(px(d[0]),px(d[1]),dy,d[2]+" mm",fs))})}
     if(hasLoad){
-      loads.forEach(function(l,j){var x=px(l[0]),anc="middle",tx_=x;out.push(vArrow(x,beamY-56*G,beamY-6*G,"var(--load)",4));
-        if(loads.length>1){if(j===0&&l[0]>=160){anc="end";tx_=x-8*G}if(j===1&&l[0]<=1000){anc="start";tx_=x+8*G}}
-        out.push(T(tx_,beamY-62*G,mode==="unit"?"1":(l[1]+" kg"),{size:16*fs,anchor:anc,weight:700,fill:"var(--load)"}))});
-      if(c.reactions){var vmax=mode==="unit"?1.76:(mode==="m25"?4.4:11.44);
+      labs.forEach(function(L){var dy=L.r*22*fs;out.push(vArrow(L.x,beamY-56*G-dy,beamY-6*G,"var(--load)",4));
+        out.push(T(L.cx,beamY-62*G-dy,L.t,{size:16*fs,anchor:"middle",weight:700,fill:"var(--load)"}))});
+      var tot=loads.reduce(function(s,l){return s+l[1]},0);
+      if(c.reactions){var vmax=Math.max(1.76*tot,0.1);
         [["R_A",0],["R_B",xB],["R_E",xE],["R_F",xF]].forEach(function(r){var v=valueOf(r[0],c.x,mode),x=px(r[1]);
           var anc=r[1]===0?"start":(r[1]===xF?"end":"middle"),tx_=r[1]===0?x-14*G:(r[1]===xF?x+14*G:x);
           if(Math.abs(v)<1e-9){out.push(T(tx_,valY,"0",{size:14*fs,anchor:anc,fill:"var(--muted)"}));return}
@@ -127,7 +137,8 @@ function figureSVG(c){
   keys.forEach(function(k){var f=IL[k],col=CV[k];
     var labY=top+16*fs+8,zero=labY+13*fs+8*G+1.76*K+8,bottom=zero+Math.max(0.9*K,0.76*K+14*G+13*fs)+6;
     out.push(T(px(0)+10*G,labY,L2("Influence line for ","Influence line bagi ")+Rl(k),{size:15*fs,weight:700,fill:col}));
-    if(hasLoad){var v0=f(loads[0][0]);out.push(T(px(xF),labY,"η = "+f3(v0)+L2(" at x = "," pada x = ")+Math.round(loads[0][0]),{size:15*fs,anchor:"end",weight:700,fill:"var(--load)"}))}
+    if(hasLoad&&loads.length){var hdr=loads.length===1?"η = "+f3(f(loads[0][0]))+L2(" at x = "," pada x = ")+Math.round(loads[0][0]):"η = "+loads.map(function(l){return f3(f(l[0]))}).join(" · ");
+      out.push(T(px(xF),labY,hdr,{size:15*fs,anchor:"end",weight:700,fill:"var(--load)"}))}
     [1.5,1,0.5,-0.5].forEach(function(g){var y=zero-g*K;out.push(Ln(px(0),y,px(xF),y,"var(--grid)",1));
       if(fs<=1.6||g===1)out.push(T(px(0)-7,y+4*G,String(g).replace("-","−"),{size:fs<=1.6?tick:11.5*fs,anchor:"end",fill:"var(--muted)"}))});
     if(c.area){[1,-1].forEach(function(sg){var p=sampleArea(f,sg);var s=px(0)+','+zero.toFixed(1)+' ';p.forEach(function(q){s+=px(q[0])+','+(zero-q[1]*K).toFixed(1)+' '});s+=px(xF)+','+zero.toFixed(1);
@@ -311,20 +322,69 @@ var EXKEYS=["R_A","R_B","R_C"],E=ST.exp;
 if(!ST.expv){E.keys=EXKEYS.slice();ST.expv=2}
 E.keys=(Array.isArray(E.keys)?E.keys:[]).filter(function(k){return EXKEYS.indexOf(k)>=0});if(!E.keys.length)E.keys=EXKEYS.slice();
 var xpos=document.getElementById("xpos"),xlabel=document.getElementById("xlabel"),expsvg=document.getElementById("expsvg");
-var readout=document.getElementById("readout"),sumline=document.getElementById("sumline"),areanote=document.getElementById("areanote");
+var readout=document.getElementById("readout"),sumline=document.getElementById("sumline"),areanote=document.getElementById("areanote"),rowrap=document.getElementById("rowrap"),ropop=document.getElementById("ropop");
+if(!Array.isArray(E.P)||E.P.length!==3)E.P=[5,2.5,1];if(!Array.isArray(E.a)||E.a.length!==2)E.a=[100,150];
 function fmtMode(v){return E.mode==="unit"?f3(v):f2(v)+" kgf"}
+/* ---------- how each reaction is computed: one line per load, member by member ---------- */
+function n0(v){return String(Math.round(v)).replace("-","−")}
+function sub(k){return k.slice(2)}
+function f4(v){var s=(Math.abs(v)<5e-5?0:v).toFixed(4);return s.replace("-","−")}
+function etaSteps(k,x){var f3=f4,X=n0(x),c=k.slice(2),eC="η<sub>C</sub> = (690 − "+X+")/250 = "+f3(RC(x)),eD="η<sub>D</sub> = (" +X+" − 440)/250 = "+f3(RD(x));
+  var on={ABC:L2("on ABC","pada ABC"),CD:L2("on the suspended span CD","pada suspended span CD"),DEF:L2("on DEF","pada DEF")};
+  function z(msg){return {m:"",t:"η<sub>"+c+"</sub> = 0 ("+msg+")"}}
+  var noABC=L2("a load on ABC does not reach DEF","load pada ABC tidak sampai ke DEF"),noDEF=L2("a load on DEF does not reach ABC","load pada DEF tidak sampai ke ABC"),noCD=L2("the load is not on the suspended span CD","load tiada pada suspended span CD");
+  if(k==="R_A"){if(x<=xC)return {m:on.ABC,t:"η<sub>A</sub> = (250 − "+X+")/250 = "+f3(RA(x))};if(x<=xD)return {m:on.CD,t:eC+"; η<sub>A</sub> = −0.76 × η<sub>C</sub> = "+f3(RA(x))};return z(noDEF)}
+  if(k==="R_B"){if(x<=xC)return {m:on.ABC,t:"η<sub>B</sub> = "+X+"/250 = "+f3(RB(x))};if(x<=xD)return {m:on.CD,t:eC+"; η<sub>B</sub> = 1.76 × η<sub>C</sub> = "+f3(RB(x))};return z(noDEF)}
+  if(k==="R_C"){if(x>=xC&&x<=xD)return {m:on.CD,t:eC};return z(noCD)}
+  if(k==="R_D"){if(x>=xC&&x<=xD)return {m:on.CD,t:eD};return z(noCD)}
+  if(k==="R_E"){if(x>=xD)return {m:on.DEF,t:"η<sub>E</sub> = (1130 − "+X+")/250 = "+f3(RE(x))};if(x>=xC)return {m:on.CD,t:eD+"; η<sub>E</sub> = 1.76 × η<sub>D</sub> = "+f3(RE(x))};return z(noABC)}
+  if(x>=xD)return {m:on.DEF,t:"η<sub>F</sub> = ("+X+" − 880)/250 = "+f3(RF(x))};if(x>=xC)return {m:on.CD,t:eD+"; η<sub>F</sub> = −0.76 × η<sub>D</sub> = "+f3(RF(x))};return z(noABC)}
+function explainHTML(k){var c=sub(k),unit=E.mode==="unit",ls=loadsFor(E.x,E.mode),off=offLoads(E.x,E.mode),terms=[],h=[];
+  h.push('<b style="color:'+CV[k]+'">R<sub>'+c+'</sub></b> · '+L2("how it is calculated","cara pengiraan"));
+  h.push('<p class="eq">R<sub>'+c+'</sub> = '+(unit?"1 × η<sub>"+c+"</sub>(x)":"Σ P<sub>i</sub> η<sub>"+c+"</sub>(x<sub>i</sub>)")+'</p><ol>');
+  ls.forEach(function(l){var st=etaSteps(k,l[0]),eta=IL[k](l[0]),nm=unit?L2("Unit load","Unit load"):"P<sub>"+(l[2]+1)+"</sub> = "+kg(l[1])+" kg";
+    terms.push(unit?f4(eta):kg(l[1])+"("+f4(eta)+")");
+    h.push('<li>'+nm+L2(" at x = "," di x = ")+n0(l[0])+" mm"+(st.m?" ("+st.m+")":"")+':<br>'+st.t+(unit?"":' → '+kg(l[1])+" × "+f4(eta).replace(/^(−.*)$/,"($1)")+" = "+f3(l[1]*eta))+'</li>')});
+  off.forEach(function(l){h.push('<li class="muted">P<sub>'+(l[2]+1)+'</sub> = '+kg(l[1])+" kg"+L2(" at x = "," di x = ")+n0(l[0])+" mm: "+L2("beyond F, not on the bridge","di luar F, tiada pada jambatan")+'</li>')});
+  if(!ls.length)h.push('<li class="muted">'+L2("No load on the bridge.","Tiada load pada jambatan.")+'</li>');
+  h.push('</ol><p class="eq">R<sub>'+c+'</sub> = '+(terms.length>1?terms.join(" + ").replace(/\+ −/g,"− ")+" = ":"")+fmtMode(valueOf(k,E.x,E.mode))+'</p>');
+  h.push('<p class="muted">'+(k==="R_C"||k==="R_D"?L2("Positive: the suspended span presses down on the cantilever tip.","Positif: suspended span menekan ke bawah pada hujung cantilever."):L2("Positive: the support pushes up. Negative: the support holds the deck down (uplift).","Positif: support menolak ke atas. Negatif: support menahan deck ke bawah (uplift)."))+'</p>');
+  return h.join("")}
+var RO={},popKey=null,popPinned=false;
+KEYS.forEach(function(k){var d=document.createElement("div");d.className="ro";d.tabIndex=0;d.setAttribute("role","button");d.setAttribute("aria-controls","ropop");d.setAttribute("aria-expanded","false");
+  d.innerHTML='<div class="k" style="color:'+CV[k]+'">R<sub>'+k.slice(2)+'</sub>'+(k==="R_C"||k==="R_D"?' <span class="muted" style="font-weight:400">hinge</span>':'')+'<span class="ri" aria-hidden="true">i</span></div><div class="v"></div>';
+  d.addEventListener("mouseenter",function(e){if(!popPinned)openPop(k)});
+  d.addEventListener("mouseleave",function(){if(!popPinned)closePop()});
+  d.addEventListener("focus",function(){if(!popPinned)openPop(k)});
+  d.addEventListener("blur",function(){if(!popPinned)closePop()});
+  d.addEventListener("click",function(e){e.stopPropagation();if(popPinned&&popKey===k){popPinned=false;closePop()}else{popPinned=true;openPop(k)}});
+  d.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();d.click()}else if(e.key==="Escape"){popPinned=false;closePop()}});
+  readout.appendChild(d);RO[k]=d});
+function openPop(k){popKey=k;KEYS.forEach(function(j){RO[j].setAttribute("aria-expanded",String(j===k));RO[j].classList.toggle("on",j===k)});ropop.innerHTML=explainHTML(k);ropop.hidden=false;placePop()}
+function closePop(){popKey=null;ropop.hidden=true;KEYS.forEach(function(j){RO[j].setAttribute("aria-expanded","false");RO[j].classList.remove("on")})}
+function placePop(){if(!popKey)return;var d=RO[popKey],Wr=rowrap.clientWidth,pw=Math.min(440,Wr);ropop.style.width=pw+"px";
+  var left=Math.max(0,Math.min(Wr-pw,d.offsetLeft+d.offsetWidth/2-pw/2));ropop.style.left=left+"px";ropop.style.top=(d.offsetTop+d.offsetHeight+8)+"px"}
+document.addEventListener("click",function(e){if(popPinned&&!ropop.contains(e.target)){popPinned=false;closePop()}});
+window.addEventListener("resize",placePop);
 function refreshExplorer(){renderFig(expsvg);
-  readout.innerHTML="";KEYS.forEach(function(k){var v=valueOf(k,E.x,E.mode),d=document.createElement("div");d.className="ro"+(v<-1e-9?" neg":"");
-    d.innerHTML='<div class="k" style="color:'+CV[k]+'">R<sub>'+k.slice(2)+'</sub>'+(k==="R_C"||k==="R_D"?' <span class="muted" style="font-weight:400">hinge</span>':'')+'</div><div class="v">'+fmtMode(v)+'</div>';readout.appendChild(d)});
-  var s=valueOf("R_A",E.x,E.mode)+valueOf("R_B",E.x,E.mode)+valueOf("R_E",E.x,E.mode)+valueOf("R_F",E.x,E.mode);
-  sumline.textContent=L2("Check: R_A + R_B + R_E + R_F = "+fmtMode(s)+" = total load on the model","Semakan: R_A + R_B + R_E + R_F = "+fmtMode(s)+" = jumlah load pada model")+(E.mode==="cmp"&&E.x+100>xF?L2(" (the 2.5 kg mass is beyond the end of the model)"," (jisim 2.5 kg berada di luar hujung model)"):"");
+  KEYS.forEach(function(k){var v=valueOf(k,E.x,E.mode),d=RO[k];d.classList.toggle("neg",v<-1e-9);d.querySelector(".v").textContent=fmtMode(v)});
+  if(popKey){ropop.innerHTML=explainHTML(popKey);placePop()}
+  var s=valueOf("R_A",E.x,E.mode)+valueOf("R_B",E.x,E.mode)+valueOf("R_E",E.x,E.mode)+valueOf("R_F",E.x,E.mode),off=offLoads(E.x,E.mode);
+  var offTxt=off.length?L2(" ("+off.map(function(l){return E.mode==="cmp"?"the 2.5 kg mass":"P"+(l[2]+1)}).join(", ")+" beyond the end of the model)"," ("+off.map(function(l){return E.mode==="cmp"?"jisim 2.5 kg":"P"+(l[2]+1)}).join(", ")+" di luar hujung model)"):"";
+  sumline.textContent=L2("Check: R_A + R_B + R_E + R_F = "+fmtMode(s)+" = total load on the model","Semakan: R_A + R_B + R_E + R_F = "+fmtMode(s)+" = jumlah load pada model")+offTxt;
   areanote.innerHTML=E.area?E.keys.map(function(k){var a=areaOf(IL[k]);return '<b style="color:'+CV[k]+'">R<sub>'+k.slice(2)+'</sub></b>: '+L2("positive area +"+f1(a[0])+" mm, negative area "+(a[1]<-0.05?f1(a[1]):"0")+" mm, net "+f1(a[0]+a[1])+" mm, so R = "+f1(a[0]+a[1])+"\u2009w for a uniform load w (kg/mm) over the whole model","area positif +"+f1(a[0])+" mm, area negatif "+(a[1]<-0.05?f1(a[1]):"0")+" mm, bersih "+f1(a[0]+a[1])+" mm, maka R = "+f1(a[0]+a[1])+"\u2009w bagi uniform load w (kg/mm) pada seluruh model")}).join("<br>"):"";
   save()}
 function setX(x){E.x=Math.max(0,Math.min(1130,Math.round(x)));xpos.value=E.x;var h=haltName(E.x);xlabel.textContent="x = "+E.x+" mm"+(h?" ("+h+")":"");
   document.querySelectorAll("#halts .chip").forEach(function(c){c.setAttribute("aria-pressed",String(Number(c.getAttribute("data-x"))===E.x))});refreshExplorer()}
 xpos.addEventListener("input",function(){setX(Number(xpos.value))});
 HALTS.forEach(function(h){var b=document.createElement("button");b.type="button";b.className="chip";b.textContent=h[0];b.setAttribute("data-x",h[1]);b.setAttribute("aria-pressed","false");b.addEventListener("click",function(){setX(h[1])});document.getElementById("halts").appendChild(b)});
-document.querySelectorAll("#v-explorer .seg button").forEach(function(b){b.setAttribute("aria-pressed",String(b.getAttribute("data-mode")===E.mode));b.addEventListener("click",function(){E.mode=b.getAttribute("data-mode");document.querySelectorAll("#v-explorer .seg button").forEach(function(o){o.setAttribute("aria-pressed",String(o===b))});refreshExplorer()})});
+var cusbox=document.getElementById("cusbox");
+function syncMode(){document.querySelectorAll("#v-explorer .seg button").forEach(function(o){o.setAttribute("aria-pressed",String(o.getAttribute("data-mode")===E.mode))});cusbox.hidden=E.mode!=="cus"}
+document.querySelectorAll("#v-explorer .seg button").forEach(function(b){b.addEventListener("click",function(){E.mode=b.getAttribute("data-mode");syncMode();refreshExplorer()})});
+[["cP1","P",0,100],["cP2","P",1,100],["cP3","P",2,100],["cA1","a",0,1130],["cA2","a",1,1130]].forEach(function(q){var el=document.getElementById(q[0]);el.value=E[q[1]][q[2]];
+  el.addEventListener("input",function(){var v=parseNum(el.value);if(v===null)return;E[q[1]][q[2]]=Math.max(0,Math.min(q[3],v));refreshExplorer()});
+  el.addEventListener("change",function(){var v=parseNum(el.value);E[q[1]][q[2]]=v===null?0:Math.max(0,Math.min(q[3],v));el.value=E[q[1]][q[2]];refreshExplorer()})});
+syncMode();
 var rchips=document.getElementById("rchips");
 EXKEYS.forEach(function(k){var b=document.createElement("button");b.type="button";b.className="chip rk";b.style.setProperty("--kc",CV[k]);b.innerHTML="R<sub>"+k.slice(2)+"</sub>"+(k==="R_C"?" hinge":"");b.setAttribute("aria-pressed",String(E.keys.indexOf(k)>=0));
   b.addEventListener("click",function(){var i=E.keys.indexOf(k);if(i>=0){if(E.keys.length>1)E.keys.splice(i,1)}else{E.keys.push(k);E.keys.sort(function(a,c){return EXKEYS.indexOf(a)-EXKEYS.indexOf(c)})}
@@ -504,6 +564,11 @@ function lab2(){var key=g2.value,c=Number(k2.value)||0.05,any=false;
   if(any){LB.done2=true;save();updateProgress()}
   tx(document.getElementById("s2"),"* 5 kg mass only; the 2.5 kg mass would be beyond F.","* jisim 5 kg sahaja; jisim 2.5 kg akan berada di luar F.")}
 document.getElementById("c2").addEventListener("click",lab2);
+/* illustrative Test 2 readings: theory in divisions with a fixed ±1–2 division scatter */
+var NZ2=[1,-1,0,2,-1,1,-2,0,1,-1,0,1,0,-1,1,0,0];
+document.getElementById("e2").addEventListener("click",function(){var key=g2.value,c=Number(k2.value)||0.05;LB.t2.g=key;
+  HALTS.forEach(function(h,i){var th=comp(key,h[1]),r=Math.round(th/c)+(Math.abs(th)<1e-9?0:NZ2[i]);document.getElementById("r2-"+i).value=r;LB.t2.v[i]=String(r)});save();lab2();
+  var s2=document.getElementById("s2");tx(s2,"Example readings (illustrative, not measured). "+s2.getAttribute("data-en"),"Bacaan contoh (ilustrasi, bukan ukuran). "+s2.getAttribute("data-ms"))});
 document.getElementById("x2").addEventListener("click",function(){HALTS.forEach(function(h,i){document.getElementById("r2-"+i).value="";var tr=t2b.rows[i];tr.querySelector(".a").textContent="";tr.querySelector(".b").textContent="";tr.querySelector(".c").textContent=""});LB.t2.v=[];LB.done2=false;save();updateProgress();tx(document.getElementById("s2"),"","")});
 function copyText(txt,statusEl){function fallback(){var ta=document.createElement("textarea");ta.value=txt;ta.style.minHeight="8em";ta.setAttribute("aria-label","Text to copy");statusEl.innerHTML="";statusEl.appendChild(document.createTextNode(L2("Copy this text: ","Salin teks ini: ")));statusEl.appendChild(ta);ta.select()}
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(function(){tx(statusEl,"Copied.","Disalin.")}).catch(fallback)}else fallback()}

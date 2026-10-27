@@ -73,3 +73,18 @@ img{max-width:100%;height:auto}
 .nsec.isread > h2::after{content:" ✓";color:var(--good);font-size:.8em}
 .toc a[data-toc]::before{content:"○ ";color:var(--muted)}
 .toc a.isread::before{content:"✓ ";color:var(--good)}
+/* explorer: custom loads, reaction explanations */
+.cusbox{border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--panel2)}
+.cusgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:8px 12px}
+.cusgrid label{display:grid;gap:3px;font-size:12.5px;color:var(--muted)}
+.cusgrid input{font:15px var(--font-num);padding:5px 7px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg);width:100%}
+.rowrap{position:relative}
+.ro{cursor:help;position:relative}
+.ro:hover,.ro.on{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.ro .ri{display:inline-grid;place-items:center;width:15px;height:15px;margin-left:5px;border:1px solid currentColor;border-radius:50%;font:600 10px/1 var(--font-ui);vertical-align:1px;opacity:.7}
+.ropop{position:absolute;z-index:7;background:var(--panel);color:var(--fg);border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.18);padding:10px 14px;font-size:14px;line-height:1.5}
+.ropop[hidden]{display:none}
+.ropop .eq{font-family:var(--font-num);font-size:13.5px;margin:6px 0}
+.ropop ol{margin:4px 0;padding-left:20px}
+.ropop li{margin:4px 0;font-size:13.5px}
+.ropop p.muted{font-size:12.5px;margin:6px 0 0}

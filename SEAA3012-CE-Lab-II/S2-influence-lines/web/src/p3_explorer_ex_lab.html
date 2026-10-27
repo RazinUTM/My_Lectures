@@ -11,16 +11,28 @@
         <div class="seg" role="group" aria-label="Load">
           <button type="button" data-mode="unit" aria-pressed="true">Unit load</button>
           <button type="button" data-mode="m25" aria-pressed="false">2.5 kg</button>
-          <button type="button" data-mode="cmp" aria-pressed="false">5 kg + 2.5 kg</button></div></div>
+          <button type="button" data-mode="cmp" aria-pressed="false">5 kg + 2.5 kg</button>
+          <button type="button" data-mode="cus" aria-pressed="false"><span class="en">Custom: 3 loads</span><span class="ms">Custom: 3 load</span></button></div></div>
+      <div class="cusbox" id="cusbox" hidden>
+        <div class="cusgrid">
+          <label><span>P<sub>1</sub> (kg)</span><input id="cP1" type="number" min="0" max="100" step="0.5" inputmode="decimal"></label>
+          <label><span>P<sub>2</sub> (kg)</span><input id="cP2" type="number" min="0" max="100" step="0.5" inputmode="decimal"></label>
+          <label><span>P<sub>3</sub> (kg)</span><input id="cP3" type="number" min="0" max="100" step="0.5" inputmode="decimal"></label>
+          <label><span><span class="en">Spacing</span><span class="ms">Jarak</span> P<sub>1</sub>→P<sub>2</sub> (mm)</span><input id="cA1" type="number" min="0" max="1130" step="10" inputmode="decimal"></label>
+          <label><span><span class="en">Spacing</span><span class="ms">Jarak</span> P<sub>2</sub>→P<sub>3</sub> (mm)</span><input id="cA2" type="number" min="0" max="1130" step="10" inputmode="decimal"></label>
+        </div>
+        <p class="areanote" style="margin-top:8px"><span class="en">P<sub>1</sub> stands at the load position x; P<sub>2</sub> and P<sub>3</sub> follow to its right at the spacings given. Set a load to 0 to remove it. A load beyond F is off the bridge and is not counted.</span><span class="ms">P<sub>1</sub> berada pada kedudukan load x; P<sub>2</sub> dan P<sub>3</sub> mengikut di sebelah kanannya pada jarak yang ditetapkan. Tetapkan load kepada 0 untuk membuangnya. Load yang melepasi F berada di luar jambatan dan tidak dikira.</span></p>
+      </div>
       <div class="chips" id="halts" aria-label="Halts"></div>
       <div class="row"><span class="lbl"><span class="en">Influence lines (on/off)</span><span class="ms">Influence line (hidup/mati)</span></span><span class="chips" id="rchips" aria-label="Influence lines to draw"></span>
         <label class="lbl" style="display:inline-flex;gap:6px;align-items:center"><input type="checkbox" id="showarea"> <span class="en">shade areas</span><span class="ms">lorek area</span></label></div>
-      <div class="readout" id="readout"></div>
+      <div class="rowrap" id="rowrap"><div class="readout" id="readout"></div><div class="ropop" id="ropop" role="tooltip" hidden></div></div>
+      <p class="areanote" style="margin:-4px 0 0"><span class="en">Hover over or tap a reaction to see how its value is calculated.</span><span class="ms">Letak tetikus atau tekan pada satu reaction untuk melihat cara nilainya dikira.</span></p>
       <div class="sumline" id="sumline"></div>
       <p class="areanote" id="areanote"></p>
       <details class="th"><summary><span class="en">Theory in four lines</span><span class="ms">Teori dalam empat baris</span></summary>
         <p class="num" style="font-size:13.5px;margin:8px 0 0">η_A(x) = (250 − x)/250 on ABC · η_C(x) = (690 − x)/250 on CD · η_A = −0.76 η_C on CD · η_A = 0 on DEF</p>
-        <p class="muted" style="font-size:13.5px;margin:6px 0 0"><span class="en">Support reactions are positive upwards; the hinge forces R_C and R_D are the forces the suspended span presses on the cantilever tips. In the 5 kg + 2.5 kg mode the position is that of the 5 kg mass, and the 2.5 kg mass is 100 mm to its right.</span><span class="ms">Support reaction positif ke atas; hinge force R_C dan R_D ialah daya yang dikenakan suspended span pada hujung cantilever. Dalam mod 5 kg + 2.5 kg, kedudukan ialah kedudukan jisim 5 kg, dan jisim 2.5 kg berada 100 mm di sebelah kanannya.</span></p></details>
+        <p class="muted" style="font-size:13.5px;margin:6px 0 0"><span class="en">Support reactions are positive upwards; the hinge forces R_C and R_D are the forces the suspended span presses on the cantilever tips. In the 5 kg + 2.5 kg mode the position is that of the 5 kg mass, and the 2.5 kg mass is 100 mm to its right; in the custom mode it is the position of P<sub>1</sub>.</span><span class="ms">Support reaction positif ke atas; hinge force R_C dan R_D ialah daya yang dikenakan suspended span pada hujung cantilever. Dalam mod 5 kg + 2.5 kg, kedudukan ialah kedudukan jisim 5 kg, dan jisim 2.5 kg berada 100 mm di sebelah kanannya; dalam mod custom, ia kedudukan P<sub>1</sub>.</span></p></details>
     </div>
   </div>
   <div class="card" style="margin-top:18px">
@@ -221,7 +233,7 @@
     <div class="row"><label for="g2">Gauge</label><select id="g2"><option value="R_A">A</option><option value="R_B">B</option><option value="R_C">C</option><option value="R_D">D</option><option value="R_E">E</option><option value="R_F">F</option></select>
       <label for="k2">kgf per division</label><input id="k2" type="number" step="0.001" value="0.05" style="width:6em"></div>
     <div class="tbl"><table id="t2"><thead><tr><th class="l">Halt</th><th><span class="en">5 kg at (mm)</span><span class="ms">5 kg di (mm)</span></th><th><span class="en">Reading (div)</span><span class="ms">Bacaan (div)</span></th><th>R test (kgf)</th><th>R theory (kgf)</th><th><span class="en">Difference (kgf)</span><span class="ms">Perbezaan (kgf)</span></th></tr></thead><tbody></tbody></table></div>
-    <div class="row"><button class="btn" type="button" id="c2"><span class="en">Compare with theory</span><span class="ms">Bandingkan dengan teori</span></button><button class="btn ghost" type="button" id="x2"><span class="en">Clear</span><span class="ms">Kosongkan</span></button><button class="btn ghost" type="button" id="p2"><span class="en">Copy table</span><span class="ms">Salin jadual</span></button><span class="muted" id="s2" style="font-size:13.5px"></span></div>
+    <div class="row"><button class="btn" type="button" id="c2"><span class="en">Compare with theory</span><span class="ms">Bandingkan dengan teori</span></button><button class="btn ghost" type="button" id="e2"><span class="en">Fill example readings</span><span class="ms">Isi bacaan contoh</span></button><button class="btn ghost" type="button" id="x2"><span class="en">Clear</span><span class="ms">Kosongkan</span></button><button class="btn ghost" type="button" id="p2"><span class="en">Copy table</span><span class="ms">Salin jadual</span></button><span class="muted" id="s2" style="font-size:13.5px"></span></div>
   </div>
 
   <div class="card" style="margin-top:18px"><h2><span class="en">What the report must contain</span><span class="ms">Kandungan wajib laporan</span></h2>

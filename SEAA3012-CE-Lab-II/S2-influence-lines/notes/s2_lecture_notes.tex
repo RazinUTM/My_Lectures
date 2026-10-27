@@ -86,6 +86,18 @@ The model in the Structures Laboratory (Figure~\ref{fig:model}) is a cantilever 
 
 \paragraph{Members.} Beam ABC is simply supported at A and B with a cantilever BC of \SI{190}{mm}. Beam DEF is its mirror image. The suspended span CD (\SI{250}{mm}) rests on the cantilever tips: the hinges at C and D transmit a vertical force but no bending moment.
 
+\paragraph{Supports and hinges.} A support or a joint is described by what it \emph{stops}: every movement it prevents produces a force (or moment) in that direction, and every movement it allows produces none.
+
+\begin{center}\small
+\begin{tabular}{@{}llll@{}}\toprule
+Restraint & Where & Transmits & Allows\\\midrule
+Pin & A, F & vertical and horizontal force & rotation\\
+Roller & B, E & vertical force only & rotation and horizontal movement\\
+Hinge (internal) & C, D & force between the two members it joins & relative rotation, so $M = 0$ there\\\bottomrule
+\end{tabular}
+\end{center}
+A hinge is not a support: it joins two members and passes a force from one to the other, but no bending moment. Each hinge therefore adds one equation, $M = 0$ at that point, which is what makes the model statically determinate. In the model the supports at A and F can also pull downwards, and their gauges register uplift as a negative reading.
+
 \paragraph{Determinacy.} No horizontal load is applied, so the pins at A and F provide no horizontal reaction and there are four unknown vertical reactions, $R_A$, $R_B$, $R_E$, $R_F$. Plane statics gives two useful equations for the whole structure ($\sum F_y = 0$ and $\sum M = 0$), and each internal hinge supplies one more ($M = 0$ at C and at D): four equations for four unknowns. The structure is \textbf{statically determinate}, and every influence line in these notes follows from equilibrium alone, with no need for $EI$. That is also why every influence line turns out to be made of straight segments.
 
 \paragraph{Sign convention.} Support reactions are positive upwards. The hinge forces $R_C$ and $R_D$ are the forces that the suspended span presses on the cantilever tips (positive downwards on the tip); they are what the gauges at C and D register. Positions are measured from A, $0 \le x \le \SI{1130}{mm}$.
@@ -181,6 +193,16 @@ Beam DEF is the mirror image of ABC about the centre of the model ($x = 565$), w
   \label{eq:etaEF}
 \end{equation}
 while for a load on CD the hinge force $\il{D}$ is carried by DEF exactly as $\il{C}$ was by ABC: $\il{E} = 1.76\,\il{D}$ and $\il{F} = -0.76\,\il{D}$. A load on ABC or on DEF never reaches the other side, because the suspended span is then unloaded and transmits nothing: $\il{A} = \il{B} = 0$ for $x \ge 690$, and $\il{E} = \il{F} = 0$ for $x \le 440$.
+\end{stepbox}
+
+\begin{stepbox}[Why $\il{C}$ and $\il{D}$ are non-zero only between C and D]
+The gauge at C reads the force that passes through hinge C, from the suspended span into the tip of cantilever BC. A force can pass through the hinge only when the suspended span itself carries something.
+\begin{itemize}[leftmargin=*,itemsep=2pt]
+\item \emph{Load on ABC} ($x < 440$): ABC stands on its own supports A and B and takes the load to them directly. The suspended span carries nothing, so nothing passes through C: $\il{C} = 0$.
+\item \emph{Load on CD} ($440 \le x \le 690$): CD is a simple beam between the two hinges, and each hinge takes its lever-rule share, $\il{C} = (690-x)/250$, from 1 at C to 0 at D.
+\item \emph{Load on DEF} ($x > 690$): the mirror of the first case; the load goes to E and F, CD stays unloaded and $\il{C} = 0$.
+\end{itemize}
+\textbf{The jump at C.} Just left of C the load stands on the cantilever tip, which belongs to ABC, so it goes straight to A and B and $\il{C} = 0$; just right of C it stands on the suspended span at its support, so the whole load passes through the hinge and $\il{C} = 1$. The Müller--Breslau construction (Section~\ref{sec:mb}) gives the same picture: cut the vertical connection at C and lift the end of CD by 1 relative to the tip; ABC does not move, because A and B still support it, while CD rotates about D.
 \end{stepbox}
 
 \begin{stepbox}[Step 5 -- Assemble and check]

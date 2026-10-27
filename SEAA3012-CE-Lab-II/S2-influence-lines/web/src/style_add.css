@@ -98,3 +98,17 @@ img{max-width:100%;height:auto}
 .gloss td.g1{white-space:nowrap;font-weight:600;width:1%;padding-right:18px}
 .gfilter{font:15px var(--font-ui);padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg);min-width:min(260px,100%)}
 @media (max-width:560px){.gloss td.g1{white-space:normal;width:34%}}
+/* touch screens: larger targets; 16px inputs so iOS does not zoom on focus */
+@media (pointer:coarse){
+  .chip{padding:9px 14px;font-size:14px}
+  .seg button{padding:9px 14px}
+  .btn{padding:9px 16px}
+  .opt,.choice button,.multi button{padding:11px 12px}
+  .tab{padding:14px 14px 12px}
+  .conf button{padding:9px 13px;font-size:13.5px}
+  input[type=range]{height:32px}
+  .readck{min-height:52px}
+}
+@media (pointer:coarse),(max-width:700px){
+  input,select,textarea{font-size:16px!important}
+}

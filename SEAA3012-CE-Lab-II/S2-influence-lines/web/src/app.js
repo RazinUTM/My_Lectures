@@ -189,6 +189,41 @@ function fbdSVG(fs){setG(fs);var o=[],stack=fs>1.45&&!INSLIDE,s=stack?2.3:0.75,t
   o.push(dim(P(ox,0),P(ox,250),y+dyo,"250",fs),dim(P(ox,250),P(ox,440),y+dyo,"190",fs));
   return {html:o.join(""),h:stack?3*ph:ph}}
 
+/* ---------- supports and hinges: what each restraint passes on ---------- */
+function hArrow(x1,x2,y,col,w){var h=Math.min(14*G,Math.abs(x2-x1)*0.6),hw=8*G,dir=x2>x1?1:-1,xb=x2-dir*h;w=(w||3)*G;
+  return Ln(x1,y,xb,y,col,w)+'<polygon points="'+x2.toFixed(1)+','+y.toFixed(1)+' '+xb.toFixed(1)+','+(y-hw).toFixed(1)+' '+xb.toFixed(1)+','+(y+hw).toFixed(1)+'" style="fill:'+col+'"/>'}
+function supportsSVG(fs){setG(fs);var o=[],stack=fs>1.45&&!INSLIDE,top=10,by0=top+30*fs+92*G,ph=by0+130*G+50*fs+16;
+  var P=[{t:L2("Pin · A, F","Pin · A, F"),l1:L2("vertical and horizontal force","daya menegak dan mendatar"),l2:L2("free to rotate","bebas berputar")},
+         {t:L2("Roller · B, E","Roller · B, E"),l1:L2("vertical force only","daya menegak sahaja"),l2:L2("free to rotate and roll","bebas berputar dan bergolek")},
+         {t:L2("Hinge · C, D","Hinge · C, D"),l1:L2("passes force between members","memindahkan daya antara anggota"),l2:L2("no moment: M = 0","tiada moment: M = 0")}];
+  P.forEach(function(q,i){var cx=stack?620:(215+410*i),oy=stack?i*ph:0,by=oy+by0,half=stack?260:150;
+    o.push(T(cx,oy+top+18*fs,q.t,{size:16*fs,anchor:"middle",weight:700}));
+    if(i<2){o.push(Ln(cx-half,by,cx+half,by,"var(--fg)",6*G));o.push(i===0?pinAt(cx,by):rollerAt(cx,by));
+      o.push(vArrow(cx,by+125*G,by+52*G,"var(--accent)",3),T(cx+14*G,by+105*G,"V",{size:15*fs,weight:700,fill:"var(--accent)"}));
+      if(i===0)o.push(hArrow(cx-110*G,cx-34*G,by+34*G,"var(--accent)",3),T(cx-112*G,by+26*G,"H",{size:15*fs,weight:700,fill:"var(--accent)"}))}
+    else{var g=16*G;o.push(Ln(cx-half,by,cx-g,by,"var(--fg)",6*G),Ln(cx+g,by,cx+half,by,"var(--fg)",6*G));
+      o.push('<circle cx="'+(cx-g)+'" cy="'+by+'" r="'+6*G+'" style="fill:var(--panel);stroke:var(--hinge)" stroke-width="'+2.5*G+'"/><circle cx="'+(cx+g)+'" cy="'+by+'" r="'+6*G+'" style="fill:var(--panel);stroke:var(--hinge)" stroke-width="'+2.5*G+'"/>');
+      o.push(T(cx-half*0.6,by-14*G,L2("cantilever tip","hujung cantilever"),{size:12.5*fs,anchor:"middle",fill:"var(--muted)"}),T(cx+half*0.6,by-14*G,"suspended span",{size:12.5*fs,anchor:"middle",fill:"var(--muted)"}));
+      o.push(vArrow(cx-g,by-78*G,by-10*G,"var(--hinge)",3),T(cx-g-10*G,by-60*G,Rl("R_C"),{size:15*fs,anchor:"end",weight:700,fill:"var(--hinge)"}));
+      o.push(vArrow(cx+g,by+80*G,by+10*G,"var(--hinge)",3),T(cx+g+10*G,by+66*G,Rl("R_C"),{size:15*fs,weight:700,fill:"var(--hinge)"}))}
+    o.push(T(cx,by+125*G+22*fs,q.l1,{size:14*fs,anchor:"middle"}),T(cx,by+125*G+40*fs,q.l2,{size:14*fs,anchor:"middle",fill:"var(--muted)"}))});
+  return {html:o.join(""),h:stack?3*ph:ph}}
+/* ---------- load path: which members carry a load on ABC, on CD or on DEF ---------- */
+function hingepathSVG(fs){setG(fs);var o=[],top=4,cases=[[300,"ABC"],[560,"CD"],[800,"DEF"]],rh=0;
+  cases.forEach(function(cs,i){var x=cs[0],m=cs[1],oy=top+rh*i,beamY=oy+32*fs+70*G,on={ABC:m!=="DEF",CD:m==="CD",DEF:m!=="ABC"};
+    var col=function(b){return on[b]?"var(--fg)":"var(--line)"};
+    var t=L2(["(a) load on ABC","(b) load on CD","(c) load on DEF"][i],["(a) load pada ABC","(b) load pada CD","(c) load pada DEF"][i]);
+    var res=[L2("nothing passes through C or D","tiada daya melalui C atau D"),"R<tspan style=\"font-size:72%\" dy=\"0.3em\">C</tspan><tspan dy=\"-0.3em\"> = "+f2(RC(x))+", R</tspan><tspan style=\"font-size:72%\" dy=\"0.3em\">D</tspan><tspan dy=\"-0.3em\"> = "+f2(RD(x))+"</tspan>",L2("nothing passes through C or D","tiada daya melalui C atau D")][i];
+    o.push(T(px(0),oy+20*fs,t,{size:15*fs,weight:700}),T(px(xF),oy+20*fs,res,{size:14.5*fs,anchor:"end",weight:600,fill:i===1?"var(--hinge)":"var(--muted)"}));
+    o.push(Ln(px(0),beamY,px(xC)-9*G,beamY,col("ABC"),7*G),Ln(px(xC)+9*G,beamY,px(xD)-9*G,beamY,col("CD"),7*G),Ln(px(xD)+9*G,beamY,px(xF),beamY,col("DEF"),7*G));
+    o.push(hingeAt(px(xC),beamY),hingeAt(px(xD),beamY),pinAt(px(0),beamY),rollerAt(px(xB),beamY),rollerAt(px(xE),beamY),pinAt(px(xF),beamY));
+    o.push(vArrow(px(x),beamY-54*G,beamY-6*G,"var(--load)",4),T(px(x),beamY-60*G,"1",{size:15*fs,anchor:"middle",weight:700,fill:"var(--load)"}));
+    if(i===1){[[xC,RC(x)],[xD,RD(x)]].forEach(function(h){o.push(vArrow(px(h[0]),beamY+12*G,beamY+58*G,"var(--hinge)",3))})}
+    ["A","B","C","D","E","F"].forEach(function(nm,j){o.push(T(px(VERT[j])+(j===2||j===3?14*G:0),beamY+62*G,nm,{size:13*fs,anchor:j===2||j===3?"start":"middle",fill:"var(--muted)",weight:600}))});
+    rh=beamY+72*G-oy+10*fs});
+  var ly=top+rh*3+4*fs;o.push(Ln(px(0),ly,px(0)+46*G,ly,"var(--fg)",6*G),T(px(0)+56*G,ly+5*fs,L2("carries the load","membawa load"),{size:13.5*fs}),
+    Ln(px(0)+280*fs,ly,px(0)+280*fs+46*G,ly,"var(--line)",6*G),T(px(0)+290*fs+46*G,ly+5*fs,L2("unloaded","tidak dibebani"),{size:13.5*fs}));
+  return {html:o.join(""),h:ly+16*fs}}
 var MBREL={R_A:0,R_B:xB,R_C:xC,R_D:xD,R_E:xE,R_F:xF};
 function mbSVG(key,d,fs){setG(fs);var o=[],K=62*fs,beamY=26*fs+1.8*K+8,f=IL[key],x0=MBREL[key];
   o.push(Ln(px(0),beamY,px(xF),beamY,"var(--muted)",2*G,' stroke-dasharray="'+7*G+' '+6*G+'"'));
@@ -213,6 +248,8 @@ function renderFig(svg){var k=svg.getAttribute("data-fig"),r=null;INSLIDE=!!svg.
   else if(k==="ils-ab")r=figureSVG({fs:fs,keys:["R_A","R_B"]});
   else if(k==="ils-ce")r=figureSVG({fs:fs,keys:["R_C","R_E"]});
   else if(k==="fbd")r=fbdSVG(fs);
+  else if(k==="supports")r=supportsSVG(fs);
+  else if(k==="hingepath")r=hingepathSVG(fs);
   else if(k==="mbA")r=mbSVG("R_A",1,fs);
   else if(k==="mbdemo")r=mbSVG(MB.key,MB.d,fs);
   else if(k==="explorer")r=figureSVG({fs:fs,x:E.x,mode:E.mode,keys:E.keys,area:E.area,reactions:true});
@@ -241,7 +278,7 @@ function buildTables(){
    Views, progress and badges
    ===================================================================== */
 var VIEWS=["start","notes","slides","explorer","exercises","lab","glossary"],current="start",typesetDone={};
-var NSECS=["n1","n2","n3","n4","n5","n6","n7","n8"],QCS=["qc1","qc2","qc3","qc4","qc5"];
+var NSECS=["n1","n2","n3","n4","n5","n6","n7","n8"],QCS=["qc1","qc6","qc2","qc7","qc3","qc4","qc5"];
 function cnt(o){return Object.keys(o).filter(function(k){return o[k]}).length}
 function parts(){var lab=0;for(var i=1;i<=5;i++)if(ST.lab.ck["ck"+i])lab++;if(ST.lab.done1)lab++;if(ST.lab.done2)lab++;
   return {notes:[NSECS.filter(function(s){return ST.read[s]}).length,8],slides:[Math.min(cnt(ST.seen),slides.length),slides.length],
@@ -316,6 +353,10 @@ document.addEventListener("keydown",function(e){if(e.key==="Escape"&&drawerOpen)
   else if(e.key==="f"||e.key==="F"){toggleFull()}});
 document.querySelectorAll('.slide[data-predict] .opt').forEach(function(b){b.addEventListener("click",function(){var s=b.closest(".slide");
   s.querySelectorAll(".opt").forEach(function(o){o.dataset.state=o.getAttribute("data-ok")==="1"?"right":(o===b?"wrong":"")});var r=s.querySelector(".reveal");r.hidden=false;typeset(r)})});
+/* swipe left or right on the slide to change slides (tablets and phones) */
+var deck=document.getElementById("deck"),tsx=null,tsy=null;
+deck.addEventListener("touchstart",function(e){if(e.touches.length!==1||e.target.closest("input,button")){tsx=null;return}tsx=e.touches[0].clientX;tsy=e.touches[0].clientY},{passive:true});
+deck.addEventListener("touchend",function(e){if(tsx===null)return;var t=e.changedTouches[0],dx=t.clientX-tsx,dy=t.clientY-tsy;tsx=null;if(Math.abs(dx)>50&&Math.abs(dx)>1.5*Math.abs(dy))goSlide(slideIdx+(dx<0?1:-1))},{passive:true});
 var slive=document.getElementById("slive");
 slive.addEventListener("input",function(){LIVE.x=Number(slive.value);HALTS.forEach(function(q){if(Math.abs(q[1]-LIVE.x)<=6)LIVE.x=q[1]});renderFig(document.querySelector('svg[data-fig="slidelive"]'))});
 

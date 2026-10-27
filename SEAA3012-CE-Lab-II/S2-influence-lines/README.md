@@ -6,8 +6,8 @@ uses the geometry, halts, notation η_R(x) and sign convention of the revised la
 
 ## Course page
 
-`index.html` is a single self-contained page with six tabs: Start, Notes, Slides, Explorer,
-Exercises and Lab. It works in any modern browser, on phones as well as projectors. Tabs open
+`index.html` is a single self-contained page with seven tabs: Start, Notes, Slides, Explorer,
+Exercises, Lab and Glossary. It works in any modern browser, on phones as well as projectors. Tabs open
 directly with `#notes`, `#slides`, `#explorer`, `#exercises` or `#lab` after the address.
 
 Published with GitHub Pages at
@@ -24,10 +24,8 @@ one per tab (`qr_s2_explorer.png`, `qr_s2_notes.png`, …).
 | Short notes drawer | formula sheet available from every tab |
 | BM / EN switch | Malay explanations, technical terms kept in English |
 | Theme switch (automatic, light, dark) | display preference |
+| Glossary tab with search | symbols, units (kgf, div) and terms |
 | Explorer: R_A, R_B, R_C influence lines switched on or off | view one, two or three lines under the bridge |
-| Explorer: custom group of three loads with chosen values and spacings | any vehicle or load train |
-| Explorer: hover or tap a reaction for its step-by-step calculation | links each number to the free-body diagrams |
-| Lab: example readings for Test 1 and Test 2 | shows what a comparison with theory looks like |
 
 Everything a student enters is stored only in that student's browser (`localStorage`); nothing is
 collected or sent anywhere.

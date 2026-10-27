@@ -3,36 +3,37 @@
 <section class="view" data-view="explorer" id="v-explorer" role="tabpanel" aria-labelledby="t-explorer" hidden>
   <div class="card">
     <h2><span class="en">Move the load</span><span class="ms">Gerakkan load</span></h2>
-    <p class="lead"><span class="en">Drag the load on the drawing, use the slider or tap a halt. Switch the influence lines for R<sub>A</sub>, R<sub>B</sub> and R<sub>C</sub> on or off to view one, two or all three under the bridge: every halt sits directly above its ordinate. R<sub>D</sub>, R<sub>E</sub> and R<sub>F</sub> are their mirror images and are listed in the readout.</span><span class="ms">Seret load pada lukisan, guna slider atau tekan satu halt. Hidupkan atau matikan influence line bagi R<sub>A</sub>, R<sub>B</sub> dan R<sub>C</sub> untuk melihat satu, dua atau ketiga-tiganya di bawah jambatan: setiap halt berada tepat di atas ordinate-nya. R<sub>D</sub>, R<sub>E</sub> dan R<sub>F</sub> ialah imej cerminnya dan dipaparkan dalam readout.</span></p>
-    <svg class="fig" data-fig="explorer" id="expsvg" style="touch-action:pan-y;cursor:ew-resize" role="img" aria-label="Bridge with load and the selected influence lines"></svg>
+    <p class="lead"><span class="en">Drag the loads on the drawing, use the slider or tap a halt.</span><span class="ms">Seret load pada lukisan, guna slider atau tekan satu halt.</span></p>
+    <div class="ilrow">
+      <span class="lbl">Influence lines</span>
+      <span class="chips" id="rchips" aria-label="Influence lines to draw"></span>
+      <span class="chips"><button class="chip" type="button" id="ilall"><span class="en">All</span><span class="ms">Semua</span></button><button class="chip" type="button" id="ilnone"><span class="en">None</span><span class="ms">Tiada</span></button></span>
+      <label class="lbl" style="display:inline-flex;gap:6px;align-items:center"><input type="checkbox" id="showarea"> <span class="en">shade areas</span><span class="ms">lorek area</span></label>
+    </div>
+    <svg class="fig" data-fig="explorer" id="expsvg" style="touch-action:pan-y;cursor:ew-resize" role="img" aria-label="Bridge with loads, support reactions and the selected influence lines"></svg>
     <div class="ctrl">
-      <div class="slwrap"><input type="range" id="xpos" min="0" max="1130" step="1" value="0" aria-label="Load position in millimetres"></div>
-      <div class="row"><span class="lbl"><span class="en">Load position</span><span class="ms">Kedudukan load</span> <b class="num" id="xlabel" style="color:var(--fg)">x = 0 mm (A)</b></span>
-        <div class="seg" role="group" aria-label="Load">
-          <button type="button" data-mode="unit" aria-pressed="true">Unit load</button>
-          <button type="button" data-mode="m25" aria-pressed="false">2.5 kg</button>
-          <button type="button" data-mode="cmp" aria-pressed="false">5 kg + 2.5 kg</button>
-          <button type="button" data-mode="cus" aria-pressed="false"><span class="en">Custom: 3 loads</span><span class="ms">Custom: 3 load</span></button></div></div>
-      <div class="cusbox" id="cusbox" hidden>
+      <div class="slwrap"><input type="range" id="xpos" min="0" max="1130" step="1" value="0" aria-label="Position of P1 in millimetres"></div>
+      <div class="row"><span class="lbl"><span class="en">Position of</span><span class="ms">Kedudukan</span> P<sub>1</sub> <b class="num" id="xlabel" style="color:var(--fg)">x = 0 mm (A)</b></span></div>
+      <div class="chips" id="halts" aria-label="Halts"></div>
+      <div class="cusbox" id="cusbox">
+        <div class="cushead"><b><span class="en">Loads</span><span class="ms">Load</span></b>
+          <span class="chips"><span class="lbl"><span class="en">Quick fill:</span><span class="ms">Isi pantas:</span></span>
+            <button class="chip" type="button" data-preset="unit">Unit load (1, 0, 0)</button>
+            <button class="chip" type="button" data-preset="m25">2.5 kg</button>
+            <button class="chip" type="button" data-preset="t2"><span class="en">Test 2 pair</span><span class="ms">Pasangan Test 2</span> (5 + 2.5)</button></span></div>
         <div class="cusgrid">
           <label><span>P<sub>1</sub> (kg)</span><input id="cP1" type="number" min="0" max="100" step="0.5" inputmode="decimal"></label>
           <label><span>P<sub>2</sub> (kg)</span><input id="cP2" type="number" min="0" max="100" step="0.5" inputmode="decimal"></label>
           <label><span>P<sub>3</sub> (kg)</span><input id="cP3" type="number" min="0" max="100" step="0.5" inputmode="decimal"></label>
-          <label><span><span class="en">Spacing</span><span class="ms">Jarak</span> P<sub>1</sub>→P<sub>2</sub> (mm)</span><input id="cA1" type="number" min="0" max="1130" step="10" inputmode="decimal"></label>
-          <label><span><span class="en">Spacing</span><span class="ms">Jarak</span> P<sub>2</sub>→P<sub>3</sub> (mm)</span><input id="cA2" type="number" min="0" max="1130" step="10" inputmode="decimal"></label>
+          <label><span>P<sub>1</sub>→P<sub>2</sub> (mm)</span><input id="cA1" type="number" min="0" max="1130" step="10" inputmode="decimal"></label>
+          <label><span>P<sub>2</sub>→P<sub>3</sub> (mm)</span><input id="cA2" type="number" min="0" max="1130" step="10" inputmode="decimal"></label>
         </div>
-        <p class="areanote" style="margin-top:8px"><span class="en">P<sub>1</sub> stands at the load position x; P<sub>2</sub> and P<sub>3</sub> follow to its right at the spacings given. Set a load to 0 to remove it. A load beyond F is off the bridge and is not counted.</span><span class="ms">P<sub>1</sub> berada pada kedudukan load x; P<sub>2</sub> dan P<sub>3</sub> mengikut di sebelah kanannya pada jarak yang ditetapkan. Tetapkan load kepada 0 untuk membuangnya. Load yang melepasi F berada di luar jambatan dan tidak dikira.</span></p>
+        <p class="areanote" style="margin-top:8px"><span class="en">P<sub>2</sub> and P<sub>3</sub> follow P<sub>1</sub> to the right. 0 removes a load; a load beyond F is not counted.</span><span class="ms">P<sub>2</sub> dan P<sub>3</sub> mengikut P<sub>1</sub> ke kanan. 0 membuang load; load yang melepasi F tidak dikira.</span></p>
       </div>
-      <div class="chips" id="halts" aria-label="Halts"></div>
-      <div class="row"><span class="lbl"><span class="en">Influence lines (on/off)</span><span class="ms">Influence line (hidup/mati)</span></span><span class="chips" id="rchips" aria-label="Influence lines to draw"></span>
-        <label class="lbl" style="display:inline-flex;gap:6px;align-items:center"><input type="checkbox" id="showarea"> <span class="en">shade areas</span><span class="ms">lorek area</span></label></div>
       <div class="rowrap" id="rowrap"><div class="readout" id="readout"></div><div class="ropop" id="ropop" role="tooltip" hidden></div></div>
-      <p class="areanote" style="margin:-4px 0 0"><span class="en">Hover over or tap a reaction to see how its value is calculated.</span><span class="ms">Letak tetikus atau tekan pada satu reaction untuk melihat cara nilainya dikira.</span></p>
+      <p class="areanote" style="margin:-4px 0 0"><span class="en">Hover over or tap a reaction to see how its value is calculated. Symbols and units:</span><span class="ms">Letak tetikus atau tekan pada satu reaction untuk melihat cara nilainya dikira. Simbol dan unit:</span> <button class="linkbtn" type="button" data-go="glossary"><span class="en">Glossary</span><span class="ms">Glosari</span></button></p>
       <div class="sumline" id="sumline"></div>
       <p class="areanote" id="areanote"></p>
-      <details class="th"><summary><span class="en">Theory in four lines</span><span class="ms">Teori dalam empat baris</span></summary>
-        <p class="num" style="font-size:13.5px;margin:8px 0 0">η_A(x) = (250 − x)/250 on ABC · η_C(x) = (690 − x)/250 on CD · η_A = −0.76 η_C on CD · η_A = 0 on DEF</p>
-        <p class="muted" style="font-size:13.5px;margin:6px 0 0"><span class="en">Support reactions are positive upwards; the hinge forces R_C and R_D are the forces the suspended span presses on the cantilever tips. In the 5 kg + 2.5 kg mode the position is that of the 5 kg mass, and the 2.5 kg mass is 100 mm to its right; in the custom mode it is the position of P<sub>1</sub>.</span><span class="ms">Support reaction positif ke atas; hinge force R_C dan R_D ialah daya yang dikenakan suspended span pada hujung cantilever. Dalam mod 5 kg + 2.5 kg, kedudukan ialah kedudukan jisim 5 kg, dan jisim 2.5 kg berada 100 mm di sebelah kanannya; dalam mod custom, ia kedudukan P<sub>1</sub>.</span></p></details>
     </div>
   </div>
   <div class="card" style="margin-top:18px">
@@ -249,6 +250,57 @@
       <li>Perbezaan mutlak pada setiap halt; peratusan hanya pada ordinate besar; equilibrium check.</li>
       <li>Perbincangan sumber error dengan nombor (Nota, Section 7), dan kesimpulan tentang persetujuan.</li>
       <li>Jawapan kepada soalan data sheet: kepentingan influence line dalam rekabentuk (kurang daripada 100 patah perkataan).</li></ul></div>
+</section>
+
+<!-- =============================================================== GLOSSARY -->
+<section class="view" data-view="glossary" id="v-glossary" role="tabpanel" aria-labelledby="t-glossary" hidden>
+  <div class="card">
+    <div class="exhead"><div><h2><span class="en">Glossary</span><span class="ms">Glosari</span></h2>
+      <p class="lead" style="margin:0"><span class="en">Symbols, units and terms used on this page.</span><span class="ms">Simbol, unit dan istilah yang digunakan pada page ini.</span></p></div>
+      <input class="gfilter" id="gfilter" type="search" data-ph-en="Search, e.g. kgf" data-ph-ms="Cari, contoh kgf" aria-label="Search the glossary"></div>
+    <h3 class="part" style="margin-top:16px"><span class="en">Symbols and units</span><span class="ms">Simbol dan unit</span></h3>
+    <div class="tbl"><table class="gloss"><tbody>
+        <tr><td class="l g1">x</td><td class="l"><span class="en">Position along the bridge measured from A, in mm. In the Explorer it is the position of P<sub>1</sub>.</span><span class="ms">Kedudukan di sepanjang jambatan diukur dari A, dalam mm. Dalam Explorer, ia kedudukan P<sub>1</sub>.</span></td></tr>
+        <tr><td class="l g1">η<sub>R</sub>(x)</td><td class="l"><span class="en">Influence-line ordinate: the value of response R when a unit load stands at x. Dimensionless for a reaction (reaction per unit load).</span><span class="ms">Ordinate influence line: nilai response R apabila unit load berada di x. Tanpa dimensi bagi reaction (reaction per unit load).</span></td></tr>
+        <tr><td class="l g1">R<sub>A</sub>, R<sub>B</sub>, R<sub>E</sub>, R<sub>F</sub></td><td class="l"><span class="en">Support reactions at A, B, E and F. Positive upwards; negative means the support holds the deck down (uplift).</span><span class="ms">Support reaction di A, B, E dan F. Positif ke atas; negatif bermaksud support menahan deck ke bawah (uplift).</span></td></tr>
+        <tr><td class="l g1">R<sub>C</sub>, R<sub>D</sub></td><td class="l"><span class="en">Hinge forces at C and D: the force the suspended span presses on the cantilever tip. Positive downwards on the tip. Measured by the gauges at C and D.</span><span class="ms">Hinge force di C dan D: daya yang dikenakan suspended span pada hujung cantilever. Positif ke bawah pada hujung. Diukur oleh gauge di C dan D.</span></td></tr>
+        <tr><td class="l g1">P, P<sub>1</sub>, P<sub>2</sub>, P<sub>3</sub></td><td class="l"><span class="en">Concentrated loads, given as masses in kg.</span><span class="ms">Concentrated load, diberi sebagai jisim dalam kg.</span></td></tr>
+        <tr><td class="l g1">w</td><td class="l"><span class="en">Uniformly distributed load (UDL), in kg/mm.</span><span class="ms">Uniformly distributed load (UDL), dalam kg/mm.</span></td></tr>
+        <tr><td class="l g1">kgf</td><td class="l"><span class="en">Kilogram-force: the weight of a 1 kg mass under standard gravity. 1 kgf = 9.80665 N ≈ 9.81 N. A 2.5 kg mass weighs 2.5 kgf, and the gauges are calibrated in kgf, so masses in kg give reactions directly in kgf.</span><span class="ms">Kilogram-force: berat jisim 1 kg di bawah graviti piawai. 1 kgf = 9.80665 N ≈ 9.81 N. Jisim 2.5 kg mempunyai berat 2.5 kgf, dan gauge ditentukur dalam kgf, jadi jisim dalam kg terus memberi reaction dalam kgf.</span></td></tr>
+        <tr><td class="l g1">div</td><td class="l"><span class="en">One division of a dial gauge, equal to 0.05 kgf.</span><span class="ms">Satu division dial gauge, bersamaan 0.05 kgf.</span></td></tr>
+        <tr><td class="l g1">m</td><td class="l"><span class="en">Applied mass used in data reduction (2.5 kg in Test 1).</span><span class="ms">Jisim yang dikenakan dalam data reduction (2.5 kg dalam Test 1).</span></td></tr>
+        <tr><td class="l g1">η<sub>test</sub>, η<sub>theory</sub></td><td class="l"><span class="en">Experimental ordinate (reading × 0.05 / m) and theoretical ordinate.</span><span class="ms">Ordinate eksperimen (bacaan × 0.05 / m) dan ordinate teori.</span></td></tr>
+        <tr><td class="l g1">Σ</td><td class="l"><span class="en">Sum over all loads on the bridge.</span><span class="ms">Jumlah bagi semua load di atas jambatan.</span></td></tr>
+        <tr><td class="l g1">Δx</td><td class="l"><span class="en">Error in placing a mass on its halt (about ±5 mm).</span><span class="ms">Error semasa meletakkan jisim pada halt (lebih kurang ±5 mm).</span></td></tr>
+    </tbody></table></div>
+    <h3 class="part"><span class="en">Terms</span><span class="ms">Istilah</span></h3>
+    <div class="tbl"><table class="gloss"><tbody>
+        <tr><td class="l g1">Influence line</td><td class="l"><span class="en">Graph of one response at a fixed point (a reaction, shear or moment) against the position of a moving unit load.</span><span class="ms">Graf satu response pada titik tetap (reaction, shear atau moment) melawan kedudukan unit load yang bergerak.</span></td></tr>
+        <tr><td class="l g1">Unit load</td><td class="l"><span class="en">A concentrated load of magnitude 1 used to define the influence line.</span><span class="ms">Concentrated load bermagnitud 1 yang digunakan untuk mentakrif influence line.</span></td></tr>
+        <tr><td class="l g1">Superposition</td><td class="l"><span class="en">For a linear elastic structure the effects of several loads add: R = Σ P<sub>i</sub> η<sub>R</sub>(x<sub>i</sub>).</span><span class="ms">Bagi struktur linear elastic, kesan beberapa load boleh dijumlahkan: R = Σ P<sub>i</sub> η<sub>R</sub>(x<sub>i</sub>).</span></td></tr>
+        <tr><td class="l g1">Statically determinate</td><td class="l"><span class="en">All reactions follow from equilibrium alone; the model has four reactions, two equilibrium equations and two hinge conditions.</span><span class="ms">Semua reaction diperoleh daripada equilibrium sahaja; model ini ada empat reaction, dua persamaan equilibrium dan dua syarat hinge.</span></td></tr>
+        <tr><td class="l g1">Gerber (cantilever) bridge</td><td class="l"><span class="en">Two anchor spans with cantilever arms carrying a suspended span on hinges.</span><span class="ms">Dua anchor span dengan cantilever arm yang membawa suspended span pada hinge.</span></td></tr>
+        <tr><td class="l g1">Suspended span</td><td class="l"><span class="en">Span CD, simply supported on the tips of the two cantilevers through hinges C and D.</span><span class="ms">Span CD, disokong mudah pada hujung dua cantilever melalui hinge C dan D.</span></td></tr>
+        <tr><td class="l g1">Hinge</td><td class="l"><span class="en">A joint that transmits force but no bending moment.</span><span class="ms">Sambungan yang memindahkan daya tetapi tidak memindahkan bending moment.</span></td></tr>
+        <tr><td class="l g1">Cantilever</td><td class="l"><span class="en">The overhanging part of a beam beyond its support (BC and DE).</span><span class="ms">Bahagian beam yang terjulur melepasi support (BC dan DE).</span></td></tr>
+        <tr><td class="l g1">Halt</td><td class="l"><span class="en">A marked position on the deck where the mass is placed (A, 1–11, …, F).</span><span class="ms">Kedudukan bertanda pada deck tempat jisim diletakkan (A, 1–11, …, F).</span></td></tr>
+        <tr><td class="l g1">Dial gauge</td><td class="l"><span class="en">Instrument under each support or hinge that reads the force in divisions.</span><span class="ms">Alat di bawah setiap support atau hinge yang membaca daya dalam division.</span></td></tr>
+        <tr><td class="l g1">Free-body diagram</td><td class="l"><span class="en">Sketch of one member isolated with all the forces acting on it.</span><span class="ms">Lakaran satu anggota yang diasingkan bersama semua daya yang bertindak padanya.</span></td></tr>
+        <tr><td class="l g1">Lever rule</td><td class="l"><span class="en">For a simple span, each reaction equals the load times the distance to the other support, divided by the span.</span><span class="ms">Bagi simple span, setiap reaction sama dengan load didarab jarak ke support yang satu lagi, dibahagi span.</span></td></tr>
+        <tr><td class="l g1">Müller–Breslau principle</td><td class="l"><span class="en">Release the restraint and impose a unit displacement: the deflected shape is the influence line.</span><span class="ms">Lepaskan restraint dan kenakan unit displacement: deflected shape ialah influence line.</span></td></tr>
+        <tr><td class="l g1">Vertex</td><td class="l"><span class="en">A corner (kink) of a piecewise-linear influence line.</span><span class="ms">Bucu (bengkokan) pada influence line yang piecewise linear.</span></td></tr>
+        <tr><td class="l g1">Critical position</td><td class="l"><span class="en">Load position that gives the largest (or most negative) response; for a load train, one load stands on a vertex.</span><span class="ms">Kedudukan load yang memberi response terbesar (atau paling negatif); bagi load train, satu load berada pada vertex.</span></td></tr>
+        <tr><td class="l g1">UDL</td><td class="l"><span class="en">Uniformly distributed load; its effect is w × area under the influence line.</span><span class="ms">Uniformly distributed load; kesannya ialah w × area di bawah influence line.</span></td></tr>
+        <tr><td class="l g1">Uplift</td><td class="l"><span class="en">A negative support reaction: the support must hold the deck down.</span><span class="ms">Support reaction negatif: support perlu menahan deck ke bawah.</span></td></tr>
+        <tr><td class="l g1">Equilibrium check</td><td class="l"><span class="en">The four support readings must add up to the applied load wherever it stands.</span><span class="ms">Jumlah empat bacaan support mesti sama dengan load yang dikenakan di mana-mana kedudukan.</span></td></tr>
+        <tr><td class="l g1">Absolute difference</td><td class="l"><span class="en">η<sub>test</sub> − η<sub>theory</sub>; the fair measure of agreement because its uncertainty is the same at every halt.</span><span class="ms">η<sub>test</sub> − η<sub>theory</sub>; ukuran persetujuan yang adil kerana uncertainty-nya sama pada setiap halt.</span></td></tr>
+        <tr><td class="l g1">Uncertainty (quadrature)</td><td class="l"><span class="en">Independent errors combine as √(e<sub>1</sub>² + e<sub>2</sub>²); about ±0.03 per unit load here.</span><span class="ms">Error yang tidak bersandar digabung sebagai √(e<sub>1</sub>² + e<sub>2</sub>²); lebih kurang ±0.03 per unit load di sini.</span></td></tr>
+        <tr><td class="l g1">Zero drift</td><td class="l"><span class="en">Gauge reading that does not return to zero between halts; re-zero before each halt.</span><span class="ms">Bacaan gauge yang tidak kembali ke sifar antara halt; re-zero sebelum setiap halt.</span></td></tr>
+        <tr><td class="l g1">First attempt</td><td class="l"><span class="en">Fields right at your first check of a question (Exercises).</span><span class="ms">Medan yang betul pada semakan pertama sesuatu soalan (Latihan).</span></td></tr>
+        <tr><td class="l g1">Confidence rating</td><td class="l"><span class="en">How sure you were before checking; compared with the result it shows which topics need review.</span><span class="ms">Tahap keyakinan sebelum menyemak; dibandingkan dengan keputusan, ia menunjukkan topik yang perlu diulang kaji.</span></td></tr>
+    </tbody></table></div>
+    <p class="muted" id="gnone" hidden><span class="en">No entry matches.</span><span class="ms">Tiada entri yang sepadan.</span></p>
+  </div>
 </section>
 </main>
 

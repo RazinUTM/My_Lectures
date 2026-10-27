@@ -88,3 +88,13 @@ img{max-width:100%;height:auto}
 .ropop ol{margin:4px 0;padding-left:20px}
 .ropop li{margin:4px 0;font-size:13.5px}
 .ropop p.muted{font-size:12.5px;margin:6px 0 0}
+/* explorer v4 layout, glossary */
+.ilrow{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin:4px 0 6px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--panel2)}
+.ilrow .lbl{font-size:13px;color:var(--muted)}
+.cushead{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;justify-content:space-between;margin-bottom:8px}
+.cushead .lbl{font-size:12.5px;color:var(--muted);align-self:center;margin-right:2px}
+.linkbtn{border:0;background:none;padding:0;color:var(--accent);font:inherit;text-decoration:underline;cursor:pointer}
+.gloss td{text-align:left;vertical-align:top;font-size:14.5px;padding:7px 8px}
+.gloss td.g1{white-space:nowrap;font-weight:600;width:1%;padding-right:18px}
+.gfilter{font:15px var(--font-ui);padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg);min-width:min(260px,100%)}
+@media (max-width:560px){.gloss td.g1{white-space:normal;width:34%}}

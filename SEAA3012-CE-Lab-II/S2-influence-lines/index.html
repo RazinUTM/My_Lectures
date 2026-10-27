@@ -321,6 +321,16 @@ img{max-width:100%;height:auto}
 .ropop ol{margin:4px 0;padding-left:20px}
 .ropop li{margin:4px 0;font-size:13.5px}
 .ropop p.muted{font-size:12.5px;margin:6px 0 0}
+/* explorer v4 layout, glossary */
+.ilrow{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin:4px 0 6px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--panel2)}
+.ilrow .lbl{font-size:13px;color:var(--muted)}
+.cushead{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;justify-content:space-between;margin-bottom:8px}
+.cushead .lbl{font-size:12.5px;color:var(--muted);align-self:center;margin-right:2px}
+.linkbtn{border:0;background:none;padding:0;color:var(--accent);font:inherit;text-decoration:underline;cursor:pointer}
+.gloss td{text-align:left;vertical-align:top;font-size:14.5px;padding:7px 8px}
+.gloss td.g1{white-space:nowrap;font-weight:600;width:1%;padding-right:18px}
+.gfilter{font:15px var(--font-ui);padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg);min-width:min(260px,100%)}
+@media (max-width:560px){.gloss td.g1{white-space:normal;width:34%}}
 </style>
 <script>
 window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]]},svg:{fontCache:"global"},
@@ -350,6 +360,7 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]]},svg
     <button class="tab" role="tab" data-view="explorer" id="t-explorer">Explorer<span class="bd" data-bd="explorer"></span></button>
     <button class="tab" role="tab" data-view="exercises" id="t-exercises"><span class="en">Exercises</span><span class="ms">Latihan</span><span class="bd" data-bd="exercises"></span></button>
     <button class="tab" role="tab" data-view="lab" id="t-lab"><span class="en">Lab</span><span class="ms">Makmal</span><span class="bd" data-bd="lab"></span></button>
+    <button class="tab" role="tab" data-view="glossary" id="t-glossary"><span class="en">Glossary</span><span class="ms">Glosari</span></button>
   </nav>
   <div class="prog"><span class="pct"><span class="en">Progress</span><span class="ms">Kemajuan</span></span><div class="bar" id="pbar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Progress"><i></i></div><span class="pct" id="ppct">0 %</span></div>
 </div>
@@ -847,36 +858,37 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]]},svg
 <section class="view" data-view="explorer" id="v-explorer" role="tabpanel" aria-labelledby="t-explorer" hidden>
   <div class="card">
     <h2><span class="en">Move the load</span><span class="ms">Gerakkan load</span></h2>
-    <p class="lead"><span class="en">Drag the load on the drawing, use the slider or tap a halt. Switch the influence lines for R<sub>A</sub>, R<sub>B</sub> and R<sub>C</sub> on or off to view one, two or all three under the bridge: every halt sits directly above its ordinate. R<sub>D</sub>, R<sub>E</sub> and R<sub>F</sub> are their mirror images and are listed in the readout.</span><span class="ms">Seret load pada lukisan, guna slider atau tekan satu halt. Hidupkan atau matikan influence line bagi R<sub>A</sub>, R<sub>B</sub> dan R<sub>C</sub> untuk melihat satu, dua atau ketiga-tiganya di bawah jambatan: setiap halt berada tepat di atas ordinate-nya. R<sub>D</sub>, R<sub>E</sub> dan R<sub>F</sub> ialah imej cerminnya dan dipaparkan dalam readout.</span></p>
-    <svg class="fig" data-fig="explorer" id="expsvg" style="touch-action:pan-y;cursor:ew-resize" role="img" aria-label="Bridge with load and the selected influence lines"></svg>
+    <p class="lead"><span class="en">Drag the loads on the drawing, use the slider or tap a halt.</span><span class="ms">Seret load pada lukisan, guna slider atau tekan satu halt.</span></p>
+    <div class="ilrow">
+      <span class="lbl">Influence lines</span>
+      <span class="chips" id="rchips" aria-label="Influence lines to draw"></span>
+      <span class="chips"><button class="chip" type="button" id="ilall"><span class="en">All</span><span class="ms">Semua</span></button><button class="chip" type="button" id="ilnone"><span class="en">None</span><span class="ms">Tiada</span></button></span>
+      <label class="lbl" style="display:inline-flex;gap:6px;align-items:center"><input type="checkbox" id="showarea"> <span class="en">shade areas</span><span class="ms">lorek area</span></label>
+    </div>
+    <svg class="fig" data-fig="explorer" id="expsvg" style="touch-action:pan-y;cursor:ew-resize" role="img" aria-label="Bridge with loads, support reactions and the selected influence lines"></svg>
     <div class="ctrl">
-      <div class="slwrap"><input type="range" id="xpos" min="0" max="1130" step="1" value="0" aria-label="Load position in millimetres"></div>
-      <div class="row"><span class="lbl"><span class="en">Load position</span><span class="ms">Kedudukan load</span> <b class="num" id="xlabel" style="color:var(--fg)">x = 0 mm (A)</b></span>
-        <div class="seg" role="group" aria-label="Load">
-          <button type="button" data-mode="unit" aria-pressed="true">Unit load</button>
-          <button type="button" data-mode="m25" aria-pressed="false">2.5 kg</button>
-          <button type="button" data-mode="cmp" aria-pressed="false">5 kg + 2.5 kg</button>
-          <button type="button" data-mode="cus" aria-pressed="false"><span class="en">Custom: 3 loads</span><span class="ms">Custom: 3 load</span></button></div></div>
-      <div class="cusbox" id="cusbox" hidden>
+      <div class="slwrap"><input type="range" id="xpos" min="0" max="1130" step="1" value="0" aria-label="Position of P1 in millimetres"></div>
+      <div class="row"><span class="lbl"><span class="en">Position of</span><span class="ms">Kedudukan</span> P<sub>1</sub> <b class="num" id="xlabel" style="color:var(--fg)">x = 0 mm (A)</b></span></div>
+      <div class="chips" id="halts" aria-label="Halts"></div>
+      <div class="cusbox" id="cusbox">
+        <div class="cushead"><b><span class="en">Loads</span><span class="ms">Load</span></b>
+          <span class="chips"><span class="lbl"><span class="en">Quick fill:</span><span class="ms">Isi pantas:</span></span>
+            <button class="chip" type="button" data-preset="unit">Unit load (1, 0, 0)</button>
+            <button class="chip" type="button" data-preset="m25">2.5 kg</button>
+            <button class="chip" type="button" data-preset="t2"><span class="en">Test 2 pair</span><span class="ms">Pasangan Test 2</span> (5 + 2.5)</button></span></div>
         <div class="cusgrid">
           <label><span>P<sub>1</sub> (kg)</span><input id="cP1" type="number" min="0" max="100" step="0.5" inputmode="decimal"></label>
           <label><span>P<sub>2</sub> (kg)</span><input id="cP2" type="number" min="0" max="100" step="0.5" inputmode="decimal"></label>
           <label><span>P<sub>3</sub> (kg)</span><input id="cP3" type="number" min="0" max="100" step="0.5" inputmode="decimal"></label>
-          <label><span><span class="en">Spacing</span><span class="ms">Jarak</span> P<sub>1</sub>→P<sub>2</sub> (mm)</span><input id="cA1" type="number" min="0" max="1130" step="10" inputmode="decimal"></label>
-          <label><span><span class="en">Spacing</span><span class="ms">Jarak</span> P<sub>2</sub>→P<sub>3</sub> (mm)</span><input id="cA2" type="number" min="0" max="1130" step="10" inputmode="decimal"></label>
+          <label><span>P<sub>1</sub>→P<sub>2</sub> (mm)</span><input id="cA1" type="number" min="0" max="1130" step="10" inputmode="decimal"></label>
+          <label><span>P<sub>2</sub>→P<sub>3</sub> (mm)</span><input id="cA2" type="number" min="0" max="1130" step="10" inputmode="decimal"></label>
         </div>
-        <p class="areanote" style="margin-top:8px"><span class="en">P<sub>1</sub> stands at the load position x; P<sub>2</sub> and P<sub>3</sub> follow to its right at the spacings given. Set a load to 0 to remove it. A load beyond F is off the bridge and is not counted.</span><span class="ms">P<sub>1</sub> berada pada kedudukan load x; P<sub>2</sub> dan P<sub>3</sub> mengikut di sebelah kanannya pada jarak yang ditetapkan. Tetapkan load kepada 0 untuk membuangnya. Load yang melepasi F berada di luar jambatan dan tidak dikira.</span></p>
+        <p class="areanote" style="margin-top:8px"><span class="en">P<sub>2</sub> and P<sub>3</sub> follow P<sub>1</sub> to the right. 0 removes a load; a load beyond F is not counted.</span><span class="ms">P<sub>2</sub> dan P<sub>3</sub> mengikut P<sub>1</sub> ke kanan. 0 membuang load; load yang melepasi F tidak dikira.</span></p>
       </div>
-      <div class="chips" id="halts" aria-label="Halts"></div>
-      <div class="row"><span class="lbl"><span class="en">Influence lines (on/off)</span><span class="ms">Influence line (hidup/mati)</span></span><span class="chips" id="rchips" aria-label="Influence lines to draw"></span>
-        <label class="lbl" style="display:inline-flex;gap:6px;align-items:center"><input type="checkbox" id="showarea"> <span class="en">shade areas</span><span class="ms">lorek area</span></label></div>
       <div class="rowrap" id="rowrap"><div class="readout" id="readout"></div><div class="ropop" id="ropop" role="tooltip" hidden></div></div>
-      <p class="areanote" style="margin:-4px 0 0"><span class="en">Hover over or tap a reaction to see how its value is calculated.</span><span class="ms">Letak tetikus atau tekan pada satu reaction untuk melihat cara nilainya dikira.</span></p>
+      <p class="areanote" style="margin:-4px 0 0"><span class="en">Hover over or tap a reaction to see how its value is calculated. Symbols and units:</span><span class="ms">Letak tetikus atau tekan pada satu reaction untuk melihat cara nilainya dikira. Simbol dan unit:</span> <button class="linkbtn" type="button" data-go="glossary"><span class="en">Glossary</span><span class="ms">Glosari</span></button></p>
       <div class="sumline" id="sumline"></div>
       <p class="areanote" id="areanote"></p>
-      <details class="th"><summary><span class="en">Theory in four lines</span><span class="ms">Teori dalam empat baris</span></summary>
-        <p class="num" style="font-size:13.5px;margin:8px 0 0">η_A(x) = (250 − x)/250 on ABC · η_C(x) = (690 − x)/250 on CD · η_A = −0.76 η_C on CD · η_A = 0 on DEF</p>
-        <p class="muted" style="font-size:13.5px;margin:6px 0 0"><span class="en">Support reactions are positive upwards; the hinge forces R_C and R_D are the forces the suspended span presses on the cantilever tips. In the 5 kg + 2.5 kg mode the position is that of the 5 kg mass, and the 2.5 kg mass is 100 mm to its right; in the custom mode it is the position of P<sub>1</sub>.</span><span class="ms">Support reaction positif ke atas; hinge force R_C dan R_D ialah daya yang dikenakan suspended span pada hujung cantilever. Dalam mod 5 kg + 2.5 kg, kedudukan ialah kedudukan jisim 5 kg, dan jisim 2.5 kg berada 100 mm di sebelah kanannya; dalam mod custom, ia kedudukan P<sub>1</sub>.</span></p></details>
     </div>
   </div>
   <div class="card" style="margin-top:18px">
@@ -1094,6 +1106,57 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]]},svg
       <li>Perbincangan sumber error dengan nombor (Nota, Section 7), dan kesimpulan tentang persetujuan.</li>
       <li>Jawapan kepada soalan data sheet: kepentingan influence line dalam rekabentuk (kurang daripada 100 patah perkataan).</li></ul></div>
 </section>
+
+<!-- =============================================================== GLOSSARY -->
+<section class="view" data-view="glossary" id="v-glossary" role="tabpanel" aria-labelledby="t-glossary" hidden>
+  <div class="card">
+    <div class="exhead"><div><h2><span class="en">Glossary</span><span class="ms">Glosari</span></h2>
+      <p class="lead" style="margin:0"><span class="en">Symbols, units and terms used on this page.</span><span class="ms">Simbol, unit dan istilah yang digunakan pada page ini.</span></p></div>
+      <input class="gfilter" id="gfilter" type="search" data-ph-en="Search, e.g. kgf" data-ph-ms="Cari, contoh kgf" aria-label="Search the glossary"></div>
+    <h3 class="part" style="margin-top:16px"><span class="en">Symbols and units</span><span class="ms">Simbol dan unit</span></h3>
+    <div class="tbl"><table class="gloss"><tbody>
+        <tr><td class="l g1">x</td><td class="l"><span class="en">Position along the bridge measured from A, in mm. In the Explorer it is the position of P<sub>1</sub>.</span><span class="ms">Kedudukan di sepanjang jambatan diukur dari A, dalam mm. Dalam Explorer, ia kedudukan P<sub>1</sub>.</span></td></tr>
+        <tr><td class="l g1">η<sub>R</sub>(x)</td><td class="l"><span class="en">Influence-line ordinate: the value of response R when a unit load stands at x. Dimensionless for a reaction (reaction per unit load).</span><span class="ms">Ordinate influence line: nilai response R apabila unit load berada di x. Tanpa dimensi bagi reaction (reaction per unit load).</span></td></tr>
+        <tr><td class="l g1">R<sub>A</sub>, R<sub>B</sub>, R<sub>E</sub>, R<sub>F</sub></td><td class="l"><span class="en">Support reactions at A, B, E and F. Positive upwards; negative means the support holds the deck down (uplift).</span><span class="ms">Support reaction di A, B, E dan F. Positif ke atas; negatif bermaksud support menahan deck ke bawah (uplift).</span></td></tr>
+        <tr><td class="l g1">R<sub>C</sub>, R<sub>D</sub></td><td class="l"><span class="en">Hinge forces at C and D: the force the suspended span presses on the cantilever tip. Positive downwards on the tip. Measured by the gauges at C and D.</span><span class="ms">Hinge force di C dan D: daya yang dikenakan suspended span pada hujung cantilever. Positif ke bawah pada hujung. Diukur oleh gauge di C dan D.</span></td></tr>
+        <tr><td class="l g1">P, P<sub>1</sub>, P<sub>2</sub>, P<sub>3</sub></td><td class="l"><span class="en">Concentrated loads, given as masses in kg.</span><span class="ms">Concentrated load, diberi sebagai jisim dalam kg.</span></td></tr>
+        <tr><td class="l g1">w</td><td class="l"><span class="en">Uniformly distributed load (UDL), in kg/mm.</span><span class="ms">Uniformly distributed load (UDL), dalam kg/mm.</span></td></tr>
+        <tr><td class="l g1">kgf</td><td class="l"><span class="en">Kilogram-force: the weight of a 1 kg mass under standard gravity. 1 kgf = 9.80665 N ≈ 9.81 N. A 2.5 kg mass weighs 2.5 kgf, and the gauges are calibrated in kgf, so masses in kg give reactions directly in kgf.</span><span class="ms">Kilogram-force: berat jisim 1 kg di bawah graviti piawai. 1 kgf = 9.80665 N ≈ 9.81 N. Jisim 2.5 kg mempunyai berat 2.5 kgf, dan gauge ditentukur dalam kgf, jadi jisim dalam kg terus memberi reaction dalam kgf.</span></td></tr>
+        <tr><td class="l g1">div</td><td class="l"><span class="en">One division of a dial gauge, equal to 0.05 kgf.</span><span class="ms">Satu division dial gauge, bersamaan 0.05 kgf.</span></td></tr>
+        <tr><td class="l g1">m</td><td class="l"><span class="en">Applied mass used in data reduction (2.5 kg in Test 1).</span><span class="ms">Jisim yang dikenakan dalam data reduction (2.5 kg dalam Test 1).</span></td></tr>
+        <tr><td class="l g1">η<sub>test</sub>, η<sub>theory</sub></td><td class="l"><span class="en">Experimental ordinate (reading × 0.05 / m) and theoretical ordinate.</span><span class="ms">Ordinate eksperimen (bacaan × 0.05 / m) dan ordinate teori.</span></td></tr>
+        <tr><td class="l g1">Σ</td><td class="l"><span class="en">Sum over all loads on the bridge.</span><span class="ms">Jumlah bagi semua load di atas jambatan.</span></td></tr>
+        <tr><td class="l g1">Δx</td><td class="l"><span class="en">Error in placing a mass on its halt (about ±5 mm).</span><span class="ms">Error semasa meletakkan jisim pada halt (lebih kurang ±5 mm).</span></td></tr>
+    </tbody></table></div>
+    <h3 class="part"><span class="en">Terms</span><span class="ms">Istilah</span></h3>
+    <div class="tbl"><table class="gloss"><tbody>
+        <tr><td class="l g1">Influence line</td><td class="l"><span class="en">Graph of one response at a fixed point (a reaction, shear or moment) against the position of a moving unit load.</span><span class="ms">Graf satu response pada titik tetap (reaction, shear atau moment) melawan kedudukan unit load yang bergerak.</span></td></tr>
+        <tr><td class="l g1">Unit load</td><td class="l"><span class="en">A concentrated load of magnitude 1 used to define the influence line.</span><span class="ms">Concentrated load bermagnitud 1 yang digunakan untuk mentakrif influence line.</span></td></tr>
+        <tr><td class="l g1">Superposition</td><td class="l"><span class="en">For a linear elastic structure the effects of several loads add: R = Σ P<sub>i</sub> η<sub>R</sub>(x<sub>i</sub>).</span><span class="ms">Bagi struktur linear elastic, kesan beberapa load boleh dijumlahkan: R = Σ P<sub>i</sub> η<sub>R</sub>(x<sub>i</sub>).</span></td></tr>
+        <tr><td class="l g1">Statically determinate</td><td class="l"><span class="en">All reactions follow from equilibrium alone; the model has four reactions, two equilibrium equations and two hinge conditions.</span><span class="ms">Semua reaction diperoleh daripada equilibrium sahaja; model ini ada empat reaction, dua persamaan equilibrium dan dua syarat hinge.</span></td></tr>
+        <tr><td class="l g1">Gerber (cantilever) bridge</td><td class="l"><span class="en">Two anchor spans with cantilever arms carrying a suspended span on hinges.</span><span class="ms">Dua anchor span dengan cantilever arm yang membawa suspended span pada hinge.</span></td></tr>
+        <tr><td class="l g1">Suspended span</td><td class="l"><span class="en">Span CD, simply supported on the tips of the two cantilevers through hinges C and D.</span><span class="ms">Span CD, disokong mudah pada hujung dua cantilever melalui hinge C dan D.</span></td></tr>
+        <tr><td class="l g1">Hinge</td><td class="l"><span class="en">A joint that transmits force but no bending moment.</span><span class="ms">Sambungan yang memindahkan daya tetapi tidak memindahkan bending moment.</span></td></tr>
+        <tr><td class="l g1">Cantilever</td><td class="l"><span class="en">The overhanging part of a beam beyond its support (BC and DE).</span><span class="ms">Bahagian beam yang terjulur melepasi support (BC dan DE).</span></td></tr>
+        <tr><td class="l g1">Halt</td><td class="l"><span class="en">A marked position on the deck where the mass is placed (A, 1–11, …, F).</span><span class="ms">Kedudukan bertanda pada deck tempat jisim diletakkan (A, 1–11, …, F).</span></td></tr>
+        <tr><td class="l g1">Dial gauge</td><td class="l"><span class="en">Instrument under each support or hinge that reads the force in divisions.</span><span class="ms">Alat di bawah setiap support atau hinge yang membaca daya dalam division.</span></td></tr>
+        <tr><td class="l g1">Free-body diagram</td><td class="l"><span class="en">Sketch of one member isolated with all the forces acting on it.</span><span class="ms">Lakaran satu anggota yang diasingkan bersama semua daya yang bertindak padanya.</span></td></tr>
+        <tr><td class="l g1">Lever rule</td><td class="l"><span class="en">For a simple span, each reaction equals the load times the distance to the other support, divided by the span.</span><span class="ms">Bagi simple span, setiap reaction sama dengan load didarab jarak ke support yang satu lagi, dibahagi span.</span></td></tr>
+        <tr><td class="l g1">Müller–Breslau principle</td><td class="l"><span class="en">Release the restraint and impose a unit displacement: the deflected shape is the influence line.</span><span class="ms">Lepaskan restraint dan kenakan unit displacement: deflected shape ialah influence line.</span></td></tr>
+        <tr><td class="l g1">Vertex</td><td class="l"><span class="en">A corner (kink) of a piecewise-linear influence line.</span><span class="ms">Bucu (bengkokan) pada influence line yang piecewise linear.</span></td></tr>
+        <tr><td class="l g1">Critical position</td><td class="l"><span class="en">Load position that gives the largest (or most negative) response; for a load train, one load stands on a vertex.</span><span class="ms">Kedudukan load yang memberi response terbesar (atau paling negatif); bagi load train, satu load berada pada vertex.</span></td></tr>
+        <tr><td class="l g1">UDL</td><td class="l"><span class="en">Uniformly distributed load; its effect is w × area under the influence line.</span><span class="ms">Uniformly distributed load; kesannya ialah w × area di bawah influence line.</span></td></tr>
+        <tr><td class="l g1">Uplift</td><td class="l"><span class="en">A negative support reaction: the support must hold the deck down.</span><span class="ms">Support reaction negatif: support perlu menahan deck ke bawah.</span></td></tr>
+        <tr><td class="l g1">Equilibrium check</td><td class="l"><span class="en">The four support readings must add up to the applied load wherever it stands.</span><span class="ms">Jumlah empat bacaan support mesti sama dengan load yang dikenakan di mana-mana kedudukan.</span></td></tr>
+        <tr><td class="l g1">Absolute difference</td><td class="l"><span class="en">η<sub>test</sub> − η<sub>theory</sub>; the fair measure of agreement because its uncertainty is the same at every halt.</span><span class="ms">η<sub>test</sub> − η<sub>theory</sub>; ukuran persetujuan yang adil kerana uncertainty-nya sama pada setiap halt.</span></td></tr>
+        <tr><td class="l g1">Uncertainty (quadrature)</td><td class="l"><span class="en">Independent errors combine as √(e<sub>1</sub>² + e<sub>2</sub>²); about ±0.03 per unit load here.</span><span class="ms">Error yang tidak bersandar digabung sebagai √(e<sub>1</sub>² + e<sub>2</sub>²); lebih kurang ±0.03 per unit load di sini.</span></td></tr>
+        <tr><td class="l g1">Zero drift</td><td class="l"><span class="en">Gauge reading that does not return to zero between halts; re-zero before each halt.</span><span class="ms">Bacaan gauge yang tidak kembali ke sifar antara halt; re-zero sebelum setiap halt.</span></td></tr>
+        <tr><td class="l g1">First attempt</td><td class="l"><span class="en">Fields right at your first check of a question (Exercises).</span><span class="ms">Medan yang betul pada semakan pertama sesuatu soalan (Latihan).</span></td></tr>
+        <tr><td class="l g1">Confidence rating</td><td class="l"><span class="en">How sure you were before checking; compared with the result it shows which topics need review.</span><span class="ms">Tahap keyakinan sebelum menyemak; dibandingkan dengan keputusan, ia menunjukkan topik yang perlu diulang kaji.</span></td></tr>
+    </tbody></table></div>
+    <p class="muted" id="gnone" hidden><span class="en">No entry matches.</span><span class="ms">Tiada entri yang sepadan.</span></p>
+  </div>
+</section>
 </main>
 
 <footer><span class="en">Geometry from the laboratory manual, experiment S2: AB = 250, BC = 190, CD = 250, DE = 190, EF = 250 mm; halts 1–11 at 100 mm intervals from A. Example readings are illustrative, not measured data. Answers, readings and progress are stored only in this browser.</span><span class="ms">Geometri daripada manual makmal, eksperimen S2: AB = 250, BC = 190, CD = 250, DE = 190, EF = 250 mm; halt 1–11 pada sela 100 mm dari A. Bacaan contoh adalah ilustrasi, bukan data ukuran. Jawapan, bacaan dan kemajuan disimpan dalam browser ini sahaja.</span></footer>
@@ -1232,8 +1295,10 @@ function rollerAt(x,y){return '<polygon points="'+x+','+(y+4*G)+' '+(x-15*G)+','
 function hingeAt(x,y){return '<circle cx="'+x+'" cy="'+y.toFixed(1)+'" r="'+8*G+'" style="fill:var(--panel);stroke:var(--hinge)" stroke-width="'+3*G+'"/>'}
 function dim(x1,x2,y,label,fs){return Ln(x1,y,x2,y,"var(--muted)",1.2*G)+Ln(x1,y-7*G,x1,y+7*G,"var(--muted)",1.2*G)+Ln(x2,y-7*G,x2,y+7*G,"var(--muted)",1.2*G)+T((x1+x2)/2,y-6*G,label,{size:13*fs,anchor:"middle",fill:"var(--muted)"})}
 function sideRight(f,x,v){if(x>=1100)return false;var n=f(x+5);return !((v>0&&n>v+1e-9)||(v<0&&n<v-1e-9))}
-function sampleArea(f,sign){var pts=[];for(var x=0;x<=1130;x+=2){var v=f(x);pts.push([x,sign>0?Math.max(v,0):Math.min(v,0)])}return pts}
-function areaOf(f){var pos=0,neg=0,h=0.5;for(var x=0;x<1130;x+=h){var m=0.5*(f(x)+f(x+h))*h;if(m>0)pos+=m;else neg+=m}return [pos,neg]}
+/* every line is linear between the breakpoints XJ, so areas and shading are computed exactly, splitting at zero crossings */
+function brk(f){var pts=[];for(var i=0;i<XJ.length;i++){var x=XJ[i],v=f(x);if(i){var p=pts[pts.length-1];if((p[1]>0&&v<0)||(p[1]<0&&v>0)){var xz=p[0]+(x-p[0])*p[1]/(p[1]-v);pts.push([xz,0])}}pts.push([x,v])}return pts}
+function sampleArea(f,sign){return brk(f).map(function(q){return [q[0],sign>0?Math.max(q[1],0):Math.min(q[1],0)]})}
+function areaOf(f){var pts=brk(f),pos=0,neg=0;for(var i=1;i<pts.length;i++){var a=0.5*(pts[i][1]+pts[i-1][1])*(pts[i][0]-pts[i-1][0]);if(a>0)pos+=a;else neg+=a}return [pos,neg]}
 
 function figureSVG(c){
   var fs=c.fs||1,keys=c.keys||[],mode=c.mode||"unit",out=[],K=52*fs*(INSLIDE?0.52:1);setG(fs);
@@ -1245,8 +1310,8 @@ function figureSVG(c){
     labs.forEach(function(L){for(var r=0;r<4;r++){if(rowEnd[r]===undefined||L.cx-L.w/2>rowEnd[r]){L.r=r;rowEnd[r]=L.cx+L.w/2;return}}L.r=3});
     var nrows=labs.reduce(function(m,L){return Math.max(m,L.r+1)},1);
     beamY=hasLoad?(66*G+18*fs+(nrows-1)*22*fs):(14*G+10);
-    var lab1=beamY+44*G+15*fs,lab2=lab1+6+13*fs,arrTop=lab2+10*G,valY=arrTop+56*G+15*fs;
-    hb=c.reactions?valY+10:(c.dims?lab2+22+12*fs:lab2+10);
+    var lab1=beamY+44*G+15*fs,lab2=lab1+6+13*fs,arrTop=lab2+10*G,nameY=arrTop+56*G+15*fs,valY=nameY+17*fs;
+    hb=c.reactions?valY+16*fs:(c.dims?lab2+22+12*fs:lab2+10);
     out.push(Ln(px(0),beamY,px(xC)-9*G,beamY,"var(--fg)",7*G),Ln(px(xC)+9*G,beamY,px(xD)-9*G,beamY,"var(--fg)",7*G),Ln(px(xD)+9*G,beamY,px(xF),beamY,"var(--fg)",7*G));
     out.push(hingeAt(px(xC),beamY),hingeAt(px(xD),beamY));
     out.push(pinAt(px(0),beamY),rollerAt(px(xB),beamY),rollerAt(px(xE),beamY),pinAt(px(xF),beamY));
@@ -1261,10 +1326,12 @@ function figureSVG(c){
       if(c.reactions){var vmax=Math.max(1.76*tot,0.1);
         [["R_A",0],["R_B",xB],["R_E",xE],["R_F",xF]].forEach(function(r){var v=valueOf(r[0],c.x,mode),x=px(r[1]);
           var anc=r[1]===0?"start":(r[1]===xF?"end":"middle"),tx_=r[1]===0?x-14*G:(r[1]===xF?x+14*G:x);
-          if(Math.abs(v)<1e-9){out.push(T(tx_,valY,"0",{size:14*fs,anchor:anc,fill:"var(--muted)"}));return}
-          var len=(14+42*Math.min(Math.abs(v)/vmax,1))*G,col=v>0?"var(--accent)":"var(--neg)";
-          out.push(v>0?vArrow(x,arrTop+len,arrTop,col,3):vArrow(x,arrTop,arrTop+len,col,3));
-          out.push(T(tx_,valY,mode==="unit"?f3(v):f2(v),{size:14.5*fs,anchor:anc,weight:600,fill:col}))})}
+          var zero_=Math.abs(v)<1e-9,col=zero_?"var(--muted)":(v>0?"var(--accent)":"var(--neg)");
+          out.push(T(tx_,nameY,Rl(r[0]),{size:13.5*fs,anchor:anc,weight:600,fill:col}));
+          out.push(T(tx_,valY,zero_?"0":(tot<=1?f3(v):f2(v)),{size:14.5*fs,anchor:anc,weight:600,fill:col}));
+          if(zero_)return;var len=(14+42*Math.min(Math.abs(v)/vmax,1))*G;
+          out.push(v>0?vArrow(x,arrTop+len,arrTop,col,3):vArrow(x,arrTop,arrTop+len,col,3))});
+        out.push(Ln(px(0),hb-6*fs,px(xF),hb-6*fs,"var(--line)",1.2*G))}
     }
     top=hb;
   }
@@ -1371,7 +1438,7 @@ function buildTables(){
 /* =====================================================================
    Views, progress and badges
    ===================================================================== */
-var VIEWS=["start","notes","slides","explorer","exercises","lab"],current="start",typesetDone={};
+var VIEWS=["start","notes","slides","explorer","exercises","lab","glossary"],current="start",typesetDone={};
 var NSECS=["n1","n2","n3","n4","n5","n6","n7","n8"],QCS=["qc1","qc2","qc3","qc4","qc5"];
 function cnt(o){return Object.keys(o).filter(function(k){return o[k]}).length}
 function parts(){var lab=0;for(var i=1;i<=5;i++)if(ST.lab.ck["ck"+i])lab++;if(ST.lab.done1)lab++;if(ST.lab.done2)lab++;
@@ -1453,13 +1520,13 @@ slive.addEventListener("input",function(){LIVE.x=Number(slive.value);HALTS.forEa
 /* =====================================================================
    Explorer
    ===================================================================== */
-var EXKEYS=["R_A","R_B","R_C"],E=ST.exp;
-if(!ST.expv){E.keys=EXKEYS.slice();ST.expv=2}
-E.keys=(Array.isArray(E.keys)?E.keys:[]).filter(function(k){return EXKEYS.indexOf(k)>=0});if(!E.keys.length)E.keys=EXKEYS.slice();
+var EXKEYS=KEYS,E=ST.exp;
+if((ST.expv||0)<3){E.keys=["R_A","R_B","R_C"];E.P=[5,2.5,1];E.a=[100,150];ST.expv=3}
+E.mode="cus";E.keys=(Array.isArray(E.keys)?E.keys:[]).filter(function(k){return EXKEYS.indexOf(k)>=0});
 var xpos=document.getElementById("xpos"),xlabel=document.getElementById("xlabel"),expsvg=document.getElementById("expsvg");
 var readout=document.getElementById("readout"),sumline=document.getElementById("sumline"),areanote=document.getElementById("areanote"),rowrap=document.getElementById("rowrap"),ropop=document.getElementById("ropop");
 if(!Array.isArray(E.P)||E.P.length!==3)E.P=[5,2.5,1];if(!Array.isArray(E.a)||E.a.length!==2)E.a=[100,150];
-function fmtMode(v){return E.mode==="unit"?f3(v):f2(v)+" kgf"}
+function fmtMode(v){var t=loadsFor(E.x,E.mode).reduce(function(s,l){return s+l[1]},0);return (t<=1?f3(v):f2(v))+" kgf"}
 /* ---------- how each reaction is computed: one line per load, member by member ---------- */
 function n0(v){return String(Math.round(v)).replace("-","−")}
 function sub(k){return k.slice(2)}
@@ -1482,7 +1549,7 @@ function explainHTML(k){var c=sub(k),unit=E.mode==="unit",ls=loadsFor(E.x,E.mode
     h.push('<li>'+nm+L2(" at x = "," di x = ")+n0(l[0])+" mm"+(st.m?" ("+st.m+")":"")+':<br>'+st.t+(unit?"":' → '+kg(l[1])+" × "+f4(eta).replace(/^(−.*)$/,"($1)")+" = "+f3(l[1]*eta))+'</li>')});
   off.forEach(function(l){h.push('<li class="muted">P<sub>'+(l[2]+1)+'</sub> = '+kg(l[1])+" kg"+L2(" at x = "," di x = ")+n0(l[0])+" mm: "+L2("beyond F, not on the bridge","di luar F, tiada pada jambatan")+'</li>')});
   if(!ls.length)h.push('<li class="muted">'+L2("No load on the bridge.","Tiada load pada jambatan.")+'</li>');
-  h.push('</ol><p class="eq">R<sub>'+c+'</sub> = '+(terms.length>1?terms.join(" + ").replace(/\+ −/g,"− ")+" = ":"")+fmtMode(valueOf(k,E.x,E.mode))+'</p>');
+  var tv=valueOf(k,E.x,E.mode);h.push('</ol><p class="eq">R<sub>'+c+'</sub> = '+(terms.length>1?terms.join(" + ").replace(/\+ −/g,"− ")+" = ":"")+fmtMode(tv)+(Math.abs(tv)>1e-9?" ≈ "+f2(tv*9.80665)+" N":"")+'</p>');
   h.push('<p class="muted">'+(k==="R_C"||k==="R_D"?L2("Positive: the suspended span presses down on the cantilever tip.","Positif: suspended span menekan ke bawah pada hujung cantilever."):L2("Positive: the support pushes up. Negative: the support holds the deck down (uplift).","Positif: support menolak ke atas. Negatif: support menahan deck ke bawah (uplift)."))+'</p>');
   return h.join("")}
 var RO={},popKey=null,popPinned=false;
@@ -1513,17 +1580,18 @@ function setX(x){E.x=Math.max(0,Math.min(1130,Math.round(x)));xpos.value=E.x;var
   document.querySelectorAll("#halts .chip").forEach(function(c){c.setAttribute("aria-pressed",String(Number(c.getAttribute("data-x"))===E.x))});refreshExplorer()}
 xpos.addEventListener("input",function(){setX(Number(xpos.value))});
 HALTS.forEach(function(h){var b=document.createElement("button");b.type="button";b.className="chip";b.textContent=h[0];b.setAttribute("data-x",h[1]);b.setAttribute("aria-pressed","false");b.addEventListener("click",function(){setX(h[1])});document.getElementById("halts").appendChild(b)});
-var cusbox=document.getElementById("cusbox");
-function syncMode(){document.querySelectorAll("#v-explorer .seg button").forEach(function(o){o.setAttribute("aria-pressed",String(o.getAttribute("data-mode")===E.mode))});cusbox.hidden=E.mode!=="cus"}
-document.querySelectorAll("#v-explorer .seg button").forEach(function(b){b.addEventListener("click",function(){E.mode=b.getAttribute("data-mode");syncMode();refreshExplorer()})});
 [["cP1","P",0,100],["cP2","P",1,100],["cP3","P",2,100],["cA1","a",0,1130],["cA2","a",1,1130]].forEach(function(q){var el=document.getElementById(q[0]);el.value=E[q[1]][q[2]];
   el.addEventListener("input",function(){var v=parseNum(el.value);if(v===null)return;E[q[1]][q[2]]=Math.max(0,Math.min(q[3],v));refreshExplorer()});
   el.addEventListener("change",function(){var v=parseNum(el.value);E[q[1]][q[2]]=v===null?0:Math.max(0,Math.min(q[3],v));el.value=E[q[1]][q[2]];refreshExplorer()})});
-syncMode();
+var PRESETS={unit:[[1,0,0],null],m25:[[2.5,0,0],null],t2:[[5,2.5,0],[100,null]]};
+function syncLoadInputs(){[["cP1","P",0],["cP2","P",1],["cP3","P",2],["cA1","a",0],["cA2","a",1]].forEach(function(q){document.getElementById(q[0]).value=E[q[1]][q[2]]})}
+document.querySelectorAll("[data-preset]").forEach(function(b){b.addEventListener("click",function(){var pr=PRESETS[b.getAttribute("data-preset")];E.P=pr[0].slice();if(pr[1]&&pr[1][0]!=null)E.a[0]=pr[1][0];syncLoadInputs();refreshExplorer()})});
 var rchips=document.getElementById("rchips");
-EXKEYS.forEach(function(k){var b=document.createElement("button");b.type="button";b.className="chip rk";b.style.setProperty("--kc",CV[k]);b.innerHTML="R<sub>"+k.slice(2)+"</sub>"+(k==="R_C"?" hinge":"");b.setAttribute("aria-pressed",String(E.keys.indexOf(k)>=0));
-  b.addEventListener("click",function(){var i=E.keys.indexOf(k);if(i>=0){if(E.keys.length>1)E.keys.splice(i,1)}else{E.keys.push(k);E.keys.sort(function(a,c){return EXKEYS.indexOf(a)-EXKEYS.indexOf(c)})}
-    rchips.querySelectorAll(".chip").forEach(function(o,j){o.setAttribute("aria-pressed",String(E.keys.indexOf(EXKEYS[j])>=0))});refreshExplorer()});rchips.appendChild(b)});
+EXKEYS.forEach(function(k){var b=document.createElement("button");b.type="button";b.className="chip rk";b.style.setProperty("--kc",CV[k]);b.innerHTML="R<sub>"+k.slice(2)+"</sub>";b.setAttribute("aria-pressed",String(E.keys.indexOf(k)>=0));
+  b.addEventListener("click",function(){var i=E.keys.indexOf(k);if(i>=0)E.keys.splice(i,1);else{E.keys.push(k);E.keys.sort(function(a,c){return EXKEYS.indexOf(a)-EXKEYS.indexOf(c)})}syncChips();refreshExplorer()});rchips.appendChild(b)});
+function syncChips(){rchips.querySelectorAll(".chip").forEach(function(o,j){o.setAttribute("aria-pressed",String(E.keys.indexOf(EXKEYS[j])>=0))})}
+document.getElementById("ilall").addEventListener("click",function(){E.keys=EXKEYS.slice();syncChips();refreshExplorer()});
+document.getElementById("ilnone").addEventListener("click",function(){E.keys=[];syncChips();refreshExplorer()});
 var showarea=document.getElementById("showarea");showarea.checked=!!E.area;showarea.addEventListener("change",function(){E.area=showarea.checked;refreshExplorer()});
 var dragging=false;
 function dragTo(e){var r=expsvg.getBoundingClientRect();if(!r.width)return;var x=(e.clientX-r.left)/r.width*W-X0;for(var i=0;i<HALTS.length;i++){if(Math.abs(HALTS[i][1]-x)<=7){x=HALTS[i][1];break}}setX(x)}
@@ -1717,6 +1785,12 @@ function eqCheck(){var g=function(id){return parseNum(document.getElementById(id
   document.getElementById("eqout").innerHTML=L2("Sum = <b class='num'>"+f2(s)+" kgf</b> against "+f2(m)+" kgf applied ("+dvs+" divisions). "+(ok?"Acceptable: within two divisions.":"More than two divisions out: re-zero the gauges and repeat this halt."),
     "Jumlah = <b class='num'>"+f2(s)+" kgf</b> berbanding "+f2(m)+" kgf dikenakan ("+dvs+" division). "+(ok?"Boleh diterima: dalam lingkungan dua division.":"Melebihi dua division: re-zero gauge dan ulang halt ini."))}
 langHooks.push(eqCheck,function(){if(LB.done1)lab1();if(LB.done2)lab2()});
+
+/* ---------- glossary search ---------- */
+var gfilter=document.getElementById("gfilter");
+gfilter.addEventListener("input",function(){var q=gfilter.value.trim().toLowerCase(),shown=0;
+  document.querySelectorAll("#v-glossary .gloss tr").forEach(function(tr){var hit=!q||tr.textContent.toLowerCase().indexOf(q)>=0;tr.hidden=!hit;if(hit)shown++});
+  document.getElementById("gnone").hidden=shown>0});
 
 /* =====================================================================
    Short-notes drawer

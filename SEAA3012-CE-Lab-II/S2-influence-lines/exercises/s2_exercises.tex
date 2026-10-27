@@ -109,12 +109,12 @@ Areas: $\il{A}$: $+125$ (AB), $-72.2$ (BC), $-95.0$ (CD), 0 (DEF) mm. $\il{B}$: 
 (c) Whole model: $R_A = 0.02(125 - 72.2 - 95.0) = -0.84$, $R_B = 0.02(607.2) = 12.14$, $R_C = 2.50$ kgf; by symmetry $R_E = 12.14$ and $R_F = -0.84$. Sum $= -0.84 + 12.14 + 12.14 - 0.84 = 22.6$ kgf $= 0.02 \times 1130$. \checkmark
 \end{answer}
 
-\textbf{Question 5.}\qmarks{6} Use the Müller--Breslau principle to sketch the influence lines of $R_E$ and $R_F$ (release the support, impose a unit displacement, draw the deflected shape). Mark the ordinates at C, D, E and F. From the sketches, state which supports can experience uplift and for which positions of the load.
+\textbf{Question 5.}\qmarks{6} Use the Müller--Breslau principle to sketch the influence lines of $R_B$ and $R_E$ (release the support, impose a unit displacement, draw the deflected shape). Mark the ordinates at A to F. Then, using $\il{F}$ from Question~2 and the symmetry of the model, state which supports can experience uplift and for which positions of the load.
 
-\ilgrid{$R_E$ (Müller--Breslau)}\\[6pt]
-\ilgrid{$R_F$ (Müller--Breslau)}
+\ilgrid{$R_B$ (Müller--Breslau)}\\[6pt]
+\ilgrid{$R_E$ (Müller--Breslau)}
 \begin{answer}
-$R_E$: release E and lift it by 1; DEF rotates about F: E rises 1, D rises $440/250 = 1.76$; CD follows D and drops linearly to 0 at C; ABC unmoved. Ordinates: C 0, D 1.76, E 1, F 0. $R_F$: release F and lift it by 1; DEF rotates about E: F rises 1, D drops $190/250 = 0.76$; CD goes from $-0.76$ at D to 0 at C. Ordinates: C 0, D $-0.76$, E 0, F 1. Uplift (negative reaction) occurs at F whenever the load is between C and E (and at A for a load between B and D); B and E never see uplift.
+$R_B$: release B and lift it by 1; ABC rotates about A, so C, \SI{440}{mm} from A, rises $440/250 = 1.76$; CD follows C and returns to 0 at D; DEF does not move. Ordinates: A 0, B 1, C 1.76, D 0, E 0, F 0. $R_E$: release E and lift it by 1; DEF rotates about F, so D rises $440/250 = 1.76$; CD runs from 1.76 at D to 0 at C; ABC does not move. Ordinates: A 0, B 0, C 0, D 1.76, E 1, F 0. Neither line is ever negative, so B and E never see uplift. $\il{F}$ (Question~2) is negative for a load between C and E, and by symmetry $\il{A}$ is negative for a load between B and D: uplift can occur at A and at F.
 \end{answer}
 
 \section*{Part C -- The experiment}
@@ -177,10 +177,10 @@ Sum $= (-28 + 77 + 0 + 0) \times 0.05 = 2.45$ kgf against 2.50 kgf applied: 2\,\
 (c) A negative reaction means the bearing at A must hold the deck down: the support must be anchored (holding-down bolts, tie-down bearings or a counterweight), otherwise the end of the deck lifts off its bearing when a heavy vehicle is on the cantilever or suspended span. The same influence line tells the designer that the bearing at B must carry up to 1.76 times a load standing at C.
 \end{answer}
 
-\textbf{Question 10 (challenge, bonus).}\qmarks{4} For the laboratory compound load (\SI{2.5}{kg} mass \SI{100}{mm} to the right of the \SI{5}{kg} mass, moving right), show that the most negative $R_A$ is $-4.94$~kgf and find the position that gives the largest hinge force $R_C$ and its value.
+\textbf{Question 10 (challenge, bonus).}\qmarks{4} The Test~2 pair now crosses the bridge from F towards A, so the \SI{2.5}{kg} mass is \SI{100}{mm} to the \emph{left} of the \SI{5}{kg} mass. Find the most negative $R_A$, the largest hinge force $R_C$ and the position of the \SI{5}{kg} mass that gives it. Compare with Worked example~1 of the lecture notes.
 \workspace{3cm}
 \begin{answer}
-$R_A$: 5~kg mass at C gives $5(-0.76) + 2.5\,\il{A}(540) = -3.80 + 2.5(-0.456) = -4.94$ kgf; 2.5~kg mass at C (5~kg mass at 340) gives $5(-0.36) + 2.5(-0.76) = -3.70$ kgf; no other vertex of $\il{A}$ is negative, so $-4.94$ kgf is the minimum. $R_C$: $\il{C}$ peaks at C with value 1. 5~kg mass at C: $5(1) + 2.5\,\il{C}(540) = 5 + 2.5(0.6) = 6.50$ kgf. 2.5~kg mass at C (5~kg mass at 340, off the span): $2.5(1) = 2.50$ kgf. Largest hinge force $R_C = 6.50$ kgf with the \SI{5}{kg} mass at C; it is less than the total mass (7.5 kg) because part of the 2.5~kg load goes to D.
+With the 5~kg mass at $x$, $R = 5\,\il{}(x) + 2.5\,\il{}(x-100)$; both lines have their extreme vertex at C. $R_A$: 5~kg mass at C (2.5~kg at \SI{340}{mm}) gives $5(-0.76) + 2.5(-0.36) = -4.70$ kgf; 2.5~kg mass at C (5~kg at \SI{540}{mm}) gives $5(-0.456) + 2.5(-0.76) = -4.18$ kgf. Most negative $R_A = -4.70$ kgf, less severe than the $-4.94$ kgf of Worked example~1 because the lighter mass now trails on the shallower part of the line. $R_C$: 5~kg mass at C (2.5~kg at 340, off the span) gives $5(1) = 5.00$ kgf; 2.5~kg mass at C (5~kg at 540) gives $2.5(1) + 5(0.60) = 5.50$ kgf. Largest $R_C = 5.50$ kgf with the 5~kg mass at \SI{540}{mm}: here the \emph{lighter} load on the vertex governs, because only then are both loads on the suspended span.
 \end{answer}
 
 \vfill

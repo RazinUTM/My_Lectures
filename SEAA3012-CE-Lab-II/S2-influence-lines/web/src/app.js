@@ -9,7 +9,7 @@ function ld(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catc
 function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
 function fresh(){return {lang:"en",theme:"auto",nmode:"full",read:{},qc:{},seen:{},slide:0,
   exp:{x:0,mode:"unit",keys:["R_A","R_B","R_C"],area:false,P:[5,2.5,1],a:[100,150]},
-  pred:{ans:{},t0:0,t1:0},
+  pred:{ans:{},t0:0,t1:0},tk:{v:{},ok:{}},
   ex:{v:{},sel:{},chk:{},first:{},att:{},hint:{},conf:{},confAt:{},timer:{el:0,run:false,t0:0},done:0},
   lab:{ck:{},t1:{g:"R_A",k:"0.05",m:"2.5",v:[]},t2:{g:"R_A",k:"0.05",v:[]},eq:{},done1:false,done2:false,big:null},
   time:{}}}
@@ -282,7 +282,7 @@ var NSECS=["n1","n2","n3","n4","n5","n6","n7","n8"],QCS=["qc1","qc6","qc2","qc7"
 function cnt(o){return Object.keys(o).filter(function(k){return o[k]}).length}
 function parts(){var lab=0;for(var i=1;i<=5;i++)if(ST.lab.ck["ck"+i])lab++;if(ST.lab.done1)lab++;if(ST.lab.done2)lab++;
   return {notes:[NSECS.filter(function(s){return ST.read[s]}).length,8],slides:[Math.min(cnt(ST.seen),slides.length),slides.length],
-    explorer:[Object.keys(ST.pred.ans).length,6],exercises:[cnt(ST.ex.chk),10],lab:[lab,7]}}
+    explorer:[cnt(ST.tk.ok)+Object.keys(ST.pred.ans).length,10],exercises:[cnt(ST.ex.chk),10],lab:[lab,7]}}
 function updateProgress(){var p=parts(),sum=0;
   Object.keys(p).forEach(function(k){var b=document.querySelector('[data-bd="'+k+'"]');sum+=p[k][0]/p[k][1];if(b){b.textContent=p[k][0]+"/"+p[k][1];b.classList.toggle("full",p[k][0]>=p[k][1])}});
   var pct=Math.round(sum/5*100),bar=document.getElementById("pbar");bar.firstElementChild.style.width=pct+"%";bar.setAttribute("aria-valuenow",String(pct));
@@ -447,32 +447,43 @@ var QUESTIONS=[
  {q:["A single mass stands at halt 4 (on the cantilever BC, 150 mm beyond B). The reaction at A is …","Satu jisim berada di halt 4 (pada cantilever BC, 150 mm selepas B). Reaction di A ialah …"],
   o:[["upward (positive)","ke atas (positif)"],["zero: the load is not on span AB","sifar: load tiada pada span AB"],["downward (negative): the support must hold the beam down","ke bawah (negatif): support perlu menahan beam ke bawah"]],a:2,
   e:["Beam ABC is one rigid piece pivoting about B. A load beyond B lifts end A, so the support at A pulls down: η<sub>A</sub>(400) = (250 − 400)/250 = −0.60.","Beam ABC ialah satu kepingan rigid yang berpangsi pada B. Load selepas B mengangkat hujung A, jadi support di A menarik ke bawah: η<sub>A</sub>(400) = (250 − 400)/250 = −0.60."]},
- {q:["Where must a single mass stand to make R<sub>B</sub> as large as possible?","Di mana satu jisim perlu berada untuk menjadikan R<sub>B</sub> sebesar mungkin?"],
-  o:[["at B","di B"],["at C (the cantilever tip)","di C (hujung cantilever)"],["at A","di A"],["at D","di D"]],a:1,
-  e:["η<sub>B</sub>(x) = x/250 keeps growing past B and peaks at the cantilever tip: η<sub>B</sub>(440) = 1.76, larger than the load itself, because B also has to balance the pull-down at A.","η<sub>B</sub>(x) = x/250 terus meningkat selepas B dan memuncak di hujung cantilever: η<sub>B</sub>(440) = 1.76, lebih besar daripada load itu sendiri, kerana B juga perlu mengimbangi tarikan ke bawah di A."]},
- {q:["The mass is at halt 8 (between D and E). What is R<sub>A</sub>?","Jisim berada di halt 8 (antara D dan E). Berapakah R<sub>A</sub>?"],
-  o:[["0","0"],["−0.20","−0.20"],["+0.20","+0.20"]],a:0,
-  e:["A load on DEF is carried by E and F only. The suspended span CD is unloaded, so the hinge at D passes nothing to the left half: η<sub>A</sub> = 0 for every x beyond D.","Load pada DEF dibawa oleh E dan F sahaja. Suspended span CD tidak dibebani, jadi hinge di D tidak memindahkan apa-apa ke separuh kiri: η<sub>A</sub> = 0 bagi setiap x selepas D."]},
  {q:["The mass is at halt 5 (on the suspended span CD). Which statement is true?","Jisim berada di halt 5 (pada suspended span CD). Pernyataan mana yang benar?"],
   o:[["R<sub>A</sub> + R<sub>B</sub> = 1","R<sub>A</sub> + R<sub>B</sub> = 1"],["R<sub>A</sub> + R<sub>B</sub> = R<sub>C</sub> = 0.76","R<sub>A</sub> + R<sub>B</sub> = R<sub>C</sub> = 0.76"],["R<sub>A</sub> + R<sub>B</sub> = 0","R<sub>A</sub> + R<sub>B</sub> = 0"]],a:1,
   e:["Beam ABC carries only the hinge force at C, η<sub>C</sub>(500) = (690 − 500)/250 = 0.76, so its two reactions add up to 0.76 (−0.578 + 1.338). The remaining 0.24 goes through D to E and F.","Beam ABC hanya membawa hinge force di C, η<sub>C</sub>(500) = (690 − 500)/250 = 0.76, jadi dua reaction-nya berjumlah 0.76 (−0.578 + 1.338). Baki 0.24 melalui D ke E dan F."]},
- {q:["The 5 kg + 2.5 kg pair moves to the right, with the 2.5 kg mass 100 mm in front of (to the right of) the 5 kg mass. The most negative R<sub>A</sub> occurs when …","Pasangan 5 kg + 2.5 kg bergerak ke kanan, dengan jisim 2.5 kg 100 mm di hadapan (di kanan) jisim 5 kg. R<sub>A</sub> paling negatif berlaku apabila …"],
-  o:[["the 5 kg mass is at C","jisim 5 kg di C"],["the 2.5 kg mass is at C","jisim 2.5 kg di C"],["both masses are on the suspended span","kedua-dua jisim pada suspended span"]],a:0,
-  e:["η<sub>A</sub> is piecewise linear with its minimum (−0.76) at C, so the extreme of the sum occurs with a load on that vertex. The heavier load there gives 5(−0.76) + 2.5(−0.456) = −4.94 kgf, against −3.70 kgf with the 2.5 kg mass at C.","η<sub>A</sub> adalah piecewise linear dengan minimum (−0.76) di C, jadi nilai ekstrem jumlahnya berlaku dengan satu load pada vertex itu. Load yang lebih berat di situ memberi 5(−0.76) + 2.5(−0.456) = −4.94 kgf, berbanding −3.70 kgf dengan jisim 2.5 kg di C."]},
  {q:["The influence line for R<sub>A</sub> is one straight line from A to C although there is a support at B. Why?","Influence line bagi R<sub>A</sub> ialah satu garis lurus dari A ke C walaupun terdapat support di B. Mengapa?"],
   o:[["ABC is a single rigid beam, so moments about B give R<sub>A</sub> = (250 − x)/250 for any x on it","ABC ialah satu rigid beam, jadi moment terhadap B memberi R<sub>A</sub> = (250 − x)/250 bagi sebarang x padanya"],["B carries no load","B tidak membawa load"],["the structure is symmetric","struktur ini simetri"]],a:0,
-  e:["B is where the moment is taken, not where the beam bends: for any load on ABC the same lever rule applies, and the line passes through zero at B and continues negative to C.","B ialah titik di mana moment diambil, bukan tempat beam melentur: bagi sebarang load pada ABC, lever rule yang sama digunakan, dan garis melalui sifar di B serta berterusan negatif hingga C."]}];
+  e:["B is where the moment is taken, not where the beam bends: for any load on ABC the same lever rule applies, and the line passes through zero at B and continues negative to C.","B ialah titik di mana moment diambil, bukan tempat beam melentur: bagi sebarang load pada ABC, lever rule yang sama digunakan, dan garis melalui sifar di B serta berterusan negatif hingga C."]},
+ {q:["Every mass on the bridge is doubled. What happens to the influence line for R<sub>A</sub>?","Setiap jisim di atas jambatan digandakan. Apakah yang berlaku kepada influence line bagi R<sub>A</sub>?"],
+  o:[["it doubles","ia berganda"],["it does not change; the reactions double","ia tidak berubah; reaction yang berganda"],["it changes shape","bentuknya berubah"]],a:1,
+  e:["An influence line is defined for a unit load and depends only on the structure. The loads enter only when you multiply: R = Σ P<sub>i</sub> η(x<sub>i</sub>), so doubling every P doubles R.","Influence line ditakrif untuk unit load dan hanya bergantung pada struktur. Load hanya masuk semasa pendaraban: R = Σ P<sub>i</sub> η(x<sub>i</sub>), jadi menggandakan setiap P menggandakan R."]},
+ {q:["Two 2 kg masses stand at x<sub>1</sub> and x<sub>2</sub>. Which expression always gives R<sub>B</sub>?","Dua jisim 2 kg berada di x<sub>1</sub> dan x<sub>2</sub>. Ungkapan mana yang sentiasa memberi R<sub>B</sub>?"],
+  o:[["2 η<sub>B</sub>(x<sub>1</sub>) + 2 η<sub>B</sub>(x<sub>2</sub>)","2 η<sub>B</sub>(x<sub>1</sub>) + 2 η<sub>B</sub>(x<sub>2</sub>)"],["4 η<sub>B</sub> at the midpoint (x<sub>1</sub> + x<sub>2</sub>)/2","4 η<sub>B</sub> di titik tengah (x<sub>1</sub> + x<sub>2</sub>)/2"],["η<sub>B</sub>(x<sub>1</sub> + x<sub>2</sub>)","η<sub>B</sub>(x<sub>1</sub> + x<sub>2</sub>)"]],a:0,
+  e:["Superposition: each load contributes its own P η. The midpoint rule works only when both loads stand on the same straight segment; across the kink at C it gives the wrong answer.","Superposition: setiap load menyumbang P η masing-masing. Petua titik tengah hanya betul apabila kedua-dua load berada pada segmen lurus yang sama; merentasi bengkokan di C ia memberi jawapan yang salah."]}];
+if((ST.qv||0)<2||!ST.tk){ST.pred={ans:{},t0:0,t1:0};ST.tk={v:{},ok:{}};ST.qv=2}
 var qlist=document.getElementById("qlist"),scoreEl=document.getElementById("score");
 function li(p){return ST.lang==="ms"?p[1]:p[0]}
 function renderPreds(){qlist.innerHTML="";var P=ST.pred;
   QUESTIONS.forEach(function(Q,i){var d=document.createElement("div");d.className="q";d.innerHTML="<p>"+(i+1)+". "+li(Q.q)+"</p>";var o=document.createElement("div");o.className="opts";var a=P.ans[i];
     Q.o.forEach(function(t,j){var b=document.createElement("button");b.type="button";b.className="opt";b.innerHTML=li(t);if(a!==undefined)b.dataset.state=(j===Q.a)?"right":(j===a?"wrong":"");
-      b.addEventListener("click",function(){if(P.ans[i]!==undefined)return;if(!P.t0)P.t0=Date.now();P.ans[i]=j;if(Object.keys(P.ans).length===6)P.t1=Date.now();save();renderPreds();updateProgress()});o.appendChild(b)});
+      b.addEventListener("click",function(){if(P.ans[i]!==undefined)return;if(!P.t0)P.t0=Date.now();P.ans[i]=j;if(Object.keys(P.ans).length===QUESTIONS.length)P.t1=Date.now();save();renderPreds();updateProgress()});o.appendChild(b)});
     d.appendChild(o);if(a!==undefined){var fb=document.createElement("p");fb.className="fb";fb.innerHTML="<b>"+(a===Q.a?L2("Correct.","Betul."):L2("Not quite.","Belum tepat."))+"</b> "+li(Q.e);d.appendChild(fb)}qlist.appendChild(d)});
   var n=Object.keys(P.ans).length,c=0;Object.keys(P.ans).forEach(function(k){if(P.ans[k]===QUESTIONS[k].a)c++});
   scoreEl.textContent=n?L2("Score "+c+" / "+n+" answered","Skor "+c+" / "+n+" dijawab")+(P.t1?L2(" · time "," · masa ")+mmss(P.t1-P.t0):""):""}
 document.getElementById("predreset").addEventListener("click",function(){ST.pred={ans:{},t0:0,t1:0};save();renderPreds();updateProgress()});
 langHooks.push(renderPreds);
+
+/* ---------- Explorer tasks: read values from the tool, ticked when right ---------- */
+var TKS=[].slice.call(document.querySelectorAll("article.tk"));
+function tkEval(el){var t=el.getAttribute("data-type")==="text";if(t){var v=el.value.trim().toUpperCase();if(!v)return null;return v===el.getAttribute("data-ans").toUpperCase()}
+  var n=parseNum(el.value);if(n===null)return null;return Math.abs(n-Number(el.getAttribute("data-ans")))<=Number(el.getAttribute("data-tol"))}
+function tkPaint(tk,show){var fl=[].slice.call(tk.querySelectorAll("input.tans")),ok=0;fl.forEach(function(el){var r=tkEval(el);if(show)el.setAttribute("data-state",r?"right":"wrong");if(r)ok++});
+  var all=ok===fl.length;tk.classList.toggle("done",!!ST.tk.ok[tk.id]);
+  if(show){tk.querySelector(".tkgood").hidden=!all;tk.querySelector(".tkbad").hidden=all;tx(tk.querySelector(".res"),ok+" of "+fl.length+" correct",ok+" daripada "+fl.length+" betul")}return all}
+function tkScore(){var n=cnt(ST.tk.ok);tx(document.getElementById("tkscore"),n+" / 5 done",n+" / 5 selesai")}
+TKS.forEach(function(tk){tk.querySelectorAll("input.tans").forEach(function(el){if(ST.tk.v[el.id]!=null)el.value=ST.tk.v[el.id];el.addEventListener("input",function(){ST.tk.v[el.id]=el.value;el.removeAttribute("data-state");save()})});
+  tk.querySelector(".tkchk").addEventListener("click",function(){if(tkPaint(tk,false)){ST.tk.ok[tk.id]=1}tkPaint(tk,true);save();tkScore();updateProgress()});
+  if(ST.tk.ok[tk.id])tkPaint(tk,true)});
+tkScore();langHooks.push(function(){tkScore();TKS.forEach(function(tk){if(tk.querySelector(".res").textContent)tkPaint(tk,true)})});
 
 /* ---------- Müller–Breslau demo ---------- */
 var mbchips=document.getElementById("mbchips"),mbd=document.getElementById("mbd"),mbdv=document.getElementById("mbdv");
@@ -508,8 +519,8 @@ function checkQ(q,restoring){var fl=fieldsOf(q);
   resText(q);var pk=q.getAttribute("data-plot");if(pk)plotQ(q,pk);
   if(!restoring){renderExSummary();updateProgress()}}
 function plotQ(q,k){var box=q.querySelector(".qplot");if(!box)return;var id="q-"+k;
-  if(k==="q2"||k==="q5"){var keys=k==="q2"?["R_D","R_F"]:["R_E","R_F"],base=k==="q2"?"q2-":"q5-";
-    var pts=function(row){return [440,690,880,1130].map(function(x,i){var v=parseNum(document.getElementById(base+(row*4+i+1)).value);return v===null?null:{x:x,eta:v}}).filter(Boolean)};
+  if(k==="q2"||k==="q5"){var keys=k==="q2"?["R_D","R_F"]:["R_B","R_E"],base=k==="q2"?"q2-":"q5-",XS=k==="q2"?[440,690,880,1130]:[0,250,440,690,880,1130];
+    var pts=function(row){return XS.map(function(x,i){var v=parseNum(document.getElementById(base+(row*XS.length+i+1)).value);return v===null?null:{x:x,eta:v}}).filter(Boolean)};
     QP[id]=function(fs){var lab=L2("○ your ordinates","○ ordinate anda"),a=figureSVG({fs:fs,keys:[keys[0]],points:{key:keys[0],data:pts(0),label:lab},bridge:false}),b=figureSVG({fs:fs,keys:[keys[1]],points:{key:keys[1],data:pts(1),label:lab},bridge:false});
       return {html:a.html+'<g transform="translate(0,'+a.h+')">'+b.html+'</g>',h:a.h+b.h}}}
   else if(k==="q6"){QP[id]=function(fs){return figureSVG({fs:fs,keys:["R_A"],points:{key:"R_A",data:HALTS.map(function(h,i){return {x:h[1],eta:PRACTICE[i]/50}}),label:L2("○ illustrative readings","○ bacaan ilustrasi")},bridge:false})}}
@@ -650,7 +661,7 @@ document.getElementById("snclose").addEventListener("click",closeDrawer);scrim.a
 function secTitle(id){var h=document.querySelector("#"+id+" > h2 ."+(ST.lang==="ms"?"ms":"en"));return h?h.textContent:id}
 function nextStep(){var p=parts();
   for(var i=0;i<NSECS.length;i++)if(!ST.read[NSECS[i]])return {v:"notes",a:NSECS[i],en:"Notes · "+secTitle(NSECS[i])+" (≈ "+document.getElementById(NSECS[i]).getAttribute("data-rt")+" min)",ms:"Nota · "+secTitle(NSECS[i])+" (≈ "+document.getElementById(NSECS[i]).getAttribute("data-rt")+" min)"};
-  if(p.explorer[0]<6)return {v:"explorer",a:"qlist",en:"Explorer · prediction questions ("+p.explorer[0]+" of 6 answered)",ms:"Explorer · prediction question ("+p.explorer[0]+" daripada 6 dijawab)"};
+  if(p.explorer[0]<10)return {v:"explorer",a:"tasks",en:"Explorer · tasks and concept questions ("+p.explorer[0]+" of 10 done)",ms:"Explorer · tugasan dan soalan kefahaman ("+p.explorer[0]+" daripada 10 selesai)"};
   for(var j=0;j<QX.length;j++)if(!X.chk[QX[j].id])return {v:"exercises",a:QX[j].id,en:"Exercises · Question "+(j+1)+" ("+p.exercises[0]+" of 10 checked)",ms:"Latihan · Soalan "+(j+1)+" ("+p.exercises[0]+" daripada 10 disemak)"};
   if(p.lab[0]<7)return {v:"lab",a:null,en:"Lab · checklist, Test 1 and Test 2 ("+p.lab[0]+" of 7 items)",ms:"Makmal · senarai semak, Test 1 dan Test 2 ("+p.lab[0]+" daripada 7 item)"};
   var miss=QX.filter(function(q){var f=X.first[q.id];return f&&f.n&&f.ok<f.n}).map(function(q){return "Q"+q.id.slice(1)});
@@ -663,7 +674,7 @@ function recordRows(){var p=parts(),s=exStats(),mf=estMarks("first"),P=ST.pred,p
   return [
    [L2("Notes","Nota"),p.notes[0]+"/8 "+L2("sections read","section dibaca"),L2("quick checks right first time: ","semakan pantas betul kali pertama: ")+qok+"/"+qn,mins(tm.notes)],
    ["Slides",p.slides[0]+"/"+p.slides[1]+" "+L2("viewed","dilihat"),"",mins(tm.slides)],
-   ["Explorer",p.explorer[0]+"/6 "+L2("predictions","prediction"),Object.keys(P.ans).length?L2("correct ","betul ")+pc+"/"+Object.keys(P.ans).length+(P.t1?L2(" · time "," · masa ")+mmss(P.t1-P.t0):""):"",mins(tm.explorer)],
+   ["Explorer",p.explorer[0]+"/10 "+L2("done","selesai"),L2("tasks ","tugasan ")+cnt(ST.tk.ok)+"/5"+(Object.keys(P.ans).length?L2(" · concept questions right first time "," · soalan kefahaman betul kali pertama ")+pc+"/"+Object.keys(P.ans).length:""),mins(tm.explorer)],
    [L2("Exercises","Latihan"),p.exercises[0]+"/10 "+L2("checked","disemak"),s.fn?L2("first attempt ","first attempt ")+s.fo+"/"+s.fn+L2(" fields (≈ "," medan (≈ ")+mf[0].toFixed(1)+"/"+mf[1]+L2(" marks) · now "," markah) · sekarang ")+s.no+"/"+s.nn+L2(" · hints "," · petunjuk ")+s.h+L2(" · timer "," · timer ")+mmss(X.done||elapsed()):"",mins(tm.exercises)],
    [L2("Lab","Makmal"),p.lab[0]+"/7 "+L2("items","item"),LB.big?L2("Test 1 gauge "+LB.big.g+": largest difference "+LB.big.d.toFixed(3)+" at halt "+LB.big.h,"Test 1 gauge "+LB.big.g+": perbezaan terbesar "+LB.big.d.toFixed(3)+" di halt "+LB.big.h):"",mins(tm.lab)]]}
 function renderStart(){NEXT=nextStep();document.getElementById("nexttxt").textContent=L2(NEXT.en,NEXT.ms);

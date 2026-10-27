@@ -3,7 +3,7 @@
 <section class="view" data-view="explorer" id="v-explorer" role="tabpanel" aria-labelledby="t-explorer" hidden>
   <div class="card">
     <h2><span class="en">Move the load</span><span class="ms">Gerakkan load</span></h2>
-    <p class="lead"><span class="en">Drag the load on the drawing, use the slider or tap a halt. Choose one or more influence lines to draw under the bridge: every halt sits directly above its ordinate.</span><span class="ms">Seret load pada lukisan, guna slider atau tekan satu halt. Pilih satu atau lebih influence line untuk dilukis di bawah jambatan: setiap halt berada tepat di atas ordinate-nya.</span></p>
+    <p class="lead"><span class="en">Drag the load on the drawing, use the slider or tap a halt. Switch the influence lines for R<sub>A</sub>, R<sub>B</sub> and R<sub>C</sub> on or off to view one, two or all three under the bridge: every halt sits directly above its ordinate. R<sub>D</sub>, R<sub>E</sub> and R<sub>F</sub> are their mirror images and are listed in the readout.</span><span class="ms">Seret load pada lukisan, guna slider atau tekan satu halt. Hidupkan atau matikan influence line bagi R<sub>A</sub>, R<sub>B</sub> dan R<sub>C</sub> untuk melihat satu, dua atau ketiga-tiganya di bawah jambatan: setiap halt berada tepat di atas ordinate-nya. R<sub>D</sub>, R<sub>E</sub> dan R<sub>F</sub> ialah imej cerminnya dan dipaparkan dalam readout.</span></p>
     <svg class="fig" data-fig="explorer" id="expsvg" style="touch-action:pan-y;cursor:ew-resize" role="img" aria-label="Bridge with load and the selected influence lines"></svg>
     <div class="ctrl">
       <div class="slwrap"><input type="range" id="xpos" min="0" max="1130" step="1" value="0" aria-label="Load position in millimetres"></div>
@@ -13,7 +13,7 @@
           <button type="button" data-mode="m25" aria-pressed="false">2.5 kg</button>
           <button type="button" data-mode="cmp" aria-pressed="false">5 kg + 2.5 kg</button></div></div>
       <div class="chips" id="halts" aria-label="Halts"></div>
-      <div class="row"><span class="lbl">Influence lines</span><span class="chips" id="rchips" aria-label="Influence lines to draw"></span>
+      <div class="row"><span class="lbl"><span class="en">Influence lines (on/off)</span><span class="ms">Influence line (hidup/mati)</span></span><span class="chips" id="rchips" aria-label="Influence lines to draw"></span>
         <label class="lbl" style="display:inline-flex;gap:6px;align-items:center"><input type="checkbox" id="showarea"> <span class="en">shade areas</span><span class="ms">lorek area</span></label></div>
       <div class="readout" id="readout"></div>
       <div class="sumline" id="sumline"></div>

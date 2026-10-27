@@ -97,7 +97,7 @@ out["errors"] = {"slope_AB_per_mm": 1 / 250, "slope_CD_per_mm": 0.76 / 250,
 # 7. UDL examples (w in kg/mm) -> R in kg per unit w
 out["udl_RA_per_w"] = {"whole": out["areas"]["R_A"]["total"], "AB_only": out["area_RA_segments"]["AB"],
                        "BC_and_CD": round(out["area_RA_segments"]["BC"] + out["area_RA_segments"]["CD"], 2)}
-json.dump(out, open("/home/claude/s2_teaching/shared/s2_numbers.json", "w"), indent=1)
+import pathlib; json.dump(out, open(pathlib.Path(__file__).resolve().parent / "s2_numbers.json", "w"), indent=1)
 for h in out["halts"]:
     print(f'{h["label"]:>2} x={h["x"]:4d}  RA={h["R_A"]:7.4f} RB={h["R_B"]:7.4f} RC={h["R_C"]:6.3f} RD={h["R_D"]:6.3f} RE={h["R_E"]:7.4f} RF={h["R_F"]:7.4f}')
 print("sum check:", set(out["sum_check"]))

@@ -257,10 +257,6 @@ details.kp ul{margin:6px 0 2px;padding-left:20px}
 details.kp li{margin:3px 0}
 .keyonly .sb{display:none}
 .sfoot{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between;border-top:1px dashed var(--line);margin-top:16px;padding-top:10px;font:14px var(--font-ui);color:var(--muted)}
-.readck{display:inline-flex;gap:8px;align-items:center;color:var(--fg);font-weight:600;cursor:pointer}
-.readck input{width:18px;height:18px;accent-color:var(--good);margin:0}
-.nsec.isread > h2::after{content:" ✓";color:var(--good);font-size:.8em}
-.toc a.isread::after{content:" ✓";color:var(--good)}
 .toc .rt{font:12px var(--font-num);color:var(--muted);margin-top:10px}
 .qc{border:1px solid var(--line);border-radius:8px;padding:10px 14px;margin:18px 0;background:var(--panel2);font:15px/1.5 var(--font-ui)}
 .qc .h{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
@@ -298,6 +294,18 @@ details.kp li{margin:3px 0}
 html{scroll-padding-top:110px}
 img{max-width:100%;height:auto}
 .start-hero > *,.grid2 > *{min-width:0}
+/* mark-as-read: a full-width, clearly bordered control at the end of every section */
+.sfoot{border-top:0;margin-top:20px;padding-top:0}
+.readck{flex:1 1 280px;display:flex;gap:12px;align-items:center;justify-content:center;min-height:48px;padding:10px 16px;border:2px dashed var(--accent);border-radius:10px;background:var(--tint);color:var(--accent);font:600 15.5px var(--font-ui);cursor:pointer;user-select:none}
+.readck:hover{border-style:solid}
+.readck input{width:22px;height:22px;accent-color:var(--good);margin:0;flex:none}
+.rk-done{display:none}
+.nsec.isread .readck{border-style:solid;border-color:var(--good);background:var(--good-bg);color:var(--good)}
+.nsec.isread .rk-todo{display:none}
+.nsec.isread .rk-done{display:inline}
+.nsec.isread > h2::after{content:" ✓";color:var(--good);font-size:.8em}
+.toc a[data-toc]::before{content:"○ ";color:var(--muted)}
+.toc a.isread::before{content:"✓ ";color:var(--good)}
 </style>
 <script>
 window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]]},svg:{fontCache:"global"},
@@ -447,7 +455,7 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]]},svg
       <div class="opts"><button class="opt" type="button" data-v="a"><span class="en">the section where \(R_A\) is read</span><span class="ms">section di mana \(R_A\) dibaca</span></button><button class="opt" type="button" data-v="b"><span class="en">the position of the unit load</span><span class="ms">kedudukan unit load</span></button><button class="opt" type="button" data-v="c"><span class="en">the magnitude of the load</span><span class="ms">magnitud load</span></button></div>
       <p class="fb" hidden><span class="en">\(R_A\) is always read at A; what changes is where the unit load stands.</span><span class="ms">\(R_A\) sentiasa dibaca di A; yang berubah ialah kedudukan unit load.</span></p></div>
     </div>
-    <div class="sfoot"><label class="readck"><input type="checkbox" data-read="n1"><span class="en">Mark as read</span><span class="ms">Tanda sudah dibaca</span></label><span class="readtime"><span class="en">≈ 3 min read</span><span class="ms">≈ 3 min bacaan</span></span></div>
+    <div class="sfoot"><label class="readck"><input type="checkbox" data-read="n1"><span class="rk-todo"><span class="en">Mark this section as read</span><span class="ms">Tandakan section ini sudah dibaca</span></span><span class="rk-done"><span class="en">Section read</span><span class="ms">Section sudah dibaca</span></span></label><span class="readtime"><span class="en">≈ 3 min read</span><span class="ms">≈ 3 min bacaan</span></span></div>
     </section>
 
     <!-- ---------------------------------------------------------------- 2 -->
@@ -469,7 +477,7 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]]},svg
     <p class="en"><b>Sign convention.</b> Support reactions are positive upwards. The hinge forces \(R_C\) and \(R_D\) are the forces the suspended span presses on the cantilever tips (positive downwards on the tip); they are what the gauges at C and D register. Positions are measured from A, \(0 \le x \le 1130\) mm.</p>
     <p class="ms"><b>Sign convention.</b> Support reaction positif ke atas. Hinge force \(R_C\) dan \(R_D\) ialah daya yang dikenakan oleh suspended span ke atas hujung cantilever (positif ke bawah pada hujung); inilah yang direkod oleh gauge di C dan D. Kedudukan diukur dari A, \(0 \le x \le 1130\) mm.</p>
     </div>
-    <div class="sfoot"><label class="readck"><input type="checkbox" data-read="n2"><span class="en">Mark as read</span><span class="ms">Tanda sudah dibaca</span></label><span class="readtime"><span class="en">≈ 3 min read</span><span class="ms">≈ 3 min bacaan</span></span></div>
+    <div class="sfoot"><label class="readck"><input type="checkbox" data-read="n2"><span class="rk-todo"><span class="en">Mark this section as read</span><span class="ms">Tandakan section ini sudah dibaca</span></span><span class="rk-done"><span class="en">Section read</span><span class="ms">Section sudah dibaca</span></span></label><span class="readtime"><span class="en">≈ 3 min read</span><span class="ms">≈ 3 min bacaan</span></span></div>
     </section>
 
     <!-- ---------------------------------------------------------------- 3 -->
@@ -509,7 +517,7 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]]},svg
       <div class="opts"><button class="opt" type="button" data-v="a">1.00</button><button class="opt" type="button" data-v="b">1.76</button><button class="opt" type="button" data-v="c">0.76</button></div>
       <p class="fb" hidden><span class="en">\(\eta_B(440) = 440/250 = 1.76\): B carries the load and also balances the pull-down at A.</span><span class="ms">\(\eta_B(440) = 440/250 = 1.76\): B membawa load dan juga mengimbangi tarikan ke bawah di A.</span></p></div>
     </div>
-    <div class="sfoot"><label class="readck"><input type="checkbox" data-read="n3"><span class="en">Mark as read</span><span class="ms">Tanda sudah dibaca</span></label><span class="readtime"><span class="en">≈ 7 min read</span><span class="ms">≈ 7 min bacaan</span></span></div>
+    <div class="sfoot"><label class="readck"><input type="checkbox" data-read="n3"><span class="rk-todo"><span class="en">Mark this section as read</span><span class="ms">Tandakan section ini sudah dibaca</span></span><span class="rk-done"><span class="en">Section read</span><span class="ms">Section sudah dibaca</span></span></label><span class="readtime"><span class="en">≈ 7 min read</span><span class="ms">≈ 7 min bacaan</span></span></div>
     </section>
 
     <!-- ---------------------------------------------------------------- 4 -->
@@ -536,7 +544,7 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]]},svg
       <div class="opts"><button class="opt" type="button" data-v="a"><span class="en">rises by 440/250 = 1.76</span><span class="ms">naik sebanyak 440/250 = 1.76</span></button><button class="opt" type="button" data-v="b"><span class="en">drops by 0.76</span><span class="ms">turun sebanyak 0.76</span></button><button class="opt" type="button" data-v="c"><span class="en">stays at zero</span><span class="ms">kekal sifar</span></button></div>
       <p class="fb" hidden><span class="en">A rigid bar pinned at A and lifted by 1 at 250 mm rises in proportion to the distance from A: \(440/250 = 1.76\) at C, the peak of \(\eta_B\).</span><span class="ms">Bar rigid yang di-pin di A dan diangkat 1 pada 250 mm naik berkadar dengan jarak dari A: \(440/250 = 1.76\) di C, iaitu puncak \(\eta_B\).</span></p></div>
     </div>
-    <div class="sfoot"><label class="readck"><input type="checkbox" data-read="n4"><span class="en">Mark as read</span><span class="ms">Tanda sudah dibaca</span></label><span class="readtime"><span class="en">≈ 4 min read</span><span class="ms">≈ 4 min bacaan</span></span></div>
+    <div class="sfoot"><label class="readck"><input type="checkbox" data-read="n4"><span class="rk-todo"><span class="en">Mark this section as read</span><span class="ms">Tandakan section ini sudah dibaca</span></span><span class="rk-done"><span class="en">Section read</span><span class="ms">Section sudah dibaca</span></span></label><span class="readtime"><span class="en">≈ 4 min read</span><span class="ms">≈ 4 min bacaan</span></span></div>
     </section>
 
     <!-- ---------------------------------------------------------------- 5 -->
@@ -571,7 +579,7 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]]},svg
       <div class="opts"><button class="opt" type="button" data-v="a"><span class="en">the train is centred on the span</span><span class="ms">load train berada di tengah span</span></button><button class="opt" type="button" data-v="b"><span class="en">the resultant of the loads is at a support</span><span class="ms">resultant load berada di support</span></button><button class="opt" type="button" data-v="c"><span class="en">one of the loads stands on a vertex</span><span class="ms">salah satu load berada pada vertex</span></button></div>
       <p class="fb" hidden><span class="en">The sum is piecewise linear in the position of the train, so its extremes are at breakpoints: one load on a vertex.</span><span class="ms">Jumlahnya piecewise linear terhadap kedudukan load train, jadi nilai ekstremnya berada pada breakpoint: satu load pada vertex.</span></p></div>
     </div>
-    <div class="sfoot"><label class="readck"><input type="checkbox" data-read="n5"><span class="en">Mark as read</span><span class="ms">Tanda sudah dibaca</span></label><span class="readtime"><span class="en">≈ 6 min read</span><span class="ms">≈ 6 min bacaan</span></span></div>
+    <div class="sfoot"><label class="readck"><input type="checkbox" data-read="n5"><span class="rk-todo"><span class="en">Mark this section as read</span><span class="ms">Tandakan section ini sudah dibaca</span></span><span class="rk-done"><span class="en">Section read</span><span class="ms">Section sudah dibaca</span></span></label><span class="readtime"><span class="en">≈ 6 min read</span><span class="ms">≈ 6 min bacaan</span></span></div>
     </section>
 
     <!-- ---------------------------------------------------------------- 6 -->
@@ -592,7 +600,7 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]]},svg
     <p class="en"><b>Equilibrium check.</b> With the mass at any halt the four support gauges should add up to the applied mass: \((a+b+e+f)\times0.05 \approx 2.5\) kgf. Check it before leaving the laboratory, while the readings can still be repeated. The Lab tab does this for you.</p>
     <p class="ms"><b>Equilibrium check.</b> Dengan jisim di mana-mana halt, jumlah bacaan empat support gauge sepatutnya sama dengan jisim yang dikenakan: \((a+b+e+f)\times0.05 \approx 2.5\) kgf. Semak sebelum keluar makmal, ketika bacaan masih boleh diulang. Tab Makmal melakukannya untuk anda.</p>
     </div>
-    <div class="sfoot"><label class="readck"><input type="checkbox" data-read="n6"><span class="en">Mark as read</span><span class="ms">Tanda sudah dibaca</span></label><span class="readtime"><span class="en">≈ 3 min read</span><span class="ms">≈ 3 min bacaan</span></span></div>
+    <div class="sfoot"><label class="readck"><input type="checkbox" data-read="n6"><span class="rk-todo"><span class="en">Mark this section as read</span><span class="ms">Tandakan section ini sudah dibaca</span></span><span class="rk-done"><span class="en">Section read</span><span class="ms">Section sudah dibaca</span></span></label><span class="readtime"><span class="en">≈ 3 min read</span><span class="ms">≈ 3 min bacaan</span></span></div>
     </section>
 
     <!-- ---------------------------------------------------------------- 7 -->
@@ -618,7 +626,7 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]]},svg
       <div class="opts"><button class="opt" type="button" data-v="a">3 %</button><button class="opt" type="button" data-v="b">6 %</button><button class="opt" type="button" data-v="c">15 %</button></div>
       <p class="fb" hidden>\(0.03/0.20 = 0.15\). <span class="en">The same ±0.03 is only 3 % of the ordinate at A.</span><span class="ms">±0.03 yang sama hanya 3 % daripada ordinate di A.</span></p></div>
     </div>
-    <div class="sfoot"><label class="readck"><input type="checkbox" data-read="n7"><span class="en">Mark as read</span><span class="ms">Tanda sudah dibaca</span></label><span class="readtime"><span class="en">≈ 3 min read</span><span class="ms">≈ 3 min bacaan</span></span></div>
+    <div class="sfoot"><label class="readck"><input type="checkbox" data-read="n7"><span class="rk-todo"><span class="en">Mark this section as read</span><span class="ms">Tandakan section ini sudah dibaca</span></span><span class="rk-done"><span class="en">Section read</span><span class="ms">Section sudah dibaca</span></span></label><span class="readtime"><span class="en">≈ 3 min read</span><span class="ms">≈ 3 min bacaan</span></span></div>
     </section>
 
     <!-- ---------------------------------------------------------------- 8 -->
@@ -632,7 +640,7 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]]},svg
     <p class="en">Bridge decks are designed for standard vehicle and lane loads placed, by means of influence lines or influence surfaces, where they produce the largest effects at each section. For continuous (indeterminate) girders the influence lines are curved and need an elastic analysis, but the Müller–Breslau sketch still tells the engineer which spans to load. The cantilever bridge, with its determinate hinges, made the long steel spans of the late nineteenth century possible because its forces could be found by statics alone; the price is end supports that must be designed for uplift, as Worked example 2 shows.</p>
     <p class="ms">Deck jambatan direka untuk standard vehicle load dan lane load yang diletakkan, menggunakan influence line atau influence surface, di kedudukan yang menghasilkan kesan terbesar pada setiap section. Bagi continuous girder (indeterminate), influence line melengkung dan memerlukan analisis elastik, tetapi lakaran Müller–Breslau masih memberitahu jurutera span mana yang perlu dibebani. Cantilever bridge, dengan hinge yang determinate, membolehkan span keluli yang panjang pada akhir abad kesembilan belas kerana dayanya boleh dicari dengan statik sahaja; harganya ialah end support yang mesti direka untuk uplift, seperti yang ditunjukkan dalam Worked example 2.</p>
     </div>
-    <div class="sfoot"><label class="readck"><input type="checkbox" data-read="n8"><span class="en">Mark as read</span><span class="ms">Tanda sudah dibaca</span></label><span class="readtime"><span class="en">≈ 2 min read</span><span class="ms">≈ 2 min bacaan</span></span></div>
+    <div class="sfoot"><label class="readck"><input type="checkbox" data-read="n8"><span class="rk-todo"><span class="en">Mark this section as read</span><span class="ms">Tandakan section ini sudah dibaca</span></span><span class="rk-done"><span class="en">Section read</span><span class="ms">Section sudah dibaca</span></span></label><span class="readtime"><span class="en">≈ 2 min read</span><span class="ms">≈ 2 min bacaan</span></span></div>
     </section>
 
     <section class="nsec" id="n9">
@@ -806,7 +814,7 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]]},svg
       <section class="slide"><h3><span class="en">Your turn</span><span class="ms">Giliran anda</span></h3>
         <div class="cols w"><div><ol class="en"><li>Explorer: answer the six prediction questions before moving the load</li><li>Laboratory: enter your readings in the Lab tab and check equilibrium at every halt</li><li>After the laboratory: Exercises, then the report</li></ol>
           <ol class="ms"><li>Explorer: jawab enam prediction question sebelum menggerakkan load</li><li>Makmal: masukkan bacaan dalam tab Makmal dan semak equilibrium pada setiap halt</li><li>Selepas makmal: Latihan, kemudian laporan</li></ol></div>
-          <div style="text-align:center"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXIAAAFyAQAAAADAX2ykAAACvklEQVR4nO2cTWrjQBBGX40EWcqQA+Qo7RvMkeZqraPkAAPSMtDmm0WpZdmBmIAi3EPVwiD1WxQU9a+2ie/I+OtbOAQffPA/ys+2yBmA2QzmHjMzYzxBPe+P0Sf4nflOkuSB2uyt+A9JBdJ7D0mSNB2lT/B784tzzmak9x5lAOYeGIof2PlAfYLfi+/vnjW+CUvvhpi7Yikfq0/w+/K39u0KzH3R+FZ6A+xwfYL/CV5SAbgYSR8G84s8/7oM0hKzn1P/4L/iL14eA53sPL/I/kzgRmbuYTQzs9NR+gS/H482MoEyndxh3aeHLaD8bPoH/0CkqVtmWEly0/pBptPdadi3NZ5r66s8VPuuqbe+KwBd2Lc53ksr5WEdaEhSrvG5Bu4as8O+jfGLBTOdbgJyt3htkkSagPDfFvkeuPQwTFiquyTBxcT8ImN+LYLSi/n1AH2C35ff1s+Zayf8yYkXF382/YN/INK07hcGiTR1Xl95pPacHPm3VX5TQSkPBW+C3bTTjTtHf9Qiv1gwbaoq3fvvEriniM/t8dyn3jRR94Pc9L8p7Nsg7wF5GV15f8TWYb07JvJvo3yNuyz5tza8i2lr4Iawb5N8j/e6gMGLbLSuCD5M0MkANP7+2+sYfYLfl+e6NfIm6TqfzMDVp6O+apLfpFl8AnldMkyfuuOwb2v82uvW0sp/3InrziHq52b5TX3ljx6ah7JZHG65Z9M/+Aey/TpjAtZZFdR1Up10RHxuj6dalW0T7KHZD5boHfm3WX6toGbbfj85nhZGmYtt+J/WJ/j9eDYL/bVg9oM8XFf7kX//C76TnYcPk6ZOdq5v/TG+j22Rv72/cDExn/CrCylfer+uwlCI+VWTvNt3Md7gt1JgualyWm8iGfhNpGfTP/gHsq2fbzvh6+IwD6U2xs+mf/Bfi8X/MwQffLP8P9rglvH4ajd6AAAAAElFTkSuQmCC" alt="QR code to the Explorer" style="width:62%;image-rendering:pixelated;background:#fff;padding:1cqw"><div class="muted" style="font-size:1.5cqw"><span class="en">Scan for the Explorer</span><span class="ms">Imbas untuk Explorer</span></div></div></div>
+          <div style="text-align:center"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAHCAQAAAABUY/ToAAADyUlEQVR4nO2dTWrkMBCFX40NWcqQA+Qo7qvlSHMD+yh9A3vZ4ObNolSS7MAsQkzi8GphOm1/tAVF/Usx4nMy//kkCIgUKVLkgVwty23tEZ972G01wzw84y7Q3L3gOkWeRIJcOpIkMXIDgI4YSQJpA8YFfuGU6DecmK61TpFnk9m0uPpsAFYzYH0h5qEj5jfStQlrtkjXXKfI08lwXpgHgFN6GLkAnNbiwb78N0X+MrIjgI4kN2C893CVGpdioL7+N0X+DtKVBnga6ZoDtB4M2TYBieT0zW8r8meRIJf46Obmv5csiqlFVumBVFRjfRrc5rw9jFifxvktDBRWoC1IXmudIs8jI7dfciiEkRs4pQ3uska/C/+uIWSHRIZkjUiMC7pSGsqf/DtXLkiHRB6kB9IGG+/mpURDWkCsPYD08CKRAQCxvtLG5TWys2utU+SppOsLyQlPy0lX2jw584h75CPyspqhXW6dIk8i214HgBwATZHCkyU8IjewinyZyJDQic07YqFNu6AoF4kAeAVS8ZDIVsJblaSLWzFGEfo0ihQhtnRIZJFI3MnI6LuoRAPFNhU3Vh++1jpFnkc2cU5k75HRu4EKi5SVK9yddEhkSA+ga7L3/PXaw8a/3Yb5bYMBL7SRTwPQK7cXeZBsgryeyBg/wz6SdrNUDZTiIZGNRJzT7UrUrOFRtDlq2Vq+TOROskaUPye/ZJXKpaGYH4oZEdkhkY20yTwQMTUAd20AovEaTk6+TORemvkhlG59ycvaNK2YIOmQyJ1k3Sgt+7qlo0ZG+7qj6kMi95KDnQXImoOOx/mhWh+qPRHpkMiQpo162GlWkjNkD4ZIzhRTi/xAmg2A3dLDMFsPvlsPLzTe3Cw9YldZKWBfcp0izyBLr6Od7sg3FmA3ib/P/K+1TpHnkaVvH/uAvIOf2qHqZgK2XqRDIkOOPQy3Q6kYoyYyIhttkg6JDKnhdOTxbOLnmog1NSPpkMidtP2yVCaEgOzVSjwUJkg6JPIoOctK0cjwI2KWuqEs9pflenbYK+mQyJBDfahOUWc31jxatUl2SOSOrOegAfnQqnl45vOHEB18AIA/or1BIndyqE7HcWc1FMrDaZHWl2mRa61T5NlkPqBqfWEcZNXRzc3Ih/mTfjLjUB6+4jpFnkFGfahp2bcxdR1Ey639ernWOkWeR37QobEZNQPQ+LIyxzgqphb5gWQ9B+19yCbIbgBymnY3b8aaDQDfh+99W5E/j8wnUDfx0HjvYxL/3qM5ZdgfSds3vq3In0aa/teCSJEiv5n8B/p6AjFS11B6AAAAAElFTkSuQmCC" alt="QR code to the Explorer" style="width:62%;image-rendering:pixelated;background:#fff;padding:1cqw"><div class="muted" style="font-size:1.5cqw"><span class="en">Scan for the Explorer</span><span class="ms">Imbas untuk Explorer</span></div></div></div>
       </section>
 
       <section class="slide"><h3><span class="en">Summary</span><span class="ms">Ringkasan</span></h3>
@@ -824,7 +832,7 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]]},svg
 <section class="view" data-view="explorer" id="v-explorer" role="tabpanel" aria-labelledby="t-explorer" hidden>
   <div class="card">
     <h2><span class="en">Move the load</span><span class="ms">Gerakkan load</span></h2>
-    <p class="lead"><span class="en">Drag the load on the drawing, use the slider or tap a halt. Choose one or more influence lines to draw under the bridge: every halt sits directly above its ordinate.</span><span class="ms">Seret load pada lukisan, guna slider atau tekan satu halt. Pilih satu atau lebih influence line untuk dilukis di bawah jambatan: setiap halt berada tepat di atas ordinate-nya.</span></p>
+    <p class="lead"><span class="en">Drag the load on the drawing, use the slider or tap a halt. Switch the influence lines for R<sub>A</sub>, R<sub>B</sub> and R<sub>C</sub> on or off to view one, two or all three under the bridge: every halt sits directly above its ordinate. R<sub>D</sub>, R<sub>E</sub> and R<sub>F</sub> are their mirror images and are listed in the readout.</span><span class="ms">Seret load pada lukisan, guna slider atau tekan satu halt. Hidupkan atau matikan influence line bagi R<sub>A</sub>, R<sub>B</sub> dan R<sub>C</sub> untuk melihat satu, dua atau ketiga-tiganya di bawah jambatan: setiap halt berada tepat di atas ordinate-nya. R<sub>D</sub>, R<sub>E</sub> dan R<sub>F</sub> ialah imej cerminnya dan dipaparkan dalam readout.</span></p>
     <svg class="fig" data-fig="explorer" id="expsvg" style="touch-action:pan-y;cursor:ew-resize" role="img" aria-label="Bridge with load and the selected influence lines"></svg>
     <div class="ctrl">
       <div class="slwrap"><input type="range" id="xpos" min="0" max="1130" step="1" value="0" aria-label="Load position in millimetres"></div>
@@ -834,7 +842,7 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]]},svg
           <button type="button" data-mode="m25" aria-pressed="false">2.5 kg</button>
           <button type="button" data-mode="cmp" aria-pressed="false">5 kg + 2.5 kg</button></div></div>
       <div class="chips" id="halts" aria-label="Halts"></div>
-      <div class="row"><span class="lbl">Influence lines</span><span class="chips" id="rchips" aria-label="Influence lines to draw"></span>
+      <div class="row"><span class="lbl"><span class="en">Influence lines (on/off)</span><span class="ms">Influence line (hidup/mati)</span></span><span class="chips" id="rchips" aria-label="Influence lines to draw"></span>
         <label class="lbl" style="display:inline-flex;gap:6px;align-items:center"><input type="checkbox" id="showarea"> <span class="en">shade areas</span><span class="ms">lorek area</span></label></div>
       <div class="readout" id="readout"></div>
       <div class="sumline" id="sumline"></div>
@@ -1407,7 +1415,9 @@ slive.addEventListener("input",function(){LIVE.x=Number(slive.value);HALTS.forEa
 /* =====================================================================
    Explorer
    ===================================================================== */
-var E=ST.exp;if(!Array.isArray(E.keys)||!E.keys.length)E.keys=["R_A","R_B"];
+var EXKEYS=["R_A","R_B","R_C"],E=ST.exp;
+if(!ST.expv){E.keys=EXKEYS.slice();ST.expv=2}
+E.keys=(Array.isArray(E.keys)?E.keys:[]).filter(function(k){return EXKEYS.indexOf(k)>=0});if(!E.keys.length)E.keys=EXKEYS.slice();
 var xpos=document.getElementById("xpos"),xlabel=document.getElementById("xlabel"),expsvg=document.getElementById("expsvg");
 var readout=document.getElementById("readout"),sumline=document.getElementById("sumline"),areanote=document.getElementById("areanote");
 function fmtMode(v){return E.mode==="unit"?f3(v):f2(v)+" kgf"}
@@ -1424,9 +1434,9 @@ xpos.addEventListener("input",function(){setX(Number(xpos.value))});
 HALTS.forEach(function(h){var b=document.createElement("button");b.type="button";b.className="chip";b.textContent=h[0];b.setAttribute("data-x",h[1]);b.setAttribute("aria-pressed","false");b.addEventListener("click",function(){setX(h[1])});document.getElementById("halts").appendChild(b)});
 document.querySelectorAll("#v-explorer .seg button").forEach(function(b){b.setAttribute("aria-pressed",String(b.getAttribute("data-mode")===E.mode));b.addEventListener("click",function(){E.mode=b.getAttribute("data-mode");document.querySelectorAll("#v-explorer .seg button").forEach(function(o){o.setAttribute("aria-pressed",String(o===b))});refreshExplorer()})});
 var rchips=document.getElementById("rchips");
-KEYS.forEach(function(k){var b=document.createElement("button");b.type="button";b.className="chip rk";b.style.setProperty("--kc",CV[k]);b.innerHTML="R<sub>"+k.slice(2)+"</sub>";b.setAttribute("aria-pressed",String(E.keys.indexOf(k)>=0));
-  b.addEventListener("click",function(){var i=E.keys.indexOf(k);if(i>=0){if(E.keys.length>1)E.keys.splice(i,1)}else{E.keys.push(k);E.keys.sort(function(a,c){return KEYS.indexOf(a)-KEYS.indexOf(c)})}
-    rchips.querySelectorAll(".chip").forEach(function(o,j){o.setAttribute("aria-pressed",String(E.keys.indexOf(KEYS[j])>=0))});refreshExplorer()});rchips.appendChild(b)});
+EXKEYS.forEach(function(k){var b=document.createElement("button");b.type="button";b.className="chip rk";b.style.setProperty("--kc",CV[k]);b.innerHTML="R<sub>"+k.slice(2)+"</sub>"+(k==="R_C"?" hinge":"");b.setAttribute("aria-pressed",String(E.keys.indexOf(k)>=0));
+  b.addEventListener("click",function(){var i=E.keys.indexOf(k);if(i>=0){if(E.keys.length>1)E.keys.splice(i,1)}else{E.keys.push(k);E.keys.sort(function(a,c){return EXKEYS.indexOf(a)-EXKEYS.indexOf(c)})}
+    rchips.querySelectorAll(".chip").forEach(function(o,j){o.setAttribute("aria-pressed",String(E.keys.indexOf(EXKEYS[j])>=0))});refreshExplorer()});rchips.appendChild(b)});
 var showarea=document.getElementById("showarea");showarea.checked=!!E.area;showarea.addEventListener("change",function(){E.area=showarea.checked;refreshExplorer()});
 var dragging=false;
 function dragTo(e){var r=expsvg.getBoundingClientRect();if(!r.width)return;var x=(e.clientX-r.left)/r.width*W-X0;for(var i=0;i<HALTS.length;i++){if(Math.abs(HALTS[i][1]-x)<=7){x=HALTS[i][1];break}}setX(x)}

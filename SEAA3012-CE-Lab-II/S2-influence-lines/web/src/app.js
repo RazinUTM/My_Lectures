@@ -307,7 +307,9 @@ slive.addEventListener("input",function(){LIVE.x=Number(slive.value);HALTS.forEa
 /* =====================================================================
    Explorer
    ===================================================================== */
-var E=ST.exp;if(!Array.isArray(E.keys)||!E.keys.length)E.keys=["R_A","R_B"];
+var EXKEYS=["R_A","R_B","R_C"],E=ST.exp;
+if(!ST.expv){E.keys=EXKEYS.slice();ST.expv=2}
+E.keys=(Array.isArray(E.keys)?E.keys:[]).filter(function(k){return EXKEYS.indexOf(k)>=0});if(!E.keys.length)E.keys=EXKEYS.slice();
 var xpos=document.getElementById("xpos"),xlabel=document.getElementById("xlabel"),expsvg=document.getElementById("expsvg");
 var readout=document.getElementById("readout"),sumline=document.getElementById("sumline"),areanote=document.getElementById("areanote");
 function fmtMode(v){return E.mode==="unit"?f3(v):f2(v)+" kgf"}
@@ -324,9 +326,9 @@ xpos.addEventListener("input",function(){setX(Number(xpos.value))});
 HALTS.forEach(function(h){var b=document.createElement("button");b.type="button";b.className="chip";b.textContent=h[0];b.setAttribute("data-x",h[1]);b.setAttribute("aria-pressed","false");b.addEventListener("click",function(){setX(h[1])});document.getElementById("halts").appendChild(b)});
 document.querySelectorAll("#v-explorer .seg button").forEach(function(b){b.setAttribute("aria-pressed",String(b.getAttribute("data-mode")===E.mode));b.addEventListener("click",function(){E.mode=b.getAttribute("data-mode");document.querySelectorAll("#v-explorer .seg button").forEach(function(o){o.setAttribute("aria-pressed",String(o===b))});refreshExplorer()})});
 var rchips=document.getElementById("rchips");
-KEYS.forEach(function(k){var b=document.createElement("button");b.type="button";b.className="chip rk";b.style.setProperty("--kc",CV[k]);b.innerHTML="R<sub>"+k.slice(2)+"</sub>";b.setAttribute("aria-pressed",String(E.keys.indexOf(k)>=0));
-  b.addEventListener("click",function(){var i=E.keys.indexOf(k);if(i>=0){if(E.keys.length>1)E.keys.splice(i,1)}else{E.keys.push(k);E.keys.sort(function(a,c){return KEYS.indexOf(a)-KEYS.indexOf(c)})}
-    rchips.querySelectorAll(".chip").forEach(function(o,j){o.setAttribute("aria-pressed",String(E.keys.indexOf(KEYS[j])>=0))});refreshExplorer()});rchips.appendChild(b)});
+EXKEYS.forEach(function(k){var b=document.createElement("button");b.type="button";b.className="chip rk";b.style.setProperty("--kc",CV[k]);b.innerHTML="R<sub>"+k.slice(2)+"</sub>"+(k==="R_C"?" hinge":"");b.setAttribute("aria-pressed",String(E.keys.indexOf(k)>=0));
+  b.addEventListener("click",function(){var i=E.keys.indexOf(k);if(i>=0){if(E.keys.length>1)E.keys.splice(i,1)}else{E.keys.push(k);E.keys.sort(function(a,c){return EXKEYS.indexOf(a)-EXKEYS.indexOf(c)})}
+    rchips.querySelectorAll(".chip").forEach(function(o,j){o.setAttribute("aria-pressed",String(E.keys.indexOf(EXKEYS[j])>=0))});refreshExplorer()});rchips.appendChild(b)});
 var showarea=document.getElementById("showarea");showarea.checked=!!E.area;showarea.addEventListener("change",function(){E.area=showarea.checked;refreshExplorer()});
 var dragging=false;
 function dragTo(e){var r=expsvg.getBoundingClientRect();if(!r.width)return;var x=(e.clientX-r.left)/r.width*W-X0;for(var i=0;i<HALTS.length;i++){if(Math.abs(HALTS[i][1]-x)<=7){x=HALTS[i][1];break}}setX(x)}

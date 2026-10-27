@@ -24,10 +24,6 @@ details.kp ul{margin:6px 0 2px;padding-left:20px}
 details.kp li{margin:3px 0}
 .keyonly .sb{display:none}
 .sfoot{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between;border-top:1px dashed var(--line);margin-top:16px;padding-top:10px;font:14px var(--font-ui);color:var(--muted)}
-.readck{display:inline-flex;gap:8px;align-items:center;color:var(--fg);font-weight:600;cursor:pointer}
-.readck input{width:18px;height:18px;accent-color:var(--good);margin:0}
-.nsec.isread > h2::after{content:" ✓";color:var(--good);font-size:.8em}
-.toc a.isread::after{content:" ✓";color:var(--good)}
 .toc .rt{font:12px var(--font-num);color:var(--muted);margin-top:10px}
 .qc{border:1px solid var(--line);border-radius:8px;padding:10px 14px;margin:18px 0;background:var(--panel2);font:15px/1.5 var(--font-ui)}
 .qc .h{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
@@ -65,3 +61,15 @@ details.kp li{margin:3px 0}
 html{scroll-padding-top:110px}
 img{max-width:100%;height:auto}
 .start-hero > *,.grid2 > *{min-width:0}
+/* mark-as-read: a full-width, clearly bordered control at the end of every section */
+.sfoot{border-top:0;margin-top:20px;padding-top:0}
+.readck{flex:1 1 280px;display:flex;gap:12px;align-items:center;justify-content:center;min-height:48px;padding:10px 16px;border:2px dashed var(--accent);border-radius:10px;background:var(--tint);color:var(--accent);font:600 15.5px var(--font-ui);cursor:pointer;user-select:none}
+.readck:hover{border-style:solid}
+.readck input{width:22px;height:22px;accent-color:var(--good);margin:0;flex:none}
+.rk-done{display:none}
+.nsec.isread .readck{border-style:solid;border-color:var(--good);background:var(--good-bg);color:var(--good)}
+.nsec.isread .rk-todo{display:none}
+.nsec.isread .rk-done{display:inline}
+.nsec.isread > h2::after{content:" ✓";color:var(--good);font-size:.8em}
+.toc a[data-toc]::before{content:"○ ";color:var(--muted)}
+.toc a.isread::before{content:"✓ ";color:var(--good)}

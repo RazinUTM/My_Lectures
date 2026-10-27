@@ -10,6 +10,11 @@ uses the geometry, halts, notation η_R(x) and sign convention of the revised la
 Exercises and Lab. It works in any modern browser, on phones as well as projectors. Tabs open
 directly with `#notes`, `#slides`, `#explorer`, `#exercises` or `#lab` after the address.
 
+Published with GitHub Pages at
+<https://razinutm.github.io/My_Lectures/SEAA3012-CE-Lab-II/S2-influence-lines/>
+(address in `shared/pages_url.txt`). All QR codes in `figures/` and in the handouts point there,
+one per tab (`qr_s2_explorer.png`, `qr_s2_notes.png`, …).
+
 | Feature | Purpose |
 |---|---|
 | Mark as read, key points, quick checks (Notes) | self-paced reading, short notes, retrieval practice |
@@ -19,6 +24,7 @@ directly with `#notes`, `#slides`, `#explorer`, `#exercises` or `#lab` after the
 | Short notes drawer | formula sheet available from every tab |
 | BM / EN switch | Malay explanations, technical terms kept in English |
 | Theme switch (automatic, light, dark) | display preference |
+| Explorer: R_A, R_B, R_C influence lines switched on or off | view one, two or three lines under the bridge |
 
 Everything a student enters is stored only in that student's browser (`localStorage`); nothing is
 collected or sent anywhere.

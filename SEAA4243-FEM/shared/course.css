@@ -454,10 +454,30 @@ pre.code{margin:0;max-height:480px;overflow:auto;padding:12px 14px;border-top:1p
 .partcard .go{font:600 calc(13px*var(--ts)) var(--font-ui);color:var(--accent)}
 .excard .pp{font-size:calc(12px*var(--ts))}
 
+/* ---------- run in browser (Pyodide) ---------- */
+.pyrun{margin-top:18px}
+.pyrun h2 .trial{font:600 calc(11px*var(--ts)) var(--font-ui);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:2px 8px;vertical-align:middle;margin-left:6px;white-space:nowrap}
+.pyseg{margin:2px 0 10px}
+.pyedit{display:block;width:100%;min-height:120px;resize:vertical;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg);font:calc(13px*var(--ts))/1.5 var(--font-num);tab-size:4;white-space:pre;overflow:auto}
+.pybar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0}
+.pybar [hidden]{display:none}
+.pystat{font-size:calc(13.5px*var(--ts));color:var(--muted);flex:1 1 220px}
+.pystat.pyok{color:var(--good)}.pystat.pybad{color:var(--bad)}
+.pystat a{color:var(--accent)}
+pre.pyout{margin:0;max-height:420px;overflow:auto;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:var(--panel2);font:calc(12.5px*var(--ts))/1.5 var(--font-num);white-space:pre}
+pre.pyout[hidden]{display:none}
+pre.pyout .e{color:var(--bad)}
+.pyfigs figure{margin:12px 0 0}
+.pyfigs img{display:block;max-width:100%;height:auto;background:#fff;border:1px solid var(--line);border-radius:8px;padding:6px}
+.pyfigs figcaption{font:calc(12.5px*var(--ts)) var(--font-num);color:var(--muted);margin-top:4px}
+.pynote{font-size:calc(13px*var(--ts));color:var(--muted);margin:10px 0 0}
+footer.foot p.copy{margin-top:10px}
+
 /* ---------- print: notes only ---------- */
 @media print{
   body{background:#fff;color:#000;padding:0}
-  .navwrap,.tools,.drawer,.scrim,.tpill,.sfoot,.qc,.toc,footer.foot,.crumbs,.vhead,.pagenav{display:none!important}
+  .navwrap,.tools,.drawer,.scrim,.tpill,.sfoot,.qc,.toc,.crumbs,.vhead,.pagenav,.pyrun{display:none!important}
+  footer.foot p:not(.copy){display:none}
   .view[hidden]{display:none!important}
   .article{max-width:none}
   details.kp{display:block}details.kp summary{display:none}details.kp[open],details.kp{border:0;padding:0}

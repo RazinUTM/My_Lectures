@@ -424,6 +424,179 @@
   window.addEventListener("resize", eqSoon); document.addEventListener("scroll", function (ev) { if (ev.target && ev.target.classList && ev.target.classList.contains("eqwrap")) eqSoon(); }, true);
   document.addEventListener("toggle", eqSoon, true);
 
+  /* ---------- run Python in the browser: Pyodide (CPython compiled to WebAssembly) in a Web Worker ----------
+     A worker keeps the page responsive and lets Stop end a runaway script. Pyodide is loaded only where the
+     page comes from GitHub Pages or a local server; elsewhere (a preview) the panel points to the website. */
+  var PYURL = window.SEAA_PYURL || "https://cdn.jsdelivr.net/pyodide/v0.29.5/full/";
+  var PYHOST = !!window.SEAA_PYURL || /(^|\.)github\.io$|^localhost$|^127\.0\.0\.1$/.test(location.hostname);
+  var PYPRE = [
+    "import os, sys, io, base64, warnings",
+    "os.environ['MPLBACKEND'] = 'Agg'",
+    "warnings.filterwarnings('ignore', message='.*non-interactive.*')",
+    "os.makedirs('/home/pyodide/run', exist_ok=True)",
+    "os.chdir('/home/pyodide/run')",
+    "sys.path.insert(0, '/home/pyodide/run')",
+    "_SEAA_NP = None",
+    "_SEAA_IMG = {'png': 'image/png', 'svg': 'image/svg+xml', 'jpg': 'image/jpeg', 'jpeg': 'image/jpeg'}",
+    "def _seaa_run(code):",
+    "    global _SEAA_NP",
+    "    for f in os.listdir('.'):",
+    "        if f.rsplit('.', 1)[-1].lower() in _SEAA_IMG:",
+    "            os.remove(f)",
+    "    for m in [m for m in sys.modules if m.startswith('fe_')]:",
+    "        del sys.modules[m]",
+    "    try:",
+    "        import numpy",
+    "        if _SEAA_NP is None:",
+    "            _SEAA_NP = numpy.get_printoptions()",
+    "        numpy.set_printoptions(**_SEAA_NP)",
+    "    except ImportError:",
+    "        pass",
+    "    ok = True",
+    "    try:",
+    "        exec(compile(code, 'script', 'exec'), {'__name__': '__main__'})",
+    "    except SystemExit:",
+    "        pass",
+    "    except BaseException:",
+    "        import traceback",
+    "        et, ev, tb = sys.exc_info()",
+    "        traceback.print_exception(et, ev, tb.tb_next)",
+    "        ok = False",
+    "    figs = []",
+    "    plt = sys.modules.get('matplotlib.pyplot')",
+    "    if plt is not None:",
+    "        for n in plt.get_fignums():",
+    "            b = io.BytesIO()",
+    "            plt.figure(n).savefig(b, format='png', dpi=110, bbox_inches='tight')",
+    "            figs.append(['Figure %d' % n, 'image/png', base64.b64encode(b.getvalue()).decode()])",
+    "        plt.close('all')",
+    "    for f in sorted(os.listdir('.')):",
+    "        ext = f.rsplit('.', 1)[-1].lower()",
+    "        if ext in _SEAA_IMG:",
+    "            with open(f, 'rb') as h:",
+    "                figs.append([f, _SEAA_IMG[ext], base64.b64encode(h.read()).decode()])",
+    "    sys.stdout.flush()",
+    "    sys.stderr.flush()",
+    "    return ok, figs"
+  ].join("\n");
+  var PYW = [
+    "var py = null, boot = null, PRE = " + JSON.stringify(PYPRE) + ";",
+    "function post(m) { self.postMessage(m); }",
+    "async function start(url) {",
+    "  importScripts(url + 'pyodide.js');",
+    "  py = await loadPyodide({ indexURL: url });",
+    "  py.setStdout({ batched: function (s) { post({ t: 'out', s: s + '\\n' }); } });",
+    "  py.setStderr({ batched: function (s) { post({ t: 'err', s: s + '\\n' }); } });",
+    "  py.runPython(PRE);",
+    "}",
+    "self.onmessage = async function (e) {",
+    "  var m = e.data;",
+    "  try { if (!boot) boot = start(m.url); await boot; }",
+    "  catch (err) { post({ t: 'fail', s: String(err && err.message || err) }); return; }",
+    "  try {",
+    "    Object.keys(m.files).forEach(function (f) { py.FS.writeFile('/home/pyodide/run/' + f, m.files[f]); });",
+    "    var said = false, cb = { messageCallback: function (s) { if (!said && /^Loading/.test(s)) { said = true; post({ t: 'status', k: 'pkgs' }); } }, errorCallback: function () {} };",
+    "    var need = ['numpy']; if (/plot|matplotlib|runpy/.test(m.code)) need.push('matplotlib');",
+    "    await py.loadPackage(need, cb);",
+    "    await py.loadPackagesFromImports(m.code, cb);",
+    "    post({ t: 'status', k: 'run' });",
+    "    var t0 = performance.now(), r = py.globals.get('_seaa_run')(m.code), a = r.toJs(); r.destroy();",
+    "    post({ t: 'done', ok: a[0], figs: a[1], ms: performance.now() - t0 });",
+    "  } catch (err) { post({ t: 'done', ok: false, figs: [], err: String(err && err.message || err), ms: 0 }); }",
+    "};"
+  ].join("\n");
+  var pyEver = false;   /* Python has started once on this page: later starts come from the browser cache */
+  function pyPanel(card) {
+    var srcs = JSON.parse($(".pysrc", card).textContent), ed = $(".pyedit", card), out = $(".pyout", card), figs = $(".pyfigs", card), stat = $(".pystat", card);
+    var runB = $("[data-pyrun]", card), stopB = $("[data-pystop]", card), resetB = $("[data-pyreset]", card), segs = $$("[data-py]", card);
+    var key = "seaa4243-py-" + card.getAttribute("data-part"), edits = ld(key, {}), cur = 0, files = null, W = null, busy = false, phase = "", tick = null, t0 = 0, nout = 0, MAXOUT = 200000;
+    if (!edits || typeof edits !== "object") edits = {};
+    function say(en, ms, cls) { stat.innerHTML = bi(en, ms); stat.className = "pystat" + (cls ? " " + cls : ""); }
+    function fit() { ed.rows = clamp(ed.value.split("\n").length + 1, 6, 28); }
+    function pick(i) {
+      cur = i; ed.value = edits[i] != null ? edits[i] : srcs[i]; fit(); resetB.disabled = edits[i] == null;
+      segs.forEach(function (b) { b.setAttribute("aria-pressed", String(+b.getAttribute("data-py") === i)); });
+    }
+    segs.forEach(function (b) { b.addEventListener("click", function () { pick(+b.getAttribute("data-py")); }); });
+    ed.addEventListener("input", function () { if (ed.value === srcs[cur]) delete edits[cur]; else edits[cur] = ed.value; sv(key, edits); resetB.disabled = edits[cur] == null; fit(); });
+    ed.addEventListener("keydown", function (ev) {
+      if (ev.key === "Enter" && (ev.ctrlKey || ev.metaKey)) { ev.preventDefault(); run(); return; }
+      if (ev.key === "Enter" && !ev.shiftKey && !ev.altKey && !ev.isComposing) {   /* keep the indentation of the line above; one level more after a colon */
+        var s = ed.selectionStart, v = ed.value, line = v.slice(v.lastIndexOf("\n", s - 1) + 1, s), ind = /^[ \t]*/.exec(line)[0];
+        if (/:\s*(#.*)?$/.test(line)) ind += "    ";
+        if (!ind) return;
+        ev.preventDefault();
+        var done = false; try { done = document.execCommand && document.execCommand("insertText", false, "\n" + ind); } catch (e) {}
+        if (!done) { ed.setRangeText("\n" + ind, s, ed.selectionEnd, "end"); ed.dispatchEvent(new Event("input")); }
+      }
+    });
+    resetB.addEventListener("click", function () { delete edits[cur]; sv(key, edits); pick(cur); ed.focus(); });
+    function show(t, err) {
+      if (nout >= MAXOUT) return;
+      out.hidden = false; var sp = document.createElement("span"); if (err) sp.className = "e"; sp.textContent = t; out.appendChild(sp); nout += t.length;
+      if (nout >= MAXOUT) out.appendChild(document.createTextNode("\n… output cut at 200 000 characters\n"));
+      out.scrollTop = out.scrollHeight;
+    }
+    function getFiles() {
+      if (files) return Promise.resolve(files);
+      var base = card.getAttribute("data-base"), names = card.getAttribute("data-files").split(",");
+      return Promise.all(names.map(function (n) { return fetch(base + n).then(function (r) { if (!r.ok) throw new Error(n + ": HTTP " + r.status); return r.text(); }); }))
+        .then(function (arr) { files = {}; names.forEach(function (n, i) { files[n] = arr[i]; }); return files; });
+    }
+    function secs() { return Math.round((Date.now() - t0) / 1000) + " s"; }
+    function status() {
+      if (phase === "boot") { if (pyEver) say("Starting Python… " + secs(), "Memulakan Python… " + secs()); else say("Loading Python (first time: about 9 MB)… " + secs(), "Memuatkan Python (kali pertama: lebih kurang 9 MB)… " + secs()); }
+      else if (phase === "pkgs") say("Loading numpy / matplotlib… " + secs(), "Memuatkan numpy / matplotlib… " + secs());
+      else if (phase === "run") say("Running… " + secs(), "Sedang berjalan… " + secs());
+    }
+    function finish() { busy = false; phase = ""; clearInterval(tick); runB.disabled = false; stopB.hidden = true; }
+    function failed(why) {
+      finish(); if (W) W.terminate(); W = null;
+      say("Python could not be loaded here (" + why + "). Offline, or a network that blocks cdn.jsdelivr.net? Download the code above and run it on your computer.",
+          "Python tidak dapat dimuatkan di sini (" + why + "). Luar talian, atau rangkaian menyekat cdn.jsdelivr.net? Muat turun kod di atas dan jalankan di komputer anda.", "pybad");
+    }
+    function worker() {
+      var w = new Worker(URL.createObjectURL(new Blob([PYW], { type: "text/javascript" })));
+      w.onmessage = function (e) {
+        var m = e.data;
+        if (m.t === "out") show(m.s, false);
+        else if (m.t === "err") { if (!/font cache/i.test(m.s)) show(m.s, true); }
+        else if (m.t === "status") { pyEver = true; phase = m.k; status(); }
+        else if (m.t === "fail") failed(m.s);
+        else if (m.t === "done") {
+          finish(); if (m.err) show(m.err + "\n", true);
+          (m.figs || []).forEach(function (f) { var fig = el("figure"), cap = el("figcaption"); fig.appendChild(el("img", { src: "data:" + f[1] + ";base64," + f[2], alt: f[0] })); cap.textContent = f[0]; fig.appendChild(cap); figs.appendChild(fig); });
+          var s = (m.ms / 1000).toFixed(m.ms < 10000 ? 1 : 0), quiet = !nout && !(m.figs || []).length;
+          if (m.ok) say("Done in " + s + " s." + (quiet ? " The script printed nothing." : ""), "Siap dalam " + s + " s." + (quiet ? " Skrip tidak mencetak apa-apa." : ""), "pyok");
+          else say("Stopped at an error: the last lines below give the line of the script and the reason.", "Terhenti kerana ralat: baris terakhir di bawah memberi baris skrip dan sebabnya.", "pybad");
+        }
+      };
+      w.onerror = function (e) { if (e && e.preventDefault) e.preventDefault(); failed((e && e.message) || "worker error"); };
+      return w;
+    }
+    function run() {
+      if (busy || !PYHOST) return;
+      busy = true; runB.disabled = true; stopB.hidden = false; out.textContent = ""; out.hidden = true; nout = 0; figs.innerHTML = "";
+      t0 = Date.now(); phase = "boot"; status(); tick = setInterval(status, 1000);
+      getFiles().then(function (f) {
+        if (!busy) return;
+        try { if (!W) W = worker(); W.postMessage({ url: PYURL, code: ed.value, files: f }); } catch (e) { failed(e.message); }
+      }, function (e) { finish(); say("Could not fetch the course code (" + e.message + ").", "Tidak dapat mendapatkan kod kursus (" + e.message + ").", "pybad"); });
+    }
+    runB.addEventListener("click", run);
+    stopB.addEventListener("click", function () {
+      if (W) W.terminate(); W = null; finish();
+      say("Stopped. Python starts again on the next run (a few seconds).", "Dihentikan. Python dimulakan semula pada larian seterusnya (beberapa saat).");
+    });
+    pick(0);
+    if (!PYHOST) {
+      runB.disabled = true; var a = ' <a href="' + card.getAttribute("data-pages") + '" target="_blank" rel="noopener">';
+      say("Running needs the course website:" + a + "open this part there</a>. Here you can read, edit and copy the scripts.",
+          "Larian memerlukan laman web kursus:" + a + "buka bahagian ini di sana</a>. Di sini anda boleh membaca, mengubah dan menyalin skrip.");
+    }
+  }
+  $$(".pyrun").forEach(pyPanel);
+
   /* ---------- go ---------- */
   syncRead(); applyNmode(); syncLab(); if (VIEWS.length) { updateProgress(); fromHash(); }
   window.COURSE_API = { show: show, state: ST, save: save, fmt: fmt, bi: bi, saveFile: saveFile, makeZip: makeZip };

@@ -1,5 +1,8 @@
 # Licence
 
+Copyright © 2026 Ahmad Razin Zainal Abidin and co-authors, Faculty of Civil Engineering,
+Universiti Teknologi Malaysia. The short notice at the foot of every page refers to this file.
+
 ## Course material
 
 Notes, slides, worked examples, exercises, Explorers and figures in this folder, except where
@@ -20,8 +23,9 @@ is not covered by this licence.
 
 ## Code
 
-The Python files in `code/` and the JavaScript in the pages and Explorers are licensed under the
-MIT licence:
+The Python files in `code/`, the short scripts in the Run-in-browser panels and the JavaScript in the
+pages and Explorers are licensed under the MIT licence. The panels load Pyodide (Mozilla Public
+License 2.0) from the jsDelivr CDN at run time; it is not part of this repository.
 
 ```
 MIT License

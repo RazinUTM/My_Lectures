@@ -145,7 +145,7 @@ footer.foot p { margin: 0 0 6px; }
       </ol>
       <details class="more"><summary>More to try (the ANSYS demo’s wrong models)</summary>
         <ul>
-          <li>Load: point force at the top corner. The loaded node deflects 20% more than its neighbours; mid-span is unchanged.</li>
+          <li>Load: point force at the top corner. The loaded corner deflects more than under the edge traction, and more with every refinement (4-node 8 × 4, 16 × 8, 32 × 16: −0.197, −0.210, −0.219 m against −0.182, −0.189, −0.191 m): a point force in 2D gives an infinite local displacement. Mid-span is unchanged.</li>
           <li>Support: vertical only. Nothing stops the plate sliding in x, and the solver refuses.</li>
           <li>Model data: thickness 1 m instead of 0.01 m. The deflection falls by exactly 100.</li>
         </ul>
@@ -798,7 +798,31 @@ var UI = (function () {
     card(ro, "Model", m.ne + " elements", m.nn + " nodes, " + R.nd + " dofs · a/b = " + UI.fmt(m.a / m.b, 2));
   }
   function isBook() { return S.L === 4 && S.H === 2 && S.t === 0.01 && S.E === 200 && S.nu === 0.33 && S.q === -5 && S.plane === "stress" && S.load === "edge" && S.support === "fixed"; }
-  function update() { solve(); draw(); }
+  /* Milestones for the course pages (Plane Stress Parts 1 and 2). Recorded only after the student
+     has acted, because the default state is already the text's 2 x 2 example. */
+  var userActed = false, seen = {}, studied = false;
+  document.addEventListener("pointerdown", function () { userActed = true; }, true);
+  document.addEventListener("change", function () { userActed = true; }, true);
+  function bookBut(skip) {   /* the text's data, ignoring the listed keys */
+    var d = { L: 4, H: 2, t: 0.01, E: 200, nu: 0.33, q: -5, plane: "stress", load: "edge", support: "fixed" };
+    return Object.keys(d).every(function (k) { return skip.indexOf(k) >= 0 || S[k] === d[k]; });
+  }
+  function milestones() {
+    if (!userActed || !R) return;
+    var key = S.nen + ":" + S.Nx + "x" + S.Ny;
+    if (bookBut(["plane"])) seen["pl:" + key + ":" + S.plane] = 1;
+    if (bookBut(["plane", "nu"]) && S.nu === 0) seen["nu0:" + key + ":" + S.plane] = 1;
+    if (seen["pl:" + key + ":stress"] && seen["pl:" + key + ":strain"]) UI.milestone("cant", "pstrain");
+    if (seen["nu0:" + key + ":stress"] && seen["nu0:" + key + ":strain"]) UI.milestone("cant", "nu0");
+    if (S.support === "vonly" && R.error) UI.milestone("cant", "vonly");
+    if (bookBut(["t"]) && S.t !== 0.01 && !R.error) UI.milestone("cant", "thick");
+    if (bookBut([]) && S.nen === 4) { seen["lay:" + S.Nx + "x" + S.Ny] = 1;
+      if (S.Nx === 2 && S.Ny === 2) UI.milestone("cant", "book22");
+      if (seen["lay:4x2"] && seen["lay:8x1"] && seen["lay:2x4"]) UI.milestone("cant", "layouts"); }
+    if (studied && bookBut([])) UI.milestone("cant", "study");
+    if (bookBut(["load"]) && S.load === "point" && !R.error) UI.milestone("cant", "point");
+  }
+  function update() { solve(); draw(); milestones(); }
   function meshSeg() {
     var cur = S.Nx + "x" + S.Ny;
     UI.seg(UI.$("#c-mesh"), "mesh", PRE[S.nen].map(function (p) { return { value: p[0] + "x" + p[1], label: p[0] + " × " + p[1] }; }), cur, function (v) { var p = v.split("x"); S.Nx = +p[0]; S.Ny = +p[1]; UI.$("#i-nx").value = S.Nx; UI.$("#i-ny").value = S.Ny; update(); });
@@ -828,7 +852,7 @@ var UI = (function () {
     UI.$("#b-study").addEventListener("click", study);
   }
   function study() {
-    var btn = UI.$("#b-study"); btn.disabled = true; btn.textContent = "Running…";
+    var btn = UI.$("#b-study"); btn.disabled = true; btn.textContent = "Running…"; studied = true; userActed = true; setTimeout(milestones, 50);
     setTimeout(function () {
       if (S.support === "vonly") { UI.$("#s-table").textContent = "Not solvable with the vertical-only support."; btn.disabled = false; btn.textContent = "Run mesh study"; return; }
       var ref = -FE.timoshenko(opts()).total, rows = [], series = [];

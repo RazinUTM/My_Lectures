@@ -111,9 +111,12 @@ td.r,th.r{text-align:right}
 .kv span{font-size:calc(12.5px*var(--ts));color:var(--muted)}
 details summary{cursor:pointer;font-weight:600;font-size:calc(14px*var(--ts))}
 .eq{display:block;margin:12px auto;max-width:100%;height:auto;overflow:visible}
-.eqwrap{max-width:100%;padding:4px 0;min-width:0}
+.eqwrap{max-width:100%;padding:4px 0;min-width:0;overflow-x:auto;overflow-y:hidden;scrollbar-width:thin}
 .eqwrap svg{display:block;margin:0 auto;max-width:100%;height:auto}
 .eqrow{zoom:var(--ts);display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;justify-content:center;margin:10px 0}
+.eqrow{max-width:100%}
+.eqwrap.more{-webkit-mask-image:linear-gradient(to right,#000 82%,transparent);mask-image:linear-gradient(to right,#000 82%,transparent)}
+.eqrow .eqrow{flex:0 1 auto;min-width:0;margin:0}
 .eqrow .lbl{font:500 calc(12.5px*var(--ts)) var(--font-num);color:var(--muted);white-space:nowrap}
 .paper{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px 12px;color:#1b2330}
 .paper svg{display:block;margin:0 auto;max-width:100%;height:auto}
@@ -174,9 +177,9 @@ ol.lo li{margin:4px 0}
 .def{background:var(--tint);border:1px solid var(--tint-line);border-radius:8px;padding:10px 14px;margin:16px 0}
 .def b.t{display:block;font-family:var(--font-ui);font-size:calc(14px*var(--ts));margin-bottom:2px}
 .note{background:var(--note-bg);border:1px solid var(--note-line);border-radius:8px;padding:10px 14px;margin:16px 0;font-family:var(--font-ui);font-size:calc(15px*var(--ts))}
-.note b.t{display:block;font-size:calc(13px*var(--ts));letter-spacing:.04em;text-transform:uppercase;margin-bottom:2px}
+.note b.t{display:block;font-size:calc(14px*var(--ts));letter-spacing:.01em;margin-bottom:2px}
 .ok{background:var(--good-bg);border:1px solid var(--good);border-radius:8px;padding:10px 14px;margin:16px 0;font-family:var(--font-ui);font-size:calc(15px*var(--ts))}
-.ok b.t{display:block;font-size:calc(13px*var(--ts));letter-spacing:.04em;text-transform:uppercase;margin-bottom:2px}
+.ok b.t{display:block;font-size:calc(14px*var(--ts));letter-spacing:.01em;margin-bottom:2px}
 .step{border:1px solid var(--line);border-radius:8px;margin:16px 0;overflow:hidden;background:var(--panel)}
 .step h4{margin:0;padding:8px 14px;background:var(--panel2);font:600 calc(15px*var(--ts)) var(--font-ui);border-bottom:1px solid var(--line)}
 .step .bd{padding:2px 14px 8px}

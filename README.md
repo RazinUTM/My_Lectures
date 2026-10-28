@@ -9,7 +9,7 @@ Website (GitHub Pages): <https://razinutm.github.io/My_Lectures/>
 | Course | Folder | Contents |
 |---|---|---|
 | SEAA 3012 Civil Engineering Laboratory II | [`SEAA3012-CE-Lab-II/`](SEAA3012-CE-Lab-II/) | S2 Influence Lines |
-| SEAA 4243 Finite Element Method | [`SEAA4243-FEM/`](SEAA4243-FEM/) | 2D Heat Transfer (Parts 1–2); Plane Stress and ANSYS to follow |
+| SEAA 4243 Finite Element Method | [`SEAA4243-FEM/`](SEAA4243-FEM/) | 2D Heat Transfer (Parts 1–2), Plane Stress (Parts 1–3); ANSYS demo to follow |
 
 ## How the repository is organised
 

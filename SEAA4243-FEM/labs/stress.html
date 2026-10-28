@@ -829,8 +829,23 @@ var UI = (function () {
     cv.addEventListener("click", function (ev) { var r = cv.getBoundingClientRect(), w = V.inv(ev.clientX - r.left, ev.clientY - r.top); setProbe(w[0], w[1]); });
     UI.$("#b-study").addEventListener("click", study);
   }
+  /* Milestones for the course page (Plane Stress Part 3), recorded only after the student has acted:
+     the default state is already the lecture point on the 2 x 2 mesh. */
+  var userActed = false, seen = {}, studied = false;
+  document.addEventListener("pointerdown", function () { userActed = true; }, true);
+  document.addEventListener("change", function () { userActed = true; }, true);
+  function atLecturePoint() { return Math.abs(S.probe[0] - 3.5) < 0.051 && Math.abs(S.probe[1] - 1.3) < 0.051; }
+  function milestones() {
+    if (!userActed || !R) return;
+    if (S.nen === 4 && S.Nx === 2 && S.Ny === 2 && atLecturePoint()) UI.milestone("stress", "p13");
+    if (S.nen === 8 && atLecturePoint()) { seen["r" + S.Nx + "x" + S.Ny] = 1; if (seen.r16x8 && seen.r32x16) UI.milestone("stress", "refine"); }
+    if (studied) UI.milestone("stress", "corner");
+    if (S.nen === 4 && S.Nx === 4 && S.Ny === 2) { seen["d" + S.disp] = 1; if (seen.dcen && seen.dunav && seen.davg) UI.milestone("stress", "disp3"); }
+  }
+  var drawOnly = draw;
+  draw = function () { drawOnly(); milestones(); };
   function study() {
-    var btn = UI.$("#b-study"); btn.disabled = true; btn.textContent = "Running…";
+    var btn = UI.$("#b-study"); btn.disabled = true; btn.textContent = "Running…"; studied = true; userActed = true; setTimeout(milestones, 50);
     setTimeout(function () {
       var rows = [], fe = [], bm = [];
       [[8, 4], [16, 8], [32, 16], [64, 32]].forEach(function (p) {

@@ -9,7 +9,9 @@ Website: <https://razinutm.github.io/My_Lectures/SEAA4243-FEM/>
 |---|---|---|
 | 2D Heat Transfer, Part 1 | [`01-heat-transfer-1/`](01-heat-transfer-1/) | PDE, boundary conditions, the four-node element, shape functions, gradient and flux |
 | 2D Heat Transfer, Part 2 | [`02-heat-transfer-2/`](02-heat-transfer-2/) | Galerkin, integration by parts, [k], assembly, essential conditions, the worked example |
-| Plane Stress, Parts 1–3 | coming | equilibrium and Hooke, [B] and [k], the cantilever, stress recovery, the 8-node element |
+| Plane Stress, Part 1 | [`03-plane-stress-1/`](03-plane-stress-1/) | equilibrium, Hooke’s law (plane stress and plane strain), strain–displacement, boundary conditions, [N] |
+| Plane Stress, Part 2 | [`04-plane-stress-2/`](04-plane-stress-2/) | Galerkin, [B], the 8 × 8 [k], consistent loads, assembly, the cantilever solved and checked |
+| Plane Stress, Part 3 | [`05-plane-stress-3/`](05-plane-stress-3/) | stress recovery, principal and von Mises stresses, accuracy and singularities, the 8-node element, the project |
 | ANSYS demo | coming | the plate and the cantilever rebuilt in Workbench |
 
 Each part page has seven tabs: Start (plan and progress), Notes, Slides (viewer and PDF),

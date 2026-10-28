@@ -75,6 +75,8 @@
     if (v === "start") renderStart();
     if (v === "slides") fitSlides();
     if (v === "exercises") renderStats();
+    if (v === "lab") armLab();
+    if (typeof eqSoon === "function") eqSoon();
     updatePill();
   }
   $$(".tab").forEach(function (t) { t.addEventListener("click", function () { show(t.getAttribute("data-view")); }); });
@@ -311,9 +313,12 @@
     MS.forEach(function (m) { var t = $('.tk[data-ms="' + m.id + '"]'); if (t) t.classList.toggle("done", !!ST.lab[m.id]); }); if (changed) { save(); } updateProgress(); }
   window.addEventListener("message", function (ev) { var d = ev.data; if (!d || d.type !== "seaa4243-lab" || !C.lab || d.lab !== C.lab.id) return; if (!ST.lab[d.id]) { ST.lab[d.id] = true; save(); } syncLab(); });
   window.addEventListener("focus", syncLab); document.addEventListener("visibilitychange", function () { if (!document.hidden) syncLab(); });
-  var lf = $("#labframe");
-  if (lf) { var loaded = false; lf.addEventListener("load", function () { loaded = true; });
-    setTimeout(function () { if (!loaded) { var n = el("p", { class: "note" }, bi("The Explorer did not load inside this page. Open it in its own tab with the link below; tasks done there are still recorded here.", "Explorer tidak dimuatkan di dalam halaman ini. Buka dalam tab sendiri melalui pautan di bawah; tugasan yang selesai di situ tetap direkod di sini.")); lf.parentNode.insertBefore(n, lf); } }, 6000); }
+  /* the iframe is lazy and sits in a hidden tab, so the "did not load" note is armed only when the
+     Explorer tab is first shown, and removed if the Explorer loads after all */
+  var lf = $("#labframe"), labLoaded = false, labArmed = false, labNote = null;
+  if (lf) lf.addEventListener("load", function () { labLoaded = true; if (labNote) { labNote.remove(); labNote = null; } });
+  function armLab() { if (!lf || labArmed) return; labArmed = true;
+    setTimeout(function () { if (!labLoaded && !labNote) { labNote = el("p", { class: "note" }, bi("The Explorer did not load inside this page. Open it in its own tab with the link below; tasks done there are still recorded here.", "Explorer tidak dimuatkan di dalam halaman ini. Buka dalam tab sendiri melalui pautan di bawah; tugasan yang selesai di situ tetap direkod di sini.")); lf.parentNode.insertBefore(labNote, lf); } }, 8000); }
   $$(".tk[data-ms] .tkself").forEach(function (b) { b.addEventListener("click", function () { var t = b.closest(".tk"); ST.lab[t.getAttribute("data-ms")] = true; save(); syncLab(); }); });
 
   /* ---------- can-do checklist ---------- */
@@ -412,6 +417,12 @@
     function manual() { try { var r = document.createRange(); r.selectNodeContents(pre); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); if (document.execCommand && document.execCommand("copy")) { ok(); return; } } catch (e) {}
       if (m) m.innerHTML = bi("Selected: press Ctrl+C (⌘C) to copy.", "Dipilih: tekan Ctrl+C (⌘C) untuk menyalin."); }
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(ok, manual); else manual(); }); });
+
+  /* ---------- wide equations scroll sideways on a narrow screen: fade the edge while there is more ---------- */
+  function eqHints() { $$(".eqwrap").forEach(function (w) { var more = w.scrollWidth > w.clientWidth + 2 && w.scrollLeft + w.clientWidth < w.scrollWidth - 2; w.classList.toggle("more", more); }); }
+  var eqT = null; function eqSoon() { clearTimeout(eqT); eqT = setTimeout(eqHints, 120); }
+  window.addEventListener("resize", eqSoon); document.addEventListener("scroll", function (ev) { if (ev.target && ev.target.classList && ev.target.classList.contains("eqwrap")) eqSoon(); }, true);
+  document.addEventListener("toggle", eqSoon, true);
 
   /* ---------- go ---------- */
   syncRead(); applyNmode(); syncLab(); if (VIEWS.length) { updateProgress(); fromHash(); }

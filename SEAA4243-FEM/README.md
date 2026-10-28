@@ -42,6 +42,12 @@ Progress, language, theme and text size are kept in the student's own browser
 step by step in the text's notation. Each reproduces the course example when run; the README
 next to it lists the expected output. Requires Python 3.8+ and numpy (matplotlib for plots).
 
+Each part's Explorer tab also has a **Run in browser** panel (trial): three short scripts that
+import the part's module, editable and run in the student's browser with Pyodide 0.29.5
+(Python 3.13, numpy, matplotlib), in a Web Worker so Stop can end a runaway loop. The first run
+downloads about 9 MB (about 20 MB once a script plots); nothing is sent anywhere. It runs on
+GitHub Pages and on a local server; other hosts show the scripts with a link here.
+
 ## Text and licence
 
 Text: Mohd Yassin et al., *Two-Dimensional Finite Element Formulations for Heat, Solids and

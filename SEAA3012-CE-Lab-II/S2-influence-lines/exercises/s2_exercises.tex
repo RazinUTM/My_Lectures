@@ -28,10 +28,10 @@
 \fi
 \newcommand{\qmarks}[1]{ {\small(#1 marks)}}
 \newcommand{\workspace}[1]{\ifkey\else\vspace{#1}\fi}
-\pagestyle{fancy}\fancyhf{}
+\pagestyle{fancy}\fancyhf{}\setlength{\footskip}{30pt}
 \fancyhead[L]{\small\itshape SEAA 3012 Civil Engineering Laboratory II}
-\fancyhead[R]{\small\itshape Lab S2 -- Exercises\ifkey\ (instructor key)\fi}
-\fancyfoot[C]{\small\thepage}
+\fancyhead[R]{\small\itshape Lab S2 -- Exercises\ifkey\ (instructor key)\fi\quad\upshape\thepage}
+\fancyfoot[C]{\parbox{\textwidth}{\centering\scriptsize\color{black!55}\textcopyright\ 2026 Ahmad Razin Zainal Abidin and co-authors, Faculty of Civil Engineering, Universiti Teknologi Malaysia.\\ Free to share and adapt for non-commercial teaching and learning.}}
 \newtcolorbox{activitybox}[1][]{enhanced,colback=orange!6,colframe=orange!75!black,fonttitle=\bfseries,title={#1},left=5pt,right=5pt,top=4pt,bottom=4pt,arc=2pt,boxrule=0.6pt}
 % blank IL grid for sketches
 \newcommand{\ilgrid}[1]{%

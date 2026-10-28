@@ -62,3 +62,7 @@ and `activity/influence-line-explorer.html` (the form published as a claude.ai a
 
 The practice readings in Exercise Question 6 and the Lab tab are synthetic (theory ± 1–2
 divisions) and labelled as illustrative. Replace them with a real data set when one is available.
+
+## Copyright
+
+© 2026 Ahmad Razin Zainal Abidin and co-authors, Faculty of Civil Engineering, Universiti Teknologi Malaysia. Free to share and adapt for non-commercial teaching and learning.

@@ -32,3 +32,7 @@ My_Lectures/
 Conventions: no spaces in folder names; course code first so courses sort together; each topic
 folder builds on its own with its own `build.sh`; answer keys and instructor-only files are not
 committed (see `.gitignore`).
+
+## Copyright
+
+© 2026 Ahmad Razin Zainal Abidin and co-authors, Faculty of Civil Engineering, Universiti Teknologi Malaysia. Free to share and adapt for non-commercial teaching and learning.

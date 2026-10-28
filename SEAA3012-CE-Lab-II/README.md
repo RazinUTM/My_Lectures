@@ -8,3 +8,7 @@ Faculty of Civil Engineering, Universiti Teknologi Malaysia.
 
 Further experiments (S1, S3, S4, G, H, E, T series) can be added as sibling folders named
 `<code>-<short-name>`, for example `S1-…`.
+
+## Copyright
+
+© 2026 Ahmad Razin Zainal Abidin and co-authors, Faculty of Civil Engineering, Universiti Teknologi Malaysia. Free to share and adapt for non-commercial teaching and learning.

@@ -1,0 +1,834 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+</head>
+<body>
+<nav id="sitebar" hidden aria-label="Course" style="display:flex;flex-wrap:wrap;gap:6px 18px;align-items:center;padding:8px max(16px,env(safe-area-inset-left,0px));border-bottom:1px solid #d6d8d0;background:#f5f4ef;font:600 13.5px system-ui,-apple-system,sans-serif"><a href="../index.html" style="color:#0b6e63;text-decoration:none;font-weight:600">⌂ SEAA 4243 · Course home</a><a href="../01-heat-transfer-1/index.html#lab-code" style="color:#0b6e63;text-decoration:none;font-weight:600">⤓ Python code</a></nav><script>try{if(!window.frameElement)document.getElementById("sitebar").hidden=false;}catch(e){}</script>
+<title>Shape Function Explorer</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500;600&family=Source+Serif+4:opsz,wght@8..60,600&display=swap">
+<style>
+/* Layout concept: a lab bench — the live plot is the instrument, tasks sit beside it like a worksheet clipped to the bench. */
+:root {
+  --bg: #f7f5f2; --surface: #fffefb; --panel: #f3eeea; --ink: #15223b; --body: #3a4354; --muted: #687385;
+  --line: #e0e3e9; --grid: #e3e2db; --axis: #c3c2b7;
+  --accent: #830f3e; --btn: #830f3e; --teal: #1f6fa3; --task: #fff4e0; --task-line: #f0cf95; --task-ink: #6b4500;
+  --good: #2e7d5b; --warn: #a2461c; --focus: #830f3e;
+  --s1: #2a78d6; --s2: #eb6834; --ref: #898781;
+  --f-display: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --f-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #171315; --surface: #211b1e; --panel: #2b2326; --ink: #eef1f6; --body: #c7cfdb; --muted: #95a0b2;
+    --line: #40353a; --grid: #30282b; --axis: #4a3f43;
+    --accent: #f0a6c2; --btn: #f2b44f; --teal: #74b4e2; --task: #352812; --task-line: #6b5020; --task-ink: #f6d58f;
+    --good: #5cc39a; --warn: #f0956a; --focus: #f2b44f;
+    --s1: #3987e5; --s2: #d95926; --ref: #898781; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #171315; --surface: #211b1e; --panel: #2b2326; --ink: #eef1f6; --body: #c7cfdb; --muted: #95a0b2;
+  --line: #40353a; --grid: #30282b; --axis: #4a3f43;
+  --accent: #f0a6c2; --btn: #f2b44f; --teal: #74b4e2; --task: #352812; --task-line: #6b5020; --task-ink: #f6d58f;
+  --good: #5cc39a; --warn: #f0956a; --focus: #f2b44f;
+  --s1: #3987e5; --s2: #d95926; --ref: #898781; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--body); font-family: var(--f-body); font-size: 16px; line-height: 1.5;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 20px 40px;
+}
+.wrap { max-width: 1240px; margin: 0 auto; display: flex; flex-direction: column; gap: 22px; }
+header.top { display: flex; flex-direction: column; gap: 6px; }
+.eyebrow { margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+h1 { margin: 0; font-family: var(--f-display); font-weight: 600; font-size: clamp(28px, 4.6vw, 44px); line-height: 1.08; color: var(--ink); text-wrap: balance; }
+.lede { margin: 0; max-width: 68ch; color: var(--body); }
+h2 { margin: 0; font-family: var(--f-display); font-weight: 600; font-size: 22px; line-height: 1.2; color: var(--ink); text-wrap: balance; }
+h3 { margin: 0; font-size: 14px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.lab { display: grid; gap: 20px; grid-template-columns: minmax(0, 1fr); grid-template-areas: "tasks" "viewer" "controls" "study"; }
+@media (min-width: 1000px) {
+  .lab { grid-template-columns: minmax(0, 1.6fr) minmax(330px, 1fr); grid-template-areas: "viewer tasks" "viewer controls" "study study"; align-items: start; }
+}
+.tasks { grid-area: tasks; } .viewer { grid-area: viewer; } .controls { grid-area: controls; } .study { grid-area: study; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.tasks { background: var(--task); border: 1px solid var(--task-line); border-radius: 14px; padding: 18px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.tasks h2 { font-size: 20px; }
+.tasks ol { margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 10px; }
+.tasks li { color: var(--ink); }
+.tasks li::marker { font-weight: 600; color: var(--task-ink); }
+details { margin-top: 4px; }
+summary { cursor: pointer; font-size: 14px; font-weight: 600; color: var(--task-ink); width: fit-content; border-radius: 6px; }
+summary:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, .seg label:focus-within { outline: 2px solid var(--focus); outline-offset: 2px; }
+details p { margin: 6px 0 0; font-size: 15px; color: var(--body); }
+.canvas-wrap { position: relative; width: 100%; }
+canvas { display: block; width: 100%; border-radius: 10px; background: var(--surface); }
+.hint { margin: 0; font-size: 13px; color: var(--muted); }
+.readouts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.ro { background: var(--panel); border-radius: 10px; padding: 10px 12px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.ro .k { font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.ro .v { font-family: var(--f-mono); font-size: 20px; font-weight: 600; color: var(--ink); overflow-wrap: anywhere; }
+.ro .s { font-size: 13px; color: var(--body); }
+.ro.flag .v { color: var(--warn); }
+.legend { display: flex; flex-direction: column; gap: 4px; }
+.legend .bar { height: 12px; border-radius: 6px; border: 1px solid var(--line); }
+.legend .ticks { display: flex; justify-content: space-between; font-family: var(--f-mono); font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.legend .cap { font-size: 13px; color: var(--body); }
+.group { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.seg { display: inline-flex; flex-wrap: wrap; gap: 6px; }
+.seg input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.seg label { cursor: pointer; padding: 7px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--body); font-size: 14px; font-weight: 500; user-select: none; }
+.seg input:checked + label { background: var(--ink); color: var(--surface); border-color: var(--ink); }
+.field { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: var(--muted); min-width: 0; }
+.field input, .field select { font: 500 15px var(--f-mono); color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 7px 9px; width: 100%; min-width: 0; }
+.fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }
+button { font: 600 14px var(--f-body); color: var(--surface); background: var(--btn); border: 0; border-radius: 999px; padding: 9px 16px; cursor: pointer; }
+button.ghost { background: transparent; color: var(--btn); border: 1px solid var(--line); }
+button:disabled { opacity: 0.55; cursor: progress; }
+.notice { margin: 0; padding: 10px 12px; border-radius: 10px; background: var(--panel); border-left: 4px solid var(--warn); color: var(--ink); font-size: 15px; }
+.notice[hidden] { display: none !important; }
+.table-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: right; padding: 6px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; font-variant-numeric: tabular-nums; }
+th { font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); }
+th:first-child, td:first-child { text-align: left; }
+td { font-family: var(--f-mono); color: var(--ink); }
+.chart { position: relative; width: 100%; }
+.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.chart-legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 13px; color: var(--body); }
+.chart-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.chart-legend i { display: inline-block; width: 18px; height: 2px; border-radius: 2px; }
+.tip { position: absolute; pointer-events: none; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; font-size: 13px; color: var(--body); box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12); min-width: 140px; }
+.tip b { font-family: var(--f-mono); color: var(--ink); }
+.tip .r { display: flex; align-items: center; gap: 8px; justify-content: space-between; }
+.tip i { display: inline-block; width: 14px; height: 2px; }
+.study-grid { display: grid; gap: 18px; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 900px) { .study-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); } }
+footer.foot { font-size: 13px; color: var(--muted); max-width: 90ch; }
+footer.foot p { margin: 0 0 6px; }
+.kbd { font-family: var(--f-mono); font-size: 13px; background: var(--panel); border-radius: 6px; padding: 1px 6px; color: var(--ink); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+@media (max-width: 520px) { th, td { padding: 5px 6px; font-size: 13px; } .ro .v { font-size: 18px; } }
+
+#plot { touch-action: none; cursor: crosshair; }
+.ntab td, .ntab th { padding: 5px 8px; }
+.ntab .barcell { width: 30%; min-width: 44px; }
+.nbar { position: relative; height: 10px; border-radius: 5px; background: var(--panel); }
+.nbar span { position: absolute; top: 0; bottom: 0; border-radius: 5px; background: var(--s1); }
+.nbar .zero { position: absolute; top: -3px; bottom: -3px; width: 1px; background: var(--axis); }
+.ntab input { width: 62px; font: 500 14px var(--f-mono); color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 4px 6px; text-align: right; }
+.ntab tr.hl td { background: var(--panel); }
+.sumrow td { font-weight: 600; border-top: 2px solid var(--axis); }
+</style>
+<div class="wrap">
+  <header class="top">
+    <p class="eyebrow">SEAA 4243 Finite Element Method · QR Explorer</p>
+    <h1>Shape Function Explorer</h1>
+    <p class="lede">Drag the point P inside the element. The table shows the weight N<sub>i</sub> each node gives to P, and how those weights build the temperature T(P) = Σ N<sub>i</sub> T̂<sub>i</sub>.</p>
+  </header>
+  <main class="lab">
+    <section class="tasks" aria-labelledby="tasks-h">
+      <h2 id="tasks-h">Your tasks</h2>
+      <ol>
+        <li>Drag P onto node 3. Read N<sub>1</sub> … N<sub>4</sub>.
+          <details><summary>Check answer</summary><p>N = (0, 0, 1, 0). Each function is 1 at its own node and 0 at the others (Kronecker delta), so T at node 3 is exactly T̂<sub>3</sub>: the unknowns really are nodal temperatures.</p></details></li>
+        <li>Press <b>Activity 4 point</b>: P = (1.5, 0.3). Check your hand answers from Activity 4.
+          <details><summary>Check answer</summary><p>N = 0.175, 0.525, 0.225, 0.075; the sum is 1 (partition of unity); T = 136.0 K. Node 2 carries half the weight because P is nearest to it. Activity 5: ∂T/∂x = ∂T/∂y = 20 K/m, so q<sub>x</sub> = q<sub>y</sub> = −40 W/m² with k = 2.</p></details></li>
+        <li>Find three points where N<sub>1</sub> = N<sub>3</sub>. What line joins them?
+          <details><summary>Check answer</summary><p>The diagonal from node 2 to node 4, x/a + y/b = 1. On it (a − x)(b − y) = xy, so the two functions are equal. Try it with a different a and b: it is still that diagonal.</p></details></li>
+        <li>Switch to the 8-node element and show N<sub>1</sub>. Where is it negative, and how can the weights still sum to 1?
+          <details><summary>Check answer</summary><p>N<sub>1</sub> is negative over most of the element away from corner 1 (−0.25 at the centre). A corner function of the 8-node element must vanish at the two mid-side nodes beside it, so it dips below zero between them. The mid-side functions (up to 1.0) make up the difference: Σ N<sub>i</sub> = 1 everywhere.</p></details></li>
+      </ol>
+    </section>
+    <section class="viewer card" aria-label="Element and field">
+      <div class="canvas-wrap"><canvas id="plot" aria-label="The element with its nodes, the selected field as colour, and the point P"></canvas></div>
+      <div class="legend" id="legend"></div>
+      <p class="hint">Drag anywhere on the element to move P, or type its coordinates in the controls.</p>
+      <div class="table-wrap"><table class="ntab" id="ntab"></table></div>
+      <div class="readouts" id="ro"></div>
+    </section>
+    <section class="controls card" aria-label="Controls">
+      <div class="group"><h3>Element</h3><div id="c-nen"></div></div>
+      <div class="group"><h3>Colour shows</h3><div id="c-view"></div></div>
+      <div class="group"><h3>Geometry and point</h3>
+        <div class="fields">
+          <label class="field"><span>a (m)</span><input id="i-a" type="number" min="0.5" max="6" step="0.1" value="2"></label>
+          <label class="field"><span>b (m)</span><input id="i-b" type="number" min="0.5" max="6" step="0.1" value="1"></label>
+          <label class="field"><span>x of P (m)</span><input id="i-x" type="number" step="0.05" value="1.5"></label>
+          <label class="field"><span>y of P (m)</span><input id="i-y" type="number" step="0.05" value="0.3"></label>
+          <label class="field"><span>k (W m⁻¹ K⁻¹)</span><input id="i-k" type="number" step="0.5" value="2"></label>
+        </div>
+      </div>
+      <div class="row"><button id="b-act4" type="button">Activity 4 point</button><button id="b-n3" class="ghost" type="button">P on node 3</button><button id="b-reset" class="ghost" type="button">Reset</button></div>
+    </section>
+  </main>
+  <footer class="foot">
+    <p>Shape functions of text (2.21) for the 4-node element and (2.31) for the 8-node element, evaluated in natural coordinates ξ = 2x/a − 1, η = 2y/b − 1. Nodes are numbered anticlockwise from the bottom-left; mid-side nodes 5 to 8 start on the bottom edge.</p>
+    <p>Text: Mohd Yassin et al., <i>Two-Dimensional Finite Element Formulations for Heat, Solids and Fluids (with Matlab)</i>, MSNM 2020, §2.2. SEAA 4243, Faculty of Civil Engineering, UTM.</p>
+  </footer>
+</div>
+<script>/* fe_core.js — SEAA 4243 FE labs.
+   Banded Cholesky solver, 4- and 8-node rectangular plane elements, 4-node heat element,
+   structured meshes, stress recovery and perceptual colour ramps.
+   Notation follows Mohd Yassin et al. (2020): nodes 1-2-3-4 anticlockwise from the bottom-left,
+   mid-side nodes 5 (bottom), 6 (right), 7 (top), 8 (left). */
+var FE = (function () {
+  "use strict";
+
+  function SingularError(message, kind) { this.name = "SingularError"; this.message = message; this.kind = kind || "singular"; this.singular = true; }
+  SingularError.prototype = Object.create(Error.prototype);
+
+  /* ---------------- banded symmetric matrix (upper band, row-major) ---------------- */
+  function band(n, hb) { return { n: n, hb: hb, w: hb + 1, a: new Float64Array(n * (hb + 1)) }; }
+  function bAdd(K, i, j, v) { if (j < i) { var t = i; i = j; j = t; } K.a[i * K.w + (j - i)] += v; }
+  function bGet(K, i, j) { if (j < i) { var t = i; i = j; j = t; } var d = j - i; return d > K.hb ? 0 : K.a[i * K.w + d]; }
+  function bCopy(K) { return { n: K.n, hb: K.hb, w: K.w, a: K.a.slice() }; }
+  function bMul(K, x) {
+    var n = K.n, hb = K.hb, w = K.w, a = K.a, y = new Float64Array(n);
+    for (var i = 0; i < n; i++) {
+      var base = i * w; y[i] += a[base] * x[i];
+      var jmax = Math.min(n - 1, i + hb);
+      for (var j = i + 1; j <= jmax; j++) { var v = a[base + j - i]; if (v !== 0) { y[i] += v * x[j]; y[j] += v * x[i]; } }
+    }
+    return y;
+  }
+  /* fixed: array of [dof, value]; modifies K and F in place */
+  function bDirichlet(K, F, fixed) {
+    var n = K.n, hb = K.hb, w = K.w, a = K.a, k, j;
+    for (k = 0; k < fixed.length; k++) {
+      var p = fixed[k][0], g = fixed[k][1];
+      if (g !== 0) for (j = Math.max(0, p - hb); j <= Math.min(n - 1, p + hb); j++) if (j !== p) F[j] -= bGet(K, j, p) * g;
+    }
+    for (k = 0; k < fixed.length; k++) {
+      var q = fixed[k][0];
+      for (j = Math.max(0, q - hb); j < q; j++) a[j * w + (q - j)] = 0;
+      for (var d = 1; d <= hb && q + d < n; d++) a[q * w + d] = 0;
+      a[q * w] = 1; F[q] = fixed[k][1];
+    }
+  }
+  /* Cholesky K = U^T U on the band; returns x with K x = F. Throws SingularError for a non-positive pivot. */
+  function bSolve(K, F) {
+    var n = K.n, hb = K.hb, w = K.w, a = K.a.slice(), i, j, k, s;
+    for (i = 0; i < n; i++) {
+      var jmax = Math.min(n - 1, i + hb), ref = Math.abs(K.a[i * w]) || 1;
+      for (j = i; j <= jmax; j++) {
+        s = a[i * w + (j - i)];
+        for (k = Math.max(0, j - hb); k < i; k++) s -= a[k * w + (i - k)] * a[k * w + (j - k)];
+        if (j === i) {
+          if (!(s > 1e-10 * ref)) throw new SingularError("The stiffness matrix is singular at equation " + (i + 1) + ".", "pivot");
+          a[i * w] = Math.sqrt(s);
+        } else a[i * w + (j - i)] = s / a[i * w];
+      }
+    }
+    var x = Float64Array.from(F);
+    for (i = 0; i < n; i++) { s = x[i]; for (k = Math.max(0, i - hb); k < i; k++) s -= a[k * w + (i - k)] * x[k]; x[i] = s / a[i * w]; }
+    for (i = n - 1; i >= 0; i--) { s = x[i]; var jm = Math.min(n - 1, i + hb); for (j = i + 1; j <= jm; j++) s -= a[i * w + (j - i)] * x[j]; x[i] = s / a[i * w]; }
+    return x;
+  }
+
+  /* ---------------- shape functions on the natural square [-1, 1]^2 ---------------- */
+  var XI = [-1, 1, 1, -1, 0, 1, 0, -1], ETA = [-1, -1, 1, 1, -1, 0, 1, 0];
+  function shapeQ4(xi, eta) {
+    var N = new Float64Array(4), dx = new Float64Array(4), de = new Float64Array(4);
+    for (var i = 0; i < 4; i++) {
+      N[i] = 0.25 * (1 + XI[i] * xi) * (1 + ETA[i] * eta);
+      dx[i] = 0.25 * XI[i] * (1 + ETA[i] * eta);
+      de[i] = 0.25 * ETA[i] * (1 + XI[i] * xi);
+    }
+    return { N: N, dxi: dx, deta: de };
+  }
+  function shapeQ8(xi, eta) {
+    var N = new Float64Array(8), dx = new Float64Array(8), de = new Float64Array(8), i;
+    for (i = 0; i < 4; i++) {
+      var cx = XI[i], cy = ETA[i];
+      N[i] = 0.25 * (1 + cx * xi) * (1 + cy * eta) * (cx * xi + cy * eta - 1);
+      dx[i] = 0.25 * cx * (1 + cy * eta) * (2 * cx * xi + cy * eta);
+      de[i] = 0.25 * cy * (1 + cx * xi) * (cx * xi + 2 * cy * eta);
+    }
+    N[4] = 0.5 * (1 - xi * xi) * (1 - eta); dx[4] = -xi * (1 - eta); de[4] = -0.5 * (1 - xi * xi);
+    N[5] = 0.5 * (1 + xi) * (1 - eta * eta); dx[5] = 0.5 * (1 - eta * eta); de[5] = -eta * (1 + xi);
+    N[6] = 0.5 * (1 - xi * xi) * (1 + eta); dx[6] = -xi * (1 + eta); de[6] = 0.5 * (1 - xi * xi);
+    N[7] = 0.5 * (1 - xi) * (1 - eta * eta); dx[7] = -0.5 * (1 - eta * eta); de[7] = -eta * (1 - xi);
+    return { N: N, dxi: dx, deta: de };
+  }
+  function shape(nen, xi, eta) { return nen === 8 ? shapeQ8(xi, eta) : shapeQ4(xi, eta); }
+
+  /* strain-displacement matrix of a rectangular a x b element at (xi, eta); row-major 3 x 2nen */
+  function Bmat(nen, a, b, xi, eta) {
+    var s = shape(nen, xi, eta), m = 2 * nen, B = new Float64Array(3 * m);
+    for (var i = 0; i < nen; i++) {
+      var dNdx = s.dxi[i] * 2 / a, dNdy = s.deta[i] * 2 / b;
+      B[2 * i] = dNdx; B[m + 2 * i + 1] = dNdy; B[2 * m + 2 * i] = dNdy; B[2 * m + 2 * i + 1] = dNdx;
+    }
+    return { B: B, N: s.N };
+  }
+  function Dmat(E, nu, plane) {
+    var c;
+    if (plane === "strain") {
+      c = E / ((1 + nu) * (1 - 2 * nu));
+      return [c * (1 - nu), c * nu, 0, c * nu, c * (1 - nu), 0, 0, 0, c * (1 - 2 * nu) / 2];
+    }
+    c = E / (1 - nu * nu);
+    return [c, c * nu, 0, c * nu, c, 0, 0, 0, c * (1 - nu) / 2];
+  }
+  var G2 = [[-1 / Math.sqrt(3), 1], [1 / Math.sqrt(3), 1]];
+  var G3 = [[-Math.sqrt(0.6), 5 / 9], [0, 8 / 9], [Math.sqrt(0.6), 5 / 9]];
+  function kPlane(nen, a, b, D, t) {
+    var m = 2 * nen, k = new Float64Array(m * m), g = nen === 8 ? G3 : G2, DB = new Float64Array(3 * m);
+    for (var p = 0; p < g.length; p++) for (var q = 0; q < g.length; q++) {
+      var B = Bmat(nen, a, b, g[p][0], g[q][0]).B, f = t * (a / 2) * (b / 2) * g[p][1] * g[q][1], r, c, i, j;
+      for (r = 0; r < 3; r++) for (c = 0; c < m; c++) DB[r * m + c] = D[r * 3] * B[c] + D[r * 3 + 1] * B[m + c] + D[r * 3 + 2] * B[2 * m + c];
+      for (i = 0; i < m; i++) for (j = 0; j < m; j++) k[i * m + j] += f * (B[i] * DB[j] + B[m + i] * DB[m + j] + B[2 * m + i] * DB[2 * m + j]);
+    }
+    return k;
+  }
+  /* 4-node heat element, text (2.49) */
+  function kHeat(a, b, kx, ky) {
+    var s1 = b * kx / (3 * a) + a * ky / (3 * b), s2 = -b * kx / (3 * a) + a * ky / (6 * b),
+        s3 = -b * kx / (6 * a) - a * ky / (6 * b), s4 = b * kx / (6 * a) - a * ky / (3 * b);
+    return [s1, s2, s3, s4, s2, s1, s4, s3, s3, s4, s1, s2, s4, s3, s2, s1];
+  }
+
+  /* ---------------- structured meshes (numbered by columns to keep the band narrow) ---------------- */
+  function meshPlane(nen, L, H, Nx, Ny) {
+    var a = L / Nx, b = H / Ny, X = [], Y = [], conn = [], i, j;
+    if (nen === 4) {
+      for (i = 0; i <= Nx; i++) for (j = 0; j <= Ny; j++) { X.push(i * a); Y.push(j * b); }
+      var id = function (i, j) { return i * (Ny + 1) + j; };
+      for (j = 0; j < Ny; j++) for (i = 0; i < Nx; i++) conn.push(id(i, j), id(i + 1, j), id(i + 1, j + 1), id(i, j + 1));
+    } else {
+      var S = 3 * Ny + 2;
+      for (i = 0; i <= Nx; i++) {
+        for (j = 0; j <= 2 * Ny; j++) { X.push(i * a); Y.push(j * b / 2); }
+        if (i < Nx) for (j = 0; j <= Ny; j++) { X.push((i + 0.5) * a); Y.push(j * b); }
+      }
+      var full = function (i, j2) { return i * S + j2; }, mid = function (i, j) { return i * S + 2 * Ny + 1 + j; };
+      for (j = 0; j < Ny; j++) for (i = 0; i < Nx; i++)
+        conn.push(full(i, 2 * j), full(i + 1, 2 * j), full(i + 1, 2 * j + 2), full(i, 2 * j + 2), mid(i, j), full(i + 1, 2 * j + 1), mid(i, j + 1), full(i, 2 * j + 1));
+    }
+    return { nen: nen, L: L, H: H, Nx: Nx, Ny: Ny, a: a, b: b, nn: X.length, ne: Nx * Ny, X: Float64Array.from(X), Y: Float64Array.from(Y), conn: Int32Array.from(conn) };
+  }
+  function findNode(m, x, y) {
+    var best = -1, d = Infinity;
+    for (var i = 0; i < m.nn; i++) { var dd = Math.hypot(m.X[i] - x, m.Y[i] - y); if (dd < d) { d = dd; best = i; } }
+    return best;
+  }
+  /* element containing (X, Y) and its natural coordinates */
+  function locate(m, X, Y) {
+    var i = Math.min(m.Nx - 1, Math.max(0, Math.floor(X / m.a))), j = Math.min(m.Ny - 1, Math.max(0, Math.floor(Y / m.b)));
+    var e = j * m.Nx + i, x0 = i * m.a, y0 = j * m.b;
+    return { e: e, i: i, j: j, x: X - x0, y: Y - y0, xi: 2 * (X - x0) / m.a - 1, eta: 2 * (Y - y0) / m.b - 1 };
+  }
+
+  /* ---------------- plane stress / plane strain cantilever ---------------- */
+  /* o: {nen, L, H, Nx, Ny, E, nu, t, plane, q (N/m, + up), load: 'edge'|'point', support: 'fixed'|'vonly'} */
+  function solvePlane(o) {
+    var m = meshPlane(o.nen, o.L, o.H, o.Nx, o.Ny), nen = o.nen, nd = 2 * m.nn, D = Dmat(o.E, o.nu, o.plane);
+    var ke = kPlane(nen, m.a, m.b, D, o.t), e, i, j, hb = 0, dofs = new Int32Array(2 * nen);
+    for (e = 0; e < m.ne; e++) {
+      var lo = Infinity, hi = -Infinity;
+      for (i = 0; i < nen; i++) { var nd_ = m.conn[e * nen + i]; lo = Math.min(lo, 2 * nd_); hi = Math.max(hi, 2 * nd_ + 1); }
+      hb = Math.max(hb, hi - lo);
+    }
+    var K = band(nd, hb), F = new Float64Array(nd), M = 2 * nen;
+    for (e = 0; e < m.ne; e++) {
+      for (i = 0; i < nen; i++) { dofs[2 * i] = 2 * m.conn[e * nen + i]; dofs[2 * i + 1] = 2 * m.conn[e * nen + i] + 1; }
+      for (i = 0; i < M; i++) for (j = i; j < M; j++) bAdd(K, dofs[i], dofs[j], ke[i * M + j]);
+    }
+    var P = o.q * o.H; /* total end force (N), negative = downward */
+    if (o.load === "point") F[2 * findNode(m, o.L, o.H) + 1] += P;
+    else for (j = 0; j < m.Ny; j++) {
+      e = j * m.Nx + (m.Nx - 1);
+      var c = m.conn.subarray(e * nen, e * nen + nen);
+      if (nen === 4) { F[2 * c[1] + 1] += o.q * m.b / 2; F[2 * c[2] + 1] += o.q * m.b / 2; }
+      else { F[2 * c[1] + 1] += o.q * m.b / 6; F[2 * c[5] + 1] += 2 * o.q * m.b / 3; F[2 * c[2] + 1] += o.q * m.b / 6; }
+    }
+    var fixed = [];
+    for (i = 0; i < m.nn; i++) if (Math.abs(m.X[i]) < 1e-12) { if (o.support !== "vonly") fixed.push([2 * i, 0]); fixed.push([2 * i + 1, 0]); }
+    var res = { o: o, mesh: m, D: D, F: F, fixed: fixed, nd: nd, hb: hb, P: P };
+    if (o.support === "vonly") {
+      res.error = new SingularError("Nothing stops the plate from sliding in x: a rigid-body mode, so [K] is singular.", "rigid");
+      return res;
+    }
+    var K0 = bCopy(K), F0 = F.slice();
+    bDirichlet(K, F, fixed);
+    try { res.U = bSolve(K, F); } catch (err) { res.error = err; return res; }
+    var KU = bMul(K0, res.U), Rx = 0, Ry = 0, Mz = 0;
+    for (i = 0; i < fixed.length; i++) {
+      var p = fixed[i][0], r = KU[p] - F0[p], node = p >> 1;
+      if (p % 2 === 0) { Rx += r; Mz += -(m.Y[node] - o.H / 2) * r; } else { Ry += r; Mz += m.X[node] * r; }
+    }
+    res.reaction = { Rx: Rx, Ry: Ry, M: Mz };
+    res.tipNode = findNode(m, o.L, o.H);
+    res.tip = res.U[2 * res.tipNode + 1];
+    return res;
+  }
+  function elemDofs(res, e) {
+    var nen = res.mesh.nen, d = new Int32Array(2 * nen);
+    for (var i = 0; i < nen; i++) { var n = res.mesh.conn[e * nen + i]; d[2 * i] = 2 * n; d[2 * i + 1] = 2 * n + 1; }
+    return d;
+  }
+  function stressInElement(res, e, xi, eta) {
+    var m = res.mesh, nen = m.nen, M = 2 * nen, B = Bmat(nen, m.a, m.b, xi, eta).B, d = elemDofs(res, e), D = res.D;
+    var eps = [0, 0, 0];
+    for (var r = 0; r < 3; r++) for (var c = 0; c < M; c++) eps[r] += B[r * M + c] * res.U[d[c]];
+    var sig = [D[0] * eps[0] + D[1] * eps[1], D[3] * eps[0] + D[4] * eps[1], D[8] * eps[2]];
+    return { eps: eps, sig: sig };
+  }
+  function stressAt(res, X, Y) { var L = locate(res.mesh, X, Y), s = stressInElement(res, L.e, L.xi, L.eta); s.loc = L; return s; }
+  function displacementAt(res, X, Y) {
+    var m = res.mesh, L = locate(m, X, Y), N = shape(m.nen, L.xi, L.eta).N, u = 0, v = 0;
+    for (var i = 0; i < m.nen; i++) { var n = m.conn[L.e * m.nen + i]; u += N[i] * res.U[2 * n]; v += N[i] * res.U[2 * n + 1]; }
+    return [u, v];
+  }
+  function derived(s) {
+    var c = (s[0] + s[1]) / 2, R = Math.hypot((s[0] - s[1]) / 2, s[2]);
+    return { s1: c + R, s2: c - R, c: c, R: R, theta: 0.5 * Math.atan2(2 * s[2], s[0] - s[1]) * 180 / Math.PI,
+             vm: Math.sqrt(s[0] * s[0] - s[0] * s[1] + s[1] * s[1] + 3 * s[2] * s[2]) };
+  }
+  /* nodal stresses: per element (unaveraged) and averaged over the elements sharing a node */
+  function nodalStresses(res) {
+    var m = res.mesh, nen = m.nen, ne = m.ne, un = new Float64Array(ne * nen * 3), av = new Float64Array(m.nn * 3), cnt = new Float64Array(m.nn);
+    var cen = new Float64Array(ne * 3);
+    for (var e = 0; e < ne; e++) {
+      for (var i = 0; i < nen; i++) {
+        var s = stressInElement(res, e, XI[i], ETA[i]).sig, n = m.conn[e * nen + i];
+        for (var k = 0; k < 3; k++) { un[(e * nen + i) * 3 + k] = s[k]; av[n * 3 + k] += s[k]; }
+        cnt[n] += 1;
+      }
+      var sc = stressInElement(res, e, 0, 0).sig; cen[e * 3] = sc[0]; cen[e * 3 + 1] = sc[1]; cen[e * 3 + 2] = sc[2];
+    }
+    for (var p = 0; p < m.nn; p++) for (var q = 0; q < 3; q++) av[p * 3 + q] /= cnt[p];
+    return { unav: un, avg: av, cen: cen };
+  }
+
+  /* ---------------- steady heat conduction on a square plate ---------------- */
+  /* o: {L, n, k, q, edges: {bottom, right, top, left}: {type: 'T'|'ins'|'flux', value}} */
+  function solveHeat(o) {
+    var n = o.n, L = o.L, a = L / n, nn = (n + 1) * (n + 1), id = function (i, j) { return j * (n + 1) + i; };
+    var X = new Float64Array(nn), Y = new Float64Array(nn), i, j, e, conn = [];
+    for (j = 0; j <= n; j++) for (i = 0; i <= n; i++) { X[id(i, j)] = i * a; Y[id(i, j)] = j * a; }
+    for (j = 0; j < n; j++) for (i = 0; i < n; i++) conn.push(id(i, j), id(i + 1, j), id(i + 1, j + 1), id(i, j + 1));
+    var ke = kHeat(a, a, o.k, o.k), K = band(nn, n + 2), F = new Float64Array(nn), fq = o.q * a * a / 4;
+    for (e = 0; e < n * n; e++) for (var p = 0; p < 4; p++) {
+      F[conn[4 * e + p]] += fq;
+      for (var q = p; q < 4; q++) bAdd(K, conn[4 * e + p], conn[4 * e + q], ke[p * 4 + q]);
+    }
+    var sides = {
+      bottom: function (s) { return id(s, 0); }, top: function (s) { return id(s, n); },
+      left: function (s) { return id(0, s); }, right: function (s) { return id(n, s); }
+    };
+    var fluxIn = 0, fixedVal = {}, order = ["top", "left", "right", "bottom"];
+    for (var name in sides) {
+      var ed = o.edges[name];
+      if (ed.type === "flux") { for (var s = 0; s < n; s++) { F[sides[name](s)] += ed.value * a / 2; F[sides[name](s + 1)] += ed.value * a / 2; } fluxIn += ed.value * L; }
+    }
+    order.forEach(function (name) {
+      var ed = o.edges[name];
+      if (ed.type === "T") for (var s = 0; s <= n; s++) { var node = sides[name](s); if (!(node in fixedVal)) fixedVal[node] = ed.value; }
+    });
+    var fixed = Object.keys(fixedVal).map(function (k) { return [+k, fixedVal[k]]; });
+    var res = { n: n, L: L, a: a, nn: nn, X: X, Y: Y, conn: Int32Array.from(conn), generated: o.q * L * L, fluxIn: fluxIn, fixed: fixed, k: o.k };
+    if (!fixed.length) { res.error = new SingularError("No edge has a fixed temperature, so the temperature level is undetermined and [K] is singular.", "float"); return res; }
+    var K0 = bCopy(K), F0 = F.slice();
+    bDirichlet(K, F, fixed);
+    try { res.T = bSolve(K, F); } catch (err) { res.error = err; return res; }
+    var KT = bMul(K0, res.T), R = 0;
+    for (i = 0; i < fixed.length; i++) R += KT[fixed[i][0]] - F0[fixed[i][0]];
+    res.reaction = R;
+    var imax = 0; for (i = 1; i < nn; i++) if (res.T[i] > res.T[imax]) imax = i;
+    res.imax = imax;
+    return res;
+  }
+  function heatAt(res, X, Y) {
+    var n = res.n, a = res.a, i = Math.min(n - 1, Math.max(0, Math.floor(X / a))), j = Math.min(n - 1, Math.max(0, Math.floor(Y / a)));
+    var e = j * n + i, xi = 2 * (X - i * a) / a - 1, eta = 2 * (Y - j * a) / a - 1, s = shapeQ4(xi, eta), T = 0, gx = 0, gy = 0;
+    for (var p = 0; p < 4; p++) { var t = res.T[res.conn[4 * e + p]]; T += s.N[p] * t; gx += s.dxi[p] * 2 / a * t; gy += s.deta[p] * 2 / a * t; }
+    return { T: T, gx: gx, gy: gy, qx: -res.k * gx, qy: -res.k * gy, e: e };
+  }
+
+  /* ---------------- reference beam theory for the cantilever ---------------- */
+  function timoshenko(o) {
+    var P = -o.q * o.H, I = o.t * Math.pow(o.H, 3) / 12, A = o.t * o.H, G = o.E / (2 * (1 + o.nu));
+    var Eb = o.plane === "strain" ? o.E / (1 - o.nu * o.nu) : o.E;
+    var bend = P * Math.pow(o.L, 3) / (3 * Eb * I), shear = P * o.L / (5 / 6 * G * A);
+    return { bend: bend, shear: shear, total: bend + shear, I: I };
+  }
+  function beamStress(o, X, Y) {
+    var P = -o.q * o.H, I = o.t * Math.pow(o.H, 3) / 12, c = o.H / 2, yp = Y - c;
+    return { sxx: P * (o.L - X) * yp / I, sxy: -P * (c * c - yp * yp) / (2 * I) };
+  }
+
+  /* ---------------- colour: OKLab interpolation of anchor ramps ---------------- */
+  function hex2rgb(h) { h = h.replace("#", ""); return [parseInt(h.slice(0, 2), 16) / 255, parseInt(h.slice(2, 4), 16) / 255, parseInt(h.slice(4, 6), 16) / 255]; }
+  function lin(c) { return c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4); }
+  function gam(c) { return c <= 0.0031308 ? 12.92 * c : 1.055 * Math.pow(c, 1 / 2.4) - 0.055; }
+  function toLab(hex) {
+    var c = hex2rgb(hex).map(lin);
+    var l = Math.cbrt(0.4122214708 * c[0] + 0.5363325363 * c[1] + 0.0514459929 * c[2]);
+    var m = Math.cbrt(0.2119034982 * c[0] + 0.6806995451 * c[1] + 0.1073969566 * c[2]);
+    var s = Math.cbrt(0.0883024619 * c[0] + 0.2817188376 * c[1] + 0.6299787005 * c[2]);
+    return [0.2104542553 * l + 0.7936177850 * m - 0.0040720468 * s, 1.9779984951 * l - 2.4285922050 * m + 0.4505937099 * s, 0.0259040371 * l + 0.7827717662 * m - 0.8086757660 * s];
+  }
+  function fromLab(L) {
+    var l = Math.pow(L[0] + 0.3963377774 * L[1] + 0.2158037573 * L[2], 3), m = Math.pow(L[0] - 0.1055613458 * L[1] - 0.0638541728 * L[2], 3), s = Math.pow(L[0] - 0.0894841775 * L[1] - 1.2914855480 * L[2], 3);
+    var r = 4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s, g = -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s, b = -0.0041960863 * l - 0.7034186147 * m + 1.7076147010 * s;
+    return [r, g, b].map(function (v) { return Math.round(255 * Math.min(1, Math.max(0, gam(v)))); });
+  }
+  /* returns a 256-entry Uint8ClampedArray LUT (rgb triplets) for anchor hex colours */
+  function makeLUT(anchors) {
+    var labs = anchors.map(toLab), lut = new Uint8ClampedArray(256 * 3), nseg = labs.length - 1;
+    for (var i = 0; i < 256; i++) {
+      var t = i / 255 * nseg, k = Math.min(nseg - 1, Math.floor(t)), f = t - k, A = labs[k], B = labs[k + 1];
+      var rgb = fromLab([A[0] + (B[0] - A[0]) * f, A[1] + (B[1] - A[1]) * f, A[2] + (B[2] - A[2]) * f]);
+      lut[3 * i] = rgb[0]; lut[3 * i + 1] = rgb[1]; lut[3 * i + 2] = rgb[2];
+    }
+    return lut;
+  }
+  var RAMPS = {
+    heat: { light: ["#fdf3e6", "#f8c99c", "#ef9156", "#d4562b", "#9b2c17", "#5c1a0f"], dark: ["#2e1a14", "#6e2b17", "#b4472a", "#e57a48", "#f6b98c", "#fde9d6"] },
+    mag: { light: ["#e6f0fc", "#9ec5f4", "#3987e5", "#1c5cab", "#0d366b"], dark: ["#16253a", "#1c4a85", "#2f7bd8", "#86b6ef", "#dce9fb"] },
+    div: { light: ["#0d366b", "#3987e5", "#b7d3f6", "#f0efec", "#f5c1b7", "#e05544", "#7d1d18"], dark: ["#b7d3f6", "#4f94e6", "#21487a", "#383835", "#7a302a", "#e2604f", "#f6c1b7"] }
+  };
+  var lutCache = {};
+  function lut(name, mode) { var key = name + mode; if (!lutCache[key]) lutCache[key] = makeLUT(RAMPS[name][mode]); return lutCache[key]; }
+  function cssGradient(name, mode) {
+    var L = lut(name, mode), stops = [];
+    for (var i = 0; i <= 10; i++) { var k = Math.round(i * 25.5); stops.push("rgb(" + L[3 * k] + "," + L[3 * k + 1] + "," + L[3 * k + 2] + ") " + (i * 10) + "%"); }
+    return "linear-gradient(90deg, " + stops.join(", ") + ")";
+  }
+
+  return {
+    SingularError: SingularError, band: band, bAdd: bAdd, bGet: bGet, bMul: bMul, bDirichlet: bDirichlet, bSolve: bSolve,
+    shapeQ4: shapeQ4, shapeQ8: shapeQ8, shape: shape, XI: XI, ETA: ETA, Bmat: Bmat, Dmat: Dmat, kPlane: kPlane, kHeat: kHeat,
+    meshPlane: meshPlane, findNode: findNode, locate: locate, solvePlane: solvePlane, stressAt: stressAt, stressInElement: stressInElement,
+    displacementAt: displacementAt, derived: derived, nodalStresses: nodalStresses, solveHeat: solveHeat, heatAt: heatAt,
+    timoshenko: timoshenko, beamStress: beamStress, lut: lut, cssGradient: cssGradient, RAMPS: RAMPS
+  };
+})();
+if (typeof module !== "undefined") module.exports = FE;
+</script>
+<script>/* lab_ui.js — shared UI helpers for the SEAA 4243 FE labs */
+var UI = (function () {
+  "use strict";
+  var mq = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
+  function mode() {
+    var t = document.documentElement.getAttribute("data-theme");
+    if (t === "dark" || t === "light") return t;
+    return mq && mq.matches ? "dark" : "light";
+  }
+  function onTheme(cb) {
+    if (mq && mq.addEventListener) mq.addEventListener("change", cb);
+    new MutationObserver(cb).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  }
+  function css(name) { return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+  function $(sel, root) { return (root || document).querySelector(sel); }
+  function $$(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
+  function el(tag, attrs, text) {
+    var e = document.createElement(tag);
+    if (attrs) for (var k in attrs) { if (k === "class") e.className = attrs[k]; else e.setAttribute(k, attrs[k]); }
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function fmt(x, d) {
+    if (x == null || !isFinite(x)) return "—";
+    var s = Math.abs(x) >= 1e5 || (Math.abs(x) < 1e-3 && x !== 0) ? x.toExponential(Math.max(1, d - 1)) : x.toFixed(d);
+    return s.replace("-", "−");
+  }
+  function fmtSig(x, sig) {
+    if (x == null || !isFinite(x)) return "—";
+    if (x === 0) return "0";
+    var d = Math.max(0, sig - 1 - Math.floor(Math.log10(Math.abs(x))));
+    return fmt(x, Math.min(d, 6));
+  }
+  function group(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, " "); }
+  function pct(x) { return (x >= 0 ? "+" : "−") + Math.abs(x).toFixed(Math.abs(x) < 1 ? 2 : 1) + "%"; }
+  /* size a canvas to its container width with a given aspect; returns {ctx, w, h, dpr} in CSS pixels */
+  function fitCanvas(canvas, aspect, maxH) {
+    var w = Math.max(240, Math.floor(canvas.parentElement.clientWidth));
+    var h = Math.round(w / aspect); if (maxH && h > maxH) { h = maxH; }
+    var dpr = Math.min(3, window.devicePixelRatio || 1);
+    canvas.style.height = h + "px"; canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+    var ctx = canvas.getContext("2d"); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return { ctx: ctx, w: w, h: h, dpr: dpr };
+  }
+  /* world -> screen transform fitting box [x0,x1]x[y0,y1] into w x h with padding */
+  function view(box, w, h, pad) {
+    var sx = (w - 2 * pad) / (box[1] - box[0]), sy = (h - 2 * pad) / (box[3] - box[2]), s = Math.min(sx, sy);
+    var ox = pad + ((w - 2 * pad) - s * (box[1] - box[0])) / 2 - s * box[0];
+    var oy = h - pad - ((h - 2 * pad) - s * (box[3] - box[2])) / 2 + s * box[2];
+    return { s: s, X: function (x) { return ox + s * x; }, Y: function (y) { return oy - s * y; }, inv: function (px, py) { return [(px - ox) / s, (oy - py) / s]; } };
+  }
+  /* fill the screen rectangle covering world box with a scalar field; val(x, y) returns a number or NaN */
+  function paintField(ctx, V, box, dpr, val, lo, hi, lutArr) {
+    var px0 = Math.floor(V.X(box[0]) * dpr), px1 = Math.ceil(V.X(box[1]) * dpr), py0 = Math.floor(V.Y(box[3]) * dpr), py1 = Math.ceil(V.Y(box[2]) * dpr);
+    var W = Math.max(1, px1 - px0), H = Math.max(1, py1 - py0), img = ctx.createImageData(W, H), d = img.data, span = hi - lo || 1;
+    for (var j = 0; j < H; j++) {
+      var wy = (V.Y(0) * dpr - (py0 + j + 0.5)) / (V.s * dpr);
+      if (wy < box[2] || wy > box[3]) continue;
+      for (var i = 0; i < W; i++) {
+        var wx = ((px0 + i + 0.5) / dpr - V.X(0)) / V.s;
+        if (wx < box[0] || wx > box[1]) continue;
+        var v = val(wx, wy); if (!(v === v)) continue;
+        var k = Math.max(0, Math.min(255, Math.round((v - lo) / span * 255))) * 3, o = (j * W + i) * 4;
+        d[o] = lutArr[k]; d[o + 1] = lutArr[k + 1]; d[o + 2] = lutArr[k + 2]; d[o + 3] = 255;
+      }
+    }
+    var tmp = document.createElement("canvas"); tmp.width = W; tmp.height = H; tmp.getContext("2d").putImageData(img, 0, 0);
+    ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.drawImage(tmp, px0, py0); ctx.restore();
+  }
+  /* marching squares on a sampled grid; returns array of segments [x1,y1,x2,y2] in world coordinates */
+  function contours(val, box, nx, ny, level) {
+    var segs = [], dx = (box[1] - box[0]) / nx, dy = (box[3] - box[2]) / ny, g = [], i, j;
+    for (j = 0; j <= ny; j++) { g.push([]); for (i = 0; i <= nx; i++) g[j].push(val(box[0] + i * dx, box[2] + j * dy) - level); }
+    function lerp(x1, y1, v1, x2, y2, v2) { var t = v1 / (v1 - v2); return [x1 + t * (x2 - x1), y1 + t * (y2 - y1)]; }
+    for (j = 0; j < ny; j++) for (i = 0; i < nx; i++) {
+      var x = box[0] + i * dx, y = box[2] + j * dy, a = g[j][i], b = g[j][i + 1], c = g[j + 1][i + 1], d = g[j + 1][i], pts = [];
+      if ((a > 0) !== (b > 0)) pts.push(lerp(x, y, a, x + dx, y, b));
+      if ((b > 0) !== (c > 0)) pts.push(lerp(x + dx, y, b, x + dx, y + dy, c));
+      if ((c > 0) !== (d > 0)) pts.push(lerp(x + dx, y + dy, c, x, y + dy, d));
+      if ((d > 0) !== (a > 0)) pts.push(lerp(x, y + dy, d, x, y, a));
+      if (pts.length >= 2) segs.push([pts[0][0], pts[0][1], pts[1][0], pts[1][1]]);
+      if (pts.length === 4) segs.push([pts[2][0], pts[2][1], pts[3][0], pts[3][1]]);
+    }
+    return segs;
+  }
+  function legend(host, ramp, lo, hi, caption, n) {
+    host.innerHTML = "";
+    var bar = el("div", { class: "bar" }); bar.style.background = FE.cssGradient(ramp, mode());
+    var ticks = el("div", { class: "ticks" }); n = n || 5;
+    for (var i = 0; i < n; i++) ticks.appendChild(el("span", null, fmtSig(lo + (hi - lo) * i / (n - 1), 3)));
+    host.appendChild(el("div", { class: "cap" }, caption)); host.appendChild(bar); host.appendChild(ticks);
+  }
+  /* bind a radio-group "seg" control */
+  function seg(host, name, options, value, onChange) {
+    host.innerHTML = ""; host.classList.add("seg"); host.setAttribute("role", "radiogroup");
+    options.forEach(function (o, k) {
+      var id = name + "-" + k, inp = el("input", { type: "radio", name: name, id: id, value: String(o.value) });
+      if (String(o.value) === String(value)) inp.checked = true;
+      inp.addEventListener("change", function () { if (inp.checked) onChange(o.value); });
+      var lab = el("label", { for: id }); lab.innerHTML = o.label;
+      host.appendChild(inp); host.appendChild(lab);
+    });
+  }
+  /* SVG line chart. series: [{name, color, points: [{x, y}]}]; opt: {xlog, xlabel, ylabel, ref: {y, label}, yfmt, xfmt, height} */
+  function lineChart(host, series, opt) {
+    host.innerHTML = ""; opt = opt || {};
+    var W = Math.max(280, host.clientWidth), H = opt.height || 260, m = { l: 62, r: 16, t: 14, b: 44 };
+    var all = []; series.forEach(function (s) { s.points.forEach(function (p) { all.push(p); }); });
+    if (!all.length) return;
+    var xs = all.map(function (p) { return p.x; }), ys = all.map(function (p) { return p.y; });
+    if (opt.ref) ys.push(opt.ref.y);
+    var fx = opt.xlog ? function (v) { return Math.log10(v); } : function (v) { return v; };
+    var x0 = Math.min.apply(null, xs.map(fx)), x1 = Math.max.apply(null, xs.map(fx)); if (x1 === x0) { x0 -= 0.5; x1 += 0.5; }
+    var padx = (x1 - x0) * 0.06; x0 -= padx; x1 += padx;
+    var y0 = Math.min.apply(null, ys), y1 = Math.max.apply(null, ys), pady = (y1 - y0) * 0.12 || Math.abs(y1) * 0.1 || 1; y0 -= pady; y1 += pady;
+    var SX = function (v) { return m.l + (fx(v) - x0) / (x1 - x0) * (W - m.l - m.r); }, SY = function (v) { return H - m.b - (v - y0) / (y1 - y0) * (H - m.t - m.b); };
+    var NS = "http://www.w3.org/2000/svg", svg = document.createElementNS(NS, "svg");
+    svg.setAttribute("viewBox", "0 0 " + W + " " + H); svg.setAttribute("role", "img"); svg.setAttribute("aria-label", opt.aria || "Convergence chart");
+    function add(tag, at, parent) { var e = document.createElementNS(NS, tag); for (var k in at) e.setAttribute(k, at[k]); (parent || svg).appendChild(e); return e; }
+    function txt(x, y, s, at) { var e = add("text", Object.assign({ x: x, y: y, fill: css("--muted"), "font-size": 12, "font-family": "IBM Plex Sans, system-ui, sans-serif" }, at || {})); e.textContent = s; return e; }
+    var step = niceStep((y1 - y0) / 4), yt = Math.ceil(y0 / step) * step;
+    for (; yt <= y1 + 1e-12; yt += step) {
+      add("line", { x1: m.l, x2: W - m.r, y1: SY(yt), y2: SY(yt), stroke: css("--grid"), "stroke-width": 1 });
+      txt(m.l - 8, SY(yt) + 4, (opt.yfmt || function (v) { return fmtSig(v, 3); })(yt), { "text-anchor": "end" });
+    }
+    var xticks = (opt.xticks || xs.filter(function (v, k) { return xs.indexOf(v) === k; })).filter(function (v) { var u = fx(v); return u >= x0 && u <= x1; });
+    xticks.forEach(function (v) { txt(SX(v), H - m.b + 18, (opt.xfmt || String)(v), { "text-anchor": "middle" }); });
+    add("line", { x1: m.l, x2: W - m.r, y1: H - m.b, y2: H - m.b, stroke: css("--axis"), "stroke-width": 1 });
+    if (opt.xlabel) txt((m.l + W - m.r) / 2, H - 6, opt.xlabel, { "text-anchor": "middle" });
+    if (opt.ylabel) txt(14, (m.t + H - m.b) / 2, opt.ylabel, { "text-anchor": "middle", transform: "rotate(-90 14 " + ((m.t + H - m.b) / 2) + ")" });
+    if (opt.ref) {
+      add("line", { x1: m.l, x2: W - m.r, y1: SY(opt.ref.y), y2: SY(opt.ref.y), stroke: css("--ref"), "stroke-width": 1.5 });
+      var above = all.filter(function (p) { return p.y > opt.ref.y; }).length, below = all.length - above;
+      txt(W - m.r, SY(opt.ref.y) + (above > below ? 16 : -7), opt.ref.label, { "text-anchor": "end", fill: css("--body") });
+    }
+    series.forEach(function (s) {
+      if (!s.points.length) return;
+      var d = s.points.map(function (p, k) { return (k ? "L" : "M") + SX(p.x).toFixed(1) + " " + SY(p.y).toFixed(1); }).join(" ");
+      add("path", { d: d, fill: "none", stroke: s.color, "stroke-width": 2, "stroke-linejoin": "round", "stroke-linecap": "round" });
+      s.points.forEach(function (p) { add("circle", { cx: SX(p.x), cy: SY(p.y), r: 4.5, fill: s.color, stroke: css("--surface"), "stroke-width": 2 }); });
+    });
+    var cross = add("line", { y1: m.t, y2: H - m.b, stroke: css("--axis"), "stroke-width": 1, visibility: "hidden" });
+    host.appendChild(svg);
+    if (series.length > 1) {
+      var lg = el("div", { class: "chart-legend" });
+      series.forEach(function (s) { var sp = el("span"); var i = el("i"); i.style.background = s.color; sp.appendChild(i); sp.appendChild(document.createTextNode(s.name)); lg.appendChild(sp); });
+      host.insertBefore(lg, svg);
+    }
+    var tip = el("div", { class: "tip" }); tip.hidden = true; host.appendChild(tip);
+    function show(evt) {
+      var r = svg.getBoundingClientRect(), px = (evt.clientX - r.left) * W / r.width, best = null, bd = Infinity;
+      xs.forEach(function (v) { var dd = Math.abs(SX(v) - px); if (dd < bd) { bd = dd; best = v; } });
+      if (best == null || bd > 40) { hide(); return; }
+      cross.setAttribute("x1", SX(best)); cross.setAttribute("x2", SX(best)); cross.setAttribute("visibility", "visible");
+      tip.innerHTML = ""; tip.appendChild(el("div", null, (opt.xname || "x") + " " + (opt.xfmt || String)(best)));
+      series.forEach(function (s) {
+        var p = s.points.filter(function (q) { return q.x === best; })[0]; if (!p) return;
+        var row = el("div", { class: "r" }), left = el("span"), key = el("i"); key.style.background = s.color;
+        left.appendChild(key); left.appendChild(document.createTextNode(" " + (p.label || s.name)));
+        var b = el("b", null, (opt.yfmt || function (v) { return fmtSig(v, 4); })(p.y)); row.appendChild(b); row.appendChild(left); tip.appendChild(row);
+      });
+      tip.hidden = false;
+      var tx = SX(best) / W * r.width + 12; if (tx > r.width - 170) tx = SX(best) / W * r.width - 170;
+      tip.style.left = Math.max(0, tx) + "px"; tip.style.top = (svg.offsetTop + 8) + "px";
+    }
+    function hide() { tip.hidden = true; cross.setAttribute("visibility", "hidden"); }
+    svg.addEventListener("pointermove", show); svg.addEventListener("pointerdown", show); svg.addEventListener("pointerleave", hide);
+  }
+  function niceStep(raw) { var p = Math.pow(10, Math.floor(Math.log10(Math.abs(raw) || 1))), f = raw / p; return (f < 1.5 ? 1 : f < 3 ? 2 : f < 7 ? 5 : 10) * p; }
+  function table(host, head, rows) {
+    host.innerHTML = ""; var wrap = el("div", { class: "table-wrap" }), t = el("table"), tr = el("tr");
+    head.forEach(function (h) { tr.appendChild(el("th", { scope: "col" }, h)); }); t.appendChild(tr);
+    rows.forEach(function (r) { var row = el("tr"); r.forEach(function (c) { row.appendChild(el("td", null, c)); }); t.appendChild(row); });
+    wrap.appendChild(t); host.appendChild(wrap);
+  }
+  function debounce(fn, ms) { var t; return function () { var a = arguments; clearTimeout(t); t = setTimeout(function () { fn.apply(null, a); }, ms); }; }
+  function halo(ctx, s, x, y, color, align, size, weight) {
+    ctx.font = (weight || 600) + " " + (size || 13) + "px IBM Plex Sans, system-ui, sans-serif"; ctx.textAlign = align || "center"; ctx.textBaseline = "middle";
+    ctx.lineWidth = 3.5; ctx.strokeStyle = css("--surface"); ctx.lineJoin = "round"; ctx.strokeText(s, x, y); ctx.fillStyle = color; ctx.fillText(s, x, y);
+  }
+  /* Milestones: a task the lab can see completed from its own state. Recorded in this browser
+     (so a part page opened later can read it) and posted to a parent page if there is one. */
+  var _ms = {};
+  function milestone(lab, id) {
+    if (_ms[id]) return; _ms[id] = true;
+    var key = "seaa4243-lab-" + lab, rec = {};
+    try { rec = JSON.parse(localStorage.getItem(key) || "{}") || {}; } catch (e) { rec = {}; }
+    rec[id] = Date.now(); try { localStorage.setItem(key, JSON.stringify(rec)); } catch (e) {}
+    try { if (window.parent && window.parent !== window) window.parent.postMessage({ type: "seaa4243-lab", lab: lab, id: id }, "*"); } catch (e) {}
+  }
+  return { mode: mode, onTheme: onTheme, css: css, $: $, $$: $$, el: el, fmt: fmt, fmtSig: fmtSig, group: group, pct: pct, fitCanvas: fitCanvas, view: view,
+           paintField: paintField, contours: contours, legend: legend, seg: seg, lineChart: lineChart, table: table, debounce: debounce, halo: halo, milestone: milestone };
+})();
+</script>
+<script>
+(function () {
+  "use strict";
+  var DEF = { nen: 4, a: 2, b: 1, x: 1.5, y: 0.3, view: "T", k: 2, T: [100, 140, 160, 120, 120, 150, 140, 110] };
+  var S = JSON.parse(JSON.stringify(DEF));
+  var cv = UI.$("#plot"), V = null, dragging = false, nodeR = 12;
+  function nodesXY() { var a = S.a, b = S.b; return [[0, 0], [a, 0], [a, b], [0, b], [a / 2, 0], [a, b / 2], [a / 2, b], [0, b / 2]].slice(0, S.nen); }
+  function evalAt(x, y) {
+    var s = FE.shape(S.nen, 2 * x / S.a - 1, 2 * y / S.b - 1), T = 0, gx = 0, gy = 0, sum = 0;
+    for (var i = 0; i < S.nen; i++) { T += s.N[i] * S.T[i]; gx += s.dxi[i] * 2 / S.a * S.T[i]; gy += s.deta[i] * 2 / S.b * S.T[i]; sum += s.N[i]; }
+    return { N: s.N, T: T, gx: gx, gy: gy, sum: sum };
+  }
+  function fieldVal(x, y) {
+    var s = FE.shape(S.nen, 2 * x / S.a - 1, 2 * y / S.b - 1);
+    if (S.view === "T") { var T = 0; for (var i = 0; i < S.nen; i++) T += s.N[i] * S.T[i]; return T; }
+    return s.N[+S.view.slice(1) - 1];
+  }
+  function range() {
+    if (S.view !== "T") return [-1, 1];
+    var lo = Infinity, hi = -Infinity;
+    for (var i = 0; i <= 40; i++) for (var j = 0; j <= 40; j++) { var v = fieldVal(S.a * i / 40, S.b * j / 40); lo = Math.min(lo, v); hi = Math.max(hi, v); }
+    if (hi - lo < 1e-9) { lo -= 1; hi += 1; }
+    return [lo, hi];
+  }
+  function draw() {
+    var asp = Math.max(1.2, Math.min(2.4, (S.a + 0.9) / (S.b + 0.9)));
+    var f = UI.fitCanvas(cv, asp, 470), ctx = f.ctx, ink = UI.css("--ink"), muted = UI.css("--muted"), acc = UI.css("--accent");
+    ctx.clearRect(0, 0, f.w, f.h);
+    V = UI.view([0, S.a, 0, S.b], f.w, f.h, 44);
+    var box = [0, S.a, 0, S.b], r = range(), ramp = S.view === "T" ? "heat" : "div";
+    UI.paintField(ctx, V, box, f.dpr, fieldVal, r[0], r[1], FE.lut(ramp, UI.mode()));
+    /* contour lines */
+    var levels = S.view === "T" ? [1, 2, 3, 4, 5].map(function (k) { return r[0] + (r[1] - r[0]) * k / 6; }) : (S.nen === 8 ? [0, 0.25, 0.5, 0.75] : [0.25, 0.5, 0.75]);
+    ctx.lineWidth = 1; ctx.strokeStyle = ink; ctx.globalAlpha = 0.45;
+    levels.forEach(function (lv) {
+      UI.contours(fieldVal, box, 60, Math.max(20, Math.round(60 * S.b / S.a)), lv).forEach(function (s) { ctx.beginPath(); ctx.moveTo(V.X(s[0]), V.Y(s[1])); ctx.lineTo(V.X(s[2]), V.Y(s[3])); ctx.stroke(); });
+    });
+    ctx.globalAlpha = 1;
+    ctx.lineWidth = 2; ctx.strokeStyle = ink; ctx.strokeRect(V.X(0), V.Y(S.b), V.s * S.a, V.s * S.b);
+    /* diagonal hint for task 3 is left for the student to find */
+    nodesXY().forEach(function (p, i) {
+      var sel = S.view === "N" + (i + 1), x = V.X(p[0]), y = V.Y(p[1]);
+      ctx.beginPath(); ctx.arc(x, y, nodeR, 0, 2 * Math.PI); ctx.fillStyle = sel ? acc : UI.css("--surface"); ctx.fill();
+      ctx.lineWidth = 2; ctx.strokeStyle = acc; ctx.stroke();
+      ctx.font = "600 13px IBM Plex Sans, system-ui, sans-serif"; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillStyle = sel ? UI.css("--surface") : acc; ctx.fillText(String(i + 1), x, y + 0.5);
+    });
+    UI.halo(ctx, "a = " + S.a.toFixed(2) + " m", V.X(S.a / 2), V.Y(0) + 28, muted, "center", 13, 500);
+    ctx.save(); ctx.translate(V.X(0) - 28, V.Y(S.b / 2)); ctx.rotate(-Math.PI / 2); UI.halo(ctx, "b = " + S.b.toFixed(2) + " m", 0, 0, muted, "center", 13, 500); ctx.restore();
+    var px = V.X(S.x), py = V.Y(S.y);
+    ctx.beginPath(); ctx.arc(px, py, 8, 0, 2 * Math.PI); ctx.fillStyle = ink; ctx.fill(); ctx.lineWidth = 3; ctx.strokeStyle = UI.css("--surface"); ctx.stroke();
+    var lab = "P (" + S.x.toFixed(2) + ", " + S.y.toFixed(2) + ")", right = px < f.w - 130;
+    UI.halo(ctx, lab, px + (right ? 14 : -14), py - 14, ink, right ? "left" : "right", 14, 600);
+    UI.legend(UI.$("#legend"), ramp, r[0], r[1], S.view === "T" ? "Temperature T(x, y) in K — lines every sixth of the range" : "N" + S.view.slice(1) + "(x, y) — blue below zero, red above; lines at " + levels.join(", "));
+    readouts();
+  }
+  var diagPts = {}, userActed = false;
+  document.addEventListener("pointerdown", function () { userActed = true; }, true);
+  document.addEventListener("change", function () { userActed = true; }, true);
+  function milestones(e) {
+    if (!userActed) return;   /* the default state already sits at the Activity 4 point */
+    if (S.nen === 4 && Math.abs(S.x - S.a) < 1e-6 && Math.abs(S.y - S.b) < 1e-6) UI.milestone("shape", "node3");
+    if (S.nen === 4 && S.a === 2 && S.b === 1 && Math.abs(S.x - 1.5) < 1e-6 && Math.abs(S.y - 0.3) < 1e-6) UI.milestone("shape", "act4");
+    if (S.nen === 4 && Math.abs(e.N[0] - e.N[2]) < 0.01 && e.N[0] > 0.02) { diagPts[S.x.toFixed(1) + "," + S.y.toFixed(1)] = 1; if (Object.keys(diagPts).length >= 3) UI.milestone("shape", "diag"); }
+    if (S.nen === 8 && S.view === "N1") UI.milestone("shape", "q8n1");
+  }
+  function readouts() {
+    var e = evalAt(S.x, S.y), tab = UI.$("#ntab"), sel = S.view === "T" ? -1 : +S.view.slice(1) - 1;
+    milestones(e);
+    tab.innerHTML = "";
+    var head = UI.el("tr"); ["Node", "Nᵢ(P)", "Weight", "T̂ᵢ (K)", "Nᵢ T̂ᵢ"].forEach(function (h) { head.appendChild(UI.el("th", { scope: "col" }, h)); }); tab.appendChild(head);
+    for (var i = 0; i < S.nen; i++) {
+      var tr = UI.el("tr"); if (i === sel) tr.className = "hl";
+      tr.appendChild(UI.el("td", null, String(i + 1)));
+      tr.appendChild(UI.el("td", null, UI.fmt(e.N[i], 3)));
+      var bc = UI.el("td", { class: "barcell" }), bar = UI.el("div", { class: "nbar" }), span = UI.el("span"), z = UI.el("div", { class: "zero" });
+      var lo = S.nen === 8 ? -0.25 : 0, w = 1 - lo, x0 = (0 - lo) / w * 100, x1 = (e.N[i] - lo) / w * 100;
+      span.style.left = Math.min(x0, x1) + "%"; span.style.width = Math.abs(x1 - x0) + "%"; if (e.N[i] < 0) span.style.background = UI.css("--s2");
+      z.style.left = x0 + "%"; bar.appendChild(span); bar.appendChild(z); bc.appendChild(bar); tr.appendChild(bc);
+      var td = UI.el("td"), inp = UI.el("input", { type: "number", step: "1", value: String(S.T[i]), "aria-label": "Nodal temperature at node " + (i + 1) });
+      (function (k) { inp.addEventListener("change", function () { var v = parseFloat(inp.value); if (isFinite(v)) { S.T[k] = v; draw(); } }); })(i);
+      td.appendChild(inp); tr.appendChild(td);
+      tr.appendChild(UI.el("td", null, UI.fmt(e.N[i] * S.T[i], 2)));
+      tab.appendChild(tr);
+    }
+    var sr = UI.el("tr", { class: "sumrow" });
+    [ "Σ", UI.fmt(e.sum, 3), "", "T(P)", UI.fmt(e.T, 2) ].forEach(function (c) { sr.appendChild(UI.el("td", null, c)); }); tab.appendChild(sr);
+    var ro = UI.$("#ro"); ro.innerHTML = "";
+    [["T(P)", UI.fmt(e.T, 2) + " K", "Σ Nᵢ T̂ᵢ"], ["Σ Nᵢ", UI.fmt(e.sum, 4), "partition of unity"],
+     ["∂T/∂x, ∂T/∂y", UI.fmt(e.gx, 2) + ", " + UI.fmt(e.gy, 2), "K/m"], ["q = −k ∇T", UI.fmt(-S.k * e.gx, 1) + ", " + UI.fmt(-S.k * e.gy, 1), "W/m², with k = " + S.k]].forEach(function (r) {
+      var d = UI.el("div", { class: "ro" }); d.appendChild(UI.el("span", { class: "k" }, r[0])); d.appendChild(UI.el("span", { class: "v" }, r[1])); d.appendChild(UI.el("span", { class: "s" }, r[2])); ro.appendChild(d);
+    });
+  }
+  function setP(x, y) { S.x = Math.max(0, Math.min(S.a, x)); S.y = Math.max(0, Math.min(S.b, y)); UI.$("#i-x").value = S.x.toFixed(2); UI.$("#i-y").value = S.y.toFixed(2); draw(); }
+  function fromEvent(ev) { var r = cv.getBoundingClientRect(), w = V.inv(ev.clientX - r.left, ev.clientY - r.top); return w; }
+  cv.addEventListener("pointerdown", function (ev) { dragging = true; cv.setPointerCapture(ev.pointerId); var w = fromEvent(ev); setP(w[0], w[1]); });
+  cv.addEventListener("pointermove", function (ev) { if (!dragging) return; var w = fromEvent(ev); setP(w[0], w[1]); });
+  cv.addEventListener("pointerup", function () { dragging = false; });
+  cv.addEventListener("pointercancel", function () { dragging = false; });
+  function views() { var o = [{ value: "T", label: "Field T" }]; for (var i = 1; i <= S.nen; i++) o.push({ value: "N" + i, label: "N<sub>" + i + "</sub>" }); return o; }
+  function segs() {
+    UI.seg(UI.$("#c-nen"), "nen", [{ value: 4, label: "4-node" }, { value: 8, label: "8-node" }], S.nen, function (v) { S.nen = +v; if (S.view !== "T" && +S.view.slice(1) > S.nen) S.view = "T"; segs(); draw(); });
+    UI.seg(UI.$("#c-view"), "view", views(), S.view, function (v) { S.view = v; draw(); });
+  }
+  function bind() {
+    [["#i-a", "a"], ["#i-b", "b"], ["#i-k", "k"]].forEach(function (p) { UI.$(p[0]).addEventListener("change", function () { var v = parseFloat(this.value); if (isFinite(v) && v > 0) { S[p[1]] = v; setP(S.x, S.y); } }); });
+    UI.$("#i-x").addEventListener("change", function () { setP(parseFloat(this.value) || 0, S.y); });
+    UI.$("#i-y").addEventListener("change", function () { setP(S.x, parseFloat(this.value) || 0); });
+    UI.$("#b-act4").addEventListener("click", function () { S.nen = 4; S.a = 2; S.b = 1; S.k = 2; S.T = DEF.T.slice(); S.view = "T"; sync(); setP(1.5, 0.3); });
+    UI.$("#b-n3").addEventListener("click", function () { setP(S.a, S.b); });
+    UI.$("#b-reset").addEventListener("click", function () { S = JSON.parse(JSON.stringify(DEF)); sync(); draw(); });
+  }
+  function sync() { UI.$("#i-a").value = S.a; UI.$("#i-b").value = S.b; UI.$("#i-k").value = S.k; UI.$("#i-x").value = S.x; UI.$("#i-y").value = S.y; segs(); }
+  segs(); bind(); draw();
+  UI.onTheme(draw);
+  var lastW = 0; var onResize = UI.debounce(function () { var w = cv.parentElement.clientWidth; if (w !== lastW) { lastW = w; draw(); } }, 80);
+  if (window.ResizeObserver) new ResizeObserver(onResize).observe(cv.parentElement); else window.addEventListener("resize", onResize);
+})();
+</script>
+
+</body>
+</html>

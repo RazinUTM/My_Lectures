@@ -508,6 +508,22 @@ footer.foot p.copy{margin-top:10px}
   input,select,textarea{font-size:max(16px,calc(16px*var(--ts)))!important}
 }
 
+/* ---------- the lecturer's avatar ---------- */
+.vhead .vava{flex:none;align-self:flex-end;height:calc(104px*var(--ts));width:auto;margin:-6px 0 -12px -6px;filter:drop-shadow(0 2px 3px rgba(0,0,0,.12))}
+@media (max-width:560px){.vhead{display:block}.vhead .vava{float:right;height:calc(76px*var(--ts));margin:-4px -6px 2px 8px}.vhead > :not(.vava):not(.vtxt){clear:both;margin-top:10px}}
+footer.foot p.lect{display:flex;align-items:center;gap:10px}
+footer.foot .fava{flex:none;width:calc(40px*var(--ts));height:calc(40px*var(--ts));border-radius:50%}
+/* ---------- slide scrubber: the bar under the slide ---------- */
+.sscrub{position:relative;margin:8px 0 2px}
+#svscrub{-webkit-appearance:none;appearance:none;width:100%;height:22px;background:transparent;cursor:pointer;margin:0;--fill:0%}
+#svscrub::-webkit-slider-runnable-track{height:6px;border-radius:999px;background:linear-gradient(to right,var(--accent) var(--fill),var(--grid) var(--fill))}
+#svscrub::-moz-range-track{height:6px;border-radius:999px;background:var(--grid)}
+#svscrub::-moz-range-progress{height:6px;border-radius:999px;background:var(--accent)}
+#svscrub::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--accent);border:2px solid var(--panel);margin-top:-6px;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+#svscrub::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--accent);border:2px solid var(--panel)}
+.sstip{position:absolute;bottom:26px;transform:translateX(-50%);background:var(--fg);color:var(--bg);font:500 calc(12px*var(--ts)) var(--font-ui);padding:3px 8px;border-radius:6px;white-space:nowrap;max-width:70vw;overflow:hidden;text-overflow:ellipsis;opacity:0;pointer-events:none;transition:opacity .15s}
+.sstip.on{opacity:1}
+
 </style>
 
 </head>
@@ -516,7 +532,7 @@ footer.foot p.copy{margin-top:10px}
 <div class="wrap">
 <header class="top">
   <div>
-    <nav class="crumbs" aria-label="Breadcrumb" data-pages-only hidden><a class="homelink" href="../">← <span class="en">All courses</span><span class="ms">Semua kursus</span></a></nav>
+    <nav class="crumbs" aria-label="Breadcrumb"><a class="homelink" href="https://people.utm.my/arazin/for-my-students/">For My Students</a><span class="sep" aria-hidden="true">›</span><a class="homelink" href="../" data-pages-only hidden>My Lectures</a><span class="sep" aria-hidden="true" data-pages-only hidden>›</span><span class="cur" aria-current="page">SEAA 4243</span></nav>
     <div class="eyebrow">SEAA 4243 · <span class="en">Faculty of Civil Engineering, UTM</span><span class="ms">Fakulti Kejuruteraan Awam, UTM</span></div>
     <h1>SEAA 4243 Finite Element Method</h1>
     <p class="sub"><span class="en">Two-dimensional problems: heat transfer and plane stress in five sessions, then one session with ANSYS. Each part has notes, slides, worked examples in answer-scheme form, exercises and an interactive Explorer.</span><span class="ms">Masalah dua dimensi: heat transfer dan plane stress dalam lima sesi, kemudian satu sesi dengan ANSYS. Setiap bahagian ada nota, slides, contoh bekerja dalam bentuk skema jawapan, latihan dan Explorer interaktif.</span></p>
@@ -528,7 +544,7 @@ footer.foot p.copy{margin-top:10px}
   </div>
 </header>
 <main>
-  <div class="vhead" style="margin-top:12px"><div class="vtxt"><h2><span class="en">Course home</span><span class="ms">Laman kursus</span></h2>
+  <div class="vhead" style="margin-top:12px"><img class="vava" src="shared/avatar/wave.webp" alt="" title="Assoc. Prof. Ts. Dr. Ahmad Razin Zainal Abidin" width="96" height="170" decoding="async"><div class="vtxt"><h2><span class="en">Course home</span><span class="ms">Laman kursus</span></h2>
     <p class="todo"><b><span class="en">What to do</span><span class="ms">Apa perlu dibuat</span></b> <span class="en">Open a part and start from its Start tab; every part page has a ⌂ button that brings you back here. Continue opens the part you used last.</span><span class="ms">Buka satu bahagian dan mula dari tab Mula; setiap halaman bahagian ada butang ⌂ untuk kembali ke sini. Sambung membuka bahagian yang terakhir anda gunakan.</span></p>
     <p class="counts"><span class="cl"><span class="en">Progress:</span><span class="ms">Kemajuan:</span></span> <b id="overall">0 %</b> <span class="en">overall: the mean over the parts that are available.</span><span class="ms">keseluruhan: purata bahagian yang tersedia.</span></p></div>
     <a class="btn" id="contbtn" href="01-heat-transfer-1/index.html"><span class="en">Continue</span><span class="ms">Sambung</span> →</a></div>
@@ -546,8 +562,8 @@ footer.foot p.copy{margin-top:10px}
   <div class="topic"><span class="en">Text and sources</span><span class="ms">Teks dan sumber</span></div>
   <div class="card"><p class="lead" style="margin:0"><span class="en">Text: Mohd Yassin et al., <i>Two-Dimensional Finite Element Formulations for Heat, Solids and Fluids (with Matlab)</i>, MSNM 2020. Third-party images are credited where they appear (MIT, BSD, LGPL and CC BY licences). Python code: MIT licence.</span><span class="ms">Teks: Mohd Yassin et al., <i>Two-Dimensional Finite Element Formulations for Heat, Solids and Fluids (with Matlab)</i>, MSNM 2020. Imej pihak ketiga dikreditkan di tempat ia muncul (lesen MIT, BSD, LGPL dan CC BY). Kod Python: lesen MIT.</span></p></div>
 </main>
-<footer class="foot"><p><span class="en">Lecturer: Assoc. Prof. Ts. Dr. Ahmad Razin Zainal Abidin · arazin@utm.my</span><span class="ms">Pensyarah: Prof. Madya Ts. Dr. Ahmad Razin Zainal Abidin · arazin@utm.my</span></p>
-<p class="copy"><span class="en">© 2026 Ahmad Razin Zainal Abidin and co-authors, Faculty of Civil Engineering, Universiti Teknologi Malaysia. Free to share and adapt for non-commercial teaching and learning, with credit (CC BY-NC-SA 4.0); the code is MIT-licensed. Some items are excepted: see the <a href="https://github.com/RazinUTM/My_Lectures/blob/main/SEAA4243-FEM/LICENSE.md" target="_blank" rel="noopener">licence</a>.</span><span class="ms">© 2026 Ahmad Razin Zainal Abidin dan pengarang bersama, Fakulti Kejuruteraan Awam, Universiti Teknologi Malaysia. Bebas dikongsi dan diubah suai untuk pengajaran dan pembelajaran bukan komersial, dengan kredit (CC BY-NC-SA 4.0); kod di bawah lesen MIT. Beberapa item dikecualikan: lihat <a href="https://github.com/RazinUTM/My_Lectures/blob/main/SEAA4243-FEM/LICENSE.md" target="_blank" rel="noopener">lesen</a>.</span></p></footer>
+<footer class="foot"><p class="lect"><img class="fava" src="shared/avatar/head.webp" alt="" title="Assoc. Prof. Ts. Dr. Ahmad Razin Zainal Abidin" width="96" height="170" decoding="async"><span class="en">Lecturer: Assoc. Prof. Ts. Dr. Ahmad Razin Zainal Abidin · arazin@utm.my</span><span class="ms">Pensyarah: Prof. Madya Ts. Dr. Ahmad Razin Zainal Abidin · arazin@utm.my</span></p>
+<p class="copy"><span class="en">© 2026 Ahmad Razin Zainal Abidin and Universiti Teknologi Malaysia (Faculty of Civil Engineering). Free to share and adapt for non-commercial teaching and learning, with credit (CC BY-NC-SA 4.0); the code is MIT-licensed. The lecturer's avatar and some other items are excepted: see the <a href="https://github.com/RazinUTM/My_Lectures/blob/main/SEAA4243-FEM/LICENSE.md" target="_blank" rel="noopener">licence</a>.</span><span class="ms">© 2026 Ahmad Razin Zainal Abidin dan Universiti Teknologi Malaysia (Fakulti Kejuruteraan Awam). Bebas dikongsi dan diubah suai untuk pengajaran dan pembelajaran bukan komersial, dengan kredit (CC BY-NC-SA 4.0); kod di bawah lesen MIT. Avatar pensyarah dan beberapa item lain dikecualikan: lihat <a href="https://github.com/RazinUTM/My_Lectures/blob/main/SEAA4243-FEM/LICENSE.md" target="_blank" rel="noopener">lesen</a>.</span></p></footer>
 </div>
 
 <script>window.COURSE = {"part": 0, "key": "seaa4243-home-v1", "prefs": "seaa4243-prefs"};</script>
@@ -730,12 +746,14 @@ footer.foot p.copy{margin-top:10px}
       .catch(function (e) { svLoading = false; var l = $("#svload"); if (l) l.innerHTML = bi("The slides could not be loaded (" + e.message + "). Use the PDF.", "Slides tidak dapat dimuatkan (" + e.message + "). Guna PDF."); });
   }
   function goSlide(i) {
-    if (!slides.length) return; i = clamp(i, 0, slides.length - 1); ST.slide = i; ST.seen["s" + i] = true;
+    if (!slides.length || !isFinite(i)) return; i = clamp(Math.round(i), 0, slides.length - 1); ST.slide = i; ST.seen["s" + i] = true;
     slides.forEach(function (s, k) { s.classList.toggle("on", k === i); });
     var c = $("#svcount"); if (c) c.textContent = (i + 1) + " / " + slides.length;
     var pr = $("#sprog"); if (pr) pr.firstElementChild.style.width = ((i + 1) / slides.length * 100) + "%";
     $$(".thumbs button").forEach(function (b, k) { b.setAttribute("aria-current", String(k === i)); b.classList.toggle("seen", !!ST.seen["s" + k]); });
-    var pv = $("#svprev"), nx = $("#svnext"); if (pv) pv.disabled = i === 0; if (nx) nx.disabled = i === slides.length - 1;
+    var pv = $("#svprev"), nx = $("#svnext"), f0 = $("#svfirst"), fn = $("#svlast"), at0 = i === 0, atN = i === slides.length - 1;
+    if (pv) pv.disabled = at0; if (f0) f0.disabled = at0; if (nx) nx.disabled = atN; if (fn) fn.disabled = atN;
+    var sc = $("#svscrub"); if (sc) { sc.max = slides.length; sc.value = i + 1; scrubFill(); }
     updateProgress();
   }
   function initSlides() {
@@ -744,13 +762,46 @@ footer.foot p.copy{margin-top:10px}
     if (th) { th.innerHTML = ""; slides.forEach(function (s, k) { var b = el("button", { type: "button" }, '<span class="n">' + (k + 1) + '</span><span>' + (s.getAttribute("data-title") || "") + '</span>'); b.addEventListener("click", function () { goSlide(k); }); th.appendChild(b); }); }
     goSlide(ST.slide || 0);
   }
+  /* the bar under the slide is a slider: drag it (or click it) to any page; the tip shows the slide's title */
+  function scrubFill() { var sc = $("#svscrub"); if (!sc) return; var f = sc.max > 1 ? (sc.value - 1) / (sc.max - 1) : 1; sc.style.setProperty("--fill", (f * 100) + "%"); }
   if (frame) {
+    var scrub = $("#svscrub"), tip = $("#svtip"), tipT = null;
+    if (scrub) {
+      scrub.addEventListener("input", function () {
+        var k = +scrub.value - 1; scrubFill();
+        if (tip) { var t = slides[k] ? (slides[k].getAttribute("data-title") || "") : ""; tip.textContent = (k + 1) + (t ? " · " + t : ""); tip.style.left = (scrub.max > 1 ? (k / (scrub.max - 1)) * 100 : 0) + "%"; tip.classList.add("on"); clearTimeout(tipT); tipT = setTimeout(function () { tip.classList.remove("on"); }, 900); }
+        goSlide(k);
+      });
+    }
+    /* the mouse wheel or a two-finger scroll over the slide turns pages: one page per gesture */
+    var wheelSum = 0, wheelLock = false, wheelT = null;
+    frame.addEventListener("wheel", function (ev) {
+      if (!slides.length || ev.ctrlKey) return;
+      var d = Math.abs(ev.deltaY) >= Math.abs(ev.deltaX) ? ev.deltaY : ev.deltaX;
+      if ((d < 0 && ST.slide === 0) || (d > 0 && ST.slide === slides.length - 1)) return;   /* past either end the page scrolls as usual */
+      ev.preventDefault();
+      clearTimeout(wheelT); wheelT = setTimeout(function () { wheelLock = false; wheelSum = 0; }, 220);   /* a gesture ends after 220 ms of quiet */
+      if (wheelLock) return;
+      wheelSum += d;
+      if (Math.abs(wheelSum) >= 40) { wheelLock = true; goSlide(ST.slide + (wheelSum > 0 ? 1 : -1)); }
+    }, { passive: false });
+    /* a horizontal swipe on a phone */
+    var tx0 = null, ty0 = null;
+    frame.addEventListener("touchstart", function (ev) { if (ev.touches.length === 1) { tx0 = ev.touches[0].clientX; ty0 = ev.touches[0].clientY; } }, { passive: true });
+    frame.addEventListener("touchend", function (ev) {
+      if (tx0 == null) return; var t = ev.changedTouches[0], dx = t.clientX - tx0, dy = t.clientY - ty0; tx0 = null;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > 1.5 * Math.abs(dy)) { swiped = Date.now(); goSlide(ST.slide + (dx < 0 ? 1 : -1)); }
+    }, { passive: true });
+    var swiped = 0;
+    var f0 = $("#svfirst"), fn = $("#svlast");
+    if (f0) f0.addEventListener("click", function () { goSlide(0); });
+    if (fn) fn.addEventListener("click", function () { goSlide(slides.length - 1); });
     var pv = $("#svprev"), nx = $("#svnext"), fs = $("#svfull");
     if (pv) pv.addEventListener("click", function () { goSlide(ST.slide - 1); });
     if (nx) nx.addEventListener("click", function () { goSlide(ST.slide + 1); });
     if (fs) fs.addEventListener("click", function () { var st = $("#svstage"); if (!document.fullscreenElement) { if (st.requestFullscreen) st.requestFullscreen(); } else document.exitFullscreen(); });
     document.addEventListener("fullscreenchange", function () { setTimeout(fitSlides, 50); });
-    frame.addEventListener("click", function (ev) { if (ev.target.closest("a")) return; var r = frame.getBoundingClientRect(); goSlide(ST.slide + ((ev.clientX - r.left) > r.width / 2 ? 1 : -1)); });
+    frame.addEventListener("click", function (ev) { if (ev.target.closest("a") || Date.now() - swiped < 400) return; var r = frame.getBoundingClientRect(); goSlide(ST.slide + ((ev.clientX - r.left) > r.width / 2 ? 1 : -1)); });
     document.addEventListener("keydown", function (ev) { if (current !== "slides" || ev.target.matches("input,textarea,select")) return;
       if (ev.key === "ArrowRight" || ev.key === "PageDown" || ev.key === " ") { ev.preventDefault(); goSlide(ST.slide + 1); }
       else if (ev.key === "ArrowLeft" || ev.key === "PageUp") { ev.preventDefault(); goSlide(ST.slide - 1); }

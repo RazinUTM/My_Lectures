@@ -496,3 +496,19 @@ footer.foot p.copy{margin-top:10px}
 @media (pointer:coarse),(max-width:700px){
   input,select,textarea{font-size:max(16px,calc(16px*var(--ts)))!important}
 }
+
+/* ---------- the lecturer's avatar ---------- */
+.vhead .vava{flex:none;align-self:flex-end;height:calc(104px*var(--ts));width:auto;margin:-6px 0 -12px -6px;filter:drop-shadow(0 2px 3px rgba(0,0,0,.12))}
+@media (max-width:560px){.vhead{display:block}.vhead .vava{float:right;height:calc(76px*var(--ts));margin:-4px -6px 2px 8px}.vhead > :not(.vava):not(.vtxt){clear:both;margin-top:10px}}
+footer.foot p.lect{display:flex;align-items:center;gap:10px}
+footer.foot .fava{flex:none;width:calc(40px*var(--ts));height:calc(40px*var(--ts));border-radius:50%}
+/* ---------- slide scrubber: the bar under the slide ---------- */
+.sscrub{position:relative;margin:8px 0 2px}
+#svscrub{-webkit-appearance:none;appearance:none;width:100%;height:22px;background:transparent;cursor:pointer;margin:0;--fill:0%}
+#svscrub::-webkit-slider-runnable-track{height:6px;border-radius:999px;background:linear-gradient(to right,var(--accent) var(--fill),var(--grid) var(--fill))}
+#svscrub::-moz-range-track{height:6px;border-radius:999px;background:var(--grid)}
+#svscrub::-moz-range-progress{height:6px;border-radius:999px;background:var(--accent)}
+#svscrub::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--accent);border:2px solid var(--panel);margin-top:-6px;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+#svscrub::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--accent);border:2px solid var(--panel)}
+.sstip{position:absolute;bottom:26px;transform:translateX(-50%);background:var(--fg);color:var(--bg);font:500 calc(12px*var(--ts)) var(--font-ui);padding:3px 8px;border-radius:6px;white-space:nowrap;max-width:70vw;overflow:hidden;text-overflow:ellipsis;opacity:0;pointer-events:none;transition:opacity .15s}
+.sstip.on{opacity:1}

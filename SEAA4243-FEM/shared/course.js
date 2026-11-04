@@ -176,12 +176,14 @@
       .catch(function (e) { svLoading = false; var l = $("#svload"); if (l) l.innerHTML = bi("The slides could not be loaded (" + e.message + "). Use the PDF.", "Slides tidak dapat dimuatkan (" + e.message + "). Guna PDF."); });
   }
   function goSlide(i) {
-    if (!slides.length) return; i = clamp(i, 0, slides.length - 1); ST.slide = i; ST.seen["s" + i] = true;
+    if (!slides.length || !isFinite(i)) return; i = clamp(Math.round(i), 0, slides.length - 1); ST.slide = i; ST.seen["s" + i] = true;
     slides.forEach(function (s, k) { s.classList.toggle("on", k === i); });
     var c = $("#svcount"); if (c) c.textContent = (i + 1) + " / " + slides.length;
     var pr = $("#sprog"); if (pr) pr.firstElementChild.style.width = ((i + 1) / slides.length * 100) + "%";
     $$(".thumbs button").forEach(function (b, k) { b.setAttribute("aria-current", String(k === i)); b.classList.toggle("seen", !!ST.seen["s" + k]); });
-    var pv = $("#svprev"), nx = $("#svnext"); if (pv) pv.disabled = i === 0; if (nx) nx.disabled = i === slides.length - 1;
+    var pv = $("#svprev"), nx = $("#svnext"), f0 = $("#svfirst"), fn = $("#svlast"), at0 = i === 0, atN = i === slides.length - 1;
+    if (pv) pv.disabled = at0; if (f0) f0.disabled = at0; if (nx) nx.disabled = atN; if (fn) fn.disabled = atN;
+    var sc = $("#svscrub"); if (sc) { sc.max = slides.length; sc.value = i + 1; scrubFill(); }
     updateProgress();
   }
   function initSlides() {
@@ -190,13 +192,46 @@
     if (th) { th.innerHTML = ""; slides.forEach(function (s, k) { var b = el("button", { type: "button" }, '<span class="n">' + (k + 1) + '</span><span>' + (s.getAttribute("data-title") || "") + '</span>'); b.addEventListener("click", function () { goSlide(k); }); th.appendChild(b); }); }
     goSlide(ST.slide || 0);
   }
+  /* the bar under the slide is a slider: drag it (or click it) to any page; the tip shows the slide's title */
+  function scrubFill() { var sc = $("#svscrub"); if (!sc) return; var f = sc.max > 1 ? (sc.value - 1) / (sc.max - 1) : 1; sc.style.setProperty("--fill", (f * 100) + "%"); }
   if (frame) {
+    var scrub = $("#svscrub"), tip = $("#svtip"), tipT = null;
+    if (scrub) {
+      scrub.addEventListener("input", function () {
+        var k = +scrub.value - 1; scrubFill();
+        if (tip) { var t = slides[k] ? (slides[k].getAttribute("data-title") || "") : ""; tip.textContent = (k + 1) + (t ? " · " + t : ""); tip.style.left = (scrub.max > 1 ? (k / (scrub.max - 1)) * 100 : 0) + "%"; tip.classList.add("on"); clearTimeout(tipT); tipT = setTimeout(function () { tip.classList.remove("on"); }, 900); }
+        goSlide(k);
+      });
+    }
+    /* the mouse wheel or a two-finger scroll over the slide turns pages: one page per gesture */
+    var wheelSum = 0, wheelLock = false, wheelT = null;
+    frame.addEventListener("wheel", function (ev) {
+      if (!slides.length || ev.ctrlKey) return;
+      var d = Math.abs(ev.deltaY) >= Math.abs(ev.deltaX) ? ev.deltaY : ev.deltaX;
+      if ((d < 0 && ST.slide === 0) || (d > 0 && ST.slide === slides.length - 1)) return;   /* past either end the page scrolls as usual */
+      ev.preventDefault();
+      clearTimeout(wheelT); wheelT = setTimeout(function () { wheelLock = false; wheelSum = 0; }, 220);   /* a gesture ends after 220 ms of quiet */
+      if (wheelLock) return;
+      wheelSum += d;
+      if (Math.abs(wheelSum) >= 40) { wheelLock = true; goSlide(ST.slide + (wheelSum > 0 ? 1 : -1)); }
+    }, { passive: false });
+    /* a horizontal swipe on a phone */
+    var tx0 = null, ty0 = null;
+    frame.addEventListener("touchstart", function (ev) { if (ev.touches.length === 1) { tx0 = ev.touches[0].clientX; ty0 = ev.touches[0].clientY; } }, { passive: true });
+    frame.addEventListener("touchend", function (ev) {
+      if (tx0 == null) return; var t = ev.changedTouches[0], dx = t.clientX - tx0, dy = t.clientY - ty0; tx0 = null;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > 1.5 * Math.abs(dy)) { swiped = Date.now(); goSlide(ST.slide + (dx < 0 ? 1 : -1)); }
+    }, { passive: true });
+    var swiped = 0;
+    var f0 = $("#svfirst"), fn = $("#svlast");
+    if (f0) f0.addEventListener("click", function () { goSlide(0); });
+    if (fn) fn.addEventListener("click", function () { goSlide(slides.length - 1); });
     var pv = $("#svprev"), nx = $("#svnext"), fs = $("#svfull");
     if (pv) pv.addEventListener("click", function () { goSlide(ST.slide - 1); });
     if (nx) nx.addEventListener("click", function () { goSlide(ST.slide + 1); });
     if (fs) fs.addEventListener("click", function () { var st = $("#svstage"); if (!document.fullscreenElement) { if (st.requestFullscreen) st.requestFullscreen(); } else document.exitFullscreen(); });
     document.addEventListener("fullscreenchange", function () { setTimeout(fitSlides, 50); });
-    frame.addEventListener("click", function (ev) { if (ev.target.closest("a")) return; var r = frame.getBoundingClientRect(); goSlide(ST.slide + ((ev.clientX - r.left) > r.width / 2 ? 1 : -1)); });
+    frame.addEventListener("click", function (ev) { if (ev.target.closest("a") || Date.now() - swiped < 400) return; var r = frame.getBoundingClientRect(); goSlide(ST.slide + ((ev.clientX - r.left) > r.width / 2 ? 1 : -1)); });
     document.addEventListener("keydown", function (ev) { if (current !== "slides" || ev.target.matches("input,textarea,select")) return;
       if (ev.key === "ArrowRight" || ev.key === "PageDown" || ev.key === " ") { ev.preventDefault(); goSlide(ST.slide + 1); }
       else if (ev.key === "ArrowLeft" || ev.key === "PageUp") { ev.preventDefault(); goSlide(ST.slide - 1); }

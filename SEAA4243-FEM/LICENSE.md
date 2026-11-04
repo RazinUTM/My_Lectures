@@ -1,7 +1,7 @@
 # Licence
 
-Copyright © 2026 Ahmad Razin Zainal Abidin and co-authors, Faculty of Civil Engineering,
-Universiti Teknologi Malaysia. The short notice at the foot of every page refers to this file.
+Copyright © 2026 Ahmad Razin Zainal Abidin and Universiti Teknologi Malaysia (Faculty of Civil
+Engineering). The short notice at the foot of every page refers to this file.
 
 ## Course material
 
@@ -17,6 +17,10 @@ Exception: the worked examples in the Examples tabs are adapted from the draft b
 and are published here with its authors' permission. Rights in them remain with those authors;
 the CC BY-NC-SA licence above does not extend to them.
 
+Exception: the lecturer's avatar (the illustrated portrait in `shared/avatar/`, in the Explorers and
+on the slides) is a likeness of Ahmad Razin Zainal Abidin. All rights reserved: it is not covered by
+the CC BY-NC-SA licence and may not be reused or adapted.
+
 Third-party images keep their own licences (MIT, BSD, LGPL and CC BY), credited where they appear.
 The textbook referred to throughout (Mohd Yassin et al., MSNM 2020) is not reproduced here and
 is not covered by this licence.
@@ -30,7 +34,7 @@ License 2.0) from the jsDelivr CDN at run time; it is not part of this repositor
 ```
 MIT License
 
-Copyright (c) 2026 Ahmad Razin Zainal Abidin, Universiti Teknologi Malaysia
+Copyright (c) 2026 Ahmad Razin Zainal Abidin and Universiti Teknologi Malaysia
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software
 and associated documentation files (the "Software"), to deal in the Software without

@@ -14,7 +14,8 @@ Website: <https://razinutm.github.io/My_Lectures/SEAA4243-FEM/>
 | Plane Stress, Part 3 | [`05-plane-stress-3/`](05-plane-stress-3/) | stress recovery, principal and von Mises stresses, accuracy and singularities, the 8-node element, the project |
 | ANSYS demo | coming | the plate and the cantilever rebuilt in Workbench |
 
-Each part page has seven tabs: Start (plan and progress), Notes, Slides (viewer and PDF),
+The slide viewer has first/last buttons, a page slider, mouse-wheel and swipe paging, and a PDF
+download. Each part page has seven tabs: Start (plan and progress), Notes, Slides (viewer and PDF),
 Examples (model answers in exam form), Exercises (new numbers each attempt), Explorer, Glossary.
 Explanations switch between English and Bahasa Melayu; technical terms stay in English.
 
@@ -54,4 +55,4 @@ Text: Mohd Yassin et al., *Two-Dimensional Finite Element Formulations for Heat,
 Fluids (with Matlab)*, MSNM 2020. Course material: CC BY-NC-SA 4.0; code: MIT. See
 [`LICENSE.md`](LICENSE.md). Third-party images are credited where they appear.
 
-Lecturer: Assoc. Prof. Ts. Dr. Ahmad Razin Zainal Abidin · arazin@utm.my
+Lecturers: Assoc. Prof. Ts. Dr. Ahmad Razin Zainal Abidin (arazin@utm.my) and Dr. Yip Bao Fang.

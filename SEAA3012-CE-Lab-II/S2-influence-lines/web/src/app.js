@@ -3,6 +3,8 @@
 /* avatar images: each embedded once here, assigned to every <img data-avsrc> at start-up */
 var AVS={crossed:"%%AVURL_crossed%%",present:"%%AVURL_present%%",think:"%%AVURL_think%%",thumbs:"%%AVURL_thumbs%%",tablet:"%%AVURL_tablet%%",explain:"%%AVURL_explain%%",offer:"%%AVURL_offer%%",ok:"%%AVURL_ok%%",wave:"%%AVURL_wave%%",cheer:"%%AVURL_cheer%%",badge:"%%AVURL_badge%%"};
 document.querySelectorAll("img[data-avsrc]").forEach(function(im){im.src=AVS[im.getAttribute("data-avsrc")]});
+/* inside an embedding frame (claude.ai), open the breadcrumb links in a new tab */
+try{if(window.top!==window.self)document.querySelectorAll(".crumbs a").forEach(function(l){l.target="_blank";l.rel="noopener"})}catch(e){document.querySelectorAll(".crumbs a").forEach(function(l){l.target="_blank";l.rel="noopener"})}
 /* =====================================================================
    State: one object, kept in localStorage under one key. Every read and
    write is wrapped, so the page works where storage is unavailable.

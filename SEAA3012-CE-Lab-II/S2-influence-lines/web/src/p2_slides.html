@@ -2,11 +2,14 @@
 <!-- =============================================================== SLIDES -->
 <section class="view" data-view="slides" id="v-slides" role="tabpanel" aria-labelledby="t-slides" hidden>
   <div class="slidebar">
+    <button class="btn ghost iconb" type="button" id="sfirst" aria-label="First slide" title="First slide"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M6 5v14M18 5l-9 7 9 7z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
     <button class="btn ghost" type="button" id="sprev" aria-label="Previous slide">‹ <span class="en">Previous</span><span class="ms">Sebelum</span></button>
     <span class="count" id="scount">1 / 1</span>
     <button class="btn ghost" type="button" id="snext" aria-label="Next slide"><span class="en">Next</span><span class="ms">Seterusnya</span> ›</button>
+    <button class="btn ghost iconb" type="button" id="slast" aria-label="Last slide" title="Last slide"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M18 5v14M6 5l9 7-9 7z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
     <button class="btn" type="button" id="sfull">Present</button>
-    <span class="hint" id="shint"><span class="en">Keys: ← → to move, F for full screen</span><span class="ms">Kekunci: ← → untuk bergerak, F untuk full screen</span></span>
+    <a class="btn ghost" id="spdf" href="pdf/s2_slides_online_EN.pdf" target="_blank" rel="noopener" download><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" style="vertical-align:-3px"><path d="M12 4v11M7 10l5 5 5-5M5 20h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> <span class="en">Download PDF</span><span class="ms">Muat turun PDF</span></a>
+    <span class="hint" id="shint"><span class="en">Keys: ← → move, Home/End first/last, F full screen</span><span class="ms">Kekunci: ← → bergerak, Home/End pertama/akhir, F full screen</span></span>
   </div>
   <div class="stage" id="stage">
     <div class="frame" id="deck">
@@ -15,7 +18,8 @@
         <div class="kick">SEAA 3012 Civil Engineering Laboratory II · Lab S2</div>
         <h3>Influence Lines</h3>
         <div class="big muted">Cantilever (Gerber) bridge model</div>
-        <div><span class="en">Faculty of Civil Engineering, Universiti Teknologi Malaysia</span><span class="ms">Fakulti Kejuruteraan Awam, Universiti Teknologi Malaysia</span></div>
+        <div><b>Ahmad Razin Zainal Abidin</b> <span class="en">and co-authors</span><span class="ms">dan pengarang bersama</span><br><span class="en">Faculty of Civil Engineering, Universiti Teknologi Malaysia</span><span class="ms">Fakulti Kejuruteraan Awam, Universiti Teknologi Malaysia</span></div>
+        <img class="av slideav" data-avsrc="explain" alt="" aria-hidden="true" data-av="explain">
       </section>
 
       <section class="slide"><h3><span class="en">Today</span><span class="ms">Hari ini</span></h3>
@@ -151,7 +155,7 @@
 
       <section class="slide"><h3><span class="en">Your turn</span><span class="ms">Giliran anda</span></h3>
         <div class="cols w"><div><ol class="en"><li>Explorer: the five tasks, then the five concept questions</li><li>Laboratory: enter your readings in the Lab tab and check equilibrium at every halt</li><li>After the laboratory: Exercises (hand calculation), then the report</li></ol>
-          <ol class="ms"><li>Explorer: lima tugasan, kemudian lima soalan kefahaman</li><li>Makmal: masukkan bacaan dalam tab Makmal dan semak equilibrium pada setiap halt</li><li>Selepas makmal: Latihan (pengiraan tangan), kemudian laporan</li></ol></div>
+          <ol class="ms"><li>Explorer: lima tugasan, kemudian lima soalan kefahaman</li><li>Makmal: masukkan bacaan dalam tab Makmal dan semak equilibrium pada setiap halt</li><li>Selepas makmal: Latihan (pengiraan tangan), kemudian laporan</li></ol><img class="av " data-avsrc="thumbs" alt="" aria-hidden="true" data-av="thumbs" style="height:30cqh;margin-top:2cqh"></div>
           <div style="text-align:center"><img src="data:image/png;base64,%%QR%%" alt="QR code to the Explorer" style="width:62%;image-rendering:pixelated;background:#fff;padding:1cqw"><div class="muted" style="font-size:1.5cqw"><span class="en">Scan for the Explorer</span><span class="ms">Imbas untuk Explorer</span></div></div></div>
       </section>
 
@@ -159,9 +163,10 @@
         <div class="cols"><div class="box"><b class="t"><span class="en">Six straight-line influence lines</span><span class="ms">Enam influence line bersegmen lurus</span></b>\(\eta_A = (250-x)/250\) <span class="en">on</span><span class="ms">pada</span> ABC, \(-0.76\,\eta_C\) <span class="en">on</span><span class="ms">pada</span> CD<br>\(\eta_B = x/250\) <span class="en">on</span><span class="ms">pada</span> ABC, \(1.76\,\eta_C\) <span class="en">on</span><span class="ms">pada</span> CD<br>\(\eta_C = (690-x)/250\), \(\eta_D = (x-440)/250\)<br>\(\eta_E\), \(\eta_F\): <span class="en">mirror images</span><span class="ms">imej cermin</span></div>
           <div class="box"><b class="t"><span class="en">Use and report</span><span class="ms">Guna dan lapor</span></b>\(R = \sum P_i\,\eta_R(x_i)\); UDL: \(w\times\) area<br><span class="en">extreme: one load on a vertex</span><span class="ms">ekstrem: satu load pada vertex</span><br><span class="en">Müller–Breslau: release, displace, read</span><span class="ms">Müller–Breslau: lepas, anjak, baca</span><br><span class="en">compare by absolute difference</span><span class="ms">banding dengan perbezaan mutlak</span></div></div>
         <p class="muted" style="margin:0;font-size:1.5cqw"><span class="en">Reading:</span><span class="ms">Bacaan:</span> Hibbeler, Structural Analysis, ch. 6; Kassimali, Structural Analysis, ch. 8; Laboratory Manual, experiment S2.</p>
+        <img class="av slideav sm" data-avsrc="ok" alt="" aria-hidden="true" data-av="ok">
       </section>
 
     </div>
-    <div class="progress"><i id="sprog"></i></div>
+    <input type="range" class="scrub" id="sscrub" min="1" max="21" step="1" value="1" aria-label="Slide number">
   </div>
 </section>

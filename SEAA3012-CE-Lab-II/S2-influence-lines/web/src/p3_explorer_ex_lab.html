@@ -2,8 +2,9 @@
 <!-- =============================================================== EXPLORER -->
 <section class="view" data-view="explorer" id="v-explorer" role="tabpanel" aria-labelledby="t-explorer" hidden>
   <div class="card">
-    <h2><span class="en">Move the load</span><span class="ms">Gerakkan load</span></h2>
-    <p class="lead"><span class="en">Drag the loads on the drawing, use the slider or tap a halt.</span><span class="ms">Seret load pada lukisan, guna slider atau tekan satu halt.</span></p>
+    <div class="cardav"><div><h2><span class="en">Move the load</span><span class="ms">Gerakkan load</span></h2>
+    <p class="lead"><span class="en">Drag the loads on the drawing, use the slider or tap a halt.</span><span class="ms">Seret load pada lukisan, guna slider atau tekan satu halt.</span></p></div>
+    <img class="av av-sm" data-avsrc="explain" alt="" aria-hidden="true" data-av="explain"></div>
     <div class="ilrow">
       <span class="lbl">Influence lines</span>
       <span class="chips" id="rchips" aria-label="Influence lines to draw"></span>
@@ -39,7 +40,7 @@
   <div class="card" style="margin-top:18px" id="tasks">
     <div class="exhead"><div><h2><span class="en">Part 1 · Explorer tasks</span><span class="ms">Bahagian 1 · Tugasan Explorer</span></h2>
       <p class="lead" style="margin:0"><span class="en">Five short tasks to learn the tool. Do them with the Explorer above and type what you read.</span><span class="ms">Lima tugasan ringkas untuk mengenali tool ini. Lakukan dengan Explorer di atas dan taip nilai yang anda baca.</span></p></div>
-      <span class="num" id="tkscore"></span></div>
+      <div class="avscore"><span class="num" id="tkscore"></span><img class="av av-sm" data-avsrc="ok" alt="" aria-hidden="true" data-av="ok" id="avtasks"></div></div>
     <article class="tk" id="tk1"><header><h4><span class="tkn">1</span> <span class="en">Read the reactions</span><span class="ms">Baca reaction</span></h4><span class="tkok" aria-label="done">✓</span></header>
       <p><span class="en">Press <b>Quick fill → Unit load</b>, then tap halt <b>6</b>. Read R<sub>C</sub> and R<sub>E</sub> from the reaction boxes.</span><span class="ms">Tekan <b>Isi pantas → Unit load</b>, kemudian tekan halt <b>6</b>. Baca R<sub>C</sub> dan R<sub>E</sub> daripada kotak reaction.</span></p>
       <div class="tfs"><label class="tf"><span>R<sub>C</sub></span><input class="tans" id="tk1-1" data-ans="0.360" data-tol="0.003" inputmode="decimal" autocomplete="off"></label><label class="tf"><span>R<sub>E</sub></span><input class="tans" id="tk1-2" data-ans="1.126" data-tol="0.003" inputmode="decimal" autocomplete="off"></label></div>
@@ -74,7 +75,7 @@
   <div class="card" style="margin-top:18px">
     <div class="exhead"><div><h2><span class="en">Part 2 · Concept check</span><span class="ms">Bahagian 2 · Semakan kefahaman</span></h2>
       <p class="lead" style="margin:0"><span class="en">Five questions on what the lines mean. One attempt each; every answer is explained.</span><span class="ms">Lima soalan tentang maksud garis-garis ini. Satu cubaan bagi setiap soalan; setiap jawapan diterangkan.</span></p></div>
-      <button class="btn ghost" type="button" id="predreset"><span class="en">Try again</span><span class="ms">Cuba semula</span></button></div>
+      <div class="avscore"><button class="btn ghost" type="button" id="predreset"><span class="en">Try again</span><span class="ms">Cuba semula</span></button><img class="av av-sm" data-avsrc="think" alt="" aria-hidden="true" data-av="think"></div></div>
     <div id="qlist"></div>
     <div class="num" id="score" style="color:var(--accent);margin-top:8px"></div>
   </div>
@@ -85,7 +86,7 @@
   <div class="card">
     <div class="exhead">
       <div style="max-width:68ch"><h2><span class="en">Exercises</span><span class="ms">Latihan</span></h2>
-    <div class="handcalc"><span class="hc-tag"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16v4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M13.5 6.5l4 4" stroke="currentColor" stroke-width="2"/></svg><span class="en">Hand calculation</span><span class="ms">Pengiraan tangan</span></span>
+    <div class="handcalc"><img class="av av-hc" data-avsrc="tablet" alt="" aria-hidden="true" data-av="tablet"><span class="hc-tag"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16v4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M13.5 6.5l4 4" stroke="currentColor" stroke-width="2"/></svg><span class="en">Hand calculation</span><span class="ms">Pengiraan tangan</span></span>
       <span><span class="en">Work every answer on paper from the formulae and free-body diagrams in the Notes, then type the result to check it. Use the Explorer only afterwards, to confirm a result: it does not show the working that the marks are for.</span><span class="ms">Selesaikan setiap jawapan di atas kertas menggunakan formula dan free-body diagram dalam Nota, kemudian taip hasilnya untuk disemak. Guna Explorer hanya selepas itu untuk mengesahkan hasil: ia tidak menunjukkan jalan kerja yang diberi markah.</span></span></div>
         <p class="lead" style="margin:0"><span class="en">Ten questions on the laboratory model, 60 marks plus 4 bonus, as on the printed sheet. Type numbers to three decimals; a small tolerance is allowed. Before each check, say how sure you are: comparing confidence with the result shows which topics you only think you know.</span><span class="ms">Sepuluh soalan tentang model makmal, 60 markah ditambah 4 bonus, sama seperti helaian bercetak. Taip nombor hingga tiga titik perpuluhan; sedikit toleransi dibenarkan. Sebelum setiap semakan, nyatakan tahap keyakinan anda: membandingkan keyakinan dengan keputusan menunjukkan topik yang anda hanya sangka anda faham.</span></p></div>
       <div class="timer" id="extimer">
@@ -233,6 +234,7 @@
   </article>
 
   <div class="card" style="margin-top:18px" id="exsummary">
+    <img class="av avfloat" data-avsrc="thumbs" alt="" aria-hidden="true" data-av="thumbs">
     <h2><span class="en">Your attempt</span><span class="ms">Cubaan anda</span></h2>
     <p class="lead"><span class="en">First attempt counts the fields right at your first check of each question; “now” counts them after corrections. Marks are estimated from auto-marked fields only (free-text parts are not marked).</span><span class="ms">First attempt mengira medan yang betul pada semakan pertama setiap soalan; “sekarang” mengira selepas pembetulan. Markah dianggar daripada medan yang ditanda secara automatik sahaja (bahagian teks bebas tidak ditanda).</span></p>
     <div class="tbl"><table class="stats" id="extable"></table></div>
@@ -244,7 +246,7 @@
 <!-- =============================================================== LAB -->
 <section class="view lab" data-view="lab" id="v-lab" role="tabpanel" aria-labelledby="t-lab" hidden>
   <div class="grid2">
-    <div class="card"><h2><span class="en">Before you start</span><span class="ms">Sebelum mula</span></h2>
+    <div class="card"><img class="av avfloat" data-avsrc="crossed" alt="" aria-hidden="true" data-av="crossed"><h2><span class="en">Before you start</span><span class="ms">Sebelum mula</span></h2>
       <ul class="checklist" id="checklist">
         <li><label><input type="checkbox" id="ck1"> <span><span class="en">Spans AB, BC, CD, DE, EF are 250, 190, 250, 190, 250 mm; halts 1–11 marked.</span><span class="ms">Span AB, BC, CD, DE, EF ialah 250, 190, 250, 190, 250 mm; halt 1–11 bertanda.</span></span></label></li>
         <li><label><input type="checkbox" id="ck2"> <span><span class="en">All six gauges return to zero after pressing and releasing the deck.</span><span class="ms">Keenam-enam gauge kembali ke sifar selepas deck ditekan dan dilepaskan.</span></span></label></li>
@@ -293,6 +295,7 @@
 <!-- =============================================================== GLOSSARY -->
 <section class="view" data-view="glossary" id="v-glossary" role="tabpanel" aria-labelledby="t-glossary" hidden>
   <div class="card">
+    <img class="av avfloat" data-avsrc="offer" alt="" aria-hidden="true" data-av="offer">
     <div class="exhead"><div><h2><span class="en">Glossary</span><span class="ms">Glosari</span></h2>
       <p class="lead" style="margin:0"><span class="en">Symbols, units and terms used on this page.</span><span class="ms">Simbol, unit dan istilah yang digunakan pada page ini.</span></p></div>
       <input class="gfilter" id="gfilter" type="search" data-ph-en="Search, e.g. kgf" data-ph-ms="Cari, contoh kgf" aria-label="Search the glossary"></div>
@@ -345,13 +348,13 @@
 </main>
 
 <footer><span class="en">Geometry from the laboratory manual, experiment S2: AB = 250, BC = 190, CD = 250, DE = 190, EF = 250 mm; halts 1–11 at 100 mm intervals from A. Example readings are illustrative, not measured data. Answers, readings and progress are stored only in this browser.</span><span class="ms">Geometri daripada manual makmal, eksperimen S2: AB = 250, BC = 190, CD = 250, DE = 190, EF = 250 mm; halt 1–11 pada sela 100 mm dari A. Bacaan contoh adalah ilustrasi, bukan data ukuran. Jawapan, bacaan dan kemajuan disimpan dalam browser ini sahaja.</span>
-<p class="copy"><span class="en">© 2026 Ahmad Razin Zainal Abidin and co-authors, Faculty of Civil Engineering, Universiti Teknologi Malaysia. Free to share and adapt for non-commercial teaching and learning.</span><span class="ms">© 2026 Ahmad Razin Zainal Abidin dan pengarang bersama, Fakulti Kejuruteraan Awam, Universiti Teknologi Malaysia. Bebas dikongsi dan diubah suai untuk pengajaran dan pembelajaran bukan komersial.</span></p></footer>
+<p class="copy"><img data-avsrc="badge" alt="" aria-hidden="true" class="fbadge"><span class="en">© 2026 Ahmad Razin Zainal Abidin and co-authors, Faculty of Civil Engineering, Universiti Teknologi Malaysia. Free to share and adapt for non-commercial teaching and learning.</span><span class="ms">© 2026 Ahmad Razin Zainal Abidin dan pengarang bersama, Fakulti Kejuruteraan Awam, Universiti Teknologi Malaysia. Bebas dikongsi dan diubah suai untuk pengajaran dan pembelajaran bukan komersial.</span></p></footer>
 </div>
 
 <!-- =============================================================== SHORT NOTES DRAWER -->
 <div class="scrim" id="scrim" hidden></div>
 <aside class="drawer" id="drawer" aria-label="Short notes" aria-hidden="true">
-  <div class="dh"><h2><span class="en">Short notes</span><span class="ms">Nota ringkas</span></h2><button class="iconbtn" type="button" id="snclose" aria-label="Close">✕</button></div>
+  <div class="dh"><h2 style="display:flex;align-items:center;gap:8px"><img data-avsrc="badge" alt="" aria-hidden="true" class="fbadge" style="width:30px;height:30px"><span class="en">Short notes</span><span class="ms">Nota ringkas</span></h2><button class="iconbtn" type="button" id="snclose" aria-label="Close">✕</button></div>
   <h3><span class="en">Model and signs</span><span class="ms">Model dan tanda</span></h3>
   <p>A pin · B roller (250) · C hinge (440) · D hinge (690) · E roller (880) · F pin (1130) mm. <span class="en">Reactions positive up; \(R_C\), \(R_D\) positive pressing down on the tips.</span><span class="ms">Reaction positif ke atas; \(R_C\), \(R_D\) positif apabila menekan ke bawah pada hujung.</span></p>
   <h3><span class="en">Influence lines</span><span class="ms">Influence line</span></h3>

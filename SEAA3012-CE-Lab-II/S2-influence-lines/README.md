@@ -63,6 +63,16 @@ and `activity/influence-line-explorer.html` (the form published as a claude.ai a
 The practice readings in Exercise Question 6 and the Lab tab are synthetic (theory ± 1–2
 divisions) and labelled as illustrative. Replace them with a real data set when one is available.
 
+## Avatar and slide PDFs
+
+`avatar/` holds the author's avatar: the original sheet (`avatar_sheet.png`), ten cut-out poses as PNG (used by the LaTeX
+files) and WebP (embedded in the page by `web/build_web.py`), and a round head badge. The page shows a pose in each tab, the
+badge in the header, the footer and every slide footer.
+
+`pdf/s2_slides_online_EN.pdf` and `_BM.pdf` are vector prints of the 21 slides of the page, linked from the slide toolbar.
+Regenerate them after changing the slides with `node web/make_slide_pdfs.js <dir>`, where `<dir>/node_modules` contains
+`mathjax` 3.2.2 and `@ibm/plex-sans`, `@ibm/plex-serif`, `@ibm/plex-mono` (npm), and poppler's `pdfunite` is installed.
+
 ## Copyright
 
 © 2026 Ahmad Razin Zainal Abidin and co-authors, Faculty of Civil Engineering, Universiti Teknologi Malaysia. Free to share and adapt for non-commercial teaching and learning.

@@ -15,7 +15,14 @@ MJCONF = ('<script>\nwindow.MathJax={tex:{inlineMath:[["\\\\(","\\\\)"]],display
           '  startup:{typeset:false,ready:function(){MathJax.startup.defaultReady();MathJax.startup.promise.then(function(){if(window.__mjReady)window.__mjReady();});}}};\n</script>\n'
           '<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" async></script>')
 TITLE = "<title>Lab S2 Influence Lines</title>"
-body = body.replace("%%PHOTO%%", photo).replace("%%QR%%", qr)
+import base64
+AVD = here.parent / "avatar"
+def avatars(t):
+    for f in sorted(AVD.glob("*.webp")):
+        t = t.replace("%%AVURL_" + f.stem + "%%", "data:image/webp;base64," + base64.b64encode(f.read_bytes()).decode())
+    return t
+body = avatars(body.replace("%%PHOTO%%", photo).replace("%%QR%%", qr))
+js = avatars(js)
 assert "%%" not in body
 art = (TITLE + '\n<meta name="claude:viewport-fit-sides" content="cover">\n' + FONTS + "\n<style>\n" + css + "</style>\n" + MJCONF
        + "\n" + body + "\n<script>\n" + js + "</script>\n")

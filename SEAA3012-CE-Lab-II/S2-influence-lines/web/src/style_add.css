@@ -130,3 +130,29 @@ img{max-width:100%;height:auto}
 .handcalc{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:flex-start;margin:12px 0 4px;padding:10px 14px;border:2px solid var(--note-line);border-radius:10px;background:var(--note-bg);font-size:14.5px}
 .hc-tag{display:inline-flex;gap:6px;align-items:center;font-weight:700;font-size:15px;white-space:nowrap}
 footer .copy{margin:8px 0 0;font-size:12.5px;color:var(--muted)}
+/* avatar */
+.author{display:flex;align-items:center;gap:10px;margin-top:10px;font-size:14px}
+.author img{width:40px;height:40px;border-radius:50%;flex:none}
+img.av{width:auto;max-width:none;pointer-events:none;user-select:none}
+.cardav{display:flex;gap:14px;align-items:flex-end;justify-content:space-between}
+.cardav > div{min-width:0}
+.av-md{height:150px;flex:none;margin:-8px -4px -18px 0}
+.av-sm{height:92px;flex:none}
+.avfloat{float:right;height:130px;margin:-4px 0 6px 14px}
+.avscore{display:flex;align-items:flex-end;gap:10px}
+.av-hc{height:84px;flex:none;order:3;margin-left:auto}
+.fbadge{width:22px;height:22px;border-radius:50%;vertical-align:-6px;margin-right:6px}
+.slide .slideav{position:absolute;right:5cqw;bottom:5cqh;height:74cqh}
+.slide .slideav.sm{height:24cqh;right:3cqw;bottom:6cqh}
+.slide .foot .fbadge{width:2.4cqw;height:2.4cqw;vertical-align:middle;margin-right:.6cqw}
+.slide.title h3,.slide.title > div{max-width:58cqw}
+@media (max-width:560px){.av-md{height:110px}.av-sm{height:70px}.avfloat{height:96px}.av-hc{height:64px}}
+/* slide controls */
+.iconb{display:inline-grid;place-items:center;padding-left:10px;padding-right:10px}
+a.btn{text-decoration:none;display:inline-flex;align-items:center;gap:4px}
+input.scrub{width:100%;margin:10px 0 0;accent-color:var(--accent);height:22px;cursor:pointer}
+.stage:fullscreen input.scrub{position:fixed;left:3vw;right:3vw;bottom:1.2vh;width:94vw;opacity:.35}
+.stage:fullscreen input.scrub:hover{opacity:1}
+.handcalc{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:12px;row-gap:4px}
+.handcalc .av-hc{grid-column:2;grid-row:1 / span 2;align-self:end;order:0;margin:0 0 -10px}
+.handcalc > span{grid-column:1}

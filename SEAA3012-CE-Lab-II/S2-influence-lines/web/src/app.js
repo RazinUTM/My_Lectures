@@ -1,5 +1,8 @@
 (function(){
 "use strict";
+/* avatar images: each embedded once here, assigned to every <img data-avsrc> at start-up */
+var AVS={crossed:"%%AVURL_crossed%%",present:"%%AVURL_present%%",think:"%%AVURL_think%%",thumbs:"%%AVURL_thumbs%%",tablet:"%%AVURL_tablet%%",explain:"%%AVURL_explain%%",offer:"%%AVURL_offer%%",ok:"%%AVURL_ok%%",wave:"%%AVURL_wave%%",cheer:"%%AVURL_cheer%%",badge:"%%AVURL_badge%%"};
+document.querySelectorAll("img[data-avsrc]").forEach(function(im){im.src=AVS[im.getAttribute("data-avsrc")]});
 /* =====================================================================
    State: one object, kept in localStorage under one key. Every read and
    write is wrapped, so the page works where storage is unavailable.
@@ -331,13 +334,23 @@ langHooks.push(syncRead);
    Slides
    ===================================================================== */
 var slides=[].slice.call(document.querySelectorAll("#deck .slide")),slideIdx=Math.min(ST.slide||0,slides.length-1);
-slides.forEach(function(s,i){var f=document.createElement("div");f.className="foot";f.innerHTML="<span>© 2026 Ahmad Razin Zainal Abidin and co-authors · SEAA 3012 · Lab S2 Influence Lines</span><span>"+(i+1)+" / "+slides.length+"</span>";s.appendChild(f)});
+slides.forEach(function(s,i){var f=document.createElement("div");f.className="foot";f.innerHTML="<span><img class=\"fbadge\" src=\""+AVS.badge+"\" alt=\"\">© 2026 Ahmad Razin Zainal Abidin and co-authors · SEAA 3012 · Lab S2 Influence Lines</span><span>"+(i+1)+" / "+slides.length+"</span>";s.appendChild(f)});
 function goSlide(i){slideIdx=Math.max(0,Math.min(slides.length-1,i));slides.forEach(function(s,j){s.classList.toggle("on",j===slideIdx)});
   document.getElementById("scount").textContent=(slideIdx+1)+" / "+slides.length;
-  document.getElementById("sprog").style.width=((slideIdx+1)/slides.length*100)+"%";
+  var sc=document.getElementById("sscrub");sc.max=slides.length;sc.value=slideIdx+1;
   renderAll(slides[slideIdx]);ST.slide=slideIdx;if(current==="slides"&&!ST.seen[slideIdx]){ST.seen[slideIdx]=1;updateProgress()}save()}
 document.getElementById("sprev").addEventListener("click",function(){goSlide(slideIdx-1)});
 document.getElementById("snext").addEventListener("click",function(){goSlide(slideIdx+1)});
+document.getElementById("sfirst").addEventListener("click",function(){goSlide(0)});
+document.getElementById("slast").addEventListener("click",function(){goSlide(slides.length-1)});
+document.getElementById("sscrub").addEventListener("input",function(e){goSlide(Number(e.target.value)-1)});
+langHooks.push(function(){document.getElementById("spdf").setAttribute("href","pdf/s2_slides_online_"+(ST.lang==="ms"?"BM":"EN")+".pdf")});
+/* PDF download: a plain link on GitHub Pages or any web server; inside claude.ai the file is offered
+   through the viewer's downloads capability, because pages there cannot start downloads themselves */
+var DLNS=null;try{if(window.claude&&typeof window.claude.use==="function")window.claude.use("downloads").then(function(d){DLNS=d}).catch(function(){})}catch(e){}
+document.getElementById("spdf").addEventListener("click",function(e){if(!DLNS)return;e.preventDefault();var href=this.getAttribute("href"),tag=ST.lang==="ms"?"BM":"EN";
+  fetch(href).then(function(r){if(!r.ok)throw new Error("fetch");return r.blob()}).then(function(b){return DLNS.save({filename:"S2_Influence_Lines_slides_"+tag+".pdf",data:b})})
+  .catch(function(err){if(err&&(err.code==="declined"||err.code==="rate_limited"))return;tx(shint,"The PDF could not be saved here; open the page on GitHub Pages to download it.","PDF tidak dapat disimpan di sini; buka page di GitHub Pages untuk memuat turunnya.")})});
 var stage=document.getElementById("stage"),shint=document.getElementById("shint");
 function toggleFull(){if(document.fullscreenElement){document.exitFullscreen().catch(function(){});return}
   function no(){tx(shint,"Full screen is not available here; use your browser's full-screen mode.","Full screen tidak tersedia di sini; guna mod full screen browser anda.")}
@@ -479,7 +492,7 @@ function tkEval(el){var t=el.getAttribute("data-type")==="text";if(t){var v=el.v
 function tkPaint(tk,show){var fl=[].slice.call(tk.querySelectorAll("input.tans")),ok=0;fl.forEach(function(el){var r=tkEval(el);if(show)el.setAttribute("data-state",r?"right":"wrong");if(r)ok++});
   var all=ok===fl.length;tk.classList.toggle("done",!!ST.tk.ok[tk.id]);
   if(show){tk.querySelector(".tkgood").hidden=!all;tk.querySelector(".tkbad").hidden=all;tx(tk.querySelector(".res"),ok+" of "+fl.length+" correct",ok+" daripada "+fl.length+" betul")}return all}
-function tkScore(){var n=cnt(ST.tk.ok);tx(document.getElementById("tkscore"),n+" / 5 done",n+" / 5 selesai")}
+function tkScore(){var n=cnt(ST.tk.ok);document.getElementById("avtasks").src=n>=5?AVS.cheer:AVS.ok;tx(document.getElementById("tkscore"),n+" / 5 done",n+" / 5 selesai")}
 TKS.forEach(function(tk){tk.querySelectorAll("input.tans").forEach(function(el){if(ST.tk.v[el.id]!=null)el.value=ST.tk.v[el.id];el.addEventListener("input",function(){ST.tk.v[el.id]=el.value;el.removeAttribute("data-state");save()})});
   tk.querySelector(".tkchk").addEventListener("click",function(){if(tkPaint(tk,false)){ST.tk.ok[tk.id]=1}tkPaint(tk,true);save();tkScore();updateProgress()});
   if(ST.tk.ok[tk.id])tkPaint(tk,true)});
@@ -677,7 +690,7 @@ function recordRows(){var p=parts(),s=exStats(),mf=estMarks("first"),P=ST.pred,p
    ["Explorer",p.explorer[0]+"/10 "+L2("done","selesai"),L2("tasks ","tugasan ")+cnt(ST.tk.ok)+"/5"+(Object.keys(P.ans).length?L2(" · concept questions right first time "," · soalan kefahaman betul kali pertama ")+pc+"/"+Object.keys(P.ans).length:""),mins(tm.explorer)],
    [L2("Exercises","Latihan"),p.exercises[0]+"/10 "+L2("checked","disemak"),s.fn?L2("first attempt ","first attempt ")+s.fo+"/"+s.fn+L2(" fields (≈ "," medan (≈ ")+mf[0].toFixed(1)+"/"+mf[1]+L2(" marks) · now "," markah) · sekarang ")+s.no+"/"+s.nn+L2(" · hints "," · petunjuk ")+s.h+L2(" · timer "," · timer ")+mmss(X.done||elapsed()):"",mins(tm.exercises)],
    [L2("Lab","Makmal"),p.lab[0]+"/7 "+L2("items","item"),LB.big?L2("Test 1 gauge "+LB.big.g+": largest difference "+LB.big.d.toFixed(3)+" at halt "+LB.big.h,"Test 1 gauge "+LB.big.g+": perbezaan terbesar "+LB.big.d.toFixed(3)+" di halt "+LB.big.h):"",mins(tm.lab)]]}
-function renderStart(){NEXT=nextStep();document.getElementById("nexttxt").textContent=L2(NEXT.en,NEXT.ms);
+function renderStart(){NEXT=nextStep();document.getElementById("nexttxt").textContent=L2(NEXT.en,NEXT.ms);document.getElementById("avnext").src=NEXT.v==="start"||/^All parts/.test(NEXT.en)?AVS.cheer:AVS.wave;
   var rows=recordRows(),p=parts(),pct=document.getElementById("ppct").textContent;
   var h='<div class="tbl"><table class="stats"><thead><tr><th class="l">'+B("Part","Bahagian")+'</th><th class="l">'+B("Progress","Kemajuan")+'</th><th class="l">'+B("Detail","Butiran")+'</th><th>'+B("Time (min)","Masa (min)")+'</th></tr></thead><tbody>';
   rows.forEach(function(r){h+='<tr><td class="l">'+r[0]+'</td><td class="l">'+r[1]+'</td><td class="l">'+(r[2]||"–")+'</td><td>'+r[3]+'</td></tr>'});

@@ -160,6 +160,16 @@ def render_block(node: Tag, eqs: Equations) -> str:
     return clean(node.get_text(" ", strip=False))
 
 
+def slide_text(body: Tag) -> str:
+    """Plain text of a slide with each bullet and paragraph on its own line, so that a quoted slide
+    does not run its points together ("pin A, roller B, cantilever BC CD: suspended span…")."""
+    for li in body.select("li"):
+        li.insert_before("\n- ")
+    for p in body.select("p, div, tr"):
+        p.insert_after("\n")
+    return clean(body.get_text(" ", strip=False))
+
+
 def prefixed(word: str, title: str) -> str:
     """'Example 1 · …' stays as it is; a bare '1 · …' gets the word in front."""
     return title if re.match(r"^(Example|Contoh|Exercise|Latihan)\b", title) else f"{word} {title}"
@@ -251,7 +261,7 @@ def build_part(part_dir: Path, pk: str, app: str, eq_maps: list[Path]) -> tuple[
             if hd:
                 hd.decompose()
             add({"id": f"slides-{n}", "view": "slides", "anchor": str(n),
-                 "title_en": f"Slide {n}: {t}", "title_ms": f"Slide {n}: {t}"}, text_of(body)[:SLIDE_TEXT_CHARS])
+                 "title_en": f"Slide {n}: {t}", "title_ms": f"Slide {n}: {t}"}, slide_text(body)[:SLIDE_TEXT_CHARS])
     deck = part_dir / "slides" / "deck.html"
     if deck.exists() and not in_page:
         dsoup = BeautifulSoup(read(deck), "lxml")

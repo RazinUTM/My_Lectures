@@ -1,3 +1,5 @@
 rz-tutor-worker 0.2.0, 8 Nov 2026: panel/, widget/, tools/add_panel.py, tools/build_manifest.py (MIT, see LICENSE).
 A pinned copy used by web/add_tutor.py. To update: copy the same files from a newer rz-tutor-worker release over
 this folder, rebuild the page (python3 web/build_web.py && python3 web/add_tutor.py) and check it in a browser.
+
+Updated 8 Nov 2026 (rz-tutor-worker 3c48094): tools/build_manifest.py keeps one slide bullet per line.

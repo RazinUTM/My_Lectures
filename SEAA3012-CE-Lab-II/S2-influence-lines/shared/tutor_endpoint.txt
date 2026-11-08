@@ -1,4 +1,6 @@
 # Address of the rz-tutor Worker that answers for Dr RJ, for example
 #   https://rz-tutor.<subdomain>.workers.dev/v1/chat
 # Put it on the line below, then rebuild the page: python3 web/build_web.py && python3 web/add_tutor.py
-# While no address is given, Dr RJ stays in offline mode (he points to sections; nothing leaves the browser).
+# While no address is given, or while the Worker's switch AI_SEAA3012 is off, Dr RJ stays in offline mode
+# (he points to sections; nothing leaves the browser).
+https://rz-tutor.arazin.workers.dev/v1/chat

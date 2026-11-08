@@ -33,7 +33,8 @@ Everything a student enters in the tabs is stored only in that student's browser
 The one exception is a question typed to Dr RJ once his AI is switched on: it goes through the course's
 rz-tutor Worker to the Claude API (Anthropic) to be answered. The Worker keeps counts, never the text, and
 the panel asks students not to type names, matric numbers or other personal details. While
-`shared/tutor_endpoint.txt` holds no address, nothing leaves the browser.
+`shared/tutor_endpoint.txt` holds no address, or the Worker's switch `AI_SEAA3012` is off, nothing leaves the
+browser.
 
 ## Dr RJ, the guide panel and AI tutor
 
@@ -48,7 +49,8 @@ Dr RJ button brings it back into view.
 The answers come from the rz-tutor Worker (Cloudflare), which holds the API key and reads the files in
 `tutor/` and `../tutor/` from this website. Those files and the panel are written by `web/add_tutor.py`
 on every build; exercise answers, hints and worked solutions are left out of them. While
-`shared/tutor_endpoint.txt` holds no Worker address, Dr RJ is in offline mode: he points to the sections
+`shared/tutor_endpoint.txt` holds no Worker address, or the Worker's switch `AI_SEAA3012` is off (the page asks
+the Worker first), Dr RJ is in offline mode: he points to the sections
 whose titles match the question, and no request is made.
 
 Earlier versions of the page are kept in [`archive/`](archive/), each with a banner that points here.

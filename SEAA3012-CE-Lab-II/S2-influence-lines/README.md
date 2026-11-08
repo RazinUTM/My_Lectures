@@ -29,8 +29,31 @@ one per tab (`qr_s2_explorer.png`, `qr_s2_notes.png`, …).
 | Explorer: hover or tap a reaction for its step-by-step calculation (kgf and N) | links each number to the free-body diagrams |
 | Lab: example readings for Test 1 and Test 2 | shows what a comparison with theory looks like |
 
-Everything a student enters is stored only in that student's browser (`localStorage`); nothing is
-collected or sent anywhere.
+Everything a student enters in the tabs is stored only in that student's browser (`localStorage`).
+The one exception is a question typed to Dr RJ once his AI is switched on: it goes through the course's
+rz-tutor Worker to the Claude API (Anthropic) to be answered. The Worker keeps counts, never the text, and
+the panel asks students not to type names, matric numbers or other personal details. While
+`shared/tutor_endpoint.txt` holds no address, or the Worker's switch `AI_SEAA3012` is off, nothing leaves the
+browser.
+
+## Dr RJ, the guide panel and AI tutor
+
+Beside the tabs stands a guide panel fronted by the lecturer's avatar, Dr RJ (Dr Razin Junior). His
+answers are built from this page's own content and cite it: he explains from the notes, says where to read
+more, suggests one exercise or Explorer task to practise, and his "Go to" buttons open the right tab,
+section or slide. He is instructed never to give the final values of an exercise or write any part of a lab
+report, and to remind students once that work handed in for marks must be their own; a golden set of test
+questions in rz-tutor-worker checks this before each release. On phones the panel moves below the content and a round
+Dr RJ button brings it back into view.
+
+The answers come from the rz-tutor Worker (Cloudflare), which holds the API key and reads the files in
+`tutor/` and `../tutor/` from this website. Those files and the panel are written by `web/add_tutor.py`
+on every build; exercise answers, hints and worked solutions are left out of them. While
+`shared/tutor_endpoint.txt` holds no Worker address, or the Worker's switch `AI_SEAA3012` is off (the page asks
+the Worker first), Dr RJ is in offline mode: he points to the sections
+whose titles match the question, and no request is made.
+
+Earlier versions of the page are kept in [`archive/`](archive/), each with a banner that points here.
 
 **The exercise answers are embedded in the page**, so the online Exercises tab is for formative
 practice. Use the printed sheet for graded work.
@@ -51,9 +74,13 @@ with `./build.sh`. The answers are, however, also in `exercises/s2_exercises.tex
 ## Building
 
 ```bash
-./build.sh                 # XeLaTeX with Latin Modern; also runs web/build_web.py
-python3 web/build_web.py   # course page only
+./build.sh                                           # XeLaTeX with Latin Modern; also builds the page and Dr RJ
+python3 web/build_web.py && python3 web/add_tutor.py  # course page with Dr RJ only
 ```
+
+`web/add_tutor.py` needs beautifulsoup4 (`python3 -m pip install --user beautifulsoup4`). It refuses to run
+twice on the same `index.html`; run `web/build_web.py` first. `web/rz-tutor/` is a pinned copy of the panel,
+widget and tools of rz-tutor-worker (MIT; see its `VERSION`).
 
 `web/src/` holds the page sources (two CSS files, three HTML parts and `app.js`).
 `web/build_web.py` inserts the photo and QR code from `shared/*_b64.txt` and writes `index.html`

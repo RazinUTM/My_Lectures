@@ -9,6 +9,7 @@ python3 shared/s2_numbers.py > /dev/null          # reference numbers -> shared/
 ( cd slides    && xelatex -interaction=nonstopmode s2_slides.tex >/dev/null && xelatex -interaction=nonstopmode s2_slides.tex >/dev/null )
 ( cd activity  && xelatex -interaction=nonstopmode s2_activity_sheet.tex >/dev/null )
 python3 web/build_web.py                          # course page -> index.html and activity/influence-line-explorer.html
+python3 web/add_tutor.py                          # Dr RJ panel -> index.html; tutor/ files for the rz-tutor Worker
 mkdir -p pdf
 cp notes/s2_lecture_notes.pdf exercises/s2_exercises_student.pdf exercises/s2_exercises_key.pdf slides/s2_slides.pdf activity/s2_activity_sheet.pdf pdf/
 echo "built: pdf/s2_lecture_notes.pdf  pdf/s2_slides.pdf  pdf/s2_exercises_student.pdf  pdf/s2_exercises_key.pdf  pdf/s2_activity_sheet.pdf"

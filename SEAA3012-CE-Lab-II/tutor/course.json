@@ -1,0 +1,463 @@
+{
+ "app": "seaa3012",
+ "course": "SEAA3012-CE-Lab-II",
+ "parts": [
+  {
+   "part": "s2",
+   "folder": "S2-influence-lines",
+   "title": "Influence Lines",
+   "sections": [
+    {
+     "id": "start-outcomes",
+     "title_en": "After this part you should be able to",
+     "title_ms": "Selepas bahagian ini, anda sepatutnya boleh"
+    },
+    {
+     "id": "notes-n1",
+     "title_en": "1 Why influence lines?",
+     "title_ms": "1 Mengapa influence line?"
+    },
+    {
+     "id": "notes-n2",
+     "title_en": "2 The laboratory model",
+     "title_ms": "2 Model makmal"
+    },
+    {
+     "id": "notes-n3",
+     "title_en": "3 Deriving the influence lines",
+     "title_ms": "3 Menerbitkan influence line"
+    },
+    {
+     "id": "notes-n4",
+     "title_en": "4 The Müller–Breslau principle",
+     "title_ms": "4 Prinsip Müller–Breslau"
+    },
+    {
+     "id": "notes-n5",
+     "title_en": "5 Using an influence line",
+     "title_ms": "5 Menggunakan influence line"
+    },
+    {
+     "id": "notes-n6",
+     "title_en": "6 The experiment and its data reduction",
+     "title_ms": "6 Eksperimen dan data reduction"
+    },
+    {
+     "id": "notes-n7",
+     "title_en": "7 Sources of error",
+     "title_ms": "7 Sumber error"
+    },
+    {
+     "id": "notes-n8",
+     "title_en": "8 Beyond the laboratory",
+     "title_ms": "8 Di luar makmal"
+    },
+    {
+     "id": "notes-n9",
+     "title_en": "Summary",
+     "title_ms": "Ringkasan"
+    },
+    {
+     "id": "slides-1",
+     "title_en": "Slide 1: Influence Lines",
+     "title_ms": "Slide 1: Influence Lines"
+    },
+    {
+     "id": "slides-2",
+     "title_en": "Slide 2: Today",
+     "title_ms": "Slide 2: Today"
+    },
+    {
+     "id": "slides-3",
+     "title_en": "Slide 3: Loads that move",
+     "title_ms": "Slide 3: Loads that move"
+    },
+    {
+     "id": "slides-4",
+     "title_en": "Slide 4: Influence line versus bending-moment diagram",
+     "title_ms": "Slide 4: Influence line versus bending-moment diagram"
+    },
+    {
+     "id": "slides-5",
+     "title_en": "Slide 5: A Gerber bridge, 1130 mm long",
+     "title_ms": "Slide 5: A Gerber bridge, 1130 mm long"
+    },
+    {
+     "id": "slides-6",
+     "title_en": "Slide 6: Why it is statically determinate",
+     "title_ms": "Slide 6: Why it is statically determinate"
+    },
+    {
+     "id": "slides-7",
+     "title_en": "Slide 7: One idea, three times: take moments about a support",
+     "title_ms": "Slide 7: One idea, three times: take moments about a support"
+    },
+    {
+     "id": "slides-8",
+     "title_en": "Slide 8: Step 1 · Load on beam ABC",
+     "title_ms": "Slide 8: Step 1 · Load on beam ABC"
+    },
+    {
+     "id": "slides-9",
+     "title_en": "Slide 9: Steps 2 and 3 · Load on the suspended span",
+     "title_ms": "Slide 9: Steps 2 and 3 · Load on the suspended span"
+    },
+    {
+     "id": "slides-10",
+     "title_en": "Slide 10: The influence lines, under the bridge",
+     "title_ms": "Slide 10: The influence lines, under the bridge"
+    },
+    {
+     "id": "slides-11",
+     "title_en": "Slide 11: Hinge force and the right-hand side",
+     "title_ms": "Slide 11: Hinge force and the right-hand side"
+    },
+    {
+     "id": "slides-12",
+     "title_en": "Slide 12: Müller–Breslau: the engineer's shortcut",
+     "title_ms": "Slide 12: Müller–Breslau: the engineer's shortcut"
+    },
+    {
+     "id": "slides-13",
+     "title_en": "Slide 13: A mass stands at halt 8, between D and E. The reaction at A is …",
+     "title_ms": "Slide 13: A mass stands at halt 8, between D and E. The reaction at A is …"
+    },
+    {
+     "id": "slides-14",
+     "title_en": "Slide 14: Using an influence line",
+     "title_ms": "Slide 14: Using an influence line"
+    },
+    {
+     "id": "slides-15",
+     "title_en": "Slide 15: Worked example 1 · The compound load of Test 2",
+     "title_ms": "Slide 15: Worked example 1 · The compound load of Test 2"
+    },
+    {
+     "id": "slides-16",
+     "title_en": "Slide 16: Worked example 2 · A distributed load",
+     "title_ms": "Slide 16: Worked example 2 · A distributed load"
+    },
+    {
+     "id": "slides-17",
+     "title_en": "Slide 17: Try it live",
+     "title_ms": "Slide 17: Try it live"
+    },
+    {
+     "id": "slides-18",
+     "title_en": "Slide 18: The experiment",
+     "title_ms": "Slide 18: The experiment"
+    },
+    {
+     "id": "slides-19",
+     "title_en": "Slide 19: How good is “good agreement”?",
+     "title_ms": "Slide 19: How good is “good agreement”?"
+    },
+    {
+     "id": "slides-20",
+     "title_en": "Slide 20: Your turn",
+     "title_ms": "Slide 20: Your turn"
+    },
+    {
+     "id": "slides-21",
+     "title_en": "Slide 21: Summary",
+     "title_ms": "Slide 21: Summary"
+    },
+    {
+     "id": "exercises-q1",
+     "title_en": "Exercise Question 1",
+     "title_ms": "Latihan Soalan 1"
+    },
+    {
+     "id": "exercises-q2",
+     "title_en": "Exercise Question 2",
+     "title_ms": "Latihan Soalan 2"
+    },
+    {
+     "id": "exercises-q3",
+     "title_en": "Exercise Question 3",
+     "title_ms": "Latihan Soalan 3"
+    },
+    {
+     "id": "exercises-q4",
+     "title_en": "Exercise Question 4",
+     "title_ms": "Latihan Soalan 4"
+    },
+    {
+     "id": "exercises-q5",
+     "title_en": "Exercise Question 5",
+     "title_ms": "Latihan Soalan 5"
+    },
+    {
+     "id": "exercises-q6",
+     "title_en": "Exercise Question 6",
+     "title_ms": "Latihan Soalan 6"
+    },
+    {
+     "id": "exercises-q7",
+     "title_en": "Exercise Question 7",
+     "title_ms": "Latihan Soalan 7"
+    },
+    {
+     "id": "exercises-q8",
+     "title_en": "Exercise Question 8",
+     "title_ms": "Latihan Soalan 8"
+    },
+    {
+     "id": "exercises-q9",
+     "title_en": "Exercise Question 9",
+     "title_ms": "Latihan Soalan 9"
+    },
+    {
+     "id": "exercises-q10",
+     "title_en": "Exercise Question 10 (challenge)",
+     "title_ms": "Latihan Soalan 10 (cabaran)"
+    },
+    {
+     "id": "explorer-tk1",
+     "title_en": "Explorer task 1: Read the reactions",
+     "title_ms": "Tugasan Explorer 1: Baca reaction"
+    },
+    {
+     "id": "explorer-tk2",
+     "title_en": "Explorer task 2: Open an explanation",
+     "title_ms": "Tugasan Explorer 2: Buka penerangan"
+    },
+    {
+     "id": "explorer-tk3",
+     "title_en": "Explorer task 3: Set your own loads",
+     "title_ms": "Tugasan Explorer 3: Tetapkan load sendiri"
+    },
+    {
+     "id": "explorer-tk4",
+     "title_en": "Explorer task 4: Find the critical position",
+     "title_ms": "Tugasan Explorer 4: Cari critical position"
+    },
+    {
+     "id": "explorer-tk5",
+     "title_en": "Explorer task 5: Use the areas",
+     "title_ms": "Tugasan Explorer 5: Guna area"
+    },
+    {
+     "id": "explorer-move-the-load",
+     "title_en": "Explorer: Move the load",
+     "title_ms": "Explorer: Gerakkan load"
+    },
+    {
+     "id": "explorer-part-2-concept-check",
+     "title_en": "Explorer: Part 2 · Concept check",
+     "title_ms": "Explorer: Bahagian 2 · Semakan kefahaman"
+    },
+    {
+     "id": "lab-before-you-start",
+     "title_en": "Lab: Before you start",
+     "title_ms": "Lab: Sebelum mula"
+    },
+    {
+     "id": "lab-equilibrium-check",
+     "title_en": "Lab: Equilibrium check",
+     "title_ms": "Lab: Equilibrium check"
+    },
+    {
+     "id": "lab-test-1-one-2-5-kg-mass-at-each-halt",
+     "title_en": "Lab: Test 1 · one 2.5 kg mass at each halt",
+     "title_ms": "Lab: Test 1 · satu jisim 2.5 kg pada setiap halt"
+    },
+    {
+     "id": "lab-test-2-5-kg-mass-with-the-2-5-kg-mass-10",
+     "title_en": "Lab: Test 2 · 5 kg mass with the 2.5 kg mass 100 mm to its right",
+     "title_ms": "Lab: Test 2 · jisim 5 kg dengan jisim 2.5 kg 100 mm di kanannya"
+    },
+    {
+     "id": "lab-what-the-report-must-contain",
+     "title_en": "Lab: What the report must contain",
+     "title_ms": "Lab: Kandungan wajib laporan"
+    },
+    {
+     "id": "glossary-x",
+     "title_en": "Glossary: x",
+     "title_ms": "Glosari: x"
+    },
+    {
+     "id": "glossary-r-x",
+     "title_en": "Glossary: η_R (x)",
+     "title_ms": "Glosari: η_R (x)"
+    },
+    {
+     "id": "glossary-r-a-r-b-r-e-r-f",
+     "title_en": "Glossary: R_A , R_B , R_E , R_F",
+     "title_ms": "Glosari: R_A , R_B , R_E , R_F"
+    },
+    {
+     "id": "glossary-r-c-r-d",
+     "title_en": "Glossary: R_C , R_D",
+     "title_ms": "Glosari: R_C , R_D"
+    },
+    {
+     "id": "glossary-p-p-1-p-2-p-3",
+     "title_en": "Glossary: P, P_1 , P_2 , P_3",
+     "title_ms": "Glosari: P, P_1 , P_2 , P_3"
+    },
+    {
+     "id": "glossary-w",
+     "title_en": "Glossary: w",
+     "title_ms": "Glosari: w"
+    },
+    {
+     "id": "glossary-kgf",
+     "title_en": "Glossary: kgf",
+     "title_ms": "Glosari: kgf"
+    },
+    {
+     "id": "glossary-div",
+     "title_en": "Glossary: div",
+     "title_ms": "Glosari: div"
+    },
+    {
+     "id": "glossary-m",
+     "title_en": "Glossary: m",
+     "title_ms": "Glosari: m"
+    },
+    {
+     "id": "glossary-test-theory",
+     "title_en": "Glossary: η_{test} , η_{theory}",
+     "title_ms": "Glosari: η_{test} , η_{theory}"
+    },
+    {
+     "id": "glossary-term",
+     "title_en": "Glossary: Σ",
+     "title_ms": "Glosari: Σ"
+    },
+    {
+     "id": "glossary-x-2",
+     "title_en": "Glossary: Δx",
+     "title_ms": "Glosari: Δx"
+    },
+    {
+     "id": "glossary-influence-line",
+     "title_en": "Glossary: Influence line",
+     "title_ms": "Glosari: Influence line"
+    },
+    {
+     "id": "glossary-unit-load",
+     "title_en": "Glossary: Unit load",
+     "title_ms": "Glosari: Unit load"
+    },
+    {
+     "id": "glossary-superposition",
+     "title_en": "Glossary: Superposition",
+     "title_ms": "Glosari: Superposition"
+    },
+    {
+     "id": "glossary-statically-determinate",
+     "title_en": "Glossary: Statically determinate",
+     "title_ms": "Glosari: Statically determinate"
+    },
+    {
+     "id": "glossary-gerber-cantilever-bridge",
+     "title_en": "Glossary: Gerber (cantilever) bridge",
+     "title_ms": "Glosari: Gerber (cantilever) bridge"
+    },
+    {
+     "id": "glossary-suspended-span",
+     "title_en": "Glossary: Suspended span",
+     "title_ms": "Glosari: Suspended span"
+    },
+    {
+     "id": "glossary-pin-support",
+     "title_en": "Glossary: Pin support",
+     "title_ms": "Glosari: Pin support"
+    },
+    {
+     "id": "glossary-roller-support",
+     "title_en": "Glossary: Roller support",
+     "title_ms": "Glosari: Roller support"
+    },
+    {
+     "id": "glossary-hinge",
+     "title_en": "Glossary: Hinge",
+     "title_ms": "Glosari: Hinge"
+    },
+    {
+     "id": "glossary-cantilever",
+     "title_en": "Glossary: Cantilever",
+     "title_ms": "Glosari: Cantilever"
+    },
+    {
+     "id": "glossary-halt",
+     "title_en": "Glossary: Halt",
+     "title_ms": "Glosari: Halt"
+    },
+    {
+     "id": "glossary-dial-gauge",
+     "title_en": "Glossary: Dial gauge",
+     "title_ms": "Glosari: Dial gauge"
+    },
+    {
+     "id": "glossary-free-body-diagram",
+     "title_en": "Glossary: Free-body diagram",
+     "title_ms": "Glosari: Free-body diagram"
+    },
+    {
+     "id": "glossary-lever-rule",
+     "title_en": "Glossary: Lever rule",
+     "title_ms": "Glosari: Lever rule"
+    },
+    {
+     "id": "glossary-m-ller-breslau-principle",
+     "title_en": "Glossary: Müller–Breslau principle",
+     "title_ms": "Glosari: Müller–Breslau principle"
+    },
+    {
+     "id": "glossary-vertex",
+     "title_en": "Glossary: Vertex",
+     "title_ms": "Glosari: Vertex"
+    },
+    {
+     "id": "glossary-critical-position",
+     "title_en": "Glossary: Critical position",
+     "title_ms": "Glosari: Critical position"
+    },
+    {
+     "id": "glossary-udl",
+     "title_en": "Glossary: UDL",
+     "title_ms": "Glosari: UDL"
+    },
+    {
+     "id": "glossary-uplift",
+     "title_en": "Glossary: Uplift",
+     "title_ms": "Glosari: Uplift"
+    },
+    {
+     "id": "glossary-equilibrium-check",
+     "title_en": "Glossary: Equilibrium check",
+     "title_ms": "Glosari: Equilibrium check"
+    },
+    {
+     "id": "glossary-absolute-difference",
+     "title_en": "Glossary: Absolute difference",
+     "title_ms": "Glosari: Absolute difference"
+    },
+    {
+     "id": "glossary-uncertainty-quadrature",
+     "title_en": "Glossary: Uncertainty (quadrature)",
+     "title_ms": "Glosari: Uncertainty (quadrature)"
+    },
+    {
+     "id": "glossary-zero-drift",
+     "title_en": "Glossary: Zero drift",
+     "title_ms": "Glosari: Zero drift"
+    },
+    {
+     "id": "glossary-first-attempt",
+     "title_en": "Glossary: First attempt",
+     "title_ms": "Glosari: First attempt"
+    },
+    {
+     "id": "glossary-confidence-rating",
+     "title_en": "Glossary: Confidence rating",
+     "title_ms": "Glosari: Confidence rating"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,53 @@
+/* SPDX-License-Identifier: MIT · Copyright (c) 2026 Ahmad Razin Zainal Abidin and Universiti Teknologi Malaysia
+   Guide panel (rz-tnl-app-template, region 3) — corner-stage layout (decided 8 Nov 2026).
+   The chat bubble takes the full width of the guide box. Dr RJ stands in front of its bottom-right corner,
+   mirrored to face the chat, stepping slightly out of the box. Whatever the student reads or clicks near him —
+   the notice, the last two messages, the status line and the input row — keeps a right margin of --rj-clear,
+   so nothing is hidden; Copy and New conversation are icons at the top-right of the bubble.
+   --rj-clear follows from the avatar's height and its widest corner pose (aspect ≤ 0.58: every pose except the
+   two-armed "explain", which the glue never uses here). Two columns at ≥ 901 px; at ≤ 900 px the panel moves
+   below the contents and a floating head button scrolls to it. */
+.cols { display: grid; grid-template-columns: minmax(0, 1fr) var(--rz-panel-w, 340px); gap: 20px; align-items: start; }
+.explain { --ink: var(--fg, var(--ink, #1b222b)); --card-head: var(--panel2, var(--card-head, #f7f8f5)); --acc-guide: var(--note-line, var(--acc-guide, #d9a21b));
+  --rj-h: 200px; --rj-aspect: 0.58; --rj-out: 8px; --rj-flip: -1;
+  --rj-clear: calc(var(--rj-h) * var(--rj-aspect) - var(--rj-out) - 19px);
+  position: sticky; top: var(--rz-top, 12px); min-width: 0; color: var(--ink); font-family: var(--font-ui, inherit); }
+.explain .ms { display: none; }
+:root[lang="ms"] .explain .ms { display: inline; }
+:root[lang="ms"] .explain .en { display: none; }
+.explain .panelhead { display: flex; align-items: center; gap: 8px; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; font-weight: 700; opacity: .85; margin: 0 0 8px; }
+.explain .pdot { width: 10px; height: 10px; border-radius: 3px; background: var(--acc-guide); flex: none; }
+.explain .guide { position: relative; border: 1px solid var(--line); border-left: 4px solid var(--acc-guide); border-radius: 10px; background: var(--panel, var(--card-head)); padding: 12px; }
+.explain .bubble { position: relative; z-index: 1; min-height: calc(var(--rj-h) + 96px); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px 12px; background: var(--bg, #fbfaf6); }
+.explain .tbadge { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; background: var(--acc-guide); color: #1b2330; border-radius: 999px; padding: 2px 9px; margin-bottom: 6px; }
+.explain .say { font-size: 14px; line-height: 1.45; margin: 0 0 8px; }
+/* Dr RJ in front: decorative (aria-hidden), never catches a click */
+.explain .rjav { position: absolute; right: calc(-1 * var(--rj-out)); bottom: 0; z-index: 3; height: var(--rj-h); width: auto;
+  max-width: calc(var(--rj-h) * var(--rj-aspect)); object-fit: contain; object-position: bottom; pointer-events: none;
+  transform: scaleX(var(--rj-flip)); filter: drop-shadow(-3px 5px 6px rgba(0, 0, 0, .18)); transition: opacity .11s; }
+.explain .rjav.swap { opacity: 0; }
+/* the zone beside him */
+.explain .rzt-gate, .explain .rzt-status, .explain .rzt-form, .explain .rzt-msg:nth-last-child(-n+2) { margin-right: var(--rj-clear); }
+.explain .rzt-log { max-height: 22em; }
+/* icon buttons: Copy and New conversation at the top-right, a round send button */
+.explain .rzt-tools { position: absolute; top: 8px; right: 8px; gap: 4px; }
+.explain .rzt-tools .rzt-tb { display: inline-grid; place-items: center; width: 30px; height: 30px; padding: 0; border-radius: 8px; }
+.explain .rzt-tools .rzt-tb svg, .explain .rzt-send svg { margin: 0; }
+.explain .rzt-tools .rzt-lbl, .explain .rzt-send .rzt-lbl { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+.explain .rzt-send { flex: none; display: inline-grid; place-items: center; width: 40px; height: 40px; padding: 0; border-radius: 50%;
+  border-color: var(--accent, #7a1f3d); background: var(--accent, #7a1f3d); color: var(--accent-fg, #fff); }
+.explain .rzt-send:hover { color: var(--accent-fg, #fff); filter: brightness(1.08); }
+.explain .rzt-in { border-radius: 999px; padding-left: .9em; }
+.coach { outline: 3px solid var(--acc-guide, #d9a21b); outline-offset: 4px; border-radius: 6px; animation: rzcoach 1.4s ease-in-out 3; }
+@keyframes rzcoach { 0%, 100% { box-shadow: 0 0 0 3px color-mix(in srgb, var(--acc-guide, #d9a21b) 35%, transparent); } 50% { box-shadow: 0 0 0 10px color-mix(in srgb, var(--acc-guide, #d9a21b) 8%, transparent); } }
+.rjfab { display: none; position: fixed; right: 14px; bottom: 14px; z-index: 50; width: 52px; height: 52px; padding: 0; border-radius: 50%; border: 2px solid var(--acc-guide, #d9a21b);
+  background: var(--panel, #fff); box-shadow: 0 4px 14px rgba(0, 0, 0, .18); cursor: pointer; place-items: center; }
+.rjfab img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+@media (min-width: 1260px) { .explain { --rj-out: 20px; } }          /* room beside the page: he steps further out */
+@media (max-width: 900px) {
+  .cols { grid-template-columns: minmax(0, 1fr); }
+  .explain { position: static; order: 2; }
+  .rjfab { display: grid; }
+  .rjfab.rj-near { display: none; }                                   /* hidden while the panel itself is on screen */
+}
+@media (prefers-reduced-motion: reduce) { .coach { animation: none; } .explain .rjav { transition: none; } }

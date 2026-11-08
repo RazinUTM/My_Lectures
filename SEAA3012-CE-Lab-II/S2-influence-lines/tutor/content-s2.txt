@@ -1,0 +1,426 @@
+# Influence Lines
+Lecture notes, slides, an interactive model of the bridge, exercises with instant feedback, and a data sheet for your laboratory readings.
+
+[start-outcomes] After this part you should be able to
+1. define an influence line and tell it apart from a shear-force or bending-moment diagram;
+2. derive the influence lines of the reactions and hinge forces of the model by statics alone;
+3. sketch and check an influence line with the Müller–Breslau principle;
+4. use an influence line for a single load, a pair of loads and a distributed load, and find the critical position;
+5. reduce your gauge readings, compare them with theory and explain the differences.
+
+[notes-n1] Notes 1 Why influence lines?
+Key points:
+- An influence line gives one response at a fixed point as a unit load moves .
+- It is not a shear-force or bending-moment diagram: there the loads are fixed and the section moves.
+- Superposition makes it reusable for any pattern of loads.
+Most structures are designed for loads that stay where they are: the weight of a floor, the water in a tank. A bridge, a crane girder or a gantry rail carries loads that move , and the designer must answer a question that a shear-force diagram cannot: where must the vehicle stand to produce the largest reaction at a pier, the largest shear at a section, or the largest moment at midspan? The influence line answers it directly.
+Definition The influence line of a response quantity \(R\) (a reaction, a shear force, a bending moment, a deflection) at a fixed point of a structure is the graph of that quantity against the position \(x\) of a unit concentrated load moving across the structure. Its ordinate is written \(\eta_R(x)\) and has the units of \(R\) per unit load (dimensionless for a reaction).
+Shear-force / bending-moment diagram Influence line
+What is fixed the loads the point where \(R\) is evaluated
+What varies along the abscissa the section where \(V\) or \(M\) is read the position \(x\) of the unit load
+What the ordinate means \(V\) or \(M\) at that section, for the given loads \(R\) at the fixed point, for a unit load standing at \(x\)
+For a linear elastic structure the response is proportional to the load and the effects of several loads add (superposition). That is what makes the influence line useful: once \(\eta_R(x)\) is known for a unit load, the effect of any pattern of concentrated or distributed loads follows by multiplication and addition (Section 5).
+Quick check (not graded): On the influence line for \(R_A\), the horizontal axis is …
+Options: the section where \(R_A\) is read | the position of the unit load | the magnitude of the load
+Explanation shown after answering: \(R_A\) is always read at A; what changes is where the unit load stands.
+
+[notes-n2] Notes 2 The laboratory model
+Key points:
+- ABC and DEF: beams on two supports with a 190 mm cantilever; CD: suspended span on hinges C and D.
+- Pins (A, F) and rollers (B, E) are supports; hinges (C, D) are joints that pass force but no moment.
+- 4 unknown reactions, 2 equilibrium equations + 2 hinge conditions: statically determinate.
+- So every influence line is straight-segmented, kinked only at hinges.
+- Reactions positive upwards; \(R_C\), \(R_D\) positive pressing down on the tips.
+The model is a cantilever bridge of the type patented by Heinrich Gerber in 1866 and used, at a very different scale, in the Forth Bridge: two anchor spans with cantilever arms, and a suspended span that rests on the tips of the arms through hinges.
+[Figure: Elevation of the model. A and F are pins, B and E rollers; C and D are the hinges of the suspended span; 1–11 are the halts at which the mass is placed. Gauges under A, B, E and F read the support reactions; those under C and D read the hinge forces.]
+Members. Beam ABC is simply supported at A and B with a cantilever BC of 190 mm. Beam DEF is its mirror image. The suspended span CD (250 mm) rests on the cantilever tips: the hinges transmit a vertical force but no bending moment.
+## Supports and hinges
+A support or a joint is described by what it stops : every movement it prevents produces a force (or moment) in that direction, and every movement it allows produces none.
+[Figure: The three restraints of the model. A hinge is not a support: it joins two members and passes a force from one to the other, but no bending moment.]
+Restraint Where Transmits Allows
+Pin A, F vertical and horizontal force rotation
+Roller B, E vertical force only rotation and horizontal movement
+Hinge (internal) C, D force between the two members it joins relative rotation, so \(M = 0\) at the hinge
+Because a hinge carries no moment, each hinge adds one equation, \(M = 0\) at that point, and this is what makes the model statically determinate (next paragraph). In the model the supports at A and F can also pull downwards: the gauges there register uplift as a negative reading.
+Quick check (not graded): At which point can the model carry a bending moment?
+Options: at support B, where beam ABC is continuous | at hinge C | at both
+Explanation shown after answering: Beam ABC is continuous over B, so it carries moment there (that is why it can cantilever out to C). The hinge at C lets the two members rotate relative to each other, so the moment there is zero.
+Determinacy. No horizontal load is applied, so there are four unknown vertical reactions \(R_A, R_B, R_E, R_F\). Statics gives two useful equations for the whole structure (\(\sum F_y = 0\), \(\sum M = 0\)) and each internal hinge one more (\(M = 0\) at C and at D): four equations for four unknowns. The structure is statically determinate , every influence line follows from equilibrium alone with no need for \(EI\), and every influence line is made of straight segments.
+Sign convention. Support reactions are positive upwards. The hinge forces \(R_C\) and \(R_D\) are the forces the suspended span presses on the cantilever tips (positive downwards on the tip); they are what the gauges at C and D register. Positions are measured from A, \(0 \le x \le 1130\) mm.
+
+[notes-n3] Notes 3 Deriving the influence lines
+Key points:
+- Analyse the suspended span first; take moments about a support every time.
+- On ABC: \(\eta_A = (250-x)/250\), \(\eta_B = x/250\); at the tip C: −0.76 and 1.76.
+- On CD: \(\eta_C = (690-x)/250\), \(\eta_D = (x-440)/250\); then \(\eta_A = -0.76\,\eta_C\), \(\eta_B = 1.76\,\eta_C\).
+- \(\eta_C\), \(\eta_D\) are non-zero only for a load on CD: only then does the suspended span pass force through the hinges.
+- Check: \(\eta_A+\eta_B+\eta_E+\eta_F = 1\) at every \(x\).
+The derivation uses one idea three times: take moments about a support . The order matters: the suspended span is analysed first, because it is the only member whose loads reach the others.
+[Figure: Free-body diagrams for Steps 1–3. In (c) the pull-down at A is drawn in the direction it actually acts.]
+## Step 1 · Unit load on beam ABC \((0 \le x \le 440)\)
+Isolate ABC (panel a). It carries the unit load at \(x\) and the reactions \(R_A\), \(R_B\); the hinge at C is unloaded because the suspended span carries nothing. Moments about B:
+\[ R_A\cdot 250 - 1\cdot(250-x) = 0 \;\Longrightarrow\; \eta_A(x) = \frac{250-x}{250},\qquad \eta_B(x) = 1-\eta_A(x) = \frac{x}{250}. \]
+Nothing in this result stops at \(x = 250\): for a load on the cantilever the lever arm \((250 - x)\) is negative, so \(\eta_A\) is negative (support A must hold the beam down) and \(\eta_B\) exceeds 1. At the tip, \(\eta_A(440) = -190/250 = -0.76\) and \(\eta_B(440) = 440/250 = 1.76\).
+## Step 2 · Unit load on the suspended span CD \((440 \le x \le 690)\)
+CD is a simply supported beam of span 250 mm resting on the hinges (panel b), so the hinge forces follow the lever rule:
+\[ \eta_C(x) = \frac{690-x}{250},\qquad \eta_D(x) = \frac{x-440}{250},\qquad \eta_C+\eta_D = 1. \]
+## Step 3 · Carry the hinge force into beam ABC
+With the load on CD, beam ABC carries only the downward force \(\eta_C\) at its tip (panel c). This is Step 1 with the load \(\eta_C\) standing at \(x = 440\):
+\[ \eta_A(x) = \eta_C(x)\,\frac{250-440}{250} = -0.76\,\eta_C(x),\qquad \eta_B(x) = \eta_C(x)\,\frac{440}{250} = 1.76\,\eta_C(x). \]
+At C both expressions for \(\eta_A\) give \(-0.76\), so the line is continuous; at D, \(\eta_C = 0\) and therefore \(\eta_A = \eta_B = 0\).
+## Step 4 · Unit load on beam DEF \((690 \le x \le 1130)\)
+DEF is the mirror image of ABC about the centre of the model (\(x = 565\) mm), with E playing the part of B and F that of A:
+\[ \eta_F(x) = \frac{x-880}{250},\qquad \eta_E(x) = \frac{1130-x}{250}. \]
+For a load on CD the hinge force \(\eta_D\) is carried by DEF exactly as \(\eta_C\) was by ABC: \(\eta_E = 1.76\,\eta_D\), \(\eta_F = -0.76\,\eta_D\). A load on ABC never reaches DEF, and vice versa, because the suspended span is then unloaded and transmits nothing.
+## Why η_C and η_D are non-zero only between C and D
+The gauge at C reads the force that passes through hinge C, from the suspended span into the tip of cantilever BC. A force can pass through the hinge only when the suspended span itself carries something.
+[Figure: no caption]
+- Load on ABC (\(x \lt 440\)): ABC stands on its own supports A and B and takes the load to them directly. The suspended span carries nothing, so nothing passes through C: \(\eta_C = 0\).
+- Load on CD (\(440 \le x \le 690\)): CD is a simple beam between the two hinges, and each hinge takes its lever-rule share: \(\eta_C = (690-x)/250\), from 1 at C to 0 at D.
+- Load on DEF (\(x \gt 690\)): the mirror of the first case. The load goes to E and F, CD stays unloaded, and \(\eta_C = 0\).
+The jump at C. Just left of C the load stands on the cantilever tip, which belongs to ABC, so it goes straight to A and B and \(\eta_C = 0\). Just right of C it stands on the suspended span at its support, so the whole load passes through the hinge and \(\eta_C = 1\). Müller–Breslau gives the same picture: cut the vertical connection at C and lift the end of CD by 1 relative to the tip. ABC does not move, because A and B still support it; CD rotates about D. Select R_C in the demonstration in Section 4 to see it.
+Quick check (not graded): A mass stands at halt 3 (x = 300 mm, on the cantilever BC). The gauge at C reads …
+Options: 0 | a small positive force | a small negative force
+Explanation shown after answering: The load is on ABC, which carries it to A and B by itself. The suspended span is unloaded, so nothing passes through hinge C.
+## Step 5 · Assemble and check
+Three checks catch most mistakes: (i) \(\eta_A+\eta_B+\eta_E+\eta_F = 1\) for every \(x\); (ii) the two formulae agree at the hinges; (iii) the slopes are \(-1/250\) per mm on ABC and \(+0.76/250\) on CD, and a kink can occur only at a hinge, never at B, which lies inside the rigid beam ABC.
+[Figure: Influence lines for \(R_A\), \(R_B\), the hinge force \(R_C\) and \(R_E\), drawn under the bridge on the same horizontal scale. \(R_D\) and \(R_F\) are the mirror images of \(R_C\) and \(R_A\).]
+Quick check (not graded): A unit load stands at the tip C. What is \(\eta_B\)?
+Options: 1.00 | 1.76 | 0.76
+Explanation shown after answering: \(\eta_B(440) = 440/250 = 1.76\): B carries the load and also balances the pull-down at A.
+
+[notes-n4] Notes 4 The Müller–Breslau principle
+Key points:
+- Release the restraint, impose a unit displacement: the deflected shape is the influence line.
+- Exact ordinates for determinate structures (rigid links); shape only for indeterminate ones.
+- Kinks only at hinges and at the released restraint.
+Müller–Breslau principle Remove the restraint corresponding to the response \(R\) and give the released structure a unit displacement in the direction of \(R\). The deflected shape of the structure is the influence line of \(R\).
+For \(R_A\): remove the support at A and lift that end by one unit. Beam ABC is rigid between its support and the hinge, so it rotates about B: A rises by 1 and the tip C, 190 mm on the other side of B, drops by \(190/250 = 0.76\). The suspended span follows C and stays straight, dropping linearly to zero at D; beam DEF does not move. The result is exactly the influence line of Section 3, signs included.
+Try it: release a restraint and impose the displacement.
+displacement δ 1.00
+Two remarks. The principle gives exact ordinates only for statically determinate structures, where the released structure is a mechanism of straight rigid links; for an indeterminate beam the released structure bends and the principle gives the shape only. And the kinks of the deflected shape lie at the hinges and at the released restraint, never inside a rigid member: a quick visual check of any influence line you compute.
+Quick check (not graded): Release B and lift it by 1. Beam ABC rotates about A. The tip C …
+Options: rises by 440/250 = 1.76 | drops by 0.76 | stays at zero
+Explanation shown after answering: A rigid bar pinned at A and lifted by 1 at 250 mm rises in proportion to the distance from A: \(440/250 = 1.76\) at C, the peak of \(\eta_B\).
+
+[notes-n5] Notes 5 Using an influence line
+Key points:
+- \(R = \sum P_i\,\eta_R(x_i)\); for a UDL, \(R = w\times\) area under the line.
+- Piecewise-linear lines: the extreme of a load train occurs with one load on a vertex.
+- Compound load of Test 2: most negative \(R_A = -4.94\) kgf with the 5 kg mass at C.
+- A UDL over the whole model gives \(R_A = -42.2\,w\): the deck lifts at A.
+By superposition, for a single load \(P\) at \(x_1\), a series of loads \(P_i\) at \(x_i\), and a uniformly distributed load \(w\) between \(a\) and \(b\):
+\[ R = P\,\eta_R(x_1),\qquad R = \sum_i P_i\,\eta_R(x_i),\qquad R = \int_a^b w\,\eta_R(x)\,\mathrm{d}x = w\times(\text{area under the IL from } a \text{ to } b). \]
+With masses in kg the reactions come out in kgf, which is what the laboratory gauges read.
+## 5.1 Critical position of a series of loads
+Every influence line of the model is piecewise linear, so \(\sum_i P_i\,\eta_R(x_i)\) is a piecewise linear function of the position of the load group, and a piecewise linear function reaches its extremes at a vertex. The largest (or most negative) value therefore occurs when one of the loads stands on a vertex of the influence line ; only a few positions need to be tried.
+## Worked example 1 · The compound load of Test 2
+The 5 kg mass stands at a halt and the 2.5 kg mass 100 mm to its right; the pair moves to the right, so the 2.5 kg mass is in front. With the 5 kg mass at \(x\):
+\[ R_A(x) = 5\,\eta_A(x) + 2.5\,\eta_A(x+100)\quad\text{(kgf)}. \]
+5 kg mass at A: \(R_A = 5(1.0)+2.5(0.6) = 6.5\) kgf. 5 kg mass at C: \(\eta_A(540) = -0.76\times(690-540)/250 = -0.456\), so \(R_A = -3.80 - 1.14 = -4.94\) kgf. 2.5 kg mass at C (5 kg mass at 340 mm): \(R_A = 5(-0.36) + 2.5(-0.76) = -3.70\) kgf. The most severe pull-down at A occurs with the heavier load on the vertex C. The largest \(R_B\), 11.44 kgf, is more than 1.5 times the total mass of 7.5 kg.
+## 5.2 Distributed load: area under the influence line
+The areas under \(\eta_A\) are, by the triangle rule, \(+\tfrac12(250)(1.0) = +125\) mm over AB, \(\tfrac12(190)(-0.76) = -72.2\) mm over BC and \(\tfrac12(250)(-0.76) = -95.0\) mm over CD, and zero over DEF.
+## Worked example 2 · A uniformly distributed load
+A load \(w = 0.01\) kg/mm (2.5 kg spread over 250 mm): over AB only, \(R_A = 0.01\times125 = 1.25\) kgf (half the load, as for a simple span); over BC and CD, \(R_A = 0.01\times(-167.2) = -1.67\) kgf; over the whole model, \(R_A = 0.01\times(125-72.2-95.0) = -0.42\) kgf. A bridge of this type loaded uniformly along its whole length lifts at A, and the support must be able to hold the deck down.
+Check by statics Beam ABC carries \(w(250+190)\) directly plus half the suspended span, \(125w\), at C. Moments about B: \(R_A\cdot250 = 250w(125) - 190w(95) - 125w(190) = -10\,550\,w\), so \(R_A = -42.2\,w\) , the same as the area.
+Quick check (not graded): For a train of loads on a piecewise-linear influence line, the extreme response occurs when …
+Options: the train is centred on the span | the resultant of the loads is at a support | one of the loads stands on a vertex
+Explanation shown after answering: The sum is piecewise linear in the position of the train, so its extremes are at breakpoints: one load on a vertex.
+
+[notes-n6] Notes 6 The experiment and its data reduction
+Key points:
+- \(\eta_{\text{test}} = \text{reading}\times0.05/m\), with \(m = 2.5\) kg in Test 1.
+- Compare by absolute difference; percentages only where the ordinate is large.
+- Equilibrium check at every halt: \((a+b+e+f)\times0.05 \approx 2.5\) kgf.
+What is measured. A 2.5 kg mass is placed at each of the seventeen halts in turn (Test 1), then the 5 kg + 2.5 kg pair (Test 2). At each halt the six dial gauges are read. One division corresponds to 0.05 kgf, so the experimental ordinate per unit load is
+\[ \eta_{\text{test}} = \frac{(\text{reading in divisions})\times 0.05}{m},\qquad m = 2.5\ \text{kg (Test 1)}. \]
+For Test 2, reading × 0.05 is the reaction in kgf, comparable with the compound-load table.
+How to compare. Report the difference \(\eta_{\text{test}}-\eta_{\text{theory}}\) at every halt. A percentage difference is meaningful only where the theoretical ordinate is not small: at halt 2, where \(\eta_A = 0.2\), a gauge error of one division (0.02 per unit load) is already 10 %, and where the theoretical value is zero the percentage is undefined. Judge the agreement by the absolute difference and by the shape of the line.
+Equilibrium check. With the mass at any halt the four support gauges should add up to the applied mass: \((a+b+e+f)\times0.05 \approx 2.5\) kgf. Check it before leaving the laboratory, while the readings can still be repeated. The Lab tab does this for you.
+
+[notes-n7] Notes 7 Sources of error
+Key points:
+- Placement ±5 mm and gauge ±1 division each give about ±0.02 per unit load.
+- Combined in quadrature: about ±0.03, the same at every halt.
+- That is 3 % at A but 15 % at halt 2: use absolute differences.
+Source Estimate Effect on \(\eta_A\)
+Mass placed ±5 mm from the halt slope × Δx: (1/250)(5) on ABC, (0.76/250)(5) on CD ±0.020; ±0.015
+Gauge resolution, ±1 division 0.05/2.5 ±0.020
+Zero drift between readings re-zero after each halt; otherwise 1–2 divisions ±0.02–0.04
+Friction in hinges and gauges systematic; lowers the sum of the support readings see the sum check
+Combining the first two in quadrature gives about ±0.03 per unit load, the same at every halt. Against an ordinate of 1.0 at A this is 3 %; against 0.2 at halt 2 it is 15 %. That is the quantitative reason for comparing by absolute difference.
+Quick check (not graded): The theoretical ordinate is 0.20 and the uncertainty is ±0.03. The percentage difference a perfect experiment could still show is up to …
+Options: 3 % | 6 % | 15 %
+Explanation shown after answering: \(0.03/0.20 = 0.15\). The same ±0.03 is only 3 % of the ordinate at A.
+
+[notes-n8] Notes 8 Beyond the laboratory
+Key points:
+- Bridge design places standard vehicle and lane loads using influence lines or surfaces.
+- Continuous girders have curved lines; Müller–Breslau still shows which spans to load.
+- Gerber bridges: forces by statics alone, at the price of end supports designed for uplift.
+Bridge decks are designed for standard vehicle and lane loads placed, by means of influence lines or influence surfaces, where they produce the largest effects at each section. For continuous (indeterminate) girders the influence lines are curved and need an elastic analysis, but the Müller–Breslau sketch still tells the engineer which spans to load. The cantilever bridge, with its determinate hinges, made the long steel spans of the late nineteenth century possible because its forces could be found by statics alone; the price is end supports that must be designed for uplift, as Worked example 2 shows.
+
+[notes-n9] Notes Summary
+\(\eta_A = (250-x)/250\) on ABC, \(-0.76\,\eta_C\) on CD, 0 on DEF; \(\eta_B = x/250\) on ABC, \(1.76\,\eta_C\) on CD.
+\(\eta_C = (690-x)/250\), \(\eta_D = (x-440)/250\) on CD, zero elsewhere; \(\eta_E\), \(\eta_F\) mirror \(\eta_B\), \(\eta_A\). Check: \(\eta_A+\eta_B+\eta_E+\eta_F = 1\).
+\(R = \sum P_i\,\eta_R(x_i)\); for a distributed load \(R = w\times\) area. The extreme of a load train occurs with one load on a vertex.
+\(\eta_{\text{test}} = \text{reading}\times0.05/m\); compare by absolute difference; quote percentages only at large ordinates.
+## References
+Hibbeler, R. C. (2018). Structural Analysis , 10th ed. Pearson, chapter 6.
+Kassimali, A. (2020). Structural Analysis , 6th ed. Cengage, chapter 8.
+Müller-Breslau, H. (1886). Die neueren Methoden der Festigkeitslehre und der Statik der Baukonstruktionen . Leipzig.
+Faculty of Civil Engineering, UTM (2026). Civil Engineering Laboratory II: Laboratory Manual and Data Sheets , experiment S2.
+
+[slides-1] Slide 1: Influence Lines
+SEAA 3012 Civil Engineering Laboratory II · Lab S2 Cantilever (Gerber) bridge model Ahmad Razin Zainal Abidin and co-authors Faculty of Civil Engineering, Universiti Teknologi Malaysia
+
+[slides-2] Slide 2: Today
+Why influence lines? What they are, and what they are not The laboratory model and why it is determinate Deriving the six influence lines from statics The Müller–Breslau shortcut Using an influence line: one load, a pair, a distributed load The experiment: data reduction, errors, what to report
+
+[slides-3] Slide 3: Loads that move
+A floor load stays put. A lorry on a bridge, a crane on its rail, a train on a viaduct do not. The designer needs to know where the load must stand to produce the largest reaction at a pier (bearing design, uplift) the largest shear at a section the largest moment at midspan Definition The influence line of a response \(R\) at a fixed point is the graph of \(R\) against the position \(x\) of a unit load moving over t
+
+[slides-4] Slide 4: Influence line versus bending-moment diagram
+SFD / BMD Influence line Fixed the loads the point where \(R\) is read Varies along \(x\) the section where \(V\), \(M\) are read the position of the unit load Ordinate means \(V\) or \(M\) at that section \(R\) at the fixed point, load at \(x\) The structure is linear elastic, so effects add: once \(\eta_R(x)\) is known for a unit load, any load pattern follows by multiplication and addition.
+
+[slides-5] Slide 5: A Gerber bridge, 1130 mm long
+ABC: pin A, roller B, cantilever BC CD: suspended span on hinges C and D DEF: mirror image of ABC Gauges A, B, E, F: support reactions Gauges C, D: hinge forces Halts 1–11: where the mass is placed
+
+[slides-6] Slide 6: Why it is statically determinate
+Unknowns: \(R_A, R_B, R_E, R_F\): four. Equations: \(\sum F_y = 0\) and \(\sum M = 0\) for the whole model, plus \(M = 0\) at hinge C and at hinge D: four. Consequences every reaction from equilibrium; \(EI\) never appears every influence line is made of straight segments , kinked only at hinges reactions positive up; \(R_C\), \(R_D\) positive pressing down on the tip
+
+[slides-7] Slide 7: One idea, three times: take moments about a support
+Order matters: analyse the suspended span first; it is the only member whose loads reach the others.
+
+[slides-8] Slide 8: Step 1 · Load on beam ABC
+Moments about B (hinge C unloaded): \[ \eta_A(x) = \frac{250-x}{250},\qquad \eta_B(x) = \frac{x}{250}\qquad (0\le x\le 440) \] Nothing stops at B: past B the lever arm \((250-x)\) is negative \(\eta_A \lt 0\): support A must hold the beam down \(\eta_B \gt 1\): B carries the load and the pull-down at A At the tip C \(\eta_A(440) = -0.76\) \(\eta_B(440) = 1.76\)
+
+[slides-9] Slide 9: Steps 2 and 3 · Load on the suspended span
+Step 2. CD is simply supported on the hinges: \[ \eta_C(x) = \frac{690-x}{250},\qquad \eta_D(x) = \frac{x-440}{250} \] Step 3. ABC carries only \(\eta_C\) at its tip: \[ \eta_A(x) = -0.76\,\eta_C(x),\qquad \eta_B(x) = 1.76\,\eta_C(x) \] Continuous at C (\(-0.76\) from both sides); zero at D.
+
+[slides-10] Slide 10: The influence lines, under the bridge
+Same horizontal scale: each halt sits directly above its ordinate. Check: \(\eta_A+\eta_B+\eta_E+\eta_F = 1\) at every \(x\).
+
+[slides-11] Slide 11: Hinge force and the right-hand side
+\(R_C\) acts only for loads on CD; \(R_D\), \(R_F\) mirror \(R_C\), \(R_A\). B and E carry up to 1.76 times a load on the tips.
+
+[slides-12] Slide 12: Müller–Breslau: the engineer's shortcut
+Release the restraint, impose a unit displacement: the deflected shape is the influence line. For \(R_A\): ABC rotates about B as a rigid bar, C drops 0.76, CD follows, DEF stays still. Same line, no algebra.
+
+[slides-13] Slide 13: A mass stands at halt 8, between D and E. The reaction at A is …
+Predict first upward zero downward \(\eta_A = 0\). The load is on DEF, which takes it to E and F by itself; the suspended span is unloaded, so nothing passes through D to the left half.
+
+[slides-14] Slide 14: Using an influence line
+\[ R = P\,\eta_R(x_1)\qquad R = \sum_i P_i\,\eta_R(x_i)\qquad R = w\times\text{area} \] Critical position All our lines are piecewise linear, so a sum over a load train is piecewise linear in its position: the extreme occurs with one load on a vertex . Units Masses in kg give reactions in kgf, which is what the gauges read (1 division = 0.05 kgf).
+
+[slides-15] Slide 15: Worked example 1 · The compound load of Test 2
+2.5 kg mass 100 mm to the right of the 5 kg mass (in front, moving right): \[ R_A(x) = 5\,\eta_A(x) + 2.5\,\eta_A(x+100) \] 5 kg at A: \(5(1.0)+2.5(0.6) = 6.5\) kgf 5 kg at C: \(5(-0.76)+2.5(-0.456) = -4.94\) kgf 2.5 kg at C: \(5(-0.36)+2.5(-0.76) = -3.70\) kgf
+
+[slides-16] Slide 16: Worked example 2 · A distributed load
+Areas under \(\eta_A\): \(+125\) mm (AB), \(-72.2\) mm (BC), \(-95.0\) mm (CD), 0 (DEF). For \(w = 0.01\) kg/mm: over AB only: \(R_A = 1.25\) kgf over BC and CD: \(R_A = -1.67\) kgf over the whole model: \(R_A = -0.42\) kgf: the deck lifts at A Check by statics \(R_A\cdot250 = 250w(125)-190w(95)-125w(190) = -10\,550\,w\;\Rightarrow\;R_A = -42.2\,w\)
+
+[slides-17] Slide 17: Try it live
+
+[slides-18] Slide 18: The experiment
+Test 1: 2.5 kg at each of 17 halts, read all six gauges. Test 2: 5 kg + 2.5 kg pair, 100 mm apart. Data reduction \(\eta_{\text{test}} = \dfrac{\text{reading}\times0.05}{m}\), \(m = 2.5\) kg Test 2: reading × 0.05 = reaction in kgf Before leaving the laboratory equilibrium check: \((a+b+e+f)\times0.05 \approx 2.5\) kgf re-zero the gauges between halts centre the mass on the halt (±5 mm matters)
+
+[slides-19] Slide 19: How good is “good agreement”?
+Source Effect on \(\eta_A\) Mass ±5 mm off the halt ±0.020 Gauge ±1 division ±0.020 Zero drift ±0.02–0.04 Combined (first two) ±0.03 Percentages mislead ±0.03 is 3 % of the ordinate at A but 15 % at halt 2, and undefined where the ordinate is zero. Compare by absolute difference .
+
+[slides-20] Slide 20: Your turn
+Explorer: the five tasks, then the five concept questions Laboratory: enter your readings in the Lab tab and check equilibrium at every halt After the laboratory: Exercises (hand calculation), then the report Scan for the Explorer
+
+[slides-21] Slide 21: Summary
+Six straight-line influence lines \(\eta_A = (250-x)/250\) on ABC, \(-0.76\,\eta_C\) on CD \(\eta_B = x/250\) on ABC, \(1.76\,\eta_C\) on CD \(\eta_C = (690-x)/250\), \(\eta_D = (x-440)/250\) \(\eta_E\), \(\eta_F\): mirror images Use and report \(R = \sum P_i\,\eta_R(x_i)\); UDL: \(w\times\) area extreme: one load on a vertex Müller–Breslau: release, displace, read compare by absolute difference Reading: Hibbeler, St
+
+[exercises-q1] Exercise Question 1
+Statement: Using the formulae in the notes, find the ordinates. Check each row with \(\eta_A+\eta_B+\eta_E+\eta_F = 1\).
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-q2] Exercise Question 2
+Statement: Starting from the free-body diagrams of the suspended span and of beam DEF, derive the influence lines of the hinge force \(R_D\) and of the reaction \(R_F\). Enter their ordinates at C, D, E and F (at D take the value for a load standing exactly on the hinge), and write the expressions for each range of \(x\).
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-q3] Exercise Question 3
+Statement: A model vehicle has two axles 150 mm apart carrying 4 kg (leading) and 2 kg (trailing). It moves from A to F, so the 2 kg axle is 150 mm to the left of the 4 kg axle. (a) Explain why the largest value of \(R_B\) must occur with one axle standing on a vertex of \(\eta_B\). (b) Position of the 4 kg axle for the largest \(R_B\): mm; largest \(R_B\) = kgf (c) Position of the 4 kg axle for the most negative \(R_A\): mm; \(R_A\) = kgf
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-q4] Exercise Question 4
+Statement: A uniformly distributed load \(w = 0.02\) kg/mm is placed (a) over AB only, (b) over the suspended span CD only, (c) over the whole model. Find \(R_A\), \(R_B\) and the hinge force \(R_C\) in kgf from the areas under the influence lines.
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-q5] Exercise Question 5
+Statement: Use the Müller–Breslau principle (release the support, impose a unit displacement, draw the deflected shape) to find the ordinates of \(\eta_B\) and \(\eta_E\) at A to F. Then, using \(\eta_F\) from Question 2 and the symmetry of the model, select the supports that can experience uplift. Supports that can experience uplift (negative reaction): A B E F
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-q6] Exercise Question 6
+Statement: The readings below are illustrative readings of gauge A with the 2.5 kg mass at each halt (Test 1); one division is 0.05 kgf. Convert the readings at six halts to experimental ordinates, then find the largest absolute difference from theory over all seventeen halts. Largest \(|\eta_{\text{test}}-\eta_{\text{theory}}|\) = at halt
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-q7] Exercise Question 7
+Statement: (a) The mass is placed within ±5 mm of a halt and the gauge is read to ±1 division. Estimate the resulting uncertainty of an ordinate of \(\eta_A\). (b) Take the combined uncertainty as ±0.03 per unit load in round numbers. Among the halts with a non-zero theoretical ordinate, select those where this uncertainty alone could give a percentage difference above 10 %. A 1 2 3 4 C 5 6
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-q8] Exercise Question 8
+Statement: With the 2.5 kg mass at halt 4, the four support gauges read \(a = -28\), \(b = 77\), \(e = 0\), \(f = 0\) divisions. Sum of the support reactions = kgf. The most likely explanation of the difference from 2.50 kgf is: the mass was placed about 5 mm off the halt friction in the gauge mechanisms or a small zero offset the gauge coefficient is not 0.05 kgf per division
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-q9] Exercise Question 9
+Statement: (a) Why does the Gerber arrangement make the bridge statically determinate, and what does this imply for the shape of every influence line? (b) If the hinges at C and D were welded, so that ABCDEF became a continuous beam on four supports, how would the influence line of \(R_A\) change? (c) Give one practical reason why a designer must know that \(R_A\) can be negative.
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-q10] Exercise Question 10 (challenge)
+Statement: The Test 2 pair now crosses the bridge from F towards A, so the 2.5 kg mass is 100 mm to the left of the 5 kg mass. Find the most negative \(R_A\), the largest hinge force \(R_C\), and the position of the 5 kg mass for the largest \(R_C\). Compare with Worked example 1 in the Notes. Most negative \(R_A\) = kgf · largest \(R_C\) = kgf, with the 5 kg mass at mm
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[explorer-tk1] Explorer task 1 · Read the reactions
+Press Quick fill → Unit load , then tap halt 6 . Read R_C and R_E from the reaction boxes.
+(The task's answer fields are checked in the app; they are not included here.)
+
+[explorer-tk2] Explorer task 2 · Open an explanation
+Keep the same load. Hover over (or tap) the R_E box. The explanation shows which member the load is on and how η_E is built up. Enter η_D from it.
+(The task's answer fields are checked in the app; they are not included here.)
+
+[explorer-tk3] Explorer task 3 · Set your own loads
+Under Loads , enter P_1 = 3 kg, P_2 = 2 kg, P_3 = 0 and P_1→P_2 = 140 mm. Tap halt B . Read R_A and R_B.
+(The task's answer fields are checked in the app; they are not included here.)
+
+[explorer-tk4] Explorer task 4 · Find the critical position
+Keep these loads. Move the group with the halts or the slider and find the largest R_B . Enter it, and the halt where P_1 stands.
+(The task's answer fields are checked in the app; they are not included here.)
+
+[explorer-tk5] Explorer task 5 · Use the areas
+Press None , switch on R_E only and tick shade areas . Read the net area under the influence line for R_E, then work out R_E for a uniform load w = 0.015 kg/mm over the whole model.
+(The task's answer fields are checked in the app; they are not included here.)
+
+[explorer-move-the-load] Explorer · Move the load
+Move the load Drag the loads on the drawing, use the slider or tap a halt. Influence lines All None shade areas Position of P_1 x = 0 mm (A) Loads Quick fill: Unit load (1, 0, 0) 2.5 kg Test 2 pair (5 + 2.5) P_1 (kg) P_2 (kg) P_3 (kg) P_1→P_2 (mm) P_2→P_3 (mm) P_2 and P_3 follow P_1 to the right. 0 removes a load; a load beyond F is not counted. Hover over or tap a reaction to see how its value is calculated. Symbols and units: Glossary
+
+[explorer-part-2-concept-check] Explorer · Part 2 · Concept check
+Part 2 · Concept check Five questions on what the lines mean. One attempt each; every answer is explained. Try again
+
+[lab-before-you-start] Lab · Before you start
+Before you start Spans AB, BC, CD, DE, EF are 250, 190, 250, 190, 250 mm; halts 1–11 marked. All six gauges return to zero after pressing and releasing the deck. The mass is centred on each halt mark (±5 mm matters). Gauges re-zeroed before each new halt. Equilibrium checked at every halt before moving on.
+
+[lab-equilibrium-check] Lab · Equilibrium check
+Equilibrium check Enter the four support readings for one halt. Their sum must equal the applied mass whatever the position of the mass. a b e f applied mass (kg) kgf per division
+
+[lab-test-1-one-2-5-kg-mass-at-each-halt] Lab · Test 1 · one 2.5 kg mass at each halt
+Test 1 · one 2.5 kg mass at each halt Choose the gauge, type its reading at every halt, and press Compare. Differences are absolute (η_{test} − η_{theory}); a percentage appears only where |η_{theory}| ≥ 0.1. Gauge kgf per division mass (kg) Halt x (mm) Reading (div) η test η theory Difference Compare with theory Fill example readings Clear Copy table
+
+[lab-test-2-5-kg-mass-with-the-2-5-kg-mass-10] Lab · Test 2 · 5 kg mass with the 2.5 kg mass 100 mm to its right
+Test 2 · 5 kg mass with the 2.5 kg mass 100 mm to its right The halt is the position of the 5 kg mass. Reading × coefficient is the reaction in kgf. At halts 11 and F the 2.5 kg mass would be beyond the end of the model, so only the 5 kg mass is counted. Gauge kgf per division Halt 5 kg at (mm) Reading (div) R test (kgf) R theory (kgf) Difference (kgf) Compare with theory Fill example readings Clear Copy table
+
+[lab-what-the-report-must-contain] Lab · What the report must contain
+What the report must contain For each reaction: theoretical and experimental influence lines on the same axes, with the halts marked (Test 1). Test 2: theoretical and experimental reactions for the compound load, and the critical positions. The absolute difference at every halt; percentages only at large ordinates; the equilibrium check. A discussion of the error sources with numbers (Notes, Section 7), and a conclusion on the agreement. The answer to the data-sheet question: the importance of influence lines in design (under 100 words).
+
+[glossary-x] Glossary: x
+x: Position along the bridge measured from A, in mm. In the Explorer it is the position of P_1 .
+
+[glossary-r-x] Glossary: η_R (x)
+η_R (x): Influence-line ordinate: the value of response R when a unit load stands at x. Dimensionless for a reaction (reaction per unit load).
+
+[glossary-r-a-r-b-r-e-r-f] Glossary: R_A , R_B , R_E , R_F
+R_A , R_B , R_E , R_F: Support reactions at A, B, E and F. Positive upwards; negative means the support holds the deck down (uplift).
+
+[glossary-r-c-r-d] Glossary: R_C , R_D
+R_C , R_D: Hinge forces at C and D: the force the suspended span presses on the cantilever tip. Positive downwards on the tip. Measured by the gauges at C and D.
+
+[glossary-p-p-1-p-2-p-3] Glossary: P, P_1 , P_2 , P_3
+P, P_1 , P_2 , P_3: Concentrated loads, given as masses in kg.
+
+[glossary-w] Glossary: w
+w: Uniformly distributed load (UDL), in kg/mm.
+
+[glossary-kgf] Glossary: kgf
+kgf: Kilogram-force: the weight of a 1 kg mass under standard gravity. 1 kgf = 9.80665 N ≈ 9.81 N. A 2.5 kg mass weighs 2.5 kgf, and the gauges are calibrated in kgf, so masses in kg give reactions directly in kgf.
+
+[glossary-div] Glossary: div
+div: One division of a dial gauge, equal to 0.05 kgf.
+
+[glossary-m] Glossary: m
+m: Applied mass used in data reduction (2.5 kg in Test 1).
+
+[glossary-test-theory] Glossary: η_{test} , η_{theory}
+η_{test} , η_{theory}: Experimental ordinate (reading × 0.05 / m) and theoretical ordinate.
+
+[glossary-term] Glossary: Σ
+Σ: Sum over all loads on the bridge.
+
+[glossary-x-2] Glossary: Δx
+Δx: Error in placing a mass on its halt (about ±5 mm).
+
+[glossary-influence-line] Glossary: Influence line
+Influence line: Graph of one response at a fixed point (a reaction, shear or moment) against the position of a moving unit load.
+
+[glossary-unit-load] Glossary: Unit load
+Unit load: A concentrated load of magnitude 1 used to define the influence line.
+
+[glossary-superposition] Glossary: Superposition
+Superposition: For a linear elastic structure the effects of several loads add: R = Σ P_i η_R (x_i ).
+
+[glossary-statically-determinate] Glossary: Statically determinate
+Statically determinate: All reactions follow from equilibrium alone; the model has four reactions, two equilibrium equations and two hinge conditions.
+
+[glossary-gerber-cantilever-bridge] Glossary: Gerber (cantilever) bridge
+Gerber (cantilever) bridge: Two anchor spans with cantilever arms carrying a suspended span on hinges.
+
+[glossary-suspended-span] Glossary: Suspended span
+Suspended span: Span CD, simply supported on the tips of the two cantilevers through hinges C and D.
+
+[glossary-pin-support] Glossary: Pin support
+Pin support: Support that prevents vertical and horizontal movement but allows rotation (A and F).
+
+[glossary-roller-support] Glossary: Roller support
+Roller support: Support that prevents vertical movement only; it allows rotation and horizontal movement (B and E).
+
+[glossary-hinge] Glossary: Hinge
+Hinge: An internal joint between two members (C and D) that transmits force but no bending moment, so M = 0 there.
+
+[glossary-cantilever] Glossary: Cantilever
+Cantilever: The overhanging part of a beam beyond its support (BC and DE).
+
+[glossary-halt] Glossary: Halt
+Halt: A marked position on the deck where the mass is placed (A, 1–11, …, F).
+
+[glossary-dial-gauge] Glossary: Dial gauge
+Dial gauge: Instrument under each support or hinge that reads the force in divisions.
+
+[glossary-free-body-diagram] Glossary: Free-body diagram
+Free-body diagram: Sketch of one member isolated with all the forces acting on it.
+
+[glossary-lever-rule] Glossary: Lever rule
+Lever rule: For a simple span, each reaction equals the load times the distance to the other support, divided by the span.
+
+[glossary-m-ller-breslau-principle] Glossary: Müller–Breslau principle
+Müller–Breslau principle: Release the restraint and impose a unit displacement: the deflected shape is the influence line.
+
+[glossary-vertex] Glossary: Vertex
+Vertex: A corner (kink) of a piecewise-linear influence line.
+
+[glossary-critical-position] Glossary: Critical position
+Critical position: Load position that gives the largest (or most negative) response; for a load train, one load stands on a vertex.
+
+[glossary-udl] Glossary: UDL
+UDL: Uniformly distributed load; its effect is w × area under the influence line.
+
+[glossary-uplift] Glossary: Uplift
+Uplift: A negative support reaction: the support must hold the deck down.
+
+[glossary-equilibrium-check] Glossary: Equilibrium check
+Equilibrium check: The four support readings must add up to the applied load wherever it stands.
+
+[glossary-absolute-difference] Glossary: Absolute difference
+Absolute difference: η_{test} − η_{theory} ; the fair measure of agreement because its uncertainty is the same at every halt.
+
+[glossary-uncertainty-quadrature] Glossary: Uncertainty (quadrature)
+Uncertainty (quadrature): Independent errors combine as √(e_1 ² + e_2 ²); about ±0.03 per unit load here.
+
+[glossary-zero-drift] Glossary: Zero drift
+Zero drift: Gauge reading that does not return to zero between halts; re-zero before each halt.
+
+[glossary-first-attempt] Glossary: First attempt
+First attempt: Fields right at your first check of a question (Exercises).
+
+[glossary-confidence-rating] Glossary: Confidence rating
+Confidence rating: How sure you were before checking; compared with the result it shows which topics need review.

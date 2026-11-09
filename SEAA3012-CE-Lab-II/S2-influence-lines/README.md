@@ -99,6 +99,17 @@ badge in the header, the footer and every slide footer.
 `pdf/s2_slides_online_EN.pdf` and `_BM.pdf` are vector prints of the 21 slides of the page, linked from the slide toolbar.
 Regenerate them after changing the slides with `node web/make_slide_pdfs.js <dir>`, where `<dir>/node_modules` contains
 `mathjax` 3.2.2 and `@ibm/plex-sans`, `@ibm/plex-serif`, `@ibm/plex-mono` (npm), and poppler's `pdfunite` is installed.
+The script prints `index.html` as it stands, so run it after `web/build_web.py` and before `web/add_tutor.py`;
+run after the panel is added, it prints Dr RJ's panel beside every slide.
+
+## Bahasa Melayu check
+
+`web/termbase-bm.csv` records the page's language decisions: the technical and app terms that stay in English
+(tier 2: *load*, *beam*, *influence line*, *halt*, *Explorer*, …) and the Malay words chosen for the rest (tier 1:
+*jisim*, *jambatan*, *halaman*, *skrin penuh*, *pelayar*, *Sebelumnya*, …), with a PRPM link where the word has
+been checked. The workflow `.github/workflows/bm-lint-s2.yml` runs bm-l10n on the four page sources in every pull
+request that touches them; the report is on the run's Summary page, and a FIX finding fails the check. Edit the
+termbase in the browser when a decision changes.
 
 ## Copyright
 

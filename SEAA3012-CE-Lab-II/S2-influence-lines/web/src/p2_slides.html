@@ -3,13 +3,13 @@
 <section class="view" data-view="slides" id="v-slides" role="tabpanel" aria-labelledby="t-slides" hidden>
   <div class="slidebar">
     <button class="btn ghost iconb" type="button" id="sfirst" aria-label="First slide" title="First slide"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M6 5v14M18 5l-9 7 9 7z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
-    <button class="btn ghost" type="button" id="sprev" aria-label="Previous slide">‹ <span class="en">Previous</span><span class="ms">Sebelum</span></button>
+    <button class="btn ghost" type="button" id="sprev" aria-label="Previous slide">‹ <span class="en">Previous</span><span class="ms">Sebelumnya</span></button>
     <span class="count" id="scount">1 / 1</span>
     <button class="btn ghost" type="button" id="snext" aria-label="Next slide"><span class="en">Next</span><span class="ms">Seterusnya</span> ›</button>
     <button class="btn ghost iconb" type="button" id="slast" aria-label="Last slide" title="Last slide"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M18 5v14M6 5l9 7-9 7z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
     <button class="btn" type="button" id="sfull">Present</button>
     <a class="btn ghost" id="spdf" href="pdf/s2_slides_online_EN.pdf" target="_blank" rel="noopener" download><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" style="vertical-align:-3px"><path d="M12 4v11M7 10l5 5 5-5M5 20h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> <span class="en">Download PDF</span><span class="ms">Muat turun PDF</span></a>
-    <span class="hint" id="shint"><span class="en">Keys: ← → move, Home/End first/last, F full screen</span><span class="ms">Kekunci: ← → bergerak, Home/End pertama/akhir, F full screen</span></span>
+    <span class="hint" id="shint"><span class="en">Keys: ← → move, Home/End first/last, F full screen</span><span class="ms">Kekunci: ← → bergerak, Home/End pertama/akhir, F skrin penuh</span></span>
   </div>
   <div class="stage" id="stage">
     <div class="frame" id="deck">
@@ -54,8 +54,8 @@
 
       <section class="slide"><h3><span class="en">Influence line versus bending-moment diagram</span><span class="ms">Influence line berbanding bending-moment diagram</span></h3>
         <table><thead><tr><th class="l"></th><th class="l">SFD / BMD</th><th class="l">Influence line</th></tr></thead>
-          <tbody><tr><td class="l"><span class="en">Fixed</span><span class="ms">Tetap</span></td><td class="l"><span class="en">the loads</span><span class="ms">load</span></td><td class="l"><span class="en">the point where \(R\) is read</span><span class="ms">titik di mana \(R\) dibaca</span></td></tr>
-          <tr><td class="l"><span class="en">Varies along \(x\)</span><span class="ms">Berubah pada \(x\)</span></td><td class="l"><span class="en">the section where \(V\), \(M\) are read</span><span class="ms">section di mana \(V\), \(M\) dibaca</span></td><td class="l"><span class="en">the position of the unit load</span><span class="ms">kedudukan unit load</span></td></tr>
+          <tbody><tr><td class="l"><span class="en">Fixed</span><span class="ms">Tetap</span></td><td class="l"><span class="en">the loads</span><span class="ms">load</span></td><td class="l"><span class="en">the point where \(R\) is read</span><span class="ms">titik tempat \(R\) dibaca</span></td></tr>
+          <tr><td class="l"><span class="en">Varies along \(x\)</span><span class="ms">Berubah pada \(x\)</span></td><td class="l"><span class="en">the section where \(V\), \(M\) are read</span><span class="ms">section tempat \(V\), \(M\) dibaca</span></td><td class="l"><span class="en">the position of the unit load</span><span class="ms">kedudukan unit load</span></td></tr>
           <tr><td class="l"><span class="en">Ordinate means</span><span class="ms">Maksud ordinate</span></td><td class="l"><span class="en">\(V\) or \(M\) at that section</span><span class="ms">\(V\) atau \(M\) pada section itu</span></td><td class="l"><span class="en">\(R\) at the fixed point, load at \(x\)</span><span class="ms">\(R\) pada titik tetap, load di \(x\)</span></td></tr></tbody></table>
         <p style="margin:0" class="en">The structure is linear elastic, so effects add: once \(\eta_R(x)\) is known for a unit load, <b>any</b> load pattern follows by multiplication and addition.</p>
         <p style="margin:0" class="ms">Struktur ini linear elastic, jadi kesan boleh dijumlahkan: sebaik sahaja \(\eta_R(x)\) diketahui untuk unit load, <b>sebarang</b> susunan load diperoleh melalui pendaraban dan penambahan.</p>
@@ -150,7 +150,7 @@
       <section class="slide"><h3><span class="en">How good is “good agreement”?</span><span class="ms">Sejauh mana “persetujuan yang baik”?</span></h3>
         <div class="cols w"><table><thead><tr><th class="l"><span class="en">Source</span><span class="ms">Sumber</span></th><th><span class="en">Effect on</span><span class="ms">Kesan pada</span> \(\eta_A\)</th></tr></thead>
           <tbody><tr><td class="l"><span class="en">Mass ±5 mm off the halt</span><span class="ms">Jisim ±5 mm dari halt</span></td><td>±0.020</td></tr><tr><td class="l"><span class="en">Gauge ±1 division</span><span class="ms">Gauge ±1 division</span></td><td>±0.020</td></tr><tr><td class="l">Zero drift</td><td>±0.02–0.04</td></tr><tr><td class="l"><span class="en">Combined (first two)</span><span class="ms">Gabungan (dua pertama)</span></td><td>±0.03</td></tr></tbody></table>
-          <div class="box warn"><b class="t"><span class="en">Percentages mislead</span><span class="ms">Peratusan mengelirukan</span></b><span class="en">±0.03 is 3 % of the ordinate at A but 15 % at halt 2, and undefined where the ordinate is zero. Compare by <b>absolute difference</b>.</span><span class="ms">±0.03 ialah 3 % daripada ordinate di A tetapi 15 % di halt 2, dan tidak tertakrif apabila ordinate sifar. Bandingkan dengan <b>perbezaan mutlak</b>.</span></div></div>
+          <div class="box warn"><b class="t"><span class="en">Percentages mislead</span><span class="ms">Peratusan mengelirukan</span></b><span class="en">±0.03 is 3 % of the ordinate at A but 15 % at halt 2, and undefined where the ordinate is zero. Compare by <b>absolute difference</b>.</span><span class="ms">±0.03 ialah 3 % daripada ordinate di A tetapi 15 % di halt 2, dan tidak tertakrif apabila ordinate sifar. Bandingkan berdasarkan <b>perbezaan mutlak</b>.</span></div></div>
       </section>
 
       <section class="slide"><h3><span class="en">Your turn</span><span class="ms">Giliran anda</span></h3>

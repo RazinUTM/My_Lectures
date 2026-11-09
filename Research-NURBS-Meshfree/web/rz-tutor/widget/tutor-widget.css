@@ -1,0 +1,39 @@
+/* SPDX-License-Identifier: MIT
+   Copyright (c) 2026 Ahmad Razin Zainal Abidin and Universiti Teknologi Malaysia
+   rz tutor widget — uses the host app's tokens (--line, --radius, --card-head, --ink, --accent, --acc-guide);
+   defaults below keep it readable in a page without them. Sizes in em so the AA text-size setting applies. */
+.rzt { --rzt-line: var(--line, #d8d4cc); --rzt-ink: var(--ink, #1b2330); --rzt-acc: var(--accent, #7a1f3d); --rzt-guide: var(--acc-guide, #d9a21b);
+  --rzt-bg: var(--card-head, #f6f4ef); --rzt-r: var(--radius, 8px); display: flex; flex-direction: column; gap: .5em; font-size: 1em; color: var(--rzt-ink); }
+.rzt [hidden] { display: none !important; }   /* .rzt-form/.rzt-tools are display:flex; the gate hides them with [hidden] */
+.rzt-gate { border: 1px solid var(--rzt-guide); border-radius: var(--rzt-r); padding: .6em .75em; background: color-mix(in srgb, var(--rzt-guide) 10%, transparent); }
+.rzt-gate p { margin: 0 0 .5em; font-size: .92em; line-height: 1.45; }
+.rzt-log { display: flex; flex-direction: column; gap: .5em; max-height: 22em; overflow: auto; scroll-behavior: smooth; }
+.rzt-msg { border: 1px solid var(--rzt-line); border-radius: var(--rzt-r); padding: .5em .7em; background: var(--rzt-bg); }
+.rzt-msg b { display: block; font-size: .78em; letter-spacing: .04em; text-transform: uppercase; opacity: .7; margin-bottom: .2em; }
+.rzt-msg p { margin: 0; line-height: 1.5; white-space: pre-wrap; }
+.rzt-user { background: transparent; }
+.rzt-tutor { border-color: color-mix(in srgb, var(--rzt-acc) 40%, var(--rzt-line)); }
+.rzt-targets { display: flex; flex-wrap: wrap; gap: .4em; margin-top: .5em; }
+.rzt-goto { display: inline-flex; align-items: center; gap: .35em; border: 1px solid var(--rzt-guide); border-radius: 999px; background: var(--rzt-bg); color: var(--rzt-ink);
+  padding: .3em .7em .3em .5em; font: inherit; font-size: .9em; font-weight: 600; cursor: pointer; text-align: left; }
+.rzt-goto:hover, .rzt-goto:focus-visible { border-color: var(--rzt-acc); color: var(--rzt-acc); outline: none; }
+.rzt-goto svg { width: 1.05em; height: 1.05em; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; }
+.rzt-meta { display: flex; align-items: center; gap: .4em; margin-top: .4em; font-size: .75em; opacity: .75; }
+.rzt-vote { border: none; background: none; cursor: pointer; font-size: 1.1em; line-height: 1; padding: 0 .15em; }
+.rzt-vote:disabled { opacity: .4; cursor: default; }
+.rzt-status { min-height: 1.2em; font-size: .85em; opacity: .8; }
+.rzt-form { display: flex; gap: .4em; }
+.rzt-in { flex: 1; min-width: 0; border: 1px solid var(--rzt-line); border-radius: var(--rzt-r); padding: .5em .65em; font: inherit; color: inherit; background: transparent; }
+.rzt-in:focus-visible { outline: 2px solid var(--rzt-acc); outline-offset: 1px; }
+.rzt-send, .rzt-tb { border: 1px solid var(--rzt-line); border-radius: var(--rzt-r); background: var(--rzt-bg); color: var(--rzt-ink); padding: .45em .8em; font: inherit; font-weight: 600; cursor: pointer; }
+.rzt-send:hover, .rzt-tb:hover { border-color: var(--rzt-acc); color: var(--rzt-acc); }
+.rzt-send:disabled { opacity: .5; cursor: progress; }
+.rzt-primary { border-color: var(--rzt-acc); background: var(--rzt-acc); color: #fff; }
+.rzt-primary:hover { color: #fff; filter: brightness(1.08); }
+.rzt-tools { display: flex; gap: .4em; }
+.rzt-tools .rzt-tb { font-size: .82em; font-weight: 500; padding: .3em .6em; }
+.rzt-send svg, .rzt-tb svg { width: 1.15em; height: 1.15em; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; vertical-align: -.2em; margin-right: .35em; }
+.rzt-src { font-weight: 600; color: var(--rzt-acc); }
+.rzt-src.rzt-nc { color: inherit; opacity: .8; }
+.rzt-meta .rzt-src + .rzt-vote { margin-left: auto; }
+@media (prefers-reduced-motion: reduce) { .rzt-log { scroll-behavior: auto; } }

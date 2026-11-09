@@ -1,0 +1,313 @@
+{
+ "app": "nmf",
+ "course": "Research-NURBS-Meshfree",
+ "parts": [
+  {
+   "part": "p1",
+   "folder": "01-foundations",
+   "title": "Part 1 · Foundations: B-splines , NURBS and reproducing kernels Bahagian 1 · Asas: B-spline , NURBS dan reproducing kernel",
+   "sections": [
+    {
+     "id": "start-outcomes",
+     "title_en": "After this part you should be able to",
+     "title_ms": "Selepas bahagian ini, anda sepatutnya boleh"
+    },
+    {
+     "id": "notes-n1",
+     "title_en": "1. The research problem: exact geometry meets meshfree flexibility",
+     "title_ms": "1. Masalah penyelidikan: geometri tepat bertemu fleksibiliti meshfree"
+    },
+    {
+     "id": "notes-n2",
+     "title_en": "2. B-splines from a knot vector",
+     "title_ms": "2. B-spline daripada knot vector"
+    },
+    {
+     "id": "notes-n3",
+     "title_en": "3. NURBS and the geometry map",
+     "title_ms": "3. NURBS dan geometry map"
+    },
+    {
+     "id": "notes-n4",
+     "title_en": "4. Reproducing kernel shape functions",
+     "title_ms": "4. Reproducing kernel shape function"
+    },
+    {
+     "id": "notes-n5",
+     "title_en": "5. When RK becomes B-spline: blossom vectors",
+     "title_ms": "5. Apabila RK menjadi B-spline: blossom vector"
+    },
+    {
+     "id": "notes-n6",
+     "title_en": "6. Reading the literature like a reproducer",
+     "title_ms": "6. Membaca literatur untuk menghasilkan semula keputusannya"
+    },
+    {
+     "id": "slides-1",
+     "title_en": "Slide 1: NURBS and meshfree methods · Part 1",
+     "title_ms": "Slide 1: NURBS and meshfree methods · Part 1"
+    },
+    {
+     "id": "slides-2",
+     "title_en": "Slide 2: Why put NURBS and meshfree together?",
+     "title_ms": "Slide 2: Why put NURBS and meshfree together?"
+    },
+    {
+     "id": "slides-3",
+     "title_en": "Slide 3: Knot vectors and the Cox–de Boor recursion",
+     "title_ms": "Slide 3: Knot vectors and the Cox–de Boor recursion"
+    },
+    {
+     "id": "slides-4",
+     "title_en": "Slide 4: Properties you will use every day",
+     "title_ms": "Slide 4: Properties you will use every day"
+    },
+    {
+     "id": "slides-5",
+     "title_en": "Slide 5: NURBS: weights draw the circle",
+     "title_ms": "Slide 5: NURBS: weights draw the circle"
+    },
+    {
+     "id": "slides-6",
+     "title_en": "Slide 6: Reproducing kernel shape functions",
+     "title_ms": "Slide 6: Reproducing kernel shape functions"
+    },
+    {
+     "id": "slides-7",
+     "title_en": "Slide 7: Example: linear RK at x = 0.4",
+     "title_ms": "Slide 7: Example: linear RK at x = 0.4"
+    },
+    {
+     "id": "slides-8",
+     "title_en": "Slide 8: Blossom vectors and Marsden's identity",
+     "title_ms": "Slide 8: Blossom vectors and Marsden's identity"
+    },
+    {
+     "id": "slides-9",
+     "title_en": "Slide 9: RK with blossom vectors = B-splines",
+     "title_ms": "Slide 9: RK with blossom vectors = B-splines"
+    },
+    {
+     "id": "slides-10",
+     "title_en": "Slide 10: Reading the literature like a reproducer",
+     "title_ms": "Slide 10: Reading the literature like a reproducer"
+    },
+    {
+     "id": "slides-11",
+     "title_en": "Slide 11: Next: Parts 2–4",
+     "title_ms": "Slide 11: Next: Parts 2–4"
+    },
+    {
+     "id": "examples-x1",
+     "title_en": "Example 1 · Quadratic B-splines at a point by Cox–de Boor",
+     "title_ms": "Contoh 1 · Quadratic B-spline pada satu titik dengan Cox–de Boor"
+    },
+    {
+     "id": "examples-x2",
+     "title_en": "Example 2 · Linear RK shape functions at a point",
+     "title_ms": "Contoh 2 · Linear RK shape function pada satu titik"
+    },
+    {
+     "id": "examples-x3",
+     "title_en": "Example 3 · Blossom vectors make RK equal to B-splines",
+     "title_ms": "Contoh 3 · Blossom vector menjadikan RK sama dengan B-spline"
+    },
+    {
+     "id": "exercises-e1",
+     "title_en": "Exercise 1 · Quadratic B-splines at a point",
+     "title_ms": "Latihan 1 · Quadratic B-spline pada satu titik"
+    },
+    {
+     "id": "exercises-e2",
+     "title_en": "Exercise 2 · Greville points",
+     "title_ms": "Latihan 2 · Greville point"
+    },
+    {
+     "id": "exercises-e3",
+     "title_en": "Exercise 3 · Linear RK shape functions from given kernel values",
+     "title_ms": "Latihan 3 · Linear RK shape function daripada nilai kernel yang diberi"
+    },
+    {
+     "id": "exercises-e4",
+     "title_en": "Exercise 4 · A point of a NURBS arc",
+     "title_ms": "Latihan 4 · Satu titik pada NURBS arc"
+    },
+    {
+     "id": "exercises-e5",
+     "title_en": "Exercise 5 · A cubic blossom vector",
+     "title_ms": "Latihan 5 · Blossom vector cubic"
+    },
+    {
+     "id": "exercises-quick",
+     "title_en": "Exercises: quick concept questions",
+     "title_ms": "Latihan: soalan konsep pantas"
+    },
+    {
+     "id": "lab-m1",
+     "title_en": "Explorer task 1: Set the degree to 3 and count the functions that are non-zero o…",
+     "title_ms": "Tugasan Explorer 1: Tetapkan darjah kepada 3 dan kira function yang bukan sifar pad…"
+    },
+    {
+     "id": "lab-m2",
+     "title_en": "Explorer task 2: Choose “RK with blossom vectors” and switch between at least tw…",
+     "title_ms": "Tugasan Explorer 2: Pilih “RK dengan blossom vector” dan tukar antara sekurang-kura…"
+    },
+    {
+     "id": "lab-m3",
+     "title_en": "Explorer task 3: Choose “RK with node monomials” (standard RK at the Greville po…",
+     "title_ms": "Tugasan Explorer 3: Pilih “RK dengan node monomial” (RK biasa pada Greville point)…"
+    },
+    {
+     "id": "lab-m4",
+     "title_en": "Explorer task 4: Move the interior knot slider with blossom RK on",
+     "title_ms": "Tugasan Explorer 4: Gerakkan slider knot dalaman dengan blossom RK dihidupkan"
+    },
+    {
+     "id": "glossary-knot-vector",
+     "title_en": "Glossary: knot vector",
+     "title_ms": "Glosari: knot vector"
+    },
+    {
+     "id": "glossary-open-knot-vector",
+     "title_en": "Glossary: open knot vector",
+     "title_ms": "Glosari: open knot vector"
+    },
+    {
+     "id": "glossary-knot-span",
+     "title_en": "Glossary: knot span",
+     "title_ms": "Glosari: knot span"
+    },
+    {
+     "id": "glossary-b-spline-basis-function",
+     "title_en": "Glossary: B-spline basis function",
+     "title_ms": "Glosari: B-spline basis function"
+    },
+    {
+     "id": "glossary-cox-de-boor-recursion",
+     "title_en": "Glossary: Cox–de Boor recursion",
+     "title_ms": "Glosari: Cox–de Boor recursion"
+    },
+    {
+     "id": "glossary-partition-of-unity",
+     "title_en": "Glossary: partition of unity",
+     "title_ms": "Glosari: partition of unity"
+    },
+    {
+     "id": "glossary-local-support",
+     "title_en": "Glossary: local support",
+     "title_ms": "Glosari: local support"
+    },
+    {
+     "id": "glossary-greville-abscissa",
+     "title_en": "Glossary: Greville abscissa",
+     "title_ms": "Glosari: Greville abscissa"
+    },
+    {
+     "id": "glossary-nurbs",
+     "title_en": "Glossary: NURBS",
+     "title_ms": "Glosari: NURBS"
+    },
+    {
+     "id": "glossary-weight",
+     "title_en": "Glossary: weight",
+     "title_ms": "Glosari: weight"
+    },
+    {
+     "id": "glossary-control-point",
+     "title_en": "Glossary: control point",
+     "title_ms": "Glosari: control point"
+    },
+    {
+     "id": "glossary-geometry-map",
+     "title_en": "Glossary: geometry map",
+     "title_ms": "Glosari: geometry map"
+    },
+    {
+     "id": "glossary-jacobian-row-convention",
+     "title_en": "Glossary: Jacobian (row convention)",
+     "title_ms": "Glosari: Jacobian (row convention)"
+    },
+    {
+     "id": "glossary-isogeometric-analysis-iga",
+     "title_en": "Glossary: isogeometric analysis (IGA)",
+     "title_ms": "Glosari: isogeometric analysis (IGA)"
+    },
+    {
+     "id": "glossary-meshfree-method",
+     "title_en": "Glossary: meshfree method",
+     "title_ms": "Glosari: meshfree method"
+    },
+    {
+     "id": "glossary-reproducing-kernel-rk",
+     "title_en": "Glossary: reproducing kernel (RK)",
+     "title_ms": "Glosari: reproducing kernel (RK)"
+    },
+    {
+     "id": "glossary-reproducing-conditions",
+     "title_en": "Glossary: reproducing conditions",
+     "title_ms": "Glosari: reproducing conditions"
+    },
+    {
+     "id": "glossary-moment-matrix",
+     "title_en": "Glossary: moment matrix",
+     "title_ms": "Glosari: moment matrix"
+    },
+    {
+     "id": "glossary-kernel-window-function",
+     "title_en": "Glossary: kernel (window) function",
+     "title_ms": "Glosari: kernel (window) function"
+    },
+    {
+     "id": "glossary-support-radius-dilation",
+     "title_en": "Glossary: support radius · dilation",
+     "title_ms": "Glosari: support radius · dilation"
+    },
+    {
+     "id": "glossary-shepard-function",
+     "title_en": "Glossary: Shepard function",
+     "title_ms": "Glosari: Shepard function"
+    },
+    {
+     "id": "glossary-shifted-basis",
+     "title_en": "Glossary: shifted basis",
+     "title_ms": "Glosari: shifted basis"
+    },
+    {
+     "id": "glossary-blossom-vector",
+     "title_en": "Glossary: blossom vector",
+     "title_ms": "Glosari: blossom vector"
+    },
+    {
+     "id": "glossary-marsden-s-identity",
+     "title_en": "Glossary: Marsden's identity",
+     "title_ms": "Glosari: Marsden's identity"
+    },
+    {
+     "id": "glossary-elementary-symmetric-polynomial",
+     "title_en": "Glossary: elementary symmetric polynomial",
+     "title_ms": "Glosari: elementary symmetric polynomial"
+    },
+    {
+     "id": "glossary-essential-boundary-condition",
+     "title_en": "Glossary: essential boundary condition",
+     "title_ms": "Glosari: essential boundary condition"
+    },
+    {
+     "id": "glossary-patch-test",
+     "title_en": "Glossary: patch test",
+     "title_ms": "Glosari: patch test"
+    },
+    {
+     "id": "glossary-known-method-limit",
+     "title_en": "Glossary: known-method limit",
+     "title_ms": "Glosari: known-method limit"
+    },
+    {
+     "id": "glossary-hidden-parameter",
+     "title_en": "Glossary: hidden parameter",
+     "title_ms": "Glosari: hidden parameter"
+    }
+   ]
+  }
+ ]
+}

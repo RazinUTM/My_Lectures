@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>B-spline and RK Explorer · NURBS–meshfree primer</title>
+<meta name="description" content="Compare B-spline basis functions with reproducing-kernel shape functions built with blossom vectors or with node monomials.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%23830f3e'/%3E%3Cpath d='M3 12C5 3 11 3 13 12' stroke='%23e3a130' stroke-width='2' fill='none'/%3E%3C/svg%3E">
+<script>
+/* SPDX-License-Identifier: MIT · Copyright (c) 2026 Ahmad Razin Zainal Abidin and Universiti Teknologi Malaysia
+   The primer's preferences (nmf-prefs) before first paint, so the lab does not flash in the wrong theme. */
+(function(){var p={};try{p=JSON.parse(localStorage.getItem("nmf-prefs")||"{}")||{}}catch(e){}var d=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches,h=document.documentElement,l=p.lang==="en"?"en":"ms";
+h.setAttribute("data-theme",p.theme||(d?"dark":"light"));h.setAttribute("data-lang",l);h.lang=l;h.style.setProperty("--font-scale",+p.font||1)})();
+</script>
+<style>
+:root{--bg:#f7f5f2;--panel:#fff;--card-head:#fbf9f7;--ink:#21191c;--muted:#6b5f63;--line:#ded5d0;--grid:#ede6e1;--accent:#830f3e;--acc-guide:#c77700;--chip:#f2ede9;--chip-on:#830f3e;--chip-on-fg:#fff;
+  --sN:#2a78d6;--sR:#eb6834;--good:#237a4d;--warn:#b42318;--font-scale:1;--radius:7px;color-scheme:light}
+:root[data-theme="dark"]{--bg:#171315;--panel:#211b1e;--card-head:#2a2326;--ink:#f2eaec;--muted:#b5a8ad;--line:#40353a;--grid:#30282b;--accent:#f2b44f;--acc-guide:#f2b44f;--chip:#30282b;--chip-on:#f2b44f;--chip-on-fg:#1d1406;
+  --sN:#3987e5;--sR:#d95926;--good:#7fd4a3;--warn:#f2928a;color-scheme:dark}
+:root[data-lang="ms"] .en,:root:not([data-lang="ms"]) .ms{display:none}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:calc(14px*var(--font-scale))/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;padding:12px}
+h1{font-size:1.3em;margin:0 0 4px}
+.top{display:flex;flex-wrap:nowrap;justify-content:space-between;gap:10px;align-items:flex-start}
+.lead{color:var(--muted);margin:0 0 10px;max-width:72ch}
+.prefs{display:flex;align-items:center;gap:4px;flex:none}
+.prefs button{border:1px solid var(--line);border-radius:var(--radius);background:var(--card-head);color:var(--ink);cursor:pointer}
+.prefs .iconbtn{display:inline-grid;place-items:center;width:30px;height:30px;min-width:0;padding:0;font:700 12px/1 system-ui,sans-serif}
+.prefs .iconbtn:hover{border-color:var(--accent);color:var(--accent)}
+.prefs .iconbtn svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.prefs .fontbtn{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.prefs .fontbtn .aa{font-size:13px;line-height:1}.prefs .fontbtn .aa small{font-size:9px}
+.prefs .fontbtn .lvl{display:flex;gap:2px}.prefs .fontbtn .lvl i{width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.25}.prefs .fontbtn .lvl i.on{opacity:1}
+#btn-info svg{stroke-width:2}
+button:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.help{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--acc-guide);border-radius:10px;padding:8px 12px;margin:0 0 10px}
+.help p{margin:4px 0}
+.ctrl{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px 16px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:10px}
+.ctrl label,.ctrl .lab{display:block;font-size:.9em;color:var(--muted);margin-bottom:2px}
+.ctrl b{color:var(--ink);font-family:ui-monospace,Menlo,Consolas,monospace}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.seg button{border:0;background:var(--chip);color:var(--ink);min-width:36px;padding:5px 12px;font:600 .9em system-ui,sans-serif;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--chip-on);color:var(--chip-on-fg)}
+select,input[type=range]{width:100%}
+select{height:30px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--ink);font:inherit}
+select:disabled,input:disabled{opacity:.45}
+.plot{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px}
+canvas{display:block;width:100%;height:360px;touch-action:pan-y}
+.legend{display:flex;flex-wrap:wrap;gap:4px 18px;font-size:.9em;margin:0 0 4px 4px}
+.legend i{display:inline-block;width:24px;height:0;border-top:2px solid var(--sN);vertical-align:middle;margin-right:6px}
+.legend i.dash{border-top-style:dashed}.legend i.r{border-top-color:var(--sR)}
+.legend .dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--ink);vertical-align:middle;margin-right:6px}
+.ov{text-decoration:overline}
+.tip{position:absolute;pointer-events:none;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:4px 8px;font:12px/1.45 ui-monospace,Menlo,Consolas,monospace;box-shadow:0 4px 14px rgba(0,0,0,.15);display:none;white-space:nowrap}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:8px;margin:10px 0 4px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+.stat b{display:block;font:600 1.25em ui-monospace,Menlo,Consolas,monospace}.stat b sup{font-size:.62em;margin-left:1px}
+.stat span{font-size:.86em;color:var(--muted)}
+.note{color:var(--muted);font-size:.9em;margin:4px 0}
+.warn{color:var(--warn);font-weight:600;margin:4px 0}
+.warn:empty{display:none}
+.ms-list{list-style:none;padding:0;margin:6px 0}.ms-list li::before{content:"○ ";color:var(--muted)}.ms-list li.done::before{content:"✓ ";color:var(--good)}
+details{margin-top:8px}summary{cursor:pointer}
+table{border-collapse:collapse;font:12px ui-monospace,Menlo,Consolas,monospace;margin-top:6px}td,th{border:1px solid var(--line);padding:3px 8px;text-align:right}
+.nw{white-space:nowrap}
+.foot{margin-top:10px;font-size:12px;color:var(--muted)}
+.embedded .prefs,.embedded .standalone{display:none}
+</style>
+</head>
+<body>
+<div class="top"><div><h1>B-spline and RK Explorer</h1>
+<p class="lead"><span class="en">Dashed: B-splines N<sub>I</sub>. Solid: reproducing-kernel functions Ψ<sub>I</sub>. With blossom vectors and <span class="nw">B-spline</span> supports the two coincide for any kernel; with node monomials they do not.</span><span class="ms">Putus-putus: B-spline N<sub>I</sub>. Garis penuh: reproducing-kernel function Ψ<sub>I</sub>. Dengan blossom vector dan support <span class="nw">B-spline</span>, kedua-duanya sama untuk sebarang kernel; dengan node monomial, tidak.</span></p></div>
+<div class="prefs">
+  <button type="button" id="btn-lang" class="iconbtn" title="Language">EN</button>
+  <button type="button" id="btn-theme" class="iconbtn" title="Theme"></button>
+  <button type="button" id="btn-font" class="iconbtn fontbtn" title="Text size"><span class="aa" aria-hidden="true">A<small>A</small></span><span class="lvl" aria-hidden="true"><i></i><i></i><i></i><i></i></span></button>
+  <button type="button" id="btn-info" class="iconbtn" aria-expanded="false" aria-controls="help"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5"/><path d="M12 7.6h.01"/></svg></button>
+</div></div>
+
+<div class="help" id="help" hidden>
+  <p class="en"><b>Controls</b> (top): degree, number of knot spans, the middle interior knot, which functions to build, the kernel shape, the support factor c<sub>a</sub> (standard RK only) and which function to draw thick.</p>
+  <p class="ms"><b>Kawalan</b> (atas): darjah, bilangan knot span, knot dalaman tengah, function yang hendak dibina, bentuk kernel, faktor support c<sub>a</sub> (RK biasa sahaja) dan function yang dilukis tebal.</p>
+  <p class="en"><b>Plot</b>: knots are marked under the axis (×k: repeated k times; ▲: the knot you can move); the dot is the Greville point of the thick function. Hover or touch for values.</p>
+  <p class="ms"><b>Plot</b>: knot ditanda di bawah paksi (×k: berulang k kali; ▲: knot yang boleh digerakkan); titik ialah Greville point bagi function tebal. Hover atau sentuh untuk nilai.</p>
+  <p class="en"><b>Readouts</b>: the largest errors over 600 points; <b>Table view</b>: the thick function at ten points.</p>
+  <p class="ms"><b>Bacaan</b>: ralat terbesar atas 600 titik; <b>Paparan jadual</b>: function tebal pada sepuluh titik.</p>
+</div>
+
+<div class="ctrl">
+  <div><span class="lab"><span class="en">Degree p</span><span class="ms">Darjah p</span></span><div class="seg" role="group" aria-label="Degree p"><button type="button" data-p="1">1</button><button type="button" data-p="2">2</button><button type="button" data-p="3">3</button></div></div>
+  <div><label for="nel"><span class="en">Knot spans</span><span class="ms">Knot span</span>: <b id="nelv"></b></label><input id="nel" type="range" min="2" max="8" step="1"></div>
+  <div><label for="ks"><span class="en">Middle interior knot at</span><span class="ms">Knot dalaman tengah pada</span> ξ = <b id="ksv"></b></label><input id="ks" type="range" min="-0.9" max="0.9" step="0.01"></div>
+  <div><label for="meth"><span class="en">Functions</span><span class="ms">Function</span></label><select id="meth">
+    <option value="bs">B-splines only</option><option value="bl">RK with blossom vectors</option><option value="st">RK with node monomials (standard)</option></select></div>
+  <div><label for="ker"><span class="en">Kernel shape</span><span class="ms">Bentuk kernel</span></label><select id="ker">
+    <option value="cubic">cubic spline</option><option value="quartic">quartic spline</option><option value="cos">cosine</option><option value="const">constant</option></select></div>
+  <div><label for="ca"><span class="en">Support factor</span><span class="ms">Faktor support</span> c<sub>a</sub> = <b id="cav"></b></label><input id="ca" type="range" min="0.8" max="4" step="0.05"></div>
+  <div><label for="hi"><span class="en">Thick function</span><span class="ms">Function tebal</span> I = <b id="hiv"></b></label><input id="hi" type="range" min="1" max="4" step="1"></div>
+</div>
+
+<div class="plot"><div class="legend" id="legend"></div><canvas id="cv" role="img"></canvas><div class="tip" id="tip"></div></div>
+<div class="stats" id="stats" aria-live="polite"></div>
+<p class="note" id="note"></p>
+<p class="warn" id="msg" role="status"></p>
+<div class="standalone"><b><span class="en">Tasks</span><span class="ms">Tugasan</span></b><ul class="ms-list" id="mslist"></ul></div>
+<details id="tbl"><summary><span class="en">Table view (thick function)</span><span class="ms">Paparan jadual (function tebal)</span></summary><div id="tblbody"></div></details>
+<p class="foot">© 2026 Ahmad Razin Zainal Abidin and Universiti Teknologi Malaysia · MIT (code) · <span class="en">NURBS–meshfree research primer, Part 1 §5.</span><span class="ms">Primer penyelidikan NURBS–meshfree, Bahagian 1 §5.</span></p>
+
+<script>
+/* SPDX-License-Identifier: MIT · Copyright (c) 2026 Ahmad Razin Zainal Abidin and Universiti Teknologi Malaysia
+   B-splines by Cox–de Boor; blossom vectors q_{I,l} = e_l(t_{I+1..I+p}) / C(p,l); RK shape functions
+   Psi_I = W_I {q_I}^T [M]^{-1} {H(x)} with the kernel on the B-spline support (Part 1, Eq. of Section 5), and
+   standard RK at the Greville points with the shifted, scaled basis {H((x_I - x)/a)} (Section 4), a = c_a h.
+   The same formulas as code/nmf_bspline_rk.py. Milestones go to localStorage (nmf-lab-rkbs-v1) and, when the lab
+   is embedded, to the part page by postMessage; the part page sends its language, theme and text size back. */
+(function () {
+  "use strict";
+  var D = document, html = D.documentElement, $ = function (s) { return D.querySelector(s); };
+  var EMB = window.self !== window.top; if (EMB) D.body.classList.add("embedded");
+  var LABKEY = "nmf-lab-rkbs-v1", PKEY = "nmf-prefs", ORIGIN = location.protocol === "file:" ? "*" : location.origin, MEM = {};
+  function ld(k) { try { return JSON.parse(localStorage.getItem(k) || "{}") || {}; } catch (e) { return MEM[k] || {}; } }
+  function sv(k, v) { MEM[k] = v; try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  var S = { p: 2, nel: 4, ks: 0, meth: "bs", ker: "cubic", ca: 2, hi: 3 }, MS = ld(LABKEY), seenKer = {}, PF = {}, data = null;
+  var TASKS = [["m1", "Degree 3: count the functions that are non-zero on one span", "Darjah 3: kira function yang bukan sifar pada satu span"],
+    ["m2", "Blossom RK: two kernel shapes, and nothing moves", "Blossom RK: dua bentuk kernel, dan tiada yang bergerak"],
+    ["m3", "Standard RK: vary the support factor", "RK biasa: ubah faktor support"], ["m4", "Blossom RK: move the knot", "Blossom RK: gerakkan knot"]];
+  function L(en, ms) { return PF.lang === "ms" ? ms : en; }
+  function hit(m) { if (MS[m]) return; MS[m] = true; sv(LABKEY, MS); if (EMB) { try { window.parent.postMessage({ type: "nmf-lab", ms: m }, ORIGIN); } catch (e) {} } paintMs(); }
+  function paintMs() { $("#mslist").innerHTML = TASKS.map(function (t) { return '<li class="' + (MS[t[0]] ? "done" : "") + '">' + L(t[1], t[2]) + "</li>"; }).join(""); }
+
+  /* ------------------------------------------------------------ numerics */
+  function knots() {               // open knot vector on [0, 1]; the middle interior knot moves a fraction ks towards a neighbour
+    var p = S.p, n = S.nel, u = [], t = [], i;
+    for (i = 1; i < n; i++) u.push(i / n);
+    var m = Math.floor((u.length - 1) / 2), lo = m > 0 ? u[m - 1] : 0, hi = m < u.length - 1 ? u[m + 1] : 1;
+    u[m] += S.ks * (S.ks > 0 ? hi - u[m] : u[m] - lo);
+    for (i = 0; i <= p; i++) t.push(0); t = t.concat(u); for (i = 0; i <= p; i++) t.push(1);
+    return { t: t, moved: u[m] };
+  }
+  function basis(t, p, x) {        // Cox–de Boor; returns all N_{I,p}(x), I = 0..n-1
+    var m = t.length, row = [], i, k;
+    for (i = 1; i < m; i++) row.push((t[i - 1] <= x && x < t[i]) || (x === t[m - 1] && t[i] === t[m - 1] && t[i - 1] < t[i]) ? 1 : 0);
+    for (k = 1; k <= p; k++) { var r = [];
+      for (i = 1; i < m - k; i++) { var a = 0, b = 0, d1 = t[i + k - 1] - t[i - 1], d2 = t[i + k] - t[i];
+        if (d1 > 0) a = (x - t[i - 1]) / d1 * row[i - 1]; if (d2 > 0) b = (t[i + k] - x) / d2 * row[i]; r.push(a + b); }
+      row = r; }
+    return row;
+  }
+  function esym(v, l) { var e = [1], j, k; for (j = 0; j < v.length; j++) for (k = Math.min(j + 1, l); k >= 1; k--) e[k] = (e[k] || 0) + e[k - 1] * v[j]; return e[l] || 0; }
+  function comb(n, k) { var c = 1; for (var i = 1; i <= k; i++) c = c * (n - k + i) / i; return c; }
+  function blossom(t, p) {         // q_{I,l} from the p interior knots of N_I
+    var n = t.length - p - 1, Q = [], i, l;
+    for (i = 0; i < n; i++) { var v = t.slice(i + 1, i + p + 1), q = []; for (l = 0; l <= p; l++) q.push(esym(v, l) / comb(p, l)); Q.push(q); }
+    return Q;
+  }
+  function kern(r) { r = Math.abs(r); if (r >= 1) return 0;
+    switch (S.ker) { case "cubic": return r <= 0.5 ? 2 / 3 - 4 * r * r + 4 * r * r * r : 4 / 3 - 4 * r + 4 * r * r - 4 / 3 * r * r * r;
+      case "quartic": return 1 - 6 * r * r + 8 * r * r * r - 3 * r * r * r * r; case "cos": return 0.5 * (1 + Math.cos(Math.PI * r)); default: return 1; } }
+  function solve(A, b) {           // Gaussian elimination with partial pivoting; null if a pivot is exactly zero
+    var n = b.length, M = A.map(function (r, i) { return r.concat([b[i]]); }), i, j, k;
+    for (k = 0; k < n; k++) { var piv = k; for (i = k + 1; i < n; i++) if (Math.abs(M[i][k]) > Math.abs(M[piv][k])) piv = i;
+      if (M[piv][k] === 0) return null; var tmp = M[k]; M[k] = M[piv]; M[piv] = tmp;
+      for (i = k + 1; i < n; i++) { var f = M[i][k] / M[k][k]; for (j = k; j <= n; j++) M[i][j] -= f * M[k][j]; } }
+    var x = new Array(n); for (i = n - 1; i >= 0; i--) { var s = M[i][n]; for (j = i + 1; j < n; j++) s -= M[i][j] * x[j]; x[i] = s / M[i][i]; }
+    return x;
+  }
+  function rkBlossom(t, p, Q, x) { // kernel centred on the B-spline support, basis = blossom vectors
+    var n = Q.length, m = p + 1, M = [], H = [], W = [], i, a, b, act = 0;
+    for (a = 0; a < m; a++) { M.push(new Array(m).fill(0)); H.push(Math.pow(x, a)); }
+    for (i = 0; i < n; i++) { var lo = t[i], hi = t[i + p + 1], w = hi > lo && x > lo && x < hi ? kern((x - 0.5 * (lo + hi)) / (0.5 * (hi - lo))) : 0;
+      W.push(w); if (w > 0) { act++; for (a = 0; a < m; a++) for (b = 0; b < m; b++) M[a][b] += w * Q[i][a] * Q[i][b]; } }
+    if (act < m) return null;
+    var c = solve(M, H); if (!c) return null;
+    return W.map(function (w, j) { if (!w) return 0; var s = 0; for (var l = 0; l < m; l++) s += Q[j][l] * c[l]; return w * s; });
+  }
+  function rkStandard(nodes, p, a, x) { // kernel of radius a at each node, basis = shifted, scaled monomials
+    var m = p + 1, M = [], W = [], Hs = [], i, j, k, act = 0;
+    for (i = 0; i < m; i++) M.push(new Array(m).fill(0));
+    for (j = 0; j < nodes.length; j++) { var z = (nodes[j] - x) / a, w = kern(z), h = []; for (i = 0; i < m; i++) h.push(Math.pow(z, i)); Hs.push(h); W.push(w);
+      if (w > 0) { act++; for (i = 0; i < m; i++) for (k = 0; k < m; k++) M[i][k] += w * h[i] * h[k]; } }
+    if (act < m) return null;         // fewer than p + 1 kernels reach x: [M] is singular
+    var e = []; for (i = 0; i < m; i++) e.push(i ? 0 : 1);
+    var c = solve(M, e); if (!c || c.some(function (v) { return !isFinite(v) || Math.abs(v) > 1e10; })) return null;
+    return W.map(function (w, jj) { if (!w) return 0; var s = 0; for (var l = 0; l < m; l++) s += Hs[jj][l] * c[l]; return w * s; });
+  }
+
+  /* ------------------------------------------------------------ compute on cell midpoints, never on a knot (one kernel vanishes there and [M] is singular) */
+  var G = 600;
+  function compute() {
+    var K = knots(), t = K.t, p = S.p, n = t.length - p - 1, Q = blossom(t, p), a = S.ca / S.nel;
+    var g1 = Q.map(function (q) { return q[1]; }), g2 = Q.map(function (q) { return p >= 2 ? q[2] : 0; });
+    var xs = [], N = [], R = [], bad = 0, emax = 0, pu = 0, lin = 0, quad = 0, g, i, k;
+    for (g = 0; g < G; g++) { var x = (g + 0.5) / G; for (k = 0; k < t.length; k++) if (Math.abs(x - t[k]) < 1e-7) x = t[k] + 2e-7; xs.push(x); }
+    for (g = 0; g < G; g++) { var xg = xs[g], nb = basis(t, p, xg); N.push(nb);
+      var r = S.meth === "bl" ? rkBlossom(t, p, Q, xg) : S.meth === "st" ? rkStandard(g1, p, a, xg) : nb;
+      if (!r) { bad++; R.push(null); continue; }
+      R.push(S.meth === "bs" ? null : r);
+      var s0 = 0, s1 = 0, s2 = 0;
+      for (i = 0; i < n; i++) { s0 += r[i]; s1 += r[i] * g1[i]; s2 += r[i] * (S.meth === "st" ? g1[i] * g1[i] : g2[i]);
+        if (S.meth !== "bs") emax = Math.max(emax, Math.abs(r[i] - nb[i])); }
+      pu = Math.max(pu, Math.abs(s0 - 1)); lin = Math.max(lin, Math.abs(s1 - xg)); if (p >= 2) quad = Math.max(quad, Math.abs(s2 - xg * xg)); }
+    data = { t: t, moved: K.moved, p: p, n: n, g1: g1, xs: xs, N: N, R: R, bad: bad, emax: emax, pu: pu, lin: lin, quad: quad, a: a };
+  }
+
+  /* ------------------------------------------------------------ draw */
+  var cv = $("#cv"), ctx = cv.getContext("2d"), tip = $("#tip"), hov = null;
+  function css(v) { return getComputedStyle(html).getPropertyValue(v).trim(); }
+  var PAD = { l: 42, r: 12, t: 12, b: 34 }, Y0 = -0.3, Y1 = 1.12;
+  function X(x, w) { return PAD.l + x * (w - PAD.l - PAD.r); }
+  function Yp(y, h) { return PAD.t + (Y1 - y) / (Y1 - Y0) * (h - PAD.t - PAD.b); }
+  function hiIdx() { return Math.min(S.hi, data.n) - 1; }
+  function draw() {
+    if (!data) return;
+    var dpr = window.devicePixelRatio || 1, w = cv.clientWidth, h = cv.clientHeight; if (!w || !h) return;
+    cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, w, h);
+    var fs = parseFloat(css("--font-scale")) || 1, ink = css("--ink"), mut = css("--muted"), grid = css("--grid"), cN = css("--sN"), cR = css("--sR"), acc = css("--accent"), pan = css("--panel");
+    ctx.font = Math.round(11 * fs) + "px system-ui,sans-serif"; ctx.lineWidth = 1; ctx.textBaseline = "alphabetic";
+    [0, 0.25, 0.5, 0.75, 1].forEach(function (y) { ctx.strokeStyle = grid; ctx.beginPath(); ctx.moveTo(X(0, w), Yp(y, h)); ctx.lineTo(X(1, w), Yp(y, h)); ctx.stroke();
+      ctx.fillStyle = mut; ctx.textAlign = "right"; ctx.fillText(y.toFixed(2), PAD.l - 6, Yp(y, h) + 4); });
+    ctx.strokeStyle = mut; ctx.beginPath(); ctx.moveTo(X(0, w), Yp(0, h)); ctx.lineTo(X(1, w), Yp(0, h)); ctx.stroke();
+    // knots under the axis: ends first, then interior labels that do not collide
+    var mult = {}, keys = []; data.t.forEach(function (k) { var s = k.toFixed(6); if (!mult[s]) { mult[s] = 0; keys.push(s); } mult[s]++; });
+    var boxes = [], yb = h - PAD.b;
+    function lab(xv, txt, align) { var tw = ctx.measureText(txt).width, x0 = align === "left" ? xv : align === "right" ? xv - tw : xv - tw / 2;
+      if (boxes.some(function (b) { return x0 < b[1] + 6 && x0 + tw > b[0] - 6; })) return; boxes.push([x0, x0 + tw]); ctx.textAlign = "left"; ctx.fillText(txt, x0, h - 9); }
+    ctx.fillStyle = mut;
+    keys.forEach(function (s) { var xv = X(+s, w); ctx.strokeStyle = mut; ctx.beginPath(); ctx.moveTo(xv, yb + 1); ctx.lineTo(xv, yb + 7); ctx.stroke(); });
+    lab(X(0, w), "0" + (mult[keys[0]] > 1 ? " ×" + mult[keys[0]] : ""), "left");
+    lab(X(1, w), "1" + (mult[keys[keys.length - 1]] > 1 ? " ×" + mult[keys[keys.length - 1]] : ""), "right");
+    var mv = X(data.moved, w); ctx.fillStyle = acc; ctx.beginPath(); ctx.moveTo(mv, yb + 2); ctx.lineTo(mv - 5, yb + 10); ctx.lineTo(mv + 5, yb + 10); ctx.closePath(); ctx.fill();
+    ctx.fillStyle = mut; lab(mv, data.moved.toFixed(2), "center");
+    keys.slice(1, -1).forEach(function (s) { if (Math.abs(+s - data.moved) > 1e-9) lab(X(+s, w), (+s).toFixed(2), "center"); });
+    // curves, clipped to the plot box
+    ctx.save(); ctx.beginPath(); ctx.rect(PAD.l, PAD.t, w - PAD.l - PAD.r, h - PAD.t - PAD.b); ctx.clip();
+    var n = data.n, hi = hiIdx();
+    function curve(arr, i, col, wd, dash) { ctx.strokeStyle = col; ctx.lineWidth = wd; ctx.setLineDash(dash); ctx.lineJoin = "round"; ctx.beginPath(); var on = false;
+      for (var g = 0; g < G; g++) { var v = arr[g]; if (!v) { on = false; continue; } var px = X(data.xs[g], w), py = Yp(v[i], h); if (on) ctx.lineTo(px, py); else { ctx.moveTo(px, py); on = true; } }
+      ctx.stroke(); ctx.setLineDash([]); }
+    for (var i = 0; i < n; i++) { if (i === hi) continue; if (S.meth !== "bs") curve(data.R, i, cR, 2, []); curve(data.N, i, cN, 2, [6, 4]); }
+    if (S.meth !== "bs") curve(data.R, hi, cR, 3.5, []); curve(data.N, hi, cN, 3.5, [7, 4]);
+    ctx.restore();
+    // Greville point of the thick function: an 10 px dot with a surface ring
+    var gx = X(data.g1[hi], w), gy = Yp(0, h); ctx.fillStyle = ink; ctx.beginPath(); ctx.arc(gx, gy, 5, 0, 2 * Math.PI); ctx.fill(); ctx.strokeStyle = pan; ctx.lineWidth = 2; ctx.stroke();
+    // direct labels in ink, each with a short swatch of its series
+    var gp = 0; for (var g2 = 0; g2 < G; g2++) if (data.N[g2][hi] > data.N[gp][hi]) gp = g2;
+    var lx = X(data.xs[gp], w) + 12, ly = Yp(data.N[gp][hi], h) - 8, right = lx + 70 < w - PAD.r; if (!right) lx = X(data.xs[gp], w) - 82; if (ly < PAD.t + 10) ly = PAD.t + 10;
+    function tag(y, txt, col, dash) { ctx.strokeStyle = col; ctx.lineWidth = 2; ctx.setLineDash(dash); ctx.beginPath(); ctx.moveTo(lx, y - 4); ctx.lineTo(lx + 16, y - 4); ctx.stroke(); ctx.setLineDash([]);
+      ctx.textAlign = "left"; ctx.font = "600 " + Math.round(12 * fs) + "px system-ui,sans-serif";
+      ctx.strokeStyle = pan; ctx.lineWidth = 4; ctx.lineJoin = "round"; ctx.strokeText(txt, lx + 20, y); ctx.fillStyle = ink; ctx.fillText(txt, lx + 20, y); }
+    tag(ly, "N" + sub(hi + 1), cN, [5, 3]); if (S.meth !== "bs") tag(ly + Math.round(16 * fs), "Ψ" + sub(hi + 1), cR, []);
+    if (hov !== null) { var hx = X(data.xs[hov], w); ctx.strokeStyle = mut; ctx.lineWidth = 1; ctx.setLineDash([2, 3]); ctx.beginPath(); ctx.moveTo(hx, PAD.t); ctx.lineTo(hx, h - PAD.b); ctx.stroke(); ctx.setLineDash([]);
+      var row = S.meth === "bs" ? data.N[hov] : data.R[hov];
+      if (row) { ctx.fillStyle = S.meth === "bs" ? cN : cR; ctx.beginPath(); ctx.arc(hx, Yp(row[hi], h), 4.5, 0, 2 * Math.PI); ctx.fill(); ctx.strokeStyle = pan; ctx.lineWidth = 2; ctx.stroke(); } }
+  }
+  function sub(k) { return String(k).split("").map(function (d) { return "₀₁₂₃₄₅₆₇₈₉"[+d]; }).join(""); }
+  function legend() {
+    var hiTxt = Math.min(S.hi, data.n);
+    $("#legend").innerHTML = '<span><i class="dash"></i>N<sub>I</sub> · B-spline</span>'
+      + (S.meth === "bs" ? "" : '<span><i class="r"></i>Ψ<sub>I</sub> · ' + (S.meth === "bl" ? L("RK, blossom vectors", "RK, blossom vector") : L("RK, node monomials", "RK, node monomial")) + "</span>")
+      + '<span><span class="dot"></span>' + L("Greville point", "Greville point") + ' <span class="ov">ξ</span><sub>' + hiTxt + "</sub></span>";
+    cv.setAttribute("aria-label", L(data.n + " B-splines of degree " + data.p + " on " + S.nel + " knot spans", data.n + " B-spline darjah " + data.p + " atas " + S.nel + " knot span")
+      + (S.meth === "bs" ? "" : L("; RK functions, largest difference ", "; RK function, beza terbesar ") + fmt(data.emax)));
+  }
+  function sup(e) { return String(e).replace("+", "").split("").map(function (c) { return c === "-" ? "⁻" : "⁰¹²³⁴⁵⁶⁷⁸⁹"[+c]; }).join(""); }
+  function fmt(v) { if (v === 0) return "0"; if (Math.abs(v) >= 1e-4) return v.toFixed(4); var e = v.toExponential(1).split("e"); return e[0] + "×10" + sup(e[1]); }
+  function fmtH(s) { var i = s.indexOf("×10"); return i < 0 ? s : s.slice(0, i) + "×10<sup>" + s.slice(i + 3).replace(/[⁻⁰¹²³⁴⁵⁶⁷⁸⁹]/g, function (c) { return c === "⁻" ? "−" : String("⁰¹²³⁴⁵⁶⁷⁸⁹".indexOf(c)); }) + "</sup>"; }
+  function card(v, label) { return '<div class="stat"><b>' + (typeof v === "number" ? v : v.indexOf("×10") >= 0 ? fmtH(v) : v) + "</b><span>" + label + "</span></div>"; }
+  function stats() {
+    var F = S.meth === "bs" ? "N" : "Ψ", s = card(data.n, L("functions in total", "function kesemuanya")), ok = data.bad === 0;
+    if (S.meth !== "bs") s += card(ok ? fmt(data.emax) : "–", "max |Ψ<sub>I</sub> − N<sub>I</sub>|");
+    s += card(ok ? fmt(data.pu) : "–", "max |Σ " + F + "<sub>I</sub> − 1|");
+    s += card(ok ? fmt(data.lin) : "–", "max |Σ " + F + '<sub>I</sub> <span class="ov">ξ</span><sub>I</sub> − ξ|');
+    s += card(data.p >= 2 && ok ? fmt(data.quad) : "–", (S.meth === "st" ? "max |Σ Ψ<sub>I</sub> x<sub>I</sub><sup>2</sup> − ξ<sup>2</sup>|" : "max |Σ " + F + "<sub>I</sub> q<sub>I,2</sub> − ξ<sup>2</sup>|") + (data.p < 2 ? L(" (needs p ≥ 2)", " (perlu p ≥ 2)") : ""));
+    if (S.meth === "st") s += card(data.a.toFixed(3), L("kernel radius a = c<sub>a</sub> h", "jejari kernel a = c<sub>a</sub> h"));
+    $("#stats").innerHTML = s;
+    $("#note").innerHTML = S.meth === "bl" ? L("Values near 10<sup>−9</sup> are round-off: next to a knot one kernel tends to zero and [M] becomes ill-conditioned (at a knot it is singular, which Gauss points never meet).",
+        "Nilai sekitar 10<sup>−9</sup> ialah round-off: berhampiran knot satu kernel menghampiri sifar dan [M] menjadi ill-conditioned (pada knot itu sendiri ia singular, dan Gauss point tidak pernah jatuh di situ).")
+      : S.meth === "st" ? L("Standard RK reproduces ξ<sup>2</sup> with the squares of the node positions; the B-splines reproduce it with the blossom values q<sub>I,2</sub>, which are not the squares of the Greville points.",
+        "RK biasa reproduce ξ<sup>2</sup> dengan kuasa dua kedudukan node; B-spline reproduce ξ<sup>2</sup> dengan nilai blossom q<sub>I,2</sub>, yang bukan kuasa dua Greville point.")
+      : L("The B-splines reproduce ξ with the Greville points q<sub>I,1</sub> and ξ<sup>2</sup> with q<sub>I,2</sub>: Marsden's identity.", "B-spline reproduce ξ dengan Greville point q<sub>I,1</sub> dan ξ<sup>2</sup> dengan q<sub>I,2</sub>: identiti Marsden.");
+    $("#msg").textContent = data.bad ? L("[M] is singular at " + data.bad + " of " + G + " points: fewer than p + 1 kernels reach them. Increase c_a.", "[M] singular pada " + data.bad + " daripada " + G + " titik: kurang daripada p + 1 kernel sampai ke situ. Naikkan c_a.") : "";
+    var hi = hiIdx(), rows = "";
+    for (var g = 30; g < G; g += 60) rows += "<tr><td>" + data.xs[g].toFixed(4) + "</td><td>" + data.N[g][hi].toFixed(6) + "</td><td>" + (S.meth === "bs" ? "–" : data.R[g] ? data.R[g][hi].toFixed(6) : L("singular", "singular")) + "</td></tr>";
+    $("#tblbody").innerHTML = "<table><tr><th>ξ</th><th>N<sub>" + (hi + 1) + "</sub></th><th>Ψ<sub>" + (hi + 1) + "</sub></th></tr>" + rows + "</table>";
+  }
+  function all() { compute(); legend(); stats(); draw(); }
+
+  /* ------------------------------------------------------------ controls and milestones */
+  D.querySelectorAll("[data-p]").forEach(function (b) { b.addEventListener("click", function () { S.p = +b.getAttribute("data-p"); sync(); if (S.p === 3) hit("m1"); }); });
+  $("#nel").addEventListener("input", function () { S.nel = +this.value; sync(); });
+  $("#ks").addEventListener("input", function () { S.ks = +this.value; sync(); if (S.meth === "bl" && Math.abs(S.ks) >= 0.1) hit("m4"); });
+  $("#meth").addEventListener("change", function () { S.meth = this.value; seenKer = {}; seenKer[S.ker] = 1; sync(); });
+  $("#ker").addEventListener("change", function () { S.ker = this.value; if (S.meth === "bl") { seenKer[S.ker] = 1; if (Object.keys(seenKer).length >= 2) hit("m2"); } sync(); });
+  $("#ca").addEventListener("input", function () { S.ca = +this.value; sync(); if (S.meth === "st") hit("m3"); });
+  $("#hi").addEventListener("input", function () { S.hi = +this.value; sync(); });
+  function sync() {
+    D.querySelectorAll("[data-p]").forEach(function (b) { b.setAttribute("aria-pressed", String(+b.getAttribute("data-p") === S.p)); });
+    var n = S.nel + S.p; if (S.hi > n) S.hi = n;
+    $("#nel").value = S.nel; $("#nelv").textContent = S.nel; $("#ks").value = S.ks; $("#meth").value = S.meth; $("#ker").value = S.ker;
+    $("#ca").value = S.ca; $("#cav").textContent = S.ca.toFixed(2); $("#ca").disabled = S.meth !== "st"; $("#ker").disabled = S.meth === "bs";
+    $("#hi").max = n; $("#hi").value = S.hi; $("#hiv").textContent = S.hi;
+    all(); $("#ksv").textContent = data.moved.toFixed(3);
+  }
+  cv.addEventListener("pointermove", function (e) {
+    var r = cv.getBoundingClientRect(), x = (e.clientX - r.left - PAD.l) / (r.width - PAD.l - PAD.r);
+    if (x < 0 || x > 1) { hov = null; tip.style.display = "none"; draw(); return; }
+    hov = Math.max(0, Math.min(G - 1, Math.floor(x * G))); var hi = hiIdx(), R = data.R[hov], s = 0; if (R) R.forEach(function (v) { s += v; });
+    tip.innerHTML = "ξ = " + data.xs[hov].toFixed(3) + "<br>N" + sub(hi + 1) + " = " + data.N[hov][hi].toFixed(5)
+      + (S.meth === "bs" ? "" : "<br>Ψ" + sub(hi + 1) + " = " + (R ? R[hi].toFixed(5) + "<br>ΣΨ = " + s.toFixed(6) : L("singular", "singular")));
+    tip.style.display = "block"; var tx = e.clientX - r.left + 16; if (tx > r.width - 150) tx -= 180; tip.style.left = tx + "px"; tip.style.top = Math.max(4, e.clientY - r.top - 10) + "px"; draw();
+  });
+  cv.addEventListener("pointerleave", function () { hov = null; tip.style.display = "none"; draw(); });
+
+  /* ------------------------------------------------------------ preferences (rz-settings-buttons; drawn only when standalone) */
+  var FONT_STEPS = [0.9, 1, 1.15, 1.3];
+  function fontStep(f) { var k = 0; FONT_STEPS.forEach(function (v, i) { if (Math.abs(v - f) < Math.abs(FONT_STEPS[k] - f)) k = i; }); return k; }
+  function nextFont(f, dir) { var i; if (dir > 0) { for (i = 0; i < FONT_STEPS.length; i++) if (FONT_STEPS[i] > f + 1e-6) return FONT_STEPS[i]; return FONT_STEPS[0]; }
+    for (i = FONT_STEPS.length - 1; i >= 0; i--) if (FONT_STEPS[i] < f - 1e-6) return FONT_STEPS[i]; return FONT_STEPS[FONT_STEPS.length - 1]; }
+  var SUN = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></svg>';
+  var MOON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>';
+  function readPrefs() { var p = ld(PKEY), d = window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches;
+    PF = { lang: p.lang === "en" ? "en" : "ms", theme: p.theme === "dark" || p.theme === "light" ? p.theme : (d ? "dark" : "light"), font: +p.font || 1 }; }
+  function savePrefs() { var p = ld(PKEY); p.lang = PF.lang; p.theme = PF.theme; p.font = PF.font; sv(PKEY, p); }
+  function applyPrefs() {
+    html.setAttribute("data-theme", PF.theme); html.setAttribute("data-lang", PF.lang); html.lang = PF.lang; html.style.setProperty("--font-scale", String(PF.font));
+    var lb = $("#btn-lang"), tb = $("#btn-theme"), fb = $("#btn-font"), ib = $("#btn-info");
+    lb.textContent = PF.lang === "ms" ? "EN" : "BM"; lb.title = PF.lang === "ms" ? "Language" : "Bahasa"; lb.setAttribute("aria-label", lb.title);
+    tb.innerHTML = PF.theme === "dark" ? SUN : MOON; tb.title = PF.theme === "dark" ? L("Light theme", "Tema cerah") : L("Dark theme", "Tema gelap"); tb.setAttribute("aria-label", tb.title);
+    var k = fontStep(PF.font); fb.querySelectorAll(".lvl i").forEach(function (d, i) { d.classList.toggle("on", i <= k); });
+    fb.title = L("Text size ", "Saiz teks ") + Math.round(PF.font * 100) + "% (" + L("click: ", "klik: ") + Math.round(nextFont(PF.font, 1) * 100) + "%)"; fb.setAttribute("aria-label", fb.title);
+    ib.title = L("About this screen", "Tentang skrin ini"); ib.setAttribute("aria-label", ib.title);
+    var names = [L("B-splines only", "B-spline sahaja"), L("RK with blossom vectors", "RK dengan blossom vector"), L("RK with node monomials (standard)", "RK dengan node monomial (biasa)")];
+    D.querySelectorAll("#meth option").forEach(function (o, i) { o.textContent = names[i]; });
+    var kn = [L("cubic spline", "cubic spline"), L("quartic spline", "quartic spline"), L("cosine", "kosinus"), L("constant", "malar")];
+    D.querySelectorAll("#ker option").forEach(function (o, i) { o.textContent = kn[i]; });
+    paintMs(); if (data) { legend(); stats(); draw(); }
+  }
+  $("#btn-lang").addEventListener("click", function () { PF.lang = PF.lang === "ms" ? "en" : "ms"; savePrefs(); applyPrefs(); });
+  $("#btn-theme").addEventListener("click", function () { PF.theme = PF.theme === "dark" ? "light" : "dark"; savePrefs(); applyPrefs(); });
+  $("#btn-font").addEventListener("click", function (e) { PF.font = nextFont(PF.font, e.shiftKey ? -1 : 1); savePrefs(); applyPrefs(); });
+  $("#btn-info").addEventListener("click", function () { var hp = $("#help"); hp.hidden = !hp.hidden; this.setAttribute("aria-expanded", String(!hp.hidden)); });
+  window.addEventListener("storage", function (e) { if (e.key === PKEY) { readPrefs(); applyPrefs(); } if (e.key === LABKEY) { MS = ld(LABKEY); paintMs(); } });
+  window.addEventListener("message", function (e) { var d = e.data || {}; if (e.source !== window.parent || d.type !== "nmf-prefs") return;
+    PF = { lang: d.lang === "en" ? "en" : "ms", theme: d.theme === "dark" ? "dark" : "light", font: +d.font || 1 }; applyPrefs(); });
+  if (window.ResizeObserver) new ResizeObserver(function () { draw(); }).observe(cv); else window.addEventListener("resize", draw);
+  /* embedded: tell the part page how tall the lab is, so the frame needs no inner scrollbar */
+  var lastH = 0;
+  function postHeight() { if (!EMB) return; var h = Math.ceil(D.body.getBoundingClientRect().height); if (Math.abs(h - lastH) < 2) return; /* the body, not the document: the document is never shorter than the frame */ lastH = h;
+    try { window.parent.postMessage({ type: "nmf-lab-height", h: h }, ORIGIN); } catch (e) {} }
+  if (EMB) { if (window.ResizeObserver) new ResizeObserver(postHeight).observe(D.body); $("#tbl").addEventListener("toggle", postHeight); }
+  seenKer[S.ker] = 1; readPrefs(); applyPrefs(); sync();
+  if (EMB) { try { window.parent.postMessage({ type: "nmf-lab-ready" }, ORIGIN); } catch (e) {} postHeight(); }
+})();
+</script>
+</body>
+</html>

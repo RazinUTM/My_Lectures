@@ -688,6 +688,8 @@ table.gloss td.g1 { font-weight: 600; white-space: nowrap; }
 .tkmark { display: inline-flex; align-items: center; gap: 6px; flex: none; padding: 3px 10px 3px 7px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); color: var(--muted); font: 600 calc(12.5px * var(--ts)) var(--font-ui); cursor: pointer; }
 .tkmark input { width: 15px; height: 15px; margin: 0; accent-color: var(--good); }
 .tk.done .tkmark { color: var(--good); border-color: var(--good); background: var(--good-bg); }
+/* iOS (viewport-fit=cover): start the header below the top inset, which body::before paints over */
+header.top { padding-top: max(20px, calc(env(safe-area-inset-top, 0px) + 12px)); }
 
 </style>
 <meta name="rz-tutor" content="">

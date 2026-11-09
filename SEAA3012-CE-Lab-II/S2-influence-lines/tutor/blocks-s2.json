@@ -44,27 +44,27 @@
   },
   {
    "id": "slides-1",
-   "text": "[slides-1] Slide 1: Influence Lines\nSEAA 3012 Civil Engineering Laboratory II · Lab S2 Cantilever (Gerber) bridge model Ahmad Razin Zainal Abidin and co-authors Faculty of Civil Engineering, Universiti Teknologi Malaysia"
+   "text": "[slides-1] Slide 1: Influence Lines\nSEAA 3012 Civil Engineering Laboratory II · Lab S2\nCantilever (Gerber) bridge model\nAhmad Razin Zainal Abidin and co-authors Faculty of Civil Engineering, Universiti Teknologi Malaysia"
   },
   {
    "id": "slides-2",
-   "text": "[slides-2] Slide 2: Today\nWhy influence lines? What they are, and what they are not The laboratory model and why it is determinate Deriving the six influence lines from statics The Müller–Breslau shortcut Using an influence line: one load, a pair, a distributed load The experiment: data reduction, errors, what to report"
+   "text": "[slides-2] Slide 2: Today\n- Why influence lines? What they are, and what they are not\n- The laboratory model and why it is determinate\n- Deriving the six influence lines from statics\n- The Müller–Breslau shortcut\n- Using an influence line: one load, a pair, a distributed load\n- The experiment: data reduction, errors, what to report"
   },
   {
    "id": "slides-3",
-   "text": "[slides-3] Slide 3: Loads that move\nA floor load stays put. A lorry on a bridge, a crane on its rail, a train on a viaduct do not. The designer needs to know where the load must stand to produce the largest reaction at a pier (bearing design, uplift) the largest shear at a section the largest moment at midspan Definition The influence line of a response \\(R\\) at a fixed point is the graph of \\(R\\) against the position \\(x\\) of a unit load moving over t"
+   "text": "[slides-3] Slide 3: Loads that move\nA floor load stays put. A lorry on a bridge, a crane on its rail, a train on a viaduct do not.\nThe designer needs to know where the load must stand to produce\n- the largest reaction at a pier (bearing design, uplift)\n- the largest shear at a section\n- the largest moment at midspan\nDefinition The influence line of a response \\(R\\) at a fixed point is the graph of \\(R\\) against the position \\(x\\) of a unit load moving"
   },
   {
    "id": "slides-4",
-   "text": "[slides-4] Slide 4: Influence line versus bending-moment diagram\nSFD / BMD Influence line Fixed the loads the point where \\(R\\) is read Varies along \\(x\\) the section where \\(V\\), \\(M\\) are read the position of the unit load Ordinate means \\(V\\) or \\(M\\) at that section \\(R\\) at the fixed point, load at \\(x\\) The structure is linear elastic, so effects add: once \\(\\eta_R(x)\\) is known for a unit load, any load pattern follows by multiplication and addition."
+   "text": "[slides-4] Slide 4: Influence line versus bending-moment diagram\nSFD / BMD Influence line\nFixed the loads the point where \\(R\\) is read\nVaries along \\(x\\) the section where \\(V\\), \\(M\\) are read the position of the unit load\nOrdinate means \\(V\\) or \\(M\\) at that section \\(R\\) at the fixed point, load at \\(x\\)\nThe structure is linear elastic, so effects add: once \\(\\eta_R(x)\\) is known for a unit load, any load pattern follows by multiplication and addition."
   },
   {
    "id": "slides-5",
-   "text": "[slides-5] Slide 5: A Gerber bridge, 1130 mm long\nABC: pin A, roller B, cantilever BC CD: suspended span on hinges C and D DEF: mirror image of ABC Gauges A, B, E, F: support reactions Gauges C, D: hinge forces Halts 1–11: where the mass is placed"
+   "text": "[slides-5] Slide 5: A Gerber bridge, 1130 mm long\n- ABC: pin A, roller B, cantilever BC\n- CD: suspended span on hinges C and D\n- DEF: mirror image of ABC\n- Gauges A, B, E, F: support reactions\n- Gauges C, D: hinge forces\n- Halts 1–11: where the mass is placed"
   },
   {
    "id": "slides-6",
-   "text": "[slides-6] Slide 6: Why it is statically determinate\nUnknowns: \\(R_A, R_B, R_E, R_F\\): four. Equations: \\(\\sum F_y = 0\\) and \\(\\sum M = 0\\) for the whole model, plus \\(M = 0\\) at hinge C and at hinge D: four. Consequences every reaction from equilibrium; \\(EI\\) never appears every influence line is made of straight segments , kinked only at hinges reactions positive up; \\(R_C\\), \\(R_D\\) positive pressing down on the tip"
+   "text": "[slides-6] Slide 6: Why it is statically determinate\nUnknowns: \\(R_A, R_B, R_E, R_F\\): four.\nEquations: \\(\\sum F_y = 0\\) and \\(\\sum M = 0\\) for the whole model, plus \\(M = 0\\) at hinge C and at hinge D: four.\nConsequences\n- every reaction from equilibrium; \\(EI\\) never appears\n- every influence line is made of straight segments , kinked only at hinges\n- reactions positive up; \\(R_C\\), \\(R_D\\) positive pressing down on the tip"
   },
   {
    "id": "slides-7",
@@ -72,11 +72,11 @@
   },
   {
    "id": "slides-8",
-   "text": "[slides-8] Slide 8: Step 1 · Load on beam ABC\nMoments about B (hinge C unloaded): \\[ \\eta_A(x) = \\frac{250-x}{250},\\qquad \\eta_B(x) = \\frac{x}{250}\\qquad (0\\le x\\le 440) \\] Nothing stops at B: past B the lever arm \\((250-x)\\) is negative \\(\\eta_A \\lt 0\\): support A must hold the beam down \\(\\eta_B \\gt 1\\): B carries the load and the pull-down at A At the tip C \\(\\eta_A(440) = -0.76\\) \\(\\eta_B(440) = 1.76\\)"
+   "text": "[slides-8] Slide 8: Step 1 · Load on beam ABC\nMoments about B (hinge C unloaded):\n\\[ \\eta_A(x) = \\frac{250-x}{250},\\qquad \\eta_B(x) = \\frac{x}{250}\\qquad (0\\le x\\le 440) \\]\n- Nothing stops at B: past B the lever arm \\((250-x)\\) is negative\n- \\(\\eta_A \\lt 0\\): support A must hold the beam down\n- \\(\\eta_B \\gt 1\\): B carries the load and the pull-down at A\nAt the tip C \\(\\eta_A(440) = -0.76\\) \\(\\eta_B(440) = 1.76\\)"
   },
   {
    "id": "slides-9",
-   "text": "[slides-9] Slide 9: Steps 2 and 3 · Load on the suspended span\nStep 2. CD is simply supported on the hinges: \\[ \\eta_C(x) = \\frac{690-x}{250},\\qquad \\eta_D(x) = \\frac{x-440}{250} \\] Step 3. ABC carries only \\(\\eta_C\\) at its tip: \\[ \\eta_A(x) = -0.76\\,\\eta_C(x),\\qquad \\eta_B(x) = 1.76\\,\\eta_C(x) \\] Continuous at C (\\(-0.76\\) from both sides); zero at D."
+   "text": "[slides-9] Slide 9: Steps 2 and 3 · Load on the suspended span\nStep 2. CD is simply supported on the hinges:\n\\[ \\eta_C(x) = \\frac{690-x}{250},\\qquad \\eta_D(x) = \\frac{x-440}{250} \\]\nStep 3. ABC carries only \\(\\eta_C\\) at its tip:\n\\[ \\eta_A(x) = -0.76\\,\\eta_C(x),\\qquad \\eta_B(x) = 1.76\\,\\eta_C(x) \\]\nContinuous at C (\\(-0.76\\) from both sides); zero at D."
   },
   {
    "id": "slides-10",
@@ -88,23 +88,23 @@
   },
   {
    "id": "slides-12",
-   "text": "[slides-12] Slide 12: Müller–Breslau: the engineer's shortcut\nRelease the restraint, impose a unit displacement: the deflected shape is the influence line. For \\(R_A\\): ABC rotates about B as a rigid bar, C drops 0.76, CD follows, DEF stays still. Same line, no algebra."
+   "text": "[slides-12] Slide 12: Müller–Breslau: the engineer's shortcut\nRelease the restraint, impose a unit displacement: the deflected shape is the influence line.\nFor \\(R_A\\): ABC rotates about B as a rigid bar, C drops 0.76, CD follows, DEF stays still. Same line, no algebra."
   },
   {
    "id": "slides-13",
-   "text": "[slides-13] Slide 13: A mass stands at halt 8, between D and E. The reaction at A is …\nPredict first upward zero downward \\(\\eta_A = 0\\). The load is on DEF, which takes it to E and F by itself; the suspended span is unloaded, so nothing passes through D to the left half."
+   "text": "[slides-13] Slide 13: A mass stands at halt 8, between D and E. The reaction at A is …\nPredict first\nupward zero downward\n\\(\\eta_A = 0\\). The load is on DEF, which takes it to E and F by itself; the suspended span is unloaded, so nothing passes through D to the left half."
   },
   {
    "id": "slides-14",
-   "text": "[slides-14] Slide 14: Using an influence line\n\\[ R = P\\,\\eta_R(x_1)\\qquad R = \\sum_i P_i\\,\\eta_R(x_i)\\qquad R = w\\times\\text{area} \\] Critical position All our lines are piecewise linear, so a sum over a load train is piecewise linear in its position: the extreme occurs with one load on a vertex . Units Masses in kg give reactions in kgf, which is what the gauges read (1 division = 0.05 kgf)."
+   "text": "[slides-14] Slide 14: Using an influence line\n\\[ R = P\\,\\eta_R(x_1)\\qquad R = \\sum_i P_i\\,\\eta_R(x_i)\\qquad R = w\\times\\text{area} \\]\nCritical position All our lines are piecewise linear, so a sum over a load train is piecewise linear in its position: the extreme occurs with one load on a vertex .\nUnits Masses in kg give reactions in kgf, which is what the gauges read (1 division = 0.05 kgf)."
   },
   {
    "id": "slides-15",
-   "text": "[slides-15] Slide 15: Worked example 1 · The compound load of Test 2\n2.5 kg mass 100 mm to the right of the 5 kg mass (in front, moving right): \\[ R_A(x) = 5\\,\\eta_A(x) + 2.5\\,\\eta_A(x+100) \\] 5 kg at A: \\(5(1.0)+2.5(0.6) = 6.5\\) kgf 5 kg at C: \\(5(-0.76)+2.5(-0.456) = -4.94\\) kgf 2.5 kg at C: \\(5(-0.36)+2.5(-0.76) = -3.70\\) kgf"
+   "text": "[slides-15] Slide 15: Worked example 1 · The compound load of Test 2\n2.5 kg mass 100 mm to the right of the 5 kg mass (in front, moving right):\n\\[ R_A(x) = 5\\,\\eta_A(x) + 2.5\\,\\eta_A(x+100) \\]\n- 5 kg at A: \\(5(1.0)+2.5(0.6) = 6.5\\) kgf\n- 5 kg at C: \\(5(-0.76)+2.5(-0.456) = -4.94\\) kgf\n- 2.5 kg at C: \\(5(-0.36)+2.5(-0.76) = -3.70\\) kgf"
   },
   {
    "id": "slides-16",
-   "text": "[slides-16] Slide 16: Worked example 2 · A distributed load\nAreas under \\(\\eta_A\\): \\(+125\\) mm (AB), \\(-72.2\\) mm (BC), \\(-95.0\\) mm (CD), 0 (DEF). For \\(w = 0.01\\) kg/mm: over AB only: \\(R_A = 1.25\\) kgf over BC and CD: \\(R_A = -1.67\\) kgf over the whole model: \\(R_A = -0.42\\) kgf: the deck lifts at A Check by statics \\(R_A\\cdot250 = 250w(125)-190w(95)-125w(190) = -10\\,550\\,w\\;\\Rightarrow\\;R_A = -42.2\\,w\\)"
+   "text": "[slides-16] Slide 16: Worked example 2 · A distributed load\nAreas under \\(\\eta_A\\): \\(+125\\) mm (AB), \\(-72.2\\) mm (BC), \\(-95.0\\) mm (CD), 0 (DEF). For \\(w = 0.01\\) kg/mm:\n- over AB only: \\(R_A = 1.25\\) kgf\n- over BC and CD: \\(R_A = -1.67\\) kgf\n- over the whole model: \\(R_A = -0.42\\) kgf: the deck lifts at A\nCheck by statics \\(R_A\\cdot250 = 250w(125)-190w(95)-125w(190) = -10\\,550\\,w\\;\\Rightarrow\\;R_A = -42.2\\,w\\)"
   },
   {
    "id": "slides-17",
@@ -112,19 +112,19 @@
   },
   {
    "id": "slides-18",
-   "text": "[slides-18] Slide 18: The experiment\nTest 1: 2.5 kg at each of 17 halts, read all six gauges. Test 2: 5 kg + 2.5 kg pair, 100 mm apart. Data reduction \\(\\eta_{\\text{test}} = \\dfrac{\\text{reading}\\times0.05}{m}\\), \\(m = 2.5\\) kg Test 2: reading × 0.05 = reaction in kgf Before leaving the laboratory equilibrium check: \\((a+b+e+f)\\times0.05 \\approx 2.5\\) kgf re-zero the gauges between halts centre the mass on the halt (±5 mm matters)"
+   "text": "[slides-18] Slide 18: The experiment\nTest 1: 2.5 kg at each of 17 halts, read all six gauges. Test 2: 5 kg + 2.5 kg pair, 100 mm apart.\nData reduction \\(\\eta_{\\text{test}} = \\dfrac{\\text{reading}\\times0.05}{m}\\), \\(m = 2.5\\) kg Test 2: reading × 0.05 = reaction in kgf\nBefore leaving the laboratory\n- equilibrium check: \\((a+b+e+f)\\times0.05 \\approx 2.5\\) kgf\n- re-zero the gauges between halts\n- centre the mass on the halt (±5 mm matters)"
   },
   {
    "id": "slides-19",
-   "text": "[slides-19] Slide 19: How good is “good agreement”?\nSource Effect on \\(\\eta_A\\) Mass ±5 mm off the halt ±0.020 Gauge ±1 division ±0.020 Zero drift ±0.02–0.04 Combined (first two) ±0.03 Percentages mislead ±0.03 is 3 % of the ordinate at A but 15 % at halt 2, and undefined where the ordinate is zero. Compare by absolute difference ."
+   "text": "[slides-19] Slide 19: How good is “good agreement”?\nSource Effect on \\(\\eta_A\\)\nMass ±5 mm off the halt ±0.020\nGauge ±1 division ±0.020\nZero drift ±0.02–0.04\nCombined (first two) ±0.03\nPercentages mislead ±0.03 is 3 % of the ordinate at A but 15 % at halt 2, and undefined where the ordinate is zero. Compare by absolute difference ."
   },
   {
    "id": "slides-20",
-   "text": "[slides-20] Slide 20: Your turn\nExplorer: the five tasks, then the five concept questions Laboratory: enter your readings in the Lab tab and check equilibrium at every halt After the laboratory: Exercises (hand calculation), then the report Scan for the Explorer"
+   "text": "[slides-20] Slide 20: Your turn\n- Explorer: the five tasks, then the five concept questions\n- Laboratory: enter your readings in the Lab tab and check equilibrium at every halt\n- After the laboratory: Exercises (hand calculation), then the report\nScan for the Explorer"
   },
   {
    "id": "slides-21",
-   "text": "[slides-21] Slide 21: Summary\nSix straight-line influence lines \\(\\eta_A = (250-x)/250\\) on ABC, \\(-0.76\\,\\eta_C\\) on CD \\(\\eta_B = x/250\\) on ABC, \\(1.76\\,\\eta_C\\) on CD \\(\\eta_C = (690-x)/250\\), \\(\\eta_D = (x-440)/250\\) \\(\\eta_E\\), \\(\\eta_F\\): mirror images Use and report \\(R = \\sum P_i\\,\\eta_R(x_i)\\); UDL: \\(w\\times\\) area extreme: one load on a vertex Müller–Breslau: release, displace, read compare by absolute difference Reading: Hibbeler, St"
+   "text": "[slides-21] Slide 21: Summary\nSix straight-line influence lines \\(\\eta_A = (250-x)/250\\) on ABC, \\(-0.76\\,\\eta_C\\) on CD \\(\\eta_B = x/250\\) on ABC, \\(1.76\\,\\eta_C\\) on CD \\(\\eta_C = (690-x)/250\\), \\(\\eta_D = (x-440)/250\\) \\(\\eta_E\\), \\(\\eta_F\\): mirror images\nUse and report \\(R = \\sum P_i\\,\\eta_R(x_i)\\); UDL: \\(w\\times\\) area extreme: one load on a vertex Müller–Breslau: release, displace, read compare by absolute difference\nReading: Hibbeler, St"
   },
   {
    "id": "exercises-q1",

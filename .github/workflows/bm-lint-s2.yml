@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: RazinUTM/bm-l10n@142efdc25c441ca4c11102c94d33973847d06bbe   # v0.1.3
+      - uses: RazinUTM/bm-l10n@db0eb91ac24e1cb1b2edd0a3d741e24528927ebe   # v0.1.4
         with:
           files: >-
             SEAA3012-CE-Lab-II/S2-influence-lines/web/src/p1_start_notes.html

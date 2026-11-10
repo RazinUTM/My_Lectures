@@ -415,9 +415,10 @@ header.top{display:block;padding:14px 0 4px}
 .hmain{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px;margin-top:12px}
 .htitle{flex:1 1 420px;min-width:0}
 .kicker{font:700 12px var(--font-ui);letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
-header.top h1{font-size:clamp(26px,4vw,36px);line-height:1.12;margin:4px 0 4px;display:flex;flex-wrap:wrap;align-items:center;gap:2px 12px}
+.h1row{display:flex;align-items:center;gap:6px 12px;margin:4px 0}
+header.top h1{font-size:clamp(26px,4vw,36px);line-height:1.12;margin:0}
 header.top h1 .lab{font-weight:500;color:var(--muted)}
-.foldbtn{display:inline-grid;place-items:center;width:26px;height:26px;padding:0;border:1px solid var(--line);border-radius:50%;background:var(--card-head);color:var(--muted);cursor:pointer;align-self:center}
+.foldbtn{flex:none;display:inline-grid;place-items:center;width:26px;height:26px;padding:0;border:1px solid var(--line);border-radius:50%;background:var(--card-head);color:var(--muted);cursor:pointer;align-self:center}
 .foldbtn:hover{border-color:var(--accent);color:var(--accent)}
 .foldbtn svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 @media (prefers-reduced-motion:no-preference){.foldbtn svg{transition:transform .15s}}
@@ -506,7 +507,8 @@ nav.tabs .tab{font-size:14.5px}
 @media (max-width:420px){
   .toolbtn{padding:0 8px}
   .kicker{font-size:11px;letter-spacing:.06em}
-  header.top h1{font-size:25px;gap:2px 8px}
+  header.top h1{font-size:25px}
+  .h1row{gap:8px}
   .hsearch input{padding:0 4px 0 28px}
   .hsearch > svg{left:8px}
 }
@@ -630,7 +632,7 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]]},svg
   <div class="hmain">
     <div class="htitle">
       <div class="kicker">SEAA 3012 · <span class="en">Faculty of Civil Engineering, UTM</span><span class="ms">Fakulti Kejuruteraan Awam, UTM</span></div>
-      <h1><span class="lab">Lab S2</span> Influence Lines <button class="foldbtn" id="foldbtn" type="button" aria-controls="hsub" aria-expanded="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg><span class="vh" data-en="Hide description" data-ms="Sembunyi penerangan">Hide description</span></button></h1>
+      <div class="h1row"><h1><span class="lab">Lab S2</span> Influence Lines</h1><button class="foldbtn" id="foldbtn" type="button" aria-controls="hsub" aria-expanded="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg><span class="vh" data-en="Hide description" data-ms="Sembunyi penerangan">Hide description</span></button></div>
       <p class="sub" id="hsub"><span class="en">SEAA 3012 Civil Engineering Laboratory II. Lecture notes, slides, an interactive model of the bridge, exercises with instant feedback, and a data sheet for your laboratory readings.</span><span class="ms">SEAA 3012 Civil Engineering Laboratory II. Nota kuliah, slides, model jambatan interaktif, latihan dengan feedback serta-merta, dan data sheet untuk bacaan makmal anda.</span></p>
     </div>
     <div class="tools">

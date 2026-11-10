@@ -1,4 +1,4 @@
-# Lab S2 Influence Lines Hide description
+# Lab S2 Influence Lines
 SEAA 3012 Civil Engineering Laboratory II. Lecture notes, slides, an interactive model of the bridge, exercises with instant feedback, and a data sheet for your laboratory readings.
 
 [start-outcomes] After this part you should be able to

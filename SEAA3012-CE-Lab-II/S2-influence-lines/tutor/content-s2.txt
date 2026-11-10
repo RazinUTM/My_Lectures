@@ -1,5 +1,5 @@
-# Influence Lines
-Lecture notes, slides, an interactive model of the bridge, exercises with instant feedback, and a data sheet for your laboratory readings.
+# Lab S2 Influence Lines Hide description
+SEAA 3012 Civil Engineering Laboratory II. Lecture notes, slides, an interactive model of the bridge, exercises with instant feedback, and a data sheet for your laboratory readings.
 
 [start-outcomes] After this part you should be able to
 1. define an influence line and tell it apart from a shear-force or bending-moment diagram;

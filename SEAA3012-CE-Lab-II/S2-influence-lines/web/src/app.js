@@ -309,7 +309,7 @@ function buildTables(){
 /* =====================================================================
    Views, progress and badges
    ===================================================================== */
-var VIEWS=["start","notes","slides","explorer","exercises","lab","glossary"],current="start",typesetDone={};
+var VIEWS=["start","notes","slides","explorer","exercises","lab","glossary","feedback"],current="start",typesetDone={};
 var NSECS=["n1","n2","n3","n4","n5","n6","n7","n8"],QCS=["qc1","qc6","qc2","qc7","qc3","qc4","qc5"];
 function cnt(o){return Object.keys(o).filter(function(k){return o[k]}).length}
 function parts(){var lab=0;for(var i=1;i<=5;i++)if(ST.lab.ck["ck"+i])lab++;if(ST.lab.done1)lab++;if(ST.lab.done2)lab++;
@@ -798,7 +798,7 @@ var REGIONS=[
   ["#hsearch","Search","Carian","Finds notes sections, slides, Explorer tasks, exercises, lab steps and glossary terms on this page. Press / to jump here. Nothing is sent anywhere.","Mencari seksyen nota, slides, tugasan Explorer, latihan, langkah makmal dan istilah glosari dalam halaman ini. Tekan / untuk terus ke sini. Tiada apa-apa dihantar keluar."],
   ["#snbtn","Short notes","Nota ringkas","A one-page summary of the formulae and sign conventions, in a side drawer.","Ringkasan satu halaman bagi formula dan sign convention, dalam laci sisi."],
   [".prefs","Settings","Tetapan","Language (BM / EN), light or dark theme, text size (AA: four sizes in turn), and this guide (ⓘ).","Bahasa (BM / EN), tema cerah atau gelap, saiz teks (AA: empat saiz bergilir), dan panduan ini (ⓘ)."],
-  [".navrow","Tabs","Tab","The house goes to the SEAA 3012 course page. Each tab is one part of the session; the small badge counts what you have done out of the total.","Ikon rumah membawa ke laman kursus SEAA 3012. Setiap tab ialah satu bahagian sesi; badge kecil mengira apa yang telah anda selesaikan daripada jumlahnya."],
+  [".navrow","Tabs","Tab","The house goes to the SEAA 3012 course page. Each tab is one part of the session (the last, Feedback, is where you tell the lecturer what to improve); the small badge counts what you have done out of the total.","Ikon rumah membawa ke laman kursus SEAA 3012. Setiap tab ialah satu bahagian sesi (yang terakhir, Maklum balas, ialah tempat anda memberitahu pensyarah apa yang perlu ditambah baik); badge kecil mengira apa yang telah anda selesaikan daripada jumlahnya."],
   [".prog","Progress","Kemajuan","Your overall progress across Notes, Slides, Explorer, Exercises and Lab. It is your own record, kept in this browser, not a gradebook.","Kemajuan keseluruhan anda merentas Nota, Slides, Explorer, Latihan dan Makmal. Ia rekod anda sendiri dalam browser ini, bukan buku gred."],
   ["main","Contents","Kandungan","The tab you are on. Start shows your next step and your learning record.","Tab yang sedang dibuka. Mula menunjukkan langkah seterusnya dan rekod pembelajaran anda."],
   ["#rzguide","Guide · Dr Razin Junior (RJ)","Panduan · Dr Razin Junior (RJ)","The lecturer's avatar. Dr RJ points you to the right section and, once the AI is switched on, answers questions from the course notes. On a phone he sits below the contents; the round button at the bottom right takes you to him.","Avatar pensyarah. Dr RJ menunjukkan seksyen yang betul dan, apabila AI diaktifkan, menjawab soalan berdasarkan nota kursus. Pada telefon, dia berada di bawah kandungan; butang bulat di bawah kanan membawa anda kepadanya."],

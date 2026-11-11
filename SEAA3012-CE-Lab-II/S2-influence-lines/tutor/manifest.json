@@ -406,6 +406,14 @@
    "title_ms": "Lab: Kandungan wajib laporan"
   },
   {
+   "id": "feedback-tab",
+   "view": "feedback",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Feedback tab",
+   "title_ms": "Tab Maklum balas"
+  },
+  {
    "id": "glossary-x",
    "view": "glossary",
    "anchor": null,

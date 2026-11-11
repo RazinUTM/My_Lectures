@@ -4,10 +4,14 @@ What: after web/build_web.py has written index.html, this script
   1. writes the files the rz-tutor Worker reads, from the page itself: tutor/manifest.json,
      tutor/blocks-s2.json and tutor/content-s2.txt in this folder, and ../tutor/course.json for the
      course (exercise answers, hints and worked solutions are left out);
-  2. adds the guide panel with Dr RJ to index.html (the claude.ai artifact form is left as it is).
+  2. adds the guide panel with Dr RJ to index.html (the claude.ai artifact form is left as it is);
+  3. fills the Feedback tab (rating, muddiest point, mistake report, like, "What's new" from
+     shared/whats_new.txt) and, when shared/analytics_token.txt holds a Cloudflare Web Analytics token,
+     adds its cookie-free visit beacon.
 The Worker address is read from shared/tutor_endpoint.txt. While that file holds no address, or while
 the Worker's switch AI_SEAA3012 is off (the page asks the Worker first), Dr RJ stays in offline mode: he
-points to matching sections of the page and nothing leaves the browser.
+points to matching sections of the page and nothing leaves the browser. Feedback goes to the same Worker
+(/v1/feedback) and does not depend on the AI switch; without an address its forms stay disabled.
 
 How to call it, from this topic folder (build.sh runs both lines):
   python3 web/build_web.py && python3 web/add_tutor.py
@@ -68,6 +72,11 @@ def main() -> int:
     import add_panel
     url = endpoint()
     out, log = add_panel.inject(html, APP, PART, url, HOOKS, CSS)
+    news = add_panel.read_whats_new(topic / "shared" / "whats_new.txt")
+    out, more = add_panel.inject_feedback(out, APP, PART, news)
+    log += more
+    out, more = add_panel.inject_analytics(out, add_panel.read_token(topic / "shared" / "analytics_token.txt"))
+    log += more
     page.write_text(out, encoding="utf-8")
     for line in log:
         print("  " + line)

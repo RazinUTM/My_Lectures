@@ -11,6 +11,12 @@ Website (GitHub Pages): <https://razinutm.github.io/My_Lectures/>
 | SEAA 3012 Civil Engineering Laboratory II | [`SEAA3012-CE-Lab-II/`](SEAA3012-CE-Lab-II/) | S2 Influence Lines |
 | SEAA 4243 Finite Element Method | [`SEAA4243-FEM/`](SEAA4243-FEM/) | 2D Heat Transfer (Parts 1–2), Plane Stress (Parts 1–3); ANSYS demo to follow |
 
+## Research primers
+
+| Primer | Folder | Contents |
+|---|---|---|
+| NURBS–meshfree research primer | [`Research-NURBS-Meshfree/`](Research-NURBS-Meshfree/) | Part 1 Foundations: B-splines, NURBS and reproducing kernels, with the B-spline and RK Explorer; Parts 2–4 planned |
+
 ## How the repository is organised
 
 ```
@@ -26,7 +32,8 @@ My_Lectures/
 │       ├── notes/ slides/ exercises/ activity/   LaTeX sources
 │       ├── shared/ figures/ web/                 shared data, figures, page sources
 │       └── build.sh
-└── <next course code>-<short name>/
+├── <next course code>-<short name>/
+└── Research-<topic>/             research primers: same page layout, no course code (see its README)
 ```
 
 Conventions: no spaces in folder names; course code first so courses sort together; each topic

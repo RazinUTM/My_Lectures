@@ -1,0 +1,246 @@
+{
+ "part": "p1",
+ "title": "Part 1 · Foundations: B-splines , NURBS and reproducing kernels Bahagian 1 · Asas: B-spline , NURBS dan reproducing kernel",
+ "blocks": [
+  {
+   "id": "start-outcomes",
+   "text": "[start-outcomes] After this part you should be able to\n1. Evaluate B-spline basis functions and their derivatives from a knot vector by the Cox–de Boor recursion.\n2. Explain what the weights of a NURBS curve do, and evaluate a point of the exact quarter circle.\n3. Derive the reproducing-kernel shape function from the reproducing conditions and compute it at a point.\n4. Show why RK functions with blossom vectors and B-spline supports are the B-splines, whatever the kernel.\n5. List the hidden parameters to check before claiming to reproduce a NURBS–meshfree paper."
+  },
+  {
+   "id": "notes-n1",
+   "text": "[notes-n1] Notes 1. The research problem: exact geometry meets meshfree flexibility\nA finite element mesh only approximates the geometry that a designer drew in CAD. The CAD model itself is made of NURBS: smooth, exact, and described by a handful of control points. Two families of methods try to close the gap between design and analysis, and this research area lives where they meet.\nIsogeometric analysis (IGA) Use the NURBS basis that describes the CAD geometry as the basis of the analysis too (Hughes, Cottrell & Bazilevs, CMAME 194 (2005) 4135–4195). The geometry is exact at every refinement; the price is the tensor-product structure of the patches, which makes local refinement and complex topology awkward.\nMeshfree methods Build the shape functions from scattered nodes and their supports, with no element connectivity: EFG (Belytschko, Lu & Gu 1994), RKPM (Liu, Jun & Zhang 1995), RPIM and others. Nodes can be added anywhere; the price is paid at the boundary (no Kronecker delta, so essential conditions need care), in the integration, and in the cost of each shape function.\n## A map of the area\nThe primer follows the papers the group has studied from first principles. They answer four questions, one per part:\nPart Question Papers\n1 Can a reproducing kernel produce the B-splines exactly? Zhang & Wang (2017)\n2 How do IGA and meshfree regions share one consistent approximation? Wang & Zhang (2014); Valizadeh et al. (2015); Shaw, Banerjee & Roy (2008)\n3 What integration and boundary treatment keeps the method exact for polynomials? Chen, Hillman & Rüter (2013); Chi & Lin (2016)\n4 What do NURBS-based meshless methods (N-RPIM, NDM) gain, and what must they prove? Mokhtaram et al. (2022); Rasin et al. (2025)\nThree things to keep apart The geometry map (how parameters become points), the field approximation (how the unknown is interpolated) and the integration cells (where the quadrature points sit). IGA uses one basis for the first two; the methods of this area deliberately separate them, and most of the difficulties come from forgetting which is which.\nKey points:\n- IGA analyses with the CAD basis itself: exact geometry, rigid tensor-product structure.\n- Meshfree methods build shape functions from nodes: flexible refinement, harder boundaries and integration.\n- Keep geometry map, field approximation and integration cells apart.\nQuick check (not graded): What does isogeometric analysis use as the basis of the analysis?\nOptions: Lagrange polynomials on a mesh that approximates the CAD geometry | The NURBS basis that describes the CAD geometry | Radial basis functions centred on the control points\nExplanation shown after answering: The NURBS basis of the CAD model, so the geometry is exact at every refinement."
+  },
+  {
+   "id": "notes-n2",
+   "text": "[notes-n2] Notes 2. B-splines from a knot vector\nA knot vector is a non-decreasing list of parameter values Ξ = {t_1, t_2, …, t_{n+p+1}}. It defines n basis functions of degree p. An open knot vector repeats its first and last values p + 1 times, so the curve starts and ends at its first and last control points. The intervals [t_i, t_{i+1}) of non-zero length are the knot spans .\n## The Cox–de Boor recursion\nStart with piecewise constants, one per knot span, and raise the degree one step at a time:\nEQUATION (2.1): N_{I,0}(\\xi)=\\begin{cases}1, & t_I\\le \\xi< t_{I+1}\\\\ 0, & \\text{otherwise}\\end{cases}\nEQUATION (2.2): N_{I,p}(\\xi)=\\frac{\\xi-t_I}{t_{I+p}-t_I}\\,N_{I,p-1}(\\xi)+\\frac{t_{I+p+1}-\\xi}{t_{I+p+1}-t_{I+1}}\\,N_{I+1,p-1}(\\xi)\nA fraction with a zero denominator (a repeated knot) is taken as zero. Each degree-p function is a blend of two degree-(p − 1) neighbours, so N_{I,p} is non-zero only on [t_I, t_{I+p+1}): p + 1 knot spans.\nThe derivative follows from the same two neighbours, one degree lower:\nEQUATION (2.3): \\frac{dN_{I,p}}{d\\xi}=\\frac{p}{t_{I+p}-t_I}\\,N_{I,p-1}(\\xi)-\\frac{p}{t_{I+p+1}-t_{I+1}}\\,N_{I+1,p-1}(\\xi)\n## Properties used everywhere in this area\nEQUATION (2.4): \\sum_{I=1}^{n}N_{I,p}(\\xi)=1,\\qquad N_{I,p}(\\xi)\\ge 0\n- Partition of unity and non-negativity (2.4): a convex blend of control points.\n- Local support : on one knot span only p + 1 functions are non-zero.\n- Continuity C^{p−m} across a knot repeated m times; C^∞ inside a span.\n- Linear reproduction with the Greville abscissae (2.5): the B-splines can be read as functions attached to nodes ξ̄_I.\nEQUATION (2.5): \\bar\\xi_I=\\frac{t_{I+1}+t_{I+2}+\\dots+t_{I+p}}{p},\\qquad \\sum_{I=1}^{n}N_{I,p}(\\xi)\\,\\bar\\xi_I=\\xi\n## Worked step · counting and the Greville points\nQuadratic (p = 2), Ξ = {0, 0, 0, 0.5, 1, 1, 1}: seven knots, so n = 7 − 2 − 1 = 4 functions on two spans. The Greville points are ξ̄ = {0, 0.25, 0.75, 1}. At ξ = 0.75 (second span) the recursion gives N = {0, 0.125, 0.625, 0.25}; the sum is 1 and Σ N_I ξ̄_I = 0.75 = ξ. Example 1 shows every step.\nKey points:\n- Cox–de Boor: degree 0 on spans, then blend two neighbours per degree (2.1)–(2.2).\n- n = (number of knots) − p − 1; p + 1 non-zero functions per span.\n- Greville points make the B-splines reproduce ξ: they act as nodes.\nQuick check (not graded): How many quadratic B-splines does Ξ = {0, 0, 0, 0.25, 0.5, 0.75, 1, 1, 1} define?\nOptions: 4 | 6 | 8\nExplanation shown after answering: Nine knots, p = 2: n = 9 − 2 − 1 = 6."
+  },
+  {
+   "id": "notes-n3",
+   "text": "[notes-n3] Notes 3. NURBS and the geometry map\nPolynomials cannot draw a circle exactly. Giving each B-spline a positive weight λ_I and normalising makes the basis rational, and rational quadratics represent every conic section exactly.\nEQUATION (3.1): R_I(\\xi)=\\frac{\\lambda_I\\,N_{I,p}(\\xi)}{\\sum_{J=1}^{n}\\lambda_J\\,N_{J,p}(\\xi)}\nEQUATION (3.2): \\{x(\\xi)\\}=\\sum_{I=1}^{n}R_I(\\xi)\\,\\{P_I\\}\nWith all weights equal, R_I = N_{I,p}. The R_I keep the partition of unity and the local support, but they no longer reproduce ξ with the Greville points — a fact that matters in Part 2, when a meshfree correction must make up what the rational functions miss.\n## Worked step · the exact quarter circle\nQuadratic, Ξ = {0, 0, 0, 1, 1, 1}, control points (1, 0), (1, 1), (0, 1), weights 1, 1/√2, 1. At ξ = 0.5 the B-splines are ¼, ½, ¼; the weighted values ¼, 0.3536, ¼ sum to 0.8536, so R = {0.2929, 0.4142, 0.2929} and x = y = 0.7071: radius exactly 1. Without the weight (λ_2 = 1) the same point lands at (0.75, 0.75), radius 1.0607.\n## Surfaces, the map and its Jacobian\nA NURBS surface is the tensor product of two curve bases, R_{IJ}(ξ, η) = λ_{IJ} N_I(ξ) M_J(η) / W(ξ, η), and the geometry map takes the parameter square to the physical patch. Derivatives in x and y come through the Jacobian, written in the row convention used throughout the primer:\nEQUATION (3.3): \\begin{Bmatrix}\\partial f/\\partial x\\\\ \\partial f/\\partial y\\end{Bmatrix}=[J]^{-1}\\begin{Bmatrix}\\partial f/\\partial\\xi\\\\ \\partial f/\\partial\\eta\\end{Bmatrix},\\qquad [J]=\\begin{bmatrix}\\partial x/\\partial\\xi & \\partial y/\\partial\\xi\\\\ \\partial x/\\partial\\eta & \\partial y/\\partial\\eta\\end{bmatrix}\nWhere meshfree methods enter Every method of Parts 2–4 keeps the NURBS map (3.2)–(3.3) for the geometry. What changes is the field: some or all of the unknown is interpolated by meshfree functions instead of R_I, either in the parameter square or in physical space.\nKey points:\n- Weights make the basis rational; rational quadratics draw conics exactly.\n- R_I keep partition of unity and local support but not linear reproduction.\n- Derivatives in x, y: {∂f/∂x} = [J]^{−1}{∂f/∂ξ}, row convention.\nQuick check (not graded): Why does an exact circle need NURBS rather than B-splines?\nOptions: Polynomial B-splines cannot represent conic sections exactly; rational weights can | B-splines are not smooth enough on a circle | NURBS need fewer control points than B-splines for any curve\nExplanation shown after answering: A circle is a conic; only a rational parametrisation draws it exactly. Smoothness is not the issue."
+  },
+  {
+   "id": "notes-n4",
+   "text": "[notes-n4] Notes 4. Reproducing kernel shape functions\nA meshfree method writes the unknown as a sum over nodes, with no elements:\nEQUATION (4.1): u^h(x)=\\sum_{I=1}^{n}\\Psi_I(x)\\,\\hat u_I\nEach node I carries a kernel (window) W_I(x) of support radius a. The shape functions are required to reproduce every polynomial up to degree p — the reproducing conditions , with {H(x)} = {1, x, …, x^p}^T:\nEQUATION (4.2): \\sum_{I=1}^{n}\\Psi_I(x)\\,\\{H(x_I)\\}=\\{H(x)\\}\n## Derivation, step by step\n## Step 1 · correct the kernel by a polynomial\nTake the kernel and multiply it by a polynomial in the node position, with coefficients {b(x)} still unknown:\nEQUATION (4.3): \\Psi_I(x)=\\{H(x_I)\\}^T\\{b(x)\\}\\,W_I(x)\n## Step 2 · impose the reproducing conditions\nSubstitute (4.3) into (4.2). The coefficients come out of the sum, which leaves a (p + 1) × (p + 1) moment matrix :\nEQUATION (4.4): [M(x)]\\{b(x)\\}=\\{H(x)\\},\\qquad [M(x)]=\\sum_{J=1}^{n}\\{H(x_J)\\}\\{H(x_J)\\}^T W_J(x)\n## Step 3 · solve and substitute back\nSolve for {b(x)} and put it back into (4.3):\nEQUATION (4.5): \\Psi_I(x)=\\{H(x_I)\\}^T[M(x)]^{-1}\\{H(x)\\}\\,W_I(x)\n## Step 4 · check the simplest case\nFor p = 0, [M] = Σ W_J and Ψ_I = W_I / Σ W_J: the Shepard functions, a partition of unity. For p = 1 in 1D, one entry: M_{12} = Σ x_J W_J(x); Example 2 computes all of them at x = 0.4.\nThe kernel used in the primer is the cubic B-spline window, r = |x − x_I| / a:\nEQUATION (4.6): w(r)=\\begin{cases}\\tfrac23-4r^2+4r^3, & 0\\le r\\le\\tfrac12\\\\[2pt] \\tfrac43-4r+4r^2-\\tfrac43 r^3, & \\tfrac12<r\\le 1\\\\[2pt] 0, & r>1\\end{cases}\nTwo facts that drive the rest of the area (1) [M(x)] must be invertible: at least p + 1 kernels must overlap x, so the support radius a cannot be too small. (2) Ψ_I(x_J) ≠ δ_{IJ} in general: the functions do not interpolate, so essential boundary conditions need a transformation, Nitsche's method or a coupling with interpolating functions.\nWriting {H(x − x_I)} instead of {H(x_I)} (a shifted basis) gives the same Ψ_I — the reproduced space is the same — but a much better conditioned [M]; scale by the support as well, {H((x − x_I)/a)}, and use it in code.\nKey points:\n- Reproducing conditions (4.2) + kernel-times-polynomial ansatz (4.3) ⇒ Ψ_I = {H(x_I)}^T[M]^{−1}{H(x)} W_I.\n- [M] invertible needs p + 1 overlapping kernels: support size matters.\n- No Kronecker delta: essential conditions need special treatment.\nQuick check (not graded): Do RK shape functions satisfy Ψ_I(x_J) = δ_{IJ}?\nOptions: Yes, always | No, not in general, so essential conditions need special treatment | Only for p = 0\nExplanation shown after answering: They reproduce polynomials but do not interpolate; Example 2 shows Ψ at a node is not 1."
+  },
+  {
+   "id": "notes-n5",
+   "text": "[notes-n5] Notes 5. When RK becomes B-spline: blossom vectors\nCompare (2.5) with (4.2): B-splines reproduce ξ with the Greville points in the role of node positions. They also reproduce ξ^2, …, ξ^p, but not with powers of ξ̄_I. The right node vectors are the blossom vectors (Zhang & Wang, CMAME 320 (2017) 474–508):\nEQUATION (5.1): q_{I,l}=\\frac{e_l(t_{I+1},\\dots,t_{I+p})}{\\binom{p}{l}},\\qquad \\{Q_I\\}=\\{1,\\ q_{I,1},\\ \\dots,\\ q_{I,p}\\}^T\nHere e_l is the elementary symmetric polynomial of the p interior knots of the support (e_1 = sum, e_p = product). q_{I,1} is the Greville point. With these vectors the B-splines satisfy reproducing conditions of exactly the form (4.2) — Marsden's identity:\nEQUATION (5.2): \\sum_{I=1}^{n}N_{I,p}(\\xi)\\,\\{Q_I\\}=\\{H(\\xi)\\}\n## The RK construction with blossom vectors\nRepeat Section 4 with {Q_I} in place of {H(x_I)}, and give node I a kernel whose support is the support of N_{I,p}:\nEQUATION (5.3): \\Psi_I(\\xi)=\\{Q_I\\}^T[M(\\xi)]^{-1}\\{H(\\xi)\\}\\,W_I(\\xi),\\qquad [M(\\xi)]=\\sum_{J}\\{Q_J\\}\\{Q_J\\}^T W_J(\\xi)\n## Why the kernel cancels\nOn a knot span [t_k, t_{k+1}) exactly p + 1 supports are active, I = k − p, …, k. The reproducing conditions are p + 1 equations for these p + 1 values, and the vectors {Q_I} are linearly independent, so the system is square :\nEQUATION (5.4): \\left[\\,\\{Q_{k-p}\\}\\ \\cdots\\ \\{Q_k\\}\\,\\right]\\begin{Bmatrix}\\Psi_{k-p}\\\\ \\vdots\\\\ \\Psi_k\\end{Bmatrix}=\\{H(\\xi)\\}\\quad\\Longrightarrow\\quad \\Psi_I(\\xi)=N_{I,p}(\\xi)\nIts unique solution is the B-splines, by (5.2). Any positive kernel W_I leads to the same solution: (5.3) is just one way of solving (5.4). The kernel shape and the support radius inside the support no longer matter.\n## Worked step · the blossom vectors of Example 1\nFor Ξ = {0, 0, 0, 0.5, 1, 1, 1}: {Q_1} = {1, 0, 0}, {Q_2} = {1, 0.25, 0}, {Q_3} = {1, 0.75, 0.5}, {Q_4} = {1, 1, 1}. At ξ = 0.75, Q_2, Q_3, Q_4 are active and the 3 × 3 system returns 0.125, 0.625, 0.25 — the B-splines of Example 1, for a constant, a cubic or a cosine kernel alike (Example 3).\nWhat it buys, and what it does not Seen as RK functions, B-splines can be refined the meshfree way: insert nodes where needed and let the RK construction build the functions, while the square-system regions stay exact B-splines. The study of the 2017 paper found the catch: where nodes are inserted the system is no longer square, and linear exactness then depends on integration cells aligned with the knots — the theme of Part 3.\nKey points:\n- Blossom vectors (5.1) make the B-splines satisfy RK-type reproducing conditions (5.2).\n- With B-spline supports the system is square on each span: Ψ_I = N_{I,p} for any positive kernel.\n- Inserted nodes break the square system; integration then decides exactness.\nQuick check (not graded): On one knot span of a degree-p space, how many blossom-RK functions are non-zero, and what does that make the reproducing system?\nOptions: p + 1; a square system with a unique solution | p; an underdetermined system | all n; an overdetermined system solved by least squares\nExplanation shown after answering: p + 1 functions, p + 1 conditions: square, so the solution is the B-splines whatever the kernel."
+  },
+  {
+   "id": "notes-n6",
+   "text": "[notes-n6] Notes 6. Reading the literature like a reproducer\nEvery paper of this area was studied by re-deriving it and repeating its figures. The same lessons came back in almost every one, and they are worth learning before your first literature review.\n- Hidden parameters. The support convention (radius in what spacing?), the error norm and its quadrature, the reading of a boundary condition, the integration cells. A plot can depend on each of them by a factor of 2 to 60.\n- The known-method limit. Check whether, for the paper's own settings, the method reduces to FEM, IGA or plain RK. One studied method was exactly Q1 FEM at its settings; another gained only 2–10 % over plain RK.\n- The patch test first. A method that cannot reproduce a linear field exactly with its own quadrature has an integration problem, whatever its convergence plot shows.\n- Bounded agreement. Write MATCH or NEAR with the tolerance (e.g. within 2 % or 5 %), name every choice the paper did not state, and run the literal reading next to the one that matches.\n- What a result does not show. One mesh, one parameter set, one norm: say so. A research habit Before trusting a new method, implement the smallest case of it next to the method it claims to beat, with the same nodes, the same quadrature and the same boundary treatment. Most surprises in this area were found that way, in an afternoon.\nKey points:\n- List the unstated parameters before comparing numbers.\n- Check the known-method limit and the patch test first.\n- Report agreement with a tolerance, and what the result does not show.\nQuick check (not graded): A paper reports “good agreement” but does not state the support size or the quadrature of its error norm. What should you do first when reproducing it?\nOptions: Use the usual default values and report a match | List the unstated parameters and run the literal reading and the plausible variants side by side | Tune the parameters until the plot matches, then report the match\nExplanation shown after answering: Name every hidden choice and show what each reading gives; a fitted match is reported as a fit."
+  },
+  {
+   "id": "slides-1",
+   "text": "[slides-1] Slide 1: NURBS and meshfree methods · Part 1\nFoundations: B-splines, NURBS and reproducing kernels\nResearch primer · Faculty of Civil Engineering, UTM\n© 2026 Ahmad Razin Zainal Abidin · NURBS–meshfree primer, Part 1 1 / 11"
+  },
+  {
+   "id": "slides-2",
+   "text": "[slides-2] Slide 2: Why put NURBS and meshfree together?\n- CAD geometry is NURBS; FE meshes only approximate it.\n- IGA: analyse with the CAD basis — exact geometry, rigid patches.\n- Meshfree: shape functions from nodes — flexible refinement, harder boundaries.\n- This area: keep the exact geometry, borrow the meshfree flexibility. © 2026 Ahmad Razin Zainal Abidin · NURBS–meshfree primer, Part 1 2 / 11"
+  },
+  {
+   "id": "slides-3",
+   "text": "[slides-3] Slide 3: Knot vectors and the Cox–de Boor recursion\n(2.2)\n- Degree 0: one per knot span. Degree p: blend two degree-(p − 1) neighbours.\n- n = (number of knots) − p − 1. © 2026 Ahmad Razin Zainal Abidin · NURBS–meshfree primer, Part 1 3 / 11"
+  },
+  {
+   "id": "slides-4",
+   "text": "[slides-4] Slide 4: Properties you will use every day\n- Partition of unity, non-negative, local support of p + 1 spans.\n- C^{p−m} across a knot of multiplicity m.\n- Greville points ξ̄_I: Σ N_I ξ̄_I = ξ — B-splines behave as nodal functions. © 2026 Ahmad Razin Zainal Abidin · NURBS–meshfree primer, Part 1 4 / 11"
+  },
+  {
+   "id": "slides-5",
+   "text": "[slides-5] Slide 5: NURBS: weights draw the circle\n(3.1)\n- Quarter circle: control points (1,0), (1,1), (0,1); weights 1, 1/√2, 1.\n- At ξ = 0.5: (0.7071, 0.7071), radius exactly 1. Without the weight: radius 1.0607. © 2026 Ahmad Razin Zainal Abidin · NURBS–meshfree primer, Part 1 5 / 11"
+  },
+  {
+   "id": "slides-6",
+   "text": "[slides-6] Slide 6: Reproducing kernel shape functions\n(4.5)\n- From the reproducing conditions Σ Ψ_I{H(x_I)} = {H(x)}.\n- [M] needs p + 1 overlapping kernels. No Kronecker delta. © 2026 Ahmad Razin Zainal Abidin · NURBS–meshfree primer, Part 1 6 / 11"
+  },
+  {
+   "id": "slides-7",
+   "text": "[slides-7] Slide 7: Example: linear RK at x = 0.4\n- Nodes 0, 0.5, 1; cubic kernel, a = 0.75.\n- W = {0.1355, 0.6050, 0.0107} → Ψ = {0.2108, 0.7783, 0.0108}.\n- Sums: 1 and 0.4. Ψ_2 ≠ 1 next to node 2. © 2026 Ahmad Razin Zainal Abidin · NURBS–meshfree primer, Part 1 7 / 11"
+  },
+  {
+   "id": "slides-8",
+   "text": "[slides-8] Slide 8: Blossom vectors and Marsden's identity\n(5.1)\n(5.2)\n© 2026 Ahmad Razin Zainal Abidin · NURBS–meshfree primer, Part 1 8 / 11"
+  },
+  {
+   "id": "slides-9",
+   "text": "[slides-9] Slide 9: RK with blossom vectors = B-splines\n(5.4)\n- p + 1 active supports, p + 1 conditions: a square system.\n- The kernel cancels: any positive W gives the B-splines.\n- Inserted nodes break the square system → Part 3. © 2026 Ahmad Razin Zainal Abidin · NURBS–meshfree primer, Part 1 9 / 11"
+  },
+  {
+   "id": "slides-10",
+   "text": "[slides-10] Slide 10: Reading the literature like a reproducer\n- List the hidden parameters: support convention, norm and its quadrature, BC reading, cells.\n- Check the known-method limit and the patch test first.\n- Report MATCH/NEAR with tolerances, and what the result does not show. © 2026 Ahmad Razin Zainal Abidin · NURBS–meshfree primer, Part 1 10 / 11"
+  },
+  {
+   "id": "slides-11",
+   "text": "[slides-11] Slide 11: Next: Parts 2–4\n- Part 2 · Coupling IGA and meshfree regions (Wang & Zhang 2014; Valizadeh et al. 2015; Shaw et al. 2008).\n- Part 3 · Integration, boundaries and consistency (Chen, Hillman & Rüter 2013; Chi & Lin 2016).\n- Part 4 · NURBS-based meshless methods of the group (N-RPIM 2022; NDM 2025). © 2026 Ahmad Razin Zainal Abidin · NURBS–meshfree primer, Part 1 11 / 11"
+  },
+  {
+   "id": "examples-x1",
+   "text": "[examples-x1] Example 1 · Quadratic B-splines at a point by Cox–de Boor\nType evaluate N_{I,p}(ξ) and check two properties Question Ξ = {0, 0, 0, 0.5, 1, 1, 1}, p = 2. Evaluate every basis function at ξ = 0.75 and check the partition of unity and the linear reproduction (2.5). Plan. Find the span → degree 0 → degree 1 → degree 2 → checks.\n## Step 1 The knot span\nt_4 = 0.5 ≤ 0.75 < t_5 = 1, so ξ lies in span 4 and only N_{4,0} = 1 at degree 0: {0, 0, 0, 1, 0, 0}.\n## Step 2 Degree 1\nN_{3,1} = (t_5 − ξ)/(t_5 − t_4) N_{4,0} = 0.25/0.5 = 0.5 and N_{4,1} = (ξ − t_4)/(t_5 − t_4) N_{4,0} = 0.5. All degree-1 values: {0, 0, 0.5, 0.5, 0}.\n## Step 3 Degree 2\nN_{2,2} = (t_5 − ξ)/(t_5 − t_3) N_{3,1} = 0.25 × 0.5 = 0.125; N_{3,2} = (ξ − t_3)/(t_5 − t_3) N_{3,1} + (t_6 − ξ)/(t_6 − t_4) N_{4,1} = 0.75 × 0.5 + 0.5 × 0.5 = 0.625; N_{4,2} = (ξ − t_4)/(t_6 − t_4) N_{4,1} = 0.5 × 0.5 = 0.25 (the second term has t_7 − t_5 = 0, taken as 0). Result: N = {0, 0.125, 0.625, 0.25}.\n## Step 4 Checks\nSum = 1. Greville points {0, 0.25, 0.75, 1}: Σ N_I ξ̄_I = 0.125 × 0.25 + 0.625 × 0.75 + 0.25 × 1 = 0.75 = ξ. ✓\nShow all steps ✓ Example finished — try the exercise that follows it."
+  },
+  {
+   "id": "examples-x2",
+   "text": "[examples-x2] Example 2 · Linear RK shape functions at a point\nType moment matrix, coefficients, Ψ_I, reproduction check Question Nodes x_I = 0, 0.5, 1; cubic kernel (4.6) with a = 0.75; p = 1. Compute Ψ_1, Ψ_2, Ψ_3 at x = 0.4 and check (4.2). Plan. Kernel values → [M] → {b} → Ψ_I → checks.\n## Step 1 Kernel values\nr = 0.5333, 0.1333, 0.8: W = {0.1355, 0.6050, 0.0107} (second, first and second branch of (4.6)).\n## Step 2 Moment matrix\nM_{11} = Σ W_J = 0.7512, M_{12} = Σ x_J W_J = 0.3132, M_{22} = Σ x_J^2 W_J = 0.1619.\n## Step 3 Coefficients\n[M]{b} = {1, 0.4}^T gives {b} = {1.5560, -0.5392}.\n## Step 4 Shape functions\nΨ_I = (b_1 + b_2 x_I) W_I: Ψ = {0.2108, 0.7783, 0.0108}.\n## Step 5 Checks\nΣ Ψ_I = 1 and Σ Ψ_I x_I = 0.4 = x. ✓ Note Ψ_2 ≠ 1 even though x is close to node 2: no Kronecker delta.\nShow all steps ✓ Example finished — try the exercise that follows it."
+  },
+  {
+   "id": "examples-x3",
+   "text": "[examples-x3] Example 3 · Blossom vectors make RK equal to B-splines\nType blossom vectors, the square system, kernel independence Question Same knots as Example 1. (a) Write the blossom vectors. (b) At ξ = 0.75, solve the reproducing conditions with the active vectors. (c) Show that (5.3) gives the same values for any positive kernel. Plan. Blossom vectors → active set → 3 × 3 system → compare with Example 1 → kernel argument.\n## Step 1 (a) Blossom vectors\nFor p = 2, {Q_I} = {1, (t_{I+1} + t_{I+2})/2, t_{I+1} t_{I+2}}^T: Q_1 = {1, 0, 0}; Q_2 = {1, 0.25, 0}; Q_3 = {1, 0.75, 0.5}; Q_4 = {1, 1, 1}.\n## Step 2 (b) The square system\nξ is in span [0.5, 1): supports of N_2, N_3, N_4 are active. Rows: Ψ_2 + Ψ_3 + Ψ_4 = 1; 0.25Ψ_2 + 0.75Ψ_3 + Ψ_4 = 0.75; 0.5Ψ_3 + Ψ_4 = 0.5625. Solution: Ψ = {0.125, 0.625, 0.25} = N. ✓\n## Step 3 (c) Any kernel\nWith W_I > 0 on the active supports, (5.3) solves the same three equations, so the weights cancel: a constant, a cubic and a cosine kernel all give {0.125, 0.625, 0.25} (run code/nmf_bspline_rk.py ). The Explorer, task 2, shows it for every ξ.\nShow all steps ✓ Example finished — try the exercise that follows it."
+  },
+  {
+   "id": "exercises-e1",
+   "text": "[exercises-e1] Exercise 1 · Quadratic B-splines at a point\nStatement: Open knot vector Ξ = {0, 0, 0, a, 1, 1, 1}, p = 2. Evaluate N_1 … N_4 at the given ξ (four decimals).\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-e2",
+   "text": "[exercises-e2] Exercise 2 · Greville points\nStatement: Compute the interior Greville points ξ̄_2 … ξ̄_{n−1} of the given open knot vector.\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-e3",
+   "text": "[exercises-e3] Exercise 3 · Linear RK shape functions from given kernel values\nStatement: Nodes x_I = 0, 1, 2; p = 1; the kernel values at the point x are given. Compute Ψ_1, Ψ_2, Ψ_3.\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-e4",
+   "text": "[exercises-e4] Exercise 4 · A point of a NURBS arc\nStatement: Quadratic arc, Ξ = {0, 0, 0, 1, 1, 1}, control points (1, 0), (1, 1), (0, 1), weights 1, λ_2, 1. Compute x and y at the given ξ, and the distance from the origin.\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-e5",
+   "text": "[exercises-e5] Exercise 5 · A cubic blossom vector\nStatement: For p = 3 and the three interior knots of one support given below, compute q_1, q_2, q_3 of (5.1).\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-quick",
+   "text": "[exercises-quick] Exercises: quick concept questions\n- A knot repeated twice in a cubic B-spline space gives what continuity there?\n- Why must at least p + 1 kernels overlap every point?\n- What is q_{I,1} of a blossom vector?"
+  },
+  {
+   "id": "lab-m1",
+   "text": "[lab-m1] Explorer task 1 · Set the degree to 3 and count the functions that are non-zero on one knot span.\nAnswer for yourself: p + 1 = 4.\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-m2",
+   "text": "[lab-m2] Explorer task 2 · Choose “RK with blossom vectors” and switch between at least two kernel shapes. Watch the error line.\nThe curves do not move and max |Ψ − N| stays at round-off: Section 5.\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-m3",
+   "text": "[lab-m3] Explorer task 3 · Choose “RK with node monomials” (standard RK at the Greville points) and vary the support factor.\nThe functions now change with the support and differ from the B-splines, though they still reproduce ξ.\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-m4",
+   "text": "[lab-m4] Explorer task 4 · Move the interior knot slider with blossom RK on.\nThe blossom vectors follow the knots, so RK and B-splines stay equal.\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "glossary-knot-vector",
+   "text": "[glossary-knot-vector] Glossary: knot vector\nknot vector: Non-decreasing list of parameter values that defines a B-spline basis."
+  },
+  {
+   "id": "glossary-open-knot-vector",
+   "text": "[glossary-open-knot-vector] Glossary: open knot vector\nopen knot vector: A knot vector whose end values are repeated p + 1 times; the curve then interpolates its end control points."
+  },
+  {
+   "id": "glossary-knot-span",
+   "text": "[glossary-knot-span] Glossary: knot span\nknot span: An interval [t_i , t_{i+1} ) of non-zero length; p + 1 basis functions are non-zero on it."
+  },
+  {
+   "id": "glossary-b-spline-basis-function",
+   "text": "[glossary-b-spline-basis-function] Glossary: B-spline basis function\nB-spline basis function: Piecewise polynomial N_{I,p} built by the Cox–de Boor recursion; non-negative, local, a partition of unity."
+  },
+  {
+   "id": "glossary-cox-de-boor-recursion",
+   "text": "[glossary-cox-de-boor-recursion] Glossary: Cox–de Boor recursion\nCox–de Boor recursion: Builds N_{I,p} from two degree-(p − 1) neighbours, Eq. (2.2)."
+  },
+  {
+   "id": "glossary-partition-of-unity",
+   "text": "[glossary-partition-of-unity] Glossary: partition of unity\npartition of unity: The functions sum to one at every point."
+  },
+  {
+   "id": "glossary-local-support",
+   "text": "[glossary-local-support] Glossary: local support\nlocal support: Each function is non-zero only on a small interval: p + 1 knot spans for a B-spline, radius a for a kernel."
+  },
+  {
+   "id": "glossary-greville-abscissa",
+   "text": "[glossary-greville-abscissa] Glossary: Greville abscissa\nGreville abscissa: Average of the p interior knots of a support, ξ̄_I ; with them the B-splines reproduce ξ."
+  },
+  {
+   "id": "glossary-nurbs",
+   "text": "[glossary-nurbs] Glossary: NURBS\nNURBS: Non-uniform rational B-splines: weighted, normalised B-splines; exact for conic sections."
+  },
+  {
+   "id": "glossary-weight",
+   "text": "[glossary-weight] Glossary: weight\nweight: Positive factor λ_I of a NURBS basis function; changes the shape without moving the control point."
+  },
+  {
+   "id": "glossary-control-point",
+   "text": "[glossary-control-point] Glossary: control point\ncontrol point: Coefficient of a spline geometry; the curve lies in the convex hull of its control points."
+  },
+  {
+   "id": "glossary-geometry-map",
+   "text": "[glossary-geometry-map] Glossary: geometry map\ngeometry map: The function x(ξ, η) that takes the parameter square to the physical patch."
+  },
+  {
+   "id": "glossary-jacobian-row-convention",
+   "text": "[glossary-jacobian-row-convention] Glossary: Jacobian (row convention)\nJacobian (row convention): [J] with rows ∂(x, y)/∂ξ and ∂(x, y)/∂η, so that {∂f/∂x} = [J]^{−1} {∂f/∂ξ}."
+  },
+  {
+   "id": "glossary-isogeometric-analysis-iga",
+   "text": "[glossary-isogeometric-analysis-iga] Glossary: isogeometric analysis (IGA)\nisogeometric analysis (IGA): Analysis with the NURBS basis of the CAD geometry."
+  },
+  {
+   "id": "glossary-meshfree-method",
+   "text": "[glossary-meshfree-method] Glossary: meshfree method\nmeshfree method: A method whose shape functions are built from nodes and supports, without elements."
+  },
+  {
+   "id": "glossary-reproducing-kernel-rk",
+   "text": "[glossary-reproducing-kernel-rk] Glossary: reproducing kernel (RK)\nreproducing kernel (RK): Shape function Ψ_I = kernel × polynomial correction that reproduces polynomials up to degree p."
+  },
+  {
+   "id": "glossary-reproducing-conditions",
+   "text": "[glossary-reproducing-conditions] Glossary: reproducing conditions\nreproducing conditions: Σ Ψ_I (x){H(x_I )} = {H(x)}: polynomials up to degree p are returned exactly."
+  },
+  {
+   "id": "glossary-moment-matrix",
+   "text": "[glossary-moment-matrix] Glossary: moment matrix\nmoment matrix: [M(x)] = Σ {H(x_J )}{H(x_J )}^T W_J (x); must be invertible."
+  },
+  {
+   "id": "glossary-kernel-window-function",
+   "text": "[glossary-kernel-window-function] Glossary: kernel (window) function\nkernel (window) function: Non-negative bell-shaped function W_I centred on node I with support radius a."
+  },
+  {
+   "id": "glossary-support-radius-dilation",
+   "text": "[glossary-support-radius-dilation] Glossary: support radius · dilation\nsupport radius · dilation: a = c_a h: the reach of a kernel, as a multiple c_a of a node spacing h."
+  },
+  {
+   "id": "glossary-shepard-function",
+   "text": "[glossary-shepard-function] Glossary: Shepard function\nShepard function: The p = 0 RK function W_I /Σ W_J ."
+  },
+  {
+   "id": "glossary-shifted-basis",
+   "text": "[glossary-shifted-basis] Glossary: shifted basis\nshifted basis: {H(x − x_I )} instead of {H(x_I )}: same functions, better-conditioned [M]."
+  },
+  {
+   "id": "glossary-blossom-vector",
+   "text": "[glossary-blossom-vector] Glossary: blossom vector\nblossom vector: {Q_I } = {1, q_{I,1} , …, q_{I,p} }, built from the interior knots of a support, Eq. (5.1)."
+  },
+  {
+   "id": "glossary-marsden-s-identity",
+   "text": "[glossary-marsden-s-identity] Glossary: Marsden's identity\nMarsden's identity: Σ N_{I,p} (ξ){Q_I } = {H(ξ)}: B-splines reproduce polynomials with blossom vectors."
+  },
+  {
+   "id": "glossary-elementary-symmetric-polynomial",
+   "text": "[glossary-elementary-symmetric-polynomial] Glossary: elementary symmetric polynomial\nelementary symmetric polynomial: e_l : sum of all products of l distinct numbers from a list."
+  },
+  {
+   "id": "glossary-essential-boundary-condition",
+   "text": "[glossary-essential-boundary-condition] Glossary: essential boundary condition\nessential boundary condition: A prescribed value of the unknown; needs special treatment when Ψ_I (x_J ) ≠ δ_{IJ} ."
+  },
+  {
+   "id": "glossary-patch-test",
+   "text": "[glossary-patch-test] Glossary: patch test\npatch test: Check that a method reproduces a linear (or higher) field exactly with its own quadrature and boundary treatment."
+  },
+  {
+   "id": "glossary-known-method-limit",
+   "text": "[glossary-known-method-limit] Glossary: known-method limit\nknown-method limit: The settings at which a new method reduces to a known one (FEM, IGA, plain RK)."
+  },
+  {
+   "id": "glossary-hidden-parameter",
+   "text": "[glossary-hidden-parameter] Glossary: hidden parameter\nhidden parameter: A choice a paper does not state but its results depend on (support convention, norm quadrature, BC reading)."
+  }
+ ]
+}

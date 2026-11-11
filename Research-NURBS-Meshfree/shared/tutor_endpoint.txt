@@ -1,0 +1,5 @@
+# Address of the rz-tutor Worker that answers for Dr RJ, for example
+#   https://rz-tutor.<subdomain>.workers.dev/v1/chat
+# Put it on the line below, then rebuild the page: python3 web/build.py
+# The primer is not registered in the Worker yet (apps.json has no "nmf" entry), so the line stays empty:
+# Dr RJ works offline (scripted steps and section pointers; nothing leaves the browser).

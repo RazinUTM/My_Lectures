@@ -1,0 +1,3 @@
+# build-time dependencies (npm ci in web/) and Python caches
+web/node_modules/
+__pycache__/

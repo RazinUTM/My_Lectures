@@ -32,8 +32,8 @@
       notice: "Soalan yang anda taip di sini dihantar ke perkhidmatan AI (Anthropic) melalui pelayan kursus. Jangan masukkan nama, nombor matrik atau butiran peribadi. Tutor ini boleh tersilap: semak dengan nota. Guna {name} untuk faham, bukan untuk menyalin: apa sahaja yang anda hantar untuk markah mesti hasil kerja anda sendiri.",
       agree: "Faham · I understand", placeholder: "Tanya {name}…", send: "Tanya", thinking: "{name} sedang fikir…",
       goto: "Pergi ke: {label}", copy: "Salin transkrip", copied: "Disalin.", reset: "Perbualan baharu", code: "Kod kelas",
-      codeAsk: "Masukkan kod kelas yang diberi dalam kelas untuk guna tutor AI.", codeSave: "Simpan", offline: "Pelayan tutor tidak dapat dihubungi. Sila cuba bahagian ini:",
-      offlineNone: "Pelayan tutor tidak dapat dihubungi. Sila cuba Nota atau Glosari.", limit: "Had harian tutor AI sudah dicapai.", you: "Anda", mode: "mod",
+      codeAsk: "Masukkan kod kelas yang diberi dalam kelas untuk guna tutor AI.", codeSave: "Simpan", offline: "Pelayan tutor tak dapat dihubungi. Cuba bahagian ini:",
+      offlineNone: "Pelayan tutor tak dapat dihubungi. Cuba Nota atau Glosari.", limit: "Had harian tutor AI dah dicapai.", you: "Anda", mode: "mod",
       fromNotes: "Daripada nota kursus", notInNotes: "Tiada dalam nota kursus",
       off: "Tutor AI belum dihidupkan lagi. Bahagian ini berkaitan dengan soalan anda:", offNone: "Tutor AI belum dihidupkan lagi. Cuba Nota atau Glosari.",
     },
@@ -78,25 +78,13 @@
     function paintChrome() {
       input.placeholder = t("placeholder"); input.setAttribute("aria-label", t("placeholder"));
       iconBtn(send, ICON.send, t("send")); iconBtn(copyB, ICON.copy, t("copy")); iconBtn(resetB, ICON.reset, t("reset"));
-      if (gateEl && gateEl.isConnected) { gateEl.firstChild.textContent = t("notice"); gateEl.lastChild.textContent = t("agree"); }
-    }
-    let gateEl = null;
-    // the 👍/👎 goes to the lecturer's feedback report as a count (no text, no question) when the page has a Worker
-    function sendVote(v) {
-      if (!cfg.endpoint || !/\/v1\/chat(\?|$)/.test(cfg.endpoint)) return;
-      try {
-        fetch(cfg.endpoint.replace(/\/v1\/chat(\?.*)?$/, "/v1/feedback") + "?app=" + encodeURIComponent(cfg.app), {
-          method: "POST", headers: { "Content-Type": "text/plain;charset=UTF-8" }, keepalive: true,   // a simple request: no preflight
-          body: JSON.stringify({ kind: "tutor_vote", part: cfg.part, session: st.session, value: v }),
-        }).catch(() => { /* a lost vote is not worth an error */ });
-      } catch (e) { /* ignore */ }
     }
     function gate() {
       if (st.agreed || !cfg.endpoint) return;   // without an endpoint nothing leaves the browser, so there is nothing to agree to
       const g = el("div", "rzt-gate", "<p>" + esc(t("notice")) + "</p>");
       const b = el("button", "rzt-tb rzt-primary", esc(t("agree"))); b.type = "button";
       b.addEventListener("click", () => { st.agreed = true; save(); g.remove(); form.hidden = false; tools.hidden = false; input.focus(); });
-      g.append(b); root.insertBefore(g, log); form.hidden = true; tools.hidden = true; gateEl = g;
+      g.append(b); root.insertBefore(g, log); form.hidden = true; tools.hidden = true;
     }
     function askCode() {
       const g = el("div", "rzt-gate", "<p>" + esc(t("codeAsk")) + "</p>");
@@ -126,7 +114,7 @@
         else if (out.grounding === "not-covered") m.append(el("span", "rzt-src rzt-nc", esc(t("notInNotes"))));
         const up = el("button", "rzt-vote", "👍"); up.type = "button"; up.setAttribute("aria-label", "helpful");
         const dn = el("button", "rzt-vote", "👎"); dn.type = "button"; dn.setAttribute("aria-label", "not helpful");
-        const vote = (v) => { st.votes[v] = (st.votes[v] || 0) + 1; save(); up.disabled = dn.disabled = true; sendVote(v); };
+        const vote = (v) => { st.votes[v] = (st.votes[v] || 0) + 1; save(); up.disabled = dn.disabled = true; };   // counts stay in this browser
         up.addEventListener("click", () => vote("up")); dn.addEventListener("click", () => vote("down"));
         if (!out.grounding || out.grounding === "fallback") m.append(el("span", "rzt-mode", esc(t("mode") + ": " + mode)));   // why the answer is short
         m.append(up, dn);

@@ -22,7 +22,6 @@ on the same page and prints what it changed so the diff can be reviewed before a
 from __future__ import annotations
 
 import argparse
-import json
 import re
 import sys
 from pathlib import Path
@@ -89,67 +88,6 @@ def inject(html: str, app: str, part: str, endpoint: str, hooks: list[tuple[str,
     return html, log
 
 
-def read_whats_new(path: Path) -> list[dict]:
-    """Lines `YYYY-MM-DD | English | Bahasa Melayu` (# comments and blank lines skipped), newest first."""
-    items = []
-    if not path or not Path(path).exists():
-        return items
-    for n, line in enumerate(Path(path).read_text(encoding="utf-8").splitlines(), 1):
-        line = line.strip()
-        if not line or line.startswith("#"):
-            continue
-        parts = [x.strip() for x in line.split("|")]
-        if len(parts) < 2 or not re.fullmatch(r"\d{4}-\d{2}-\d{2}", parts[0]):
-            raise SystemExit(f"{path}:{n}: expected 'YYYY-MM-DD | English | Bahasa Melayu', got {line!r}")
-        en = parts[1]
-        ms = parts[2] if len(parts) > 2 and parts[2] else en
-        items.append({"date": parts[0], "en": en, "ms": ms})
-    return sorted(items, key=lambda x: x["date"], reverse=True)
-
-
-def read_token(path: Path) -> str:
-    """The first non-comment line of a token file (a Cloudflare Web Analytics site token), else ''."""
-    if not path or not Path(path).exists():
-        return ""
-    for line in Path(path).read_text(encoding="utf-8").splitlines():
-        line = line.strip()
-        if line and not line.startswith("#"):
-            if not re.fullmatch(r"[A-Za-z0-9]{16,64}", line):
-                raise SystemExit(f"{path}: the Web Analytics token should be 16-64 letters and digits, got {line!r}")
-            return line
-    return ""
-
-
-def inject_feedback(html: str, app: str, part: str, whats_new: list[dict] | None = None, manifest: str = "tutor/manifest.json") -> tuple[str, list[str]]:
-    """Inline the Feedback tab module (feedback/feedback.css and feedback.js) and mount it into the page's
-    `<div id="rzfeedback">`, which the page source places in its Feedback tab. The Worker address comes
-    from the page's `<meta name="rz-tutor">` at run time, so add_panel's inject() must run as well."""
-    if 'id="rzfeedback"' not in html:
-        raise SystemExit('the page has no <div id="rzfeedback"> (put one in its Feedback tab)')
-    if "window.RzFeedback" in html:
-        raise SystemExit("the page already has the feedback module; nothing done")
-    css = (HERE / "feedback" / "feedback.css").read_text(encoding="utf-8")
-    js = (HERE / "feedback" / "feedback.js").read_text(encoding="utf-8")
-    conf = json.dumps({"root": "#rzfeedback", "app": app, "part": part, "manifest": manifest, "whatsNew": whats_new or []},
-                      ensure_ascii=False).replace("</", "<\\/")
-    html = html.replace("</head>", f"<style>\n/* rz feedback tab (rz-tutor-worker) */\n{css}</style>\n</head>", 1)
-    tail = f"<script>\n{js}</script>\n<script>window.RzFeedback.mount({conf});</script>\n"
-    html = html[: html.rfind("</body>")] + tail + html[html.rfind("</body>"):]
-    return html, [f"head: feedback CSS; body end: feedback module, mounted in #rzfeedback ({len(whats_new or [])} 'What's new' items)"]
-
-
-def inject_analytics(html: str, token: str) -> tuple[str, list[str]]:
-    """Add the Cloudflare Web Analytics beacon (cookie-free page-view counts) when a site token is given."""
-    if not token:
-        return html, ["analytics: no token, no beacon"]
-    if "cloudflareinsights.com/beacon" in html:
-        raise SystemExit("the page already has the Web Analytics beacon; nothing done")
-    tag = (f"<script defer src=\"https://static.cloudflareinsights.com/beacon.min.js\" "
-           f"data-cf-beacon='{{\"token\": \"{token}\"}}'></script>\n")
-    html = html[: html.rfind("</body>")] + tag + html[html.rfind("</body>"):]
-    return html, ["body end: Cloudflare Web Analytics beacon"]
-
-
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("page")
@@ -158,21 +96,12 @@ def main() -> int:
     ap.add_argument("--endpoint", default="", help="Worker URL …/v1/chat; leave empty until deployed (offline quote mode)")
     ap.add_argument("--css", default="", help="extra CSS for this page, e.g. ':root{--rz-top:82px}' when the page has a sticky tab bar")
     ap.add_argument("--hook", nargs=3, action="append", default=[], metavar=("PATTERN", "WHERE", "CODE"), help="WHERE: before | after | after-statement")
-    ap.add_argument("--feedback", action="store_true", help='also inline the Feedback tab module (the page needs <div id="rzfeedback">)')
-    ap.add_argument("--whats-new", default="", help="a file of 'YYYY-MM-DD | English | Bahasa Melayu' lines for the Feedback tab")
-    ap.add_argument("--analytics-token", default="", help="a Cloudflare Web Analytics site token: adds the cookie-free beacon")
     ap.add_argument("--write", action="store_true", help="write the page in place (otherwise dry run)")
     ap.add_argument("--out", default="", help="write to another path instead of in place")
     a = ap.parse_args()
     page = Path(a.page)
     html = page.read_text(encoding="utf-8")
     new, log = inject(html, a.app, a.part, a.endpoint, [tuple(h) for h in a.hook], a.css)
-    if a.feedback:
-        new, more = inject_feedback(new, a.app, a.part, read_whats_new(Path(a.whats_new)) if a.whats_new else [])
-        log += more
-    if a.analytics_token:
-        new, more = inject_analytics(new, a.analytics_token)
-        log += more
     for line in log:
         print("-", line)
     print(f"size {len(html):,} -> {len(new):,} bytes")

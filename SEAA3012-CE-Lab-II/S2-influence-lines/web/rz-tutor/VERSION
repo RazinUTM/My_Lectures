@@ -3,3 +3,5 @@ A pinned copy used by web/add_tutor.py. To update: copy the same files from a ne
 this folder, rebuild the page (python3 web/build_web.py && python3 web/add_tutor.py) and check it in a browser.
 
 Updated 8 Nov 2026 (rz-tutor-worker 3c48094): tools/build_manifest.py keeps one slide bullet per line.
+
+Local patch 10 Nov 2026 (to promote to rz-tutor-worker): widget/tutor-widget.js repaints the notice gate when the page language changes (paintChrome updates gateEl).

@@ -4,7 +4,7 @@
 var AVS={crossed:"%%AVURL_crossed%%",present:"%%AVURL_present%%",think:"%%AVURL_think%%",thumbs:"%%AVURL_thumbs%%",tablet:"%%AVURL_tablet%%",explain:"%%AVURL_explain%%",offer:"%%AVURL_offer%%",ok:"%%AVURL_ok%%",wave:"%%AVURL_wave%%",cheer:"%%AVURL_cheer%%",badge:"%%AVURL_badge%%"};
 document.querySelectorAll("img[data-avsrc]").forEach(function(im){im.src=AVS[im.getAttribute("data-avsrc")]});
 /* inside an embedding frame (claude.ai), open the breadcrumb links in a new tab */
-try{if(window.top!==window.self)document.querySelectorAll(".crumbs a").forEach(function(l){l.target="_blank";l.rel="noopener"})}catch(e){document.querySelectorAll(".crumbs a").forEach(function(l){l.target="_blank";l.rel="noopener"})}
+try{if(window.top!==window.self)document.querySelectorAll(".crumbs a,.contact a,a.homeicon").forEach(function(l){l.target="_blank";l.rel="noopener"})}catch(e){document.querySelectorAll(".crumbs a,.contact a,a.homeicon").forEach(function(l){l.target="_blank";l.rel="noopener"})}
 /* =====================================================================
    State: one object, kept in localStorage under one key. Every read and
    write is wrapped, so the page works where storage is unavailable.
@@ -24,27 +24,54 @@ var saveT=null;function save(){clearTimeout(saveT);saveT=setTimeout(function(){s
 function saveNow(){clearTimeout(saveT);sv(KEY,ST)}
 window.addEventListener("pagehide",saveNow);
 
-/* ---------- language and theme ---------- */
+/* ---------- preferences: language · theme · text size (rz-settings-buttons) ----------
+   Course-wide, one key for all SEAA 3012 pages: {lang, theme, font, fold, guided}. The inline script in
+   <head> applies them before first paint; older pages kept lang/theme in s2-il-v3, read once here. */
+var PKEY="seaa3012-prefs",PR=ld(PKEY,null);if(!PR||typeof PR!=="object")PR={};
+if(PR.lang!=="ms"&&PR.lang!=="en")PR.lang=ST.lang==="ms"?"ms":"en";
+if(PR.theme!=="light"&&PR.theme!=="dark")PR.theme=(ST.theme==="light"||ST.theme==="dark")?ST.theme:"";
+PR.font=+PR.font||1;ST.lang=PR.lang;ST.theme=PR.theme||"auto";
+function savePrefs(){sv(PKEY,PR)}
 function L2(en,ms){return ST.lang==="ms"?ms:en}
 var root=document.documentElement;
 function tx(el,en,ms){el.setAttribute("data-en",en);el.setAttribute("data-ms",ms);el.textContent=L2(en,ms)}
 var langHooks=[];
 function applyLang(){root.setAttribute("data-lang",ST.lang);root.setAttribute("lang",ST.lang==="ms"?"ms":"en");
-  document.querySelectorAll("[data-setlang]").forEach(function(b){b.setAttribute("aria-pressed",String(b.getAttribute("data-setlang")===ST.lang))});
+  var lb=document.getElementById("btn-lang");lb.textContent=ST.lang==="ms"?"EN":"BM";lb.title=ST.lang==="ms"?"Language":"Bahasa";
+  lb.setAttribute("aria-label",ST.lang==="ms"?"Language: English":"Bahasa: Melayu");
   document.querySelectorAll("[data-en][data-ms]").forEach(function(el){el.textContent=L2(el.getAttribute("data-en"),el.getAttribute("data-ms"))});
   document.querySelectorAll("[data-ph-en]").forEach(function(el){el.placeholder=L2(el.getAttribute("data-ph-en"),el.getAttribute("data-ph-ms"))});
+  var hi=document.querySelector("a.homeicon"),ht=L2("SEAA 3012 course home","Laman kursus SEAA 3012");hi.title=ht;hi.setAttribute("aria-label",ht);
+  document.getElementById("sgclose").setAttribute("aria-label",L2("Close","Tutup"));
   langHooks.forEach(function(f){try{f()}catch(e){}})}
-document.querySelectorAll("[data-setlang]").forEach(function(b){b.addEventListener("click",function(){ST.lang=b.getAttribute("data-setlang");save();applyLang()})});
-var THEMES=["auto","light","dark"],SVGI='<svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" style="display:block;margin:auto">',TSYM={
-  auto:SVGI+'<circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 0 0 16z" fill="currentColor"/></svg>',
-  light:SVGI+'<circle cx="12" cy="12" r="4.2" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2.5v2.6M12 18.9v2.6M2.5 12h2.6M18.9 12h2.6M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/></g></svg>',
-  dark:SVGI+'<path d="M20 14.6A8.2 8.2 0 1 1 9.4 4a6.6 6.6 0 0 0 10.6 10.6z" fill="currentColor"/></svg>'};
-function applyTheme(){if(ST.theme==="auto")root.removeAttribute("data-theme");else root.setAttribute("data-theme",ST.theme);
-  var b=document.getElementById("themebtn");b.innerHTML=TSYM[ST.theme];
-  var lab=L2({auto:"Theme: automatic",light:"Theme: light",dark:"Theme: dark"}[ST.theme],{auto:"Tema: automatik",light:"Tema: cerah",dark:"Tema: gelap"}[ST.theme]);
-  b.setAttribute("aria-label",lab);b.setAttribute("title",lab)}
-document.getElementById("themebtn").addEventListener("click",function(){ST.theme=THEMES[(THEMES.indexOf(ST.theme)+1)%3];save();applyTheme();rerenderFigs()});
+document.getElementById("btn-lang").addEventListener("click",function(){ST.lang=PR.lang=ST.lang==="ms"?"en":"ms";savePrefs();save();applyLang()});
+var SUN='<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></svg>',
+    MOON='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>';
+var mqDark=null;try{mqDark=window.matchMedia("(prefers-color-scheme: dark)")}catch(e){}
+function effTheme(){return PR.theme||(mqDark&&mqDark.matches?"dark":"light")}
+function applyTheme(){if(PR.theme)root.setAttribute("data-theme",PR.theme);else root.removeAttribute("data-theme");
+  var b=document.getElementById("btn-theme"),dk=effTheme()==="dark",t=dk?L2("Light theme","Tema cerah"):L2("Dark theme","Tema gelap");
+  b.innerHTML=dk?SUN:MOON;b.title=t;b.setAttribute("aria-label",t)}
+document.getElementById("btn-theme").addEventListener("click",function(){PR.theme=effTheme()==="dark"?"light":"dark";ST.theme=PR.theme;savePrefs();save();applyTheme();rerenderFigs()});
+if(mqDark){var mqf=function(){if(!PR.theme){applyTheme();rerenderFigs()}};if(mqDark.addEventListener)mqDark.addEventListener("change",mqf);else if(mqDark.addListener)mqDark.addListener(mqf)}
 langHooks.push(applyTheme);
+var FONT_STEPS=[0.9,1,1.15,1.3];
+function fontStep(f){var k=0;FONT_STEPS.forEach(function(v,i){if(Math.abs(v-f)<Math.abs(FONT_STEPS[k]-f))k=i});return k}
+function nextFont(f,dir){var i;if(dir>0){for(i=0;i<FONT_STEPS.length;i++)if(FONT_STEPS[i]>f+1e-6)return FONT_STEPS[i];return FONT_STEPS[0]}
+  for(i=FONT_STEPS.length-1;i>=0;i--)if(FONT_STEPS[i]<f-1e-6)return FONT_STEPS[i];return FONT_STEPS[FONT_STEPS.length-1]}
+function applyFont(){root.style.setProperty("--font-scale",String(PR.font));var fb=document.getElementById("btn-font"),k=fontStep(PR.font);
+  fb.querySelectorAll(".lvl i").forEach(function(d,i){d.classList.toggle("on",i<=k)});
+  var pct=Math.round(PR.font*100),nx=Math.round(nextFont(PR.font,1)*100),t=L2("Text size "+pct+"% (click: "+nx+"%)","Saiz teks "+pct+"% (klik: "+nx+"%)");
+  fb.title=t;fb.setAttribute("aria-label",t)}
+document.getElementById("btn-font").addEventListener("click",function(e){PR.font=nextFont(PR.font,e.shiftKey?-1:1);savePrefs();applyFont();
+  try{window.dispatchEvent(new Event("resize"))}catch(er){}});
+langHooks.push(applyFont);
+/* the header description folds; the state is a preference */
+var foldbtn=document.getElementById("foldbtn");
+function applyFold(){root.classList.toggle("subfold",!!PR.fold);foldbtn.setAttribute("aria-expanded",String(!PR.fold));
+  var s=foldbtn.querySelector(".vh");tx(s,PR.fold?"Show description":"Hide description",PR.fold?"Tunjuk penerangan":"Sembunyi penerangan");foldbtn.title=s.textContent}
+foldbtn.addEventListener("click",function(){PR.fold=!PR.fold;savePrefs();applyFold()});
+langHooks.push(applyFold);
 
 /* ---------- model ---------- */
 var xB=250,xC=440,xD=690,xE=880,xF=1130,L=250;
@@ -706,12 +733,127 @@ recreset.addEventListener("click",function(){if(!recArmed){recArmed=true;tx(recr
   var keep={lang:ST.lang,theme:ST.theme};ST=Object.assign(fresh(),keep);saveNow();try{location.reload()}catch(e){}});
 
 /* =====================================================================
+   Header search: client-side, over this page only (no network)
+   ===================================================================== */
+function biText(el,lang){if(!el)return "";var c=el.cloneNode(true);
+  c.querySelectorAll((lang==="ms"?".en":".ms")+",mjx-container,script,style,svg,.vh,.tkok,.mk,.tkn").forEach(function(x){x.remove()});
+  c.querySelectorAll("p,li,div,h2,h3,h4,td,th,tr,br,dt,dd").forEach(function(x){x.appendChild(document.createTextNode(" "))});
+  return c.textContent.replace(/\\[()\[\]]/g,"").replace(/\\times/g,"×").replace(/\\approx/g,"≈").replace(/\\(eta|Delta|sum)/g,function(m,g){return {eta:"η",Delta:"Δ",sum:"Σ"}[g]})
+    .replace(/\\[a-zA-Z]+/g," ").replace(/[{}]/g,"").replace(/_([A-Za-z0-9])/g,"$1").replace(/\s+/g," ").trim()}
+function nrm(s){return (s||"").normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase()}
+var SIDX=null;
+function sEntry(tag,el,titleEl,bodyEl,go,prefix){var e={tag:tag,go:go,t:{},b:{}};
+  ["en","ms"].forEach(function(l){e.t[l]=(prefix?prefix[l==="ms"?1:0]+" · ":"")+biText(titleEl,l);e.b[l]=biText(bodyEl||el,l)});
+  e.n={en:nrm(e.t.en),ms:nrm(e.t.ms)};e.nb={en:nrm(e.b.en),ms:nrm(e.b.ms)};return e}
+function goEl(view,el){show(view,true);setTimeout(function(){if(el.closest&&el.closest("details:not([open])"))el.closest("details").open=true;
+  el.scrollIntoView({behavior:"smooth",block:"start"});el.classList.add("hflash");setTimeout(function(){el.classList.remove("hflash")},1800)},80)}
+function buildIndex(){var X=[],T={notes:["Notes","Nota"],slides:["Slides","Slides"],explorer:["Explorer","Explorer"],exercises:["Exercises","Latihan"],lab:["Lab","Makmal"],glossary:["Glossary","Glosari"],start:["Start","Mula"]};
+  document.querySelectorAll("#v-start .card > h2").forEach(function(h){X.push(sEntry(T.start,h.parentNode,h,null,function(){goEl("start",h.parentNode)}))});
+  document.querySelectorAll("#v-notes section.nsec").forEach(function(s){X.push(sEntry(T.notes,s,s.querySelector("h2"),null,function(){goTo("notes",s.id)}))});
+  slides.forEach(function(s,i){X.push(sEntry(T.slides,s,s.querySelector("h3,h2,h1"),null,function(){show("slides",true);goSlide(i)},["Slide "+(i+1),"Slide "+(i+1)]))});
+  document.querySelectorAll("#v-explorer h2").forEach(function(h){X.push(sEntry(T.explorer,h,h,h.parentNode,function(){goEl("explorer",h)}))});
+  document.querySelectorAll("#tasks .tk").forEach(function(t){X.push(sEntry(T.explorer,t,t.querySelector("h4"),null,function(){goEl("explorer",t)},["Task "+t.id.slice(2),"Tugasan "+t.id.slice(2)]))});
+  document.querySelectorAll("#v-exercises article.qx").forEach(function(q){var p=q.querySelector(":scope > p")||q;var e=sEntry(T.exercises,q,q.querySelector("h4"),null,function(){goEl("exercises",q)});
+    ["en","ms"].forEach(function(l){var x=biText(p,l);e.t[l]+=" · "+(x.length>70?x.slice(0,68)+"…":x);e.n[l]=nrm(e.t[l])});X.push(e)});
+  document.querySelectorAll("#v-lab h2,#v-lab h3").forEach(function(h){var box=h.closest(".card")||h.parentNode;X.push(sEntry(T.lab,box,h,box,function(){goEl("lab",h)}))});
+  document.querySelectorAll("#v-glossary table.gloss tr").forEach(function(r){var c=r.querySelectorAll("td");if(c.length<2)return;X.push(sEntry(T.glossary,r,c[0],c[1],function(){goEl("glossary",r)}))});
+  return X}
+var hq=document.getElementById("hq"),hres=document.getElementById("hres"),hsel=-1,hhits=[];
+function esc(s){return s.replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function markUp(s,toks){var h=esc(s),n=nrm(h);if(n.length!==h.length)return h;var spans=[];
+  toks.forEach(function(t){var i=n.indexOf(t);while(i>=0&&t){spans.push([i,i+t.length]);i=n.indexOf(t,i+t.length)}});
+  if(!spans.length)return h;spans.sort(function(a,b){return a[0]-b[0]});var out="",p=0;
+  spans.forEach(function(sp){if(sp[0]<p)return;out+=h.slice(p,sp[0])+"<mark>"+h.slice(sp[0],sp[1])+"</mark>";p=sp[1]});return out+h.slice(p)}
+function snippet(b,nb,t){var i=nb.indexOf(t);if(i<0)return b.length>90?b.slice(0,88)+"…":b;var a=Math.max(0,i-30);return (a?"…":"")+b.slice(a,a+90)+(a+90<b.length?"…":"")}
+function runSearch(){var q=nrm(hq.value).trim(),toks=q.split(/\s+/).filter(Boolean),l=ST.lang==="ms"?"ms":"en";
+  if(!toks.length){closeRes();return}if(!SIDX)SIDX=buildIndex();
+  hhits=SIDX.map(function(e){var tt=e.n[l],tb=e.nb[l],sc=0;
+    for(var i=0;i<toks.length;i++){var k=toks[i];if(tt.indexOf(k)>=0)sc+=3;else if(tb.indexOf(k)>=0)sc+=1;else return null}
+    if(tt.indexOf(q)===0)sc+=2;return {e:e,s:sc}}).filter(Boolean).sort(function(a,b){return b.s-a.s}).slice(0,8);
+  hsel=hhits.length?0:-1;
+  hres.innerHTML=hhits.length?hhits.map(function(h,i){var e=h.e;return '<button type="button" role="option" id="hr'+i+'" aria-selected="'+(i===hsel)+'"><span class="tg">'+esc(e.tag[l==="ms"?1:0])+'</span><span>'+markUp(e.t[l],toks)+'</span><span class="sn">'+markUp(snippet(e.b[l],e.nb[l],toks[0]),toks)+'</span></button>'}).join("")
+    :'<div class="none">'+esc(L2("Nothing on this page matches. Try a shorter word, e.g. hinge or kgf.","Tiada padanan dalam halaman ini. Cuba perkataan lebih pendek, contoh hinge atau kgf."))+'</div>';
+  hres.hidden=false;hq.setAttribute("aria-expanded","true");
+  hres.querySelectorAll("button").forEach(function(b,i){b.addEventListener("click",function(){pickRes(i)})})}
+function closeRes(){hres.hidden=true;hq.setAttribute("aria-expanded","false");hsel=-1}
+function pickRes(i){var h=hhits[i];if(!h)return;closeRes();hq.blur();h.e.go()}
+function markSel(){hres.querySelectorAll("button").forEach(function(b,i){b.setAttribute("aria-selected",String(i===hsel));if(i===hsel)b.scrollIntoView({block:"nearest"})})}
+hq.addEventListener("input",runSearch);
+hq.addEventListener("focus",function(){if(hq.value.trim())runSearch()});
+hq.addEventListener("keydown",function(e){if(e.key==="ArrowDown"&&hhits.length){hsel=(hsel+1)%hhits.length;markSel();e.preventDefault()}
+  else if(e.key==="ArrowUp"&&hhits.length){hsel=(hsel-1+hhits.length)%hhits.length;markSel();e.preventDefault()}
+  else if(e.key==="Enter"){if(hsel>=0){pickRes(hsel);e.preventDefault()}}
+  else if(e.key==="Escape"){if(!hres.hidden){closeRes();e.stopPropagation()}else hq.blur()}});
+document.addEventListener("pointerdown",function(e){if(!hres.hidden&&!e.target.closest("#hsearch"))closeRes()});
+langHooks.push(function(){if(!hres.hidden)runSearch()});
+document.addEventListener("keydown",function(e){if(e.key==="/"&&!e.ctrlKey&&!e.metaKey&&!(e.target.closest&&e.target.closest("input,textarea,select,[contenteditable]"))&&document.getElementById("sguide").hidden){e.preventDefault();hq.focus()}});
+
+/* =====================================================================
+   Screen guide (ⓘ) and a short tour of the screen
+   ===================================================================== */
+var REGIONS=[
+  [".crumbs","Breadcrumb","Breadcrumb","Links back to For My Students on the lecturer's website, to My Lectures and to the SEAA 3012 course page.","Pautan kembali ke For My Students di laman web pensyarah, ke My Lectures dan ke laman kursus SEAA 3012."],
+  ["#hcontact","Contact","Hubungi","The lecturer's office phone and UTM email.","Telefon pejabat dan e-mel UTM pensyarah."],
+  [".htitle","Title and description","Tajuk dan penerangan","The arrow button folds the description away; the page remembers your choice.","Butang anak panah melipat penerangan; halaman mengingati pilihan anda."],
+  ["#hsearch","Search","Carian","Finds notes sections, slides, Explorer tasks, exercises, lab steps and glossary terms on this page. Press / to jump here. Nothing is sent anywhere.","Mencari seksyen nota, slides, tugasan Explorer, latihan, langkah makmal dan istilah glosari dalam halaman ini. Tekan / untuk terus ke sini. Tiada apa-apa dihantar keluar."],
+  ["#snbtn","Short notes","Nota ringkas","A one-page summary of the formulae and sign conventions, in a side drawer.","Ringkasan satu halaman bagi formula dan sign convention, dalam laci sisi."],
+  [".prefs","Settings","Tetapan","Language (BM / EN), light or dark theme, text size (AA: four sizes in turn), and this guide (ⓘ).","Bahasa (BM / EN), tema cerah atau gelap, saiz teks (AA: empat saiz bergilir), dan panduan ini (ⓘ)."],
+  [".navrow","Tabs","Tab","The house goes to the SEAA 3012 course page. Each tab is one part of the session; the small badge counts what you have done out of the total.","Ikon rumah membawa ke laman kursus SEAA 3012. Setiap tab ialah satu bahagian sesi; badge kecil mengira apa yang telah anda selesaikan daripada jumlahnya."],
+  [".prog","Progress","Kemajuan","Your overall progress across Notes, Slides, Explorer, Exercises and Lab. It is your own record, kept in this browser, not a gradebook.","Kemajuan keseluruhan anda merentas Nota, Slides, Explorer, Latihan dan Makmal. Ia rekod anda sendiri dalam browser ini, bukan buku gred."],
+  ["main","Contents","Kandungan","The tab you are on. Start shows your next step and your learning record.","Tab yang sedang dibuka. Mula menunjukkan langkah seterusnya dan rekod pembelajaran anda."],
+  ["#rzguide","Guide · Dr Razin Junior (RJ)","Panduan · Dr Razin Junior (RJ)","The lecturer's avatar. Dr RJ points you to the right section and, once the AI is switched on, answers questions from the course notes. On a phone he sits below the contents; the round button at the bottom right takes you to him.","Avatar pensyarah. Dr RJ menunjukkan seksyen yang betul dan, apabila AI diaktifkan, menjawab soalan berdasarkan nota kursus. Pada telefon, dia berada di bawah kandungan; butang bulat di bawah kanan membawa anda kepadanya."],
+  ["footer","Footer","Kaki halaman","Where the data come from, and the copyright and licence line.","Sumber data, serta baris hak cipta dan lesen."]];
+var sguide=document.getElementById("sguide"),sgscrim=document.getElementById("sgscrim"),binfo=document.getElementById("btn-info"),
+    ring=document.getElementById("tourring"),tcard=document.getElementById("tourcard"),tourI=-1,tourList=[];
+function visRegions(){return REGIONS.filter(function(r){var el=document.querySelector(r[0]);return el&&el.getClientRects().length})}
+function renderGuide(){var l=ST.lang==="ms"?1:0;tourList=visRegions();
+  document.getElementById("sglist").innerHTML=tourList.map(function(r,i){return '<li><button type="button" data-ti="'+i+'"><b>'+esc(r[1+l])+'</b><span class="d">'+esc(r[3+l])+'</span></button></li>'}).join("");
+  document.querySelectorAll("#sglist button").forEach(function(b){b.addEventListener("click",function(){closeGuide(true);startTour(+b.getAttribute("data-ti"))})})}
+function openGuide(){endTour(true);renderGuide();sguide.hidden=false;sgscrim.hidden=false;binfo.setAttribute("aria-expanded","true");binfo.classList.remove("hint");
+  if(!PR.guided){PR.guided=true;savePrefs()}var f=sguide.querySelector("#sglist button");if(f)f.focus()}
+function closeGuide(keepFocus){sguide.hidden=true;sgscrim.hidden=true;binfo.setAttribute("aria-expanded","false");if(!keepFocus)binfo.focus()}
+binfo.addEventListener("click",function(){sguide.hidden?openGuide():closeGuide()});
+document.getElementById("sgclose").addEventListener("click",function(){closeGuide()});
+sgscrim.addEventListener("click",function(){closeGuide()});
+document.getElementById("sgtour").addEventListener("click",function(){closeGuide(true);startTour(0)});
+langHooks.push(function(){if(!sguide.hidden)renderGuide();if(tourI>=0)placeTour()});
+if(!PR.guided)binfo.classList.add("hint");
+function startTour(i){tourList=visRegions();if(!tourList.length)return;tourI=Math.max(0,Math.min(tourList.length-1,i));ring.hidden=false;tcard.hidden=false;
+  var el=document.querySelector(tourList[tourI][0]),r=el.getBoundingClientRect(),tall=r.height>innerHeight*0.6;
+  el.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:tall?"start":"center"});
+  placeTour();setTimeout(placeTour,350);setTimeout(placeTour,700);document.getElementById("tcnext").focus({preventScroll:true})}
+function placeTour(){if(tourI<0)return;var rg=tourList[tourI],l=ST.lang==="ms"?1:0,el=document.querySelector(rg[0]);if(!el){endTour();return}
+  var r=el.getBoundingClientRect(),p=6,top=Math.max(4,r.top-p),bot=Math.min(innerHeight-4,r.bottom+p),left=Math.max(4,r.left-p),right=Math.min(innerWidth-4,r.right+p);
+  ring.style.top=top+"px";ring.style.left=left+"px";ring.style.width=Math.max(0,right-left)+"px";ring.style.height=Math.max(0,bot-top)+"px";
+  document.getElementById("tctitle").textContent=rg[1+l];document.getElementById("tctext").textContent=rg[3+l];
+  document.getElementById("tcn").textContent=(tourI+1)+" / "+tourList.length;
+  document.getElementById("tcprev").disabled=tourI===0;
+  tx(document.getElementById("tcnext"),tourI===tourList.length-1?"Finish":"Next",tourI===tourList.length-1?"Selesai":"Seterusnya");
+  var cw=tcard.offsetWidth,ch=tcard.offsetHeight,cx=Math.min(Math.max(8,left),innerWidth-cw-8),cy;
+  if(bot+12+ch<innerHeight)cy=bot+12;else if(top-12-ch>0)cy=top-12-ch;else cy=innerHeight-ch-12;
+  tcard.style.left=cx+"px";tcard.style.top=cy+"px"}
+function endTour(silent){if(tourI<0)return;tourI=-1;ring.hidden=true;tcard.hidden=true;if(!silent)binfo.focus()}
+document.getElementById("tcnext").addEventListener("click",function(){if(tourI>=tourList.length-1)endTour();else startTour(tourI+1)});
+document.getElementById("tcprev").addEventListener("click",function(){startTour(tourI-1)});
+document.getElementById("tcclose").addEventListener("click",function(){endTour()});
+window.addEventListener("scroll",function(){if(tourI>=0)placeTour()},{passive:true});
+window.addEventListener("resize",function(){if(tourI>=0)placeTour()});
+document.addEventListener("keydown",function(e){
+  if(tourI>=0){if(e.key==="Escape")endTour();else if(e.key==="ArrowRight"){if(tourI<tourList.length-1)startTour(tourI+1);else endTour()}else if(e.key==="ArrowLeft")startTour(tourI-1);else return;
+    e.preventDefault();e.stopImmediatePropagation();return}
+  if(!sguide.hidden&&e.key==="Escape"){closeGuide();e.preventDefault();e.stopImmediatePropagation()}},true);
+
+/* deep links #view-anchor (#notes-n3, #slides-15, #exercises-q4, #explorer-tk2) */
+function deepLink(v,a){if(v==="slides"&&/^\d+$/.test(a)){goSlide(+a-1);return}if(document.getElementById(a))goTo(v,a)}
+
+/* =====================================================================
    Boot
    ===================================================================== */
-applyLang();buildTables();setNmode(ST.nmode);syncRead();renderPreds();
+applyLang();applyFold();buildTables();setNmode(ST.nmode);syncRead();renderPreds();
 setX(E.x);eqCheck();tickTimer();renderExSummary();
 if(LB.done1)lab1();if(LB.done2)lab2();
-var start=(location.hash||"").replace("#","");if(VIEWS.indexOf(start)<0)start="start";
+var start=(location.hash||"").replace("#",""),startA=null,hm=start.match(/^([a-z]+)-(.+)$/);if(hm&&VIEWS.indexOf(hm[1])>=0){start=hm[1];startA=hm[2]}if(VIEWS.indexOf(start)<0)start="start";
 show(start,true);updateProgress();
+if(startA)setTimeout(function(){deepLink(start,startA)},250);
 var rt=null;window.addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(rerenderFigs,150)});
 })();

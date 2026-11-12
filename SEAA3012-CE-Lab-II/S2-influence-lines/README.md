@@ -6,9 +6,16 @@ uses the geometry, halts, notation η_R(x) and sign convention of the revised la
 
 ## Course page
 
-`index.html` is a single self-contained page with six tabs: Start, Notes, Slides, Explorer,
-Exercises and Lab. It works in any modern browser, on phones as well as projectors. Tabs open
-directly with `#notes`, `#slides`, `#explorer`, `#exercises` or `#lab` after the address.
+`index.html` is a single self-contained page with seven tabs: Start, Notes, Slides, Explorer,
+Exercises, Lab and Glossary. It works in any modern browser, on phones as well as projectors. Tabs open
+directly with `#notes`, `#slides`, `#explorer`, `#exercises`, `#lab` or `#glossary` after the address, and
+a place inside a tab with `#view-anchor`: `#notes-n3`, `#slides-15`, `#exercises-q4`, `#explorer-tk2`.
+
+The header follows the T&L app template (10 Nov 2026): breadcrumb back to For My Students, My Lectures and
+SEAA 3012; contact line; kicker, title and a description that folds; a search box over this page only;
+Short notes; and the standard settings buttons BM/EN · theme · AA · ⓘ shared by the lecturer's apps
+(`web/src/header.css`, the preferences block in `web/src/app.js`). ⓘ opens a screen guide that names
+each area of the page and offers a short tour.
 
 Published with GitHub Pages at
 <https://razinutm.github.io/My_Lectures/SEAA3012-CE-Lab-II/S2-influence-lines/>
@@ -22,14 +29,16 @@ one per tab (`qr_s2_explorer.png`, `qr_s2_notes.png`, …).
 | Exercise timer (suggested 60 min), first-attempt score, confidence rating, hint count | self-monitoring during practice |
 | Learning record (Start) | summary the student can copy into the report |
 | Short notes drawer | formula sheet available from every tab |
-| BM / EN switch | Malay explanations, technical terms kept in English |
-| Theme switch (automatic, light, dark) | display preference |
+| Settings buttons: language (BM / EN), theme (moon / sun), text size (AA: 90, 100, 115, 130 %), screen guide (ⓘ) | Malay explanations with English technical terms; display and reading preferences; what each area does |
+| Search box (header; press `/`) | finds notes sections, slides, Explorer tasks, exercises, lab steps and glossary terms on this page |
 | Explorer: influence lines R_A to R_F, each switched on or off (all off shows the structure only) | compare lines, or study the structure alone |
 | Explorer: group of three loads with chosen values and spacings, with quick fill for a unit load, 2.5 kg and the Test 2 pair | any vehicle or load train |
 | Explorer: hover or tap a reaction for its step-by-step calculation (kgf and N) | links each number to the free-body diagrams |
 | Lab: example readings for Test 1 and Test 2 | shows what a comparison with theory looks like |
 
-Everything a student enters in the tabs is stored only in that student's browser (`localStorage`).
+Everything a student enters in the tabs is stored only in that student's browser (`localStorage`):
+answers and progress under `s2-il-v3`, and the preferences (language, theme, text size, folded description)
+under `seaa3012-prefs`, one key for every SEAA 3012 page.
 The one exception is a question typed to Dr RJ once his AI is switched on: it goes through the course's
 rz-tutor Worker to the Claude API (Anthropic) to be answered. The Worker keeps counts, never the text, and
 the panel asks students not to type names, matric numbers or other personal details. While

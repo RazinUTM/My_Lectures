@@ -78,13 +78,15 @@
     function paintChrome() {
       input.placeholder = t("placeholder"); input.setAttribute("aria-label", t("placeholder"));
       iconBtn(send, ICON.send, t("send")); iconBtn(copyB, ICON.copy, t("copy")); iconBtn(resetB, ICON.reset, t("reset"));
+      if (gateEl && gateEl.isConnected) { gateEl.firstChild.textContent = t("notice"); gateEl.lastChild.textContent = t("agree"); }
     }
+    let gateEl = null;
     function gate() {
       if (st.agreed || !cfg.endpoint) return;   // without an endpoint nothing leaves the browser, so there is nothing to agree to
       const g = el("div", "rzt-gate", "<p>" + esc(t("notice")) + "</p>");
       const b = el("button", "rzt-tb rzt-primary", esc(t("agree"))); b.type = "button";
       b.addEventListener("click", () => { st.agreed = true; save(); g.remove(); form.hidden = false; tools.hidden = false; input.focus(); });
-      g.append(b); root.insertBefore(g, log); form.hidden = true; tools.hidden = true;
+      g.append(b); root.insertBefore(g, log); form.hidden = true; tools.hidden = true; gateEl = g;
     }
     function askCode() {
       const g = el("div", "rzt-gate", "<p>" + esc(t("codeAsk")) + "</p>");

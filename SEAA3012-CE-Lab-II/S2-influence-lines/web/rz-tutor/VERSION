@@ -1,5 +1,9 @@
-rz-tutor-worker 0.2.0, 8 Nov 2026: panel/, widget/, tools/add_panel.py, tools/build_manifest.py (MIT, see LICENSE).
+rz-tutor-worker 0.3.0, 11 Nov 2026 (7dbf7a5): panel/, widget/, tools/add_panel.py, tools/build_manifest.py (MIT, see LICENSE).
 A pinned copy used by web/add_tutor.py. To update: copy the same files from a newer rz-tutor-worker release over
 this folder, rebuild the page (python3 web/build_web.py && python3 web/add_tutor.py) and check it in a browser.
 
-Updated 8 Nov 2026 (rz-tutor-worker 3c48094): tools/build_manifest.py keeps one slide bullet per line.
+Updated 12 Nov 2026 from 0.2.0: the relaxed lecturer-student register in the panel greeting and the widget's
+offline and limit messages (tidak/sudah, Sila), the notice gate repainting on a language change, and the
+thumbs up/down sent to the Worker's /v1/feedback as a count (no text). The Feedback tab of 0.3.0 is not
+switched on here (add_panel.py --feedback is not used), so the manifest is unchanged.
+Earlier, 8 Nov 2026 (rz-tutor-worker 3c48094): tools/build_manifest.py keeps one slide bullet per line.

@@ -13,4 +13,4 @@
 | 11 Nov 2026 | "What's new" kept in `shared/whats_new.txt` (`YYYY-MM-DD \| English \| Bahasa Melayu`); visit counts by Cloudflare Web Analytics, token in `shared/analytics_token.txt` (empty = no beacon) | editable on GitHub without touching code; cookie-free counts need no consent banner |
 | 11 Nov 2026 | Feedback is anonymous, not for publication, public counts shown only from 10 | defaults taken when the owner agreed without choosing; using it for research would need ethics approval and a consent notice first |
 | 11 Nov 2026 | Start tab and footer now say that questions to Dr RJ and the Feedback tab are the only things sent out | the privacy sentences must stay true |
-
+| 13 Nov 2026 | Header contact shows the UTM e-mail only; the office phone number is removed | the lecturer's request (13 Nov): e-mail only |

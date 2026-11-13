@@ -793,7 +793,7 @@ document.addEventListener("keydown",function(e){if(e.key==="/"&&!e.ctrlKey&&!e.m
    ===================================================================== */
 var REGIONS=[
   [".crumbs","Breadcrumb","Breadcrumb","Links back to For My Students on the lecturer's website, to My Lectures and to the SEAA 3012 course page.","Pautan kembali ke For My Students di laman web pensyarah, ke My Lectures dan ke laman kursus SEAA 3012."],
-  ["#hcontact","Contact","Hubungi","The lecturer's office phone and UTM email.","Telefon pejabat dan e-mel UTM pensyarah."],
+  ["#hcontact","Contact","Hubungi","The lecturer's UTM email.","E-mel UTM pensyarah."],
   [".htitle","Title and description","Tajuk dan penerangan","The arrow button folds the description away; the page remembers your choice.","Butang anak panah melipat penerangan; halaman mengingati pilihan anda."],
   ["#hsearch","Search","Carian","Finds notes sections, slides, Explorer tasks, exercises, lab steps and glossary terms on this page. Press / to jump here. Nothing is sent anywhere.","Mencari seksyen nota, slides, tugasan Explorer, latihan, langkah makmal dan istilah glosari dalam halaman ini. Tekan / untuk terus ke sini. Tiada apa-apa dihantar keluar."],
   ["#snbtn","Short notes","Nota ringkas","A one-page summary of the formulae and sign conventions, in a side drawer.","Ringkasan satu halaman bagi formula dan sign convention, dalam laci sisi."],

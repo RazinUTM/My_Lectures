@@ -6,7 +6,8 @@
 What: after web/build_page.py has written index.html, this script
   1. writes the files the rz-tutor Worker and the offline guide read, from the page itself:
      tutor/manifest.json, tutor/blocks-u1.json and tutor/content-u1.txt in this folder, and
-     ../tutor/course.json for the course (exercise answers, hints and worked solutions are left out);
+     ../tutor/course.json for the course, rebuilt from every Unit's manifest (exercise answers, hints and
+     worked solutions are left out);
   2. adds the guide panel with Dr RJ to index.html: the panel CSS, a <meta name="rz-tutor"> with the
      Worker address, the panel beside <main>, the widget script and the page glue.
 The Worker address is read from shared/tutor_endpoint.txt in this folder. While it holds no address
@@ -23,6 +24,7 @@ would drop Dr RJ without a word. The panel code in web/rz-tutor/ is a pinned cop
 (see web/rz-tutor/VERSION). No engine hooks are injected: ../shared/course.js already exposes
 window.RZ = {show, goTo, goSlide, current, lang} and window.RZ_AVS (the avatar poses).
 """
+import json
 import subprocess
 import sys
 from pathlib import Path
@@ -52,6 +54,18 @@ def endpoint() -> str:
     return ""
 
 
+def course_index() -> int:
+    """Rewrite ../tutor/course.json from every Unit's tutor/manifest.json, so that building one Unit does not
+    drop the others from the course-wide navigation manifest (build_manifest.py writes only the parts it is given)."""
+    parts = []
+    for mf in sorted(course.glob("*/tutor/manifest.json")):
+        m = json.loads(mf.read_text(encoding="utf-8"))
+        parts.append({"part": m["part"], "folder": mf.parent.parent.name, "title": m["title"],
+                      "sections": [{"id": s["id"], "title_en": s["title_en"], "title_ms": s["title_ms"]} for s in m["sections"]]})
+    (course / "tutor" / "course.json").write_text(json.dumps({"app": APP, "course": course.name, "parts": parts}, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    return len(parts)
+
+
 def main() -> int:
     page = topic / "index.html"
     html = page.read_text(encoding="utf-8")
@@ -64,6 +78,7 @@ def main() -> int:
     # 1. tutor files from the plain page, before the panel is added
     subprocess.run([sys.executable, "-B", str(tools / "build_manifest.py"), "--course", str(course), "--app", APP,
                     f"{topic.name}:{PART}"], check=True)
+    print(f"  tutor/course.json: {course_index()} Units")
     # 2. the panel
     sys.path.insert(0, str(tools))
     import add_panel

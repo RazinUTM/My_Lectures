@@ -215,6 +215,10 @@
    "text": "[lab-what-the-report-must-contain] Lab · What the report must contain\nWhat the report must contain For each reaction: theoretical and experimental influence lines on the same axes, with the halts marked (Test 1). Test 2: theoretical and experimental reactions for the compound load, and the critical positions. The absolute difference at every halt; percentages only at large ordinates; the equilibrium check. A discussion of the error sources with numbers (Notes, Section 7), and a conclusion on the agreement. The answer to the data-sheet question: the importance of influence lines in design (under 100 words)."
   },
   {
+   "id": "feedback-tab",
+   "text": "[feedback-tab] Feedback tab\nThe Feedback tab, the last tab of the page: rate this part from 1 to 5 and say what helped, write the muddiest point (what is still unclear), report a mistake in a section (a typo, a wrong sign, a broken button), like the page, and read What's new. It is anonymous and goes only to the lecturer, to improve the page; it is not used for marks."
+  },
+  {
    "id": "glossary-x",
    "text": "[glossary-x] Glossary: x\nx: Position along the bridge measured from A, in mm. In the Explorer it is the position of P_1 ."
   },

@@ -35,15 +35,20 @@ one per tab (`qr_s2_explorer.png`, `qr_s2_notes.png`, …).
 | Explorer: group of three loads with chosen values and spacings, with quick fill for a unit load, 2.5 kg and the Test 2 pair | any vehicle or load train |
 | Explorer: hover or tap a reaction for its step-by-step calculation (kgf and N) | links each number to the free-body diagrams |
 | Lab: example readings for Test 1 and Test 2 | shows what a comparison with theory looks like |
+| Feedback tab (last tab): rating 1–5 with "what helped / what would help", muddiest point, report a mistake, like, What's new | tells the lecturer what to improve; anonymous, not for marks or research |
 
 Everything a student enters in the tabs is stored only in that student's browser (`localStorage`):
 answers and progress under `s2-il-v3`, and the preferences (language, theme, text size, folded description)
 under `seaa3012-prefs`, one key for every SEAA 3012 page.
-The one exception is a question typed to Dr RJ once his AI is switched on: it goes through the course's
-rz-tutor Worker to the Claude API (Anthropic) to be answered. The Worker keeps counts, never the text, and
-the panel asks students not to type names, matric numbers or other personal details. While
-`shared/tutor_endpoint.txt` holds no address, or the Worker's switch `AI_SEAA3012` is off, nothing leaves the
-browser.
+Two things leave the browser. A question typed to Dr RJ once his AI is switched on goes through the course's
+rz-tutor Worker to the Claude API (Anthropic) to be answered; the Worker keeps counts (questions, the sections
+he points to), never the text, and the panel asks students not to type names, matric numbers or other personal
+details. What a student sends on the Feedback tab goes, anonymously, to the same Worker for the lecturer's
+report: free text is cleaned of e-mail addresses, phone, IC and matric-like numbers, the browser is kept only as
+a salted hash, and rows are deleted after about 18 months. While `shared/tutor_endpoint.txt` holds no address,
+nothing leaves the browser (the Feedback forms stay disabled); the AI switch `AI_SEAA3012` affects only Dr RJ.
+If `shared/analytics_token.txt` holds a Cloudflare Web Analytics token, the page also loads Cloudflare's
+cookie-free visit counter.
 
 ## Dr RJ, the guide panel and AI tutor
 
@@ -61,6 +66,17 @@ on every build; exercise answers, hints and worked solutions are left out of the
 `shared/tutor_endpoint.txt` holds no Worker address, or the Worker's switch `AI_SEAA3012` is off (the page asks
 the Worker first), Dr RJ is in offline mode: he points to the sections
 whose titles match the question, and no request is made.
+
+## Feedback and visits
+
+The last tab, Feedback, asks for a 1–5 rating with "what helped" and "what would help", the muddiest point,
+mistakes (tied to a section) and a like, and shows the lecturer's "What's new" list from
+`shared/whats_new.txt` (one line per change: `YYYY-MM-DD | English | Bahasa Melayu`; edit it on GitHub and
+rebuild). Likes and the mean rating appear on the page only once at least 10 students have given them. The
+lecturer reads everything at `https://rz-tutor.arazin.workers.dev/report` (with the report token), with CSV
+downloads; it also shows which sections Dr RJ sends students to and his 👍/👎. Visit counts come from
+Cloudflare Web Analytics once its token is in `shared/analytics_token.txt`. Details: rz-tutor-worker README,
+"Feedback, visits and the owner's report".
 
 Earlier versions of the page are kept in [`archive/`](archive/), each with a banner that points here.
 

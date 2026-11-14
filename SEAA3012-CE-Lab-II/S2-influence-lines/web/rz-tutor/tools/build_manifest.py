@@ -322,7 +322,7 @@ def build_part(part_dir: Path, pk: str, app: str, eq_maps: list[Path]) -> tuple[
             label=f"Explorer task {num} · {t_en}")
 
     # Other views: cards with a heading (e.g. the S2 lab sheet), navigable by id when they have one
-    handled = {"start", "notes", "slides", "examples", "exercises", "glossary"}
+    handled = {"start", "notes", "slides", "examples", "exercises", "glossary", "feedback"}
     for view_el in soup.select("section.view[data-view]"):
         vname = view_el.get("data-view")
         if vname in handled:
@@ -342,6 +342,16 @@ def build_part(part_dir: Path, pk: str, app: str, eq_maps: list[Path]) -> tuple[
             add({"id": sid, "view": vname, "anchor": cid, "selector": None,
                  "title_en": f"{vname.capitalize()}: {short(t_en)}", "title_ms": f"{vname.capitalize()}: {short(t_ms)}"},
                 statement_of(card)[:1500], label=f"{vname.capitalize()} · {t_en}")
+
+    # Feedback tab (template module feedback/): one fixed block, so that Dr RJ can send a student there to
+    # report a mistake or say what is unclear; the forms themselves are drawn by script and hold no content
+    if soup.select_one('section.view[data-view="feedback"]'):
+        add({"id": "feedback-tab", "view": "feedback", "anchor": None, "selector": None,
+             "title_en": "Feedback tab", "title_ms": "Tab Maklum balas"},
+            "The Feedback tab, the last tab of the page: rate this part from 1 to 5 and say what helped, write the "
+            "muddiest point (what is still unclear), report a mistake in a section (a typo, a wrong sign, a broken "
+            "button), like the page, and read What's new. It is anonymous and goes only to the lecturer, to improve "
+            "the page; it is not used for marks.", label="Feedback tab")
 
     # Glossary: one block per term
     for tr in soup.select("#v-glossary table.gloss tr"):

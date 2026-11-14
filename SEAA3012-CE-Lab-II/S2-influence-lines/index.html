@@ -621,13 +621,58 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]]},svg
 @media (prefers-reduced-motion: reduce) { .rzt-log { scroll-behavior: auto; } }
 :root{--rz-top:82px}
 </style>
+<style>
+/* rz feedback tab (rz-tutor-worker) */
+/* SPDX-License-Identifier: MIT
+   Copyright (c) 2026 Ahmad Razin Zainal Abidin and Universiti Teknologi Malaysia
+   rz feedback — the Feedback tab. Uses the template's tokens (--panel, --line, --fg, --muted, --accent,
+   --chip…) with fallbacks, and em units so that the page's text-size button scales it. */
+.rzf { font-family: var(--font-ui, inherit); color: var(--fg, inherit); }
+.rzf-note { background: var(--tint, #eaf2fa); border: 1px solid var(--tint-line, #b9d2ea); border-radius: var(--radius, 10px); padding: .75em 1em; margin-bottom: 1em; }
+.rzf-note p { margin: 0; }
+.rzf-note .rzf-offline { margin-top: .5em; color: var(--muted, #5a6571); font-style: italic; }
+.rzf-grid { columns: 2 22em; column-gap: 1em; }          /* cards of different heights pack without gaps */
+.rzf-card { background: var(--panel, #fff); border: 1px solid var(--line, #d4d9dc); border-radius: var(--radius, 10px); padding: 1em 1.1em; min-width: 0;
+  break-inside: avoid; margin: 0 0 1em; display: inline-block; width: 100%; box-sizing: border-box; }
+.rzf-h { margin: 0 0 .6em; font-size: 1.05em; }
+.rzf-lab { margin: .8em 0 .4em; color: var(--muted, #5a6571); font-size: .92em; }
+.rzf-row { display: flex; flex-wrap: wrap; align-items: center; gap: .6em; margin-top: .6em; }
+.rzf-stars { display: inline-flex; gap: .15em; }
+.rzf-star { font-size: 1.7em; line-height: 1; padding: .05em .1em; border: 0; background: none; color: var(--line, #c4cbd0); cursor: pointer; border-radius: 6px; }
+.rzf-star.on { color: var(--note-line, #e0a63a); }
+.rzf-star:focus-visible, .rzf-chip:focus-visible, .rzf-btn:focus-visible, .rzf-likebtn:focus-visible { outline: 2px solid var(--accent, #1f6fb2); outline-offset: 2px; }
+.rzf-starlab { color: var(--muted, #5a6571); font-size: .92em; }
+.rzf-chips { display: flex; flex-wrap: wrap; gap: .4em; }
+.rzf-chip { font: inherit; font-size: .88em; padding: .3em .75em; border-radius: 999px; border: 1px solid var(--line, #d4d9dc); background: var(--chip, #eceff2); color: var(--fg, inherit); cursor: pointer; }
+.rzf-chip[aria-pressed="true"] { background: var(--chip-on, #1f6fb2); border-color: var(--chip-on, #1f6fb2); color: var(--chip-on-fg, #fff); }
+.rzf-ta { position: relative; margin-top: .6em; }
+.rzf-text { width: 100%; box-sizing: border-box; font: inherit; font-size: .95em; padding: .5em .6em 1.4em; border: 1px solid var(--line, #d4d9dc); border-radius: 8px; background: var(--panel2, #f7f8f5); color: var(--fg, inherit); resize: vertical; min-height: 4.5em; }
+.rzf-count { position: absolute; right: .6em; bottom: .45em; font-size: .75em; color: var(--muted, #5a6571); font-family: var(--font-num, inherit); }
+.rzf-sel { width: 100%; font: inherit; font-size: .95em; padding: .4em .5em; border: 1px solid var(--line, #d4d9dc); border-radius: 8px; background: var(--panel2, #f7f8f5); color: var(--fg, inherit); }
+.rzf-btn { font: inherit; font-size: .95em; padding: .45em 1.1em; border-radius: 8px; border: 1px solid var(--line, #d4d9dc); background: var(--panel2, #f7f8f5); color: var(--fg, inherit); cursor: pointer; }
+.rzf-btn.rzf-primary { background: var(--accent, #1f6fb2); border-color: var(--accent, #1f6fb2); color: var(--accent-fg, #fff); }
+.rzf-likebtn { display: inline-flex; align-items: center; gap: .5em; font: inherit; padding: .5em 1em; border-radius: 999px; border: 1px solid var(--line, #d4d9dc); background: var(--chip, #eceff2); color: var(--fg, inherit); cursor: pointer; }
+.rzf-likebtn[aria-pressed="true"] { background: var(--good-bg, #e3f3ea); border-color: var(--good, #237a4d); }
+.rzf-heart { font-size: 1.2em; }
+.rzf-counts { margin: .7em 0 0; color: var(--muted, #5a6571); font-size: .92em; }
+.rzf-counts:empty { display: none; }
+.rzf-status { margin: .5em 0 0; font-size: .9em; min-height: 1.2em; }
+.rzf-status.rzf-ok { color: var(--good, #237a4d); }
+.rzf-status.rzf-warn { color: var(--bad, #a3262f); }
+.rzf-newslist { list-style: none; margin: 0; padding: 0; }
+.rzf-newslist li { display: grid; grid-template-columns: 6.5em 1fr; gap: .6em; padding: .35em 0; border-bottom: 1px solid var(--grid, #e6e9eb); }
+.rzf-newslist li:last-child { border-bottom: 0; }
+.rzf-date { color: var(--muted, #5a6571); font-family: var(--font-num, inherit); font-size: .85em; padding-top: .1em; }
+.rzf-off .rzf-card button, .rzf-off .rzf-card textarea, .rzf-off .rzf-card select { opacity: .55; cursor: not-allowed; }
+.rzf button:disabled { cursor: not-allowed; }
+</style>
 </head>
 <body>
 <div class="wrap">
 <header class="top" id="hdr">
   <div class="hrow">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="https://people.utm.my/arazin/for-my-students/"><span class="en">For My Students</span><span class="ms">Untuk Pelajar Saya</span></a><span class="sep" aria-hidden="true">›</span><a href="https://razinutm.github.io/My_Lectures/">My Lectures</a><span class="sep" aria-hidden="true">›</span><a href="https://razinutm.github.io/My_Lectures/SEAA3012-CE-Lab-II/">SEAA 3012</a><span class="sep" aria-hidden="true">›</span><span aria-current="page">Lab S2</span></nav>
-    <p class="contact" id="hcontact"><img data-avsrc="badge" alt="" aria-hidden="true" width="26" height="26"><span class="who">Ahmad Razin Zainal Abidin <span class="muted"><span class="en">and co-authors</span><span class="ms">dan pengarang bersama</span></span></span><a href="tel:+6075531588"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5h3l1.5 4-2 1.3a11 11 0 0 0 6.1 6.1l1.3-2 4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2z"/></svg>+607 553 1588</a><a href="mailto:arazin@utm.my"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="m4 7 8 6 8-6"/></svg>arazin@utm.my</a></p>
+    <p class="contact" id="hcontact"><img data-avsrc="badge" alt="" aria-hidden="true" width="26" height="26"><span class="who">Ahmad Razin Zainal Abidin <span class="muted"><span class="en">and co-authors</span><span class="ms">dan pengarang bersama</span></span></span><a href="mailto:arazin@utm.my"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="m4 7 8 6 8-6"/></svg>arazin@utm.my</a></p>
   </div>
   <div class="hmain">
     <div class="htitle">
@@ -662,6 +707,7 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]]},svg
       <button class="tab" role="tab" data-view="exercises" id="t-exercises"><span class="en">Exercises</span><span class="ms">Latihan</span><span class="bd" data-bd="exercises"></span></button>
       <button class="tab" role="tab" data-view="lab" id="t-lab"><span class="en">Lab</span><span class="ms">Makmal</span><span class="bd" data-bd="lab"></span></button>
       <button class="tab" role="tab" data-view="glossary" id="t-glossary"><span class="en">Glossary</span><span class="ms">Glosari</span></button>
+      <button class="tab" role="tab" data-view="feedback" id="t-feedback"><span class="en">Feedback</span><span class="ms">Maklum balas</span></button>
     </nav>
   </div>
   <div class="prog"><span class="pct"><span class="en">Progress</span><span class="ms">Kemajuan</span></span><div class="bar" id="pbar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Progress"><i></i></div><span class="pct" id="ppct">0 %</span></div>
@@ -729,8 +775,8 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]]},svg
     </div>
     <div class="card">
       <h2><span class="en">Suggested route</span><span class="ms">Cadangan urutan</span></h2>
-      <p class="lead en" style="margin:6px 0 0">Before the laboratory: Notes, then Explorer (five tasks and five concept questions). In the laboratory: Lab, Test 1 and Test 2. After the laboratory: Exercises, then the report. Everything you enter in the tabs is kept in this browser only. Only the questions you ask Dr RJ are sent out, to be answered by an AI service (see the notice in his panel).</p>
-      <p class="lead ms" style="margin:6px 0 0">Sebelum makmal: Nota, kemudian Explorer (lima tugasan dan lima soalan kefahaman). Dalam makmal: tab Makmal, Test 1 dan Test 2. Selepas makmal: Latihan, kemudian laporan. Semua yang anda masukkan dalam tab disimpan dalam pelayar ini sahaja. Hanya soalan yang anda tanya kepada Dr RJ dihantar keluar, untuk dijawab oleh perkhidmatan AI (lihat notis dalam panelnya).</p>
+      <p class="lead en" style="margin:6px 0 0">Before the laboratory: Notes, then Explorer (five tasks and five concept questions). In the laboratory: Lab, Test 1 and Test 2. After the laboratory: Exercises, then the report. Everything you enter in the tabs is kept in this browser only. Two things are sent out: the questions you ask Dr RJ, to be answered by an AI service (see the notice in his panel), and what you send on the Feedback tab, anonymously, to the lecturer.</p>
+      <p class="lead ms" style="margin:6px 0 0">Sebelum makmal: Nota, kemudian Explorer (lima tugasan dan lima soalan kefahaman). Dalam makmal: tab Makmal, Test 1 dan Test 2. Selepas makmal: Latihan, kemudian laporan. Semua yang anda masukkan dalam tab disimpan dalam pelayar ini sahaja. Dua perkara dihantar keluar: soalan yang anda tanya kepada Dr RJ, untuk dijawab oleh perkhidmatan AI (lihat notis dalam panelnya), dan apa yang anda hantar dalam tab Maklum balas, tanpa nama, kepada pensyarah.</p>
     </div>
   </div>
 
@@ -1566,6 +1612,16 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]]},svg
     <p class="muted" id="gnone" hidden><span class="en">No entry matches.</span><span class="ms">Tiada entri yang sepadan.</span></p>
   </div>
 </section>
+
+<!-- =============================================================== FEEDBACK -->
+<section class="view" data-view="feedback" id="v-feedback" role="tabpanel" aria-labelledby="t-feedback" hidden>
+  <div class="card" style="margin-bottom:16px;min-height:150px">
+    <img class="av avfloat" data-avsrc="wave" alt="" aria-hidden="true" data-av="wave">
+    <h2><span class="en">Feedback</span><span class="ms">Maklum balas</span></h2>
+    <p class="lead" style="margin:0"><span class="en">Tell the lecturer what works for you and what does not. This page is improved from time to time with what students say; the changes are listed under What's new.</span><span class="ms">Beritahu pensyarah apa yang membantu anda dan apa yang tidak. Halaman ini ditambah baik dari semasa ke semasa berdasarkan maklum balas pelajar; perubahannya disenaraikan di bawah Apa yang baharu.</span></p>
+  </div>
+  <div id="rzfeedback"><p class="lead"><span class="en">The feedback forms open on the course website, razinutm.github.io/My_Lectures.</span><span class="ms">Borang maklum balas dibuka di laman web kursus, razinutm.github.io/My_Lectures.</span></p></div>
+</section>
 </main>
 <!-- SPDX-License-Identifier: MIT · Copyright (c) 2026 Ahmad Razin Zainal Abidin and Universiti Teknologi Malaysia
      Guide panel fragment (rz-tnl-app-template, region 3), placed after the main column inside the .cols wrapper.
@@ -1576,7 +1632,7 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]]},svg
   <section class="guide">
     <div class="bubble">
       <span class="tbadge">Dr RJ</span>
-      <div class="say" id="rjsay"><span class="en">Hi, I'm Dr RJ. Ask me anything about this page — I'll answer from the course notes and point you to the right section.</span><span class="ms">Hai, saya Dr RJ. Tanya apa-apa tentang page ini — saya jawab daripada nota kursus dan tunjukkan seksyen yang sesuai.</span></div>
+      <div class="say" id="rjsay"><span class="en">Hi, I'm Dr RJ. Ask me anything about this page — I'll answer from the course notes and point you to the right section.</span><span class="ms">Hai, saya Dr RJ. Tanyalah apa-apa tentang halaman ini — saya akan menjawab berdasarkan nota kursus dan menunjukkan bahagian yang berkaitan.</span></div>
       <div id="tutor"></div>
     </div>
     <img id="rjav" class="rjav" data-avsrc="offer" alt="" aria-hidden="true" decoding="async">
@@ -1586,7 +1642,7 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]]},svg
 </div>
 
 
-<footer><span class="en">Geometry from the laboratory manual, experiment S2: AB = 250, BC = 190, CD = 250, DE = 190, EF = 250 mm; halts 1–11 at 100 mm intervals from A. Example readings are illustrative, not measured data. Answers, readings and progress are stored only in this browser.</span><span class="ms">Geometri daripada manual makmal, eksperimen S2: AB = 250, BC = 190, CD = 250, DE = 190, EF = 250 mm; halt 1–11 pada sela 100 mm dari A. Bacaan contoh adalah ilustrasi, bukan data ukuran. Jawapan, bacaan dan kemajuan disimpan dalam pelayar ini sahaja.</span>
+<footer><span class="en">Geometry from the laboratory manual, experiment S2: AB = 250, BC = 190, CD = 250, DE = 190, EF = 250 mm; halts 1–11 at 100 mm intervals from A. Example readings are illustrative, not measured data. Answers, readings and progress are stored only in this browser; questions to Dr RJ and the Feedback tab are the only things sent out.</span><span class="ms">Geometri daripada manual makmal, eksperimen S2: AB = 250, BC = 190, CD = 250, DE = 190, EF = 250 mm; halt 1–11 pada sela 100 mm dari A. Bacaan contoh adalah ilustrasi, bukan data ukuran. Jawapan, bacaan dan kemajuan disimpan dalam pelayar ini sahaja; hanya soalan kepada Dr RJ dan tab Maklum balas dihantar keluar.</span>
 <p class="copy"><img data-avsrc="badge" alt="" aria-hidden="true" class="fbadge"><span class="en">© 2026 Ahmad Razin Zainal Abidin and co-authors, Faculty of Civil Engineering, Universiti Teknologi Malaysia. Free to share and adapt for non-commercial teaching and learning.</span><span class="ms">© 2026 Ahmad Razin Zainal Abidin dan pengarang bersama, Fakulti Kejuruteraan Awam, Universiti Teknologi Malaysia. Bebas dikongsi dan diubah suai untuk pengajaran dan pembelajaran bukan komersial.</span></p></footer>
 </div>
 
@@ -1936,7 +1992,7 @@ function buildTables(){
 /* =====================================================================
    Views, progress and badges
    ===================================================================== */
-var VIEWS=["start","notes","slides","explorer","exercises","lab","glossary"],current="start",typesetDone={};
+var VIEWS=["start","notes","slides","explorer","exercises","lab","glossary","feedback"],current="start",typesetDone={};
 var NSECS=["n1","n2","n3","n4","n5","n6","n7","n8"],QCS=["qc1","qc6","qc2","qc7","qc3","qc4","qc5"];
 function cnt(o){return Object.keys(o).filter(function(k){return o[k]}).length}
 function parts(){var lab=0;for(var i=1;i<=5;i++)if(ST.lab.ck["ck"+i])lab++;if(ST.lab.done1)lab++;if(ST.lab.done2)lab++;
@@ -2420,13 +2476,13 @@ document.addEventListener("keydown",function(e){if(e.key==="/"&&!e.ctrlKey&&!e.m
    ===================================================================== */
 var REGIONS=[
   [".crumbs","Breadcrumb","Breadcrumb","Links back to For My Students on the lecturer's website, to My Lectures and to the SEAA 3012 course page.","Pautan kembali ke For My Students di laman web pensyarah, ke My Lectures dan ke laman kursus SEAA 3012."],
-  ["#hcontact","Contact","Hubungi","The lecturer's office phone and UTM email.","Telefon pejabat dan e-mel UTM pensyarah."],
+  ["#hcontact","Contact","Hubungi","The lecturer's UTM email.","E-mel UTM pensyarah."],
   [".htitle","Title and description","Tajuk dan penerangan","The arrow button folds the description away; the page remembers your choice.","Butang anak panah melipat penerangan; halaman mengingati pilihan anda."],
   ["#hsearch","Search","Carian","Finds notes sections, slides, Explorer tasks, exercises, lab steps and glossary terms on this page. Press / to jump here. Nothing is sent anywhere.","Mencari seksyen nota, slides, tugasan Explorer, latihan, langkah makmal dan istilah glosari dalam halaman ini. Tekan / untuk terus ke sini. Tiada apa-apa dihantar keluar."],
   ["#snbtn","Short notes","Nota ringkas","A one-page summary of the formulae and sign conventions, in a side drawer.","Ringkasan satu halaman bagi formula dan sign convention, dalam laci sisi."],
   [".prefs","Settings","Tetapan","Language (BM / EN), light or dark theme, text size (AA: four sizes in turn), and this guide (ⓘ).","Bahasa (BM / EN), tema cerah atau gelap, saiz teks (AA: empat saiz bergilir), dan panduan ini (ⓘ)."],
-  [".navrow","Tabs","Tab","The house goes to the SEAA 3012 course page. Each tab is one part of the session; the small badge counts what you have done out of the total.","Ikon rumah membawa ke laman kursus SEAA 3012. Setiap tab ialah satu bahagian sesi; badge kecil mengira apa yang telah anda selesaikan daripada jumlahnya."],
-  [".prog","Progress","Kemajuan","Your overall progress across Notes, Slides, Explorer, Exercises and Lab. It is your own record, kept in this browser, not a gradebook.","Kemajuan keseluruhan anda merentas Nota, Slides, Explorer, Latihan dan Makmal. Ia rekod anda sendiri dalam browser ini, bukan buku gred."],
+  [".navrow","Tabs","Tab","The house goes to the SEAA 3012 course page. Each tab is one part of the session (the last, Feedback, is where you tell the lecturer what to improve); the small badge counts what you have done out of the total.","Ikon rumah membawa ke laman kursus SEAA 3012. Setiap tab ialah satu bahagian sesi (yang terakhir, Maklum balas, ialah tempat anda memberitahu pensyarah apa yang perlu ditambah baik); badge kecil mengira apa yang telah anda selesaikan daripada jumlahnya."],
+  [".prog","Progress","Kemajuan","Your overall progress across Notes, Slides, Explorer, Exercises and Lab. It is your own record, kept in this browser, not a gradebook.","Kemajuan keseluruhan anda merentas Nota, Slides, Explorer, Latihan dan Makmal. Ia rekod anda sendiri dalam pelayar ini, bukan buku gred."],
   ["main","Contents","Kandungan","The tab you are on. Start shows your next step and your learning record.","Tab yang sedang dibuka. Mula menunjukkan langkah seterusnya dan rekod pembelajaran anda."],
   ["#rzguide","Guide · Dr Razin Junior (RJ)","Panduan · Dr Razin Junior (RJ)","The lecturer's avatar. Dr RJ points you to the right section and, once the AI is switched on, answers questions from the course notes. On a phone he sits below the contents; the round button at the bottom right takes you to him.","Avatar pensyarah. Dr RJ menunjukkan seksyen yang betul dan, apabila AI diaktifkan, menjawab soalan berdasarkan nota kursus. Pada telefon, dia berada di bawah kandungan; butang bulat di bawah kanan membawa anda kepadanya."],
   ["footer","Footer","Kaki halaman","Where the data come from, and the copyright and licence line.","Sumber data, serta baris hak cipta dan lesen."]];
@@ -2520,8 +2576,8 @@ var rt=null;window.addEventListener("resize",function(){clearTimeout(rt);rt=setT
       notice: "Soalan yang anda taip di sini dihantar ke perkhidmatan AI (Anthropic) melalui pelayan kursus. Jangan masukkan nama, nombor matrik atau butiran peribadi. Tutor ini boleh tersilap: semak dengan nota. Guna {name} untuk faham, bukan untuk menyalin: apa sahaja yang anda hantar untuk markah mesti hasil kerja anda sendiri.",
       agree: "Faham · I understand", placeholder: "Tanya {name}…", send: "Tanya", thinking: "{name} sedang fikir…",
       goto: "Pergi ke: {label}", copy: "Salin transkrip", copied: "Disalin.", reset: "Perbualan baharu", code: "Kod kelas",
-      codeAsk: "Masukkan kod kelas yang diberi dalam kelas untuk guna tutor AI.", codeSave: "Simpan", offline: "Pelayan tutor tak dapat dihubungi. Cuba bahagian ini:",
-      offlineNone: "Pelayan tutor tak dapat dihubungi. Cuba Nota atau Glosari.", limit: "Had harian tutor AI dah dicapai.", you: "Anda", mode: "mod",
+      codeAsk: "Masukkan kod kelas yang diberi dalam kelas untuk guna tutor AI.", codeSave: "Simpan", offline: "Pelayan tutor tidak dapat dihubungi. Sila cuba bahagian ini:",
+      offlineNone: "Pelayan tutor tidak dapat dihubungi. Sila cuba Nota atau Glosari.", limit: "Had harian tutor AI sudah dicapai.", you: "Anda", mode: "mod",
       fromNotes: "Daripada nota kursus", notInNotes: "Tiada dalam nota kursus",
       off: "Tutor AI belum dihidupkan lagi. Bahagian ini berkaitan dengan soalan anda:", offNone: "Tutor AI belum dihidupkan lagi. Cuba Nota atau Glosari.",
     },
@@ -2569,6 +2625,16 @@ var rt=null;window.addEventListener("resize",function(){clearTimeout(rt);rt=setT
       if (gateEl && gateEl.isConnected) { gateEl.firstChild.textContent = t("notice"); gateEl.lastChild.textContent = t("agree"); }
     }
     let gateEl = null;
+    // the 👍/👎 goes to the lecturer's feedback report as a count (no text, no question) when the page has a Worker
+    function sendVote(v) {
+      if (!cfg.endpoint || !/\/v1\/chat(\?|$)/.test(cfg.endpoint)) return;
+      try {
+        fetch(cfg.endpoint.replace(/\/v1\/chat(\?.*)?$/, "/v1/feedback") + "?app=" + encodeURIComponent(cfg.app), {
+          method: "POST", headers: { "Content-Type": "text/plain;charset=UTF-8" }, keepalive: true,   // a simple request: no preflight
+          body: JSON.stringify({ kind: "tutor_vote", part: cfg.part, session: st.session, value: v }),
+        }).catch(() => { /* a lost vote is not worth an error */ });
+      } catch (e) { /* ignore */ }
+    }
     function gate() {
       if (st.agreed || !cfg.endpoint) return;   // without an endpoint nothing leaves the browser, so there is nothing to agree to
       const g = el("div", "rzt-gate", "<p>" + esc(t("notice")) + "</p>");
@@ -2604,7 +2670,7 @@ var rt=null;window.addEventListener("resize",function(){clearTimeout(rt);rt=setT
         else if (out.grounding === "not-covered") m.append(el("span", "rzt-src rzt-nc", esc(t("notInNotes"))));
         const up = el("button", "rzt-vote", "👍"); up.type = "button"; up.setAttribute("aria-label", "helpful");
         const dn = el("button", "rzt-vote", "👎"); dn.type = "button"; dn.setAttribute("aria-label", "not helpful");
-        const vote = (v) => { st.votes[v] = (st.votes[v] || 0) + 1; save(); up.disabled = dn.disabled = true; };   // counts stay in this browser
+        const vote = (v) => { st.votes[v] = (st.votes[v] || 0) + 1; save(); up.disabled = dn.disabled = true; sendVote(v); };
         up.addEventListener("click", () => vote("up")); dn.addEventListener("click", () => vote("down"));
         if (!out.grounding || out.grounding === "fallback") m.append(el("span", "rzt-mode", esc(t("mode") + ": " + mode)));   // why the answer is short
         m.append(up, dn);
@@ -2745,5 +2811,335 @@ var rt=null;window.addEventListener("resize",function(){clearTimeout(rt);rt=setT
   new MutationObserver(function () { if (window.__rzt) window.__rzt.refresh(); }).observe(document.documentElement, { attributes: true, attributeFilter: ["lang"] });
 })();
 </script>
+<script>
+/* SPDX-License-Identifier: MIT
+   Copyright (c) 2026 Ahmad Razin Zainal Abidin and Universiti Teknologi Malaysia
+
+   rz feedback — the Feedback tab of a T&L app: rate the part (1–5, with "what helped" and "what would
+   help" chips and an optional comment), the muddiest point, report a mistake, like the page, and the
+   "What's new" list. No dependencies; every label is a pair of <span class="en"> / <span class="ms">, so
+   the page's own language switch shows the right one (placeholders and section names follow the
+   page's data-lang or lang attribute).
+
+   window.RzFeedback.mount({
+     root: '#rzfeedback', app: 'seaa3012', part: 's2',
+     endpoint: 'https://rz-tutor.<account>.workers.dev/v1/feedback',   // optional: else from <meta name="rz-tutor">
+     manifest: 'tutor/manifest.json',                                    // section list for "where?"; optional
+     whatsNew: [{ date: '2026-11-11', en: 'Feedback tab added', ms: 'Tab Maklum Balas ditambah' }],
+   });
+
+   Why it is like this: feedback is anonymous and goes only to the lecturer's report (the rz-tutor Worker
+   scrubs e-mail, phone, IC and matric-like numbers, and keeps browser sessions as salted hashes); the
+   page says so above the forms and asks for no names. Without a Worker address, or when the Worker has
+   feedback off, the forms stay disabled and nothing leaves the browser. Requests are sent as
+   text/plain so that the browser makes no CORS preflight.
+*/
+(function () {
+  "use strict";
+  const CHIPS = {
+    helped: [["notes", "Notes", "Nota"], ["slides", "Slides", "Slides"], ["explorer", "Explorer", "Explorer"], ["examples", "Worked examples", "Contoh"],
+      ["exercises", "Exercises", "Latihan"], ["glossary", "Glossary", "Glosari"], ["tutor", "Dr RJ", "Dr RJ"]],
+    wish: [["more_examples", "More examples", "Lebih banyak contoh"], ["worked_steps", "Step-by-step solutions", "Penyelesaian langkah demi langkah"],
+      ["clearer_notes", "Clearer notes", "Nota yang lebih jelas"], ["more_exercises", "More exercises", "Lebih banyak latihan"],
+      ["video", "A short video", "Video ringkas"], ["slower_pace", "A slower pace", "Rentak yang lebih perlahan"]],
+  };
+  const STARS = [["Very poor", "Sangat lemah"], ["Poor", "Lemah"], ["OK", "Sederhana"], ["Good", "Baik"], ["Very good", "Sangat baik"]];
+  const VIEW = { start: ["Start", "Mula"], notes: ["Notes", "Nota"], slides: ["Slides", "Slides"], explorer: ["Explorer", "Explorer"],
+    examples: ["Examples", "Contoh"], exercises: ["Exercises", "Latihan"], lab: ["Lab", "Makmal"], glossary: ["Glossary", "Glosari"] };
+  const MAX = 500;
+
+  const ld = (k, d) => { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } };
+  const sv = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* storage blocked: the tab still works */ } };
+  const sessionId = () => "s_" + Array.from(crypto.getRandomValues(new Uint8Array(12)), (b) => b.toString(16).padStart(2, "0")).join("");
+  const lang = () => { const r = document.documentElement; return (r.getAttribute("data-lang") || r.lang || "en").slice(0, 2) === "ms" ? "ms" : "en"; };
+
+  function el(tag, cls, attrs) {
+    const e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (attrs) for (const k in attrs) e.setAttribute(k, attrs[k]);
+    return e;
+  }
+  /** A bilingual label: <span class="en">…</span><span class="ms">…</span>, or a single span when both are the same. */
+  function bi(en, ms, tag) {
+    const w = el(tag || "span");
+    if (en === ms) { w.textContent = en; return w; }
+    const a = el("span", "en"); a.textContent = en; const b = el("span", "ms"); b.textContent = ms;
+    w.append(a, b); return w;
+  }
+  function loopback(u) { try { const h = new URL(u).hostname; return h === "localhost" || h === "127.0.0.1" || h === "[::1]"; } catch (e) { return false; } }
+  /** The feedback address: the config, else ?endpoint= (loopback only, for local tests), else the page's <meta name="rz-tutor"> chat address. */
+  function resolveEndpoint(cfg) {
+    const q = new URLSearchParams(location.search).get("endpoint");
+    let u = (q && loopback(q)) ? q : (cfg.endpoint || ((document.querySelector('meta[name="rz-tutor"]') || {}).content || ""));
+    u = String(u || "").trim();
+    if (!u) return "";
+    return u.replace(/\/v1\/(chat|feedback)(\?.*)?$/, "") + "/v1/feedback";
+  }
+
+  function mount(cfg) {
+    const root = typeof cfg.root === "string" ? document.querySelector(cfg.root) : cfg.root;
+    if (!root || root.dataset.rzfMounted) return null;
+    root.dataset.rzfMounted = "1";
+    const endpoint = resolveEndpoint(cfg);
+    const key = "rzfb:" + cfg.app;
+    const st = Object.assign({ session: sessionId(), parts: {} }, ld(key, {}));
+    const mine = st.parts[cfg.part] = Object.assign({ score: 0, chips: [], liked: false }, st.parts[cfg.part] || {});
+    const save = () => sv(key, st);
+    const repaint = [];                       // things that are not spans (placeholders, <option> text) and follow the language
+    let sections = [];
+    let live = false;
+
+    root.classList.add("rzf");
+    root.textContent = "";
+
+    // privacy notice
+    const note = el("div", "rzf-note", { role: "note" });
+    note.append(bi("Your feedback is anonymous and goes only to the lecturer, to improve this page from time to time. Please do not type your name, matric number or contact details. It is not used for marks or for research.",
+      "Maklum balas anda tanpa nama dan hanya sampai kepada pensyarah, untuk menambah baik halaman ini dari semasa ke semasa. Jangan taip nama, nombor matrik atau butiran hubungan. Ia tidak digunakan untuk markah atau penyelidikan.", "p"));
+    const offline = bi("Feedback opens once this page is connected to the course server. Nothing is sent from here until then.",
+      "Maklum balas akan dibuka sebaik sahaja halaman ini disambungkan ke pelayan kursus. Sehingga itu, tiada apa yang dihantar dari sini.", "p");
+    offline.className = "rzf-offline"; offline.hidden = true;
+    note.append(offline);
+    root.append(note);
+
+    const grid = el("div", "rzf-grid");
+    root.append(grid);
+
+    function card(en, ms, cls) {
+      const c = el("section", "rzf-card" + (cls ? " " + cls : ""));
+      const h = bi(en, ms, "h3"); h.className = "rzf-h";
+      c.append(h); grid.append(c); return c;
+    }
+    function status(box) { const s = el("p", "rzf-status", { role: "status", "aria-live": "polite" }); box.append(s); return s; }
+    function say(s, en, ms, kind) { s.textContent = ""; s.className = "rzf-status" + (kind ? " rzf-" + kind : ""); if (en) s.append(bi(en, ms)); }
+    function textarea(phEn, phMs) {
+      const wrap = el("div", "rzf-ta");
+      const ta = el("textarea", "rzf-text", { rows: "3", maxlength: String(MAX) });
+      const count = el("span", "rzf-count", { "aria-hidden": "true" });
+      const upd = () => { count.textContent = ta.value.length + " / " + MAX; };
+      ta.addEventListener("input", upd); upd();
+      repaint.push(() => { const p = lang() === "ms" ? phMs : phEn; ta.placeholder = p; ta.setAttribute("aria-label", p); });
+      wrap.append(ta, count); return { wrap, ta, reset() { ta.value = ""; upd(); } };
+    }
+    function sectionSelect(required) {
+      const s = el("select", "rzf-sel");
+      repaint.push(() => fillSections(s, required));
+      return s;
+    }
+    function fillSections(s, required) {
+      const keep = s.value, L = lang();
+      s.textContent = "";
+      const first = el("option", null, { value: required ? "" : "general" });
+      first.textContent = required ? (L === "ms" ? "Pilih bahagian…" : "Choose a section…") : (L === "ms" ? "Umum / tidak pasti" : "General / not sure");
+      s.append(first);
+      if (required) { const g = el("option", null, { value: "general" }); g.textContent = L === "ms" ? "Umum / tidak pasti" : "General / not sure"; s.append(g); }
+      const groups = {};
+      for (const sec of sections) {
+        const v = sec.view || "other";
+        if (!groups[v]) { groups[v] = el("optgroup"); groups[v].label = VIEW[v] ? VIEW[v][L === "ms" ? 1 : 0] : v; s.append(groups[v]); }
+        const o = el("option", null, { value: sec.id });
+        o.textContent = (L === "ms" ? sec.title_ms : sec.title_en) || sec.title_en || sec.id;
+        groups[v].append(o);
+      }
+      s.value = keep && [...s.options].some((o) => o.value === keep) ? keep : s.options[0].value;
+    }
+    function button(en, ms, cls) { const b = el("button", "rzf-btn" + (cls ? " " + cls : ""), { type: "button" }); b.append(bi(en, ms)); return b; }
+
+    async function post(body) {
+      if (!live) throw Object.assign(new Error("offline"), { code: "offline" });
+      const r = await fetch(endpoint + "?app=" + encodeURIComponent(cfg.app), {
+        method: "POST", headers: { "Content-Type": "text/plain;charset=UTF-8" },
+        body: JSON.stringify(Object.assign({ part: cfg.part, session: st.session, lang: lang() }, body)),
+      });
+      if (r.status === 429) throw Object.assign(new Error("capped"), { code: "capped" });
+      if (!r.ok) throw Object.assign(new Error("failed"), { code: "failed" });
+      return r.json();
+    }
+    function fail(s, e) {
+      if (e && e.code === "capped") say(s, "Thank you, that is plenty for now. Please try again later.", "Terima kasih, itu sudah memadai buat masa ini. Sila cuba lagi kemudian.", "warn");
+      else if (e && e.code === "offline") say(s, "Not connected to the course server.", "Tidak disambungkan ke pelayan kursus.", "warn");
+      else say(s, "It could not be sent. Please try again.", "Tidak dapat dihantar. Sila cuba lagi.", "warn");
+    }
+    const controls = [];                      // disabled while offline
+
+    // 1. rate this part
+    const rate = card("Rate this part", "Nilai bahagian ini", "rzf-rate");
+    const stars = el("div", "rzf-stars", { role: "radiogroup" });
+    repaint.push(() => stars.setAttribute("aria-label", lang() === "ms" ? "Nilai 1 hingga 5" : "Rating 1 to 5"));
+    let score = mine.score || 0;
+    const starBtns = STARS.map((lab, i) => {
+      const b = el("button", "rzf-star", { type: "button", role: "radio", "aria-checked": "false", "data-score": String(i + 1) });
+      b.textContent = "★";
+      repaint.push(() => { const t = (i + 1) + " – " + lab[lang() === "ms" ? 1 : 0]; b.title = t; b.setAttribute("aria-label", t); });
+      b.addEventListener("click", () => { score = i + 1; paintStars(); });
+      controls.push(b); stars.append(b); return b;
+    });
+    const starLab = el("span", "rzf-starlab");
+    function paintStars() {
+      starBtns.forEach((b, i) => { b.classList.toggle("on", i < score); b.setAttribute("aria-checked", String(i + 1 === score)); b.tabIndex = (score ? i + 1 === score : i === 0) ? 0 : -1; });
+      starLab.textContent = ""; if (score) starLab.append(bi(STARS[score - 1][0], STARS[score - 1][1]));
+    }
+    stars.addEventListener("keydown", (e) => {
+      const d = e.key === "ArrowRight" || e.key === "ArrowUp" ? 1 : e.key === "ArrowLeft" || e.key === "ArrowDown" ? -1 : 0;
+      if (!d) return; e.preventDefault(); score = Math.min(5, Math.max(1, (score || 0) + d)); paintStars(); starBtns[score - 1].focus();
+    });
+    const starRow = el("div", "rzf-row"); starRow.append(stars, starLab); rate.append(starRow);
+    const picked = new Set(mine.chips || []);
+    function chipRow(en, ms, list, prefix) {
+      const lab = bi(en, ms, "p"); lab.className = "rzf-lab"; rate.append(lab);
+      const row = el("div", "rzf-chips");
+      for (const [id, cen, cms] of list) {
+        const v = prefix + id, b = el("button", "rzf-chip", { type: "button", "aria-pressed": String(picked.has(v)) });
+        b.append(bi(cen, cms));
+        b.addEventListener("click", () => { picked.has(v) ? picked.delete(v) : picked.add(v); b.setAttribute("aria-pressed", String(picked.has(v))); });
+        controls.push(b); row.append(b);
+      }
+      rate.append(row);
+    }
+    chipRow("What helped you most?", "Apa yang paling membantu anda?", CHIPS.helped, "h:");
+    chipRow("What would help more?", "Apa yang akan lebih membantu?", CHIPS.wish, "w:");
+    const comment = textarea("Anything else? (optional)", "Ada apa-apa lagi? (pilihan)");
+    rate.append(comment.wrap); controls.push(comment.ta);
+    const rateBtn = button("Send rating", "Hantar penilaian", "rzf-primary"); controls.push(rateBtn);
+    const rateS = status(rate);
+    const rateRow = el("div", "rzf-row"); rateRow.append(rateBtn); rate.insertBefore(rateRow, rateS);
+    rateBtn.addEventListener("click", async () => {
+      if (!score) { say(rateS, "Choose 1 to 5 stars first.", "Pilih 1 hingga 5 bintang dahulu.", "warn"); return; }
+      rateBtn.disabled = true;
+      try {
+        await post({ kind: "rate", score, chips: [...picked], text: comment.ta.value });
+        mine.score = score; mine.chips = [...picked]; save(); comment.reset();
+        say(rateS, "Thank you! Your rating is saved; you can change it at any time.", "Terima kasih! Penilaian anda disimpan; anda boleh mengubahnya bila-bila masa.", "ok");
+        loadSummary();
+      } catch (e) { fail(rateS, e); }
+      rateBtn.disabled = !live;
+    });
+    if (mine.score) say(rateS, "You rated this part before. Send again to change it.", "Anda pernah menilai bahagian ini. Hantar semula untuk mengubahnya.");
+
+    // 2. muddiest point
+    const mud = card("Muddiest point", "Perkara paling mengelirukan", "rzf-muddy");
+    const mudLab = bi("What is still unclear after studying this part?", "Apa yang masih kurang jelas selepas mempelajari bahagian ini?", "p"); mudLab.className = "rzf-lab"; mud.append(mudLab);
+    const mudSel = sectionSelect(false); controls.push(mudSel);
+    repaint.push(() => mudSel.setAttribute("aria-label", lang() === "ms" ? "Bahagian (pilihan)" : "Section (optional)"));
+    const mudT = textarea("e.g. why the influence line for moment is a triangle", "cth. kenapa influence line untuk moment berbentuk segi tiga");
+    controls.push(mudT.ta);
+    const mudBtn = button("Send", "Hantar", "rzf-primary"); controls.push(mudBtn);
+    mud.append(mudSel, mudT.wrap); const mudRow = el("div", "rzf-row"); mudRow.append(mudBtn); mud.append(mudRow);
+    const mudS = status(mud);
+    mudBtn.addEventListener("click", async () => {
+      if (mudT.ta.value.trim().length < 3) { say(mudS, "Write a few words first.", "Tulis beberapa perkataan dahulu.", "warn"); return; }
+      mudBtn.disabled = true;
+      try {
+        await post({ kind: "muddy", text: mudT.ta.value, section: mudSel.value === "general" ? "" : mudSel.value });
+        mudT.reset();
+        say(mudS, "Thank you. The lecturer reads these to decide what to explain better.", "Terima kasih. Pensyarah membaca semua ini untuk menentukan apa yang perlu diterangkan dengan lebih baik.", "ok");
+      } catch (e) { fail(mudS, e); }
+      mudBtn.disabled = !live;
+    });
+
+    // 3. report a mistake
+    const mis = card("Report a mistake", "Lapor kesilapan", "rzf-mistake");
+    const misLab = bi("Found a typo, a wrong sign or a broken button? Say where.", "Jumpa salah taip, tanda yang salah atau butang yang rosak? Nyatakan di mana.", "p"); misLab.className = "rzf-lab"; mis.append(misLab);
+    const misSel = sectionSelect(true); controls.push(misSel);
+    repaint.push(() => misSel.setAttribute("aria-label", lang() === "ms" ? "Bahagian" : "Section"));
+    const misT = textarea("What is wrong, and what should it be?", "Apa yang salah, dan sepatutnya bagaimana?");
+    controls.push(misT.ta);
+    const misBtn = button("Report", "Lapor", "rzf-primary"); controls.push(misBtn);
+    mis.append(misSel, misT.wrap); const misRow = el("div", "rzf-row"); misRow.append(misBtn); mis.append(misRow);
+    const misS = status(mis);
+    misBtn.addEventListener("click", async () => {
+      if (!misSel.value) { say(misS, "Choose the section first.", "Pilih bahagian dahulu.", "warn"); return; }
+      if (misT.ta.value.trim().length < 3) { say(misS, "Describe the mistake first.", "Terangkan kesilapan itu dahulu.", "warn"); return; }
+      misBtn.disabled = true;
+      try {
+        await post({ kind: "mistake", text: misT.ta.value, section: misSel.value });
+        misT.reset();
+        say(misS, "Thank you for spotting it. It will be checked and fixed.", "Terima kasih kerana perasan. Ia akan disemak dan dibetulkan.", "ok");
+      } catch (e) { fail(misS, e); }
+      misBtn.disabled = !live;
+    });
+
+    // 4. like, with the public counts (the Worker withholds them below its minimum)
+    const like = card("Like this page", "Suka halaman ini", "rzf-like");
+    const likeBtn = el("button", "rzf-likebtn", { type: "button", "aria-pressed": String(!!mine.liked) });
+    likeBtn.append(el("span", "rzf-heart", { "aria-hidden": "true" }), bi("I find this page useful", "Halaman ini berguna untuk saya"));
+    likeBtn.firstChild.textContent = "👍";
+    controls.push(likeBtn);
+    const counts = el("p", "rzf-counts");
+    const likeS = status(like);
+    like.insertBefore(likeBtn, likeS); like.insertBefore(counts, likeS);
+    likeBtn.addEventListener("click", async () => {
+      const want = !mine.liked;
+      likeBtn.disabled = true;
+      try { await post({ kind: "like", value: want }); mine.liked = want; save(); likeBtn.setAttribute("aria-pressed", String(want)); say(likeS, ""); loadSummary(); }
+      catch (e) { fail(likeS, e); }
+      likeBtn.disabled = !live;
+    });
+    async function loadSummary() {
+      if (!live) return;
+      try {
+        const r = await fetch(endpoint + "/summary?app=" + encodeURIComponent(cfg.app) + "&part=" + encodeURIComponent(cfg.part));
+        if (!r.ok) return;
+        const s = await r.json();
+        counts.textContent = "";
+        if (s.likes != null) counts.append(bi(s.likes + " students find this page useful.", s.likes + " pelajar mendapati halaman ini berguna.", "span"));
+        if (s.rating) { if (s.likes != null) counts.append(document.createTextNode(" ")); counts.append(bi("Mean rating " + s.rating.mean + " / 5 from " + s.rating.n + " ratings.", "Purata penilaian " + s.rating.mean + " / 5 daripada " + s.rating.n + " penilaian.", "span")); }
+      } catch (e) { /* counts are optional */ }
+    }
+
+    grid.insertBefore(like, mud);             // right after the rating, so the short card sits under it
+
+    // 5. what's new: the lecturer's changes, newest first
+    const news = (cfg.whatsNew || []).filter((x) => x && x.date && (x.en || x.ms)).sort((a, b) => String(b.date).localeCompare(String(a.date))).slice(0, 8);
+    if (news.length) {
+      const wn = card("What's new", "Apa yang baharu", "rzf-news");
+      const ul = el("ul", "rzf-newslist");
+      for (const x of news) {
+        const li = el("li"); const d = el("time", "rzf-date", { datetime: x.date }); d.textContent = x.date;
+        li.append(d, bi(x.en || x.ms, x.ms || x.en)); ul.append(li);
+      }
+      wn.append(ul);
+      const thanks = bi("Many of these came from your feedback. Thank you.", "Kebanyakannya datang daripada maklum balas anda. Terima kasih.", "p"); thanks.className = "rzf-lab"; wn.append(thanks);
+    }
+
+    // language: re-paint what cannot be a pair of spans
+    const paint = () => repaint.forEach((f) => { try { f(); } catch (e) { /* ignore */ } });
+    paint(); paintStars();
+    new MutationObserver(paint).observe(document.documentElement, { attributes: true, attributeFilter: ["data-lang", "lang"] });
+
+    function setLive(on) {
+      live = on;
+      offline.hidden = on;
+      root.classList.toggle("rzf-off", !on);
+      controls.forEach((c) => { c.disabled = !on; });
+    }
+    setLive(false);
+
+    // sections for "where?": the app's own tutor manifest, when it is there
+    if (cfg.manifest !== false) {
+      const src = cfg.manifest && typeof cfg.manifest === "object" ? Promise.resolve(cfg.manifest)
+        : fetch(cfg.manifest || "tutor/manifest.json").then((r) => (r.ok ? r.json() : { sections: [] }));
+      src.then((m) => { sections = (m.sections || []).filter((s) => s && s.id); paint(); }).catch(() => { /* the "General" choice still works */ });
+    }
+    // is feedback on for this app? (the Worker answers /v1/health?app= with feedback: true|false). Asked only
+    // when the tab is first shown, so that reading the other tabs costs the Worker nothing
+    function connect() {
+      fetch(endpoint.replace(/\/v1\/feedback$/, "/v1/health") + "?app=" + encodeURIComponent(cfg.app))
+        .then((r) => (r.ok ? r.json() : {})).then((h) => { if (h && h.feedback) { setLive(true); loadSummary(); } })
+        .catch(() => { /* stays offline */ });
+    }
+    if (endpoint) {
+      if ("IntersectionObserver" in window) {
+        const io = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) { io.disconnect(); connect(); } });
+        io.observe(root);
+      } else connect();
+    }
+    return { root, endpoint, live: () => live };
+  }
+
+  window.RzFeedback = { mount, resolveEndpoint };
+})();
+</script>
+<script>window.RzFeedback.mount({"root": "#rzfeedback", "app": "seaa3012", "part": "s2", "manifest": "tutor/manifest.json", "whatsNew": [{"date": "2026-11-11", "en": "New Feedback tab: rate this part, tell the lecturer your muddiest point, report a mistake", "ms": "Tab Maklum balas baharu: nilai bahagian ini, beritahu pensyarah perkara paling mengelirukan, lapor kesilapan"}, {"date": "2026-11-10", "en": "New header: search, short notes, language, theme, text size and a screen guide", "ms": "Header baharu: carian, nota ringkas, bahasa, tema, saiz teks dan panduan skrin"}, {"date": "2026-11-10", "en": "Dr RJ now answers questions from the course notes and points you to the right section", "ms": "Dr RJ kini menjawab soalan berdasarkan nota kursus dan menunjukkan bahagian yang sesuai"}, {"date": "2026-11-08", "en": "Dr RJ, the lecturer's guide, joins the page", "ms": "Dr RJ, pemandu pensyarah, kini ada di halaman ini"}]});</script>
 </body>
 </html>

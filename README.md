@@ -10,6 +10,7 @@ Website (GitHub Pages): <https://razinutm.github.io/My_Lectures/>
 |---|---|---|
 | SEAA 3012 Civil Engineering Laboratory II | [`SEAA3012-CE-Lab-II/`](SEAA3012-CE-Lab-II/) | S2 Influence Lines |
 | SEAA 4243 Finite Element Method | [`SEAA4243-FEM/`](SEAA4243-FEM/) | 2D Heat Transfer (Parts 1–2), Plane Stress (Parts 1–3); ANSYS demo to follow |
+| SEAA 4333 Reinforced Concrete Design II | [`SEAA4333-RCD2/`](SEAA4333-RCD2/) | Unit 1 Staircases I; Units 2–14 to follow |
 
 ## How the repository is organised
 

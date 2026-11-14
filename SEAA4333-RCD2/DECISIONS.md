@@ -1,0 +1,21 @@
+# Decisions · SEAA 4333 Reinforced Concrete Design II
+
+| Date | Decision | Why |
+|---|---|---|
+| 14 Nov 2026 | Unit pages follow the rz-tnl-app-template: header, seven tabs (Start · Notes · Slides · Examples · Exercises · Explorer · Glossary), the Dr RJ guide panel, footer | the owner's request: the same shape as his other apps, so a student who knows one page knows the next |
+| 14 Nov 2026 | Engine: the SEAA 4243 `course.js`/`course.css` (manifest-driven tabs, progress, slide viewer, seeded exercises, Explorer milestones), with the SEAA 3012 Lab S2 header added (settings buttons, foldable description, search, screen guide and tour) | SEAA 4243 already has all seven tabs; S2 has the newest header; neither had both |
+| 14 Nov 2026 | Settings per rz-settings-buttons (BM/EN · theme · AA · ⓘ), applied before first paint; preferences course-wide in `seaa4333-prefs`, progress per Unit in `seaa4333-u<n>-v1` | one look and behaviour across the lecturer's apps; the template keeps preferences per course and progress per page |
+| 14 Nov 2026 | English is the default language; BM is one click away and remembered | the deck, the workbook and the exams are in English, as in SEAA 4243 and S2 |
+| 14 Nov 2026 | Dr RJ in offline mode only (`01-staircases-1/shared/tutor_endpoint.txt` empty): he points to matching sections and nothing leaves the browser | the template's default; the AI tutor waits until the owner registers app `seaa4333` in rz-tutor-worker and switches it on |
+| 14 Nov 2026 | No engine hooks injected by `add_tutor.py` | `course.js` exposes `window.RZ` and `window.RZ_AVS` itself |
+| 14 Nov 2026 | No Feedback tab yet | the module needs the app registered in rz-tutor-worker; offered as the next step |
+| 14 Nov 2026 | The per-tab avatar of SEAA 4243 is dropped; Dr RJ stands in the guide panel, the head stays in the footer and the floating button | two lecturers on one screen compete; the template puts the avatar in the panel |
+| 14 Nov 2026 | Two-column layouts inside a tab switch on by the width of the contents column (viewport 792–900 px or ≥ 1152 px), the sticky table of contents from 1212 px; page width 1340 px | the panel takes 360 px beside the contents above 900 px |
+| 14 Nov 2026 | Web deck = the Unit 1 claude.ai deck without speaker notes and without the D1 key-value slide; in-class answer slides kept after their questions | speaker notes and the D1 answers are for the lecturer (the D1 scheme is released on UTM eLearning after class) |
+| 14 Nov 2026 | The kink answer (Concept check 4) appears in Notes §6 only after the quick check is answered; Example 2 shows Faded Example 1.2 in full, with a note to fill the workbook first | keeps the kit's rule that no figure shows the kink answer before the vote; examples are after-class model answers |
+| 14 Nov 2026 | One set of WebP figures in `01-staircases-1/img/` serves the notes, the examples and the deck; the PNG originals stay with the lecturer | nothing stored twice; 317 kB for 17 figures |
+| 14 Nov 2026 | Equations rendered to SVG at build time with MathJax 3.2.2; the LaTeX stays in `data-tex`; numbered (1.1) to (1.11) | no maths library at run time; the tutor manifest and screen readers can read the source |
+| 14 Nov 2026 | Exercises: Part A 6 × 1 mark, Part B 6 generators (20 marks, new numbers per attempt), Part C 2 × 2 marks; target 45 min; every displayed hand calculation reproduces at its shown precision | the kit's rule, so students checking by hand raise no false alarms |
+| 14 Nov 2026 | Staircase Lab moved to `labs/staircase.html`: bilingual by dictionary (`data-ms`, `Lg()`), reads `seaa4333-prefs`, site bar only when opened on its own, six milestones posted to the Unit page and kept in `seaa4333-lab-staircase`; the Stair Audit says "the stair your lecturer names" | the template's dictionary mechanism for apps; the Lab must follow the page's language and theme inside the Explorer tab |
+| 14 Nov 2026 | Anchors and search results land 104 px below the top (one offset instead of S2's scroll-padding plus scroll-margin) | the two offsets added up to 238 px |
+| 14 Nov 2026 | The printed Workbook Ch. 1 stays the in-class book; the page says it does not replace it | the 3-hour session runs on paper in the exam's Ref \| Calculations \| Output format |

@@ -62,7 +62,10 @@ Dr RJ button brings it back into view.
 
 The answers come from the rz-tutor Worker (Cloudflare), which holds the API key and reads the files in
 `tutor/` and `../tutor/` from this website. Those files and the panel are written by `web/add_tutor.py`
-on every build; exercise answers, hints and worked solutions are left out of them. While
+on every build; exercise answers, hints and worked solutions are left out of them. The tutor files come in
+two languages: `tutor/blocks-s2.json` is the page as it reads in English, `tutor/blocks-s2.ms.json` as it reads
+in BM (the reviewed Malay text, with the technical terms in English), and a question in Malay is answered from the
+Malay one, so Dr RJ quotes the page's own Malay instead of pasting its English (rz-tutor-worker 0.4.0). While
 `shared/tutor_endpoint.txt` holds no Worker address, or the Worker's switch `AI_SEAA3012` is off (the page asks
 the Worker first), Dr RJ is in offline mode: he points to the sections
 whose titles match the question, and no request is made.

@@ -1,0 +1,492 @@
+# Lab S2 Influence Lines
+SEAA 3012 Civil Engineering Laboratory II. Nota kuliah, slides, model jambatan interaktif, latihan dengan feedback serta-merta, dan data sheet untuk bacaan makmal anda.
+
+[start-outcomes] Selepas bahagian ini, anda sepatutnya boleh
+1. mentakrif influence line dan membezakannya daripada shear-force diagram atau bending-moment diagram;
+2. menerbitkan influence line bagi reaction dan hinge force model ini menggunakan statik sahaja;
+3. melakar dan menyemak influence line dengan prinsip Müller–Breslau;
+4. menggunakan influence line untuk satu load, sepasang load dan distributed load, serta mencari critical position;
+5. memproses bacaan gauge, membandingkannya dengan teori dan menjelaskan perbezaannya.
+
+[notes-n1] Nota 1 Mengapa influence line?
+Isi penting:
+- Influence line memberi satu response pada titik tetap semasa unit load bergerak .
+- Ia bukan shear-force atau bending-moment diagram: dalam diagram itu load tetap dan section yang berubah.
+- Superposition membolehkan ia digunakan semula untuk sebarang susunan load.
+Kebanyakan struktur direka untuk load yang kekal di tempatnya: berat lantai, air dalam tangki. Jambatan, crane girder atau gantry rail pula membawa load yang bergerak , dan pereka perlu menjawab soalan yang tidak dapat dijawab oleh shear-force diagram: di mana kenderaan perlu berada untuk menghasilkan reaction terbesar pada pier, shear terbesar pada sesuatu section, atau moment terbesar di midspan? Influence line menjawabnya secara terus.
+Takrif Influence line bagi suatu response \(R\) (reaction, shear force, bending moment, deflection) pada titik yang tetap ialah graf kuantiti itu melawan kedudukan \(x\) bagi unit concentrated load yang bergerak merentasi struktur. Ordinate-nya ditulis \(\eta_R(x)\) dan mempunyai unit \(R\) per unit load (tanpa dimensi bagi reaction).
+Shear-force / bending-moment diagram Influence line
+Apa yang tetap load titik tempat \(R\) dinilai
+Apa yang berubah pada paksi-x section tempat \(V\) atau \(M\) dibaca kedudukan \(x\) unit load
+Maksud ordinate \(V\) atau \(M\) pada section itu, untuk load yang diberi \(R\) pada titik tetap, untuk unit load di \(x\)
+Bagi struktur linear elastic, response berkadar dengan load dan kesan beberapa load boleh dijumlahkan (superposition). Inilah yang menjadikan influence line berguna: sebaik sahaja \(\eta_R(x)\) diketahui untuk unit load, kesan sebarang susunan concentrated load atau distributed load diperoleh melalui pendaraban dan penambahan (Section 5).
+Semakan pantas (tidak dimarkah): Pada influence line bagi \(R_A\), paksi mendatar ialah …
+Pilihan: section tempat \(R_A\) dibaca | kedudukan unit load | magnitud load
+Penjelasan yang dipaparkan selepas menjawab: \(R_A\) sentiasa dibaca di A; yang berubah ialah kedudukan unit load.
+
+[notes-n2] Nota 2 Model makmal
+Isi penting:
+- ABC dan DEF: beam atas dua support dengan cantilever 190 mm; CD: suspended span pada hinge C dan D.
+- Pin (A, F) dan roller (B, E) ialah support; hinge (C, D) ialah sambungan yang memindahkan daya tetapi tidak memindahkan moment.
+- 4 reaction yang tidak diketahui, 2 persamaan equilibrium + 2 syarat hinge: statically determinate.
+- Maka setiap influence line terdiri daripada segmen lurus, berbengkok hanya di hinge.
+- Reaction positif ke atas; \(R_C\), \(R_D\) positif apabila menekan ke bawah pada hujung cantilever.
+Model ini ialah cantilever bridge jenis yang dipatenkan oleh Heinrich Gerber pada 1866 dan digunakan, pada skala yang jauh berbeza, pada Forth Bridge: dua anchor span dengan cantilever arm, dan suspended span yang terletak di hujung arm melalui hinge.
+[Rajah: Pandangan sisi model. A dan F ialah pin, B dan E roller; C dan D ialah hinge suspended span; 1–11 ialah halt tempat jisim diletakkan. Gauge di bawah A, B, E dan F membaca support reaction; gauge di C dan D membaca hinge force.]
+Anggota. Beam ABC disokong mudah di A dan B dengan cantilever BC sepanjang 190 mm. Beam DEF ialah imej cerminnya. Suspended span CD (250 mm) terletak di hujung cantilever: hinge memindahkan daya menegak tetapi tidak memindahkan bending moment.
+## Support dan hinge
+Sesuatu support atau sambungan diterangkan berdasarkan apa yang ia halang : setiap pergerakan yang dihalang menghasilkan daya (atau moment) pada arah itu, dan setiap pergerakan yang dibenarkan tidak menghasilkan apa-apa.
+[Rajah: Tiga restraint dalam model ini. Hinge bukan support: ia menyambung dua anggota dan memindahkan daya dari satu anggota ke anggota lain, tetapi tidak memindahkan bending moment.]
+Restraint Lokasi Memindahkan Membenarkan
+Pin A, F daya menegak dan mendatar putaran
+Roller B, E daya menegak sahaja putaran dan pergerakan mendatar
+Hinge (dalaman) C, D daya antara dua anggota yang disambung putaran relatif, maka \(M = 0\) di hinge
+Oleh kerana hinge tidak membawa moment, setiap hinge menambah satu persamaan, \(M = 0\) pada titik itu, dan inilah yang menjadikan model ini statically determinate (perenggan seterusnya). Dalam model ini, support di A dan F juga boleh menarik ke bawah: gauge di situ merekodkan uplift sebagai bacaan negatif.
+Semakan pantas (tidak dimarkah): Pada titik manakah model ini boleh membawa bending moment?
+Pilihan: di support B, tempat beam ABC selanjar | di hinge C | di kedua-duanya
+Penjelasan yang dipaparkan selepas menjawab: Beam ABC selanjar melalui B, jadi ia membawa moment di situ (sebab itulah ia boleh menjulur sebagai cantilever hingga C). Hinge di C membenarkan dua anggota berputar relatif antara satu sama lain, jadi moment di situ sifar.
+Determinacy. Tiada load mendatar dikenakan, jadi terdapat empat reaction menegak yang tidak diketahui, \(R_A, R_B, R_E, R_F\). Statik memberi dua persamaan berguna bagi keseluruhan struktur (\(\sum F_y = 0\), \(\sum M = 0\)) dan setiap hinge dalaman memberi satu lagi (\(M = 0\) di C dan di D): empat persamaan untuk empat anu. Struktur ini statically determinate ; setiap influence line diperoleh daripada equilibrium sahaja tanpa memerlukan \(EI\), dan setiap influence line terdiri daripada segmen lurus.
+Sign convention. Support reaction positif ke atas. Hinge force \(R_C\) dan \(R_D\) ialah daya yang dikenakan oleh suspended span ke atas hujung cantilever (positif ke bawah pada hujung); inilah yang direkod oleh gauge di C dan D. Kedudukan diukur dari A, \(0 \le x \le 1130\) mm.
+
+[notes-n3] Nota 3 Menerbitkan influence line
+Isi penting:
+- Analisis suspended span dahulu; ambil moment terhadap support setiap kali.
+- Pada ABC: \(\eta_A = (250-x)/250\), \(\eta_B = x/250\); di hujung C: −0.76 dan 1.76.
+- Pada CD: \(\eta_C = (690-x)/250\), \(\eta_D = (x-440)/250\); kemudian \(\eta_A = -0.76\,\eta_C\), \(\eta_B = 1.76\,\eta_C\).
+- \(\eta_C\), \(\eta_D\) bukan sifar hanya bagi load pada CD: hanya ketika itu suspended span memindahkan daya melalui hinge.
+- Semakan: \(\eta_A+\eta_B+\eta_E+\eta_F = 1\) bagi setiap \(x\).
+Derivation ini menggunakan satu idea sebanyak tiga kali: ambil moment terhadap support . Urutan penting: suspended span dianalisis dahulu, kerana hanya anggota ini yang load-nya sampai kepada anggota lain.
+[Rajah: Free-body diagram bagi Langkah 1–3. Dalam (c), tarikan ke bawah di A dilukis mengikut arah sebenar ia bertindak.]
+## Langkah 1 · Unit load pada beam ABC \((0 \le x \le 440)\)
+Asingkan ABC (panel a). Ia membawa unit load di \(x\) serta reaction \(R_A\), \(R_B\); hinge di C tidak dibebani kerana suspended span tidak membawa apa-apa. Moment terhadap B:
+\[ R_A\cdot 250 - 1\cdot(250-x) = 0 \;\Longrightarrow\; \eta_A(x) = \frac{250-x}{250},\qquad \eta_B(x) = 1-\eta_A(x) = \frac{x}{250}. \]
+Tiada apa dalam keputusan ini yang berhenti di \(x = 250\): bagi load pada cantilever, lever arm \((250 - x)\) adalah negatif, maka \(\eta_A\) negatif (support A perlu menahan beam ke bawah) dan \(\eta_B\) melebihi 1. Di hujung, \(\eta_A(440) = -190/250 = -0.76\) dan \(\eta_B(440) = 440/250 = 1.76\).
+## Langkah 2 · Unit load pada suspended span CD \((440 \le x \le 690)\)
+CD ialah simply supported beam dengan span 250 mm yang terletak pada hinge (panel b), jadi hinge force mengikut lever rule:
+\[ \eta_C(x) = \frac{690-x}{250},\qquad \eta_D(x) = \frac{x-440}{250},\qquad \eta_C+\eta_D = 1. \]
+## Langkah 3 · Pindahkan hinge force ke beam ABC
+Apabila load berada pada CD, beam ABC hanya membawa daya ke bawah \(\eta_C\) di hujungnya (panel c). Ini sama seperti Langkah 1 dengan load \(\eta_C\) di \(x = 440\):
+\[ \eta_A(x) = \eta_C(x)\,\frac{250-440}{250} = -0.76\,\eta_C(x),\qquad \eta_B(x) = \eta_C(x)\,\frac{440}{250} = 1.76\,\eta_C(x). \]
+Di C kedua-dua ungkapan bagi \(\eta_A\) memberi \(-0.76\), jadi garisnya selanjar; di D, \(\eta_C = 0\) dan oleh itu \(\eta_A = \eta_B = 0\).
+## Langkah 4 · Unit load pada beam DEF \((690 \le x \le 1130)\)
+DEF ialah imej cermin ABC terhadap tengah model (\(x = 565\) mm), dengan E mengambil peranan B dan F peranan A:
+\[ \eta_F(x) = \frac{x-880}{250},\qquad \eta_E(x) = \frac{1130-x}{250}. \]
+Bagi load pada CD, hinge force \(\eta_D\) dibawa oleh DEF sama seperti \(\eta_C\) dibawa oleh ABC: \(\eta_E = 1.76\,\eta_D\), \(\eta_F = -0.76\,\eta_D\). Load pada ABC tidak pernah sampai ke DEF, dan sebaliknya, kerana suspended span ketika itu tidak dibebani dan tidak memindahkan apa-apa.
+## Mengapa η_C dan η_D bukan sifar hanya antara C dan D
+Gauge di C membaca daya yang melalui hinge C, dari suspended span ke hujung cantilever BC. Daya hanya boleh melalui hinge apabila suspended span itu sendiri membawa sesuatu.
+[Rajah: tiada kapsyen]
+- Load pada ABC (\(x \lt 440\)): ABC berdiri atas support-nya sendiri, A dan B, dan membawa load terus kepadanya. Suspended span tidak membawa apa-apa, jadi tiada daya melalui C: \(\eta_C = 0\).
+- Load pada CD (\(440 \le x \le 690\)): CD ialah simple beam antara dua hinge, dan setiap hinge mengambil bahagiannya mengikut lever rule: \(\eta_C = (690-x)/250\), dari 1 di C hingga 0 di D.
+- Load pada DEF (\(x \gt 690\)): cermin kes pertama. Load pergi ke E dan F, CD kekal tidak dibebani, dan \(\eta_C = 0\).
+Lompatan di C. Sedikit di kiri C, load berada di hujung cantilever yang merupakan sebahagian daripada ABC, jadi ia terus ke A dan B dan \(\eta_C = 0\). Sedikit di kanan C, load berada pada suspended span di support-nya, jadi seluruh load melalui hinge dan \(\eta_C = 1\). Müller–Breslau memberi gambaran yang sama: potong sambungan menegak di C dan angkat hujung CD sebanyak 1 relatif kepada hujung cantilever. ABC tidak bergerak kerana A dan B masih menyokongnya; CD berputar terhadap D. Pilih R_C dalam demonstrasi di Section 4 untuk melihatnya.
+Semakan pantas (tidak dimarkah): Satu jisim berada di halt 3 (x = 300 mm, pada cantilever BC). Gauge di C membaca …
+Pilihan: 0 | daya positif yang kecil | daya negatif yang kecil
+Penjelasan yang dipaparkan selepas menjawab: Load berada pada ABC, yang membawanya ke A dan B dengan sendirinya. Suspended span tidak dibebani, jadi tiada daya melalui hinge C.
+## Langkah 5 · Gabung dan semak
+Tiga semakan menangkap kebanyakan kesilapan: (i) \(\eta_A+\eta_B+\eta_E+\eta_F = 1\) bagi setiap \(x\); (ii) dua formula bersetuju di hinge; (iii) slope ialah \(-1/250\) per mm pada ABC dan \(+0.76/250\) pada CD, dan bengkokan hanya boleh berlaku di hinge, tidak sekali-kali di B, yang terletak di dalam rigid beam ABC.
+[Rajah: Influence line bagi \(R_A\), \(R_B\), hinge force \(R_C\) dan \(R_E\), dilukis di bawah jambatan pada skala mendatar yang sama. \(R_D\) dan \(R_F\) ialah imej cermin \(R_C\) dan \(R_A\).]
+Semakan pantas (tidak dimarkah): Unit load berada di hujung C. Berapakah \(\eta_B\)?
+Pilihan: 1.00 | 1.76 | 0.76
+Penjelasan yang dipaparkan selepas menjawab: \(\eta_B(440) = 440/250 = 1.76\): B membawa load dan juga mengimbangi tarikan ke bawah di A.
+
+[notes-n4] Nota 4 Prinsip Müller–Breslau
+Isi penting:
+- Lepaskan restraint, kenakan unit displacement: deflected shape ialah influence line.
+- Ordinate tepat bagi struktur determinate (rigid link); bentuk sahaja bagi struktur indeterminate.
+- Bengkokan hanya di hinge dan di restraint yang dilepaskan.
+Prinsip Müller–Breslau Buang restraint yang sepadan dengan response \(R\) dan berikan released structure satu unit displacement pada arah \(R\). Deflected shape struktur itu ialah influence line bagi \(R\).
+Bagi \(R_A\): buang support di A dan angkat hujung itu sebanyak satu unit. Beam ABC adalah rigid antara support dan hinge, jadi ia berputar terhadap B: A naik sebanyak 1 dan hujung C, 190 mm di sebelah lain B, turun sebanyak \(190/250 = 0.76\). Suspended span mengikut C dan kekal lurus, turun secara linear ke sifar di D; beam DEF tidak bergerak. Hasilnya tepat sama dengan influence line dalam Section 3, termasuk tanda.
+Cuba: lepaskan satu restraint dan kenakan displacement.
+displacement δ 1.00
+Dua catatan. Prinsip ini memberi ordinate yang tepat hanya bagi struktur statically determinate: bagi struktur ini, released structure ialah mechanism yang terdiri daripada rigid link yang lurus; bagi beam indeterminate pula, released structure melentur dan prinsip ini hanya memberi bentuk. Selain itu, bengkokan pada deflected shape terletak di hinge dan di restraint yang dilepaskan, tidak sekali-kali di dalam anggota rigid: semakan visual yang pantas bagi mana-mana influence line yang anda kira.
+Semakan pantas (tidak dimarkah): Lepaskan B dan angkat sebanyak 1. Beam ABC berputar terhadap A. Hujung C …
+Pilihan: naik sebanyak 440/250 = 1.76 | turun sebanyak 0.76 | kekal sifar
+Penjelasan yang dipaparkan selepas menjawab: Bar rigid yang di-pin di A dan diangkat 1 pada 250 mm naik berkadar dengan jarak dari A: \(440/250 = 1.76\) di C, iaitu puncak \(\eta_B\).
+
+[notes-n5] Nota 5 Menggunakan influence line
+Isi penting:
+- \(R = \sum P_i\,\eta_R(x_i)\); bagi UDL, \(R = w\times\) area di bawah garis.
+- Garis piecewise linear: nilai ekstrem bagi load train berlaku apabila satu load berada pada vertex.
+- Compound load Test 2: \(R_A\) paling negatif \(= -4.94\) kgf dengan jisim 5 kg di C.
+- UDL pada seluruh model memberi \(R_A = -42.2\,w\): deck terangkat di A.
+Melalui superposition, bagi satu load \(P\) di \(x_1\), satu siri load \(P_i\) di \(x_i\), dan uniformly distributed load \(w\) antara \(a\) dan \(b\):
+\[ R = P\,\eta_R(x_1),\qquad R = \sum_i P_i\,\eta_R(x_i),\qquad R = \int_a^b w\,\eta_R(x)\,\mathrm{d}x = w\times(\text{area under the IL from } a \text{ to } b). \]
+Dengan jisim dalam kg, reaction yang diperoleh dalam kgf, iaitu unit bacaan gauge makmal.
+## 5.1 Critical position bagi satu siri load
+Setiap influence line model ini adalah piecewise linear, jadi \(\sum_i P_i\,\eta_R(x_i)\) ialah fungsi piecewise linear terhadap kedudukan kumpulan load, dan fungsi piecewise linear mencapai nilai ekstrem pada vertex. Nilai terbesar (atau paling negatif) oleh itu berlaku apabila salah satu load berada pada vertex influence line ; hanya beberapa kedudukan perlu dicuba.
+## Worked example 1 · Compound load bagi Test 2
+Jisim 5 kg berada pada satu halt dan jisim 2.5 kg 100 mm di sebelah kanannya; pasangan ini bergerak ke kanan, jadi jisim 2.5 kg berada di hadapan. Dengan jisim 5 kg di \(x\):
+\[ R_A(x) = 5\,\eta_A(x) + 2.5\,\eta_A(x+100)\quad\text{(kgf)}. \]
+Jisim 5 kg di A: \(R_A = 5(1.0)+2.5(0.6) = 6.5\) kgf. Jisim 5 kg di C: \(\eta_A(540) = -0.76\times(690-540)/250 = -0.456\), maka \(R_A = -3.80 - 1.14 = -4.94\) kgf. Jisim 2.5 kg di C (jisim 5 kg di 340 mm): \(R_A = 5(-0.36) + 2.5(-0.76) = -3.70\) kgf. Tarikan ke bawah paling teruk di A berlaku apabila load yang lebih berat berada pada vertex C. \(R_B\) terbesar, 11.44 kgf, melebihi 1.5 kali jumlah jisim 7.5 kg.
+## 5.2 Distributed load: area di bawah influence line
+Area di bawah \(\eta_A\), menggunakan petua segi tiga, ialah \(+\tfrac12(250)(1.0) = +125\) mm pada AB, \(\tfrac12(190)(-0.76) = -72.2\) mm pada BC dan \(\tfrac12(250)(-0.76) = -95.0\) mm pada CD, dan sifar pada DEF.
+## Worked example 2 · Uniformly distributed load
+Load \(w = 0.01\) kg/mm (2.5 kg tersebar atas 250 mm): pada AB sahaja, \(R_A = 0.01\times125 = 1.25\) kgf (separuh load, seperti simple span); pada BC dan CD, \(R_A = 0.01\times(-167.2) = -1.67\) kgf; pada seluruh model, \(R_A = 0.01\times(125-72.2-95.0) = -0.42\) kgf. Jambatan jenis ini yang dibebani secara seragam sepanjang keseluruhannya akan terangkat di A, dan support mesti mampu menahan deck ke bawah.
+Semakan dengan statik Beam ABC membawa \(w(250+190)\) secara terus ditambah separuh suspended span, \(125w\), di C. Moment terhadap B: \(R_A\cdot250 = 250w(125) - 190w(95) - 125w(190) = -10\,550\,w\), maka \(R_A = -42.2\,w\) , sama dengan area.
+Semakan pantas (tidak dimarkah): Bagi load train pada influence line yang piecewise linear, response ekstrem berlaku apabila …
+Pilihan: load train berada di tengah span | resultant load berada di support | salah satu load berada pada vertex
+Penjelasan yang dipaparkan selepas menjawab: Jumlahnya piecewise linear terhadap kedudukan load train, jadi nilai ekstremnya berada pada breakpoint: satu load pada vertex.
+
+[notes-n6] Nota 6 Eksperimen dan data reduction
+Isi penting:
+- \(\eta_{\text{test}} = \text{reading}\times0.05/m\), dengan \(m = 2.5\) kg dalam Test 1.
+- Bandingkan berdasarkan perbezaan mutlak; peratusan hanya apabila ordinate besar.
+- Equilibrium check pada setiap halt: \((a+b+e+f)\times0.05 \approx 2.5\) kgf.
+Apa yang diukur. Jisim 2.5 kg diletakkan pada setiap tujuh belas halt secara bergilir (Test 1), kemudian pasangan 5 kg + 2.5 kg (Test 2). Pada setiap halt, enam dial gauge dibaca. Satu division bersamaan 0.05 kgf, jadi ordinate eksperimen per unit load ialah
+\[ \eta_{\text{test}} = \frac{(\text{reading in divisions})\times 0.05}{m},\qquad m = 2.5\ \text{kg (Test 1)}. \]
+Bagi Test 2, bacaan × 0.05 ialah reaction dalam kgf, boleh dibandingkan dengan jadual compound load.
+Cara membandingkan. Laporkan perbezaan \(\eta_{\text{test}}-\eta_{\text{theory}}\) pada setiap halt. Perbezaan peratusan hanya bermakna apabila ordinate teori tidak kecil: di halt 2, dengan \(\eta_A = 0.2\), error gauge satu division (0.02 per unit load) sudah 10 %, dan apabila nilai teori sifar, peratusan tidak tertakrif. Nilai persetujuan berdasarkan perbezaan mutlak dan bentuk garis.
+Equilibrium check. Dengan jisim di mana-mana halt, jumlah bacaan empat support gauge sepatutnya sama dengan jisim yang dikenakan: \((a+b+e+f)\times0.05 \approx 2.5\) kgf. Semak sebelum keluar makmal, ketika bacaan masih boleh diulang. Tab Makmal melakukannya untuk anda.
+
+[notes-n7] Nota 7 Sumber error
+Isi penting:
+- Kedudukan ±5 mm dan gauge ±1 division masing-masing memberi lebih kurang ±0.02 per unit load.
+- Digabung secara quadrature: lebih kurang ±0.03, sama pada setiap halt.
+- Itu 3 % di A tetapi 15 % di halt 2: guna perbezaan mutlak.
+Sumber Anggaran Kesan pada \(\eta_A\)
+Jisim diletak ±5 mm dari halt slope × Δx: (1/250)(5) on ABC, (0.76/250)(5) on CD ±0.020; ±0.015
+Resolusi gauge, ±1 division 0.05/2.5 ±0.020
+Zero drift antara bacaan re-zero selepas setiap halt; jika tidak, 1–2 division ±0.02–0.04
+Geseran dalam hinge dan gauge sistematik; merendahkan jumlah bacaan support lihat semakan jumlah
+Menggabungkan dua yang pertama secara quadrature memberi lebih kurang ±0.03 per unit load, sama pada setiap halt. Berbanding ordinate 1.0 di A, ini 3 %; berbanding 0.2 di halt 2, ia 15 %. Itulah sebab kuantitatif untuk membandingkan dengan perbezaan mutlak.
+Semakan pantas (tidak dimarkah): Ordinate teori ialah 0.20 dan uncertainty ±0.03. Perbezaan peratusan yang masih boleh ditunjukkan oleh eksperimen yang sempurna ialah sehingga …
+Pilihan: 3 % | 6 % | 15 %
+Penjelasan yang dipaparkan selepas menjawab: \(0.03/0.20 = 0.15\). ±0.03 yang sama hanya 3 % daripada ordinate di A.
+
+[notes-n8] Nota 8 Di luar makmal
+Isi penting:
+- Rekabentuk jambatan meletakkan standard vehicle load dan lane load menggunakan influence line atau influence surface.
+- Continuous girder mempunyai garis melengkung; Müller–Breslau masih menunjukkan span mana yang perlu dibebani.
+- Gerber bridge: daya diperoleh dengan statik sahaja, dengan harga end support yang perlu direka untuk uplift.
+Deck jambatan direka untuk standard vehicle load dan lane load yang diletakkan, menggunakan influence line atau influence surface, di kedudukan yang menghasilkan kesan terbesar pada setiap section. Bagi continuous girder (indeterminate), influence line melengkung dan memerlukan analisis elastik, tetapi lakaran Müller–Breslau masih memberitahu jurutera span mana yang perlu dibebani. Cantilever bridge, dengan hinge yang determinate, membolehkan span keluli yang panjang pada akhir abad kesembilan belas kerana dayanya boleh dicari dengan statik sahaja; harganya ialah end support yang mesti direka untuk uplift, seperti yang ditunjukkan dalam Worked example 2.
+
+[notes-n9] Nota Ringkasan
+\(\eta_A = (250-x)/250\) pada ABC, \(-0.76\,\eta_C\) pada CD, 0 pada DEF; \(\eta_B = x/250\) pada ABC, \(1.76\,\eta_C\) pada CD.
+\(\eta_C = (690-x)/250\), \(\eta_D = (x-440)/250\) pada CD, sifar di tempat lain; \(\eta_E\), \(\eta_F\) ialah imej cermin \(\eta_B\), \(\eta_A\). Semakan: \(\eta_A+\eta_B+\eta_E+\eta_F = 1\).
+\(R = \sum P_i\,\eta_R(x_i)\); bagi distributed load \(R = w\times\) area. Nilai ekstrem load train berlaku apabila satu load berada pada vertex.
+\(\eta_{\text{test}} = \text{reading}\times0.05/m\); bandingkan dengan perbezaan mutlak; nyatakan peratusan hanya pada ordinate besar.
+## Rujukan
+Hibbeler, R. C. (2018). Structural Analysis , 10th ed. Pearson, chapter 6.
+Kassimali, A. (2020). Structural Analysis , 6th ed. Cengage, chapter 8.
+Müller-Breslau, H. (1886). Die neueren Methoden der Festigkeitslehre und der Statik der Baukonstruktionen . Leipzig.
+Faculty of Civil Engineering, UTM (2026). Civil Engineering Laboratory II: Laboratory Manual and Data Sheets , experiment S2.
+
+[slides-1] Slide 1: Influence Lines
+SEAA 3012 Civil Engineering Laboratory II · Lab S2
+Cantilever (Gerber) bridge model
+Ahmad Razin Zainal Abidin dan pengarang bersama Fakulti Kejuruteraan Awam, Universiti Teknologi Malaysia
+
+[slides-2] Slide 2: Hari ini
+- Mengapa influence line? Apa ia, dan apa yang bukan
+- Model makmal dan mengapa ia determinate
+- Menerbitkan enam influence line daripada statik
+- Jalan pintas Müller–Breslau
+- Menggunakan influence line: satu load, sepasang, distributed load
+- Eksperimen: data reduction, error, apa yang perlu dilaporkan
+
+[slides-3] Slide 3: Load yang bergerak
+Load lantai kekal di tempatnya. Lori di atas jambatan, kren di atas rel, kereta api di atas viaduct tidak.
+Pereka perlu tahu di mana load perlu berada untuk menghasilkan
+- reaction terbesar pada pier (rekabentuk bearing, uplift)
+- shear terbesar pada section
+- moment terbesar di midspan
+Takrif Influence line bagi response \(R\) pada titik tetap ialah graf \(R\) melawan kedudukan \(x\) bagi unit load yang bergerak atas struktur: ordinate \(\eta_R(x)\).
+
+[slides-4] Slide 4: Influence line berbanding bending-moment diagram
+SFD / BMD Influence line
+Tetap load titik tempat \(R\) dibaca
+Berubah pada \(x\) section tempat \(V\), \(M\) dibaca kedudukan unit load
+Maksud ordinate \(V\) atau \(M\) pada section itu \(R\) pada titik tetap, load di \(x\)
+Struktur ini linear elastic, jadi kesan boleh dijumlahkan: sebaik sahaja \(\eta_R(x)\) diketahui untuk unit load, sebarang susunan load diperoleh melalui pendaraban dan penambahan.
+
+[slides-5] Slide 5: Gerber bridge, panjang 1130 mm
+- ABC: pin A, roller B, cantilever BC
+- CD: suspended span pada hinge C dan D
+- DEF: imej cermin ABC
+- Gauge A, B, E, F: support reaction
+- Gauge C, D: hinge force
+- Halt 1–11: tempat jisim diletakkan
+
+[slides-6] Slide 6: Mengapa ia statically determinate
+Anu: \(R_A, R_B, R_E, R_F\): empat.
+Persamaan: \(\sum F_y = 0\) dan \(\sum M = 0\) bagi seluruh model, ditambah \(M = 0\) di hinge C dan hinge D: empat.
+Akibatnya
+- setiap reaction daripada equilibrium; \(EI\) tidak muncul
+- setiap influence line terdiri daripada segmen lurus , berbengkok hanya di hinge
+- reaction positif ke atas; \(R_C\), \(R_D\) positif apabila menekan ke bawah pada hujung
+
+[slides-7] Slide 7: Satu idea, tiga kali: ambil moment terhadap support
+Urutan penting: analisis suspended span dahulu; hanya anggota ini yang load-nya sampai kepada anggota lain.
+
+[slides-8] Slide 8: Langkah 1 · Load pada beam ABC
+Moment terhadap B (hinge C tidak dibebani):
+\[ \eta_A(x) = \frac{250-x}{250},\qquad \eta_B(x) = \frac{x}{250}\qquad (0\le x\le 440) \]
+- Tiada apa berhenti di B: selepas B, lever arm \((250-x)\) negatif
+- \(\eta_A \lt 0\): support A perlu menahan beam ke bawah
+- \(\eta_B \gt 1\): B membawa load dan tarikan ke bawah di A
+Di hujung C \(\eta_A(440) = -0.76\) \(\eta_B(440) = 1.76\)
+
+[slides-9] Slide 9: Langkah 2 dan 3 · Load pada suspended span
+Langkah 2. CD disokong mudah pada hinge:
+\[ \eta_C(x) = \frac{690-x}{250},\qquad \eta_D(x) = \frac{x-440}{250} \]
+Langkah 3. ABC hanya membawa \(\eta_C\) di hujungnya:
+\[ \eta_A(x) = -0.76\,\eta_C(x),\qquad \eta_B(x) = 1.76\,\eta_C(x) \]
+Selanjar di C (\(-0.76\) dari kedua-dua belah); sifar di D.
+
+[slides-10] Slide 10: Influence line, di bawah jambatan
+Skala mendatar yang sama: setiap halt berada tepat di atas ordinate-nya. Semakan: \(\eta_A+\eta_B+\eta_E+\eta_F = 1\) bagi setiap \(x\).
+
+[slides-11] Slide 11: Hinge force dan sebelah kanan
+\(R_C\) hanya bertindak bagi load pada CD; \(R_D\), \(R_F\) ialah imej cermin \(R_C\), \(R_A\). B dan E membawa sehingga 1.76 kali load di hujung.
+
+[slides-12] Slide 12: Müller–Breslau: jalan pintas jurutera
+Lepaskan restraint, kenakan unit displacement: deflected shape ialah influence line.
+Bagi \(R_A\): ABC berputar terhadap B sebagai bar rigid, C turun 0.76, CD mengikut, DEF tidak bergerak. Garis yang sama, tanpa algebra.
+
+[slides-13] Slide 13: Jisim berada di halt 8, antara D dan E. Reaction di A ialah …
+Ramal dahulu
+ke atas sifar ke bawah
+\(\eta_A = 0\). Load berada pada DEF, yang membawanya ke E dan F dengan sendirinya; suspended span tidak dibebani, jadi tiada daya melalui D ke separuh kiri.
+
+[slides-14] Slide 14: Menggunakan influence line
+\[ R = P\,\eta_R(x_1)\qquad R = \sum_i P_i\,\eta_R(x_i)\qquad R = w\times\text{area} \]
+Critical position Semua garis kita piecewise linear, jadi jumlah bagi load train adalah piecewise linear terhadap kedudukannya: nilai ekstrem berlaku dengan satu load pada vertex .
+Units Jisim dalam kg memberi reaction dalam kgf, iaitu unit bacaan gauge (1 division = 0.05 kgf).
+
+[slides-15] Slide 15: Worked example 1 · Compound load Test 2
+Jisim 2.5 kg 100 mm di kanan jisim 5 kg (di hadapan, bergerak ke kanan):
+\[ R_A(x) = 5\,\eta_A(x) + 2.5\,\eta_A(x+100) \]
+- 5 kg di A: \(5(1.0)+2.5(0.6) = 6.5\) kgf
+- 5 kg di C: \(5(-0.76)+2.5(-0.456) = -4.94\) kgf
+- 2.5 kg di C: \(5(-0.36)+2.5(-0.76) = -3.70\) kgf
+
+[slides-16] Slide 16: Worked example 2 · Distributed load
+Area di bawah \(\eta_A\): \(+125\) mm (AB), \(-72.2\) mm (BC), \(-95.0\) mm (CD), 0 (DEF). Bagi \(w = 0.01\) kg/mm:
+- pada AB sahaja: \(R_A = 1.25\) kgf
+- pada BC dan CD: \(R_A = -1.67\) kgf
+- pada seluruh model: \(R_A = -0.42\) kgf: deck terangkat di A
+Semakan dengan statik \(R_A\cdot250 = 250w(125)-190w(95)-125w(190) = -10\,550\,w\;\Rightarrow\;R_A = -42.2\,w\)
+
+[slides-17] Slide 17: Cuba secara langsung
+
+[slides-18] Slide 18: Eksperimen
+Test 1: 2.5 kg pada setiap 17 halt, baca keenam-enam gauge. Test 2: pasangan 5 kg + 2.5 kg, jarak 100 mm.
+Data reduction \(\eta_{\text{test}} = \dfrac{\text{reading}\times0.05}{m}\), \(m = 2.5\) kg Test 2: bacaan × 0.05 = reaction dalam kgf
+Sebelum keluar makmal
+- equilibrium check: \((a+b+e+f)\times0.05 \approx 2.5\) kgf
+- re-zero gauge antara halt
+- letak jisim tepat di tengah halt (±5 mm memberi kesan)
+
+[slides-19] Slide 19: Sejauh mana “persetujuan yang baik”?
+Sumber Kesan pada \(\eta_A\)
+Jisim ±5 mm dari halt ±0.020
+Gauge ±1 division ±0.020
+Zero drift ±0.02–0.04
+Gabungan (dua pertama) ±0.03
+Peratusan mengelirukan ±0.03 ialah 3 % daripada ordinate di A tetapi 15 % di halt 2, dan tidak tertakrif apabila ordinate sifar. Bandingkan berdasarkan perbezaan mutlak .
+
+[slides-20] Slide 20: Giliran anda
+- Explorer: lima tugasan, kemudian lima soalan kefahaman
+- Makmal: masukkan bacaan dalam tab Makmal dan semak equilibrium pada setiap halt
+- Selepas makmal: Latihan (pengiraan tangan), kemudian laporan
+Imbas untuk Explorer
+
+[slides-21] Slide 21: Ringkasan
+Enam influence line bersegmen lurus \(\eta_A = (250-x)/250\) pada ABC, \(-0.76\,\eta_C\) pada CD \(\eta_B = x/250\) pada ABC, \(1.76\,\eta_C\) pada CD \(\eta_C = (690-x)/250\), \(\eta_D = (x-440)/250\) \(\eta_E\), \(\eta_F\): imej cermin
+Guna dan lapor \(R = \sum P_i\,\eta_R(x_i)\); UDL: \(w\times\) area ekstrem: satu load pada vertex Müller–Breslau: lepas, anjak, baca banding dengan perbezaan mutlak
+Bacaan: Hibbeler, Structural Analysis, ch. 6; Kassimali, Structural Analysis, ch. 8; Laboratory Manual, experiment S2.
+
+[exercises-q1] Latihan Soalan 1
+Soalan: Menggunakan formula dalam nota, cari ordinate berikut. Semak setiap baris dengan \(\eta_A+\eta_B+\eta_E+\eta_F = 1\).
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-q2] Latihan Soalan 2
+Soalan: Bermula daripada free-body diagram suspended span dan beam DEF, terbitkan influence line bagi hinge force \(R_D\) dan reaction \(R_F\). Masukkan ordinate di C, D, E dan F (di D ambil nilai bagi load yang berada tepat di atas hinge), dan tulis ungkapan bagi setiap julat \(x\).
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-q3] Latihan Soalan 3
+Soalan: Sebuah kenderaan model mempunyai dua axle berjarak 150 mm yang membawa 4 kg (leading) dan 2 kg (trailing). Ia bergerak dari A ke F, jadi axle 2 kg berada 150 mm di kiri axle 4 kg. (a) Terangkan mengapa nilai terbesar \(R_B\) mesti berlaku dengan satu axle berada pada vertex \(\eta_B\). (b) Kedudukan axle 4 kg bagi \(R_B\) terbesar: mm; \(R_B\) terbesar = kgf (c) Kedudukan axle 4 kg bagi \(R_A\) paling negatif: mm; \(R_A\) = kgf
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-q4] Latihan Soalan 4
+Soalan: Uniformly distributed load \(w = 0.02\) kg/mm diletakkan (a) pada AB sahaja, (b) pada suspended span CD sahaja, (c) pada seluruh model. Cari \(R_A\), \(R_B\) dan hinge force \(R_C\) dalam kgf daripada area di bawah influence line.
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-q5] Latihan Soalan 5
+Soalan: Guna prinsip Müller–Breslau (lepaskan support, kenakan unit displacement, lukis deflected shape) untuk mencari ordinate \(\eta_B\) dan \(\eta_E\) di A hingga F. Kemudian, menggunakan \(\eta_F\) daripada Soalan 2 dan simetri model, pilih support yang boleh mengalami uplift. Support yang boleh mengalami uplift (reaction negatif): A B E F
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-q6] Latihan Soalan 6
+Soalan: Bacaan di bawah ialah bacaan ilustrasi gauge A dengan jisim 2.5 kg pada setiap halt (Test 1); satu division ialah 0.05 kgf. Tukar bacaan pada enam halt kepada ordinate eksperimen, kemudian cari perbezaan mutlak terbesar daripada teori bagi kesemua tujuh belas halt. Terbesar \(|\eta_{\text{test}}-\eta_{\text{theory}}|\) = di halt
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-q7] Latihan Soalan 7
+Soalan: (a) Jisim diletakkan dalam lingkungan ±5 mm dari halt dan gauge dibaca hingga ±1 division. Anggarkan uncertainty yang terhasil bagi ordinate \(\eta_A\). (b) Ambil uncertainty gabungan sebagai ±0.03 per unit load (nombor bulat). Antara halt yang mempunyai ordinate teori bukan sifar, pilih halt tempat uncertainty ini sahaja boleh memberi perbezaan peratusan melebihi 10 %. A 1 2 3 4 C 5 6
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-q8] Latihan Soalan 8
+Soalan: Dengan jisim 2.5 kg di halt 4, empat support gauge membaca \(a = -28\), \(b = 77\), \(e = 0\), \(f = 0\) division. Jumlah support reaction = kgf. Penjelasan paling munasabah bagi perbezaan daripada 2.50 kgf ialah: jisim diletakkan lebih kurang 5 mm dari halt geseran dalam mekanisme gauge atau zero offset yang kecil pekali gauge bukan 0.05 kgf per division
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-q9] Latihan Soalan 9
+Soalan: (a) Mengapa susunan Gerber menjadikan jambatan statically determinate, dan apakah implikasinya terhadap bentuk setiap influence line? (b) Jika hinge di C dan D dikimpal, sehingga ABCDEF menjadi continuous beam atas empat support, bagaimanakah influence line bagi \(R_A\) berubah? (c) Berikan satu sebab praktikal mengapa pereka perlu tahu bahawa \(R_A\) boleh menjadi negatif.
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-q10] Latihan Soalan 10 (cabaran)
+Soalan: Pasangan Test 2 kini merentasi jambatan dari F ke arah A, jadi jisim 2.5 kg berada 100 mm di kiri jisim 5 kg. Cari \(R_A\) paling negatif, hinge force \(R_C\) terbesar, dan kedudukan jisim 5 kg bagi \(R_C\) terbesar. Bandingkan dengan Worked example 1 dalam Nota. Paling negatif \(R_A\) = kgf · terbesar \(R_C\) = kgf, dengan jisim 5 kg di mm
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[explorer-tk1] Tugasan Explorer 1 · Baca reaction
+Tekan Isi pantas → Unit load , kemudian tekan halt 6 . Baca R_C dan R_E daripada kotak reaction.
+(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)
+
+[explorer-tk2] Tugasan Explorer 2 · Buka penerangan
+Kekalkan load yang sama. Letak tetikus (atau tekan) pada kotak R_E . Penerangan menunjukkan anggota mana load berada dan bagaimana η_E dibina. Masukkan η_D daripadanya.
+(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)
+
+[explorer-tk3] Tugasan Explorer 3 · Tetapkan load sendiri
+Di bawah Load , masukkan P_1 = 3 kg, P_2 = 2 kg, P_3 = 0 dan P_1→P_2 = 140 mm. Tekan halt B . Baca R_A dan R_B.
+(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)
+
+[explorer-tk4] Tugasan Explorer 4 · Cari critical position
+Kekalkan load ini. Gerakkan kumpulan load dengan halt atau slider dan cari R_B terbesar . Masukkan nilainya, dan halt tempat P_1 berada.
+(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)
+
+[explorer-tk5] Tugasan Explorer 5 · Guna area
+Tekan Tiada , hidupkan R_E sahaja dan tandakan lorek area . Baca area bersih di bawah influence line bagi R_E, kemudian kira R_E bagi uniform load w = 0.015 kg/mm pada seluruh model.
+(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)
+
+[explorer-move-the-load] Explorer · Gerakkan load
+Gerakkan load Seret load pada lukisan, guna slider atau tekan satu halt. Influence lines Semua Tiada lorek area Kedudukan P_1 x = 0 mm (A) Load Isi pantas: Unit load (1, 0, 0) 2.5 kg Pasangan Test 2 (5 + 2.5) P_1 (kg) P_2 (kg) P_3 (kg) P_1→P_2 (mm) P_2→P_3 (mm) P_2 dan P_3 mengikut P_1 ke kanan. 0 membuang load; load yang melepasi F tidak dikira. Letak tetikus atau tekan pada satu reaction untuk melihat cara nilainya dikira. Simbol dan unit: Glosari
+
+[explorer-part-2-concept-check] Explorer · Bahagian 2 · Semakan kefahaman
+Bahagian 2 · Semakan kefahaman Lima soalan tentang maksud garis-garis ini. Satu cubaan bagi setiap soalan; setiap jawapan diterangkan. Cuba semula
+
+[lab-before-you-start] Lab · Sebelum mula
+Sebelum mula Span AB, BC, CD, DE, EF ialah 250, 190, 250, 190, 250 mm; halt 1–11 bertanda. Keenam-enam gauge kembali ke sifar selepas deck ditekan dan dilepaskan. Jisim diletakkan tepat di tengah tanda halt (±5 mm memberi kesan). Gauge di-re-zero sebelum setiap halt baharu. Equilibrium disemak pada setiap halt sebelum beralih.
+
+[lab-equilibrium-check] Lab · Equilibrium check
+Equilibrium check Masukkan empat bacaan support bagi satu halt. Jumlahnya mesti sama dengan jisim yang dikenakan, walau di mana pun jisim itu berada. a b e f jisim dikenakan (kg) kgf per division
+
+[lab-test-1-one-2-5-kg-mass-at-each-halt] Lab · Test 1 · satu jisim 2.5 kg pada setiap halt
+Test 1 · satu jisim 2.5 kg pada setiap halt Pilih gauge, taip bacaannya pada setiap halt, dan tekan Bandingkan. Perbezaan adalah mutlak (η_{test} − η_{theory}); peratusan hanya dipaparkan apabila |η_{theory}| ≥ 0.1. Gauge kgf per division jisim (kg) Halt x (mm) Bacaan (div) η test η theory Perbezaan Bandingkan dengan teori Isi bacaan contoh Kosongkan Salin jadual
+
+[lab-test-2-5-kg-mass-with-the-2-5-kg-mass-10] Lab · Test 2 · jisim 5 kg dengan jisim 2.5 kg 100 mm di kanannya
+Test 2 · jisim 5 kg dengan jisim 2.5 kg 100 mm di kanannya Halt ialah kedudukan jisim 5 kg. Bacaan × pekali ialah reaction dalam kgf. Di halt 11 dan F, jisim 2.5 kg akan berada di luar hujung model, jadi hanya jisim 5 kg dikira. Gauge kgf per division Halt 5 kg di (mm) Bacaan (div) R test (kgf) R theory (kgf) Perbezaan (kgf) Bandingkan dengan teori Isi bacaan contoh Kosongkan Salin jadual
+
+[lab-what-the-report-must-contain] Lab · Kandungan wajib laporan
+Kandungan wajib laporan Bagi setiap reaction: influence line teori dan eksperimen pada paksi yang sama, dengan halt ditanda (Test 1). Test 2: reaction teori dan eksperimen bagi compound load, serta critical position. Perbezaan mutlak pada setiap halt; peratusan hanya pada ordinate besar; equilibrium check. Perbincangan sumber error dengan nombor (Nota, Section 7), dan kesimpulan tentang persetujuan. Jawapan kepada soalan data sheet: kepentingan influence line dalam rekabentuk (kurang daripada 100 patah perkataan).
+
+[feedback-tab] Tab Maklum balas
+Tab Maklum balas, tab terakhir halaman ini: Nilai bahagian ini dari 1 hingga 5 dan nyatakan apa yang paling membantu, tulis Perkara paling mengelirukan (apa yang masih kurang jelas), Lapor kesilapan dalam sesuatu section (typo, tanda yang salah, butang yang tidak berfungsi), Suka halaman ini, dan baca Apa yang baharu. Ia tanpa nama dan hanya sampai kepada pensyarah, untuk menambah baik halaman ini; ia tidak digunakan untuk markah.
+
+[glossary-x] Glosari: x
+x: Kedudukan di sepanjang jambatan diukur dari A, dalam mm. Dalam Explorer, ia kedudukan P_1 .
+
+[glossary-r-x] Glosari: η_R (x)
+η_R (x): Ordinate influence line: nilai response R apabila unit load berada di x. Tanpa dimensi bagi reaction (reaction per unit load).
+
+[glossary-r-a-r-b-r-e-r-f] Glosari: R_A , R_B , R_E , R_F
+R_A , R_B , R_E , R_F: Support reaction di A, B, E dan F. Positif ke atas; negatif bermaksud support menahan deck ke bawah (uplift).
+
+[glossary-r-c-r-d] Glosari: R_C , R_D
+R_C , R_D: Hinge force di C dan D: daya yang dikenakan suspended span pada hujung cantilever. Positif ke bawah pada hujung. Diukur oleh gauge di C dan D.
+
+[glossary-p-p-1-p-2-p-3] Glosari: P, P_1 , P_2 , P_3
+P, P_1 , P_2 , P_3: Concentrated load, diberi sebagai jisim dalam kg.
+
+[glossary-w] Glosari: w
+w: Uniformly distributed load (UDL), dalam kg/mm.
+
+[glossary-kgf] Glosari: kgf
+kgf: Kilogram-force: berat jisim 1 kg di bawah graviti piawai. 1 kgf = 9.80665 N ≈ 9.81 N. Jisim 2.5 kg mempunyai berat 2.5 kgf, dan gauge ditentukur dalam kgf, jadi jisim dalam kg terus memberi reaction dalam kgf.
+
+[glossary-div] Glosari: div
+div: Satu division dial gauge, bersamaan 0.05 kgf.
+
+[glossary-m] Glosari: m
+m: Jisim yang dikenakan dalam data reduction (2.5 kg dalam Test 1).
+
+[glossary-test-theory] Glosari: η_{test} , η_{theory}
+η_{test} , η_{theory}: Ordinate eksperimen (bacaan × 0.05 / m) dan ordinate teori.
+
+[glossary-term] Glosari: Σ
+Σ: Jumlah bagi semua load di atas jambatan.
+
+[glossary-x-2] Glosari: Δx
+Δx: Error semasa meletakkan jisim pada halt (lebih kurang ±5 mm).
+
+[glossary-influence-line] Glosari: Influence line
+Influence line: Graf satu response pada titik tetap (reaction, shear atau moment) melawan kedudukan unit load yang bergerak.
+
+[glossary-unit-load] Glosari: Unit load
+Unit load: Concentrated load bermagnitud 1 yang digunakan untuk mentakrif influence line.
+
+[glossary-superposition] Glosari: Superposition
+Superposition: Bagi struktur linear elastic, kesan beberapa load boleh dijumlahkan: R = Σ P_i η_R (x_i ).
+
+[glossary-statically-determinate] Glosari: Statically determinate
+Statically determinate: Semua reaction diperoleh daripada equilibrium sahaja; model ini ada empat reaction, dua persamaan equilibrium dan dua syarat hinge.
+
+[glossary-gerber-cantilever-bridge] Glosari: Gerber (cantilever) bridge
+Gerber (cantilever) bridge: Dua anchor span dengan cantilever arm yang membawa suspended span pada hinge.
+
+[glossary-suspended-span] Glosari: Suspended span
+Suspended span: Span CD, disokong mudah pada hujung dua cantilever melalui hinge C dan D.
+
+[glossary-pin-support] Glosari: Pin support
+Pin support: Support yang menghalang pergerakan menegak dan mendatar tetapi membenarkan putaran (A dan F).
+
+[glossary-roller-support] Glosari: Roller support
+Roller support: Support yang menghalang pergerakan menegak sahaja; ia membenarkan putaran dan pergerakan mendatar (B dan E).
+
+[glossary-hinge] Glosari: Hinge
+Hinge: Sambungan dalaman antara dua anggota (C dan D) yang memindahkan daya tetapi tidak memindahkan bending moment, maka M = 0 di situ.
+
+[glossary-cantilever] Glosari: Cantilever
+Cantilever: Bahagian beam yang terjulur melepasi support (BC dan DE).
+
+[glossary-halt] Glosari: Halt
+Halt: Kedudukan bertanda pada deck tempat jisim diletakkan (A, 1–11, …, F).
+
+[glossary-dial-gauge] Glosari: Dial gauge
+Dial gauge: Alat di bawah setiap support atau hinge yang membaca daya dalam division.
+
+[glossary-free-body-diagram] Glosari: Free-body diagram
+Free-body diagram: Lakaran satu anggota yang diasingkan bersama semua daya yang bertindak padanya.
+
+[glossary-lever-rule] Glosari: Lever rule
+Lever rule: Bagi simple span, setiap reaction sama dengan load didarab dengan jarak ke support yang satu lagi, kemudian dibahagi dengan span.
+
+[glossary-m-ller-breslau-principle] Glosari: Müller–Breslau principle
+Müller–Breslau principle: Lepaskan restraint dan kenakan unit displacement: deflected shape ialah influence line.
+
+[glossary-vertex] Glosari: Vertex
+Vertex: Bucu (bengkokan) pada influence line yang piecewise linear.
+
+[glossary-critical-position] Glosari: Critical position
+Critical position: Kedudukan load yang memberi response terbesar (atau paling negatif); bagi load train, satu load berada pada vertex.
+
+[glossary-udl] Glosari: UDL
+UDL: Uniformly distributed load; kesannya ialah w × area di bawah influence line.
+
+[glossary-uplift] Glosari: Uplift
+Uplift: Support reaction negatif: support perlu menahan deck ke bawah.
+
+[glossary-equilibrium-check] Glosari: Equilibrium check
+Equilibrium check: Jumlah empat bacaan support mesti sama dengan load yang dikenakan di mana-mana kedudukan.
+
+[glossary-absolute-difference] Glosari: Absolute difference
+Absolute difference: η_{test} − η_{theory} ; ukuran persetujuan yang adil kerana uncertainty-nya sama pada setiap halt.
+
+[glossary-uncertainty-quadrature] Glosari: Uncertainty (quadrature)
+Uncertainty (quadrature): Error yang tidak bersandar digabung sebagai √(e_1 ² + e_2 ²); lebih kurang ±0.03 per unit load di sini.
+
+[glossary-zero-drift] Glosari: Zero drift
+Zero drift: Bacaan gauge yang tidak kembali ke sifar antara halt; re-zero sebelum setiap halt.
+
+[glossary-first-attempt] Glosari: First attempt
+First attempt: Medan yang betul pada semakan pertama sesuatu soalan (Latihan).
+
+[glossary-confidence-rating] Glosari: Confidence rating
+Confidence rating: Tahap keyakinan sebelum menyemak; dibandingkan dengan keputusan, ia menunjukkan topik yang perlu diulang kaji.

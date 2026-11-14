@@ -1,0 +1,28 @@
+# BM lint for the Lab S2 course page (SEAA 3012): checks the Malay strings in the page sources
+# against the project's termbase and bm-l10n's DBP-aligned rules on every pull request that
+# touches them. The report is on the run's Summary page; FIX findings fail the check.
+name: BM lint (Lab S2)
+on:
+  pull_request:
+    paths:
+      - 'SEAA3012-CE-Lab-II/S2-influence-lines/web/src/**'
+      - 'SEAA3012-CE-Lab-II/S2-influence-lines/web/termbase-bm.csv'
+      - '.github/workflows/bm-lint-s2.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: RazinUTM/bm-l10n@db0eb91ac24e1cb1b2edd0a3d741e24528927ebe   # v0.1.4
+        with:
+          files: >-
+            SEAA3012-CE-Lab-II/S2-influence-lines/web/src/p1_start_notes.html
+            SEAA3012-CE-Lab-II/S2-influence-lines/web/src/p2_slides.html
+            SEAA3012-CE-Lab-II/S2-influence-lines/web/src/p3_explorer_ex_lab.html
+            SEAA3012-CE-Lab-II/S2-influence-lines/web/src/app.js
+          termbase: SEAA3012-CE-Lab-II/S2-influence-lines/web/termbase-bm.csv
+          call: L2,tx:1
+          pair-arrays: 'true'

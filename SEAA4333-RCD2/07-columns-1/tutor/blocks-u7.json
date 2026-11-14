@@ -1,0 +1,334 @@
+{
+ "part": "u7",
+ "title": "Unit 7 Columns I",
+ "blocks": [
+  {
+   "id": "start-outcomes",
+   "text": "[start-outcomes] After this part you should be able to\n1. state what EC2 treats as a column and how short and slender columns fail, and classify a column as braced or unbraced;\n2. find the clear height and the relative flexibilities k_1 and k_2 at the ends of a column, and its effective length l_0 by EC2 Eq. 5.15 or 5.16;\n3. calculate the slenderness ratio λ about each axis and the limit λ_{lim} , with the right n and r_m ;\n4. classify a column as non-slender or slender about each axis, and find the slips in someone else’s check."
+  },
+  {
+   "id": "notes-n1",
+   "text": "[notes-n1] Notes 1. Columns in a frame\nA column carries the floors above it down to the foundation. Its axial load grows storey by storey from the roof down, and it also takes moments: from its continuity with the beams when the spans or the loads on either side differ, from sway when wind pushes on a frame without bracing, and from the small eccentricity that EC2 assumes for every compression member. Every column design starts with one question: is the column short (non-slender) or slender? The answer decides whether the design for N and M in Unit 8 is enough, or whether the second-order moment of Unit 9 must be added.\nColumn (EC2 5.3.1(7)) A member whose section depth does not exceed 4 times its width (h ≤ 4b) and whose height is at least 3 times its section depth. A longer, thinner section is designed as a wall.\n[Figure: A short column fails when its section crushes. A slender column bends sideways first: the deflection e gives the load a lever arm, the extra moment N·e increases the deflection, and the column fails at a lower load.]\nThe design of a column follows nine steps (course notes). This Unit is step 6; Unit 8 covers steps 7 to 9 for a short column, and Unit 9 adds the second-order moment for a slender one.\nStep Task Reference Unit\n1–2 Design life, exposure, fire resistance; materials EN 1990 Table 2.1; EC2 Table 4.1 RCD I\n3–4 Column size for fire; cover for durability, fire and bond EN 1992-1-2 Table 5.2a; EC2 4.4.1 8\n5 Axial force and moments from the analysis EC2 Section 5 3–6, 8\n6 Classify: braced or unbraced, short or slender EC2 5.8.3 7\n7 Design moment (with the second-order moment if slender) EC2 5.8.8 8, 9\n8–9 Longitudinal bars from the N–M interaction; links and detailing EC2 6.1; 9.5 8\nKey points:\n- EC2 column: h ≤ 4b and a height of at least 3h; otherwise a wall.\n- A column carries axial load and moment: continuity, sway and a minimum eccentricity.\n- Short columns crush; slender columns bend sideways first, and N·e adds moment.\nQuick check (not graded): Each member below is 3.0 m high. Which one does EC2 5.3.1(7) treat as a wall rather than a column?\nOptions: 300 × 300 mm | 250 × 800 mm | 200 × 1000 mm | 400 × 600 mm\nExplanation shown after answering: 1000/200 = 5 > 4, so the 200 × 1000 section is a wall. The 250 × 800 section (3.2) is still a column. All four are tall enough: 3.0 m ≥ 3h needs h ≤ 1000 mm."
+  },
+  {
+   "id": "notes-n2",
+   "text": "[notes-n2] Notes 2. Braced or unbraced, short or slender\nA column is braced when walls, a lift core or bracing carry all the horizontal load of the building, so its ends cannot move sideways relative to each other. It is unbraced when the frame itself resists the horizontal load by bending of its columns and beams: the column sways. The project frame you analysed for wind in Units 5 and 6 has no walls or cores, so its columns are unbraced.\n[Figure: Braced: the shear wall takes the wind and the column ends stay in line. Unbraced: the frame sways by Δ and every column bends to resist it.]\nBraced and bracing members (EC2 5.8.1) Bracing members (walls, cores) are assumed to contribute to the overall horizontal stability of the structure. Braced members are assumed not to contribute to it, so they are designed without sway.\nAny column deflects a little under load, and the axial load acting on that deflection adds a moment: the second-order effect . EC2 5.8.2(6) lets you ignore it when it is less than 10% of the first-order effects, and 5.8.3.1 turns that into a simple test: compare the slenderness λ with a limit λ_{lim} (§5 and §6). Below the limit the column is non-slender (short); above it the column is slender .\nNon-slender (λ ≤ λ_{lim}) Slender (λ > λ_{lim})\nBraced M_{Ed} from the first-order moments (Unit 8) Add M_2 near mid-height (Unit 9)\nUnbraced As braced, with the sway moments (rare: λ_{lim} is low) Add M_2 at the ends (Unit 9)\nKey points:\n- Braced: walls or cores take the horizontal load; the column does not sway. Unbraced: the frame sways.\n- Second-order effect: N times the deflection. Ignore it only if λ ≤ λ_{lim}.\n- Classify each column twice: braced or unbraced, then short or slender, about each axis.\nQuick check (not graded): A four-storey office block has a reinforced concrete lift core and two shear walls that carry all the wind load. Its interior columns are\nOptions: unbraced, because the building is four storeys high | braced, because the core and walls take the horizontal load | slender, because every column in a building is slender | bracing members\nExplanation shown after answering: The core and the walls are the bracing members; the columns are braced, so they carry no sway. Whether they are slender is a separate question, answered with λ and λ_{lim}."
+  },
+  {
+   "id": "notes-n3",
+   "text": "[notes-n3] Notes 3. Effective length\nPress the ends of a long ruler together and it bows sideways at a small force; a ruler half as long needs about four times the force. Euler’s buckling load explains why: it falls with the square of the length.\nEQUATION (7.1): N_{cr} = \\frac{\\pi^2 E I}{l_0^{\\,2}}\nEffective length l_0 (EC2 5.8.1) The length of a pin-ended column with the same section and the same buckling load as the real one. On the buckled shape it is the distance between two points of zero moment (points of contraflexure).\n[Figure: Ideal end conditions and their effective lengths (after EC2 Figure 5.7). Real columns in frames sit between the ideal cases: braced, 0.5l ≤ l_0 ≤ l; unbraced, l_0 ≥ l.]\n- l is the clear height between the end restraints: in this course, the storey height minus the depth of the beams framing in the plane considered (the deeper one where two differ).\n- Fixing an end against rotation shortens l_0: the buckled shape curves back, and the points of contraflexure move inside the column.\n- Letting an end sway lengthens l_0: a column fixed at the base and free at the top buckles like half of a pin-ended column twice as long.\n- Beams give partial restraint: neither fixed nor pinned. §4 measures how much.\nKey points:\n- N_{cr} = π²EI/l_0²: half the effective length, four times the buckling load.\n- Ideal cases: l, 2l, 0.7l, 0.5l, and l for fixed ends that sway.\n- l is the clear height; braced 0.5l ≤ l_0 ≤ l, unbraced l_0 ≥ l.\nQuick check (not graded): Four columns have the same section and the same clear height l. Which has the lowest buckling load?\nOptions: Pinned at both ends | Fixed at the base, free at the top | Fixed at the base, pinned at the top | Fixed at both ends\nExplanation shown after answering: The free top lets it sway: l_0 = 2l, the longest of the four, so N_{cr} is a quarter of the pin-ended value and one sixteenth of the value for fixed ends (l_0 = 0.5l)."
+  },
+  {
+   "id": "notes-n4",
+   "text": "[notes-n4] Notes 4. Effective length from the beams\nFor a column in a regular frame, EC2 5.8.3.2(3) gives l_0 from the clear height l and the relative flexibilities k_1 and k_2 of the restraints at the bottom and top ends.\nEQUATION (7.2): \\text{Braced:}\\quad l_0 = 0.5\\,l\\sqrt{\\left(1+\\frac{k_1}{0.45+k_1}\\right)\\left(1+\\frac{k_2}{0.45+k_2}\\right)}\nEQUATION (7.3): \\text{Unbraced:}\\quad l_0 = l\\cdot\\max\\left\\{\\sqrt{1+10\\,\\frac{k_1 k_2}{k_1+k_2}}\\;;\\;\\left(1+\\frac{k_1}{1+k_1}\\right)\\left(1+\\frac{k_2}{1+k_2}\\right)\\right\\}\nEC2 defines k = (θ/M)(EI/l): the rotation of the restraining members per unit moment, scaled by the column’s own stiffness. The course method (RDF §14, Mosley §9.2) evaluates it as a ratio of stiffnesses at each end:\nEQUATION (7.4): k = \\frac{(I/l)_{\\mathrm{column}}}{\\sum 2\\,(I/l)_{\\mathrm{beam}}} \\;\\ge\\; 0.1\n[Figure: Each axis has its own clear height and its own beams: the beams that bend with the column in that plane. Bending about z uses I_z = bh³/12 and the main beams; bending about y uses I_y = hb³/12 and the secondary beams.]\n- Each beam counts as 2EI/l, a reduced stiffness that allows for cracking in the beams (RDF note 2; EC2 5.8.3.2(5)). E cancels, so I/l is enough.\n- The columns above and below are ignored (RDF note 2). Where an adjacent column is likely to buckle with this one and rotate the joint, EC2 5.8.3.2(4) adds its EI/l to the column term, which raises k.\n- k = 0 means a rigid restraint and k = ∞ means none. Fully rigid restraint is rare, so EC2 recommends k ≥ 0.1. A column fixed into a footing designed for the moment takes k_1 = 0.1; a pinned end takes k = ∞, which makes its bracket in (7.2) equal 2.\n- A beam on one side only, as at an edge or corner column, gives a larger k: one stiffness in the sum instead of two.\nk_1 = k_2 = k 0.1 0.25 0.5 1.0 ∞\nBraced, l_0/l (7.2) 0.59 0.68 0.76 0.84 1.00\nUnbraced, l_0/l (7.3) 1.22 1.50 1.87 2.45 ∞\nStiffer beams (smaller k) give a shorter l_0. With k at its floor of 0.1, a braced column has l_0 = 0.59l and an unbraced one 1.22l: the same column and beams give twice the effective length once the frame can sway.\nWorked line: course notes Example 1, about z Column 275 × 350, storey 5.0 m, main beams 250 × 500 at 6 m and 8 m on both floors: l = 5000 − 500 = 4500 mm; K_c = (275 × 350³/12)/4500 = 2.183 × 10⁵ mm³; ΣK_b = 4.340 + 3.255 = 7.595 × 10⁵ mm³; k = 2.183/(2 × 7.595) = 0.1437 at both ends; l_0 = 0.5 × 4500 × (1 + 0.1437/0.5937) = 2795 mm. The notes print b × h = 275 × 300 in one line; the section is 275 × 350, as the figure and every number show.\nKey points:\n- Braced (7.2), unbraced (7.3): take the larger of the two terms for an unbraced column.\n- k = (I/l)_{col}/Σ2(I/l)_{beam} at each end, never below 0.1; fixed base k_1 = 0.1, pinned end k = ∞.\n- Each axis uses its own clear height and the beams that bend in its plane.\nQuick check (not graded): For a braced column between deep beams, (I/l)_{col}/Σ2(I/l)_{beam} = 0.06 at both ends. Which effective length do you use?\nOptions: 0.50 l | 0.56 l | 0.59 l | 0.75 l\nExplanation shown after answering: k is raised to its floor of 0.1, so l_0 = 0.5l(1 + 0.1/0.55) = 0.59l. With k = 0.06 you would get 0.56l, a column restrained more rigidly than EC2 accepts; 0.75l is the BS 8110 table value of §5."
+  },
+  {
+   "id": "notes-n5",
+   "text": "[notes-n5] Notes 5. The slenderness ratio\nEQUATION (7.5): \\lambda = \\frac{l_0}{i}, \\qquad i = \\sqrt{\\frac{I}{A}}\nEQUATION (7.6): \\text{Rectangle:}\\quad i = \\frac{h}{\\sqrt{12}} = 0.289\\,h \\qquad\\Rightarrow\\qquad \\lambda \\approx 3.46\\,\\frac{l_0}{h}\n- i is the radius of gyration of the uncracked concrete section about the axis of bending; h is the side in the plane of bending, square to that axis.\n- Check both axes. About the minor axis i is smaller, so λ is usually larger there, but l_0 can differ between the axes because the beams differ.\n- Course notes Example 1: i_z = 350/√12 = 101.0 mm and λ_z = 2795/101.0 = 27.7; i_y = 275/√12 = 79.4 mm and λ_y = 2718/79.4 = 34.2.\nThe simplified method of the course notes The notes also give l_0 = β × clear height from BS 8110 Tables 3.19 (braced: β = 0.75 to 1.0) and 3.20 (unbraced: β = 1.2 to 2.2), with end conditions 1 to 4. It is a quick estimate from a withdrawn code, and for columns between stiff beams it gives a longer l_0 than (7.2): in Example 1, 0.75 × 4600 = 3450 mm makes λ_y = 43.5 and the column slender about y, where (7.2) gives 2718 mm and non-slender. This course designs with (7.2) and (7.3) and uses the tables as a cross-check.\nKey points:\n- λ = l_0/i; for a rectangle i = h/√12, with h in the plane of bending.\n- Estimate first: λ ≈ 3.5 l_0/h.\n- BS 8110 β-tables: a cross-check only; design with (7.2) and (7.3).\nQuick check (not graded): A braced 250 × 500 column has l_0 = 3.0 m about both axes. Which statement is right?\nOptions: λ = 20.8 about both axes | λ = 41.6 about the minor axis and 20.8 about the major axis | λ = 41.6 about the major axis | λ = 12.0 about the minor axis\nExplanation shown after answering: i = 250/√12 = 72.2 mm about the minor axis, so λ = 3000/72.2 = 41.6; about the major axis i = 500/√12 = 144.3 mm and λ = 20.8. The value 12.0 is l_0/h, which forgets the √12."
+  },
+  {
+   "id": "notes-n6",
+   "text": "[notes-n6] Notes 6. The slenderness limit\nEC2 5.8.3.1 sets the slenderness below which second-order effects may be ignored. It depends on the creep, the steel, the shape of the moment diagram and, above all, on how hard the column is pushed.\nEQUATION (7.7): \\lambda_{lim} = \\frac{20\\,A\\,B\\,C}{\\sqrt{n}}\nEQUATION (7.8): A = \\frac{1}{1+0.2\\,\\varphi_{ef}}\\;(0.7),\\qquad B = \\sqrt{1+2\\omega}\\;(1.1),\\qquad C = 1.7 - r_m\nEQUATION (7.9): n = \\frac{N_{Ed}}{A_c\\,f_{cd}}, \\quad f_{cd} = \\frac{0.85\\,f_{ck}}{1.5} = 0.567\\,f_{ck}, \\qquad r_m = \\frac{M_{01}}{M_{02}},\\;\\; |M_{02}| \\ge |M_{01}|\n- A = 0.7 and B = 1.1 when the effective creep ratio φ_{ef} and the steel ratio ω = A_sf_{yd}/(A_cf_{cd}) are not yet known, as when you size a column. Calculate C wherever you can: it has the largest effect.\n- n is the relative axial force. A column carrying more load has a lower limit: double n and λ_{lim} falls by 29%.\n[Figure: The sign of r_m. Single curvature bulges the column most and gives the lowest limit; double curvature keeps the deflection small and raises the limit.]\nCase r_m C\nSingle curvature: M_{01} and M_{02} give tension on the same face 0 to +1 1.7 down to 0.7\nDouble curvature: tension on opposite faces 0 to −1 1.7 up to 2.7\nBraced, moments only or mainly from imperfections or transverse load: in this course, when |M_{02}| ≤ N_{Ed}l_0/400, or there are no end moments 1.0 0.7\nUnbraced, in general 1.0 0.7\nThen compare, about each axis separately (EC2 5.8.3.1(2)): λ ≤ λ_{lim} means non-slender, and the column is designed for its first-order moments with the minimum eccentricity (Unit 8); λ > λ_{lim} means slender, and the second-order moment M_2 is added (Unit 9). Course notes Example 1: n = 1050 × 10³/(275 × 350 × 14.17) = 0.770; about z, r_m = −12/40 = −0.30, C = 2.00 and λ_{lim} = 20 × 0.7 × 1.1 × 2.00/√0.770 = 35.1 > 27.7; about y, r_m = −10/15 = −0.667, C = 2.367 and λ_{lim} = 41.5 > 34.2. Non-slender about both axes.\nTwo slips to avoid RDF §14 prints |M_{02}| ≤ |M_{01}|; EC2 has |M_{02}| ≥ |M_{01}|, so M_{02} is always the larger end moment and |r_m| ≤ 1. And the sign matters: the original course spreadsheet takes r_m positive even for double curvature, which gives a limit about half the right one (Worked Example 7.1: 17.7 instead of 36.2).\nKey points:\n- λ_{lim} = 20ABC/√n with A = 0.7, B = 1.1 if unknown; n = N_{Ed}/(A_cf_{cd}).\n- C = 1.7 − r_m: r_m negative in double curvature; r_m = 1 (C = 0.7) when unbraced or when imperfections dominate.\n- λ ≤ λ_{lim}: non-slender (Unit 8). λ > λ_{lim}: slender (Unit 9). One verdict per axis.\nQuick check (not graded): A braced column has end moments of 60 kN m at the top and 35 kN m at the bottom, giving tension on opposite faces. N_{Ed}l_0/400 = 9.6 kN m. What is C?\nOptions: 1.12 | 2.28 | 0.70 | 1.70\nExplanation shown after answering: Double curvature, so r_m = −35/60 = −0.583 and C = 1.7 + 0.583 = 2.28. Taking r_m positive gives 1.12; 0.7 applies only when unbraced or when the end moments do not exceed the imperfection moment (60 > 9.6 here)."
+  },
+  {
+   "id": "slides-1",
+   "text": "[slides-1] Slide 1: Columns I\nSEAA 4333 Reinforced Concrete Design II · Week 7 Columns I Braced or unbraced, effective length, short or slender Workbook ch. 7 ABCD card Phone or laptop Column Lab Scan for this page’s Explorer tab. You will use it in three activities today."
+  },
+  {
+   "id": "slides-2",
+   "text": "[slides-2] Slide 2: How the next three hours run\nToday · 180 minutes How the next three hours run 0:00 Warm-up Units 3–6 in three votes 0:10 Hook The ruler 0:15 Columns, l₀ Braced or unbraced? 0:35 Predict, reveal Lab tab 1 0:45 k, λ, λlim The EC2 check 1:05 Faded example In pairs 1:30 Break 10 minutes 1:40 Concept checks Which axis? Which sign? 1:47 The race Eight columns, teams 2:05 Exam-size problem Alone, 30 minutes 2:35 Studio, exit Your column No talk longer"
+  },
+  {
+   "id": "slides-3",
+   "text": "[slides-3] Slide 3: Three questions from the frame analysis\nWarm-up · no notes · cards up Three questions from the frame analysis W1 · Unit 6 Portal method: in a sway frame under wind, where is the moment zero in each column? A at the base B at mid-height C at the top D nowhere W2 · Unit 5 Cantilever method: the axial forces in the columns of a storey are proportional to A their areas B their stiffnesses C their distances from the centroid of the column group D the bay widths"
+  },
+  {
+   "id": "slides-4",
+   "text": "[slides-4] Slide 4: B, C, A, and what each means for a column\nWarm-up · answers B, C, A, and what each means for a column W1 B: mid-height An unbraced column bends in double curvature, with a point of contraflexure in its height. W2 C: distance from the centroid Edge columns carry the largest wind axial force; it adds to N_{Ed} in the column design. W3 A: half stiffness Today EC2 counts each beam as 2EI/l in k: a cracked stiffness, used for buckling. SEAA 4333 · Unit 7 · Column"
+  },
+  {
+   "id": "slides-5",
+   "text": "[slides-5] Slide 5: Why does a long ruler buckle when a short one does not?\nHook · 5 minutes Why does a long ruler buckle when a short one does not? In pairs: press a ruler end to end until it bows. Then hold it at mid-length and press again. Write one sentence: what changed, and why? N_{cr} = π²EI/l₀² SEAA 4333 · Unit 7 · Columns I Workbook 7.1"
+  },
+  {
+   "id": "slides-6",
+   "text": "[slides-6] Slide 6: Three weeks of columns; today is step 6 of 9\nBlock A · where this sits Three weeks of columns; today is step 6 of 9 Unit 7 · today Classify Braced or unbraced; l₀ from the beams; λ against λlim about each axis. Unit 8 · week 9 Short columns Axial load and moment; the N–M interaction; bars and links. Unit 9 · week 10 Slender and biaxial The nominal curvature moment M₂; bending about both axes. Steps 1–5 (exposure, materials, size, cover, N and M) you know from R"
+  },
+  {
+   "id": "slides-7",
+   "text": "[slides-7] Slide 7: Short columns crush; slender ones bend first\nBlock A · talk 1 of 2 Short columns crush; slender ones bend first A column (EC2 5.3.1(7)): h ≤ 4b and a height of at least 3h. Otherwise a wall. It carries N and moments: continuity, sway, and a minimum eccentricity. Second-order effect: N times the deflection. EC2 ignores it only below λlim. SEAA 4333 · Unit 7 · Columns I Workbook 7.2"
+  },
+  {
+   "id": "slides-8",
+   "text": "[slides-8] Slide 8: Braced or unbraced? Ask who carries the wind\nBlock A · talk 1 of 2 Braced or unbraced? Ask who carries the wind Braced: walls or a core carry the horizontal load; the column does not sway. Unbraced: the frame bends to resist it; the column sways. Our project frame has no walls: its columns are unbraced. SEAA 4333 · Unit 7 · Columns I Workbook 7.2"
+  },
+  {
+   "id": "slides-9",
+   "text": "[slides-9] Slide 9: Effective length: the pin-ended column that buckles at the same load\nBlock A · talk 1 of 2 Effective length: the pin-ended column that buckles at the same load SEAA 4333 · Unit 7 · Columns I Workbook 7.3"
+  },
+  {
+   "id": "slides-10",
+   "text": "[slides-10] Slide 10: Four columns, same section and clear height l. Which has the lowest buckling load?\nConcept check 1 · think 60 s, then vote Four columns, same section and clear height l. Which has the lowest buckling load? A Pinned at both ends B Fixed at the base, free at the top C Fixed at the base, pinned at the top D Fixed at both ends Vote · convince your neighbour · vote again Workbook 7.3"
+  },
+  {
+   "id": "slides-11",
+   "text": "[slides-11] Slide 11: B: the free top sways, so l₀ = 2l\nConcept check 1 · answer B: the free top sways, so l₀ = 2l A l₀ = l N_{cr} as Euler B l₀ = 2l N_{cr} ÷ 4: the lowest C l₀ = 0.7l N_{cr} × 2.0 D l₀ = 0.5l N_{cr} × 4 From the weakest to the strongest the buckling loads differ sixteen-fold, for the same column. The ends decide. SEAA 4333 · Unit 7 · Columns I Workbook 7.3"
+  },
+  {
+   "id": "slides-12",
+   "text": "[slides-12] Slide 12: In a frame, the beams set k at each end\nBlock A · talk 2 of 2 In a frame, the beams set k at each end Braced (5.15) l₀ = 0.5l √[(1 + k₁/(0.45 + k₁))(1 + k₂/(0.45 + k₂))] Unbraced (5.16) l₀ = l · max{√(1 + 10k₁k₂/(k₁ + k₂)); (1 + k₁/(1 + k₁))(1 + k₂/(1 + k₂))} k ≥ 0.1. Fixed base: k₁ = 0.1. Pinned end: k = ∞. SEAA 4333 · Unit 7 · Columns I Workbook 7.4"
+  },
+  {
+   "id": "slides-13",
+   "text": "[slides-13] Slide 13: A braced column between stiff beams (k = 0.1 at both ends) has l₀ = 0.59l. The walls are taken away and the same column is now unbraced. Predict l₀.\nActivity 7A · predict, then reveal in Lab tab 1 A braced column between stiff beams (k = 0.1 at both ends) has l₀ = 0.59l. The walls are taken away and the same column is now unbraced. Predict l₀. A 0.59l: nothing changes B 0.85l C 1.22l D 2.0l Vote · convince your neighbour · vote again Workbook 7.4"
+  },
+  {
+   "id": "slides-14",
+   "text": "[slides-14] Slide 14: C: 1.22l, about twice as long, and λlim falls too\nActivity 7A · reveal C: 1.22l, about twice as long, and λlim falls too Braced l₀ = 0.5l × (1 + 0.1/0.55) = 0.59l C from the end moments: up to 2.7 Unbraced √(1 + 10 × 0.01/0.2) = 1.22 (1 + 0.1/1.1)² = 1.19 C = 0.7 whatever the moments So λ doubles and λlim drops: an unbraced column is almost always slender. SEAA 4333 · Unit 7 · Columns I Workbook 7.4"
+  },
+  {
+   "id": "slides-15",
+   "text": "[slides-15] Slide 15: Slenderness: λ = l₀/i, about each axis\nBlock B · talk Slenderness: λ = l₀/i, about each axis i = √(I/A) radius of gyration of the uncracked concrete section i = h/√12 = 0.289h rectangle; h is the side in the plane of bending λ ≈ 3.5 l₀/h estimate it first, then calculate Check both axes: each has its own l₀ (its own beams and clear height) and its own i. The minor axis usually governs, but not always. The notes also give BS 8110 β-factors (Tables 3.19, 3."
+  },
+  {
+   "id": "slides-16",
+   "text": "[slides-16] Slide 16: The limit: λlim = 20ABC/√n\nBlock B · talk The limit: λlim = 20ABC/√n A = 0.7, B = 1.1 if unknown n = NEd/(Ac fcd), fcd = 0.567fck C = 1.7 − rm, rm = M01/M02 |M02| ≥ |M01|. Double curvature: rm < 0. rm = 1 (C = 0.7) if unbraced, or if |M02| ≤ NEd l₀/400. SEAA 4333 · Unit 7 · Columns I Workbook 7.5"
+  },
+  {
+   "id": "slides-17",
+   "text": "[slides-17] Slide 17: A braced column between stiff beams\nBlock B · Worked Example 7.1 · I do A braced column between stiff beams Braced ; floors 6.0 m apart Column 250 × 300; C30/37 z: one main beam 250 × 600, 6.0 m y: two secondary 250 × 600, 4.5 m NEd 1200 kN Mz 60 / 35 (opposite faces) My 1 / 0 kN m App case C1 Calculation Output l = 6000 − 600 (both axes) 5400 mm k = 1.042/(2 × 7.50); 0.7234/(2 × 20.0) 0.069; 0.018 → 0.1 l₀ = 0.5 × 5400 × 1.182 3191 mm λz = 3191/86.6;"
+  },
+  {
+   "id": "slides-18",
+   "text": "[slides-18] Slide 18: The slenderness check in eight lines\nBlock B · the check The slenderness check in eight lines 1 Braced or unbraced? 2 Clear height l, per axis 3 K = I/l; k at each end, ≥ 0.1 4 l₀ by Eq. 5.15 or 5.16 5 i = h/√12; λ = l₀/i 6 n = NEd/(Ac fcd) 7 rm and C, with the imperfection check 8 λlim = 20ABC/√n; the verdict, per axis Rust steps are where most marks are lost: the bracing decision and the sign of rm. SEAA 4333 · Unit 7 · Columns I Workbook 7.5"
+  },
+  {
+   "id": "slides-19",
+   "text": "[slides-19] Slide 19: Faded Example 7.2: an unbraced column on a fixed base\nActivity 7B · pairs · 20 minutes Faded Example 7.2: an unbraced column on a fixed base Steps 1–2 are done for you in Workbook 7.6. Finish steps 3–6 in pairs. NEd 1600 kN; C30/37; z-beams 250 × 500 at 6.0 m both sides; y-beams 250 × 450 at 5.0 m both sides. Then check in Lab tab 1 (case FE 7.2). SEAA 4333 · Unit 7 · Columns I Workbook 7.6"
+  },
+  {
+   "id": "slides-20",
+   "text": "[slides-20] Slide 20: Slender about both axes; braced, it would not be\nActivity 7B · check Slender about both axes; braced, it would not be Calculation Output k₂: 5.333/(2 × 8.681); 2.951/(2 × 7.594) 0.3072; 0.1943 z: max(1.3245; 1.3473) × 3000 4042 mm y: max(1.2885; 1.2684) × 3050 3930 mm λz = 4042/115.5; λy = 3930/86.6 35.0; 45.4 n = 1600 × 10³/(120 000 × 17.0) 0.784 λlim = 20 × 0.7 × 1.1 × 0.7/√0.784 12.2 Braced, the same column: l₀ = 1933 / 1891 mm, λ = 16.7 / 21.8, λlim ≈ 44: non-s"
+  },
+  {
+   "id": "slides-21",
+   "text": "[slides-21] Slide 21: Break\n1:30 Break 10 minutes. Back at 1:40. Next: two quick votes, then a race between the teams."
+  },
+  {
+   "id": "slides-22",
+   "text": "[slides-22] Slide 22: A braced 250 × 500 column has l₀ = 3.0 m about both axes. Which is right?\nConcept check 2 · think 60 s, then vote A braced 250 × 500 column has l₀ = 3.0 m about both axes. Which is right? A λ = 20.8 about both axes B λ = 41.6 about the minor axis, 20.8 about the major C λ = 41.6 about the major axis D λ = 12.0 about the minor axis Vote · convince your neighbour · vote again Workbook 7.7"
+  },
+  {
+   "id": "slides-23",
+   "text": "[slides-23] Slide 23: Braced column: end moments 60 kN m (top) and 35 kN m (bottom), tension on opposite faces. NEd l₀/400 = 9.6 kN m. What is C?\nConcept check 3 · think 60 s, then vote Braced column: end moments 60 kN m (top) and 35 kN m (bottom), tension on opposite faces. NEd l₀/400 = 9.6 kN m. What is C? A 1.12 B 2.28 C 0.70 D 1.70 Vote · convince your neighbour · vote again Workbook 7.7"
+  },
+  {
+   "id": "slides-24",
+   "text": "[slides-24] Slide 24: B and B\nConcept checks 2 and 3 · answers B and B CC2 i = 250/√12 = 72.2 mm λ = 3000/72.2 = 41.6 About the major axis i = 144.3 mm and λ = 20.8. The minor axis governs here. CC3 rm = −35/60 = −0.583 C = 1.7 + 0.583 = 2.28 Taking rm positive gives 1.12: a limit half the size, and columns sent to Unit 9 for nothing. SEAA 4333 · Unit 7 · Columns I Workbook 7.7"
+  },
+  {
+   "id": "slides-25",
+   "text": "[slides-25] Slide 25: The race: classify eight columns\nActivity 7C · teams of four · 18 minutes The race: classify eight columns 1 Braced (core, walls). 300 × 300, l = 3.3 m, k₁ = k₂ = 0.1. NEd 1300, C30/37. M 40 / 20, opposite faces. 2 As card 1, but the moments 40 / 20 give tension on the same face. 3 As card 1, with no end moments (balanced spans). 4 Bare frame, ground floor, fixed base. 300 × 400, major axis, l = 3.0 m, k₁ = 0.1, k₂ = 0.4. NEd 1600, C30/37. 5 Braced,"
+  },
+  {
+   "id": "slides-26",
+   "text": "[slides-26] Slide 26: Five slender, three short\nActivity 7C · answers Five slender, three short Card l₀ (mm) λ λlim Verdict 1 1950 22.5 36.8 non-slender 2 1950 22.5 20.0 slender 3 1950 22.5 11.7 slender 4 4208 36.4 12.2 slender 5 2100 24.2 83.8 non-slender 6 2250 31.2 11.7 slender 7 5612 64.8 24.3 slender 8 2426 28.0 31.2 non-slender 1 → 2 → 3: the same column, only the moments change. 6: 8 kN m is less than NEd l₀/400 = 10.1 kN m, so C = 0.7. SEAA 4333 · Unit 7 ·"
+  },
+  {
+   "id": "slides-27",
+   "text": "[slides-27] Slide 27: D7: a past-paper question (15 marks)\nBlock D · alone · 30 minutes D7: a past-paper question (15 marks) Braced. Classify the column about both axes, in the Ref | Calculations | Output format. C30/37. Beams 600 deep. Fixed base: k₁ = 0.1. No app, no Lab, notes closed. Then self-mark with the answer scheme after class. SEAA 4333 · Unit 7 · Columns I Workbook 7.9"
+  },
+  {
+   "id": "slides-28",
+   "text": "[slides-28] Slide 28: Is your column short or slender?\nProject studio · 17 minutes Is your column short or slender? 1 Your frame is unbraced: Eq. 5.16, C = 0.7. 2 Clear heights and k from your beam sizes, about both axes; fixed base k₁ = 0.1. 3 λ, λlim with your NEd from Unit 6; the verdict per axis. Write the log entry in Workbook 7.10: the numbers and one decision (for example, a deeper beam or a bigger column). SEAA 4333 · Unit 7 · Columns I Workbook 7.10"
+  },
+  {
+   "id": "slides-29",
+   "text": "[slides-29] Slide 29: Estimate λ before you calculate it\nProfessional Habit 7 Estimate λ before you calculate it λ ≈ 3.5 l₀/h a 300 mm column with l₀ = 3 m: λ ≈ 35 0.59l ≤ l₀ ≤ l braced, with k ≥ 0.1 l₀ ≥ 1.22l unbraced, with k ≥ 0.1 A result outside these ranges is a slip: find it before you go on. SEAA 4333 · Unit 7 · Columns I Workbook 7.10"
+  },
+  {
+   "id": "slides-30",
+   "text": "[slides-30] Slide 30: Before Unit 8\nAfter class Before Unit 8 Notes §1–§6 and the exercises on the Unit 7 page (45 min) Column S7 in Lab tab 3: four slips to find Self-mark D7 with the answer scheme on UTM eLearning Bring N and M of your column, and read notes Examples 2 and 3 SEAA 4333 · Unit 7 · Columns I Workbook 7.10"
+  },
+  {
+   "id": "slides-31",
+   "text": "[slides-31] Slide 31: Before you leave\nExit ticket · 5 minutes · Workbook 7.11 Before you leave 1 A braced 300 × 300 column, l = 3.0 m between stiff beams (k = 0.1 at both ends), NEd = 1500 kN, C30/37, no end moments. Slender or not? One line of working. 2 Why is an unbraced column almost always slender? 3 What is still unclear for you today? Tear off the slip and hand it in at the door. Next week: Test 1, then short columns. SEAA 4333 · Unit 7 · Columns"
+  },
+  {
+   "id": "examples-x1",
+   "text": "[examples-x1] Example 1 · Worked Example 7.1: a braced column between stiff beams\nExam type classify a column about both axes Workbook 7.5 Time ≈ 20 min\nQuestion A braced column runs between two floors 6.0 m apart, framed in the same way at both floors. In the plane of bending about z, one main beam 250 × 600 spanning 6.0 m frames in from one side; in the plane of bending about y, two secondary beams 250 × 600 spanning 4.5 m frame in, one on each side. The column is 250 × 300, with h = 300 mm in the plane of bending about z. N_{Ed} = 1200 kN; first-order end moments M_z = 60 kN m at the top and 35 kN m at the bottom, giving tension on opposite faces, and M_y = 1 kN m at the top and 0 at the bottom; C30/37. Classify the column about both axes. In the app: case C1 of the RC Design Worked Solutions app is this column.\n[Figure: Worked Example 7.1: the column, its beams in plan and its first-order end moments.]\nPhysical picture. A thin column carrying a heavy load (n close to 1) between beams twice its depth. The beams hold its ends firmly, so l_0 will be short, but a heavy load lowers the limit, and about y there is almost no end moment.\nPlan. Clear heights; stiffnesses; k at each end; l_0 by Eq. (7.2); λ about each axis; n; r_m and C, with the imperfection check; λ_{lim} and the verdict, axis by axis.\n## Step 1 Clear heights and section\nRef Calculations Output\nEC2 5.8.3.2(3) Storey height minus the depth of the beams in each plane: 6000 − 600 = 5400 mm about both axes l_z = l_y = 5400 mm\nA_c = 250 × 300 75 000 mm²\n## Step 2 Second moments of area and stiffnesses\nRef Calculations Output\nI = bh³/12 I_z = 250 × 300³/12 = 0.5625 × 10⁹ mm⁴; K_{c,z} = 0.5625 × 10⁹/5400 1.042 × 10⁵ mm³\nI_y = 300 × 250³/12 = 0.3906 × 10⁹ mm⁴; K_{c,y} = 0.3906 × 10⁹/5400 0.7234 × 10⁵ mm³\nK = I/l Beams: I_b = 250 × 600³/12 = 4.50 × 10⁹ mm⁴; main 4.50 × 10⁹/6000; secondary 4.50 × 10⁹/4500, each 7.50 × 10⁵; 10.0 × 10⁵ mm³\n## Step 3 Relative flexibilities\nRef Calculations Output\nEq. (7.4), RDF §14 About z: k = 1.042/(2 × 7.50) = 0.069 < 0.1, at both ends k_1 = k_2 = 0.1\nEC2 5.8.3.2(3) note About y: k = 0.7234/(2 × (10.0 + 10.0)) = 0.018 < 0.1, at both ends k_1 = k_2 = 0.1\n## Step 4 Effective lengths\nRef Calculations Output\nEC2 Eq. 5.15, (7.2) l_0 = 0.5 × 5400 × √[(1 + 0.1/0.55)(1 + 0.1/0.55)] = 0.5 × 5400 × 1.182 l_0 = 3191 mm (both axes)\n## Step 5 Slenderness ratios\nRef Calculations Output\nEC2 Eq. 5.14, (7.5) i_z = 300/√12 = 86.6 mm; λ_z = 3191/86.6 λ_z = 36.8\ni_y = 250/√12 = 72.2 mm; λ_y = 3191/72.2 λ_y = 44.2\n## Step 6 Relative axial force\nRef Calculations Output\nEC2 3.1.6 f_{cd} = 0.85 × 30/1.5 17.0 N/mm²\n(7.9) n = 1200 × 10³/(75 000 × 17.0) n = 0.941\n## Step 7 Moment ratio and C\nRef Calculations Output\nEC2 5.2(9) Imperfection moment N_{Ed}l_0/400 = 1200 × 3.191/400 9.6 kN m\nEC2 5.8.3.1(1) About z: 60 > 9.6, and the end moments give tension on opposite faces, so r_m = −35/60 = −0.583; C = 1.7 + 0.583 C_z = 2.283\nEC2 5.8.3.1(1) About y: 1 ≤ 9.6, so the first-order moment comes mainly from imperfections: r_m = 1 C_y = 0.7\n## Step 8 Slenderness limits and verdict\nRef Calculations Output\nEC2 Eq. 5.13N, (7.7) About z: λ_{lim} = 20 × 0.7 × 1.1 × 2.283/√0.941 = 36.2 < λ_z = 36.8 Slender about z\nAbout y: λ_{lim} = 20 × 0.7 × 1.1 × 0.7/√0.941 = 11.1 < λ_y = 44.2 Slender about y\nAnswer. l_0 = 3191 mm about both axes (k at its floor of 0.1). λ_z = 36.8 > 36.2 and λ_y = 44.2 > 11.1: slender about both axes, so the design moments need the second-order moments of Unit 9.\nWhat the numbers say Both k values hit the floor: the beams are far stiffer than the column (0.069 and 0.018 before the floor), so l_0 = 0.59l, the shortest EC2 allows. About z the column is only just slender, 36.8 against 36.2; with r_m taken positive, as the original course spreadsheet does, the limit would be 17.7. About y the end moment of 1 kN m is smaller than the imperfection moment of 9.6 kN m, so the column is treated as bowed by its imperfection: C = 0.7 and a limit of 11.1, a quarter of λ_y. The BS 8110 table of §5 (β = 0.75) gives l_0 = 4050 mm and the same verdict."
+  },
+  {
+   "id": "examples-x2",
+   "text": "[examples-x2] Example 2 · Faded Example 7.2: an unbraced column on a fixed base\nExam type unbraced column, Eq. 5.16 Workbook 7.6 Time ≈ 20 min\nQuestion The project frame has no walls or cores. A ground-floor column 300 × 400, with h = 400 mm in the plane of bending about z, stands on a pad footing designed for the moment, so its base is fixed. The first floor is 3.5 m above the top of the footing. There, two beams 250 × 500 spanning 6.0 m frame into the column in the plane of bending about z, one on each side, and two beams 250 × 450 spanning 5.0 m in the plane of bending about y. N_{Ed} = 1600 kN; the sway analysis gives M_z = 85 and 70 kN m and M_y = 30 and 25 kN m, all in double curvature; C30/37. Classify the column about both axes.\n[Figure: Faded Example 7.2: a ground-floor column of the unbraced project frame.]\nPhysical picture. The frame sways under wind, so the top of the column moves sideways relative to its base. The beams restrain only the top; the footing holds the base.\nPlan. As Example 1, with Eq. (7.3) for l_0, k_1 = 0.1 for the fixed base, and C = 0.7 because the column is unbraced.\n## Step 1 Braced or unbraced, and clear heights\nRef Calculations Output\nEC2 5.8.1 No walls or cores: the frame resists the wind by bending Unbraced\nEC2 5.8.3.2(3) l_z = 3500 − 500; l_y = 3500 − 450 3000; 3050 mm\n## Step 2 Stiffnesses\nRef Calculations Output\nK = I/l I_z = 300 × 400³/12 = 1.600 × 10⁹ mm⁴; K_{c,z} = 1.600 × 10⁹/3000 5.333 × 10⁵ mm³\nI_y = 400 × 300³/12 = 0.900 × 10⁹ mm⁴; K_{c,y} = 0.900 × 10⁹/3050 2.951 × 10⁵ mm³\nBeams about z: 250 × 500³/12 = 2.604 × 10⁹ mm⁴, /6000 = 4.340 × 10⁵ each; ΣK_{b,z} = 2 × 4.340 8.681 × 10⁵ mm³\nBeams about y: 250 × 450³/12 = 1.898 × 10⁹ mm⁴, /5000 = 3.797 × 10⁵ each; ΣK_{b,y} = 2 × 3.797 7.594 × 10⁵ mm³\n## Step 3 Relative flexibilities\nRef Calculations Output\nEq. (7.4) Top, about z: k_2 = 5.333/(2 × 8.681); about y: k_2 = 2.951/(2 × 7.594) 0.3072; 0.1943\nEC2 5.8.3.2(3) note Bottom: fixed into a footing designed for the moment k_1 = 0.1\n## Step 4 Effective lengths, unbraced\nRef Calculations Output\nEC2 Eq. 5.16, (7.3) About z: √(1 + 10 × 0.1 × 0.3072/0.4072) = √1.7544 = 1.3245; (1 + 0.1/1.1)(1 + 0.3072/1.3072) = 1.0909 × 1.2350 = 1.3473, the larger; 1.3473 × 3000 l_{0,z} = 4042 mm\nAbout y: √(1 + 10 × 0.1 × 0.1943/0.2943) = √1.6602 = 1.2885, the larger; (1.0909)(1 + 0.1943/1.1943) = 1.0909 × 1.1627 = 1.2684; 1.2885 × 3050 l_{0,y} = 3930 mm\n## Step 5 Slenderness ratios\nRef Calculations Output\n(7.5), (7.6) i_z = 400/√12 = 115.5 mm; λ_z = 4042/115.5 λ_z = 35.0\ni_y = 300/√12 = 86.6 mm; λ_y = 3930/86.6 λ_y = 45.4\n## Step 6 Slenderness limit and verdict\nRef Calculations Output\n(7.9) n = 1600 × 10³/(120 000 × 17.0) n = 0.784\nEC2 5.8.3.1(1) Unbraced: r_m = 1 whatever the end moments, so C = 0.7 about both axes C = 0.7\n(7.7) λ_{lim} = 20 × 0.7 × 1.1 × 0.7/√0.784 = 12.2 < 35.0 and 45.4 Slender about both axes\nAnswer. l_{0,z} = 4042 mm (1.35l) and l_{0,y} = 3930 mm (1.29l); λ_z = 35.0 and λ_y = 45.4, both above λ_{lim} = 12.2: slender about both axes.\nWhat the numbers say About z the product term of (7.3) governs; about y the square-root term does, so work out both every time. Put the same column in a braced building and l_0 drops to 1933 and 1891 mm, λ to 16.7 and 21.8, while double curvature raises C to 2.52 and 2.53 and λ_{lim} to 43.9 and 44.1: non-slender. Bracing changes the verdict, not the column."
+  },
+  {
+   "id": "examples-x3",
+   "text": "[examples-x3] Example 3 · Explain-type questions\nExam type short written answers Time ≈ 3 min each\nQuestions\n- Explain why a column between deep beams has a shorter effective length than the same column between shallow beams.\n- Explain why an unbraced column is almost always slender by EC2.\n- A braced column bends in double curvature. Why is its slenderness limit higher than in single curvature?\n- The analysis gives no end moments for an interior braced column. Why may you not take r_m = 0 and C = 1.7?\nWrite your four answers first, then open the model answers one by one.\n## Answer 1 Stiff beams hold the ends\nDeep beams are stiff, so they resist the rotation of the column ends: k = (I/l)_{col}/Σ2(I/l)_{beam} is small. The buckled shape then curves back near each end and the points of contraflexure move into the column, which shortens the effective length: l_0 tends to 0.5l, and to 0.59l at the floor k = 0.1. Shallow beams let the ends rotate, k grows, and l_0 tends to l (braced).\n## Answer 2 Long l_0, low limit\nTwo effects act together. Its ends can move sideways, so l_0 ≥ l, at least 1.22l with k ≥ 0.1 (Eq. 7.3), which makes λ large: a 300 mm column with l = 3.0 m has λ ≥ 1.22 × 3000/86.6 = 42. And EC2 takes r_m = 1, C = 0.7, for unbraced members whatever the end moments, so λ_{lim} = 10.8/√n, only 11 to 15 for n between 1.0 and 0.5.\n## Answer 3 An S-shape bulges less\nIn double curvature the end moments bend the column into an S-shape with a point of contraflexure in its height, so the sideways deflection stays small and N times that deflection adds little to the moment at the critical end. In single curvature the column bows to one side, with the largest deflection at mid-height, where the first-order moment is also large. EC2 reflects this through r_m: negative in double curvature, so C = 1.7 − r_m > 1.7 and λ_{lim} is higher.\n## Answer 4 Imperfections bend it in single curvature\nNo column is perfectly straight or perfectly loaded: EC2 assumes an imperfection e_i = l_0/400, which bows the column to one side, so its only first-order moment is in single curvature. EC2 5.8.3.1(1) therefore takes r_m = 1 and C = 0.7. Using C = 1.7 would raise λ_{lim} by a factor of 2.4 and could pass a slender column as short."
+  },
+  {
+   "id": "exercises-b1",
+   "text": "[exercises-b1] Exercise B1 · Stiffnesses and the relative flexibility k\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-b2",
+   "text": "[exercises-b2] Exercise B2 · Effective length of a braced column\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-b3",
+   "text": "[exercises-b3] Exercise B3 · Effective length of an unbraced column\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-b4",
+   "text": "[exercises-b4] Exercise B4 · Slenderness ratios about both axes\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-b5",
+   "text": "[exercises-b5] Exercise B5 · The slenderness limit\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-b6",
+   "text": "[exercises-b6] Exercise B6 · Classify a column\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-quick",
+   "text": "[exercises-quick] Exercises: quick concept questions\n- The effective length l_0 of a column is\n- Which column is braced?\n- Floors are 3.8 m apart and the beams in the plane considered are 500 mm deep. In the course method the clear height l is\n- At the top of a braced column, (I/l)_{col} /Σ2(I/l)_{beam} = 0.04. Which k goes into Eq. (7.2)?\n- An unbraced column has end moments of 90 and 75 kN m in double curvature. In λ_{lim} , C is\n- The axial load N_{Ed} on a column doubles; nothing else changes. λ_{lim} is multiplied by\n- An unbraced ground-floor column 300 × 300 has a clear height of 3000 mm, k_1 = 0.1 (fixed base) and k_2 = 0.25; N_{Ed} = 1100 kN; C30/37. One line contains the slip. Which one?\n- A braced interior column 300 × 300 has a clear height of 2700 mm and k_1 = k_2 = 0.1; N_{Ed} = 1300 kN; C30/37; end moments 5 kN m at the top and 2.5 kN m at the bottom, in single curvature. One line contains the slip. Which one?"
+  },
+  {
+   "id": "lab-we71",
+   "text": "[lab-we71] Explorer task 1 · Tab 1: pick the case “WE 7.1” and compare k, l_0 , λ and λ_{lim} about both axes with your workbook.\nTicks itself: when WE 7.1 is picked in tab 1, or has been on screen there for 12 seconds · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-floor",
+   "text": "[lab-floor] Explorer task 2 · Tab 1: make the beams deeper until k stops changing. At what value does it stop, and what happens to l_0 ?\nTicks itself: when a change of beam depth takes k below the floor of 0.1 · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-sway",
+   "text": "[lab-sway] Explorer task 3 · Tab 1: switch the column from braced to unbraced. How many times longer is l_0 , and what happens to C and λ_{lim} ?\nTicks itself: when the column is set to unbraced · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-curv",
+   "text": "[lab-curv] Explorer task 4 · Tab 1: with the column braced, flip the moments about z from double to single curvature. By how much does λ_{lim} fall?\nTicks itself: when the curvature about z is changed on a braced column · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-race",
+   "text": "[lab-race] Explorer task 5 · Tab 2: classify all eight columns of the race and press “Check”.\nTicks itself: when Check is pressed with all eight columns answered · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-s7",
+   "text": "[lab-s7] Explorer task 6 · Tab 3: find all four slips in Column S7, tap their lines and press “Check”.\nTicks itself: when Check finds 4 of 4 · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "glossary-column",
+   "text": "[glossary-column] Glossary: column\ncolumn: A compression member whose section depth is at most 4 times its width and whose height is at least 3 times its depth (EC2 5.3.1(7)); otherwise it is a wall."
+  },
+  {
+   "id": "glossary-braced-member",
+   "text": "[glossary-braced-member] Glossary: braced member\nbraced member: A member assumed not to contribute to the horizontal stability of the structure: walls or cores carry the horizontal load, so its ends do not sway (EC2 5.8.1)."
+  },
+  {
+   "id": "glossary-bracing-member-bracing-system",
+   "text": "[glossary-bracing-member-bracing-system] Glossary: bracing member · bracing system\nbracing member · bracing system: Walls, lift cores or cross-bracing that carry the horizontal load of the building and keep the frame from swaying."
+  },
+  {
+   "id": "glossary-unbraced-member-sway",
+   "text": "[glossary-unbraced-member-sway] Glossary: unbraced member · sway\nunbraced member · sway: A member of a frame that resists the horizontal load by bending, so its ends move sideways relative to each other (sway)."
+  },
+  {
+   "id": "glossary-non-slender-short-column",
+   "text": "[glossary-non-slender-short-column] Glossary: non-slender (short) column\nnon-slender (short) column: A column with λ ≤ λ_{lim} about the axis considered: second-order effects may be ignored, and it fails by crushing of the section."
+  },
+  {
+   "id": "glossary-slender-column",
+   "text": "[glossary-slender-column] Glossary: slender column\nslender column: A column with λ > λ_{lim} : the second-order moment must be added to the design moment (Unit 9)."
+  },
+  {
+   "id": "glossary-first-order-effects",
+   "text": "[glossary-first-order-effects] Glossary: first-order effects\nfirst-order effects: Action effects calculated without the deformation of the structure, but including geometric imperfections (EC2 5.8.1)."
+  },
+  {
+   "id": "glossary-second-order-effects-p",
+   "text": "[glossary-second-order-effects-p] Glossary: second-order effects · P–Δ\nsecond-order effects · P–Δ: Additional effects caused by the deformation of the structure: the axial load acting on the lateral deflection adds moment."
+  },
+  {
+   "id": "glossary-buckling-euler-load-n-cr",
+   "text": "[glossary-buckling-euler-load-n-cr] Glossary: buckling · Euler load N_{cr}\nbuckling · Euler load N_{cr}: Failure by instability of a member under axial compression. For an elastic pin-ended member N_{cr} = π²EI/l_0 ²."
+  },
+  {
+   "id": "glossary-effective-length-l-0",
+   "text": "[glossary-effective-length-l-0] Glossary: effective length l_0\neffective length l_0: The length of a pin-ended column with the same section and the same buckling load as the real one; also called the buckling length."
+  },
+  {
+   "id": "glossary-clear-height-l",
+   "text": "[glossary-clear-height-l] Glossary: clear height l\nclear height l: The height of the column between its end restraints. In this course: the storey height minus the depth of the beams in the plane considered."
+  },
+  {
+   "id": "glossary-point-of-contraflexure",
+   "text": "[glossary-point-of-contraflexure] Glossary: point of contraflexure\npoint of contraflexure: A point of zero moment where the curvature changes sign. The effective length is the distance between two such points on the buckled shape."
+  },
+  {
+   "id": "glossary-end-restraint",
+   "text": "[glossary-end-restraint] Glossary: end restraint\nend restraint: The resistance to rotation at a column end given by the beams or the foundation."
+  },
+  {
+   "id": "glossary-relative-flexibility-k",
+   "text": "[glossary-relative-flexibility-k] Glossary: relative flexibility k\nrelative flexibility k: k = (θ/M)(EI/l) at a column end; in this course (I/l)_{col} /Σ2(I/l)_{beam} , never below 0.1. Small k: stiff restraint."
+  },
+  {
+   "id": "glossary-stiffness-k-i-l",
+   "text": "[glossary-stiffness-k-i-l] Glossary: stiffness K = I/l\nstiffness K = I/l: The relative stiffness of a member, used in k and in moment distribution; E cancels when all members have the same concrete."
+  },
+  {
+   "id": "glossary-fixed-base-pinned-end",
+   "text": "[glossary-fixed-base-pinned-end] Glossary: fixed base · pinned end\nfixed base · pinned end: A base fixed into a footing designed for the moment takes k_1 = 0.1 (the EC2 floor); a pinned end takes k = ∞."
+  },
+  {
+   "id": "glossary-radius-of-gyration-i",
+   "text": "[glossary-radius-of-gyration-i] Glossary: radius of gyration i\nradius of gyration i: i = √(I/A) of the uncracked concrete section about the axis of bending; h/√12 = 0.289h for a rectangle, with h in the plane of bending."
+  },
+  {
+   "id": "glossary-slenderness-ratio",
+   "text": "[glossary-slenderness-ratio] Glossary: slenderness ratio λ\nslenderness ratio λ: λ = l_0 /i, about each axis (EC2 Eq. 5.14)."
+  },
+  {
+   "id": "glossary-slenderness-limit-lim",
+   "text": "[glossary-slenderness-limit-lim] Glossary: slenderness limit λ_{lim}\nslenderness limit λ_{lim}: λ_{lim} = 20ABC/√n (EC2 Eq. 5.13N); below it, second-order effects may be ignored."
+  },
+  {
+   "id": "glossary-relative-axial-force-n",
+   "text": "[glossary-relative-axial-force-n] Glossary: relative axial force n\nrelative axial force n: n = N_{Ed} /(A_c f_{cd} ): how hard the column is pushed compared with its concrete strength."
+  },
+  {
+   "id": "glossary-moment-ratio-r-m",
+   "text": "[glossary-moment-ratio-r-m] Glossary: moment ratio r_m\nmoment ratio r_m: r_m = M_{01} /M_{02} with |M_{02} | ≥ |M_{01} |; negative in double curvature; taken as 1 for unbraced columns and when imperfections dominate."
+  },
+  {
+   "id": "glossary-single-curvature-double-curvature",
+   "text": "[glossary-single-curvature-double-curvature] Glossary: single curvature · double curvature\nsingle curvature · double curvature: Single: the end moments give tension on the same face and the column bows to one side. Double: tension on opposite faces, an S-shape with a point of contraflexure."
+  },
+  {
+   "id": "glossary-geometric-imperfection-e-i",
+   "text": "[glossary-geometric-imperfection-e-i] Glossary: geometric imperfection e_i\ngeometric imperfection e_i: An assumed eccentricity for out-of-straightness and misplaced loads; e_i = l_0 /400 for isolated braced columns (EC2 5.2(9))."
+  },
+  {
+   "id": "glossary-minimum-eccentricity-e-0",
+   "text": "[glossary-minimum-eccentricity-e-0] Glossary: minimum eccentricity e_0\nminimum eccentricity e_0: e_0 = max(h/30, 20 mm): every column is designed for at least N_{Ed} e_0 (EC2 6.1(4), Unit 8)."
+  },
+  {
+   "id": "glossary-effective-creep-ratio-ef",
+   "text": "[glossary-effective-creep-ratio-ef] Glossary: effective creep ratio φ_{ef}\neffective creep ratio φ_{ef}: Creep under the quasi-permanent load, scaled by the moment ratio; it enters A = 1/(1 + 0.2φ_{ef} ), taken as 0.7 when unknown."
+  },
+  {
+   "id": "glossary-mechanical-reinforcement-ratio",
+   "text": "[glossary-mechanical-reinforcement-ratio] Glossary: mechanical reinforcement ratio ω\nmechanical reinforcement ratio ω: ω = A_s f_{yd} /(A_c f_{cd} ); it enters B = √(1 + 2ω), taken as 1.1 when unknown."
+  },
+  {
+   "id": "glossary-major-axis-minor-axis",
+   "text": "[glossary-major-axis-minor-axis] Glossary: major axis · minor axis\nmajor axis · minor axis: The stiffer and the weaker axes of a section; in the course notes z (I_z = bh³/12) and y (I_y = hb³/12)."
+  },
+  {
+   "id": "glossary-nominal-curvature-method",
+   "text": "[glossary-nominal-curvature-method] Glossary: nominal curvature method\nnominal curvature method: The EC2 5.8.8 method that adds a nominal second-order moment M_2 = N_{Ed} e_2 to a slender column (Unit 9)."
+  }
+ ]
+}

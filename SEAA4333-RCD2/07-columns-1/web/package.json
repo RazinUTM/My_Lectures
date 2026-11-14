@@ -1,0 +1,9 @@
+{
+  "name": "seaa4333-unit7-build",
+  "private": true,
+  "description": "Build-time tools for the SEAA 4333 Unit 7 page: equations to SVG (tex2svg.js).",
+  "license": "MIT",
+  "dependencies": {
+    "mathjax-full": "3.2.2"
+  }
+}

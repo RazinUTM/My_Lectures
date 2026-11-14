@@ -1,0 +1,896 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Column Lab · SEAA 4333</title>
+<meta name="description" content="SEAA 4333 Unit 7, Columns I: find the effective length and the slenderness of a column about both axes by the course method (EC2 5.8.3), race eight columns to a verdict, and find the slips in a submitted slenderness check.">
+<meta name="claude:viewport-fit-sides" content="cover">
+<script>(function(){try{var r=document.documentElement,p=JSON.parse(localStorage.getItem("seaa4333-prefs")||"null")||{};if(p.lang==="ms"){r.lang="ms";r.setAttribute("data-lang","ms")}if(p.theme==="light"||p.theme==="dark")r.setAttribute("data-theme",p.theme);if(+p.font)r.style.fontSize=(+p.font*100)+"%"}catch(e){}})();</script>
+<!-- Column Lab (SEAA 4333 Unit 7). SPDX-License-Identifier: MIT (code). Text and figures: CC BY-NC-SA 4.0.
+     Copyright (c) 2026 Ahmad Razin Zainal Abidin and Universiti Teknologi Malaysia. See ../LICENSE.md. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: the calculation pad of the Staircase Lab, laid on concrete. Controls stay monochrome ink;
+   colour is kept for the two bracing cases (braced blue, unbraced rust, validated for colour-vision
+   deficiency in both themes) and for pass/fail verdicts. Three tabs follow the order of the Unit 7 session. */
+:root{
+  --bg:#E6E4DF; --surface:#F7F6F2; --surface-2:#EEECE6;
+  --ink:#1D1C19; --ink-2:#47443D; --ink-3:#686459;
+  --rule:#CAC6BD; --grid:#E1DED6; --concrete:#D9D6CE; --concrete-edge:#9C978C;
+  --flight:#2463c4; --braced:#2463c4; --unbraced:#b8481a;
+  --ok:#0f6b37; --bad:#ad2a1f;
+  --wash-ok:rgba(15,107,55,.12); --wash-bad:rgba(173,42,31,.12); --wash-flag:rgba(36,99,196,.14);
+  --focus:#2463c4; --shadow:rgba(29,28,25,.14);
+  --f-display:"Archivo","Arial Narrow",Arial,system-ui,sans-serif;
+  --f-body:"Atkinson Hyperlegible","Segoe UI",Roboto,system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#131311; --surface:#1C1B19; --surface-2:#252420;
+    --ink:#ECE9E1; --ink-2:#BDB8AD; --ink-3:#958F84;
+    --rule:#37352F; --grid:#2A2925; --concrete:#3A3833; --concrete-edge:#77726A;
+    --flight:#5d9bf0; --braced:#4f8ee8; --unbraced:#df6a33;
+    --ok:#52c98a; --bad:#f2837a;
+    --wash-ok:rgba(82,201,138,.16); --wash-bad:rgba(242,131,122,.16); --wash-flag:rgba(93,155,240,.2);
+    --focus:#6aa6f0; --shadow:rgba(0,0,0,.5); color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#131311; --surface:#1C1B19; --surface-2:#252420;
+  --ink:#ECE9E1; --ink-2:#BDB8AD; --ink-3:#958F84;
+  --rule:#37352F; --grid:#2A2925; --concrete:#3A3833; --concrete-edge:#77726A;
+  --flight:#5d9bf0; --braced:#4f8ee8; --unbraced:#df6a33;
+  --ok:#52c98a; --bad:#f2837a;
+  --wash-ok:rgba(82,201,138,.16); --wash-bad:rgba(242,131,122,.16); --wash-flag:rgba(93,155,240,.2);
+  --focus:#6aa6f0; --shadow:rgba(0,0,0,.5); color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1rem;line-height:1.5}
+h1,h2,h3{font-family:var(--f-display);font-stretch:85%;line-height:1.15;text-wrap:balance;margin:0}
+p{margin:0}
+.wrap{max-width:1220px;margin-inline:auto;padding-inline:clamp(16px,3vw,32px);padding-left:max(clamp(16px,3vw,32px),env(safe-area-inset-left,0px));padding-right:max(clamp(16px,3vw,32px),env(safe-area-inset-right,0px))}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* top bar */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--bg);border-bottom:1px solid var(--rule)}
+.topbar .wrap{display:flex;align-items:center;gap:10px 20px;flex-wrap:wrap;padding-block:10px}
+.brand{display:flex;align-items:baseline;gap:6px 12px;flex-wrap:wrap;min-width:0}
+.brand h1{font-size:clamp(1.35rem,2.6vw,1.8rem);font-weight:800;letter-spacing:.01em}
+.unit{font:600 .74rem/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.timer{margin-left:auto;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.timer-display{font:600 1.3rem/1 var(--f-mono);font-variant-numeric:tabular-nums;padding:7px 12px;border:1.5px solid var(--ink);border-radius:8px;background:var(--surface);color:var(--ink);cursor:pointer;min-width:5.4ch;text-align:center}
+.timer-display.running{background:var(--ink);color:var(--surface)}
+.timer-display.done{background:var(--ink);color:var(--surface);animation:blink 1s steps(2) 6}
+@keyframes blink{50%{background:var(--surface);color:var(--ink)}}
+.btn{font:700 .86rem/1 var(--f-body);color:var(--ink);background:var(--surface);border:1.5px solid var(--ink);border-radius:999px;padding:8px 13px;cursor:pointer;min-height:36px}
+.btn:hover{background:var(--surface-2)}
+.btn.primary{background:var(--ink);color:var(--surface)}
+.btn.primary:hover{opacity:.9}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.sm{padding:6px 10px;font-size:.8rem;min-height:32px}
+
+/* tabs */
+.tabs{display:flex;gap:4px;overflow-x:auto;padding-top:14px;scrollbar-width:thin}
+.tab{flex:0 0 auto;display:flex;gap:8px;align-items:baseline;font:700 .95rem/1.2 var(--f-body);color:var(--ink-2);background:transparent;border:1px solid transparent;border-bottom:0;border-radius:10px 10px 0 0;padding:10px 14px 11px;cursor:pointer}
+.tab .n{font:600 .78rem var(--f-mono);color:var(--ink-3)}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected="true"]{background:var(--surface);color:var(--ink);border-color:var(--rule);position:relative;top:1px}
+.sheet{background:var(--surface);border:1px solid var(--rule);border-radius:0 var(--r) var(--r) var(--r);padding:clamp(14px,2.4vw,26px)}
+main{padding-bottom:40px}
+
+/* panels */
+.panel{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:920px){.panel{grid-template-columns:minmax(0,1fr)}}
+.col{display:flex;flex-direction:column;gap:18px;min-width:0}
+.head h2{font-size:clamp(1.4rem,2.6vw,1.9rem);font-weight:800}
+.lede{color:var(--ink-2);max-width:62ch;margin-top:6px}
+.group{display:flex;flex-direction:column;gap:8px}
+.label{font:700 .72rem/1.2 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.seg{display:inline-flex;flex-wrap:wrap;border:1.5px solid var(--ink);border-radius:12px;overflow:hidden;width:max-content;max-width:100%}
+.seg button{font:700 .86rem/1.15 var(--f-body);background:transparent;color:var(--ink);border:0;padding:9px 12px;cursor:pointer;min-height:38px}
+.seg button+button{border-left:1.5px solid var(--ink)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--surface)}
+.seg.vert{display:flex;flex-direction:column;width:100%}
+.seg.cells{display:grid;grid-template-columns:repeat(auto-fit,minmax(6.2rem,1fr));gap:1.5px;background:var(--ink);width:100%}
+.seg.cells button{background:var(--surface)}
+.task .seg.cells button{background:var(--bg)}
+.seg.cells button+button{border-left:0}
+.seg.cells button[aria-pressed="true"]{background:var(--ink)}
+.seg.vert button{text-align:left}
+.seg.vert button+button{border-left:0;border-top:1.5px solid var(--ink)}
+.fields{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:8px 10px;align-items:center}
+.fields label{font-size:.92rem}
+.fields .u{font:500 .8rem var(--f-mono);color:var(--ink-3)}
+.fields input,.fields select,select.full{width:100%;min-width:0;font:500 .95rem var(--f-mono);padding:7px 8px;border:1px solid var(--rule);border-radius:6px;background:var(--bg);color:var(--ink)}
+select.full{font-family:var(--f-body)}
+.task{border:1.5px solid var(--ink);border-radius:var(--r);padding:14px 16px;background:var(--bg)}
+.task .tag{display:inline-block;font:700 .7rem/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;background:var(--ink);color:var(--surface);padding:5px 8px;border-radius:4px}
+.task p{margin-top:8px}
+.note{font-size:.92rem;color:var(--ink-2);border-top:1px solid var(--rule);padding-top:10px}
+
+/* figures and the chart */
+.plotcard{border:1px solid var(--rule);border-radius:var(--r);background:var(--surface);padding:10px 10px 6px;min-width:0}
+.plothead{display:flex;justify-content:space-between;align-items:baseline;gap:6px 16px;flex-wrap:wrap;padding:2px 6px 4px}
+.plothead h3{font-size:1.06rem;font-weight:700}
+.legend{display:flex;gap:6px 14px;flex-wrap:wrap;font-size:.85rem;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.key{display:inline-block;width:18px;border-top:3px solid}
+.figbox{overflow-x:auto}
+svg.fig{display:block;width:100%;height:auto;min-width:460px}
+svg.fig text{font-family:var(--f-mono);font-size:12px;fill:var(--ink-2);paint-order:stroke;stroke:var(--surface);stroke-width:3px;stroke-linejoin:round}
+svg.fig .small{font-size:11px;fill:var(--ink-3)}
+svg.chart{display:block;width:100%;height:auto;touch-action:pan-y}
+svg.chart text{font-family:var(--f-mono);font-size:12px;fill:var(--ink-3)}
+svg.chart .axt{fill:var(--ink-2);font-family:var(--f-body);font-size:13px}
+.ctip{position:absolute;top:8px;left:0;z-index:5;pointer-events:none;display:flex;flex-direction:column;gap:3px;min-width:150px;padding:8px 10px;border:1px solid var(--rule);border-radius:8px;background:var(--surface);box-shadow:0 4px 14px var(--shadow);font:500 .8rem/1.3 var(--f-mono);font-variant-numeric:tabular-nums;color:var(--ink)}
+.ctip span{display:flex;align-items:center;gap:6px;color:var(--ink-2)}
+.ctip .key{width:14px}
+details.tview{margin:4px 6px 6px;font-size:.9rem}
+details.tview summary{cursor:pointer;font-weight:700;color:var(--ink-2);padding:4px 0;width:max-content;max-width:100%}
+details.tview .tbl{min-width:420px}
+
+/* tables */
+.scroll{overflow-x:auto}
+.tbl{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:.92rem}
+.tbl th,.tbl td{padding:7px 10px;border-bottom:1px solid var(--rule);text-align:left;vertical-align:top}
+.tbl th{font:700 .74rem/1.2 var(--f-mono);letter-spacing:.03em;color:var(--ink-3);text-transform:uppercase}
+.tbl th.out{text-align:right}
+.tbl td.m,.tbl .m{font-family:var(--f-mono);font-size:.86rem}
+.tbl td.out{font-family:var(--f-mono);font-weight:600;white-space:nowrap;text-align:right}
+.tbl td.ref{font-size:.8rem;color:var(--ink-3);width:7.5rem}
+.tbl tr.em td{background:var(--surface-2)}
+#lTable{min-width:520px;table-layout:fixed}
+#lTable col.cref{width:6.8rem}
+#lTable td.ax .c{font:.82rem/1.45 var(--f-mono);color:var(--ink-2);overflow-wrap:anywhere}
+#lTable td.ax .o{font:600 .92rem/1.4 var(--f-mono);font-variant-numeric:tabular-nums;color:var(--ink);margin-top:3px}
+#lTable td.ax span.o{margin-left:6px}
+#lTable tr.em td{vertical-align:middle}
+
+/* verdict pills and key values */
+.pill{display:inline-block;font:700 .72rem/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;padding:6px 8px;border-radius:999px;border:1.5px solid currentColor;min-width:4.6ch;text-align:center}
+.pill.ok{color:var(--ok);background:var(--wash-ok)}
+.pill.bad{color:var(--bad);background:var(--wash-bad)}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:8px}
+.kv div{background:var(--surface-2);border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:2px}
+.kv span{font:700 .7rem/1.2 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+.kv span.pill.ok{color:var(--ok)}.kv span.pill.bad{color:var(--bad)}
+.kv b{font:600 1.15rem/1.2 var(--f-mono);font-variant-numeric:tabular-nums}
+.verdict{font-size:.92rem;padding:8px 10px;border-radius:6px;margin-top:10px}
+.verdict.ok{background:var(--wash-ok);color:var(--ink)}
+.verdict.bad{background:var(--wash-bad);color:var(--ink)}
+.verdict b{color:inherit}
+
+/* the race */
+.racegrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,330px),1fr));gap:12px}
+.racecard{border:1px solid var(--rule);border-radius:var(--r);background:var(--surface);padding:12px 14px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.racecard .rhead{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:start}
+.racecard .rn{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--ink);color:var(--surface);font:700 .9rem/1 var(--f-mono)}
+.racecard .rhead p{font-size:.93rem}
+.racecard .verdict{margin-top:0}
+
+/* spot the error */
+.s1top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:920px){.s1top{grid-template-columns:minmax(0,1fr)}}
+.given{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;font-size:.92rem;background:var(--surface-2);border-radius:8px;padding:12px 14px;margin:0}
+.given dt{font:700 .78rem var(--f-mono);color:var(--ink-3);padding-top:2px}
+.given dd{margin:0}
+.sheetcalc{border-collapse:collapse;width:100%;font-size:.9rem;min-width:640px}
+.sheetcalc th{font:700 .72rem/1.2 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);text-align:left;padding:8px 10px;border-bottom:1.5px solid var(--ink)}
+.sheetcalc td{padding:9px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+.sheetcalc td.no{font:700 .9rem var(--f-mono);width:3.2rem}
+.sheetcalc td.ref{font-size:.8rem;color:var(--ink-3);width:8.5rem}
+.sheetcalc td.calc{font-family:var(--f-mono);font-size:.84rem}
+.sheetcalc td.out{font-family:var(--f-mono);font-size:.84rem;font-weight:600;width:10rem}
+.sheetcalc tbody tr{cursor:pointer}
+.sheetcalc tbody tr:hover td{background:var(--surface-2)}
+.sheetcalc tr.flag td{background:var(--wash-flag)}
+.sheetcalc tr.flag td.no::after{content:" ⚑";color:var(--flight)}
+.sheetcalc tr.hit td{background:var(--wash-ok)}
+.sheetcalc tr.miss td{background:var(--wash-bad)}
+.sheetcalc tr.false td{background:var(--surface-2);text-decoration:line-through;text-decoration-color:var(--ink-3)}
+.sheetcalc tr .fix{display:block;margin-top:6px;font-family:var(--f-body);font-size:.88rem;color:var(--ink);background:var(--surface);border-left:3px solid var(--ok);padding:6px 10px;border-radius:0 6px 6px 0;text-decoration:none}
+.sheetcalc tr.miss .fix{border-left-color:var(--bad)}
+.score{font:700 1.05rem var(--f-display);min-height:1.4em}
+.steps{display:flex;gap:8px;flex-wrap:wrap}
+.summary{border:1.5px solid var(--bad);border-radius:var(--r);padding:12px 14px;background:var(--wash-bad);font-size:.95rem}
+
+/* big timer */
+.bigtimer{position:fixed;inset:0;z-index:50;background:var(--ink);color:var(--surface);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:24px;cursor:pointer}
+.bigtimer .digits{font:600 clamp(5rem,22vw,16rem)/1 var(--f-mono);font-variant-numeric:tabular-nums}
+.bigtimer .hint{font:500 1rem var(--f-mono);opacity:.75}
+footer{color:var(--ink-3);font-size:.85rem;padding-block:18px 32px;max-width:90ch}
+@media (max-width:640px){
+  .topbar{position:static}
+  .timer{margin-left:0}
+  .tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding-bottom:10px}
+  .tab{border:1px solid var(--rule);border-radius:8px;padding:9px 10px}
+  .tab[aria-selected="true"]{top:0;background:var(--ink);color:var(--surface);border-color:var(--ink)}
+  .tab[aria-selected="true"] .n{color:var(--surface)}
+  .sheet{border-radius:var(--r)}
+}
+@media (prefers-reduced-motion:reduce){.timer-display.done{animation:none}}
+
+/* SEAA 4333 site bar: shown when the Lab is opened on its own, hidden inside the Unit page (the page has the settings) */
+.sitebar{background:var(--surface-2);border-bottom:1px solid var(--rule);font-size:.86rem}
+.sitebar .wrap{display:flex;align-items:center;justify-content:space-between;gap:8px 16px;flex-wrap:wrap;padding-block:6px}
+.sitebar .crumbs{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center;color:var(--ink-3)}
+.sitebar .crumbs a{color:var(--ink-2);text-decoration:none;font-weight:700}
+.sitebar .crumbs a:hover{text-decoration:underline}
+.sitebar .crumbs [aria-current]{color:var(--ink);font-weight:700}
+.sitebar .prefs{display:flex;gap:4px;flex-wrap:nowrap}
+.sitebar .prefs button{display:inline-grid;place-items:center;width:30px;height:30px;padding:0;border:1px solid var(--rule);border-radius:8px;background:var(--surface);color:var(--ink);cursor:pointer;font:700 .75rem/1 var(--f-body)}
+.sitebar .prefs button:hover{border-color:var(--ink)}
+.sitebar .prefs svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.sitebar .fontbtn{display:inline-flex!important;flex-direction:column;gap:2px}
+.sitebar .fontbtn .aa{font-size:.8rem;line-height:1}.sitebar .fontbtn .aa small{font-size:.55rem}
+.sitebar .fontbtn .lvl{display:flex;gap:2px}.sitebar .fontbtn .lvl i{width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.25}.sitebar .fontbtn .lvl i.on{opacity:1}
+:root.framed .sitebar{display:none}
+footer .lic{display:block;margin-top:6px}
+</style>
+</head>
+<body>
+<div class="sitebar" id="sitebar"><div class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb" data-ms-aria="Laluan"><a href="https://razinutm.github.io/My_Lectures/">My Lectures</a><span aria-hidden="true">›</span><a href="../index.html">SEAA 4333</a><span aria-hidden="true">›</span><a href="../07-columns-1/index.html#lab">Unit 7</a><span aria-hidden="true">›</span><span aria-current="page">Column Lab</span></nav>
+  <div class="prefs"><button type="button" id="btn-lang" title="Bahasa">BM</button><button type="button" id="btn-theme" title="Theme"></button><button type="button" id="btn-font" class="fontbtn" title="Text size"><span class="aa" aria-hidden="true">A<small>A</small></span><span class="lvl" aria-hidden="true"><i></i><i></i><i></i><i></i></span></button></div>
+</div></div>
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand">
+      <h1>Column Lab</h1>
+      <span class="unit">SEAA 4333 · Unit 7 · Columns I</span>
+    </div>
+    <div class="timer" aria-label="Activity timer" data-ms-aria="Pemasa aktiviti">
+      <button class="timer-display" id="tDisplay" type="button" title="Show the timer full screen" data-ms-title="Tunjuk pemasa pada skrin penuh">5:00</button>
+      <div class="seg" role="group" aria-label="Timer length" data-ms-aria="Tempoh pemasa" id="tLen">
+        <button type="button" data-min="3">3</button>
+        <button type="button" data-min="5" aria-pressed="true">5</button>
+        <button type="button" data-min="10">10</button>
+        <button type="button" data-min="15">15</button>
+        <button type="button" data-min="20">20</button>
+      </div>
+      <button class="btn sm primary" id="tStart" type="button">Start</button>
+      <button class="btn sm" id="tReset" type="button" data-ms="Set semula">Reset</button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <nav class="tabs" role="tablist" aria-label="Lab sections" data-ms-aria="Bahagian Lab">
+    <button class="tab" role="tab" id="tab-length" aria-controls="panel-length" data-tab="length"><span class="n">1</span><span>Effective length</span></button>
+    <button class="tab" role="tab" id="tab-race" aria-controls="panel-race" data-tab="race"><span class="n">2</span><span data-ms="Perlumbaan">The race</span></button>
+    <button class="tab" role="tab" id="tab-error" aria-controls="panel-error" data-tab="error"><span class="n">3</span><span data-ms="Cari kesilapan">Spot the error</span></button>
+  </nav>
+
+  <main class="sheet">
+    <!-- ===================== 1 EFFECTIVE LENGTH ===================== -->
+    <section id="panel-length" role="tabpanel" aria-labelledby="tab-length">
+      <div class="panel">
+        <div class="col">
+          <div class="head">
+            <h2>Effective length and slenderness</h2>
+            <p class="lede" data-ms="Tetapkan column dan beam di hujungnya. Lab mengira k, l<sub>0</sub>, λ dan λ<sub>lim</sub> pada kedua-dua paksi mengikut kaedah kursus (EC2 5.8.3).">Set the column and the beams at its ends. The Lab works out k, l<sub>0</sub>, λ and λ<sub>lim</sub> about both axes by the course method (EC2 5.8.3).</p>
+          </div>
+          <div class="group">
+            <label class="label" for="lCase" data-ms="Kes">Case</label>
+            <select id="lCase" class="full"></select>
+            <p class="note" id="lCaseNote" style="border:0;padding:0"></p>
+          </div>
+          <div class="group">
+            <span class="label">Bracing</span>
+            <div class="seg" role="group" aria-label="Bracing" id="lBrace">
+              <button type="button" data-v="braced" aria-pressed="true">Braced</button>
+              <button type="button" data-v="unbraced">Unbraced</button>
+            </div>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Column">Column</span>
+            <div class="fields">
+              <label for="lb" data-ms="Lebar b">Width b</label><input id="lb" type="number" min="150" max="1000" step="25"><span class="u">mm</span>
+              <label for="lh" data-ms="Kedalaman h (satah z)">Depth h (z-plane)</label><input id="lh" type="number" min="150" max="1200" step="25"><span class="u">mm</span>
+              <label for="lH" data-ms="Ketinggian tingkat">Storey height</label><input id="lH" type="number" min="2000" max="9000" step="50"><span class="u">mm</span>
+              <label for="lN">N<sub>Ed</sub></label><input id="lN" type="number" min="0" max="20000" step="10"><span class="u">kN</span>
+              <label for="lfck">f<sub>ck</sub></label><select id="lfck"><option>25</option><option>30</option><option>35</option><option>40</option></select><span class="u">N/mm²</span>
+            </div>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Hujung bawah">Bottom end</span>
+            <div class="seg vert" role="group" aria-label="Bottom end" data-ms-aria="Hujung bawah" id="lBase">
+              <button type="button" data-v="same" aria-pressed="true" data-ms="Beam sama seperti di atas">Same beams as the top</button>
+              <button type="button" data-v="fixed" data-ms="Fixed base, k<sub>1</sub> = 0.1">Fixed base, k<sub>1</sub> = 0.1</button>
+              <button type="button" data-v="pinned" data-ms="Pinned base, k<sub>1</sub> = ∞">Pinned base, k<sub>1</sub> = ∞</button>
+            </div>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Beam dalam satah lenturan pada paksi z">Beams in the plane of bending about z</span>
+            <div class="fields">
+              <label for="lzb" data-ms="Lebar">Width</label><input id="lzb" type="number" min="100" max="1000" step="25"><span class="u">mm</span>
+              <label for="lzh" data-ms="Kedalaman">Depth</label><input id="lzh" type="number" min="0" max="1500" step="25"><span class="u">mm</span>
+              <label for="lzL1" data-ms="Span, sisi 1">Span, side 1</label><input id="lzL1" type="number" min="0" max="20" step="0.5"><span class="u">m</span>
+              <label for="lzL2" data-ms="Span, sisi 2">Span, side 2</label><input id="lzL2" type="number" min="0" max="20" step="0.5"><span class="u">m</span>
+            </div>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Beam dalam satah lenturan pada paksi y">Beams in the plane of bending about y</span>
+            <div class="fields">
+              <label for="lyb" data-ms="Lebar">Width</label><input id="lyb" type="number" min="100" max="1000" step="25"><span class="u">mm</span>
+              <label for="lyh" data-ms="Kedalaman">Depth</label><input id="lyh" type="number" min="0" max="1500" step="25"><span class="u">mm</span>
+              <label for="lyL1" data-ms="Span, sisi 1">Span, side 1</label><input id="lyL1" type="number" min="0" max="20" step="0.5"><span class="u">m</span>
+              <label for="lyL2" data-ms="Span, sisi 2">Span, side 2</label><input id="lyL2" type="number" min="0" max="20" step="0.5"><span class="u">m</span>
+            </div>
+            <p class="note" style="border:0;padding:0" data-ms="Span 0 bermaksud tiada beam pada sisi itu.">A span of 0 means no beam on that side.</p>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="End moment pada paksi z">End moments about z</span>
+            <div class="fields">
+              <label for="lMzt" data-ms="Atas">Top</label><input id="lMzt" type="number" min="0" max="5000" step="1"><span class="u">kN m</span>
+              <label for="lMzb" data-ms="Bawah">Bottom</label><input id="lMzb" type="number" min="0" max="5000" step="1"><span class="u">kN m</span>
+            </div>
+            <div class="seg vert" role="group" aria-label="Curvature about z" data-ms-aria="Curvature pada paksi z" id="lCz">
+              <button type="button" data-v="single" data-ms="Muka yang sama (single)">Same face (single)</button>
+              <button type="button" data-v="double" aria-pressed="true" data-ms="Muka bertentangan (double)">Opposite faces (double)</button>
+            </div>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="End moment pada paksi y">End moments about y</span>
+            <div class="fields">
+              <label for="lMyt" data-ms="Atas">Top</label><input id="lMyt" type="number" min="0" max="5000" step="1"><span class="u">kN m</span>
+              <label for="lMyb" data-ms="Bawah">Bottom</label><input id="lMyb" type="number" min="0" max="5000" step="1"><span class="u">kN m</span>
+            </div>
+            <div class="seg vert" role="group" aria-label="Curvature about y" data-ms-aria="Curvature pada paksi y" id="lCy">
+              <button type="button" data-v="single" aria-pressed="true" data-ms="Muka yang sama (single)">Same face (single)</button>
+              <button type="button" data-v="double" data-ms="Muka bertentangan (double)">Opposite faces (double)</button>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="task" id="act7a">
+            <span class="tag" data-ms="Aktiviti 7A · berpasangan · 8 min">Activity 7A · pairs · 8 min</span>
+            <p data-ms="Pilih kes WE 7.1: column braced dengan k = 0.1 di kedua-dua hujung, l<sub>0</sub> = 0.59l. Dinding dibuang dan column yang sama kini unbraced. Ramal l<sub>0</sub>, tulis dalam Workbook 7.4, kemudian dedahkan.">Pick case WE 7.1: a braced column with k = 0.1 at both ends, l<sub>0</sub> = 0.59l. The walls are taken away and the same column is now unbraced. Predict l<sub>0</sub>, write it in Workbook 7.4, then reveal.</p>
+            <div class="seg cells" role="group" aria-label="Your prediction" data-ms-aria="Ramalan anda" id="aPred" style="margin-top:10px">
+              <button type="button" data-v="A">A · 0.59l</button>
+              <button type="button" data-v="B">B · 0.85l</button>
+              <button type="button" data-v="C">C · 1.22l</button>
+              <button type="button" data-v="D">D · 2.0l</button>
+            </div>
+            <div class="steps" style="margin-top:10px"><button class="btn primary" id="aReveal" type="button" data-ms="Dedahkan">Reveal</button></div>
+            <p class="verdict" id="aOut" hidden></p>
+          </div>
+          <div class="kv" id="lKV" aria-live="polite"></div>
+          <div class="plotcard">
+            <div class="plothead"><h3 data-ms="Pengiraan, paksi demi paksi">The check, axis by axis</h3><span class="legend" id="lMethod"></span></div>
+            <div class="scroll"><table class="tbl" id="lTable"></table></div>
+          </div>
+          <div class="plotcard">
+            <div class="plothead"><h3 id="lChartTitle">l<sub>0</sub>/l against k<sub>2</sub></h3>
+              <span class="legend"><span><i class="key" style="border-color:var(--braced)"></i>braced</span><span><i class="key" style="border-color:var(--unbraced)"></i>unbraced</span><span><svg width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="var(--ink)"/></svg><span data-ms="column ini (z, y)">this column (z, y)</span></span></span></div>
+            <div class="figbox" style="position:relative"><svg class="chart" id="lChart" viewBox="0 0 640 320" role="img" aria-label="Effective length ratio against the relative flexibility at the top"></svg><div class="ctip" id="lTip" hidden></div></div>
+            <details class="tview"><summary data-ms="Jadual lengkung">Table of the curves</summary><div class="scroll"><table class="tbl" id="lCurveTbl"></table></div></details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 2 THE RACE ===================== -->
+    <section id="panel-race" role="tabpanel" aria-labelledby="tab-race" hidden>
+      <div class="col">
+        <div class="head">
+          <h2 data-ms="Perlumbaan: klasifikasikan lapan column">The race: classify eight columns</h2>
+          <p class="lede" data-ms="Bagi setiap kad: braced atau unbraced, l<sub>0</sub>, λ, λ<sub>lim</sub>, keputusan. Kira di atas kertas dalam Workbook 7.8, dua kad setiap ahli, kemudian semak sesama sendiri. Masukkan keputusan pasukan di sini dan tekan <i>Semak</i>. N<sub>Ed</sub> dalam kN, moment dalam kN m, A = 0.7, B = 1.1.">For each card: braced or unbraced, l<sub>0</sub>, λ, λ<sub>lim</sub>, the verdict. Work on paper in Workbook 7.8, two cards each, then check each other. Enter the team’s verdicts here and press <i>Check</i>. N<sub>Ed</sub> in kN, moments in kN m, A = 0.7, B = 1.1.</p>
+        </div>
+        <div class="task"><span class="tag" data-ms="Aktiviti 7C · pasukan berempat · 18 min">Activity 7C · teams of four · 18 min</span></div>
+        <div class="racegrid" id="rGrid"></div>
+        <div class="steps">
+          <button class="btn primary" id="rCheck" type="button" data-ms="Semak">Check</button>
+          <button class="btn" id="rShow" type="button" data-ms="Tunjuk jawapan">Show the answers</button>
+          <button class="btn" id="rReset" type="button" data-ms="Set semula">Reset</button>
+        </div>
+        <p class="score" id="rScore" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- ===================== 3 SPOT THE ERROR ===================== -->
+    <section id="panel-error" role="tabpanel" aria-labelledby="tab-error" hidden>
+      <div class="col">
+        <div class="s1top">
+          <div class="col">
+            <div class="head">
+              <h2 data-ms="Cari kesilapan: Column S7">Spot the error: Column S7</h2>
+              <p class="lede" data-ms="Semakan slenderness yang dihantar bagi minor axis sebuah column braced. Ia mengandungi empat kesilapan. Cari kesemuanya sebelum melihat jawapan.">A submitted slenderness check about the minor axis of a braced column. It contains four slips. Find them all before you look at the answer.</p>
+            </div>
+            <dl class="given" aria-label="Given data" data-ms-aria="Data yang diberi">
+              <dt>Column</dt><dd data-ms="Braced, 250 × 400 (h = 400 mm dalam satah lenturan pada paksi z); C30/37">Braced, 250 × 400 (h = 400 mm in the plane of bending about z); C30/37</dd>
+              <dt data-ms="Lantai">Floors</dt><dd data-ms="4.5 m antara satu sama lain; beam 250 × 450 dengan span 5.0 m masuk pada kedua-dua sisi dalam satah lenturan pada paksi y, di kedua-dua lantai">4.5 m apart; beams 250 × 450 spanning 5.0 m frame in on both sides in the plane of bending about y, at both floors</dd>
+              <dt>Load</dt><dd>N<sub>Ed</sub> = 1650 kN</dd>
+              <dt data-ms="Moment (y)">Moments (y)</dt><dd data-ms="30 kN m di atas, 18 kN m di bawah, tegangan pada muka yang sama">30 kN m at the top, 18 kN m at the bottom, tension on the same face</dd>
+            </dl>
+          </div>
+          <div class="col">
+            <div class="plotcard"><div class="figbox" id="eFig"></div></div>
+            <div class="task">
+              <span class="tag" data-ms="Selepas kelas · Explorer tugasan 6">After class · Explorer task 6</span>
+              <p data-ms="Tulis nombor baris yang anda syaki, setiap satu dengan sebab dalam satu baris. Kemudian ketik baris itu di sini dan tekan <i>Semak</i>.">Write down the line numbers you suspect, each with a one-line reason. Then tap those lines here and press <i>Check</i>.</p>
+            </div>
+            <div class="steps">
+              <button class="btn primary" id="eCheck" type="button" data-ms="Semak">Check</button>
+              <button class="btn" id="eFix" type="button" data-ms="Tunjuk nilai yang dibetulkan">Show the corrected values</button>
+              <button class="btn" id="eReset" type="button" data-ms="Set semula">Reset</button>
+            </div>
+            <p class="score" id="eScore" aria-live="polite"></p>
+          </div>
+        </div>
+        <div class="scroll"><table class="sheetcalc" id="eSheet" aria-label="Column S7 calculation sheet" data-ms-aria="Helaian pengiraan Column S7"></table></div>
+        <div class="summary" id="eSummary" hidden></div>
+      </div>
+    </section>
+  </main>
+  <footer><span data-ms="Kaedah kursus SEAA 4333 (nota kursus, RDF §14, Mosley, Bungey &amp;amp; Hulse §9.2): clear height = ketinggian tingkat tolak kedalaman beam dalam satah itu; k = (I/l)&lt;sub&gt;col&lt;/sub&gt;/Σ2(I/l)&lt;sub&gt;beam&lt;/sub&gt; ≥ 0.1; l&lt;sub&gt;0&lt;/sub&gt; dengan EC2 Eq. 5.15 (braced) atau 5.16 (unbraced); λ&lt;sub&gt;lim&lt;/sub&gt; = 20ABC/√n dengan A = 0.7, B = 1.1 (MS EN 1992-1-1, 5.8.3). Unit: mm, kN, m. Design penuh setiap column, langkah demi langkah, ada dalam app &lt;a href=&quot;https://claude.ai/artifact/M5DFYjHubZFnbHVk8JDsAS&quot; style=&quot;color:inherit&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;RC Design Worked Solutions&lt;/a&gt; (WE 7.1 ialah kes C1), yang boleh dibuka setelah pensyarah anda berkongsi pautannya.">Course method of SEAA 4333 (course notes, RDF §14, Mosley, Bungey &amp; Hulse §9.2): clear height = storey height minus the beam depth in that plane; k = (I/l)<sub>col</sub>/Σ2(I/l)<sub>beam</sub> ≥ 0.1; l<sub>0</sub> by EC2 Eq. 5.15 (braced) or 5.16 (unbraced); λ<sub>lim</sub> = 20ABC/√n with A = 0.7, B = 1.1 (MS EN 1992-1-1, 5.8.3). Units: mm, kN, m. The full design of each column, step by step, is in the <a href="https://claude.ai/artifact/M5DFYjHubZFnbHVk8JDsAS" style="color:inherit" target="_blank" rel="noopener">RC Design Worked Solutions</a> app (WE 7.1 is case C1), which opens once your lecturer has shared it.</span>
+  <span class="lic" data-ms="© 2026 Ahmad Razin Zainal Abidin dan Universiti Teknologi Malaysia (Fakulti Kejuruteraan Awam). Teks dan rajah: CC BY-NC-SA 4.0; kod: MIT. Lihat &lt;a href=&quot;https://github.com/RazinUTM/My_Lectures/blob/main/SEAA4333-RCD2/LICENSE.md&quot; style=&quot;color:inherit&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;lesen&lt;/a&gt;. Kemajuan disimpan dalam pelayar ini sahaja.">© 2026 Ahmad Razin Zainal Abidin and Universiti Teknologi Malaysia (Faculty of Civil Engineering). Text and figures: CC BY-NC-SA 4.0; code: MIT. See the <a href="https://github.com/RazinUTM/My_Lectures/blob/main/SEAA4333-RCD2/LICENSE.md" style="color:inherit" target="_blank" rel="noopener">licence</a>. Progress is stored in this browser only.</span></footer>
+</div>
+
+<div class="bigtimer" id="bigTimer" hidden>
+  <div class="digits" id="bigDigits">5:00</div>
+  <div class="hint" data-ms="Ketik di mana-mana untuk menutup">Tap anywhere to close</div>
+</div>
+
+<script>
+// ==MATH-BEGIN==
+/* Course method (notes, RDF §14, Mosley §9.2; the same as the RC Design app, module C):
+   clear height l = H − depth of the deeper beam in the plane; k = (I/l)col / Σ2(I/l)beam ≥ 0.1;
+   bottom end: the same beams as the top (k1 = k2), a fixed base (k1 = 0.1) or a pinned base (k1 = ∞);
+   braced l0 = EC2 Eq. 5.15, unbraced l0 = EC2 Eq. 5.16; λ = l0/i, i = √(I/A);
+   λlim = 20ABC/√n, A = 0.7, B = 1.1, n = NEd/(Ac fcd), fcd = 0.85fck/1.5, C = 1.7 − rm;
+   rm = 1 when unbraced, with no end moments, or (braced) when |M02| ≤ NEd l0/400; else ±M01/M02. */
+const INF = Infinity;
+function fB(k){ return k === INF ? 2 : 1 + k / (0.45 + k); }
+function l0Braced(l, k1, k2){ return 0.5 * l * Math.sqrt(fB(k1) * fB(k2)); }
+function unbTerms(k1, k2){
+  if (k1 === INF && k2 === INF) return {a: INF, b: 4};
+  if (k1 === INF || k2 === INF){ const k = k1 === INF ? k2 : k1; return {a: Math.sqrt(1 + 10 * k), b: 2 * (1 + k / (1 + k))}; }
+  return {a: Math.sqrt(1 + 10 * k1 * k2 / (k1 + k2)), b: (1 + k1 / (1 + k1)) * (1 + k2 / (1 + k2))};
+}
+function l0Unbraced(l, k1, k2){ const t = unbTerms(k1, k2); return l * Math.max(t.a, t.b); }
+function axisCalc(inp, ax){
+  const b = +inp.b, h = +inp.h, d = ax === 'z' ? h : b, w = ax === 'z' ? b : h;
+  const I = w * Math.pow(d, 3) / 12, A = b * h;
+  const bw = Math.max(0, +inp[ax + 'b']), hb = Math.max(0, +inp[ax + 'h']), L1 = +inp[ax + 'L1'], L2 = +inp[ax + 'L2'];
+  const spans = [L1, L2].filter(x => x > 0);
+  const hbe = spans.length ? hb : 0;
+  const l = +inp.H - hbe;
+  const r = {ax, d, I, A, l, spans, hb: hbe, bw};
+  if (!(b > 0 && h > 0 && +inp.H > 0)) { r.err = 'input'; return r; }
+  if (!(l > 0)) { r.err = 'height'; return r; }
+  r.Kc = I / l;
+  r.Ib = bw * Math.pow(hb, 3) / 12;
+  r.SKb = spans.reduce((s, L) => s + r.Ib / (L * 1000), 0);
+  r.kraw = r.SKb > 0 ? r.Kc / (2 * r.SKb) : INF;
+  r.k2 = r.kraw === INF ? INF : Math.max(0.1, r.kraw);
+  r.k1 = inp.base === 'fixed' ? 0.1 : inp.base === 'pinned' ? INF : r.k2;
+  r.braced = inp.brace !== 'unbraced';
+  if (r.braced){ r.l0 = l0Braced(l, r.k1, r.k2); }
+  else { const t = unbTerms(r.k1, r.k2); r.ta = t.a; r.tb = t.b; r.l0 = l * Math.max(t.a, t.b); }
+  r.i = Math.sqrt(I / A); r.lam = r.l0 / r.i;
+  r.fcd = 0.85 * inp.fck / 1.5; r.n = inp.N * 1e3 / (A * r.fcd);
+  const Mt = Math.abs(+inp['M' + ax + 't']), Mb = Math.abs(+inp['M' + ax + 'b']);
+  r.Mx = Math.max(Mt, Mb); r.Mn = Math.min(Mt, Mb); r.dbl = inp['c' + ax] === 'double';
+  r.Mi = isFinite(r.l0) ? inp.N * r.l0 / 400 / 1e3 : INF;
+  if (!r.braced){ r.rm = 1; r.why = 'unbraced'; }
+  else if (r.Mx === 0){ r.rm = 1; r.why = 'none'; }
+  else if (r.Mx <= r.Mi){ r.rm = 1; r.why = 'imp'; }
+  else { r.rm = (r.dbl ? -1 : 1) * r.Mn / r.Mx; r.why = r.dbl ? 'double' : 'single'; }
+  r.C = 1.7 - r.rm;
+  r.lim = r.n > 0 ? 20 * 0.7 * 1.1 * r.C / Math.sqrt(r.n) : INF;
+  r.slender = r.lam > r.lim;
+  return r;
+}
+// ==MATH-END==
+
+/* ---------- helpers ---------- */
+const NS = 'http://www.w3.org/2000/svg';
+function S(tag, attrs, parent){ const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+function T(parent, x, y, text, attrs){ const t = S('text', Object.assign({x, y}, attrs || {}), parent); t.textContent = text; return t; }
+const minus = s => String(s).replace(/^-/, '−');
+function f(v, d){ if (v === INF) return '∞'; if (!isFinite(v)) return '–'; const s = (Math.abs(v) < 1e-12 ? 0 : v).toFixed(d); return minus(s); }
+function sg(v, n){ if (!isFinite(v) || v === 0) return f(v, 0); return f(v, Math.max(0, n - 1 - Math.floor(Math.log10(Math.abs(v))))); }
+function el(id){ return document.getElementById(id); }
+function segGroup(node, onChange){ node.addEventListener('click', e => { const b = e.target.closest('button'); if (!b || !node.contains(b)) return; node.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); onChange(b.dataset.v); }); }
+function setSeg(node, v){ node.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.v === String(v)))); }
+function segVal(node){ const b = node.querySelector('button[aria-pressed="true"]'); return b ? b.dataset.v : null; }
+function store(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+function recall(k, dflt){ try { const s = localStorage.getItem(k); return s ? JSON.parse(s) : dflt; } catch (e) { return dflt; } }
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c])); }
+
+/* ---------- SEAA 4333: language, shared preferences, milestones ---------- */
+const root = document.documentElement;
+const PKEY = 'seaa4333-prefs', MKEY = 'seaa4333-lab-column', FONT_STEPS = [0.9, 1, 1.15, 1.3];
+let LANG = 'en';
+function Lg(en, ms){ return LANG === 'ms' ? ms : en; }
+function readPrefs(){ const p = recall(PKEY, {}) || {}; return {lang: p.lang === 'ms' ? 'ms' : 'en', theme: p.theme === 'light' || p.theme === 'dark' ? p.theme : '', font: +p.font || 1}; }
+function writePrefs(ch){ const p = recall(PKEY, {}) || {}; Object.assign(p, ch); store(PKEY, p); }
+let PR = readPrefs();
+const FRAMED = (() => { try { return window.self !== window.top; } catch (e) { return true; } })();
+if (FRAMED) root.classList.add('framed');
+function applyStatic(){
+  document.querySelectorAll('[data-ms]').forEach(e => { if (!e.hasAttribute('data-en')) e.setAttribute('data-en', e.innerHTML); e.innerHTML = LANG === 'ms' ? e.getAttribute('data-ms') : e.getAttribute('data-en'); });
+  [['aria', 'aria-label'], ['title', 'title'], ['ph', 'placeholder']].forEach(([k, a]) => document.querySelectorAll('[data-ms-' + k + ']').forEach(e => {
+    if (!e.hasAttribute('data-en-' + k)) e.setAttribute('data-en-' + k, e.getAttribute(a) || ''); e.setAttribute(a, LANG === 'ms' ? e.getAttribute('data-ms-' + k) : e.getAttribute('data-en-' + k)); }));
+}
+const SUN = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></svg>';
+const MOON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>';
+const mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+function effTheme(){ return PR.theme || (mq && mq.matches ? 'dark' : 'light'); }
+function paintPrefButtons(){
+  const lb = el('btn-lang'), tb = el('btn-theme'), fb = el('btn-font'); if (!lb) return;
+  lb.textContent = LANG === 'ms' ? 'EN' : 'BM'; lb.title = LANG === 'ms' ? 'Language' : 'Bahasa'; lb.setAttribute('aria-label', LANG === 'ms' ? 'Language: English' : 'Bahasa: Melayu');
+  const dk = effTheme() === 'dark', tt = dk ? Lg('Light theme', 'Tema cerah') : Lg('Dark theme', 'Tema gelap'); tb.innerHTML = dk ? SUN : MOON; tb.title = tt; tb.setAttribute('aria-label', tt);
+  let k = 0; FONT_STEPS.forEach((v, i) => { if (Math.abs(v - PR.font) < Math.abs(FONT_STEPS[k] - PR.font)) k = i; });
+  fb.querySelectorAll('.lvl i').forEach((d, i) => d.classList.toggle('on', i <= k)); const ft = Lg('Text size ', 'Saiz teks ') + Math.round(PR.font * 100) + '%'; fb.title = ft; fb.setAttribute('aria-label', ft);
+}
+function applyPrefs(redraw){
+  LANG = PR.lang; root.lang = LANG; root.setAttribute('data-lang', LANG);
+  if (PR.theme) root.setAttribute('data-theme', PR.theme); else root.removeAttribute('data-theme');
+  root.style.fontSize = (PR.font * 100) + '%';
+  applyStatic(); paintPrefButtons();
+  if (redraw){ fillCases(); tPaint(); redrawAll(); }
+}
+function milestone(id){
+  const rec = recall(MKEY, {}) || {}; if (!rec[id]){ rec[id] = Date.now(); store(MKEY, rec); }
+  try { if (window.parent && window.parent !== window) window.parent.postMessage({type: 'seaa4333-lab', lab: 'column', id}, '*'); } catch (e) {}
+}
+window.addEventListener('storage', e => { if (e.key === PKEY){ PR = readPrefs(); applyPrefs(true); } });
+if (mq){ const fm = () => { if (!PR.theme){ paintPrefButtons(); redrawAll(); } }; if (mq.addEventListener) mq.addEventListener('change', fm); else if (mq.addListener) mq.addListener(fm); }
+LANG = PR.lang;
+el('btn-lang').addEventListener('click', () => { PR.lang = LANG === 'ms' ? 'en' : 'ms'; writePrefs({lang: PR.lang}); applyPrefs(true); });
+el('btn-theme').addEventListener('click', () => { PR.theme = effTheme() === 'dark' ? 'light' : 'dark'; writePrefs({theme: PR.theme}); applyPrefs(true); });
+el('btn-font').addEventListener('click', () => { let k = FONT_STEPS.findIndex(v => Math.abs(v - PR.font) < 0.01); k = (k + 1) % FONT_STEPS.length; PR.font = FONT_STEPS[k]; writePrefs({font: PR.font}); applyPrefs(true); });
+
+/* ---------- timer ---------- */
+const timer = {len: 300, left: 300, running: false, id: null};
+const tDisplay = el('tDisplay'), bigTimer = el('bigTimer'), bigDigits = el('bigDigits'), tStart = el('tStart');
+function tfmt(s){ const m = Math.floor(s / 60), r = s % 60; return `${m}:${String(r).padStart(2, '0')}`; }
+function tPaint(){ tDisplay.textContent = tfmt(timer.left); bigDigits.textContent = tfmt(timer.left); tDisplay.classList.toggle('running', timer.running); tStart.textContent = timer.running ? Lg('Pause', 'Jeda') : Lg('Start', 'Mula'); }
+function tTick(){ timer.left = Math.max(0, timer.left - 1); if (timer.left === 0){ clearInterval(timer.id); timer.running = false; tDisplay.classList.add('done'); } tPaint(); }
+tStart.addEventListener('click', () => { if (timer.running){ clearInterval(timer.id); timer.running = false; } else { if (timer.left === 0) timer.left = timer.len; tDisplay.classList.remove('done'); timer.id = setInterval(tTick, 1000); timer.running = true; } tPaint(); });
+el('tReset').addEventListener('click', () => { clearInterval(timer.id); timer.running = false; timer.left = timer.len; tDisplay.classList.remove('done'); tPaint(); });
+segGroup(el('tLen'), () => {});
+el('tLen').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; timer.len = +b.dataset.min * 60; clearInterval(timer.id); timer.running = false; timer.left = timer.len; tDisplay.classList.remove('done'); tPaint(); });
+tDisplay.addEventListener('click', () => { bigTimer.hidden = false; });
+bigTimer.addEventListener('click', () => { bigTimer.hidden = true; });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') bigTimer.hidden = true; });
+
+/* ---------- tabs ---------- */
+const tabs = [...document.querySelectorAll('.tab')];
+const drawers = {};
+function showTab(id){
+  if (!tabs.some(t => t.dataset.tab === id)) id = 'length';
+  tabs.forEach(t => { const on = t.dataset.tab === id; t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1; el('panel-' + t.dataset.tab).hidden = !on; });
+  if (location.hash !== '#' + id) try { history.replaceState(null, '', '#' + id); } catch (e) {}
+  if (drawers[id]) drawers[id]();
+}
+tabs.forEach((t, i) => {
+  t.addEventListener('click', () => showTab(t.dataset.tab));
+  t.addEventListener('keydown', e => { if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return; const n = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length]; n.focus(); showTab(n.dataset.tab); });
+});
+
+/* ===================== 1 EFFECTIVE LENGTH ===================== */
+const CASES = {
+  we71: {label: ['WE 7.1 · braced, between stiff beams (app C1)', 'WE 7.1 · braced, di antara beam yang kaku (app C1)'],
+         note: ['Worked Example 7.1 of the page and the workbook; the RC Design app reproduces it as case C1.', 'Worked Example 7.1 dalam halaman dan workbook; app RC Design menghasilkannya semula sebagai kes C1.'],
+         v: {brace: 'braced', b: 250, h: 300, H: 6000, N: 1200, fck: 30, base: 'same', zb: 250, zh: 600, zL1: 6, zL2: 0, yb: 250, yh: 600, yL1: 4.5, yL2: 4.5, Mzt: 60, Mzb: 35, cz: 'double', Myt: 1, Myb: 0, cy: 'single'}},
+  fe72: {label: ['FE 7.2 · unbraced, on a fixed base', 'FE 7.2 · unbraced, pada fixed base'],
+         note: ['Faded Example 7.2: a ground-floor column of the unbraced project frame.', 'Faded Example 7.2: column tingkat bawah bagi frame projek yang unbraced.'],
+         v: {brace: 'unbraced', b: 300, h: 400, H: 3500, N: 1600, fck: 30, base: 'fixed', zb: 250, zh: 500, zL1: 6, zL2: 6, yb: 250, yh: 450, yL1: 5, yL2: 5, Mzt: 85, Mzb: 70, cz: 'double', Myt: 30, Myb: 25, cy: 'double'}},
+  nx1: {label: ['Course notes Example 1 · braced, non-slender', 'Contoh 1 nota kursus · braced, non-slender'],
+        note: ['The slenderness example of the course notes (column B/2, storey 5 m).', 'Contoh slenderness dalam nota kursus (column B/2, tingkat 5 m).'],
+        v: {brace: 'braced', b: 275, h: 350, H: 5000, N: 1050, fck: 25, base: 'same', zb: 250, zh: 500, zL1: 6, zL2: 8, yb: 250, yh: 400, yL1: 4, yL2: 4, Mzt: 40, Mzb: 12, cz: 'double', Myt: 15, Myb: 10, cy: 'double'}},
+  own: {label: ['Your own column', 'Column anda sendiri'], note: ['Start from any case and change the numbers: for the studio, use your project column.', 'Mula daripada mana-mana kes dan ubah nombornya: bagi studio, gunakan column projek anda.'], v: null}
+};
+const FIELDS = ['b', 'h', 'H', 'N', 'zb', 'zh', 'zL1', 'zL2', 'yb', 'yh', 'yL1', 'yL2', 'Mzt', 'Mzb', 'Myt', 'Myb'];
+const inp = Object.assign({}, CASES.we71.v); let curCase = 'we71';
+const lCase = el('lCase');
+function fillCases(){ lCase.innerHTML = ''; Object.keys(CASES).forEach(k => { const o = document.createElement('option'); o.value = k; o.textContent = Lg(CASES[k].label[0], CASES[k].label[1]); lCase.appendChild(o); }); lCase.value = curCase; el('lCaseNote').textContent = Lg(CASES[curCase].note[0], CASES[curCase].note[1]); }
+function syncInputs(){
+  FIELDS.forEach(k => { el('l' + k).value = inp[k]; });
+  el('lfck').value = String(inp.fck); setSeg(el('lBrace'), inp.brace); setSeg(el('lBase'), inp.base); setSeg(el('lCz'), inp.cz); setSeg(el('lCy'), inp.cy);
+}
+/* Task 1 ticks when WE 7.1 is picked from the list, or when its check has been on screen for 12 s
+   (it is the case the Lab opens with, so it cannot always be "picked"). The observer sees whether the
+   table is really in view, also when the Lab sits in a hidden tab of the Unit page. */
+let we71Timer = null, lVisible = false;
+function armWe71(){
+  clearTimeout(we71Timer); we71Timer = null;
+  if (curCase === 'we71' && lVisible && !document.hidden) we71Timer = setTimeout(() => { if (curCase === 'we71' && lVisible) milestone('we71'); }, 12000);
+}
+function toOwn(){ if (curCase !== 'own'){ curCase = 'own'; fillCases(); armWe71(); } }
+function loadCase(k){ curCase = k; if (CASES[k].v) Object.assign(inp, CASES[k].v); fillCases(); syncInputs(); redrawLength(); armWe71(); }
+lCase.addEventListener('change', () => { loadCase(lCase.value); if (lCase.value === 'we71') milestone('we71'); });
+FIELDS.forEach(k => el('l' + k).addEventListener('input', () => {
+  const v = parseFloat(el('l' + k).value); if (!isFinite(v)) return;
+  const depth = k === 'zh' || k === 'yh', before = depth ? axisCalc(inp, k[0]).kraw : null;
+  inp[k] = v; toOwn(); redrawLength();
+  if (depth){ const after = axisCalc(inp, k[0]).kraw; if (before >= 0.1 && after < 0.1) milestone('floor'); }
+}));
+el('lfck').addEventListener('change', () => { inp.fck = +el('lfck').value; toOwn(); redrawLength(); });
+segGroup(el('lBrace'), v => { inp.brace = v; toOwn(); if (v === 'unbraced') milestone('sway'); redrawLength(); });
+segGroup(el('lBase'), v => { inp.base = v; toOwn(); redrawLength(); });
+segGroup(el('lCz'), v => { const was = inp.cz; inp.cz = v; toOwn(); redrawLength(); const r = axisCalc(inp, 'z'); if (was !== v && r.braced && (r.why === 'single' || r.why === 'double')) milestone('curv'); });
+segGroup(el('lCy'), v => { inp.cy = v; toOwn(); redrawLength(); });
+if ('IntersectionObserver' in window) new IntersectionObserver(en => { lVisible = en[en.length - 1].isIntersecting; armWe71(); }, {threshold: 0.2}).observe(el('lTable'));
+document.addEventListener('visibilitychange', armWe71);
+
+function k1Txt(r){ return inp.base === 'fixed' ? Lg('k₁ = 0.1, fixed base', 'k₁ = 0.1, fixed base') : inp.base === 'pinned' ? Lg('k₁ = ∞, pinned base', 'k₁ = ∞, pinned base') : Lg('k₁ = k₂, the same beams', 'k₁ = k₂, beam yang sama'); }
+function whyTxt(r){
+  if (r.why === 'unbraced') return Lg('unbraced: rₘ = 1', 'unbraced: rₘ = 1');
+  if (r.why === 'none') return Lg('no end moments: rₘ = 1', 'tiada end moment: rₘ = 1');
+  if (r.why === 'imp') return Lg(`M₀₂ = ${f(r.Mx, 1)} ≤ ${f(r.Mi, 1)}: imperfections dominate, rₘ = 1`, `M₀₂ = ${f(r.Mx, 1)} ≤ ${f(r.Mi, 1)}: imperfection mendominasi, rₘ = 1`);
+  return (r.why === 'double' ? Lg('opposite faces: ', 'muka bertentangan: ') + `rₘ = −${f(r.Mn, 1)}/${f(r.Mx, 1)}` : Lg('same face: ', 'muka yang sama: ') + `rₘ = ${f(r.Mn, 1)}/${f(r.Mx, 1)}`);
+}
+function rowsFor(r){
+  if (r.err === 'input') return [[Lg('Input', 'Input'), Lg('enter a positive width, depth and storey height', 'masukkan lebar, kedalaman dan ketinggian tingkat yang positif'), '–']];
+  if (r.err) return [[Lg('Clear height', 'Clear height'), Lg('the beams are as deep as the storey: check the inputs', 'beam sedalam tingkat: semak input'), '–']];
+  const lines = [];
+  lines.push([Lg('Clear height', 'Clear height'), `l = ${inp.H} − ${r.hb}`, `${f(r.l, 0)} mm`]);
+  lines.push(['K = I/l', `I = ${sg(r.I / 1e9, 4)} × 10⁹; K<sub>c</sub> = I/${f(r.l, 0)}`, `${sg(r.Kc / 1e5, 4)} × 10⁵`]);
+  lines.push(['ΣK<sub>b</sub>', r.spans.length ? r.spans.map(L => `${sg(r.Ib / 1e9, 4)} × 10⁹/${f(L * 1000, 0)}`).join(' + ') : Lg('no beam in this plane', 'tiada beam dalam satah ini'), r.spans.length ? `${sg(r.SKb / 1e5, 4)} × 10⁵` : '0']);
+  lines.push(['k, Eq. (7.4)', r.kraw === INF ? Lg('k₂ = ∞ (no beams)', 'k₂ = ∞ (tiada beam)') : `k₂ = ${sg(r.Kc / 1e5, 4)}/(2 × ${sg(r.SKb / 1e5, 4)}) = ${f(r.kraw, 3)}` + (r.kraw < 0.1 ? Lg(' → 0.1 (floor)', ' → 0.1 (minimum)') : '') + '; ' + k1Txt(r), `k₁ = ${f(r.k1, 3)}, k₂ = ${f(r.k2, 3)}`]);
+  if (r.braced) lines.push(['EC2 Eq. 5.15', `0.5 × ${f(r.l, 0)} × √(${f(fB(r.k1), 4)} × ${f(fB(r.k2), 4)})`, `l₀ = ${f(r.l0, 0)} mm (${f(r.l0 / r.l, 3)}l)`]);
+  else lines.push(['EC2 Eq. 5.16', `max(${f(r.ta, 4)}; ${f(r.tb, 4)}) × ${f(r.l, 0)}`, `l₀ = ${f(r.l0, 0)} mm (${f(r.l0 / r.l, 3)}l)`]);
+  lines.push(['λ = l₀/i', `i = ${r.d}/√12 = ${f(r.i, 1)} mm`, `λ = ${f(r.lam, 1)}`]);
+  lines.push(['n', `${inp.N} × 10³/(${inp.b} × ${inp.h} × ${f(r.fcd, 2)})`, `${f(r.n, 3)}`]);
+  lines.push(['C = 1.7 − rₘ', whyTxt(r) + (r.why === 'double' || r.why === 'single' ? ` = ${f(r.rm, 3)}` : ''), `C = ${f(r.C, 3)}`]);
+  lines.push(['λ<sub>lim</sub>', `20 × 0.7 × 1.1 × ${f(r.C, 3)}/√${f(r.n, 3)}`, `${f(r.lim, 1)}`]);
+  return lines;
+}
+function verdictTxt(r){ if (r.err) return '–'; if (!isFinite(r.lam)) return Lg('no restraint: a mechanism', 'tiada restraint: mekanisma'); return r.slender ? Lg('slender', 'slender') : Lg('non-slender', 'non-slender'); }
+function redrawLength(){
+  const R = {z: axisCalc(inp, 'z'), y: axisCalc(inp, 'y')};
+  // key values
+  const kv = el('lKV'); kv.innerHTML = '';
+  ['z', 'y'].forEach(ax => { const r = R[ax];
+    const d = document.createElement('div');
+    const cls = r.err ? '' : (r.slender ? 'bad' : 'ok');
+    d.innerHTML = `<span>${Lg('About ', 'Pada paksi ')}${ax}</span><b>λ ${f(r.lam, 1)} · λ<sub>lim</sub> ${f(r.lim, 1)}</b><span class="pill ${cls}" style="align-self:flex-start;margin-top:4px">${esc(verdictTxt(r))}</span>`;
+    kv.appendChild(d); });
+  // table
+  const t = el('lTable');
+  const rz = rowsFor(R.z), ry = rowsFor(R.y);
+  const cell = c => c ? `<td class="ax"><div class="c">${c[1]}</div><div class="o">${c[2]}</div></td>` : '<td class="ax"></td>';
+  const vcell = r => `<td class="ax"><span class="pill ${r.err ? '' : r.slender ? 'bad' : 'ok'}">${esc(verdictTxt(r))}</span>${r.err ? '' : ` <span class="o">${f(r.lam, 1)} ${r.slender ? '&gt;' : '≤'} ${f(r.lim, 1)}</span>`}</td>`;
+  let html = `<colgroup><col class="cref"><col><col></colgroup><thead><tr><th>Ref</th><th>${Lg('About z (h = ', 'Pada paksi z (h = ')}${inp.h})</th><th>${Lg('About y (b = ', 'Pada paksi y (b = ')}${inp.b})</th></tr></thead><tbody>`;
+  for (let i = 0; i < Math.max(rz.length, ry.length); i++){
+    const a = rz[i], b = ry[i];
+    html += `<tr><td class="ref">${(a || b)[0]}</td>${cell(a)}${cell(b)}</tr>`;
+  }
+  html += `<tr class="em"><td class="ref">${Lg('Verdict', 'Keputusan')}</td>${vcell(R.z)}${vcell(R.y)}</tr></tbody>`;
+  t.innerHTML = html;
+  el('lMethod').textContent = inp.brace === 'unbraced' ? Lg('unbraced: EC2 Eq. 5.16, C = 0.7', 'unbraced: EC2 Eq. 5.16, C = 0.7') : Lg('braced: EC2 Eq. 5.15', 'braced: EC2 Eq. 5.15');
+  drawChart(R);
+}
+
+/* chart: l0/l against k2 (log axis), with k1 fixed by the bottom-end option */
+const CH = {w: 640, h: 320, l: 56, r: 92, t: 30, b: 46, kmin: 0.1, kmax: 10, ymin: 0.5, ymax: 3.0};
+function chartDims(){
+  const svg = el('lChart'), w = Math.round(svg.parentNode.clientWidth || 0);
+  if (w > 0){ const W = Math.max(300, Math.min(760, w)), nar = W < 520; Object.assign(CH, {w: W, h: nar ? 290 : 320, l: nar ? 44 : 56, r: nar ? 74 : 92}); }
+  svg.setAttribute('viewBox', `0 0 ${CH.w} ${CH.h}`);
+}
+function cx(k){ return CH.l + (Math.log10(k) - Math.log10(CH.kmin)) / (Math.log10(CH.kmax) - Math.log10(CH.kmin)) * (CH.w - CH.l - CH.r); }
+function cy(y){ return CH.h - CH.b - (y - CH.ymin) / (CH.ymax - CH.ymin) * (CH.h - CH.t - CH.b); }
+function curveRatio(k2, brace){ const k1 = inp.base === 'fixed' ? 0.1 : inp.base === 'pinned' ? INF : k2; return brace === 'braced' ? l0Braced(1, k1, k2) : l0Unbraced(1, k1, k2); }
+let lastR = null;
+function drawChart(R){
+  lastR = R;
+  chartDims();
+  const svg = el('lChart'); svg.innerHTML = '';
+  const g = S('g', {}, svg);
+  const yt = [0.5, 1.0, 1.5, 2.0, 2.5, 3.0], kt = [0.1, 0.2, 0.5, 1, 2, 5, 10];
+  yt.forEach(y => { S('line', {x1: CH.l, x2: CH.w - CH.r, y1: cy(y), y2: cy(y), stroke: 'var(--grid)', 'stroke-width': 1}, g); T(g, CH.l - 8, cy(y) + 4, y.toFixed(1), {'text-anchor': 'end'}); });
+  kt.forEach(k => { S('line', {x1: cx(k), x2: cx(k), y1: CH.t, y2: CH.h - CH.b, stroke: 'var(--grid)', 'stroke-width': 1}, g); T(g, cx(k), CH.h - CH.b + 18, String(k), {'text-anchor': 'middle'}); });
+  S('line', {x1: CH.l, x2: CH.w - CH.r, y1: CH.h - CH.b, y2: CH.h - CH.b, stroke: 'var(--ink-3)', 'stroke-width': 1}, g);
+  T(g, (CH.l + CH.w - CH.r) / 2, CH.h - 8, Lg('k₂ at the top (k ≥ 0.1)', 'k₂ di atas (k ≥ 0.1)'), {'text-anchor': 'middle', class: 'axt'});
+  T(g, 4, 16, 'l₀/l', {class: 'axt'});
+  const clip = S('clipPath', {id: 'cclip'}, svg); S('rect', {x: CH.l, y: CH.t, width: CH.w - CH.l - CH.r, height: CH.h - CH.t - CH.b}, clip);
+  const cg = S('g', {'clip-path': 'url(#cclip)'}, svg);
+  ['braced', 'unbraced'].forEach(br => {
+    let d = ''; const N = 120;
+    for (let i = 0; i <= N; i++){ const k = Math.pow(10, Math.log10(CH.kmin) + i / N * (Math.log10(CH.kmax) - Math.log10(CH.kmin))); const y = Math.min(curveRatio(k, br), CH.ymax + 1); d += (i ? 'L' : 'M') + cx(k).toFixed(1) + ',' + cy(y).toFixed(1); }
+    S('path', {d, fill: 'none', stroke: br === 'braced' ? 'var(--braced)' : 'var(--unbraced)', 'stroke-width': 2, 'stroke-linejoin': 'round', 'stroke-linecap': 'round', opacity: inp.brace === br ? 1 : 0.45}, cg);
+    const kEnd = CH.kmax, yEnd = curveRatio(kEnd, br);
+    if (yEnd <= CH.ymax) T(g, CH.w - CH.r + 6, cy(yEnd) + 4, br === 'braced' ? 'braced' : 'unbraced', {});
+    else { let k = CH.kmax; while (k > CH.kmin && curveRatio(k, br) > CH.ymax) k /= 1.02; T(g, Math.min(cx(k) + 6, CH.w - CH.r - 4), CH.t + 12, 'unbraced', {}); }
+  });
+  const pts = {};
+  ['z', 'y'].forEach(ax => { const r = R[ax]; if (r.err || !(r.k2 <= CH.kmax)) return;
+    const y = r.l0 / r.l; if (!(y <= CH.ymax)) return;
+    pts[ax] = {x: cx(Math.max(r.k2, CH.kmin)), y: cy(y)};
+    S('circle', {cx: pts[ax].x, cy: pts[ax].y, r: 6, fill: inp.brace === 'braced' ? 'var(--braced)' : 'var(--unbraced)', stroke: 'var(--surface)', 'stroke-width': 2}, svg); });
+  const mlab = {style: 'font-weight:700;fill:var(--ink)'};
+  if (pts.z && pts.y && Math.hypot(pts.z.x - pts.y.x, pts.z.y - pts.y.y) < 14) T(svg, pts.z.x + 10, pts.z.y - 10, 'z, y', mlab);
+  else ['z', 'y'].forEach(ax => { const p = pts[ax]; if (!p) return;
+    const left = ax === 'y' && p.x - 24 > CH.l;
+    T(svg, p.x + (left ? -10 : 10), p.y + (ax === 'y' && !left ? 18 : -10), ax, Object.assign({'text-anchor': left ? 'end' : 'start'}, mlab)); });
+  // crosshair layer
+  const hl = S('line', {x1: 0, x2: 0, y1: CH.t, y2: CH.h - CH.b, stroke: 'var(--ink-3)', 'stroke-width': 1, visibility: 'hidden'}, svg);
+  const hit = S('rect', {x: CH.l, y: CH.t, width: CH.w - CH.l - CH.r, height: CH.h - CH.t - CH.b, fill: 'transparent', 'aria-hidden': 'true'}, svg);
+  const tip = el('lTip');
+  function at(clientX){ const bb = svg.getBoundingClientRect(); const x = (clientX - bb.left) / bb.width * CH.w; return Math.max(CH.l, Math.min(CH.w - CH.r, x)); }
+  function show(x){ const lk = Math.log10(CH.kmin) + (x - CH.l) / (CH.w - CH.l - CH.r) * (Math.log10(CH.kmax) - Math.log10(CH.kmin)); const k = Math.pow(10, lk);
+    hl.setAttribute('x1', x); hl.setAttribute('x2', x); hl.setAttribute('visibility', 'visible');
+    tip.hidden = false; tip.innerHTML = `<b>k₂ = ${f(k, k < 1 ? 2 : 1)}</b><span><i class="key" style="border-color:var(--braced)"></i>braced ${f(curveRatio(k, 'braced'), 2)}l</span><span><i class="key" style="border-color:var(--unbraced)"></i>unbraced ${f(curveRatio(k, 'unbraced'), 2)}l</span>`;
+    const bb = svg.getBoundingClientRect(), px = x / CH.w * bb.width; tip.style.left = Math.min(px + 12, bb.width - 170) + 'px'; tip.style.top = '8px'; }
+  let kx = cx(1);
+  const hide = () => { hl.setAttribute('visibility', 'hidden'); tip.hidden = true; };
+  hit.addEventListener('pointermove', e => { kx = at(e.clientX); show(kx); });
+  hit.addEventListener('pointerdown', e => { kx = at(e.clientX); show(kx); });
+  hit.addEventListener('pointerleave', hide);
+  el('lChartTitle').innerHTML = Lg('l<sub>0</sub>/l against k<sub>2</sub>, with ', 'l<sub>0</sub>/l berbanding k<sub>2</sub>, dengan ') + (inp.base === 'fixed' ? 'k<sub>1</sub> = 0.1' : inp.base === 'pinned' ? 'k<sub>1</sub> = ∞' : 'k<sub>1</sub> = k<sub>2</sub>');
+  const at2 = ax => { const r = R[ax]; return r.err ? '–' : `k₂ ${f(r.k2, 3)}, l₀ ${f(r.l0 / r.l, 3)}l`; };
+  svg.setAttribute('aria-label', Lg(`Effective length ratio l₀/l against k₂ for braced and unbraced columns. This column, ${inp.brace}: about z ${at2('z')}; about y ${at2('y')}. The table below lists the curves.`,
+    `Nisbah effective length l₀/l berbanding k₂ bagi column braced dan unbraced. Column ini, ${inp.brace}: pada paksi z ${at2('z')}; pada paksi y ${at2('y')}. Jadual di bawah menyenaraikan lengkung.`));
+  // table view of the curves
+  const kv = [0.1, 0.25, 0.5, 1, 2, 5];
+  el('lCurveTbl').innerHTML = `<thead><tr><th>k₂</th>${kv.map(k => `<th class="out">${k}</th>`).join('')}</tr></thead><tbody><tr><td>braced</td>${kv.map(k => `<td class="out">${f(curveRatio(k, 'braced'), 3)}</td>`).join('')}</tr><tr><td>unbraced</td>${kv.map(k => `<td class="out">${f(curveRatio(k, 'unbraced'), 3)}</td>`).join('')}</tr></tbody>`;
+}
+
+/* Activity 7A */
+segGroup(el('aPred'), () => { if (aState) { aState = null; paintReveal(); } });
+let aState = null;   // null, 'ask' (no prediction yet) or the prediction revealed
+function paintReveal(){
+  const out = el('aOut');
+  if (!aState){ out.hidden = true; return; }
+  out.hidden = false;
+  if (aState === 'ask'){ out.className = 'verdict bad'; out.innerHTML = Lg('Choose A, B, C or D first: commit before you look.', 'Pilih A, B, C atau D dahulu: buat keputusan sebelum melihat.'); return; }
+  const r = axisCalc(Object.assign({}, CASES.we71.v, {brace: 'unbraced'}), 'z'), ok = aState === 'C';
+  out.className = 'verdict ' + (ok ? 'ok' : 'bad');
+  out.innerHTML = (ok ? Lg('<b>Right: C.</b> ', '<b>Betul: C.</b> ') : Lg('<b>Not quite: the answer is C.</b> ', '<b>Belum tepat: jawapannya C.</b> ')) +
+    Lg(`With k₁ = k₂ = 0.1, Eq. 5.16 gives max(√1.5, 1.091²) = max(1.225, 1.190) = 1.22, so l₀ = ${f(r.l0, 0)} mm, about twice the braced 3191 mm. C also drops to 0.7, so λ<sub>lim</sub> falls: λ<sub>z</sub> = ${f(r.lam, 1)} against ${f(r.lim, 1)}.`,
+       `Dengan k₁ = k₂ = 0.1, Eq. 5.16 memberi max(√1.5, 1.091²) = max(1.225, 1.190) = 1.22, jadi l₀ = ${f(r.l0, 0)} mm, lebih kurang dua kali nilai braced 3191 mm. C juga turun kepada 0.7, jadi λ<sub>lim</sub> berkurang: λ<sub>z</sub> = ${f(r.lam, 1)} berbanding ${f(r.lim, 1)}.`);
+}
+el('aReveal').addEventListener('click', () => {
+  const p = segVal(el('aPred'));
+  if (!p){ aState = 'ask'; paintReveal(); return; }
+  loadCase('we71');
+  inp.brace = 'unbraced'; setSeg(el('lBrace'), 'unbraced'); toOwn(); milestone('sway'); redrawLength();
+  aState = p; paintReveal();
+});
+
+/* ===================== 2 THE RACE ===================== */
+const RACE = [
+  {en: 'Braced (lift core and walls). 300 × 300, l = 3.3 m, k₁ = k₂ = 0.1. N<sub>Ed</sub> 1300, C30/37. Moments 40 and 20, tension on opposite faces.', ms: 'Braced (lift core dan wall). 300 × 300, l = 3.3 m, k₁ = k₂ = 0.1. N<sub>Ed</sub> 1300, C30/37. Moment 40 dan 20, tegangan pada muka bertentangan.', l0: 1950, lam: 22.5, lim: 36.8, sl: false, why: ['rₘ = −0.5, C = 2.2', 'rₘ = −0.5, C = 2.2']},
+  {en: 'As card 1, but the moments 40 and 20 give tension on the same face.', ms: 'Seperti kad 1, tetapi moment 40 dan 20 memberi tegangan pada muka yang sama.', l0: 1950, lam: 22.5, lim: 20.0, sl: true, why: ['rₘ = +0.5, C = 1.2', 'rₘ = +0.5, C = 1.2']},
+  {en: 'As card 1, with no end moments from the analysis (balanced spans).', ms: 'Seperti kad 1, tanpa end moment daripada analisis (span seimbang).', l0: 1950, lam: 22.5, lim: 11.7, sl: true, why: ['no end moments: rₘ = 1, C = 0.7', 'tiada end moment: rₘ = 1, C = 0.7']},
+  {en: 'Bare frame, no walls: ground floor, fixed base. 300 × 400, major axis, l = 3.0 m, k₁ = 0.1, k₂ = 0.4. N<sub>Ed</sub> 1600, C30/37. Moments 90 and 75, opposite faces.', ms: 'Frame tanpa wall: tingkat bawah, fixed base. 300 × 400, major axis, l = 3.0 m, k₁ = 0.1, k₂ = 0.4. N<sub>Ed</sub> 1600, C30/37. Moment 90 dan 75, muka bertentangan.', l0: 4208, lam: 36.4, lim: 12.2, sl: true, why: ['unbraced: Eq. 5.16, C = 0.7', 'unbraced: Eq. 5.16, C = 0.7']},
+  {en: 'Braced, top storey. 300 × 300, l = 3.0 m, k₁ = k₂ = 0.3. N<sub>Ed</sub> 250, C30/37. Moments 60 and 30, opposite faces.', ms: 'Braced, tingkat teratas. 300 × 300, l = 3.0 m, k₁ = k₂ = 0.3. N<sub>Ed</sub> 250, C30/37. Moment 60 dan 30, muka bertentangan.', l0: 2100, lam: 24.2, lim: 83.8, sl: false, why: ['n = 0.163: a light load, a high limit', 'n = 0.163: load ringan, had tinggi']},
+  {en: 'Braced. 250 × 500 about its minor axis, l = 3.6 m, k₁ = k₂ = 0.15. N<sub>Ed</sub> 1800, C30/37. Moments 8 and 4 about this axis, opposite faces.', ms: 'Braced. 250 × 500 pada minor axis, l = 3.6 m, k₁ = k₂ = 0.15. N<sub>Ed</sub> 1800, C30/37. Moment 8 dan 4 pada paksi ini, muka bertentangan.', l0: 2250, lam: 31.2, lim: 11.7, sl: true, why: ['8 ≤ N<sub>Ed</sub>l₀/400 = 10.1: rₘ = 1, C = 0.7', '8 ≤ N<sub>Ed</sub>l₀/400 = 10.1: rₘ = 1, C = 0.7']},
+  {en: 'Bare frame, no walls: top storey. 300 × 300, l = 3.0 m, k₁ = k₂ = 0.5. N<sub>Ed</sub> 300, C30/37. Moments 45 and 40, opposite faces.', ms: 'Frame tanpa wall: tingkat teratas. 300 × 300, l = 3.0 m, k₁ = k₂ = 0.5. N<sub>Ed</sub> 300, C30/37. Moment 45 dan 40, muka bertentangan.', l0: 5612, lam: 64.8, lim: 24.3, sl: true, why: ['unbraced: l₀ = 1.87l, C = 0.7', 'unbraced: l₀ = 1.87l, C = 0.7']},
+  {en: 'Braced. On a pad not designed for moment: pinned base, k₁ = ∞; k₂ = 0.2. 300 × 300, l = 3.0 m. N<sub>Ed</sub> 900, C25/30. Moment 30 at the top, 0 at the base.', ms: 'Braced. Di atas pad yang tidak di-design untuk moment: pinned base, k₁ = ∞; k₂ = 0.2. 300 × 300, l = 3.0 m. N<sub>Ed</sub> 900, C25/30. Moment 30 di atas, 0 di dasar.', l0: 2426, lam: 28.0, lim: 31.2, sl: false, why: ['rₘ = 0/30 = 0, C = 1.7; l₀ = 0.81l', 'rₘ = 0/30 = 0, C = 1.7; l₀ = 0.81l']}
+];
+const RKEY = 'seaa4333-lab-column-race';
+let rAns = recall(RKEY, {}) || {}, rShown = false, rChecked = false;
+function drawRace(){
+  const g = el('rGrid'); g.innerHTML = '';
+  RACE.forEach((c, i) => {
+    const d = document.createElement('div'); d.className = 'racecard';
+    const a = rAns[i];
+    let res = '';
+    if (rShown || rChecked){
+      const ok = a != null && (a === 'sl') === c.sl;
+      const show = rShown || ok;
+      res = `<p class="verdict ${a == null ? '' : ok ? 'ok' : 'bad'}">${a == null ? Lg('Not answered.', 'Belum dijawab.') : ok ? Lg('<b>Right.</b> ', '<b>Betul.</b> ') : Lg('<b>Not yet.</b> ', '<b>Belum tepat.</b> ')}` +
+            (show ? `l₀ = ${c.l0} mm, λ = ${f(c.lam, 1)}, λ<sub>lim</sub> = ${f(c.lim, 1)}: <b>${c.sl ? 'slender' : 'non-slender'}</b>. ${Lg(c.why[0], c.why[1])}` : Lg('Check your working and try again.', 'Semak pengiraan anda dan cuba lagi.')) + '</p>';
+    }
+    d.innerHTML = `<div class="rhead"><b class="rn">${i + 1}</b><p>${Lg(c.en, c.ms)}</p></div>
+      <div class="seg" role="group" aria-label="${Lg('Card ' + (i + 1) + ' verdict', 'Keputusan kad ' + (i + 1))}"><button type="button" data-v="sl" aria-pressed="${a === 'sl'}">slender</button><button type="button" data-v="ns" aria-pressed="${a === 'ns'}">non-slender</button></div>${res}`;
+    const sg = d.querySelector('.seg');
+    sg.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; rAns[i] = b.dataset.v; store(RKEY, rAns); rChecked = false; drawRace(); });
+    g.appendChild(d);
+  });
+  const n = Object.keys(rAns).length;
+  el('rScore').textContent = rChecked || rShown ? Lg(`${RACE.filter((c, i) => rAns[i] != null && (rAns[i] === 'sl') === c.sl).length} of 8 right`, `${RACE.filter((c, i) => rAns[i] != null && (rAns[i] === 'sl') === c.sl).length} daripada 8 betul`) : Lg(`${n} of 8 answered`, `${n} daripada 8 dijawab`);
+}
+el('rCheck').addEventListener('click', () => { rChecked = true; if (Object.keys(rAns).length === 8) milestone('race'); drawRace(); });
+el('rShow').addEventListener('click', () => { rShown = true; drawRace(); });
+el('rReset').addEventListener('click', () => { rAns = {}; store(RKEY, rAns); rShown = false; rChecked = false; drawRace(); });
+
+/* ===================== 3 SPOT THE ERROR: COLUMN S7 ===================== */
+const S7 = [
+  {ref: 'EC2 5.8.3.2(3)', calc: ['Clear height l = 4500 mm', 'Clear height l = 4500 mm'], out: 'l = 4500 mm', slip: true,
+   fix: ['The storey height, not the clear height: l = 4500 − 450 = 4050 mm.', 'Ketinggian tingkat, bukan clear height: l = 4500 − 450 = 4050 mm.']},
+  {ref: 'K = I/l', calc: ['I<sub>y</sub> = 400 × 250³/12 = 0.521 × 10⁹ mm⁴; K<sub>c</sub> = 0.521 × 10⁹/4500', 'I<sub>y</sub> = 400 × 250³/12 = 0.521 × 10⁹ mm⁴; K<sub>c</sub> = 0.521 × 10⁹/4500'], out: '1.157 × 10⁵ mm³', slip: false,
+   fix: ['Right method; with l = 4050, K<sub>c</sub> = 1.286 × 10⁵ mm³.', 'Kaedah betul; dengan l = 4050, K<sub>c</sub> = 1.286 × 10⁵ mm³.']},
+  {ref: 'Eq. (7.4)', calc: ['K<sub>b</sub> = (250 × 450³/12)/5000 = 3.797 × 10⁵ each; k = 1.157/(2 × 7.594) = 0.076 → 0.1', 'K<sub>b</sub> = (250 × 450³/12)/5000 = 3.797 × 10⁵ setiap satu; k = 1.157/(2 × 7.594) = 0.076 → 0.1'], out: 'k₁ = k₂ = 0.1', slip: false,
+   fix: ['Right: 0.085 with the correct l, still raised to 0.1.', 'Betul: 0.085 dengan l yang betul, tetap dinaikkan kepada 0.1.']},
+  {ref: 'EC2 Eq. 5.15', calc: ['l₀ = 0.5 × 4500 × (1 + 0.1/0.55)', 'l₀ = 0.5 × 4500 × (1 + 0.1/0.55)'], out: 'l₀ = 2659 mm', slip: false,
+   fix: ['Right formula; with l = 4050, l₀ = 2393 mm.', 'Formula betul; dengan l = 4050, l₀ = 2393 mm.']},
+  {ref: 'i = √(I/A)', calc: ['i = √(1.333 × 10⁹/100 000)', 'i = √(1.333 × 10⁹/100 000)'], out: 'i = 115.5 mm', slip: true,
+   fix: ['I<sub>z</sub> = 250 × 400³/12 belongs to the other axis. About y: i = 250/√12 = 72.2 mm.', 'I<sub>z</sub> = 250 × 400³/12 milik paksi yang lain. Pada paksi y: i = 250/√12 = 72.2 mm.']},
+  {ref: 'λ = l₀/i', calc: ['λ = 2659/115.5', 'λ = 2659/115.5'], out: 'λ = 23.0', slip: false,
+   fix: ['Follows from lines 1 and 5: λ = 2393/72.2 = 33.2.', 'Akibat baris 1 dan 5: λ = 2393/72.2 = 33.2.']},
+  {ref: 'n', calc: ['n = N<sub>Ed</sub>/(A<sub>c</sub>f<sub>ck</sub>) = 1650 × 10³/(100 000 × 30)', 'n = N<sub>Ed</sub>/(A<sub>c</sub>f<sub>ck</sub>) = 1650 × 10³/(100 000 × 30)'], out: 'n = 0.550', slip: true,
+   fix: ['n uses f<sub>cd</sub> = 0.85 × 30/1.5 = 17.0: n = 1650 × 10³/(100 000 × 17.0) = 0.971.', 'n menggunakan f<sub>cd</sub> = 0.85 × 30/1.5 = 17.0: n = 1650 × 10³/(100 000 × 17.0) = 0.971.']},
+  {ref: 'C = 1.7 − rₘ', calc: ['rₘ = −18/30 = −0.6 (double curvature); C = 1.7 + 0.6', 'rₘ = −18/30 = −0.6 (double curvature); C = 1.7 + 0.6'], out: 'C = 2.3', slip: true,
+   fix: ['The moments give tension on the same face: single curvature, rₘ = +0.6, C = 1.1. (30 &gt; N<sub>Ed</sub>l₀/400 = 9.9, so the moments, not the imperfection, decide.)', 'Moment memberi tegangan pada muka yang sama: single curvature, rₘ = +0.6, C = 1.1. (30 &gt; N<sub>Ed</sub>l₀/400 = 9.9, jadi moment, bukan imperfection, yang menentukan.)']},
+  {ref: 'λ<sub>lim</sub>', calc: ['λ<sub>lim</sub> = 20 × 0.7 × 1.1 × 2.3/√0.550', 'λ<sub>lim</sub> = 20 × 0.7 × 1.1 × 2.3/√0.550'], out: 'λ<sub>lim</sub> = 47.8', slip: false,
+   fix: ['Follows from lines 7 and 8: 20 × 0.7 × 1.1 × 1.1/√0.971 = 17.2.', 'Akibat baris 7 dan 8: 20 × 0.7 × 1.1 × 1.1/√0.971 = 17.2.']},
+  {ref: '', calc: ['λ = 23.0 &lt; 47.8: non-slender; second-order effects ignored', 'λ = 23.0 &lt; 47.8: non-slender; second-order effect diabaikan'], out: 'non-slender', slip: false,
+   fix: ['Correct verdict: 33.2 &gt; 17.2, slender about y; the second-order moment of Unit 9 is needed.', 'Keputusan yang betul: 33.2 &gt; 17.2, slender pada paksi y; second-order moment dalam Unit 9 diperlukan.']}
+];
+const EKEY = 'seaa4333-lab-column-s7';
+let eFlag = new Set(recall(EKEY, [])), eChecked = false, eFixed = false;
+function drawS7(){
+  const t = el('eSheet');
+  let html = `<thead><tr><th>${Lg('Line', 'Baris')}</th><th>Ref</th><th>${Lg('Calculation', 'Pengiraan')}</th><th>Output</th></tr></thead><tbody>`;
+  S7.forEach((r, i) => {
+    const n = i + 1, fl = eFlag.has(n);
+    let cls = fl ? 'flag' : '';
+    if (eChecked || eFixed){ if (r.slip && fl) cls = 'hit'; else if (r.slip && eFixed) cls = 'miss'; else if (!r.slip && fl) cls = 'false'; }
+    const fix = (eFixed || (eChecked && fl && r.slip)) ? `<span class="fix">${Lg(r.fix[0], r.fix[1])}</span>` : '';
+    html += `<tr class="${cls}" data-n="${n}" tabindex="0"><td class="no">${n}</td><td class="ref">${r.ref}</td><td class="calc">${Lg(r.calc[0], r.calc[1])}${fix}</td><td class="out">${r.out}</td></tr>`;
+  });
+  t.innerHTML = html + '</tbody>';
+  t.querySelectorAll('tbody tr').forEach(tr => {
+    const tog = () => { const n = +tr.dataset.n; if (eFlag.has(n)) eFlag.delete(n); else eFlag.add(n); store(EKEY, [...eFlag]); eChecked = false; drawS7(); };
+    tr.addEventListener('click', tog); tr.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); tog(); } });
+  });
+  const hits = S7.filter((r, i) => r.slip && eFlag.has(i + 1)).length, fls = S7.filter((r, i) => !r.slip && eFlag.has(i + 1)).length;
+  el('eScore').textContent = eChecked ? Lg(`${hits} of 4 slips found` + (fls ? `; ${fls} line${fls > 1 ? 's' : ''} flagged that ${fls > 1 ? 'are' : 'is'} right` : ''), `${hits} daripada 4 kesilapan dijumpai` + (fls ? `; ${fls} baris yang betul turut ditanda` : '')) : Lg(`Lines flagged: ${eFlag.size}`, `Baris ditanda: ${eFlag.size}`);
+  const sum = el('eSummary');
+  if (eFixed || (eChecked && hits === 4)){
+    sum.hidden = false;
+    sum.innerHTML = Lg('<b>Four slips, one unsafe verdict.</b> Lines 1 and 5 work against each other, lines 7 and 8 both raise the limit. Submitted: λ = 23.0 against λ<sub>lim</sub> = 47.8, non-slender. Correct: λ = 33.2 against λ<sub>lim</sub> = 17.2, slender about the minor axis: the column needs the second-order moment of Unit 9.',
+      '<b>Empat kesilapan, satu keputusan yang tidak selamat.</b> Baris 1 dan 5 saling bertentangan, baris 7 dan 8 kedua-duanya menaikkan had. Dihantar: λ = 23.0 berbanding λ<sub>lim</sub> = 47.8, non-slender. Betul: λ = 33.2 berbanding λ<sub>lim</sub> = 17.2, slender pada minor axis: column itu memerlukan second-order moment dalam Unit 9.');
+  } else sum.hidden = true;
+}
+el('eCheck').addEventListener('click', () => { eChecked = true; const hits = S7.filter((r, i) => r.slip && eFlag.has(i + 1)).length; if (hits === 4 && !eFixed) milestone('s7'); drawS7(); });
+el('eFix').addEventListener('click', () => { eFixed = true; drawS7(); });
+el('eReset').addEventListener('click', () => { eFlag = new Set(); store(EKEY, []); eChecked = false; eFixed = false; drawS7(); });
+/* text with subscripts: parts = [['M'], ['y', 1], [' (kN m)']] */
+function TS(parent, x, y, parts, attrs){
+  const t = S('text', Object.assign({x, y}, attrs || {}), parent);
+  parts.forEach(p => { const s = S('tspan', p[1] ? {'baseline-shift': 'sub', 'font-size': '0.75em'} : {}, t); s.textContent = p[0]; });
+  return t;
+}
+function drawS7Fig(){
+  const box = el('eFig'); box.innerHTML = '';
+  const svg = S('svg', {class: 'fig', viewBox: '0 0 520 296', role: 'img', 'aria-label': Lg('Column S7: elevation between floors 4.5 m apart with beams 450 mm deep, and the moment diagram about y with 30 kN m at the top and 18 kN m at the bottom on the same face.', 'Column S7: elevation di antara lantai yang berjarak 4.5 m dengan beam sedalam 450 mm, dan moment diagram pada paksi y dengan 30 kN m di atas dan 18 kN m di bawah pada muka yang sama.')}, box);
+  svg.style.minWidth = '320px';
+  const cxm = 190, yT = 40, yB = 232, bh = 30, top = yT + bh;
+  [yT, yB].forEach(y => S('rect', {x: cxm - 110, y, width: 220, height: bh, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg));
+  S('rect', {x: cxm - 14, y: top, width: 28, height: yB - top, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
+  // storey height, floor to floor
+  const xd = cxm - 136;
+  S('line', {x1: xd, x2: xd, y1: yT, y2: yB, stroke: 'var(--ink-3)'}, svg);
+  [yT, yB].forEach(y => S('line', {x1: xd - 5, x2: xd + 5, y1: y, y2: y, stroke: 'var(--ink-3)'}, svg));
+  T(svg, xd - 8, (yT + yB) / 2 + 4, '4500', {'text-anchor': 'end'});
+  // clear height, asked for
+  const xl = cxm + 128;
+  S('line', {x1: xl, x2: xl, y1: top, y2: yB, stroke: 'var(--flight)', 'stroke-dasharray': '5 4'}, svg);
+  [top, yB].forEach(y => S('line', {x1: xl - 5, x2: xl + 5, y1: y, y2: y, stroke: 'var(--flight)'}, svg));
+  T(svg, xl + 8, (top + yB) / 2 + 4, 'l = ?', {style: 'fill:var(--ink)'});
+  T(svg, cxm, yT - 12, Lg('beams 250 × 450, 5.0 m on both sides', 'beam 250 × 450, 5.0 m pada kedua-dua sisi'), {'text-anchor': 'middle', class: 'small'});
+  // first-order moments about y, single curvature
+  const mx = 410, sc = 2.2;
+  S('line', {x1: mx, x2: mx, y1: top, y2: yB, stroke: 'var(--ink-3)'}, svg);
+  S('path', {d: `M${mx},${top} L${mx + 30 * sc},${top} L${mx + 18 * sc},${yB} L${mx},${yB} Z`, fill: 'var(--wash-flag)', stroke: 'var(--flight)', 'stroke-width': 1.5}, svg);
+  T(svg, mx + 30 * sc + 6, top + 4, '30', {}); T(svg, mx + 18 * sc + 6, yB + 4, '18', {});
+  TS(svg, mx + 20, yB + 24, [['M'], ['y', 1], [' (kN m)']], {'text-anchor': 'middle'});
+  TS(svg, cxm, yB + bh + 20, [['250 × 400 · N'], ['Ed', 1], [' = 1650 kN']], {'text-anchor': 'middle', class: 'small'});
+}
+
+/* ---------- start ---------- */
+function redrawAll(){ redrawLength(); paintReveal(); drawRace(); drawS7(); drawS7Fig(); }
+drawers.length = () => drawChart(lastR || {z: axisCalc(inp, 'z'), y: axisCalc(inp, 'y')});
+if ('ResizeObserver' in window){ let cw = 0; new ResizeObserver(en => { const nw = Math.round(en[0].contentRect.width); if (nw && nw !== cw){ cw = nw; drawChart(lastR || {z: axisCalc(inp, 'z'), y: axisCalc(inp, 'y')}); } }).observe(el('lChart').parentNode); }
+else window.addEventListener('resize', () => drawChart(lastR || {z: axisCalc(inp, 'z'), y: axisCalc(inp, 'y')}));
+applyPrefs(false);
+fillCases(); syncInputs(); tPaint(); redrawAll();
+showTab((location.hash || '').slice(1) || 'length');
+window.addEventListener('hashchange', () => showTab((location.hash || '').slice(1)));
+</script>
+</body>
+</html>

@@ -14,3 +14,4 @@
 | 11 Nov 2026 | Feedback is anonymous, not for publication, public counts shown only from 10 | defaults taken when the owner agreed without choosing; using it for research would need ethics approval and a consent notice first |
 | 11 Nov 2026 | Start tab and footer now say that questions to Dr RJ and the Feedback tab are the only things sent out | the privacy sentences must stay true |
 | 13 Nov 2026 | Header contact shows the UTM e-mail only; the office phone number is removed | the lecturer's request (13 Nov): e-mail only |
+| 14 Nov 2026 | Dr RJ answers a Malay question from the page as it reads in BM (`tutor/blocks-s2.ms.json`, written by the build from rz-tutor-worker 0.4.0); slide titles in BM come from the page's Malay headings | the lecturer's decision (14 Nov, option B): Malay replies were pasting English sentences from the English-only documents, about one in four or five |

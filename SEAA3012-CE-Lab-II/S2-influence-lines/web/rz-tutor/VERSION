@@ -1,6 +1,12 @@
-rz-tutor-worker 0.3.0, 11 Nov 2026 (commit 7dbf7a5): panel/, widget/, feedback/, tools/add_panel.py, tools/build_manifest.py
-(MIT, see LICENSE). A pinned copy used by web/add_tutor.py. To update: copy the same files from a newer rz-tutor-worker
-release over this folder, rebuild the page (python3 web/build_web.py && python3 web/add_tutor.py) and check it in a browser.
+rz-tutor-worker 0.4.0, 14 Nov 2026 (branch ms-documents, commit 1b0d801): panel/, widget/, feedback/, tools/add_panel.py,
+tools/build_manifest.py (MIT, see LICENSE). A pinned copy used by web/add_tutor.py. To update: copy the same files from a
+newer rz-tutor-worker release over this folder, rebuild the page (python3 web/build_web.py && python3 web/add_tutor.py)
+and check it in a browser.
+
+0.4.0 changes only tools/build_manifest.py here: it also writes tutor/blocks-s2.ms.json and tutor/content-s2.ms.txt, the
+page as it reads in BM, which the Worker gives to Malay questions; the slides' Malay titles in tutor/manifest.json come
+from the page's Malay slide headings. The English tutor files are byte-identical to 0.3.0.
 
 History: 0.2.0 (8 Nov 2026); build_manifest.py one slide bullet per line (8 Nov, 3c48094); the local patch of
-10 Nov (the notice gate repaints when the language changes) is now part of the release, so there is no local patch.
+10 Nov (the notice gate repaints when the language changes) is now part of the release, so there is no local patch;
+0.3.0 (11 Nov, 7dbf7a5): Feedback tab, Dr RJ's counts, the relaxed lecturer-student register.

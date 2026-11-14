@@ -1,0 +1,334 @@
+{
+ "part": "u1",
+ "title": "Unit 1 Staircases I",
+ "blocks": [
+  {
+   "id": "start-outcomes",
+   "text": "[start-outcomes] After this part you should be able to\n1. set the rise R, the going G and the number of risers for a storey, and check them against UBBL By-laws 106 and 108;\n2. turn a waist thickness into a design load per m² on plan;\n3. model a flight, with or without its landing, as a beam on plan, and find the total load F, the design moment M and the reactions;\n4. design and detail the waist as a one-way slab, and find the slips in someone else’s calculation."
+  },
+  {
+   "id": "notes-n1",
+   "text": "[notes-n1] Notes 1. A stair is a slab that climbs\nStructurally, most stairs in buildings are slabs. The sloping slab under the steps is the waist; the steps sit on it as triangles of concrete that add weight but little strength. A stair that spans along its length carries its load from one support to the other like a one-way slab, so its design is the RCD I slab design with three new steps: the geometry, the load on plan and the span on plan.\n[Figure: The parts of a stair. The waist h is measured square to the soffit; the effective span L is measured on plan, from the centre of support A to the centre of support B.]\nStair spanning along its length A stair carried by supports at its two ends: beams, walls or the edges of floor slabs. It is designed as a one-way slab on a strip 1 m wide.\n- The waist h is measured square to the soffit, not vertically.\n- The going G is the horizontal depth of a tread, without the nosing overhang.\n- The rise R is the height of one step; the riser is the vertical face that makes it.\n- The effective span L is measured on plan, centre to centre of the supports.\nThis week covers flights that span along their length, alone or with a landing at the top or the bottom. Week 2 adds stairs supported by their landings, two flights at right angles, and stairs with their sides built into walls, which span across their width.\nKey points:\n- A stair is designed as a one-way slab on a 1 m strip.\n- Three steps are new: the geometry, the load on plan and the span on plan.\n- h is measured square to the soffit; L is on plan, centre to centre.\nQuick check (not graded): The waist h of a stair is measured\nOptions: vertically, from the soffit to the root of a step | square to the soffit | from the nosing down to the soffit | horizontally, along the going\nExplanation shown after answering: h is the thickness of the slab itself, measured square to its soffit. The vertical thickness is larger, y = h/cos θ, and §3 uses it to find the load."
+  },
+  {
+   "id": "notes-n2",
+   "text": "[notes-n2] Notes 2. Geometry and the by-laws\nThree limits from the Uniform Building By-Laws 1984 (UBBL) and one comfort rule fix the geometry before any structural design starts.\nRule Limit Source\nRise R, the same on every step ≤ 180 mm UBBL By-law 106\nGoing G, the same on every step ≥ 255 mm UBBL By-law 106\nLanding depth ≥ stair width UBBL By-law 106\nRisers in one flight before a landing ≤ 16, buildings other than residential UBBL By-law 108\nComfort, 2R + G about 600 mm (550 to 700) Course notes\nComfort is not the law Comfort and legality are separate tests: a stair can pass one and fail the other. Some older notes print G ≤ 255 mm; By-law 106 sets a minimum, G ≥ 255 mm.\n[Figure: Three stairs: A with R 170 and G 260, B with R 190 and G 240, C with R 175 and G 250 (mm). Which of them is legal? The first quick check below asks you.]\nQuick check (not graded): Which of the three stairs in the figure is legal under UBBL?\nOptions: A only | A and C | All three | None of them\nExplanation shown after answering: Only A: R = 170 ≤ 180 and G = 260 ≥ 255. B fails both (R = 190 > 180, G = 240 < 255). C is comfortable, 2R + G = 600 mm, but its 250 mm going is 5 mm short of 255: comfort does not make a stair legal.\n## Setting the risers for a storey\n- Least number of risers: n ≥ H/180, rounded up.\n- Rise: R = H/n, which is now ≤ 180 mm.\n- If n > 16, split the stair into two flights with a landing between them.\n- Choose G ≥ 255 mm and check 2R + G against 550 to 700 mm.\n- Remember the cost on plan: each extra riser adds one going to the length of the stair.\nQuick check (not graded): Our school has a 3.5 m storey. What is the least number of risers, and in how many flights?\nOptions: 19 risers, one flight | 20 risers, two flights | 20 risers, one flight | 18 risers, two flights\nExplanation shown after answering: n ≥ 3500/180 = 19.4, so n = 20, rounded up; R = 3500/20 = 175 mm ≤ 180. Since 20 > 16, use two flights of 10 with a half landing at 1.75 m. Rounding down to 19 gives R = 184 mm, which is illegal. With G = 260 mm, 2R + G = 610 mm.\nKey points:\n- R ≤ 180 mm and G ≥ 255 mm, uniform; at most 16 risers per flight; landing depth ≥ stair width.\n- n = H/180 rounded up, never down.\n- 2R + G ≈ 600 mm is comfort, not law."
+  },
+  {
+   "id": "notes-n3",
+   "text": "[notes-n3] Notes 3. Average thickness and load on plan\nA stair is designed as a beam on plan, so the sloping waist and its steps become one load per m² of plan area. Finishes and imposed loads are already given per m² on plan; only the self-weight of the flight needs converting.\n[Figure: Section through a flight (WE 1.1: h = 125, R = 175, G = 260 mm). y is the vertical thickness of the waist; each step adds a triangle of average height R/2; t is the average vertical thickness.]\nEQUATION (1.1): y = \\frac{h\\sqrt{R^2 + G^2}}{G}\nEQUATION (1.2): t = y + \\frac{R}{2}\nEQUATION (1.3): g_k = 25\\,t + g_{\\mathrm{fin}}\\ \\ \\text{(flight)}, \\qquad g_k = 25\\,h_L + g_{\\mathrm{fin}}\\ \\ \\text{(landing)}\nEQUATION (1.4): n_d = 1.35\\,g_k + 1.5\\,q_k\n- y = h/cos θ, where tan θ = R/G: the factor √(R² + G²)/G is 1/cos θ.\n- Each step adds a triangle on its going whose average height is R/2, so t = y + R/2.\n- Self-weight on plan is 25t kN/m² for a flight and 25h_L for a landing, with the thickness in m and concrete at 25 kN/m³. A landing is a flat slab, so it uses its own thickness.\nWorked: WE 1.1 y = 125 × √(175² + 260²)/260 = 150.7 mm; t = 150.7 + 87.5 = 238.2 mm; g_k = 25 × 0.2382 + 1.20 = 7.155 kN/m²; n_d = 1.35 × 7.155 + 1.5 × 4.0 = 15.66 kN/m².\nQuick check (not graded): The waist h = 150 mm and the going G = 260 mm stay the same; the rise R goes up from 150 to 180 mm, which is 20% more. By how much does the self-weight on plan rise?\nOptions: 0%: the waist did not change | About 10% | About 20%, like R | About 40%\nExplanation shown after answering: R = 150: y = 173.2, t = 248.2 mm, 25t = 6.20 kN/m². R = 180: y = 182.4, t = 272.4 mm, 25t = 6.81 kN/m². That is +10%: R rose by 20%, but most of t is the waist y, which grew by only 5%; the steps add just R/2. Explorer tab 2 draws this curve.\nProfessional Habit 1, a preview A flight always carries more per m² on plan than a landing of the same thickness, because t > h. In this Unit’s examples the ratio is about 1.3. A ratio of 1.0 or less means a slip (§6).\nKey points:\n- y = h√(R² + G²)/G and t = y + R/2.\n- Self-weight on plan: 25t for a flight, 25h_L for a landing (kN/m², thickness in m).\n- n_d = 1.35g_k + 1.5q_k; the flight’s n_d is larger than the landing’s n_d."
+  },
+  {
+   "id": "notes-n4",
+   "text": "[notes-n4] Notes 4. The stair as a beam on plan\nTake a strip 1 m wide and treat it as a beam on plan, from the centre of one support to the centre of the other. A flight with a landing becomes a beam with two load segments: the flight’s n_d over the flight and the landing’s n_d over the landing.\n[Figure: Faded Example 1.2 as a beam on plan: 17.69 kN/m over the flight (2725 mm) and 13.53 kN/m over the landing (1600 mm); A is continuous, B is simple. The full working is Example 2.]\nItem Course rule\nSpan L Centre to centre of the supports, on plan, built from segments: each flight or landing plus half the width of the support at its end\nTotal load F F = Σ n_d × segment length, per metre width\nDesign moment M FL/10 when at least one end is continuous; FL/8 when both ends are simply supported\nHogging moment The same FL/10, over each continuous support\nReactions Statics, including the hogging moment at a continuous end\nDeflection factor K 1.5 with both ends continuous; 1.3 with one end continuous (an end span); 1.0 with both ends simple (EC2 Table 7.4N)\nEQUATION (1.5): L = \\sum_i l_i \\qquad\\qquad F = \\sum_i n_{d,i}\\, l_i\nEQUATION (1.6): M = \\begin{cases} FL/10 & \\text{at least one end continuous} \\\\ FL/8 & \\text{both ends simply supported} \\end{cases}\nEQUATION (1.7): V_A = \\frac{\\sum_i F_i\\,(L - x_i)}{L} + \\frac{M_A - M_B}{L}, \\qquad V_B = F - V_A\nHere F_i is the load on segment i, x_i its centroid measured from A, and M_A, M_B the hogging moments at A and B, zero at a simple end. A continuous end therefore carries more shear than a simple one: in Faded Example 1.2 the hogging moment adds M_A/L = 30.21/4.325 = 6.98 kN to A’s reaction and takes the same amount from B’s.\nWhy FL/10 FL/10 is the course method (lecture notes; Mosley, Bungey and Hulse, §8.8). For an end span it is slightly conservative: BS 8110 gave 0.086FL near mid-span.\nQuick check (not graded): A flight with its landing spans from a monolithic beam (A) to a brick wall (B). Which pair is right?\nOptions: M = FL/8, K = 1.0 | M = FL/10, K = 1.3 | M = FL/10, K = 1.5 | M = FL/12, K = 1.5\nExplanation shown after answering: One continuous end gives M = FL/10 under the course method, and the end-span factor K = 1.3. C is the case with both ends continuous (K = 1.5); A treats the beam end as simple; D has no basis in the course method.\nKey points:\n- L is on plan, centre to centre of the supports, built from segments.\n- M = FL/10 with a continuous end, FL/8 with none; K = 1.5, 1.3 or 1.0.\n- A continuous end carries more shear: V_A includes (M_A − M_B)/L."
+  },
+  {
+   "id": "notes-n5",
+   "text": "[notes-n5] Notes 5. Designing the waist\nOnce the stair is a beam on plan, the waist is designed as a one-way slab. The design runs in eleven steps; steps 3, 5 and 6 are new for stairs, and step 11 adds a stair’s own detailing.\nStep What you do Reference\n1 Design life, exposure class, fire resistance EN 1990 Table 2.1; EC2 Table 4.1 (RDF §1, §3, §5)\n2 Materials: f_{ck}, f_{ctm}, f_{yk} EC2 Table 3.1\n3 New: geometry and the average thickness t UBBL 106, 108; notes\n4 Cover c_{nom} = c_{min} + Δc_{dev}, and the fire check EC2 4.4.1; EC2-1-2 Table 5.8\n5 New: actions per m² on plan, g_k, q_k, n_d EN 1991-1-1; EN 1990 Eq. 6.10\n6 New: analysis of a 1 m strip: L, F, M, V Notes; course method\n7 Flexure: d, K, z, A_s, A_{s,min}, distribution bars RDF §6; EC2 9.2.1.1, 9.3.1.1\n8 Shear: V_{Rd,c} ≥ V_{Ed} EC2 6.2.2; RDF §7\n9 Deflection: (l/d)_{allow} ≥ L/d, with the right K EC2 7.4.2; RDF §8\n10 Cracking: the bar spacing rules, for h ≤ 200 mm EC2 7.3.3, 9.3.1.1(3); RDF §9\n11 Detailing: top bars, and the bottom bars at the kink Course detailing ; EC2 9.3.1.2(2)\nEQUATION (1.8): K = \\frac{M}{b d^2 f_{ck}} \\le K_{bal} = 0.167, \\qquad z = d\\left[0.5 + \\sqrt{0.25 - \\frac{K}{1.134}}\\right] \\le 0.95\\,d\nEQUATION (1.9): A_s = \\frac{M}{0.87\\,f_{yk}\\,z}, \\qquad A_{s,min} = 0.26\\,\\frac{f_{ctm}}{f_{yk}}\\,b d \\ \\ge\\ 0.0013\\,b d\nEQUATION (1.10): V_{Rd,c} = 0.12\\,k\\,(100\\,\\rho_l f_{ck})^{1/3}\\, b d \\ \\ge\\ 0.035\\,k^{3/2} f_{ck}^{1/2}\\, b d, \\qquad k = 1 + \\sqrt{200/d} \\le 2.0\nEQUATION (1.11): \\frac{l}{d} = K\\left[11 + 1.5\\sqrt{f_{ck}}\\,\\frac{\\rho_0}{\\rho} + 3.2\\sqrt{f_{ck}}\\left(\\frac{\\rho_0}{\\rho} - 1\\right)^{3/2}\\right], \\qquad \\rho \\le \\rho_0 = \\sqrt{f_{ck}} \\times 10^{-3}\nEquation (1.11) is EC2 Eq. 7.16a, used when ρ = A_{s,req}/bd does not exceed ρ_0, as in every stair of this Unit. The result is multiplied by A_{s,prov}/A_{s,req}, at most 1.5, and compared with the actual L/d.\n## What a stair adds to the slab checks\nCheck What a stair adds Reference\nShear The continuous end carries more shear; take ρ_l from the top bars there EC2 6.2.2; RDF §7\nDeflection K = 1.5 with both ends continuous, 1.3 with one, 1.0 with none; × A_{s,prov}/A_{s,req} ≤ 1.5 EC2 7.4.2, Table 7.4N; RDF §8\nMain bar spacing ≤ min(2h, 250) mm where the moment is largest EC2 9.3.1.1(3)\nDistribution bar spacing ≤ min(3h, 400) mm where the moment is largest EC2 9.3.1.1(3)\nDistribution steel At least 20% of the main steel provided EC2 9.3.1.1(2)\nWhich spacing limits Some examples in the notes check spacing with the general limits, 3h ≤ 400 mm for main bars and 3.5h ≤ 450 mm for distribution bars. Where the moment is largest, which in a stair is mid-span and over a continuous support, EC2 tightens them to 2h ≤ 250 and 3h ≤ 400 (RDF §9). This course and the RC Design app use the tighter limits, which are never wrong.\nQuick check (not graded): A waist is 175 mm thick. Where the moment is largest, what is the largest spacing allowed for the main bars?\nOptions: 525 mm (3h) | 400 mm | 350 mm (2h) | 250 mm\nExplanation shown after answering: min(2h, 250) = min(350, 250) = 250 mm (EC2 9.3.1.1(3)). Faded Example 1.2 uses H10-150, well inside it. The general limit 3h ≤ 400 mm applies away from the peak moment.\nKey points:\n- Steps 7 to 11 are the RCD I slab design; steps 3, 5 and 6 are new.\n- Shear: the continuous end governs. Deflection: K by the number of continuous ends.\n- Spacing where M peaks: main ≤ min(2h, 250), distribution ≤ min(3h, 400) mm."
+  },
+  {
+   "id": "notes-n6",
+   "text": "[notes-n6] Notes 6. Detailing, and the kink\nBottom bars carry the span. Top bars carry the hogging moment over a continuous support, and a simple support still gets some top steel against the partial fixity that a wall or a beam gives in practice.\nBars Rule Reference\n01 Main bars, bottom Designed for M; spacing ≤ min(2h, 250) mm EC2 9.3.1.1(3)\n02 Top bars, continuous end The same steel as 01, over 0.3L from the face of the support Course detailing\n03 Top bars, simple end At least 25% of the span steel, over 0.2L from the face EC2 9.3.1.2(2)\n04 Distribution bars At least 20% of 01; spacing ≤ min(3h, 400) mm EC2 9.3.1.1(2), (3)\n[Figure: Faded Example 1.2 reinforcement: 01 main bars along the soffit, 02 top bars over 0.3L at the continuous end A, 03 top bars over 0.2L at the wall B. The detail at the kink is left for the quick check below.]\nWhere a flight meets its top landing, the soffit turns an inside (re-entrant) corner: the kink. A bar in the tension face cannot simply follow that corner. Decide which detail is right before you open the answer.\nQuick check (not graded): Which bottom-bar detail is right at the kink?\nOptions: Detail A | Detail B\nExplanation shown after answering: In A the bar is in tension on both sides of the bend. At an inside corner the two pulls add up to a force pointing out of the concrete, so the bar straightens and spalls the cover. In B the bars cross, and each runs on into the far face, where it is anchored in the compression zone. The same rule applies wherever a tension face turns an inside corner, for example where a retaining-wall stem meets its base (Week 14). [Figure: A, wrong: the bar pulls out and the cover spalls.] [Figure: B, right: the bars cross; each is anchored in the compression zone.]\n## Professional Habit 1: sanity-check the load before you design\nA flight carries more per m² on plan than its landing, because its average thickness t is greater than the landing’s thickness. A ratio of 1.0 or less means a slip.\nStair n_d flight n_d landing Ratio\nWE 1.1, with a 125 mm landing for comparison 15.66 11.84 1.32\nFaded Example 1.2 17.69 13.53 1.31\nStair S1 as submitted (Activity 1D) 12.15 12.15 1.00\nIn S1 this one glance catches slip A, the self-weight taken from the waist h. It cannot catch slip B, 1.35 on the imposed load, which lowers both loads alike; so check the partial factors line by line too.\nKey points:\n- Continuous end: top bars as the main bars over 0.3L. Simple end: at least 25% of the span steel over 0.2L.\n- At the kink the bottom bars cross; each is anchored in the compression zone.\n- Flight n_d ÷ landing n_d must exceed 1; check every partial factor as well."
+  },
+  {
+   "id": "slides-1",
+   "text": "[slides-1] Slide 1: Staircases I\nSEAA 4333 Reinforced Concrete Design II · Week 1 Staircases I Geometry, load on plan, and the stair as a beam Workbook ch. 1 ABCD card Phone or laptop Staircase Lab Scan for this page’s Explorer tab. You will use it in four activities today."
+  },
+  {
+   "id": "slides-2",
+   "text": "[slides-2] Slide 2: Four tools, one routine every week\nHow RCD2 runs Four tools, one routine every week 01 Deck Paces the session. No talk runs past ten minutes. 02 Workbook Your module book. You write in it every class, in exam format. 03 Lab and app Predict, then check. Feedback on every step of your working. 04 Studio Fifteen minutes a week on your own project building. Three habits Cards up when asked Phones for Lab windows only Hand calculation first, app second SEA"
+  },
+  {
+   "id": "slides-3",
+   "text": "[slides-3] Slide 3: Five topics, fourteen Units\nThe semester · 12 Oct 2026 to 24 Jan 2027 Five topics, fourteen Units W1–2 Staircases today W3–6 Frame analysis sub-frames, wind, sway W7, 9–10 Columns short, slender, biaxial W11–13 Foundations pads, straps, pile caps W14–15 Retaining walls Assessment Weight When Test 1 15% Week 9 (7–13 Dec), after the mid-semester break Test 2 15% Week 13 (4–10 Jan) Project (group and individual) 15% Submitted as the brief states;"
+  },
+  {
+   "id": "slides-4",
+   "text": "[slides-4] Slide 4: How the next three hours run\nToday · 180 minutes How the next three hours run 0:00 Welcome How RCD2 runs 0:08 Warm-up RCD I in five votes 0:18 Hook Is this stair legal? 0:22 Anatomy, rules UBBL 106 and 108 0:33 Stair Audit Measure a real stair 0:53 Stair to beam Load on plan, span, M 1:08 Faded example In pairs 1:30 Break 10 minutes 1:40 Checks, detailing And the kink 1:53 Spot the error In teams 2:10 Exam-size problem Alone, 25 minutes 2:35 Stu"
+  },
+  {
+   "id": "slides-5",
+   "text": "[slides-5] Slide 5: Five questions on slab design, no notes\nWarm-up · RCD I recall · vote with your card Five questions on slab design, no notes W1. A one-way slab has K = M/(bd²fck) = 0.090. Does it need compression steel? A Yes, K > 0.05 · B No, K < Kbal = 0.167 · C Only if fyk = 500 · D Only if h > 200 mm W2. Deflection of a simply supported one-way slab: the structural factor K in Table 7.4N is A 1.0 · B 1.3 · C 1.5 · D 0.4 W3. Distribution (secondary) bars in a one-way s"
+  },
+  {
+   "id": "slides-6",
+   "text": "[slides-6] Slide 6: Two more\nWarm-up · RCD I recall · vote with your card Two more W4. The design action on a floor carrying gk and qk (EN 1990, Eq. 6.10) is A 1.35gk + 1.5qk · B 1.4gk + 1.6qk · C 1.5gk + 1.35qk · D gk + qk W5. In a slab no deeper than 200 mm, cracking is controlled by A computing the crack width · B the bar spacing rules · C Table 7.2N for every bar · D nothing at all Why this warm-up: a stair waist is a slab. Steps 7 to 11 of"
+  },
+  {
+   "id": "slides-7",
+   "text": "[slides-7] Slide 7: B, A, B, A, B, and what each means for a stair\nWarm-up · answers B, A, B, A, B, and what each means for a stair Q Answer On a stair today W1 B: K < Kbal = 0.167, singly reinforced The waist uses the same K, z and As W2 A: K = 1.0 when simply supported Stairs use 1.0, 1.3 or 1.5 by their continuous ends W3 B: 20% of the main steel Same rule; we take 20% of the steel provided W4 A: 1.35gk + 1.5qk Same factors, with loads per m² on plan W5 B: bar spacing rules Same"
+  },
+  {
+   "id": "slides-8",
+   "text": "[slides-8] Slide 8: Which of these stairs is legal?\nHook · pairs · 4 minutes Which of these stairs is legal? Decide with your neighbour: A, B, C, all of them, or none? Write it down. We check in ten minutes. SEAA 4333 · Unit 1 · Staircases I Workbook 1.2"
+  },
+  {
+   "id": "slides-9",
+   "text": "[slides-9] Slide 9: A stair is a slab that climbs\nBlock A · the method A stair is a slab that climbs Geometry R, G, risers Load on plan waist, t, nd Beam on plan L, F, FL/10 Slab design as in RCD I Detailing top bars, kink By 3:00 you can set R, G and the risers for a storey, and check them against UBBL 106 and 108 turn a waist into a load per m² on plan model a flight, with or without its landing, as a beam on plan, and find F, M and the reactions design and detail"
+  },
+  {
+   "id": "slides-10",
+   "text": "[slides-10] Slide 10: The parts of a stair\nBlock A · anatomy The parts of a stair Waist h is measured square to the soffit, not vertically. The span is on plan, centre to centre of the supports. This week: flights that span along their length, with or without landings. SEAA 4333 · Unit 1 · Staircases I Workbook 1.2"
+  },
+  {
+   "id": "slides-11",
+   "text": "[slides-11] Slide 11: Four numbers fix the geometry\nBlock A · the by-laws Four numbers fix the geometry ≤ 180 mm rise R, the same on every step UBBL 106 ≥ 255 mm tread G, the same on every step UBBL 106 ≤ 16 risers in one flight, then a landing UBBL 108 ≈ 600 mm for 2R + G, for comfort (550 to 700) Course notes Hook answer: only A is legal. C is comfortable (2R + G = 600) but its 250 mm tread is short of 255. B fails both the rise and the tread. SEAA 4333 · Unit 1 · S"
+  },
+  {
+   "id": "slides-12",
+   "text": "[slides-12] Slide 12: Our school has a 3.5 m storey. What is the least number of risers, and in how many flights?\nConcept check 1 · think 60 s, then vote Our school has a 3.5 m storey. What is the least number of risers, and in how many flights? A 19 risers, one flight B 20 risers, two flights C 20 risers, one flight D 18 risers, two flights Vote · convince your neighbour · vote again Workbook 1.2"
+  },
+  {
+   "id": "slides-13",
+   "text": "[slides-13] Slide 13: B: 20 risers of 175 mm, in two flights of 10\nConcept check 1 · answer B: 20 risers of 175 mm, in two flights of 10 Step 1 n ≥ 3500/180 = 19.4 so n = 20, rounded up Step 2 R = 3500/20 = 175 mm ≤ 180, so legal Step 3 20 > 16 per flight two flights of 10, half landing at 1.75 m Rounding down to 19 gives R = 184 mm: illegal. With G = 260, 2R + G = 610 mm. This is the stair Lab tab 1 opens with. SEAA 4333 · Unit 1 · Staircases I Workbook 1.2"
+  },
+  {
+   "id": "slides-14",
+   "text": "[slides-14] Slide 14: Stair Audit: is our stair legal?\nActivity 1A · teams of four · 20 minutes Stair Audit: is our stair legal? Walk to the stair your lecturer names. Measure five risers and five goings, and take the averages. Count the risers in one flight. Measure the stair width and the landing depth. Back in your seat: Lab tab 1, Check a measured stair . Record each verdict in Workbook 1.3. The reporter adds your team to the class table and explains any fail. Measur"
+  },
+  {
+   "id": "slides-15",
+   "text": "[slides-15] Slide 15: From waist to load on plan\nBlock B · load on plan From waist to load on plan y = h√(R² + G²)/G t = y + R/2 gk = 25t + finishes nd = 1.35gk + 1.5qk Why on plan? The span is measured on plan, and people stand on the treads. WE 1.1: h 125, R 175, G 260 → y 150.7, t 238.2 mm, self-weight 5.95 kN/m². SEAA 4333 · Unit 1 · Staircases I Workbook 1.4"
+  },
+  {
+   "id": "slides-16",
+   "text": "[slides-16] Slide 16: Same waist (150 mm) and going (260 mm). R rises from 150 to 180 mm. How much does the self-weight on plan rise?\nActivity 1B · Concept check 2 · predict, then reveal · pairs · 5 min Same waist (150 mm) and going (260 mm). R rises from 150 to 180 mm. How much does the self-weight on plan rise? A 0%: the waist did not change B About 10% C About 20%, like R D About 40% Vote in Workbook 1.4 · then reveal in Lab tab 2 Workbook 1.4"
+  },
+  {
+   "id": "slides-17",
+   "text": "[slides-17] Slide 17: B: about 10%, from 6.20 to 6.81 kN/m²\nActivity 1B · answer B: about 10%, from 6.20 to 6.81 kN/m² R (mm) y (mm) R/2 (mm) t (mm) 25t (kN/m²) 150 173.2 75 248.2 6.20 180 182.4 90 272.4 6.81 change +5% +20% +10% +10% R rose 20%, but most of t is the waist y, and y grew only 5%. The steps add R/2. SEAA 4333 · Unit 1 · Staircases I Workbook 1.4"
+  },
+  {
+   "id": "slides-18",
+   "text": "[slides-18] Slide 18: Model the stair as a beam on plan\nBlock B · from stair to beam Model the stair as a beam on plan Span L: centre to centre of the supports, on plan. F = Σ nd × length , per metre width: the flight part and the landing part. M = FL/10 with at least one continuous end; FL/8 when both ends are simply supported. Deflection K (Table 7.4N): 1.5 both ends continuous, 1.3 one end, 1.0 neither. SEAA 4333 · Unit 1 · Staircases I Workbook 1.4"
+  },
+  {
+   "id": "slides-19",
+   "text": "[slides-19] Slide 19: Flight 1 of our 3.5 m storey, between two beams\nBlock B · Worked Example 1.1 · I do Flight 1 of our 3.5 m storey, between two beams R 175 · G 260 mm 10 × 260 = 2600 mm between beam faces Beams 250 mm wide, both continuous Waist 125 mm; cover 25; H10 gk 1.2 finishes; qk 4.0 kN/m² C25/30; fyk 500 Calculation Output y = 125√(175² + 260²)/260 150.7 mm t = 150.7 + 175/2 238.2 mm gk = 25 × 0.2382 + 1.2 7.15 kN/m² nd = 1.35 × 7.15 + 1.5 × 4.0 15.66 kN/m² L = 2600 + 250/2"
+  },
+  {
+   "id": "slides-20",
+   "text": "[slides-20] Slide 20: Eleven steps; three are new\nBlock B · the design procedure Eleven steps; three are new 1 Design life, exposure, fire 7 Flexure: K, z, As (RDF §6) 2 Materials 8 Shear (RDF §7) 3 Waist h, then average thickness t 9 Deflection, K by the ends (RDF §8) 4 Cover: durability, fire, bond 10 Cracking: bar spacing (RDF §9) 5 Actions per m² on plan 11 Detailing: top bars, the kink 6 Span, F, M = FL/10, reactions Dark rows are new for stairs. Steps 7 to 11"
+  },
+  {
+   "id": "slides-21",
+   "text": "[slides-21] Slide 21: Faded Example 1.2\nActivity 1C · pairs · 22 minutes Faded Example 1.2 R 175, G 260; waist and landing 175 mm A: beam 250, continuous · B: wall 200, simple gk 1.2 finishes, qk 4.0 kN/m²; C25/30; H10 Fill the blank lines in Workbook 1.6 by hand. Then pick FE 1.2 in Lab tab 3 and check L, F, M and the reactions. Check at 1:25 · answers at 1:27 SEAA 4333 · Unit 1 · Staircases I Workbook 1.6"
+  },
+  {
+   "id": "slides-22",
+   "text": "[slides-22] Slide 22: Check: L = 4325 mm, M = 30.2 kNm\nActivity 1C · answers Check: L = 4325 mm, M = 30.2 kNm t 298.4 mm nd flight 17.69 kN/m² nd landing 13.53 kN/m² L = 2725 + 1600 4325 mm F 69.9 kN M = FL/10 30.2 kNm VA, continuous end 44.0 kN VB, wall 25.8 kN Main steel, d = 145 mm As 506 → H10-150 (524) Deflection, K = 1.3 35.4 allowed ≥ 29.8 actual SEAA 4333 · Unit 1 · Staircases I Workbook 1.6"
+  },
+  {
+   "id": "slides-23",
+   "text": "[slides-23] Slide 23: Break\n1:30 Break 10 minutes. Back at 1:40. Next: the checks stairs get wrong, and a calculation with four slips in it."
+  },
+  {
+   "id": "slides-24",
+   "text": "[slides-24] Slide 24: What a stair adds to the slab checks\nBlock C · checks and detailing What a stair adds to the slab checks Shear: the continuous end carries more; take ρl from the top bars there. Deflection: K = 1.5, 1.3 or 1.0 by the continuous ends. Spacing where M peaks: main ≤ 2h and 250; distribution ≤ 3h and 400 mm. Distribution steel: at least 20% of the main steel provided. Top bars: 0.3L at a continuous end; at least 25% of the span steel over 0.2L at a simple e"
+  },
+  {
+   "id": "slides-25",
+   "text": "[slides-25] Slide 25: A flight with its landing spans from a monolithic beam (A) to a brick wall (B). Which pair is right?\nConcept check 3 · think 60 s, then vote A flight with its landing spans from a monolithic beam (A) to a brick wall (B). Which pair is right? A M = FL/8 and K = 1.0 B M = FL/10 and K = 1.3 C M = FL/10 and K = 1.5 D M = FL/12 and K = 1.5 Vote · convince your neighbour · vote again Workbook 1.7"
+  },
+  {
+   "id": "slides-26",
+   "text": "[slides-26] Slide 26: The flight meets its top landing. Which bottom-bar detail is right at the kink?\nConcept check 4 · think 60 s, then vote The flight meets its top landing. Which bottom-bar detail is right at the kink? A B Vote · convince your neighbour · vote again Workbook 1.7"
+  },
+  {
+   "id": "slides-27",
+   "text": "[slides-27] Slide 27: B and B\nConcept checks 3 and 4 · answers B and B CC3 · B One continuous end: M = FL/10, and the end-span factor K = 1.3. Both ends continuous would give K = 1.5; neither, FL/8 and K = 1.0. A, wrong: the bar straightens and spalls the corner. B, right: the bars cross and anchor in the compression zone. SEAA 4333 · Unit 1 · Staircases I Workbook 1.7"
+  },
+  {
+   "id": "slides-28",
+   "text": "[slides-28] Slide 28: Stair S1 has four slips. Find them.\nActivity 1D · teams of four · 17 minutes Stair S1 has four slips. Find them. Workbook 1.8 holds the submitted calculation: fifteen lines in Ref / Calculations / Output. Alone, 5 min: mark every line you doubt. Team, 8 min: agree on four, with a one-line reason each. Lab tab 5: tap your lines, press Check. Roles: reader, calculator, checker, reporter SEAA 4333 · Unit 1 · Staircases I Workbook 1.8"
+  },
+  {
+   "id": "slides-29",
+   "text": "[slides-29] Slide 29: Four small slips, one unsafe stair\nActivity 1D · answers Four small slips, one unsafe stair Slip Line What went wrong Correct A 4 Self-weight from the waist h From t: 25 × 0.274 = 6.85 kN/m² B 6, 7 1.35 on the imposed load 1.5: nd = 16.60 and 12.75 kN/m² C 8 Clear span, 3830 mm Centre to centre: 4030 mm D 13 K = 1.5 with one continuous end K = 1.3 (end span) Result: M = 17.8 kNm instead of 24.6. H10-225 gives 349 mm²/m where 461 is needed: 24% short ."
+  },
+  {
+   "id": "slides-30",
+   "text": "[slides-30] Slide 30: D1: a flight with a bottom landing\nBlock D · exam-size problem · alone · 25 minutes D1: a flight with a bottom landing A: 200 mm wall, simply supported. B: 300 mm beam, continuous. Waist and landing 150 mm. Finishes 1.5, imposed 4.0 kN/m². C30/37, fyk 500, cover 25 mm, H10. Part Marks (a) Average thickness and design loads 6 (b) Span and design moment 4 (c) Main and distribution bars 8 (d) Deflection check, after class 7 Ref / Calculations / Output. N"
+  },
+  {
+   "id": "slides-31",
+   "text": "[slides-31] Slide 31: Propose the stairs for your building\nProject studio · project groups · 17 minutes Propose the stairs for your building Take each storey height from your brief (in 2024/25: 3.5 m, then 3.0 m). Choose n, R and G. Check UBBL 106 and 108 and 2R + G in Lab tab 1. Choose the arrangement: flights between beams, or a flight with its landing. Take a first waist of span/25 to span/30, using Lab tab 3 for the span. Log it in Workbook 1.10, with a sketch of the pla"
+  },
+  {
+   "id": "slides-32",
+   "text": "[slides-32] Slide 32: Sanity-check the load before you design\nClose · 2:52 · Professional Habit 1 Sanity-check the load before you design Stair nd flight nd landing Ratio WE 1.1 15.66 11.84 1.32 FE 1.2 17.69 13.53 1.31 S1 as submitted 12.15 12.15 1.00 A flight carries more per m² on plan than its landing. A ratio of 1.0 or less means a slip. In S1 it catches slip A; slip B lowers both loads alike, so check the partial factors too. SEAA 4333 · Unit 1 · Staircases I Workbook 1.11"
+  },
+  {
+   "id": "slides-33",
+   "text": "[slides-33] Slide 33: Before Week 2\nAfter class Before Week 2 Finish D1 part (d), then self-mark all of D1 with the answer scheme. Explore RC Design app, Staircase tab: Ex 8.1(a) and 8.1(b), step by step. Read The staircase chapter of Yassin and Abdullah (2022), Examples 8.1 to 8.3. Bring Workbook chapter 1 and your ABCD card. Week 2: stairs supported by landings, two flights at right angles, and stairs with their sides built into walls. SEAA 4333 · Un"
+  },
+  {
+   "id": "slides-34",
+   "text": "[slides-34] Slide 34: Before you leave\nExit ticket · 5 minutes · Workbook 1.11 Before you leave 1 A stair has R = 175 mm and G = 250 mm. Is it legal under By-law 106? Why? 2 Waist h = 150 mm, R = 175 mm, G = 260 mm. Find the average thickness t. 3 What is still unclear for you today? Tear off the slip and hand it in at the door. Next week: stairs on landings. SEAA 4333 · Unit 1 · Staircases I"
+  },
+  {
+   "id": "examples-x1",
+   "text": "[examples-x1] Example 1 · Worked Example 1.1: a flight between two beams\nExam type design and detail a waist Workbook 1.5 Time ≈ 30 min\nQuestion Flight 1 of the 3.5 m storey in Concept check 1 has R = 175 mm and G = 260 mm, with 10 goings (2600 mm) between the faces of two beams 250 mm wide, A and B, both monolithic and continuous. Waist h = 125 mm; finishes 1.2 kN/m² and imposed 4.0 kN/m², both on plan; C25/30, f_{yk} = 500 N/mm², cover 25 mm, H10 main bars; concrete 25 kN/m³. Design and detail the waist. Assumed (the data give only the cover): design life 50 years, exposure XC1, fire resistance REI 60.\n[Figure: Worked Example 1.1: 10 risers of 175 mm and 10 goings of 260 mm between two 250 mm beams.]\nPhysical picture. A straight flight between two monolithic beams. Both ends are continuous, so the strip is an interior span (K = 1.5), and the moment is FL/10 both at mid-span and over each beam.\nPlan. Steps 1, 2 and 4 as for any slab; step 3 turns the waist into t; step 5 gives n_d on plan; step 6 is the beam on plan; steps 7 to 11 are the slab design.\n## Step 1 Design life, exposure, fire\nRef Calculations Output\nEN 1990 Table 2.1 (RDF §1) Building structure, category 4 50 years\nEC2 Table 4.1 (RDF §5) Inside a building, low air humidity XC1\nUBBL (RDF §3) Assumed for this example REI 60\n## Step 2 Materials\nRef Calculations Output\nEC2 Table 3.1 f_{ck} = 25 N/mm², f_{ctm} = 2.56 N/mm²; f_{yk} = 500 N/mm² C25/30, H bars\n## Step 3 Geometry and average thickness (new for stairs)\nRef Calculations Output\nUBBL 106, 108 R = 175 ≤ 180; G = 260 ≥ 255; 10 risers ≤ 16; 2R + G = 610 mm Geometry OK\nNotes y = h√(R² + G²)/G = 125 × √(175² + 260²)/260 = 125 × 313.4/260 y = 150.7 mm\nNotes t = y + R/2 = 150.7 + 175/2 t = 238.2 mm\n## Step 4 Cover\nRef Calculations Output\nEC2 4.4.1.2 (RDF §5) c_{min,b} = 10 mm (bar size); c_{min,dur} = 15 mm (XC1, class S4); c_{min} = 15 mm\nEC2 4.4.1.3 c_{nom} = c_{min} + Δc_{dev} = 15 + 10 c_{nom} = 25 mm\nEC2-1-2 Table 5.8 (RDF §5) REI 60, one-way slab: h ≥ 80 mm, a ≥ 20 mm. Here h = 125 mm, a = 25 + 10/2 = 30 mm Fire OK\n## Step 5 Actions per m² on plan (new for stairs)\nRef Calculations Output\nEN 1991-1-1 Self-weight 25 × 0.2382 = 5.955; finishes 1.20 g_k = 7.155 kN/m²\nGiven Imposed q_k = 4.00 kN/m²\nEN 1990 Eq. 6.10 n_d = 1.35 × 7.155 + 1.5 × 4.00 n_d = 15.66 kN/m²\n## Step 6 Analysis of a 1 m strip (new for stairs)\nRef Calculations Output\nNotes L = 250/2 + 2600 + 250/2, centre to centre of the beams L = 2850 mm\nF = n_d × L = 15.66 × 2.85 F = 44.63 kN\nCourse method Both ends continuous: M = FL/10 = 44.63 × 2.85/10 M = 12.72 kNm\nStatics Symmetric, M_A = M_B: V_A = V_B = F/2 V = 22.3 kN\n[Figure: The flight as a beam on plan: 15.66 kN/m over 2850 mm, both ends continuous.]\n## Step 7 Flexure\nRef Calculations Output\nd = h − c − φ/2 = 125 − 25 − 10/2 d = 95 mm\nRDF §6 K = M/(bd²f_{ck}) = 12.72 × 10⁶/(1000 × 95² × 25) = 0.056 < K_{bal} = 0.167 No compression steel\nRDF §6 z = d[0.5 + √(0.25 − K/1.134)] = 0.9475d ≤ 0.95d z = 90.0 mm\nRDF §6 A_s = M/(0.87f_{yk}z) = 12.72 × 10⁶/(0.87 × 500 × 90.0) A_{s,req} = 325 mm²/m\nEC2 9.2.1.1 A_{s,min} = 0.26(f_{ctm}/f_{yk})bd = 0.26 × 2.56/500 × 1000 × 95 = 126, and ≥ 0.0013bd = 124 Not governing\nMain bars H10-225 (349 mm²/m)\nEC2 9.3.1.1(2) Distribution ≥ 0.2 × 349 = 70 mm²/m H8-300 (168 mm²/m)\n## Step 8 Shear\nRef Calculations Output\nRDF §7 V_{Ed} = 22.3 kN; k = 1 + √(200/95) = 2.45 > 2.0, so k = 2.0; ρ_l = 349/(1000 × 95) = 0.00367\nEC2 6.2.2 V_{Rd,c} = 0.12 × 2.0 × (100 × 0.00367 × 25)^{1/3} × 1000 × 95 = 47.7 kN; minimum 0.035k^{1.5}f_{ck}^{0.5}bd = 47.0 kN 47.7 ≥ 22.3 kN, OK\n## Step 9 Deflection\nRef Calculations Output\nRDF §8 ρ = A_{s,req}/bd = 325/(1000 × 95) = 0.00342 < ρ_0 = √25 × 10⁻³ = 0.0050, so Eq. 7.16a\nEC2 Table 7.4N Both ends continuous: an interior span K = 1.5\nRDF §8 (l/d)_{basic} = 1.5 × (11 + 10.96 + 5.02) = 1.5 × 27.0 40.5\nRDF §8 Span ≤ 7 m: × 1.0. A_{s,prov}/A_{s,req} = 349/325 = 1.074 ≤ 1.5: (l/d)_{allow} = 40.5 × 1.074 (l/d)_{allow} = 43.5\n(l/d)_{actual} = L/d = 2850/95 = 30.0 ≤ 43.5 Deflection OK\n## Step 10 Cracking\nRef Calculations Output\nEC2 7.3.3 (RDF §9) h = 125 ≤ 200 mm: the spacing rules of EC2 9.3 are enough\nEC2 9.3.1.1(3) Main 225 ≤ min(2h, 250) = 250 mm; distribution 300 ≤ min(3h, 400) = 375 mm Cracking OK\n## Step 11 Detailing\nRef Calculations Output\nCourse detailing Top bars at A and B, both continuous: as the main bars, over 0.3L = 0.3 × 2850 = 855 mm from the face of each beam H10-225 top, 855 mm\n[Figure: 01 main bars H10-225 along the soffit, 02 top bars H10-225 over 855 mm at each beam, distribution bars H8-300.]\nAnswer. Waist 125 mm: main bars H10-225 (349 mm²/m), distribution bars H8-300, top bars H10-225 over 855 mm from the face of each beam. Shear, deflection and cracking pass.\nWhat the numbers say Shear is far from critical here (47.7 against 22.3 kN). Deflection leaves room too: 30.0 against 43.5. A first waist of span/25 to span/30 would be 95 to 114 mm; the 125 mm chosen keeps a margin, and Explorer tab 2 shows what a thinner waist does to the load."
+  },
+  {
+   "id": "examples-x2",
+   "text": "[examples-x2] Example 2 · Faded Example 1.2: a flight with its top landing\nExam type two load segments, two kinds of end Workbook 1.6 Time ≈ 35 min\nQuestion The stair of Example 1 now ends on a 1500 mm landing carried by a wall. R = 175 mm, G = 260 mm, flight 10 × 260 = 2600 mm on plan; waist and landing both 175 mm thick. A: beam 250 mm wide, monolithic and continuous. B: brick wall 200 mm wide, simply supported. Finishes 1.2 kN/m², imposed 4.0 kN/m²; C25/30, f_{yk} = 500 N/mm², cover 25 mm, H10. Steps 1, 2 and 4 are as in Example 1. Design and detail the stair.\n[Figure: Faded Example 1.2: a beam at A, the flight, a 1500 mm top landing and a wall at B.]\nPhysical picture. The ends now differ: A is continuous with the beam, B rests on a wall. One continuous end gives M = FL/10 and K = 1.3; the hogging moment at A makes A’s reaction the larger one.\n## Step 3 Average thickness\nRef Calculations Output\nNotes y = 175 × √(175² + 260²)/260 = 175 × 313.4/260 y = 210.9 mm\nNotes t = y + R/2 = 210.9 + 87.5 t = 298.4 mm\n## Step 5 Actions per m² on plan\nRef Calculations Output\nFlight Self-weight 25 × 0.2984 = 7.46; g_k = 7.46 + 1.20 = 8.66; n_d = 1.35 × 8.66 + 1.5 × 4.0 n_d = 17.69 kN/m²\nLanding Self-weight 25 × 0.175 = 4.375; g_k = 4.375 + 1.20 = 5.575; n_d = 1.35 × 5.575 + 1.5 × 4.0 n_d = 13.53 kN/m²\nHabit 1 Ratio 17.69/13.53 = 1.31 > 1 Loads plausible\n## Step 6 Analysis of a 1 m strip\nRef Calculations Output\nNotes L_1 = 2600 + 250/2 = 2725 mm; L_2 = 1500 + 200/2 = 1600 mm L = 4325 mm\nF = 17.69 × 2.725 + 13.53 × 1.600 = 48.205 + 21.648 F = 69.85 kN\nCourse method One end continuous, so M = FL/10 = 69.85 × 4.325/10 M = 30.21 kNm\nStatics Centroids from A: x_1 = 2.725/2 = 1.3625 m, x_2 = 2.725 + 1.600/2 = 3.525 m. ΣF_i(L − x_i) = 48.205 × 2.9625 + 21.648 × 0.800 = 160.13 kNm; M_A = 30.21 kNm, M_B = 0. V_A = (160.13 + 30.21)/4.325 V_A = 44.01 kN\nStatics V_B = F − V_A = 69.85 − 44.01 V_B = 25.84 kN\n[Figure: Two load segments on one beam; the larger reaction is at the continuous end A.]\n## Step 7 Flexure\nRef Calculations Output\nd = 175 − 25 − 10/2 d = 145 mm\nRDF §6 K = 30.21 × 10⁶/(1000 × 145² × 25) = 0.057 < K_{bal} = 0.167 No compression steel\nRDF §6 z = d[0.5 + √(0.25 − K/1.134)] = 0.946d ≤ 0.95d z = 137.2 mm\nRDF §6 A_s = 30.21 × 10⁶/(0.87 × 500 × 137.2); A_{s,min} = 0.26 × 2.56/500 × 1000 × 145 = 193, not governing A_{s,req} = 506 mm²/m\nEC2 9.3.1.1(3) Spacing ≤ min(2h, 250) = min(350, 250) = 250 mm H10-150 (524 mm²/m)\nEC2 9.3.1.1(2) Distribution ≥ 0.2 × 524 = 105 mm²/m, spacing ≤ min(3h, 400) = 400 mm H8-300 (168 mm²/m)\n## Step 8 Shear\nRef Calculations Output\nRDF §7 V_{Ed} = 44.0 kN at A, the continuous end; k = 1 + √(200/145) = 2.17 > 2.0, so k = 2.0; ρ_l from the top bars at A = 524/(1000 × 145) = 0.00361\nEC2 6.2.2 V_{Rd,c} = 0.12 × 2.0 × (100 × 0.00361 × 25)^{1/3} × 1000 × 145 = 72.5 kN; minimum 71.8 kN 72.5 ≥ 44.0 kN, OK\n## Step 9 Deflection\nRef Calculations Output\nRDF §8 ρ = 506/(1000 × 145) = 0.00349 < ρ_0 = 0.0050, so Eq. 7.16a\nEC2 Table 7.4N One end continuous: an end span K = 1.3\nRDF §8 (l/d)_{basic} = 1.3 × (11 + 10.75 + 4.56) = 1.3 × 26.31 = 34.2; A_{s,prov}/A_{s,req} = 524/506 = 1.036; (l/d)_{allow} = 34.2 × 1.036 (l/d)_{allow} = 35.4\n(l/d)_{actual} = 4325/145 = 29.8 ≤ 35.4 Deflection OK\n## Step 10 Cracking\nRef Calculations Output\nEC2 7.3.3, 9.3.1.1(3) h = 175 ≤ 200 mm; main 150 ≤ 250 mm; distribution 300 ≤ 400 mm Cracking OK\n## Step 11 Detailing\nRef Calculations Output\nCourse detailing Top bars at A: as the main bars, over 0.3L = 0.3 × 4325 = 1298 mm from the face of the beam H10-150 top, 1298 mm\nEC2 9.3.1.2(2) Top bars at B: at least 0.25 × 524 = 131 mm²/m, over 0.2L = 0.2 × 4325 = 865 mm from the face of the wall H8-300 top, 865 mm\nNotes §6 At the kink the bottom bars cross, each anchored in the compression zone Bars cross\n[Figure: 01 main bars, 02 top bars over 1298 mm at A, 03 top bars over 865 mm at B, and the bottom bars crossing at the kink.]\nAnswer. Waist and landing 175 mm: main bars H10-150 (524 mm²/m), distribution bars H8-300; top bars H10-150 over 1298 mm at A and H8-300 over 865 mm at B; the bottom bars cross at the kink. Shear, deflection and cracking pass.\nWhy A carries more shear The hogging moment at the continuous end adds M_A/L = 30.21/4.325 = 6.98 kN to A’s reaction and takes the same amount from B’s. Shear is therefore checked at A, with ρ_l from the top bars there."
+  },
+  {
+   "id": "examples-x3",
+   "text": "[examples-x3] Example 3 · Explain-type questions\nExam type short written answers Time ≈ 3 min each\nQuestions\n- Explain why a flight carries a larger load per m² on plan than a landing of the same thickness.\n- A flight with its landing spans from a monolithic beam to a brick wall. State the design moment and the deflection factor K under the course method, and justify each.\n- Why does the continuous end of that stair carry more shear than the simple end?\n- Sketch and explain the correct bottom-bar detail where a flight meets its top landing.\nWrite your four answers first, then open the model answers one by one.\n## Answer 1 The flight is thicker on plan\nMeasured vertically, which is how a load on plan sees it, the flight’s concrete is thicker than h for two reasons. The waist is y = h/cos θ = h√(R² + G²)/G, and each step adds a triangle of average height R/2, so t = y + R/2. With h = 175, R = 175 and G = 260 mm, t = 298.4 mm against a landing of 175 mm, and n_d = 17.69 against 13.53 kN/m², a ratio of 1.31.\n## Answer 2 FL/10 and K = 1.3\nM = FL/10, because one end is continuous with the beam: the course method uses FL/10 whenever at least one end is continuous, and FL/8 only when both ends are simply supported. K = 1.3, because the stair is an end span, continuous at one end only (EC2 Table 7.4N).\n## Answer 3 The hogging moment shifts the reaction\nThe beam restrains rotation at A, so a hogging moment M_A develops there. Taking moments about B, A’s reaction gains M_A/L and B’s loses the same: V_A = ΣF_i(L − x_i)/L + M_A/L. In Faded Example 1.2, M_A/L = 6.98 kN, so V_A = 44.01 kN against V_B = 25.84 kN.\n## Answer 4 Cross the bars at the kink\nDo not bend a bottom bar round the inside corner: in tension, the pulls in its two legs add up to a force pointing out of the concrete, which straightens the bar and spalls the cover. Instead, run each set of bottom bars straight on past the corner into the opposite face, so that the two sets cross, and anchor each in the compression zone. Sketch: Notes §6, Detail B."
+  },
+  {
+   "id": "exercises-b1",
+   "text": "[exercises-b1] Exercise B1 · Risers and flights for a storey\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-b2",
+   "text": "[exercises-b2] Exercise B2 · Average thickness and design loads on plan\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-b3",
+   "text": "[exercises-b3] Exercise B3 · Span, total load and design moment\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-b4",
+   "text": "[exercises-b4] Exercise B4 · Reactions of a flight with its landing\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-b5",
+   "text": "[exercises-b5] Exercise B5 · Flexure of the waist\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-b6",
+   "text": "[exercises-b6] Exercise B6 · Deflection check with the right K\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-quick",
+   "text": "[exercises-quick] Exercises: quick concept questions\n- The self-weight on plan of a flight is computed from which thickness?\n- In n_d (EN 1990, Eq. 6.10), which partial factor multiplies the imposed load q_k ?\n- The effective span L of a stair is measured\n- A flight spans between two monolithic beams, so both ends are continuous. Which pair is right under the course method?\n- What top steel goes at a simply supported end, such as a wall?\n- A stair has R = 185 mm and G = 260 mm, so 2R + G = 630 mm. Under UBBL it is\n- A flight has h = 150 mm, R = 165 mm and G = 280 mm, with a landing 150 mm thick; finishes 1.2 kN/m² and imposed 4.0 kN/m², both on plan. One line contains the slip. Which one?\n- A wall 230 mm wide at A (simple) carries a bottom landing of 1400 mm clear, then a flight of 10 risers of 170 mm and 10 goings of 270 mm (2700 mm on plan) up to a beam 250 mm wide at B (continuous). Given n_d = 12.60 kN/m² for the landing and 16.40 kN/m² for the flight. One line contains the slip. Which one?"
+  },
+  {
+   "id": "lab-audit",
+   "text": "[lab-audit] Explorer task 1 · Tab 1, “Check a measured stair”: enter a stair, yours from the Stair Audit or one at home, and press “Add to class table”.\nTicks itself: when a row is added to the class table · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-act1b",
+   "text": "[lab-act1b] Explorer task 2 · Tab 2: set R = 150, G = 260 and h = 150, then drag R to 180. Compare the rise in self-weight with your answer to Activity 1B.\nTicks itself: when R goes from 150 to 180 with G = 260 and h = 150 · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-fe12",
+   "text": "[lab-fe12] Explorer task 3 · Tab 3: pick the example “FE 1.2” and compare L, F, M and the two reactions with your workbook.\nTicks itself: when FE 1.2 is chosen in tab 3 · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-ends",
+   "text": "[lab-ends] Explorer task 4 · Tab 3: make both ends simply supported. Which coefficient does M take now, and which K?\nTicks itself: when both ends are set to simply supported · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-kink",
+   "text": "[lab-kink] Explorer task 5 · Tab 4: decide which kink detail is right, A or B, then press “Reveal the answer”.\nTicks itself: when the kink answer is revealed · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-s1",
+   "text": "[lab-s1] Explorer task 6 · Tab 5: find all four slips in Stair S1, tap their lines and press “Check”.\nTicks itself: when Check finds 4 of 4 · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "glossary-flight",
+   "text": "[glossary-flight] Glossary: flight\nflight: An inclined run of steps between two levels or landings."
+  },
+  {
+   "id": "glossary-landing",
+   "text": "[glossary-landing] Glossary: landing\nlanding: A flat slab at the top or the bottom of a flight, or between two flights."
+  },
+  {
+   "id": "glossary-waist-h",
+   "text": "[glossary-waist-h] Glossary: waist h\nwaist h: The thickness of the inclined slab under the steps, measured square to the soffit."
+  },
+  {
+   "id": "glossary-rise-r-riser",
+   "text": "[glossary-rise-r-riser] Glossary: rise R · riser\nrise R · riser: R is the height of one step; the riser is the vertical face of the step. UBBL By-law 106: R ≤ 180 mm, the same on every step."
+  },
+  {
+   "id": "glossary-going-g-tread",
+   "text": "[glossary-going-g-tread] Glossary: going G · tread\ngoing G · tread: G is the horizontal depth of a tread, without the nosing; the tread is the surface you step on. UBBL By-law 106: G ≥ 255 mm."
+  },
+  {
+   "id": "glossary-nosing",
+   "text": "[glossary-nosing] Glossary: nosing\nnosing: The front edge of a tread, which may overhang the riser below."
+  },
+  {
+   "id": "glossary-soffit",
+   "text": "[glossary-soffit] Glossary: soffit\nsoffit: The underside of the waist or of the landing."
+  },
+  {
+   "id": "glossary-pitch",
+   "text": "[glossary-pitch] Glossary: pitch θ\npitch θ: The slope of the flight: tan θ = R/G."
+  },
+  {
+   "id": "glossary-vertical-waist-thickness-y",
+   "text": "[glossary-vertical-waist-thickness-y] Glossary: vertical waist thickness y\nvertical waist thickness y: The waist measured vertically: y = h/cos θ = h√(R² + G²)/G."
+  },
+  {
+   "id": "glossary-average-thickness-t",
+   "text": "[glossary-average-thickness-t] Glossary: average thickness t\naverage thickness t: t = y + R/2: the mean vertical thickness of the waist and the steps, used for the self-weight on plan, 25t kN/m²."
+  },
+  {
+   "id": "glossary-load-on-plan",
+   "text": "[glossary-load-on-plan] Glossary: load on plan\nload on plan: A load given per m² of horizontal (plan) area. Stair loads and stair spans are both taken on plan."
+  },
+  {
+   "id": "glossary-design-load-n-d",
+   "text": "[glossary-design-load-n-d] Glossary: design load n_d\ndesign load n_d: n_d = 1.35g_k + 1.5q_k per m² on plan (EN 1990, Eq. 6.10)."
+  },
+  {
+   "id": "glossary-partial-factors-g-q",
+   "text": "[glossary-partial-factors-g-q] Glossary: partial factors γ_G , γ_Q\npartial factors γ_G , γ_Q: 1.35 on permanent and 1.5 on variable actions at the ultimate limit state."
+  },
+  {
+   "id": "glossary-effective-span-l",
+   "text": "[glossary-effective-span-l] Glossary: effective span L\neffective span L: The span of the beam on plan, centre to centre of the supports, built from segments: each flight or landing plus half the width of its support."
+  },
+  {
+   "id": "glossary-one-way-slab-1-m-strip",
+   "text": "[glossary-one-way-slab-1-m-strip] Glossary: one-way slab · 1 m strip\none-way slab · 1 m strip: A slab that bends in one direction. A stair is designed on a strip 1 m wide, so its loads are per metre width and its steel per metre."
+  },
+  {
+   "id": "glossary-continuous-end",
+   "text": "[glossary-continuous-end] Glossary: continuous end\ncontinuous end: An end built monolithically into a beam or a slab that resists rotation, so a hogging moment develops there."
+  },
+  {
+   "id": "glossary-simply-supported-end",
+   "text": "[glossary-simply-supported-end] Glossary: simply supported end\nsimply supported end: An end free to rotate, such as a slab resting on a brick wall; zero moment is assumed there."
+  },
+  {
+   "id": "glossary-hogging-moment",
+   "text": "[glossary-hogging-moment] Glossary: hogging moment\nhogging moment: A moment that puts the top face in tension. Over a continuous support of a stair it is taken as FL/10."
+  },
+  {
+   "id": "glossary-k-two-meanings",
+   "text": "[glossary-k-two-meanings] Glossary: K, two meanings\nK, two meanings: In flexure, K = M/(bd²f_{ck} ), compared with K_{bal} = 0.167. In deflection, the structural factor K of EC2 Table 7.4N: 1.0 simply supported, 1.3 end span, 1.5 interior span."
+  },
+  {
+   "id": "glossary-distribution-bars",
+   "text": "[glossary-distribution-bars] Glossary: distribution bars\ndistribution bars: Secondary bars at right angles to the main bars: at least 20% of the main steel, at a spacing ≤ min(3h, 400) mm where the moment is largest."
+  },
+  {
+   "id": "glossary-top-bars",
+   "text": "[glossary-top-bars] Glossary: top bars\ntop bars: Bars near the top face over a support: the same as the main bars over 0.3L at a continuous end; at least 25% of the span steel over 0.2L at a simple end."
+  },
+  {
+   "id": "glossary-kink",
+   "text": "[glossary-kink] Glossary: kink\nkink: The inside (re-entrant) corner of the soffit where a flight meets a landing. The bottom bars must cross there, not bend round it."
+  },
+  {
+   "id": "glossary-ubbl",
+   "text": "[glossary-ubbl] Glossary: UBBL\nUBBL: Uniform Building By-Laws 1984. By-law 106: rise, going and landing depth; By-law 108: risers in one flight."
+  },
+  {
+   "id": "glossary-comfort-rule-2r-g",
+   "text": "[glossary-comfort-rule-2r-g] Glossary: comfort rule 2R + G\ncomfort rule 2R + G: About 600 mm, from 550 to 700 mm (course notes). A comfort test, separate from the by-laws."
+  },
+  {
+   "id": "glossary-professional-habit-1",
+   "text": "[glossary-professional-habit-1] Glossary: Professional Habit 1\nProfessional Habit 1: Sanity-check the load before you design: the flight’s n_d must exceed the landing’s n_d . A ratio of 1.0 or less means a slip."
+  }
+ ]
+}

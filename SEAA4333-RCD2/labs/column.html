@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Column Lab · SEAA 4333</title>
-<meta name="description" content="SEAA 4333 Unit 7, Columns I: find the effective length and the slenderness of a column about both axes by the course method (EC2 5.8.3), race eight columns to a verdict, and find the slips in a submitted slenderness check.">
+<meta name="description" content="SEAA 4333 Units 7 and 8, Columns I and II: effective length and slenderness by the course method (EC2 5.8.3), the N–M interaction diagram by strain compatibility, the design of a short column with a design chart and a direct check, links, and two spot-the-error sheets.">
 <meta name="claude:viewport-fit-sides" content="cover">
 <script>(function(){try{var r=document.documentElement,p=JSON.parse(localStorage.getItem("seaa4333-prefs")||"null")||{};if(p.lang==="ms"){r.lang="ms";r.setAttribute("data-lang","ms")}if(p.theme==="light"||p.theme==="dark")r.setAttribute("data-theme",p.theme);if(+p.font)r.style.fontSize=(+p.font*100)+"%"}catch(e){}})();</script>
 <!-- Column Lab (SEAA 4333 Unit 7). SPDX-License-Identifier: MIT (code). Text and figures: CC BY-NC-SA 4.0.
@@ -232,18 +232,34 @@ footer{color:var(--ink-3);font-size:.85rem;padding-block:18px 32px;max-width:90c
 .sitebar .fontbtn .lvl{display:flex;gap:2px}.sitebar .fontbtn .lvl i{width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.25}.sitebar .fontbtn .lvl i.on{opacity:1}
 :root.framed .sitebar{display:none}
 footer .lic{display:block;margin-top:6px}
+
+/* Unit 8: N–M interaction, design and detail */
+input[type=range].xs{width:100%;accent-color:var(--flight);margin:6px 0 2px}
+.xread{display:flex;flex-wrap:wrap;gap:6px 14px;font-family:var(--f-mono);font-size:.86rem;color:var(--ink-2)}
+.xread b{color:var(--ink)}
+.jig{display:grid;grid-template-columns:auto 1fr 1fr auto;gap:6px 10px;align-items:center;margin-top:10px}
+.jig .h{font-size:.8rem;color:var(--ink-3);font-weight:600}
+.jig input{width:100%;min-width:0;font:inherit;font-family:var(--f-mono);padding:5px 7px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink)}
+.jig .lab{font-weight:700;font-family:var(--f-mono)}
+.jig .st{font-weight:700;min-width:1.2em;text-align:center}
+.jig .st.ok{color:var(--ok)} .jig .st.bad{color:var(--bad)}
+.barpick{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.barpick select{font:inherit;padding:5px 8px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink)}
+.lk{display:grid;grid-template-columns:auto auto auto;gap:6px 10px;align-items:center;margin-top:8px}
+.lk input,.lk select{font:inherit;font-family:var(--f-mono);width:6.5em;padding:5px 7px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink)}
+.lk .st{font-size:.9rem}
 </style>
 </head>
 <body>
 <div class="sitebar" id="sitebar"><div class="wrap">
-  <nav class="crumbs" aria-label="Breadcrumb" data-ms-aria="Laluan"><a href="https://razinutm.github.io/My_Lectures/">My Lectures</a><span aria-hidden="true">›</span><a href="../index.html">SEAA 4333</a><span aria-hidden="true">›</span><a href="../07-columns-1/index.html#lab">Unit 7</a><span aria-hidden="true">›</span><span aria-current="page">Column Lab</span></nav>
+  <nav class="crumbs" aria-label="Breadcrumb" data-ms-aria="Laluan"><a href="https://razinutm.github.io/My_Lectures/">My Lectures</a><span aria-hidden="true">›</span><a href="../index.html">SEAA 4333</a><span aria-hidden="true">›</span><a href="../07-columns-1/index.html#lab">Unit 7</a><span aria-hidden="true">·</span><a href="../08-columns-2/index.html#lab">Unit 8</a><span aria-hidden="true">›</span><span aria-current="page">Column Lab</span></nav>
   <div class="prefs"><button type="button" id="btn-lang" title="Bahasa">BM</button><button type="button" id="btn-theme" title="Theme"></button><button type="button" id="btn-font" class="fontbtn" title="Text size"><span class="aa" aria-hidden="true">A<small>A</small></span><span class="lvl" aria-hidden="true"><i></i><i></i><i></i><i></i></span></button></div>
 </div></div>
 <header class="topbar">
   <div class="wrap">
     <div class="brand">
       <h1>Column Lab</h1>
-      <span class="unit">SEAA 4333 · Unit 7 · Columns I</span>
+      <span class="unit">SEAA 4333 · Units 7–8 · Columns I–II</span>
     </div>
     <div class="timer" aria-label="Activity timer" data-ms-aria="Pemasa aktiviti">
       <button class="timer-display" id="tDisplay" type="button" title="Show the timer full screen" data-ms-title="Tunjuk pemasa pada skrin penuh">5:00</button>
@@ -265,6 +281,8 @@ footer .lic{display:block;margin-top:6px}
     <button class="tab" role="tab" id="tab-length" aria-controls="panel-length" data-tab="length"><span class="n">1</span><span>Effective length</span></button>
     <button class="tab" role="tab" id="tab-race" aria-controls="panel-race" data-tab="race"><span class="n">2</span><span data-ms="Perlumbaan">The race</span></button>
     <button class="tab" role="tab" id="tab-error" aria-controls="panel-error" data-tab="error"><span class="n">3</span><span data-ms="Cari kesilapan">Spot the error</span></button>
+    <button class="tab" role="tab" id="tab-nm" aria-controls="panel-nm" data-tab="nm"><span class="n">4</span><span data-ms="N–M interaction">N–M interaction</span></button>
+    <button class="tab" role="tab" id="tab-design" aria-controls="panel-design" data-tab="design"><span class="n">5</span><span data-ms="Design dan detail">Design and detail</span></button>
   </nav>
 
   <main class="sheet">
@@ -400,20 +418,19 @@ footer .lic{display:block;margin-top:6px}
         <div class="s1top">
           <div class="col">
             <div class="head">
-              <h2 data-ms="Cari kesilapan: Column S7">Spot the error: Column S7</h2>
-              <p class="lede" data-ms="Semakan slenderness yang dihantar bagi minor axis sebuah column braced. Ia mengandungi empat kesilapan. Cari kesemuanya sebelum melihat jawapan.">A submitted slenderness check about the minor axis of a braced column. It contains four slips. Find them all before you look at the answer.</p>
+              <div class="seg" role="group" aria-label="Sheet" data-ms-aria="Helaian" id="eWhich" style="margin-bottom:10px">
+                <button type="button" data-v="s7">Column S7 · Unit 7</button>
+                <button type="button" data-v="s8" aria-pressed="true">Column S8 · Unit 8</button>
+              </div>
+              <h2 id="eTitle">Spot the error</h2>
+              <p class="lede" id="eLede"></p>
             </div>
-            <dl class="given" aria-label="Given data" data-ms-aria="Data yang diberi">
-              <dt>Column</dt><dd data-ms="Braced, 250 × 400 (h = 400 mm dalam satah lenturan pada paksi z); C30/37">Braced, 250 × 400 (h = 400 mm in the plane of bending about z); C30/37</dd>
-              <dt data-ms="Lantai">Floors</dt><dd data-ms="4.5 m antara satu sama lain; beam 250 × 450 dengan span 5.0 m masuk pada kedua-dua sisi dalam satah lenturan pada paksi y, di kedua-dua lantai">4.5 m apart; beams 250 × 450 spanning 5.0 m frame in on both sides in the plane of bending about y, at both floors</dd>
-              <dt>Load</dt><dd>N<sub>Ed</sub> = 1650 kN</dd>
-              <dt data-ms="Moment (y)">Moments (y)</dt><dd data-ms="30 kN m di atas, 18 kN m di bawah, tegangan pada muka yang sama">30 kN m at the top, 18 kN m at the bottom, tension on the same face</dd>
-            </dl>
+            <dl class="given" id="eGiven" aria-label="Given data" data-ms-aria="Data yang diberi"></dl>
           </div>
           <div class="col">
             <div class="plotcard"><div class="figbox" id="eFig"></div></div>
             <div class="task">
-              <span class="tag" data-ms="Selepas kelas · Explorer tugasan 6">After class · Explorer task 6</span>
+              <span class="tag" id="eTag">After class · Explorer task 6</span>
               <p data-ms="Tulis nombor baris yang anda syaki, setiap satu dengan sebab dalam satu baris. Kemudian ketik baris itu di sini dan tekan <i>Semak</i>.">Write down the line numbers you suspect, each with a one-line reason. Then tap those lines here and press <i>Check</i>.</p>
             </div>
             <div class="steps">
@@ -424,12 +441,132 @@ footer .lic{display:block;margin-top:6px}
             <p class="score" id="eScore" aria-live="polite"></p>
           </div>
         </div>
-        <div class="scroll"><table class="sheetcalc" id="eSheet" aria-label="Column S7 calculation sheet" data-ms-aria="Helaian pengiraan Column S7"></table></div>
+        <div class="scroll"><table class="sheetcalc" id="eSheet" aria-label="Calculation sheet"></table></div>
         <div class="summary" id="eSummary" hidden></div>
       </div>
     </section>
+    <!-- ===================== 4 N–M INTERACTION ===================== -->
+    <section id="panel-nm" role="tabpanel" aria-labelledby="tab-nm" hidden>
+      <div class="panel">
+        <div class="col">
+          <div class="head">
+            <h2 data-ms="N–M interaction diagram">The N–M interaction diagram</h2>
+            <p class="lede" data-ms="Pilih section dan seret neutral axis. Lab mengira strain, stress dan daya dengan strain compatibility (blok 0.567f<sub>ck</sub> sedalam 0.8x; pivot 0.002 di 3h/7 apabila x &gt; h) dan meletakkan titik (M, N) pada lengkung.">Choose a section and drag the neutral axis. The Lab works out the strains, stresses and forces by strain compatibility (the 0.567f<sub>ck</sub> block over 0.8x; a pivot of 0.002 at 3h/7 when x &gt; h) and puts the point (M, N) on the curve.</p>
+          </div>
+          <div class="group">
+            <label class="label" for="nCase" data-ms="Section">Section</label>
+            <select id="nCase" class="full"></select>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Section, simetri pada dua muka">Section, symmetric at two faces</span>
+            <div class="fields">
+              <label for="nb" data-ms="Lebar b">Width b</label><input id="nb" type="number" min="150" max="1200" step="25"><span class="u">mm</span>
+              <label for="nh" data-ms="Kedalaman h (satah lenturan)">Depth h (plane of bending)</label><input id="nh" type="number" min="150" max="1500" step="25"><span class="u">mm</span>
+              <label for="nfck">f<sub>ck</sub></label><select id="nfck"><option>25</option><option>30</option><option>35</option><option>40</option><option>45</option><option>50</option></select><span class="u">N/mm²</span>
+              <label for="nn" data-ms="Bar pada setiap muka">Bars at each face</label><select id="nn"><option>2</option><option>3</option><option>4</option><option>5</option></select><span class="u"></span>
+              <label for="nphi" data-ms="Diameter bar">Bar diameter</label><select id="nphi"><option>12</option><option>16</option><option>20</option><option>25</option><option>32</option><option>40</option></select><span class="u">mm</span>
+              <label for="nd2">d<sub>2</sub></label><input id="nd2" type="number" min="20" max="200" step="1"><span class="u">mm</span>
+            </div>
+          </div>
+          <div class="group">
+            <label class="label" for="nx" data-ms="Neutral axis depth x">Neutral axis depth x</label>
+            <input class="xs" id="nx" type="range" min="0" max="1000" step="1" value="560" aria-describedby="nxRead">
+            <div class="xread" id="nxRead" aria-live="polite"></div>
+            <div class="steps" style="margin-top:6px"><button class="btn sm" type="button" data-jump="h" data-ms="x = h">x = h</button><button class="btn sm" type="button" data-jump="d" data-ms="x = d">x = d</button></div>
+          </div>
+          <div class="plotcard">
+            <div class="plothead"><h3 data-ms="Strain dan daya pada x ini">Strains and forces at this x</h3></div>
+            <div class="figbox"><svg class="fig" id="nStrain" viewBox="0 0 520 250" role="img"></svg></div>
+            <div class="scroll"><table class="tbl" id="nForces"></table></div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="plotcard">
+            <div class="plothead"><h3 data-ms="Lengkung N–M">The N–M curve</h3><span class="legend"><span><i class="key" style="border-color:var(--braced)"></i><span data-ms="kapasiti">capacity</span></span><span><svg width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="var(--unbraced)"/></svg>x</span><span><svg width="14" height="14" aria-hidden="true"><rect x="2" y="2" width="10" height="10" fill="var(--ok)"/></svg><span data-ms="titik anda">your points</span></span></span></div>
+            <div class="figbox" style="position:relative"><svg class="chart" id="nChart" viewBox="0 0 640 400" role="img"></svg><div class="ctip" id="nTip" hidden></div></div>
+            <details class="tview" id="nKeyBox"><summary data-ms="Empat titik utama (buka selepas Aktiviti 8A)">The four key points (open after Activity 8A)</summary><div class="scroll"><table class="tbl" id="nKeyTbl"></table></div></details>
+          </div>
+          <div class="task" id="act8a">
+            <span class="tag" data-ms="Aktiviti 8A · jigsaw · section WE 8.1">Activity 8A · jigsaw · the WE 8.1 section</span>
+            <p data-ms="400 × 400, C30/37, 4H16 (2 setiap muka), d<sub>2</sub> = 44 mm. Masukkan titik pasukan anda, kemudian tiga titik yang lain, dan tekan <i>Semak</i>. Setiap titik diterima dalam 2%.">400 × 400, C30/37, 4H16 (2 at each face), d<sub>2</sub> = 44 mm. Enter your team’s point, then the other three, and press <i>Check</i>. Each point is accepted within 2%.</p>
+            <div class="jig" id="jGrid"></div>
+            <div class="steps" style="margin-top:10px"><button class="btn primary" id="jCheck" type="button" data-ms="Semak">Check</button><button class="btn" id="jReset" type="button" data-ms="Set semula">Reset</button></div>
+            <p class="score" id="jScore" aria-live="polite"></p>
+          </div>
+          <div class="task" id="act8b">
+            <span class="tag" data-ms="Aktiviti 8B · ramal, kemudian dedahkan">Activity 8B · predict, then reveal</span>
+            <p data-ms="Section Faded Example 8.2: 300 × 300, C30/37, d<sub>2</sub> = 46 mm, M<sub>Ed</sub> = 92.3 kN m. Jika N<sub>Ed</sub> naik daripada 350 kepada 700 kN, steel yang diperlukan">The section of Faded Example 8.2: 300 × 300, C30/37, d<sub>2</sub> = 46 mm, M<sub>Ed</sub> = 92.3 kN m. If N<sub>Ed</sub> rises from 350 to 700 kN, the steel needed</p>
+            <div class="seg cells" role="group" aria-label="Your prediction" data-ms-aria="Ramalan anda" id="bPred" style="margin-top:10px">
+              <button type="button" data-v="A" data-ms="A · naik">A · rises</button>
+              <button type="button" data-v="B" data-ms="B · turun">B · falls</button>
+              <button type="button" data-v="C" data-ms="C · sama">C · stays the same</button>
+              <button type="button" data-v="D" data-ms="D · tidak dapat dicari">D · cannot be found</button>
+            </div>
+            <div class="steps" style="margin-top:10px"><button class="btn primary" id="bReveal" type="button" data-ms="Dedahkan">Reveal</button></div>
+            <p class="verdict" id="bOut" hidden></p>
+            <div class="figbox" id="bFigBox" hidden><svg class="chart" id="bChart" viewBox="0 0 640 300" role="img"></svg></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 5 DESIGN AND DETAIL ===================== -->
+    <section id="panel-design" role="tabpanel" aria-labelledby="tab-design" hidden>
+      <div class="panel">
+        <div class="col">
+          <div class="head">
+            <h2 data-ms="Design column pendek">Design a short column</h2>
+            <p class="lede" data-ms="Kaedah kursus Unit 8: M<sub>Ed</sub> dengan e<sub>i</sub> dan e<sub>0</sub>; design chart bagi d<sub>2</sub>/h anda atau yang lebih besar berikutnya; A<sub>s,min</sub>, A<sub>s,max</sub>; bar; semakan terus M<sub>Rd</sub> ≥ M<sub>Ed</sub>; link. Lenturan pada satu paksi; column mesti non-slender pada paksi itu (Unit 7).">The course method of Unit 8: M<sub>Ed</sub> with e<sub>i</sub> and e<sub>0</sub>; the design chart for your d<sub>2</sub>/h or the next larger; A<sub>s,min</sub>, A<sub>s,max</sub>; bars; the direct check M<sub>Rd</sub> ≥ M<sub>Ed</sub>; links. Bending about one axis; the column must be non-slender about it (Unit 7).</p>
+          </div>
+          <div class="group">
+            <label class="label" for="dCase" data-ms="Kes">Case</label>
+            <select id="dCase" class="full"></select>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Column dan beban">Column and loads</span>
+            <div class="fields">
+              <label for="db" data-ms="Lebar b">Width b</label><input id="db" type="number" min="150" max="1200" step="25"><span class="u">mm</span>
+              <label for="dh" data-ms="Kedalaman h (satah lenturan)">Depth h (plane of bending)</label><input id="dh" type="number" min="150" max="1500" step="25"><span class="u">mm</span>
+              <label for="dfck">f<sub>ck</sub></label><select id="dfck"><option>25</option><option>30</option><option>35</option><option>40</option><option>45</option><option>50</option></select><span class="u">N/mm²</span>
+              <label for="dl0">l<sub>0</sub></label><input id="dl0" type="number" min="500" max="15000" step="10"><span class="u">mm</span>
+              <label for="dN">N<sub>Ed</sub></label><input id="dN" type="number" min="0" max="30000" step="10"><span class="u">kN</span>
+              <label for="dMt" data-ms="End moment, atas">End moment, top</label><input id="dMt" type="number" min="0" max="5000" step="1"><span class="u">kN m</span>
+              <label for="dMb" data-ms="End moment, bawah">End moment, bottom</label><input id="dMb" type="number" min="0" max="5000" step="1"><span class="u">kN m</span>
+              <label for="dcn">c<sub>nom</sub></label><input id="dcn" type="number" min="15" max="80" step="5"><span class="u">mm</span>
+              <label for="dlk" data-ms="Link">Link</label><select id="dlk"><option>6</option><option>8</option><option>10</option><option>12</option></select><span class="u">mm</span>
+            </div>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Bar yang dipilih (separuh pada setiap muka)">Bars chosen (half at each face)</span>
+            <div class="barpick"><select id="dnb" aria-label="Number of bars" data-ms-aria="Bilangan bar"><option>4</option><option>6</option><option>8</option><option>10</option></select><span>H</span><select id="dphi" aria-label="Bar diameter" data-ms-aria="Diameter bar"><option>12</option><option>16</option><option>20</option><option>25</option><option>32</option><option>40</option></select><span class="note" style="border:0;padding:0" id="dAsProv"></span></div>
+          </div>
+          <div class="kv" id="dKV" aria-live="polite"></div>
+        </div>
+        <div class="col">
+          <div class="plotcard">
+            <div class="plothead"><h3 data-ms="Pengiraan">The calculation</h3></div>
+            <div class="scroll"><table class="tbl" id="dTable"></table></div>
+          </div>
+          <div class="plotcard">
+            <div class="plothead"><h3 id="dChartTitle">Design chart</h3><span class="legend"><span><svg width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="var(--unbraced)"/></svg><span data-ms="titik design">design point</span></span></span></div>
+            <div class="figbox" style="position:relative"><svg class="chart" id="dChart" viewBox="0 0 640 520" role="img"></svg><div class="ctip" id="dTip" hidden></div></div>
+          </div>
+          <div class="task" id="dLinks">
+            <span class="tag" data-ms="Link · EC2 9.5.3">Links · EC2 9.5.3</span>
+            <p data-ms="Bagi bar yang dipilih: masukkan diameter link, jarak jauh dari beam dan jarak rapat berhampiran beam dan pada lap, kemudian tekan <i>Semak link</i>.">For the bars chosen: enter the link diameter, the spacing away from the beams and the closer spacing near the beams and at laps, then press <i>Check links</i>.</p>
+            <div class="lk">
+              <label for="kphi" data-ms="Diameter link">Link diameter</label><select id="kphi"><option>6</option><option>8</option><option>10</option><option>12</option></select><span class="st" id="kphiSt"></span>
+              <label for="ks" data-ms="Jarak">Spacing</label><input id="ks" type="number" min="25" max="600" step="25" value="300"><span class="st" id="ksSt"></span>
+              <label for="ks6" data-ms="Jarak rapat">Closer spacing</label><input id="ks6" type="number" min="25" max="600" step="25" value="175"><span class="st" id="ks6St"></span>
+            </div>
+            <div class="steps" style="margin-top:10px"><button class="btn primary" id="kCheck" type="button" data-ms="Semak link">Check links</button></div>
+            <p class="verdict" id="kOut" hidden></p>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
-  <footer><span data-ms="Kaedah kursus SEAA 4333 (nota kursus, RDF §14, Mosley, Bungey &amp;amp; Hulse §9.2): clear height = ketinggian tingkat tolak kedalaman beam dalam satah itu; k = (I/l)&lt;sub&gt;col&lt;/sub&gt;/Σ2(I/l)&lt;sub&gt;beam&lt;/sub&gt; ≥ 0.1; l&lt;sub&gt;0&lt;/sub&gt; dengan EC2 Eq. 5.15 (braced) atau 5.16 (unbraced); λ&lt;sub&gt;lim&lt;/sub&gt; = 20ABC/√n dengan A = 0.7, B = 1.1 (MS EN 1992-1-1, 5.8.3). Unit: mm, kN, m. Design penuh setiap column, langkah demi langkah, ada dalam app &lt;a href=&quot;https://claude.ai/artifact/M5DFYjHubZFnbHVk8JDsAS&quot; style=&quot;color:inherit&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;RC Design Worked Solutions&lt;/a&gt; (WE 7.1 ialah kes C1), yang boleh dibuka setelah pensyarah anda berkongsi pautannya.">Course method of SEAA 4333 (course notes, RDF §14, Mosley, Bungey &amp; Hulse §9.2): clear height = storey height minus the beam depth in that plane; k = (I/l)<sub>col</sub>/Σ2(I/l)<sub>beam</sub> ≥ 0.1; l<sub>0</sub> by EC2 Eq. 5.15 (braced) or 5.16 (unbraced); λ<sub>lim</sub> = 20ABC/√n with A = 0.7, B = 1.1 (MS EN 1992-1-1, 5.8.3). Units: mm, kN, m. The full design of each column, step by step, is in the <a href="https://claude.ai/artifact/M5DFYjHubZFnbHVk8JDsAS" style="color:inherit" target="_blank" rel="noopener">RC Design Worked Solutions</a> app (WE 7.1 is case C1), which opens once your lecturer has shared it.</span>
+  <footer><span data-ms="Kaedah kursus SEAA 4333 (nota kursus, RDF §14, Mosley, Bungey &amp;amp; Hulse §9.2): clear height = ketinggian tingkat tolak kedalaman beam dalam satah itu; k = (I/l)&lt;sub&gt;col&lt;/sub&gt;/Σ2(I/l)&lt;sub&gt;beam&lt;/sub&gt; ≥ 0.1; l&lt;sub&gt;0&lt;/sub&gt; dengan EC2 Eq. 5.15 (braced) atau 5.16 (unbraced); λ&lt;sub&gt;lim&lt;/sub&gt; = 20ABC/√n dengan A = 0.7, B = 1.1 (MS EN 1992-1-1, 5.8.3). Unit 8: strain compatibility dengan blok 0.567f&lt;sub&gt;ck&lt;/sub&gt; sedalam 0.8x, 0.0035 pada muka atau 0.002 di 3h/7 apabila x &amp;gt; h, E&lt;sub&gt;s&lt;/sub&gt; = 200 kN/mm², f&lt;sub&gt;yd&lt;/sub&gt; = 0.87f&lt;sub&gt;yk&lt;/sub&gt; (EC2 6.1); design chart dilukis dengan kaedah yang sama; A&lt;sub&gt;s,min&lt;/sub&gt;, A&lt;sub&gt;s,max&lt;/sub&gt; dan link mengikut EC2 9.5. Unit: mm, kN, m. Design penuh setiap column, langkah demi langkah, ada dalam app &lt;a href=&quot;https://claude.ai/artifact/M5DFYjHubZFnbHVk8JDsAS&quot; style=&quot;color:inherit&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;RC Design Worked Solutions&lt;/a&gt; (WE 7.1 ialah kes C1, WE 8.1 kes C4), yang boleh dibuka setelah pensyarah anda berkongsi pautannya.">Course method of SEAA 4333 (course notes, RDF §14, Mosley, Bungey &amp; Hulse §9.2): clear height = storey height minus the beam depth in that plane; k = (I/l)<sub>col</sub>/Σ2(I/l)<sub>beam</sub> ≥ 0.1; l<sub>0</sub> by EC2 Eq. 5.15 (braced) or 5.16 (unbraced); λ<sub>lim</sub> = 20ABC/√n with A = 0.7, B = 1.1 (MS EN 1992-1-1, 5.8.3). Unit 8: strain compatibility with the 0.567f<sub>ck</sub> block over 0.8x, 0.0035 at the face or 0.002 at 3h/7 when x &gt; h, E<sub>s</sub> = 200 kN/mm², f<sub>yd</sub> = 0.87f<sub>yk</sub> (EC2 6.1); the design charts are drawn by the same method; A<sub>s,min</sub>, A<sub>s,max</sub> and links by EC2 9.5. Units: mm, kN, m. The full design of each column, step by step, is in the <a href="https://claude.ai/artifact/M5DFYjHubZFnbHVk8JDsAS" style="color:inherit" target="_blank" rel="noopener">RC Design Worked Solutions</a> app (WE 7.1 is case C1, WE 8.1 case C4), which opens once your lecturer has shared it.</span>
   <span class="lic" data-ms="© 2026 Ahmad Razin Zainal Abidin dan Universiti Teknologi Malaysia (Fakulti Kejuruteraan Awam). Teks dan rajah: CC BY-NC-SA 4.0; kod: MIT. Lihat &lt;a href=&quot;https://github.com/RazinUTM/My_Lectures/blob/main/SEAA4333-RCD2/LICENSE.md&quot; style=&quot;color:inherit&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;lesen&lt;/a&gt;. Kemajuan disimpan dalam pelayar ini sahaja.">© 2026 Ahmad Razin Zainal Abidin and Universiti Teknologi Malaysia (Faculty of Civil Engineering). Text and figures: CC BY-NC-SA 4.0; code: MIT. See the <a href="https://github.com/RazinUTM/My_Lectures/blob/main/SEAA4333-RCD2/LICENSE.md" style="color:inherit" target="_blank" rel="noopener">licence</a>. Progress is stored in this browser only.</span></footer>
 </div>
 
@@ -820,35 +957,8 @@ const S7 = [
   {ref: '', calc: ['λ = 23.0 &lt; 47.8: non-slender; second-order effects ignored', 'λ = 23.0 &lt; 47.8: non-slender; second-order effect diabaikan'], out: 'non-slender', slip: false,
    fix: ['Correct verdict: 33.2 &gt; 17.2, slender about y; the second-order moment of Unit 9 is needed.', 'Keputusan yang betul: 33.2 &gt; 17.2, slender pada paksi y; second-order moment dalam Unit 9 diperlukan.']}
 ];
-const EKEY = 'seaa4333-lab-column-s7';
-let eFlag = new Set(recall(EKEY, [])), eChecked = false, eFixed = false;
-function drawS7(){
-  const t = el('eSheet');
-  let html = `<thead><tr><th>${Lg('Line', 'Baris')}</th><th>Ref</th><th>${Lg('Calculation', 'Pengiraan')}</th><th>Output</th></tr></thead><tbody>`;
-  S7.forEach((r, i) => {
-    const n = i + 1, fl = eFlag.has(n);
-    let cls = fl ? 'flag' : '';
-    if (eChecked || eFixed){ if (r.slip && fl) cls = 'hit'; else if (r.slip && eFixed) cls = 'miss'; else if (!r.slip && fl) cls = 'false'; }
-    const fix = (eFixed || (eChecked && fl && r.slip)) ? `<span class="fix">${Lg(r.fix[0], r.fix[1])}</span>` : '';
-    html += `<tr class="${cls}" data-n="${n}" tabindex="0"><td class="no">${n}</td><td class="ref">${r.ref}</td><td class="calc">${Lg(r.calc[0], r.calc[1])}${fix}</td><td class="out">${r.out}</td></tr>`;
-  });
-  t.innerHTML = html + '</tbody>';
-  t.querySelectorAll('tbody tr').forEach(tr => {
-    const tog = () => { const n = +tr.dataset.n; if (eFlag.has(n)) eFlag.delete(n); else eFlag.add(n); store(EKEY, [...eFlag]); eChecked = false; drawS7(); };
-    tr.addEventListener('click', tog); tr.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); tog(); } });
-  });
-  const hits = S7.filter((r, i) => r.slip && eFlag.has(i + 1)).length, fls = S7.filter((r, i) => !r.slip && eFlag.has(i + 1)).length;
-  el('eScore').textContent = eChecked ? Lg(`${hits} of 4 slips found` + (fls ? `; ${fls} line${fls > 1 ? 's' : ''} flagged that ${fls > 1 ? 'are' : 'is'} right` : ''), `${hits} daripada 4 kesilapan dijumpai` + (fls ? `; ${fls} baris yang betul turut ditanda` : '')) : Lg(`Lines flagged: ${eFlag.size}`, `Baris ditanda: ${eFlag.size}`);
-  const sum = el('eSummary');
-  if (eFixed || (eChecked && hits === 4)){
-    sum.hidden = false;
-    sum.innerHTML = Lg('<b>Four slips, one unsafe verdict.</b> Lines 1 and 5 work against each other, lines 7 and 8 both raise the limit. Submitted: λ = 23.0 against λ<sub>lim</sub> = 47.8, non-slender. Correct: λ = 33.2 against λ<sub>lim</sub> = 17.2, slender about the minor axis: the column needs the second-order moment of Unit 9.',
-      '<b>Empat kesilapan, satu keputusan yang tidak selamat.</b> Baris 1 dan 5 saling bertentangan, baris 7 dan 8 kedua-duanya menaikkan had. Dihantar: λ = 23.0 berbanding λ<sub>lim</sub> = 47.8, non-slender. Betul: λ = 33.2 berbanding λ<sub>lim</sub> = 17.2, slender pada minor axis: column itu memerlukan second-order moment dalam Unit 9.');
-  } else sum.hidden = true;
-}
-el('eCheck').addEventListener('click', () => { eChecked = true; const hits = S7.filter((r, i) => r.slip && eFlag.has(i + 1)).length; if (hits === 4 && !eFixed) milestone('s7'); drawS7(); });
-el('eFix').addEventListener('click', () => { eFixed = true; drawS7(); });
-el('eReset').addEventListener('click', () => { eFlag = new Set(); store(EKEY, []); eChecked = false; eFixed = false; drawS7(); });
+function s7Summary(){ return Lg('<b>Four slips, one unsafe verdict.</b> Lines 1 and 5 work against each other, lines 7 and 8 both raise the limit. Submitted: λ = 23.0 against λ<sub>lim</sub> = 47.8, non-slender. Correct: λ = 33.2 against λ<sub>lim</sub> = 17.2, slender about the minor axis: the column needs the second-order moment of Unit 9.',
+      '<b>Empat kesilapan, satu keputusan yang tidak selamat.</b> Baris 1 dan 5 saling bertentangan, baris 7 dan 8 kedua-duanya menaikkan had. Dihantar: λ = 23.0 berbanding λ<sub>lim</sub> = 47.8, non-slender. Betul: λ = 33.2 berbanding λ<sub>lim</sub> = 17.2, slender pada minor axis: column itu memerlukan second-order moment dalam Unit 9.'); }
 /* text with subscripts: parts = [['M'], ['y', 1], [' (kN m)']] */
 function TS(parent, x, y, parts, attrs){
   const t = S('text', Object.assign({x, y}, attrs || {}), parent);
@@ -882,13 +992,404 @@ function drawS7Fig(){
   TS(svg, cxm, yB + bh + 20, [['250 × 400 · N'], ['Ed', 1], [' = 1650 kN']], {'text-anchor': 'middle', class: 'small'});
 }
 
+/* ===================== UNIT 8: STRAIN COMPATIBILITY (course method, D17 of the RC Design app) =====================
+   Rectangular block 0.567fck over s = min(0.8x, h); 0.0035 at the compression face for x <= h, pivot 0.002 at 3h/7 for x > h
+   (EC2 Figure 6.1); steel elastic-plastic, Es = 200 kN/mm2, fyd = 0.87fyk; concrete displaced by the bars ignored.
+   Units: mm, N/mm2; N in kN, M in kN m about the centre of the gross section. */
+const ES8 = 200000, FYK = 500, FYD8 = 0.87 * FYK, EYD8 = FYD8 / ES8, XBALR = 0.0035 / (0.0035 + EYD8);
+function nmAt(x, H, B, bars, fck){
+  const s = Math.min(0.8 * x, H), Fc = 0.567 * fck * B * s; let N = Fc, M = Fc * (H / 2 - s / 2); const lay = [];
+  bars.forEach(([y, A]) => { const e = x <= H ? 0.0035 * (x - y) / x : 0.002 * (x - y) / (x - 3 * H / 7);
+    const sg = Math.max(-FYD8, Math.min(FYD8, ES8 * e)); N += sg * A; M += sg * A * (H / 2 - y); lay.push({y, A, e, sg, F: sg * A / 1e3}); });
+  return {x, s, Fc: Fc / 1e3, lev: H / 2 - s / 2, N: N / 1e3, M: M / 1e6, lay};
+}
+function solveX8(N, H, B, bars, fck){
+  let lo = 1e-6, hi = 1e4 * H;
+  if (N < nmAt(lo, H, B, bars, fck).N || N > nmAt(hi, H, B, bars, fck).N) return null;
+  for (let k = 0; k < 120; k++){ const m = (lo + hi) / 2; if (nmAt(m, H, B, bars, fck).N < N) lo = m; else hi = m; }
+  return (lo + hi) / 2;
+}
+function mrd8(N, H, B, bars, fck){ const x = solveX8(N, H, B, bars, fck); return x === null ? null : nmAt(x, H, B, bars, fck); }
+function twoLayer(H, d2, As){ return [[d2, As / 2], [H - d2, As / 2]]; }
+function asReq8(N, M, H, B, d2, fck){
+  const cap = A => { const r = mrd8(N, H, B, twoLayer(H, d2, A), fck); return r ? r.M : -1e18; };
+  if (cap(0) >= M) return 0;
+  let lo = 0, hi = 0.2 * B * H; if (cap(hi) < M) return INF;
+  for (let k = 0; k < 60; k++){ const m = (lo + hi) / 2; if (cap(m) < M) lo = m; else hi = m; }
+  return hi;
+}
+function curve8(H, B, bars, fck, n){
+  const As = bars.reduce((a, b) => a + b[1], 0), pts = [{x: 0, M: 0, N: -FYD8 * As / 1e3}];
+  for (let i = 1; i <= n; i++){ const x = H * Math.pow(10, -2.2 + i * 3.8 / n), r = nmAt(x, H, B, bars, fck); pts.push({x, M: Math.max(0, r.M), N: r.N}); }
+  pts.push({x: INF, M: 0, N: nmAt(1e7 * H, H, B, bars, fck).N});
+  return pts;
+}
+function keyPts(H, B, bars, fck, d2){
+  const d = H - d2, xb = XBALR * d, x0 = solveX8(0, H, B, bars, fck);
+  return {A: Object.assign(nmAt(1e7 * H, H, B, bars, fck), {x: INF}), B: nmAt(H, H, B, bars, fck), C: nmAt(xb, H, B, bars, fck), D: nmAt(x0, H, B, bars, fck)};
+}
+const barA8 = d => Math.PI * d * d / 4;
+function wrapChart(svg, CHx, W0, H0){
+  const w = Math.round(svg.parentNode.clientWidth || 0);
+  if (w > 0){ const W = Math.max(300, Math.min(760, w)), nar = W < 520; Object.assign(CHx, {w: W, h: Math.round(H0 * (nar ? 0.92 : 1)), l: nar ? 52 : 64, r: nar ? 14 : 20}); }
+  else Object.assign(CHx, {w: W0, h: H0});
+  svg.setAttribute('viewBox', `0 0 ${CHx.w} ${CHx.h}`);
+}
+function niceStep(range, target){ const raw = range / target, p = Math.pow(10, Math.floor(Math.log10(raw))), m = raw / p; return (m < 1.5 ? 1 : m < 3 ? 2 : m < 7 ? 5 : 10) * p; }
+
+/* ===================== 4 N–M INTERACTION ===================== */
+const NCASES = {
+  we81: {en: 'WE 8.1 section: 400 × 400, 4H16, C30/37', ms: 'Section WE 8.1: 400 × 400, 4H16, C30/37', v: {b: 400, h: 400, fck: 30, n: 2, phi: 16, d2: 44}},
+  fe82: {en: 'FE 8.2 section: 300 × 300, 4H20, C30/37', ms: 'Section FE 8.2: 300 × 300, 4H20, C30/37', v: {b: 300, h: 300, fck: 30, n: 2, phi: 20, d2: 46}},
+  own: {en: 'Your own section', ms: 'Section anda sendiri'}
+};
+const nin = Object.assign({}, NCASES.we81.v); let nCaseK = 'we81';
+const NF = {nb: 'b', nh: 'h', nfck: 'fck', nn: 'n', nphi: 'phi', nd2: 'd2'};
+function nBars(){ const A = nin.n * barA8(nin.phi); return [[nin.d2, A], [nin.h - nin.d2, A]]; }
+function fillNCases(){ const s = el('nCase'); s.innerHTML = ''; Object.keys(NCASES).forEach(k => { const o = document.createElement('option'); o.value = k; o.textContent = Lg(NCASES[k].en, NCASES[k].ms); s.appendChild(o); }); s.value = nCaseK; }
+function syncN(){ Object.keys(NF).forEach(id => { el(id).value = nin[NF[id]]; }); }
+const xFromS = s => nin.h * Math.pow(10, -1.4 + 2.2 * s / 1000), sFromX = x => Math.round((Math.log10(x / nin.h) + 1.4) / 2.2 * 1000);
+let nX = xFromS(700), nUser = false;
+const NCH = {w: 640, h: 400, l: 64, r: 20, t: 22, b: 48};
+let nLast = null;
+function redrawNM(){
+  const H = nin.h, B = nin.b, fck = nin.fck, bars = nBars(), d = H - nin.d2;
+  if (!(H > 2 * nin.d2 && B > 0 && fck > 0)){ el('nxRead').textContent = Lg('Check the section: h must exceed 2d₂.', 'Semak section: h mesti melebihi 2d₂.'); return; }
+  const r = nmAt(nX, H, B, bars, fck), K = keyPts(H, B, bars, fck, nin.d2), pts = curve8(H, B, bars, fck, 200);
+  nLast = {r, K, pts, H, B, bars, d};
+  const ec = nX <= H ? 0.0035 : 0.002 * nX / (nX - 3 * H / 7);
+  el('nxRead').innerHTML = `<span>x = <b>${f(nX, 1)} mm</b></span><span>x/d = <b>${f(nX / d, 3)}</b></span><span>ε<sub>top</sub> = <b>${f(ec * 1000, 2)}‰</b></span><span>N = <b>${f(r.N, 0)} kN</b></span><span>M = <b>${f(r.M, 1)} kN m</b></span>`;
+  // forces table (compact: it sits in the narrow column)
+  let rows = `<thead><tr><th></th><th class="out">ε (‰)</th><th class="out">σ</th><th class="out">F (kN)</th><th class="out">M (kN m)</th></tr></thead><tbody>`;
+  rows += `<tr><td>${Lg('Block', 'Block')}, s ${f(r.s, 0)}</td><td class="out">–</td><td class="out">${f(0.567 * fck, 1)}</td><td class="out">${f(r.Fc, 1)}</td><td class="out">${f(r.Fc * r.lev / 1000, 1)}</td></tr>`;
+  r.lay.forEach((L, i) => { rows += `<tr><td>${i ? Lg('Bottom bars', 'Bar bawah') : Lg('Top bars', 'Bar atas')}</td><td class="out">${f(L.e * 1000, 2)}</td><td class="out">${f(L.sg, 0)}</td><td class="out">${f(L.F, 1)}</td><td class="out">${f(L.F * (H / 2 - L.y) / 1000, 1)}</td></tr>`; });
+  rows += `<tr class="em"><td><b>Σ</b></td><td></td><td></td><td class="out"><b>${f(r.N, 1)}</b></td><td class="out"><b>${f(r.M, 1)}</b></td></tr></tbody>`;
+  el('nForces').innerHTML = rows;
+  drawStrain8(r, H, ec);
+  drawNM8();
+  // key points (in the closed details box)
+  el('nKeyTbl').innerHTML = `<thead><tr><th>${Lg('Point', 'Titik')}</th><th class="out">x (mm)</th><th class="out">N (kN)</th><th class="out">M (kN m)</th></tr></thead><tbody>` +
+    [['A', Lg('squash', 'squash')], ['B', 'x = h'], ['C', 'balance'], ['D', 'N = 0']].map(([k, n]) => `<tr><td>${k} · ${n}</td><td class="out">${K[k].x === INF ? '∞' : f(K[k].x, 1)}</td><td class="out">${f(K[k].N, 0)}</td><td class="out">${f(Math.max(0, K[k].M), 1)}</td></tr>`).join('') + '</tbody>';
+}
+function drawStrain8(r, H, ec){
+  const svg = el('nStrain'); svg.innerHTML = '';
+  const top = 26, dep = 176, k = dep / H, sx = 40, sw = 70;
+  S('rect', {x: sx, y: top, width: sw, height: dep, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
+  r.lay.forEach(L => S('circle', {cx: sx + sw / 2, cy: top + L.y * k, r: 5, fill: 'var(--ink-2)'}, svg));
+  const zx = 250, sc = 9000, eb = r.x <= H ? 0.0035 * (r.x - H) / r.x : 0.002 * (r.x - H) / (r.x - 3 * H / 7), clip = -0.0045;
+  S('line', {x1: zx, x2: zx, y1: top - 8, y2: top + dep + 8, stroke: 'var(--ink-3)'}, svg);
+  const ebC = Math.max(eb, clip), X = v => zx + v * sc;
+  if (eb >= 0) S('path', {d: `M${zx},${top} L${X(ec)},${top} L${X(eb)},${top + dep} L${zx},${top + dep} Z`, fill: 'var(--wash-flag)', stroke: 'var(--flight)', 'stroke-width': 1.5}, svg);
+  else { const yn = top + Math.min(r.x, H) * k;
+    S('path', {d: `M${zx},${top} L${X(ec)},${top} L${zx},${yn} Z`, fill: 'var(--wash-flag)', stroke: 'var(--flight)', 'stroke-width': 1.5}, svg);
+    const yb = eb < clip ? top + r.x * (1 - clip / 0.0035) * k : top + dep;
+    S('path', {d: `M${zx},${yn} L${X(ebC)},${Math.min(yb, top + dep)} L${X(ebC)},${top + dep} L${zx},${top + dep} Z`, fill: 'var(--wash-bad)', stroke: 'var(--bad)', 'stroke-width': 1.5}, svg); }
+  T(svg, X(ec) + 6, top + 4, f(ec * 1000, 2) + '‰', {class: 'small'});
+  r.lay.forEach(L => { const y = top + L.y * k, xe = X(Math.max(L.e, clip)); S('line', {x1: sx + sw, x2: Math.max(xe, zx), y1: y, y2: y, stroke: 'var(--ink-3)', 'stroke-dasharray': '3 3'}, svg);
+    T(svg, Math.max(xe, zx) + 6, y + 4, (L.e < clip ? '≪ ' : '') + f(L.e * 1000, 2) + '‰ → ' + f(L.sg, 0), {class: 'small'}); });
+  const bx = 420, bw = 46;
+  S('rect', {x: bx, y: top, width: bw, height: r.s * k, fill: 'var(--wash-flag)', stroke: 'var(--flight)'}, svg);
+  T(svg, bx + bw / 2, top + dep + 22, 's = ' + f(r.s, 0), {'text-anchor': 'middle', class: 'small'});
+  T(svg, sx + sw / 2, top + dep + 22, Lg('section', 'section'), {'text-anchor': 'middle', class: 'small'});
+  T(svg, zx, top + dep + 22, Lg('strain', 'strain'), {'text-anchor': 'middle', class: 'small'});
+  if (r.x < H * 3) S('line', {x1: sx - 6, x2: bx + bw + 6, y1: top + Math.min(r.x, H) * k, y2: top + Math.min(r.x, H) * k, stroke: 'var(--unbraced)', 'stroke-dasharray': '6 4', opacity: r.x <= H ? 1 : 0}, svg);
+  svg.setAttribute('aria-label', Lg(`Section, strain diagram and stress block for x = ${f(r.x, 0)} mm: top strain ${f(ec * 1000, 2)} per mille, block depth ${f(r.s, 0)} mm.`, `Section, strain diagram dan stress block bagi x = ${f(r.x, 0)} mm: strain atas ${f(ec * 1000, 2)} per seribu, kedalaman block ${f(r.s, 0)} mm.`));
+}
+function drawNM8(){
+  if (!nLast) return;
+  const svg = el('nChart'); wrapChart(svg, NCH, 640, 400); svg.innerHTML = '';
+  const {pts, K, r} = nLast;
+  const Mmax = Math.max(...pts.map(p => p.M)) * 1.12, Nmin = Math.min(0, pts[0].N) * 1.1, Nmax = K.A.N * 1.06;
+  const X = m => NCH.l + m / Mmax * (NCH.w - NCH.l - NCH.r), Y = n => NCH.h - NCH.b - (n - Nmin) / (Nmax - Nmin) * (NCH.h - NCH.t - NCH.b);
+  const g = S('g', {}, svg), sm = niceStep(Mmax, 6), sn = niceStep(Nmax - Nmin, 7);
+  for (let m = 0; m <= Mmax + 1e-9; m += sm){ S('line', {x1: X(m), x2: X(m), y1: NCH.t, y2: NCH.h - NCH.b, stroke: 'var(--grid)'}, g); T(g, X(m), NCH.h - NCH.b + 18, f(m, sm < 1 ? 1 : 0), {'text-anchor': 'middle'}); }
+  for (let n = Math.ceil(Nmin / sn) * sn; n <= Nmax + 1e-9; n += sn){ S('line', {x1: NCH.l, x2: NCH.w - NCH.r, y1: Y(n), y2: Y(n), stroke: n === 0 ? 'var(--ink-3)' : 'var(--grid)'}, g); T(g, NCH.l - 8, Y(n) + 4, f(n, 0), {'text-anchor': 'end'}); }
+  T(g, (NCH.l + NCH.w - NCH.r) / 2, NCH.h - 8, 'M (kN m)', {'text-anchor': 'middle', class: 'axt'}); T(g, 4, 14, 'N (kN)', {class: 'axt'});
+  let dd = ''; pts.forEach((p, i) => { dd += (i ? 'L' : 'M') + X(p.M).toFixed(1) + ',' + Y(p.N).toFixed(1); });
+  S('path', {d: dd + `L${X(0)},${Y(K.A.N)}Z`, fill: 'var(--wash-flag)', opacity: 0.5}, svg);
+  S('path', {d: dd, fill: 'none', stroke: 'var(--braced)', 'stroke-width': 2.4, 'stroke-linejoin': 'round'}, svg);
+  ['A', 'B', 'C', 'D'].forEach(k => { const p = K[k], px = X(Math.max(0, p.M)), py = Y(p.N);
+    S('circle', {cx: px, cy: py, r: 5.5, fill: 'var(--surface)', stroke: 'var(--ink)', 'stroke-width': 2}, svg);
+    T(svg, px + (k === 'C' ? -10 : 9), py + (k === 'A' ? 14 : -8), k, {'text-anchor': k === 'C' ? 'end' : 'start', style: 'font-weight:700;fill:var(--ink)'}); });
+  if (nCaseK === 'we81') Object.keys(jVals).forEach(k => { const v = jVals[k]; if (!v || !isFinite(v.N)) return; const m = k === 'A' ? 0 : v.M; if (!isFinite(m)) return;
+    S('rect', {x: X(m) - 5, y: Y(v.N) - 5, width: 10, height: 10, fill: 'var(--ok)', opacity: 0.85}, svg); });
+  S('circle', {cx: X(Math.max(0, r.M)), cy: Y(r.N), r: 7, fill: 'var(--unbraced)', stroke: 'var(--surface)', 'stroke-width': 2}, svg);
+  const tip = el('nTip'), hit = S('rect', {x: NCH.l, y: NCH.t, width: NCH.w - NCH.l - NCH.r, height: NCH.h - NCH.t - NCH.b, fill: 'transparent'}, svg);
+  const ring = S('circle', {r: 6, fill: 'none', stroke: 'var(--ink)', 'stroke-width': 1.5, visibility: 'hidden'}, svg);
+  const near = (cx0, cy0) => { let best = null, bd = 1e9; pts.forEach(p => { if (!isFinite(p.x)) return; const dx = X(p.M) - cx0, dy = Y(p.N) - cy0, q = dx * dx + dy * dy; if (q < bd){ bd = q; best = p; } }); return best; };
+  const show = e => { const bb = svg.getBoundingClientRect(), cx0 = (e.clientX - bb.left) / bb.width * NCH.w, cy0 = (e.clientY - bb.top) / bb.height * NCH.h, p = near(cx0, cy0); if (!p) return;
+    ring.setAttribute('cx', X(p.M)); ring.setAttribute('cy', Y(p.N)); ring.setAttribute('visibility', 'visible');
+    tip.hidden = false; tip.innerHTML = `<b>x = ${f(p.x, 0)} mm</b><span>N = ${f(p.N, 0)} kN</span><span>M = ${f(p.M, 1)} kN m</span>`;
+    tip.style.left = Math.min(X(p.M) / NCH.w * bb.width + 12, bb.width - 150) + 'px'; tip.style.top = Math.max(4, Y(p.N) / NCH.h * bb.height - 60) + 'px'; };
+  hit.addEventListener('pointermove', show); hit.addEventListener('pointerdown', show); hit.addEventListener('pointerleave', () => { tip.hidden = true; ring.setAttribute('visibility', 'hidden'); });
+  svg.setAttribute('aria-label', Lg(`N–M interaction curve of the section, ${nin.b} × ${nin.h}, ${2 * nin.n}H${nin.phi}. Squash ${f(K.A.N, 0)} kN; balance at ${f(K.C.N, 0)} kN with ${f(K.C.M, 1)} kN m; pure bending ${f(K.D.M, 1)} kN m. The current neutral axis gives ${f(r.N, 0)} kN and ${f(r.M, 1)} kN m.`,
+    `Lengkung N–M interaction bagi section ${nin.b} × ${nin.h}, ${2 * nin.n}H${nin.phi}. Squash ${f(K.A.N, 0)} kN; balance pada ${f(K.C.N, 0)} kN dengan ${f(K.C.M, 1)} kN m; pure bending ${f(K.D.M, 1)} kN m. Neutral axis semasa memberi ${f(r.N, 0)} kN dan ${f(r.M, 1)} kN m.`));
+}
+function nToOwn(){ if (nCaseK !== 'own'){ nCaseK = 'own'; fillNCases(); } }
+el('nCase').addEventListener('change', e => { nCaseK = e.target.value; if (NCASES[nCaseK].v) Object.assign(nin, NCASES[nCaseK].v); syncN(); el('nx').value = sFromX(nX = xFromS(700)); redrawNM(); });
+Object.keys(NF).forEach(id => el(id).addEventListener('input', e => { const v = parseFloat(e.target.value); if (!isFinite(v)) return; nin[NF[id]] = v; nToOwn(); nX = xFromS(+el('nx').value); redrawNM(); }));
+el('nx').addEventListener('input', e => { nX = xFromS(+e.target.value); nUser = true; redrawNM();
+  if (nLast && Math.abs(nX - XBALR * nLast.d) <= 2) milestone('bal'); });
+document.querySelectorAll('#panel-nm [data-jump]').forEach(b => b.addEventListener('click', () => { const H = nin.h, d = H - nin.d2; nX = b.dataset.jump === 'h' ? H : d; el('nx').value = sFromX(nX); nX = xFromS(+el('nx').value); redrawNM(); }));
+
+/* Activity 8A: the jigsaw, always on the WE 8.1 section */
+const JKEY = 'seaa4333-lab-column-jig';
+let jVals = recall(JKEY, {}) || {}, jChecked = false;
+const JREF = (() => { const A = 2 * barA8(16), bars = [[44, A], [356, A]]; return keyPts(400, 400, bars, 30, 44); })();
+function jOk(k){ const v = jVals[k]; if (!v) return false; const R = JREF[k], okN = k === 'D' ? true : Math.abs(v.N - R.N) <= Math.max(0.02 * Math.abs(R.N), 1), okM = k === 'A' ? true : Math.abs(v.M - R.M) <= Math.max(0.02 * Math.abs(R.M), 0.5); return isFinite(k === 'D' ? v.M : v.N) && (k === 'A' || isFinite(v.M)) && okN && okM; }
+function drawJig(){
+  const g = el('jGrid');
+  const nm = {A: Lg('A · squash', 'A · squash'), B: 'B · x = h', C: 'C · balance', D: 'D · N = 0'};
+  let h = `<span class="h"></span><span class="h">N (kN)</span><span class="h">M (kN m)</span><span class="h"></span>`;
+  ['A', 'B', 'C', 'D'].forEach(k => { const v = jVals[k] || {}, st = jChecked && jVals[k] ? (jOk(k) ? '<span class="st ok">✓</span>' : '<span class="st bad">✗</span>') : '<span class="st"></span>';
+    const nIn = k === 'D' ? `<input value="0" disabled aria-label="N, point D">` : `<input data-k="${k}" data-q="N" inputmode="decimal" value="${v.N !== undefined && isFinite(v.N) ? v.N : ''}" aria-label="N, point ${k}">`;
+    const mIn = k === 'A' ? `<input value="0" disabled aria-label="M, point A">` : `<input data-k="${k}" data-q="M" inputmode="decimal" value="${v.M !== undefined && isFinite(v.M) ? v.M : ''}" aria-label="M, point ${k}">`;
+    h += `<span class="lab">${nm[k]}</span>${nIn}${mIn}${st}`; });
+  g.innerHTML = h;
+  g.querySelectorAll('input[data-k]').forEach(inp => inp.addEventListener('input', () => { const k = inp.dataset.k, q = inp.dataset.q, x = parseFloat(String(inp.value).replace(/[−–]/g, '-').replace(',', '.'));
+    jVals[k] = jVals[k] || {}; jVals[k][q] = isFinite(x) ? x : NaN; if (k === 'D') jVals[k].N = 0; if (k === 'A') jVals[k].M = 0; store(JKEY, jVals); jChecked = false; el('jScore').textContent = ''; drawNM8(); }));
+  if (jChecked){ const n = ['A', 'B', 'C', 'D'].filter(jOk).length; el('jScore').textContent = n === 4 ? Lg('4 of 4 points right. Point C has the largest moment: the balance point.', '4 daripada 4 titik betul. Titik C mempunyai moment terbesar: balance point.') : Lg(`${n} of 4 points right. Fix the points marked ✗.`, `${n} daripada 4 titik betul. Betulkan titik bertanda ✗.`); }
+}
+el('jCheck').addEventListener('click', () => { jChecked = true; drawJig(); if (['A', 'B', 'C', 'D'].every(jOk)) milestone('jig'); });
+el('jReset').addEventListener('click', () => { jVals = {}; store(JKEY, jVals); jChecked = false; el('jScore').textContent = ''; drawJig(); drawNM8(); });
+
+/* Activity 8B: more N, less steel below balance */
+let bState = null;
+segGroup(el('bPred'), () => { if (bState){ bState = null; paintB(); } });
+function paintB(){
+  const out = el('bOut'), box = el('bFigBox');
+  if (!bState){ out.hidden = true; box.hidden = true; return; }
+  if (bState === 'ask'){ out.hidden = false; out.className = 'verdict'; out.textContent = Lg('Choose A, B, C or D first.', 'Pilih A, B, C atau D dahulu.'); box.hidden = true; return; }
+  const a1 = asReq8(350, 92.3, 300, 300, 46, 30), a2 = asReq8(700, 92.3, 300, 300, 46, 30), right = bState === 'B';
+  out.hidden = false; out.className = 'verdict ' + (right ? 'ok' : 'bad');
+  out.innerHTML = (right ? Lg('<b>Right: B.</b> ', '<b>Betul: B.</b> ') : Lg('<b>Not quite: the answer is B.</b> ', '<b>Belum tepat: jawapannya B.</b> ')) +
+    Lg(`The steel falls from ${f(a1, 0)} to ${f(a2, 0)} mm². Below the balance load (about 640 kN here) extra compression helps the section carry the moment. Beyond balance the steel rises again. So a column below balance must also be checked with its smallest axial load.`,
+       `Steel turun daripada ${f(a1, 0)} kepada ${f(a2, 0)} mm². Di bawah balance load (kira-kira 640 kN di sini) mampatan tambahan membantu section membawa moment. Selepas balance, steel naik semula. Jadi column di bawah balance juga mesti disemak dengan axial load terkecil.`);
+  box.hidden = false; drawB();
+}
+const BCH = {w: 640, h: 300, l: 64, r: 20, t: 18, b: 46};
+function drawB(){
+  const svg = el('bChart'); wrapChart(svg, BCH, 640, 300); svg.innerHTML = '';
+  const Ns = [], As = []; for (let N = 0; N <= 2000; N += 25){ Ns.push(N); As.push(asReq8(N, 92.3, 300, 300, 46, 30)); }
+  const X = n => BCH.l + n / 2000 * (BCH.w - BCH.l - BCH.r), Y = a => BCH.h - BCH.b - a / 3500 * (BCH.h - BCH.t - BCH.b);
+  const g = S('g', {}, svg);
+  for (let n = 0; n <= 2000; n += 500){ S('line', {x1: X(n), x2: X(n), y1: BCH.t, y2: BCH.h - BCH.b, stroke: 'var(--grid)'}, g); T(g, X(n), BCH.h - BCH.b + 18, String(n), {'text-anchor': 'middle'}); }
+  for (let a = 0; a <= 3500; a += 500){ S('line', {x1: BCH.l, x2: BCH.w - BCH.r, y1: Y(a), y2: Y(a), stroke: 'var(--grid)'}, g); T(g, BCH.l - 8, Y(a) + 4, String(a), {'text-anchor': 'end'}); }
+  T(g, (BCH.l + BCH.w - BCH.r) / 2, BCH.h - 8, 'N_Ed (kN)'.replace('_Ed', 'Ed'), {'text-anchor': 'middle', class: 'axt'}); T(g, 4, 12, 'A_s,req (mm²)'.replace('_s,req', 's,req'), {class: 'axt'});
+  let d = ''; Ns.forEach((n, i) => { const a = Math.min(As[i], 3600); d += (i ? 'L' : 'M') + X(n).toFixed(1) + ',' + Y(a).toFixed(1); });
+  S('path', {d, fill: 'none', stroke: 'var(--braced)', 'stroke-width': 2.4}, svg);
+  [[350, 'FE 8.2'], [700, '']].forEach(([n, lab]) => { const a = asReq8(n, 92.3, 300, 300, 46, 30); S('circle', {cx: X(n), cy: Y(a), r: 6, fill: 'var(--unbraced)'}, svg); T(svg, X(n) + 9, Y(a) - 9, `${lab ? lab + ' ' : ''}${n} kN: ${f(a, 0)} mm²`, {style: 'font-weight:700;fill:var(--ink)'}); });
+  svg.setAttribute('aria-label', Lg('Steel needed against axial load for the Faded Example 8.2 section at a moment of 92.3 kN m: it falls to a minimum near 640 kN, then rises.', 'Steel yang diperlukan berbanding axial load bagi section Faded Example 8.2 pada moment 92.3 kN m: ia turun ke minimum berhampiran 640 kN, kemudian naik.'));
+}
+el('bReveal').addEventListener('click', () => { const v = segVal(el('bPred')); if (!v){ bState = 'ask'; paintB(); return; } bState = v; paintB(); milestone('b8'); });
+
+/* ===================== 5 DESIGN AND DETAIL ===================== */
+const DCASES = {
+  we81: {en: 'WE 8.1: interior column, 400 × 400', ms: 'WE 8.1: column dalaman, 400 × 400', v: {b: 400, h: 400, fck: 30, l0: 1806, N: 2400, Mt: 90, Mb: 60, cn: 30, lk: 6, nb: 4, phi: 12}},
+  fe82: {en: 'FE 8.2: roof-level edge column, 300 × 300', ms: 'FE 8.2: edge column aras bumbung, 300 × 300', v: {b: 300, h: 300, fck: 30, l0: 2600, N: 350, Mt: 90, Mb: 45, cn: 30, lk: 6, nb: 4, phi: 16}},
+  own: {en: 'Your own column', ms: 'Column anda sendiri'}
+};
+const din = Object.assign({}, DCASES.we81.v); let dCaseK = 'we81', dUser = false;
+const DF = {db: 'b', dh: 'h', dfck: 'fck', dl0: 'l0', dN: 'N', dMt: 'Mt', dMb: 'Mb', dcn: 'cn', dlk: 'lk', dnb: 'nb', dphi: 'phi'};
+function fillDCases(){ const s = el('dCase'); s.innerHTML = ''; Object.keys(DCASES).forEach(k => { const o = document.createElement('option'); o.value = k; o.textContent = Lg(DCASES[k].en, DCASES[k].ms); s.appendChild(o); }); s.value = dCaseK; }
+function syncD(){ Object.keys(DF).forEach(id => { el(id).value = din[DF[id]]; }); }
+let dLast = null;
+function designCalc(){
+  const {b, h, fck, l0, N, Mt, Mb, cn, lk, nb, phi} = din;
+  const ei = l0 / 400, Mx = Math.max(Math.abs(Mt), Math.abs(Mb)), M02 = Mx + N * ei / 1e3, e0 = Math.max(h / 30, 20), Me0 = N * e0 / 1e3, MEd = Math.max(M02, Me0);
+  const d2 = cn + lk + phi / 2, r = d2 / h, r2 = Math.round(r * 100) / 100, chart = r2 <= 0.10 ? 0.10 : r2 <= 0.15 ? 0.15 : r2 <= 0.20 ? 0.20 : null;   // d2/h to two decimals: that chart or the next larger
+  const nu = N * 1e3 / (b * h * fck), mu = MEd * 1e6 / (b * h * h * fck);
+  const AsC = chart ? asReq8(N, MEd, h, b, chart * h, fck) : NaN, om = AsC * FYK / (b * h * fck), AsX = asReq8(N, MEd, h, b, d2, fck);
+  const Ac = b * h, mn = Math.max(0.10 * N * 1e3 / FYD8, 0.002 * Ac), mx = 0.04 * Ac, Ap = nb * barA8(phi);
+  const R = mrd8(N, h, b, [[d2, Ap / 2], [h - d2, Ap / 2]], fck);
+  const MRd = R ? R.M : NaN, pass = R && MRd >= MEd - 1e-9 && Ap >= mn - 1e-9 && Ap <= mx + 1e-9 && nb >= 4 && phi >= 12;
+  return {ei, Mx, M02, e0, Me0, MEd, d2, r, chart, nu, mu, AsC, om, AsX, Ac, mn, mx, Ap, R, MRd, pass};
+}
+function redrawDesign(){
+  const D = designCalc(); dLast = D; const P = din;
+  el('dAsProv').innerHTML = `A<sub>s,prov</sub> = ${f(D.Ap, 0)} mm²`;
+  const ok = (c, t) => `<span class="pill ${c ? 'ok' : 'bad'}">${t}</span>`;
+  el('dKV').innerHTML = `<div><span>M<sub>Ed</sub></span><b>${f(D.MEd, 1)} kN m</b></div><div><span>A<sub>s,req</sub></span><b>${isFinite(D.AsX) ? f(Math.max(D.AsX, D.mn), 0) + ' mm²' : '–'}</b></div>` +
+    `<div><span>M<sub>Rd</sub> (${P.nb}H${P.phi})</span><b>${isFinite(D.MRd) ? f(D.MRd, 1) + ' kN m' : '–'}</b></div><div><span>${Lg('Check', 'Semakan')}</span>${ok(D.pass, D.pass ? Lg('passes', 'lulus') : Lg('fails', 'gagal'))}</div>`;
+  const rows = [
+    ['(8.1)', `e<sub>i</sub> = l<sub>0</sub>/400 = ${P.l0}/400`, `${f(D.ei, 2)} mm`],
+    ['(8.2)', `M<sub>02</sub> = ${f(D.Mx, 1)} + ${P.N} × ${f(D.ei / 1000, 5)}`, `${f(D.M02, 2)} kN m`],
+    ['(8.3)', `e<sub>0</sub> = max(${P.h}/30; 20) = ${f(D.e0, 1)} mm; N<sub>Ed</sub>e<sub>0</sub> = ${f(D.Me0, 2)} kN m`, `M<sub>Ed</sub> = ${f(D.MEd, 2)} kN m`],
+    ['§4', `d<sub>2</sub> = ${P.cn} + ${P.lk} + ${P.phi}/2 = ${f(D.d2, 1)} mm; d<sub>2</sub>/h = ${f(D.r, 3)} ≈ ${f(Math.round(D.r * 100) / 100, 2)}`, D.chart ? Lg(`chart ${D.chart.toFixed(2)}`, `chart ${D.chart.toFixed(2)}`) : Lg('beyond the charts', 'di luar chart')],
+    ['(8.9)', `ν = ${P.N} × 10³/(${P.b} × ${P.h} × ${P.fck}); μ = ${f(D.MEd, 1)} × 10⁶/(${P.b} × ${P.h}² × ${P.fck})`, `${f(D.nu, 3)}; ${f(D.mu, 4)}`],
+    [Lg('Chart', 'Chart'), D.chart ? `ω = ${f(D.om, 3)}; A<sub>s</sub> = ${f(D.om, 3)} × ${P.b} × ${P.h} × ${P.fck}/500` : Lg('use strain compatibility', 'guna strain compatibility'), D.chart ? `${f(D.AsC, 0)} mm²` : '–'],
+    [Lg('Exact', 'Tepat'), Lg(`strain compatibility at d₂ = ${f(D.d2, 1)} mm`, `strain compatibility pada d₂ = ${f(D.d2, 1)} mm`), isFinite(D.AsX) ? `${f(D.AsX, 0)} mm²` : Lg('section too small', 'section terlalu kecil')],
+    ['(8.10)', `A<sub>s,min</sub> = max(0.10 × ${P.N} × 10³/435; 0.002 × ${D.Ac}); A<sub>s,max</sub> = 0.04 × ${D.Ac}`, `${f(D.mn, 0)}; ${f(D.mx, 0)} mm²`],
+    ['EC2 9.5.2', `${P.nb}H${P.phi} = ${f(D.Ap, 0)} mm²` + (P.nb < 4 ? Lg(' (fewer than 4 bars)', ' (kurang daripada 4 bar)') : '') + (P.phi < 12 ? Lg(' (bars under 12 mm)', ' (bar di bawah 12 mm)') : ''), `${D.Ap >= D.mn && D.Ap <= D.mx ? '✓' : '✗'}`],
+    [Lg('Direct check', 'Semakan terus'), D.R ? `x = ${f(D.R.x, 1)} mm${D.R.x > P.h ? Lg(' (below the section: pivot)', ' (di bawah section: pivot)') : ''}; N = ${f(D.R.N, 0)} kN` : Lg('N exceeds the squash load', 'N melebihi squash load'), D.R ? `M<sub>Rd</sub> = ${f(D.MRd, 1)} ${D.MRd >= D.MEd ? '≥' : '&lt;'} ${f(D.MEd, 1)}` : '–']
+  ];
+  el('dTable').innerHTML = `<thead><tr><th>Ref</th><th>${Lg('Calculation', 'Pengiraan')}</th><th class="out">Output</th></tr></thead><tbody>` + rows.map(r => `<tr><td class="ref">${r[0]}</td><td>${r[1]}</td><td class="out">${r[2]}</td></tr>`).join('') + '</tbody>';
+  drawDesignChart(D);
+  if (dUser && dCaseK === 'we81' && P.nb === 4 && P.phi === 16 && D.pass) milestone('we81');
+  paintLinks(false);
+}
+const DCH = {w: 640, h: 520, l: 64, r: 20, t: 20, b: 48};
+const chartCache = {};
+function chartCurves(d2h){
+  if (chartCache[d2h]) return chartCache[d2h];
+  const out = {};
+  for (let i = 0; i <= 10; i++){ const om = i / 10, As = om * 1e6 * 30 / FYK, bars = twoLayer(1000, d2h * 1000, As), pts = [];
+    for (let j = 0; j <= 160; j++){ const x = 1000 * Math.pow(10, -2.3 + j * 4.3 / 160), r = nmAt(x, 1000, 1000, bars, 30); pts.push([r.M * 1e6 / (1e9 * 30), r.N * 1e3 / (1e6 * 30)]); }
+    pts.push([0, 0.567 + 0.8 * om]);
+    const c = []; for (let j = 1; j < pts.length; j++){ const a = pts[j - 1], b = pts[j]; if (a[1] < 0 && b[1] >= 0){ const t = -a[1] / (b[1] - a[1]); c.push([a[0] + t * (b[0] - a[0]), 0]); } if (b[1] >= 0) c.push(b); }
+    out[om.toFixed(1)] = c; }
+  return (chartCache[d2h] = out);
+}
+function drawDesignChart(D){
+  const svg = el('dChart'); wrapChart(svg, DCH, 640, 520); svg.innerHTML = '';
+  const d2h = D.chart || 0.20, cv = chartCurves(d2h), mumax = Math.max(...Object.values(cv).flat().map(p => p[0]));
+  const xmax = Math.ceil(mumax * 20 + 0.2) / 20, X = m => DCH.l + m / xmax * (DCH.w - DCH.l - DCH.r), Y = n => DCH.h - DCH.b - n / 1.4 * (DCH.h - DCH.t - DCH.b);
+  el('dChartTitle').innerHTML = Lg(`Design chart, d<sub>2</sub>/h = ${d2h.toFixed(2)}`, `Design chart, d<sub>2</sub>/h = ${d2h.toFixed(2)}`) + (D.chart ? '' : Lg(' (your d<sub>2</sub>/h is beyond the charts)', ' (d<sub>2</sub>/h anda di luar chart)'));
+  const g = S('g', {}, svg);
+  for (let m = 0; m <= xmax + 1e-9; m += 0.05){ S('line', {x1: X(m), x2: X(m), y1: DCH.t, y2: DCH.h - DCH.b, stroke: 'var(--grid)'}, g); T(g, X(m), DCH.h - DCH.b + 18, m.toFixed(2), {'text-anchor': 'middle'}); }
+  for (let n = 0; n <= 1.4 + 1e-9; n += 0.1){ S('line', {x1: DCH.l, x2: DCH.w - DCH.r, y1: Y(n), y2: Y(n), stroke: 'var(--grid)'}, g); T(g, DCH.l - 8, Y(n) + 4, n.toFixed(1), {'text-anchor': 'end'}); }
+  T(g, (DCH.l + DCH.w - DCH.r) / 2, DCH.h - 8, 'M/(bh²f_ck)'.replace('f_ck', 'fck'), {'text-anchor': 'middle', class: 'axt'}); T(g, 4, 14, 'N/(bh fck)', {class: 'axt'});
+  Object.keys(cv).forEach(k => { const c = cv[k]; let d = ''; c.forEach((p, i) => { d += (i ? 'L' : 'M') + X(p[0]).toFixed(1) + ',' + Y(p[1]).toFixed(1); });
+    S('path', {d, fill: 'none', stroke: 'var(--braced)', 'stroke-width': k === '0.0' || k === '0.5' || k === '1.0' ? 2 : 1.3, opacity: 0.9}, svg);
+    const nose = c.reduce((a, b) => b[0] > a[0] ? b : a, c[0]); T(svg, X(nose[0]) + 3, Y(nose[1]) - 6, k, {class: 'small', style: 'fill:var(--braced);font-weight:700'}); });
+  if (isFinite(D.mu) && isFinite(D.nu) && D.nu <= 1.4 && D.mu <= xmax){ S('circle', {cx: X(D.mu), cy: Y(D.nu), r: 7, fill: 'var(--unbraced)', stroke: 'var(--surface)', 'stroke-width': 2}, svg);
+    T(svg, X(D.mu) + 10, Y(D.nu) + 18, `ω = ${f(D.om, 2)}`, {style: 'font-weight:700;fill:var(--ink)'}); }
+  const tip = el('dTip'), hit = S('rect', {x: DCH.l, y: DCH.t, width: DCH.w - DCH.l - DCH.r, height: DCH.h - DCH.t - DCH.b, fill: 'transparent'}, svg);
+  const show = e => { const bb = svg.getBoundingClientRect(), px = (e.clientX - bb.left) / bb.width * DCH.w, py = (e.clientY - bb.top) / bb.height * DCH.h;
+    const mu = (px - DCH.l) / (DCH.w - DCH.l - DCH.r) * xmax, nu = (DCH.h - DCH.b - py) / (DCH.h - DCH.t - DCH.b) * 1.4; if (mu < 0 || nu < 0) return;
+    const As = asReq8(nu * 30e3, mu * 30e3, 1000, 1000, d2h * 1000, 30), om = As * FYK / (1e6 * 30);
+    tip.hidden = false; tip.innerHTML = `<b>μ = ${f(mu, 3)}, ν = ${f(nu, 2)}</b><span>ω = ${isFinite(om) ? f(om, 2) : '&gt; 1'}</span>`;
+    tip.style.left = Math.min(px / DCH.w * bb.width + 12, bb.width - 150) + 'px'; tip.style.top = Math.max(4, py / DCH.h * bb.height - 50) + 'px'; };
+  hit.addEventListener('pointermove', show); hit.addEventListener('pointerdown', show); hit.addEventListener('pointerleave', () => { tip.hidden = true; });
+  svg.setAttribute('aria-label', Lg(`Design chart for d2/h = ${d2h.toFixed(2)} with curves of As fyk/(bh fck) from 0 to 1.0. Design point: mu = ${f(D.mu, 3)}, nu = ${f(D.nu, 3)}, omega = ${f(D.om, 2)}.`, `Design chart bagi d2/h = ${d2h.toFixed(2)} dengan lengkung As fyk/(bh fck) dari 0 hingga 1.0. Design point: mu = ${f(D.mu, 3)}, nu = ${f(D.nu, 3)}, omega = ${f(D.om, 2)}.`));
+}
+function dToOwn(){ if (dCaseK !== 'own'){ dCaseK = 'own'; fillDCases(); } }
+el('dCase').addEventListener('change', e => { dCaseK = e.target.value; dUser = true; if (DCASES[dCaseK].v) Object.assign(din, DCASES[dCaseK].v); syncD(); redrawDesign(); });
+Object.keys(DF).forEach(id => el(id).addEventListener(el(id).tagName === 'SELECT' ? 'change' : 'input', e => { const v = parseFloat(e.target.value); if (!isFinite(v)) return; din[DF[id]] = v; dUser = true;
+  if (id !== 'dnb' && id !== 'dphi') dToOwn(); redrawDesign(); }));
+/* links */
+function paintLinks(check){
+  const D = dLast; if (!D) return; const P = din;
+  const need = Math.max(6, P.phi / 4), smax = Math.min(20 * P.phi, Math.min(P.b, P.h), 400), s6 = 0.6 * smax, zone = Math.max(P.b, P.h);
+  const kp = +el('kphi').value, ks = +el('ks').value, ks6 = +el('ks6').value;
+  const o1 = kp >= need - 1e-9, o2 = ks > 0 && ks <= smax + 1e-9, o3 = ks6 > 0 && ks6 <= s6 + 1e-9;
+  const mark = (id, ok, t) => { el(id).innerHTML = check ? `<span class="pill ${ok ? 'ok' : 'bad'}">${ok ? '✓' : '✗'}</span> ${t}` : ''; };
+  mark('kphiSt', o1, Lg(`≥ ${f(need, 2)} mm`, `≥ ${f(need, 2)} mm`)); mark('ksSt', o2, `≤ ${f(smax, 0)} mm`); mark('ks6St', o3, `≤ ${f(s6, 0)} mm`);
+  const out = el('kOut'); if (!check){ out.hidden = true; return; }
+  out.hidden = false; out.className = 'verdict ' + (o1 && o2 && o3 ? 'ok' : 'bad');
+  out.innerHTML = o1 && o2 && o3
+    ? Lg(`<b>Links pass.</b> H${kp}-${ks}, closing to H${kp}-${ks6} within ${zone} mm above and below each floor` + (P.phi > 14 ? ', and at the laps (bars over 14 mm).' : '; laps of bars up to 14 mm need no reduction.'),
+         `<b>Link lulus.</b> H${kp}-${ks}, dirapatkan kepada H${kp}-${ks6} dalam ${zone} mm di atas dan di bawah setiap lantai` + (P.phi > 14 ? ', dan pada lap (bar melebihi 14 mm).' : '; lap bagi bar sehingga 14 mm tidak memerlukan pengurangan.'))
+    : Lg(`<b>Not yet.</b> φ<sub>link</sub> ≥ max(6; ${P.phi}/4) = ${f(need, 2)} mm; s<sub>cl,max</sub> = min(20 × ${P.phi}; ${Math.min(P.b, P.h)}; 400) = ${f(smax, 0)} mm; near the floors 0.6 × ${f(smax, 0)} = ${f(s6, 0)} mm.`,
+         `<b>Belum.</b> φ<sub>link</sub> ≥ max(6; ${P.phi}/4) = ${f(need, 2)} mm; s<sub>cl,max</sub> = min(20 × ${P.phi}; ${Math.min(P.b, P.h)}; 400) = ${f(smax, 0)} mm; berhampiran lantai 0.6 × ${f(smax, 0)} = ${f(s6, 0)} mm.`);
+  if (o1 && o2 && o3) milestone('link');
+}
+el('kCheck').addEventListener('click', () => paintLinks(true));
+['kphi', 'ks', 'ks6'].forEach(id => el(id).addEventListener(el(id).tagName === 'SELECT' ? 'change' : 'input', () => { el('kOut').hidden = true; ['kphiSt', 'ksSt', 'ks6St'].forEach(i => el(i).innerHTML = ''); }));
+
+/* ===================== 3 SPOT THE ERROR: COLUMN S8 ===================== */
+const S8 = [
+  {ref: 'EC2 5.8.3.1', calc: ['λ = 3000/86.6 = 34.6; n = 1500 × 10³/(90 000 × 17.0) = 0.980; 15 &gt; N<sub>Ed</sub>l<sub>0</sub>/400 = 11.3, r<sub>m</sub> = −10/15 = −0.667, C = 2.367; λ<sub>lim</sub> = 20 × 0.7 × 1.1 × 2.367/√0.980 = 36.8', 'λ = 3000/86.6 = 34.6; n = 1500 × 10³/(90 000 × 17.0) = 0.980; 15 &gt; N<sub>Ed</sub>l<sub>0</sub>/400 = 11.3, r<sub>m</sub> = −10/15 = −0.667, C = 2.367; λ<sub>lim</sub> = 20 × 0.7 × 1.1 × 2.367/√0.980 = 36.8'], out: '34.6 &lt; 36.8', slip: false,
+   fix: ['Right: non-slender about z, so this Unit applies.', 'Betul: non-slender pada paksi z, jadi Unit ini terpakai.']},
+  {ref: '(8.1)', calc: ['e<sub>i</sub> = l<sub>0</sub>/400 = 3000/400', 'e<sub>i</sub> = l<sub>0</sub>/400 = 3000/400'], out: '7.5 mm', slip: false, fix: ['Right.', 'Betul.']},
+  {ref: '(8.2)', calc: ['M<sub>02</sub> = the larger end moment; the imperfection is only for slender columns', 'M<sub>02</sub> = end moment yang lebih besar; imperfection hanya bagi column slender'], out: '15.0 kN m', slip: true,
+   fix: ['Every column gets the imperfection: M<sub>02</sub> = 15 + 1500 × 0.0075 = 26.3 kN m.', 'Setiap column menerima imperfection: M<sub>02</sub> = 15 + 1500 × 0.0075 = 26.3 kN m.']},
+  {ref: '(8.3)', calc: ['e<sub>0</sub> = h/30 = 300/30 = 10 mm; N<sub>Ed</sub>e<sub>0</sub> = 1500 × 0.010', 'e<sub>0</sub> = h/30 = 300/30 = 10 mm; N<sub>Ed</sub>e<sub>0</sub> = 1500 × 0.010'], out: '15.0 kN m', slip: true,
+   fix: ['e<sub>0</sub> is at least 20 mm: e<sub>0</sub> = max(10; 20) = 20 mm, N<sub>Ed</sub>e<sub>0</sub> = 30.0 kN m.', 'e<sub>0</sub> sekurang-kurangnya 20 mm: e<sub>0</sub> = max(10; 20) = 20 mm, N<sub>Ed</sub>e<sub>0</sub> = 30.0 kN m.']},
+  {ref: '(8.3)', calc: ['M<sub>Ed</sub> = max(15.0; 15.0)', 'M<sub>Ed</sub> = max(15.0; 15.0)'], out: '15.0 kN m', slip: false,
+   fix: ['Follows from lines 3 and 4: M<sub>Ed</sub> = max(26.3; 30.0) = 30.0 kN m, twice the submitted value; the minimum eccentricity governs.', 'Akibat baris 3 dan 4: M<sub>Ed</sub> = max(26.3; 30.0) = 30.0 kN m, dua kali nilai yang dihantar; minimum eccentricity menentukan.']},
+  {ref: '§4', calc: ['d<sub>2</sub> = 30 + 6 + 12/2 = 42 mm; d<sub>2</sub>/h = 0.14 → chart d<sub>2</sub>/h = 0.15', 'd<sub>2</sub> = 30 + 6 + 12/2 = 42 mm; d<sub>2</sub>/h = 0.14 → chart d<sub>2</sub>/h = 0.15'], out: '0.15', slip: false, fix: ['Right: the next larger chart.', 'Betul: chart yang lebih besar berikutnya.']},
+  {ref: '(8.9)', calc: ['ν = 1500 × 10³/(300 × 300 × 30) = 0.556; μ = 15.0 × 10⁶/(300 × 258² × 30)', 'ν = 1500 × 10³/(300 × 300 × 30) = 0.556; μ = 15.0 × 10⁶/(300 × 258² × 30)'], out: '0.556; 0.025', slip: true,
+   fix: ['The column charts use h, not d: μ = M<sub>Ed</sub>/(bh²f<sub>ck</sub>). With the correct moment, μ = 30.0 × 10⁶/(300 × 300² × 30) = 0.037.', 'Column chart menggunakan h, bukan d: μ = M<sub>Ed</sub>/(bh²f<sub>ck</sub>). Dengan moment yang betul, μ = 30.0 × 10⁶/(300 × 300² × 30) = 0.037.']},
+  {ref: 'Chart', calc: ['ω ≈ 0.05; A<sub>s</sub> = 0.05 × 300 × 300 × 30/500', 'ω ≈ 0.05; A<sub>s</sub> = 0.05 × 300 × 300 × 30/500'], out: '270 mm²', slip: false,
+   fix: ['Follows: at ν = 0.556 and μ = 0.037, ω ≈ 0.09 and A<sub>s</sub> ≈ 486 mm² (476 mm² by strain compatibility).', 'Akibatnya: pada ν = 0.556 dan μ = 0.037, ω ≈ 0.09 dan A<sub>s</sub> ≈ 486 mm² (476 mm² melalui strain compatibility).']},
+  {ref: '(8.10)', calc: ['A<sub>s,min</sub> = 0.002A<sub>c</sub> = 0.002 × 90 000', 'A<sub>s,min</sub> = 0.002A<sub>c</sub> = 0.002 × 90 000'], out: '180 mm²', slip: true,
+   fix: ['A<sub>s,min</sub> = max(0.10 × 1500 × 10³/435; 0.002 × 90 000) = max(345; 180) = 345 mm².', 'A<sub>s,min</sub> = max(0.10 × 1500 × 10³/435; 0.002 × 90 000) = max(345; 180) = 345 mm².']},
+  {ref: 'EC2 9.5.2', calc: ['Provide 4H12 = 452 mm² ≥ 270 mm²', 'Sediakan 4H12 = 452 mm² ≥ 270 mm²'], out: '4H12', slip: false,
+   fix: ['Follows from the lines above: 452 &lt; 476 mm² needed, and 4H12 carry only M<sub>Rd</sub> = 28.8 kN m &lt; 30.0 kN m. 4H16 (804 mm²) carry 45.2 kN m.', 'Akibat baris di atas: 452 &lt; 476 mm² yang diperlukan, dan 4H12 hanya membawa M<sub>Rd</sub> = 28.8 kN m &lt; 30.0 kN m. 4H16 (804 mm²) membawa 45.2 kN m.']},
+  {ref: '(8.12)', calc: ['φ<sub>link</sub> ≥ max(6; 12/4) → H6; s ≤ min(20 × 12; 300; 400) = 240 → H6-225; within 300 mm of the floors 0.6 × 240 = 144 → H6-125', 'φ<sub>link</sub> ≥ max(6; 12/4) → H6; s ≤ min(20 × 12; 300; 400) = 240 → H6-225; dalam 300 mm dari lantai 0.6 × 240 = 144 → H6-125'], out: 'H6-225 / 125', slip: false,
+   fix: ['Right for 4H12. With 4H16: min(320; 300; 400) = 300 → H6-300; 0.6 × 300 = 180 → H6-175, at the laps too (16 &gt; 14 mm).', 'Betul bagi 4H12. Dengan 4H16: min(320; 300; 400) = 300 → H6-300; 0.6 × 300 = 180 → H6-175, juga pada lap (16 &gt; 14 mm).']}
+];
+const SHEETS = {
+  s7: {rows: null, key: 'seaa4333-lab-column-s7', ms: 's7', title: ['Spot the error: Column S7', 'Cari kesilapan: Column S7'],
+       lede: ['A submitted slenderness check about the minor axis of a braced column. It contains four slips. Find them all before you look at the answer.', 'Semakan slenderness yang dihantar bagi minor axis sebuah column braced. Ia mengandungi empat kesilapan. Cari kesemuanya sebelum melihat jawapan.'],
+       tag: ['After class · Unit 7 · Explorer task 6', 'Selepas kelas · Unit 7 · Explorer tugasan 6'],
+       given: [['Column', 'Column', 'Braced, 250 × 400 (h = 400 mm in the plane of bending about z); C30/37', 'Braced, 250 × 400 (h = 400 mm dalam satah lenturan pada paksi z); C30/37'],
+               ['Floors', 'Lantai', '4.5 m apart; beams 250 × 450 spanning 5.0 m frame in on both sides in the plane of bending about y, at both floors', '4.5 m antara satu sama lain; beam 250 × 450 dengan span 5.0 m masuk pada kedua-dua sisi dalam satah lenturan pada paksi y, di kedua-dua lantai'],
+               ['Load', 'Load', 'N<sub>Ed</sub> = 1650 kN', 'N<sub>Ed</sub> = 1650 kN'],
+               ['Moments (y)', 'Moment (y)', '30 kN m at the top, 18 kN m at the bottom, tension on the same face', '30 kN m di atas, 18 kN m di bawah, tegangan pada muka yang sama']]},
+  s8: {rows: S8, key: 'seaa4333-lab-column-s8', ms: 's8', title: ['Spot the error: Column S8', 'Cari kesilapan: Column S8'],
+       lede: ['A submitted design of a short column for bending about z. It contains four slips. Find them all before you look at the answer.', 'Design column pendek yang dihantar bagi lenturan pada paksi z. Ia mengandungi empat kesilapan. Cari kesemuanya sebelum melihat jawapan.'],
+       tag: ['After class · Unit 8 · Explorer task 6', 'Selepas kelas · Unit 8 · Explorer tugasan 6'],
+       given: [['Column', 'Column', 'Braced interior column 300 × 300; l<sub>0</sub> = 3.0 m; C30/37, B500; c<sub>nom</sub> = 30 mm, links H6', 'Column dalaman braced 300 × 300; l<sub>0</sub> = 3.0 m; C30/37, B500; c<sub>nom</sub> = 30 mm, link H6'],
+               ['Load', 'Load', 'N<sub>Ed</sub> = 1500 kN', 'N<sub>Ed</sub> = 1500 kN'],
+               ['Moments (z)', 'Moment (z)', '15 kN m at the top, 10 kN m at the bottom, tension on opposite faces', '15 kN m di atas, 10 kN m di bawah, tegangan pada muka bertentangan']],
+       summary: ['<b>Four slips, one unsafe column.</b> Lines 3 and 4 each halve the moment: submitted M<sub>Ed</sub> = 15.0 kN m, correct 30.0 kN m, where the minimum eccentricity governs. Line 7 uses d instead of h, which partly hides the error, and line 9 forgets the axial-load term of A<sub>s,min</sub>. The bars chosen, 4H12, carry only 28.8 kN m at 1500 kN: the column needs 4H16 (M<sub>Rd</sub> = 45.2 kN m) with H6-300 links, H6-175 near the floors and at the laps.',
+                 '<b>Empat kesilapan, satu column yang tidak selamat.</b> Baris 3 dan 4 masing-masing mengurangkan moment separuh: M<sub>Ed</sub> yang dihantar 15.0 kN m, yang betul 30.0 kN m, tempat minimum eccentricity menentukan. Baris 7 menggunakan d dan bukan h, yang sebahagiannya menyembunyikan kesilapan itu, dan baris 9 terlupa sebutan axial load dalam A<sub>s,min</sub>. Bar yang dipilih, 4H12, hanya membawa 28.8 kN m pada 1500 kN: column itu memerlukan 4H16 (M<sub>Rd</sub> = 45.2 kN m) dengan link H6-300, H6-175 berhampiran lantai dan pada lap.']}
+};
+SHEETS.s7.rows = S7;
+let eWhich = /08-columns-2/.test(document.referrer || '') ? 's8' : /07-columns-1/.test(document.referrer || '') ? 's7' : 's8';
+const eState = {s7: {flag: new Set(recall(SHEETS.s7.key, [])), checked: false, fixed: false}, s8: {flag: new Set(recall(SHEETS.s8.key, [])), checked: false, fixed: false}};
+function drawS8Fig(){
+  const box = el('eFig'); box.innerHTML = '';
+  const svg = S('svg', {class: 'fig', viewBox: '0 0 520 296', role: 'img', 'aria-label': Lg('Column S8: a 300 by 300 section with four bars, and the moment diagram about z with 15 kN m at the top and 10 kN m at the bottom on opposite faces.', 'Column S8: section 300 × 300 dengan empat bar, dan moment diagram pada paksi z dengan 15 kN m di atas dan 10 kN m di bawah pada muka bertentangan.')}, box);
+  svg.style.minWidth = '320px';
+  const x0 = 70, y0 = 70, w = 150;
+  S('rect', {x: x0, y: y0, width: w, height: w, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
+  S('rect', {x: x0 + 18, y: y0 + 18, width: w - 36, height: w - 36, fill: 'none', stroke: 'var(--ok)', rx: 5}, svg);
+  [[0, 0], [1, 0], [0, 1], [1, 1]].forEach(([i, j]) => S('circle', {cx: x0 + 26 + i * (w - 52), cy: y0 + 26 + j * (w - 52), r: 6, fill: 'var(--ink-2)'}, svg));
+  T(svg, x0 + w / 2, y0 + w + 26, '300 × 300', {'text-anchor': 'middle', class: 'small'});
+  T(svg, x0 + w / 2, y0 - 14, Lg('section, bending about z', 'section, lenturan pada paksi z'), {'text-anchor': 'middle', class: 'small'});
+  const mx = 380, top = 60, bot = 240, sc = 5;
+  S('line', {x1: mx, x2: mx, y1: top, y2: bot, stroke: 'var(--ink-3)'}, svg);
+  S('path', {d: `M${mx},${top} L${mx + 15 * sc},${top} L${mx - 10 * sc},${bot} L${mx},${bot} Z`, fill: 'var(--wash-flag)', stroke: 'var(--flight)', 'stroke-width': 1.5}, svg);
+  T(svg, mx + 15 * sc + 6, top + 4, '15', {}); T(svg, mx - 10 * sc - 6, bot + 4, '10', {'text-anchor': 'end'});
+  TS(svg, mx, bot + 26, [['M'], ['z', 1], [' (kN m)']], {'text-anchor': 'middle'});
+  TS(svg, mx, top - 18, [['N'], ['Ed', 1], [' = 1500 kN · l'], ['0', 1], [' = 3.0 m']], {'text-anchor': 'middle', class: 'small'});
+}
+function drawSheet(){
+  const Sh = SHEETS[eWhich], st = eState[eWhich], rows = Sh.rows;
+  setSeg(el('eWhich'), eWhich);
+  el('eTitle').innerHTML = Lg(Sh.title[0], Sh.title[1]); el('eLede').innerHTML = Lg(Sh.lede[0], Sh.lede[1]); el('eTag').innerHTML = Lg(Sh.tag[0], Sh.tag[1]);
+  el('eGiven').innerHTML = Sh.given.map(g => `<dt>${Lg(g[0], g[1])}</dt><dd>${Lg(g[2], g[3])}</dd>`).join('');
+  el('eSheet').setAttribute('aria-label', Lg(`Column ${eWhich.toUpperCase()} calculation sheet`, `Helaian pengiraan Column ${eWhich.toUpperCase()}`));
+  if (eWhich === 's7') drawS7Fig(); else drawS8Fig();
+  const t = el('eSheet');
+  let html = `<thead><tr><th>${Lg('Line', 'Baris')}</th><th>Ref</th><th>${Lg('Calculation', 'Pengiraan')}</th><th>Output</th></tr></thead><tbody>`;
+  rows.forEach((r, i) => {
+    const n = i + 1, fl = st.flag.has(n);
+    let cls = fl ? 'flag' : '';
+    if (st.checked || st.fixed){ if (r.slip && fl) cls = 'hit'; else if (r.slip && st.fixed) cls = 'miss'; else if (!r.slip && fl) cls = 'false'; }
+    const fix = (st.fixed || (st.checked && fl && r.slip)) ? `<span class="fix">${Lg(r.fix[0], r.fix[1])}</span>` : '';
+    html += `<tr class="${cls}" data-n="${n}" tabindex="0"><td class="no">${n}</td><td class="ref">${r.ref}</td><td class="calc">${Lg(r.calc[0], r.calc[1])}${fix}</td><td class="out">${r.out}</td></tr>`;
+  });
+  t.innerHTML = html + '</tbody>';
+  t.querySelectorAll('tbody tr').forEach(tr => {
+    const tog = () => { const n = +tr.dataset.n; if (st.flag.has(n)) st.flag.delete(n); else st.flag.add(n); store(Sh.key, [...st.flag]); st.checked = false; drawSheet(); };
+    tr.addEventListener('click', tog); tr.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); tog(); } });
+  });
+  const hits = rows.filter((r, i) => r.slip && st.flag.has(i + 1)).length, fls = rows.filter((r, i) => !r.slip && st.flag.has(i + 1)).length;
+  el('eScore').textContent = st.checked ? Lg(`${hits} of 4 slips found` + (fls ? `; ${fls} line${fls > 1 ? 's' : ''} flagged that ${fls > 1 ? 'are' : 'is'} right` : ''), `${hits} daripada 4 kesilapan dijumpai` + (fls ? `; ${fls} baris yang betul turut ditanda` : '')) : Lg(`Lines flagged: ${st.flag.size}`, `Baris ditanda: ${st.flag.size}`);
+  const sum = el('eSummary');
+  if (st.fixed || (st.checked && hits === 4)){ sum.hidden = false; sum.innerHTML = eWhich === 's7' ? s7Summary() : Lg(Sh.summary[0], Sh.summary[1]); }
+  else sum.hidden = true;
+}
+segGroup(el('eWhich'), v => { eWhich = v; drawSheet(); });
+
+el('eCheck').addEventListener('click', () => { const st = eState[eWhich], rows = SHEETS[eWhich].rows; st.checked = true; const hits = rows.filter((r, i) => r.slip && st.flag.has(i + 1)).length; if (hits === 4 && !st.fixed) milestone(SHEETS[eWhich].ms); drawSheet(); });
+el('eFix').addEventListener('click', () => { eState[eWhich].fixed = true; drawSheet(); });
+el('eReset').addEventListener('click', () => { const st = eState[eWhich]; st.flag = new Set(); store(SHEETS[eWhich].key, []); st.checked = false; st.fixed = false; drawSheet(); });
+
 /* ---------- start ---------- */
-function redrawAll(){ redrawLength(); paintReveal(); drawRace(); drawS7(); drawS7Fig(); }
+function redrawAll(){ redrawLength(); paintReveal(); drawRace(); drawSheet(); fillNCases(); redrawNM(); drawJig(); paintB(); fillDCases(); redrawDesign(); }
 drawers.length = () => drawChart(lastR || {z: axisCalc(inp, 'z'), y: axisCalc(inp, 'y')});
+drawers.nm = () => { drawNM8(); if (bState && bState !== 'ask') drawB(); };
+drawers.design = () => drawDesignChart(dLast || designCalc());
 if ('ResizeObserver' in window){ let cw = 0; new ResizeObserver(en => { const nw = Math.round(en[0].contentRect.width); if (nw && nw !== cw){ cw = nw; drawChart(lastR || {z: axisCalc(inp, 'z'), y: axisCalc(inp, 'y')}); } }).observe(el('lChart').parentNode); }
 else window.addEventListener('resize', () => drawChart(lastR || {z: axisCalc(inp, 'z'), y: axisCalc(inp, 'y')}));
+if ('ResizeObserver' in window){ [['nChart', () => drawNM8()], ['dChart', () => dLast && drawDesignChart(dLast)], ['bChart', () => bState && bState !== 'ask' && drawB()]].forEach(([id, fn]) => { let w0 = 0; new ResizeObserver(en => { const nw = Math.round(en[0].contentRect.width); if (nw && nw !== w0){ w0 = nw; fn(); } }).observe(el(id).parentNode); }); }
 applyPrefs(false);
-fillCases(); syncInputs(); tPaint(); redrawAll();
+fillCases(); syncInputs(); syncN(); el('nx').value = sFromX(nX); syncD(); tPaint(); redrawAll();
 showTab((location.hash || '').slice(1) || 'length');
 window.addEventListener('hashchange', () => showTab((location.hash || '').slice(1)));
 </script>

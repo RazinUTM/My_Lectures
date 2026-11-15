@@ -1237,6 +1237,398 @@
      "title_ms": "Glosari: tension controls"
     }
    ]
+  },
+  {
+   "part": "u9",
+   "folder": "09-columns-3",
+   "title": "Unit 9 Columns III",
+   "sections": [
+    {
+     "id": "start-outcomes",
+     "title_en": "After this part you should be able to",
+     "title_ms": "Selepas bahagian ini, anda sepatutnya boleh"
+    },
+    {
+     "id": "notes-n1",
+     "title_en": "1. The second-order moment",
+     "title_ms": "1. Second-order moment"
+    },
+    {
+     "id": "notes-n2",
+     "title_en": "2. Nominal curvature",
+     "title_ms": "2. Nominal curvature"
+    },
+    {
+     "id": "notes-n3",
+     "title_en": "3. Design moments: braced and unbraced",
+     "title_ms": "3. Design moment: braced dan unbraced"
+    },
+    {
+     "id": "notes-n4",
+     "title_en": "4. The K_r loop and the bars",
+     "title_ms": "4. Gelung K_r dan bar"
+    },
+    {
+     "id": "notes-n5",
+     "title_en": "5. Both axes: the screening",
+     "title_ms": "5. Kedua-dua paksi: saringan"
+    },
+    {
+     "id": "notes-n6",
+     "title_en": "6. Biaxial design: estimate and check",
+     "title_ms": "6. Biaxial design: anggaran dan semakan"
+    },
+    {
+     "id": "slides-1",
+     "title_en": "Slide 1: Columns III",
+     "title_ms": "Slide 1: Columns III"
+    },
+    {
+     "id": "slides-2",
+     "title_en": "Slide 2: How the next three hours run",
+     "title_ms": "Slide 2: How the next three hours run"
+    },
+    {
+     "id": "slides-3",
+     "title_en": "Slide 3: Three questions before the slender column",
+     "title_ms": "Slide 3: Three questions before the slender column"
+    },
+    {
+     "id": "slides-4",
+     "title_en": "Slide 4: A, B, B, and what each means today",
+     "title_ms": "Slide 4: A, B, B, and what each means today"
+    },
+    {
+     "id": "slides-5",
+     "title_en": "Slide 5: Push on a strip a little off-centre",
+     "title_ms": "Slide 5: Push on a strip a little off-centre"
+    },
+    {
+     "id": "slides-6",
+     "title_en": "Slide 6: Why does the moment in a slender column grow by itself?",
+     "title_ms": "Slide 6: Why does the moment in a slender column grow by itself?"
+    },
+    {
+     "id": "slides-7",
+     "title_en": "Slide 7: Today designs the columns Unit 7 called slender",
+     "title_ms": "Slide 7: Today designs the columns Unit 7 called slender"
+    },
+    {
+     "id": "slides-8",
+     "title_en": "Slide 8: The second-order moment: N times the deflection",
+     "title_ms": "Slide 8: The second-order moment: N times the deflection"
+    },
+    {
+     "id": "slides-9",
+     "title_en": "Slide 9: Nominal curvature in six steps",
+     "title_ms": "Slide 9: Nominal curvature in six steps"
+    },
+    {
+     "id": "slides-10",
+     "title_en": "Slide 10: Four candidates for a braced column; one for an unbraced",
+     "title_ms": "Slide 10: Four candidates for a braced column; one for an unbraced"
+    },
+    {
+     "id": "slides-11",
+     "title_en": "Slide 11: Six steps, four columns: which candidate wins?",
+     "title_ms": "Slide 11: Six steps, four columns: which candidate wins?"
+    },
+    {
+     "id": "slides-12",
+     "title_en": "Slide 12: Four columns, four branches of EC2 5.8.8.2",
+     "title_ms": "Slide 12: Four columns, four branches of EC2 5.8.8.2"
+    },
+    {
+     "id": "slides-13",
+     "title_en": "Slide 13: A tall braced column: 300 × 300, l₀ = 5.0 m",
+     "title_ms": "Slide 13: A tall braced column: 300 × 300, l₀ = 5.0 m"
+    },
+    {
+     "id": "slides-14",
+     "title_en": "Slide 14: You add bars to a slender column. What happens to Kr and M₂?",
+     "title_ms": "Slide 14: You add bars to a slender column. What happens to Kr and M₂?"
+    },
+    {
+     "id": "slides-15",
+     "title_en": "Slide 15: A column has two axes: check both",
+     "title_ms": "Slide 15: A column has two axes: check both"
+    },
+    {
+     "id": "slides-16",
+     "title_en": "Slide 16: Is a biaxial check needed? EC2 5.8.9(3)",
+     "title_ms": "Slide 16: Is a biaxial check needed? EC2 5.8.9(3)"
+    },
+    {
+     "id": "slides-17",
+     "title_en": "Slide 17: Which columns need a biaxial check?",
+     "title_ms": "Slide 17: Which columns need a biaxial check?"
+    },
+    {
+     "id": "slides-18",
+     "title_en": "Slide 18: Only card 1 may be designed axis by axis",
+     "title_ms": "Slide 18: Only card 1 may be designed axis by axis"
+    },
+    {
+     "id": "slides-19",
+     "title_en": "Slide 19: Biaxial design: estimate the bars, then check",
+     "title_ms": "Slide 19: Biaxial design: estimate the bars, then check"
+    },
+    {
+     "id": "slides-20",
+     "title_en": "Slide 20: Both axes: 4H20 was not enough",
+     "title_ms": "Slide 20: Both axes: 4H20 was not enough"
+    },
+    {
+     "id": "slides-21",
+     "title_en": "Slide 21: Worked Example 8.1, seen about both axes",
+     "title_ms": "Slide 21: Worked Example 8.1, seen about both axes"
+    },
+    {
+     "id": "slides-22",
+     "title_en": "Slide 22: 4H16 fails about both axes; 4H20 passes",
+     "title_ms": "Slide 22: 4H16 fails about both axes; 4H20 passes"
+    },
+    {
+     "id": "slides-23",
+     "title_en": "Slide 23: 300 × 500 column: λy/λz = 1.67, ey/h = 0.38, ez/b = 0.067. What next?",
+     "title_ms": "Slide 23: 300 × 500 column: λy/λz = 1.67, ey/h = 0.38, ez/b = 0.067. What next?"
+    },
+    {
+     "id": "slides-24",
+     "title_en": "Slide 24: D9: a past-paper question (15 marks)",
+     "title_ms": "Slide 24: D9: a past-paper question (15 marks)"
+    },
+    {
+     "id": "slides-25",
+     "title_en": "Slide 25: A draft design of your column",
+     "title_ms": "Slide 25: A draft design of your column"
+    },
+    {
+     "id": "slides-26",
+     "title_en": "Slide 26: A column has two axes: check both, every time",
+     "title_ms": "Slide 26: A column has two axes: check both, every time"
+    },
+    {
+     "id": "slides-27",
+     "title_en": "Slide 27: Before Unit 10",
+     "title_ms": "Slide 27: Before Unit 10"
+    },
+    {
+     "id": "slides-28",
+     "title_en": "Slide 28: Before you leave",
+     "title_ms": "Slide 28: Before you leave"
+    },
+    {
+     "id": "examples-x1",
+     "title_en": "Example 1 · Worked Example 9.1: a tall braced column, one axis and then both",
+     "title_ms": "Contoh 1 · Worked Example 9.1: column braced yang tinggi, satu paksi dan kemudian kedua-duanya"
+    },
+    {
+     "id": "examples-x2",
+     "title_en": "Example 2 · Faded Example 9.2: Worked Example 8.1 about both axes",
+     "title_ms": "Contoh 2 · Faded Example 9.2: Worked Example 8.1 pada kedua-dua paksi"
+    },
+    {
+     "id": "examples-x3",
+     "title_en": "Example 3 · Explain-type questions",
+     "title_ms": "Contoh 3 · Soalan jenis terangkan"
+    },
+    {
+     "id": "exercises-b1",
+     "title_en": "Exercise B1 · First-order moments with the imperfection",
+     "title_ms": "Latihan B1 · First-order moment dengan imperfection"
+    },
+    {
+     "id": "exercises-b2",
+     "title_en": "Exercise B2 · Creep and K_φ",
+     "title_ms": "Latihan B2 · Creep dan K_φ"
+    },
+    {
+     "id": "exercises-b3",
+     "title_en": "Exercise B3 · Curvature and M_2",
+     "title_ms": "Latihan B3 · Curvature dan M_2"
+    },
+    {
+     "id": "exercises-b4",
+     "title_en": "Exercise B4 · The design moment of a braced column",
+     "title_ms": "Latihan B4 · Design moment column braced"
+    },
+    {
+     "id": "exercises-b5",
+     "title_en": "Exercise B5 · K_r from the steel",
+     "title_ms": "Latihan B5 · K_r daripada steel"
+    },
+    {
+     "id": "exercises-b6",
+     "title_en": "Exercise B6 · The biaxial interaction",
+     "title_ms": "Latihan B6 · Biaxial interaction"
+    },
+    {
+     "id": "exercises-quick",
+     "title_en": "Exercises: quick concept questions",
+     "title_ms": "Latihan: soalan konsep pantas"
+    },
+    {
+     "id": "lab-six",
+     "title_en": "Explorer task 1: Tab 6: enter M_2 and M_{Ed} for your Activity 9A card (A, B, C…",
+     "title_ms": "Tugasan Explorer 1: Tab 6: masukkan M_2 dan M_{Ed} bagi kad Aktiviti 9A anda (A, B,…"
+    },
+    {
+     "id": "lab-branch",
+     "title_en": "Explorer task 2: Tab 6: with the sliders, make each of the three candidates of a…",
+     "title_ms": "Tugasan Explorer 2: Tab 6: dengan slider, jadikan setiap tiga calon column braced m…"
+    },
+    {
+     "id": "lab-sway9",
+     "title_en": "Explorer task 3: Tab 6: switch card B to unbraced",
+     "title_ms": "Tugasan Explorer 3: Tab 6: tukar kad B kepada unbraced"
+    },
+    {
+     "id": "lab-screen",
+     "title_en": "Explorer task 4: Tab 6, Activity 9B: decide for the four screening cards whether…",
+     "title_ms": "Tugasan Explorer 4: Tab 6, Aktiviti 9B: putuskan bagi empat kad saringan sama ada b…"
+    },
+    {
+     "id": "lab-we81y",
+     "title_en": "Explorer task 5: Tab 6: load Worked Example 8.1 about both axes",
+     "title_ms": "Tugasan Explorer 5: Tab 6: muatkan Worked Example 8.1 pada kedua-dua paksi"
+    },
+    {
+     "id": "lab-s9",
+     "title_en": "Explorer task 6: Tab 3: pick Column S9, find all four slips, tap their lines and…",
+     "title_ms": "Tugasan Explorer 6: Tab 3: pilih Column S9, cari keempat-empat kesilapan, ketik bar…"
+    },
+    {
+     "id": "glossary-axial-load-ratio-n",
+     "title_en": "Glossary: axial load ratio n",
+     "title_ms": "Glosari: axial load ratio n"
+    },
+    {
+     "id": "glossary-basic-curvature-1-r-0",
+     "title_en": "Glossary: basic curvature 1/r_0",
+     "title_ms": "Glosari: basic curvature 1/r_0"
+    },
+    {
+     "id": "glossary-biaxial-rdf-14",
+     "title_en": "Glossary: β (biaxial, RDF §14)",
+     "title_ms": "Glosari: β (biaxial, RDF §14)"
+    },
+    {
+     "id": "glossary-creep-ec2-5-8-8-3-4",
+     "title_en": "Glossary: β (creep, EC2 5.8.8.3(4))",
+     "title_ms": "Glosari: β (creep, EC2 5.8.8.3(4))"
+    },
+    {
+     "id": "glossary-biaxial-bending",
+     "title_en": "Glossary: biaxial bending",
+     "title_ms": "Glosari: biaxial bending"
+    },
+    {
+     "id": "glossary-creep-coefficient-t-0",
+     "title_en": "Glossary: creep coefficient φ(∞,t_0 )",
+     "title_ms": "Glosari: creep coefficient φ(∞,t_0 )"
+    },
+    {
+     "id": "glossary-curvature-1-r",
+     "title_en": "Glossary: curvature 1/r",
+     "title_ms": "Glosari: curvature 1/r"
+    },
+    {
+     "id": "glossary-deflection-e-2",
+     "title_en": "Glossary: deflection e_2",
+     "title_ms": "Glosari: deflection e_2"
+    },
+    {
+     "id": "glossary-effective-creep-ratio-ef",
+     "title_en": "Glossary: effective creep ratio φ_{ef}",
+     "title_ms": "Glosari: effective creep ratio φ_{ef}"
+    },
+    {
+     "id": "glossary-enhanced-moment-m",
+     "title_en": "Glossary: enhanced moment M′",
+     "title_ms": "Glosari: enhanced moment M′"
+    },
+    {
+     "id": "glossary-equivalent-first-order-moment-m-0e",
+     "title_en": "Glossary: equivalent first-order moment M_{0e}",
+     "title_ms": "Glosari: equivalent first-order moment M_{0e}"
+    },
+    {
+     "id": "glossary-exponent-a",
+     "title_en": "Glossary: exponent a",
+     "title_ms": "Glosari: exponent a"
+    },
+    {
+     "id": "glossary-first-order-eccentricity-e-1",
+     "title_en": "Glossary: first-order eccentricity e_1",
+     "title_ms": "Glosari: first-order eccentricity e_1"
+    },
+    {
+     "id": "glossary-imperfection-e-i",
+     "title_en": "Glossary: imperfection e_i",
+     "title_ms": "Glosari: imperfection e_i"
+    },
+    {
+     "id": "glossary-interaction-check-eq-5-39",
+     "title_en": "Glossary: interaction check, Eq. 5.39",
+     "title_ms": "Glosari: interaction check, Eq. 5.39"
+    },
+    {
+     "id": "glossary-k-r",
+     "title_en": "Glossary: K_r",
+     "title_ms": "Glosari: K_r"
+    },
+    {
+     "id": "glossary-k",
+     "title_en": "Glossary: K_φ",
+     "title_ms": "Glosari: K_φ"
+    },
+    {
+     "id": "glossary-minimum-eccentricity-e-0",
+     "title_en": "Glossary: minimum eccentricity e_0",
+     "title_ms": "Glosari: minimum eccentricity e_0"
+    },
+    {
+     "id": "glossary-n-bal-n-u",
+     "title_en": "Glossary: n_{bal} , n_u",
+     "title_ms": "Glosari: n_{bal} , n_u"
+    },
+    {
+     "id": "glossary-n-rd",
+     "title_en": "Glossary: N_{Rd}",
+     "title_ms": "Glosari: N_{Rd}"
+    },
+    {
+     "id": "glossary-nominal-curvature-method",
+     "title_en": "Glossary: nominal curvature method",
+     "title_ms": "Glosari: nominal curvature method"
+    },
+    {
+     "id": "glossary-nominal-stiffness-method",
+     "title_en": "Glossary: nominal stiffness method",
+     "title_ms": "Glosari: nominal stiffness method"
+    },
+    {
+     "id": "glossary-quasi-permanent-ratio-m-0eqp-m-0ed",
+     "title_en": "Glossary: quasi-permanent ratio M_{0Eqp} /M_{0Ed}",
+     "title_ms": "Glosari: quasi-permanent ratio M_{0Eqp} /M_{0Ed}"
+    },
+    {
+     "id": "glossary-relative-eccentricity",
+     "title_en": "Glossary: relative eccentricity",
+     "title_ms": "Glosari: relative eccentricity"
+    },
+    {
+     "id": "glossary-screening-ec2-5-8-9-3",
+     "title_en": "Glossary: screening (EC2 5.8.9(3))",
+     "title_ms": "Glosari: screening (EC2 5.8.9(3))"
+    },
+    {
+     "id": "glossary-second-order-moment-m-2",
+     "title_en": "Glossary: second-order moment M_2",
+     "title_ms": "Glosari: second-order moment M_2"
+    }
+   ]
   }
  ]
 }

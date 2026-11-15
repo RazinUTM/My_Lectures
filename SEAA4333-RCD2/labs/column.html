@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Column Lab · SEAA 4333</title>
-<meta name="description" content="SEAA 4333 Units 7 and 8, Columns I and II: effective length and slenderness by the course method (EC2 5.8.3), the N–M interaction diagram by strain compatibility, the design of a short column with a design chart and a direct check, links, and two spot-the-error sheets.">
+<meta name="description" content="SEAA 4333 Units 7 to 9, Columns I to III: effective length and slenderness by the course method (EC2 5.8.3), the N–M interaction diagram by strain compatibility, the design of a short column with a design chart and a direct check, links, the second-order moment of a slender column by nominal curvature (EC2 5.8.8), biaxial bending (EC2 5.8.9), and three spot-the-error sheets.">
 <meta name="claude:viewport-fit-sides" content="cover">
 <script>(function(){try{var r=document.documentElement,p=JSON.parse(localStorage.getItem("seaa4333-prefs")||"null")||{};if(p.lang==="ms"){r.lang="ms";r.setAttribute("data-lang","ms")}if(p.theme==="light"||p.theme==="dark")r.setAttribute("data-theme",p.theme);if(+p.font)r.style.fontSize=(+p.font*100)+"%"}catch(e){}})();</script>
-<!-- Column Lab (SEAA 4333 Unit 7). SPDX-License-Identifier: MIT (code). Text and figures: CC BY-NC-SA 4.0.
+<!-- Column Lab (SEAA 4333 Units 7–9). SPDX-License-Identifier: MIT (code). Text and figures: CC BY-NC-SA 4.0.
      Copyright (c) 2026 Ahmad Razin Zainal Abidin and Universiti Teknologi Malaysia. See ../LICENSE.md. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,7 +15,7 @@
 <style>
 /* Layout: the calculation pad of the Staircase Lab, laid on concrete. Controls stay monochrome ink;
    colour is kept for the two bracing cases (braced blue, unbraced rust, validated for colour-vision
-   deficiency in both themes) and for pass/fail verdicts. Three tabs follow the order of the Unit 7 session. */
+   deficiency in both themes) and for pass/fail verdicts. The tabs follow the order of the Unit 7, 8 and 9 sessions. */
 :root{
   --bg:#E6E4DF; --surface:#F7F6F2; --surface-2:#EEECE6;
   --ink:#1D1C19; --ink-2:#47443D; --ink-3:#686459;
@@ -248,18 +248,32 @@ input[type=range].xs{width:100%;accent-color:var(--flight);margin:6px 0 2px}
 .lk{display:grid;grid-template-columns:auto auto auto;gap:6px 10px;align-items:center;margin-top:8px}
 .lk input,.lk select{font:inherit;font-family:var(--f-mono);width:6.5em;padding:5px 7px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink)}
 .lk .st{font-size:.9rem}
+/* Unit 9: slender columns and both axes */
+.seg.scr button{padding:6px 9px;min-height:32px;font-size:.78rem}
+#scrTable td{vertical-align:middle}
+#panel-sb .fields input[type=range]{width:100%;accent-color:var(--flight)}
+.kv span:has(sub){text-transform:none;letter-spacing:.02em}
+.tbl th:has(sub){text-transform:none;letter-spacing:.02em}
+#scrTable tr.scrrow td{border-bottom:0;padding-bottom:2px}
+#scrTable tr.scrdec td{padding-top:2px}
+#scrTable .scrq{font:700 .74rem/1.2 var(--f-mono);color:var(--ink-3);margin-right:6px}
+#scrTable .scrmark{margin-left:8px}
+#sbTable td.out,#bxTable td.out{white-space:normal;min-width:7rem;max-width:12rem}
+#sbTable td.ref,#bxTable td.ref{width:6rem}
+@media (min-width:641px) and (max-width:1100px){.tab{padding:10px 10px 11px;font-size:.9rem;gap:6px}}
+@media (max-width:640px){#sbTable thead,#bxTable thead{display:none}#sbTable tr,#bxTable tr{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:10px;border-bottom:1px solid var(--rule);padding:6px 0}#sbTable td,#bxTable td{border:0;padding:2px 4px}#sbTable td.ref,#bxTable td.ref{grid-column:1;grid-row:1;width:auto}#sbTable td.out,#bxTable td.out{grid-column:2;grid-row:1;white-space:normal}#sbTable td:nth-child(2),#bxTable td:nth-child(2){grid-column:1/-1;grid-row:2}}
 </style>
 </head>
 <body>
 <div class="sitebar" id="sitebar"><div class="wrap">
-  <nav class="crumbs" aria-label="Breadcrumb" data-ms-aria="Laluan"><a href="https://razinutm.github.io/My_Lectures/">My Lectures</a><span aria-hidden="true">›</span><a href="../index.html">SEAA 4333</a><span aria-hidden="true">›</span><a href="../07-columns-1/index.html#lab">Unit 7</a><span aria-hidden="true">·</span><a href="../08-columns-2/index.html#lab">Unit 8</a><span aria-hidden="true">›</span><span aria-current="page">Column Lab</span></nav>
+  <nav class="crumbs" aria-label="Breadcrumb" data-ms-aria="Laluan"><a href="https://razinutm.github.io/My_Lectures/">My Lectures</a><span aria-hidden="true">›</span><a href="../index.html">SEAA 4333</a><span aria-hidden="true">›</span><a href="../07-columns-1/index.html#lab">Unit 7</a><span aria-hidden="true">·</span><a href="../08-columns-2/index.html#lab">Unit 8</a><span aria-hidden="true">·</span><a href="../09-columns-3/index.html#lab">Unit 9</a><span aria-hidden="true">›</span><span aria-current="page">Column Lab</span></nav>
   <div class="prefs"><button type="button" id="btn-lang" title="Bahasa">BM</button><button type="button" id="btn-theme" title="Theme"></button><button type="button" id="btn-font" class="fontbtn" title="Text size"><span class="aa" aria-hidden="true">A<small>A</small></span><span class="lvl" aria-hidden="true"><i></i><i></i><i></i><i></i></span></button></div>
 </div></div>
 <header class="topbar">
   <div class="wrap">
     <div class="brand">
       <h1>Column Lab</h1>
-      <span class="unit">SEAA 4333 · Units 7–8 · Columns I–II</span>
+      <span class="unit">SEAA 4333 · Units 7–9 · Columns I–III</span>
     </div>
     <div class="timer" aria-label="Activity timer" data-ms-aria="Pemasa aktiviti">
       <button class="timer-display" id="tDisplay" type="button" title="Show the timer full screen" data-ms-title="Tunjuk pemasa pada skrin penuh">5:00</button>
@@ -283,6 +297,7 @@ input[type=range].xs{width:100%;accent-color:var(--flight);margin:6px 0 2px}
     <button class="tab" role="tab" id="tab-error" aria-controls="panel-error" data-tab="error"><span class="n">3</span><span data-ms="Cari kesilapan">Spot the error</span></button>
     <button class="tab" role="tab" id="tab-nm" aria-controls="panel-nm" data-tab="nm"><span class="n">4</span><span data-ms="N–M interaction">N–M interaction</span></button>
     <button class="tab" role="tab" id="tab-design" aria-controls="panel-design" data-tab="design"><span class="n">5</span><span data-ms="Design dan detail">Design and detail</span></button>
+    <button class="tab" role="tab" id="tab-sb" aria-controls="panel-sb" data-tab="sb"><span class="n">6</span><span data-ms="Slender dan biaxial">Slender and biaxial</span></button>
   </nav>
 
   <main class="sheet">
@@ -420,7 +435,8 @@ input[type=range].xs{width:100%;accent-color:var(--flight);margin:6px 0 2px}
             <div class="head">
               <div class="seg" role="group" aria-label="Sheet" data-ms-aria="Helaian" id="eWhich" style="margin-bottom:10px">
                 <button type="button" data-v="s7">Column S7 · Unit 7</button>
-                <button type="button" data-v="s8" aria-pressed="true">Column S8 · Unit 8</button>
+                <button type="button" data-v="s8">Column S8 · Unit 8</button>
+                <button type="button" data-v="s9" aria-pressed="true">Column S9 · Unit 9</button>
               </div>
               <h2 id="eTitle">Spot the error</h2>
               <p class="lede" id="eLede"></p>
@@ -565,8 +581,110 @@ input[type=range].xs{width:100%;accent-color:var(--flight);margin:6px 0 2px}
         </div>
       </div>
     </section>
+
+    <!-- ===================== 6 SLENDER AND BIAXIAL (Unit 9) ===================== -->
+    <section id="panel-sb" role="tabpanel" aria-labelledby="tab-sb" hidden>
+      <div class="panel">
+        <div class="col">
+          <div class="head">
+            <h2 data-ms="Column slender dan kedua-dua paksi">Slender columns and both axes</h2>
+            <p class="lede" data-ms="Kaedah kursus Unit 9: second-order moment melalui nominal curvature dalam enam langkah (EC2 5.8.8), empat calon bagi column braced atau M<sub>02</sub> + M<sub>2</sub> bagi column unbraced; kemudian kedua-dua paksi bersama: saringan EC2 5.8.9(3), enhanced moment RDF §14 dan Eq. 5.39, dengan imperfection dalam satu arah pada satu masa.">The course method of Unit 9: the second-order moment by nominal curvature in six steps (EC2 5.8.8), the four candidates of a braced column or M<sub>02</sub> + M<sub>2</sub> of an unbraced one; then both axes together: the screening of EC2 5.8.9(3), the enhanced moment of RDF §14 and Eq. 5.39, with the imperfection in one direction at a time.</p>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="A · Enam langkah (Aktiviti 9A)">A · Six steps (Activity 9A)</span>
+            <label class="label" for="sCase" data-ms="Kes">Case</label>
+            <select id="sCase" class="full"></select>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Column, beban dan creep (satu paksi)">Column, loads and creep (one axis)</span>
+            <div class="fields">
+              <label for="sb_b" data-ms="Lebar b">Width b</label><input id="sb_b" type="number" min="150" max="1200" step="25"><span class="u">mm</span>
+              <label for="sb_h" data-ms="Kedalaman h (satah lenturan)">Depth h (plane of bending)</label><input id="sb_h" type="number" min="150" max="1500" step="25"><span class="u">mm</span>
+              <label for="sb_d">d</label><input id="sb_d" type="number" min="100" max="1450" step="0.5"><span class="u">mm</span>
+              <label for="sb_fck">f<sub>ck</sub></label><select id="sb_fck"><option>25</option><option>30</option><option>35</option><option>40</option><option>45</option><option>50</option></select><span class="u">N/mm²</span>
+              <label for="sb_l0">l<sub>0</sub></label><input id="sb_l0" type="range" min="1000" max="9000" step="10"><output id="sb_l0o" class="u"></output>
+              <label for="sb_N">N<sub>Ed</sub></label><input id="sb_N" type="range" min="100" max="4000" step="10"><output id="sb_No" class="u"></output>
+              <label for="sb_Mt" data-ms="End moment, atas">End moment, top</label><input id="sb_Mt" type="range" min="0" max="200" step="1"><output id="sb_Mto" class="u"></output>
+              <label for="sb_Mb" data-ms="End moment, bawah">End moment, bottom</label><input id="sb_Mb" type="range" min="0" max="200" step="1"><output id="sb_Mbo" class="u"></output>
+              <label for="sb_phief">φ<sub>ef</sub></label><input id="sb_phief" type="number" min="0" max="4" step="0.001"><span class="u"></span>
+              <label for="sb_Kr">K<sub>r</sub></label><input id="sb_Kr" type="number" min="0.05" max="1" step="0.001"><span class="u" id="sb_Kru"></span>
+            </div>
+            <div class="seg" role="group" aria-label="Curvature" data-ms-aria="Curvature" id="sb_curv" style="margin-top:8px">
+              <button type="button" data-v="single" data-ms="Single curvature">Single curvature</button><button type="button" data-v="double" data-ms="Double curvature">Double curvature</button>
+            </div>
+            <div class="seg" role="group" aria-label="Bracing" data-ms-aria="Bracing" id="sb_brace" style="margin-top:6px">
+              <button type="button" data-v="braced">Braced</button><button type="button" data-v="unbraced">Unbraced</button>
+            </div>
+            <div class="seg" role="group" aria-label="K_r" data-ms-aria="K_r" id="sb_krmode" style="margin-top:6px">
+              <button type="button" data-v="given" data-ms="K<sub>r</sub> diberi">K<sub>r</sub> given</button><button type="button" data-v="iter" data-ms="Lelar K<sub>r</sub> dengan steel">Iterate K<sub>r</sub> with the steel</button>
+            </div>
+          </div>
+          <div class="kv" id="sbKV" aria-live="polite"></div>
+          <div class="task" id="sbAct">
+            <span class="tag" data-ms="Aktiviti 9A · Explorer tugasan 1">Activity 9A · Explorer task 1</span>
+            <p data-ms="Pilih kad anda (A, B, C atau D) dalam senarai Kes, buat enam langkah di atas kertas, kemudian masukkan M<sub>2</sub> dan M<sub>Ed</sub> anda dan tekan <i>Semak</i>. Kemudian buat tiga kad yang lain.">Pick your card (A, B, C or D) in the Case list, do the six steps on paper, then enter your M<sub>2</sub> and M<sub>Ed</sub> and press <i>Check</i>. Then do the other three cards.</p>
+            <div class="lk">
+              <label for="sbA_m2">M<sub>2</sub></label><input id="sbA_m2" type="number" step="0.1"><span class="st" id="sbA_m2St"></span>
+              <label for="sbA_med">M<sub>Ed</sub></label><input id="sbA_med" type="number" step="0.1"><span class="st" id="sbA_medSt"></span>
+            </div>
+            <div class="steps" style="margin-top:10px"><button class="btn primary" id="sbACheck" type="button" data-ms="Semak">Check</button><span class="note" id="sbACards" style="border:0;padding:0"></span></div>
+            <p class="verdict" id="sbAOut" hidden></p>
+          </div>
+        </div>
+        <div class="col">
+          <div class="plotcard">
+            <div class="plothead"><h3 data-ms="Enam langkah">The six steps</h3></div>
+            <div class="scroll"><table class="tbl" id="sbTable"></table></div>
+          </div>
+          <div class="plotcard">
+            <div class="plothead"><h3 data-ms="Moment sepanjang ketinggian dan empat calon">Moment along the height and the candidates</h3><span class="legend"><span><svg width="14" height="14" aria-hidden="true"><rect x="1" y="5" width="12" height="4" fill="var(--braced)"/></svg><span data-ms="first order">first order</span></span><span><svg width="14" height="14" aria-hidden="true"><rect x="1" y="5" width="12" height="4" fill="var(--unbraced)"/></svg><span data-ms="dengan M<sub>2</sub>">with M<sub>2</sub></span></span></span></div>
+            <div class="figbox" style="position:relative"><svg class="chart" id="sbChart" viewBox="0 0 640 380" role="img"></svg></div>
+          </div>
+        </div>
+      </div>
+      <div class="panel" style="margin-top:18px">
+        <div class="col" style="grid-column:1/-1">
+          <div class="head">
+            <h2 data-ms="B · Kedua-dua paksi">B · Both axes</h2>
+            <p class="lede" data-ms="Aktiviti 9B dahulu: adakah setiap column memerlukan biaxial check? Kemudian semak column sebenar pada kedua-dua paksi: pilih kes dan bar, dan baca Eq. 5.39 bagi kedua-dua kes imperfection.">Activity 9B first: does each column need a biaxial check? Then check a real column about both axes: pick a case and the bars, and read Eq. 5.39 for both imperfection cases.</p>
+          </div>
+          <div class="task" id="scrTask">
+            <span class="tag" data-ms="Aktiviti 9B · Explorer tugasan 4">Activity 9B · Explorer task 4</span>
+            <div class="scroll"><table class="tbl" id="scrTable"></table></div>
+            <div class="steps" style="margin-top:10px"><button class="btn primary" id="scrCheck" type="button" data-ms="Semak empat keputusan">Check the four decisions</button></div>
+            <p class="verdict" id="scrOut" hidden></p>
+          </div>
+        </div>
+        <div class="col">
+          <div class="group">
+            <label class="label" for="bxCase" data-ms="Kes biaxial">Biaxial case</label>
+            <select id="bxCase" class="full"></select>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Bar (simetri)">Bars (symmetric)</span>
+            <div class="fields">
+              <label for="bx_pc" data-ms="Bar penjuru">Corner bars</label><select id="bx_pc"><option>12</option><option>16</option><option>20</option><option>25</option><option>32</option></select><span class="u">mm</span>
+              <label for="bx_nb" data-ms="Bar tambahan pada setiap muka b">Extra bars on each b face</label><select id="bx_nb"><option>0</option><option>1</option><option>2</option></select><span class="u"></span>
+              <label for="bx_nh" data-ms="Bar tambahan pada setiap muka h">Extra bars on each h face</label><select id="bx_nh"><option>0</option><option>1</option><option>2</option></select><span class="u"></span>
+              <label for="bx_pl" data-ms="Link">Link</label><select id="bx_pl"><option>6</option><option>8</option><option>10</option></select><span class="u">mm</span>
+            </div>
+          </div>
+          <div class="kv" id="bxKV" aria-live="polite"></div>
+        </div>
+        <div class="col">
+          <div class="plotcard">
+            <div class="plothead"><h3 data-ms="Semakan">The check</h3></div>
+            <div class="scroll"><table class="tbl" id="bxTable"></table></div>
+          </div>
+          <div class="plotcard">
+            <div class="plothead"><h3>Eq. 5.39</h3><span class="legend"><span><svg width="14" height="14" aria-hidden="true"><rect x="1" y="5" width="12" height="4" fill="var(--braced)"/></svg><span data-ms="jumlah = 1 bagi bar">sum = 1 for the bars</span></span><span><svg width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="var(--unbraced)"/></svg><span data-ms="dua kes imperfection">two imperfection cases</span></span></span></div>
+            <div class="figbox" style="position:relative"><svg class="chart" id="bxChart" viewBox="0 0 640 520" role="img"></svg><div class="ctip" id="bxTip" hidden></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
-  <footer><span data-ms="Kaedah kursus SEAA 4333 (nota kursus, RDF §14, Mosley, Bungey &amp;amp; Hulse §9.2): clear height = ketinggian tingkat tolak kedalaman beam dalam satah itu; k = (I/l)&lt;sub&gt;col&lt;/sub&gt;/Σ2(I/l)&lt;sub&gt;beam&lt;/sub&gt; ≥ 0.1; l&lt;sub&gt;0&lt;/sub&gt; dengan EC2 Eq. 5.15 (braced) atau 5.16 (unbraced); λ&lt;sub&gt;lim&lt;/sub&gt; = 20ABC/√n dengan A = 0.7, B = 1.1 (MS EN 1992-1-1, 5.8.3). Unit 8: strain compatibility dengan blok 0.567f&lt;sub&gt;ck&lt;/sub&gt; sedalam 0.8x, 0.0035 pada muka atau 0.002 di 3h/7 apabila x &amp;gt; h, E&lt;sub&gt;s&lt;/sub&gt; = 200 kN/mm², f&lt;sub&gt;yd&lt;/sub&gt; = 0.87f&lt;sub&gt;yk&lt;/sub&gt; (EC2 6.1); design chart dilukis dengan kaedah yang sama; A&lt;sub&gt;s,min&lt;/sub&gt;, A&lt;sub&gt;s,max&lt;/sub&gt; dan link mengikut EC2 9.5. Unit: mm, kN, m. Design penuh setiap column, langkah demi langkah, ada dalam app &lt;a href=&quot;https://claude.ai/artifact/M5DFYjHubZFnbHVk8JDsAS&quot; style=&quot;color:inherit&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;RC Design Worked Solutions&lt;/a&gt; (WE 7.1 ialah kes C1, WE 8.1 kes C4), yang boleh dibuka setelah pensyarah anda berkongsi pautannya.">Course method of SEAA 4333 (course notes, RDF §14, Mosley, Bungey &amp; Hulse §9.2): clear height = storey height minus the beam depth in that plane; k = (I/l)<sub>col</sub>/Σ2(I/l)<sub>beam</sub> ≥ 0.1; l<sub>0</sub> by EC2 Eq. 5.15 (braced) or 5.16 (unbraced); λ<sub>lim</sub> = 20ABC/√n with A = 0.7, B = 1.1 (MS EN 1992-1-1, 5.8.3). Unit 8: strain compatibility with the 0.567f<sub>ck</sub> block over 0.8x, 0.0035 at the face or 0.002 at 3h/7 when x &gt; h, E<sub>s</sub> = 200 kN/mm², f<sub>yd</sub> = 0.87f<sub>yk</sub> (EC2 6.1); the design charts are drawn by the same method; A<sub>s,min</sub>, A<sub>s,max</sub> and links by EC2 9.5. Units: mm, kN, m. The full design of each column, step by step, is in the <a href="https://claude.ai/artifact/M5DFYjHubZFnbHVk8JDsAS" style="color:inherit" target="_blank" rel="noopener">RC Design Worked Solutions</a> app (WE 7.1 is case C1, WE 8.1 case C4), which opens once your lecturer has shared it.</span>
+  <footer><span data-ms="Kaedah kursus SEAA 4333 (nota kursus, RDF §14, Mosley, Bungey &amp;amp; Hulse §9.2): clear height = ketinggian tingkat tolak kedalaman beam dalam satah itu; k = (I/l)&lt;sub&gt;col&lt;/sub&gt;/Σ2(I/l)&lt;sub&gt;beam&lt;/sub&gt; ≥ 0.1; l&lt;sub&gt;0&lt;/sub&gt; dengan EC2 Eq. 5.15 (braced) atau 5.16 (unbraced); λ&lt;sub&gt;lim&lt;/sub&gt; = 20ABC/√n dengan A = 0.7, B = 1.1 (MS EN 1992-1-1, 5.8.3). Unit 8: strain compatibility dengan blok 0.567f&lt;sub&gt;ck&lt;/sub&gt; sedalam 0.8x, 0.0035 pada muka atau 0.002 di 3h/7 apabila x &amp;gt; h, E&lt;sub&gt;s&lt;/sub&gt; = 200 kN/mm², f&lt;sub&gt;yd&lt;/sub&gt; = 0.87f&lt;sub&gt;yk&lt;/sub&gt; (EC2 6.1); design chart dilukis dengan kaedah yang sama; A&lt;sub&gt;s,min&lt;/sub&gt;, A&lt;sub&gt;s,max&lt;/sub&gt; dan link mengikut EC2 9.5. Unit 9: nominal curvature (EC2 5.8.8) dengan creep daripada EC2 Annex B (RH 80 %, t&lt;sub&gt;0&lt;/sub&gt; = 30 hari, cement class R) dan M&lt;sub&gt;0Eqp&lt;/sub&gt;/M&lt;sub&gt;0Ed&lt;/sub&gt; = 0.67; e&lt;sub&gt;i&lt;/sub&gt; = l&lt;sub&gt;0&lt;/sub&gt;/400 ditambah kepada kedua-dua end moment; bagi kedua-dua paksi, saringan EC2 5.8.9(3), luas daripada enhanced moment RDF §14 dan semakan dengan Eq. 5.39, dengan imperfection pada satu paksi pada satu masa (EC2 5.8.9(2)). Unit: mm, kN, m. Design penuh setiap column, langkah demi langkah, ada dalam app &lt;a href=&quot;https://claude.ai/artifact/M5DFYjHubZFnbHVk8JDsAS&quot; style=&quot;color:inherit&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;RC Design Worked Solutions&lt;/a&gt; (WE 7.1 ialah kes C1, WE 8.1 kes C4, WE 9.1 kes C8), yang boleh dibuka setelah pensyarah anda berkongsi pautannya.">Course method of SEAA 4333 (course notes, RDF §14, Mosley, Bungey &amp; Hulse §9.2): clear height = storey height minus the beam depth in that plane; k = (I/l)<sub>col</sub>/Σ2(I/l)<sub>beam</sub> ≥ 0.1; l<sub>0</sub> by EC2 Eq. 5.15 (braced) or 5.16 (unbraced); λ<sub>lim</sub> = 20ABC/√n with A = 0.7, B = 1.1 (MS EN 1992-1-1, 5.8.3). Unit 8: strain compatibility with the 0.567f<sub>ck</sub> block over 0.8x, 0.0035 at the face or 0.002 at 3h/7 when x &gt; h, E<sub>s</sub> = 200 kN/mm², f<sub>yd</sub> = 0.87f<sub>yk</sub> (EC2 6.1); the design charts are drawn by the same method; A<sub>s,min</sub>, A<sub>s,max</sub> and links by EC2 9.5. Unit 9: nominal curvature (EC2 5.8.8) with creep from EC2 Annex B (RH 80 %, t<sub>0</sub> = 30 days, cement class R) and M<sub>0Eqp</sub>/M<sub>0Ed</sub> = 0.67; e<sub>i</sub> = l<sub>0</sub>/400 added to both end moments; for both axes, the screening of EC2 5.8.9(3), the area from the enhanced moment of RDF §14 and the check by Eq. 5.39, with the imperfection about one axis at a time (EC2 5.8.9(2)). Units: mm, kN, m. The full design of each column, step by step, is in the <a href="https://claude.ai/artifact/M5DFYjHubZFnbHVk8JDsAS" style="color:inherit" target="_blank" rel="noopener">RC Design Worked Solutions</a> app (WE 7.1 is case C1, WE 8.1 case C4, WE 9.1 case C8), which opens once your lecturer has shared it.</span>
   <span class="lic" data-ms="© 2026 Ahmad Razin Zainal Abidin dan Universiti Teknologi Malaysia (Fakulti Kejuruteraan Awam). Teks dan rajah: CC BY-NC-SA 4.0; kod: MIT. Lihat &lt;a href=&quot;https://github.com/RazinUTM/My_Lectures/blob/main/SEAA4333-RCD2/LICENSE.md&quot; style=&quot;color:inherit&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;lesen&lt;/a&gt;. Kemajuan disimpan dalam pelayar ini sahaja.">© 2026 Ahmad Razin Zainal Abidin and Universiti Teknologi Malaysia (Faculty of Civil Engineering). Text and figures: CC BY-NC-SA 4.0; code: MIT. See the <a href="https://github.com/RazinUTM/My_Lectures/blob/main/SEAA4333-RCD2/LICENSE.md" style="color:inherit" target="_blank" rel="noopener">licence</a>. Progress is stored in this browser only.</span></footer>
 </div>
 
@@ -1328,7 +1446,7 @@ const SHEETS = {
                  '<b>Empat kesilapan, satu column yang tidak selamat.</b> Baris 3 dan 4 masing-masing mengurangkan moment separuh: M<sub>Ed</sub> yang dihantar 15.0 kN m, yang betul 30.0 kN m, tempat minimum eccentricity menentukan. Baris 7 menggunakan d dan bukan h, yang sebahagiannya menyembunyikan kesilapan itu, dan baris 9 terlupa sebutan axial load dalam A<sub>s,min</sub>. Bar yang dipilih, 4H12, hanya membawa 28.8 kN m pada 1500 kN: column itu memerlukan 4H16 (M<sub>Rd</sub> = 45.2 kN m) dengan link H6-300, H6-175 berhampiran lantai dan pada lap.']}
 };
 SHEETS.s7.rows = S7;
-let eWhich = /08-columns-2/.test(document.referrer || '') ? 's8' : /07-columns-1/.test(document.referrer || '') ? 's7' : 's8';
+let eWhich = /09-columns-3/.test(document.referrer || '') ? 's9' : /08-columns-2/.test(document.referrer || '') ? 's8' : /07-columns-1/.test(document.referrer || '') ? 's7' : 's9';
 const eState = {s7: {flag: new Set(recall(SHEETS.s7.key, [])), checked: false, fixed: false}, s8: {flag: new Set(recall(SHEETS.s8.key, [])), checked: false, fixed: false}};
 function drawS8Fig(){
   const box = el('eFig'); box.innerHTML = '';
@@ -1353,7 +1471,7 @@ function drawSheet(){
   el('eTitle').innerHTML = Lg(Sh.title[0], Sh.title[1]); el('eLede').innerHTML = Lg(Sh.lede[0], Sh.lede[1]); el('eTag').innerHTML = Lg(Sh.tag[0], Sh.tag[1]);
   el('eGiven').innerHTML = Sh.given.map(g => `<dt>${Lg(g[0], g[1])}</dt><dd>${Lg(g[2], g[3])}</dd>`).join('');
   el('eSheet').setAttribute('aria-label', Lg(`Column ${eWhich.toUpperCase()} calculation sheet`, `Helaian pengiraan Column ${eWhich.toUpperCase()}`));
-  if (eWhich === 's7') drawS7Fig(); else drawS8Fig();
+  if (eWhich === 's7') drawS7Fig(); else if (eWhich === 's9') drawS9Fig(); else drawS8Fig();
   const t = el('eSheet');
   let html = `<thead><tr><th>${Lg('Line', 'Baris')}</th><th>Ref</th><th>${Lg('Calculation', 'Pengiraan')}</th><th>Output</th></tr></thead><tbody>`;
   rows.forEach((r, i) => {
@@ -1380,16 +1498,362 @@ el('eCheck').addEventListener('click', () => { const st = eState[eWhich], rows =
 el('eFix').addEventListener('click', () => { eState[eWhich].fixed = true; drawSheet(); });
 el('eReset').addEventListener('click', () => { const st = eState[eWhich]; st.flag = new Set(); store(SHEETS[eWhich].key, []); st.checked = false; st.fixed = false; drawSheet(); });
 
+/* ===================== UNIT 9: SLENDER COLUMNS AND BOTH AXES (course method: the RC Design app's column module) =====================
+   Nominal curvature (EC2 5.8.8): 1/r0 = eyd/(0.45d); Kr = (1 + w - n)/(0.6 + w) <= 1 with w = As fyd/(Ac fcd); Kphi = max(1, 1 + beta phi_ef),
+   beta = 0.35 + fck/200 - lambda/150; e2 = (1/r) l0^2/10; M2 = NEd e2. Imperfection (app decision D16): M02 = |M|max + NEd ei,
+   M01 = |M|min + NEd ei, M0e = 0.6|M|max +/- 0.4|M|min + NEd ei >= 0.4 M02. Braced MEd = max(M02, M0e + M2, M01 + 0.5M2, NEd e0);
+   unbraced max(M02 + M2, NEd e0). Both axes: screening EC2 5.8.9(3); bars from the RDF enhanced moment; check Eq. 5.39 with the
+   imperfection (and e0) about one axis at a time, the other axis without them but with its M2. Creep from EC2 Annex B (RH 80 %,
+   t0 = 30 days, class R), M0Eqp/M0Ed = 0.67, phi_ef = 0 under 5.8.4(4). Units: mm, N/mm2, kN, kN m. */
+const FCD9 = fck => 0.85 * fck / 1.5;
+function phiAnnexB9(b, h, fck){
+  const Ac = b * h, u = 2 * (b + h), h0 = 2 * Ac / u, fcm = fck + 8, RH = 80, t0 = 30;
+  const a1 = Math.pow(35 / fcm, 0.7), a2 = Math.pow(35 / fcm, 0.2);
+  const phRH = fcm <= 35 ? 1 + (1 - RH / 100) / (0.1 * Math.cbrt(h0)) : (1 + (1 - RH / 100) / (0.1 * Math.cbrt(h0)) * a1) * a2;
+  const t0a = Math.max(0.5, t0 * Math.pow(9 / (2 + Math.pow(t0, 1.2)) + 1, 1));
+  return phRH * (16.8 / Math.sqrt(fcm)) * (1 / (0.1 + Math.pow(t0a, 0.2)));
+}
+function aExp9(r){ return r <= 0.1 ? 1 : r >= 1 ? 2 : r <= 0.7 ? 1 + (r - 0.1) / 0.6 * 0.5 : 1.5 + (r - 0.7) / 0.3 * 0.5; }
+
+/* ---------- A · six steps, one axis ---------- */
+function sixCalc(v){
+  const {b, h, d, fck, l0, N, Mt, Mb, dbl, brc, phief} = v, Ac = b * h, fcd = FCD9(fck), n = N * 1e3 / (Ac * fcd);
+  const lam = l0 / (h / Math.sqrt(12)), Mx = Math.max(Math.abs(Mt), Math.abs(Mb)), Mn = Math.min(Math.abs(Mt), Math.abs(Mb));
+  const MiL = N * l0 / 400 / 1e3, impDom = brc && Mx > 0 && Mx <= MiL;
+  const rm = (!brc || Mx === 0 || impDom) ? 1 : (dbl ? -1 : 1) * Mn / Mx, C = 1.7 - rm, laml = 20 * 0.7 * 1.1 * C / Math.sqrt(n), slender = lam > laml;
+  const ei = l0 / 400, Mi = N * ei / 1e3, M02 = Mx + Mi, M01s = (dbl ? -Mn : Mn) + Mi, M01 = Mn + Mi, e0 = Math.max(h / 30, 20), Mmin = N * e0 / 1e3;
+  const M0e = Math.max(0.6 * M02 + 0.4 * M01s, 0.4 * M02), beta = 0.35 + fck / 200 - lam / 150, Kphi = Math.max(1, 1 + beta * phief), r0 = EYD8 / (0.45 * d);
+  const M2of = Kr => N * Kr * Kphi * r0 * l0 * l0 / 10 / 1e3;
+  const candOf = Kr => { const M2 = M2of(Kr); return brc ? {M02, M0eM2: M0e + M2, M01M2: M01 + 0.5 * M2, Mmin} : {M02M2: M02 + M2, Mmin}; };
+  let Kr = v.Kr, rows = [];
+  if (v.iter && slender){
+    Kr = 1;
+    for (let k = 0; k < 40; k++){
+      const c = candOf(Kr), MEd = Math.max(...Object.values(c)), As = asReq8(N, MEd, h, b, h - d, fck);
+      const w = isFinite(As) ? As * FYD8 / (Ac * fcd) : INF, Krn = isFinite(As) ? Math.min(1, (1 + w - n) / (0.6 + w)) : 1;
+      rows.push({Kr, M2: M2of(Kr), MEd, As, w, Krn});
+      if (!isFinite(As) || Math.abs(Krn - Kr) < 1e-7){ Kr = Krn; break; }
+      Kr = Krn;
+    }
+  }
+  const M2 = slender ? M2of(Kr) : 0, cand = slender ? candOf(Kr) : {M02, Mmin};
+  let gov = Object.keys(cand)[0]; Object.keys(cand).forEach(k => { if (cand[k] > cand[gov] + 1e-9) gov = k; });
+  return {v, Ac, fcd, n, lam, Mx, Mn, impDom, rm, C, laml, slender, ei, Mi, M02, M01s, M01, e0, Mmin, M0e, beta, Kphi, r0, Kr, M2, cand, gov, MEd: cand[gov], rows};
+}
+const SCASES = {
+  A: {en: 'Card A · braced, double curvature (app C5)', ms: 'Kad A · braced, double curvature (app C5)', v: {b: 250, h: 300, d: 254, fck: 25, l0: 4200, N: 1200, Mt: 35, Mb: 25, dbl: true, brc: true, phief: 1.278, Kr: 0.354, iter: false}},
+  B: {en: 'Card B · braced, about the minor axis (app C7)', ms: 'Kad B · braced, pada minor axis (app C7)', v: {b: 300, h: 250, d: 204, fck: 25, l0: 4130, N: 1200, Mt: 35, Mb: 25, dbl: true, brc: true, phief: 1.278, Kr: 0.425, iter: false}},
+  C: {en: 'Card C · braced, single curvature (WE 9.1, app C8)', ms: 'Kad C · braced, single curvature (WE 9.1, app C8)', v: {b: 300, h: 300, d: 254, fck: 30, l0: 5000, N: 1000, Mt: 40, Mb: 40, dbl: false, brc: true, phief: 1.143, Kr: 0.724, iter: false}},
+  D: {en: 'Card D · unbraced (app C9)', ms: 'Kad D · unbraced (app C9)', v: {b: 300, h: 250, d: 199.5, fck: 25, l0: 4130, N: 1200, Mt: 35, Mb: 25, dbl: true, brc: false, phief: 1.278, Kr: 0.577, iter: false}},
+  own: {en: 'Your own column', ms: 'Column anda sendiri'}
+};
+const SREF = {}; ['A', 'B', 'C', 'D'].forEach(k => { const r = sixCalc(SCASES[k].v); SREF[k] = {M2: r.M2, MEd: r.MEd}; });
+const sin9 = Object.assign({}, SCASES.A.v); let sCaseK = 'A';
+const SAKEY = 'seaa4333-lab-column-9a', BRKEY = 'seaa4333-lab-column-9br';
+const sDone = recall(SAKEY, {}) || {}; const brSeen = new Set(recall(BRKEY, []) || []);
+const SF = {sb_b: 'b', sb_h: 'h', sb_d: 'd', sb_fck: 'fck', sb_l0: 'l0', sb_N: 'N', sb_Mt: 'Mt', sb_Mb: 'Mb', sb_phief: 'phief', sb_Kr: 'Kr'};
+function fillSCases(){ const s = el('sCase'); s.innerHTML = ''; Object.keys(SCASES).forEach(k => { const o = document.createElement('option'); o.value = k; o.textContent = Lg(SCASES[k].en, SCASES[k].ms); s.appendChild(o); }); s.value = sCaseK; }
+function syncS(){
+  Object.keys(SF).forEach(id => { el(id).value = sin9[SF[id]]; });
+  setSeg(el('sb_curv'), sin9.dbl ? 'double' : 'single'); setSeg(el('sb_brace'), sin9.brc ? 'braced' : 'unbraced'); setSeg(el('sb_krmode'), sin9.iter ? 'iter' : 'given');
+  el('sb_Kr').disabled = !!sin9.iter; paintSOut();
+}
+function paintSOut(){ el('sb_l0o').textContent = sin9.l0 + ' mm'; el('sb_No').textContent = sin9.N + ' kN'; el('sb_Mto').textContent = sin9.Mt + ' kN m'; el('sb_Mbo').textContent = sin9.Mb + ' kN m'; }
+const CNAME = {M02: 'M<sub>02</sub>', M0eM2: 'M<sub>0e</sub> + M<sub>2</sub>', M01M2: 'M<sub>01</sub> + 0.5M<sub>2</sub>', Mmin: 'N<sub>Ed</sub>e<sub>0</sub>', M02M2: 'M<sub>02</sub> + M<sub>2</sub>'};
+const CTXT = {M02: 'M02', M0eM2: 'M0e + M2', M01M2: 'M01 + 0.5M2', Mmin: 'NEd e0', M02M2: 'M02 + M2'};
+let sLast = null;
+function redrawSix(){
+  const R = sixCalc(sin9); sLast = R; const v = sin9;
+  el('sb_Kru').innerHTML = v.iter && R.slender ? Lg(`→ ${f(R.Kr, 3)}`, `→ ${f(R.Kr, 3)}`) : '';
+  el('sbKV').innerHTML = `<div><span>λ / λ<sub>lim</sub></span><b>${f(R.lam, 1)} / ${f(R.laml, 1)}</b></div><div><span>M<sub>2</sub></span><b>${R.slender ? f(R.M2, 1) + ' kN m' : Lg('not slender', 'tidak slender')}</b></div>` +
+    `<div><span>M<sub>Ed</sub></span><b>${f(R.MEd, 1)} kN m</b></div><div><span>${Lg('Governs', 'Menentukan')}</span><b>${CNAME[R.gov]}</b></div>`;
+  const sgn = v.dbl ? '−' : '+';
+  const rows = [
+    ['(7.5)–(7.9)', `λ = ${v.l0}/(${v.h}/√12) = ${f(R.lam, 1)}; n = ${v.N} × 10³/(${R.Ac} × ${f(R.fcd, 2)}) = ${f(R.n, 3)}; r<sub>m</sub> = ${f(R.rm, 3)}${R.impDom ? Lg(' (moments ≤ N<sub>Ed</sub>l<sub>0</sub>/400)', ' (moment ≤ N<sub>Ed</sub>l<sub>0</sub>/400)') : ''}; C = ${f(R.C, 3)}; λ<sub>lim</sub> = 20 × 0.7 × 1.1 × ${f(R.C, 3)}/√${f(R.n, 3)}`,
+     R.slender ? Lg(`${f(R.laml, 1)} &lt; ${f(R.lam, 1)}: slender`, `${f(R.laml, 1)} &lt; ${f(R.lam, 1)}: slender`) : Lg(`${f(R.laml, 1)} ≥ ${f(R.lam, 1)}: not slender`, `${f(R.laml, 1)} ≥ ${f(R.lam, 1)}: tidak slender`)],
+    [Lg('Step 1', 'Langkah 1') + ' · (9.6)', `e<sub>i</sub> = ${v.l0}/400 = ${f(R.ei, 2)} mm; N<sub>Ed</sub>e<sub>i</sub> = ${f(R.Mi, 2)}; M<sub>02</sub> = ${f(R.Mx, 1)} + ${f(R.Mi, 2)}; M<sub>01</sub> = ${f(R.Mn, 1)} + ${f(R.Mi, 2)}; M<sub>0e</sub> = max(0.6 × ${f(R.Mx, 1)} ${sgn} 0.4 × ${f(R.Mn, 1)} + ${f(R.Mi, 2)}; 0.4M<sub>02</sub>)`,
+     `${f(R.M02, 1)}; ${f(R.M01, 1)}; ${f(R.M0e, 1)} kN m`],
+    [Lg('Step 2', 'Langkah 2') + ' · (9.4)', `β = 0.35 + ${v.fck}/200 − ${f(R.lam, 1)}/150 = ${f(R.beta, 3)}; K<sub>φ</sub> = max(1; 1 + ${f(R.beta, 3)} × ${f(v.phief, 3)})`, `K<sub>φ</sub> = ${f(R.Kphi, 3)}`],
+    [Lg('Step 3', 'Langkah 3') + ' · (9.2)', `1/r<sub>0</sub> = 0.002175/(0.45 × ${v.d})`, `${f(R.r0 * 1e5, 3)} × 10⁻⁵ /mm`],
+    [Lg('Step 4', 'Langkah 4') + ' · (9.3)', v.iter ? Lg(`K<sub>r</sub>: 1 → ${R.rows.slice(0, 5).map(r => f(r.Krn, 3)).join(' → ')}${R.rows.length > 5 ? ' …' : ''} (A<sub>s</sub> from strain compatibility each pass)`, `K<sub>r</sub>: 1 → ${R.rows.slice(0, 5).map(r => f(r.Krn, 3)).join(' → ')}${R.rows.length > 5 ? ' …' : ''} (A<sub>s</sub> daripada strain compatibility setiap pusingan)`) : Lg('K<sub>r</sub> given (on the card)', 'K<sub>r</sub> diberi (pada kad)'),
+     `K<sub>r</sub> = ${f(R.Kr, 3)}; 1/r = ${f(R.Kr * R.Kphi * R.r0 * 1e5, 3)} × 10⁻⁵`],
+    [Lg('Step 5', 'Langkah 5') + ' · (9.5)', `e<sub>2</sub> = (1/r) × ${v.l0}²/10 = ${f(R.M2 / v.N * 1e3, 2)} mm; M<sub>2</sub> = ${v.N} × e<sub>2</sub>`, R.slender ? `M<sub>2</sub> = ${f(R.M2, 2)} kN m` : Lg('not needed', 'tidak perlu')],
+    [Lg('Step 6', 'Langkah 6') + (v.brc ? ' · (9.7)' : ' · (9.8)'), (v.brc ? 'max(M<sub>02</sub>; M<sub>0e</sub> + M<sub>2</sub>; M<sub>01</sub> + 0.5M<sub>2</sub>; N<sub>Ed</sub>e<sub>0</sub>)' : 'max(M<sub>02</sub> + M<sub>2</sub>; N<sub>Ed</sub>e<sub>0</sub>)') + ' = max(' + Object.values(R.cand).map(x => f(x, 1)).join('; ') + ')', `M<sub>Ed</sub> = ${f(R.MEd, 2)} kN m`]
+  ];
+  el('sbTable').innerHTML = `<thead><tr><th>Ref</th><th>${Lg('Calculation', 'Pengiraan')}</th><th class="out">Output</th></tr></thead><tbody>` + rows.map(r => `<tr><td class="ref">${r[0]}</td><td>${r[1]}</td><td class="out">${r[2]}</td></tr>`).join('') + '</tbody>';
+  drawSix(R); paintSAct();
+}
+const SCH = {w: 640, h: 380, l: 20, r: 20, t: 26, b: 40};
+const CPARTS = {M02: [['M'], ['02', 1]], M0eM2: [['M'], ['0e', 1], [' + M'], ['2', 1]], M01M2: [['M'], ['01', 1], [' + 0.5M'], ['2', 1]], Mmin: [['N'], ['Ed', 1], ['e'], ['0', 1]], M02M2: [['M'], ['02', 1], [' + M'], ['2', 1]]};
+function drawSix(R){
+  const svg = el('sbChart'); wrapChart(svg, SCH, 640, 380); svg.innerHTML = '';
+  /* left, schematic: the first-order moment (larger end at the top), then with e_i on both ends (the course reading,
+     decision D16) and M2, which peaks near mid-height when braced and adds at the end of M02 when unbraced.
+     Right: the candidates of EC2 5.8.8.2 as bars. Narrow screens put each bar's name above it. */
+  const v = R.v, W = SCH.w, H = SCH.h, nar = W < 520, L = 14, split = Math.round(W * (nar ? 0.44 : 0.42)), top = SCH.t + 14, bot = H - SCH.b - 10, sgnB = v.dbl ? -1 : 1;
+  const lin = t => R.Mx + (sgnB * R.Mn - R.Mx) * t, imp = t => R.M02 + (R.M01s - R.M02) * t;
+  const tot = t => imp(t) + (v.brc ? R.M2 * Math.sin(Math.PI * t) : R.M2 * (1 - t));
+  let pmax = 1, nmax = 0; for (let k = 0; k <= 40; k++){ [lin(k / 40), tot(k / 40)].forEach(m => { pmax = Math.max(pmax, m); nmax = Math.max(nmax, -m); }); }
+  const avail = split - L - (nar ? 18 : 40), sc = avail / (pmax + nmax), x0 = L + 4 + nmax * sc, Yh = t => top + (bot - top) * t;
+  S('line', {x1: x0, x2: x0, y1: top - 6, y2: bot + 6, stroke: 'var(--ink-3)'}, svg);
+  let d1 = `M${x0},${Yh(0)}`; for (let k = 0; k <= 40; k++) d1 += ` L${(x0 + lin(k / 40) * sc).toFixed(1)},${Yh(k / 40).toFixed(1)}`; d1 += ` L${x0},${Yh(1)} Z`;
+  S('path', {d: d1, fill: 'var(--wash-flag)', stroke: 'var(--braced)', 'stroke-width': 1.6}, svg);
+  let d2 = ''; for (let k = 0; k <= 40; k++) d2 += (k ? ' L' : 'M') + (x0 + tot(k / 40) * sc).toFixed(1) + ',' + Yh(k / 40).toFixed(1);
+  S('path', {d: d2, fill: 'none', stroke: 'var(--unbraced)', 'stroke-width': 2.4}, svg);
+  const sgnTxt = x => (x < 0 ? '−' : '') + f(Math.abs(x), 1);
+  T(svg, L, top - 8, (nar ? '' : Lg('larger end: ', 'hujung lebih besar: ')) + f(R.Mx, 1) + ' → ' + sgnTxt(tot(0)), {class: 'small'});
+  T(svg, L, bot + 20, (nar ? '' : Lg('other end: ', 'hujung lain: ')) + sgnTxt(sgnB * R.Mn) + ' → ' + sgnTxt(tot(1)), {class: 'small'});
+  const cap = nar ? (v.brc ? [['e'], ['i', 1], [Lg(' at the ends, M', ' di hujung, M')], ['2', 1], [Lg(' mid-height', ' di tengah')]]
+                          : [['e'], ['i', 1], [Lg(' and M', ' dan M')], ['2', 1], [Lg(' at the M', ' di hujung M')], ['02', 1], [Lg(' end', '')]])
+    : (v.brc ? [[Lg('braced: e', 'braced: e')], ['i', 1], [Lg(' at both ends, M', ' di kedua-dua hujung, M')], ['2', 1], [Lg(' near mid-height', ' dekat tengah')]]
+             : [[Lg('unbraced: e', 'unbraced: e')], ['i', 1], [Lg(' and M', ' dan M')], ['2', 1], [Lg(' at the end of M', ' di hujung M')], ['02', 1]]);
+  TS(svg, L, H - 6, cap, {class: 'small'});
+  const keys = Object.keys(R.cand), cmax = Math.max(...Object.values(R.cand), 1);
+  const bx0 = nar ? split + 8 : split + 92, bw = nar ? W - SCH.r - bx0 - 44 : W - SCH.r - bx0 - 104;
+  const rowH = nar ? Math.min(58, (bot - top) / keys.length) : 0, bh = nar ? Math.min(18, rowH - 24) : Math.min(38, (bot - top) / keys.length - 12);
+  keys.forEach((k, i) => { const val = R.cand[k], gov = k === R.gov, w = Math.max(2, val / cmax * bw);
+    const y = nar ? top + i * rowH + 18 : top + i * (bh + 14);
+    S('rect', {x: bx0, y, width: w, height: bh, fill: gov ? 'var(--unbraced)' : 'var(--wash-flag)', stroke: gov ? 'var(--unbraced)' : 'var(--braced)', rx: 3}, svg);
+    if (nar) TS(svg, bx0, y - 5, CPARTS[k].concat(gov ? [[Lg(' governs', ' menentukan')]] : []), {class: 'small', style: gov ? 'font-weight:700;fill:var(--ink)' : ''});
+    else TS(svg, bx0 - 8, y + bh / 2 + 5, CPARTS[k], {'text-anchor': 'end', class: 'small'});
+    T(svg, bx0 + w + 6, y + bh / 2 + 5, f(val, 1) + (gov && !nar ? Lg(' governs', ' menentukan') : ''), {style: gov ? 'font-weight:700;fill:var(--ink)' : 'fill:var(--ink-2)'}); });
+  svg.setAttribute('aria-label', Lg(`Moment along the height and the design moment candidates: ${keys.map(k => CTXT[k] + ' ' + f(R.cand[k], 1)).join(', ')} kN m; ${CTXT[R.gov]} governs.`, `Moment sepanjang ketinggian dan calon design moment: ${keys.map(k => CTXT[k] + ' ' + f(R.cand[k], 1)).join(', ')} kN m; ${CTXT[R.gov]} menentukan.`));
+}
+function paintSAct(){
+  const ks = ['A', 'B', 'C', 'D']; el('sbACards').innerHTML = Lg('Cards checked: ', 'Kad disemak: ') + ks.map(k => `${k}${sDone[k] ? ' ✓' : ''}`).join(' · ');
+  const on = sCaseK in SREF; el('sbACheck').disabled = !on; el('sbA_m2').disabled = !on; el('sbA_med').disabled = !on;
+}
+function sToOwn(){ if (sCaseK !== 'own'){ sCaseK = 'own'; fillSCases(); paintSAct(); } }
+function noteBranch(){
+  if (!sLast || !sin9.brc || !sLast.slender) return;
+  if (['M02', 'M0eM2', 'M01M2'].includes(sLast.gov)){ brSeen.add(sLast.gov); store(BRKEY, [...brSeen]); if (brSeen.size >= 3) milestone('branch'); }
+}
+el('sCase').addEventListener('change', e => { sCaseK = e.target.value; if (SCASES[sCaseK].v) Object.assign(sin9, SCASES[sCaseK].v); syncS(); el('sbA_m2').value = ''; el('sbA_med').value = ''; el('sbAOut').hidden = true; ['sbA_m2St', 'sbA_medSt'].forEach(i => { el(i).textContent = ''; }); redrawSix(); });
+Object.keys(SF).forEach(id => el(id).addEventListener('input', () => { const x = parseFloat(el(id).value); if (!isFinite(x)) return; sin9[SF[id]] = x; sToOwn(); paintSOut(); redrawSix(); noteBranch(); }));
+segGroup(el('sb_curv'), v => { sin9.dbl = v === 'double'; sToOwn(); redrawSix(); noteBranch(); });
+segGroup(el('sb_brace'), v => { const was = sin9.brc; sin9.brc = v === 'braced'; if (was && !sin9.brc) milestone('sway9'); sToOwn(); redrawSix(); });
+segGroup(el('sb_krmode'), v => { sin9.iter = v === 'iter'; el('sb_Kr').disabled = sin9.iter; sToOwn(); redrawSix(); });
+el('sbACheck').addEventListener('click', () => {
+  const ref = SREF[sCaseK]; if (!ref) return; const m2 = parseFloat(el('sbA_m2').value), med = parseFloat(el('sbA_med').value);
+  const okM2 = isFinite(m2) && Math.abs(m2 - ref.M2) <= 0.02 * ref.M2, okMed = isFinite(med) && Math.abs(med - ref.MEd) <= 0.02 * ref.MEd;
+  el('sbA_m2St').textContent = isFinite(m2) ? (okM2 ? '✓' : '✗') : ''; el('sbA_medSt').textContent = isFinite(med) ? (okMed ? '✓' : '✗') : '';
+  const out = el('sbAOut'); out.hidden = false;
+  if (okM2 && okMed){ sDone[sCaseK] = true; store(SAKEY, sDone); out.className = 'verdict ok'; out.innerHTML = Lg(`Card ${sCaseK}: right. ${CNAME[sixCalc(SCASES[sCaseK].v).gov]} governs.`, `Kad ${sCaseK}: betul. ${CNAME[sixCalc(SCASES[sCaseK].v).gov]} menentukan.`); }
+  else { out.className = 'verdict bad'; out.innerHTML = Lg('Not yet: compare your steps with the table above, line by line. Within 2% counts as right.', 'Belum: bandingkan langkah anda dengan jadual di atas, baris demi baris. Dalam 2% dikira betul.'); }
+  if (['A', 'B', 'C', 'D'].every(k => sDone[k])) milestone('six');
+  paintSAct();
+});
+
+/* ---------- B · Activity 9B: the screening ---------- */
+const SCR = [
+  {id: 1, sec: '300 × 500', lz: 20.8, ly: 34.6, mz: 229.0, my: 24.0, b: 300, h: 500, N: 1200},
+  {id: 2, sec: '250 × 600', lz: 17.3, ly: 41.6, mz: 161.3, my: 42.3, b: 250, h: 600, N: 1500},
+  {id: 3, sec: '300 × 350', lz: 36.6, ly: 34.6, mz: 94.0, my: 63.4, b: 300, h: 350, N: 1800},
+  {id: 4, sec: '400 × 400', lz: 15.6, ly: 15.6, mz: 100.8, my: 48.0, b: 400, h: 400, N: 2400}];
+SCR.forEach(c => { const ey = c.mz * 1e3 / c.N, ez = c.my * 1e3 / c.N, r1 = (ey / c.h) / (ez / c.b), r2 = 1 / r1;
+  c.need = !(c.ly / c.lz <= 2 && c.lz / c.ly <= 2 && (r1 <= 0.2 || r2 <= 0.2)); c.r1 = r1; c.r2 = r2; });
+const SCKEY = 'seaa4333-lab-column-9b'; const scrAns = recall(SCKEY, {}) || {}; let scrChecked = false;
+function drawScr(){
+  let html = `<thead><tr><th>${Lg('Card', 'Kad')}</th><th>Section</th><th>λ<sub>z</sub>; λ<sub>y</sub></th><th>M<sub>Ed,z</sub>; M<sub>Ed,y</sub> (kN m)</th><th>N<sub>Ed</sub> (kN)</th></tr></thead><tbody>`;
+  SCR.forEach(c => { const a = scrAns[c.id], mark = scrChecked && a ? ((a === 'y') === c.need ? ' ✓' : ' ✗') : '';
+    html += `<tr class="scrrow"><td>${c.id}</td><td>${c.sec}</td><td>${f(c.lz, 1)}; ${f(c.ly, 1)}</td><td>${f(c.mz, 1)}; ${f(c.my, 1)}</td><td>${c.N}</td></tr>` +
+      `<tr class="scrdec"><td colspan="5"><span class="scrq">${Lg('Biaxial check:', 'Biaxial check:')}</span> <span class="seg scr" data-id="${c.id}" role="group" aria-label="${Lg('Card', 'Kad')} ${c.id}"><button type="button" data-v="y" aria-pressed="${a === 'y'}">${Lg('needed', 'perlu')}</button><button type="button" data-v="n" aria-pressed="${a === 'n'}">${Lg('not needed', 'tidak perlu')}</button></span><b class="scrmark">${mark}</b></td></tr>`; });
+  el('scrTable').innerHTML = html + '</tbody>';
+  el('scrTable').querySelectorAll('.scr').forEach(g => segGroup(g, v => { scrAns[g.dataset.id] = v; store(SCKEY, scrAns); scrChecked = false; el('scrOut').hidden = true; drawScr(); }));
+}
+el('scrCheck').addEventListener('click', () => {
+  scrChecked = true; const right = SCR.filter(c => scrAns[c.id] && (scrAns[c.id] === 'y') === c.need).length, out = el('scrOut'); out.hidden = false;
+  if (right === 4){ out.className = 'verdict ok'; out.innerHTML = Lg('All four right. Only card 1 may be designed axis by axis: its λ ratios are within 2 and 0.067/0.382 = 0.17 ≤ 0.2. Card 2 fails on λ<sub>y</sub>/λ<sub>z</sub> = 2.40; cards 3 and 4 on the eccentricities (1.27 and 2.10). Where a check is needed, z governs.', 'Keempat-empat betul. Hanya kad 1 boleh di-design paksi demi paksi: nisbah λ-nya dalam 2 dan 0.067/0.382 = 0.17 ≤ 0.2. Kad 2 gagal pada λ<sub>y</sub>/λ<sub>z</sub> = 2.40; kad 3 dan 4 pada eccentricity (1.27 dan 2.10). Apabila semakan diperlukan, z menentukan.'); milestone('screen'); }
+  else { out.className = 'verdict bad'; out.innerHTML = Lg(`${right} of 4 right. For each card: both λ ratios ≤ 2, and (e<sub>y</sub>/h)/(e<sub>z</sub>/b) ≤ 0.2 or its inverse ≤ 0.2, with e<sub>y</sub> = M<sub>Ed,z</sub>/N<sub>Ed</sub>, e<sub>z</sub> = M<sub>Ed,y</sub>/N<sub>Ed</sub>.`, `${right} daripada 4 betul. Bagi setiap kad: kedua-dua nisbah λ ≤ 2, dan (e<sub>y</sub>/h)/(e<sub>z</sub>/b) ≤ 0.2 atau salingannya ≤ 0.2, dengan e<sub>y</sub> = M<sub>Ed,z</sub>/N<sub>Ed</sub>, e<sub>z</sub> = M<sub>Ed,y</sub>/N<sub>Ed</sub>.`); }
+  drawScr();
+});
+
+/* ---------- B · the biaxial check (both axes, full course method) ---------- */
+function colRun(i){
+  const Ac = i.b * i.h, fcd = FCD9(i.fck), N = i.N, n = N * 1e3 / (Ac * fcd), brc = i.brc !== false, d2 = i.cnom + i.pl + i.pc / 2, A = {};
+  ['z', 'y'].forEach(ax => {
+    const H = ax === 'z' ? i.h : i.b, B = ax === 'z' ? i.b : i.h, l0 = ax === 'z' ? i.l0z : i.l0y, Mt = Math.abs(ax === 'z' ? i.Mzt : i.Myt), Mb = Math.abs(ax === 'z' ? i.Mzb : i.Myb), dbl = (ax === 'z' ? i.curvz : i.curvy) === 'double';
+    const lam = l0 / (H / Math.sqrt(12)), Mx = Math.max(Mt, Mb), Mn = Math.min(Mt, Mb), MiL = N * l0 / 400 / 1e3, impDom = brc && Mx > 0 && Mx <= MiL;
+    const rm = (!brc || Mx === 0 || impDom) ? 1 : (dbl ? -1 : 1) * Mn / Mx, C = 1.7 - rm, laml = 20 * 0.7 * 1.1 * C / Math.sqrt(n);
+    const ei = l0 / 400, Mi = N * ei / 1e3;
+    A[ax] = {H, B, l0, lam, Mx, Mn, dbl, rm, C, laml, slender: lam > laml, ei, Mi, M02: Mx + Mi, M01s: (dbl ? -Mn : Mn) + Mi, M01: Mn + Mi, e0: Math.max(H / 30, 20), d: H - d2};
+    A[ax].Mmin = N * A[ax].e0 / 1e3;
+  });
+  const sl = ['z', 'y'].filter(ax => A[ax].slender); let phi = 0, phief = 0, zero = false;
+  if (sl.length){ phi = phiAnnexB9(i.b, i.h, i.fck); phief = phi * 0.67; zero = phi <= 2 && sl.every(ax => A[ax].lam <= 75 && A[ax].M02 * 1e3 / N >= A[ax].H); if (zero) phief = 0;
+    sl.forEach(ax => { const a = A[ax]; a.bcr = 0.35 + i.fck / 200 - a.lam / 150; a.Kphi = Math.max(1, 1 + a.bcr * phief); a.r0 = EYD8 / (0.45 * a.d); }); }
+  const M2of = (ax, Kr) => { const a = A[ax]; return N * Kr * a.Kphi * a.r0 * a.l0 * a.l0 / 10 / 1e3; };
+  const MEdOf = (ax, Kr) => { const a = A[ax]; if (!a.slender) return Math.max(a.M02, a.Mmin); const M2 = M2of(ax, Kr);
+    if (brc){ const M0e = Math.max(0.6 * a.M02 + 0.4 * a.M01s, 0.4 * a.M02); return Math.max(a.M02, M0e + M2, a.M01 + 0.5 * M2, a.Mmin); } return Math.max(a.M02 + M2, a.Mmin); };
+  const MEdNI = (ax, Kr) => { const a = A[ax], M02 = a.Mx, M01s = (a.dbl ? -1 : 1) * a.Mn, M01 = a.Mn; if (!a.slender) return M02; const M2 = M2of(ax, Kr);
+    if (brc){ const M0e = Math.max(0.6 * M02 + 0.4 * M01s, 0.4 * M02); return Math.max(M02, M0e + M2, M01 + 0.5 * M2); } return M02 + M2; };
+  const asR = (ax, M) => asReq8(N, M, A[ax].H, A[ax].B, d2, i.fck);
+  const biax = MEd => { const lr1 = A.y.lam / A.z.lam, lr2 = 1 / lr1, ey = MEd.z * 1e3 / N, ez = MEd.y * 1e3 / N, er1 = ez > 0 ? (ey / i.h) / (ez / i.b) : INF, er2 = er1 > 0 ? 1 / er1 : INF;
+    const needed = !(lr1 <= 2 && lr2 <= 2 && (er1 <= 0.2 || er2 <= 0.2)), hp = A.z.d, bp = A.y.d, qz = MEd.z * 1e3 / hp, qy = MEd.y * 1e3 / bp, gov = qz >= qy ? 'z' : 'y';
+    const bet = Math.max(0.3, 1 - N * 1e3 / (i.b * i.h * i.fck)), Mp = gov === 'z' ? MEd.z + bet * (hp / bp) * MEd.y : MEd.y + bet * (bp / hp) * MEd.z;
+    return {lr1, lr2, ey, ez, er1, er2, needed, hp, bp, qz, qy, gov, bet, Mp}; };
+  const design = MEd => { const bx = biax(MEd); return bx.needed ? {As: asR(bx.gov, bx.Mp), bx} : {As: Math.max(asR('z', MEd.z), asR('y', MEd.y)), bx}; };
+  let Kr = 1, MEd, D;
+  for (let k = 0; k < 60; k++){
+    MEd = {z: MEdOf('z', Kr), y: MEdOf('y', Kr)}; D = design(MEd); if (!sl.length) break;
+    const w = isFinite(D.As) ? D.As * FYD8 / (Ac * fcd) : INF, Krn = isFinite(D.As) ? Math.min(1, (1 + w - n) / (0.6 + w)) : 1;
+    if (!isFinite(D.As) || Math.abs(Krn - Kr) < 1e-7){ Kr = Krn; break; } Kr = Krn;
+  }
+  if (sl.length){ MEd = {z: MEdOf('z', Kr), y: MEdOf('y', Kr)}; D = design(MEd); }
+  const ac = i.cnom + i.pl + i.pc / 2, ai = i.cnom + i.pl + i.pi / 2, yc = i.h / 2 - ac, zc = i.b / 2 - ac, bars = [];
+  [1, -1].forEach(sy => [1, -1].forEach(sz => bars.push([sy * yc, sz * zc, barA8(i.pc)])));
+  for (let k = 1; k <= i.nbf; k++){ const z = -zc + k * 2 * zc / (i.nbf + 1); [1, -1].forEach(sy => bars.push([sy * (i.h / 2 - ai), z, barA8(i.pi)])); }
+  for (let k = 1; k <= i.nhf; k++){ const y = -yc + k * 2 * yc / (i.nhf + 1); [1, -1].forEach(sz => bars.push([y, sz * (i.b / 2 - ai), barA8(i.pi)])); }
+  const Asp = bars.reduce((a, b) => a + b[2], 0); let Krp = 1;
+  if (sl.length){ const w = Asp * FYD8 / (Ac * fcd); Krp = Math.min(1, (1 + w - n) / (0.6 + w)); }
+  const MEdp = {}, MR = {};
+  ['z', 'y'].forEach(ax => { MEdp[ax] = A[ax].slender ? MEdOf(ax, Krp) : MEd[ax];
+    const sec = ax === 'z' ? bars.map(b => [i.h / 2 - b[0], b[2]]) : bars.map(b => [i.b / 2 - b[1], b[2]]); MR[ax] = mrd8(N, A[ax].H, A[ax].B, sec, i.fck); });
+  const out = {i, Ac, fcd, n, A, sl, phi, phief, zero, Kr, MEd, D, bx: D.bx, As_req: D.As, bars, Asp, Krp, MEdp, MR, M2: {}, M2p: {}};
+  sl.forEach(ax => { out.M2[ax] = M2of(ax, Kr); out.M2p[ax] = M2of(ax, Krp); });
+  /* EC2 9.5.3(6): no bar further than 150 mm (centre to centre here) from a bar restrained by a link corner or a tie */
+  const far = (nx, c) => nx > 0 ? Math.floor((nx + 1) / 2) * 2 * c / (nx + 1) : 0;
+  out.far = Math.max(far(i.nbf, zc), far(i.nhf, yc));
+  out.As_min = Math.max(0.1 * N * 1e3 / FYD8, 0.002 * Ac); out.As_max = 0.04 * Ac;
+  if (D.bx.needed && MR.z && MR.y){
+    const NRd = (0.567 * i.fck * Ac + FYD8 * Asp) / 1e3, rN = N / NRd, a = aExp9(rN), Rz = MR.z.M, Ry = MR.y.M;
+    const cases = [{k: 'z', mz: MEdp.z, my: MEdNI('y', Krp)}, {k: 'y', mz: MEdNI('z', Krp), my: MEdp.y}];
+    cases.forEach(q => { q.tz = Math.pow(q.mz / Rz, a); q.ty = Math.pow(q.my / Ry, a); q.s = q.tz + q.ty; });
+    out.ix = {NRd, rN, a, Rz, Ry, cases, gov: Math.max(cases[0].s, cases[1].s)};
+  }
+  out.pass = out.Asp >= Math.max(out.As_req, out.As_min) - 1e-6 && out.Asp <= out.As_max + 1e-6 && (!out.ix || out.ix.gov <= 1 + 1e-9) && (out.ix || (MR.z && MR.y && MR.z.M >= MEdp.z - 1e-9 && MR.y.M >= MEdp.y - 1e-9));
+  return out;
+}
+const BXCASES = {
+  we91: {en: 'WE 9.1: braced 300 × 300, l₀ 5.0 m both ways', ms: 'WE 9.1: braced 300 × 300, l₀ 5.0 m kedua-dua arah', v: {b: 300, h: 300, l0z: 5000, l0y: 5000, N: 1000, Mzt: 40, Mzb: 40, curvz: 'single', Myt: 0, Myb: 0, curvy: 'single', fck: 30, cnom: 30, pl: 6, pc: 20, pi: 20, nbf: 0, nhf: 0, brc: true}},
+  fe92: {en: 'FE 9.2: WE 8.1 about both axes, 400 × 400', ms: 'FE 9.2: WE 8.1 pada kedua-dua paksi, 400 × 400', v: {b: 400, h: 400, l0z: 1806, l0y: 1806, N: 2400, Mzt: 90, Mzb: 60, curvz: 'double', Myt: 0, Myb: 0, curvy: 'single', fck: 30, cnom: 30, pl: 6, pc: 16, pi: 16, nbf: 0, nhf: 0, brc: true}},
+  c12: {en: 'App C12: 300 × 500, one axis dominates', ms: 'App C12: 300 × 500, satu paksi mendominasi', v: {b: 300, h: 500, l0z: 3000, l0y: 3000, N: 1200, Mzt: 220, Mzb: 110, curvz: 'double', Myt: 15, Myb: 8, curvy: 'double', fck: 30, cnom: 30, pl: 6, pc: 20, pi: 20, nbf: 0, nhf: 0, brc: true}},
+  c13: {en: 'App C13 (notes Ex 5): slender about both axes', ms: 'App C13 (nota Ex 5): slender pada kedua-dua paksi', v: {b: 300, h: 350, l0z: 3700, l0y: 3000, N: 1800, Mzt: 55, Mzb: 55, curvz: 'single', Myt: 32, Myb: 32, curvy: 'single', fck: 25, cnom: 30, pl: 8, pc: 25, pi: 25, nbf: 1, nhf: 1, brc: true}}
+};
+const bxin = Object.assign({}, BXCASES.we91.v); let bxCaseK = 'we91', bxUser = false, bxLast = null;
+function fillBxCases(){ const s = el('bxCase'); s.innerHTML = ''; Object.keys(BXCASES).forEach(k => { const o = document.createElement('option'); o.value = k; o.textContent = Lg(BXCASES[k].en, BXCASES[k].ms); s.appendChild(o); }); s.value = bxCaseK; }
+function syncBx(){ el('bx_pc').value = bxin.pc; el('bx_nb').value = bxin.nbf; el('bx_nh').value = bxin.nhf; el('bx_pl').value = bxin.pl; }
+function redrawBx(){
+  const R = colRun(bxin); bxLast = R; const i = bxin, ok = (c, t) => `<span class="pill ${c ? 'ok' : 'bad'}">${t}</span>`;
+  const barsTxt = `${4}H${i.pc}` + (i.nbf + i.nhf ? ` + ${2 * (i.nbf + i.nhf)}H${i.pi}` : '');
+  el('bxKV').innerHTML = `<div><span>M<sub>Ed,z</sub>; M<sub>Ed,y</sub></span><b>${f(R.MEd.z, 1)}; ${f(R.MEd.y, 1)}</b></div><div><span>${Lg('Biaxial check', 'Biaxial check')}</span><b>${R.bx.needed ? Lg('needed', 'perlu') : Lg('not needed', 'tidak perlu')}</b></div>` +
+    `<div><span>A<sub>s,req</sub> / A<sub>s,prov</sub></span><b>${isFinite(R.As_req) ? f(Math.max(R.As_req, R.As_min), 0) : '–'} / ${f(R.Asp, 0)} mm²</b></div><div><span>${barsTxt}</span>${ok(R.pass, R.pass ? Lg('passes', 'lulus') : Lg('fails', 'gagal'))}</div>`;
+  const rows = [];
+  if (R.sl.length) rows.push([Lg('creep', 'creep'), `φ(∞,t<sub>0</sub>) = ${f(R.phi, 3)} (Annex B); φ<sub>ef</sub> = 0.67 × ${f(R.phi, 3)}${R.zero ? Lg(', taken as 0 (EC2 5.8.4(4))', ', diambil 0 (EC2 5.8.4(4))') : ''}`, `φ<sub>ef</sub> = ${f(R.phief, 3)}`]);
+  ['z', 'y'].forEach(ax => { const a = R.A[ax];
+    let calc = `λ = ${f(a.lam, 1)}, λ<sub>lim</sub> = ${f(a.laml, 1)}${a.slender ? '' : Lg(' (not slender)', ' (tidak slender)')}; M<sub>02</sub> = ${f(a.Mx, 1)} + ${f(a.Mi, 2)} = ${f(a.M02, 1)}; N<sub>Ed</sub>e<sub>0</sub> = ${f(a.Mmin, 1)}`;
+    if (a.slender) calc += `; K<sub>φ</sub> = ${f(a.Kphi, 3)}, 1/r<sub>0</sub> = ${f(a.r0 * 1e5, 3)} × 10⁻⁵, M<sub>2</sub> = ${f(R.M2[ax], 1)}`;
+    rows.push([ax, calc, `M<sub>Ed,${ax}</sub> = ${f(R.MEd[ax], 1)}`]); });
+  if (R.sl.length) rows.push(['K<sub>r</sub>', Lg(`loop on the area (strain compatibility) → K<sub>r</sub> = ${f(R.Kr, 3)}; with the bars chosen, K′<sub>r</sub> = ${f(R.Krp, 3)}`, `gelung pada luas (strain compatibility) → K<sub>r</sub> = ${f(R.Kr, 3)}; dengan bar yang dipilih, K′<sub>r</sub> = ${f(R.Krp, 3)}`),
+    R.sl.map(ax => `M′<sub>Ed,${ax}</sub> = ${f(R.MEdp[ax], 1)}`).join('; ')]);
+  const bx = R.bx;
+  rows.push(['(9.9)', `λ<sub>y</sub>/λ<sub>z</sub> = ${f(bx.lr1, 2)}; e<sub>y</sub> = ${f(bx.ey, 1)}, e<sub>z</sub> = ${f(bx.ez, 1)} mm; (e<sub>y</sub>/h)/(e<sub>z</sub>/b) = ${isFinite(bx.er1) ? f(bx.er1, 2) : '∞'}, ${Lg('inverse', 'salingan')} ${f(bx.er2, 2)}`, bx.needed ? Lg('check needed', 'semakan perlu') : Lg('separate designs', 'design berasingan')]);
+  if (bx.needed) rows.push(['(9.10)', `${Lg('about', 'pada paksi')} ${bx.gov}; β = ${f(bx.bet, 3)}; M′ = ${f(bx.gov === 'z' ? R.MEd.z : R.MEd.y, 1)} + ${f(bx.bet, 3)} × ${f(bx.gov === 'z' ? bx.hp / bx.bp : bx.bp / bx.hp, 3)} × ${f(bx.gov === 'z' ? R.MEd.y : R.MEd.z, 1)}`, `M′ = ${f(bx.Mp, 1)}; A<sub>s</sub> = ${isFinite(R.As_req) ? f(R.As_req, 0) : '–'} mm²`]);
+  else rows.push([Lg('each axis', 'setiap paksi'), Lg('A<sub>s</sub> = the larger of the two uniaxial designs', 'A<sub>s</sub> = yang lebih besar daripada dua design satu paksi'), `${isFinite(R.As_req) ? f(R.As_req, 0) : '–'} mm²`]);
+  rows.push(['EC2 9.5.2', `${barsTxt} = ${f(R.Asp, 0)} mm²; A<sub>s,min</sub> = ${f(R.As_min, 0)}; A<sub>s,max</sub> = ${f(R.As_max, 0)}`, R.Asp >= Math.max(R.As_req, R.As_min) && R.Asp <= R.As_max ? '✓' : '✗']);
+  rows.push(['EC2 9.5.3(6)', R.far > 0 ? Lg(`furthest bar from a corner bar: ${f(R.far, 0)} mm, centre to centre (limit 150 mm)`, `bar paling jauh dari bar penjuru: ${f(R.far, 0)} mm, pusat ke pusat (had 150 mm)`) : Lg('corner bars only: the perimeter link restrains all four', 'bar penjuru sahaja: link perimeter mengekang keempat-empatnya'),
+    R.far > 150 + 1e-9 ? Lg('add a tie', 'tambah tie') : '✓']);
+  rows.push([Lg('M<sub>Rd</sub>', 'M<sub>Rd</sub>'), `${Lg('strain compatibility with every bar at', 'strain compatibility dengan setiap bar pada')} N<sub>Ed</sub> = ${i.N} kN`, R.MR.z && R.MR.y ? `${f(R.MR.z.M, 1)}; ${f(R.MR.y.M, 1)}` : '–']);
+  if (R.ix){ rows.push(['(9.11)', `N<sub>Rd</sub> = ${f(R.ix.NRd, 0)} kN; N<sub>Ed</sub>/N<sub>Rd</sub> = ${f(R.ix.rN, 3)}`, `a = ${f(R.ix.a, 3)}`]);
+    R.ix.cases.forEach(q => rows.push([q.k === 'z' ? Lg('imp. z', 'imp. z') : Lg('imp. y', 'imp. y'), `(${f(q.mz, 1)}/${f(R.ix.Rz, 1)})<sup>a</sup> + (${f(q.my, 1)}/${f(R.ix.Ry, 1)})<sup>a</sup> = ${f(q.tz, 3)} + ${f(q.ty, 3)}`, `${f(q.s, 3)} ${q.s <= 1 ? '≤' : '&gt;'} 1`])); }
+  el('bxTable').innerHTML = `<thead><tr><th>Ref</th><th>${Lg('Calculation', 'Pengiraan')}</th><th class="out">Output</th></tr></thead><tbody>` + rows.map(r => `<tr><td class="ref">${r[0]}</td><td>${r[1]}</td><td class="out">${r[2]}</td></tr>`).join('') + '</tbody>';
+  drawBx(R);
+  if (bxUser && bxCaseK === 'fe92' && R.pass && !(i.pc === 16 && i.nbf === 0 && i.nhf === 0)) milestone('we81y');
+}
+const BXCH = {w: 640, h: 520, l: 64, r: 20, t: 34, b: 48};
+function drawBx(R){
+  const svg = el('bxChart'); wrapChart(svg, BXCH, 640, 520); svg.innerHTML = '';
+  const tip = el('bxTip'); tip.hidden = true;
+  if (!R.MR.z || !R.MR.y){ T(svg, BXCH.w / 2, BXCH.h / 2, Lg('N exceeds the capacity of the section', 'N melebihi kapasiti section'), {'text-anchor': 'middle'}); return; }
+  const Rz = R.MR.z.M, Ry = R.MR.y.M, a = R.ix ? R.ix.a : aExp9(R.i.N / ((0.567 * R.i.fck * R.Ac + FYD8 * R.Asp) / 1e3));
+  const pts = R.ix ? R.ix.cases.map(q => [q.mz, q.my]) : [[R.MEdp.z, 0], [0, R.MEdp.y]];
+  const mmax = Math.max(Rz, Ry, ...pts.flat()) * 1.1, st = niceStep(mmax, 6), top = Math.ceil(mmax / st) * st;
+  const X = m => BXCH.l + m / top * (BXCH.w - BXCH.l - BXCH.r), Y = m => BXCH.h - BXCH.b - m / top * (BXCH.h - BXCH.t - BXCH.b), g = S('g', {}, svg);
+  for (let m = 0; m <= top + 1e-9; m += st){ S('line', {x1: X(m), x2: X(m), y1: BXCH.t, y2: BXCH.h - BXCH.b, stroke: 'var(--grid)'}, g); T(g, X(m), BXCH.h - BXCH.b + 18, f(m, 0), {'text-anchor': 'middle'});
+    S('line', {x1: BXCH.l, x2: BXCH.w - BXCH.r, y1: Y(m), y2: Y(m), stroke: 'var(--grid)'}, g); T(g, BXCH.l - 8, Y(m) + 4, f(m, 0), {'text-anchor': 'end'}); }
+  TS(g, (BXCH.l + BXCH.w - BXCH.r) / 2, BXCH.h - 8, [['M'], ['Ed,z', 1], [' (kN m)']], {'text-anchor': 'middle', class: 'axt'}); TS(g, 4, 18, [['M'], ['Ed,y', 1], [' (kN m)']], {class: 'axt'});
+  let d = ''; for (let k = 0; k <= 90; k++){ const t = k / 90 * Math.PI / 2, mz = Rz * Math.pow(Math.cos(t), 2 / a), my = Ry * Math.pow(Math.sin(t), 2 / a); d += (k ? 'L' : 'M') + X(mz).toFixed(1) + ',' + Y(my).toFixed(1); }
+  S('path', {d, fill: 'none', stroke: 'var(--braced)', 'stroke-width': 2.4}, svg);
+  T(svg, X(Rz * 0.62) + 6, Y(Ry * 0.86) - 8, Lg(`sum = 1, a = ${f(a, 2)}`, `jumlah = 1, a = ${f(a, 2)}`), {style: 'fill:var(--braced);font-weight:700'});
+  pts.forEach((p, k) => { S('circle', {cx: X(p[0]), cy: Y(p[1]), r: 7, fill: 'var(--unbraced)', stroke: 'var(--surface)', 'stroke-width': 2}, svg);
+    const inside = Math.pow(p[0] / Rz, a) + Math.pow(p[1] / Ry, a) <= 1;
+    T(svg, X(p[0]) + (inside ? -11 : 11), Y(p[1]) + (k ? -10 : 20), R.ix ? (k ? Lg('imp. y', 'imp. y') : Lg('imp. z', 'imp. z')) : (k ? 'y' : 'z'), {class: 'small', 'text-anchor': inside ? 'end' : 'start'}); });
+  const hit = S('rect', {x: BXCH.l, y: BXCH.t, width: BXCH.w - BXCH.l - BXCH.r, height: BXCH.h - BXCH.t - BXCH.b, fill: 'transparent'}, svg);
+  const show = e => { const bb = svg.getBoundingClientRect(), px = (e.clientX - bb.left) / bb.width * BXCH.w, py = (e.clientY - bb.top) / bb.height * BXCH.h;
+    const mz = (px - BXCH.l) / (BXCH.w - BXCH.l - BXCH.r) * top, my = (BXCH.h - BXCH.b - py) / (BXCH.h - BXCH.t - BXCH.b) * top; if (mz < 0 || my < 0) return;
+    const s = Math.pow(mz / Rz, a) + Math.pow(my / Ry, a);
+    tip.hidden = false; tip.innerHTML = `<b>M<sub>z</sub> ${f(mz, 1)}, M<sub>y</sub> ${f(my, 1)}</b><span>${Lg('sum', 'jumlah')} = ${f(s, 2)} ${s <= 1 ? '≤ 1' : '&gt; 1'}</span>`;
+    tip.style.left = Math.min(px / BXCH.w * bb.width + 12, bb.width - 160) + 'px'; tip.style.top = Math.max(4, py / BXCH.h * bb.height - 50) + 'px'; };
+  hit.addEventListener('pointermove', show); hit.addEventListener('pointerdown', show); hit.addEventListener('pointerleave', () => { tip.hidden = true; });
+  svg.setAttribute('aria-label', Lg(`Eq. 5.39 boundary for the bars chosen with MRd,z ${f(Rz, 1)} and MRd,y ${f(Ry, 1)} kN m, a = ${f(a, 2)}; design points ${pts.map(p => '(' + f(p[0], 1) + '; ' + f(p[1], 1) + ')').join(' and ')}.`, `Sempadan Eq. 5.39 bagi bar yang dipilih dengan MRd,z ${f(Rz, 1)} dan MRd,y ${f(Ry, 1)} kN m, a = ${f(a, 2)}; design point ${pts.map(p => '(' + f(p[0], 1) + '; ' + f(p[1], 1) + ')').join(' dan ')}.`));
+}
+el('bxCase').addEventListener('change', e => { bxCaseK = e.target.value; Object.assign(bxin, BXCASES[bxCaseK].v); bxUser = false; syncBx(); redrawBx(); });
+[['bx_pc', 'pc'], ['bx_nb', 'nbf'], ['bx_nh', 'nhf'], ['bx_pl', 'pl']].forEach(([id, k]) => el(id).addEventListener('change', () => { bxin[k] = +el(id).value; if (k === 'pc') bxin.pi = bxin.pc; bxUser = true; redrawBx(); }));
+
+/* ---------- Column S9 (tab 3) ---------- */
+const S9 = [
+  {ref: 'EC2 5.8.3.1', calc: ['λ = 4500/86.6 = 52.0; n = 1200 × 10³/(90 000 × 17.0) = 0.784; r<sub>m</sub> = +15/45 = 0.333 (single curvature), C = 1.367; λ<sub>lim</sub> = 20 × 0.7 × 1.1 × 1.367/√0.784 = 23.8', 'λ = 4500/86.6 = 52.0; n = 1200 × 10³/(90 000 × 17.0) = 0.784; r<sub>m</sub> = +15/45 = 0.333 (single curvature), C = 1.367; λ<sub>lim</sub> = 20 × 0.7 × 1.1 × 1.367/√0.784 = 23.8'], out: '52.0 &gt; 23.8', slip: false,
+   fix: ['Right: slender about z, so the six steps apply.', 'Betul: slender pada paksi z, jadi enam langkah terpakai.']},
+  {ref: '(8.1), (9.6)', calc: ['e<sub>i</sub> = 4500/400 = 11.25 mm; M<sub>02</sub> = 45 + 1200 × 0.01125 = 58.5 kN m; M<sub>01</sub> = 15 + 13.5 = 28.5 kN m', 'e<sub>i</sub> = 4500/400 = 11.25 mm; M<sub>02</sub> = 45 + 1200 × 0.01125 = 58.5 kN m; M<sub>01</sub> = 15 + 13.5 = 28.5 kN m'], out: '58.5; 28.5', slip: false,
+   fix: ['Right: the imperfection goes on both end moments.', 'Betul: imperfection ditambah kepada kedua-dua end moment.']},
+  {ref: '(9.6)', calc: ['M<sub>0e</sub> = 0.6 × 58.5 − 0.4 × 28.5 = 23.7 kN m (≥ 0.4M<sub>02</sub> = 23.4)', 'M<sub>0e</sub> = 0.6 × 58.5 − 0.4 × 28.5 = 23.7 kN m (≥ 0.4M<sub>02</sub> = 23.4)'], out: '23.7', slip: true,
+   fix: ['Single curvature: the end moments have the same sign, so M<sub>0e</sub> = 0.6 × 45 + 0.4 × 15 + 13.5 = 46.5 kN m.', 'Single curvature: end moment mempunyai tanda yang sama, jadi M<sub>0e</sub> = 0.6 × 45 + 0.4 × 15 + 13.5 = 46.5 kN m.']},
+  {ref: '(9.4)', calc: ['φ<sub>ef</sub> = 1.706 × 0.67 = 1.143; β = 0.35 + 30/200 − 52.0/150 = 0.153', 'φ<sub>ef</sub> = 1.706 × 0.67 = 1.143; β = 0.35 + 30/200 − 52.0/150 = 0.153'], out: '1.143; 0.153', slip: false,
+   fix: ['Right: φ(∞,t<sub>0</sub>) = 1.706 ≤ 2, but M<sub>02</sub>/N<sub>Ed</sub> = 48.8 mm &lt; h = 300 mm, so creep stays (EC2 5.8.4(4)).', 'Betul: φ(∞,t<sub>0</sub>) = 1.706 ≤ 2, tetapi M<sub>02</sub>/N<sub>Ed</sub> = 48.8 mm &lt; h = 300 mm, jadi creep kekal (EC2 5.8.4(4)).']},
+  {ref: '(9.4)', calc: ['K<sub>φ</sub> = 1 + 0.153 × 1.706 = 1.262', 'K<sub>φ</sub> = 1 + 0.153 × 1.706 = 1.262'], out: '1.262', slip: true,
+   fix: ['K<sub>φ</sub> uses φ<sub>ef</sub>, not φ(∞,t<sub>0</sub>): 1 + 0.153 × 1.143 = 1.176.', 'K<sub>φ</sub> menggunakan φ<sub>ef</sub>, bukan φ(∞,t<sub>0</sub>): 1 + 0.153 × 1.143 = 1.176.']},
+  {ref: '(9.2)', calc: ['1/r<sub>0</sub> = ε<sub>yd</sub>/(0.45h) = 0.002175/(0.45 × 300) = 1.611 × 10⁻⁵ /mm', '1/r<sub>0</sub> = ε<sub>yd</sub>/(0.45h) = 0.002175/(0.45 × 300) = 1.611 × 10⁻⁵ /mm'], out: '1.611 × 10⁻⁵', slip: true,
+   fix: ['The effective depth d, not h: 0.002175/(0.45 × 254) = 1.903 × 10⁻⁵ per mm.', 'Effective depth d, bukan h: 0.002175/(0.45 × 254) = 1.903 × 10⁻⁵ per mm.']},
+  {ref: '(9.5)', calc: ['Trial 1, K<sub>r</sub> = 1: e<sub>2</sub> = 1.262 × 1.611 × 10⁻⁵ × 4500²/10 = 41.2 mm; M<sub>2</sub> = 1200 × 0.0412 = 49.4 kN m', 'Cubaan 1, K<sub>r</sub> = 1: e<sub>2</sub> = 1.262 × 1.611 × 10⁻⁵ × 4500²/10 = 41.2 mm; M<sub>2</sub> = 1200 × 0.0412 = 49.4 kN m'], out: '49.4', slip: false,
+   fix: ['Follows from lines 5 and 6: with K<sub>φ</sub> = 1.176 and 1/r<sub>0</sub> = 1.903 × 10⁻⁵, trial 1 gives e<sub>2</sub> = 45.3 mm and M<sub>2</sub> = 54.4 kN m.', 'Akibat baris 5 dan 6: dengan K<sub>φ</sub> = 1.176 dan 1/r<sub>0</sub> = 1.903 × 10⁻⁵, cubaan 1 memberi e<sub>2</sub> = 45.3 mm dan M<sub>2</sub> = 54.4 kN m.']},
+  {ref: '(9.7)', calc: ['M<sub>Ed</sub> = max(58.5; 23.7 + 49.4; 28.5 + 24.7; 24.0) = 73.1 kN m; A<sub>s</sub> = 913 mm²', 'M<sub>Ed</sub> = max(58.5; 23.7 + 49.4; 28.5 + 24.7; 24.0) = 73.1 kN m; A<sub>s</sub> = 913 mm²'], out: '73.1; 913', slip: false,
+   fix: ['Follows from lines 3, 5 and 6: trial 1 is M<sub>Ed</sub> = max(58.5; 46.5 + 54.4; 28.5 + 27.2; 24.0) = 100.9 kN m, A<sub>s</sub> = 1663 mm².', 'Akibat baris 3, 5 dan 6: cubaan 1 ialah M<sub>Ed</sub> = max(58.5; 46.5 + 54.4; 28.5 + 27.2; 24.0) = 100.9 kN m, A<sub>s</sub> = 1663 mm².']},
+  {ref: '(9.3)', calc: ['ω = A<sub>s</sub>f<sub>yk</sub>/(bhf<sub>ck</sub>) = 913 × 500/(300 × 300 × 30) = 0.169; K<sub>r</sub> = (1.169 − 0.784)/(1.169 − 0.4) = 0.500', 'ω = A<sub>s</sub>f<sub>yk</sub>/(bhf<sub>ck</sub>) = 913 × 500/(300 × 300 × 30) = 0.169; K<sub>r</sub> = (1.169 − 0.784)/(1.169 − 0.4) = 0.500'], out: '0.500', slip: true,
+   fix: ['In K<sub>r</sub>, ω = A<sub>s</sub>f<sub>yd</sub>/(A<sub>c</sub>f<sub>cd</sub>) = 913 × 435/(90 000 × 17.0) = 0.260, so K<sub>r</sub> = (1.260 − 0.784)/(1.260 − 0.4) = 0.553 at this area.', 'Dalam K<sub>r</sub>, ω = A<sub>s</sub>f<sub>yd</sub>/(A<sub>c</sub>f<sub>cd</sub>) = 913 × 435/(90 000 × 17.0) = 0.260, jadi K<sub>r</sub> = (1.260 − 0.784)/(1.260 − 0.4) = 0.553 pada luas ini.']},
+  {ref: '(9.5), (9.7)', calc: ['Trial 2: M<sub>2</sub> = 49.4 × 0.500 = 24.7; M<sub>Ed</sub> = max(58.5; 23.7 + 24.7; 28.5 + 12.4; 24.0) = 58.5 kN m; A<sub>s</sub> = 513 mm²', 'Cubaan 2: M<sub>2</sub> = 49.4 × 0.500 = 24.7; M<sub>Ed</sub> = max(58.5; 23.7 + 24.7; 28.5 + 12.4; 24.0) = 58.5 kN m; A<sub>s</sub> = 513 mm²'], out: '58.5; 513', slip: false,
+   fix: ['Follows: the correct loop settles at K<sub>r</sub> = 0.570, M<sub>2</sub> = 31.0 kN m and M<sub>Ed</sub> = 46.5 + 31.0 = 77.5 kN m (M<sub>0e</sub> + M<sub>2</sub> governs), A<sub>s</sub> = 1034 mm².', 'Akibatnya: gelung yang betul menumpu kepada K<sub>r</sub> = 0.570, M<sub>2</sub> = 31.0 kN m dan M<sub>Ed</sub> = 46.5 + 31.0 = 77.5 kN m (M<sub>0e</sub> + M<sub>2</sub> menentukan), A<sub>s</sub> = 1034 mm².']},
+  {ref: 'EC2 9.5.2', calc: ['Provide 4H16 = 804 mm² ≥ 513; A<sub>s,min</sub> = max(0.10 × 1200 × 10³/435; 180) = 276 mm²', 'Sediakan 4H16 = 804 mm² ≥ 513; A<sub>s,min</sub> = max(0.10 × 1200 × 10³/435; 180) = 276 mm²'], out: '4H16', slip: false,
+   fix: ['Follows: 4H16 carry M<sub>Rd</sub> = 69.6 kN m &lt; M′<sub>Ed</sub> = 75.4 kN m (K′<sub>r</sub> = 0.536, d = 256 mm). 4H20 (1257 mm²) carry 85.7 kN m ≥ M′<sub>Ed</sub> = 79.0 kN m (K′<sub>r</sub> = 0.599).', 'Akibatnya: 4H16 membawa M<sub>Rd</sub> = 69.6 kN m &lt; M′<sub>Ed</sub> = 75.4 kN m (K′<sub>r</sub> = 0.536, d = 256 mm). 4H20 (1257 mm²) membawa 85.7 kN m ≥ M′<sub>Ed</sub> = 79.0 kN m (K′<sub>r</sub> = 0.599).']}
+];
+SHEETS.s9 = {rows: S9, key: 'seaa4333-lab-column-s9', ms: 's9', title: ['Spot the error: Column S9', 'Cari kesilapan: Column S9'],
+  lede: ['A submitted second-order design of a slender braced column, bending about z. It contains four slips. Find them all before you look at the answer.', 'Design second-order yang dihantar bagi column braced yang slender, lenturan pada paksi z. Ia mengandungi empat kesilapan. Cari kesemuanya sebelum melihat jawapan.'],
+  tag: ['After class · Unit 9 · Explorer task 6', 'Selepas kelas · Unit 9 · Explorer tugasan 6'],
+  given: [['Column', 'Column', 'Braced 300 × 300; l<sub>0</sub> = 4.5 m about z; C30/37, B500; c<sub>nom</sub> = 30 mm, links H6, so d = 254 mm with H20 bars', 'Braced 300 × 300; l<sub>0</sub> = 4.5 m pada paksi z; C30/37, B500; c<sub>nom</sub> = 30 mm, link H6, jadi d = 254 mm dengan bar H20'],
+          ['Load', 'Load', 'N<sub>Ed</sub> = 1200 kN', 'N<sub>Ed</sub> = 1200 kN'],
+          ['Moments (z)', 'Moment (z)', '45 kN m at the top, 15 kN m at the bottom, tension on the same face', '45 kN m di atas, 15 kN m di bawah, tegangan pada muka yang sama'],
+          ['Creep', 'Creep', 'φ(∞,t<sub>0</sub>) = 1.706 (EC2 Annex B: RH 80 %, t<sub>0</sub> = 30 days, class R); M<sub>0Eqp</sub>/M<sub>0Ed</sub> = 0.67', 'φ(∞,t<sub>0</sub>) = 1.706 (EC2 Annex B: RH 80 %, t<sub>0</sub> = 30 hari, class R); M<sub>0Eqp</sub>/M<sub>0Ed</sub> = 0.67']],
+  summary: ['<b>Four slips, one unsafe column.</b> Line 3 treats single curvature as double and halves M<sub>0e</sub>; line 5 uses φ(∞,t<sub>0</sub>) for φ<sub>ef</sub>; line 6 uses h for d; line 9 puts the design-chart ω into K<sub>r</sub>. Lines 5 and 6 partly cancel, but with M<sub>0e</sub> wrong, M<sub>02</sub> governs trial 2 and the steel falls to 513 mm². Correct: K<sub>r</sub> = 0.570, M<sub>2</sub> = 31.0 kN m, M<sub>Ed</sub> = 77.5 kN m (M<sub>0e</sub> + M<sub>2</sub>), A<sub>s</sub> = 1034 mm². The bars chosen, 4H16, carry 69.6 &lt; 75.4 kN m: the column needs 4H20 (85.7 ≥ 79.0 kN m) with H6-300 links, H6-175 near the floors and at the laps.',
+            '<b>Empat kesilapan, satu column yang tidak selamat.</b> Baris 3 menganggap single curvature sebagai double dan mengurangkan M<sub>0e</sub> separuh; baris 5 menggunakan φ(∞,t<sub>0</sub>) bagi φ<sub>ef</sub>; baris 6 menggunakan h bagi d; baris 9 memasukkan ω design chart ke dalam K<sub>r</sub>. Baris 5 dan 6 sebahagiannya saling membatalkan, tetapi dengan M<sub>0e</sub> yang salah, M<sub>02</sub> menentukan cubaan 2 dan steel jatuh kepada 513 mm². Betul: K<sub>r</sub> = 0.570, M<sub>2</sub> = 31.0 kN m, M<sub>Ed</sub> = 77.5 kN m (M<sub>0e</sub> + M<sub>2</sub>), A<sub>s</sub> = 1034 mm². Bar yang dipilih, 4H16, membawa 69.6 &lt; 75.4 kN m: column itu memerlukan 4H20 (85.7 ≥ 79.0 kN m) dengan link H6-300, H6-175 berhampiran lantai dan pada lap.']};
+eState.s9 = {flag: new Set(recall(SHEETS.s9.key, [])), checked: false, fixed: false};
+function drawS9Fig(){
+  const box = el('eFig'); box.innerHTML = '';
+  const svg = S('svg', {class: 'fig', viewBox: '0 0 520 296', role: 'img', 'aria-label': Lg('Column S9: a 300 by 300 section with four bars, and the moment diagram about z with 45 kN m at the top and 15 kN m at the bottom on the same face.', 'Column S9: section 300 × 300 dengan empat bar, dan moment diagram pada paksi z dengan 45 kN m di atas dan 15 kN m di bawah pada muka yang sama.')}, box);
+  svg.style.minWidth = '320px';
+  const x0 = 70, y0 = 70, w = 150;
+  S('rect', {x: x0, y: y0, width: w, height: w, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
+  S('rect', {x: x0 + 18, y: y0 + 18, width: w - 36, height: w - 36, fill: 'none', stroke: 'var(--ok)', rx: 5}, svg);
+  [[0, 0], [1, 0], [0, 1], [1, 1]].forEach(([i, j]) => S('circle', {cx: x0 + 26 + i * (w - 52), cy: y0 + 26 + j * (w - 52), r: 6, fill: 'var(--ink-2)'}, svg));
+  T(svg, x0 + w / 2, y0 + w + 26, '300 × 300', {'text-anchor': 'middle', class: 'small'});
+  T(svg, x0 + w / 2, y0 - 14, Lg('section, bending about z', 'section, lenturan pada paksi z'), {'text-anchor': 'middle', class: 'small'});
+  const mx = 360, top = 60, bot = 240, sc = 2.6;
+  S('line', {x1: mx, x2: mx, y1: top, y2: bot, stroke: 'var(--ink-3)'}, svg);
+  S('path', {d: `M${mx},${top} L${mx + 45 * sc},${top} L${mx + 15 * sc},${bot} L${mx},${bot} Z`, fill: 'var(--wash-flag)', stroke: 'var(--flight)', 'stroke-width': 1.5}, svg);
+  T(svg, mx + 45 * sc + 6, top + 4, '45', {}); T(svg, mx + 15 * sc + 6, bot + 4, '15', {});
+  TS(svg, mx + 30, bot + 26, [['M'], ['z', 1], [' (kN m)']], {'text-anchor': 'middle'});
+  TS(svg, mx + 20, top - 18, [['N'], ['Ed', 1], [' = 1200 kN · l'], ['0', 1], [' = 4.5 m']], {'text-anchor': 'middle', class: 'small'});
+}
+
 /* ---------- start ---------- */
-function redrawAll(){ redrawLength(); paintReveal(); drawRace(); drawSheet(); fillNCases(); redrawNM(); drawJig(); paintB(); fillDCases(); redrawDesign(); }
+function redrawAll(){ redrawLength(); paintReveal(); drawRace(); drawSheet(); fillNCases(); redrawNM(); drawJig(); paintB(); fillDCases(); redrawDesign(); fillSCases(); redrawSix(); drawScr(); fillBxCases(); redrawBx(); }
 drawers.length = () => drawChart(lastR || {z: axisCalc(inp, 'z'), y: axisCalc(inp, 'y')});
 drawers.nm = () => { drawNM8(); if (bState && bState !== 'ask') drawB(); };
 drawers.design = () => drawDesignChart(dLast || designCalc());
+drawers.sb = () => { drawSix(sLast || sixCalc(sin9)); drawBx(bxLast || colRun(bxin)); };
 if ('ResizeObserver' in window){ let cw = 0; new ResizeObserver(en => { const nw = Math.round(en[0].contentRect.width); if (nw && nw !== cw){ cw = nw; drawChart(lastR || {z: axisCalc(inp, 'z'), y: axisCalc(inp, 'y')}); } }).observe(el('lChart').parentNode); }
 else window.addEventListener('resize', () => drawChart(lastR || {z: axisCalc(inp, 'z'), y: axisCalc(inp, 'y')}));
-if ('ResizeObserver' in window){ [['nChart', () => drawNM8()], ['dChart', () => dLast && drawDesignChart(dLast)], ['bChart', () => bState && bState !== 'ask' && drawB()]].forEach(([id, fn]) => { let w0 = 0; new ResizeObserver(en => { const nw = Math.round(en[0].contentRect.width); if (nw && nw !== w0){ w0 = nw; fn(); } }).observe(el(id).parentNode); }); }
+if ('ResizeObserver' in window){ [['nChart', () => drawNM8()], ['dChart', () => dLast && drawDesignChart(dLast)], ['bChart', () => bState && bState !== 'ask' && drawB()], ['sbChart', () => sLast && drawSix(sLast)], ['bxChart', () => bxLast && drawBx(bxLast)]].forEach(([id, fn]) => { let w0 = 0; new ResizeObserver(en => { const nw = Math.round(en[0].contentRect.width); if (nw && nw !== w0){ w0 = nw; fn(); } }).observe(el(id).parentNode); }); }
 applyPrefs(false);
-fillCases(); syncInputs(); syncN(); el('nx').value = sFromX(nX); syncD(); tPaint(); redrawAll();
+fillCases(); syncInputs(); syncN(); el('nx').value = sFromX(nX); syncD(); syncS(); syncBx(); tPaint(); redrawAll();
 showTab((location.hash || '').slice(1) || 'length');
 window.addEventListener('hashchange', () => showTab((location.hash || '').slice(1)));
 </script>

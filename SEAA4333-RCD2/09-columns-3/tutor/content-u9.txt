@@ -196,7 +196,7 @@ Block D · alone · 25 minutes D9: a past-paper question (15 marks) The D7 colum
 Project studio · 14 minutes A draft design of your column 1 Take your worst storey. About each axis: slender or not (Unit 7)? If slender, the six steps. 2 Screening. If a check is needed: M′, bars, then Eq. 5.39 in Lab tab 6. 3 Links, a section sketch with bar marks, and the same bars up the building or a change? Log it in Workbook 9.10. The draft column goes into the group report. SEAA 4333 · Unit 9 · Columns III Wo
 
 [slides-26] Slide 26: A column has two axes: check both, every time
-Professional Habit 9 A column has two axes: check both, every time C = 0.7 no moment about an axis: λlim ≈ 10–15, so that axis is often slender e₂ ≲ 4.8×10⁻⁴ l₀²/d a quick upper bound (Kr = Kφ = 1, B500): l₀ 5 m, d 254 → 48 mm 4H20 → 8H20 WE 9.1: one axis 1123 mm², both axes 2093 mm² Before the bars, list λ and λlim about both axes. Unit 8 left one axis open; today closed it. SEAA 4333 · Unit 9 · Columns III Workbook
+Professional Habit 9 A column has two axes: check both, every time C = 0.7 no moment about an axis: λlim ≈ 10–15, so that axis is often slender e₂ ≈ 4.8×10⁻⁴ l₀²/d a quick estimate with Kr = Kφ = 1 (B500): l₀ 5 m, d 254 → 48 mm 4H20 → 8H20 WE 9.1: one axis 1123 mm², both axes 2093 mm² Before the bars, list λ and λlim about both axes. Unit 8 left one axis open; today closed it. SEAA 4333 · Unit 9 · Columns III Workboo
 
 [slides-27] Slide 27: Before Unit 10
 After class Before Unit 10 Notes §1–§6 and the exercises on the Unit 9 page (45 min) Column S9 in Lab tab 3: four slips to find Self-mark D9 with the answer scheme on UTM eLearning Finish the draft design of your column SEAA 4333 · Unit 9 · Columns III Workbook 9.10

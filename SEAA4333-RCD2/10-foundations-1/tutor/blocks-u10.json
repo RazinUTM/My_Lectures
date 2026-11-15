@@ -1,0 +1,310 @@
+{
+ "part": "u10",
+ "title": "Unit 10 Foundations I",
+ "blocks": [
+  {
+   "id": "start-outcomes",
+   "text": "[start-outcomes] After this part you should be able to\n1. choose a type of foundation for a column or a wall on given ground, and state the checks a base must pass: bearing pressure and settlement for the soil, strength and cover for the concrete;\n2. size a pad or strip footing from the service loads, and find the bearing pressure when the load is off-centre: e below, at and above L/6, and at the corners under two moments;\n3. design a pad footing at its critical sections: bending at the column face, shear at d, punching at 2d and at the perimeters inside 2d that EC2 asks for column bases, and the column face;\n4. size and position a combined footing for two columns, draw its shear force and bending moment diagrams, and place its bars on the faces in tension."
+  },
+  {
+   "id": "notes-n1",
+   "text": "[notes-n1] Notes 1. Foundations: types and requirements\nA foundation carries the loads of the building into the ground. Every soil compresses under load, so every building settles. The design keeps the total settlement small, and the difference between neighbouring columns smaller still, by bearing on a stratum that is strong enough and by spreading the load over a large enough area (course notes).\nTwo checks at two load levels The soil. Under the service loads, G_k + Q_k, the bearing pressure must not exceed the allowable bearing pressure q_{all}. The geotechnical engineer sets q_{all} with a factor of safety against bearing failure already inside it (typically 2.5 to 3) and low enough to keep the settlement acceptable, so the loads are not factored again. The concrete. The base is designed at the ultimate limit state, 1.35G_k + 1.5Q_k, for bending, shear and punching, like any other member (EC2).\n[Figure: The six types of foundation of the course notes. Units 10 to 12 design all of them except the raft.]\nType Use it when Unit\nPad footing One column on ground strong enough near the surface. The simplest and cheapest base: square or rectangular in plan, one thickness. 10\nStrip footing A load-bearing wall; a row of columns too close for separate pads; or weak ground that needs more bearing area. 10\nCombined footing Two columns so close that their pads would overlap, or a column at the site boundary. The base is placed so that its centroid lies under the resultant of the loads. 10\nStrap footing A boundary column whose pad cannot project past the boundary: a strap beam ties it to an inner footing to resist the overturning. 11\nRaft Heavy loads or low bearing pressure, or variable ground with compressible layers: one slab under the whole building limits the differential settlement. not in this course\nPiles and pile cap Firm ground deeper than about 3 m: piles carry the load down by end bearing, by friction, or both. 11–12\nThe course takes the pressure under a rigid base as linear: uniform under a central load, sloping when there is a moment. Real pressure is higher at the edges on clay and higher at the centre on sand (course notes); the straight line is the design convention, and it is what EC2 designers and the RC Design app use.\nCover on the casting face (EC2 4.4.1.3(4)) c_{nom} = c_{min} + Δc_{dev} as in RCD I, and not less than 40 mm when the base is cast on prepared ground or blinding, or 75 mm when it is cast directly against the soil. The course notes’ Example 1 stops at 35 mm; on blinding, 40 mm governs (Worked Example 10.1).\nFor your project the 2024/25 brief gives 2 m of made ground over mudstone with an allowable bearing pressure of 600 kN/m². Made ground is fill: variable and compressible, so no footing should bear on it. Two answers are open: pads taken down through the fill to the mudstone, or piles. The studio asks you to choose with numbers.\nQuick check (not graded): A pad footing is cast on a 50 mm layer of blinding. c_{min} = 25 mm and Δc_{dev} = 10 mm. The nominal cover is\nOptions: 35 mm | 40 mm | 50 mm | 75 mm\nExplanation shown after answering: c_{min} + Δc_{dev} = 35 mm, but EC2 4.4.1.3(4) asks for at least 40 mm on blinding. 75 mm applies when the concrete is cast directly against the soil; the blinding thickness does not enter.\nKey points:\n- Pad for one column, strip for a wall, combined for two close columns; strap, raft and piles when these do not fit.\n- Soil: service loads against q_{all}. Concrete: ultimate loads, EC2.\n- c_{nom} ≥ 40 mm on blinding, ≥ 75 mm against the soil."
+  },
+  {
+   "id": "notes-n2",
+   "text": "[notes-n2] Notes 2. Sizing the base\nSizing comes first and uses the service loads; the depth and the bars come next and use the ultimate loads. Keep the two apart and most footing slips disappear.\nEQUATION (10.1): A_{req} = \\frac{G_k + Q_k + W}{q_{all}},\\qquad W \\approx 0.1\\,(G_k + Q_k)\\ \\text{at first, then } W = 25\\,A\\,h\nChoose the plan to the nearest 0.1 m above A_{req}, then recompute W with the chosen size and check p = (G_k + Q_k + W)/A ≤ q_{all}. If only design loads are given, the course divides them by γ_F ≈ 1.4 to get service loads (course notes, Examples 2 and 3). Mosley does the same sum the other way round: the net allowable pressure q_{all} − 25h carries G_k + Q_k alone.\nEQUATION (10.2): p_{Ed} = \\frac{N_{Ed}}{A},\\qquad N_{Ed} = 1.35\\,G_k + 1.5\\,Q_k\nThe ultimate pressure leaves the self-weight out. The weight of the base rests on the soil directly below it, so it bends nothing and shears nothing; only the column load, spread by the base, does (Mosley §10.1). Adding 1.35W to N_{Ed} overstates every moment and shear in the base.\nThe depth Bending rarely decides the depth of a footing; shear does, by punching or by vertical shear at d. Choose a trial h, design, and deepen the base if a shear check fails. The column face sets a floor, d ≥ N_{Ed}/(v_{Rd,max}u_0) (course notes), and the starter bars need their compression anchorage within h (Mosley §10.1). For Worked Example 10.1 the floor is 1410 × 10³/(3.60 × 1200) = 326 mm; the punching check needs more.\nWorked Example 10.1 Output\nService load G_k + Q_k = 600 + 400 1000 kN\nArea required (1000 + 100)/150 7.33 m²\nPlan chosen 3.0 × 3.0 m, h = 500 mm A = 9.0 m²\nSelf-weight 25 × 9.0 × 0.50 112.5 kN\nService pressure (1000 + 112.5)/9.0 123.6 ≤ 150 kN/m² ✓\nUltimate pressure (1.35 × 600 + 1.5 × 400)/9.0 = 1410/9.0 156.7 kN/m²\nQuick check (not graded): A column brings G_k + Q_k = 1000 kN onto soil with q_{all} = 150 kN/m². Taking the self-weight as 10% at first, the area required is\nOptions: 6.67 m² | 7.33 m² | 10.3 m² | 9.00 m²\nExplanation shown after answering: (1000 + 100)/150 = 7.33 m². 6.67 forgets the self-weight; 10.3 sizes the base with the ultimate load 1410 kN, which double-counts the factor of safety; 9.00 m² is the 3.0 × 3.0 m plan that is then chosen.\nKey points:\n- Plan area from the service loads and q_{all}, with the self-weight; check the pressure with the real self-weight.\n- Ultimate pressure p_{Ed} = N_{Ed}/A, without the self-weight.\n- Shear, not bending, usually sets the depth."
+  },
+  {
+   "id": "notes-n3",
+   "text": "[notes-n3] Notes 3. The pressure when the load is off-centre\nToday’s big question. Press a foam block through a stiff plate: at the centre it sinks evenly; move your finger off-centre and one edge sinks more; move it far enough and the far edge of the plate lifts off the foam. The soil under a footing does the same, and the numbers follow from equilibrium alone.\n[Figure: The hook: the further the load moves off-centre, the more the pressure tilts, until part of the base lifts off.]\nEQUATION (10.3): e = \\frac{M}{N}\\qquad \\left(N = G_k + Q_k + W \\text{ for the soil check};\\ N = N_{Ed} \\text{ at the ultimate limit state}\\right)\nA moment on the base moves the resultant of the load off the centre by e. As long as the whole base stays in contact, the pressure is that of a short column, axial load plus bending, with the plan of the base as the section (Mosley Eq. 10.2 and 10.3):\nEQUATION (10.4): p_{max,\\,min} = \\frac{N}{A} \\pm \\frac{M}{Z} = \\frac{N}{A}\\left(1 \\pm \\frac{6e}{L}\\right),\\qquad Z = \\frac{B L^2}{6} \\qquad (e \\le L/6)\nAt e = L/6 the minimum pressure reaches zero and the diagram is a triangle with p_{max} = 2N/A: the resultant sits on the edge of the middle third, the kern. Beyond L/6 the formula would give a tension under the low edge, which soil cannot give. That part of the base lifts off, and the pressure becomes a triangle over a contact length L_c whose centroid lies under the load: L_c/3 = L/2 − e.\nEQUATION (10.5): L_c = 3\\left(\\frac{L}{2} - e\\right),\\qquad p_{max} = \\frac{2N}{B\\,L_c} \\qquad (e > L/6)\n[Figure: The three cases, and the kern: a resultant inside the rhombus keeps every part of the base in contact.]\nWorked numbers: a base that lifts off (app case F3) A 2.4 × 2.0 m base carries N_{Ed} = 600 kN and M_{Ed} = 300 kN m along its length: e = 300/600 = 0.50 m > L/6 = 0.40 m. Eq. (10.4) would give 125 ± 156 = 281 and −31 kN/m², a pull the soil cannot give. Instead L_c = 3(1.20 − 0.50) = 2.10 m and p_{max} = 2 × 600/(2.0 × 2.10) = 286 kN/m²; the last 0.30 m lifts off. Under service loads with the self-weight, e = 214.3/500.6 = 0.43 m, still past L/6: L_c = 2.32 m and p_{max} = 216 ≤ 250 kN/m² ✓. EC7 6.5.4 asks for special precautions once e exceeds L/3, when less than half the base is in contact.\nWith moments about both axes the pressure is largest at one corner, and every corner stays in contact while the resultant lies inside the kern, a rhombus with its corners at L/6 on each axis:\nEQUATION (10.6): p = \\frac{N}{A} \\pm \\frac{M_x}{Z_x} \\pm \\frac{M_y}{Z_y},\\qquad \\text{all corners in contact if } \\frac{6e_x}{L_x} + \\frac{6e_y}{L_y} \\le 1\nChecking e_x ≤ L_x/6 and e_y ≤ L_y/6 separately is not enough: with e_x/L_x = e_y/L_y = 1/8 each passes, yet 6/8 + 6/8 = 1.5 and a corner lifts off. App case F4, a 2.5 m square pad under N_{Ed} = 900 kN with 120 and 80 kN m, gives 220.8 and 67.2 kN/m² at the opposite corners, with 6e_x/L_x + 6e_y/L_y = 0.47. Where one moment dominates, a rectangular base long in that direction is the economical shape (Mosley §10.1).\nQuick check (not graded): A base 2.4 m long carries N = 600 kN at e = 0.5 m from its centre. The length of the base in contact with the soil is\nOptions: 2.40 m | 2.10 m | 1.40 m | 0.70 m\nExplanation shown after answering: e = 0.5 m > L/6 = 0.4 m, so part of the base lifts off: L_c = 3(1.2 − 0.5) = 2.10 m. 2.40 m would need e ≤ L/6; 1.40 m is L − 2e, the effective width of a bearing-capacity calculation, not the contact length; 0.70 m is L/2 − e alone.\nKey points:\n- e ≤ L/6: p = (N/A)(1 ± 6e/L), a trapezoid. e = L/6: a triangle, 2N/A to zero.\n- e > L/6: part of the base lifts off; L_c = 3(L/2 − e), p_{max} = 2N/(BL_c). Beyond L/3, special precautions (EC7 6.5.4).\n- Two moments: corner pressure N/A ± M_x/Z_x ± M_y/Z_y; kern 6e_x/L_x + 6e_y/L_y ≤ 1."
+  },
+  {
+   "id": "notes-n4",
+   "text": "[notes-n4] Notes 4. Critical sections: bending, shear, punching\nA pad footing is a short, thick cantilever slab turned upside down: the soil pushes up, the column holds it down. It is checked where it bends most, where it shears as a beam, and where the column tries to punch through it.\n[Figure: The critical sections of a pad footing. Under a column base EC2 6.4.4(2) adds every perimeter closer than 2d.]\nBending at the column face. The moment is taken on a section right across the base, from the pressure on one side of it. With l = (L − c)/2, the cantilever from the face:\nEQUATION (10.7): M_{Ed} = p_{Ed}\\,B\\,\\frac{l^2}{2}\\quad\\text{(uniform)};\\qquad M_{Ed} = B\\left[p_f\\,\\frac{l^2}{2} + \\left(p_{max} - p_f\\right)\\frac{l^2}{3}\\right]\\quad\\text{(linear, } p_f \\text{ at the face)}\nTwo layers of bars cross. In a square pad the course takes the inner layer’s d = h − c − 1.5φ for both directions, which is safe; in a rectangular pad the bars for the larger moment go in the outer layer, d_x = h − c − 0.5φ, and the others above them, d_y = h − c − 1.5φ. Then RCD I: K = M/(f_{ck}bd²), z ≤ 0.95d, A_s = M/(0.87f_{yk}z), and A_{s,min} = 0.26(f_{ctm}/f_{yk})bd ≥ 0.0013bd (EC2 9.2.1.1). Footings are lightly stressed, so the minimum often governs: in Faded Example 10.2 it governs both ways.\nVertical shear at d from the face (EC2 6.2.1(8)). The shear is the pressure beyond the section, resisted by the concrete alone:\nEQUATION (10.8): V_{Ed} = p_{Ed}\\,B\\,(l - d);\\qquad V_{Rd,c} = \\left[0.12\\,k\\,(100\\rho_l f_{ck})^{1/3}\\right] b\\,d \\ \\ge\\ v_{min}\\,b\\,d,\\quad v_{min} = 0.035\\,k^{3/2} f_{ck}^{1/2}\nThe bars count in ρ_l only if they run at least l_{bd} + d beyond the section (EC2 Figure 6.3). The section at d is often closer than that to the edge of a footing, so ρ_l = 0 and v_{min} is the whole resistance: in Worked Example 10.1 the bars have 868 mm beyond the section and need 485 + 442 = 927 mm.\nPunching. The basic control perimeter lies at 2d from the column, with rounded corners. The soil pressure inside it pushes straight back on the column, so it does not punch; only the rest does (EC2 Eq. 6.48). d is the mean of the two layers.\nEQUATION (10.9): u(a) = 2(c_1 + c_2) + 2\\pi a,\\quad A(a) = c_1 c_2 + 2a(c_1 + c_2) + \\pi a^2;\\qquad V_{Ed,red} = N_{Ed} - p_{Ed}\\,A(a),\\quad v_{Ed} = \\frac{\\beta\\,V_{Ed,red}}{u\\,d}\nColumn bases: every perimeter inside 2d (EC2 6.4.4(2)) For a column base the check is made at every a ≤ 2d, with the resistance raised as the perimeter closes in, v_{Rd} = v_{Rd,c} · 2d/a (Eq. 6.50). A closer perimeter is shorter and keeps more of the load, but its resistance rises faster, so the worst lies in between, usually near a = d (between about 0.75d and 1.25d in this Unit’s examples). By hand, check a = d as well as 2d; the Foundation Lab and the app scan 400 perimeters.\nEQUATION (10.10): v_{Rd}(a) = v_{Rd,c}\\,\\frac{2d}{a}\\qquad (a \\le 2d)\n[Figure: The punching scan of Worked Example 10.1. With the course notes’ h = 450 mm the check at 2d passes, yet the base fails at a ≈ 1.2d; h = 500 mm passes everywhere.]\nWith a moment the shear round the perimeter is uneven, and β raises the peak: β = 1 + k(M_{Ed}/V_{Ed})(u_1/W_1) (EC2 Eq. 6.39), with k from Table 6.1 (c_1/c_2 = 0.5, 1, 2, 3 gives 0.45, 0.60, 0.70, 0.80; interpolate) and W_1 = c_1²/2 + c_1c_2 + 4c_2d + 16d² + 2πdc_1 (Eq. 6.41). For a perimeter at a, 2d becomes a: W = c_1²/2 + c_1c_2 + 2c_2a + 4a² + πac_1.\nEQUATION (10.11): v_{Ed,0} = \\frac{\\beta\\,N_{Ed}}{u_0\\,d} \\le v_{Rd,max} = 0.4\\,\\nu\\,\\frac{f_{ck}}{1.5},\\qquad \\nu = 0.6\\left(1 - \\frac{f_{ck}}{250}\\right)\nAt the column face the strut capacity limits the stress (EC2 6.4.5(3)). The course uses 0.4νf_{cd}, the value of the 2014 amendment of EC2; the course notes keep 0.5νf_{cd} from the 2004 text.\nQuick check (not graded): Under a column base, v_{Rd,c} = 0.38 N/mm². On the perimeter at a = d the design resistance is\nOptions: 0.19 N/mm² | 0.38 N/mm² | 0.76 N/mm² | 3.60 N/mm²\nExplanation shown after answering: v_{Rd} = v_{Rd,c} · 2d/a = 0.38 × 2 = 0.76 N/mm² (EC2 Eq. 6.50). 0.38 is the resistance at 2d; forgetting 2d/a makes a sound base look as if it fails (Exercise C2). 3.60 N/mm² is v_{Rd,max} at the column face for C25/30.\nKey points:\n- Bending at the column face over the whole width; shear at d; punching at 2d with V_{Ed,red} = N_{Ed} − p_{Ed}A.\n- Column bases: every a ≤ 2d, v_{Rd} = v_{Rd,c}·2d/a; the worst is usually near a = d.\n- ρ_l counts only bars anchored l_{bd} + d beyond the section; often v_{min} governs."
+  },
+  {
+   "id": "notes-n5",
+   "text": "[notes-n5] Notes 5. Combined footings\nWhen two columns stand close together, or one stands on the site boundary, one base carries both. Place it right and the pressure under it is uniform; design it as a beam turned upside down.\nEQUATION (10.12): \\bar{x} = \\frac{N_B\\,s}{N_A + N_B}\\ \\ \\text{(service loads, from column A)};\\qquad \\text{centroid of the base at } \\bar{x} \\ \\Rightarrow\\ p \\text{ uniform}\nChoose the area from Eq. (10.1) with both loads, then the length L so that the centre of the rectangle sits under the resultant; the width B follows. If the boundary stops the base short of that, the base becomes a trapezoid (Unit 11).\nAlong the length the base is a beam loaded upward by w = p_{Ed}B (kN/m) and held down by the two columns. With x from the left end and the column loads at x_A and x_B:\nEQUATION (10.13): V(x) = w\\,x - \\sum N_i,\\qquad M(x) = \\frac{w\\,x^2}{2} - \\sum N_i\\,(x - x_i);\\qquad V = 0 \\text{ between the columns at } x_0 = \\frac{N_A}{w}\nPositive M puts the bottom in tension: under the columns and in the two cantilevers. Between the columns the base hogs, the top is in tension, and the largest hogging moment is at x_0. So a combined footing needs bars in both faces along its length.\n[Figure: App case F6 (course notes Example 3): the shear force and bending moment along the base, by Eq. (10.13).]\nCase F6 Output\nResultant (service) x̄ = 1392.9 × 3.4/2542.9 1.86 m from A\nBase L = 6.0 m centred on x̄; B = 2.7 m left end 1.14 m from A\nUpward load w = (1610 + 1950)/6.0 593.3 kN/m\nZero shear x_0 = 1610/593.3 2.71 m\nHogging, top bars 593.3 × 2.71²/2 − 1610 × (2.71 − 1.14) −352.8 kN m\nSagging at the faces of B from Eq. (10.13) 430 · 473 kN m\nBars A_{s,min} = 2722 mm² governs top and bottom 25H12 · 25H12\nAcross the width , under each column, the base cantilevers (B − c)/2 each side and is designed per metre, M = p_{Ed}l²/2: under column A of F6, 219.8 × 1.2²/2 = 158 kN m/m, and A_{s,min} gives H12-100. The shear is checked at d from each column face across the full width, from the diagram; the punching perimeter of each column stops at a free edge and runs straight to it (EC2 6.4.2(4), Figure 6.15). Under column B of F6, 2d = 1196 mm reaches past both long edges, 1150 mm away, so the perimeter becomes two lines across the base, u = 2 × 2700 = 5400 mm.\nQuick check (not graded): A rectangular combined footing carries two columns, with uniform pressure under it. Where must its top face be reinforced for tension?\nOptions: under each column | between the columns | in the two cantilever ends | nowhere: the whole base is in compression\nExplanation shown after answering: Between the columns the upward pressure bends the base like a beam spanning from column to column, so it hogs and the top is in tension (−352.8 kN m in F6). Under the columns and in the cantilevers the bottom is in tension.\nKey points:\n- Centroid of the base under the resultant of the service loads: uniform pressure.\n- Lengthwise an upside-down beam: top bars between the columns (hogging at V = 0), bottom bars under them.\n- Crosswise cantilevers under each column; punching perimeters stop at the free edges."
+  },
+  {
+   "id": "notes-n6",
+   "text": "[notes-n6] Notes 6. Strip footings and detailing\nA wall needs a strip footing, designed one metre at a time; and every footing needs its bars anchored, spaced and covered so that the design actually works on site.\nStrip footing under a wall. Per metre run, the base is a cantilever on each side of the wall. For a concrete wall the bending section is at the wall face; for a masonry wall the RC Design app takes it halfway between the face and the centre line, the conservative practice of ACI 318, because a masonry wall is less rigid than the footing. App case F5:\nCase F5: 230 mm brick wall, G_k 120 + Q_k 60 kN/m Output\nWidth (180 + 18)/150 = 1.32 m → B = 1.4 m; p = (180 + 12.3)/1.4 137 ≤ 150 kN/m² ✓\nUltimate pressure (1.35 × 120 + 1.5 × 60)/1.4 = 252/1.4 180 kN/m²\nBending section l = (1.4 − 0.23)/2 + 0.23/4 0.643 m\nMoment 180 × 0.643²/2 37.2 kN m/m\nBars A_s = 306, A_{s,min} = 392 mm²/m governs; spacing ≤ 2h and ≤ 250 mm H12-250 across, H10-300 along\nShear at d from the same section: 180 × 0.349 63 ≤ 127 kN/m ✓\nA line load has no punching perimeter: the vertical shear is the shear check (Mosley §10.4).\n[Figure: Detailing a pad (left) and a strip footing whose bars cannot anchor straight near the edge (right).]\nDetailing checklist (EC2 9.8.2, Mosley §10.1, course notes) Anchorage. Bars run the full length and width and are anchored beyond every critical section. Near the edge, EC2 9.8.2.2 asks that the bar force at x from the edge, F_s = Rz_e/z_i, anchor within x; straight bars usually pass in a pad (in Worked Example 10.1 they need 0.73 of the length available), but the strip of F5 needs its bars bent up. Spacing. Spread the bars evenly across a square base. In a rectangular base Mosley and the course notes put at least two-thirds of the short-direction bars in a band c + 3d centred on the column; EC2 itself sets no band. Cracks. σ_s under the quasi-permanent load, (G_k + 0.3Q_k)/N_{Ed} × (f_{yk}/1.15) × A_{s,req}/A_{s,prov}, gives the largest spacing from Table 7.3N (w_k = 0.3 mm), interpolated; the spacing provided is (b − 2c − φ)/(n − 1). Faces and starters. No bars in the top or side faces unless part of the base lifts off or is lifted; cover 40 mm on blinding, 75 mm on soil; starter bars bent 90° and tied to the bottom mat, with a kicker and the lap measured from its top.\nQuick check (not graded): Under the quasi-permanent load the bars of a pad work at σ_s = 213 N/mm². Table 7.3N (w_k = 0.3 mm) gives 250 mm at 200 N/mm² and 200 mm at 240 N/mm². The largest bar spacing is about\nOptions: 250 mm | 233 mm | 200 mm | 300 mm\nExplanation shown after answering: 250 − (213 − 200)/40 × 50 = 233 mm. Reading the next row down, 200 mm, is safe but wasteful; 250 mm is on the unsafe side. The 24H12 of the course notes’ Example 1 are 127 mm apart.\nKey points:\n- Strip footing: per metre; bending at the wall face, or halfway to the centre line for masonry; no punching.\n- Anchor the bars beyond each critical section and near the edge (EC2 9.8.2.2); bend them up when straight bars cannot.\n- Spacing from Table 7.3N at σ_s under the quasi-permanent load; cover 40/75 mm; starter bars with a kicker."
+  },
+  {
+   "id": "slides-1",
+   "text": "[slides-1] Slide 1: Foundations I\nSEAA 4333 Reinforced Concrete Design II · Week 11 Foundations I Pad, strip and combined footings: the soil pressure, and where the base bends, shears and punches Workbook ch. 10 ABCD card Calculator Phone or laptop Foundation Lab Scan for this page’s Explorer tab. Tabs 1 and 2 are today’s."
+  },
+  {
+   "id": "slides-2",
+   "text": "[slides-2] Slide 2: How the next three hours run\nToday · 180 minutes How the next three hours run 0:00 Warm-up Units 8–9 in three votes 0:10 Hook A plate on foam 0:15 Two checks Soil and concrete 0:20 Off-centre e below, at, above L/6 0:27 Predict the pressure Activity 10A, pairs 0:45 WE 10.1 A pad, I do 0:57 Punching inside 2d Activity 10B 1:09 Faded example FE 10.2, pairs 1:30 Break 10 minutes 1:40 Combined footings Spot the error, teams 2:05 Exam-size problem Al"
+  },
+  {
+   "id": "slides-3",
+   "text": "[slides-3] Slide 3: Three questions before the column reaches the ground\nWarm-up · no notes · cards up Three questions before the column reaches the ground W1 · Unit 9 A braced slender column: M₀₂ = 47.4, M₀ₑ + M₂ = 66.5, M₀₁ + 0.5M₂ = 48.9, N_{Ed}·e₀ = 24.0 kN m. M_{Ed} is A 47.4 kN m B 66.5 kN m C 48.9 kN m D 113.9 kN m W2 · Unit 9 You add bars to a slender column. Its K_r A falls B rises C stays the same D becomes zero W3 · Unit 8 400 × 400 column, C30/37, 4H16 (804 mm²). N_{Rd} = A_c·"
+  },
+  {
+   "id": "slides-4",
+   "text": "[slides-4] Slide 4: B, B, A, and what each means today\nWarm-up · answers B, B, A, and what each means today W1 B: 66.5 kN m The largest of the four candidates: M₀ₑ + M₂ wins in single curvature. W2 B: rises n_u = 1 + ω grows with the steel, so K_r and M₂ grow; M_{Rd} grows faster. W3 A: 3070 kN 2720 + 350. Today that load, factored, goes into the soil through a base. SEAA 4333 · Unit 10 · Foundations I Workbook 10.1"
+  },
+  {
+   "id": "slides-5",
+   "text": "[slides-5] Slide 5: Press a stiff plate on foam, off-centre\nHook · 5 minutes Press a stiff plate on foam, off-centre Watch: one finger at the centre, then a little off it, then near the edge. Where does the plate sink most? When does the far edge leave the foam? The soil under a footing does the same. SEAA 4333 · Unit 10 · Foundations I Workbook 10.2"
+  },
+  {
+   "id": "slides-6",
+   "text": "[slides-6] Slide 6: A 2.4 m base carries N = 600 kN at e = 0.5 m. The pressure under it is\nConcept check 1 · the big question · vote now, again after Activity 10A A 2.4 m base carries N = 600 kN at e = 0.5 m. The pressure under it is A a trapezoid, 281 down to −31 kN/m² B a triangle over 2.1 m, 286 kN/m² at its peak C uniform, 125 kN/m² D a triangle over 2.4 m, 250 kN/m² at its peak Vote · convince your neighbour · vote again Workbook 10.2"
+  },
+  {
+   "id": "slides-7",
+   "text": "[slides-7] Slide 7: What a foundation must do, and which type\nBlock A · talk 1 · 5 minutes What a foundation must do, and which type Soil service loads G_k + Q_k against q_{all}: the factor of safety is already in q_{all} Concrete ultimate loads 1.35Gk + 1.5Qk, EC2: bending, shear, punching c_{nom} ≥ 40 mm on blinding, ≥ 75 mm on soil (EC2 4.4.1.3(4)) SEAA 4333 · Unit 10 · Foundations I Notes §1–§2 · Workbook 10.2"
+  },
+  {
+   "id": "slides-8",
+   "text": "[slides-8] Slide 8: The pressure when the load moves off-centre\nBlock A · talk 2 · 7 minutes The pressure when the load moves off-centre e = M/N e ≤ L/6: p = (N/A)(1 ± 6e/L) e > L/6: L_c = 3(L/2 − e) p_{max} = 2N/(B·L_c) Two moments: 6e_x/L_x + 6e_y/L_y ≤ 1 SEAA 4333 · Unit 10 · Foundations I Notes §3"
+  },
+  {
+   "id": "slides-9",
+   "text": "[slides-9] Slide 9: Predict the pressure under a 2.4 × 2.0 m base, N = 600 kN\nActivity 10A · pairs · 12 minutes Predict the pressure under a 2.4 × 2.0 m base, N = 600 kN 1 e = 0.2 m shape? p_{max}? 2 e = 0.4 m shape? p_{max}? 3 e = 0.5 m shape? p_{max}? Sketch each diagram in Workbook 10.3 with its peak value. Then reveal each case in Lab tab 1 and correct your sketch in another colour. SEAA 4333 · Unit 10 · Foundations I Lab tab 1 · Workbook 10.3"
+  },
+  {
+   "id": "slides-10",
+   "text": "[slides-10] Slide 10: Trapezoid, triangle, then part of the base lifts off\nActivity 10A · reveal Trapezoid, triangle, then part of the base lifts off e = 0.2 m < L/6 187.5 / 62.5 kN/m² A trapezoid: 125 × (1 ± 6 × 0.2/2.4) = 125 × (1 ± 0.5). e = 0.4 m = L/6 250 / 0 kN/m² A triangle over the whole length: 2N/A = 2 × 125. e = 0.5 m > L/6 285.7 kN/m², L_c = 2.1 m The last 0.3 m lifts off: 2 × 600/(2.0 × 2.1). Case F3 of the app. Concept check 1, second vote. The answer is B: past L/6 the formul"
+  },
+  {
+   "id": "slides-11",
+   "text": "[slides-11] Slide 11: A pad under 600 + 400 kN: size, moment, bars, shear\nWorked Example 10.1 · I do A pad under 600 + 400 kN: size, moment, bars, shear Calculation Output A_{req} = 1.1 × 1000/150 7.33 m² → 3.0 × 3.0 m p = (1000 + 112.5)/9.0 123.6 ≤ 150 ✓ p_{Ed} = 1410/9.0 156.7 kN/m² M = 156.7 × 3.0 × 1.35²/2 428.3 kN m d = 442; z = 0.95d; A_s 2345 → 24H12 V_{Ed} = 156.7 × 3.0 × 0.908 426.8 ≤ 502 kN ✓ SEAA 4333 · Unit 10 · Foundations I Notes §2, §4 · Workbook 10.4"
+  },
+  {
+   "id": "slides-12",
+   "text": "[slides-12] Slide 12: Punching under a column base: every perimeter inside 2d\nBlock B · talk 3 · 6 minutes Punching under a column base: every perimeter inside 2d V_{Ed,red} = N_{Ed} − p_{Ed}·A(a) v_{Ed} = V_{Ed,red}/(u·d) v_{Rd} = v_{Rd,c} · 2d/a EC2 6.4.4(2): every a ≤ 2d. By hand, check a = d as well as 2d. SEAA 4333 · Unit 10 · Foundations I Notes §4"
+  },
+  {
+   "id": "slides-13",
+   "text": "[slides-13] Slide 13: The course notes’ pad, h = 450 mm: where is the worst perimeter?\nActivity 10B · pairs · 6 minutes The course notes’ pad, h = 450 mm: where is the worst perimeter? A at the column face B near a = d, inside 2d C at 2d D beyond 2d Choose, then reveal the scan in Lab tab 2 (case F1). Does the base pass? SEAA 4333 · Unit 10 · Foundations I Lab tab 2 · Workbook 10.4"
+  },
+  {
+   "id": "slides-14",
+   "text": "[slides-14] Slide 14: Passes at 2d, fails at 1.2d: 50 mm deeper\nActivity 10B · reveal Passes at 2d, fails at 1.2d: 50 mm deeper h = 450: worst 1.07 h = 500: worst 0.90 WE 10.1 uses h = 500 mm and c_{nom} = 40 mm: app case F1R. SEAA 4333 · Unit 10 · Foundations I Notes §4"
+  },
+  {
+   "id": "slides-15",
+   "text": "[slides-15] Slide 15: WE 10.1 at a = d: v Ed = 0.674 N/mm², v Rd,c = 0.377 N/mm². The verdict:\nConcept check 2 · think 60 seconds, then vote WE 10.1 at a = d: v_{Ed} = 0.674 N/mm², v_{Rd,c} = 0.377 N/mm². The verdict: A fails: 0.674 > 0.377 B passes: 0.674 ≤ 0.754, since 2d/a = 2 C passes: 0.674 ≤ 3.60 = v_{Rd,max} D cannot tell without β Vote · convince your neighbour · vote again Workbook 10.4"
+  },
+  {
+   "id": "slides-16",
+   "text": "[slides-16] Slide 16: A pad with a moment: N Ed = 1500 kN, M Ed = 50 kN m\nFaded Example 10.2 · pairs · 18 minutes A pad with a moment: N_{Ed} = 1500 kN, M_{Ed} = 50 kN m Given: steps 1–3 cover 40 mm p_{max,ser} = 131.8 ≤ 150 ✓ p = 153.1 ± 8.7 kN/m² Your turn: steps 4–8 moments, bars, shear at d, punching with β, cracks Then check in the app: case F2R. SEAA 4333 · Unit 10 · Foundations I Workbook 10.5"
+  },
+  {
+   "id": "slides-17",
+   "text": "[slides-17] Slide 17: The minimum steel governs both ways\nFaded Example 10.2 · check The minimum steel governs both ways M_x · M_y 552.8 · 435.4 kN m A_{s,min} governs 23H12 · 28H12 V_{Ed,x} at d 433 ≤ 641 kN ✓ β at 2d 1.06; v_{Ed} = 0.118 ≤ 0.380 inside 2d 0.57 at 0.82d cracks, x σ_s = 222 → s ≤ 222; 123 ✓ The notes’ 21H12 came from A_{s,min} = 0.0013bd; 0.26 × 2.90/500 = 0.0015 governs, so 23H12. SEAA 4333 · Unit 10 · Foundations I Workbook 10.5"
+  },
+  {
+   "id": "slides-18",
+   "text": "[slides-18] Slide 18: Two columns, one base: centre it on the resultant\nBlock C · talk 4 · 6 minutes Two columns, one base: centre it on the resultant x = N_B·s/(N_A + N_B) w = p_{Ed}·B V = 0 at x₀ = N_A/w Top bars between the columns; bottom bars under them; crosswise cantilevers under each column. SEAA 4333 · Unit 10 · Foundations I Notes §5"
+  },
+  {
+   "id": "slides-19",
+   "text": "[slides-19] Slide 19: A rectangular combined footing carries two columns. Where must its top face be reinforced?\nConcept check 3 · think 60 seconds, then vote A rectangular combined footing carries two columns. Where must its top face be reinforced? A under each column B between the columns C in the two cantilever ends D nowhere: the base is in compression Vote · convince your neighbour · vote again Workbook 10.6"
+  },
+  {
+   "id": "slides-20",
+   "text": "[slides-20] Slide 20: Foundation S10: four slips in a pad design\nSpot the error · teams · 12 minutes Foundation S10: four slips in a pad design Lab tab 3, or Workbook 10.7. A 350 mm column, G_k 700 + Q_k 450 kN, q_{all} = 175 kN/m², C30/37, cast on blinding, h = 500 mm, H16. Reader reads each line aloud; calculator rechecks; checker names the clause; reporter writes the line number and a one-line reason. Two slips make the base unsafe, one is hidden by the margin, one costs depth"
+  },
+  {
+   "id": "slides-21",
+   "text": "[slides-21] Slide 21: Detailing, and the strip footing under a wall\nBlock C · talk 5 · 4 minutes Detailing, and the strip footing under a wall Strip F5: per metre; masonry wall, bending halfway to the centre line; H12-250, ends bent up. Spacing from Table 7.3N at σ_s (quasi-permanent). Bars anchored past each critical section and near the edge (EC2 9.8.2.2). SEAA 4333 · Unit 10 · Foundations I Notes §6"
+  },
+  {
+   "id": "slides-22",
+   "text": "[slides-22] Slide 22: D10: a pad footing for a 400 mm column (20 marks)\nBlock D · alone · 25 minutes D10: a pad footing for a 400 mm column (20 marks) (a) Plan size to 0.1 m and the service pressure [4] (b) Moment at the face and the H16 bars, with the crack-spacing check [6] (c) Vertical shear at d [4] (d) Punching at 2d and at a = d; the column face [6] Ref | Calculations | Output. No app, no notes. Self-mark with the scheme after class. SEAA 4333 · Unit 10 · Foundations I Workbook 10."
+  },
+  {
+   "id": "slides-23",
+   "text": "[slides-23] Slide 23: The foundation type for your site\nProject studio · 17 minutes The foundation type for your site Your ground 2 m of made ground over mudstone, q_{all} = 600 kN/m² (2024/25 brief). Option 1 Pads taken down through the fill to the mudstone: size one for your column. Option 2 Piles (Unit 11): when the fill is deep, wet or the loads are high. Log it Your choice, the ground-floor N of your column, and the plan size of its pad. SEAA 4333 · Unit 10 · Foundat"
+  },
+  {
+   "id": "slides-24",
+   "text": "[slides-24] Slide 24: Soil with service loads, concrete with ultimate loads: say which\nProfessional Habit 10 Soil with service loads, concrete with ultimate loads: say which Sizing G_k + Q_k + W against q_{all} Design N_{Ed}/A, without the self-weight Draw first the pressure diagram, before any formula Write it “service” or “ultimate” beside every load SEAA 4333 · Unit 10 · Foundations I Workbook 10.10"
+  },
+  {
+   "id": "slides-25",
+   "text": "[slides-25] Slide 25: Before Unit 11\nAfter class Before Unit 11 Notes §1–§6 46 min Exercises, all 14 45 min Explorer, 6 tasks with S10 30 min Self-mark D10 on eLearning 15 min Mosley §10.1–10.4 reading Unit 11: the strap footing (a boundary column that cannot sit centred on its base) and piles. SEAA 4333 · Unit 10 · Foundations I Workbook 10.10"
+  },
+  {
+   "id": "slides-26",
+   "text": "[slides-26] Slide 26: Before you leave\nExit ticket · 5 minutes · Workbook 10.10 Before you leave 1 A 2.4 × 2.0 m base carries N = 480 kN (with its weight) and M = 144 kN m. Find e and p_{max}. 2 Name the three places a pad is checked, and which check usually sets its depth. 3 What is still unclear? Tear off the slip and hand it in at the door. SEAA 4333 · Unit 10 · Foundations I"
+  },
+  {
+   "id": "examples-x1",
+   "text": "[examples-x1] Example 1 · Worked Example 10.1: a pad footing under an axial load\nExam type design a pad footing Workbook 10.4 Time ≈ 30 min\nQuestion A 300 × 300 mm column carries G_k = 600 kN and Q_k = 400 kN onto soil with an allowable bearing pressure of 150 kN/m². Design a square pad footing: C25/30, B500, exposure XC2, a 50-year life, cast on blinding, H12 bars. (The course notes’ Example 1, with the cover required on blinding and h = 500 mm.) In the app: case F1R of the RC Design Worked Solutions app; case F1 is the same base with h = 450 mm and c_{nom} = 35 mm.\n[Figure: Worked Example 10.1: a 3.0 m square pad, 500 mm thick, under 1410 kN at the ultimate limit state.]\nPhysical picture. A 3 m square base spreads the column load over 9 m². Each side cantilevers 1.35 m from the column face and the soil pushes it up, so the bottom is in tension both ways. The base is thick and lightly stressed: expect shear, not bending, to set its depth, and expect the bending steel to sit close to the minimum.\nPlan. Cover; the plan size from the service load; the ultimate pressure and the moment at the face; the bars; shear at d; punching at 2d, inside 2d and at the column face; cracks and detailing.\n## Step 1 Cover\nRef Calculations Output\nEC2 4.4.1 Bond: c_{min,b} = φ = 12 mm; durability, XC2 with C25/30 (S4): 25 mm; c_{min} + Δc_{dev} = 25 + 10 35 mm\nEC2 4.4.1.3(4) Cast on blinding: not less than 40 mm c_{nom} = 40 mm\n## Step 2 Plan size from the service load\nRef Calculations Output\n(10.1) N = 600 + 400 = 1000 kN; W ≈ 10% = 100 kN; A_{req} = 1100/150 7.33 m²\nTry 3.0 × 3.0 m, h = 500 mm: W = 25 × 9.0 × 0.50 = 112.5 kN; p = (1000 + 112.5)/9.0 123.6 ≤ 150 kN/m² ✓\n## Step 3 Ultimate pressure and the moment at the face\nRef Calculations Output\n(10.2) N_{Ed} = 1.35 × 600 + 1.5 × 400 = 1410 kN; p_{Ed} = 1410/9.0 156.7 kN/m²\n(10.7) l = (3.0 − 0.3)/2 = 1.35 m; M_{Ed} = 156.7 × 3.0 × 1.35²/2 428.3 kN m\n## Step 4 The bars, both ways\nRef Calculations Output\n§4 Inner layer for both directions: d = 500 − 40 − 1.5 × 12 d = 442 mm\nRCD I K = 428.3 × 10⁶/(25 × 3000 × 442²) = 0.029; z = 0.974d → 0.95d = 419.9 mm; A_s = 428.3 × 10⁶/(0.87 × 500 × 419.9) 2345 mm²\nEC2 9.2.1.1 A_{s,min} = max(0.26 × 2.56/500; 0.0013) × 3000 × 442 = 0.00133 × 3000 × 442 1769 mm²\n24H12 = 2714 mm² each way, as in app case F1R (21H12 = 2375 mm² would also do) 24H12 ✓\n## Step 5 Vertical shear at d\nRef Calculations Output\n(10.8) l − d = 1350 − 442 = 908 mm; V_{Ed} = 156.7 × 3.0 × 0.908 426.8 kN\nEC2 Fig. 6.3 Bars beyond the section: 908 − 40 = 868 mm < l_{bd} + d = 485 + 442 = 927 mm, so ρ_l = 0 ρ_l = 0\n(10.8) k = 1 + √(200/442) = 1.67; v_{min} = 0.035 × 1.67^{1.5} × √25 = 0.379; V_{Rd,c} = 0.379 × 3000 × 442 502 ≥ 426.8 kN ✓\n## Step 6 Punching at 2d\nRef Calculations Output\n(10.9) d = 500 − 40 − 12 = 448 mm; 2d = 896; u_1 = 1200 + 2π × 896 = 6830 mm; A_1 = 0.09 + 4 × 0.3 × 0.896 + π × 0.896² A_1 = 3.687 m²\nEC2 6.48 V_{Ed,red} = 1410 − 156.7 × 3.687; v_{Ed} = 832.3 × 10³/(6830 × 448) 0.272 N/mm²\nEC2 6.4.4 Bars beyond 2d: 1350 − 896 − 40 = 414 < 933 mm, so v_{Rd,c} = v_{min} = 0.035 × 1.668^{1.5} × 5 0.377 N/mm² → 0.72 ✓\n## Step 7 Inside 2d, and the column face\nRef Calculations Output\n(10.9) a = d = 448: u = 1200 + 2π × 448 = 4015 mm; A = 0.09 + 1.2 × 0.448 + π × 0.448² = 1.258 m²; V = 1410 − 156.7 × 1.258 1212.9 kN\n(10.10) v_{Ed} = 1212.9 × 10³/(4015 × 448) = 0.674; v_{Rd} = 0.377 × 2d/a = 0.377 × 2 = 0.754 0.89 ✓ (scan: 0.90 at a = 1.1d)\n(10.11) v_{Ed,0} = 1410 × 10³/(1200 × 448) = 2.62; v_{Rd,max} = 0.4 × 0.6(1 − 25/250) × 25/1.5 2.62 ≤ 3.60 N/mm² ✓\n## Step 8 Cracks and detailing\nRef Calculations Output\nEC2 7.3.3 σ_s = (600 + 0.3 × 400)/1410 × 435 × 2345/2714 = 0.511 × 435 × 0.864 191.8 N/mm²\nTable 7.3N s_{max} at 191.8 N/mm² = 260 mm; spacing provided (3000 − 80 − 12)/23 126 ≤ 260 mm ✓\nEC2 9.8.2.2 Anchorage near the edge: straight bars need 0.73 of the length available (app); bottom bars only, no top or side bars straight bars ✓\nAnswer. 3.0 × 3.0 × 0.50 m base, c_{nom} = 40 mm, 24H12 each way at the bottom, straight. Service pressure 124 ≤ 150 kN/m²; shear 0.85 of V_{Rd,c}; punching 0.72 at 2d and 0.90 at the worst perimeter inside it; column face 0.73.\nWhat the numbers say The perimeter inside 2d governs the depth, not bending and not the check at 2d. With the course notes’ h = 450 mm the check at 2d passes (925 ≤ 983 kN), yet at a ≈ 1.2d the stress is 7% above the resistance (v_{Ed}/v_{Rd} = 1.07): the next 50 mm step, 0.45 m³ of concrete per base, is what EC2 6.4.4(2) costs here (475 mm would just pass, at 0.99). The bending steel is only 1.3 times the minimum, as expected for a thick base."
+  },
+  {
+   "id": "examples-x2",
+   "text": "[examples-x2] Example 2 · Faded Example 10.2: a pad footing with a moment\nExam type check a pad under a load and a moment Workbook 10.5 Time ≈ 25 min\nQuestion A 350 × 250 mm column (350 mm along x) carries N_{Ed} = 1500 kN and M_{Ed} = 50 kN m, both ultimate, the moment turning about the y-axis; take service values as the design values divided by 1.4. The soil allows 150 kN/m². The base is 3.5 m along x, 2.8 m along y and 650 mm thick: C30/37, XC3, cast on blinding, H12 bars. Check the base and choose the bars. In the workbook steps 1 to 3 are given; complete steps 4 to 8, then compare. (The course notes’ Example 2, with c_{nom} = 40 mm.) In the app: case F2R; case F2 keeps the course notes’ c_{nom} = 35 mm and 21H12 along x.\n[Figure: Faded Example 10.2: the moment tilts the pressure by ±8.7 kN/m²; the base stays fully in contact.]\nPhysical picture. A 50 kN m moment on a 1500 kN column is an eccentricity of only 33 mm, far inside the kern of a 3.5 m base. The pressure tilts a little, so the base works almost like an axially loaded pad; the long direction, with the longer cantilever, takes the larger moment and gets the outer layer of bars.\nPlan. Cover; service pressure and the kern; ultimate pressures; moments at both faces; bars both ways; shear at d both ways; punching with β; cracks.\n## Step 1 Cover (given)\nRef Calculations Output\nEC2 4.4.1 XC3 with C30/37 (S4): c_{min,dur} = 25 mm; 25 + 10 = 35; on blinding ≥ 40 c_{nom} = 40 mm\n## Step 2 Service pressure and the kern (given)\nRef Calculations Output\n(10.1) N = 1500/1.4 = 1071.4 kN; M = 50/1.4 = 35.7 kN m; W = 25 × 9.8 × 0.65 = 159.3 kN; Z = 2.8 × 3.5²/6 = 5.717 m³\n(10.4) p_{max} = (1071.4 + 159.3)/9.8 + 35.7/5.717 = 125.6 + 6.2 131.8 ≤ 150 kN/m² ✓\n(10.3) e = 35.7/1230.7 = 0.029 m ≤ L/6 = 3.5/6 = 0.583 m full contact ✓\n## Step 3 Ultimate pressures (given)\nRef Calculations Output\n(10.4) p = 1500/9.8 ± 50/5.717 = 153.1 ± 8.7 161.8 / 144.3 kN/m²\nAt the column face on the high side, 0.175 m from the centre: 153.1 + 8.7 × 0.175/1.75 p_f = 153.9 kN/m²\n## Step 4 Moments at the faces\nRef Calculations Output\n(10.7) l_x = (3.5 − 0.35)/2 = 1.575 m; M_x = [153.9 × 1.575²/2 + (161.8 − 153.9) × 1.575²/3] × 2.8 = 197.4 × 2.8 552.8 kN m\n(10.7) l_y = (2.8 − 0.25)/2 = 1.275 m; M_y = 153.1 × 1.275²/2 × 3.5 = 124.4 × 3.5 435.4 kN m\n## Step 5 Bars both ways\nRef Calculations Output\n§4 Along x, outer layer: d_x = 650 − 40 − 6 = 604; K = 0.018; z = 0.95d = 573.8; A_s = 2215; A_{s,min} = 0.00151 × 2800 × 604 = 2547 23H12 = 2601 mm² (minimum governs)\n§4 Along y, inner layer: d_y = 592; A_s = 1780; A_{s,min} = 0.00151 × 3500 × 592 = 3121 28H12 = 3167 mm² (minimum governs)\n## Step 6 Shear at d, both ways\nRef Calculations Output\n(10.8) x: section at 1575 − 604 = 971 mm from the edge; mean pressure beyond (161.8 + 157.0)/2 = 159.4; V_{Ed} = 159.4 × 0.971 × 2.8 = 433.3 kN; ρ_l = 0 (931 < 429 + 604 mm); V_{Rd,c} = 0.379 × 2800 × 604 641 ≥ 433 kN ✓\n(10.8) y: 1275 − 592 = 683 mm; V_{Ed} = 153.1 × 0.683 × 3.5 = 365.9 kN; V_{Rd,c} = 0.381 × 3500 × 592 790 ≥ 366 kN ✓\n## Step 7 Punching with the moment\nRef Calculations Output\n(10.9) d = 598; u_1 = 1200 + 2π × 1196 = 8715 mm; A_1 = 6.017 m²; V_{Ed,red} = 1500 − 153.1 × 6.017 579.1 kN\nEC2 6.39 k = 0.64 (c_1/c_2 = 1.4); W_1 = 7.78 × 10⁶ mm²; β = 1 + 0.64 × (50 × 10⁶/579.1 × 10³) × (8715/7.78 × 10⁶) = 1.062; v_{Ed} = 1.062 × 579.1 × 10³/(8715 × 598) 0.118 ≤ 0.380 N/mm² ✓\n(10.10) Scan inside 2d (app): worst at a = 0.82d 0.57 ✓\n(10.11) β_0 = 1 + 0.64 × (50 × 10⁶/1500 × 10³) × 1200/148 750 = 1.172; v_{Ed,0} = 1.172 × 1500 × 10³/(1200 × 598) 2.45 ≤ 4.22 N/mm² ✓\n## Step 8 Cracks\nRef Calculations Output\nTable 7.3N x: σ_s = 0.6 × 435 × 2215/2601 = 222 N/mm² → s_{max} = 222 mm; spacing (2800 − 80 − 12)/22 = 123 mm ✓\nTable 7.3N y: σ_s = 0.6 × 435 × 1780/3167 = 147 N/mm² → s_{max} = 300 mm; spacing 126 mm ✓\nAnswer. The 3.5 × 2.8 × 0.65 m base works: 23H12 along x in the outer layer, 28H12 along y above them. Service pressure 132 ≤ 150 kN/m²; shear 0.68 of V_{Rd,c}; punching 0.31 at 2d and 0.57 inside it; column face 0.58.\nWhat the numbers say The moment changes the pressure by only ±6% and raises the punching stress by 6% (β = 1.06): this base is governed by the minimum steel, both ways, and is deep for its load. The course notes’ 21H12 along x comes from A_{s,min} = 0.0013bd; 0.26 × 2.90/500 = 0.0015 governs, so 23H12. A base this lightly stressed could be thinner: try h = 550 mm in the app and see what governs next."
+  },
+  {
+   "id": "examples-x3",
+   "text": "[examples-x3] Example 3 · Explain-type questions\nExam type short written answers Time ≈ 3 min each\nQuestions\n- Why is the self-weight of the base left out of the pressure used for bending and shear, but kept in the bearing-pressure check?\n- When e > L/6, why is N/A ± M/Z wrong, and what happens to the pressure instead?\n- Why does EC2 ask a column base to be checked for punching at perimeters inside 2d, when a slab is usually checked at 2d?\n- Why is a combined footing placed with its centroid under the resultant of the loads, and where does it need top bars?\nWrite your four answers first, then open the model answers one by one.\n## Answer 1 Who carries the weight\nThe base presses on the soil with its own weight, so the bearing check must include it: the soil feels the column load plus the base. But each part of the base rests on the soil directly below it; its weight is balanced on the spot and bends nothing. The moments and shears in the base come only from the column load being spread outwards, so p_{Ed} = N_{Ed}/A (Mosley §10.1). Adding 1.35W overstates every moment and shear.\n## Answer 2 Soil cannot pull\nBeyond L/6 the formula gives a negative pressure under the low edge: a tension the soil cannot give. That edge lifts off instead. The pressure becomes a triangle over a contact length L_c, and equilibrium sets it: the triangle must carry N, and its centroid, L_c/3 from the high edge, must sit under the load, so L_c = 3(L/2 − e) and p_{max} = 2N/(BL_c). In case F3, 286 kN/m² instead of 281, with the last 0.30 m off the ground. Beyond L/3 EC7 asks for special precautions.\n## Answer 3 The relief from the soil\nUnder a column base the soil pushes up inside the perimeter, and that part of the load never crosses it: V_{Ed,red} = N_{Ed} − p_{Ed}A(a). At 2d the area is large and the relief is large, so a base can pass at 2d and still fail closer in, where the perimeter is short and nearly the whole column load crosses it. EC2 6.4.4(2) therefore checks every a ≤ 2d, with the resistance raised by 2d/a for the steeper failure surface. In a slab the load inside 2d is small, so the basic perimeter usually governs. Worked Example 10.1 with h = 450 mm passes at 2d and fails at 1.2d.\n## Answer 4 Uniform pressure, then a beam upside down\nWith the centroid under the resultant, the load has no eccentricity on the base, so the pressure is uniform: no edge is overloaded and the base settles evenly. Lengthwise the base is then a beam with a uniform upward load, held down at the two columns. Between the columns it hogs, so the top is in tension there, with the largest moment where the shear is zero (x_0 = N_A/w; −352.8 kN m in F6). Under the columns and in the cantilevers the bottom is in tension."
+  },
+  {
+   "id": "exercises-b1",
+   "text": "[exercises-b1] Exercise B1 · The plan size\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-b2",
+   "text": "[exercises-b2] Exercise B2 · The pressure under an eccentric load\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-b3",
+   "text": "[exercises-b3] Exercise B3 · The moment at the face and the bars\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-b4",
+   "text": "[exercises-b4] Exercise B4 · Vertical shear at d\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-b5",
+   "text": "[exercises-b5] Exercise B5 · Punching inside 2d\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-b6",
+   "text": "[exercises-b6] Exercise B6 · A combined footing\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-quick",
+   "text": "[exercises-quick] Exercises: quick concept questions\n- Which load sizes the plan of a pad footing against the allowable bearing pressure?\n- The soil pressure used to design the bars of a pad footing is\n- A footing carries its load at e = L/6 exactly. The pressure diagram is\n- The critical section for bending in a pad footing is\n- In the shear check of a footing, the bottom bars count in ρ_l only if\n- A rectangular combined footing for two columns is placed so that\n- A 2.4 × 2.0 m base under a 400 mm square column carries N_{Ed} = 600 kN and M_{Ed} = 300 kN m along its length. One line contains the slip. Which one?\n- Worked Example 10.1 (d = 448 mm, p_{Ed} = 156.7 kN/m², v_{Rd,c} = 0.377 N/mm²) is checked for punching on the perimeter at a = d. One line contains the slip. Which one?"
+  },
+  {
+   "id": "lab-kern",
+   "text": "[lab-kern] Explorer task 1 · Tab 1, Activity 10A: predict the pressure under the base for e below, at and above L/6, then reveal each. Sketch the three diagrams in Workbook 10.3.\nTicks itself: when all three predictions are revealed · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-lift",
+   "text": "[lab-lift] Explorer task 2 · Tab 1: load case F3 and change the moment. At what moment does the base start to lift off, and how far can it go before e reaches L/3?\nTicks itself: when you have set a moment that puts e past L/6 and another that keeps it inside · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-corner",
+   "text": "[lab-corner] Explorer task 3 · Tab 1, two moments: load case F4 and raise the moment about x until the resultant reaches the edge of the kern. Which corner lifts off first?\nTicks itself: when 6e_x/L_x + 6e_y/L_y reaches 1 (within 2%) · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-scan",
+   "text": "[lab-scan] Explorer task 4 · Tab 2, Activity 10B: for case F1, predict where the worst punching perimeter lies, then reveal the scan.\nTicks itself: when the scan is revealed · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-revise",
+   "text": "[lab-revise] Explorer task 5 · Tab 2: case F1 fails inside 2d. Find the thinnest base that passes, in steps of 25 mm. Does the check at 2d alone tell you?\nTicks itself: when F1, made deeper, passes the whole scan · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-s10",
+   "text": "[lab-s10] Explorer task 6 · Tab 3: Foundation S10, find all four slips, tap their lines and press “Check”.\nTicks itself: when all four slips of S10 are found, before Show · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "glossary-allowable-bearing-pressure-q-all",
+   "text": "[glossary-allowable-bearing-pressure-q-all] Glossary: allowable bearing pressure q_{all}\nallowable bearing pressure q_{all}: The pressure the soil may carry under service loads, set by the geotechnical engineer with a factor of safety against bearing failure (typically 2.5 to 3) and a limit on settlement."
+  },
+  {
+   "id": "glossary-basic-control-perimeter-u-1",
+   "text": "[glossary-basic-control-perimeter-u-1] Glossary: basic control perimeter u_1\nbasic control perimeter u_1: The punching perimeter at 2d from the column face, with rounded corners: 2(c_1 + c_2 ) + 4πd (EC2 6.4.2)."
+  },
+  {
+   "id": "glossary-bearing-pressure",
+   "text": "[glossary-bearing-pressure] Glossary: bearing pressure\nbearing pressure: The pressure between the base and the soil; taken as linear under a rigid base."
+  },
+  {
+   "id": "glossary-blinding",
+   "text": "[glossary-blinding] Glossary: blinding\nblinding: A thin layer of lean concrete laid on the excavated ground so that the base can be cast clean and level; on blinding c_{nom} ≥ 40 mm (EC2 4.4.1.3(4))."
+  },
+  {
+   "id": "glossary-column-base-punching",
+   "text": "[glossary-column-base-punching] Glossary: column base (punching)\ncolumn base (punching): A footing or pile cap under a column; EC2 6.4.4(2) checks it at every perimeter a ≤ 2d with v_{Rd} = v_{Rd,c} ·2d/a."
+  },
+  {
+   "id": "glossary-combined-footing",
+   "text": "[glossary-combined-footing] Glossary: combined footing\ncombined footing: One base under two columns, placed so that its centroid lies under the resultant of their loads."
+  },
+  {
+   "id": "glossary-contact-length-l-c",
+   "text": "[glossary-contact-length-l-c] Glossary: contact length L_c\ncontact length L_c: The length of base still pressing on the soil when e > L/6: 3(L/2 − e)."
+  },
+  {
+   "id": "glossary-critical-section",
+   "text": "[glossary-critical-section] Glossary: critical section\ncritical section: A section where a base is checked: the column face (bending), d from the face (shear), the perimeters up to 2d (punching)."
+  },
+  {
+   "id": "glossary-differential-settlement",
+   "text": "[glossary-differential-settlement] Glossary: differential settlement\ndifferential settlement: The difference in settlement between parts of a building, which cracks it; limited by sound bearing and by tying the base together."
+  },
+  {
+   "id": "glossary-eccentricity-e",
+   "text": "[glossary-eccentricity-e] Glossary: eccentricity e\neccentricity e: M/N: how far the resultant of the load lies from the centroid of the base."
+  },
+  {
+   "id": "glossary-kern-middle-third",
+   "text": "[glossary-kern-middle-third] Glossary: kern (middle third)\nkern (middle third): The zone round the centroid inside which the resultant keeps the whole base in contact: e ≤ L/6 on one axis; the rhombus 6e_x /L_x + 6e_y /L_y ≤ 1 for two."
+  },
+  {
+   "id": "glossary-kicker",
+   "text": "[glossary-kicker] Glossary: kicker\nkicker: A short length of column, about 75 mm, cast with the base to hold the column formwork; the starter-bar lap is measured from its top."
+  },
+  {
+   "id": "glossary-pad-footing",
+   "text": "[glossary-pad-footing] Glossary: pad footing\npad footing: An isolated base, square or rectangular, under one column."
+  },
+  {
+   "id": "glossary-partial-contact-lift-off",
+   "text": "[glossary-partial-contact-lift-off] Glossary: partial contact (lift-off)\npartial contact (lift-off): When e > L/6, part of the base leaves the soil; the pressure is a triangle over L_c . Special precautions once e > L/3 (EC7 6.5.4)."
+  },
+  {
+   "id": "glossary-pile-foundation",
+   "text": "[glossary-pile-foundation] Glossary: pile foundation\npile foundation: Piles carry the load down to firm ground by end bearing, friction or both, through a pile cap (Units 11–12)."
+  },
+  {
+   "id": "glossary-punching-shear",
+   "text": "[glossary-punching-shear] Glossary: punching shear\npunching shear: Failure of a slab or base round a concentrated load, on a truncated cone; checked on control perimeters (EC2 6.4)."
+  },
+  {
+   "id": "glossary-raft-foundation",
+   "text": "[glossary-raft-foundation] Glossary: raft foundation\nraft foundation: One slab under the whole building, for heavy loads, weak ground or variable soil."
+  },
+  {
+   "id": "glossary-reduced-punching-force-v-ed-red",
+   "text": "[glossary-reduced-punching-force-v-ed-red] Glossary: reduced punching force V_{Ed,red}\nreduced punching force V_{Ed,red}: N_{Ed} − p_{Ed} A: the column load less the soil pressure inside the perimeter (EC2 Eq. 6.48)."
+  },
+  {
+   "id": "glossary-self-weight-w",
+   "text": "[glossary-self-weight-w] Glossary: self-weight W\nself-weight W: The weight of the base, 25 kN/m³ × volume: in the bearing check, not in the bending and shear pressure."
+  },
+  {
+   "id": "glossary-service-and-ultimate-loads",
+   "text": "[glossary-service-and-ultimate-loads] Glossary: service and ultimate loads\nservice and ultimate loads: G_k + Q_k for the soil (against q_{all} ); 1.35G_k + 1.5Q_k for the concrete."
+  },
+  {
+   "id": "glossary-settlement",
+   "text": "[glossary-settlement] Glossary: settlement\nsettlement: The downward movement of a foundation as the soil below it compresses."
+  },
+  {
+   "id": "glossary-starter-bars",
+   "text": "[glossary-starter-bars] Glossary: starter bars\nstarter bars: Bars cast into the base with a 90° bend tied to the bottom mat, lapped with the column bars above the kicker."
+  },
+  {
+   "id": "glossary-strap-footing",
+   "text": "[glossary-strap-footing] Glossary: strap footing\nstrap footing: A boundary pad tied by a strap beam to an inner footing so that the pair resists the overturning of the eccentric pad (Unit 11)."
+  },
+  {
+   "id": "glossary-strip-footing",
+   "text": "[glossary-strip-footing] Glossary: strip footing\nstrip footing: A continuous base under a wall or a row of columns, designed per metre run."
+  },
+  {
+   "id": "glossary-v-min",
+   "text": "[glossary-v-min] Glossary: v_{min}\nv_{min}: 0.035k^{3/2} f_{ck}^{1/2} : the shear resistance of concrete when no bars count; often the whole resistance of a footing."
+  },
+  {
+   "id": "glossary-v-rd-max",
+   "text": "[glossary-v-rd-max] Glossary: v_{Rd,max}\nv_{Rd,max}: 0.4νf_{cd} , ν = 0.6(1 − f_{ck} /250): the strut limit at the column face (EC2 6.4.5(3), 2014 amendment; the course notes use 0.5νf_{cd} )."
+  },
+  {
+   "id": "glossary-punching",
+   "text": "[glossary-punching] Glossary: β (punching)\nβ (punching): 1 + k(M_{Ed} /V_{Ed} )(u/W): raises the punching stress for an unbalanced moment (EC2 6.4.3(3))."
+  }
+ ]
+}

@@ -15,7 +15,8 @@ Website: <https://razinutm.github.io/My_Lectures/SEAA4333-RCD2/>
 | 8 · Columns II | [`08-columns-2/`](08-columns-2/) | short columns: the design moment with e<sub>i</sub> and e<sub>0</sub>, strain compatibility and the N–M interaction diagram, design charts drawn for the course and the direct check, bars, cover for fire, links |
 | 9 · Columns III | [`09-columns-3/`](09-columns-3/) | slender columns: the second-order moment by nominal curvature (EC2 5.8.8) with creep and the K<sub>r</sub> iteration, braced and unbraced; bending about both axes: the screening of EC2 5.8.9, the enhanced moment and Eq. 5.39 |
 | 10 · Foundations I | [`10-foundations-1/`](10-foundations-1/) | foundation types and requirements; the pad footing under an axial load and with a moment: sizing, the pressure when the load moves off-centre (the kern, partial contact, both axes), bending, shear and punching at the critical sections with every perimeter inside 2d (EC2 6.4.4(2)); combined and strip footings; detailing |
-| 11–14 | coming | foundations (strap footings, piles, pile caps); retaining walls |
+| 11 · Foundations II | [`11-foundations-2/`](11-foundations-2/) | a column on the site boundary: the strap footing by statics (moments about the inner column), the net ultimate reactions, the strap's moment, shear and links, and the two footings; the trapezoidal combined footing; piles: types, capacity, number and spacing, the cap size and the load on each pile under moments |
+| 12–14 | coming | foundations (pile caps); retaining walls |
 
 Each Unit page is built on the lecturer's T&L app template: a header with breadcrumbs, search, Short notes
 and the settings buttons (BM/EN · theme · text size · screen guide); seven tabs (Start with the plan before,
@@ -43,9 +44,10 @@ SEAA4333-RCD2/
 ├── 08-columns-2/             Unit 8, the same layout
 ├── 09-columns-3/             Unit 9, the same layout
 ├── 10-foundations-1/         Unit 10, the same layout
+├── 11-foundations-2/         Unit 11, the same layout
 ├── labs/staircase.html       the Staircase Lab (Explorer of Unit 1; QR code on the first slide)
 ├── labs/column.html          the Column Lab (Explorer of Units 7 to 9, six tabs; QR codes on the first slides)
-├── labs/foundation.html      the Foundation Lab (Explorer of Unit 10: bearing pressure, critical sections, spot the error)
+├── labs/foundation.html      the Foundation Lab (Explorer of Units 10 and 11: bearing pressure, critical sections, spot the error, strap footing, pile group)
 ├── shared/                   course.css, course.js, the avatar poses, the course home source
 └── tutor/course.json         every Unit's sections, for the tutor (generated)
 ```

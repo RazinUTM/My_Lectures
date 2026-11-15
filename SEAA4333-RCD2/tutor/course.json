@@ -2016,6 +2016,383 @@
      "title_ms": "Glosari: β (punching)"
     }
    ]
+  },
+  {
+   "part": "u11",
+   "folder": "11-foundations-2",
+   "title": "Unit 11 Foundations II",
+   "sections": [
+    {
+     "id": "start-outcomes",
+     "title_en": "After this part you should be able to",
+     "title_ms": "Selepas bahagian ini, anda sepatutnya boleh"
+    },
+    {
+     "id": "notes-n1",
+     "title_en": "1. Columns on the site boundary",
+     "title_ms": "1. Column di sempadan tapak"
+    },
+    {
+     "id": "notes-n2",
+     "title_en": "2. The strap footing: statics",
+     "title_ms": "2. Strap footing: statik"
+    },
+    {
+     "id": "notes-n3",
+     "title_en": "3. Designing a strap footing",
+     "title_ms": "3. Design strap footing"
+    },
+    {
+     "id": "notes-n4",
+     "title_en": "4. The trapezoidal combined footing",
+     "title_ms": "4. Trapezoidal combined footing"
+    },
+    {
+     "id": "notes-n5",
+     "title_en": "5. Piles: when, which and how many",
+     "title_ms": "5. Pile: bila, jenis yang mana dan berapa banyak"
+    },
+    {
+     "id": "notes-n6",
+     "title_en": "6. Pile loads under a moment",
+     "title_ms": "6. Load pile di bawah moment"
+    },
+    {
+     "id": "slides-1",
+     "title_en": "Slide 1: Foundations II",
+     "title_ms": "Slide 1: Foundations II"
+    },
+    {
+     "id": "slides-2",
+     "title_en": "Slide 2: How the next three hours run",
+     "title_ms": "Slide 2: How the next three hours run"
+    },
+    {
+     "id": "slides-3",
+     "title_en": "Slide 3: Three questions from last week’s footings",
+     "title_ms": "Slide 3: Three questions from last week’s footings"
+    },
+    {
+     "id": "slides-4",
+     "title_en": "Slide 4: B, C, A, and what each means today",
+     "title_ms": "Slide 4: B, C, A, and what each means today"
+    },
+    {
+     "id": "slides-5",
+     "title_en": "Slide 5: A column on the boundary: why does its footing not tip?",
+     "title_ms": "Slide 5: A column on the boundary: why does its footing not tip?"
+    },
+    {
+     "id": "slides-6",
+     "title_en": "Slide 6: Column A (N A = 1075 kN) stands on the boundary, 0.85 m from the centre of its footing, tied by a strap to column B 6.0 m away. Leaving the weights out, footing A carries",
+     "title_ms": "Slide 6: Column A (N A = 1075 kN) stands on the boundary, 0.85 m from the centre of its footing, tied by a strap to column B 6.0 m away. Leaving the weights out, footing A carries"
+    },
+    {
+     "id": "slides-7",
+     "title_en": "Slide 7: A column on the boundary: three ways to found it",
+     "title_ms": "Slide 7: A column on the boundary: three ways to found it"
+    },
+    {
+     "id": "slides-8",
+     "title_en": "Slide 8: The strap is a lever: moments about column B",
+     "title_ms": "Slide 8: The strap is a lever: moments about column B"
+    },
+    {
+     "id": "slides-9",
+     "title_en": "Slide 9: The seesaw by hand: R A and R B for case F7",
+     "title_ms": "Slide 9: The seesaw by hand: R A and R B for case F7"
+    },
+    {
+     "id": "slides-10",
+     "title_en": "Slide 10: Footing A carries more than its column; footing B less",
+     "title_ms": "Slide 10: Footing A carries more than its column; footing B less"
+    },
+    {
+     "id": "slides-11",
+     "title_en": "Slide 11: A strap footing: statics, sizes and the strap moment",
+     "title_ms": "Slide 11: A strap footing: statics, sizes and the strap moment"
+    },
+    {
+     "id": "slides-12",
+     "title_en": "Slide 12: Inside the strap: it hogs, and its shear peaks over footing A",
+     "title_ms": "Slide 12: Inside the strap: it hogs, and its shear peaks over footing A"
+    },
+    {
+     "id": "slides-13",
+     "title_en": "Slide 13: Where do the main bars of the strap go, and where must its links be closest?",
+     "title_ms": "Slide 13: Where do the main bars of the strap go, and where must its links be closest?"
+    },
+    {
+     "id": "slides-14",
+     "title_en": "Slide 14: Foundation S11: four slips in a strap footing",
+     "title_ms": "Slide 14: Foundation S11: four slips in a strap footing"
+    },
+    {
+     "id": "slides-15",
+     "title_en": "Slide 15: Piles: down through weak soil to firm ground",
+     "title_ms": "Slide 15: Piles: down through weak soil to firm ground"
+    },
+    {
+     "id": "slides-16",
+     "title_en": "Slide 16: The group: how many piles, the cap, and the load on each",
+     "title_ms": "Slide 16: The group: how many piles, the cap, and the load on each"
+    },
+    {
+     "id": "slides-17",
+     "title_en": "Slide 17: Turn FE 11.2’s moment through 90°: the worst pile load…",
+     "title_ms": "Slide 17: Turn FE 11.2’s moment through 90°: the worst pile load…"
+    },
+    {
+     "id": "slides-18",
+     "title_en": "Slide 18: It rises: Σy² = 1.215 m² against Σx² = 3.24 m²",
+     "title_ms": "Slide 18: It rises: Σy² = 1.215 m² against Σx² = 3.24 m²"
+    },
+    {
+     "id": "slides-19",
+     "title_en": "Slide 19: Six piles under N Ed = 4200 kN and M Ed = 75 kN m",
+     "title_ms": "Slide 19: Six piles under N Ed = 4200 kN and M Ed = 75 kN m"
+    },
+    {
+     "id": "slides-20",
+     "title_en": "Slide 20: Six piles, the worst at 89 % of its working load",
+     "title_ms": "Slide 20: Six piles, the worst at 89 % of its working load"
+    },
+    {
+     "id": "slides-21",
+     "title_en": "Slide 21: In Faded Example 11.2, which pile load is compared with the 600 kN working load?",
+     "title_ms": "Slide 21: In Faded Example 11.2, which pile load is compared with the 600 kN working load?"
+    },
+    {
+     "id": "slides-22",
+     "title_en": "Slide 22: D11: a strap footing for a boundary column (20 marks)",
+     "title_ms": "Slide 22: D11: a strap footing for a boundary column (20 marks)"
+    },
+    {
+     "id": "slides-23",
+     "title_en": "Slide 23: The footing size for your individual column",
+     "title_ms": "Slide 23: The footing size for your individual column"
+    },
+    {
+     "id": "slides-24",
+     "title_en": "Slide 24: Close the statics before you design anything",
+     "title_ms": "Slide 24: Close the statics before you design anything"
+    },
+    {
+     "id": "slides-25",
+     "title_en": "Slide 25: Before Unit 12",
+     "title_ms": "Slide 25: Before Unit 12"
+    },
+    {
+     "id": "slides-26",
+     "title_en": "Slide 26: Before you leave",
+     "title_ms": "Slide 26: Before you leave"
+    },
+    {
+     "id": "examples-x1",
+     "title_en": "Example 1 · Worked Example 11.1: a strap footing",
+     "title_ms": "Contoh 1 · Worked Example 11.1: strap footing"
+    },
+    {
+     "id": "examples-x2",
+     "title_en": "Example 2 · Faded Example 11.2: a six-pile group",
+     "title_ms": "Contoh 2 · Faded Example 11.2: kumpulan enam pile"
+    },
+    {
+     "id": "examples-x3",
+     "title_en": "Example 3 · Explain-type questions",
+     "title_ms": "Contoh 3 · Soalan jenis terangkan"
+    },
+    {
+     "id": "exercises-b1",
+     "title_en": "Exercise B1 · Strap footing: the service reactions and sizes",
+     "title_ms": "Latihan B1 · Strap footing: reaction service dan saiz"
+    },
+    {
+     "id": "exercises-b2",
+     "title_en": "Exercise B2 · Strap: zero shear and the largest moment",
+     "title_ms": "Latihan B2 · Strap: ricih sifar dan moment terbesar"
+    },
+    {
+     "id": "exercises-b3",
+     "title_en": "Exercise B3 · A trapezoidal combined footing",
+     "title_ms": "Latihan B3 · Combined footing trapezium"
+    },
+    {
+     "id": "exercises-b4",
+     "title_en": "Exercise B4 · Number of piles and the cap",
+     "title_ms": "Latihan B4 · Bilangan pile dan pile cap"
+    },
+    {
+     "id": "exercises-b5",
+     "title_en": "Exercise B5 · Pile loads under a moment",
+     "title_ms": "Latihan B5 · Load pile di bawah moment"
+    },
+    {
+     "id": "exercises-b6",
+     "title_en": "Exercise B6 · Two moments: the corner pile",
+     "title_ms": "Latihan B6 · Dua moment: pile di bucu"
+    },
+    {
+     "id": "exercises-quick",
+     "title_en": "Exercises: quick concept questions",
+     "title_ms": "Latihan: soalan konsep pantas"
+    },
+    {
+     "id": "lab-seesaw",
+     "title_en": "Explorer task 1: Tab 4, Activity 11A: work out R_A and R_B for case F7 by hand (…",
+     "title_ms": "Tugasan Explorer 1: Tab 4, Aktiviti 11A: kira R_A dan R_B bagi kes F7 dengan tangan…"
+    },
+    {
+     "id": "lab-lever",
+     "title_en": "Explorer task 2: Tab 4: shorten the spacing L from 6.0 m to 4.5 m or less and wa…",
+     "title_ms": "Tugasan Explorer 2: Tab 4: pendekkan jarak L dari 6.0 m kepada 4.5 m atau kurang da…"
+    },
+    {
+     "id": "lab-strapv",
+     "title_en": "Explorer task 3: Tab 4: switch the diagram to shear for case F7",
+     "title_ms": "Tugasan Explorer 3: Tab 4: tukar diagram kepada ricih bagi kes F7"
+    },
+    {
+     "id": "lab-piles",
+     "title_en": "Explorer task 4: Tab 5, Activity 11B: predict what happens to the worst pile loa…",
+     "title_ms": "Tugasan Explorer 4: Tab 5, Aktiviti 11B: ramal apa yang berlaku kepada load pile te…"
+    },
+    {
+     "id": "lab-tension",
+     "title_en": "Explorer task 5: Tab 5: raise M_y until the lightest pile reaches zero load",
+     "title_ms": "Tugasan Explorer 5: Tab 5: naikkan M_y sehingga pile paling ringan mencapai load si…"
+    },
+    {
+     "id": "lab-s11",
+     "title_en": "Explorer task 6: Tab 3: Foundation S11, find all four slips, tap their lines and…",
+     "title_ms": "Tugasan Explorer 6: Tab 3: Foundation S11, cari keempat-empat kesilapan, ketik bari…"
+    },
+    {
+     "id": "glossary-allowable-bearing-pressure-q-all",
+     "title_en": "Glossary: allowable bearing pressure q_{all}",
+     "title_ms": "Glosari: allowable bearing pressure q_{all}"
+    },
+    {
+     "id": "glossary-bakau-pile",
+     "title_en": "Glossary: bakau pile",
+     "title_ms": "Glosari: bakau pile"
+    },
+    {
+     "id": "glossary-blinding",
+     "title_en": "Glossary: blinding",
+     "title_ms": "Glosari: blinding"
+    },
+    {
+     "id": "glossary-bored-pile",
+     "title_en": "Glossary: bored pile",
+     "title_ms": "Glosari: bored pile"
+    },
+    {
+     "id": "glossary-boundary-column",
+     "title_en": "Glossary: boundary column",
+     "title_ms": "Glosari: boundary column"
+    },
+    {
+     "id": "glossary-bulb-of-pressure",
+     "title_en": "Glossary: bulb of pressure",
+     "title_ms": "Glosari: bulb of pressure"
+    },
+    {
+     "id": "glossary-eccentricity-of-footing-a-e",
+     "title_en": "Glossary: eccentricity of footing A, e",
+     "title_ms": "Glosari: eccentricity of footing A, e"
+    },
+    {
+     "id": "glossary-end-bearing-pile",
+     "title_en": "Glossary: end-bearing pile",
+     "title_ms": "Glosari: end-bearing pile"
+    },
+    {
+     "id": "glossary-friction-pile",
+     "title_en": "Glossary: friction pile",
+     "title_ms": "Glosari: friction pile"
+    },
+    {
+     "id": "glossary-lever-of-the-strap-l-e",
+     "title_en": "Glossary: lever of the strap, L − e",
+     "title_ms": "Glosari: lever of the strap, L − e"
+    },
+    {
+     "id": "glossary-net-design-reaction",
+     "title_en": "Glossary: net design reaction",
+     "title_ms": "Glosari: net design reaction"
+    },
+    {
+     "id": "glossary-pile-cap",
+     "title_en": "Glossary: pile cap",
+     "title_ms": "Glosari: pile cap"
+    },
+    {
+     "id": "glossary-pile-foundation",
+     "title_en": "Glossary: pile foundation",
+     "title_ms": "Glosari: pile foundation"
+    },
+    {
+     "id": "glossary-pile-spacing",
+     "title_en": "Glossary: pile spacing",
+     "title_ms": "Glosari: pile spacing"
+    },
+    {
+     "id": "glossary-precast-pile",
+     "title_en": "Glossary: precast pile",
+     "title_ms": "Glosari: precast pile"
+    },
+    {
+     "id": "glossary-punching-shear",
+     "title_en": "Glossary: punching shear",
+     "title_ms": "Glosari: punching shear"
+    },
+    {
+     "id": "glossary-safe-working-load-of-a-pile-f-p",
+     "title_en": "Glossary: safe (working) load of a pile, F_p",
+     "title_ms": "Glosari: safe (working) load of a pile, F_p"
+    },
+    {
+     "id": "glossary-service-and-ultimate-loads",
+     "title_en": "Glossary: service and ultimate loads",
+     "title_ms": "Glosari: service and ultimate loads"
+    },
+    {
+     "id": "glossary-strap-beam",
+     "title_en": "Glossary: strap beam",
+     "title_ms": "Glosari: strap beam"
+    },
+    {
+     "id": "glossary-strap-footing",
+     "title_en": "Glossary: strap footing",
+     "title_ms": "Glosari: strap footing"
+    },
+    {
+     "id": "glossary-x-of-a-pile-group",
+     "title_en": "Glossary: Σx² of a pile group",
+     "title_ms": "Glosari: Σx² of a pile group"
+    },
+    {
+     "id": "glossary-tension-pile",
+     "title_en": "Glossary: tension pile",
+     "title_ms": "Glosari: tension pile"
+    },
+    {
+     "id": "glossary-tie-beam",
+     "title_en": "Glossary: tie beam",
+     "title_ms": "Glosari: tie beam"
+    },
+    {
+     "id": "glossary-trapezoidal-combined-footing",
+     "title_en": "Glossary: trapezoidal combined footing",
+     "title_ms": "Glosari: trapezoidal combined footing"
+    },
+    {
+     "id": "glossary-zero-shear-x-0",
+     "title_en": "Glossary: zero shear x_0",
+     "title_ms": "Glosari: zero shear x_0"
+    }
+   ]
   }
  ]
 }

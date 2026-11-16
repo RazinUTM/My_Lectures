@@ -1,0 +1,310 @@
+{
+ "part": "u12",
+ "title": "Unit 12 Foundations III",
+ "blocks": [
+  {
+   "id": "start-outcomes",
+   "text": "[start-outcomes] After this part you should be able to\n1. size a pile cap, its plan from the pile spacing and its depth from the guide, and choose between the truss analogy and beam theory;\n2. find the tie forces of two-, three- and four-pile caps by the truss analogy, and design and place the tie bars with their anchorage;\n3. find the moments at the column faces of a six-pile cap from its pile loads, and design the bars in both directions;\n4. check the shear of a pile cap at the section φ/5 inside the piles, with the enhancement of EC2 6.2.2(6) and its limit, check the column face and the crack widths, and say when punching must be checked."
+  },
+  {
+   "id": "notes-n1",
+   "text": "[notes-n1] Notes 1. The pile cap: its job, plan and depth\nA pile cap gathers the column load and shares it among the piles. It is short and deep, so it does not bend like a slab: most of the load runs straight down from the column to each pile head in compression, and the bottom of the cap is pulled apart as the pile heads try to spread. Two models design it: the truss analogy for compact caps, and beam theory for longer ones.\n[Figure: Pile caps of two, three, four and six piles, with s = 3φ and edges 150 mm past the pile faces (RDF §16). Rust lines: the ties of the truss analogy.]\nThe plan follows from Unit 11: piles at s = kφ with k = 3, and the edge of the cap 150 mm beyond the pile faces, so a square four-pile cap is (k + 1)φ + 300 each way and a six-pile cap (k + 1)φ + 300 by (2k + 1)φ + 300. The depth must give room for the anchorage of the pile bars and the column starter bars, and enough shear resistance. Mosley Table 10.5 gives a first depth for groups of up to six piles; the course notes’ 2φ + 100 gives the same values up to 550 mm piles.\nPile size φ (mm) 300 350 400 450 500 550 600 750\nCap depth, Mosley Table 10.5 (mm) 700 800 900 1000 1100 1200 1400 1800\n2φ + 100, course notes (mm) 700 800 900 1000 1100 1200 1300 1600\nThe guide is a starting point, not a check. Shear decides the depth in the end (§4): the course notes’ four-pile cap needs 1650 mm rather than 1100 mm, and their six-pile cap of 300 mm piles needs the 1100 mm the notes give it (2φ + 500), not the table’s 700 mm, because each of its piles carries 720 kN at the ultimate limit state.\nThe loads that design a cap The number of piles and the service pile loads (N + W)/n ± Mx/Σx² were checked in Unit 11. The cap is designed with the ultimate pile loads N_{Ed}/n ± M_{Ed}x/Σx², without the cap’s own weight, as the course notes, Mosley’s Example 10.5 and the RC Design app do: the weight sits over the piles and adds little to the forces at the critical sections. Adding 1.35W/n to each pile is the safer variant. The cover in the notes’ examples is 75 mm, measured from the soffit; the piles stop at the bottom mat, 75 mm into the cap.\nQuick check (not graded): Four 450 mm piles at s = 3φ. By the course rules, the plan of the cap and its first depth are\nOptions: 1650 × 1650 mm, h = 900 mm | 2100 × 2100 mm, h = 1000 mm | 2400 × 2400 mm, h = 1100 mm | 1800 × 1800 mm, h = 1000 mm\nExplanation shown after answering: (3 + 1) × 450 + 300 = 2100 mm each way; Table 10.5 and 2φ + 100 both give 1000 mm. This is Mosley’s Example 10.5 and the cap of Foundation S12. The depth still has to pass the shear check of §4.\nKey points:\n- Plan: s = 3φ and edges 150 mm past the pile faces; four piles (k + 1)φ + 300 square.\n- Depth: start from Mosley Table 10.5 (≈ 2φ + 100); shear decides.\n- Design loads: the ultimate pile loads N_{Ed}/n ± M_{Ed}x/Σx², without the cap weight."
+  },
+  {
+   "id": "notes-n2",
+   "text": "[notes-n2] Notes 2. The truss analogy\nThink of the cap as a triangle. Concrete struts run from the column down to each pile head; a steel tie along the bottom joins the pile heads and stops them spreading. The column pushes the apex down, the piles push the corners up, and the tie carries the horizontal force that holds the triangle closed.\n[Figure: The truss analogy for a two-pile cap (Mosley §10.7.1). The upper node sits at the centre of the column, the lower nodes where the tie crosses the pile centre lines.]\nAt a pile node three forces meet: the pile reaction N/2 upwards, the strut C along the line to the column, and the tie T. Their triangle is similar to the triangle of the truss, so T/(N/2) = (s/2)/d. For two piles:\nEQUATION (12.1): T = \\frac{N\\,s}{4d} \\qquad \\text{(two piles; } d = h - c - \\phi/2\\text{)}\nFor three piles in a triangle the same reasoning gives the force in each side, and for four piles in a square the load is shared by two parallel trusses in each direction (Mosley Table 10.4, with 2l = s; RDF Figure 16.2):\nEQUATION (12.2): T = \\frac{N\\,s}{9d} \\qquad \\text{(three piles, each side; three bands in three layers, } d = h - c - 2.5\\phi\\text{)}\nEQUATION (12.3): T = \\frac{N\\,s}{8d} \\qquad \\text{(four piles, each truss; two trusses each way, } d = h - c - 1.5\\phi\\text{)}\nEQUATION (12.4): A_s = \\frac{T}{0.87 f_{yk}} \\ \\ge\\ A_{s,min} = \\max\\!\\left(0.26\\frac{f_{ctm}}{f_{yk}},\\ 0.0013\\right) b\\,d\n[Figure: Four piles: two trusses each way, each carrying N/2, so the steel each way is 2T/0.87f_{yk} = Ns/(4d × 0.87f_{yk}). Where the bars may go depends on the spacing.]\nA common slip with four piles is to stop at T: the bars across the cap in one direction serve both trusses of that direction, so they carry 2T. The bars go in both directions of the bottom face. With s ≤ 3φ they may be spread evenly across the width, as in all the course examples; with wider spacing only the bars within 1.5φ of a pile centre count, so they are gathered in bands over the piles. They continue past each pile and are bent up to anchor beyond the pile centre lines (§6). The effective depth follows the layers: the tie of a two-pile cap is the bottom layer, a four-pile cap uses the upper layer for both directions (on the safe side, as the notes), and the three bands of a three-pile cap lie in three layers.\nTruss cap (app case) N_{Ed}, s, d T A_s (each direction or band) Bars\nTwo 450 mm piles (F10) 1545 kN, 1350, 915 mm 1545 × 1350/(4 × 915) = 569.9 kN 1310 mm² 5H20\nThree 450 mm piles (F11) 2250 kN, 1350, 875 mm 2250 × 1350/(9 × 875) = 385.7 kN 887; A_{s,min} 2606 governs 9H20 per band\nFour 500 mm piles (F12, notes Example 5) 8475 kN, 1500, 987.5 mm 8475 × 1500/(8 × 987.5) = 1609.2 kN per truss 2 × 3699 = 7399 mm² 16H25 each way\nQuick check (not graded): A four-pile cap carries N_{Ed} = 6000 kN on piles at s = 1200 mm, with d = 800 mm. The steel needed in each direction is\nOptions: 2586 mm² | 5172 mm² | 10345 mm² | 1293 mm²\nExplanation shown after answering: T = 6000 × 1200/(8 × 800) = 1125 kN per truss; two trusses each way, so A_s = 2 × 1125 × 10³/435 = 5172 mm², the same as Ns/(4d × 0.87f_{yk}). 2586 mm² is one truss only: half the steel.\nKey points:\n- Truss: T = Ns/4d (two piles), Ns/9d each side (three), Ns/8d each truss (four, two trusses each way).\n- A_s = T/0.87f_{yk}, at least A_{s,min} over the whole width; four piles need 2T each way.\n- s ≤ 3φ: spread the bars evenly; s > 3φ: only bars within 1.5φ of a pile centre count."
+  },
+  {
+   "id": "notes-n3",
+   "text": "[notes-n3] Notes 3. Beam theory\nWhen the cap is longer, or a moment makes the pile loads unequal, treat it as a wide beam turned upside down: the piles push up, the column holds it down, and the critical section for bending is at the face of the column, as for a pad footing.\n[Figure: Beam theory for a six-pile cap: each face moment comes from the piles beyond that face (app case F13, Faded Example 12.2).]\nThe moment at a column face is the sum, over the piles beyond that face, of each pile load times its distance to the face:\nEQUATION (12.5): M = \\sum_{\\text{piles beyond the face}} F_i\\left(x_i - \\frac{c}{2}\\right)\nIn a 2 × 3 group with the moment about y, the two end piles carry the largest load, so M_{xx} = 2F_{max}(x_{max} − c/2) designs the bars along the length. Across, one long row of three piles sums to three times the mean load whatever the moment about y, so M_{yy} = 3F_{mean}(s/2 − c/2). The larger moment takes the outer layer, d_x = h − c − φ/2; the other uses d_y = h − c − 1.5φ. Then K, z ≤ 0.95d and A_s as for a beam, with A_{s,min} over the full width, which often governs the short direction.\nSix-pile cap (F13) Along the length (x) Across (y)\nMoment at the face 2 × 720.8 × (0.90 − 0.20) = 1009.2 kN m 3 × 700 × (0.45 − 0.20) = 525.0 kN m\nd 1100 − 75 − 8 = 1017 mm 1100 − 75 − 24 = 1001 mm\nK, z 0.0217, 0.95d = 966.2 mm 0.0073, 0.95d = 951.0 mm\nA_s and A_{s,min} 2401; 2298 mm² 1269; 3618 mm² (governs)\nBars 12H16 (2413 mm²) 18H16 (3619 mm²)\nThe two models are closer than they look. Ns/4d, the total tie force in one direction of a four-pile cap, is the moment at the column centre line, Ns/4, divided by the lever arm d; beam theory takes the smaller moment at the face, (N/2)(s/2 − c/2), with z = 0.95d. For the course notes’ four-pile cap the truss gives 7399 mm² each way and beam theory 5192 mm²: the truss is the safer model for a compact cap. Mosley keeps beam theory for caps whose span exceeds about twice their depth. In this course, caps of two, three and four piles go by the truss and six piles under a moment by beam theory, as in the notes’ two Example 5s.\nQuick check (not graded): In the six-pile cap above (column 400 mm, piles at x = 0, ±0.9 m, end piles 720.8 kN), the moment that designs the bars along the length is\nOptions: 1297.5 kN m | 1009.2 kN m | 980.0 kN m | 525.0 kN m\nExplanation shown after answering: At the column face, 0.2 m from the centre: 2 × 720.8 × (0.9 − 0.2) = 1009.2 kN m. 1297.5 is taken at the centre line, 980.0 uses the mean load 700 kN, and 525.0 is the moment across.\nKey points:\n- Beam theory: M at each column face = Σ F_i(x_i − c/2) over the piles beyond it.\n- 2 × 3 group: M_{xx} = 2F_{max}(x_{max} − c/2), M_{yy} = 3F_{mean}(s/2 − c/2); the larger moment in the outer layer.\n- The truss uses the centre-line moment over d, so it gives more steel than beam theory for a compact cap."
+  },
+  {
+   "id": "notes-n4",
+   "text": "[notes-n4] Notes 4. Shear: the section at φ/5 and the enhancement\nA pile cap does not fail in shear like a long beam. Near the column the load reaches the piles along direct struts, which carry far more shear than the beam formula allows. EC2 lets loads close to a support be reduced by a factor β = a_v/2d before checking V_{Rd,c}, but it stops the reduction at a_v = 0.5d.\n[Figure: The shear section of a pile cap, φ/5 inside the pile face (Mosley §10.7.2): V_{Ed} is the load of every pile beyond it, over the whole width when s ≤ 3φ.]\nThe critical section lies 20 % of the pile diameter inside the face of the pile (Mosley §10.7.2, from BS 8110). V_{Ed} is the sum of the loads of the piles beyond it: in a four-pile cap the section crosses the full width, so two piles stand beyond it, not one. The section is a_v from the column face. For a square group:\nEQUATION (12.6): a_v = \\frac{s}{2} - \\frac{c}{2} - \\frac{\\phi}{2} + \\frac{\\phi}{5} = \\frac{s}{2} - \\frac{c}{2} - 0.3\\,\\phi\nEQUATION (12.7): \\beta = \\frac{\\max(a_v,\\ 0.5d)}{2d} \\le 1 \\qquad \\text{(EC2 6.2.2(6); bars fully anchored at the piles)}\nEQUATION (12.8): \\beta\\,V_{Ed} \\le V_{Rd,c}, \\qquad V_{Ed} \\le 0.5\\,b\\,d\\,\\nu f_{cd}, \\quad \\nu = 0.6\\left(1 - \\frac{f_{ck}}{250}\\right)\nEQUATION (12.9): V_{Rd,c} = \\left[0.12\\,k\\,(100\\rho_l f_{ck})^{1/3}\\right] b\\,d \\ \\ge\\ v_{min}\\,b\\,d, \\qquad v_{min} = 0.035\\,k^{3/2}\\sqrt{f_{ck}}, \\quad k = 1 + \\sqrt{200/d} \\le 2\nThree conditions come with β. It needs the main bars fully anchored at the support, here bent up beyond each pile centre line (§6). The unreduced shear must still satisfy V_{Ed} ≤ 0.5bdνf_{cd}. And for a_v < 0.5d, EC2 takes a_v = 0.5d, so β never drops below 0.25: the shear can be divided by four at most. In V_{Rd,c} the bars count in ρ_l only if they run l_{bd} + d beyond the section (EC2 Figure 6.3, the course convention from Unit 10); in every course example they do not, and v_{min} governs. With s ≤ 3φ the enhancement applies across the whole section; with wider spacing only to strips 3φ wide over the piles.\n[Figure: β against a_v/d: EC2 floors it at 0.25; the course notes and Mosley do not.]\nThe course notes and Mosley apply β without the floor; Mosley’s own Example 10.5 has a_v = 290 mm < 0.5d = 437.5 mm and still passes with it (625 ≤ 633 kN). The course follows EC2, as the RC Design app does (the lecturer chose the conservative option on 4 October 2026). For the notes’ four-pile cap, a_v = 350 mm < 0.5d = 494 mm, so β = 0.25 and V_{Ed,red} = 0.25 × 4237.5 = 1059.4 kN against V_{Rd,c} = 760.3 kN: the 1100 mm cap fails, where the notes’ β = 0.177 gave 750.9 kN and a pass by 1 %. Inside the floor a deeper cap does not lower V_{Ed,red}; it raises V_{Rd,c}, through d more than through k. 1650 mm is the shallowest depth, in 50 mm steps, that passes; the app’s revised case F12R uses 1700 mm (Worked Example 12.1).\nQuick check (not graded): The course notes’ four-pile cap: a_v = 350 mm and d = 987.5 mm, the bars bent up and anchored beyond the piles. By EC2 the factor β is\nOptions: 0.177 | 0.25 | 0.354 | 1.0\nExplanation shown after answering: a_v = 350 < 0.5d = 494 mm, so a_v = 494 mm is used: β = 494/(2 × 987.5) = 0.25. 0.177 is the notes’ value without the floor; 1.0 would apply if the bars were not anchored at the piles.\nKey points:\n- Shear section φ/5 inside the pile face; V_{Ed} = all the piles beyond it, across the whole width.\n- β = max(a_v, 0.5d)/2d ≥ 0.25, only with the bars anchored beyond the piles; V_{Ed} ≤ 0.5bdνf_{cd}.\n- Inside the floor a deeper cap raises V_{Rd,c}, not lowers V_{Ed,red}: the notes’ 1100 mm cap needs 1650 mm."
+  },
+  {
+   "id": "notes-n5",
+   "text": "[notes-n5] Notes 5. Punching and the column face\nWith piles at 3φ every pile stands inside the basic control perimeter at 2d, so the shear crosses the sections of §4 rather than a punching perimeter. What remains is the crushing check at the face of the column, and the same check round each pile.\n[Figure: Close piles sit inside 2d of the column: no punching check at 2d (Mosley §10.7.3); the column face is checked instead.]\nMosley §10.7.3, the course notes and RDF §16 check punching at the control perimeters only when the piles are spaced more than 3φ apart, in the way of Unit 10 for slabs and pads. At 3φ or closer the piles lie inside the 2d perimeter and the shear is carried across the sections of §4. The face of the column is always checked (EC2 6.4.5(3)), with the mean effective depth d = h − c − φ:\nEQUATION (12.10): v_{Ed,0} = \\frac{\\beta\\,N_{Ed}}{u_0\\,d} \\le v_{Rd,max} = 0.4\\,\\nu f_{cd}, \\qquad u_0 = 4c, \\quad \\beta = 1 + k\\frac{M_{Ed}}{N_{Ed}}\\frac{u_0}{W_0}\nFor an axial load β = 1. With a moment, W_0 = c_1²/2 + c_1c_2 at the column perimeter and k from Table 6.1 (0.6 for a square column): the six-pile cap of Faded Example 12.2 has β = 1 + 0.6 × (75/4200 m) × 1600/240000 = 1.071. The limit 0.4νf_{cd} = 4.22 N/mm² for C30/37 is the value of the 2014 amendment of EN 1992-1-1, which the course and the app use; the course notes and Mosley use 0.5νf_{cd} = 5.28 N/mm² of the 2004 text. The difference matters for the notes’ four-pile cap: 8475 × 10³/(2000 × 1000) = 4.24 N/mm², over 4.22 by 0.3 % and well under 5.28. Which value the Malaysian National Annex sets is still to be confirmed. Each pile is checked the same way, F_{max}/(u_pd) with u_p = πφ for a round pile (RDF §16); it rarely governs.\nQuick check (not graded): Four 500 mm piles at 1500 mm (3φ) under a 500 mm column. Which shear checks does the course method make round the column and the piles?\nOptions: Punching at 2d and at every perimeter inside it, as for a pad | The column face and each pile perimeter against v_{Rd,max}; no punching perimeter, because the piles lie inside 2d | Punching at 2d only | None: the shear sections of §4 cover everything\nExplanation shown after answering: At s ≤ 3φ the piles are inside the 2d perimeter, so no punching check is made there (Mosley §10.7.3); the column face and the pile perimeters are still checked for crushing.\nKey points:\n- s ≤ 3φ: no punching check at 2d; s > 3φ: punching as for a slab.\n- Column face: βN_{Ed}/(u_0d) ≤ 0.4νf_{cd} (course; 0.5νf_{cd} in the notes), d = h − c − φ.\n- Each pile: F_{max}/(πφd) against the same limit."
+  },
+  {
+   "id": "notes-n6",
+   "text": "[notes-n6] Notes 6. Crack control and detailing\nA pile cap is a deep, heavily loaded block. Most of its detailing makes sure that the tie is anchored where the struts meet it, over the piles, and that the corners and faces of the block hold together.\n[Figure: Detailing a pile cap (Mosley §10.7.4, RDF §16): bent-up ties anchored beyond the pile centre lines, horizontal links, starter bars, and the top face.]\nAnchorage. The main bars continue past each pile and are bent up to give a full anchorage length beyond the pile centre line: available length (edge distance − c) + (d − c) ≥ l_{bd}, with l_{bd} = (φ/4)(0.87f_{yk}/f_{bd}) = 894 mm for H25 in C30/37 (f_{bd} = 3.04 N/mm², good bond). For the notes’ cap (400 − 75) + (987.5 − 75) = 1237.5 mm ≥ 894 mm, which makes β valid. The same bars run only 1387.5 mm past the shear section, less than l_{bd} + d = 1881 mm, so they do not count in ρ_l: the two conditions differ, and both are checked.\nThe rest of the cage. A_{s,min} = 0.26(f_{ctm}/f_{yk})bd in both directions of the bottom face, and Mosley puts the same in the top face; EC2 9.8.1(3) lets the top and the sides stay unreinforced where no tension can develop, so the top mat is the course’s choice, not a code demand. Fully lapped horizontal links of at least H12 at no more than 250 mm run round the sides. The column starter bars are tied with links inside the cap. The piles are cut off so that they do not extend into the cap beyond the lower mat, about 75 mm, or the punching strength drops.\nCracks. As for every base: σ_s = (N_{qp}/N_{Ed})(f_{yk}/1.15)(A_{s,req}/A_{s,prov}), the spacing limit from Table 7.3N for w_k = 0.3 mm, interpolated, and the spacing provided (b − 2c − φ)/(n − 1). For the notes’ cap σ_s = 0.50 × 434.8 × 7399/7854 = 205.4 N/mm², so s_{max} = 243 mm against 142 mm provided.\nStep Truss cap (two, three or four piles) Beam-theory cap (six piles)\n1 Piles, plan, depth guide (§1) Piles, plan, depth guide; pile loads with the moment (Unit 11)\n2 T by (12.1)–(12.3); A_s ≥ A_{s,min} M at both faces (12.5); A_s both ways ≥ A_{s,min}\n3 Shear at φ/5: β ≥ 0.25, anchorage, v_{min} (12.6)–(12.9) Shear in both directions, each with its own a_v and d\n4 Column face and piles (12.10); punching if s > 3φ Column face with β for the moment\n5 Cracks; bent-up bars, links, top mat Cracks both ways; the same detailing\nQuick check (not graded): Why are the tie bars of a pile cap bent up at both ends?\nOptions: To resist tension in the top face | To hold the horizontal links in place | To anchor the tie beyond the pile centre lines, which also makes the β reduction valid | To keep the cover at the ends\nExplanation shown after answering: The tie force is greatest at the nodes over the piles, so it must be anchored beyond them, and a straight bar has too little room (400 − 75 = 325 mm against 894 mm). EC2 6.2.2(6) allows β only with the bars fully anchored at the support.\nKey points:\n- Bend the ties up: (edge − c) + (d − c) ≥ l_{bd} beyond each pile centre line.\n- A_{s,min} both ways, bottom (and top, Mosley); H12 horizontal links at ≤ 250 mm; starter bars with links; piles cut at the bottom mat.\n- Cracks: σ_s from the quasi-permanent load and the spacing of Table 7.3N, as for every base."
+  },
+  {
+   "id": "slides-1",
+   "text": "[slides-1] Slide 1: Foundations III\nSEAA 4333 Reinforced Concrete Design II · Week 13 Foundations III Pile caps: a truss of concrete struts and a steel tie, a beam for longer caps, and the shear limit that sets the depth Workbook ch. 12 ABCD card Calculator Phone or laptop Foundation Lab Scan for this page’s Explorer tab. Tab 6 is today’s."
+  },
+  {
+   "id": "slides-2",
+   "text": "[slides-2] Slide 2: How the next three hours run\nToday · 180 minutes How the next three hours run 0:00 Warm-up Unit 11 in three votes 0:10 Hook One shear check, two answers 0:16 The cap Plan, depth, the truss 0:27 Activity 12A The tie at two depths, pairs 0:40 WE 12.1 A four-pile cap, I do 0:55 Shear at φ/5 β and its floor 1:03 Activity 12B A deeper cap?, pairs 1:10 Break 10 minutes 1:20 Face, detail, beam and six piles 1:32 FE 12.2 · S12 Pairs, then teams 2:08 Exa"
+  },
+  {
+   "id": "slides-3",
+   "text": "[slides-3] Slide 3: Three questions from last week’s piles\nWarm-up · no notes · cards up Three questions from last week’s piles W1 · Unit 11 The ultimate pile loads that design a cap leave out A the column moment B the imposed load C the cap’s own weight D nothing W2 · Unit 11 Four 450 mm piles at 3φ, edges 150 mm past the piles: the side of the cap is A 2100 mm B 1650 mm C 1800 mm D 2400 mm W3 · Unit 11 In Faded Example 11.2 the largest service pile load, checked against 60"
+  },
+  {
+   "id": "slides-4",
+   "text": "[slides-4] Slide 4: C, A, B, and what each means today\nWarm-up · answers C, A, B, and what each means today W1 C: the cap weight N_{Ed}/n ± M_{Ed}·x/Σx², as the notes, Mosley and the app. It sits over the piles and adds little at the critical sections. W2 A: 2100 mm (3 + 1) × 450 + 300. Today’s depth guide for 450 mm piles: 1000 mm, and shear decides. W3 B: 531.4 kN (3000 + 99)/6 + 53.6 × 0.9/3.24. The ultimate 720.8 kN designs today’s cap in FE 12.2. SEAA 4333 · Unit 12"
+  },
+  {
+   "id": "slides-5",
+   "text": "[slides-5] Slide 5: The notes’ four-pile cap: one shear check, two answers\nHook · 5 minutes The notes’ four-pile cap: one shear check, two answers Same cap, same load, same section: 4237.5 kN of pile load beyond it. The notes reduce it to 750.9 kN and pass by 1 %. EC2 gives 1059.4 kN and a failure. What changed between the two calculations? SEAA 4333 · Unit 12 · Foundations III Workbook 12.2"
+  },
+  {
+   "id": "slides-6",
+   "text": "[slides-6] Slide 6: Why does the course notes’ cap pass by 1 % in the notes and fail under EC2?\nConcept check 1 · the big question · vote now, again after Activity 12B Why does the course notes’ cap pass by 1 % in the notes and fail under EC2? A the notes use service loads B the notes let β = a_v/2d fall below 0.25 C EC2 counts the bars in ρ_l D the notes use 0.5νf_{cd} Vote · convince your neighbour · vote again Workbook 12.2"
+  },
+  {
+   "id": "slides-7",
+   "text": "[slides-7] Slide 7: A pile cap: plan, depth, and two models\nBlock A · talk 1 · 5 minutes A pile cap: plan, depth, and two models Plan s = 3φ, edges 150 mm past the piles: (k + 1)φ + 300 Depth Mosley Table 10.5 ≈ 2φ + 100 to start; shear decides Model compact caps: the truss; longer caps, six piles with a moment: beam theory SEAA 4333 · Unit 12 · Foundations III Notes §1 · Workbook 12.2"
+  },
+  {
+   "id": "slides-8",
+   "text": "[slides-8] Slide 8: The truss: concrete struts, a steel tie\nBlock A · talk 2 · 6 minutes The truss: concrete struts, a steel tie two piles: T = Ns/4d three: T = Ns/9d each side four: T = Ns/8d each truss A_s = T/0.87f_{yk} ≥ A_{s,min} Four piles: two trusses each way, so the bars each way carry 2T. SEAA 4333 · Unit 12 · Foundations III Notes §2 · Workbook 12.2"
+  },
+  {
+   "id": "slides-9",
+   "text": "[slides-9] Slide 9: The tie force of the notes’ cap at two depths\nActivity 12A · pairs · 10 minutes The tie force of the notes’ cap at two depths F12: four 500 mm piles at s = 1500 mm N_{Ed} = 1.35 × 3500 + 1.5 × 2500 = 8475 kN cover 75 mm, H25 in two layers cap 2300 mm square, C30/37 1 d for h = 1100 mm and for h = 1700 mm (upper layer) 2 T in each truss, at both depths 3 the steel each way, against A_{s,min} Work in Workbook 12.2. Then type both T in Lab tab 6 and reveal. SEAA 43"
+  },
+  {
+   "id": "slides-10",
+   "text": "[slides-10] Slide 10: A deeper cap needs less tie, but more minimum steel\nActivity 12A · reveal A deeper cap needs less tie, but more minimum steel h = 1100 mm d = 987.5; T = 1609.2 kN steel each way 2 × 1609.2/0.435 = 7399 mm² → 16H25; A_{s,min} 3421. h = 1700 mm d = 1587.5; T = 1001.0 kN 4602 mm² each way, but A_{s,min} = 5499 governs → 12H25. the pattern T ∝ 1/d deeper: less tie, more minimum steel; the depth is set by shear, next. Each way the bars carry 2T = Ns/4d: the moment at the c"
+  },
+  {
+   "id": "slides-11",
+   "text": "[slides-11] Slide 11: A four-pile cap: the notes’ 1100 mm, and why it fails\nWorked Example 12.1 · I do A four-pile cap: the notes’ 1100 mm, and why it fails Calculation Output n = 6200/1800 = 3.44; s = 1500 4 piles; 2300 × 2300 h = 2φ + 100; W = 145.5 1100 mm; 1536.4 ≤ 1800 ✓ T = 8475 × 1500/(8 × 987.5) 1609.2 kN A_s = 2T/435; A_{s,min} 3421 7399 → 16H25 V_{Ed} = 2 × 2118.75; a_v = 350 4237.5 kN a_v < 0.5d = 494: β 0.25 V_{Ed,red} against V_{Rd,c} (v_{min}) 1059.4 > 760.3 ✗ face 8475/(2000 ×"
+  },
+  {
+   "id": "slides-12",
+   "text": "[slides-12] Slide 12: Shear at φ/5: the enhancement, and its floor\nBlock B · talk 3 · 6 minutes Shear at φ/5: the enhancement, and its floor section φ/5 inside the pile face a_v = s/2 − c/2 − 0.3φ β = max(a_v, 0.5d)/2d ≥ 0.25 Only with the bars anchored beyond the piles; V_{Ed} ≤ 0.5bdνf_{cd}; ρ_l only if the bars run l_{bd} + d past the section. SEAA 4333 · Unit 12 · Foundations III Notes §4 · Workbook 12.3"
+  },
+  {
+   "id": "slides-13",
+   "text": "[slides-13] Slide 13: The notes’ cap: a v = 350 mm, d = 987.5 mm, the bars bent up and anchored beyond the piles. By EC2, β is\nConcept check 2 · think 60 seconds, then vote The notes’ cap: a_v = 350 mm, d = 987.5 mm, the bars bent up and anchored beyond the piles. By EC2, β is A 0.177 B 0.25 C 0.354 D 1.0 Vote · convince your neighbour · vote again Workbook 12.3"
+  },
+  {
+   "id": "slides-14",
+   "text": "[slides-14] Slide 14: Deepen the notes’ cap from 1100 to 1700 mm. V Ed,red …\nActivity 12B · pairs · 5 minutes Deepen the notes’ cap from 1100 to 1700 mm. V_{Ed,red}… A falls to about 470 kN, because a_v/2d falls B stays at 1059.4 kN C rises with the depth D depends on the bars a_v = 350 mm stays the same: the piles do not move. Choose, then reveal in Lab tab 6. SEAA 4333 · Unit 12 · Foundations III Lab tab 6 · Workbook 12.3"
+  },
+  {
+   "id": "slides-15",
+   "text": "[slides-15] Slide 15: It stays: β is on its floor; V Rd,c is what grows\nActivity 12B · reveal It stays: β is on its floor; V_{Rd,c} is what grows h = 1100 mm β = 0.25: 1059.4 kN V_{Rd,c} = 0.335 × 2300 × 987.5 = 760.3 ✗ h = 1700 mm, 12H25 β = 0.25: 1059.4 kN V_{Rd,c} = 0.302 × 2300 × 1587.5 = 1104.0 ✓ 1600 mm gives 1047.9 kN (✗), 1650 mm 1076.0 kN (✓). Concept check 1, second vote: the answer is B. SEAA 4333 · Unit 12 · Foundations III Lab tab 6 · Workbook 12.3"
+  },
+  {
+   "id": "slides-16",
+   "text": "[slides-16] Slide 16: Punching and the column face\nBlock C · talk 4 · 4 minutes Punching and the column face s ≤ 3φ: no check at 2d s > 3φ: punching as a slab v_{Ed,0} = βN_{Ed}/(u_0·d) ≤ 0.4νf_{cd} 0.4νf_{cd} = 4.22 N/mm² (A1:2014, course); the notes use 0.5νf_{cd} = 5.28. SEAA 4333 · Unit 12 · Foundations III Notes §5 · Workbook 12.4"
+  },
+  {
+   "id": "slides-17",
+   "text": "[slides-17] Slide 17: Detailing: anchor the tie where the struts meet it\nBlock C · talk 4 · 3 minutes Detailing: anchor the tie where the struts meet it (edge − c) + (d − c) ≥ l_{bd} H12 links @ ≤ 250, lapped A_{s,min} both ways, top too Anchored at the piles: β is valid. Running l_{bd} + d past the section: ρ_l counts. Two different checks. SEAA 4333 · Unit 12 · Foundations III Notes §6 · Workbook 12.4"
+  },
+  {
+   "id": "slides-18",
+   "text": "[slides-18] Slide 18: Beam theory: six piles under a moment\nBlock C · talk 5 · 5 minutes Beam theory: six piles under a moment M = Σ F_i(x_i − c/2), at each face M_{xx} = 2F_{max}(x_{max} − c/2) M_{yy} = 3F_{mean}(s/2 − c/2) Larger moment in the outer layer; expect A_{s,min} across. Shear in both directions, each with its own a_v and d. SEAA 4333 · Unit 12 · Foundations III Notes §3 · Workbook 12.4"
+  },
+  {
+   "id": "slides-19",
+   "text": "[slides-19] Slide 19: The six-pile cap of FE 11.2, by beam theory\nFaded Example 12.2 · pairs · 18 minutes The six-pile cap of FE 11.2, by beam theory Given: steps 1–2 pile loads 720.8 / 700.0 / 679.2 kN d_x = 1017, d_y = 1001 mm Your turn: steps 3–8 face moments, bars both ways, shear both ways, column face, cracks Then check in the app: case F13. SEAA 4333 · Unit 12 · Foundations III Workbook 12.4"
+  },
+  {
+   "id": "slides-20",
+   "text": "[slides-20] Slide 20: 12H16 along, 18H16 across; shear passes both ways\nFaded Example 12.2 · check 12H16 along, 18H16 across; shear passes both ways M_{xx}; M_{yy} 1009.2; 525.0 kN m along x 2401 mm² → 12H16 across A_{s,min} 3618 → 18H16 shear along β 0.300: 432.4 ≤ 507.2 ✓ shear across β 0.25: 525.0 ≤ 801.6 ✓ face β 1.071: 2.79 ≤ 4.22 ✓ The notes check one direction and use d_y for V_{Rd,c} (501 kN); the long bars cross that section, so d_x gives 507.2 kN. At Mosley’s 700 mm the shear w"
+  },
+  {
+   "id": "slides-21",
+   "text": "[slides-21] Slide 21: In Faded Example 12.2, where does β sit on its floor of 0.25?\nConcept check 3 · think 60 seconds, then vote In Faded Example 12.2, where does β sit on its floor of 0.25? A along the length (a_v = 610 mm) B across (a_v = 160 mm < 0.5d) C in both directions D in neither Vote · convince your neighbour · vote again Workbook 12.4"
+  },
+  {
+   "id": "slides-22",
+   "text": "[slides-22] Slide 22: Foundation S12: four slips in a four-pile cap\nSpot the error · teams · 12 minutes Foundation S12: four slips in a four-pile cap Lab tab 3, or Workbook 12.5. Column 400 mm, G_k 2200 + Q_k 1500 kN; four 450 mm bored piles, working load 1100 kN; cap 2100 mm square, h = 1000 mm; H20, cover 75 mm; C30/37. Reader reads each line aloud; calculator rechecks; checker names the clause or the truss; reporter writes the line number and a one-line reason. Three slips make th"
+  },
+  {
+   "id": "slides-23",
+   "text": "[slides-23] Slide 23: D12: a two-pile cap by the truss analogy (20 marks)\nBlock D · alone · 25 minutes D12: a two-pile cap by the truss analogy (20 marks) (a) Piles, spacing, plan, depth; cap weight and pile load [6] (b) N_{Ed}, d, the tie force and the tie bars; bars across [4] (c) Shear at φ/5 with β, the anchorage and V_{Rd,c}; revise if needed [6] (d) Column face and the crack spacing [4] Ref | Calculations | Output. No app, no notes. Self-mark with the scheme after class. SEAA 4333 ·"
+  },
+  {
+   "id": "slides-24",
+   "text": "[slides-24] Slide 24: The pile cap of your individual column\nProject studio · 12 minutes The pile cap of your individual column Your group The piles you sized in Unit 11 for your ground-floor column, if it needs piles. Your cap Plan from the spacing, depth from the guide; T by the truss, or M at the faces for six piles. Check it Shear at φ/5 with β ≥ 0.25: is the guide depth enough? If not, by how much deeper? Log it Cap size and depth, the tie bars, the shear ratio, and why t"
+  },
+  {
+   "id": "slides-25",
+   "text": "[slides-25] Slide 25: Take a reduction only with its limit\nProfessional Habit 12 Take a reduction only with its limit β ≥ 0.25 a_v is never taken below 0.5d β needs anchorage bars bent up, l_{bd} beyond each pile ρ_l needs length bars count only if they run l_{bd} + d past the section Read the clause the textbook may quote the rule without its limit SEAA 4333 · Unit 12 · Foundations III Workbook 12.8"
+  },
+  {
+   "id": "slides-26",
+   "text": "[slides-26] Slide 26: Before Unit 13\nAfter class Before Unit 13 Notes §1–§6 42 min Exercises, all 14 45 min Explorer, 6 tasks with S12 30 min Self-mark D12 on eLearning 15 min Mosley §10.7, RDF §16 reading Unit 13: retaining walls, their stability, and the design of the stem and the base. SEAA 4333 · Unit 12 · Foundations III Workbook 12.8"
+  },
+  {
+   "id": "slides-27",
+   "text": "[slides-27] Slide 27: Before you leave\nExit ticket · 5 minutes · Workbook 12.8 Before you leave 1 A two-pile cap carries N_{Ed} = 1500 kN on piles 1200 mm apart, with d = 800 mm. Find the tie force and the steel. 2 A four-pile cap has a_v = 300 mm and d = 900 mm, the bars anchored beyond the piles. Find β. 3 What is still unclear? Tear off the slip and hand it in at the door. SEAA 4333 · Unit 12 · Foundations III"
+  },
+  {
+   "id": "examples-x1",
+   "text": "[examples-x1] Example 1 · Worked Example 12.1: a four-pile cap by the truss analogy\nExam type design a pile cap (truss theory) Workbook 12.3 Time ≈ 35 min\nQuestion A 500 × 500 mm column carries G_k = 3500 kN and Q_k = 2500 kN. It stands on prestressed spun piles of 500 mm diameter with a working load of 1800 kN each. C30/37, B500, cover 75 mm, H25 bars; assume a cap weight of 200 kN at first and take the depth from the course guide. Design the pile cap by the truss analogy and check it by the course method; revise it if it fails. In the app: cases F12 (the course notes’ Example 5, truss theory; Foundation3.xlsx Ex 11.6) and F12R (the revised cap) of the RC Design Worked Solutions app.\n[Figure: Worked Example 12.1: the notes’ 1100 mm cap fails the course shear check; the 1700 mm cap passes.]\nPhysical picture. The column pushes down at the centre and four piles push up at the corners, 1.5 m apart. The cap behaves as two pairs of trusses: concrete struts from the column to each pile, steel ties between the pile heads. The piles stand close to the column, so the shear section is close to it too: the enhancement will be at its limit, and the depth has to supply the shear resistance.\nPlan. Piles and the cap; the tie and its bars; shear at the φ/5 section with β and its floor; the column face; then revise the depth and check again; cracks and detailing.\n## Step 1 Piles and the cap\nRef Calculations Output\nUnit 11 N = 3500 + 2500 = 6000 kN; n = (6000 + 200)/1800 = 3.44 4 piles\n§1 s = 3 × 500 = 1500 mm; B = (3 + 1) × 500 + 300 = 2300 mm; h = 2 × 500 + 100 2300 × 2300 × 1100 mm\nEN 1991-1-1 W = 25 × 2.3² × 1.1 = 145.5 kN ≤ 200 kN; service load on each pile (6000 + 145.5)/4 1536.4 ≤ 1800 kN ✓\n## Step 2 The tie\nRef Calculations Output\nEN 1990 6.10 N_{Ed} = 1.35 × 3500 + 1.5 × 2500 = 8475 kN; each pile 2118.75 kN (no cap weight)\n§2 Upper layer, both directions: d = 1100 − 75 − 1.5 × 25 987.5 mm\n(12.3) T = 8475 × 1500/(8 × 987.5), each truss 1609.2 kN\n(12.4) Two trusses each way: A_s = 2 × 1609.2 × 10³/435 7399 mm² each way\n## Step 3 The bars\nRef Calculations Output\n(12.4) A_{s,min} = 0.0015 × 2300 × 987.5 = 3421 mm²; A_{s,max} = 0.04 × 2300 × 1100 = 101200 mm²\n§2 s = 1500 mm = 3φ: spread evenly; spacing (2300 − 150 − 25)/15 16H25 each way (7854) at 141.7 mm ✓\n## Step 4 Shear at the φ/5 section\nRef Calculations Output\n§4 Section φ/5 = 100 mm inside the pile faces; two piles beyond it: V_{Ed} = 2 × 2118.75 4237.5 kN\n(12.6) a_v = 1500/2 − 500/2 − 0.3 × 500 350 mm\n§6 Bent-up bars beyond the pile centre line: (400 − 75) + (987.5 − 75) = 1237.5 ≥ l_{bd} = 894 mm: anchored, β allowed ✓\n(12.7) a_v = 350 < 0.5d = 493.75 mm, so β = 493.75/(2 × 987.5) β = 0.25\n(12.8) V_{Ed,red} = 0.25 × 4237.5; unreduced 4237.5 ≤ 0.5 × 2300 × 987.5 × 0.528 × 20 = 11992 kN ✓ 1059.4 kN\n## Step 5 The shear resistance\nRef Calculations Output\nEC2 Fig. 6.3 Bars past the section: (1150 − 600 − 75) + (987.5 − 75) = 1387.5 < l_{bd} + d = 1881.4 mm, so ρ_l = 0\n(12.9) k = 1 + √(200/987.5) = 1.450; v_{min} = 0.035 × 1.450^{1.5} × √30 = 0.3347 N/mm²; V_{Rd,c} = 0.3347 × 2300 × 987.5 760.3 kN\n(12.8) V_{Ed,red} = 1059.4 > 760.3 kN ✗ fails (1.39)\nnotes Without the floor, β = 350/1975 = 0.177: 750.9 ≤ 760.3 kN, a pass by 1 %. EC2 does not allow it.\n## Step 6 The column face\nRef Calculations Output\n(12.10) d = 1100 − 75 − 25 = 1000 mm; v_{Ed,0} = 8475 × 10³/(4 × 500 × 1000) 4.24 N/mm²\n(12.10) v_{Rd,max} = 0.4 × 0.528 × 30/1.5 = 4.22 N/mm² (0.5νf_{cd} of the notes: 5.28) ✗ by 0.3 %\n## Step 7 Revise: a deeper cap\nRef Calculations Output\n§4 β stays at 0.25 and V_{Ed,red} at 1059.4 kN: only V_{Rd,c} can grow. 1600 mm gives 1047.9 kN (✗), 1650 mm 1076.0 kN (✓); take the app’s revised h = 1700 mm h = 1700 mm\nEN 1991-1-1 W = 25 × 2.3² × 1.7 = 224.8 kN; pile (6000 + 224.8)/4 = 1556.2 ≤ 1800 kN; n = (6000 + 300)/1800 = 3.5, still 4 ✓\n(12.3), (12.4) d = 1587.5 mm; T = 8475 × 1500/(8 × 1587.5) = 1001.0 kN; A_s = 2 × 1001.0 × 10³/435 = 4602 mm²\n(12.4) A_{s,min} = 0.0015 × 2300 × 1587.5 = 5499 mm² governs; spacing (2300 − 150 − 25)/11 12H25 each way (5890) at 193.2 mm\n## Step 8 Shear and the column face again\nRef Calculations Output\n(12.7) a_v = 350 < 0.5d = 793.75 mm: β = 0.25, V_{Ed,red} = 1059.4 kN; anchorage (400 − 75) + (1587.5 − 75) = 1837.5 ≥ 894 mm\n(12.9) Bars past the section 1987.5 < 2481.4 mm: ρ_l = 0; k = 1.355, v_{min} = 0.3023; V_{Rd,c} = 0.3023 × 2300 × 1587.5 1104.0 ≥ 1059.4 kN ✓\n(12.10) d = 1600 mm: v_{Ed,0} = 8475 × 10³/(2000 × 1600) = 2.65 ≤ 4.22; each pile 2118.75 × 10³/(π × 500 × 1600) = 0.84 N/mm² ✓\n## Step 9 Cracks and detailing\nRef Calculations Output\nTable 7.3N σ_s = (3500 + 0.3 × 2500)/8475 × 434.8 × 4602/5890 = 170.3 N/mm² → s_{max} = 287 mm; spacing 193 mm ✓\n§6 Bars bent up at both ends; horizontal links H12 @ 250 lapped; column starter bars with links; top mat A_{s,min} (Mosley); pile heads 75 mm into the cap\nAnswer. Four 500 mm spun piles at 1500 mm under a cap 2300 × 2300 × 1700 mm with 12H25 each way at 193 mm, bent up at both ends, c_{nom} = 75 mm. The course notes’ 1100 mm cap with 16H25 each way fails the course shear check (1059.4 > 760.3 kN) and the column face (4.24 > 4.22 N/mm²).\nWhat the numbers say The piles stand so close to the column that a_v = 350 mm is below 0.5d at any useful depth: β sits on its floor of 0.25 and V_{Ed,red} is fixed at N_{Ed}/8 = 1059.4 kN. Deepening works only through V_{Rd,c} = v_{min}bd, which needs d ≈ 1.5 m here. The deeper cap needs less tie steel (T falls from 1609 to 1001 kN) but more minimum steel, which now governs. Mosley’s Example 10.5, with lighter piles (1250 kN each on 450 mm piles), passes even with the floor (625 ≤ 633 kN); the notes’ cap, with 2119 kN on each pile, does not."
+  },
+  {
+   "id": "examples-x2",
+   "text": "[examples-x2] Example 2 · Faded Example 12.2: a six-pile cap by beam theory\nExam type design a pile cap (beam theory) Workbook 12.4 Time ≈ 25 min\nQuestion The six-pile group of Faded Example 11.2: a 400 × 400 mm column with N_{Ed} = 4200 kN and M_{Ed} = 75 kN m about y, on 300 × 300 mm piles at 900 mm under a cap 1.5 × 2.4 × 1.1 m. C30/37, B500, cover 75 mm, H16 bars; take the quasi-permanent stress ratio as 0.55, as the notes do. Design the cap by beam theory. In the workbook steps 1 and 2 are given; complete steps 3 to 8. In the app: case F13 (the course notes’ Example 5, beam theory; Foundation3.xlsx Ex 11.7).\n[Figure: Faded Example 12.2: the cap of Faded Example 11.2, with its two shear sections.]\n## Step 1 Pile loads (given, from Faded Example 11.2)\nRef Calculations Output\nUnit 11 Service: P_{max} = 531.4 ≤ 600 kN ✓. Ultimate, without the cap weight: 4200/6 ± 75 × 0.9/3.24 720.8, 700.0, 679.2 kN\n## Step 2 Effective depths (given)\nRef Calculations Output\n§3 Bars along the length, outer layer: d_x = 1100 − 75 − 8; across, inner layer: d_y = 1100 − 75 − 24 1017; 1001 mm\n## Step 3 Moments at the column faces\nRef Calculations Output\n(12.5) Bars along x: the two end piles beyond the face, 0.9 − 0.2 = 0.70 m away: M_{xx} = 2 × 720.8 × 0.70 1009.2 kN m\n(12.5) Bars across: a row of three, 0.45 − 0.2 = 0.25 m away: M_{yy} = 3 × 700 × 0.25 525.0 kN m\n## Step 4 Bars along the length\nRef Calculations Output\nRCD I K = 1009.2 × 10⁶/(30 × 1500 × 1017²) = 0.0217; z = 0.95d = 966.2 mm; A_s = 1009.2 × 10⁶/(435 × 966.2) 2401 mm²\n(12.4) A_{s,min} = 0.0015 × 1500 × 1017 = 2298 mm² 12H16 (2413) ✓\n## Step 5 Bars across\nRef Calculations Output\nRCD I K = 525.0 × 10⁶/(30 × 2400 × 1001²) = 0.0073; z = 0.95d = 951.0 mm; A_s = 525.0 × 10⁶/(435 × 951.0) = 1269 mm²\n(12.4) A_{s,min} = 0.0015 × 2400 × 1001 = 3618 mm² governs 18H16 (3619) ✓\n## Step 6 Shear in both directions\nRef Calculations Output\n(12.6), (12.7) Section across the width: two end piles beyond, V_{Ed} = 1441.7 kN; a_v = 900 − 200 − 90 = 610 ≥ 0.5d = 508.5 mm: β = 610/2034 = 0.300; anchored (225 + 942 = 1167 ≥ 572 mm) V_{Ed,red} = 432.4 kN\n(12.9) Bars past the section 1257 < 572 + 1017 = 1589 mm: ρ_l = 0; V_{Rd,c} = 0.3325 × 1500 × 1017 507.2 ≥ 432.4 kN ✓\n(12.7), (12.9) Section along the length: a row of three beyond, V_{Ed} = 2100 kN; a_v = 450 − 200 − 90 = 160 < 0.5d = 500.5 mm: β = 0.25; V_{Rd,c} = 0.3337 × 2400 × 1001 = 801.6 kN 525.0 ≤ 801.6 kN ✓\n## Step 7 The column face and the piles\nRef Calculations Output\n(12.10) β = 1 + 0.6 × (75 × 10³/4200) × 1600/240000 = 1.071; d = 1100 − 75 − 16 = 1009 mm; v_{Ed,0} = 1.071 × 4200 × 10³/(1600 × 1009) 2.79 ≤ 4.22 N/mm² ✓\nRDF §16 Each pile: 720.8 × 10³/(4 × 300 × 1009) 0.60 N/mm² ✓\n## Step 8 Cracks and detailing\nRef Calculations Output\nTable 7.3N Along x: σ_s = 0.55 × 434.8 × 2401/2413 = 238.0 N/mm² → s_{max} = 202.5 mm; spacing (1500 − 150 − 16)/11 = 121.3 mm ✓\nTable 7.3N Across: σ_s = 0.55 × 434.8 × 1269/3619 = 83.9 N/mm² → 300 mm; spacing (2400 − 150 − 16)/17 = 131.4 mm ✓\n§6 Bars bent up at the ends; horizontal links H12 @ 250 (the notes show 4H12 binders); starter bars with links\nAnswer. Cap 1500 × 2400 × 1100 mm: 12H16 along the length at 121 mm and 18H16 across at 131 mm, bent up at the ends, c_{nom} = 75 mm. Shear 432.4 ≤ 507.2 kN along and 525.0 ≤ 801.6 kN across; column face 2.79 ≤ 4.22 N/mm².\nWhat the numbers say Here a_v = 610 mm is beyond 0.5d, so β = 0.30 comes from a_v/2d itself: the floor bites only in the short direction, where a_v = 160 mm. The notes check one direction and use d_y for V_{Rd,c} (501 kN); the bars that cross that section are the long ones, so d_x gives 507.2 kN. A_{s,min} governs across, and nearly along (2401 against 2298 mm²): at this depth the cap is barely bending; it is the shear that keeps it 1.1 m deep (Example 3, question 4)."
+  },
+  {
+   "id": "examples-x3",
+   "text": "[examples-x3] Example 3 · Explain-type questions\nExam type short written answers Time ≈ 3 min each\nQuestions\n- Why does the truss analogy give more steel than beam theory for the same four-pile cap?\n- In Worked Example 12.1, why does a deeper cap not reduce the reduced shear V_{Ed,red}, and how does it pass?\n- When must a pile cap be checked for punching, and what is checked when it need not be?\n- Mosley Table 10.5 suggests 700 mm for 300 mm piles. What happens to the cap of Faded Example 12.2 at 700 mm?\nWrite your four answers first, then open the model answers one by one.\n## Answer 1 Centre line against face\nIn one direction the truss carries 2T = Ns/4d, which is the moment at the column centre line, (N/2)(s/2) = Ns/4, divided by d. Beam theory takes the moment at the column face, (N/2)(s/2 − c/2), smaller by the half-width of the column, over z = 0.95d. For the notes’ four-pile cap that is 3178 kN m over 987.5 mm against 2119 kN m over 938 mm: 7399 against 5192 mm² each way. The truss is the safer model where the struts are steep and the cap compact; beam theory suits longer caps.\n## Answer 2 The floor of β\na_v = 350 mm is fixed by the plan; 0.5d is 494 mm at 1100 mm depth and grows with d, so a_v stays below 0.5d and β stays at its floor, 0.25. V_{Ed,red} = 0.25 × 4237.5 = 1059.4 kN whatever the depth. Without the floor, β = a_v/2d would keep falling and a deeper cap would seem to lower the shear, which is the reasoning EC2 rules out. The cap passes because V_{Rd,c} = v_{min}bd grows with d (v_{min} itself falls a little through k): 760 kN at 1100 mm, 1104 kN at 1700 mm.\n## Answer 3 Piles outside 2d\nWhen the piles are more than 3φ apart, some lie outside the basic control perimeter at 2d from the column, and the cap can punch as a slab: it is checked at the control perimeters as in Unit 10, and only the bars within 1.5φ of a pile centre count in the ties. At 3φ or closer the piles sit inside 2d, the shear crosses the beam sections at φ/5, and no punching perimeter is checked (Mosley §10.7.3, BS 8110 practice). The crushing checks remain: the column face, βN_{Ed}/(u_0d) ≤ 0.4νf_{cd}, and each pile perimeter.\n## Answer 4 Shear sets the depth\nAt h = 700 mm, d_x = 617 mm. Bending needs 3979 mm² along the length (20H16 instead of 12H16), which is possible. Shear is not: a_v = 610 mm is now beyond 0.5d, so β = 610/1234 = 0.49 and V_{Ed,red} = 712.7 kN against V_{Rd,c} = 348.8 kN, a ratio of 2.0; the column face reaches 4.62 > 4.22 N/mm². 1000 mm still fails (479.5 > 468.5 kN); the notes’ 1100 mm passes. Table 10.5 suits ordinary pile loads; these 300 mm piles carry 720 kN each at the ultimate limit state, and the cap has to be deep enough for that shear."
+  },
+  {
+   "id": "exercises-b1",
+   "text": "[exercises-b1] Exercise B1 · Two-pile cap: the tie\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-b2",
+   "text": "[exercises-b2] Exercise B2 · Four-pile cap: the ties each way\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-b3",
+   "text": "[exercises-b3] Exercise B3 · Three-pile cap: the ties\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-b4",
+   "text": "[exercises-b4] Exercise B4 · Six-pile cap: beam theory\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-b5",
+   "text": "[exercises-b5] Exercise B5 · Shear at the φ/5 section\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-b6",
+   "text": "[exercises-b6] Exercise B6 · The column face with a moment\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-quick",
+   "text": "[exercises-quick] Exercises: quick concept questions\n- Mosley designs a pile cap by the truss analogy rather than beam theory when\n- In a four-pile cap with the tie force T = Ns/8d in each truss, the bars across the cap in one direction must carry\n- The critical section for shear in a pile cap is taken\n- When a_v , the distance from the column face to the shear section, is less than 0.5d, EC2 6.2.2(6) takes\n- Piles at 3φ under a pile cap. Punching at the basic control perimeter, 2d from the column,\n- In the six-pile cap of Faded Example 12.2, the 18H16 across the cap are set by\n- The course notes’ four-pile cap: N_{Ed} = 8475 kN, s = 1500 mm, h = 1100 mm, cover 75 mm, H25. One line contains the slip. Which one?\n- A two-pile cap: N_{Ed} = 2000 kN, 450 mm piles at 1350 mm, a 450 mm column, the cap 750 mm wide with d = 915 mm, bars bent up and anchored, not counted in ρ_l ; C30/37. One line contains the slip. Which one?"
+  },
+  {
+   "id": "lab-truss",
+   "text": "[lab-truss] Explorer task 1 · Tab 6, Activity 12A: work out the tie force in each truss of case F12 for h = 1100 mm and h = 1700 mm by hand (Workbook 12.2), type both values, then reveal.\nTicks itself: when both values are entered and revealed · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-floor",
+   "text": "[lab-floor] Explorer task 2 · Tab 6, Activity 12B: predict what happens to the reduced shear V_{Ed,red} of case F12 when the cap goes from 1100 to 1700 mm deep, then reveal.\nTicks itself: when your prediction is revealed · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-deepen",
+   "text": "[lab-deepen] Explorer task 3 · Tab 6: with the loads of case F12, raise h in 50 mm steps until the shear check passes. Which depth is the first to pass, and why does β not change on the way?\nTicks itself: when the four-pile cap of F12’s loads passes the shear check after you change h · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-wide",
+   "text": "[lab-wide] Explorer task 4 · Tab 6: set the spacing factor k above 3 (piles wider apart than 3φ). Which bars still count, and which check does the Lab now ask for?\nTicks itself: when k is more than 3 · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-beam",
+   "text": "[lab-beam] Explorer task 5 · Tab 6: choose case F13, the six-pile cap of Faded Example 12.2. Read M_{xx} and M_{yy} at the column faces and the two shear sections: in which direction does β sit on its floor?\nTicks itself: when case F13 is shown · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-s12",
+   "text": "[lab-s12] Explorer task 6 · Tab 3: Foundation S12, find all four slips, tap their lines and press “Check”.\nTicks itself: when all four slips of S12 are found, before Show · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "glossary-a-v-shear-span-of-a-cap",
+   "text": "[glossary-a-v-shear-span-of-a-cap] Glossary: a_v (shear span of a cap)\na_v (shear span of a cap): The distance from the face of the column to the shear section φ/5 inside the pile face; for a square group a_v = s/2 − c/2 − 0.3φ."
+  },
+  {
+   "id": "glossary-anchorage-beyond-the-pile-centre-line",
+   "text": "[glossary-anchorage-beyond-the-pile-centre-line] Glossary: anchorage beyond the pile centre line\nanchorage beyond the pile centre line: The length a tie bar runs past the centre of a pile, straight and up its bent leg: (edge distance − c) + (d − c); it must reach l_{bd} for β to be valid."
+  },
+  {
+   "id": "glossary-beam-theory",
+   "text": "[glossary-beam-theory] Glossary: beam theory\nbeam theory: Designing a pile cap as a wide inverted beam: the moment at each column face from the piles beyond it, M = ΣF_i (x_i − c/2)."
+  },
+  {
+   "id": "glossary-bent-up-bar",
+   "text": "[glossary-bent-up-bar] Glossary: bent-up bar\nbent-up bar: A tie bar turned up at the end of the cap so that it anchors beyond the pile centre line (Mosley §10.7.4)."
+  },
+  {
+   "id": "glossary-shear-enhancement-factor",
+   "text": "[glossary-shear-enhancement-factor] Glossary: β, shear enhancement factor\nβ, shear enhancement factor: The factor of EC2 6.2.2(6) on loads near a support: β = max(a_v , 0.5d)/2d, so 0.25 ≤ β ≤ 1; valid only with the bars fully anchored at the support."
+  },
+  {
+   "id": "glossary-column-face-check",
+   "text": "[glossary-column-face-check] Glossary: column face check\ncolumn face check: The crushing check at the column perimeter, βN_{Ed} /(u_0 d) ≤ v_{Rd,max} (EC2 6.4.5(3)), made for every cap."
+  },
+  {
+   "id": "glossary-critical-shear-section",
+   "text": "[glossary-critical-shear-section] Glossary: critical shear section\ncritical shear section: In a pile cap, the section a fifth of the pile diameter inside the face of the pile; V_{Ed} is the load of every pile beyond it."
+  },
+  {
+   "id": "glossary-depth-guide",
+   "text": "[glossary-depth-guide] Glossary: depth guide\ndepth guide: Mosley Table 10.5: 700 mm for 300 mm piles to 1800 mm for 750 mm piles, for up to six piles; about 2φ + 100. A starting value: shear decides."
+  },
+  {
+   "id": "glossary-effective-depth-by-layers",
+   "text": "[glossary-effective-depth-by-layers] Glossary: effective depth by layers\neffective depth by layers: d follows the layer of the bars: h − c − φ/2 for one layer, h − c − 1.5φ for the upper of two, h − c − 2.5φ for the top of three."
+  },
+  {
+   "id": "glossary-floor-of",
+   "text": "[glossary-floor-of] Glossary: floor of β\nfloor of β: EC2’s rule that a_v is not taken less than 0.5d, so the reduced shear is never less than a quarter of V_{Ed} ; the course notes and Mosley leave it out."
+  },
+  {
+   "id": "glossary-horizontal-links",
+   "text": "[glossary-horizontal-links] Glossary: horizontal links\nhorizontal links: Fully lapped links of at least H12 at no more than 250 mm round the sides of a cap, holding the corners and the bent-up bars."
+  },
+  {
+   "id": "glossary-node",
+   "text": "[glossary-node] Glossary: node\nnode: A joint of the truss analogy: the upper node at the centre of the column, the lower nodes where the tie crosses the pile centre lines."
+  },
+  {
+   "id": "glossary-strength-reduction-factor",
+   "text": "[glossary-strength-reduction-factor] Glossary: ν, strength reduction factor\nν, strength reduction factor: ν = 0.6(1 − f_{ck} /250) for cracked concrete; 0.528 for C30/37. It sets v_{Rd,max} and the limit on the unreduced shear."
+  },
+  {
+   "id": "glossary-pile-cap",
+   "text": "[glossary-pile-cap] Glossary: pile cap\npile cap: The block that joins a group of piles to its column and shares the load among them; designed by the truss analogy or by beam theory."
+  },
+  {
+   "id": "glossary-pile-cut-off-level",
+   "text": "[glossary-pile-cut-off-level] Glossary: pile cut-off level\npile cut-off level: The level at which a pile head is trimmed: not above the bottom mat, about 75 mm into the cap, so that it does not weaken the cap in punching."
+  },
+  {
+   "id": "glossary-pile-perimeter-check",
+   "text": "[glossary-pile-perimeter-check] Glossary: pile perimeter check\npile perimeter check: F_{max} /(u_p d) ≤ v_{Rd,max} round each pile, u_p = πφ for a round pile (RDF §16)."
+  },
+  {
+   "id": "glossary-punching-in-a-pile-cap",
+   "text": "[glossary-punching-in-a-pile-cap] Glossary: punching in a pile cap\npunching in a pile cap: Checked at the control perimeters, as for a slab, only when the piles are more than 3φ apart and so stand outside 2d (Mosley §10.7.3)."
+  },
+  {
+   "id": "glossary-l-in-a-pile-cap",
+   "text": "[glossary-l-in-a-pile-cap] Glossary: ρ_l in a pile cap\nρ_l in a pile cap: The tension steel counts in V_{Rd,c} only if it runs l_{bd} + d beyond the shear section (EC2 Figure 6.3); in the course examples it does not, so v_{min} governs."
+  },
+  {
+   "id": "glossary-spacing-factor-k",
+   "text": "[glossary-spacing-factor-k] Glossary: spacing factor k\nspacing factor k: s = kφ; the course uses k = 3. With k > 3 only the bars within 1.5φ of a pile centre count, the enhancement applies to strips 3φ wide, and punching is checked."
+  },
+  {
+   "id": "glossary-starter-bars",
+   "text": "[glossary-starter-bars] Glossary: starter bars\nstarter bars: The bars left projecting from the cap to lap with the column bars, tied with links inside the cap."
+  },
+  {
+   "id": "glossary-strut",
+   "text": "[glossary-strut] Glossary: strut\nstrut: A band of concrete in compression carrying load from the column down to a pile head in the truss analogy."
+  },
+  {
+   "id": "glossary-tie",
+   "text": "[glossary-tie] Glossary: tie\ntie: The bottom reinforcement of the truss analogy, joining the pile heads and holding them from spreading apart."
+  },
+  {
+   "id": "glossary-tie-force-t",
+   "text": "[glossary-tie-force-t] Glossary: tie force T\ntie force T: Two piles Ns/4d; three piles Ns/9d each side; four piles Ns/8d each truss, two trusses each way (Mosley Table 10.4, RDF Figure 16.2)."
+  },
+  {
+   "id": "glossary-truss-analogy",
+   "text": "[glossary-truss-analogy] Glossary: truss analogy\ntruss analogy: A model of a compact pile cap as concrete struts from the column to the piles and steel ties between the pile heads; used when the span is less than about twice the depth."
+  },
+  {
+   "id": "glossary-v-rd-max",
+   "text": "[glossary-v-rd-max] Glossary: v_{Rd,max}\nv_{Rd,max}: The crushing limit at the column face: 0.4νf_{cd} = 4.22 N/mm² for C30/37 in the course (EN 1992-1-1 A1:2014); 0.5νf_{cd} = 5.28 N/mm² in the notes and Mosley."
+  },
+  {
+   "id": "glossary-whole-width-enhancement",
+   "text": "[glossary-whole-width-enhancement] Glossary: whole-width enhancement\nwhole-width enhancement: With s ≤ 3φ the reduction β applies across the whole shear section; with wider spacing only to strips 3φ wide centred on the piles (Mosley §10.7.2)."
+  }
+ ]
+}

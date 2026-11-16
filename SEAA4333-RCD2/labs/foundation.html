@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Foundation Lab · SEAA 4333</title>
-<meta name="description" content="SEAA 4333 Units 10 and 11, Foundations I and II: the bearing pressure under a rigid base when the load moves off-centre, the critical sections of a pad footing with the punching scan inside 2d of EC2 6.4.4(2), the strap footing of a boundary column (the reactions by statics and the strap’s shear and moment), the pile group (number, cap and pile loads under moments), and two spot-the-error sheets.">
+<meta name="description" content="SEAA 4333 Units 10 to 12, Foundations I to III: the bearing pressure under a rigid base when the load moves off-centre, the critical sections of a pad footing with the punching scan inside 2d of EC2 6.4.4(2), the strap footing of a boundary column (the reactions by statics and the strap’s shear and moment), the pile group (number, cap and pile loads under moments), the pile cap by the truss analogy and beam theory with the shear enhancement and its EC2 limit, and three spot-the-error sheets.">
 <meta name="claude:viewport-fit-sides" content="cover">
 <script>(function(){try{var r=document.documentElement,p=JSON.parse(localStorage.getItem("seaa4333-prefs")||"null")||{};if(p.lang==="ms"){r.lang="ms";r.setAttribute("data-lang","ms")}if(p.theme==="light"||p.theme==="dark")r.setAttribute("data-theme",p.theme);if(+p.font)r.style.fontSize=(+p.font*100)+"%"}catch(e){}})();</script>
-<!-- Foundation Lab (SEAA 4333 Units 10-11). SPDX-License-Identifier: MIT (code). Text and figures: CC BY-NC-SA 4.0.
+<!-- Foundation Lab (SEAA 4333 Units 10-12). SPDX-License-Identifier: MIT (code). Text and figures: CC BY-NC-SA 4.0.
      Copyright (c) 2026 Ahmad Razin Zainal Abidin and Universiti Teknologi Malaysia. See ../LICENSE.md. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,7 +15,7 @@
 <style>
 /* Foundation Lab. Layout: the calculation pad of the Staircase and Column Labs, laid on concrete. Controls stay monochrome ink;
    colour is kept for the two bracing cases (braced blue, unbraced rust, validated for colour-vision
-   deficiency in both themes) and for pass/fail verdicts. The tabs follow the order of the Unit 10 and 11 sessions. */
+   deficiency in both themes) and for pass/fail verdicts. The tabs follow the order of the Unit 10 to 12 sessions. */
 :root{
   --bg:#E6E4DF; --surface:#F7F6F2; --surface-2:#EEECE6;
   --ink:#1D1C19; --ink-2:#47443D; --ink-3:#686459;
@@ -266,14 +266,14 @@ input[type=range].xs{width:100%;accent-color:var(--flight);margin:6px 0 2px}
 </head>
 <body>
 <div class="sitebar" id="sitebar"><div class="wrap">
-  <nav class="crumbs" aria-label="Breadcrumb" data-ms-aria="Laluan"><a href="https://razinutm.github.io/My_Lectures/">My Lectures</a><span aria-hidden="true">›</span><a href="../index.html">SEAA 4333</a><span aria-hidden="true">›</span><a href="../10-foundations-1/index.html#lab">Unit 10</a><span aria-hidden="true">·</span><a href="../11-foundations-2/index.html#lab">Unit 11</a><span aria-hidden="true">›</span><span aria-current="page">Foundation Lab</span></nav>
+  <nav class="crumbs" aria-label="Breadcrumb" data-ms-aria="Laluan"><a href="https://razinutm.github.io/My_Lectures/">My Lectures</a><span aria-hidden="true">›</span><a href="../index.html">SEAA 4333</a><span aria-hidden="true">›</span><a href="../10-foundations-1/index.html#lab">Unit 10</a><span aria-hidden="true">·</span><a href="../11-foundations-2/index.html#lab">Unit 11</a><span aria-hidden="true">·</span><a href="../12-foundations-3/index.html#lab">Unit 12</a><span aria-hidden="true">›</span><span aria-current="page">Foundation Lab</span></nav>
   <div class="prefs"><button type="button" id="btn-lang" title="Bahasa">BM</button><button type="button" id="btn-theme" title="Theme"></button><button type="button" id="btn-font" class="fontbtn" title="Text size"><span class="aa" aria-hidden="true">A<small>A</small></span><span class="lvl" aria-hidden="true"><i></i><i></i><i></i><i></i></span></button></div>
 </div></div>
 <header class="topbar">
   <div class="wrap">
     <div class="brand">
       <h1>Foundation Lab</h1>
-      <span class="unit">SEAA 4333 · Units 10–11 · Foundations I–II</span>
+      <span class="unit">SEAA 4333 · Units 10–12 · Foundations I–III</span>
     </div>
     <div class="timer" aria-label="Activity timer" data-ms-aria="Pemasa aktiviti">
       <button class="timer-display" id="tDisplay" type="button" title="Show the timer full screen" data-ms-title="Tunjuk pemasa pada skrin penuh">5:00</button>
@@ -297,6 +297,7 @@ input[type=range].xs{width:100%;accent-color:var(--flight);margin:6px 0 2px}
     <button class="tab" role="tab" id="tab-error" aria-controls="panel-error" data-tab="error"><span class="n">3</span><span data-ms="Cari kesilapan">Spot the error</span></button>
     <button class="tab" role="tab" id="tab-strap" aria-controls="panel-strap" data-tab="strap"><span class="n">4</span><span data-ms="Strap footing">Strap footing</span></button>
     <button class="tab" role="tab" id="tab-piles" aria-controls="panel-piles" data-tab="piles"><span class="n">5</span><span data-ms="Kumpulan pile">Pile group</span></button>
+    <button class="tab" role="tab" id="tab-cap" aria-controls="panel-cap" data-tab="cap"><span class="n">6</span><span data-ms="Pile cap">Pile cap</span></button>
   </nav>
 
   <main class="sheet">
@@ -423,7 +424,7 @@ input[type=range].xs{width:100%;accent-color:var(--flight);margin:6px 0 2px}
           <div class="col">
             <div class="head">
               <div class="seg" role="group" aria-label="Sheet" data-ms-aria="Helaian" id="eWhich" style="margin-bottom:10px">
-                <button type="button" data-v="s10" aria-pressed="false">Foundation S10 · Unit 10</button><button type="button" data-v="s11" aria-pressed="true">Foundation S11 · Unit 11</button>
+                <button type="button" data-v="s10" aria-pressed="false">Foundation S10 · Unit 10</button><button type="button" data-v="s11" aria-pressed="false">Foundation S11 · Unit 11</button><button type="button" data-v="s12" aria-pressed="true">Foundation S12 · Unit 12</button>
               </div>
               <h2 id="eTitle">Spot the error</h2>
               <p class="lede" id="eLede"></p>
@@ -584,8 +585,91 @@ input[type=range].xs{width:100%;accent-color:var(--flight);margin:6px 0 2px}
         </div>
       </div>
     </section>
+    <!-- ===================== 6 PILE CAP ===================== -->
+    <section id="panel-cap" role="tabpanel" aria-labelledby="tab-cap" hidden>
+      <div class="panel">
+        <div class="col">
+          <div class="head">
+            <h2 data-ms="Pile cap: truss atau beam, dan ricihnya">The pile cap: truss or beam, and its shear</h2>
+            <p class="lede" data-ms="Dua dan empat pile melalui truss analogy (T = Ns/4d, Ns/8d setiap truss), enam pile melalui beam theory di muka column. Kemudian ricih pada section φ/5 ke dalam dari muka pile dengan β = max(a&lt;sub&gt;v&lt;/sub&gt;, 0.5d)/2d, muka column dan retak, mengikut kaedah kursus (Nota §2–§6).">Two and four piles by the truss analogy (T = Ns/4d, Ns/8d per truss), six piles by beam theory at the column faces. Then the shear at the section φ/5 inside the pile face with β = max(a<sub>v</sub>, 0.5d)/2d, the column face and the cracks, by the course method (Notes §2–§6).</p>
+          </div>
+          <div class="group">
+            <label class="label" for="cCase" data-ms="Kes">Case</label>
+            <select id="cCase" class="full"></select>
+            <p class="note" id="cCaseNote" style="border:0;padding:0"></p>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Susun atur">Layout</span>
+            <div class="seg cells" role="group" aria-label="Layout" data-ms-aria="Susun atur" id="cLay" style="margin-top:6px"><button type="button" data-v="2" data-ms="2 pile · truss">2 piles · truss</button><button type="button" data-v="4" data-ms="4 pile · truss">4 piles · truss</button><button type="button" data-v="6" data-ms="6 pile · beam">6 piles · beam</button></div>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Load ciri">Characteristic loads</span>
+            <div class="fields">
+              <label for="cG">G<sub>k</sub></label><input id="cG" type="number" min="0" max="30000" step="50"><span class="u">kN</span>
+              <label for="cQ">Q<sub>k</sub></label><input id="cQ" type="number" min="0" max="30000" step="50"><span class="u">kN</span>
+            </div>
+            <div class="fields" id="cMrow">
+              <label for="cM" data-ms="M&lt;sub&gt;Ed&lt;/sub&gt; merentas baris">M<sub>Ed</sub> across the rows</label><input id="cM" type="number" min="-3000" max="3000" step="5"><span class="u">kN m</span>
+            </div>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Pile, column dan pile cap">Piles, column and cap</span>
+            <div class="fields">
+              <label for="cph" data-ms="Saiz pile φ">Pile size φ</label><input id="cph" type="number" min="200" max="1200" step="25"><span class="u">mm</span>
+              <label for="ck" data-ms="Jarak s = kφ, k">Spacing s = kφ, k</label><input id="ck" type="number" min="2" max="6" step="0.5"><span class="u">–</span>
+              <label for="cFp" data-ms="Working load F&lt;sub&gt;p&lt;/sub&gt;">Working load F<sub>p</sub></label><input id="cFp" type="number" min="50" max="10000" step="25"><span class="u">kN</span>
+              <label for="cc" data-ms="Sisi column c">Column side c</label><input id="cc" type="number" min="200" max="1200" step="25"><span class="u">mm</span>
+              <label for="ch" data-ms="Kedalaman pile cap h">Cap depth h</label><input id="ch" type="number" min="400" max="3000" step="50"><span class="u">mm</span>
+            </div>
+            <div class="seg" role="group" aria-label="Pile shape" data-ms-aria="Bentuk pile" id="cShape" style="margin-top:8px"><button type="button" data-v="circ" data-ms="Bulat">Round</button><button type="button" data-v="sq" data-ms="Segi empat sama">Square</button></div>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Bar (cover 75 mm, C30/37, B500)">Bars (cover 75 mm, C30/37, B500)</span>
+            <div class="fields">
+              <label for="cphi" data-ms="Saiz bar φ">Bar size φ</label><input id="cphi" type="number" min="10" max="40" step="1"><span class="u">mm</span>
+              <label for="cnb" data-ms="Bilangan (tie, atau setiap arah, atau sepanjang)">Number (ties, or each way, or along)</label><input id="cnb" type="number" min="2" max="60" step="1"><span class="u">–</span>
+            </div>
+            <div class="fields" id="cnb2row">
+              <label for="cnb2" data-ms="Bilangan merentas">Number across</label><input id="cnb2" type="number" min="2" max="60" step="1"><span class="u">–</span>
+            </div>
+          </div>
+          <p class="note" data-ms="Kaedah kursus mengikut EC2 6.2.2(6): a&lt;sub&gt;v&lt;/sub&gt; tidak diambil kurang daripada 0.5d, jadi β ≥ 0.25. Nota kursus dan Mosley tidak memasukkan lantai ini. Muka column berbanding 0.4νf&lt;sub&gt;cd&lt;/sub&gt; (nota: 0.5νf&lt;sub&gt;cd&lt;/sub&gt;).">The course method follows EC2 6.2.2(6): a<sub>v</sub> is not taken less than 0.5d, so β ≥ 0.25. The course notes and Mosley leave this floor out. The column face against 0.4νf<sub>cd</sub> (notes: 0.5νf<sub>cd</sub>).</p>
+        </div>
+        <div class="col">
+          <div class="task" id="act12a">
+            <span class="tag" data-ms="Aktiviti 12A · berpasangan · 10 min">Activity 12A · pairs · 10 min</span>
+            <p data-ms="Kes F12: empat pile 500 mm pada s = 1500 mm, N&lt;sub&gt;Ed&lt;/sub&gt; = 8475 kN, cover 75 mm, H25 dalam dua lapisan. Kira daya dalam setiap truss pada h = 1100 mm dan h = 1700 mm.">Case F12: four 500 mm piles at s = 1500 mm, N<sub>Ed</sub> = 8475 kN, cover 75 mm, H25 in two layers. Work out the force in each truss at h = 1100 mm and at h = 1700 mm.</p>
+            <div class="arow"><p class="alab">h 1100</p><div class="fields" style="grid-column:2"><label for="aT1" data-ms="T, setiap truss">T, each truss</label><input id="aT1" type="number" min="0" max="10000" step="0.1"><span class="u">kN</span></div></div>
+            <div class="arow"><p class="alab">h 1700</p><div class="fields" style="grid-column:2"><label for="aT2" data-ms="T, setiap truss">T, each truss</label><input id="aT2" type="number" min="0" max="10000" step="0.1"><span class="u">kN</span></div></div>
+            <div class="steps" style="margin-top:10px"><button class="btn primary" id="aTReveal" type="button" data-ms="Dedahkan">Reveal</button></div>
+            <p class="verdict" id="aTOut" hidden></p>
+          </div>
+          <div class="task" id="act12b">
+            <span class="tag" data-ms="Aktiviti 12B · berpasangan · 5 min">Activity 12B · pairs · 5 min</span>
+            <p data-ms="Kes F12 gagal ricih pada h = 1100 mm: V&lt;sub&gt;Ed,red&lt;/sub&gt; = 1059.4 &gt; 760.3 kN. Dalamkan kepada 1700 mm; a&lt;sub&gt;v&lt;/sub&gt; = 350 mm kekal. V&lt;sub&gt;Ed,red&lt;/sub&gt;…">Case F12 fails in shear at h = 1100 mm: V<sub>Ed,red</sub> = 1059.4 &gt; 760.3 kN. Deepen it to 1700 mm; a<sub>v</sub> = 350 mm stays. V<sub>Ed,red</sub>…</p>
+            <div class="seg cells" role="group" aria-label="Your prediction" data-ms-aria="Ramalan anda" id="cPred" style="margin-top:10px">
+              <button type="button" data-v="A" data-ms="A · turun kepada ≈ 470 kN">A · falls to ≈ 470 kN</button>
+              <button type="button" data-v="B" data-ms="B · kekal 1059.4 kN">B · stays at 1059.4 kN</button>
+              <button type="button" data-v="C" data-ms="C · naik dengan kedalaman">C · rises with the depth</button>
+              <button type="button" data-v="D" data-ms="D · bergantung pada bar">D · depends on the bars</button>
+            </div>
+            <div class="steps" style="margin-top:10px"><button class="btn primary" id="cReveal" type="button" data-ms="Dedahkan">Reveal</button></div>
+            <p class="verdict" id="cOut" hidden></p>
+          </div>
+          <div class="kv" id="cKV" aria-live="polite"></div>
+          <div class="plotcard">
+            <div class="plothead"><h3 data-ms="Pelan dan elevation: tie, strut dan section ricih">Plan and elevation: ties, struts and the shear section</h3></div>
+            <div class="figbox"><svg class="chart" id="cDraw" viewBox="0 0 640 500" role="img" aria-label="Plan and elevation of the pile cap with the ties, the struts, the shear section and a v"></svg></div>
+          </div>
+          <div class="plotcard">
+            <div class="plothead"><h3 data-ms="Semakan, satu demi satu">The checks, one by one</h3></div>
+            <div class="scroll"><table class="tbl" id="cTable"></table></div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
-  <footer><span data-ms="Kaedah kursus SEAA 4333 (nota kursus; Mosley, Bungey &amp;amp; Hulse §10.1–10.4, §10.6; MS EN 1992-1-1): pelan daripada service load, A = (G&lt;sub&gt;k&lt;/sub&gt; + Q&lt;sub&gt;k&lt;/sub&gt; + W)/q&lt;sub&gt;all&lt;/sub&gt;; ultimate pressure p&lt;sub&gt;Ed&lt;/sub&gt; = N&lt;sub&gt;Ed&lt;/sub&gt;/A tanpa self-weight; e ≤ L/6: p = (N/A)(1 ± 6e/L); e &amp;gt; L/6: L&lt;sub&gt;c&lt;/sub&gt; = 3(L/2 − e), p&lt;sub&gt;max&lt;/sub&gt; = 2N/(BL&lt;sub&gt;c&lt;/sub&gt;); lenturan di muka column; ricih menegak pada d, dengan ρ&lt;sub&gt;l&lt;/sub&gt; hanya bagi bar yang di-anchor l&lt;sub&gt;bd&lt;/sub&gt; + d melepasi section (EC2 6.2.2, Fig. 6.3); punching pada 2d dan pada setiap a ≤ 2d dengan V&lt;sub&gt;Ed,red&lt;/sub&gt; = N&lt;sub&gt;Ed&lt;/sub&gt; − p&lt;sub&gt;Ed&lt;/sub&gt;A(a) dan v&lt;sub&gt;Rd&lt;/sub&gt; = v&lt;sub&gt;Rd,c&lt;/sub&gt;·2d/a (EC2 6.4.4(2)); muka column berbanding 0.4νf&lt;sub&gt;cd&lt;/sub&gt; (EC2 6.4.5(3), pindaan 2014). Strap footing (Mosley §10.3): moment pada column B, R&lt;sub&gt;A&lt;/sub&gt; = W&lt;sub&gt;A&lt;/sub&gt; + (N&lt;sub&gt;A&lt;/sub&gt;L + W&lt;sub&gt;R&lt;/sub&gt;x&lt;sub&gt;R&lt;/sub&gt;)/(L − e); reaction ultimate tanpa berat footing. Pile (Mosley §10.6): n = (N + W)/F&lt;sub&gt;p&lt;/sub&gt;, s = 3φ, P = (N + W)/n ± M&lt;sub&gt;y&lt;/sub&gt;x/Σx² ± M&lt;sub&gt;x&lt;/sub&gt;y/Σy². Unit: mm, kN, m. Design penuh setiap footing, langkah demi langkah, ada dalam app &lt;a href=&quot;https://claude.ai/artifact/M5DFYjHubZFnbHVk8JDsAS&quot; style=&quot;color:inherit&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;RC Design Worked Solutions&lt;/a&gt; (Worked Example 10.1 ialah kes F1R, Faded Example 10.2 kes F2R, Worked Example 11.1 kes F7, Faded Example 11.2 kes F13), yang boleh dibuka setelah pensyarah anda berkongsi pautannya.">Course method of SEAA 4333 (course notes; Mosley, Bungey &amp; Hulse §10.1–10.4, §10.6; MS EN 1992-1-1): the plan from the service loads, A = (G<sub>k</sub> + Q<sub>k</sub> + W)/q<sub>all</sub>; the ultimate pressure p<sub>Ed</sub> = N<sub>Ed</sub>/A without the self-weight; e ≤ L/6: p = (N/A)(1 ± 6e/L); e &gt; L/6: L<sub>c</sub> = 3(L/2 − e), p<sub>max</sub> = 2N/(BL<sub>c</sub>); bending at the column face; vertical shear at d, with ρ<sub>l</sub> only for bars anchored l<sub>bd</sub> + d beyond the section (EC2 6.2.2, Fig. 6.3); punching at 2d and at every a ≤ 2d with V<sub>Ed,red</sub> = N<sub>Ed</sub> − p<sub>Ed</sub>A(a) and v<sub>Rd</sub> = v<sub>Rd,c</sub>·2d/a (EC2 6.4.4(2)); the column face against 0.4νf<sub>cd</sub> (EC2 6.4.5(3), 2014 amendment). Strap footing (Mosley §10.3): moments about column B, R<sub>A</sub> = W<sub>A</sub> + (N<sub>A</sub>L + W<sub>R</sub>x<sub>R</sub>)/(L − e); ultimate reactions without the footing weights. Piles (Mosley §10.6): n = (N + W)/F<sub>p</sub>, s = 3φ, P = (N + W)/n ± M<sub>y</sub>x/Σx² ± M<sub>x</sub>y/Σy². Units: mm, kN, m. The full design of each footing, step by step, is in the <a href="https://claude.ai/artifact/M5DFYjHubZFnbHVk8JDsAS" style="color:inherit" target="_blank" rel="noopener">RC Design Worked Solutions</a> app (Worked Example 10.1 is case F1R, Faded Example 10.2 case F2R, Worked Example 11.1 case F7, Faded Example 11.2 case F13), which opens once your lecturer has shared it.</span>
+  <footer><span data-ms="Kaedah kursus SEAA 4333 (nota kursus; Mosley, Bungey &amp;amp; Hulse §10.1–10.4, §10.6–10.7; MS EN 1992-1-1): pelan daripada service load, A = (G&lt;sub&gt;k&lt;/sub&gt; + Q&lt;sub&gt;k&lt;/sub&gt; + W)/q&lt;sub&gt;all&lt;/sub&gt;; ultimate pressure p&lt;sub&gt;Ed&lt;/sub&gt; = N&lt;sub&gt;Ed&lt;/sub&gt;/A tanpa self-weight; e ≤ L/6: p = (N/A)(1 ± 6e/L); e &amp;gt; L/6: L&lt;sub&gt;c&lt;/sub&gt; = 3(L/2 − e), p&lt;sub&gt;max&lt;/sub&gt; = 2N/(BL&lt;sub&gt;c&lt;/sub&gt;); lenturan di muka column; ricih menegak pada d, dengan ρ&lt;sub&gt;l&lt;/sub&gt; hanya bagi bar yang di-anchor l&lt;sub&gt;bd&lt;/sub&gt; + d melepasi section (EC2 6.2.2, Fig. 6.3); punching pada 2d dan pada setiap a ≤ 2d dengan V&lt;sub&gt;Ed,red&lt;/sub&gt; = N&lt;sub&gt;Ed&lt;/sub&gt; − p&lt;sub&gt;Ed&lt;/sub&gt;A(a) dan v&lt;sub&gt;Rd&lt;/sub&gt; = v&lt;sub&gt;Rd,c&lt;/sub&gt;·2d/a (EC2 6.4.4(2)); muka column berbanding 0.4νf&lt;sub&gt;cd&lt;/sub&gt; (EC2 6.4.5(3), pindaan 2014). Strap footing (Mosley §10.3): moment pada column B, R&lt;sub&gt;A&lt;/sub&gt; = W&lt;sub&gt;A&lt;/sub&gt; + (N&lt;sub&gt;A&lt;/sub&gt;L + W&lt;sub&gt;R&lt;/sub&gt;x&lt;sub&gt;R&lt;/sub&gt;)/(L − e); reaction ultimate tanpa berat footing. Pile (Mosley §10.6): n = (N + W)/F&lt;sub&gt;p&lt;/sub&gt;, s = 3φ, P = (N + W)/n ± M&lt;sub&gt;y&lt;/sub&gt;x/Σx² ± M&lt;sub&gt;x&lt;/sub&gt;y/Σy². Pile cap (Mosley §10.7): T = Ns/4d (dua pile), Ns/8d setiap truss (empat), M di muka column (enam); ricih φ/5 ke dalam dari muka pile dengan β = max(a&lt;sub&gt;v&lt;/sub&gt;, 0.5d)/2d (EC2 6.2.2(6)). Unit: mm, kN, m. Design penuh setiap footing, langkah demi langkah, ada dalam app &lt;a href=&quot;https://claude.ai/artifact/M5DFYjHubZFnbHVk8JDsAS&quot; style=&quot;color:inherit&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;RC Design Worked Solutions&lt;/a&gt; (Worked Example 10.1 ialah kes F1R, Faded Example 10.2 kes F2R, Worked Example 11.1 kes F7, Faded Example 11.2 kes F13, Worked Example 12.1 kes F12 dan F12R, Faded Example 12.2 kes F13), yang boleh dibuka setelah pensyarah anda berkongsi pautannya.">Course method of SEAA 4333 (course notes; Mosley, Bungey &amp; Hulse §10.1–10.4, §10.6–10.7; MS EN 1992-1-1): the plan from the service loads, A = (G<sub>k</sub> + Q<sub>k</sub> + W)/q<sub>all</sub>; the ultimate pressure p<sub>Ed</sub> = N<sub>Ed</sub>/A without the self-weight; e ≤ L/6: p = (N/A)(1 ± 6e/L); e &gt; L/6: L<sub>c</sub> = 3(L/2 − e), p<sub>max</sub> = 2N/(BL<sub>c</sub>); bending at the column face; vertical shear at d, with ρ<sub>l</sub> only for bars anchored l<sub>bd</sub> + d beyond the section (EC2 6.2.2, Fig. 6.3); punching at 2d and at every a ≤ 2d with V<sub>Ed,red</sub> = N<sub>Ed</sub> − p<sub>Ed</sub>A(a) and v<sub>Rd</sub> = v<sub>Rd,c</sub>·2d/a (EC2 6.4.4(2)); the column face against 0.4νf<sub>cd</sub> (EC2 6.4.5(3), 2014 amendment). Strap footing (Mosley §10.3): moments about column B, R<sub>A</sub> = W<sub>A</sub> + (N<sub>A</sub>L + W<sub>R</sub>x<sub>R</sub>)/(L − e); ultimate reactions without the footing weights. Piles (Mosley §10.6): n = (N + W)/F<sub>p</sub>, s = 3φ, P = (N + W)/n ± M<sub>y</sub>x/Σx² ± M<sub>x</sub>y/Σy². Pile caps (Mosley §10.7): T = Ns/4d (two piles), Ns/8d per truss (four), M at the column faces (six); shear φ/5 inside the piles with β = max(a<sub>v</sub>, 0.5d)/2d (EC2 6.2.2(6)). Units: mm, kN, m. The full design of each footing, step by step, is in the <a href="https://claude.ai/artifact/M5DFYjHubZFnbHVk8JDsAS" style="color:inherit" target="_blank" rel="noopener">RC Design Worked Solutions</a> app (Worked Example 10.1 is case F1R, Faded Example 10.2 case F2R, Worked Example 11.1 case F7, Faded Example 11.2 case F13, Worked Example 12.1 cases F12 and F12R, Faded Example 12.2 case F13), which opens once your lecturer has shared it.</span>
   <span class="lic" data-ms="© 2026 Ahmad Razin Zainal Abidin dan Universiti Teknologi Malaysia (Fakulti Kejuruteraan Awam). Teks dan rajah: CC BY-NC-SA 4.0; kod: MIT. Lihat &lt;a href=&quot;https://github.com/RazinUTM/My_Lectures/blob/main/SEAA4333-RCD2/LICENSE.md&quot; style=&quot;color:inherit&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;lesen&lt;/a&gt;. Kemajuan disimpan dalam pelayar ini sahaja.">© 2026 Ahmad Razin Zainal Abidin and Universiti Teknologi Malaysia (Faculty of Civil Engineering). Text and figures: CC BY-NC-SA 4.0; code: MIT. See the <a href="https://github.com/RazinUTM/My_Lectures/blob/main/SEAA4333-RCD2/LICENSE.md" style="color:inherit" target="_blank" rel="noopener">licence</a>. Progress is stored in this browser only.</span></footer>
 </div>
 
@@ -1003,7 +1087,8 @@ const SHEETS = {s10: {rows: S10, key: 'seaa4333-lab-foundation-s10', ms: 's10',
   summary: ['<b>Four slips: two unsafe, one hidden by the margin, one wasteful.</b> Line 1 leaves the bars 5 mm short of the cover needed on blinding. Line 4 designs the bars with the service pressure, so 9H16 is given where 12H16 is needed (2299 mm²). Line 7’s square perimeter makes v<sub>Ed</sub> 18% too low, harmless here only because the margin at 2d is large. Line 10 forgets 2d/a and deepens the base by 150 mm for nothing. Correct design: c<sub>nom</sub> = 40 mm, h = 500 mm, 12H16 each way; shear 0.90, punching 0.60 at 2d and 0.86 at the worst perimeter inside it, column face 0.62.',
             '<b>Empat kesilapan: dua tidak selamat, satu tersembunyi oleh margin, satu membazir.</b> Baris 1 menyebabkan bar kurang 5 mm daripada cover yang diperlukan di atas blinding. Baris 4 membuat design bar dengan service pressure, jadi 9H16 diberi sedangkan 12H16 diperlukan (2299 mm²). Perimeter segi empat sama baris 7 menjadikan v<sub>Ed</sub> 18% terlalu rendah, tidak berbahaya di sini hanya kerana margin pada 2d besar. Baris 10 terlupa 2d/a dan mendalamkan tapak sebanyak 150 mm tanpa sebab. Design yang betul: c<sub>nom</sub> = 40 mm, h = 500 mm, 12H16 setiap arah; ricih 0.90, punching 0.60 pada 2d dan 0.86 pada perimeter terburuk di dalamnya, muka column 0.62.']}};
 const FROM_U10 = (() => { try { return /10-foundations-1/.test(window.parent.location.pathname) || /10-foundations-1/.test(document.referrer); } catch (e) { return /10-foundations-1/.test(document.referrer || ''); } })();
-let eWhich = FROM_U10 ? 's10' : 's11';
+const FROM_U11 = (() => { try { return /11-foundations-2/.test(window.parent.location.pathname) || /11-foundations-2/.test(document.referrer); } catch (e) { return /11-foundations-2/.test(document.referrer || ''); } })();
+let eWhich = FROM_U10 ? 's10' : FROM_U11 ? 's11' : 's12';
 const eState = {s10: {flag: new Set(recall(SHEETS.s10.key, [])), checked: false, fixed: false}};
 /* ===================== 3 SPOT THE ERROR: FOUNDATION S11 (Unit 11) ===================== */
 const S11 = [
@@ -1060,6 +1145,61 @@ function drawS11Fig(){
   T(svg, 505, 274, 'h = 650', {'text-anchor': 'end', class: 'small'});
 }
 eState.s11 = {flag: new Set(recall(SHEETS.s11.key, [])), checked: false, fixed: false};
+/* ===================== 3 SPOT THE ERROR: FOUNDATION S12 (Unit 12) ===================== */
+const S12 = [
+  {ref: 'Unit 11', calc: ['N = 2200 + 1500 = 3700 kN; cap weight assumed 150 kN; n = (3700 + 150)/1100 = 3.5', 'N = 2200 + 1500 = 3700 kN; berat pile cap diandaikan 150 kN; n = (3700 + 150)/1100 = 3.5'], out: '4 piles', slip: false,
+   fix: ['Right.', 'Betul.']},
+  {ref: '§1', calc: ['s = 3 × 450 = 1350 mm; B = (3 + 1) × 450 + 300 = 2100 mm; h = 2 × 450 + 100 = 1000 mm; W = 25 × 2.1² × 1.0 = 110.3 ≤ 150 kN; pile (3700 + 110.3)/4 = 952.6 ≤ 1100 kN', 's = 3 × 450 = 1350 mm; B = (3 + 1) × 450 + 300 = 2100 mm; h = 2 × 450 + 100 = 1000 mm; W = 25 × 2.1² × 1.0 = 110.3 ≤ 150 kN; pile (3700 + 110.3)/4 = 952.6 ≤ 1100 kN'], out: '2100 × 2100 × 1000', slip: false,
+   fix: ['Right: the plan and the guide depth.', 'Betul: pelan dan kedalaman panduan.']},
+  {ref: 'EN 1990 6.10', calc: ['N<sub>Ed</sub> = 1.35 × 2200 + 1.5 × 1500 = 5220 kN; upper layer d = 1000 − 75 − 1.5 × 20', 'N<sub>Ed</sub> = 1.35 × 2200 + 1.5 × 1500 = 5220 kN; lapisan atas d = 1000 − 75 − 1.5 × 20'], out: 'd = 895 mm', slip: false,
+   fix: ['Right.', 'Betul.']},
+  {ref: '(12.3), (12.4)', calc: ['T = 5220 × 1350/(8 × 895) = 984.2 kN; A<sub>s</sub> each way = 984.2 × 10³/435', 'T = 5220 × 1350/(8 × 895) = 984.2 kN; A<sub>s</sub> setiap arah = 984.2 × 10³/435'], out: '2263 mm²', slip: true,
+   fix: ['T = Ns/8d is the force in one truss; two parallel trusses run each way, so the bars each way carry 2T: A<sub>s</sub> = 4525 mm², 15H20 (4712). With the slip, A<sub>s,min</sub> takes over at line 5 and only 10H20 are chosen. Unsafe.', 'T = Ns/8d ialah daya dalam satu truss; dua truss selari bagi setiap arah, jadi bar setiap arah membawa 2T: A<sub>s</sub> = 4525 mm², 15H20 (4712). Dengan kesilapan ini, A<sub>s,min</sub> mengambil alih di baris 5 dan hanya 10H20 dipilih. Tidak selamat.']},
+  {ref: '(12.4)', calc: ['A<sub>s,min</sub> = 0.0015 × 2100 × 895 = 2831 mm² &gt; 2263: the minimum governs; spacing (2100 − 150 − 20)/9 = 214 mm', 'A<sub>s,min</sub> = 0.0015 × 2100 × 895 = 2831 mm² &gt; 2263: nilai minimum menentukan; jarak (2100 − 150 − 20)/9 = 214 mm'], out: '10H20 each way (3142)', slip: false,
+   fix: ['This follows from line 4: with the right 4525 mm² the minimum does not govern.', 'Ini akibat baris 4: dengan 4525 mm² yang betul, nilai minimum tidak menentukan.']},
+  {ref: '§4', calc: ['Section φ/5 = 90 mm inside the pile face; one pile beyond it: V<sub>Ed</sub> = 5220/4', 'Section φ/5 = 90 mm ke dalam dari muka pile; satu pile di luarnya: V<sub>Ed</sub> = 5220/4'], out: '1305 kN', slip: true,
+   fix: ['The section runs across the whole 2100 mm width, so two piles stand beyond it: V<sub>Ed</sub> = 2 × 1305 = 2610 kN. Counting one pile, as in a two-dimensional sketch, halves the shear. Unsafe.', 'Section merentas seluruh lebar 2100 mm, jadi dua pile berada di luarnya: V<sub>Ed</sub> = 2 × 1305 = 2610 kN. Mengira satu pile, seperti dalam lakaran dua dimensi, menjadikan ricih separuh. Tidak selamat.']},
+  {ref: '(12.6), (12.7)', calc: ['a<sub>v</sub> = 1350/2 − 400/2 − 0.3 × 450 = 340 mm; β = 340/(2 × 895) = 0.190; V<sub>Ed,red</sub> = 0.190 × 1305', 'a<sub>v</sub> = 1350/2 − 400/2 − 0.3 × 450 = 340 mm; β = 340/(2 × 895) = 0.190; V<sub>Ed,red</sub> = 0.190 × 1305'], out: '247.9 kN', slip: true,
+   fix: ['a<sub>v</sub> = 340 mm is less than 0.5d = 447.5 mm, so EC2 6.2.2(6) takes a<sub>v</sub> = 0.5d and β = 0.25. With V<sub>Ed</sub> = 2610 kN, V<sub>Ed,red</sub> = 652.5 kN. Unsafe.', 'a<sub>v</sub> = 340 mm kurang daripada 0.5d = 447.5 mm, jadi EC2 6.2.2(6) mengambil a<sub>v</sub> = 0.5d dan β = 0.25. Dengan V<sub>Ed</sub> = 2610 kN, V<sub>Ed,red</sub> = 652.5 kN. Tidak selamat.']},
+  {ref: '(12.9), §6', calc: ['Bars bent up: (375 − 75) + (895 − 75) = 1120 ≥ l<sub>bd</sub> = 715 mm, so β applies; they run 1255 &lt; l<sub>bd</sub> + d = 1610 mm past the section, so ρ<sub>l</sub> = 0: V<sub>Rd,c</sub> = 0.343 × 2100 × 895 = 643.9 kN ≥ 247.9', 'Bar dibengkokkan ke atas: (375 − 75) + (895 − 75) = 1120 ≥ l<sub>bd</sub> = 715 mm, jadi β terpakai; ia melepasi section 1255 &lt; l<sub>bd</sub> + d = 1610 mm, jadi ρ<sub>l</sub> = 0: V<sub>Rd,c</sub> = 0.343 × 2100 × 895 = 643.9 kN ≥ 247.9'], out: 'OK', slip: false,
+   fix: ['Right: the resistance is correct. Against the right V<sub>Ed,red</sub> = 652.5 kN it is 1.3 % short: the cap fails at 1000 mm.', 'Betul: rintangan itu betul. Berbanding V<sub>Ed,red</sub> yang betul = 652.5 kN, ia kurang 1.3 %: pile cap gagal pada 1000 mm.']},
+  {ref: '(12.10)', calc: ['Column face: v<sub>Ed,0</sub> = 3700 × 10³/(4 × 400 × 905) = 2.56 ≤ 0.4νf<sub>cd</sub> = 4.22 N/mm²', 'Muka column: v<sub>Ed,0</sub> = 3700 × 10³/(4 × 400 × 905) = 2.56 ≤ 0.4νf<sub>cd</sub> = 4.22 N/mm²'], out: 'OK', slip: true,
+   fix: ['The column face is an ultimate check: N<sub>Ed</sub> = 5220 kN gives 3.60 N/mm². It still passes, so this slip changes nothing here, but at a heavier column it would.', 'Muka column ialah semakan ultimate: N<sub>Ed</sub> = 5220 kN memberi 3.60 N/mm². Ia masih lulus, jadi kesilapan ini tidak mengubah apa-apa di sini, tetapi pada column yang lebih berat ia akan mengubahnya.']},
+  {ref: 'Table 7.3N', calc: ['σ<sub>s</sub> = (2200 + 0.3 × 1500)/5220 × 434.8 × 2263/3142 = 159.0 N/mm² → s<sub>max</sub> = 300 mm ≥ 214 mm', 'σ<sub>s</sub> = (2200 + 0.3 × 1500)/5220 × 434.8 × 2263/3142 = 159.0 N/mm² → s<sub>max</sub> = 300 mm ≥ 214 mm'], out: 'OK', slip: false,
+   fix: ['Right for the bars as written.', 'Betul bagi bar seperti yang ditulis.']}
+];
+SHEETS.s12 = {rows: S12, key: 'seaa4333-lab-foundation-s12', ms: 's12',
+  title: ['Foundation S12: spot the error', 'Foundation S12: cari kesilapan'],
+  lede: ['A submitted design of a four-pile cap by the truss analogy. It contains four slips. Find them all before you look at the answer.', 'Design pile cap empat pile melalui truss analogy yang dihantar. Ia mengandungi empat kesilapan. Cari kesemuanya sebelum melihat jawapan.'],
+  tag: ['After class · Unit 12 · Explorer task 6', 'Selepas kelas · Unit 12 · Explorer tugasan 6'],
+  given: [['Column', 'Column', '400 × 400 mm; G<sub>k</sub> = 2200 kN, Q<sub>k</sub> = 1500 kN', '400 × 400 mm; G<sub>k</sub> = 2200 kN, Q<sub>k</sub> = 1500 kN'],
+          ['Piles', 'Pile', 'four bored piles of 450 mm diameter at 3φ; safe working load 1100 kN each', 'empat bored pile berdiameter 450 mm pada 3φ; safe working load 1100 kN setiap satu'],
+          ['Cap', 'Pile cap', 'square, edges 150 mm past the piles; depth from the guide 2φ + 100', 'segi empat sama, tepi 150 mm melepasi pile; kedalaman daripada panduan 2φ + 100'],
+          ['Materials', 'Bahan', 'C30/37, B500; H20 bars in two layers; cover 75 mm', 'C30/37, B500; bar H20 dalam dua lapisan; cover 75 mm']],
+  summary: ['<b>Four slips: three unsafe, and together they hide a failure; one changes nothing here.</b> Line 4 takes the steel each way from one truss: 2263 mm² where two trusses need 4525 mm² (15H20). Line 6 counts one pile beyond the shear section; the section crosses the full width, so V<sub>Ed</sub> = 2610 kN. Line 7 drops the floor of β: a<sub>v</sub> &lt; 0.5d, so β = 0.25. With them the shear looks 2.6 times safe; without them V<sub>Ed,red</sub> = 652.5 &gt; 643.9 kN and the cap fails at 1000 mm: 1050 mm with 14H20 each way passes (671.2 kN). Line 9 checks the column face with the service load; with N<sub>Ed</sub> it is 3.60 ≤ 4.22 N/mm², a pass either way.',
+            '<b>Empat kesilapan: tiga tidak selamat, dan bersama-sama ia menyembunyikan kegagalan; satu tidak mengubah apa-apa di sini.</b> Baris 4 mengambil keluli setiap arah daripada satu truss: 2263 mm² sedangkan dua truss memerlukan 4525 mm² (15H20). Baris 6 mengira satu pile di luar section ricih; section merentas seluruh lebar, jadi V<sub>Ed</sub> = 2610 kN. Baris 7 mengabaikan lantai β: a<sub>v</sub> &lt; 0.5d, jadi β = 0.25. Dengan kesilapan itu ricih kelihatan 2.6 kali selamat; tanpanya V<sub>Ed,red</sub> = 652.5 &gt; 643.9 kN dan pile cap gagal pada 1000 mm: 1050 mm dengan 14H20 setiap arah lulus (671.2 kN). Baris 9 menyemak muka column dengan service load; dengan N<sub>Ed</sub> ia 3.60 ≤ 4.22 N/mm², lulus dalam kedua-dua keadaan.']};
+function drawS12Fig(){
+  const box = el('eFig'); box.innerHTML = '';
+  const svg = S('svg', {class: 'fig', viewBox: '0 0 520 280', role: 'img', 'aria-label': Lg('Foundation S12: a 400 mm column on a square cap 2100 mm wide over four 450 mm piles 1350 mm apart; the cap is 1000 mm deep with H20 bars bent up at the ends.', 'Foundation S12: column 400 mm di atas pile cap segi empat sama selebar 2100 mm di atas empat pile 450 mm berjarak 1350 mm; pile cap sedalam 1000 mm dengan bar H20 dibengkokkan ke atas di hujung.')}, box);
+  svg.style.minWidth = '320px';
+  // plan (left)
+  const sc = 0.085, cx = 120, cy = 140;
+  S('rect', {x: cx - 1050 * sc, y: cy - 1050 * sc, width: 2100 * sc, height: 2100 * sc, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
+  [[-1, -1], [1, -1], [1, 1], [-1, 1]].forEach(([a, b]) => S('circle', {cx: cx + a * 675 * sc, cy: cy + b * 675 * sc, r: 225 * sc, fill: 'var(--ink-3)'}, svg));
+  S('rect', {x: cx - 200 * sc, y: cy - 200 * sc, width: 400 * sc, height: 400 * sc, fill: 'var(--surface-2)', stroke: 'var(--ink)'}, svg);
+  T(svg, cx, cy + 1050 * sc + 18, '2100 × 2100', {'text-anchor': 'middle', class: 'small'});
+  T(svg, cx, cy - 1050 * sc - 10, Lg('plan', 'pelan'), {'text-anchor': 'middle', class: 'small'});
+  // elevation (right)
+  const s2 = 0.13, ex = 370, ey = 80;
+  S('rect', {x: ex - 1050 * s2, y: ey, width: 2100 * s2, height: 1000 * s2, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
+  S('rect', {x: ex - 200 * s2, y: ey - 40, width: 400 * s2, height: 40, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
+  [-675, 675].forEach(x => S('rect', {x: ex + (x - 225) * s2, y: ey + 925 * s2, width: 450 * s2, height: 45, fill: 'var(--ink-3)'}, svg));
+  S('path', {d: `M${ex - 975 * s2},${ey + 75 * s2} L${ex - 975 * s2},${ey + 905 * s2} L${ex + 975 * s2},${ey + 905 * s2} L${ex + 975 * s2},${ey + 75 * s2}`, fill: 'none', stroke: 'var(--bad)', 'stroke-width': 2.4}, svg);
+  arrow(svg, ex, 14, ex, ey - 42, 'var(--ink)', 2); TS(svg, ex + 10, 28, [['G'], ['k', 1], [' 2200 + Q'], ['k', 1], [' 1500']], {class: 'small'});
+  T(svg, ex + 1050 * s2 + 8, ey + 500 * s2, 'h = 1000', {class: 'small'});
+  T(svg, ex, ey + 1000 * s2 + 64, Lg('four 450 mm piles at 1350 mm', 'empat pile 450 mm pada 1350 mm'), {'text-anchor': 'middle', class: 'small'});
+}
+eState.s12 = {flag: new Set(recall(SHEETS.s12.key, [])), checked: false, fixed: false};
 function drawS10Fig(){
   const box = el('eFig'); box.innerHTML = '';
   const svg = S('svg', {class: 'fig', viewBox: '0 0 520 280', role: 'img', 'aria-label': Lg('Foundation S10: a 350 mm square column on a square pad 500 mm thick on blinding; the side of the base is to be found from the allowable bearing pressure of 175 kN per square metre.', 'Foundation S10: column segi empat sama 350 mm di atas pad segi empat sama setebal 500 mm di atas blinding; sisi tapak dicari daripada allowable bearing pressure 175 kN per meter persegi.')}, box);
@@ -1083,7 +1223,7 @@ function drawSheet(){
   el('eTitle').innerHTML = Lg(Sh.title[0], Sh.title[1]); el('eLede').innerHTML = Lg(Sh.lede[0], Sh.lede[1]); el('eTag').innerHTML = Lg(Sh.tag[0], Sh.tag[1]);
   el('eGiven').innerHTML = Sh.given.map(g => `<dt>${Lg(g[0], g[1])}</dt><dd>${Lg(g[2], g[3])}</dd>`).join('');
   el('eSheet').setAttribute('aria-label', Lg(`Foundation ${eWhich.toUpperCase()} calculation sheet`, `Helaian pengiraan Foundation ${eWhich.toUpperCase()}`));
-  (eWhich === 's11' ? drawS11Fig : drawS10Fig)();
+  ({s10: drawS10Fig, s11: drawS11Fig, s12: drawS12Fig}[eWhich])();
   const t = el('eSheet');
   let html = `<thead><tr><th>${Lg('Line', 'Baris')}</th><th>Ref</th><th>${Lg('Calculation', 'Pengiraan')}</th><th>Output</th></tr></thead><tbody>`;
   rows.forEach((r, i) => {
@@ -1386,11 +1526,215 @@ function paintGB(){
        `Pada paksi y, sepanjang sisi 2.4 m: Σx² = ${f(a.Sx2, 2)} m², P<sub>max</sub> = ${f(m, 1)} + 53.6 × 0.9/${f(a.Sx2, 2)} = ${f(a.Pmax, 1)} kN. Pada paksi x, merentasi sisi 1.5 m: Σy² = ${f(b.Sy2, 3)} m², P<sub>max</sub> = ${f(m, 1)} + 53.6 × 0.45/${f(b.Sy2, 3)} = ${f(b.Pmax, 1)} kN. Lever arm menjadi separuh, tetapi Σy² turun kepada tiga perlapan Σx², jadi pile terburuk memikul lebih. N hanya menentukan purata, ${f(m, 1)} kN.`);
 }
 
+/* ===================== 6 PILE CAP (Unit 12) =====================
+   Course method (the RC Design app's pile-cap model): N_Ed = 1.35G_k + 1.5Q_k, service G_k + Q_k; cover 75 mm, C30/37, B500.
+   Two piles: T = N s/(4d), d = h - c - phi/2. Four piles: T = N s/(8d) per truss, two trusses each way, d = h - c - 1.5phi.
+   Six piles (2 x 3, beam theory): F_max = N/6 + M x/(4x^2); M_xx = 2F_max(x - c/2), M_yy = 3(N/6)(s/2 - c/2); d_x = h - c - phi/2, d_y = h - c - 1.5phi.
+   Shear at phi/5 inside the pile face: a_v from the column face, beta = max(a_v, 0.5d)/2d (EC2 6.2.2(6)) when the bars are anchored
+   l_bd beyond the pile centre line ((edge - c) + (d - c)); rho_l only if the bars run l_bd + d past the section; whole width when s <= 3phi,
+   strips 3phi wide otherwise. Column face: beta N/(u0 d) <= 0.4 nu f_cd, d = h - c - phi. Cracks: sigma_s from the quasi-permanent load. */
+const CCV = 75, CFCK = 30, CNU = 0.6 * (1 - CFCK / 250), CFCTM = 0.3 * Math.pow(CFCK, 2 / 3), CFBD = 2.25 * 0.7 * CFCTM / 1.5;
+const CRMIN = Math.max(0.26 * CFCTM / 500, 0.0013), CVRMAX = 0.4 * CNU * CFCK / 1.5;
+const T105 = [[300, 700], [350, 800], [400, 900], [450, 1000], [500, 1100], [550, 1200], [600, 1400], [750, 1800]];
+const T73 = [[160, 300], [200, 250], [240, 200], [280, 150], [320, 100], [360, 50]];
+function cInterp(tab, x){ if (x <= tab[0][0]) return tab[0][1]; if (x >= tab[tab.length - 1][0]) return tab[tab.length - 1][1]; let i = 0; while (x > tab[i + 1][0]) i++; return tab[i][1] + (x - tab[i][0]) * (tab[i + 1][1] - tab[i][1]) / (tab[i + 1][0] - tab[i][0]); }
+function cLbd(phi){ return phi / 4 * 435 / CFBD; }
+function cVrdc(b, d, Asl){ const k = Math.min(1 + Math.sqrt(200 / d), 2), rho = Math.min(Asl / (b * d), 0.02), v1 = 0.12 * k * Math.pow(100 * rho * CFCK, 1 / 3), vm = 0.035 * Math.pow(k, 1.5) * Math.sqrt(CFCK); return {k, rho, vmin: vm, v: Math.max(v1, vm), VRc: Math.max(v1, vm) * b * d / 1000}; }
+function cFlex(M, b, d){ const K = M * 1e6 / (CFCK * b * d * d), z = Math.min(d * (0.5 + Math.sqrt(Math.max(0.25 - K / 1.134, 0))), 0.95 * d); return {K, z, As: M * 1e6 / (435 * z), Asmin: CRMIN * b * d}; }
+const CCASES = {
+  f12: {label: ['F12 · Worked Example 12.1, the notes’ 1100 mm cap', 'F12 · Worked Example 12.1, pile cap 1100 mm dalam nota'], v: {lay: '4', G: 3500, Q: 2500, M: 0, ph: 500, shape: 'circ', k: 3, Fp: 1800, c: 500, h: 1100, phi: 25, nb: 16, nb2: 16, rq: null},
+        note: ['App case F12, the course notes’ Example 5 (truss theory): four 500 mm spun piles at 1500 mm. It fails the course shear check.', 'Kes app F12, Contoh 5 nota kursus (truss theory): empat spun pile 500 mm pada 1500 mm. Ia gagal semakan ricih kursus.']},
+  f12r: {label: ['F12R · Worked Example 12.1, revised to 1700 mm', 'F12R · Worked Example 12.1, diubah kepada 1700 mm'], v: {lay: '4', G: 3500, Q: 2500, M: 0, ph: 500, shape: 'circ', k: 3, Fp: 1800, c: 500, h: 1700, phi: 25, nb: 12, nb2: 12, rq: null},
+         note: ['App case F12R: the same cap 1700 mm deep with 12H25 each way (A<sub>s,min</sub> governs). The shear and the column face pass.', 'Kes app F12R: pile cap yang sama sedalam 1700 mm dengan 12H25 setiap arah (A<sub>s,min</sub> menentukan). Ricih dan muka column lulus.']},
+  f10: {label: ['F10 · a two-pile cap (Notes §2)', 'F10 · pile cap dua pile (Nota §2)'], v: {lay: '2', G: 700, Q: 400, M: 0, ph: 450, shape: 'circ', k: 3, Fp: 650, c: 400, h: 1000, phi: 20, nb: 5, nb2: 15, rq: null},
+        note: ['App case F10: two 450 mm piles at 1350 mm, T = Ns/4d = 569.9 kN, 5H20 bent up.', 'Kes app F10: dua pile 450 mm pada 1350 mm, T = Ns/4d = 569.9 kN, 5H20 dibengkokkan ke atas.']},
+  f13: {label: ['F13 · Faded Example 12.2, six piles by beam theory', 'F13 · Faded Example 12.2, enam pile melalui beam theory'], v: {lay: '6', G: 2000, Q: 1000, M: 75, ph: 300, shape: 'sq', k: 3, Fp: 600, c: 400, h: 1100, phi: 16, nb: 12, nb2: 18, rq: 0.55},
+        note: ['App case F13, the course notes’ Example 5 (beam theory). The notes give N<sub>Ed</sub> = 4200 kN with service = design/1.4; G<sub>k</sub> 2000 + Q<sub>k</sub> 1000 kN give the same two loads, and σ<sub>s</sub> uses the notes’ ratio 0.55.', 'Kes app F13, Contoh 5 nota kursus (beam theory). Nota memberi N<sub>Ed</sub> = 4200 kN dengan service = design/1.4; G<sub>k</sub> 2000 + Q<sub>k</sub> 1000 kN memberi dua load yang sama, dan σ<sub>s</sub> menggunakan nisbah nota 0.55.']},
+  own: {label: ['Your own pile cap', 'Pile cap anda sendiri'], v: null, note: ['Type your own numbers and choose a layout.', 'Taip nombor anda sendiri dan pilih susun atur.']}
+};
+const CF = {cG: 'G', cQ: 'Q', cM: 'M', cph: 'ph', ck: 'k', cFp: 'Fp', cc: 'c', ch: 'h', cphi: 'phi', cnb: 'nb', cnb2: 'nb2'};
+const cin = Object.assign({}, CCASES.f12.v); let cCaseK = 'f12';
+const CAKEY = 'seaa4333-lab-foundation-12a', CBKEY = 'seaa4333-lab-foundation-12b';
+let caSt = recall(CAKEY, {}) || {}, cbSt = recall(CBKEY, {}) || {};
+function fillCCases(){ const s = el('cCase'); s.innerHTML = ''; Object.keys(CCASES).forEach(k => { const o = document.createElement('option'); o.value = k; o.textContent = Lg(CCASES[k].label[0], CCASES[k].label[1]); s.appendChild(o); }); s.value = cCaseK; el('cCaseNote').innerHTML = Lg(CCASES[cCaseK].note[0], CCASES[cCaseK].note[1]); }
+function syncC(){ Object.keys(CF).forEach(id => { el(id).value = cin[CF[id]]; }); setSeg(el('cLay'), cin.lay); setSeg(el('cShape'), cin.shape); el('cMrow').hidden = cin.lay !== '6'; el('cnb2row').hidden = cin.lay !== '6'; }
+function shearSec(R, tag, VEs, av, d, bw, edgeSec, edgePile, Asp, phi){
+  const S = {VEs, av, d, bw};
+  S.avu = Math.max(av, 0.5 * d); S.beta = Math.min(S.avu / (2 * d), 1); S.floor = av < 0.5 * d;
+  S.lanc = (edgePile - CCV) + (d - CCV); S.lbd = cLbd(phi); S.anch = S.lbd <= S.lanc;
+  S.VE = (S.anch ? S.beta : 1) * VEs; S.VRx2 = 0.5 * bw * d * CNU * CFCK / 1.5 / 1000;
+  S.ex = (edgeSec - CCV) + (d - CCV); S.lr = S.lbd + d; S.Asl = S.ex >= S.lr ? Asp : 0;
+  const v = cVrdc(bw, d, S.Asl); S.k = v.k; S.vmin = v.vmin; S.VRc = v.VRc; S.ok = S.VE <= S.VRc + 1e-9 && VEs <= S.VRx2;
+  S.betaM = av / (2 * d);
+  R[tag] = S; return S;
+}
+function cCalc(P){
+  const R = {}, n = P.lay === '2' ? 2 : P.lay === '4' ? 4 : 6; R.n = n;
+  R.ok = P.ph > 0 && P.k >= 2 && P.Fp > 0 && P.c > 0 && P.h > 300 && P.phi > 0 && P.nb >= 2 && (n !== 6 || P.nb2 >= 2) && (P.G + P.Q) > 0;
+  if (!R.ok) return R;
+  R.Ns = P.G + P.Q; R.N = 1.35 * P.G + 1.5 * P.Q; R.rq = P.rq != null ? P.rq : (P.G + 0.3 * P.Q) / R.N;
+  R.s = P.k * P.ph; R.wide = P.k > 3 + 1e-9;
+  if (n === 2){ R.L = (P.k + 1) * P.ph + 300; R.B = P.ph + 300; } else if (n === 4){ R.L = R.B = (P.k + 1) * P.ph + 300; } else { R.B = (P.k + 1) * P.ph + 300; R.L = (2 * P.k + 1) * P.ph + 300; }
+  R.hg = cInterp(T105, P.ph); R.W = 25 * R.B / 1000 * R.L / 1000 * P.h / 1000; R.nreq = (R.Ns + R.W) / P.Fp;
+  R.geomOK = R.s / 2 - P.ph / 2 + P.ph / 5 > P.c / 2 + 10;
+  const Ab = Math.PI * P.phi * P.phi / 4; R.Asp = P.nb * Ab; R.Asp2 = (P.nb2 || 0) * Ab;
+  R.dav = P.h - CCV - P.phi; R.up = P.shape === 'sq' ? 4 * P.ph : Math.PI * P.ph;
+  if (n === 6){
+    const x = R.s / 1000; R.Ix = 4 * x * x; R.Mser = P.M * R.Ns / R.N;
+    R.Fser = (R.Ns + R.W) / 6 + R.Mser * x / R.Ix; R.Fm = R.N / 6; R.Fu = R.N / 6 + P.M * x / R.Ix; R.Fmin = (R.Ns + R.W) / 6 - R.Mser * x / R.Ix;
+    R.Mx = 2 * R.Fu * (x - P.c / 2000); R.My = 3 * R.Fm * (x / 2 - P.c / 2000);
+    R.dx = P.h - CCV - P.phi / 2; R.dy = P.h - CCV - 1.5 * P.phi;
+    R.fx = cFlex(R.Mx, R.B, R.dx); R.fy = cFlex(R.My, R.L, R.dy);
+    const bwx = R.wide ? Math.min(R.B, 2 * 3 * P.ph) : R.B, bwy = R.wide ? Math.min(R.L, 3 * 3 * P.ph) : R.L;
+    const xsec = R.s - P.ph / 2 + P.ph / 5, ysec = R.s / 2 - P.ph / 2 + P.ph / 5;
+    shearSec(R, 'sx', 2 * R.Fu, xsec - P.c / 2, R.dx, bwx, R.L / 2 - xsec, R.L / 2 - R.s, R.Asp, P.phi);
+    shearSec(R, 'sy', 3 * R.Fm, ysec - P.c / 2, R.dy, bwy, R.B / 2 - ysec, R.B / 2 - R.s / 2, R.Asp2, P.phi);
+    R.bt0 = 1 + 0.6 * (P.M * 1e3 / R.N) * (4 * P.c / (1.5 * P.c * P.c));
+    R.Fmax = R.Fu; R.sgs = R.rq * 434.78 * R.fx.As / R.Asp; R.sgs2 = R.rq * 434.78 * R.fy.As / R.Asp2;
+    R.spr = (R.B - 2 * CCV - P.phi) / (P.nb - 1); R.spr2 = (R.L - 2 * CCV - P.phi) / (P.nb2 - 1);
+    R.smx = cInterp(T73, R.sgs); R.smx2 = cInterp(T73, R.sgs2);
+    R.steelOK = R.Asp >= Math.max(R.fx.As, R.fx.Asmin) - 1e-6 && R.Asp2 >= Math.max(R.fy.As, R.fy.Asmin) - 1e-6;
+    R.crackOK = R.spr <= R.smx + 1e-9 && R.spr2 <= R.smx2 + 1e-9;
+    R.shearOK = R.sx.ok && R.sy.ok;
+  } else {
+    R.Fser = (R.Ns + R.W) / n; R.Fm = R.N / n; R.Fmax = R.Fm; R.Fmin = R.Fser;
+    R.d = P.h - CCV - (n === 2 ? 0.5 : 1.5) * P.phi;
+    R.T = R.N * R.s / ((n === 2 ? 4 : 8) * R.d); R.As = (n === 2 ? 1 : 2) * R.T * 1e3 / 435;
+    R.Asmin = CRMIN * R.B * R.d;
+    R.fracBand = R.wide && n === 4 ? Math.min(1, 2 * 3 * P.ph / (R.B - 2 * CCV)) : 1; R.Aspe = R.Asp * R.fracBand;
+    const bw = R.wide && n === 4 ? Math.min(R.B, 2 * 3 * P.ph) : R.B;
+    const xsec = R.s / 2 - P.ph / 2 + P.ph / 5;
+    shearSec(R, 'sx', (n / 2) * R.Fm, xsec - P.c / 2, R.d, bw, R.L / 2 - xsec, R.L / 2 - R.s / 2, R.Aspe, P.phi);
+    R.bt0 = 1;
+    if (n === 2){ R.d2 = P.h - CCV - P.phi - 16 / 2; R.Asmin2 = CRMIN * R.L * R.d2; }
+    R.sgs = R.rq * 434.78 * R.As / R.Asp; R.smx = cInterp(T73, R.sgs); R.spr = (R.B - 2 * CCV - P.phi) / (P.nb - 1);
+    R.steelOK = R.Aspe >= Math.max(R.As, R.Asmin) - 1e-6; R.crackOK = R.spr <= R.smx + 1e-9; R.shearOK = R.sx.ok;
+  }
+  R.vE0 = R.bt0 * R.N * 1e3 / (4 * P.c * R.dav); R.faceOK = R.vE0 <= CVRMAX + 1e-9; R.vEp = R.Fmax * 1e3 / (R.up * R.dav);
+  R.pileOK = R.Fser <= P.Fp + 1e-9 && R.Fmin >= 0; R.enough = n >= R.nreq - 1e-9;
+  return R;
+}
+function redrawCap(userEdit){
+  const P = cin, R = cCalc(P), pl = ok => ok ? '<span class="ok">✓</span>' : '<span class="bad">✗</span>';
+  if (!R.ok){ el('cKV').innerHTML = kvHtml([[Lg('check the inputs', 'semak input'), '–', 'bad']]); el('cTable').innerHTML = ''; el('cDraw').innerHTML = ''; return; }
+  const six = R.n === 6, S = R.sx;
+  const kv = [[Lg('piles needed · used', 'pile diperlukan · digunakan'), `${f(R.nreq, 2)} · ${R.n}`, R.enough ? 'ok' : 'bad'],
+              [Lg('cap B × L × h', 'pile cap B × L × h'), `${f(R.B, 0)} × ${f(R.L, 0)} × ${f(P.h, 0)}`],
+              six ? ['M<sub>xx</sub> · M<sub>yy</sub>', `${f(R.Mx, 1)} · ${f(R.My, 1)} kN m`] : [Lg(R.n === 2 ? 'tie force T' : 'T, each truss', R.n === 2 ? 'daya tie T' : 'T, setiap truss'), `${f(R.T, 1)} kN`],
+              six ? [Lg('A<sub>s</sub> needed · given, along', 'A<sub>s</sub> perlu · diberi, sepanjang'), `${f(Math.max(R.fx.As, R.fx.Asmin), 0)} · ${f(R.Asp, 0)} mm²`, R.Asp >= Math.max(R.fx.As, R.fx.Asmin) - 1e-6 ? 'ok' : 'bad']
+                  : [Lg('A<sub>s</sub> needed · counted', 'A<sub>s</sub> perlu · dikira'), `${f(Math.max(R.As, R.Asmin), 0)} · ${f(R.Aspe, 0)} mm²`, R.steelOK ? 'ok' : 'bad'],
+              ['β · a<sub>v</sub>/d', `${f(S.beta, 3)} · ${f(S.av / S.d, 2)}` + (S.floor ? Lg(' (floor)', ' (lantai)') : '')],
+              ['V<sub>Ed,red</sub> · V<sub>Rd,c</sub>', `${f(S.VE, 1)} · ${f(S.VRc, 1)} kN`, S.ok ? 'ok' : 'bad']];
+  if (six) kv.push([Lg('across: V<sub>Ed,red</sub> · V<sub>Rd,c</sub>', 'merentas: V<sub>Ed,red</sub> · V<sub>Rd,c</sub>'), `${f(R.sy.VE, 1)} · ${f(R.sy.VRc, 1)} kN`, R.sy.ok ? 'ok' : 'bad']);
+  kv.push([Lg('column face v · limit', 'muka column v · had'), `${f(R.vE0, 2)} · ${f(CVRMAX, 2)} N/mm²`, R.faceOK ? 'ok' : 'bad']);
+  el('cKV').innerHTML = kvHtml(kv);
+  const row = (ref, txt, ok) => [ref, txt, ok == null ? '' : pl(ok)];
+  const rows = [row('Unit 11', `N = ${f(R.Ns, 0)} kN; W = 25 × ${f(R.B / 1000, 2)} × ${f(R.L / 1000, 2)} × ${f(P.h / 1000, 2)} = ${f(R.W, 1)} kN; n = (${f(R.Ns, 0)} + ${f(R.W, 1)})/${f(P.Fp, 0)} = ${f(R.nreq, 2)} ≤ ${R.n}; ${Lg('largest service pile load', 'service load pile terbesar')} ${f(R.Fser, 1)} ≤ ${f(P.Fp, 0)} kN`, R.enough && R.pileOK),
+                row('§1', `s = ${f(P.k, 1)} × ${f(P.ph, 0)} = ${f(R.s, 0)} mm; ${Lg('depth guide', 'panduan kedalaman')} ${f(R.hg, 0)} mm (h = ${f(P.h, 0)}); N<sub>Ed</sub> = ${f(R.N, 1)} kN`, null)];
+  if (six){
+    rows.push(row('(12.5)', `F<sub>max</sub> = ${f(R.Fm, 1)} + ${f(P.M, 0)} × ${f(R.s / 1000, 2)}/${f(R.Ix, 3)} = ${f(R.Fu, 1)} kN; M<sub>xx</sub> = 2 × ${f(R.Fu, 1)} × ${f(R.s / 1000 - P.c / 2000, 3)} = ${f(R.Mx, 1)}; M<sub>yy</sub> = 3 × ${f(R.Fm, 1)} × ${f(R.s / 2000 - P.c / 2000, 3)} = ${f(R.My, 1)} kN m`, null));
+    rows.push(row('RCD I', `d<sub>x</sub> = ${f(R.dx, 1)}: A<sub>s</sub> = ${f(R.fx.As, 0)}, A<sub>s,min</sub> = ${f(R.fx.Asmin, 0)}, ${P.nb}H${P.phi} = ${f(R.Asp, 0)}; d<sub>y</sub> = ${f(R.dy, 1)}: A<sub>s</sub> = ${f(R.fy.As, 0)}, A<sub>s,min</sub> = ${f(R.fy.Asmin, 0)}, ${P.nb2}H${P.phi} = ${f(R.Asp2, 0)} mm²`, R.steelOK));
+  } else {
+    rows.push(row(R.n === 2 ? '(12.1)' : '(12.3)', `d = ${f(R.d, 1)} mm; T = ${f(R.N, 1)} × ${f(R.s, 0)}/(${R.n === 2 ? 4 : 8} × ${f(R.d, 1)}) = ${f(R.T, 1)} kN` + (R.n === 4 ? Lg(' per truss', ' setiap truss') : ''), null));
+    rows.push(row('(12.4)', `A<sub>s</sub> = ${R.n === 4 ? '2 × ' : ''}${f(R.T, 1)} × 10³/435 = ${f(R.As, 0)}; A<sub>s,min</sub> = ${f(R.Asmin, 0)}; ${P.nb}H${P.phi} = ${f(R.Asp, 0)} mm²` + (R.fracBand < 1 ? Lg(`, of which ${f(R.Aspe, 0)} within 1.5φ of the piles`, `, daripadanya ${f(R.Aspe, 0)} dalam lingkungan 1.5φ dari pile`) : '') + (R.n === 2 ? Lg(`; across: A<sub>s,min</sub> = ${f(R.Asmin2, 0)} mm²`, `; merentas: A<sub>s,min</sub> = ${f(R.Asmin2, 0)} mm²`) : ''), R.steelOK));
+  }
+  const shearRow = (Sx, lab) => row('(12.6)–(12.9)', `${lab}V<sub>Ed</sub> = ${f(Sx.VEs, 1)} kN; a<sub>v</sub> = ${f(Sx.av, 0)} ${Sx.floor ? '&lt;' : '≥'} 0.5d = ${f(0.5 * Sx.d, 0)} mm: β = ${f(Sx.beta, 3)}` + (Sx.anch ? Lg(` (anchored: ${f(Sx.lanc, 0)} ≥ l<sub>bd</sub> ${f(Sx.lbd, 0)})`, ` (di-anchor: ${f(Sx.lanc, 0)} ≥ l<sub>bd</sub> ${f(Sx.lbd, 0)})`) : Lg(` but not anchored (${f(Sx.lanc, 0)} &lt; ${f(Sx.lbd, 0)}): β = 1`, ` tetapi tidak di-anchor (${f(Sx.lanc, 0)} &lt; ${f(Sx.lbd, 0)}): β = 1`))
+    + `; V<sub>Ed,red</sub> = ${f(Sx.VE, 1)} kN; ρ<sub>l</sub> ${Sx.Asl > 0 ? Lg('counted', 'dikira') : Lg(`= 0 (${f(Sx.ex, 0)} &lt; l<sub>bd</sub> + d = ${f(Sx.lr, 0)})`, `= 0 (${f(Sx.ex, 0)} &lt; l<sub>bd</sub> + d = ${f(Sx.lr, 0)})`)}; b = ${f(Sx.bw, 0)}: V<sub>Rd,c</sub> = ${f(Sx.VRc, 1)} kN`, Sx.ok);
+  rows.push(shearRow(S, six ? Lg('Section across the width: ', 'Section merentas lebar: ') : ''));
+  if (six) rows.push(shearRow(R.sy, Lg('Section along the length: ', 'Section sepanjang panjang: ')));
+  rows.push(row('(12.10)', `${R.bt0 > 1 ? 'β = ' + f(R.bt0, 3) + '; ' : ''}d = ${f(R.dav, 0)} mm: v<sub>Ed,0</sub> = ${f(R.vE0, 2)} ≤ 0.4νf<sub>cd</sub> = ${f(CVRMAX, 2)} N/mm²? ${Lg('(0.5νf<sub>cd</sub> = ' + f(1.25 * CVRMAX, 2) + ' in the notes); pile', '(0.5νf<sub>cd</sub> = ' + f(1.25 * CVRMAX, 2) + ' dalam nota); pile')} ${f(R.vEp, 2)} N/mm²`, R.faceOK && R.vEp <= CVRMAX));
+  rows.push(row('Table 7.3N', six ? `σ<sub>s</sub> = ${f(R.sgs, 1)} → ${f(R.smx, 0)} ≥ ${f(R.spr, 0)} mm; ${Lg('across', 'merentas')} ${f(R.sgs2, 1)} → ${f(R.smx2, 0)} ≥ ${f(R.spr2, 0)} mm` : `σ<sub>s</sub> = ${f(R.rq, 3)} × 434.8 × ${f(R.As, 0)}/${f(R.Asp, 0)} = ${f(R.sgs, 1)} N/mm² → s<sub>max</sub> = ${f(R.smx, 0)} ≥ ${f(R.spr, 0)} mm?`, R.crackOK));
+  if (R.wide) rows.push(row('§2, §5', Lg('s &gt; 3φ: only the bars within 1.5φ of a pile centre count, the enhancement applies to strips 3φ wide, and the piles stand outside 2d: check punching as for a slab (Unit 10), not done here.', 's &gt; 3φ: hanya bar dalam lingkungan 1.5φ dari pusat pile dikira, enhancement digunakan pada jalur selebar 3φ, dan pile berada di luar 2d: semak punching seperti slab (Unit 10), tidak dibuat di sini.'), false));
+  if (!R.geomOK) rows.push(row('!', Lg('The column face reaches the shear section: widen the spacing or check the inputs.', 'Muka column mencapai section ricih: besarkan jarak atau semak input.'), false));
+  el('cTable').innerHTML = `<thead><tr><th>Ref</th><th>${Lg('Check', 'Semakan')}</th><th class="out">OK</th></tr></thead><tbody>` + rows.map(r => `<tr><td class="ref">${r[0]}</td><td class="m">${r[1]}</td><td class="out">${r[2]}</td></tr>`).join('') + '</tbody>';
+  drawCap(R);
+  if (userEdit && R.n === 4 && P.G === 3500 && P.Q === 2500 && P.h > 1100 && R.shearOK) milestone('deepen');
+  if (userEdit && R.wide) milestone('wide');
+}
+function drawCap(R){
+  const svg = el('cDraw'); svg.innerHTML = ''; const P = cin;
+  const sc = Math.min(520 / R.L, 180 / R.B), cx = 320, cy = 114, X = x => cx + x * sc, Y = y => cy + y * sc;
+  // plan
+  S('rect', {x: X(-R.L / 2), y: Y(-R.B / 2), width: R.L * sc, height: R.B * sc, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
+  const piles = [];
+  if (R.n === 2) piles.push([-R.s / 2, 0], [R.s / 2, 0]);
+  else if (R.n === 4) [[-1, -1], [1, -1], [1, 1], [-1, 1]].forEach(([a, b]) => piles.push([a * R.s / 2, b * R.s / 2]));
+  else [-1, 0, 1].forEach(i => [-0.5, 0.5].forEach(j => piles.push([i * R.s, j * R.s])));
+  if (R.wide && R.n !== 6){ const ys = R.n === 2 ? [0] : [-R.s / 2, R.s / 2]; ys.forEach(y => { const y0 = Math.max(y - 1.5 * P.ph, -R.B / 2), y1 = Math.min(y + 1.5 * P.ph, R.B / 2); S('rect', {x: X(-R.L / 2), y: Y(y0), width: R.L * sc, height: (y1 - y0) * sc, fill: 'var(--wash-flag)', stroke: 'none'}, svg); }); }
+  if (R.n !== 6){ const lines = R.n === 2 ? [[0, 1]] : [[0, 1], [3, 2], [0, 3], [1, 2]]; lines.forEach(([a, b], k) => S('line', {x1: X(piles[a][0]), y1: Y(piles[a][1]), x2: X(piles[b][0]), y2: Y(piles[b][1]), stroke: k < 2 ? 'var(--bad)' : 'var(--ok)', 'stroke-width': 3.5}, svg)); }
+  const pr = Math.max(5, P.ph / 2 * sc);
+  piles.forEach(([x, y], i) => { if (P.shape === 'sq') S('rect', {x: X(x) - pr, y: Y(y) - pr, width: 2 * pr, height: 2 * pr, fill: 'var(--ink-3)'}, svg); else S('circle', {cx: X(x), cy: Y(y), r: pr, fill: 'var(--ink-3)'}, svg); });
+  const cw = P.c * sc; S('rect', {x: cx - cw / 2, y: cy - cw / 2, width: cw, height: cw, fill: 'var(--surface-2)', stroke: 'var(--ink)'}, svg);
+  // shear section(s)
+  const xsec = R.n === 6 ? R.s - P.ph / 2 + P.ph / 5 : R.s / 2 - P.ph / 2 + P.ph / 5;
+  S('line', {x1: X(xsec), x2: X(xsec), y1: Y(-R.B / 2) - 10, y2: Y(R.B / 2) + 10, stroke: 'var(--unbraced)', 'stroke-width': 2.4, 'stroke-dasharray': '7 5'}, svg);
+  if (R.n === 6){ const ysec = R.s / 2 - P.ph / 2 + P.ph / 5; S('line', {x1: X(-R.L / 2) - 10, x2: X(R.L / 2) + 10, y1: Y(-ysec), y2: Y(-ysec), stroke: 'var(--flight)', 'stroke-width': 2.4, 'stroke-dasharray': '7 5'}, svg);
+    S('line', {x1: cx + cw / 2, x2: cx + cw / 2, y1: Y(-R.B / 2), y2: Y(R.B / 2), stroke: 'var(--ink-3)', 'stroke-width': 1.2, 'stroke-dasharray': '3 3'}, svg); }
+  T(svg, X(xsec) + 6, Y(-R.B / 2) - 14, Lg('shear section', 'section ricih'), {class: 'small', style: 'fill:var(--unbraced)'});
+  T(svg, cx, Y(R.B / 2) + 18, `${f(R.B, 0)} × ${f(R.L, 0)} mm` + (R.n === 6 ? '' : Lg(R.n === 2 ? ' · tie in rust' : ' · ties: rust along x, green along y', R.n === 2 ? ' · tie warna karat' : ' · tie: karat sepanjang x, hijau sepanjang y')), {'text-anchor': 'middle', class: 'small'});
+  // elevation
+  const sc2 = Math.min(520 / R.L, 140 / P.h), yt = 272, E = x => cx + x * sc2, H = y => yt + y * sc2;
+  S('rect', {x: E(-R.L / 2), y: H(0), width: R.L * sc2, height: P.h * sc2, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
+  S('rect', {x: cx - P.c * sc2 / 2, y: H(0) - 28, width: P.c * sc2, height: 28, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
+  const ex = R.n === 2 ? [-R.s / 2, R.s / 2] : R.n === 4 ? [-R.s / 2, R.s / 2] : [-R.s, 0, R.s];
+  ex.forEach(x => S('rect', {x: E(x - P.ph / 2), y: H(P.h - 75), width: P.ph * sc2, height: 75 * sc2 + 30, fill: 'var(--ink-3)'}, svg));
+  const dd = R.n === 6 ? R.dx : R.d, ytie = H(dd);
+  S('path', {d: `M${E(-R.L / 2 + 75)},${H(75)} L${E(-R.L / 2 + 75)},${ytie} L${E(R.L / 2 - 75)},${ytie} L${E(R.L / 2 - 75)},${H(75)}`, fill: 'none', stroke: 'var(--bad)', 'stroke-width': 3}, svg);
+  if (R.n !== 6){ [-R.s / 2, R.s / 2].forEach(x => S('line', {x1: cx, y1: H(0) + 6, x2: E(x), y2: ytie, stroke: 'var(--flight)', 'stroke-width': 4, 'stroke-linecap': 'round'}, svg)); }
+  S('line', {x1: E(xsec), x2: E(xsec), y1: H(0) - 12, y2: H(P.h) + 12, stroke: 'var(--unbraced)', 'stroke-width': 2.2, 'stroke-dasharray': '7 5'}, svg);
+  const yd = H(P.h) + 44, S0 = R.sx;
+  S('line', {x1: cx + P.c * sc2 / 2, x2: E(xsec), y1: yd, y2: yd, stroke: 'var(--unbraced)', 'stroke-width': 2}, svg);
+  TS(svg, (cx + P.c * sc2 / 2 + E(xsec)) / 2, yd + 18, [['a'], ['v', 1], [' = ' + f(S0.av, 0)]], {'text-anchor': 'middle', class: 'small', style: 'fill:var(--unbraced)'});
+  const half = cx + P.c * sc2 / 2 + 0.5 * S0.d * sc2;
+  S('line', {x1: cx + P.c * sc2 / 2, x2: half, y1: yd + 30, y2: yd + 30, stroke: 'var(--ink-3)', 'stroke-width': 1.6, 'stroke-dasharray': '4 3'}, svg);
+  T(svg, half + 6, yd + 34, '0.5d = ' + f(0.5 * S0.d, 0), {class: 'small', style: 'fill:var(--ink-2)'});
+  T(svg, E(R.L / 2) + 8, H(P.h / 2), `h ${f(P.h, 0)}`, {class: 'small'});
+}
+function cToOwn(){ if (cCaseK !== 'own'){ cCaseK = 'own'; fillCCases(); } }
+Object.keys(CF).forEach(id => el(id).addEventListener('input', () => { const v = parseFloat(el(id).value); if (!isFinite(v)) return; cin[CF[id]] = v; if (CF[id] === 'G' || CF[id] === 'Q') cin.rq = null; cToOwn(); redrawCap(true); }));
+segGroup(el('cLay'), v => { cin.lay = v; if (v === '6' && !(cin.nb2 >= 2)) cin.nb2 = cin.nb; cToOwn(); syncC(); redrawCap(true); });
+segGroup(el('cShape'), v => { cin.shape = v; cToOwn(); redrawCap(true); });
+el('cCase').addEventListener('change', () => { cCaseK = el('cCase').value; if (CCASES[cCaseK].v) Object.assign(cin, CCASES[cCaseK].v); fillCCases(); syncC(); redrawCap(false); if (cCaseK === 'f13') milestone('beam'); });
+/* Activity 12A: the tie force of F12 at 1100 and 1700 mm */
+function paintCA(){
+  el('aT1').value = caSt.t1 != null ? caSt.t1 : ''; el('aT2').value = caSt.t2 != null ? caSt.t2 : '';
+  const o = el('aTOut'); if (!caSt.shown){ o.hidden = true; return; }
+  const a = cCalc(CCASES.f12.v), b = cCalc(CCASES.f12r.v), e1 = Math.abs(caSt.t1 - a.T) / a.T, e2 = Math.abs(caSt.t2 - b.T) / b.T, ok = e1 <= 0.01 && e2 <= 0.01;
+  let why = '';
+  if (Math.abs(caSt.t1 - 2 * a.T) / a.T < 0.01) why = Lg(' Your first value is 2T: that is what the bars in one direction carry, for both trusses together. Each truss carries T = Ns/8d.', ' Nilai pertama anda ialah 2T: itulah yang dibawa oleh bar dalam satu arah, bagi kedua-dua truss bersama. Setiap truss membawa T = Ns/8d.');
+  else if (Math.abs(caSt.t1 - 8475 * 1500 / (8 * 1100)) < 3) why = Lg(' Your first value uses h = 1100 mm for d: the tie sits at d = h − c − 1.5φ = 987.5 mm.', ' Nilai pertama anda menggunakan h = 1100 mm sebagai d: tie berada pada d = h − c − 1.5φ = 987.5 mm.');
+  o.hidden = false; o.className = 'verdict ' + (ok ? 'ok' : 'bad');
+  o.innerHTML = (ok ? Lg('Right. ', 'Betul. ') : Lg('Compare. ', 'Bandingkan. ')) + Lg(`h = 1100: d = 987.5, T = 8475 × 1500/(8 × 987.5) = ${f(a.T, 1)} kN (yours ${f(caSt.t1, 1)}); steel each way 2T/0.435 = ${f(a.As, 0)} mm². h = 1700: d = 1587.5, T = ${f(b.T, 1)} kN (yours ${f(caSt.t2, 1)}); ${f(b.As, 0)} mm² each way, but A<sub>s,min</sub> = ${f(b.Asmin, 0)} governs. T falls as 1/d; the minimum rises with d.`,
+    `h = 1100: d = 987.5, T = 8475 × 1500/(8 × 987.5) = ${f(a.T, 1)} kN (anda ${f(caSt.t1, 1)}); keluli setiap arah 2T/0.435 = ${f(a.As, 0)} mm². h = 1700: d = 1587.5, T = ${f(b.T, 1)} kN (anda ${f(caSt.t2, 1)}); ${f(b.As, 0)} mm² setiap arah, tetapi A<sub>s,min</sub> = ${f(b.Asmin, 0)} menentukan. T menurun mengikut 1/d; nilai minimum meningkat dengan d.`) + why;
+}
+['aT1', 'aT2'].forEach(id => el(id).addEventListener('input', () => { const v = parseFloat(el(id).value); caSt[id === 'aT1' ? 't1' : 't2'] = isFinite(v) ? v : null; store(CAKEY, caSt); }));
+el('aTReveal').addEventListener('click', () => {
+  if (!(caSt.t1 > 0 && caSt.t2 > 0)){ const o = el('aTOut'); o.hidden = false; o.className = 'verdict bad'; o.innerHTML = Lg('Type both values first.', 'Taip kedua-dua nilai dahulu.'); return; }
+  caSt.shown = true; store(CAKEY, caSt); milestone('truss');
+  cCaseK = 'f12'; Object.assign(cin, CCASES.f12.v); fillCCases(); syncC(); paintCA(); redrawCap(false);
+});
+/* Activity 12B: does a deeper cap lower V_Ed,red? */
+segGroup(el('cPred'), v => { cbSt = Object.assign({}, cbSt, {pred: v}); store(CBKEY, cbSt); });
+el('cReveal').addEventListener('click', () => {
+  if (!cbSt.pred){ const o = el('cOut'); o.hidden = false; o.className = 'verdict bad'; o.innerHTML = Lg('Choose A, B, C or D first.', 'Pilih A, B, C atau D dahulu.'); return; }
+  cbSt.shown = true; store(CBKEY, cbSt); paintCB(); milestone('floor');
+  cCaseK = 'f12r'; Object.assign(cin, CCASES.f12r.v); fillCCases(); syncC(); redrawCap(false);
+});
+function paintCB(){
+  setSeg(el('cPred'), cbSt.pred || '');
+  const o = el('cOut'); if (!cbSt.shown){ o.hidden = true; return; }
+  const a = cCalc(CCASES.f12.v), b = cCalc(CCASES.f12r.v);
+  o.hidden = false; o.className = 'verdict ' + (cbSt.pred === 'B' ? 'ok' : 'bad');
+  o.innerHTML = (cbSt.pred === 'B' ? Lg('Right. ', 'Betul. ') : Lg('The answer is B. ', 'Jawapannya B. ')) +
+    Lg(`a<sub>v</sub> = 350 mm in both. At 1100 mm, 0.5d = 494 mm; at 1700 mm, 794 mm: a<sub>v</sub> stays below 0.5d, β stays 0.25 and V<sub>Ed,red</sub> = ${f(a.sx.VE, 1)} kN in both. What grows is V<sub>Rd,c</sub>: ${f(a.sx.VRc, 1)} → ${f(b.sx.VRc, 1)} kN. Answer A is β = 350/3175 = 0.110, ${f(b.sx.betaM * 4237.5, 0)} kN: the reasoning the floor rules out.`,
+       `a<sub>v</sub> = 350 mm dalam kedua-duanya. Pada 1100 mm, 0.5d = 494 mm; pada 1700 mm, 794 mm: a<sub>v</sub> kekal di bawah 0.5d, β kekal 0.25 dan V<sub>Ed,red</sub> = ${f(a.sx.VE, 1)} kN dalam kedua-duanya. Yang bertambah ialah V<sub>Rd,c</sub>: ${f(a.sx.VRc, 1)} → ${f(b.sx.VRc, 1)} kN. Jawapan A ialah β = 350/3175 = 0.110, ${f(b.sx.betaM * 4237.5, 0)} kN: penaakulan yang ditolak oleh lantai itu.`);
+}
+
 /* ---------- start ---------- */
-function fillAllCases(){ fillPCases(); fillSCases(); fillTCases(); fillGCases(); }
-function redrawAll(){ drawAct(); redrawPressure(false); paintB(); redrawSections(false); drawSheet(); paintAA(); redrawStrap(false); paintGB(); redrawGroup(false); }
+function fillAllCases(){ fillPCases(); fillSCases(); fillTCases(); fillGCases(); fillCCases(); }
+function redrawAll(){ drawAct(); redrawPressure(false); paintB(); redrawSections(false); drawSheet(); paintAA(); redrawStrap(false); paintGB(); redrawGroup(false); paintCA(); paintCB(); redrawCap(false); }
 applyPrefs(false);
-fillAllCases(); syncP(); syncS(); syncT(); syncG(); setSeg(el('tDia'), tDia); tPaint(); redrawAll();
+fillAllCases(); syncP(); syncS(); syncT(); syncG(); syncC(); setSeg(el('tDia'), tDia); tPaint(); redrawAll();
 showTab((location.hash || '').slice(1) || 'pressure');
 window.addEventListener('hashchange', () => showTab((location.hash || '').slice(1)));
 

@@ -2393,6 +2393,393 @@
      "title_ms": "Glosari: zero shear x_0"
     }
    ]
+  },
+  {
+   "part": "u12",
+   "folder": "12-foundations-3",
+   "title": "Unit 12 Foundations III",
+   "sections": [
+    {
+     "id": "start-outcomes",
+     "title_en": "After this part you should be able to",
+     "title_ms": "Selepas bahagian ini, anda sepatutnya boleh"
+    },
+    {
+     "id": "notes-n1",
+     "title_en": "1. The pile cap: its job, plan and depth",
+     "title_ms": "1. Pile cap: tugasnya, pelan dan kedalaman"
+    },
+    {
+     "id": "notes-n2",
+     "title_en": "2. The truss analogy",
+     "title_ms": "2. Truss analogy"
+    },
+    {
+     "id": "notes-n3",
+     "title_en": "3. Beam theory",
+     "title_ms": "3. Beam theory"
+    },
+    {
+     "id": "notes-n4",
+     "title_en": "4. Shear: the section at φ/5 and the enhancement",
+     "title_ms": "4. Ricih: section pada φ/5 dan enhancement"
+    },
+    {
+     "id": "notes-n5",
+     "title_en": "5. Punching and the column face",
+     "title_ms": "5. Punching dan muka column"
+    },
+    {
+     "id": "notes-n6",
+     "title_en": "6. Crack control and detailing",
+     "title_ms": "6. Kawalan retak dan perincian"
+    },
+    {
+     "id": "slides-1",
+     "title_en": "Slide 1: Foundations III",
+     "title_ms": "Slide 1: Foundations III"
+    },
+    {
+     "id": "slides-2",
+     "title_en": "Slide 2: How the next three hours run",
+     "title_ms": "Slide 2: How the next three hours run"
+    },
+    {
+     "id": "slides-3",
+     "title_en": "Slide 3: Three questions from last week’s piles",
+     "title_ms": "Slide 3: Three questions from last week’s piles"
+    },
+    {
+     "id": "slides-4",
+     "title_en": "Slide 4: C, A, B, and what each means today",
+     "title_ms": "Slide 4: C, A, B, and what each means today"
+    },
+    {
+     "id": "slides-5",
+     "title_en": "Slide 5: The notes’ four-pile cap: one shear check, two answers",
+     "title_ms": "Slide 5: The notes’ four-pile cap: one shear check, two answers"
+    },
+    {
+     "id": "slides-6",
+     "title_en": "Slide 6: Why does the course notes’ cap pass by 1 % in the notes and fail under EC2?",
+     "title_ms": "Slide 6: Why does the course notes’ cap pass by 1 % in the notes and fail under EC2?"
+    },
+    {
+     "id": "slides-7",
+     "title_en": "Slide 7: A pile cap: plan, depth, and two models",
+     "title_ms": "Slide 7: A pile cap: plan, depth, and two models"
+    },
+    {
+     "id": "slides-8",
+     "title_en": "Slide 8: The truss: concrete struts, a steel tie",
+     "title_ms": "Slide 8: The truss: concrete struts, a steel tie"
+    },
+    {
+     "id": "slides-9",
+     "title_en": "Slide 9: The tie force of the notes’ cap at two depths",
+     "title_ms": "Slide 9: The tie force of the notes’ cap at two depths"
+    },
+    {
+     "id": "slides-10",
+     "title_en": "Slide 10: A deeper cap needs less tie, but more minimum steel",
+     "title_ms": "Slide 10: A deeper cap needs less tie, but more minimum steel"
+    },
+    {
+     "id": "slides-11",
+     "title_en": "Slide 11: A four-pile cap: the notes’ 1100 mm, and why it fails",
+     "title_ms": "Slide 11: A four-pile cap: the notes’ 1100 mm, and why it fails"
+    },
+    {
+     "id": "slides-12",
+     "title_en": "Slide 12: Shear at φ/5: the enhancement, and its floor",
+     "title_ms": "Slide 12: Shear at φ/5: the enhancement, and its floor"
+    },
+    {
+     "id": "slides-13",
+     "title_en": "Slide 13: The notes’ cap: a v = 350 mm, d = 987.5 mm, the bars bent up and anchored beyond the piles. By EC2, β is",
+     "title_ms": "Slide 13: The notes’ cap: a v = 350 mm, d = 987.5 mm, the bars bent up and anchored beyond the piles. By EC2, β is"
+    },
+    {
+     "id": "slides-14",
+     "title_en": "Slide 14: Deepen the notes’ cap from 1100 to 1700 mm. V Ed,red …",
+     "title_ms": "Slide 14: Deepen the notes’ cap from 1100 to 1700 mm. V Ed,red …"
+    },
+    {
+     "id": "slides-15",
+     "title_en": "Slide 15: It stays: β is on its floor; V Rd,c is what grows",
+     "title_ms": "Slide 15: It stays: β is on its floor; V Rd,c is what grows"
+    },
+    {
+     "id": "slides-16",
+     "title_en": "Slide 16: Punching and the column face",
+     "title_ms": "Slide 16: Punching and the column face"
+    },
+    {
+     "id": "slides-17",
+     "title_en": "Slide 17: Detailing: anchor the tie where the struts meet it",
+     "title_ms": "Slide 17: Detailing: anchor the tie where the struts meet it"
+    },
+    {
+     "id": "slides-18",
+     "title_en": "Slide 18: Beam theory: six piles under a moment",
+     "title_ms": "Slide 18: Beam theory: six piles under a moment"
+    },
+    {
+     "id": "slides-19",
+     "title_en": "Slide 19: The six-pile cap of FE 11.2, by beam theory",
+     "title_ms": "Slide 19: The six-pile cap of FE 11.2, by beam theory"
+    },
+    {
+     "id": "slides-20",
+     "title_en": "Slide 20: 12H16 along, 18H16 across; shear passes both ways",
+     "title_ms": "Slide 20: 12H16 along, 18H16 across; shear passes both ways"
+    },
+    {
+     "id": "slides-21",
+     "title_en": "Slide 21: In Faded Example 12.2, where does β sit on its floor of 0.25?",
+     "title_ms": "Slide 21: In Faded Example 12.2, where does β sit on its floor of 0.25?"
+    },
+    {
+     "id": "slides-22",
+     "title_en": "Slide 22: Foundation S12: four slips in a four-pile cap",
+     "title_ms": "Slide 22: Foundation S12: four slips in a four-pile cap"
+    },
+    {
+     "id": "slides-23",
+     "title_en": "Slide 23: D12: a two-pile cap by the truss analogy (20 marks)",
+     "title_ms": "Slide 23: D12: a two-pile cap by the truss analogy (20 marks)"
+    },
+    {
+     "id": "slides-24",
+     "title_en": "Slide 24: The pile cap of your individual column",
+     "title_ms": "Slide 24: The pile cap of your individual column"
+    },
+    {
+     "id": "slides-25",
+     "title_en": "Slide 25: Take a reduction only with its limit",
+     "title_ms": "Slide 25: Take a reduction only with its limit"
+    },
+    {
+     "id": "slides-26",
+     "title_en": "Slide 26: Before Unit 13",
+     "title_ms": "Slide 26: Before Unit 13"
+    },
+    {
+     "id": "slides-27",
+     "title_en": "Slide 27: Before you leave",
+     "title_ms": "Slide 27: Before you leave"
+    },
+    {
+     "id": "examples-x1",
+     "title_en": "Example 1 · Worked Example 12.1: a four-pile cap by the truss analogy",
+     "title_ms": "Contoh 1 · Worked Example 12.1: pile cap empat pile melalui truss analogy"
+    },
+    {
+     "id": "examples-x2",
+     "title_en": "Example 2 · Faded Example 12.2: a six-pile cap by beam theory",
+     "title_ms": "Contoh 2 · Faded Example 12.2: pile cap enam pile melalui beam theory"
+    },
+    {
+     "id": "examples-x3",
+     "title_en": "Example 3 · Explain-type questions",
+     "title_ms": "Contoh 3 · Soalan jenis terangkan"
+    },
+    {
+     "id": "exercises-b1",
+     "title_en": "Exercise B1 · Two-pile cap: the tie",
+     "title_ms": "Latihan B1 · Pile cap dua pile: tie"
+    },
+    {
+     "id": "exercises-b2",
+     "title_en": "Exercise B2 · Four-pile cap: the ties each way",
+     "title_ms": "Latihan B2 · Pile cap empat pile: tie setiap arah"
+    },
+    {
+     "id": "exercises-b3",
+     "title_en": "Exercise B3 · Three-pile cap: the ties",
+     "title_ms": "Latihan B3 · Pile cap tiga pile: tie"
+    },
+    {
+     "id": "exercises-b4",
+     "title_en": "Exercise B4 · Six-pile cap: beam theory",
+     "title_ms": "Latihan B4 · Pile cap enam pile: beam theory"
+    },
+    {
+     "id": "exercises-b5",
+     "title_en": "Exercise B5 · Shear at the φ/5 section",
+     "title_ms": "Latihan B5 · Ricih pada section φ/5"
+    },
+    {
+     "id": "exercises-b6",
+     "title_en": "Exercise B6 · The column face with a moment",
+     "title_ms": "Latihan B6 · Muka column dengan moment"
+    },
+    {
+     "id": "exercises-quick",
+     "title_en": "Exercises: quick concept questions",
+     "title_ms": "Latihan: soalan konsep pantas"
+    },
+    {
+     "id": "lab-truss",
+     "title_en": "Explorer task 1: Tab 6, Activity 12A: work out the tie force in each truss of ca…",
+     "title_ms": "Tugasan Explorer 1: Tab 6, Aktiviti 12A: kira daya tie dalam setiap truss kes F12 b…"
+    },
+    {
+     "id": "lab-floor",
+     "title_en": "Explorer task 2: Tab 6, Activity 12B: predict what happens to the reduced shear…",
+     "title_ms": "Tugasan Explorer 2: Tab 6, Aktiviti 12B: ramal apa yang berlaku kepada ricih terkur…"
+    },
+    {
+     "id": "lab-deepen",
+     "title_en": "Explorer task 3: Tab 6: with the loads of case F12, raise h in 50 mm steps until…",
+     "title_ms": "Tugasan Explorer 3: Tab 6: dengan load kes F12, naikkan h dalam langkah 50 mm sehin…"
+    },
+    {
+     "id": "lab-wide",
+     "title_en": "Explorer task 4: Tab 6: set the spacing factor k above 3 (piles wider apart than…",
+     "title_ms": "Tugasan Explorer 4: Tab 6: tetapkan faktor jarak k melebihi 3 (pile lebih jauh dari…"
+    },
+    {
+     "id": "lab-beam",
+     "title_en": "Explorer task 5: Tab 6: choose case F13, the six-pile cap of Faded Example 12.2",
+     "title_ms": "Tugasan Explorer 5: Tab 6: pilih kes F13, pile cap enam pile Faded Example 12.2"
+    },
+    {
+     "id": "lab-s12",
+     "title_en": "Explorer task 6: Tab 3: Foundation S12, find all four slips, tap their lines and…",
+     "title_ms": "Tugasan Explorer 6: Tab 3: Foundation S12, cari keempat-empat kesilapan, ketik bari…"
+    },
+    {
+     "id": "glossary-a-v-shear-span-of-a-cap",
+     "title_en": "Glossary: a_v (shear span of a cap)",
+     "title_ms": "Glosari: a_v (shear span of a cap)"
+    },
+    {
+     "id": "glossary-anchorage-beyond-the-pile-centre-line",
+     "title_en": "Glossary: anchorage beyond the pile centre line",
+     "title_ms": "Glosari: anchorage beyond the pile centre line"
+    },
+    {
+     "id": "glossary-beam-theory",
+     "title_en": "Glossary: beam theory",
+     "title_ms": "Glosari: beam theory"
+    },
+    {
+     "id": "glossary-bent-up-bar",
+     "title_en": "Glossary: bent-up bar",
+     "title_ms": "Glosari: bent-up bar"
+    },
+    {
+     "id": "glossary-shear-enhancement-factor",
+     "title_en": "Glossary: β, shear enhancement factor",
+     "title_ms": "Glosari: β, shear enhancement factor"
+    },
+    {
+     "id": "glossary-column-face-check",
+     "title_en": "Glossary: column face check",
+     "title_ms": "Glosari: column face check"
+    },
+    {
+     "id": "glossary-critical-shear-section",
+     "title_en": "Glossary: critical shear section",
+     "title_ms": "Glosari: critical shear section"
+    },
+    {
+     "id": "glossary-depth-guide",
+     "title_en": "Glossary: depth guide",
+     "title_ms": "Glosari: depth guide"
+    },
+    {
+     "id": "glossary-effective-depth-by-layers",
+     "title_en": "Glossary: effective depth by layers",
+     "title_ms": "Glosari: effective depth by layers"
+    },
+    {
+     "id": "glossary-floor-of",
+     "title_en": "Glossary: floor of β",
+     "title_ms": "Glosari: floor of β"
+    },
+    {
+     "id": "glossary-horizontal-links",
+     "title_en": "Glossary: horizontal links",
+     "title_ms": "Glosari: horizontal links"
+    },
+    {
+     "id": "glossary-node",
+     "title_en": "Glossary: node",
+     "title_ms": "Glosari: node"
+    },
+    {
+     "id": "glossary-strength-reduction-factor",
+     "title_en": "Glossary: ν, strength reduction factor",
+     "title_ms": "Glosari: ν, strength reduction factor"
+    },
+    {
+     "id": "glossary-pile-cap",
+     "title_en": "Glossary: pile cap",
+     "title_ms": "Glosari: pile cap"
+    },
+    {
+     "id": "glossary-pile-cut-off-level",
+     "title_en": "Glossary: pile cut-off level",
+     "title_ms": "Glosari: pile cut-off level"
+    },
+    {
+     "id": "glossary-pile-perimeter-check",
+     "title_en": "Glossary: pile perimeter check",
+     "title_ms": "Glosari: pile perimeter check"
+    },
+    {
+     "id": "glossary-punching-in-a-pile-cap",
+     "title_en": "Glossary: punching in a pile cap",
+     "title_ms": "Glosari: punching in a pile cap"
+    },
+    {
+     "id": "glossary-l-in-a-pile-cap",
+     "title_en": "Glossary: ρ_l in a pile cap",
+     "title_ms": "Glosari: ρ_l in a pile cap"
+    },
+    {
+     "id": "glossary-spacing-factor-k",
+     "title_en": "Glossary: spacing factor k",
+     "title_ms": "Glosari: spacing factor k"
+    },
+    {
+     "id": "glossary-starter-bars",
+     "title_en": "Glossary: starter bars",
+     "title_ms": "Glosari: starter bars"
+    },
+    {
+     "id": "glossary-strut",
+     "title_en": "Glossary: strut",
+     "title_ms": "Glosari: strut"
+    },
+    {
+     "id": "glossary-tie",
+     "title_en": "Glossary: tie",
+     "title_ms": "Glosari: tie"
+    },
+    {
+     "id": "glossary-tie-force-t",
+     "title_en": "Glossary: tie force T",
+     "title_ms": "Glosari: tie force T"
+    },
+    {
+     "id": "glossary-truss-analogy",
+     "title_en": "Glossary: truss analogy",
+     "title_ms": "Glosari: truss analogy"
+    },
+    {
+     "id": "glossary-v-rd-max",
+     "title_en": "Glossary: v_{Rd,max}",
+     "title_ms": "Glosari: v_{Rd,max}"
+    },
+    {
+     "id": "glossary-whole-width-enhancement",
+     "title_en": "Glossary: whole-width enhancement",
+     "title_ms": "Glosari: whole-width enhancement"
+    }
+   ]
   }
  ]
 }

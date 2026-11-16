@@ -221,7 +221,7 @@ EN 1990 6.10 N_{Ed} = 1.35 × 3500 + 1.5 × 2500 = 8475 kN; each pile 2118.75 kN
 (12.4) Two trusses each way: A_s = 2 × 1609.2 × 10³/435 7399 mm² each way
 ## Step 3 The bars
 Ref Calculations Output
-(12.4) A_{s,min} = 0.0015 × 2300 × 987.5 = 3421 mm²; A_{s,max} = 0.04 × 2300 × 1100 = 101200 mm²
+(12.4) A_{s,min} = 0.001506 × 2300 × 987.5 = 3421 mm²; A_{s,max} = 0.04 × 2300 × 1100 = 101200 mm²
 §2 s = 1500 mm = 3φ: spread evenly; spacing (2300 − 150 − 25)/15 16H25 each way (7854) at 141.7 mm ✓
 ## Step 4 Shear at the φ/5 section
 Ref Calculations Output
@@ -245,11 +245,11 @@ Ref Calculations Output
 §4 β stays at 0.25 and V_{Ed,red} at 1059.4 kN: only V_{Rd,c} can grow. 1600 mm gives 1047.9 kN (✗), 1650 mm 1076.0 kN (✓); take the app’s revised h = 1700 mm h = 1700 mm
 EN 1991-1-1 W = 25 × 2.3² × 1.7 = 224.8 kN; pile (6000 + 224.8)/4 = 1556.2 ≤ 1800 kN; n = (6000 + 300)/1800 = 3.5, still 4 ✓
 (12.3), (12.4) d = 1587.5 mm; T = 8475 × 1500/(8 × 1587.5) = 1001.0 kN; A_s = 2 × 1001.0 × 10³/435 = 4602 mm²
-(12.4) A_{s,min} = 0.0015 × 2300 × 1587.5 = 5499 mm² governs; spacing (2300 − 150 − 25)/11 12H25 each way (5890) at 193.2 mm
+(12.4) A_{s,min} = 0.001506 × 2300 × 1587.5 = 5499 mm² governs; spacing (2300 − 150 − 25)/11 12H25 each way (5890) at 193.2 mm
 ## Step 8 Shear and the column face again
 Ref Calculations Output
 (12.7) a_v = 350 < 0.5d = 793.75 mm: β = 0.25, V_{Ed,red} = 1059.4 kN; anchorage (400 − 75) + (1587.5 − 75) = 1837.5 ≥ 894 mm
-(12.9) Bars past the section 1987.5 < 2481.4 mm: ρ_l = 0; k = 1.355, v_{min} = 0.3023; V_{Rd,c} = 0.3023 × 2300 × 1587.5 1104.0 ≥ 1059.4 kN ✓
+(12.9) Bars past the section 1987.5 < 2481.4 mm: ρ_l = 0; k = 1.355, v_{min} = 0.3024; V_{Rd,c} = 0.3024 × 2300 × 1587.5 1104.0 ≥ 1059.4 kN ✓
 (12.10) d = 1600 mm: v_{Ed,0} = 8475 × 10³/(2000 × 1600) = 2.65 ≤ 4.22; each pile 2118.75 × 10³/(π × 500 × 1600) = 0.84 N/mm² ✓
 ## Step 9 Cracks and detailing
 Ref Calculations Output
@@ -275,11 +275,11 @@ Ref Calculations Output
 ## Step 4 Bars along the length
 Ref Calculations Output
 RCD I K = 1009.2 × 10⁶/(30 × 1500 × 1017²) = 0.0217; z = 0.95d = 966.2 mm; A_s = 1009.2 × 10⁶/(435 × 966.2) 2401 mm²
-(12.4) A_{s,min} = 0.0015 × 1500 × 1017 = 2298 mm² 12H16 (2413) ✓
+(12.4) A_{s,min} = 0.001506 × 1500 × 1017 = 2298 mm² 12H16 (2413) ✓
 ## Step 5 Bars across
 Ref Calculations Output
 RCD I K = 525.0 × 10⁶/(30 × 2400 × 1001²) = 0.0073; z = 0.95d = 951.0 mm; A_s = 525.0 × 10⁶/(435 × 951.0) = 1269 mm²
-(12.4) A_{s,min} = 0.0015 × 2400 × 1001 = 3618 mm² governs 18H16 (3619) ✓
+(12.4) A_{s,min} = 0.001506 × 2400 × 1001 = 3618 mm² governs 18H16 (3619) ✓
 ## Step 6 Shear in both directions
 Ref Calculations Output
 (12.6), (12.7) Section across the width: two end piles beyond, V_{Ed} = 1441.7 kN; a_v = 900 − 200 − 90 = 610 ≥ 0.5d = 508.5 mm: β = 610/2034 = 0.300; anchored (225 + 942 = 1167 ≥ 572 mm) V_{Ed,red} = 432.4 kN

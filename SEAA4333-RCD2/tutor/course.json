@@ -3197,6 +3197,433 @@
      "title_ms": "Glosari: weep hole"
     }
    ]
+  },
+  {
+   "part": "u14",
+   "folder": "14-retaining-walls-2",
+   "title": "Unit 14 Retaining Walls II",
+   "sections": [
+    {
+     "id": "start-outcomes",
+     "title_en": "After this part you should be able to",
+     "title_ms": "Selepas bahagian ini, anda sepatutnya boleh"
+    },
+    {
+     "id": "notes-n1",
+     "title_en": "1. Three cantilevers: which face is in tension?",
+     "title_ms": "1. Tiga cantilever: muka manakah dalam tegangan?"
+    },
+    {
+     "id": "notes-n2",
+     "title_en": "2. Design loads: the pressures under the base and the net loads",
+     "title_ms": "2. Design load: tekanan di bawah base dan net load"
+    },
+    {
+     "id": "notes-n3",
+     "title_en": "3. The stem",
+     "title_ms": "3. Stem"
+    },
+    {
+     "id": "notes-n4",
+     "title_en": "4. The toe and the heel",
+     "title_ms": "4. Toe dan heel"
+    },
+    {
+     "id": "notes-n5",
+     "title_en": "5. Crack control and detailing",
+     "title_ms": "5. Crack control dan detailing"
+    },
+    {
+     "id": "notes-n6",
+     "title_en": "6. A sloping backfill, the key and water",
+     "title_ms": "6. Backfill bercerun, key dan air"
+    },
+    {
+     "id": "slides-1",
+     "title_en": "Slide 1: Retaining Walls II",
+     "title_ms": "Slide 1: Retaining Walls II"
+    },
+    {
+     "id": "slides-2",
+     "title_en": "Slide 2: How the next three hours run",
+     "title_ms": "Slide 2: How the next three hours run"
+    },
+    {
+     "id": "slides-3",
+     "title_en": "Slide 3: Three questions from last week and from statics",
+     "title_ms": "Slide 3: Three questions from last week and from statics"
+    },
+    {
+     "id": "slides-4",
+     "title_en": "Slide 4: B, C, A, and what each means today",
+     "title_ms": "Slide 4: B, C, A, and what each means today"
+    },
+    {
+     "id": "slides-5",
+     "title_en": "Slide 5: A drawing comes back with one red circle",
+     "title_ms": "Slide 5: A drawing comes back with one red circle"
+    },
+    {
+     "id": "slides-6",
+     "title_en": "Slide 6: The ground pushes the whole base up. On which face do the main bars of the heel go?",
+     "title_ms": "Slide 6: The ground pushes the whole base up. On which face do the main bars of the heel go?"
+    },
+    {
+     "id": "slides-7",
+     "title_en": "Slide 7: Three cantilevers, three tension faces",
+     "title_ms": "Slide 7: Three cantilevers, three tension faces"
+    },
+    {
+     "id": "slides-8",
+     "title_en": "Slide 8: Design loads: STR, and the net loads on the base",
+     "title_ms": "Slide 8: Design loads: STR, and the net loads on the base"
+    },
+    {
+     "id": "slides-9",
+     "title_en": "Slide 9: Sketch first: how does each part bend?",
+     "title_ms": "Slide 9: Sketch first: how does each part bend?"
+    },
+    {
+     "id": "slides-10",
+     "title_en": "Slide 10: Stem: earth face. Toe: bottom. Heel: top.",
+     "title_ms": "Slide 10: Stem: earth face. Toe: bottom. Heel: top."
+    },
+    {
+     "id": "slides-11",
+     "title_en": "Slide 11: The stem: one metre of a vertical slab",
+     "title_ms": "Slide 11: The stem: one metre of a vertical slab"
+    },
+    {
+     "id": "slides-12",
+     "title_en": "Slide 12: The toe and the heel: two trapeziums of net load",
+     "title_ms": "Slide 12: The toe and the heel: two trapeziums of net load"
+    },
+    {
+     "id": "slides-13",
+     "title_en": "Slide 13: Crack control and detailing: finishing the drawing",
+     "title_ms": "Slide 13: Crack control and detailing: finishing the drawing"
+    },
+    {
+     "id": "slides-14",
+     "title_en": "Slide 14: In Unit 13 the weight of the surcharge on the heel took the factor 0. In the design of the heel it takes",
+     "title_ms": "Slide 14: In Unit 13 the weight of the surcharge on the heel took the factor 0. In the design of the heel it takes"
+    },
+    {
+     "id": "slides-15",
+     "title_en": "Slide 15: The drains block. Water rises to 1.5 m below the top. The soil thrust of 61.8 kN…",
+     "title_ms": "Slide 15: The drains block. Water rises to 1.5 m below the top. The soil thrust of 61.8 kN…"
+    },
+    {
+     "id": "slides-16",
+     "title_en": "Slide 16: D: 61.8 becomes 104.7 kN, and the wall slides",
+     "title_ms": "Slide 16: D: 61.8 becomes 104.7 kN, and the wall slides"
+    },
+    {
+     "id": "slides-17",
+     "title_en": "Slide 17: A sloping backfill: the thrust tilts",
+     "title_ms": "Slide 17: A sloping backfill: the thrust tilts"
+    },
+    {
+     "id": "slides-18",
+     "title_en": "Slide 18: A key: passive resistance when friction is not enough",
+     "title_ms": "Slide 18: A key: passive resistance when friction is not enough"
+    },
+    {
+     "id": "slides-19",
+     "title_en": "Slide 19: The notes’ wall with a 15° backfill: design the heel",
+     "title_ms": "Slide 19: The notes’ wall with a 15° backfill: design the heel"
+    },
+    {
+     "id": "slides-20",
+     "title_en": "Slide 20: The heel needs H16 at 125, not H12 at 150",
+     "title_ms": "Slide 20: The heel needs H16 at 125, not H12 at 150"
+    },
+    {
+     "id": "slides-21",
+     "title_en": "Slide 21: A backfill slopes at 15°. The vertical component P v of its thrust",
+     "title_ms": "Slide 21: A backfill slopes at 15°. The vertical component P v of its thrust"
+    },
+    {
+     "id": "slides-22",
+     "title_en": "Slide 22: Retaining Wall S14: four slips in the design of the members",
+     "title_ms": "Slide 22: Retaining Wall S14: four slips in the design of the members"
+    },
+    {
+     "id": "slides-23",
+     "title_en": "Slide 23: D14: the stem and the heel of a cantilever wall (20 marks)",
+     "title_ms": "Slide 23: D14: the stem and the heel of a cantilever wall (20 marks)"
+    },
+    {
+     "id": "slides-24",
+     "title_en": "Slide 24: Fourteen Units in six questions",
+     "title_ms": "Slide 24: Fourteen Units in six questions"
+    },
+    {
+     "id": "slides-25",
+     "title_en": "Slide 25: The report goes in: the last log",
+     "title_ms": "Slide 25: The report goes in: the last log"
+    },
+    {
+     "id": "slides-26",
+     "title_en": "Slide 26: Sketch how it bends before you place a bar",
+     "title_ms": "Slide 26: Sketch how it bends before you place a bar"
+    },
+    {
+     "id": "slides-27",
+     "title_en": "Slide 27: Before the final examination",
+     "title_ms": "Slide 27: Before the final examination"
+    },
+    {
+     "id": "slides-28",
+     "title_en": "Slide 28: Before you leave",
+     "title_ms": "Slide 28: Before you leave"
+    },
+    {
+     "id": "examples-x1",
+     "title_en": "Example 1 · Worked Example 14.1: the stem, the toe and the heel",
+     "title_ms": "Contoh 1 · Worked Example 14.1: stem, toe dan heel"
+    },
+    {
+     "id": "examples-x2",
+     "title_en": "Example 2 · Faded Example 14.2: a sloping backfill",
+     "title_ms": "Contoh 2 · Faded Example 14.2: backfill bercerun"
+    },
+    {
+     "id": "examples-x3",
+     "title_en": "Example 3 · Explain-type questions",
+     "title_ms": "Contoh 3 · Soalan jenis terangkan"
+    },
+    {
+     "id": "exercises-b1",
+     "title_en": "Exercise B1 · The stem: thrust, moment and shear",
+     "title_ms": "Latihan B1 · Stem: thrust, moment dan shear"
+    },
+    {
+     "id": "exercises-b2",
+     "title_en": "Exercise B2 · The design pressures under the base",
+     "title_ms": "Latihan B2 · Design pressure di bawah base"
+    },
+    {
+     "id": "exercises-b3",
+     "title_en": "Exercise B3 · The toe",
+     "title_ms": "Latihan B3 · Toe"
+    },
+    {
+     "id": "exercises-b4",
+     "title_en": "Exercise B4 · The heel",
+     "title_ms": "Latihan B4 · Heel"
+    },
+    {
+     "id": "exercises-b5",
+     "title_en": "Exercise B5 · Steel and crack control",
+     "title_ms": "Latihan B5 · Steel dan crack control"
+    },
+    {
+     "id": "exercises-b6",
+     "title_en": "Exercise B6 · A sloping backfill and the heel tip",
+     "title_ms": "Latihan B6 · Backfill bercerun dan hujung heel"
+    },
+    {
+     "id": "exercises-quick",
+     "title_en": "Exercises: quick concept questions",
+     "title_ms": "Latihan: soalan konsep pantas"
+    },
+    {
+     "id": "lab-faces",
+     "title_en": "Explorer task 1: Tab 4, Activity 14A: sketch how the stem, the toe and the heel…",
+     "title_ms": "Tugasan Explorer 1: Tab 4, Aktiviti 14A: lakar cara stem, toe dan heel melentur (Wo…"
+    },
+    {
+     "id": "lab-bars",
+     "title_en": "Explorer task 2: Tab 4, case WE 14.1 with the notes’ bars: the heel fails",
+     "title_ms": "Tugasan Explorer 2: Tab 4, kes WE 14.1 dengan bar dalam nota: heel gagal"
+    },
+    {
+     "id": "lab-slope",
+     "title_en": "Explorer task 3: Tab 4, case FE 14.2: the notes’ wall with its backfill at 15°",
+     "title_ms": "Tugasan Explorer 3: Tab 4, kes FE 14.2: wall dalam nota dengan backfill pada 15°"
+    },
+    {
+     "id": "lab-water",
+     "title_en": "Explorer task 4: Tab 5, Activity 14B: the drains block",
+     "title_ms": "Tugasan Explorer 4: Tab 5, Aktiviti 14B: saliran tersumbat"
+    },
+    {
+     "id": "lab-key",
+     "title_en": "Explorer task 5: Tab 5: give the notes’ wall, which slides in Combination 2, a k…",
+     "title_ms": "Tugasan Explorer 5: Tab 5: beri wall dalam nota, yang menggelongsor dalam Combinati…"
+    },
+    {
+     "id": "lab-s14",
+     "title_en": "Explorer task 6: Tab 3: Retaining Wall S14, find all four slips, tap their lines…",
+     "title_ms": "Tugasan Explorer 6: Tab 3: Retaining Wall S14, cari keempat-empat kesilapan, ketik…"
+    },
+    {
+     "id": "glossary-anchorage-length",
+     "title_en": "Glossary: anchorage length",
+     "title_ms": "Glosari: anchorage length"
+    },
+    {
+     "id": "glossary-a-s-min",
+     "title_en": "Glossary: A_{s,min}",
+     "title_ms": "Glosari: A_{s,min}"
+    },
+    {
+     "id": "glossary-cover",
+     "title_en": "Glossary: cover",
+     "title_ms": "Glosari: cover"
+    },
+    {
+     "id": "glossary-crack-control",
+     "title_en": "Glossary: crack control",
+     "title_ms": "Glosari: crack control"
+    },
+    {
+     "id": "glossary-critical-section",
+     "title_en": "Glossary: critical section",
+     "title_ms": "Glosari: critical section"
+    },
+    {
+     "id": "glossary-curtailment",
+     "title_en": "Glossary: curtailment",
+     "title_ms": "Glosari: curtailment"
+    },
+    {
+     "id": "glossary-deflected-shape",
+     "title_en": "Glossary: deflected shape",
+     "title_ms": "Glosari: deflected shape"
+    },
+    {
+     "id": "glossary-design-pressure-q-d",
+     "title_en": "Glossary: design pressure, q_d",
+     "title_ms": "Glosari: design pressure, q_d"
+    },
+    {
+     "id": "glossary-distribution-steel",
+     "title_en": "Glossary: distribution steel",
+     "title_ms": "Glosari: distribution steel"
+    },
+    {
+     "id": "glossary-drainage",
+     "title_en": "Glossary: drainage",
+     "title_ms": "Glosari: drainage"
+    },
+    {
+     "id": "glossary-effective-depth-d",
+     "title_en": "Glossary: effective depth, d",
+     "title_ms": "Glosari: effective depth, d"
+    },
+    {
+     "id": "glossary-heel-beam",
+     "title_en": "Glossary: heel beam",
+     "title_ms": "Glosari: heel beam"
+    },
+    {
+     "id": "glossary-k",
+     "title_en": "Glossary: K",
+     "title_ms": "Glosari: K"
+    },
+    {
+     "id": "glossary-key",
+     "title_en": "Glossary: key",
+     "title_ms": "Glosari: key"
+    },
+    {
+     "id": "glossary-k-p",
+     "title_en": "Glossary: K_p",
+     "title_ms": "Glosari: K_p"
+    },
+    {
+     "id": "glossary-lap-length-l-0",
+     "title_en": "Glossary: lap length, l_0",
+     "title_ms": "Glosari: lap length, l_0"
+    },
+    {
+     "id": "glossary-lever-arm-z",
+     "title_en": "Glossary: lever arm, z",
+     "title_ms": "Glosari: lever arm, z"
+    },
+    {
+     "id": "glossary-net-load",
+     "title_en": "Glossary: net load",
+     "title_ms": "Glosari: net load"
+    },
+    {
+     "id": "glossary-passive-pressure",
+     "title_en": "Glossary: passive pressure",
+     "title_ms": "Glosari: passive pressure"
+    },
+    {
+     "id": "glossary-p-h-p-v",
+     "title_en": "Glossary: P_h , P_v",
+     "title_ms": "Glosari: P_h , P_v"
+    },
+    {
+     "id": "glossary-quasi-permanent-load",
+     "title_en": "Glossary: quasi-permanent load",
+     "title_ms": "Glosari: quasi-permanent load"
+    },
+    {
+     "id": "glossary-secondary-steel",
+     "title_en": "Glossary: secondary steel",
+     "title_ms": "Glosari: secondary steel"
+    },
+    {
+     "id": "glossary-sloping-backfill",
+     "title_en": "Glossary: sloping backfill",
+     "title_ms": "Glosari: sloping backfill"
+    },
+    {
+     "id": "glossary-starter-bars",
+     "title_en": "Glossary: starter bars",
+     "title_ms": "Glosari: starter bars"
+    },
+    {
+     "id": "glossary-str",
+     "title_en": "Glossary: STR",
+     "title_ms": "Glosari: STR"
+    },
+    {
+     "id": "glossary-submerged-unit-weight",
+     "title_en": "Glossary: submerged unit weight, γ′",
+     "title_ms": "Glosari: submerged unit weight, γ′"
+    },
+    {
+     "id": "glossary-table-7-3n",
+     "title_en": "Glossary: Table 7.3N",
+     "title_ms": "Glosari: Table 7.3N"
+    },
+    {
+     "id": "glossary-tension-face",
+     "title_en": "Glossary: tension face",
+     "title_ms": "Glosari: tension face"
+    },
+    {
+     "id": "glossary-tip-load-p-v-d",
+     "title_en": "Glossary: tip load, P_{v,d}",
+     "title_ms": "Glosari: tip load, P_{v,d}"
+    },
+    {
+     "id": "glossary-uplift",
+     "title_en": "Glossary: uplift",
+     "title_ms": "Glosari: uplift"
+    },
+    {
+     "id": "glossary-water-table",
+     "title_en": "Glossary: water table",
+     "title_ms": "Glosari: water table"
+    },
+    {
+     "id": "glossary-wedge",
+     "title_en": "Glossary: wedge",
+     "title_ms": "Glosari: wedge"
+    },
+    {
+     "id": "glossary-weep-hole",
+     "title_en": "Glossary: weep hole",
+     "title_ms": "Glosari: weep hole"
+    }
+   ]
   }
  ]
 }

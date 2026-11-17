@@ -149,7 +149,7 @@ Key points:
 - After a change, repeat from the table of loads; the thrusts stay unless H changes.
 
 [slides-1] Slide 1: Retaining Walls I
-SEAA 4333 Reinforced Concrete Design II · Week 14 Retaining Walls I Stability of a cantilever wall: the thrust of the soil, and the three checks that size the base Workbook ch. 13 ABCD card Calculator Phone or laptop Retaining Wall Lab Scan for this page’s Explorer tab. A new Lab, three tabs.
+SEAA 4333 Reinforced Concrete Design II · Week 14 Retaining Walls I Stability of a cantilever wall: the thrust of the soil, and the three checks that size the base Workbook ch. 13 ABCD card Calculator Phone or laptop Retaining Wall Lab Scan for this page’s Explorer tab. A new Lab: tabs 1 to 3 today.
 
 [slides-2] Slide 2: How the next three hours run
 Today · 180 minutes How the next three hours run 0:00 Warm-up Units 10 and 12 in three votes 0:10 Hook One wall, two sliding checks 0:16 The wall Failures, types, pressure 0:30 Activity 13A The two thrusts, pairs 0:40 WE 13.1 The notes’ wall, I do 0:55 Help or harm? Factors, EC7 Combination 2 1:05 Activity 13B Stop the sliding, pairs 1:15 Break 10 minutes 1:25 Bearing The middle third 1:31 FE 13.2 · S13 Pairs, then t

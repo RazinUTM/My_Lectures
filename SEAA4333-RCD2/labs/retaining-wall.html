@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Retaining Wall Lab · SEAA 4333</title>
-<meta name="description" content="SEAA 4333 Unit 13, Retaining Walls I: the active pressure of Rankine and the two thrusts on a cantilever wall; the stability checks with the wall drawn to scale (overturning, sliding in combination 1 and in EC7 Combination 2, the middle third and the bearing pressure), with a design challenge; and a spot-the-error sheet.">
+<meta name="description" content="SEAA 4333 Units 13 and 14, Retaining Walls I and II: the active pressure of Rankine and the two thrusts on a cantilever wall; the stability checks with the wall drawn to scale, with a design challenge; the stem, the toe and the heel as three cantilevers, with their design pressures, bars, shear and crack control; a water table behind the wall and a key under the base; and two spot-the-error sheets.">
 <meta name="claude:viewport-fit-sides" content="cover">
 <script>(function(){try{var r=document.documentElement,p=JSON.parse(localStorage.getItem("seaa4333-prefs")||"null")||{};if(p.lang==="ms"){r.lang="ms";r.setAttribute("data-lang","ms")}if(p.theme==="light"||p.theme==="dark")r.setAttribute("data-theme",p.theme);if(+p.font)r.style.fontSize=(+p.font*100)+"%"}catch(e){}})();</script>
-<!-- Retaining Wall Lab (SEAA 4333 Unit 13). SPDX-License-Identifier: MIT (code). Text and figures: CC BY-NC-SA 4.0.
+<!-- Retaining Wall Lab (SEAA 4333 Units 13 and 14). SPDX-License-Identifier: MIT (code). Text and figures: CC BY-NC-SA 4.0.
      Copyright (c) 2026 Ahmad Razin Zainal Abidin and Universiti Teknologi Malaysia. See ../LICENSE.md. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,7 +15,7 @@
 <style>
 /* Retaining Wall Lab. Layout: the calculation pad of the Staircase, Column and Foundation Labs, laid on concrete. Controls stay monochrome ink;
    colour is kept for the two bracing cases (braced blue, unbraced rust, validated for colour-vision
-   deficiency in both themes) and for pass/fail verdicts. The tabs follow the order of the Unit 13 session. */
+   deficiency in both themes) and for pass/fail verdicts. Tabs 1 to 3 follow the Unit 13 session; tabs 4 and 5 (and sheet S14 in tab 3) the Unit 14 session. */
 :root{
   --bg:#E6E4DF; --surface:#F7F6F2; --surface-2:#EEECE6;
   --ink:#1D1C19; --ink-2:#47443D; --ink-3:#686459;
@@ -262,7 +262,14 @@ input[type=range].xs{width:100%;accent-color:var(--flight);margin:6px 0 2px}
 #pMode{grid-template-columns:minmax(0,1fr)}
 #pMode button{font-size:.8rem;text-align:left}
 .xbar{text-decoration:overline}
-#rDraw,#pChart{min-width:520px}
+#rDraw,#pChart,#mDraw,#wDraw,#kDraw{min-width:520px}
+#mTable td.m,#wTable td.m,#kTable td.m{white-space:normal}
+#mParts td.m{white-space:normal}
+#mParts th,#mParts td{padding:6px 8px}
+#mParts th.out,#mParts td.out{text-align:right}
+.seg button:disabled{opacity:.45;cursor:default}
+.fields input:disabled{opacity:.5}
+.sheetcalc td.out{min-width:9.5rem}
 .veilnote{background:var(--surface-2);border:1.5px dashed var(--ink-3);margin-top:0}
 [hidden]{display:none !important}
 @media (max-width:640px){.arow{grid-template-columns:minmax(0,1fr)}.arow .fields{grid-column:1 !important}}
@@ -270,14 +277,14 @@ input[type=range].xs{width:100%;accent-color:var(--flight);margin:6px 0 2px}
 </head>
 <body>
 <div class="sitebar" id="sitebar"><div class="wrap">
-  <nav class="crumbs" aria-label="Breadcrumb" data-ms-aria="Laluan"><a href="https://razinutm.github.io/My_Lectures/">My Lectures</a><span aria-hidden="true">›</span><a href="../index.html">SEAA 4333</a><span aria-hidden="true">›</span><a href="../13-retaining-walls-1/index.html#lab">Unit 13</a><span aria-hidden="true">›</span><span aria-current="page">Retaining Wall Lab</span></nav>
+  <nav class="crumbs" aria-label="Breadcrumb" data-ms-aria="Laluan"><a href="https://razinutm.github.io/My_Lectures/">My Lectures</a><span aria-hidden="true">›</span><a href="../index.html">SEAA 4333</a><span aria-hidden="true">›</span><a href="../13-retaining-walls-1/index.html#lab">Unit 13</a><span aria-hidden="true">·</span><a href="../14-retaining-walls-2/index.html#lab">Unit 14</a><span aria-hidden="true">›</span><span aria-current="page">Retaining Wall Lab</span></nav>
   <div class="prefs"><button type="button" id="btn-lang" title="Bahasa">BM</button><button type="button" id="btn-theme" title="Theme"></button><button type="button" id="btn-font" class="fontbtn" title="Text size"><span class="aa" aria-hidden="true">A<small>A</small></span><span class="lvl" aria-hidden="true"><i></i><i></i><i></i><i></i></span></button></div>
 </div></div>
 <header class="topbar">
   <div class="wrap">
     <div class="brand">
       <h1>Retaining Wall Lab</h1>
-      <span class="unit">SEAA 4333 · Unit 13 · Retaining Walls I</span>
+      <span class="unit">SEAA 4333 · Units 13–14 · Retaining Walls I–II</span>
     </div>
     <div class="timer" aria-label="Activity timer" data-ms-aria="Pemasa aktiviti">
       <button class="timer-display" id="tDisplay" type="button" title="Show the timer full screen" data-ms-title="Tunjuk pemasa pada skrin penuh">5:00</button>
@@ -299,6 +306,8 @@ input[type=range].xs{width:100%;accent-color:var(--flight);margin:6px 0 2px}
     <button class="tab" role="tab" id="tab-pressure" aria-controls="panel-pressure" data-tab="pressure"><span class="n">1</span><span data-ms="Earth pressure">Earth pressure</span></button>
     <button class="tab" role="tab" id="tab-stability" aria-controls="panel-stability" data-tab="stability"><span class="n">2</span><span data-ms="Kestabilan">Stability</span></button>
     <button class="tab" role="tab" id="tab-error" aria-controls="panel-error" data-tab="error"><span class="n">3</span><span data-ms="Cari kesilapan">Spot the error</span></button>
+    <button class="tab" role="tab" id="tab-members" aria-controls="panel-members" data-tab="members"><span class="n">4</span><span data-ms="Bahagian wall">Members</span></button>
+    <button class="tab" role="tab" id="tab-whatif" aria-controls="panel-whatif" data-tab="whatif"><span class="n">5</span><span data-ms="Key dan air">Key and water</span></button>
   </nav>
 
   <main class="sheet">
@@ -450,6 +459,7 @@ input[type=range].xs{width:100%;accent-color:var(--flight);margin:6px 0 2px}
             <div class="head">
               <div class="seg" role="group" aria-label="Sheet" data-ms-aria="Helaian" id="eWhich" style="margin-bottom:10px">
                 <button type="button" data-v="s13" aria-pressed="true">Retaining Wall S13 · Unit 13</button>
+                <button type="button" data-v="s14">Retaining Wall S14 · Unit 14</button>
               </div>
               <h2 id="eTitle">Spot the error</h2>
               <p class="lede" id="eLede"></p>
@@ -474,8 +484,160 @@ input[type=range].xs{width:100%;accent-color:var(--flight);margin:6px 0 2px}
         <div class="summary" id="eSummary" hidden></div>
       </div>
     </section>
+
+    <!-- ===================== 4 MEMBERS ===================== -->
+    <section id="panel-members" role="tabpanel" aria-labelledby="tab-members" hidden>
+      <div class="panel">
+        <div class="col">
+          <div class="head">
+            <h2 data-ms="Stem, toe dan heel: tiga cantilever">The stem, the toe and the heel: three cantilevers</h2>
+            <p class="lede" data-ms="Tetapkan wall, tanah dan bar. Lab mencari design pressure di bawah base (STR), net load, moment dan shear setiap bahagian serta steel yang diperlukan, dan menyemak bar bagi luas, shear dan crack control, mengikut kaedah kursus.">Set the wall, the soil and the bars. The Lab finds the design pressures under the base (STR), the net loads, the moment and the shear of each part and the steel it needs, and checks the bars for area, shear and crack control, by the course method.</p>
+          </div>
+          <div class="group">
+            <label class="label" for="mCase" data-ms="Kes">Case</label>
+            <select id="mCase" class="full"></select>
+            <p class="note" id="mCaseNote" style="border:0;padding:0"></p>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Wall">Wall</span>
+            <div class="fields">
+              <label for="mH3" data-ms="Tinggi stem h&lt;sub&gt;3&lt;/sub&gt;">Stem height h<sub>3</sub></label><input id="mH3" type="number" min="1.5" max="9" step="0.1"><span class="u">m</span>
+              <label for="mT" data-ms="Stem di pangkal">Stem at the root</label><input id="mT" type="number" min="0.2" max="1.2" step="0.05"><span class="u">m</span>
+              <label for="mTc" data-ms="Stem di atas">Stem at the top</label><input id="mTc" type="number" min="0.15" max="1.2" step="0.01"><span class="u">m</span>
+              <label for="mHb" data-ms="Tebal base h">Base thickness h</label><input id="mHb" type="number" min="0.2" max="1.2" step="0.05"><span class="u">m</span>
+              <label for="mA1" data-ms="Toe">Toe</label><input id="mA1" type="number" min="0.2" max="4" step="0.05"><span class="u">m</span>
+              <label for="mA2" data-ms="Heel">Heel</label><input id="mA2" type="number" min="0.4" max="6" step="0.05"><span class="u">m</span>
+            </div>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Tanah dan load">Soil and loads</span>
+            <div class="fields">
+              <label for="mGs" data-ms="Berat unit γ">Unit weight γ</label><input id="mGs" type="number" min="14" max="22" step="0.5"><span class="u">kN/m³</span>
+              <label for="mPhi" data-ms="Sudut φ">Angle φ</label><input id="mPhi" type="number" min="25" max="45" step="1"><span class="u">°</span>
+              <label for="mW" data-ms="Surcharge w">Surcharge w</label><input id="mW" type="number" min="0" max="50" step="1"><span class="u">kN/m²</span>
+              <label for="mTh" data-ms="Cerun backfill θ">Backfill slope θ</label><input id="mTh" type="number" min="0" max="20" step="1"><span class="u">°</span>
+            </div>
+            <span class="label" style="margin-top:8px" data-ms="P&lt;sub&gt;v&lt;/sub&gt; di hujung heel (backfill bercerun)">P<sub>v</sub> at the heel tip (sloping backfill)</span>
+            <div class="seg cells" role="group" aria-label="The vertical component of the thrust on the heel" data-ms-aria="Komponen menegak thrust pada heel" id="mPv">
+              <button type="button" data-v="1" aria-pressed="true" data-ms="dikira">counted</button>
+              <button type="button" data-v="0" data-ms="ditinggalkan (nota)">left out (the notes)</button>
+            </div>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Bar utama">Main bars</span>
+            <div class="fields">
+              <label for="mPw" data-ms="Stem: bar">Stem: bar</label><select id="mPw"></select><span class="u">mm</span>
+              <label for="mSw" data-ms="Stem: jarak">Stem: spacing</label><select id="mSw"></select><span class="u">mm</span>
+              <label for="mPt" data-ms="Toe: bar">Toe: bar</label><select id="mPt"></select><span class="u">mm</span>
+              <label for="mSt" data-ms="Toe: jarak">Toe: spacing</label><select id="mSt"></select><span class="u">mm</span>
+              <label for="mPh" data-ms="Heel: bar">Heel: bar</label><select id="mPh"></select><span class="u">mm</span>
+              <label for="mSh" data-ms="Heel: jarak">Heel: spacing</label><select id="mSh"></select><span class="u">mm</span>
+            </div>
+          </div>
+          <p class="note" data-ms="Konkrit C30/37, f&lt;sub&gt;yk&lt;/sub&gt; = 500 N/mm², cover 45 mm, ψ&lt;sub&gt;2&lt;/sub&gt; = 0.3; setiap bahagian ialah slab selebar satu meter. Dengan backfill bercerun, surcharge tidak dimasukkan, seperti dalam app. Semak kestabilan wall dalam tab 2 dahulu: tab ini membuat design konkritnya.">Concrete C30/37, f<sub>yk</sub> = 500 N/mm², cover 45 mm, ψ<sub>2</sub> = 0.3; each part is a slab one metre wide. With a sloping backfill the surcharge is not included, as in the app. Check the stability of the wall in tab 2 first: this tab designs its concrete.</p>
+        </div>
+        <div class="col">
+          <div class="task" id="act14a">
+            <span class="tag" data-ms="Aktiviti 14A · berpasangan · 8 min">Activity 14A · pairs · 8 min</span>
+            <p data-ms="Lakar dahulu (Workbook 14.2): lukis stem, toe dan heel sebagai tiga garis yang terikat di tempat ia bertemu, lukis load pada setiap satu dan bentuk lenturannya. Kemudian pilih muka yang meregang bagi setiap bahagian, dan dedahkan.">Sketch first (Workbook 14.2): draw the stem, the toe and the heel as three lines fixed where they meet, draw the load on each and its bent shape. Then choose the face that stretches for each part, and reveal.</p>
+            <div class="arow"><p class="alab">Stem</p><div class="seg cells" role="group" aria-label="Tension face of the stem" data-ms-aria="Muka tegangan stem" id="fStem" style="grid-column:2"><button type="button" data-v="earth" data-ms="muka tanah">earth face</button><button type="button" data-v="front" data-ms="muka hadapan">front face</button></div></div>
+            <div class="arow"><p class="alab">Toe</p><div class="seg cells" role="group" aria-label="Tension face of the toe" data-ms-aria="Muka tegangan toe" id="fToe" style="grid-column:2"><button type="button" data-v="top" data-ms="atas">top</button><button type="button" data-v="bottom" data-ms="bawah">bottom</button></div></div>
+            <div class="arow"><p class="alab">Heel</p><div class="seg cells" role="group" aria-label="Tension face of the heel" data-ms-aria="Muka tegangan heel" id="fHeel" style="grid-column:2"><button type="button" data-v="top" data-ms="atas">top</button><button type="button" data-v="bottom" data-ms="bawah">bottom</button></div></div>
+            <div class="steps" style="margin-top:10px"><button class="btn primary" id="fReveal" type="button" data-ms="Dedahkan">Reveal</button></div>
+            <p class="verdict" id="fOut" hidden></p>
+          </div>
+          <p class="verdict veilnote" id="mVeil" hidden data-ms="Lukisan dan nombor tab ini menunjukkan muka tegangan setiap bahagian. Buat Aktiviti 14A di atas dahulu: pilih tiga muka dan tekan &lt;i&gt;Dedahkan&lt;/i&gt;.">The drawing and the numbers of this tab show the tension face of each part. Do Activity 14A above first: choose the three faces and press <i>Reveal</i>.</p>
+          <div class="col" id="mRes">
+          <p class="verdict bad" id="mMsg" hidden style="margin-top:0"></p>
+          <div class="kv" id="mKV" aria-live="polite"></div>
+          <div class="plotcard">
+            <div class="plothead"><h3 data-ms="Wall: tekanan di bawah base, bentuk lenturan dan bar">The wall: the pressure under the base, the bent shapes and the bars</h3><span class="legend"><span><i class="key" style="border-color:var(--unbraced)"></i><span data-ms="bar utama">main bars</span></span><span><i class="key" style="border-color:var(--flight);border-style:dashed"></i><span data-ms="bentuk lenturan">bent shape</span></span><span><i class="key" style="border-color:var(--unbraced);border-style:dotted"></i><span data-ms="bar yang gagal">bars that fail</span></span></span></div>
+            <div class="figbox"><svg class="chart" id="mDraw" viewBox="0 0 640 520" role="img" aria-label="Section of the wall with the design pressure under the base, the bent shapes of the three parts and their main bars"></svg></div>
+          </div>
+          <div class="plotcard">
+            <div class="plothead"><h3 data-ms="Tiga bahagian, sebelah-menyebelah">The three parts, side by side</h3></div>
+            <div class="scroll"><table class="tbl" id="mParts"></table></div>
+          </div>
+          <div class="plotcard">
+            <div class="plothead"><h3 data-ms="Nombor, satu demi satu">The numbers, one by one</h3></div>
+            <div class="scroll"><table class="tbl" id="mTable"></table></div>
+          </div>
+          <p class="note" data-ms="Lab membawa setiap nilai pada ketepatan penuh, seperti app. Pengiraan tangan yang membawa nilai yang dibundarkan, seperti dalam nota dan contoh, boleh berbeza satu atau dua pada angka terakhir: contohnya σ&lt;sub&gt;s&lt;/sub&gt; = 230.3 berbanding 230.4 N/mm².">The Lab carries every value at full precision, as the app does. A hand calculation that carries rounded values, as in the notes and the examples, can differ by one or two in the last figure: for example σ<sub>s</sub> = 230.3 against 230.4 N/mm².</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 5 KEY AND WATER ===================== -->
+    <section id="panel-whatif" role="tabpanel" aria-labelledby="tab-whatif" hidden>
+      <div class="panel">
+        <div class="col">
+          <div class="head">
+            <h2 data-ms="Air di belakang wall, dan key di bawah base">Water behind the wall, and a key under the base</h2>
+            <p class="lede" data-ms="Dua wall Unit 13. Wall yang telah diubah (heel 2.2 m) lulus setiap semakan selagi backfill bersaliran: naikkan water table dan lihat. Wall dalam nota (heel 2.0 m) menggelongsor dalam EC7 Combination 2: beri ia key.">The two walls of Unit 13. The revised wall (heel 2.2 m) passes every check while its backfill is drained: raise the water table and watch. The notes’ wall (heel 2.0 m) slides in EC7 Combination 2: give it a key.</p>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Air · wall yang telah diubah (kes RW1R)">Water · the revised wall (case RW1R)</span>
+            <div class="seg cells" role="group" aria-label="Drainage" data-ms-aria="Saliran" id="wOn">
+              <button type="button" data-v="0" aria-pressed="true" data-ms="bersaliran">drained</button>
+              <button type="button" data-v="1" data-ms="saliran tersumbat">drains blocked</button>
+            </div>
+            <div class="fields" style="margin-top:8px">
+              <label for="wZw" data-ms="Water table di bawah permukaan">Water table below the surface</label><input id="wZw" type="number" min="0.5" max="4.5" step="0.1"><span class="u">m</span>
+            </div>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Key · wall dalam nota (kes RW1)">Key · the notes’ wall (case RW1)</span>
+            <div class="fields">
+              <label for="kAk" data-ms="Kedalaman key a&lt;sub&gt;k&lt;/sub&gt;">Depth of the key a<sub>k</sub></label><input id="kAk" type="number" min="0" max="1.2" step="0.05"><span class="u">m</span>
+            </div>
+          </div>
+          <p class="note" data-ms="Air: γ&lt;sub&gt;sat&lt;/sub&gt; = 20 kN/m³, γ&lt;sub&gt;w&lt;/sub&gt; = 9.81 kN/m³; uplift di bawah base berkurang secara linear daripada head di heel kepada sifar di toe, seperti dalam app (kes RW3). Key: lebar 0.4 m, di bawah stem; hanya kedalaman di bawah bahagian bawah base yang dikira, dengan faktor 1.0 (kes RW1K).">Water: γ<sub>sat</sub> = 20 kN/m³, γ<sub>w</sub> = 9.81 kN/m³; the uplift under the base falls linearly from the head at the heel to zero at the toe, as in the app (case RW3). Key: 0.4 m wide, under the stem; only its depth below the underside of the base counts, with a factor of 1.0 (case RW1K).</p>
+        </div>
+        <div class="col">
+          <div class="task" id="act14b">
+            <span class="tag" data-ms="Aktiviti 14B · berpasangan · 5 min">Activity 14B · pairs · 5 min</span>
+            <p data-ms="Saliran tersumbat dan air naik hingga 1.5 m di bawah permukaan. Thrust permanent pada virtual back, tanah dan air bersama-sama, ialah 61.8 kN semasa bersaliran. Apakah yang berlaku kepadanya?">The drains block and water rises to 1.5 m below the surface. The permanent thrust on the virtual back, soil and water together, was 61.8 kN when drained. What happens to it?</p>
+            <div class="seg cells" role="group" aria-label="Your prediction" data-ms-aria="Ramalan anda" id="wPred" style="margin-top:10px">
+              <button type="button" data-v="A" data-ms="A · lebih kurang sama">A · about the same</button>
+              <button type="button" data-v="B" data-ms="B · berkurang">B · it falls</button>
+              <button type="button" data-v="C" data-ms="C · naik kira-kira satu perlima">C · up by about a fifth</button>
+              <button type="button" data-v="D" data-ms="D · naik kira-kira dua pertiga">D · up by about two thirds</button>
+            </div>
+            <div class="steps" style="margin-top:10px"><button class="btn primary" id="wReveal" type="button" data-ms="Dedahkan">Reveal</button></div>
+            <p class="verdict" id="wOut" hidden></p>
+          </div>
+          <p class="verdict veilnote" id="wVeil" hidden data-ms="Buat Aktiviti 14B di atas dahulu: ramal, kemudian tekan &lt;i&gt;Dedahkan&lt;/i&gt;. Gambar rajah tekanan, uplift dan semakan dengan air kemudiannya dipaparkan di sini.">Do Activity 14B above first: predict, then press <i>Reveal</i>. The pressure diagrams, the uplift and the checks with water then appear here.</p>
+          <div class="col" id="wRes">
+          <div class="kv" id="wKV" aria-live="polite"></div>
+          <div class="plotcard">
+            <div class="plothead"><h3 data-ms="Tekanan pada virtual back: tanah dan air">Pressure on the virtual back: soil and water</h3><span class="legend"><span><i class="key" style="border-color:var(--unbraced)"></i><span data-ms="tanah">soil</span></span><span><i class="key" style="border-color:var(--flight)"></i><span data-ms="air">water</span></span></span></div>
+            <div class="figbox"><svg class="chart" id="wDraw" viewBox="0 0 640 400" role="img" aria-label="Section of the wall with the soil and water pressure diagrams and the uplift under the base"></svg></div>
+          </div>
+          <div class="plotcard">
+            <div class="plothead"><h3 data-ms="Nombor, satu demi satu">The numbers, one by one</h3></div>
+            <div class="scroll"><table class="tbl" id="wTable"></table></div>
+          </div>
+          </div>
+          <div class="task" id="keytask">
+            <span class="tag" data-ms="Key · selepas kelas · Explorer tugasan 5">The key · after class · Explorer task 5</span>
+            <p data-ms="Wall dalam nota menggelongsor dalam EC7 Combination 2: 100.2 berbanding 95.6 kN. Cari kedalaman key yang membuat kedua-dua combination lulus sambil menggunakan tidak lebih daripada separuh passive resistance-nya.">The notes’ wall slides in EC7 Combination 2: 100.2 against 95.6 kN. Find a depth of key that makes both combinations pass while using no more than half of its passive resistance.</p>
+            <p class="verdict" id="kOut"></p>
+          </div>
+          <div class="kv" id="kKV" aria-live="polite"></div>
+          <div class="plotcard">
+            <div class="plothead"><h3 data-ms="Sliding: daya, friction dan key">Sliding: force, friction and the key</h3></div>
+            <div class="figbox"><svg class="chart" id="kDraw" viewBox="0 0 640 230" role="img" aria-label="Bars comparing the sliding force with the friction and the passive resistance of the key, in both combinations"></svg></div>
+          </div>
+          <div class="plotcard">
+            <div class="plothead"><h3 data-ms="Key, satu demi satu">The key, one by one</h3></div>
+            <div class="scroll"><table class="tbl" id="kTable"></table></div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
-  <footer><span data-ms="Kaedah kursus SEAA 4333 (nota kursus; Mosley, Bungey &amp;amp; Hulse §10.8; MS EN 1990 dan MS EN 1997-1), bagi setiap meter wall: Rankine K&lt;sub&gt;a&lt;/sub&gt; = (1 − sin φ)/(1 + sin φ) bagi backfill yang rata, berbutir dan bersaliran; thrust pada virtual back sepanjang H, dari permukaan hingga bahagian bawah base; moment pada toe A; overturning (EQU) 1.1M&lt;sub&gt;o,G&lt;/sub&gt; + 1.5M&lt;sub&gt;o,Q&lt;/sub&gt; ≤ 0.9M&lt;sub&gt;r,G&lt;/sub&gt;; sliding 1.35H&lt;sub&gt;k,G&lt;/sub&gt; + 1.5H&lt;sub&gt;k,Q&lt;/sub&gt; ≤ μV&lt;sub&gt;k,G&lt;/sub&gt; dan, dalam EC7 Design Approach 1 Combination 2, (H&lt;sub&gt;k,G&lt;/sub&gt; + 1.3H&lt;sub&gt;k,Q&lt;/sub&gt;)K&lt;sub&gt;a,d&lt;/sub&gt;/K&lt;sub&gt;a&lt;/sub&gt; ≤ (μ/1.25)V&lt;sub&gt;k,G&lt;/sub&gt; dengan φ&lt;sub&gt;d&lt;/sub&gt; = tan⁻¹(tan φ/1.25); surcharge di atas heel ditinggalkan daripada setiap rintangan; bearing dengan service load, e = B/2 − &lt;span class=&quot;xbar&quot;&gt;x&lt;/span&gt; ≤ B/6 dan q = N/B ± 6Ne/B² ≤ q&lt;sub&gt;a&lt;/sub&gt;. Tekanan di toe pada ULS (combination 1 dengan setiap berat × 1.35 apabila ia menaikkan tekanan di toe, combination 2 dan EC7 Combination 2) ditunjukkan seperti yang dilaporkan app dan dibandingkan dengan q&lt;sub&gt;a&lt;/sub&gt;, di pihak yang selamat. Passive resistance di hadapan wall diabaikan. Unit: m, kN. Design penuh setiap wall, langkah demi langkah, ada dalam app &lt;a href=&quot;https://claude.ai/artifact/M5DFYjHubZFnbHVk8JDsAS&quot; style=&quot;color:inherit&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;RC Design Worked Solutions&lt;/a&gt; (Worked Example 13.1 ialah kes RW1 dan RW1R), yang boleh dibuka setelah pensyarah anda berkongsi pautannya.">Course method of SEAA 4333 (course notes; Mosley, Bungey &amp; Hulse §10.8; MS EN 1990 and MS EN 1997-1), per metre of wall: Rankine K<sub>a</sub> = (1 − sin φ)/(1 + sin φ) for a level, granular, drained backfill; the thrust on the virtual back over H, from the surface to the underside of the base; moments about the toe A; overturning (EQU) 1.1M<sub>o,G</sub> + 1.5M<sub>o,Q</sub> ≤ 0.9M<sub>r,G</sub>; sliding 1.35H<sub>k,G</sub> + 1.5H<sub>k,Q</sub> ≤ μV<sub>k,G</sub> and, in EC7 Design Approach 1 Combination 2, (H<sub>k,G</sub> + 1.3H<sub>k,Q</sub>)K<sub>a,d</sub>/K<sub>a</sub> ≤ (μ/1.25)V<sub>k,G</sub> with φ<sub>d</sub> = tan⁻¹(tan φ/1.25); the surcharge on the heel left out of every resistance; bearing with service loads, e = B/2 − <span class="xbar">x</span> ≤ B/6 and q = N/B ± 6Ne/B² ≤ q<sub>a</sub>. The toe pressure at the ULS (combination 1 with each weight × 1.35 where it raises the toe pressure, combination 2 and EC7 Combination 2) is shown as the app reports it and compared with q<sub>a</sub>, on the safe side. Passive resistance in front of the wall is ignored. Units: m, kN. The full design of each wall, step by step, is in the <a href="https://claude.ai/artifact/M5DFYjHubZFnbHVk8JDsAS" style="color:inherit" target="_blank" rel="noopener">RC Design Worked Solutions</a> app (Worked Example 13.1 is cases RW1 and RW1R), which opens once your lecturer has shared it.</span>
+  <footer><span data-ms="Kaedah kursus SEAA 4333 (nota kursus; Mosley, Bungey &amp;amp; Hulse §10.8; MS EN 1990 dan MS EN 1997-1), bagi setiap meter wall: Rankine K&lt;sub&gt;a&lt;/sub&gt; = (1 − sin φ)/(1 + sin φ) bagi backfill yang rata, berbutir dan bersaliran; thrust pada virtual back sepanjang H, dari permukaan hingga bahagian bawah base; moment pada toe A; overturning (EQU) 1.1M&lt;sub&gt;o,G&lt;/sub&gt; + 1.5M&lt;sub&gt;o,Q&lt;/sub&gt; ≤ 0.9M&lt;sub&gt;r,G&lt;/sub&gt;; sliding 1.35H&lt;sub&gt;k,G&lt;/sub&gt; + 1.5H&lt;sub&gt;k,Q&lt;/sub&gt; ≤ μV&lt;sub&gt;k,G&lt;/sub&gt; dan, dalam EC7 Design Approach 1 Combination 2, (H&lt;sub&gt;k,G&lt;/sub&gt; + 1.3H&lt;sub&gt;k,Q&lt;/sub&gt;)K&lt;sub&gt;a,d&lt;/sub&gt;/K&lt;sub&gt;a&lt;/sub&gt; ≤ (μ/1.25)V&lt;sub&gt;k,G&lt;/sub&gt; dengan φ&lt;sub&gt;d&lt;/sub&gt; = tan⁻¹(tan φ/1.25); surcharge di atas heel ditinggalkan daripada setiap rintangan; bearing dengan service load, e = B/2 − &lt;span class=&quot;xbar&quot;&gt;x&lt;/span&gt; ≤ B/6 dan q = N/B ± 6Ne/B² ≤ q&lt;sub&gt;a&lt;/sub&gt;. Tekanan di toe pada ULS (combination 1 dengan setiap berat × 1.35 apabila ia menaikkan tekanan di toe, combination 2 dan EC7 Combination 2) ditunjukkan seperti yang dilaporkan app dan dibandingkan dengan q&lt;sub&gt;a&lt;/sub&gt;, di pihak yang selamat. Passive resistance di hadapan wall diabaikan. Bahagian-bahagian wall (tab 4, STR): N&lt;sub&gt;d&lt;/sub&gt; = 1.35ΣV&lt;sub&gt;k,G&lt;/sub&gt; + 1.5V&lt;sub&gt;k,Q&lt;/sub&gt;, q&lt;sub&gt;d&lt;/sub&gt; = N&lt;sub&gt;d&lt;/sub&gt;/B ± 6N&lt;sub&gt;d&lt;/sub&gt;e&lt;sub&gt;d&lt;/sub&gt;/B²; toe memikul q&lt;sub&gt;d&lt;/sub&gt; tolak slab, heel memikul slab, backfill dan surcharge tolak q&lt;sub&gt;d&lt;/sub&gt;, serta 1.35P&lt;sub&gt;v&lt;/sub&gt; di hujungnya bagi backfill bercerun; stem memikul tekanannya sendiri sepanjang h&lt;sub&gt;3&lt;/sub&gt;; C30/37, f&lt;sub&gt;yk&lt;/sub&gt; = 500 N/mm², cover 45 mm; A&lt;sub&gt;s,min&lt;/sub&gt; = 0.26(f&lt;sub&gt;ctm&lt;/sub&gt;/f&lt;sub&gt;yk&lt;/sub&gt;)bd; shear tanpa link dengan V&lt;sub&gt;Rd,c&lt;/sub&gt;; crack control dengan jarak bar EC2 Table 7.3N bagi steel stress di bawah quasi-permanent load (ψ&lt;sub&gt;2&lt;/sub&gt; = 0.3). Tab 5: key menambah H&lt;sub&gt;p&lt;/sub&gt; = ½K&lt;sub&gt;p&lt;/sub&gt;γa&lt;sub&gt;k&lt;/sub&gt;² dengan faktor 1.0; air menambah tekanannya sendiri, tanpa dikurangkan oleh K&lt;sub&gt;a&lt;/sub&gt;, dan uplift di bawah base. Unit: m, kN. Design penuh setiap wall, langkah demi langkah, ada dalam app &lt;a href=&quot;https://claude.ai/artifact/M5DFYjHubZFnbHVk8JDsAS&quot; style=&quot;color:inherit&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;RC Design Worked Solutions&lt;/a&gt; (Worked Example 13.1 ialah kes RW1 dan RW1R; Worked Example 14.1 ialah RW1R; Faded Example 14.2 ialah RW2 dan RW2R; key dan water table ialah RW1K dan RW3), yang boleh dibuka setelah pensyarah anda berkongsi pautannya.">Course method of SEAA 4333 (course notes; Mosley, Bungey &amp; Hulse §10.8; MS EN 1990 and MS EN 1997-1), per metre of wall: Rankine K<sub>a</sub> = (1 − sin φ)/(1 + sin φ) for a level, granular, drained backfill; the thrust on the virtual back over H, from the surface to the underside of the base; moments about the toe A; overturning (EQU) 1.1M<sub>o,G</sub> + 1.5M<sub>o,Q</sub> ≤ 0.9M<sub>r,G</sub>; sliding 1.35H<sub>k,G</sub> + 1.5H<sub>k,Q</sub> ≤ μV<sub>k,G</sub> and, in EC7 Design Approach 1 Combination 2, (H<sub>k,G</sub> + 1.3H<sub>k,Q</sub>)K<sub>a,d</sub>/K<sub>a</sub> ≤ (μ/1.25)V<sub>k,G</sub> with φ<sub>d</sub> = tan⁻¹(tan φ/1.25); the surcharge on the heel left out of every resistance; bearing with service loads, e = B/2 − <span class="xbar">x</span> ≤ B/6 and q = N/B ± 6Ne/B² ≤ q<sub>a</sub>. The toe pressure at the ULS (combination 1 with each weight × 1.35 where it raises the toe pressure, combination 2 and EC7 Combination 2) is shown as the app reports it and compared with q<sub>a</sub>, on the safe side. Passive resistance in front of the wall is ignored. Members (tab 4, STR): N<sub>d</sub> = 1.35ΣV<sub>k,G</sub> + 1.5V<sub>k,Q</sub>, q<sub>d</sub> = N<sub>d</sub>/B ± 6N<sub>d</sub>e<sub>d</sub>/B²; the toe carries q<sub>d</sub> less the slab, the heel the slab, the backfill and the surcharge less q<sub>d</sub>, and 1.35P<sub>v</sub> at its tip under a sloping backfill; the stem its own pressure over h<sub>3</sub>; C30/37, f<sub>yk</sub> = 500 N/mm², cover 45 mm; A<sub>s,min</sub> = 0.26(f<sub>ctm</sub>/f<sub>yk</sub>)bd; shear without links by V<sub>Rd,c</sub>; crack control by the bar spacing of EC2 Table 7.3N for the steel stress under the quasi-permanent load (ψ<sub>2</sub> = 0.3). Tab 5: a key adds H<sub>p</sub> = ½K<sub>p</sub>γa<sub>k</sub>² with a factor of 1.0; water adds its own pressure, unreduced by K<sub>a</sub>, and an uplift under the base. Units: m, kN. The full design of each wall, step by step, is in the <a href="https://claude.ai/artifact/M5DFYjHubZFnbHVk8JDsAS" style="color:inherit" target="_blank" rel="noopener">RC Design Worked Solutions</a> app (Worked Example 13.1 is cases RW1 and RW1R; Worked Example 14.1 is RW1R; Faded Example 14.2 is RW2 and RW2R; the key and the water table are RW1K and RW3), which opens once your lecturer has shared it.</span>
   <span class="lic" data-ms="© 2026 Ahmad Razin Zainal Abidin dan Universiti Teknologi Malaysia (Fakulti Kejuruteraan Awam). Teks dan rajah: CC BY-NC-SA 4.0; kod: MIT. Lihat &lt;a href=&quot;https://github.com/RazinUTM/My_Lectures/blob/main/SEAA4333-RCD2/LICENSE.md&quot; style=&quot;color:inherit&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;lesen&lt;/a&gt;. Kemajuan disimpan dalam pelayar ini sahaja.">© 2026 Ahmad Razin Zainal Abidin and Universiti Teknologi Malaysia (Faculty of Civil Engineering). Text and figures: CC BY-NC-SA 4.0; code: MIT. See the <a href="https://github.com/RazinUTM/My_Lectures/blob/main/SEAA4333-RCD2/LICENSE.md" style="color:inherit" target="_blank" rel="noopener">licence</a>. Progress is stored in this browser only.</span></footer>
 </div>
 
@@ -968,7 +1130,7 @@ const SHEETS = {s13: {rows: S13, key: 'seaa4333-lab-retwall-s13', ms: 's13',
           ['Ground', 'Tanah', 'μ = 0.5; q<sub>a</sub> = 200 kN/m²', 'μ = 0.5; q<sub>a</sub> = 200 kN/m²']],
   summary: ['<b>Four slips: three on the unsafe side, one that changes nothing here.</b> Line 2 stops the pressure diagram at the top of the base, so the two thrusts are 17 % and 9 % too small. Line 5 counts the surcharge on the heel in the restoring moment: the check passes either way, but a favourable variable action counts as zero. Line 6 counts it again in the friction. Line 7 factors the friction but not the thrust. Corrected, the wall slides in both combinations (150.0 &gt; 136.9 kN and 140.6 &gt; 109.5 kN), while overturning (258.6 ≤ 532.2 kN m) and bearing (127.8 ≤ 200 kN/m²) pass. A heel of 2.8 m is needed: ΣV<sub>k,G</sub> = 355.75 kN, friction 0.4 × 355.75 = 142.3 ≥ 140.6 kN. Try it in tab 2.',
             '<b>Empat kesilapan: tiga di pihak yang tidak selamat, satu yang tidak mengubah apa-apa di sini.</b> Baris 2 menghentikan gambar rajah tekanan di bahagian atas base, jadi dua thrust itu 17 % dan 9 % terlalu kecil. Baris 5 mengira surcharge di atas heel dalam restoring moment: semakan lulus dalam kedua-dua keadaan, tetapi variable action yang favourable dikira sifar. Baris 6 mengiranya sekali lagi dalam friction. Baris 7 memfaktorkan friction tetapi tidak thrust. Setelah dibetulkan, wall menggelongsor dalam kedua-dua combination (150.0 &gt; 136.9 kN dan 140.6 &gt; 109.5 kN), manakala overturning (258.6 ≤ 532.2 kN m) dan bearing (127.8 ≤ 200 kN/m²) lulus. Heel 2.8 m diperlukan: ΣV<sub>k,G</sub> = 355.75 kN, friction 0.4 × 355.75 = 142.3 ≥ 140.6 kN. Cuba dalam tab 2.']}};
-const eWhich = 's13';
+let eWhich = /13-retaining-walls-1/.test(document.referrer || '') ? 's13' : 's14';
 const eState = {s13: {flag: new Set(recall(SHEETS.s13.key, [])), checked: false, fixed: false}};
 function drawS13Fig(){
   const box = el('eFig'); box.innerHTML = '';
@@ -998,8 +1160,8 @@ function drawSheet(){
   setSeg(el('eWhich'), eWhich);
   el('eTitle').innerHTML = Lg(Sh.title[0], Sh.title[1]); el('eLede').innerHTML = Lg(Sh.lede[0], Sh.lede[1]); el('eTag').innerHTML = Lg(Sh.tag[0], Sh.tag[1]);
   el('eGiven').innerHTML = Sh.given.map(g => `<dt>${Lg(g[0], g[1])}</dt><dd>${Lg(g[2], g[3])}</dd>`).join('');
-  el('eSheet').setAttribute('aria-label', Lg('Retaining Wall S13 calculation sheet', 'Helaian pengiraan Retaining Wall S13'));
-  drawS13Fig();
+  el('eSheet').setAttribute('aria-label', Lg(Sh.name + ' calculation sheet', 'Helaian pengiraan ' + Sh.name));
+  Sh.fig();
   const t = el('eSheet');
   let html = `<thead><tr><th>${Lg('Line', 'Baris')}</th><th>Ref</th><th>${Lg('Calculation', 'Pengiraan')}</th><th>Output</th></tr></thead><tbody>`;
   rows.forEach((r, i) => {
@@ -1007,7 +1169,7 @@ function drawSheet(){
     let cls = fl ? 'flag' : '';
     if (st.checked || st.fixed){ if (r.slip && fl) cls = 'hit'; else if (r.slip && st.fixed) cls = 'miss'; else if (!r.slip && fl) cls = 'false'; }
     const fix = (st.fixed || (st.checked && fl && r.slip)) ? `<span class="fix">${Lg(r.fix[0], r.fix[1])}</span>` : '';
-    html += `<tr class="${cls}" data-n="${n}" tabindex="0"><td class="no">${n}</td><td class="ref">${r.ref}</td><td class="calc">${Lg(r.calc[0], r.calc[1])}${fix}</td><td class="out">${r.out}</td></tr>`;
+    html += `<tr class="${cls}" data-n="${n}" tabindex="0"><td class="no">${n}</td><td class="ref">${r.ref}</td><td class="calc">${Lg(r.calc[0], r.calc[1])}${fix}</td><td class="out">${LANG === 'ms' && r.outms ? r.outms : r.out}</td></tr>`;
   });
   t.innerHTML = html + '</tbody>';
   t.querySelectorAll('tbody tr').forEach(tr => {
@@ -1024,11 +1186,560 @@ el('eCheck').addEventListener('click', () => { const st = eState[eWhich], rows =
 el('eFix').addEventListener('click', () => { eState[eWhich].fixed = true; drawSheet(); });
 el('eReset').addEventListener('click', () => { const st = eState[eWhich]; st.flag = new Set(); store(SHEETS[eWhich].key, []); st.checked = false; st.fixed = false; drawSheet(); });
 
+/* ===================== RETAINING WALL LAB · Unit 14: the members, the water table and the key =====================
+   Course method (RC Design app, retaining wall module, sections 6 to 13), per metre of wall, C30/37, f_yk = 500, cover 45 mm:
+   STR: N_d = 1.35 V_G + 1.5 V_Q; dM_d = 1.35 (M_rG - M_oG) + 1.5 (M_rQ - M_oQ); x_d = dM_d/N_d; e_d = B/2 - x_d;
+   q_d = N_d/B +- 6 N_d e_d/B^2, at the stem faces by interpolation. Toe net load q_d - 1.35 x 25 h (up);
+   heel net load 1.35 (25 h + gamma h3) + 1.5 w - q_d (down), + 1.35 gamma h4 at the heel end and the line load 1.35 P_v at the
+   heel tip for a sloping backfill. Cantilever under a trapezium: M = n_f a^2/2 + (n_e - n_f) a^2/3, V = (n_f + n_e) a/2.
+   Stem over h_s = h3: P_ss = K_a gamma h_s^2/2 (x cos theta), P_qs = K_a w h_s, M = 1.35 P_ss h_s/3 + 1.5 P_qs h_s/2.
+   Flexure K = M/(b d^2 f_ck), z = d[0.5 + sqrt(0.25 - K/1.134)] <= 0.95d, A_s = M/(0.87 f_yk z), A_s,min = max(0.26 f_ctm/f_yk, 0.0013) b d.
+   Shear V_Rd,c = 0.12 k (100 rho f_ck)^(1/3) b d >= 0.035 k^1.5 sqrt(f_ck) b d. Crack control: sigma_s = (f_yk/1.15) x ratio x A_s,req/A_s,prov,
+   ratio M_qp/M_Ed (stem, psi_2 = 0.3) or N_qp/N_d (base), spacing from EC2 Table 7.3N (w_k = 0.3 mm).
+   Sloping backfill: K_a = cos t (cos t - sqrt(cos^2 t - cos^2 phi))/(cos t + sqrt(...)), thrust on H = h3 + a2 tan t + h, P_h = P cos t at H/3,
+   P_v = P sin t at the heel end. Key: K_p = (1 + sin phi)/(1 - sin phi), H_p = K_p gamma a_k^2/2 (factor 1.0), K_p,d from phi_d in Combination 2.
+   Water table at z_w: gamma' = gamma_sat - 9.81, p = K_a [gamma z_w + gamma' (z - z_w) + w] + 9.81 (z - z_w), uplift 9.81 h_w B/2 at 2B/3. */
+/*MODEL14*/
+const GW = 9.81, FCK = 30, FYK = 500, CNOM = 45, PSI2 = 0.3;
+const T73 = [[160, 300], [200, 250], [240, 200], [280, 150], [320, 100], [360, 50]];
+function KaS(phi, th){
+  if (!th || Math.abs(th) < 1e-12){ const s = Math.sin(rad(phi)); return (1 - s) / (1 + s); }
+  const ct = Math.cos(rad(th)), cp = Math.cos(rad(phi)), q = Math.sqrt(ct * ct - cp * cp);
+  return ct * (ct - q) / (ct + q);
+}
+function KpOf(phi){ const s = Math.sin(rad(phi)); return (1 + s) / (1 - s); }
+function smax73(sig){
+  if (!(sig > 160)) return 300; if (sig >= 360) return 50;
+  for (let i = 0; i < T73.length - 1; i++){ const a = T73[i], b = T73[i + 1]; if (sig >= a[0] && sig <= b[0]) return a[1] + (b[1] - a[1]) * (sig - a[0]) / (b[0] - a[0]); }
+  return 50;
+}
+function barA(p, s){ return Math.PI * p * p / 4 * 1000 / s; }
+/* stability sums: level or sloping backfill, a water table (P.zw, level backfill only), a key (P.ak > 0) */
+function sums14(P){
+  const o = Object.assign({}, P), {h3, h, t, tc, a1, a2, w, gs, phi, mu, qa} = P;
+  const th = P.theta || 0, slope = Math.abs(th) > 1e-12, water = P.zw != null && !slope, ak = P.ak || 0, key = ak > 0;
+  o.slope = slope; o.water = water; o.key = key;
+  const B = o.B = a1 + t + a2, h4 = o.h4 = slope ? a2 * Math.tan(rad(th)) : 0, H = o.Ht = h3 + h4 + h;
+  const Ka = o.Ka = KaS(phi, th), cth = o.cth = Math.cos(rad(th)), p0 = o.p0 = Ka * w;
+  o.p3 = Ka * (gs * h3 + w); let pH = o.pH = Ka * (gs * H + w);
+  const W1 = o.W1 = 0.5 * (t - tc) * h3 * GC, x1 = o.x1 = a1 + 2 * (t - tc) / 3, M1 = o.M1 = W1 * x1;
+  const W2 = o.W2 = tc * h3 * GC, x2 = o.x2 = a1 + (t - tc) + tc / 2, M2 = o.M2 = W2 * x2;
+  const W3 = o.W3 = h * B * GC, x3 = o.x3 = B / 2, M3 = o.M3 = W3 * x3;
+  let W4 = o.W4 = gs * h3 * a2; const x4 = o.x4 = a1 + t + a2 / 2; let M4 = o.M4 = W4 * x4;
+  let W5 = 0, M5 = 0, Pv = 0, MPv = 0, Pw = 0, MPw = 0, Uw = 0, MU = 0, Wq = 0, Mq = 0, Pq = 0, MPq = 0, Ps, MPs, VkG, MrG, HkG;
+  if (slope){
+    W5 = 0.5 * gs * h4 * a2; o.x5 = a1 + t + 2 * a2 / 3; M5 = W5 * o.x5;
+    const Pr = o.Pr = 0.5 * pH * H;
+    Ps = o.Ph = Pr * cth; Pv = Pr * Math.sin(rad(th));
+    o.ys = H / 3; MPs = Ps * H / 3; MPv = Pv * B;
+    VkG = W1 + W2 + W3 + W4 + W5 + Pv; MrG = M1 + M2 + M3 + M4 + M5 + MPv; HkG = Ps;
+  } else {
+    Wq = w * a2; Mq = Wq * x4; Pq = p0 * H; o.yq = H / 2; MPq = Pq * H / 2;
+    if (water){
+      const zw = P.zw, gsat = P.gsat || 20, gsub = o.gsub = gsat - GW, hw = o.hwb = H - zw, hw3 = o.hw3 = h3 - zw;
+      o.pzw = Ka * (gs * zw + w); o.p3 = Ka * (gs * zw + gsub * hw3 + w); pH = o.pH = Ka * (gs * zw + gsub * hw + w);
+      o.u3 = GW * hw3; const uH = o.uH = GW * hw;
+      W4 = o.W4 = (gs * zw + gsat * hw3) * a2; M4 = o.M4 = W4 * x4;
+      const Ps1 = o.Ps1 = 0.5 * Ka * gs * zw * zw, ys1 = o.ys1 = hw + zw / 3, Ps2 = o.Ps2 = Ka * gs * zw * hw, ys2 = o.ys2 = hw / 2;
+      const Ps3 = o.Ps3 = 0.5 * Ka * gsub * hw * hw, ys3 = o.ys3 = hw / 3;
+      Ps = Ps1 + Ps2 + Ps3; MPs = Ps1 * ys1 + Ps2 * ys2 + Ps3 * ys3; o.ys = MPs / Ps;
+      Pw = 0.5 * GW * hw * hw; o.yw = hw / 3; MPw = Pw * hw / 3;
+      Uw = 0.5 * uH * B; o.xU = 2 * B / 3; MU = Uw * o.xU;
+      o.HkG0 = 0.5 * Ka * gs * H * H;
+    } else { Ps = 0.5 * (pH - p0) * H; o.ys = H / 3; MPs = Ps * H / 3; }
+    VkG = W1 + W2 + W3 + W4 - Uw; MrG = M1 + M2 + M3 + M4; HkG = Ps + Pw;
+  }
+  o.W5 = W5; o.M5 = M5; o.Pv = Pv; o.MPv = MPv; o.Pw = Pw; o.MPw = MPw; o.Uw = Uw; o.MU = MU; o.Wq = Wq; o.Mq = Mq; o.Pq = Pq; o.MPq = MPq; o.Ps = Ps; o.MPs = MPs;
+  o.VkG = VkG; o.MrG = MrG; o.VkQ = Wq; o.MrQ = Mq; o.HkG = HkG; const MoG = o.MoG = MPs + MPw + MU; o.HkQ = Pq; const MoQ = o.MoQ = MPq;
+  if (water) o.rW = HkG / o.HkG0;
+  o.Mod = 1.1 * MoG + 1.5 * MoQ; o.Mrd = 0.9 * MrG; o.ok_ot = o.Mod <= o.Mrd;
+  o.Hd = 1.35 * HkG + 1.5 * Pq; o.Rd = mu * VkG; o.Kp = KpOf(phi); o.Hp = key ? 0.5 * o.Kp * gs * ak * ak : 0; o.RdT = o.Rd + o.Hp; o.ok_s1 = o.Hd <= o.RdT;
+  o.phid = Math.atan(Math.tan(rad(phi)) / 1.25) * 180 / Math.PI; o.Kad = KaS(o.phid, th); const rKa = o.rKa = o.Kad / Ka;
+  o.Hd2 = ((HkG - Pw) + 1.3 * Pq) * rKa + Pw; const Vk2 = o.Vk2 = VkG + Pv * (rKa - 1); o.mud = mu / 1.25; o.Rd2 = o.mud * Vk2;
+  o.Kpd = KpOf(o.phid); o.Hp2 = key ? 0.5 * o.Kpd * gs * ak * ak : 0; o.Rd2T = o.Rd2 + o.Hp2; o.mobk = key ? (o.Hd2 - o.Rd2) / o.Hp2 : 0; o.ok_s2 = o.Hd2 <= o.Rd2T;
+  const Nk = o.Nk = VkG + Wq, Mk = o.Mk = MrG + Mq - MoG - MoQ; o.B6 = B / 6; const xk = o.xk = Mk / Nk, ek = o.ek = B / 2 - xk;
+  o.ok_mid = Math.abs(ek) <= o.B6; o.qm = Nk / B; o.dq = 6 * Nk * ek / (B * B); o.qmax = o.qm + o.dq; o.qmin = o.qm - o.dq;
+  if (!o.ok_mid) o.qtri = ek > 0 ? 2 * Nk / (3 * xk) : 2 * Nk / (3 * (B - xk));
+  o.ok_q = o.ok_mid && o.qmax <= qa && o.qmin <= qa;
+  o.ok_all = o.ok_ot && o.ok_s1 && o.ok_s2 && o.ok_q;
+  o.Ac = 0.5 * (t + tc) * h3 + h * B + (key ? ak * (P.bk || 0.4) : 0);
+  return o;
+}
+/* the members: STR design pressures, net loads, the stem, the toe and the heel, secondary steel, lap, the key as a cantilever */
+function mCalc(P){
+  const o = sums14(P), {h, t, a1, a2, B, h3, h4, gs, w, Ka, slope, VkG, VkQ, MrG, MrQ, MoG, MoQ} = o;
+  const Nd = o.Nd = 1.35 * VkG + 1.5 * VkQ, Md = o.Md = 1.35 * (MrG - MoG) + 1.5 * (MrQ - MoQ), xd = o.xd = Md / Nd, ed = o.ed = B / 2 - xd;
+  const qdm = o.qdm = Nd / B, dqd = o.dqd = 6 * Nd * ed / (B * B), qdmax = o.qdmax = qdm + dqd, qdmin = o.qdmin = qdm - dqd;
+  const qtf = o.qtf = qdmax - (qdmax - qdmin) * a1 / B, qhf = o.qhf = qdmin + (qdmax - qdmin) * a2 / B;
+  const gbase = o.gbase = 1.35 * GC * h, nte = o.nte = qdmax - gbase, ntf = o.ntf = qtf - gbase;
+  const ghl = o.ghl = 1.35 * (GC * h + gs * h3) + 1.5 * w, gh4 = o.gh4 = slope ? 1.35 * gs * h4 : 0;
+  const nhf = o.nhf = ghl - qhf, nhe = o.nhe = ghl + gh4 - qdmin;
+  const Pvd = o.Pvd = slope && P.pv !== 0 ? 1.35 * o.Pv : 0;
+  const hs = o.hs = h3, Pqs = o.Pqs = slope ? 0 : Ka * w * hs, Pss = o.Pss = 0.5 * Ka * gs * hs * hs * (slope ? o.cth : 1);
+  const M_w = o.M_w = 1.5 * Pqs * hs / 2 + 1.35 * Pss * hs / 3, V_w = o.V_w = 1.5 * Pqs + 1.35 * Pss;
+  const fctm = o.fctm = 0.3 * Math.pow(FCK, 2 / 3), rmin = o.rmin = Math.max(0.26 * fctm / FYK, 0.0013);
+  const M_t = o.M_t = ntf * a1 * a1 / 2 + (nte - ntf) * (a1 / 2) * (2 * a1 / 3), V_t = o.V_t = (ntf + nte) * a1 / 2;
+  const M_hl = o.M_hl = nhf * a2 * a2 / 2 + (nhe - nhf) * (a2 / 2) * (2 * a2 / 3) + Pvd * a2, V_hl = o.V_hl = (nhf + nhe) * a2 / 2 + Pvd;
+  const Mqw = o.Mqw = PSI2 * Pqs * hs / 2 + Pss * hs / 3; o.rqp_w = Mqw / M_w;
+  o.Nqp = VkG + PSI2 * VkQ; o.Nult = Nd; o.rqp_t = o.Nqp / Nd;
+  const sect = (g, M, V, hh, ph, sp, rq, cov) => {
+    const d = hh - cov - ph / 2, K = Math.abs(M) * 1e6 / (1000 * d * d * FCK), z0 = d * (0.5 + Math.sqrt(0.25 - K / 1.134)), z = Math.min(z0, 0.95 * d);
+    const As = Math.abs(M) * 1e6 / (0.87 * FYK * z), Asmin = rmin * 1000 * d, Asmax = 0.04 * 1000 * hh, Asp = barA(ph, sp);
+    const k = Math.min(1 + Math.sqrt(200 / d), 2), rho = Math.min(Asp / (1000 * d), 0.02);
+    const VRdc = 0.12 * k * Math.pow(100 * rho * FCK, 1 / 3) * 1000 * d / 1e3, Vmn = 0.035 * Math.pow(k, 1.5) * Math.sqrt(FCK) * 1000 * d / 1e3, VRd = Math.max(VRdc, Vmn);
+    o['hh_' + g] = hh; o['d_' + g] = d; o['K_' + g] = K; o['z0_' + g] = z0; o['z_' + g] = z; o['As_' + g] = As; o['Asmin_' + g] = Asmin; o['Asmax_' + g] = Asmax;
+    const Asd = o['Asd_' + g] = Math.max(As, Asmin); o['Asp_' + g] = Asp; o['ok_K_' + g] = K <= 0.167;
+    o['ok_As_' + g] = Asd <= Asp && Asp <= Asmax;
+    o['k_' + g] = k; o['rho1_' + g] = rho; o['VRdc_' + g] = VRdc; o['Vmn_' + g] = Vmn; o['VRd_' + g] = VRd; o['ok_V_' + g] = Math.abs(V) <= VRd;
+    if (rq != null){ const sig = o['sigs_' + g] = FYK / 1.15 * rq * As / Asp, sm = o['smaxcr_' + g] = smax73(sig); o['ok_cr_' + g] = sp <= sm; }
+  };
+  sect('w', M_w, V_w, t * 1e3, P.p_w, P.s_w, o.rqp_w, CNOM);
+  sect('t', M_t, V_t, h * 1e3, P.p_tb, P.s_tb, o.rqp_t, CNOM);
+  sect('hl', M_hl, V_hl, h * 1e3, P.p_hb, P.s_hb, o.rqp_t, CNOM);
+  o.As20 = 0.25 * o.Asp_w; o.Asmin_s = Math.max(o.As20, o.Asmin_w);
+  o.fctk = 0.7 * fctm; o.fctd = o.fctk / 1.5; o.fbd = 2.25 * o.fctd; o.sigsd = FYK / 1.15;
+  o.lbrqd = P.p_w / 4 * o.sigsd / o.fbd; o.l0min = Math.max(0.3 * 1.5 * o.lbrqd, 15 * P.p_w, 200); o.lap = Math.max(1.5 * o.lbrqd, o.l0min); o.lap40 = 40 * P.p_w;
+  if (o.key){
+    const ak = P.ak, bk = P.bk || 0.4;
+    o.pkb = o.Kp * gs * ak; o.V_k = 1.35 * o.Hp; o.M_k = o.V_k * 2 * ak / 3;
+    sect('k', o.M_k, o.V_k, bk * 1e3, P.p_k || 12, P.s_k || 200, null, 75);
+  }
+  const okOf = g => o['ok_K_' + g] && o['ok_As_' + g] && o['ok_V_' + g] && o['ok_cr_' + g];
+  o.ok_w = okOf('w'); o.ok_t = okOf('t'); o.ok_hl = okOf('hl'); o.ok_members = o.ok_w && o.ok_t && o.ok_hl;
+  o.valid = qdmin >= 0 && qdmax >= 0 && isFinite(o.z_w) && isFinite(o.z_t) && isFinite(o.z_hl);
+  return o;
+}
+/*END MODEL14*/
+
+/* ===================== 4 MEMBERS ===================== */
+const hb = (p, s) => `H${p}-${s}`;
+const MDIA = [10, 12, 16, 20, 25], MSP = [75, 100, 125, 150, 175, 200, 225, 250, 300];
+const WE14 = {h3: 4.5, h: 0.4, t: 0.4, tc: 0.24, a1: 0.8, a2: 2.2, gs: 19, phi: 35, w: 10, theta: 0, pv: 1, p_w: 12, s_w: 100, p_tb: 12, s_tb: 150, p_hb: 12, s_hb: 150};
+const FE14 = {h3: 4.5, h: 0.4, t: 0.4, tc: 0.2, a1: 0.8, a2: 2.8, gs: 16, phi: 30, w: 0, theta: 15, pv: 0, p_w: 12, s_w: 75, p_tb: 12, s_tb: 150, p_hb: 12, s_hb: 150};
+const MCASES = {
+  we: {label: ['WE 14.1 · the wall of Unit 13 with the notes’ bars', 'WE 14.1 · wall Unit 13 dengan bar dalam nota'], v: WE14,
+       note: ['Stem H12-100, toe and heel H12-150: one part fails. Which check?', 'Stem H12-100, toe dan heel H12-150: satu bahagian gagal. Semakan yang mana?']},
+  wer: {label: ['WE 14.1 · heel bars H12-125', 'WE 14.1 · bar heel H12-125'], v: Object.assign({}, WE14, {s_hb: 125}),
+        note: ['The crack spacing closes the heel bars, not the area alone.', 'Jarak crack control yang merapatkan bar heel, bukan luas sahaja.']},
+  fe: {label: ['FE 14.2 · backfill at 15°, the notes’ bars', 'FE 14.2 · backfill pada 15°, bar dalam nota'], v: FE14,
+       note: ['P<sub>v</sub> is left out of the heel, as in the notes. Count it and watch the heel moment.', 'P<sub>v</sub> ditinggalkan daripada heel, seperti dalam nota. Kira ia dan lihat moment heel.']},
+  fer: {label: ['FE 14.2 · P<sub>v</sub> counted, heel bars H16-125', 'FE 14.2 · P<sub>v</sub> dikira, bar heel H16-125'], v: Object.assign({}, FE14, {pv: 1, p_hb: 16, s_hb: 125}),
+        note: ['H16-150 carries the moment and fails the crack spacing by 3 mm.', 'H16-150 memikul moment tetapi gagal jarak crack control sebanyak 3 mm.']},
+  s14: {label: ['Retaining Wall S14 · designed correctly', 'Retaining Wall S14 · design yang betul'], v: {h3: 4.0, h: 0.4, t: 0.4, tc: 0.25, a1: 0.9, a2: 2.0, gs: 18, phi: 33, w: 10, theta: 0, pv: 1, p_w: 12, s_w: 125, p_tb: 12, s_tb: 200, p_hb: 12, s_hb: 150},
+        note: ['The wall of tab 3, designed correctly. Find the slips in the submitted sheet first.', 'Wall tab 3 dengan design yang betul. Cari kesilapan dalam helaian yang dihantar dahulu.']},
+  own: {label: ['Your own wall', 'Wall anda sendiri'], v: null, note: ['Change any value on the left. Check its stability in tab 2.', 'Ubah mana-mana nilai di sebelah kiri. Semak kestabilannya dalam tab 2.']}
+};
+const MF = {mH3: ['h3', 1.5, 9], mT: ['t', 0.2, 1.2], mTc: ['tc', 0.15, 1.2], mHb: ['h', 0.2, 1.2], mA1: ['a1', 0.2, 4], mA2: ['a2', 0.4, 6], mGs: ['gs', 14, 22], mPhi: ['phi', 25, 45], mW: ['w', 0, 50], mTh: ['theta', 0, 20]};
+const MSEL = {mPw: ['p_w', MDIA], mSw: ['s_w', MSP], mPt: ['p_tb', MDIA], mSt: ['s_tb', MSP], mPh: ['p_hb', MDIA], mSh: ['s_hb', MSP]};
+const min14 = Object.assign({}, WE14); let mCaseK = 'we';
+Object.keys(MSEL).forEach(id => { const s = el(id); MSEL[id][1].forEach(v => { const o = document.createElement('option'); o.value = v; o.textContent = (id.charAt(1) === 'P' ? 'H' : '') + v; s.appendChild(o); }); });
+function fillMCases(){
+  const s = el('mCase'); s.innerHTML = '';
+  Object.keys(MCASES).forEach(k => { const o = document.createElement('option'); o.value = k; o.innerHTML = Lg(MCASES[k].label[0], MCASES[k].label[1]).replace(/<sub>(.*?)<\/sub>/g, '$1'); s.appendChild(o); });
+  s.value = mCaseK; el('mCaseNote').innerHTML = Lg(MCASES[mCaseK].note[0], MCASES[mCaseK].note[1]);
+}
+function syncM(){
+  Object.keys(MF).forEach(id => { if (document.activeElement !== el(id)) el(id).value = +(+min14[MF[id][0]]).toFixed(3); });
+  Object.keys(MSEL).forEach(id => { el(id).value = String(min14[MSEL[id][0]]); });
+  const sl = min14.theta > 0;
+  el('mW').disabled = sl; if (sl && document.activeElement !== el('mW')) el('mW').value = 0;
+  setSeg(el('mPv'), min14.pv ? '1' : '0'); el('mPv').querySelectorAll('button').forEach(b => { b.disabled = !sl; });
+}
+function mP(){ const P = Object.assign({mu: 0.5, qa: 200}, min14); if (P.tc > P.t) P.tc = P.t; if (P.theta > 0) P.w = 0; return P; }
+function isWE14(P){ return near(P.h3, 4.5) && near(P.h, 0.4) && near(P.t, 0.4) && near(P.tc, 0.24) && near(P.a1, 0.8) && near(P.a2, 2.2) && near(P.gs, 19) && near(P.phi, 35) && near(P.w, 10) && !(P.theta > 0); }
+function mFails(r, g){
+  if (!r['ok_K_' + g]) return [Lg('section too thin', 'keratan terlalu nipis')];
+  const a = []; if (!r['ok_As_' + g]) a.push(Lg('area', 'luas')); if (!r['ok_V_' + g]) a.push('shear'); if (!r['ok_cr_' + g]) a.push(Lg('crack spacing', 'jarak crack control')); return a;
+}
+function secPick(need){ for (const p of [12, 16, 20]) for (const s of [200, 175, 150, 125, 100, 75]) if (barA(p, s) >= need) return [p, s]; return [20, 75]; }
+
+/* ---------- Activity 14A ---------- */
+const FKEY = 'seaa4333-lab-retwall-14a';
+let fSt = recall(FKEY, {}) || {};
+function fDone(){ return !!fSt.shown || !!((recall(MKEY, {}) || {}).faces); }
+function paintF(){
+  setSeg(el('fStem'), fSt.stem || ''); setSeg(el('fToe'), fSt.toe || ''); setSeg(el('fHeel'), fSt.heel || '');
+  const o = el('fOut'); if (!fSt.shown){ o.hidden = true; return; }
+  const ok = [fSt.stem === 'earth', fSt.toe === 'bottom', fSt.heel === 'top'], n = ok.filter(Boolean).length;
+  o.hidden = false; o.className = 'verdict ' + (n === 3 ? 'ok' : 'bad');
+  o.innerHTML = (n === 3 ? Lg('All three right. ', 'Ketiga-tiganya betul. ') : Lg(`${n} of 3 right. `, `${n} daripada 3 betul. `)) +
+    Lg(`<b>Stem ${ok[0] ? '✓' : '✗'}</b>: the soil pushes it forward, so it leans over the toe and its <b>earth face</b> stretches. <b>Toe ${ok[1] ? '✓' : '✗'}</b>: the ground pushes up harder than the slab weighs down, so its tip bends up and its <b>bottom</b> stretches. <b>Heel ${ok[2] ? '✓' : '✗'}</b>: the backfill, the surcharge and the slab weigh down harder than the ground pushes up, so its tip bends down and its <b>top</b> stretches. The heel is the one drawn wrongly most often: it looks like the toe and bends the other way.`,
+       `<b>Stem ${ok[0] ? '✓' : '✗'}</b>: tanah menolaknya ke hadapan, jadi ia condong ke arah toe dan <b>muka tanah</b>-nya meregang. <b>Toe ${ok[1] ? '✓' : '✗'}</b>: tanah di bawah menolak ke atas lebih kuat daripada berat slab yang menekan ke bawah, jadi hujungnya melentur ke atas dan <b>bahagian bawah</b>-nya meregang. <b>Heel ${ok[2] ? '✓' : '✗'}</b>: backfill, surcharge dan slab menekan ke bawah lebih kuat daripada tolakan tanah ke atas, jadi hujungnya melentur ke bawah dan <b>bahagian atas</b>-nya meregang. Heel paling kerap dilukis salah: rupanya seperti toe tetapi ia melentur ke arah yang bertentangan.`);
+}
+[['fStem', 'stem'], ['fToe', 'toe'], ['fHeel', 'heel']].forEach(([id, k]) => segGroup(el(id), v => { fSt = Object.assign({}, fSt, {[k]: v, shown: false}); store(FKEY, fSt); paintF(); redrawMembers(false); }));
+el('fReveal').addEventListener('click', () => {
+  if (!(fSt.stem && fSt.toe && fSt.heel)){ const o = el('fOut'); o.hidden = false; o.className = 'verdict bad'; o.innerHTML = Lg('Choose a face for each of the three parts first.', 'Pilih satu muka bagi setiap satu daripada tiga bahagian dahulu.'); return; }
+  fSt.shown = true; store(FKEY, fSt); milestone('faces'); paintF(); redrawMembers(false);
+});
+
+function redrawMembers(userEdit, barEdit){
+  const P = mP(), r = mCalc(P), veil = !fDone();
+  el('mVeil').hidden = !veil; el('mRes').hidden = veil;
+  const msg = el('mMsg');
+  if (!r.valid){
+    msg.hidden = false;
+    msg.innerHTML = !(r.qdmin >= 0 && r.qdmax >= 0)
+      ? Lg(`With the design loads the resultant meets the base ${f(r.xd, 2)} m from the toe, outside its middle third (e<sub>d</sub> = ${f(r.ed, 3)} m &gt; B/6 = ${f(r.B / 6, 3)} m), so the straight-line pressure of (14.2) does not hold. Lengthen the base: check the wall in tab 2 first.`,
+           `Dengan design load, resultant bertemu base ${f(r.xd, 2)} m dari toe, di luar middle third (e<sub>d</sub> = ${f(r.ed, 3)} m &gt; B/6 = ${f(r.B / 6, 3)} m), jadi tekanan garis lurus (14.2) tidak terpakai. Panjangkan base: semak wall dalam tab 2 dahulu.`)
+      : Lg('A part is too thin for its moment (K above 0.167 by far). Thicken the stem or the base.', 'Satu bahagian terlalu nipis bagi moment-nya (K jauh melebihi 0.167). Tebalkan stem atau base.');
+    el('mKV').innerHTML = ''; el('mDraw').innerHTML = ''; el('mParts').innerHTML = ''; el('mTable').innerHTML = ''; return;
+  }
+  msg.hidden = true;
+  const fw = mFails(r, 'w'), ft = mFails(r, 't'), fh = mFails(r, 'hl'), sec = secPick(r.Asmin_s);
+  const item = (name, p, s, M, fl) => [`${name} · ${hb(p, s)}`, `${f(Math.abs(M), 1)} kN m/m ${fl.length ? '✗ ' + fl.join(', ') : '✓'}`, fl.length ? 'bad' : 'ok'];
+  el('mKV').innerHTML = kvHtml([item('stem', P.p_w, P.s_w, r.M_w, fw), item('toe', P.p_tb, P.s_tb, r.M_t, ft), item('heel', P.p_hb, P.s_hb, r.M_hl, fh),
+    [Lg('design pressure · toe, heel end', 'design pressure · toe, hujung heel'), `${f(r.qdmax, 1)} · ${f(r.qdmin, 1)} kN/m²`],
+    [Lg('secondary steel', 'secondary steel'), `${hb(sec[0], sec[1])} · ${f(r.Asmin_s, 0)} mm²/m`],
+    [Lg(`lap of the H${P.p_w} stem bars`, `lap bar stem H${P.p_w}`), `${f(r.lap, 0)} mm`]]);
+  drawMembers(P, r, {w: fw, t: ft, hl: fh}); drawParts(P, r); drawMTable(P, r, sec);
+  if (userEdit && !veil && r.ok_members){
+    if (barEdit && isWE14(P)) milestone('bars');
+    if (P.theta >= 10 && P.pv) milestone('slope');
+  }
+}
+function drawMembers(P, r, fl){
+  const svg = el('mDraw'); svg.innerHTML = '';
+  const B = r.B, H = r.Ht, th = P.theta || 0, tn = Math.tan(rad(th)), ext = 0.5;
+  const topR = P.h + P.h3 + (P.a2 + ext) * tn, sc = Math.min(350 / (B + ext), 326 / topR), ox = 170 + (350 - (B + ext) * sc) / 2, yb = 372, X = x => ox + x * sc, Y = y => yb - y * sc;
+  const xs = P.a1 + P.t, c = Math.max(0.07, 5 / sc), up = r.M_t >= 0, hdn = r.M_hl >= 0;
+  svg.setAttribute('aria-label', Lg(`The wall in section. Design pressure under the base ${f(r.qdmax, 1)} kN/m² at the toe and ${f(r.qdmin, 1)} at the heel end. Stem: ${f(r.M_w, 1)} kN m/m, bars ${hb(P.p_w, P.s_w)} on the earth face, ${fl.w.length ? 'failing' : 'passing'}. Toe: ${f(r.M_t, 1)} kN m/m, bars ${hb(P.p_tb, P.s_tb)} in the ${up ? 'bottom' : 'top'}, ${fl.t.length ? 'failing' : 'passing'}. Heel: ${f(Math.abs(r.M_hl), 1)} kN m/m, bars ${hb(P.p_hb, P.s_hb)} in the ${hdn ? 'top' : 'bottom'}, ${fl.hl.length ? 'failing' : 'passing'}.`,
+    `Keratan wall. Design pressure di bawah base ${f(r.qdmax, 1)} kN/m² di toe dan ${f(r.qdmin, 1)} di hujung heel. Stem: ${f(r.M_w, 1)} kN m/m, bar ${hb(P.p_w, P.s_w)} di muka tanah, ${fl.w.length ? 'gagal' : 'lulus'}. Toe: ${f(r.M_t, 1)} kN m/m, bar ${hb(P.p_tb, P.s_tb)} di bahagian ${up ? 'bawah' : 'atas'}, ${fl.t.length ? 'gagal' : 'lulus'}. Heel: ${f(Math.abs(r.M_hl), 1)} kN m/m, bar ${hb(P.p_hb, P.s_hb)} di bahagian ${hdn ? 'atas' : 'bawah'}, ${fl.hl.length ? 'gagal' : 'lulus'}.`));
+  /* backfill */
+  S('path', {d: `M${X(xs)},${Y(P.h)} L${X(xs)},${Y(P.h + P.h3)} L${X(B + ext)},${Y(topR)} L${X(B + ext)},${yb} L${X(B)},${yb} L${X(B)},${Y(P.h)} Z`, fill: 'var(--surface-2)'}, svg);
+  S('line', {x1: X(xs), y1: Y(P.h + P.h3), x2: X(B + ext), y2: Y(topR), stroke: 'var(--ink-3)'}, svg);
+  S('line', {x1: X(0) - 70, x2: X(0), y1: Y(P.h), y2: Y(P.h), stroke: 'var(--ink-3)', 'stroke-dasharray': '3 3'}, svg);
+  /* concrete */
+  S('rect', {x: X(0), y: Y(P.h), width: B * sc, height: P.h * sc, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
+  S('path', {d: `M${X(P.a1)},${Y(P.h)} L${X(P.a1 + P.t - P.tc)},${Y(P.h + P.h3)} L${X(xs)},${Y(P.h + P.h3)} L${X(xs)},${Y(P.h)} Z`, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
+  /* pressure on the stem */
+  const pT = r.slope ? 0 : r.Ka * P.w, pB = (r.slope ? r.Ka * P.gs * P.h3 * r.cth : r.Ka * (P.gs * P.h3 + P.w)), ps = Math.min(46 / pB, 3), xr = X(xs) + 3;
+  S('path', {d: `M${xr},${Y(P.h + P.h3)} L${xr + pT * ps},${Y(P.h + P.h3)} L${xr + pB * ps},${Y(P.h)} L${xr},${Y(P.h)} Z`, fill: 'none', stroke: 'var(--ink-2)', 'stroke-width': 1.2}, svg);
+  for (let i = 1; i <= 4; i++){ const yy = Y(P.h + P.h3 * (1 - i / 4.4)), pp = pT + (pB - pT) * (i / 4.4); if (pp * ps > 12) arrow(svg, xr + pp * ps, yy, xr + 2, yy, 'var(--ink-2)', 1.2); }
+  /* design pressure under the base */
+  const qs = Math.min(64 / Math.max(r.qdmax, r.qdmin), 1.2), y0 = yb + 6;
+  S('path', {d: `M${X(0)},${y0} L${X(B)},${y0} L${X(B)},${y0 + r.qdmin * qs} L${X(0)},${y0 + r.qdmax * qs} Z`, fill: 'var(--surface-2)', stroke: 'var(--ink-3)'}, svg);
+  [[X(P.a1), r.qtf], [X(xs), r.qhf]].forEach(([x, q]) => S('line', {x1: x, x2: x, y1: y0, y2: y0 + q * qs, stroke: 'var(--ink-3)', 'stroke-dasharray': '3 3'}, svg));
+  const nA = Math.max(2, Math.round(P.a1 * sc / 22)), nH = Math.max(3, Math.round(P.a2 * sc / 24));
+  for (let i = 0; i < nA; i++){ const x = X(P.a1 * (i + 0.5) / nA), q = r.qdmax - (r.qdmax - r.qtf) * (i + 0.5) / nA; arrow(svg, x, y0 + q * qs - 2, x, y0 + 1, 'var(--ink)', 1.4); }
+  TS(svg, X(0) - 8, y0 + r.qdmax * qs, [['q'], ['d', 1], [' ' + f(r.qdmax, 1)]], {'text-anchor': 'end'});
+  T(svg, X(B) + 8, y0 + Math.max(12, r.qdmin * qs), f(r.qdmin, 1) + ' kN/m²', {});
+  /* net load on the heel, from above */
+  const ns = Math.min(30 / Math.max(Math.abs(r.nhf), Math.abs(r.nhe), 1), 1.2), yt = Y(P.h);
+  for (let i = 0; i < nH; i++){ const u = (i + 0.5) / nH, x = X(xs + P.a2 * u), n = r.nhf + (r.nhe - r.nhf) * u, L = Math.max(9, Math.abs(n) * ns); if (n >= 0) arrow(svg, x, yt - L - 3, x, yt - 2, 'var(--ink)', 1.4); else arrow(svg, x, yt - 3, x, yt - L - 3, 'var(--ink)', 1.4); }
+  /* P_v at the heel tip */
+  if (r.slope){
+    const xv = X(B) - 3, y1 = Y(P.h) - 66, y2 = Y(P.h) - 2, on = r.Pvd > 0;
+    if (on) arrow(svg, xv, y1, xv, y2, 'var(--ink)', 2.6); else S('line', {x1: xv, x2: xv, y1, y2, stroke: 'var(--ink-3)', 'stroke-width': 2.4, 'stroke-dasharray': '4 4'}, svg);
+    TS(svg, xv + 3, y1 - 7, on ? [['1.35P'], ['v', 1], [' = ' + f(r.Pvd, 1) + ' kN']] : [['P'], ['v', 1], [Lg(' left out', ' ditinggalkan')]], {'text-anchor': 'end', style: 'fill:var(--ink);font-weight:700'});
+  }
+  /* how each part bends: three lines fixed where they meet (inset) */
+  {
+    const jx = 62, jy = 112, bl = {fill: 'none', stroke: 'var(--flight)', 'stroke-width': 2, 'stroke-dasharray': '6 4'}, ln = {stroke: 'var(--ink-3)', 'stroke-width': 1.4}, tb = {stroke: 'var(--unbraced)', 'stroke-width': 3, 'stroke-linecap': 'round'};
+    S('rect', {x: 8, y: 8, width: 150, height: 150, rx: 8, fill: 'var(--surface-2)'}, svg);
+    S('line', Object.assign({x1: jx, y1: jy, x2: jx, y2: jy - 82}, ln), svg); S('line', Object.assign({x1: jx, y1: jy, x2: jx - 40, y2: jy}, ln), svg); S('line', Object.assign({x1: jx, y1: jy, x2: jx + 78, y2: jy}, ln), svg);
+    S('path', Object.assign({d: `M${jx},${jy} Q${jx},${jy - 44} ${jx - 15},${jy - 82}`}, bl), svg);
+    S('path', Object.assign({d: `M${jx},${jy} Q${jx - 22},${jy} ${jx - 40},${jy - (up ? 9 : -9)}`}, bl), svg);
+    S('path', Object.assign({d: `M${jx},${jy} Q${jx + 42},${jy} ${jx + 78},${jy + (hdn ? 11 : -11)}`}, bl), svg);
+    S('line', Object.assign({x1: jx + 5, x2: jx + 5, y1: jy - 12, y2: jy - 52}, tb), svg);
+    S('line', Object.assign({x1: jx - 8, x2: jx - 30, y1: jy + (up ? 5 : -5), y2: jy + (up ? 5 : -5)}, tb), svg);
+    S('line', Object.assign({x1: jx + 10, x2: jx + 50, y1: jy + (hdn ? -5 : 5), y2: jy + (hdn ? -5 : 5)}, tb), svg);
+    arrow(svg, jx + 40, jy - 58, jx + 14, jy - 58, 'var(--ink-2)', 1.3); arrow(svg, jx - 26, jy + (up ? 30 : -30), jx - 26, jy + (up ? 10 : -10), 'var(--ink-2)', 1.3); arrow(svg, jx + 52, jy + (hdn ? -30 : 30), jx + 52, jy + (hdn ? -10 : 10), 'var(--ink-2)', 1.3);
+    T(svg, 83, 150, Lg('how each part bends', 'cara ia melentur'), {'text-anchor': 'middle'});
+  }
+  /* main bars on the tension faces */
+  const bar = (d, ok) => S('path', {d, fill: 'none', stroke: 'var(--unbraced)', 'stroke-width': 3, 'stroke-linecap': 'round', 'stroke-dasharray': ok ? '' : '2 6'}, svg);
+  bar(`M${X(xs - c - 0.45)},${Y(c + 0.03)} L${X(xs - c)},${Y(c + 0.03)} L${X(xs - c)},${Y(P.h + P.h3 - 0.06)}`, !fl.w.length);
+  if (up) bar(`M${X(0.06)},${Y(c)} L${X(Math.min(xs + 0.55, B - 0.06))},${Y(c)}`, !fl.t.length); else bar(`M${X(0.06)},${Y(P.h - c)} L${X(Math.min(xs + 0.55, B - 0.06))},${Y(P.h - c)}`, !fl.t.length);
+  if (hdn) bar(`M${X(Math.max(P.a1 - 0.45, 0.06))},${Y(P.h - c)} L${X(B - 0.06)},${Y(P.h - c)}`, !fl.hl.length); else bar(`M${X(Math.max(P.a1 - 0.45, 0.06))},${Y(c)} L${X(B - 0.06)},${Y(c)}`, !fl.hl.length);
+  /* labels */
+  const lab = (x, y, anchor, name, p, s, M, fails, face) => {
+    T(svg, x, y, `${name} · ${hb(p, s)} ${fails.length ? '✗' : '✓'}`, {'text-anchor': anchor, style: `fill:var(--${fails.length ? 'bad' : 'ok'});font-weight:700`});
+    T(svg, x, y + 15, `${f(Math.abs(M), 1)} kN m/m`, {'text-anchor': anchor, style: 'fill:var(--ink-2)'});
+    T(svg, x, y + 30, face, {'text-anchor': anchor});
+  };
+  lab(X(P.a1) - 26, Math.max(Y(P.h + P.h3 * 0.45), 186), 'end', 'stem', P.p_w, P.s_w, r.M_w, fl.w, Lg('earth face', 'muka tanah'));
+  lab(X(0) - 12, Y(P.h) - 46, 'end', 'toe', P.p_tb, P.s_tb, r.M_t, fl.t, up ? Lg('bottom', 'bawah') : Lg('top', 'atas'));
+  lab(X(B + ext) + 8, Y(P.h + P.h3 * 0.42), 'start', 'heel', P.p_hb, P.s_hb, r.M_hl, fl.hl, hdn ? Lg('top', 'atas') : Lg('bottom', 'bawah'));
+  /* dimensions */
+  const yd = y0 + Math.max(r.qdmax, r.qdmin) * qs + 22;
+  dimH(svg, X(0), X(P.a1), yd, f(P.a1, 2), 'var(--flight)'); dimH(svg, X(P.a1), X(xs), yd, f(P.t, 2), 'var(--flight)'); dimH(svg, X(xs), X(B), yd, f(P.a2, 2), 'var(--flight)');
+  T(svg, X(B / 2), yd + 34, `B = ${f(B, 2)} m · h = ${f(P.h, 2)} m · ` + Lg('stem', 'stem') + ` ${f(P.h3, 2)} m`, {'text-anchor': 'middle', style: 'fill:var(--flight)'});
+}
+function drawParts(P, r){
+  const up = r.M_t >= 0, hdn = r.M_hl >= 0, G = ['w', 't', 'hl'], bars = {w: [P.p_w, P.s_w], t: [P.p_tb, P.s_tb], hl: [P.p_hb, P.s_hb]};
+  const row = (label, fn) => `<tr><td class="m">${label}</td>` + G.map(g => `<td class="out">${fn(g)}</td>`).join('') + '</tr>';
+  let h = `<thead><tr><th></th><th class="out">Stem</th><th class="out">Toe</th><th class="out">Heel</th></tr></thead><tbody>`;
+  h += row(Lg('Tension face', 'Muka tegangan'), g => g === 'w' ? Lg('earth face', 'muka tanah') : (g === 't' ? up : !hdn) ? Lg('bottom', 'bawah') : Lg('top', 'atas'));
+  h += row('M<sub>Ed</sub> (kN m/m)', g => f(Math.abs(r['M_' + g]), 1));
+  h += row('V<sub>Ed</sub> (kN/m)', g => f(Math.abs(r['V_' + g]), 1));
+  h += row('h · d (mm)', g => `${f(r['hh_' + g], 0)} · ${f(r['d_' + g], 0)}`);
+  h += row('K', g => f(r['K_' + g], 4) + (r['ok_K_' + g] ? '' : ' ' + tick(false)));
+  h += row('z (mm)', g => f(r['z_' + g], 1));
+  h += row('A<sub>s,req</sub> (mm²/m)', g => f(r['As_' + g], 0));
+  h += row('A<sub>s,min</sub> (mm²/m)', g => f(r['Asmin_' + g], 0));
+  h += row(Lg('Bars', 'Bar'), g => hb(bars[g][0], bars[g][1]));
+  h += row('A<sub>s,prov</sub> (mm²/m)', g => `${f(r['Asp_' + g], 0)} ${tick(r['ok_As_' + g])}`);
+  h += row('V<sub>Rd,c</sub> (kN/m)', g => `${f(r['VRd_' + g], 1)} ${tick(r['ok_V_' + g])}`);
+  h += row('σ<sub>s</sub> (N/mm²)', g => f(r['sigs_' + g], 1));
+  h += row(Lg('Spacing limit (mm)', 'Had jarak (mm)'), g => `${f(r['smaxcr_' + g], 0)} ${tick(r['ok_cr_' + g])}`);
+  el('mParts').innerHTML = h + '</tbody>';
+}
+function drawMTable(P, r, sec){
+  const rows = [], add = (ref, m, out) => rows.push(`<tr><td class="ref">${ref}</td><td class="m">${m}</td><td class="out">${out}</td></tr>`);
+  const sl = r.slope, B = r.B;
+  add('(14.1)', `N<sub>d</sub> = 1.35ΣV<sub>k,G</sub> + 1.5V<sub>k,Q</sub> = 1.35 × ${f(r.VkG, 2)} + 1.5 × ${f(r.VkQ, 2)}`, `${f(r.Nd, 2)} kN`);
+  add('(14.1)', `ΔM<sub>d</sub> = 1.35 × (${f(r.MrG, 2)} − ${f(r.MoG, 2)}) + 1.5 × (${f(r.MrQ, 2)} − ${f(r.MoQ, 2)})`, `${f(r.Md, 2)} kN m`);
+  add('(14.2)', `x<sub>d</sub> = ${f(r.Md, 2)}/${f(r.Nd, 2)} = ${f(r.xd, 4)} m; e<sub>d</sub> = ${f(B / 2, 3)} − ${f(r.xd, 4)}`, `e<sub>d</sub> = ${f(r.ed, 4)} m`);
+  add('(14.2)', `q<sub>d</sub> = ${f(r.Nd, 2)}/${f(B, 2)} ± 6 × ${f(r.Nd, 2)} × ${f(r.ed, 4)}/${f(B, 2)}² = ${f(r.qdm, 2)} ± ${f(r.dqd, 2)}`, `${f(r.qdmax, 2)}; ${f(r.qdmin, 2)} kN/m²`);
+  add(Lg('faces', 'muka'), Lg(`At the front face of the stem ${f(r.qdmax, 2)} − ${f(r.qdmax - r.qdmin, 2)} × ${f(P.a1, 2)}/${f(B, 2)}; at its back face ${f(r.qdmin, 2)} + ${f(r.qdmax - r.qdmin, 2)} × ${f(P.a2, 2)}/${f(B, 2)}`,
+    `Di muka hadapan stem ${f(r.qdmax, 2)} − ${f(r.qdmax - r.qdmin, 2)} × ${f(P.a1, 2)}/${f(B, 2)}; di muka belakangnya ${f(r.qdmin, 2)} + ${f(r.qdmax - r.qdmin, 2)} × ${f(P.a2, 2)}/${f(B, 2)}`), `${f(r.qtf, 2)}; ${f(r.qhf, 2)} kN/m²`);
+  add('(14.3)', Lg(`Toe, net upwards: slab 1.35 × 25 × ${f(P.h, 2)} = ${f(r.gbase, 2)}; ${f(r.qdmax, 2)} − ${f(r.gbase, 2)} at the end, ${f(r.qtf, 2)} − ${f(r.gbase, 2)} at the stem`,
+    `Toe, net ke atas: slab 1.35 × 25 × ${f(P.h, 2)} = ${f(r.gbase, 2)}; ${f(r.qdmax, 2)} − ${f(r.gbase, 2)} di hujung, ${f(r.qtf, 2)} − ${f(r.gbase, 2)} di stem`), `${f(r.nte, 2)}; ${f(r.ntf, 2)} kN/m² ↑`);
+  add('(14.3)', Lg(`Heel, from above: 1.35 × (25 × ${f(P.h, 2)} + ${f(P.gs, 1)} × ${f(P.h3, 2)}) + 1.5 × ${f(P.w, 0)} = ${f(r.ghl, 2)}` + (sl ? `; the wedge at the end 1.35 × ${f(P.gs, 1)} × ${f(r.h4, 3)} = ${f(r.gh4, 2)}` : '') + `; net ${f(r.ghl, 2)} − ${f(r.qhf, 2)} at the stem, ${f(r.ghl + r.gh4, 2)} − ${f(r.qdmin, 2)} at the end`,
+    `Heel, dari atas: 1.35 × (25 × ${f(P.h, 2)} + ${f(P.gs, 1)} × ${f(P.h3, 2)}) + 1.5 × ${f(P.w, 0)} = ${f(r.ghl, 2)}` + (sl ? `; baji di hujung 1.35 × ${f(P.gs, 1)} × ${f(r.h4, 3)} = ${f(r.gh4, 2)}` : '') + `; net ${f(r.ghl, 2)} − ${f(r.qhf, 2)} di stem, ${f(r.ghl + r.gh4, 2)} − ${f(r.qdmin, 2)} di hujung`), `${f(r.nhf, 2)}; ${f(r.nhe, 2)} kN/m² ${r.M_hl >= 0 ? '↓' : '↑'}`);
+  if (sl) add('(14.11)', Lg(`Line load at the heel tip: P<sub>v</sub> = ${f(r.Pv, 2)} kN` + (r.Pvd > 0 ? `; × 1.35` : '; left out, as in the notes'), `Line load di hujung heel: P<sub>v</sub> = ${f(r.Pv, 2)} kN` + (r.Pvd > 0 ? `; × 1.35` : '; ditinggalkan, seperti dalam nota')), `${f(r.Pvd, 2)} kN`);
+  add('(14.4)', Lg(`Stem over h<sub>s</sub> = ${f(r.hs, 2)} m, K<sub>a</sub> = ${f(r.Ka, 4)}: P<sub>s,s</sub> = ½ × ${f(r.Ka, 4)} × ${f(P.gs, 1)} × ${f(r.hs, 2)}²` + (sl ? ` × cos ${f(P.theta, 0)}°` : `; P<sub>q,s</sub> = ${f(r.Ka, 4)} × ${f(P.w, 0)} × ${f(r.hs, 2)}`),
+    `Stem sepanjang h<sub>s</sub> = ${f(r.hs, 2)} m, K<sub>a</sub> = ${f(r.Ka, 4)}: P<sub>s,s</sub> = ½ × ${f(r.Ka, 4)} × ${f(P.gs, 1)} × ${f(r.hs, 2)}²` + (sl ? ` × cos ${f(P.theta, 0)}°` : `; P<sub>q,s</sub> = ${f(r.Ka, 4)} × ${f(P.w, 0)} × ${f(r.hs, 2)}`)), sl ? `${f(r.Pss, 2)} kN` : `${f(r.Pss, 2)}; ${f(r.Pqs, 2)} kN`);
+  add('(14.4)', `Stem: M<sub>Ed</sub> = 1.35 × ${f(r.Pss, 2)} × ${f(r.hs, 2)}/3 + 1.5 × ${f(r.Pqs, 2)} × ${f(r.hs, 2)}/2; V<sub>Ed</sub> = 1.35 × ${f(r.Pss, 2)} + 1.5 × ${f(r.Pqs, 2)}`, `${f(r.M_w, 1)} kN m/m; ${f(r.V_w, 1)} kN/m`);
+  add('(14.8)', `Toe: M<sub>Ed</sub> = ${f(r.ntf, 2)} × ${f(P.a1, 2)}²/2 + (${f(r.nte, 2)} − ${f(r.ntf, 2)}) × ${f(P.a1, 2)}²/3; V<sub>Ed</sub> = (${f(r.ntf, 2)} + ${f(r.nte, 2)}) × ${f(P.a1, 2)}/2`, `${f(r.M_t, 1)} kN m/m; ${f(r.V_t, 1)} kN/m`);
+  add('(14.8)', `Heel: M<sub>Ed</sub> = ${f(r.nhf, 2)} × ${f(P.a2, 2)}²/2 + (${f(r.nhe, 2)} − ${f(r.nhf, 2)}) × ${f(P.a2, 2)}²/3` + (r.Pvd > 0 ? ` + ${f(r.Pvd, 2)} × ${f(P.a2, 2)}` : '') + `; V<sub>Ed</sub> = (${f(r.nhf, 2)} + ${f(r.nhe, 2)}) × ${f(P.a2, 2)}/2` + (r.Pvd > 0 ? ` + ${f(r.Pvd, 2)}` : ''), `${f(r.M_hl, 1)} kN m/m; ${f(r.V_hl, 1)} kN/m`);
+  add('(14.9)', Lg(`Quasi-permanent ratios: stem M<sub>qp</sub>/M<sub>Ed</sub> = ${f(r.Mqw, 2)}/${f(r.M_w, 2)}; base N<sub>qp</sub>/N<sub>d</sub> = (${f(r.VkG, 2)} + 0.3 × ${f(r.VkQ, 2)})/${f(r.Nd, 2)}`,
+    `Nisbah quasi-permanent: stem M<sub>qp</sub>/M<sub>Ed</sub> = ${f(r.Mqw, 2)}/${f(r.M_w, 2)}; base N<sub>qp</sub>/N<sub>d</sub> = (${f(r.VkG, 2)} + 0.3 × ${f(r.VkQ, 2)})/${f(r.Nd, 2)}`), `${f(r.rqp_w, 4)}; ${f(r.rqp_t, 4)}`);
+  add(Lg('secondary', 'secondary'), Lg(`Along the wall, each part: the larger of 0.25 × ${f(r.Asp_w, 0)} = ${f(r.As20, 0)} and A<sub>s,min</sub> = ${f(r.Asmin_w, 0)} mm²/m`, `Sepanjang wall, setiap bahagian: yang lebih besar antara 0.25 × ${f(r.Asp_w, 0)} = ${f(r.As20, 0)} dengan A<sub>s,min</sub> = ${f(r.Asmin_w, 0)} mm²/m`), `${hb(sec[0], sec[1])} (${f(barA(sec[0], sec[1]), 0)})`);
+  add(Lg('lap', 'lap'), Lg(`Starter bars to stem bars, all lapped at the root: l<sub>0</sub> = 1.5 l<sub>b,rqd</sub> = 1.5 × (${P.p_w}/4) × (${f(r.sigsd, 1)}/${f(r.fbd, 3)}) = 1.5 × ${f(r.lbrqd, 1)}; 40φ would be ${f(r.lap40, 0)} mm`,
+    `Starter bar dengan bar stem, semuanya di-lap di pangkal: l<sub>0</sub> = 1.5 l<sub>b,rqd</sub> = 1.5 × (${P.p_w}/4) × (${f(r.sigsd, 1)}/${f(r.fbd, 3)}) = 1.5 × ${f(r.lbrqd, 1)}; 40φ hanya ${f(r.lap40, 0)} mm`), `${f(r.lap, 0)} mm`);
+  el('mTable').innerHTML = `<thead><tr><th>Ref</th><th>${Lg('Calculation', 'Pengiraan')}</th><th class="out">Output</th></tr></thead><tbody>` + rows.join('') + '</tbody>';
+}
+function mToOwn(){ if (mCaseK !== 'own'){ mCaseK = 'own'; fillMCases(); } }
+Object.keys(MF).forEach(id => el(id).addEventListener('input', () => { const v = readNum(id, MF[id][1], MF[id][2]); if (v === null) return; min14[MF[id][0]] = v; mToOwn(); syncM(); redrawMembers(true, false); }));
+Object.keys(MSEL).forEach(id => el(id).addEventListener('change', () => { min14[MSEL[id][0]] = +el(id).value; mToOwn(); redrawMembers(true, true); }));
+segGroup(el('mPv'), v => { min14.pv = +v; mToOwn(); redrawMembers(true, false); });
+el('mCase').addEventListener('change', () => { mCaseK = el('mCase').value; if (MCASES[mCaseK].v) Object.assign(min14, MCASES[mCaseK].v); fillMCases(); syncM(); redrawMembers(false); });
+
+/* ===================== 5 THE WATER TABLE AND THE KEY ===================== */
+const RW1R = Object.assign({}, NOTES, {a2: 2.2});
+const WKEY = 'seaa4333-lab-retwall-14b';
+let wSt = recall(WKEY, {}) || {};
+const win = {on: 0, zw: 1.5}, kin = {ak: 0};
+function wDone(){ return !!wSt.shown || !!((recall(MKEY, {}) || {}).water); }
+function syncW(){
+  setSeg(el('wOn'), String(win.on)); el('wZw').disabled = !win.on;
+  if (document.activeElement !== el('wZw')) el('wZw').value = win.zw;
+  if (document.activeElement !== el('kAk')) el('kAk').value = kin.ak;
+}
+function wP(){ return Object.assign({}, RW1R, win.on ? {zw: win.zw, gsat: 20} : {}); }
+function heelForWater(){ for (let a = 2.2; a < 9; a += 0.1){ const r = sums14(Object.assign({}, RW1R, {a2: +a.toFixed(1), zw: 1.5, gsat: 20})); if (r.ok_all) return +a.toFixed(1); } return NaN; }
+function paintW(){
+  setSeg(el('wPred'), wSt.pred || '');
+  const o = el('wOut'); if (!wSt.shown){ o.hidden = true; return; }
+  const d = sums14(RW1R), r = sums14(Object.assign({}, RW1R, {zw: 1.5, gsat: 20})), a = heelForWater();
+  o.hidden = false; o.className = 'verdict ' + (wSt.pred === 'D' ? 'ok' : 'bad');
+  o.innerHTML = (wSt.pred === 'D' ? Lg('Right. ', 'Betul. ') : Lg('The answer is D. ', 'Jawapannya D. ')) +
+    Lg(`Drained, the soil pushes with ${f(d.HkG, 1)} kN. With water at 1.5 m the thrust of the soil itself falls to ${f(r.Ps, 1)} kN, because submerged sand weighs only γ′ = ${f(r.gsub, 2)} kN/m³; but the water adds ${f(r.Pw, 1)} kN, and water pressure is not reduced by K<sub>a</sub>. Together ${f(r.HkG, 1)} kN: × ${f(r.rW, 2)}. The water also lifts the base with ${f(r.Uw, 1)} kN, so ΣV<sub>k,G</sub> falls from ${f(d.VkG, 1)} to ${f(r.VkG, 1)} kN. The wall that passed every check now slides in both combinations: ${f(r.Hd, 1)} &gt; ${f(r.Rd, 1)} kN and ${f(r.Hd2, 1)} &gt; ${f(r.Rd2, 1)} kN. To pass with this water the heel would need ${f(a, 1)} m instead of 2.2 m. That is why a retaining wall is drained.`,
+       `Semasa bersaliran, tanah menolak dengan ${f(d.HkG, 1)} kN. Dengan air pada 1.5 m, thrust tanah itu sendiri turun kepada ${f(r.Ps, 1)} kN, kerana pasir yang tenggelam hanya seberat γ′ = ${f(r.gsub, 2)} kN/m³; tetapi air menambah ${f(r.Pw, 1)} kN, dan tekanan air tidak dikurangkan oleh K<sub>a</sub>. Jumlahnya ${f(r.HkG, 1)} kN: × ${f(r.rW, 2)}. Air juga mengangkat base dengan ${f(r.Uw, 1)} kN, jadi ΣV<sub>k,G</sub> turun daripada ${f(d.VkG, 1)} kepada ${f(r.VkG, 1)} kN. Wall yang lulus setiap semakan kini menggelongsor dalam kedua-dua combination: ${f(r.Hd, 1)} &gt; ${f(r.Rd, 1)} kN dan ${f(r.Hd2, 1)} &gt; ${f(r.Rd2, 1)} kN. Untuk lulus dengan air ini, heel perlu ${f(a, 1)} m dan bukan 2.2 m. Itulah sebabnya retaining wall diberi saliran.`);
+}
+segGroup(el('wPred'), v => { wSt = Object.assign({}, wSt, {pred: v, shown: false}); store(WKEY, wSt); paintW(); redrawWater(); });
+el('wReveal').addEventListener('click', () => {
+  if (!wSt.pred){ const o = el('wOut'); o.hidden = false; o.className = 'verdict bad'; o.innerHTML = Lg('Choose A, B, C or D first.', 'Pilih A, B, C atau D dahulu.'); return; }
+  wSt.shown = true; store(WKEY, wSt); milestone('water'); win.on = 1; win.zw = 1.5; syncW(); paintW(); redrawWater();
+});
+segGroup(el('wOn'), v => { win.on = +v; syncW(); redrawWater(); });
+el('wZw').addEventListener('input', () => { const v = readNum('wZw', 0.5, 4.5); if (v === null) return; win.zw = v; redrawWater(); });
+function redrawWater(){
+  const veil = !wDone(); el('wVeil').hidden = !veil; el('wRes').hidden = veil;
+  const P = wP(), r = sums14(P), d = sums14(RW1R), on = !!win.on, rel = ok => ok ? '≤' : '&gt;';
+  const inBase = r.xk > 0.02 && r.xk < r.B - 0.02;
+  const qTxt = !inBase ? Lg('resultant off the base', 'resultant di luar base') : !r.ok_mid ? `e ${f(r.ek, 3)} &gt; ${f(r.B6, 3)} m · ` + Lg('base lifts', 'base terangkat') : `${f(r.qmax, 1)} ${rel(r.qmax <= P.qa)} ${f(P.qa, 0)} kN/m²`;
+  el('wKV').innerHTML = kvHtml([
+    [Lg('permanent thrust', 'thrust permanent'), on ? `${f(d.HkG, 1)} → ${f(r.HkG, 1)} kN · × ${f(r.HkG / d.HkG, 2)}` : `${f(r.HkG, 1)} kN`],
+    [Lg('uplift · ΣV<sub>k,G</sub>', 'uplift · ΣV<sub>k,G</sub>'), on ? `${f(r.Uw, 1)} kN · ${f(d.VkG, 1)} → ${f(r.VkG, 1)} kN` : `0 · ${f(r.VkG, 1)} kN`],
+    [Lg('overturning', 'overturning'), `${f(r.Mod, 1)} ${rel(r.ok_ot)} ${f(r.Mrd, 1)}`, r.ok_ot ? 'ok' : 'bad'],
+    [Lg('sliding · comb. 1', 'sliding · comb. 1'), `${f(r.Hd, 1)} ${rel(r.ok_s1)} ${f(r.Rd, 1)}`, r.ok_s1 ? 'ok' : 'bad'],
+    [Lg('sliding · EC7 C2', 'sliding · EC7 C2'), `${f(r.Hd2, 1)} ${rel(r.ok_s2)} ${f(r.Rd2, 1)}`, r.ok_s2 ? 'ok' : 'bad'],
+    [Lg('bearing · service', 'bearing · service'), qTxt, r.ok_q ? 'ok' : 'bad']]);
+  drawWater(P, r, on); drawWTable(P, r, d, on);
+}
+function drawWater(P, r, on){
+  const svg = el('wDraw'); svg.innerHTML = '';
+  const B = r.B, H = r.Ht, sc = Math.min(250 / (B + 0.5), 286 / H), ox = 44, yb = 314, X = x => ox + x * sc, Y = y => yb - y * sc, xs = P.a1 + P.t, ext = 0.5;
+  svg.setAttribute('aria-label', on
+    ? Lg(`The wall with the water table ${f(P.zw, 1)} m below the surface: soil thrust ${f(r.Ps, 1)} kN, water thrust ${f(r.Pw, 1)} kN, uplift under the base ${f(r.Uw, 1)} kN.`, `Wall dengan water table ${f(P.zw, 1)} m di bawah permukaan: thrust tanah ${f(r.Ps, 1)} kN, thrust air ${f(r.Pw, 1)} kN, uplift di bawah base ${f(r.Uw, 1)} kN.`)
+    : Lg(`The wall with a drained backfill: soil thrust ${f(r.Ps, 1)} kN, no water pressure, no uplift.`, `Wall dengan backfill bersaliran: thrust tanah ${f(r.Ps, 1)} kN, tiada tekanan air, tiada uplift.`));
+  S('rect', {x: X(xs), y: Y(H), width: (B - xs + ext) * sc, height: (H - P.h) * sc, fill: 'var(--surface-2)'}, svg);
+  S('rect', {x: X(B), y: Y(P.h), width: ext * sc, height: P.h * sc, fill: 'var(--surface-2)'}, svg);
+  if (on){
+    S('path', {d: `M${X(xs)},${Y(H - P.zw)} L${X(B + ext)},${Y(H - P.zw)} L${X(B + ext)},${yb} L${X(B)},${yb} L${X(B)},${Y(P.h)} L${X(xs)},${Y(P.h)} Z`, fill: 'var(--flight)', 'fill-opacity': 0.13}, svg);
+    S('line', {x1: X(xs), x2: X(B + ext), y1: Y(H - P.zw), y2: Y(H - P.zw), stroke: 'var(--flight)', 'stroke-width': 1.6, 'stroke-dasharray': '7 4'}, svg);
+    const xt = X(xs) + 16, ytb = Y(H - P.zw); S('path', {d: `M${xt - 6},${ytb - 9} L${xt + 6},${ytb - 9} L${xt},${ytb - 1} Z`, fill: 'none', stroke: 'var(--flight)', 'stroke-width': 1.4}, svg);
+    T(svg, xt + 12, ytb - 5, 'water table', {style: 'fill:var(--ink-2)'}); TS(svg, xt + 12, ytb + 14, [['z'], ['w', 1], [` = ${f(P.zw, 1)} m`]], {style: 'fill:var(--ink-2)'});
+  }
+  S('line', {x1: X(xs), x2: X(B + ext), y1: Y(H), y2: Y(H), stroke: 'var(--ink-3)'}, svg);
+  S('rect', {x: X(0), y: Y(P.h), width: B * sc, height: P.h * sc, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
+  S('path', {d: `M${X(P.a1)},${Y(P.h)} L${X(P.a1 + P.t - P.tc)},${Y(H)} L${X(xs)},${Y(H)} L${X(xs)},${Y(P.h)} Z`, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
+  S('line', {x1: X(B), x2: X(B), y1: Y(H), y2: yb, stroke: 'var(--ink-3)', 'stroke-dasharray': '3 3'}, svg);
+  /* pressure diagrams, to the right of the section */
+  const px = X(B + ext) + 44, pmax = on ? r.pH + r.uH : r.pH, ps = Math.min(190 / Math.max(pmax, 1), 4.2);
+  S('line', {x1: px, x2: px, y1: Y(H), y2: yb, stroke: 'var(--ink-3)'}, svg);
+  if (on){
+    const yw = Y(H - P.zw);
+    S('path', {d: `M${px},${Y(H)} L${px + r.p0 * ps},${Y(H)} L${px + r.pzw * ps},${yw} L${px + r.pH * ps},${yb} L${px},${yb} Z`, fill: 'var(--unbraced)', 'fill-opacity': 0.16, stroke: 'var(--unbraced)', 'stroke-width': 1.8}, svg);
+    S('path', {d: `M${px + r.pzw * ps + 2},${yw} L${px + r.pH * ps + 2},${yb} L${px + (r.pH + r.uH) * ps + 2},${yb} Z`, fill: 'var(--flight)', 'fill-opacity': 0.2, stroke: 'var(--flight)', 'stroke-width': 1.8}, svg);
+    T(svg, px + 6, yb + 16, Lg(`soil ${f(r.pH, 1)}`, `tanah ${f(r.pH, 1)}`), {style: 'fill:var(--ink-2)'});
+    T(svg, px + (r.pH + r.uH) * ps + 2, yb + 16, Lg(`water ${f(r.uH, 1)} kN/m²`, `air ${f(r.uH, 1)} kN/m²`), {'text-anchor': 'end', style: 'fill:var(--ink-2)'});
+    TS(svg, px + r.pH * ps + 46, yw + (yb - yw) * 0.42, [['P'], ['w', 1], [` = ${f(r.Pw, 1)} kN`]], {style: 'fill:var(--ink);font-weight:700'});
+    TS(svg, px + r.pzw * ps + 16, Y(H) + 30, [['P'], ['s', 1], [` = ${f(r.Ps, 1)} kN`]], {style: 'fill:var(--ink);font-weight:700'});
+    /* uplift under the base */
+    const us = Math.min(46 / r.uH, 2), y0 = yb + 30;
+    S('path', {d: `M${X(0)},${y0} L${X(B)},${y0} L${X(B)},${y0 + r.uH * us} Z`, fill: 'var(--flight)', 'fill-opacity': 0.2, stroke: 'var(--flight)', 'stroke-width': 1.8}, svg);
+    for (let i = 1; i <= 4; i++){ const u = i / 4.3, x = X(B * u), L = r.uH * us * u; if (L > 11) arrow(svg, x, y0 + L - 1, x, y0 + 1, 'var(--flight)', 1.3); }
+    T(svg, X(B) + 10, y0 + 26, 'uplift U = ' + f(r.Uw, 1) + ' kN', {style: 'fill:var(--ink);font-weight:700'});
+  } else {
+    S('path', {d: `M${px},${Y(H)} L${px + r.p0 * ps},${Y(H)} L${px + r.pH * ps},${yb} L${px},${yb} Z`, fill: 'var(--unbraced)', 'fill-opacity': 0.16, stroke: 'var(--unbraced)', 'stroke-width': 1.8}, svg);
+    T(svg, px + 6, yb + 16, Lg(`soil ${f(r.pH, 1)} kN/m²`, `tanah ${f(r.pH, 1)} kN/m²`), {style: 'fill:var(--ink-2)'});
+    TS(svg, px + r.pH * ps + 14, Y(H) + (yb - Y(H)) * 0.6, [['P'], ['s', 1], [` = ${f(r.Ps, 1)} kN`]], {style: 'fill:var(--ink);font-weight:700'});
+    T(svg, X(0), yb + 46, Lg('drained: no water pressure, no uplift', 'bersaliran: tiada tekanan air, tiada uplift'), {style: 'fill:var(--ink-2)'});
+  }
+  T(svg, px, Y(H) - 8, Lg('pressure on the virtual back', 'tekanan pada virtual back'), {});
+}
+function drawWTable(P, r, d, on){
+  const rows = [], add = (ref, m, out) => rows.push(`<tr><td class="ref">${ref}</td><td class="m">${m}</td><td class="out">${out}</td></tr>`), rel = ok => ok ? '≤' : '&gt;';
+  if (on){
+    add('(14.13)', `γ′ = γ<sub>sat</sub> − γ<sub>w</sub> = 20 − 9.81; h<sub>w</sub> = ${f(r.Ht, 2)} − ${f(P.zw, 2)}`, `${f(r.gsub, 2)} kN/m³; ${f(r.hwb, 2)} m`);
+    add('(14.13)', Lg(`Soil pressure at the water table ${f(r.Ka, 4)} × (${f(P.gs, 0)} × ${f(P.zw, 2)} + ${f(P.w, 0)}); at the underside of the base ${f(r.Ka, 4)} × (${f(P.gs, 0)} × ${f(P.zw, 2)} + ${f(r.gsub, 2)} × ${f(r.hwb, 2)} + ${f(P.w, 0)})`,
+      `Tekanan tanah di water table ${f(r.Ka, 4)} × (${f(P.gs, 0)} × ${f(P.zw, 2)} + ${f(P.w, 0)}); di bahagian bawah base ${f(r.Ka, 4)} × (${f(P.gs, 0)} × ${f(P.zw, 2)} + ${f(r.gsub, 2)} × ${f(r.hwb, 2)} + ${f(P.w, 0)})`), `${f(r.pzw, 2)}; ${f(r.pH, 2)} kN/m²`);
+    add(Lg('soil', 'tanah'), Lg(`Permanent thrust of the soil, in three pieces: ½K<sub>a</sub>γz<sub>w</sub>² + K<sub>a</sub>γz<sub>w</sub>h<sub>w</sub> + ½K<sub>a</sub>γ′h<sub>w</sub>² = ${f(r.Ps1, 2)} + ${f(r.Ps2, 2)} + ${f(r.Ps3, 2)}`,
+      `Thrust permanent tanah, dalam tiga bahagian: ½K<sub>a</sub>γz<sub>w</sub>² + K<sub>a</sub>γz<sub>w</sub>h<sub>w</sub> + ½K<sub>a</sub>γ′h<sub>w</sub>² = ${f(r.Ps1, 2)} + ${f(r.Ps2, 2)} + ${f(r.Ps3, 2)}`), `${f(r.Ps, 1)} kN`);
+    add(Lg('water', 'air'), Lg(`P<sub>w</sub> = ½γ<sub>w</sub>h<sub>w</sub>² = ½ × 9.81 × ${f(r.hwb, 2)}², at h<sub>w</sub>/3 = ${f(r.hwb / 3, 2)} m; no K<sub>a</sub>`, `P<sub>w</sub> = ½γ<sub>w</sub>h<sub>w</sub>² = ½ × 9.81 × ${f(r.hwb, 2)}², pada h<sub>w</sub>/3 = ${f(r.hwb / 3, 2)} m; tanpa K<sub>a</sub>`), `${f(r.Pw, 1)} kN`);
+    add('H<sub>k,G</sub>', Lg(`${f(r.Ps, 1)} + ${f(r.Pw, 1)}; drained it was ${f(d.HkG, 1)} kN`, `${f(r.Ps, 1)} + ${f(r.Pw, 1)}; semasa bersaliran ${f(d.HkG, 1)} kN`), `${f(r.HkG, 1)} kN · × ${f(r.HkG / d.HkG, 2)}`);
+    add('uplift', Lg(`U = ½ × 9.81 × ${f(r.hwb, 2)} × ${f(r.B, 2)}, at 2B/3 = ${f(r.xU, 2)} m from the toe: it overturns`, `U = ½ × 9.81 × ${f(r.hwb, 2)} × ${f(r.B, 2)}, pada 2B/3 = ${f(r.xU, 2)} m dari toe: ia menterbalikkan`), `${f(r.Uw, 1)} kN`);
+    add('ΣV<sub>k,G</sub>', Lg(`Backfill on the heel (${f(P.gs, 0)} × ${f(P.zw, 2)} + 20 × ${f(r.hw3, 2)}) × ${f(P.a2, 2)} = ${f(r.W4, 1)}; stem and base ${f(r.W1 + r.W2 + r.W3, 1)}; less the uplift ${f(r.Uw, 1)}`,
+      `Backfill di atas heel (${f(P.gs, 0)} × ${f(P.zw, 2)} + 20 × ${f(r.hw3, 2)}) × ${f(P.a2, 2)} = ${f(r.W4, 1)}; stem dan base ${f(r.W1 + r.W2 + r.W3, 1)}; tolak uplift ${f(r.Uw, 1)}`), `${f(r.VkG, 1)} kN`);
+  } else {
+    add('(13.3)', `P<sub>s</sub> = ½ × ${f(r.Ka, 4)} × ${f(P.gs, 0)} × ${f(r.Ht, 2)}²; P<sub>q</sub> = ${f(r.Ka, 4)} × ${f(P.w, 0)} × ${f(r.Ht, 2)}`, `${f(r.Ps, 1)}; ${f(r.Pq, 1)} kN`);
+    add('ΣV<sub>k,G</sub>', Lg(`Stem and base ${f(r.W1 + r.W2 + r.W3, 1)}; backfill on the heel ${f(P.gs, 0)} × ${f(P.h3, 2)} × ${f(P.a2, 2)} = ${f(r.W4, 1)}`, `Stem dan base ${f(r.W1 + r.W2 + r.W3, 1)}; backfill di atas heel ${f(P.gs, 0)} × ${f(P.h3, 2)} × ${f(P.a2, 2)} = ${f(r.W4, 1)}`), `${f(r.VkG, 1)} kN`);
+  }
+  add('(13.4)', `Overturning: 1.1 × ${f(r.MoG, 1)} + 1.5 × ${f(r.MoQ, 1)} ${rel(r.ok_ot)} 0.9 × ${f(r.MrG, 1)}`, `${f(r.Mod, 1)} ${rel(r.ok_ot)} ${f(r.Mrd, 1)} kN m ${tick(r.ok_ot)}`);
+  add('(13.5)', `Sliding, combination 1: 1.35 × ${f(r.HkG, 1)} + 1.5 × ${f(r.Pq, 1)} ${rel(r.ok_s1)} ${f(P.mu, 2)} × ${f(r.VkG, 1)}`, `${f(r.Hd, 1)} ${rel(r.ok_s1)} ${f(r.Rd, 1)} kN ${tick(r.ok_s1)}`);
+  add('(13.6)', Lg(`Sliding, EC7 Combination 2: (${f(r.Ps, 1)} + 1.3 × ${f(r.Pq, 1)}) × ${f(r.rKa, 4)}` + (on ? ` + ${f(r.Pw, 1)} (water × 1.0, not × K<sub>a,d</sub>/K<sub>a</sub>)` : '') + ` ${rel(r.ok_s2)} ${f(r.mud, 2)} × ${f(r.VkG, 1)}`,
+    `Sliding, EC7 Combination 2: (${f(r.Ps, 1)} + 1.3 × ${f(r.Pq, 1)}) × ${f(r.rKa, 4)}` + (on ? ` + ${f(r.Pw, 1)} (air × 1.0, bukan × K<sub>a,d</sub>/K<sub>a</sub>)` : '') + ` ${rel(r.ok_s2)} ${f(r.mud, 2)} × ${f(r.VkG, 1)}`), `${f(r.Hd2, 1)} ${rel(r.ok_s2)} ${f(r.Rd2, 1)} kN ${tick(r.ok_s2)}`);
+  add('(13.8)', Lg(`Bearing, service: N<sub>k</sub> = ${f(r.Nk, 1)} kN, ΔM<sub>k</sub> = ${f(r.Mk, 1)} kN m, e = ${f(r.B / 2, 2)} − ${f(r.xk, 3)} = ${f(r.ek, 3)} m against B/6 = ${f(r.B6, 3)} m`, `Bearing, service: N<sub>k</sub> = ${f(r.Nk, 1)} kN, ΔM<sub>k</sub> = ${f(r.Mk, 1)} kN m, e = ${f(r.B / 2, 2)} − ${f(r.xk, 3)} = ${f(r.ek, 3)} m berbanding B/6 = ${f(r.B6, 3)} m`),
+    r.ok_mid ? `${f(r.qmax, 1)}; ${f(r.qmin, 1)} kN/m² ${tick(r.ok_q)}` : Lg('outside the middle third ', 'di luar middle third ') + tick(false));
+  el('wTable').innerHTML = `<thead><tr><th>Ref</th><th>${Lg('Calculation', 'Pengiraan')}</th><th class="out">Output</th></tr></thead><tbody>` + rows.join('') + '</tbody>';
+}
+
+/* ---------- the key under the notes' wall ---------- */
+function kP(){ return Object.assign({}, NOTES, {theta: 0, pv: 1, p_w: 12, s_w: 100, p_tb: 12, s_tb: 150, p_hb: 12, s_hb: 150, ak: kin.ak, bk: 0.4, p_k: 12, s_k: 200}); }
+function redrawKey(userEdit){
+  const P = kP(), r = mCalc(P), ak = kin.ak, o = el('kOut'), rel = ok => ok ? '≤' : '&gt;', pc = v => f(100 * v, 0) + ' %';
+  const head = ak > 0 ? Lg(`Key ${f(ak, 2)} m deep: `, `Key sedalam ${f(ak, 2)} m: `) : '';
+  if (!(ak > 0)){ o.className = 'verdict'; o.innerHTML = Lg(`No key yet: combination 1 passes (${f(r.Hd, 1)} ≤ ${f(r.Rd, 1)} kN) and EC7 Combination 2 fails (${f(r.Hd2, 1)} &gt; ${f(r.Rd2, 1)} kN). Type a depth on the left.`, `Belum ada key: combination 1 lulus (${f(r.Hd, 1)} ≤ ${f(r.Rd, 1)} kN) dan EC7 Combination 2 gagal (${f(r.Hd2, 1)} &gt; ${f(r.Rd2, 1)} kN). Taip kedalaman di sebelah kiri.`); }
+  else if (!(r.ok_s1 && r.ok_s2)){ o.className = 'verdict bad'; o.innerHTML = head + Lg(`H<sub>p,2</sub> = ${f(r.Hp2, 1)} kN; friction and key give ${f(r.Rd2T, 1)} kN against ${f(r.Hd2, 1)} kN. The wall still slides in Combination 2: passive resistance grows with the square of the depth.`, `H<sub>p,2</sub> = ${f(r.Hp2, 1)} kN; friction dan key memberi ${f(r.Rd2T, 1)} kN berbanding ${f(r.Hd2, 1)} kN. Wall masih menggelongsor dalam Combination 2: passive resistance bertambah dengan kuasa dua kedalaman.`); }
+  else if (r.mobk > 0.5 + 1e-9){ o.className = 'verdict'; o.innerHTML = head + Lg(`both combinations pass, but the key works at ${pc(r.mobk)} of its passive resistance. Passive pressure needs a large movement before it is all there, so do not rely on more than about half: go deeper.`, `kedua-dua combination lulus, tetapi key bekerja pada ${pc(r.mobk)} daripada passive resistance-nya. Passive pressure memerlukan pergerakan yang besar sebelum ia wujud sepenuhnya, jadi jangan bergantung pada lebih daripada kira-kira separuh: dalamkan lagi.`); }
+  else { o.className = 'verdict ok'; o.innerHTML = head + Lg(`both combinations pass and the key works at ${pc(r.mobk)} of its passive resistance. As a cantilever below the base it carries ${f(r.V_k, 1)} kN and ${f(r.M_k, 1)} kN m/m: the minimum steel is enough.`, `kedua-dua combination lulus dan key bekerja pada ${pc(r.mobk)} daripada passive resistance-nya. Sebagai cantilever di bawah base, ia memikul ${f(r.V_k, 1)} kN dan ${f(r.M_k, 1)} kN m/m: minimum steel sudah memadai.`); if (userEdit) milestone('key'); }
+  el('kKV').innerHTML = kvHtml([
+    [Lg('sliding · comb. 1', 'sliding · comb. 1'), `${f(r.Hd, 1)} ${rel(r.ok_s1)} ${f(r.Rd, 1)}` + (ak > 0 ? ` + ${f(r.Hp, 1)}` : ''), r.ok_s1 ? 'ok' : 'bad'],
+    [Lg('sliding · EC7 C2', 'sliding · EC7 C2'), `${f(r.Hd2, 1)} ${rel(r.ok_s2)} ${f(r.Rd2, 1)}` + (ak > 0 ? ` + ${f(r.Hp2, 1)}` : ''), r.ok_s2 ? 'ok' : 'bad'],
+    [Lg('share of the passive resistance used', 'bahagian passive resistance yang digunakan'), ak > 0 ? (r.mobk > 1 ? '&gt; 100 %' : pc(Math.max(r.mobk, 0))) : '–', ak > 0 && r.ok_s2 ? (r.mobk <= 0.5 + 1e-9 ? 'ok' : '') : ''],
+    [Lg('key as a cantilever', 'key sebagai cantilever'), ak > 0 ? `${f(r.V_k, 1)} kN · ${f(r.M_k, 1)} kN m/m` : '–']]);
+  drawKey(P, r); drawKTable(P, r);
+}
+function drawKey(P, r){
+  const svg = el('kDraw'); svg.innerHTML = '';
+  const ak = P.ak, x0 = 150, W = 262, mx = Math.max(r.Hd, r.RdT, r.Hd2, r.Rd2T) * 1.02, sx = W / mx, bh = 20;
+  svg.setAttribute('aria-label', Lg(`Sliding. Combination 1: force ${f(r.Hd, 1)} kN against friction ${f(r.Rd, 1)} kN plus key ${f(r.Hp, 1)} kN. EC7 Combination 2: force ${f(r.Hd2, 1)} kN against friction ${f(r.Rd2, 1)} kN plus key ${f(r.Hp2, 1)} kN.`,
+    `Sliding. Combination 1: daya ${f(r.Hd, 1)} kN berbanding friction ${f(r.Rd, 1)} kN dan key ${f(r.Hp, 1)} kN. EC7 Combination 2: daya ${f(r.Hd2, 1)} kN berbanding friction ${f(r.Rd2, 1)} kN dan key ${f(r.Hp2, 1)} kN.`));
+  const group = (y, name, F, R, K, ok) => {
+    T(svg, x0 - 10, y + 15, name, {'text-anchor': 'end', style: 'fill:var(--ink-2)'});
+    S('rect', {x: x0, y, width: F * sx, height: bh, rx: 3, fill: 'var(--unbraced)'}, svg);
+    T(svg, x0 + F * sx + 8, y + 15, `${f(F, 1)} kN`, {style: 'fill:var(--ink)'});
+    S('rect', {x: x0, y: y + bh + 5, width: R * sx, height: bh, rx: 3, fill: 'var(--ink-3)'}, svg);
+    if (K > 0) S('rect', {x: x0 + R * sx + 2, y: y + bh + 5, width: Math.max(K * sx - 2, 1), height: bh, rx: 3, fill: 'var(--flight)'}, svg);
+    T(svg, x0 + (R + K) * sx + 8, y + bh + 20, (K > 0 ? `${f(R, 1)} + ${f(K, 1)} = ${f(R + K, 1)} kN ` : `${f(R, 1)} kN `) + (ok ? '✓' : '✗'), {style: `fill:var(--${ok ? 'ok' : 'bad'});font-weight:700`});
+    S('line', {x1: x0 + F * sx, x2: x0 + F * sx, y1: y - 4, y2: y + 2 * bh + 9, stroke: 'var(--ink)', 'stroke-dasharray': '3 3'}, svg);
+  };
+  group(18, Lg('Combination 1', 'Combination 1'), r.Hd, r.Rd, r.Hp, r.ok_s1);
+  group(102, Lg('EC7 Combination 2', 'EC7 Combination 2'), r.Hd2, r.Rd2, r.Hp2, r.ok_s2);
+  S('line', {x1: x0, x2: x0, y1: 10, y2: 160, stroke: 'var(--ink-3)'}, svg);
+  [[x0, 'var(--unbraced)', Lg('sliding force', 'daya sliding')], [x0 + 130, 'var(--ink-3)', 'friction'], [x0 + 230, 'var(--flight)', Lg('key, passive', 'key, passive')]].forEach(([x, c, s]) => { S('rect', {x, y: 190, width: 12, height: 12, rx: 2, fill: c}, svg); T(svg, x + 18, 200, s, {style: 'fill:var(--ink-2)'}); });
+}
+function drawKTable(P, r){
+  const rows = [], add = (ref, m, out) => rows.push(`<tr><td class="ref">${ref}</td><td class="m">${m}</td><td class="out">${out}</td></tr>`), ak = P.ak, rel = ok => ok ? '≤' : '&gt;';
+  add('(14.12)', `K<sub>p</sub> = (1 + sin ${f(P.phi, 0)}°)/(1 − sin ${f(P.phi, 0)}°); φ<sub>d</sub> = tan⁻¹(tan ${f(P.phi, 0)}°/1.25) = ${f(r.phid, 2)}°: K<sub>p,d</sub>`, `${f(r.Kp, 3)}; ${f(r.Kpd, 3)}`);
+  if (ak > 0){
+    const need = Math.max(r.As_k, r.Asmin_k), pk = secPick(need);
+    add('(14.12)', Lg(`H<sub>p</sub> = ½ × ${f(r.Kp, 3)} × ${f(P.gs, 0)} × ${f(ak, 2)}²; in Combination 2 with K<sub>p,d</sub>: ½ × ${f(r.Kpd, 3)} × ${f(P.gs, 0)} × ${f(ak, 2)}²; factor 1.0 on both`, `H<sub>p</sub> = ½ × ${f(r.Kp, 3)} × ${f(P.gs, 0)} × ${f(ak, 2)}²; dalam Combination 2 dengan K<sub>p,d</sub>: ½ × ${f(r.Kpd, 3)} × ${f(P.gs, 0)} × ${f(ak, 2)}²; faktor 1.0 bagi kedua-duanya`), `${f(r.Hp, 1)}; ${f(r.Hp2, 1)} kN`);
+    add(Lg('comb. 1', 'comb. 1'), `${f(r.Hd, 1)} ${rel(r.ok_s1)} ${f(r.Rd, 1)} + ${f(r.Hp, 1)}`, `${f(r.Hd, 1)} ${rel(r.ok_s1)} ${f(r.RdT, 1)} kN ${tick(r.ok_s1)}`);
+    add('EC7 C2', `${f(r.Hd2, 1)} ${rel(r.ok_s2)} ${f(r.Rd2, 1)} + ${f(r.Hp2, 1)}`, `${f(r.Hd2, 1)} ${rel(r.ok_s2)} ${f(r.Rd2T, 1)} kN ${tick(r.ok_s2)}`);
+    add(Lg('share', 'bahagian'), Lg(`Passive resistance needed in Combination 2: (${f(r.Hd2, 1)} − ${f(r.Rd2, 1)})/${f(r.Hp2, 1)}`, `Passive resistance yang diperlukan dalam Combination 2: (${f(r.Hd2, 1)} − ${f(r.Rd2, 1)})/${f(r.Hp2, 1)}`), `${f(100 * r.mobk, 0)} %`);
+    add(Lg('key', 'key'), Lg(`A cantilever below the base, pressure ${f(r.pkb, 1)} kN/m² at its bottom: V<sub>Ed</sub> = 1.35 × ${f(r.Hp, 1)}; M<sub>Ed</sub> = V<sub>Ed</sub> × 2 × ${f(ak, 2)}/3`, `Cantilever di bawah base, tekanan ${f(r.pkb, 1)} kN/m² di hujung bawahnya: V<sub>Ed</sub> = 1.35 × ${f(r.Hp, 1)}; M<sub>Ed</sub> = V<sub>Ed</sub> × 2 × ${f(ak, 2)}/3`), `${f(r.V_k, 1)} kN; ${f(r.M_k, 1)} kN m/m`);
+    add('(14.5), (14.6)', Lg(`Key 400 mm wide, cover 75 mm against the ground: d = 400 − 75 − 6 = ${f(r.d_k, 0)} mm; A<sub>s</sub> = ${f(r.As_k, 0)}; A<sub>s,min</sub> = ${f(r.Asmin_k, 0)} mm²/m; V<sub>Rd,c</sub> = ${f(r.VRd_k, 1)} kN/m`, `Key selebar 400 mm, cover 75 mm kerana bersentuhan dengan tanah: d = 400 − 75 − 6 = ${f(r.d_k, 0)} mm; A<sub>s</sub> = ${f(r.As_k, 0)}; A<sub>s,min</sub> = ${f(r.Asmin_k, 0)} mm²/m; V<sub>Rd,c</sub> = ${f(r.VRd_k, 1)} kN/m`), `${hb(pk[0], pk[1])} (${f(barA(pk[0], pk[1]), 0)})`);
+  } else {
+    add(Lg('comb. 1', 'comb. 1'), `${f(r.Hd, 1)} ${rel(r.ok_s1)} ${f(r.Rd, 1)}`, `${tick(r.ok_s1)}`);
+    add('EC7 C2', `${f(r.Hd2, 1)} ${rel(r.ok_s2)} ${f(r.Rd2, 1)}`, `${tick(r.ok_s2)}`);
+  }
+  el('kTable').innerHTML = `<thead><tr><th>Ref</th><th>${Lg('Calculation', 'Pengiraan')}</th><th class="out">Output</th></tr></thead><tbody>` + rows.join('') + '</tbody>';
+}
+el('kAk').addEventListener('input', () => { const v = readNum('kAk', 0, 1.2); if (v === null) return; kin.ak = v; redrawKey(true); });
+
+/* ===================== 3 SPOT THE ERROR: RETAINING WALL S14 ===================== */
+const S14 = [
+  {ref: '(13.1)', calc: ['K<sub>a</sub> = (1 − sin 33°)/(1 + sin 33°)', 'K<sub>a</sub> = (1 − sin 33°)/(1 + sin 33°)'], out: 'K<sub>a</sub> = 0.2948', slip: false,
+   fix: ['Right.', 'Betul.']},
+  {ref: '(14.4)', calc: ['Stem, over h<sub>s</sub> = 4.0 m: P<sub>s,s</sub> = ½ × 0.2948 × 18 × 4.0² = 42.45 kN; P<sub>q,s</sub> = 0.2948 × 10 × 4.0 = 11.79 kN; M<sub>Ed</sub> = 1.35 × 42.45 × 4.0/3 + 1.5 × 11.79 × 4.0/3 = 76.41 + 23.58', 'Stem, sepanjang h<sub>s</sub> = 4.0 m: P<sub>s,s</sub> = ½ × 0.2948 × 18 × 4.0² = 42.45 kN; P<sub>q,s</sub> = 0.2948 × 10 × 4.0 = 11.79 kN; M<sub>Ed</sub> = 1.35 × 42.45 × 4.0/3 + 1.5 × 11.79 × 4.0/3 = 76.41 + 23.58'], out: 'M<sub>Ed</sub> = 99.99 kN m/m', slip: true,
+   fix: ['The surcharge gives a rectangle of pressure, so its thrust acts at mid-height, h<sub>s</sub>/2 = 2.0 m, not at h<sub>s</sub>/3. M<sub>Ed</sub> = 76.41 + 1.5 × 11.79 × 2.0 = 76.41 + 35.37 = 111.8 kN m/m: 12 % more.', 'Surcharge memberi tekanan berbentuk segi empat tepat, jadi thrust-nya bertindak di pertengahan tinggi, h<sub>s</sub>/2 = 2.0 m, bukan di h<sub>s</sub>/3. M<sub>Ed</sub> = 76.41 + 1.5 × 11.79 × 2.0 = 76.41 + 35.37 = 111.8 kN m/m: 12 % lebih besar.']},
+  {ref: '(14.5), (14.6)', calc: ['d = 400 − 45 − 6 = 349 mm; K = 99.99 × 10⁶/(1000 × 349² × 30) = 0.0274; z = 0.95d = 331.6 mm; A<sub>s</sub> = 99.99 × 10⁶/(0.87 × 500 × 331.6) = 693 mm²/m ≥ A<sub>s,min</sub> = 0.001506 × 1000 × 349 = 526 mm²/m', 'd = 400 − 45 − 6 = 349 mm; K = 99.99 × 10⁶/(1000 × 349² × 30) = 0.0274; z = 0.95d = 331.6 mm; A<sub>s</sub> = 99.99 × 10⁶/(0.87 × 500 × 331.6) = 693 mm²/m ≥ A<sub>s,min</sub> = 0.001506 × 1000 × 349 = 526 mm²/m'], out: 'H12 at 150 (754 mm²/m), earth face', outms: 'H12 pada 150 (754 mm²/m), muka tanah', slip: false,
+   fix: ['The method is right and the bars are on the right face; the moment comes from line 2. With 111.8 kN m/m: K = 0.0306, A<sub>s</sub> = 111.8 × 10⁶/(0.87 × 500 × 331.6) = 775 mm²/m, so H12 at 125 (905 mm²/m). H12 at 150 provides 754 mm²/m: not enough.', 'Kaedahnya betul dan bar berada di muka yang betul; moment datang daripada baris 2. Dengan 111.8 kN m/m: K = 0.0306, A<sub>s</sub> = 111.8 × 10⁶/(0.87 × 500 × 331.6) = 775 mm²/m, jadi H12 pada 125 (905 mm²/m). H12 pada 150 hanya memberi 754 mm²/m: tidak cukup.']},
+  {ref: '(14.1), (14.2)', calc: ['N<sub>d</sub> = 1.35 × 209.5 + 1.5 × 20.0 = 312.825 kN; ΔM<sub>d</sub> = 1.35 × (422.53 − 75.34) + 1.5 × (46.0 − 28.54) = 494.90 kN m; x<sub>d</sub> = 1.58203 m; e<sub>d</sub> = 1.65 − 1.58203 = 0.06797 m; q<sub>d</sub> = 312.825/3.3 ± 6 × 312.825 × 0.06797/3.3² = 94.795 ± 11.715; at the stem faces 106.51 − 23.43 × 0.9/3.3 and 83.08 + 23.43 × 2.0/3.3', 'N<sub>d</sub> = 1.35 × 209.5 + 1.5 × 20.0 = 312.825 kN; ΔM<sub>d</sub> = 1.35 × (422.53 − 75.34) + 1.5 × (46.0 − 28.54) = 494.90 kN m; x<sub>d</sub> = 1.58203 m; e<sub>d</sub> = 1.65 − 1.58203 = 0.06797 m; q<sub>d</sub> = 312.825/3.3 ± 6 × 312.825 × 0.06797/3.3² = 94.795 ± 11.715; di muka stem 106.51 − 23.43 × 0.9/3.3 dan 83.08 + 23.43 × 2.0/3.3'], out: '106.51; 83.08 kN/m²<br>100.12; 97.28 kN/m²', slip: false,
+   fix: ['Right.', 'Betul.']},
+  {ref: '(14.3), (14.8)', calc: ['Toe: slab 1.35 × 25 × 0.4 = 13.5 kN/m²; net 106.51 − 13.5 = 93.01 at the end and 100.12 − 13.5 = 86.62 kN/m² at the stem, upwards; M<sub>Ed</sub> = 86.62 × 0.9²/2 + (93.01 − 86.62) × 0.9²/3 = 35.08 + 1.73 = 36.81 kN m/m; A<sub>s</sub> = 36.81 × 10⁶/(0.87 × 500 × 331.6) = 255 mm²/m', 'Toe: slab 1.35 × 25 × 0.4 = 13.5 kN/m²; net 106.51 − 13.5 = 93.01 di hujung dan 100.12 − 13.5 = 86.62 kN/m² di stem, ke atas; M<sub>Ed</sub> = 86.62 × 0.9²/2 + (93.01 − 86.62) × 0.9²/3 = 35.08 + 1.73 = 36.81 kN m/m; A<sub>s</sub> = 36.81 × 10⁶/(0.87 × 500 × 331.6) = 255 mm²/m'], out: 'H12 at 300 (377 mm²/m), bottom ✓', outms: 'H12 pada 300 (377 mm²/m), bawah ✓', slip: true,
+   fix: ['The calculated steel is below the minimum, 526 mm²/m, and then the minimum governs: H12 at 200 (565 mm²/m) in the bottom. H12 at 300 provides 72 % of the minimum, and its spacing would also need the crack check.', 'Steel yang dikira lebih kecil daripada nilai minimum, 526 mm²/m, jadi nilai minimum yang menentukan: H12 pada 200 (565 mm²/m) di bahagian bawah. H12 pada 300 hanya memberi 72 % daripada nilai minimum, dan jaraknya juga perlu disemak bagi crack control.']},
+  {ref: '(14.3), (14.8)', calc: ['Heel: load from above 1.35 × (25 × 0.4 + 18 × 4.0) = 110.7 kN/m²; net 110.7 − 97.28 = 13.42 at the stem and 110.7 − 83.08 = 27.62 kN/m² at the end, downwards; M<sub>Ed</sub> = 13.42 × 2.0²/2 + (27.62 − 13.42) × 2.0²/3 = 26.84 + 18.93', 'Heel: load dari atas 1.35 × (25 × 0.4 + 18 × 4.0) = 110.7 kN/m²; net 110.7 − 97.28 = 13.42 di stem dan 110.7 − 83.08 = 27.62 kN/m² di hujung, ke bawah; M<sub>Ed</sub> = 13.42 × 2.0²/2 + (27.62 − 13.42) × 2.0²/3 = 26.84 + 18.93'], out: 'M<sub>Ed</sub> = 45.77 kN m/m', slip: true,
+   fix: ['The surcharge stands on the heel too, and for the heel it is unfavourable: 1.35 × (10 + 72) + 1.5 × 10 = 125.7 kN/m². Net 28.42 at the stem and 42.62 kN/m² at the end; M<sub>Ed</sub> = 28.42 × 2.0²/2 + 14.20 × 2.0²/3 = 56.84 + 18.93 = 75.77 kN m/m: 66 % more. In the stability checks the same surcharge was left out because there it helps.', 'Surcharge juga berada di atas heel, dan bagi heel ia unfavourable: 1.35 × (10 + 72) + 1.5 × 10 = 125.7 kN/m². Net 28.42 di stem dan 42.62 kN/m² di hujung; M<sub>Ed</sub> = 28.42 × 2.0²/2 + 14.20 × 2.0²/3 = 56.84 + 18.93 = 75.77 kN m/m: 66 % lebih besar. Dalam semakan kestabilan, surcharge yang sama ditinggalkan kerana di situ ia membantu.']},
+  {ref: '(14.5), (14.6)', calc: ['A<sub>s</sub> = 45.77 × 10⁶/(0.87 × 500 × 331.6) = 317 mm²/m &lt; A<sub>s,min</sub> = 526 mm²/m: the minimum governs', 'A<sub>s</sub> = 45.77 × 10⁶/(0.87 × 500 × 331.6) = 317 mm²/m &lt; A<sub>s,min</sub> = 526 mm²/m: nilai minimum yang menentukan'], out: 'H12 at 200 (565 mm²/m), bottom of the heel', outms: 'H12 pada 200 (565 mm²/m), bahagian bawah heel', slip: true,
+   fix: ['The net load on the heel is downwards, so its tip bends down and its top stretches: the main bars go in the top. In the bottom they leave the tension face with no steel at all. With line 6 corrected, A<sub>s</sub> = 75.77 × 10⁶/(0.87 × 500 × 331.6) = 525 mm²/m, still just below the minimum.', 'Net load pada heel menghala ke bawah, jadi hujungnya melentur ke bawah dan bahagian atasnya meregang: bar utama diletakkan di bahagian atas. Di bahagian bawah, muka tegangan langsung tidak mempunyai steel. Dengan baris 6 dibetulkan, A<sub>s</sub> = 75.77 × 10⁶/(0.87 × 500 × 331.6) = 525 mm²/m, masih sedikit di bawah nilai minimum.']},
+  {ref: '(14.9)', calc: ['Crack control of the heel bars: N<sub>qp</sub>/N<sub>d</sub> = (209.5 + 0.3 × 20.0)/312.825 = 0.6889; σ<sub>s</sub> = 434.8 × 0.6889 × 317/565 = 168 N/mm²; Table 7.3N: 300 − 50 × (168 − 160)/40 = 290 mm', 'Crack control bagi bar heel: N<sub>qp</sub>/N<sub>d</sub> = (209.5 + 0.3 × 20.0)/312.825 = 0.6889; σ<sub>s</sub> = 434.8 × 0.6889 × 317/565 = 168 N/mm²; Table 7.3N: 300 − 50 × (168 − 160)/40 = 290 mm'], out: '200 ≤ 290 mm ✓', slip: false,
+   fix: ['The method is right; the steel area comes from line 6. With 525.4 mm²/m: σ<sub>s</sub> = 434.8 × 0.6889 × 525.4/565.5 = 278.3 N/mm², and the spacing limit is 200 − 50 × (278.3 − 240)/40 = 152 mm &lt; 200 mm ✗. H12 at 150 (754 mm²/m): 208.7 N/mm², limit 239 mm ✓. The heel needs H12 at 150, in the top.', 'Kaedahnya betul; luas steel datang daripada baris 6. Dengan 525.4 mm²/m: σ<sub>s</sub> = 434.8 × 0.6889 × 525.4/565.5 = 278.3 N/mm², dan had jarak ialah 200 − 50 × (278.3 − 240)/40 = 152 mm &lt; 200 mm ✗. H12 pada 150 (754 mm²/m): 208.7 N/mm², had 239 mm ✓. Heel memerlukan H12 pada 150, di bahagian atas.']}
+];
+function drawS14Fig(){
+  const box = el('eFig'); box.innerHTML = '';
+  const svg = S('svg', {class: 'fig', viewBox: '0 0 520 330', role: 'img', 'aria-label': Lg('Retaining Wall S14: a stem 4.0 m high, 400 mm at the root and 250 mm at the top, on a base 3.3 m wide and 0.4 m thick with a 0.9 m toe and a 2.0 m heel; level backfill with a surcharge of 10 kN per square metre.', 'Retaining Wall S14: stem setinggi 4.0 m, 400 mm di pangkal dan 250 mm di atas, di atas base selebar 3.3 m dan setebal 0.4 m dengan toe 0.9 m dan heel 2.0 m; backfill rata dengan surcharge 10 kN per meter persegi.')}, box);
+  svg.style.minWidth = '320px';
+  const sc = 48, ox = 190, yb = 262, X = x => ox + x * sc, Y = y => yb - y * sc;
+  S('rect', {x: X(1.3), y: Y(4.4), width: 2.5 * sc, height: 4.0 * sc, fill: 'var(--surface-2)'}, svg);
+  S('line', {x1: X(1.3), x2: X(3.8), y1: Y(4.4), y2: Y(4.4), stroke: 'var(--ink-3)'}, svg);
+  S('rect', {x: X(0), y: Y(0.4), width: 3.3 * sc, height: 0.4 * sc, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
+  S('path', {d: `M${X(0.9)},${Y(0.4)} L${X(1.05)},${Y(4.4)} L${X(1.3)},${Y(4.4)} L${X(1.3)},${Y(0.4)} Z`, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
+  S('line', {x1: X(0) - 70, x2: X(3.8) + 6, y1: yb, y2: yb, stroke: 'var(--ink-3)'}, svg);
+  S('line', {x1: X(1.3) + 2, x2: X(3.8), y1: Y(4.4) - 16, y2: Y(4.4) - 16, stroke: 'var(--unbraced)'}, svg);
+  for (let x = X(1.3) + 8; x < X(3.8) - 2; x += 20) arrow(svg, x, Y(4.4) - 16, x, Y(4.4) - 3, 'var(--unbraced)', 1.2);
+  T(svg, X(1.3) + 2, Y(4.4) - 22, 'w = 10 kN/m²', {style: 'fill:var(--unbraced)'});
+  dimV(svg, X(0) - 34, Y(4.4), Y(0.4), Lg('stem 4.0', 'stem 4.0'), 'var(--flight)', 'l');
+  dimV(svg, X(0) - 34, Y(0.4), Y(0), '0.4', 'var(--flight)', 'l');
+  dimH(svg, X(0), X(0.9), yb + 16, '0.9', 'var(--flight)'); dimH(svg, X(0.9), X(1.3), yb + 16, '0.4', 'var(--flight)'); dimH(svg, X(1.3), X(3.3), yb + 16, '2.0', 'var(--flight)');
+  T(svg, X(1.65), yb + 52, 'B = 3.3 m', {'text-anchor': 'middle', style: 'fill:var(--flight)'});
+  T(svg, X(2.55), Y(2.6), 'γ 18, φ 33°', {'text-anchor': 'middle'});
+  T(svg, X(1.05) - 6, Y(4.4) + 14, '0.25', {'text-anchor': 'end', class: 'small'});
+  T(svg, X(0.45), Y(0.4) - 8, 'toe', {'text-anchor': 'middle', class: 'small'}); T(svg, X(2.3), Y(0.4) - 8, 'heel', {'text-anchor': 'middle', class: 'small'});
+}
+SHEETS.s13.name = 'Retaining Wall S13'; SHEETS.s13.fig = drawS13Fig;
+SHEETS.s14 = {rows: S14, key: 'seaa4333-lab-retwall-s14', ms: 's14', name: 'Retaining Wall S14', fig: drawS14Fig,
+  title: ['Retaining Wall S14: spot the error', 'Retaining Wall S14: cari kesilapan'],
+  lede: ['The submitted design of the stem, the toe and the heel of a cantilever wall. As submitted, every part passes. The sheet contains four slips, all on the unsafe side. Two more lines carry wrong numbers only because of an earlier slip: they are not slips. Find the four before you look at the answer.', 'Design stem, toe dan heel sebuah cantilever wall yang dihantar. Seperti yang dihantar, setiap bahagian lulus. Helaian ini mengandungi empat kesilapan, semuanya di pihak yang tidak selamat. Dua baris lagi membawa nombor yang salah hanya kerana kesilapan sebelumnya: baris itu bukan kesilapan. Cari keempat-empatnya sebelum melihat jawapan.'],
+  tag: ['In class · Unit 14 · teams · Explorer task 6', 'Dalam kelas · Unit 14 · berpasukan · Explorer tugasan 6'],
+  given: [['Wall', 'Wall', 'the wall of Faded Example 13.2 as revised: stem 4.0 m high, 400 mm at the root and 250 mm at the top; base 3.3 × 0.4 m: toe 0.9 m, heel 2.0 m', 'wall Faded Example 13.2 yang telah diubah: stem setinggi 4.0 m, 400 mm di pangkal dan 250 mm di atas; base 3.3 × 0.4 m: toe 0.9 m, heel 2.0 m'],
+          ['Backfill', 'Backfill', 'drained sand, γ = 18 kN/m³, φ = 33°; level, with a surcharge of 10 kN/m²', 'pasir bersaliran, γ = 18 kN/m³, φ = 33°; rata, dengan surcharge 10 kN/m²'],
+          ['Materials', 'Bahan', 'C30/37, f<sub>yk</sub> = 500 N/mm², cover 45 mm, H12 bars; ψ<sub>2</sub> = 0.3', 'C30/37, f<sub>yk</sub> = 500 N/mm², cover 45 mm, bar H12; ψ<sub>2</sub> = 0.3'],
+          ['From Unit 13', 'Daripada Unit 13', 'ΣV<sub>k,G</sub> = 209.5 kN, V<sub>k,Q</sub> = 20.0 kN; ΣM<sub>r,G</sub> = 422.53, M<sub>r,Q</sub> = 46.0, M<sub>o,G</sub> = 75.34, M<sub>o,Q</sub> = 28.54 kN m', 'ΣV<sub>k,G</sub> = 209.5 kN, V<sub>k,Q</sub> = 20.0 kN; ΣM<sub>r,G</sub> = 422.53, M<sub>r,Q</sub> = 46.0, M<sub>o,G</sub> = 75.34, M<sub>o,Q</sub> = 28.54 kN m']],
+  summary: ['<b>Four slips, all on the unsafe side.</b> Line 2 takes the thrust of the surcharge at one third of the stem height instead of one half: the stem moment is 111.8, not 99.99 kN m/m, and the stem needs H12 at 125, not H12 at 150. Line 5 forgets the minimum steel: the toe needs H12 at 200, not H12 at 300. Line 6 leaves the surcharge out of the load on the heel: the heel moment is 75.77, not 45.77 kN m/m. Line 7 puts the heel bars in the bottom, where the heel is in compression: this is the slip that cracks the wall first, because the top of the heel is then plain concrete in tension. Lines 3 and 8 use the right method on wrong numbers. Corrected, the heel needs H12 at 150 in the top: the minimum steel sets the area and the crack spacing closes the bars. Check it in tab 4, case S14.',
+            '<b>Empat kesilapan, semuanya di pihak yang tidak selamat.</b> Baris 2 mengambil thrust surcharge pada satu pertiga tinggi stem dan bukan separuh: moment stem ialah 111.8, bukan 99.99 kN m/m, dan stem memerlukan H12 pada 125, bukan H12 pada 150. Baris 5 terlupa minimum steel: toe memerlukan H12 pada 200, bukan H12 pada 300. Baris 6 meninggalkan surcharge daripada load pada heel: moment heel ialah 75.77, bukan 45.77 kN m/m. Baris 7 meletakkan bar heel di bahagian bawah, iaitu bahagian yang berada dalam mampatan: inilah kesilapan yang meretakkan wall dahulu, kerana bahagian atas heel menjadi konkrit tanpa steel dalam tegangan. Baris 3 dan 8 menggunakan kaedah yang betul pada nombor yang salah. Setelah dibetulkan, heel memerlukan H12 pada 150 di bahagian atas: minimum steel menentukan luas dan jarak crack control merapatkan bar. Semak dalam tab 4, kes S14.']};
+eState.s14 = {flag: new Set(recall(SHEETS.s14.key, [])), checked: false, fixed: false};
+segGroup(el('eWhich'), v => { eWhich = v; drawSheet(); });
+
 /* ---------- start ---------- */
-function fillAllCases(){ fillPCases(); fillRCases(); }
-function redrawAll(){ paintA(); redrawPressure(); paintB(); redrawStab(false); drawSheet(); }
+function fillAllCases(){ fillPCases(); fillRCases(); fillMCases(); }
+function redrawAll(){ paintA(); redrawPressure(); paintB(); redrawStab(false); drawSheet(); paintF(); redrawMembers(false); paintW(); redrawWater(); redrawKey(false); }
 applyPrefs(false);
-fillAllCases(); syncP(); syncR(); tPaint(); redrawAll();
+fillAllCases(); syncP(); syncR(); syncM(); syncW(); tPaint(); redrawAll();
 showTab((location.hash || '').slice(1) || 'pressure');
 window.addEventListener('hashchange', () => showTab((location.hash || '').slice(1)));
 

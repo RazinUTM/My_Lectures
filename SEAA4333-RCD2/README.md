@@ -18,7 +18,7 @@ Website: <https://razinutm.github.io/My_Lectures/SEAA4333-RCD2/>
 | 11 · Foundations II | [`11-foundations-2/`](11-foundations-2/) | a column on the site boundary: the strap footing by statics (moments about the inner column), the net ultimate reactions, the strap's moment, shear and links, and the two footings; the trapezoidal combined footing; piles: types, capacity, number and spacing, the cap size and the load on each pile under moments |
 | 12 · Foundations III | [`12-foundations-3/`](12-foundations-3/) | pile caps: the truss analogy for two, three and four piles (T = Ns/4d, Ns/9d, Ns/8d), beam theory at the column faces for six piles under a moment; shear at φ/5 inside the piles with β = max(a<sub>v</sub>, 0.5d)/2d (EC2 6.2.2(6)), the anchorage that the enhancement needs, and the unreduced limit 0.5bdνf<sub>cd</sub>; the column face against 0.4νf<sub>cd</sub>; cracks and detailing |
 | 13 · Retaining Walls I | [`13-retaining-walls-1/`](13-retaining-walls-1/) | types of wall and how a wall fails the ground; first dimensions of a cantilever wall; Rankine's active pressure with a surcharge and the two thrusts over H, to the underside of the base; the table of loads and moments about the toe; overturning (EQU), sliding in combination 1 and in EC7 Design Approach 1 Combination 2, the middle third and the bearing pressure in service; sizing the base (the heel holds, the toe spreads) |
-| 14 | coming | retaining walls II: the stem, the toe and the heel; the key; a sloping backfill and water |
+| 14 · Retaining Walls II | [`14-retaining-walls-2/`](14-retaining-walls-2/) | the stem, the toe and the heel as three cantilevers and their tension faces; the design pressures under the base (STR) and the net loads; flexure with the minimum steel, shear without links and crack control by the bar spacing of EC2 Table 7.3N; secondary steel, the lap of the starter bars and curtailment; a sloping backfill (Rankine's K<sub>a</sub>, P<sub>h</sub> and P<sub>v</sub>, with P<sub>v</sub> on the heel tip); a key under the base and a water table behind the wall; course review and the examination |
 
 Each Unit page is built on the lecturer's T&L app template: a header with breadcrumbs, search, Short notes
 and the settings buttons (BM/EN · theme · text size · screen guide); seven tabs (Start with the plan before,
@@ -49,10 +49,11 @@ SEAA4333-RCD2/
 ├── 11-foundations-2/         Unit 11, the same layout
 ├── 12-foundations-3/         Unit 12, the same layout
 ├── 13-retaining-walls-1/     Unit 13, the same layout
+├── 14-retaining-walls-2/     Unit 14, the same layout
 ├── labs/staircase.html       the Staircase Lab (Explorer of Unit 1; QR code on the first slide)
 ├── labs/column.html          the Column Lab (Explorer of Units 7 to 9, six tabs; QR codes on the first slides)
 ├── labs/foundation.html      the Foundation Lab (Explorer of Units 10 to 12: bearing pressure, critical sections, spot the error, strap footing, pile group, pile cap)
-├── labs/retaining-wall.html  the Retaining Wall Lab (Explorer of Unit 13: earth pressure, stability with a design challenge, spot the error)
+├── labs/retaining-wall.html  the Retaining Wall Lab (Explorer of Units 13 and 14: earth pressure, stability with a design challenge, spot the error, members, key and water)
 ├── shared/                   course.css, course.js, the avatar poses, the course home source
 └── tutor/course.json         every Unit's sections, for the tutor (generated)
 ```

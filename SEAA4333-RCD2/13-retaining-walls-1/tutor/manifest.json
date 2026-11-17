@@ -1,0 +1,647 @@
+{
+ "app": "seaa4333",
+ "part": "u13",
+ "title": "Unit 13 Retaining Walls I",
+ "folder": "13-retaining-walls-1",
+ "course_meta": {
+  "key": "seaa4333-u13-v1",
+  "notes": [
+   "n1",
+   "n2",
+   "n3",
+   "n4",
+   "n5",
+   "n6"
+  ],
+  "slides": 28,
+  "examples": [
+   "x1",
+   "x2",
+   "x3"
+  ],
+  "cando": 5,
+  "targetMin": 45
+ },
+ "sections": [
+  {
+   "id": "start-outcomes",
+   "view": "start",
+   "anchor": null,
+   "selector": "ol.lo",
+   "title_en": "After this part you should be able to",
+   "title_ms": "Selepas bahagian ini, anda sepatutnya boleh"
+  },
+  {
+   "id": "notes-n1",
+   "view": "notes",
+   "anchor": "n1",
+   "title_en": "1. Retaining walls: what they do and how they fail",
+   "title_ms": "1. Retaining wall: apa yang dilakukannya dan bagaimana ia gagal",
+   "minutes": 7
+  },
+  {
+   "id": "notes-n2",
+   "view": "notes",
+   "anchor": "n2",
+   "title_en": "2. Active pressure and the two thrusts",
+   "title_ms": "2. Active pressure dan dua thrust",
+   "minutes": 7
+  },
+  {
+   "id": "notes-n3",
+   "view": "notes",
+   "anchor": "n3",
+   "title_en": "3. The table of loads and moments about the toe",
+   "title_ms": "3. Jadual load dan moment pada toe",
+   "minutes": 6
+  },
+  {
+   "id": "notes-n4",
+   "view": "notes",
+   "anchor": "n4",
+   "title_en": "4. Overturning and sliding",
+   "title_ms": "4. Overturning dan sliding",
+   "minutes": 9
+  },
+  {
+   "id": "notes-n5",
+   "view": "notes",
+   "anchor": "n5",
+   "title_en": "5. The resultant, the middle third and the bearing pressure",
+   "title_ms": "5. Resultant, middle third dan bearing pressure",
+   "minutes": 8
+  },
+  {
+   "id": "notes-n6",
+   "view": "notes",
+   "anchor": "n6",
+   "title_en": "6. Sizing the base: the heel holds, the toe spreads",
+   "title_ms": "6. Menentukan saiz base: heel menahan, toe menyebarkan",
+   "minutes": 6
+  },
+  {
+   "id": "slides-1",
+   "view": "slides",
+   "anchor": "1",
+   "title_en": "Slide 1: Retaining Walls I",
+   "title_ms": "Slide 1: Retaining Walls I"
+  },
+  {
+   "id": "slides-2",
+   "view": "slides",
+   "anchor": "2",
+   "title_en": "Slide 2: How the next three hours run",
+   "title_ms": "Slide 2: How the next three hours run"
+  },
+  {
+   "id": "slides-3",
+   "view": "slides",
+   "anchor": "3",
+   "title_en": "Slide 3: Three questions from the foundations",
+   "title_ms": "Slide 3: Three questions from the foundations"
+  },
+  {
+   "id": "slides-4",
+   "view": "slides",
+   "anchor": "4",
+   "title_en": "Slide 4: C, A, B, and what each means today",
+   "title_ms": "Slide 4: C, A, B, and what each means today"
+  },
+  {
+   "id": "slides-5",
+   "view": "slides",
+   "anchor": "5",
+   "title_en": "Slide 5: The notes’ wall: one sliding check passes, one fails",
+   "title_ms": "Slide 5: The notes’ wall: one sliding check passes, one fails"
+  },
+  {
+   "id": "slides-6",
+   "view": "slides",
+   "anchor": "6",
+   "title_en": "Slide 6: Why does the notes’ wall pass sliding in combination 1 and fail in EC7 Combination 2?",
+   "title_ms": "Slide 6: Why does the notes’ wall pass sliding in combination 1 and fail in EC7 Combination 2?"
+  },
+  {
+   "id": "slides-7",
+   "view": "slides",
+   "anchor": "7",
+   "title_en": "Slide 7: Three ways a wall fails the ground",
+   "title_ms": "Slide 7: Three ways a wall fails the ground"
+  },
+  {
+   "id": "slides-8",
+   "view": "slides",
+   "anchor": "8",
+   "title_en": "Slide 8: Types of wall: what holds each one up",
+   "title_ms": "Slide 8: Types of wall: what holds each one up"
+  },
+  {
+   "id": "slides-9",
+   "view": "slides",
+   "anchor": "9",
+   "title_en": "Slide 9: The parts of a cantilever wall, and a first trial",
+   "title_ms": "Slide 9: The parts of a cantilever wall, and a first trial"
+  },
+  {
+   "id": "slides-10",
+   "view": "slides",
+   "anchor": "10",
+   "title_en": "Slide 10: Active pressure: a triangle and a rectangle",
+   "title_ms": "Slide 10: Active pressure: a triangle and a rectangle"
+  },
+  {
+   "id": "slides-11",
+   "view": "slides",
+   "anchor": "11",
+   "title_en": "Slide 11: The two thrusts on the notes’ wall",
+   "title_ms": "Slide 11: The two thrusts on the notes’ wall"
+  },
+  {
+   "id": "slides-12",
+   "view": "slides",
+   "anchor": "12",
+   "title_en": "Slide 12: H = 4.9 m: the diagram runs to the underside of the base",
+   "title_ms": "Slide 12: H = 4.9 m: the diagram runs to the underside of the base"
+  },
+  {
+   "id": "slides-13",
+   "view": "slides",
+   "anchor": "13",
+   "title_en": "Slide 13: The notes’ wall: the table, then the three checks",
+   "title_ms": "Slide 13: The notes’ wall: the table, then the three checks"
+  },
+  {
+   "id": "slides-14",
+   "view": "slides",
+   "anchor": "14",
+   "title_en": "Slide 14: Every load, every check: does it help or harm?",
+   "title_ms": "Slide 14: Every load, every check: does it help or harm?"
+  },
+  {
+   "id": "slides-15",
+   "view": "slides",
+   "anchor": "15",
+   "title_en": "Slide 15: Sliding, combination 1. The surcharge’s thrust and its weight on the heel take the factors",
+   "title_ms": "Slide 15: Sliding, combination 1. The surcharge’s thrust and its weight on the heel take the factors"
+  },
+  {
+   "id": "slides-16",
+   "view": "slides",
+   "anchor": "16",
+   "title_en": "Slide 16: The notes’ wall slides: 100.2 against 95.6 kN. Which change stops it?",
+   "title_ms": "Slide 16: The notes’ wall slides: 100.2 against 95.6 kN. Which change stops it?"
+  },
+  {
+   "id": "slides-17",
+   "view": "slides",
+   "anchor": "17",
+   "title_en": "Slide 17: C: the heel holds the wall, with soil, not concrete",
+   "title_ms": "Slide 17: C: the heel holds the wall, with soil, not concrete"
+  },
+  {
+   "id": "slides-18",
+   "view": "slides",
+   "anchor": "18",
+   "title_en": "Slide 18: Where the resultant lands: the middle third",
+   "title_ms": "Slide 18: Where the resultant lands: the middle third"
+  },
+  {
+   "id": "slides-19",
+   "view": "slides",
+   "anchor": "19",
+   "title_en": "Slide 19: A wall on weaker ground: q a = 120 kN/m²",
+   "title_ms": "Slide 19: A wall on weaker ground: q a = 120 kN/m²"
+  },
+  {
+   "id": "slides-20",
+   "view": "slides",
+   "anchor": "20",
+   "title_en": "Slide 20: Bearing fails first; a longer toe cures it",
+   "title_ms": "Slide 20: Bearing fails first; a longer toe cures it"
+  },
+  {
+   "id": "slides-21",
+   "view": "slides",
+   "anchor": "21",
+   "title_en": "Slide 21: FE 13.2 fails bearing: 128.5 against 120 kN/m². With 0.5 m more base, the toe pressure is lowest if it is added",
+   "title_ms": "Slide 21: FE 13.2 fails bearing: 128.5 against 120 kN/m². With 0.5 m more base, the toe pressure is lowest if it is added"
+  },
+  {
+   "id": "slides-22",
+   "view": "slides",
+   "anchor": "22",
+   "title_en": "Slide 22: Sizing the base: the heel holds, the toe spreads",
+   "title_ms": "Slide 22: Sizing the base: the heel holds, the toe spreads"
+  },
+  {
+   "id": "slides-23",
+   "view": "slides",
+   "anchor": "23",
+   "title_en": "Slide 23: Retaining Wall S13: four slips in a stability check",
+   "title_ms": "Slide 23: Retaining Wall S13: four slips in a stability check"
+  },
+  {
+   "id": "slides-24",
+   "view": "slides",
+   "anchor": "24",
+   "title_en": "Slide 24: D13: the stability of a cantilever wall (20 marks)",
+   "title_ms": "Slide 24: D13: the stability of a cantilever wall (20 marks)"
+  },
+  {
+   "id": "slides-25",
+   "view": "slides",
+   "anchor": "25",
+   "title_en": "Slide 25: Your report, checked before it is assembled",
+   "title_ms": "Slide 25: Your report, checked before it is assembled"
+  },
+  {
+   "id": "slides-26",
+   "view": "slides",
+   "anchor": "26",
+   "title_en": "Slide 26: Ask of every load: does it help or harm this check?",
+   "title_ms": "Slide 26: Ask of every load: does it help or harm this check?"
+  },
+  {
+   "id": "slides-27",
+   "view": "slides",
+   "anchor": "27",
+   "title_en": "Slide 27: Before Unit 14",
+   "title_ms": "Slide 27: Before Unit 14"
+  },
+  {
+   "id": "slides-28",
+   "view": "slides",
+   "anchor": "28",
+   "title_en": "Slide 28: Before you leave",
+   "title_ms": "Slide 28: Before you leave"
+  },
+  {
+   "id": "examples-x1",
+   "view": "examples",
+   "anchor": "x1",
+   "title_en": "Example 1 · Worked Example 13.1: the stability of a cantilever wall",
+   "title_ms": "Contoh 1 · Worked Example 13.1: kestabilan cantilever wall"
+  },
+  {
+   "id": "examples-x2",
+   "view": "examples",
+   "anchor": "x2",
+   "title_en": "Example 2 · Faded Example 13.2: a wall on weaker ground",
+   "title_ms": "Contoh 2 · Faded Example 13.2: wall di atas tanah yang lebih lemah"
+  },
+  {
+   "id": "examples-x3",
+   "view": "examples",
+   "anchor": "x3",
+   "title_en": "Example 3 · Explain-type questions",
+   "title_ms": "Contoh 3 · Soalan jenis terangkan"
+  },
+  {
+   "id": "exercises-b1",
+   "view": "exercises",
+   "anchor": "b1",
+   "title_en": "Exercise B1 · The active pressure",
+   "title_ms": "Latihan B1 · Active pressure"
+  },
+  {
+   "id": "exercises-b2",
+   "view": "exercises",
+   "anchor": "b2",
+   "title_en": "Exercise B2 · The two thrusts and the overturning moment",
+   "title_ms": "Latihan B2 · Dua thrust dan overturning moment"
+  },
+  {
+   "id": "exercises-b3",
+   "view": "exercises",
+   "anchor": "b3",
+   "title_en": "Exercise B3 · The weights and the restoring moment",
+   "title_ms": "Latihan B3 · Berat dan restoring moment"
+  },
+  {
+   "id": "exercises-b4",
+   "view": "exercises",
+   "anchor": "b4",
+   "title_en": "Exercise B4 · Overturning and sliding, combination 1",
+   "title_ms": "Latihan B4 · Overturning dan sliding, combination 1"
+  },
+  {
+   "id": "exercises-b5",
+   "view": "exercises",
+   "anchor": "b5",
+   "title_en": "Exercise B5 · Sliding in EC7 Combination 2",
+   "title_ms": "Latihan B5 · Sliding dalam EC7 Combination 2"
+  },
+  {
+   "id": "exercises-b6",
+   "view": "exercises",
+   "anchor": "b6",
+   "title_en": "Exercise B6 · The resultant and the bearing pressure",
+   "title_ms": "Latihan B6 · Resultant dan bearing pressure"
+  },
+  {
+   "id": "exercises-quick",
+   "view": "exercises",
+   "anchor": null,
+   "selector": "#v-exercises div.q",
+   "title_en": "Exercises: quick concept questions",
+   "title_ms": "Latihan: soalan konsep pantas"
+  },
+  {
+   "id": "lab-thrust",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"thrust\"]",
+   "title_en": "Explorer task 1: Tab 1, Activity 13A: work out the two thrusts on the course not…",
+   "title_ms": "Tugasan Explorer 1: Tab 1, Aktiviti 13A: kira dua thrust pada wall dalam nota kursu…"
+  },
+  {
+   "id": "lab-heel",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"heel\"]",
+   "title_en": "Explorer task 2: Tab 2, Activity 13B: the notes’ wall slides in EC7 Combination 2",
+   "title_ms": "Tugasan Explorer 2: Tab 2, Aktiviti 13B: wall dalam nota menggelongsor dalam EC7 Co…"
+  },
+  {
+   "id": "lab-pass",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"pass\"]",
+   "title_en": "Explorer task 3: Tab 2: with the soil and the loads of the notes’ wall, change t…",
+   "title_ms": "Tugasan Explorer 3: Tab 2: dengan tanah dan load wall dalam nota, ubah toe, heel at…"
+  },
+  {
+   "id": "lab-light",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"light\"]",
+   "title_en": "Explorer task 4: Tab 2, the design challenge: make the wall pass every check wit…",
+   "title_ms": "Tugasan Explorer 4: Tab 2, cabaran design: jadikan wall lulus setiap semakan tanpa…"
+  },
+  {
+   "id": "lab-third",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"third\"]",
+   "title_en": "Explorer task 5: Tab 2: shorten the toe and the heel until the resultant leaves…",
+   "title_ms": "Tugasan Explorer 5: Tab 2: pendekkan toe dan heel sehingga resultant keluar dari mi…"
+  },
+  {
+   "id": "lab-s13",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"s13\"]",
+   "title_en": "Explorer task 6: Tab 3: Retaining Wall S13, find all four slips, tap their lines…",
+   "title_ms": "Tugasan Explorer 6: Tab 3: Retaining Wall S13, cari keempat-empat kesilapan, ketik…"
+  },
+  {
+   "id": "glossary-active-pressure",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: active pressure",
+   "title_ms": "Glosari: active pressure"
+  },
+  {
+   "id": "glossary-allowable-bearing-pressure-q-a",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: allowable bearing pressure, q_a",
+   "title_ms": "Glosari: allowable bearing pressure, q_a"
+  },
+  {
+   "id": "glossary-angle-of-shearing-resistance",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: angle of shearing resistance, φ",
+   "title_ms": "Glosari: angle of shearing resistance, φ"
+  },
+  {
+   "id": "glossary-backfill",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: backfill",
+   "title_ms": "Glosari: backfill"
+  },
+  {
+   "id": "glossary-base",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: base",
+   "title_ms": "Glosari: base"
+  },
+  {
+   "id": "glossary-bearing-pressure",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: bearing pressure",
+   "title_ms": "Glosari: bearing pressure"
+  },
+  {
+   "id": "glossary-buttress-wall",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: buttress wall",
+   "title_ms": "Glosari: buttress wall"
+  },
+  {
+   "id": "glossary-cantilever-wall",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: cantilever wall",
+   "title_ms": "Glosari: cantilever wall"
+  },
+  {
+   "id": "glossary-coefficient-of-friction",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: coefficient of friction, μ",
+   "title_ms": "Glosari: coefficient of friction, μ"
+  },
+  {
+   "id": "glossary-combination-1",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: combination 1",
+   "title_ms": "Glosari: combination 1"
+  },
+  {
+   "id": "glossary-combination-2-ec7-da1",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: Combination 2 (EC7 DA1)",
+   "title_ms": "Glosari: Combination 2 (EC7 DA1)"
+  },
+  {
+   "id": "glossary-counterfort-wall",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: counterfort wall",
+   "title_ms": "Glosari: counterfort wall"
+  },
+  {
+   "id": "glossary-eccentricity-e",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: eccentricity, e",
+   "title_ms": "Glosari: eccentricity, e"
+  },
+  {
+   "id": "glossary-equ",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: EQU",
+   "title_ms": "Glosari: EQU"
+  },
+  {
+   "id": "glossary-favourable-action",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: favourable action",
+   "title_ms": "Glosari: favourable action"
+  },
+  {
+   "id": "glossary-gravity-wall",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: gravity wall",
+   "title_ms": "Glosari: gravity wall"
+  },
+  {
+   "id": "glossary-heel",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: heel",
+   "title_ms": "Glosari: heel"
+  },
+  {
+   "id": "glossary-k-a",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: K_a",
+   "title_ms": "Glosari: K_a"
+  },
+  {
+   "id": "glossary-lever-arm",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: lever arm",
+   "title_ms": "Glosari: lever arm"
+  },
+  {
+   "id": "glossary-middle-third",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: middle third",
+   "title_ms": "Glosari: middle third"
+  },
+  {
+   "id": "glossary-overturning",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: overturning",
+   "title_ms": "Glosari: overturning"
+  },
+  {
+   "id": "glossary-passive-resistance",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: passive resistance",
+   "title_ms": "Glosari: passive resistance"
+  },
+  {
+   "id": "glossary-restoring-moment",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: restoring moment",
+   "title_ms": "Glosari: restoring moment"
+  },
+  {
+   "id": "glossary-resultant",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: resultant",
+   "title_ms": "Glosari: resultant"
+  },
+  {
+   "id": "glossary-sliding",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: sliding",
+   "title_ms": "Glosari: sliding"
+  },
+  {
+   "id": "glossary-stem",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: stem",
+   "title_ms": "Glosari: stem"
+  },
+  {
+   "id": "glossary-surcharge-w",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: surcharge, w",
+   "title_ms": "Glosari: surcharge, w"
+  },
+  {
+   "id": "glossary-thrust",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: thrust",
+   "title_ms": "Glosari: thrust"
+  },
+  {
+   "id": "glossary-toe",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: toe",
+   "title_ms": "Glosari: toe"
+  },
+  {
+   "id": "glossary-virtual-back",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: virtual back",
+   "title_ms": "Glosari: virtual back"
+  },
+  {
+   "id": "glossary-weep-hole",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: weep hole",
+   "title_ms": "Glosari: weep hole"
+  }
+ ],
+ "equations_missing": 0
+}

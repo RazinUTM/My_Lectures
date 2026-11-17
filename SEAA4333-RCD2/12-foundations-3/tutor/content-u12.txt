@@ -197,7 +197,7 @@ Project studio · 12 minutes The pile cap of your individual column Your group T
 Professional Habit 12 Take a reduction only with its limit β ≥ 0.25 a_v is never taken below 0.5d β needs anchorage bars bent up, l_{bd} beyond each pile ρ_l needs length bars count only if they run l_{bd} + d past the section Read the clause the textbook may quote the rule without its limit SEAA 4333 · Unit 12 · Foundations III Workbook 12.8
 
 [slides-26] Slide 26: Before Unit 13
-After class Before Unit 13 Notes §1–§6 42 min Exercises, all 14 45 min Explorer, 6 tasks with S12 30 min Self-mark D12 on eLearning 15 min Mosley §10.7, RDF §16 reading Unit 13: retaining walls, their stability, and the design of the stem and the base. SEAA 4333 · Unit 12 · Foundations III Workbook 12.8
+After class Before Unit 13 Notes §1–§6 42 min Exercises, all 14 45 min Explorer, 6 tasks with S12 30 min Self-mark D12 on eLearning 15 min Mosley §10.7, RDF §16 reading Unit 13: retaining walls: the thrust of the soil and the stability of a cantilever wall. SEAA 4333 · Unit 12 · Foundations III Workbook 12.8
 
 [slides-27] Slide 27: Before you leave
 Exit ticket · 5 minutes · Workbook 12.8 Before you leave 1 A two-pile cap carries N_{Ed} = 1500 kN on piles 1200 mm apart, with d = 800 mm. Find the tie force and the steel. 2 A four-pile cap has a_v = 300 mm and d = 900 mm, the bars anchored beyond the piles. Find β. 3 What is still unclear? Tear off the slip and hand it in at the door. SEAA 4333 · Unit 12 · Foundations III

@@ -20,7 +20,7 @@ from pathlib import Path
 from PIL import Image
 
 topic = Path(__file__).resolve().parent.parent
-FIGS = ["hook13", "modes13", "types13", "parts13", "press13", "loads13", "bearing13", "window13", "we131", "fe132", "d13", "qr_explorer"]
+FIGS = ["hook13", "modes13", "types13", "parts13", "press13", "press13s", "loads13", "bearing13", "window13", "we131", "fe132", "d13", "qr_explorer"]
 MAXW = 1400
 
 

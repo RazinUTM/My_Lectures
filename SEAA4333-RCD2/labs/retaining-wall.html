@@ -263,6 +263,8 @@ input[type=range].xs{width:100%;accent-color:var(--flight);margin:6px 0 2px}
 #pMode button{font-size:.8rem;text-align:left}
 .xbar{text-decoration:overline}
 #rDraw,#pChart{min-width:520px}
+.veilnote{background:var(--surface-2);border:1.5px dashed var(--ink-3);margin-top:0}
+[hidden]{display:none !important}
 @media (max-width:640px){.arow{grid-template-columns:minmax(0,1fr)}.arow .fields{grid-column:1 !important}}
 </style>
 </head>
@@ -344,6 +346,8 @@ input[type=range].xs{width:100%;accent-color:var(--flight);margin:6px 0 2px}
             <div class="steps" style="margin-top:10px"><button class="btn primary" id="aReveal" type="button" data-ms="Dedahkan">Reveal</button></div>
             <p class="verdict" id="aOut" hidden></p>
           </div>
+          <p class="verdict veilnote" id="pVeil" hidden data-ms="Ini tanah Aktiviti 13A. Taip dua thrust anda di atas dan tekan &lt;i&gt;Dedahkan&lt;/i&gt;: tekanan, lukisan dan nombor kemudiannya dipaparkan di sini. Tanah lain dipaparkan serta-merta.">This is the soil of Activity 13A. Type your two thrusts above and press <i>Reveal</i>: the pressures, the drawing and the numbers then appear here. Other soils are shown at once.</p>
+          <div class="col" id="pRes">
           <div class="kv" id="pKV" aria-live="polite"></div>
           <div class="plotcard">
             <div class="plothead"><h3 data-ms="Tekanan pada virtual back">Pressure on the virtual back</h3><span class="legend"><span><i class="key" style="border-color:var(--flight)"></i><span data-ms="tanah">soil</span></span><span><i class="key" style="border-color:var(--unbraced)"></i><span data-ms="surcharge">surcharge</span></span></span></div>
@@ -352,6 +356,7 @@ input[type=range].xs{width:100%;accent-color:var(--flight);margin:6px 0 2px}
           <div class="plotcard">
             <div class="plothead"><h3 data-ms="Nombor, satu demi satu">The numbers, one by one</h3></div>
             <div class="scroll"><table class="tbl" id="pTable"></table></div>
+          </div>
           </div>
         </div>
       </div>
@@ -417,6 +422,8 @@ input[type=range].xs{width:100%;accent-color:var(--flight);margin:6px 0 2px}
               <button class="btn sm" type="button" data-try="C" data-ms="Cuba C">Try C</button>
             </div>
           </div>
+          <div class="verdict veilnote" id="rVeil" hidden><p style="margin:0" data-ms="Semakan wall ini menggunakan dua thrust Aktiviti 13A. Buat Aktiviti 13A dalam tab 1 dahulu (Workbook 13.2); lukisan, jadual load dan semakan kemudiannya dipaparkan di sini.">The checks of this wall use the two thrusts of Activity 13A. Do Activity 13A in tab 1 first (Workbook 13.2); the drawing, the table of loads and the checks then appear here.</p><div class="steps" style="margin-top:10px"><button class="btn sm primary" id="rVeilGo" type="button" data-ms="Pergi ke Aktiviti 13A">Go to Activity 13A</button></div></div>
+          <div class="col" id="rRes">
           <div class="kv" id="rKV" aria-live="polite"></div>
           <div class="plotcard">
             <div class="plothead"><h3 data-ms="Wall mengikut skala: load, resultant dan tekanan di bawah base">The wall to scale: loads, resultant and the pressure under the base</h3><span class="legend"><span><i class="key" style="border-color:var(--ok)"></i><span data-ms="middle third">middle third</span></span></span></div>
@@ -429,6 +436,7 @@ input[type=range].xs{width:100%;accent-color:var(--flight);margin:6px 0 2px}
           <div class="plotcard">
             <div class="plothead"><h3 data-ms="Semakan, satu demi satu">The checks, one by one</h3></div>
             <div class="scroll"><table class="tbl" id="rTable"></table></div>
+          </div>
           </div>
         </div>
       </div>
@@ -644,6 +652,9 @@ function rwCalc(P){
 }
 const NOTES = {h3: 4.5, h: 0.4, t: 0.4, tc: 0.24, a1: 0.8, a2: 2.0, gs: 19, phi: 35, w: 10, mu: 0.5, qa: 200};
 const near = (a, b) => Math.abs(a - b) < 1e-9;
+/* The answers of Activity 13A (the two thrusts of the notes' wall) stay hidden until the activity has been revealed once. */
+function aDone(){ return !!((recall(MKEY, {}) || {}).thrust); }
+function notesSoil(P){ return near(P.gs, 19) && near(P.phi, 35); }
 function readNum(id, lo, hi){ const v = parseFloat(el(id).value); return isFinite(v) && v >= lo && v <= hi ? v : null; }
 
 /* ===================== 1 EARTH PRESSURE ===================== */
@@ -669,6 +680,8 @@ function pCalc(P, mode){
 }
 function redrawPressure(){
   const P = pin, r = pCalc(P, pMode), st = pMode === 'H';
+  const veil = !aDone() && notesSoil(P) && (near(P.h3 + P.h, 4.9) || near(P.h3, 4.5) || near(P.h3, 4.9));
+  el('pVeil').hidden = !veil; el('pRes').hidden = veil;
   el('pKV').innerHTML = kvHtml([['K<sub>a</sub>', f(r.Ka, 4)], [Lg('height used', 'tinggi digunakan'), `${f(r.H, 2)} m`, st ? 'ok' : ''],
     [Lg('p at the surface', 'p di permukaan'), `${f(r.p0, 2)} kN/m²`], [Lg('p at the bottom', 'p di bawah'), `${f(r.pH, 2)} kN/m²`],
     ['P<sub>s</sub>', `${f(r.Ps, 1)} kN`], ['P<sub>q</sub>', `${f(r.Pq, 1)} kN`]]);
@@ -758,7 +771,7 @@ function paintA(){
 el('aReveal').addEventListener('click', () => {
   if (!(aSt.ps > 0 && aSt.pq > 0)){ const o = el('aOut'); o.hidden = false; o.className = 'verdict bad'; o.innerHTML = Lg('Type both values first.', 'Taip kedua-dua nilai dahulu.'); return; }
   aSt.shown = true; store(AKEY, aSt); milestone('thrust');
-  pCaseK = 'rw1'; pMode = 'H'; Object.assign(pin, PCASES.rw1.v); fillPCases(); syncP(); paintA(); redrawPressure();
+  pCaseK = 'rw1'; pMode = 'H'; Object.assign(pin, PCASES.rw1.v); fillPCases(); syncP(); paintA(); redrawPressure(); redrawStab(false);
 });
 
 /* ===================== 2 STABILITY ===================== */
@@ -784,6 +797,8 @@ function isNotesStem(P){ return near(P.t, 0.4) && near(P.tc, 0.24) && near(P.h, 
 function redrawStab(userEdit){
   const P = Object.assign({}, rin); if (P.tc > P.t) P.tc = P.t;
   const r = rwCalc(P);
+  const veil = !aDone() && notesSoil(P) && near(P.h3 + P.h, 4.9);
+  el('rVeil').hidden = !veil; el('rRes').hidden = veil;
   const qTxt = !r.inBase ? Lg('resultant off the base', 'resultant di luar base') : !r.okMid ? `${f(r.qmax, 1)} kN/m² · ` + Lg('base lifts', 'base terangkat') : `${f(r.qmax, 1)} ${r.qmax <= P.qa ? '≤' : '&gt;'} ${f(P.qa, 0)} kN/m²`;
   el('rKV').innerHTML = kvHtml([
     [Lg('overturning', 'overturning'), `${f(r.Mod, 1)} ${r.okOt ? '≤' : '&gt;'} ${f(r.Mrd, 1)}`, r.okOt ? 'ok' : 'bad'],
@@ -793,7 +808,7 @@ function redrawStab(userEdit){
     [Lg('bearing · service', 'bearing · service'), qTxt, r.okQ ? 'ok' : 'bad'],
     [Lg('section · base', 'keratan · base'), `${f(r.Ac, 2)} m² · B ${f(r.B, 2)} m`]]);
   drawWall(P, r); drawLoads(P, r); drawChecks(P, r); paintChallenge(P, r);
-  if (userEdit && r.inBase){
+  if (userEdit && r.inBase && !veil){
     if (!r.okMid) milestone('third');
     if (isNotesSoil(P) && r.okAll){ milestone('pass'); if (isNotesStem(P) && r.Ac <= 2.72 + 1e-6) milestone('light'); }
   }
@@ -900,6 +915,8 @@ function drawChecks(P, r){
 function rToOwn(){ if (rCaseK !== 'own'){ rCaseK = 'own'; fillRCases(); } }
 Object.keys(RF).forEach(id => el(id).addEventListener('input', () => { const v = readNum(id, RF[id][1], RF[id][2]); if (v === null) return; rin[RF[id][0]] = v; rToOwn(); redrawStab(true); }));
 el('rCase').addEventListener('change', () => { rCaseK = el('rCase').value; if (RCASES[rCaseK].v) Object.assign(rin, RCASES[rCaseK].v); fillRCases(); syncR(); redrawStab(false); });
+
+el('rVeilGo').addEventListener('click', () => { showTab('pressure'); el('act13a').scrollIntoView({block: 'center'}); });
 
 /* ---------- Activity 13B ---------- */
 const BKEY = 'seaa4333-lab-retwall-13b';

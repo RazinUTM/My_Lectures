@@ -172,17 +172,17 @@ Hook · 5 minutes A drawing comes back with one red circle Three slabs, three se
 [slides-6] Slide 6: The ground pushes the whole base up. On which face do the main bars of the heel go?
 Concept check 1 · the big question · vote now, again after Activity 14A The ground pushes the whole base up. On which face do the main bars of the heel go? A The bottom: the ground pushes the heel up, as it does the toe B The top: the soil on the heel outweighs the ground pressure C Both faces equally: the load can go either way D Mid-depth: a heel carries mostly shear Vote · convince your neighbour · vote again Work
 
-[slides-7] Slide 7: Three cantilevers, three tension faces
-Block A · talk 1 · 4 minutes Three cantilevers, three tension faces Stem pushed forward by the soil: the earth face stretches Toe pushed up by the ground: the bottom stretches Heel pushed down by the soil on it: the top stretches SEAA 4333 · Unit 14 · Retaining Walls II Notes §1 · Workbook 14.2
+[slides-7] Slide 7: Three cantilevers: fix it, load it, let it bend
+Block A · talk 1 · 4 minutes Three cantilevers: fix it, load it, let it bend Stem held at the top of the base; pushed by the soil behind it Toe held at the front face of the stem; the ground pushes up, its weight down Heel held at the back face of the stem; the ground pushes up, the soil on it down SEAA 4333 · Unit 14 · Retaining Walls II Notes §1 · Workbook 14.2
 
-[slides-8] Slide 8: Design loads: STR, and the net loads on the base
-Block A · talk 2 · 5 minutes Design loads: STR, and the net loads on the base N_d = 1.35ΣV_{k,G} + 1.5V_{k,Q} q_d = N_d/B ± 6N_d·e_d/B² toe: q_d − 1.35γ_c·h ↑ heel: 1.35(γ_c·h + γh_3) + 1.5w − q_d ↓ The surcharge on the heel now takes 1.5: here it harms. SEAA 4333 · Unit 14 · Retaining Walls II Notes §2 · Workbook 14.2
+[slides-8] Slide 8: Design loads: STR, and what acts on the base
+Block A · talk 2 · 5 minutes Design loads: STR, and what acts on the base N_d = 1.35ΣV_{k,G} + 1.5V_{k,Q} q_d = N_d/B ± 6N_d·e_d/B² Net load on a part = what pushes it from above − what pushes it from below, point by point. The surcharge on the heel now takes 1.5: here it harms. SEAA 4333 · Unit 14 · Retaining Walls II Notes §2 · Workbook 14.2
 
 [slides-9] Slide 9: Sketch first: how does each part bend?
 Activity 14A · pairs · 8 minutes Sketch first: how does each part bend? The wall of Unit 13: stem 4.5 m, toe 0.8 m, heel 2.2 m sand on the heel; surcharge 10 kN/m² under the base: 135.6 kN/m² (toe) to 88.7 (heel end) on the heel, downwards: 143.9 kN/m² 1 draw the stem, the toe and the heel as three lines, fixed where they meet 2 draw the load on each one, then its bent shape 3 mark the tension face of each and draw i
 
 [slides-10] Slide 10: Stem: earth face. Toe: bottom. Heel: top.
-Activity 14A · reveal Stem: earth face. Toe: bottom. Heel: top. stem earth face pushed forward by thrusts of 52.1 and 12.2 kN; fixed at the top of the base. toe bottom 111.1 to 122.1 kN/m² net, upwards: the ground less the slab. heel top 143.9 down against 119.1 to 88.7 up: 24.8 to 55.2 kN/m² net, downwards. The red circle was on the heel. Bars in the bottom of a slab that sags lie in its compression zone and do noth
+Activity 14A · reveal Stem: earth face. Toe: bottom. Heel: top. stem earth face pushed forward by thrusts of 52.1 and 12.2 kN. toe bottom 111.1 to 122.1 kN/m² net, upwards: the ground less the slab. heel top 143.9 down against 119.1 to 88.7 up: 24.8 to 55.2 kN/m² net, downwards. The red circle was on the heel: its bars lay in the compression zone. Concept check 1, second vote: B. SEAA 4333 · Unit 14 · Retaining Walls
 
 [slides-11] Slide 11: The stem: one metre of a vertical slab
 Worked Example 14.1 · I do · part 1 The stem: one metre of a vertical slab Calculation Output P_{s,s} = ½ × 0.27099 × 19 × 4.5² 52.13 kN P_{q,s} = 0.27099 × 10 × 4.5 12.19 kN M: 1.35 × 52.13 × 1.5 + 1.5 × 12.19 × 2.25 146.7 kN m/m V: 1.35 × 52.13 + 1.5 × 12.19 88.7 kN/m d = 400 − 45 − 6; z = 0.95d 349; 331.6 mm A_s = 146.7 × 10⁶/(0.87 × 500 × 331.6) 1017 mm²/m A_{s,min} = 0.001506 × 1000 × 349 526 mm²/m H12 at 100, e

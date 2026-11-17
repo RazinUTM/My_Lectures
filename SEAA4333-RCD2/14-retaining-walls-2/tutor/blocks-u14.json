@@ -56,11 +56,11 @@
   },
   {
    "id": "slides-7",
-   "text": "[slides-7] Slide 7: Three cantilevers, three tension faces\nBlock A · talk 1 · 4 minutes Three cantilevers, three tension faces Stem pushed forward by the soil: the earth face stretches Toe pushed up by the ground: the bottom stretches Heel pushed down by the soil on it: the top stretches SEAA 4333 · Unit 14 · Retaining Walls II Notes §1 · Workbook 14.2"
+   "text": "[slides-7] Slide 7: Three cantilevers: fix it, load it, let it bend\nBlock A · talk 1 · 4 minutes Three cantilevers: fix it, load it, let it bend Stem held at the top of the base; pushed by the soil behind it Toe held at the front face of the stem; the ground pushes up, its weight down Heel held at the back face of the stem; the ground pushes up, the soil on it down SEAA 4333 · Unit 14 · Retaining Walls II Notes §1 · Workbook 14.2"
   },
   {
    "id": "slides-8",
-   "text": "[slides-8] Slide 8: Design loads: STR, and the net loads on the base\nBlock A · talk 2 · 5 minutes Design loads: STR, and the net loads on the base N_d = 1.35ΣV_{k,G} + 1.5V_{k,Q} q_d = N_d/B ± 6N_d·e_d/B² toe: q_d − 1.35γ_c·h ↑ heel: 1.35(γ_c·h + γh_3) + 1.5w − q_d ↓ The surcharge on the heel now takes 1.5: here it harms. SEAA 4333 · Unit 14 · Retaining Walls II Notes §2 · Workbook 14.2"
+   "text": "[slides-8] Slide 8: Design loads: STR, and what acts on the base\nBlock A · talk 2 · 5 minutes Design loads: STR, and what acts on the base N_d = 1.35ΣV_{k,G} + 1.5V_{k,Q} q_d = N_d/B ± 6N_d·e_d/B² Net load on a part = what pushes it from above − what pushes it from below, point by point. The surcharge on the heel now takes 1.5: here it harms. SEAA 4333 · Unit 14 · Retaining Walls II Notes §2 · Workbook 14.2"
   },
   {
    "id": "slides-9",
@@ -68,7 +68,7 @@
   },
   {
    "id": "slides-10",
-   "text": "[slides-10] Slide 10: Stem: earth face. Toe: bottom. Heel: top.\nActivity 14A · reveal Stem: earth face. Toe: bottom. Heel: top. stem earth face pushed forward by thrusts of 52.1 and 12.2 kN; fixed at the top of the base. toe bottom 111.1 to 122.1 kN/m² net, upwards: the ground less the slab. heel top 143.9 down against 119.1 to 88.7 up: 24.8 to 55.2 kN/m² net, downwards. The red circle was on the heel. Bars in the bottom of a slab that sags lie in its compression zone and do noth"
+   "text": "[slides-10] Slide 10: Stem: earth face. Toe: bottom. Heel: top.\nActivity 14A · reveal Stem: earth face. Toe: bottom. Heel: top. stem earth face pushed forward by thrusts of 52.1 and 12.2 kN. toe bottom 111.1 to 122.1 kN/m² net, upwards: the ground less the slab. heel top 143.9 down against 119.1 to 88.7 up: 24.8 to 55.2 kN/m² net, downwards. The red circle was on the heel: its bars lay in the compression zone. Concept check 1, second vote: B. SEAA 4333 · Unit 14 · Retaining Walls"
   },
   {
    "id": "slides-11",

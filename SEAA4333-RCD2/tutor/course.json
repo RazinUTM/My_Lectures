@@ -2105,7 +2105,7 @@
     {
      "id": "lab-comb",
      "title_en": "Explorer task 3: Tab 6, Activity 6B: predict which member the wind changes most,…",
-     "title_ms": "Tugasan Explorer 3: Tab 6, Aktiviti 6B: ramal anggota yang paling banyak diubah ole…"
+     "title_ms": "Tugasan Explorer 3: Tab 6, Aktiviti 6B: ramal member yang paling banyak diubah oleh…"
     },
     {
      "id": "lab-s6",
@@ -2879,7 +2879,7 @@
     {
      "id": "lab-bal",
      "title_en": "Explorer task 2: Tab 4: drag the neutral axis to the balance point, where the te…",
-     "title_ms": "Tugasan Explorer 2: Tab 4: seret neutral axis ke balance point, tempat bar tegangan…"
+     "title_ms": "Tugasan Explorer 2: Tab 4: seret neutral axis ke balance point, tempat tension bar…"
     },
     {
      "id": "lab-b8",
@@ -3453,7 +3453,7 @@
     {
      "id": "notes-n4",
      "title_en": "4. Critical sections: bending, shear, punching",
-     "title_ms": "4. Section kritikal: lenturan, ricih, punching"
+     "title_ms": "4. Section kritikal: bending, shear, punching"
     },
     {
      "id": "notes-n5",
@@ -3463,7 +3463,7 @@
     {
      "id": "notes-n6",
      "title_en": "6. Strip footings and detailing",
-     "title_ms": "6. Strip footing dan perincian"
+     "title_ms": "6. Strip footing dan detailing"
     },
     {
      "id": "slides-1",
@@ -3628,7 +3628,7 @@
     {
      "id": "exercises-b4",
      "title_en": "Exercise B4 · Vertical shear at d",
-     "title_ms": "Latihan B4 · Ricih menegak pada d"
+     "title_ms": "Latihan B4 · Vertical shear pada d"
     },
     {
      "id": "exercises-b5",
@@ -4005,7 +4005,7 @@
     {
      "id": "exercises-b2",
      "title_en": "Exercise B2 · Strap: zero shear and the largest moment",
-     "title_ms": "Latihan B2 · Strap: ricih sifar dan moment terbesar"
+     "title_ms": "Latihan B2 · Strap: shear sifar dan moment terbesar"
     },
     {
      "id": "exercises-b3",
@@ -4045,7 +4045,7 @@
     {
      "id": "lab-strapv",
      "title_en": "Explorer task 3: Tab 4: switch the diagram to shear for case F7",
-     "title_ms": "Tugasan Explorer 3: Tab 4: tukar diagram kepada ricih bagi kes F7"
+     "title_ms": "Tugasan Explorer 3: Tab 4: tukar diagram kepada shear bagi kes F7"
     },
     {
      "id": "lab-piles",
@@ -4217,7 +4217,7 @@
     {
      "id": "notes-n4",
      "title_en": "4. Shear: the section at φ/5 and the enhancement",
-     "title_ms": "4. Ricih: section pada φ/5 dan enhancement"
+     "title_ms": "4. Shear: section pada φ/5 dan enhancement"
     },
     {
      "id": "notes-n5",
@@ -4227,7 +4227,7 @@
     {
      "id": "notes-n6",
      "title_en": "6. Crack control and detailing",
-     "title_ms": "6. Kawalan retak dan perincian"
+     "title_ms": "6. Crack control dan detailing"
     },
     {
      "id": "slides-1",
@@ -4402,7 +4402,7 @@
     {
      "id": "exercises-b5",
      "title_en": "Exercise B5 · Shear at the φ/5 section",
-     "title_ms": "Latihan B5 · Ricih pada section φ/5"
+     "title_ms": "Latihan B5 · Shear pada section φ/5"
     },
     {
      "id": "exercises-b6",
@@ -4422,7 +4422,7 @@
     {
      "id": "lab-floor",
      "title_en": "Explorer task 2: Tab 6, Activity 12B: predict what happens to the reduced shear…",
-     "title_ms": "Tugasan Explorer 2: Tab 6, Aktiviti 12B: ramal apa yang berlaku kepada ricih terkur…"
+     "title_ms": "Tugasan Explorer 2: Tab 6, Aktiviti 12B: ramal apa yang berlaku kepada shear terkur…"
     },
     {
      "id": "lab-deepen",
@@ -5006,7 +5006,7 @@
     {
      "id": "notes-n1",
      "title_en": "1. Three cantilevers: which face is in tension?",
-     "title_ms": "1. Tiga cantilever: muka manakah dalam tegangan?"
+     "title_ms": "1. Tiga cantilever: muka manakah dalam tension?"
     },
     {
      "id": "notes-n2",

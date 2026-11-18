@@ -80,7 +80,7 @@
     },
     text: function (P) {
       return bi("Column A, " + num(P.cA) + " mm square, stands on the site boundary and carries G<sub>k</sub> = " + num(P.GkA) + " kN and Q<sub>k</sub> = " + num(P.QkA) + " kN. Column B, " + num(P.cB) + " mm square, is " + num(fmt(P.L, 2)) + " m away. Footing A is " + num(fmt(P.LA, 1)) + " m long along the strap, and the strap, " + num(P.bs) + " × " + num(P.hs) + " mm, runs between the column faces. At the ultimate limit state, with the footing weights left out of the strap statics and 1.35W<sub>R</sub> kept, find the net reaction R<sub>A,Ed</sub>, the position x<sub>0</sub> of zero shear in the strap measured from the boundary, and the largest hogging moment.",
-                "Column A, " + num(P.cA) + " mm segi empat sama, berdiri di sempadan tapak dan membawa G<sub>k</sub> = " + num(P.GkA) + " kN dan Q<sub>k</sub> = " + num(P.QkA) + " kN. Column B, " + num(P.cB) + " mm segi empat sama, berada " + num(fmt(P.L, 2)) + " m darinya. Footing A sepanjang " + num(fmt(P.LA, 1)) + " m sepanjang strap, dan strap, " + num(P.bs) + " × " + num(P.hs) + " mm, merentang di antara muka column. Pada ultimate limit state, dengan berat footing tidak dimasukkan dalam statik strap dan 1.35W<sub>R</sub> dikekalkan, cari reaction bersih R<sub>A,Ed</sub>, kedudukan x<sub>0</sub> ricih sifar dalam strap diukur dari sempadan, dan moment hogging terbesar.");
+                "Column A, " + num(P.cA) + " mm segi empat sama, berdiri di sempadan tapak dan membawa G<sub>k</sub> = " + num(P.GkA) + " kN dan Q<sub>k</sub> = " + num(P.QkA) + " kN. Column B, " + num(P.cB) + " mm segi empat sama, berada " + num(fmt(P.L, 2)) + " m darinya. Footing A sepanjang " + num(fmt(P.LA, 1)) + " m sepanjang strap, dan strap, " + num(P.bs) + " × " + num(P.hs) + " mm, merentang di antara muka column. Pada ultimate limit state, dengan berat footing tidak dimasukkan dalam statik strap dan 1.35W<sub>R</sub> dikekalkan, cari reaction bersih R<sub>A,Ed</sub>, kedudukan x<sub>0</sub> shear sifar dalam strap diukur dari sempadan, dan moment hogging terbesar.");
     },
     fields: [{ id: "ra", label: ["R<sub>A,Ed</sub>", "R<sub>A,Ed</sub>"], unit: "kN", fn: function (P) { return P.RA; }, rtol: 0.005 },
              { id: "x0", label: ["x<sub>0</sub>", "x<sub>0</sub>"], unit: "m", fn: function (P) { return P.x0; }, rtol: 0.01, atol: 0.005 },
@@ -148,7 +148,7 @@
     },
     text: function (P) {
       return bi("A column carries G<sub>k</sub> = " + num(P.Gk) + " kN and Q<sub>k</sub> = " + num(P.Qk) + " kN. It is to stand on precast piles " + num(P.ph) + " mm square, each with a working load of " + num(P.Fp) + " kN; assume a cap weight of " + num(P.W) + " kN. Use the smallest of the regular groups 2 × 2, 2 × 3, 2 × 4 or 3 × 3 that carries the load, at a spacing of 3φ, with the cap 150 mm beyond the pile faces. Find the number of piles and the length L and width B of the cap.",
-                "Satu column membawa G<sub>k</sub> = " + num(P.Gk) + " kN dan Q<sub>k</sub> = " + num(P.Qk) + " kN. Ia akan berdiri di atas pile pratuang " + num(P.ph) + " mm segi empat sama, setiap satu dengan working load " + num(P.Fp) + " kN; andaikan berat pile cap " + num(P.W) + " kN. Gunakan kumpulan sekata terkecil antara 2 × 2, 2 × 3, 2 × 4 atau 3 × 3 yang mampu memikul load itu, pada jarak 3φ, dengan pile cap 150 mm melepasi muka pile. Cari bilangan pile serta panjang L dan lebar B pile cap.");
+                "Satu column membawa G<sub>k</sub> = " + num(P.Gk) + " kN dan Q<sub>k</sub> = " + num(P.Qk) + " kN. Ia akan berdiri di atas precast pile " + num(P.ph) + " mm segi empat sama, setiap satu dengan working load " + num(P.Fp) + " kN; andaikan berat pile cap " + num(P.W) + " kN. Gunakan kumpulan sekata terkecil antara 2 × 2, 2 × 3, 2 × 4 atau 3 × 3 yang mampu memikul load itu, pada jarak 3φ, dengan pile cap 150 mm melepasi muka pile. Cari bilangan pile serta panjang L dan lebar B pile cap.");
     },
     fields: [{ id: "n", label: ["n", "n"], unit: "", fn: function (P) { return P.n; }, rtol: 0, atol: 0.01 },
              { id: "lc", label: ["L", "L"], unit: "mm", fn: function (P) { return P.Lc; }, rtol: 0, atol: 1 },
@@ -195,7 +195,7 @@
       return sol([bi("Along a row x = " + xs.join(", ") + " m", "Sepanjang satu baris x = " + xs.join(", ") + " m") + "; Σx² = " + P.ny + " × " + fmt(rowSum(P.nx, P.s), 4) + " = " + fmt(P.sx2, 4) + " m²",
         "(N + W)/n = " + P.Nt + "/" + P.n + " = " + fmt(P.Pm, 1) + " kN; Mx<sub>max</sub>/Σx² = " + P.M + " × " + fmt(P.xm, 3) + "/" + fmt(P.sx2, 4) + " = " + fmt(P.dP, 1) + " kN",
         "P<sub>max</sub> = " + fmt(P.Pm, 1) + " + " + fmt(P.dP, 1) + " = " + fmt(P.Pmax, 1) + " kN; P<sub>min</sub> = " + fmt(P.Pm, 1) + " − " + fmt(P.dP, 1) + " = " + fmt(P.Pmin, 1) + " kN",
-        bi("Compare P<sub>max</sub> with the working load; P<sub>min</sub> &gt; 0, so no pile is in tension.", "Bandingkan P<sub>max</sub> dengan working load; P<sub>min</sub> &gt; 0, jadi tiada pile dalam tegangan.")]);
+        bi("Compare P<sub>max</sub> with the working load; P<sub>min</sub> &gt; 0, so no pile is in tension.", "Bandingkan P<sub>max</sub> dengan working load; P<sub>min</sub> &gt; 0, jadi tiada pile dalam tension.")]);
     }
   });
 

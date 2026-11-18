@@ -49,9 +49,9 @@
       return { h: h, l0: l0, N: N, Mt: Mt, Mb: Mb, dbl: dbl, ei: ei, M02: M02, e0: e0, Me0: Me0, MEd: Math.max(M02, Me0) };
     },
     text: function (P) {
-      var c = P.dbl ? bi("tension on opposite faces", "tegangan pada muka bertentangan") : bi("tension on the same face", "tegangan pada muka yang sama");
+      var c = P.dbl ? bi("tension on opposite faces", "tension pada muka bertentangan") : bi("tension on the same face", "tension pada muka yang sama");
       return bi("A braced, non-slender column has h = " + num(P.h) + " mm in the plane of bending and l<sub>0</sub> = " + num(P.l0) + " mm. N<sub>Ed</sub> = " + num(P.N) + " kN; the first-order end moments are " + num(P.Mt) + " and " + num(P.Mb) + " kN m, " + c + ". Find the imperfection eccentricity e<sub>i</sub>, the moment M<sub>02</sub> and the design moment M<sub>Ed</sub>.",
-                "Satu column braced dan non-slender mempunyai h = " + num(P.h) + " mm dalam satah lenturan dan l<sub>0</sub> = " + num(P.l0) + " mm. N<sub>Ed</sub> = " + num(P.N) + " kN; first-order end moment ialah " + num(P.Mt) + " dan " + num(P.Mb) + " kN m, " + c + ". Cari imperfection eccentricity e<sub>i</sub>, moment M<sub>02</sub> dan design moment M<sub>Ed</sub>.");
+                "Satu column braced dan non-slender mempunyai h = " + num(P.h) + " mm dalam satah bending dan l<sub>0</sub> = " + num(P.l0) + " mm. N<sub>Ed</sub> = " + num(P.N) + " kN; first-order end moment ialah " + num(P.Mt) + " dan " + num(P.Mb) + " kN m, " + c + ". Cari imperfection eccentricity e<sub>i</sub>, moment M<sub>02</sub> dan design moment M<sub>Ed</sub>.");
     },
     fields: [{ id: "ei", label: ["e<sub>i</sub>", "e<sub>i</sub>"], unit: "mm", fn: function (P) { return P.ei; }, rtol: 0.01 },
              { id: "m02", label: ["M<sub>02</sub>", "M<sub>02</sub>"], unit: "kN m", fn: function (P) { return P.M02; }, rtol: 0.01 },
@@ -83,7 +83,7 @@
     },
     text: function (P) {
       return bi("A non-slender column " + num(P.b + " × " + P.h) + " (h = " + P.h + " mm in the plane of bending), " + CLS[P.fck] + ", B500, carries N<sub>Ed</sub> = " + num(P.N) + " kN and M<sub>Ed</sub> = " + num(P.M) + " kN m. Find ν and μ for the design chart. On the chart for d<sub>2</sub>/h = 0.15 the point reads A<sub>s</sub>f<sub>yk</sub>/(bhf<sub>ck</sub>) = " + num(fmt(P.om, 2)) + ": find A<sub>s</sub>.",
-                "Satu column non-slender " + num(P.b + " × " + P.h) + " (h = " + P.h + " mm dalam satah lenturan), " + CLS[P.fck] + ", B500, membawa N<sub>Ed</sub> = " + num(P.N) + " kN dan M<sub>Ed</sub> = " + num(P.M) + " kN m. Cari ν dan μ untuk design chart. Pada chart bagi d<sub>2</sub>/h = 0.15 titik itu memberi bacaan A<sub>s</sub>f<sub>yk</sub>/(bhf<sub>ck</sub>) = " + num(fmt(P.om, 2)) + ": cari A<sub>s</sub>.");
+                "Satu column non-slender " + num(P.b + " × " + P.h) + " (h = " + P.h + " mm dalam satah bending), " + CLS[P.fck] + ", B500, membawa N<sub>Ed</sub> = " + num(P.N) + " kN dan M<sub>Ed</sub> = " + num(P.M) + " kN m. Cari ν dan μ untuk design chart. Pada chart bagi d<sub>2</sub>/h = 0.15 titik itu memberi bacaan A<sub>s</sub>f<sub>yk</sub>/(bhf<sub>ck</sub>) = " + num(fmt(P.om, 2)) + ": cari A<sub>s</sub>.");
     },
     fields: [{ id: "nu", label: ["ν = N/(bhf<sub>ck</sub>)", "ν = N/(bhf<sub>ck</sub>)"], fn: function (P) { return P.nu; }, rtol: 0.01, atol: 0.002 },
              { id: "mu", label: ["μ = M/(bh²f<sub>ck</sub>)", "μ = M/(bh²f<sub>ck</sub>)"], fn: function (P) { return P.mu; }, rtol: 0.01, atol: 0.001 },
@@ -129,7 +129,7 @@
   }
   function secText(S) {
     return bi("A column section " + num(S.b + " × " + S.h) + " (h = " + S.h + " mm in the plane of bending), " + CLS[S.fck] + ", has " + num(S.nb + "H" + S.phi) + " at each of the two faces, with d<sub>2</sub> = " + num(fmt(S.d2, 0)) + " mm (A<sub>s</sub> = " + fmt(S.As, 0) + " mm² in all). B500, E<sub>s</sub> = 200 kN/mm², f<sub>yd</sub> = 435 N/mm².",
-              "Satu section column " + num(S.b + " × " + S.h) + " (h = " + S.h + " mm dalam satah lenturan), " + CLS[S.fck] + ", mempunyai " + num(S.nb + "H" + S.phi) + " pada setiap satu daripada dua muka, dengan d<sub>2</sub> = " + num(fmt(S.d2, 0)) + " mm (A<sub>s</sub> = " + fmt(S.As, 0) + " mm² keseluruhannya). B500, E<sub>s</sub> = 200 kN/mm², f<sub>yd</sub> = 435 N/mm².");
+              "Satu section column " + num(S.b + " × " + S.h) + " (h = " + S.h + " mm dalam satah bending), " + CLS[S.fck] + ", mempunyai " + num(S.nb + "H" + S.phi) + " pada setiap satu daripada dua muka, dengan d<sub>2</sub> = " + num(fmt(S.d2, 0)) + " mm (A<sub>s</sub> = " + fmt(S.As, 0) + " mm² keseluruhannya). B500, E<sub>s</sub> = 200 kN/mm², f<sub>yd</sub> = 435 N/mm².");
   }
 
   /* ---------- B4 squash load and balance point ---------- */
@@ -148,7 +148,7 @@
              { id: "mb", label: ["M<sub>bal</sub>", "M<sub>bal</sub>"], unit: "kN m", fn: function (P) { return P.Mb; }, rtol: 0.015 }],
     hints: [function () { return bi("N<sub>0</sub> = 0.567f<sub>ck</sub>bh + 400A<sub>s</sub>: at a strain of 0.002 the bars carry 200 000 × 0.002 = 400 N/mm², not 435.", "N<sub>0</sub> = 0.567f<sub>ck</sub>bh + 400A<sub>s</sub>: pada strain 0.002 bar membawa 200 000 × 0.002 = 400 N/mm², bukan 435."); },
             function () { return bi("x<sub>bal</sub> = 0.0035/(0.0035 + 0.002175) × d = 0.617d, with d = h − d<sub>2</sub>.", "x<sub>bal</sub> = 0.0035/(0.0035 + 0.002175) × d = 0.617d, dengan d = h − d<sub>2</sub>."); },
-            function () { return bi("Check the top bars: ε = 0.0035(x − d<sub>2</sub>)/x; the bottom bars carry 435 N/mm² in tension. N = F<sub>c</sub> + F<sub>sc</sub> − F<sub>s</sub>; M about h/2 by Eq. (8.6).", "Semak bar atas: ε = 0.0035(x − d<sub>2</sub>)/x; bar bawah membawa 435 N/mm² dalam tegangan. N = F<sub>c</sub> + F<sub>sc</sub> − F<sub>s</sub>; M pada h/2 dengan Eq. (8.6)."); }],
+            function () { return bi("Check the top bars: ε = 0.0035(x − d<sub>2</sub>)/x; the bottom bars carry 435 N/mm² in tension. N = F<sub>c</sub> + F<sub>sc</sub> − F<sub>s</sub>; M about h/2 by Eq. (8.6).", "Semak bar atas: ε = 0.0035(x − d<sub>2</sub>)/x; bar bawah membawa 435 N/mm² dalam tension. N = F<sub>c</sub> + F<sub>sc</sub> − F<sub>s</sub>; M pada h/2 dengan Eq. (8.6)."); }],
     solution: function (P) {
       return sol(["N<sub>0</sub> = (0.567 × " + P.fck + " × " + P.b + " × " + P.h + " + 400 × " + fmt(P.As, 0) + ")/10³ = " + fmt(P.N0, 0) + " kN",
         "d = " + P.h + " − " + fmt(P.d2, 0) + " = " + fmt(P.d, 0) + " mm; x<sub>bal</sub> = 0.6167 × " + fmt(P.d, 0) + " = " + fmt(P.xb, 1) + " mm; s = 0.8x = " + fmt(P.s, 1) + " mm",
@@ -174,8 +174,8 @@
              { id: "n", label: ["N", "N"], unit: "kN", fn: function (P) { return P.N; }, rtol: 0.01 },
              { id: "m", label: ["M", "M"], unit: "kN m", fn: function (P) { return P.M; }, rtol: 0.015 }],
     hints: [function () { return bi("s = 0.8h; F<sub>c</sub> = 0.567f<sub>ck</sub>b × 0.8h, acting 0.4h from the top, so 0.1h above the centre.", "s = 0.8h; F<sub>c</sub> = 0.567f<sub>ck</sub>b × 0.8h, bertindak 0.4h dari atas, jadi 0.1h di atas pusat."); },
-            function () { return bi("Strains: 0.0035 at the top, zero at the bottom face. Top bars ε = 0.0035(h − d<sub>2</sub>)/h; bottom bars ε = 0.0035d<sub>2</sub>/h, a small compression.", "Strain: 0.0035 di atas, sifar pada muka bawah. Bar atas ε = 0.0035(h − d<sub>2</sub>)/h; bar bawah ε = 0.0035d<sub>2</sub>/h, mampatan yang kecil."); },
-            function () { return bi("Both bar forces are compressions: N = F<sub>c</sub> + F<sub>1</sub> + F<sub>2</sub>; M = F<sub>c</sub> × 0.1h + (F<sub>1</sub> − F<sub>2</sub>)(h/2 − d<sub>2</sub>).", "Kedua-dua daya bar ialah mampatan: N = F<sub>c</sub> + F<sub>1</sub> + F<sub>2</sub>; M = F<sub>c</sub> × 0.1h + (F<sub>1</sub> − F<sub>2</sub>)(h/2 − d<sub>2</sub>)."); }],
+            function () { return bi("Strains: 0.0035 at the top, zero at the bottom face. Top bars ε = 0.0035(h − d<sub>2</sub>)/h; bottom bars ε = 0.0035d<sub>2</sub>/h, a small compression.", "Strain: 0.0035 di atas, sifar pada muka bawah. Bar atas ε = 0.0035(h − d<sub>2</sub>)/h; bar bawah ε = 0.0035d<sub>2</sub>/h, compression yang kecil."); },
+            function () { return bi("Both bar forces are compressions: N = F<sub>c</sub> + F<sub>1</sub> + F<sub>2</sub>; M = F<sub>c</sub> × 0.1h + (F<sub>1</sub> − F<sub>2</sub>)(h/2 − d<sub>2</sub>).", "Kedua-dua daya bar ialah compression: N = F<sub>c</sub> + F<sub>1</sub> + F<sub>2</sub>; M = F<sub>c</sub> × 0.1h + (F<sub>1</sub> − F<sub>2</sub>)(h/2 − d<sub>2</sub>)."); }],
     solution: function (P) {
       return sol(["s = 0.8 × " + P.h + " = " + fmt(P.s, 0) + " mm; F<sub>c</sub> = 0.567 × " + P.fck + " × " + P.b + " × " + fmt(P.s, 0) + " = " + fmt(P.Fc, 1) + " kN",
         bi("top bars: ε = " + fmt(P.e1, 5) + " → σ = " + fmt(P.sg1, 0) + " N/mm², F<sub>1</sub> = " + fmt(P.F1, 1) + " kN; bottom bars: ε = " + fmt(P.e2, 5) + " → σ = " + fmt(P.sg2, 0) + " N/mm², F<sub>2</sub> = " + fmt(P.F2, 1) + " kN",

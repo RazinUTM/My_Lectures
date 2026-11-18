@@ -401,7 +401,7 @@ footer .lic{display:block;margin-top:6px}
         </div>
         <div class="col veilwrap">
           <div class="plotcard">
-            <div class="plothead"><h3 data-ms="Keratan melalui flight">Section through the flight</h3><span class="legend"><span><i class="key" style="border-top-color:var(--ink)"></i><span data-ms="root line">root line</span></span><span><i class="key dash" style="border-top-color:var(--flight)"></i><span data-ms="permukaan purata, y + R/2">average surface, y + R/2</span></span></span></div>
+            <div class="plothead"><h3 data-ms="Section melalui flight">Section through the flight</h3><span class="legend"><span><i class="key" style="border-top-color:var(--ink)"></i><span data-ms="root line">root line</span></span><span><i class="key dash" style="border-top-color:var(--flight)"></i><span data-ms="permukaan purata, y + R/2">average surface, y + R/2</span></span></span></div>
             <div class="figbox" id="pFig"></div>
           </div>
           <div class="scroll"><table class="tbl" id="pTable" aria-label="Load on plan" data-ms-aria="Load on plan"></table></div>
@@ -493,7 +493,7 @@ footer .lic{display:block;margin-top:6px}
         </div>
         <div class="col">
           <div class="plotcard">
-            <div class="plothead"><h3 data-ms="Elevation tetulang">Reinforcement elevation</h3><div class="legend"><span><i class="key" style="border-top-color:var(--rebar)"></i><span data-ms="main bar dan top bar">main and top bars</span></span><span><i class="key box" style="background:var(--rebar);width:8px;height:8px;border-radius:50%"></i><span data-ms="distribution bar">distribution bars</span></span></div></div>
+            <div class="plothead"><h3 data-ms="Reinforcement elevation">Reinforcement elevation</h3><div class="legend"><span><i class="key" style="border-top-color:var(--rebar)"></i><span data-ms="main bar dan top bar">main and top bars</span></span><span><i class="key box" style="background:var(--rebar);width:8px;height:8px;border-radius:50%"></i><span data-ms="distribution bar">distribution bars</span></span></div></div>
             <div class="figbox" id="dFig"></div>
           </div>
           <div class="plotcard">
@@ -1061,7 +1061,7 @@ function readP(){
 function drawSection(box, p){
   box.innerHTML = '';
   const W = 640, Hh = 300;
-  const svg = S('svg', {class: 'fig', viewBox: `0 0 ${W} ${Hh}`, role: 'img', 'aria-label': Lg('Section through three steps of the flight', 'Keratan melalui tiga anak tangga flight')}, box);
+  const svg = S('svg', {class: 'fig', viewBox: `0 0 ${W} ${Hh}`, role: 'img', 'aria-label': Lg('Section through three steps of the flight', 'Section melalui tiga anak tangga flight')}, box);
   const R = p.R, G = p.G, h = p.h, w = waistOf(R, G, h);
   const nSt = 3, runmm = nSt * G, risemm = nSt * R;
   const k = Math.min(430 / runmm, 200 / (risemm + w.y + 40));
@@ -1400,7 +1400,7 @@ function drawDetail(){
   const names = {straight: Lg('a straight flight', 'flight lurus'), landTop: Lg('a flight with a landing at the top', 'flight dengan landing di atas'), landBottom: Lg('a flight with a landing at the bottom', 'flight dengan landing di bawah')};
   const res = analyse(C, loadsOf(P));
   el('dUsing').textContent = Lg(`${names[C.type]}, end A ${C.contA ? 'continuous' : 'simple'}, end B ${C.contB ? 'continuous' : 'simple'}, L = ${f(res.L * 1000, 0)} mm (set in tab 3).`, `${names[C.type]}, hujung A ${C.contA ? 'continuous' : 'simple'}, hujung B ${C.contB ? 'continuous' : 'simple'}, L = ${f(res.L * 1000, 0)} mm (ditetapkan dalam tab 3).`);
-  drawStair(el('dFig'), C, P, {bars: true, kinkReveal: kinkShown, aria: Lg('Reinforcement elevation of the stair', 'Elevation tetulang tangga')});
+  drawStair(el('dFig'), C, P, {bars: true, kinkReveal: kinkShown, aria: Lg('Reinforcement elevation of the stair', 'Reinforcement elevation tangga')});
   const L = res.L * 1000;
   const rows = [
     ['01', Lg('Main bars, bottom, along the soffit', 'Main bar, bawah, di sepanjang soffit'), Lg('Design for M; spacing ≤ min(2h, 250) mm where the moment is largest', 'Design untuk M; jarak ≤ min(2h, 250) mm di tempat moment paling besar'), 'EC2 9.3.1.1(3)'],
@@ -1840,7 +1840,7 @@ function drawRA(box, v, r){
     dimH(g, X(-75 * wl), X(bF + 75 * wr), y0 + hh + 14, Lg(`effective breadth beff ${f(r.bef, 0)}`, `lebar berkesan beff ${f(r.bef, 0)}`), 'var(--ink-2)', false);
     T(g, cx, y0 + hh + 58, `κw = bld/beff = ${f(r.bld, 0)}/${f(r.bef, 0)} = ${f(r.kw, 3)}`, {'text-anchor': 'middle', 'font-weight': 600});
     T(g, cx, y0 + hh + 76, Lg('Shaded: the 150 mm strip along each wall, taken off the loaded width;', 'Berlorek: jalur 150 mm di sepanjang setiap dinding, ditolak daripada lebar dibebani;'), {'text-anchor': 'middle', class: 'small'});
-    T(g, cx, y0 + hh + 91, Lg('the section is 75 mm wider for each wall', 'keratan bertambah lebar 75 mm bagi setiap dinding'), {'text-anchor': 'middle', class: 'small'});
+    T(g, cx, y0 + hh + 91, Lg('the section is 75 mm wider for each wall', 'section bertambah lebar 75 mm bagi setiap dinding'), {'text-anchor': 'middle', class: 'small'});
   }
 }
 function row6(ref, calc, out, ok){ return {ref, calc, out, ok}; }

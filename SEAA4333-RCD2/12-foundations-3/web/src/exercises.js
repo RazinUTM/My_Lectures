@@ -58,7 +58,7 @@
     },
     text: function (P) {
       return bi("Four piles of " + num(P.pp) + " mm diameter at 3φ carry a column with G<sub>k</sub> = " + num(P.Gk) + " kN and Q<sub>k</sub> = " + num(P.Qk) + " kN. The cap is " + num(P.B) + " mm square and " + num(P.h) + " mm deep, cover 75 mm, H" + num(P.phi) + " bars in two layers (use the upper layer’s d for both directions), C30/37. Find the force in each truss, the steel needed in each direction and A<sub>s,min</sub>.",
-                "Empat pile berdiameter " + num(P.pp) + " mm pada 3φ memikul column dengan G<sub>k</sub> = " + num(P.Gk) + " kN dan Q<sub>k</sub> = " + num(P.Qk) + " kN. Pile cap berukuran " + num(P.B) + " mm segi empat sama dan sedalam " + num(P.h) + " mm, cover 75 mm, bar H" + num(P.phi) + " dalam dua lapisan (guna d lapisan atas bagi kedua-dua arah), C30/37. Cari daya dalam setiap truss, keluli yang diperlukan dalam setiap arah dan A<sub>s,min</sub>.");
+                "Empat pile berdiameter " + num(P.pp) + " mm pada 3φ memikul column dengan G<sub>k</sub> = " + num(P.Gk) + " kN dan Q<sub>k</sub> = " + num(P.Qk) + " kN. Pile cap berukuran " + num(P.B) + " mm segi empat sama dan sedalam " + num(P.h) + " mm, cover 75 mm, bar H" + num(P.phi) + " dalam dua lapisan (guna d lapisan atas bagi kedua-dua arah), C30/37. Cari daya dalam setiap truss, steel yang diperlukan dalam setiap arah dan A<sub>s,min</sub>.");
     },
     fields: [{ id: "t", label: ["T (each truss)", "T (setiap truss)"], unit: "kN", fn: function (P) { return P.T; }, rtol: 0.005 },
              { id: "as", label: ["A<sub>s</sub> (each way)", "A<sub>s</sub> (setiap arah)"], unit: "mm²", fn: function (P) { return P.As; }, rtol: 0.01 },
@@ -72,7 +72,7 @@
         "T = " + fmt(P.N, 1) + " × " + P.s + "/(8 × " + fmt(P.d, 1) + ") = " + fmt(P.T, 1) + bi(" kN per truss", " kN setiap truss"),
         "A<sub>s</sub> = 2 × " + fmt(P.T, 1) + " × 10³/435 = " + fmt(P.As, 0) + bi(" mm² each way", " mm² setiap arah"),
         "A<sub>s,min</sub> = 0.001506 × " + P.B + " × " + fmt(P.d, 1) + " = " + fmt(P.Asmin, 0) + " mm²" + (P.Asmin > P.As ? bi(": it governs", ": ia menentukan") : ""),
-        bi("Bars spread evenly (s = 3φ), bent up at both ends; then shear at φ/5 (B5).", "Bar disebar sekata (s = 3φ), dibengkokkan ke atas di kedua-dua hujung; kemudian ricih pada φ/5 (B5).")]);
+        bi("Bars spread evenly (s = 3φ), bent up at both ends; then shear at φ/5 (B5).", "Bar disebar sekata (s = 3φ), dibengkokkan ke atas di kedua-dua hujung; kemudian shear pada φ/5 (B5).")]);
     }
   });
 
@@ -88,7 +88,7 @@
     },
     text: function (P) {
       return bi("Three piles of " + num(P.pp) + " mm diameter at 3φ, at the corners of an equilateral triangle, carry a column with G<sub>k</sub> = " + num(P.Gk) + " kN and Q<sub>k</sub> = " + num(P.Qk) + " kN. The cap is " + num(P.h) + " mm deep, cover 75 mm, with three bands of H" + num(P.phi) + " bars over the pile lines in three layers. Find d for the uppermost band, the tie force in each side and the steel in each band.",
-                "Tiga pile berdiameter " + num(P.pp) + " mm pada 3φ, di bucu segi tiga sama sisi, memikul column dengan G<sub>k</sub> = " + num(P.Gk) + " kN dan Q<sub>k</sub> = " + num(P.Qk) + " kN. Pile cap sedalam " + num(P.h) + " mm, cover 75 mm, dengan tiga jalur bar H" + num(P.phi) + " di atas garis pile dalam tiga lapisan. Cari d bagi jalur paling atas, daya tie dalam setiap sisi dan keluli dalam setiap jalur.");
+                "Tiga pile berdiameter " + num(P.pp) + " mm pada 3φ, di bucu segi tiga sama sisi, memikul column dengan G<sub>k</sub> = " + num(P.Gk) + " kN dan Q<sub>k</sub> = " + num(P.Qk) + " kN. Pile cap sedalam " + num(P.h) + " mm, cover 75 mm, dengan tiga jalur bar H" + num(P.phi) + " di atas garis pile dalam tiga lapisan. Cari d bagi jalur paling atas, daya tie dalam setiap sisi dan steel dalam setiap jalur.");
     },
     fields: [{ id: "d", label: ["d", "d"], unit: "mm", fn: function (P) { return P.d; }, rtol: 0.002, atol: 1 },
              { id: "t", label: ["T (each side)", "T (setiap sisi)"], unit: "kN", fn: function (P) { return P.T; }, rtol: 0.005 },
@@ -154,9 +154,9 @@
     },
     text: function (P) {
       if (P.six) return bi("A six-pile cap, two rows of three square piles of " + num(P.pp) + " mm at 3φ, is " + num(P.B) + " mm wide and " + num(P.h) + " mm deep, under a " + num(P.c) + " mm square column with N<sub>Ed</sub> = " + num(P.N) + " kN (no moment). The bars along the length, H" + num(P.phi) + " in the outer layer (cover 75 mm), are bent up and anchored beyond the piles but do not run l<sub>bd</sub> + d past the shear section. C30/37. At the section across the width, φ/5 inside the end row, find β, V<sub>Ed,red</sub> and V<sub>Rd,c</sub>.",
-                "Satu pile cap enam pile, dua baris tiga pile segi empat sama " + num(P.pp) + " mm pada 3φ, selebar " + num(P.B) + " mm dan sedalam " + num(P.h) + " mm, di bawah column segi empat sama " + num(P.c) + " mm dengan N<sub>Ed</sub> = " + num(P.N) + " kN (tiada moment). Bar sepanjang panjang, H" + num(P.phi) + " di lapisan luar (cover 75 mm), dibengkokkan ke atas dan di-anchor melepasi pile tetapi tidak melepasi section ricih sejauh l<sub>bd</sub> + d. C30/37. Pada section merentas lebar, φ/5 ke dalam dari baris hujung, cari β, V<sub>Ed,red</sub> dan V<sub>Rd,c</sub>.");
+                "Satu pile cap enam pile, dua baris tiga pile segi empat sama " + num(P.pp) + " mm pada 3φ, selebar " + num(P.B) + " mm dan sedalam " + num(P.h) + " mm, di bawah column segi empat sama " + num(P.c) + " mm dengan N<sub>Ed</sub> = " + num(P.N) + " kN (tiada moment). Bar sepanjang panjang, H" + num(P.phi) + " di lapisan luar (cover 75 mm), dibengkokkan ke atas dan di-anchor melepasi pile tetapi tidak melepasi shear section sejauh l<sub>bd</sub> + d. C30/37. Pada section merentas lebar, φ/5 ke dalam dari baris hujung, cari β, V<sub>Ed,red</sub> dan V<sub>Rd,c</sub>.");
       return bi("A four-pile cap " + num(P.B) + " mm square and " + num(P.h) + " mm deep carries N<sub>Ed</sub> = " + num(P.N) + " kN from a " + num(P.c) + " mm square column; the piles are " + num(P.pp) + " mm in diameter at 3φ. The tie bars, H" + num(P.phi) + " in two layers (d to the upper layer, cover 75 mm), are bent up and anchored beyond the piles but do not run l<sub>bd</sub> + d past the shear section. C30/37. Find β, the reduced shear V<sub>Ed,red</sub> and V<sub>Rd,c</sub> at the section φ/5 inside the piles.",
-                "Satu pile cap empat pile " + num(P.B) + " mm segi empat sama dan sedalam " + num(P.h) + " mm memikul N<sub>Ed</sub> = " + num(P.N) + " kN daripada column " + num(P.c) + " mm segi empat sama; pile berdiameter " + num(P.pp) + " mm pada 3φ. Bar tie, H" + num(P.phi) + " dalam dua lapisan (d ke lapisan atas, cover 75 mm), dibengkokkan ke atas dan di-anchor melepasi pile tetapi tidak melepasi section ricih sejauh l<sub>bd</sub> + d. C30/37. Cari β, ricih terkurang V<sub>Ed,red</sub> dan V<sub>Rd,c</sub> pada section φ/5 ke dalam dari muka pile.");
+                "Satu pile cap empat pile " + num(P.B) + " mm segi empat sama dan sedalam " + num(P.h) + " mm memikul N<sub>Ed</sub> = " + num(P.N) + " kN daripada column " + num(P.c) + " mm segi empat sama; pile berdiameter " + num(P.pp) + " mm pada 3φ. Bar tie, H" + num(P.phi) + " dalam dua lapisan (d ke lapisan atas, cover 75 mm), dibengkokkan ke atas dan di-anchor melepasi pile tetapi tidak melepasi shear section sejauh l<sub>bd</sub> + d. C30/37. Cari β, shear terkurang V<sub>Ed,red</sub> dan V<sub>Rd,c</sub> pada section φ/5 ke dalam dari muka pile.");
     },
     fields: [{ id: "beta", label: ["β", "β"], unit: "", fn: function (P) { return P.beta; }, rtol: 0.01, atol: 0.003 },
              { id: "vr", label: ["V<sub>Ed,red</sub>", "V<sub>Ed,red</sub>"], unit: "kN", fn: function (P) { return P.Vr; }, rtol: 0.01 },
@@ -189,7 +189,7 @@
     },
     text: function (P) {
       return bi("A " + num(P.c) + " mm square column brings N<sub>Ed</sub> = " + num(P.N) + " kN and M<sub>Ed</sub> = " + num(P.M) + " kN m onto a pile cap " + num(P.h) + " mm deep, cover 75 mm, H" + num(P.phi) + " bars (mean d = h − c − φ), C30/37. Find the factor β for the moment (k = 0.6) and the shear stress at the column face, v<sub>Ed,0</sub>.",
-                "Satu column " + num(P.c) + " mm segi empat sama membawa N<sub>Ed</sub> = " + num(P.N) + " kN dan M<sub>Ed</sub> = " + num(P.M) + " kN m ke atas pile cap sedalam " + num(P.h) + " mm, cover 75 mm, bar H" + num(P.phi) + " (d purata = h − c − φ), C30/37. Cari faktor β bagi moment (k = 0.6) dan tegasan ricih di muka column, v<sub>Ed,0</sub>.");
+                "Satu column " + num(P.c) + " mm segi empat sama membawa N<sub>Ed</sub> = " + num(P.N) + " kN dan M<sub>Ed</sub> = " + num(P.M) + " kN m ke atas pile cap sedalam " + num(P.h) + " mm, cover 75 mm, bar H" + num(P.phi) + " (d purata = h − c − φ), C30/37. Cari faktor β bagi moment (k = 0.6) dan stress shear di muka column, v<sub>Ed,0</sub>.");
     },
     fields: [{ id: "beta", label: ["β", "β"], unit: "", fn: function (P) { return P.beta; }, rtol: 0.005, atol: 0.002 },
              { id: "v", label: ["v<sub>Ed,0</sub>", "v<sub>Ed,0</sub>"], unit: "N/mm²", fn: function (P) { return P.v; }, rtol: 0.01 }],

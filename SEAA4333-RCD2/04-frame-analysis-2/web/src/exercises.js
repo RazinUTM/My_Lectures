@@ -47,8 +47,8 @@
     fields: [{ id: "a", label: ["F<sub>BA</sub>", "F<sub>BA</sub>"], unit: "", fn: function (P) { return P.F1; }, rtol: 0.01 },
              { id: "c", label: ["F<sub>BC</sub>", "F<sub>BC</sub>"], unit: "", fn: function (P) { return P.F2; }, rtol: 0.01 },
              { id: "u", label: ["F<sub>c,u</sub>", "F<sub>c,u</sub>"], unit: "", fn: function (P) { return P.Fu; }, rtol: 0.01 }],
-    hints: [function () { return bi("K = 10I/L for every member, with I = bh³/12 in 10⁹ mm⁴: the beams with their spans, the columns with their storey heights.", "K = 10I/L bagi setiap anggota, dengan I = bh³/12 dalam 10⁹ mm⁴: beam dengan span-nya, column dengan ketinggian tingkatnya."); },
-            function () { return bi("In the one-level sub-frame every beam keeps its full K (no ¾, no ½), and the two columns are members of the joint.", "Dalam one-level sub-frame setiap beam mengekalkan K penuhnya (tiada ¾, tiada ½), dan dua column ialah anggota joint."); },
+    hints: [function () { return bi("K = 10I/L for every member, with I = bh³/12 in 10⁹ mm⁴: the beams with their spans, the columns with their storey heights.", "K = 10I/L bagi setiap member, dengan I = bh³/12 dalam 10⁹ mm⁴: beam dengan span-nya, column dengan ketinggian tingkatnya."); },
+            function () { return bi("In the one-level sub-frame every beam keeps its full K (no ¾, no ½), and the two columns are members of the joint.", "Dalam one-level sub-frame setiap beam mengekalkan K penuhnya (tiada ¾, tiada ½), dan dua column ialah member joint."); },
             function () { return bi("F = K/ΣK with ΣK = K<sub>AB</sub> + K<sub>BC</sub> + K<sub>c,u</sub> + K<sub>c,l</sub>; the four factors add up to 1.", "F = K/ΣK dengan ΣK = K<sub>AB</sub> + K<sub>BC</sub> + K<sub>c,u</sub> + K<sub>c,l</sub>; empat faktor berjumlah 1."); }],
     solution: function (P) {
       return sol([kLine(P, "K<sub>AB</sub> = 10 × " + f3(P.Ib) + "/" + P.L1 + " = " + f3(P.K1) + ", K<sub>BC</sub> = 10 × " + f3(P.Ib) + "/" + P.L2 + " = " + f3(P.K2) + ", "),
@@ -77,7 +77,7 @@
              { id: "u", label: ["balance in the upper column", "imbangan dalam column atas"], unit: "kN m", fn: function (P) { return P.bu; }, rtol: 0.015, atol: 0.2 }],
     hints: [function () { return bi("A is a joint with columns, not a pin: AB keeps its full K, and ΣK at A = K<sub>AB</sub> + K<sub>c,u</sub> + K<sub>c,l</sub>.", "A ialah joint dengan column, bukan pin: AB mengekalkan K penuhnya, dan ΣK di A = K<sub>AB</sub> + K<sub>c,u</sub> + K<sub>c,l</sub>."); },
             function () { return bi("At A only AB brings a fixed-end moment: FEM<sub>AB</sub> = −wL²/12 (left end, clockwise positive), so U = FEM<sub>AB</sub>.", "Di A hanya AB membawa fixed-end moment: FEM<sub>AB</sub> = −wL²/12 (hujung kiri, positif mengikut arah jam), jadi U = FEM<sub>AB</sub>."); },
-            function () { return bi("Each member takes −F × U: positive here, since U is negative.", "Setiap anggota mengambil −F × U: positif di sini, kerana U negatif."); }],
+            function () { return bi("Each member takes −F × U: positive here, since U is negative.", "Setiap member mengambil −F × U: positif di sini, kerana U negatif."); }],
     solution: function (P) {
       return sol([kLine(P, "K<sub>AB</sub> = 10 × " + f3(P.Ib) + "/" + P.L + " = " + f3(P.K) + ", "),
         "ΣK<sub>A</sub> = " + f3(P.K) + " + " + f3(P.Kcu) + " + " + f3(P.Kcl) + " = " + f3(P.S) + "; F<sub>AB</sub> = " + f3(P.F) + ", F<sub>c,u</sub> = " + f3(P.Fu),
@@ -198,7 +198,7 @@
              { id: "u", label: ["balance in the upper column at B", "imbangan dalam column atas di B"], unit: "kN m", fn: function (P) { return P.bBu; }, rtol: 0.015, atol: 0.2 }],
     hints: [function () { return bi("ΣK at A = K<sub>AB</sub> + K<sub>c,u</sub> + K<sub>c,l</sub>; at B add ½K<sub>BC</sub> (the neighbour, fixed at C).", "ΣK di A = K<sub>AB</sub> + K<sub>c,u</sub> + K<sub>c,l</sub>; di B tambah ½K<sub>BC</sub> (jiran, fixed di C)."); },
             function () { return bi("FEM: AB −w<sub>1</sub>L<sub>1</sub>²/12 at A and +w<sub>1</sub>L<sub>1</sub>²/12 at B; BC −w<sub>2</sub>L<sub>2</sub>²/12 at B.", "FEM: AB −w<sub>1</sub>L<sub>1</sub>²/12 di A dan +w<sub>1</sub>L<sub>1</sub>²/12 di B; BC −w<sub>2</sub>L<sub>2</sub>²/12 di B."); },
-            function () { return bi("U<sub>A</sub> = FEM<sub>AB</sub>; U<sub>B</sub> = FEM<sub>BA</sub> + FEM<sub>BC</sub>; each member takes −F × U at its joint.", "U<sub>A</sub> = FEM<sub>AB</sub>; U<sub>B</sub> = FEM<sub>BA</sub> + FEM<sub>BC</sub>; setiap anggota mengambil −F × U di joint-nya."); }],
+            function () { return bi("U<sub>A</sub> = FEM<sub>AB</sub>; U<sub>B</sub> = FEM<sub>BA</sub> + FEM<sub>BC</sub>; each member takes −F × U at its joint.", "U<sub>A</sub> = FEM<sub>AB</sub>; U<sub>B</sub> = FEM<sub>BA</sub> + FEM<sub>BC</sub>; setiap member mengambil −F × U di joint-nya."); }],
     solution: function (P) {
       return sol([kLine(P, "K<sub>AB</sub> = " + f3(P.K1) + ", ½K<sub>BC</sub> = " + f3(P.K2h) + "; "),
         "ΣK<sub>A</sub> = " + f3(P.SA) + ", F<sub>AB</sub> = " + f3(P.FA) + "; ΣK<sub>B</sub> = " + f3(P.SB) + ", F<sub>BA</sub> = " + f3(P.FB) + ", F<sub>c,u</sub> = " + f3(P.FBu),

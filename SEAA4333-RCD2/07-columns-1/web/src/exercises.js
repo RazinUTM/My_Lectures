@@ -32,7 +32,7 @@
   }
   function kTxt(k1, fixed) { return fixed ? bi("k<sub>1</sub> = " + num("0.1") + " at the bottom (a base fixed into a footing designed for the moment)", "k<sub>1</sub> = " + num("0.1") + " di bawah (base yang fixed ke dalam footing yang di-design untuk moment)")
                                          : bi("k<sub>1</sub> = " + num(fmt(k1, 2)) + " at the bottom", "k<sub>1</sub> = " + num(fmt(k1, 2)) + " di bawah"); }
-  function curvTxt(dbl) { return dbl ? bi("tension on opposite faces (double curvature)", "tegangan pada muka bertentangan (double curvature)") : bi("tension on the same face (single curvature)", "tegangan pada muka yang sama (single curvature)"); }
+  function curvTxt(dbl) { return dbl ? bi("tension on opposite faces (double curvature)", "tension pada muka bertentangan (double curvature)") : bi("tension on the same face (single curvature)", "tension pada muka yang sama (single curvature)"); }
   function rmLines(c, L) {
     if (L.why === "unbraced") return [bi("Unbraced: r<sub>m</sub> = 1, C = 0.7, whatever the end moments", "Unbraced: r<sub>m</sub> = 1, C = 0.7, walau apa pun end moment-nya")];
     if (L.why === "none") return [bi("No end moments: the first-order moment is the imperfection only, r<sub>m</sub> = 1, C = 0.7", "Tiada end moment: first-order moment hanyalah imperfection, r<sub>m</sub> = 1, C = 0.7")];
@@ -55,13 +55,13 @@
       var beams = P.two ? bi("two beams " + num(P.bw + " × " + P.hb) + " spanning " + num(fmt(P.L1 / 1000, 1)) + " m and " + num(fmt(P.L2 / 1000, 1)) + " m frame in, one on each side", "dua beam " + num(P.bw + " × " + P.hb) + " dengan span " + num(fmt(P.L1 / 1000, 1)) + " m dan " + num(fmt(P.L2 / 1000, 1)) + " m masuk, satu pada setiap sisi")
                         : bi("one beam " + num(P.bw + " × " + P.hb) + " spanning " + num(fmt(P.L1 / 1000, 1)) + " m frames in from one side (an edge column)", "satu beam " + num(P.bw + " × " + P.hb) + " dengan span " + num(fmt(P.L1 / 1000, 1)) + " m masuk dari satu sisi (edge column)");
       return bi("A column " + num(P.b + " × " + P.h) + " (h = " + P.h + " mm in the plane of bending about z) runs between floors " + num(P.H) + " mm apart. At the end considered, in the plane of bending about " + P.ax + ", " + beams + ". Find K<sub>c</sub> = I/l of the column and ΣK<sub>b</sub> of the beams, both in units of 10⁵ mm³, and the relative flexibility k at this end.",
-                "Satu column " + num(P.b + " × " + P.h) + " (h = " + P.h + " mm dalam satah lenturan pada paksi z) berada di antara lantai yang berjarak " + num(P.H) + " mm. Di hujung yang dipertimbangkan, dalam satah lenturan pada paksi " + P.ax + ", " + beams + ". Cari K<sub>c</sub> = I/l bagi column dan ΣK<sub>b</sub> bagi beam, kedua-duanya dalam unit 10⁵ mm³, dan relative flexibility k di hujung ini.");
+                "Satu column " + num(P.b + " × " + P.h) + " (h = " + P.h + " mm dalam satah bending pada paksi z) berada di antara lantai yang berjarak " + num(P.H) + " mm. Di hujung yang dipertimbangkan, dalam satah bending pada paksi " + P.ax + ", " + beams + ". Cari K<sub>c</sub> = I/l bagi column dan ΣK<sub>b</sub> bagi beam, kedua-duanya dalam unit 10⁵ mm³, dan relative flexibility k di hujung ini.");
     },
     fields: [{ id: "kc", label: ["K<sub>c</sub>", "K<sub>c</sub>"], unit: "10⁵ mm³", fn: function (P) { return P.Kc / 1e5; }, rtol: 0.01 },
              { id: "kb", label: ["ΣK<sub>b</sub>", "ΣK<sub>b</sub>"], unit: "10⁵ mm³", fn: function (P) { return P.SKb / 1e5; }, rtol: 0.01 },
              { id: "k", label: ["k", "k"], fn: function (P) { return P.k; }, atol: 0.003, rtol: 0.02 }],
     hints: [function (P) { return bi("Clear height l = storey height − beam depth = " + P.H + " − " + P.hb + ". About " + P.ax + " the column’s I is " + (P.ax === "z" ? "bh³/12, with h = " + P.h : "hb³/12, with b = " + P.b + " now the side in the plane of bending") + ".",
-                                     "Clear height l = ketinggian tingkat − kedalaman beam = " + P.H + " − " + P.hb + ". Pada paksi " + P.ax + ", I column ialah " + (P.ax === "z" ? "bh³/12, dengan h = " + P.h : "hb³/12, dengan b = " + P.b + " kini sisi dalam satah lenturan") + "."); },
+                                     "Clear height l = ketinggian tingkat − kedalaman beam = " + P.H + " − " + P.hb + ". Pada paksi " + P.ax + ", I column ialah " + (P.ax === "z" ? "bh³/12, dengan h = " + P.h : "hb³/12, dengan b = " + P.b + " kini sisi dalam satah bending") + "."); },
             function () { return bi("K = I/l for the column; each beam gives (b<sub>w</sub>h<sub>b</sub>³/12)/L with its own span.", "K = I/l bagi column; setiap beam memberi (b<sub>w</sub>h<sub>b</sub>³/12)/L dengan span-nya sendiri."); },
             function () { return bi("k = K<sub>c</sub>/(2ΣK<sub>b</sub>), and never less than 0.1 (EC2 5.8.3.2(3) note).", "k = K<sub>c</sub>/(2ΣK<sub>b</sub>), dan tidak pernah kurang daripada 0.1 (nota EC2 5.8.3.2(3))."); }],
     solution: function (P) {
@@ -113,12 +113,12 @@
     gen: function (r) { var b = pick(r, [250, 300, 350]), h = step(r, b + 50, 600, 50), l0z = step(r, 1800, 4500, 10), l0y = Math.round(l0z * (0.85 + 0.3 * r()) / 10) * 10;
       return { b: b, h: h, l0z: l0z, l0y: l0y, iz: h / Math.sqrt(12), iy: b / Math.sqrt(12) }; },
     text: function (P) { return bi("A column " + num(P.b + " × " + P.h) + " has effective lengths l<sub>0,z</sub> = " + num(P.l0z) + " mm (bending about z, with h = " + P.h + " mm in that plane) and l<sub>0,y</sub> = " + num(P.l0y) + " mm. Find the radius of gyration i<sub>y</sub> and the slenderness ratios λ<sub>z</sub> and λ<sub>y</sub>.",
-                                     "Satu column " + num(P.b + " × " + P.h) + " mempunyai effective length l<sub>0,z</sub> = " + num(P.l0z) + " mm (lenturan pada paksi z, dengan h = " + P.h + " mm dalam satah itu) dan l<sub>0,y</sub> = " + num(P.l0y) + " mm. Cari radius of gyration i<sub>y</sub> dan slenderness ratio λ<sub>z</sub> dan λ<sub>y</sub>."); },
+                                     "Satu column " + num(P.b + " × " + P.h) + " mempunyai effective length l<sub>0,z</sub> = " + num(P.l0z) + " mm (bending pada paksi z, dengan h = " + P.h + " mm dalam satah itu) dan l<sub>0,y</sub> = " + num(P.l0y) + " mm. Cari radius of gyration i<sub>y</sub> dan slenderness ratio λ<sub>z</sub> dan λ<sub>y</sub>."); },
     fields: [{ id: "iy", label: ["i<sub>y</sub>", "i<sub>y</sub>"], unit: "mm", fn: function (P) { return P.iy; }, rtol: 0.005 },
              { id: "lz", label: ["λ<sub>z</sub>", "λ<sub>z</sub>"], fn: function (P) { return P.l0z / P.iz; }, rtol: 0.008 },
              { id: "ly", label: ["λ<sub>y</sub>", "λ<sub>y</sub>"], fn: function (P) { return P.l0y / P.iy; }, rtol: 0.008 }],
-    hints: [function () { return bi("i = √(I/A); for a rectangle i = (side in the plane of bending)/√12.", "i = √(I/A); bagi segi empat tepat i = (sisi dalam satah lenturan)/√12."); },
-            function (P) { return bi("About z the side in the plane of bending is h = " + P.h + " mm; about y it is b = " + P.b + " mm.", "Pada paksi z sisi dalam satah lenturan ialah h = " + P.h + " mm; pada paksi y ialah b = " + P.b + " mm."); },
+    hints: [function () { return bi("i = √(I/A); for a rectangle i = (side in the plane of bending)/√12.", "i = √(I/A); bagi segi empat tepat i = (sisi dalam satah bending)/√12."); },
+            function (P) { return bi("About z the side in the plane of bending is h = " + P.h + " mm; about y it is b = " + P.b + " mm.", "Pada paksi z sisi dalam satah bending ialah h = " + P.h + " mm; pada paksi y ialah b = " + P.b + " mm."); },
             function () { return bi("λ = l<sub>0</sub>/i about each axis, each with its own l<sub>0</sub>.", "λ = l<sub>0</sub>/i pada setiap paksi, masing-masing dengan l<sub>0</sub> sendiri."); }],
     solution: function (P) { return sol(["i<sub>z</sub> = " + P.h + "/√12 = " + fmt(P.iz, 1) + " mm; λ<sub>z</sub> = " + P.l0z + "/" + fmt(P.iz, 1) + " = " + fmt(P.l0z / P.iz, 1),
       "i<sub>y</sub> = " + P.b + "/√12 = " + fmt(P.iy, 1) + " mm; λ<sub>y</sub> = " + P.l0y + "/" + fmt(P.iy, 1) + " = " + fmt(P.l0y / P.iy, 1),
@@ -170,7 +170,7 @@
     fields: [{ id: "lam", label: ["λ", "λ"], fn: function (P) { return P.lam; }, rtol: 0.01 },
              { id: "lim", label: ["λ<sub>lim</sub>", "λ<sub>lim</sub>"], fn: function (P) { return P.L.lim; }, rtol: 0.012 },
              { id: "sl", label: ["Slender? (1 = yes, 0 = no)", "Slender? (1 = ya, 0 = tidak)"], fn: function (P) { return P.lam > P.L.lim ? 1 : 0; }, atol: 0, rtol: 0 }],
-    hints: [function () { return bi("l<sub>0</sub> by Eq. (7.2); i = (side in the plane of bending)/√12; λ = l<sub>0</sub>/i.", "l<sub>0</sub> dengan Eq. (7.2); i = (sisi dalam satah lenturan)/√12; λ = l<sub>0</sub>/i."); },
+    hints: [function () { return bi("l<sub>0</sub> by Eq. (7.2); i = (side in the plane of bending)/√12; λ = l<sub>0</sub>/i.", "l<sub>0</sub> dengan Eq. (7.2); i = (sisi dalam satah bending)/√12; λ = l<sub>0</sub>/i."); },
             function (P) { return bi("Imperfection check: N<sub>Ed</sub>l<sub>0</sub>/400 = " + fmt(P.L.Mi, 2) + " kN m against the larger end moment.", "Semakan imperfection: N<sub>Ed</sub>l<sub>0</sub>/400 = " + fmt(P.L.Mi, 2) + " kN m berbanding end moment yang lebih besar."); },
             function () { return bi("Slender when λ &gt; λ<sub>lim</sub>.", "Slender apabila λ &gt; λ<sub>lim</sub>."); }],
     solution: function (P) { var L = P.L;

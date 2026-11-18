@@ -60,7 +60,7 @@
    "view": "notes",
    "anchor": "n4",
    "title_en": "4. Shear: the section at φ/5 and the enhancement",
-   "title_ms": "4. Ricih: section pada φ/5 dan enhancement",
+   "title_ms": "4. Shear: section pada φ/5 dan enhancement",
    "minutes": 9
   },
   {
@@ -76,7 +76,7 @@
    "view": "notes",
    "anchor": "n6",
    "title_en": "6. Crack control and detailing",
-   "title_ms": "6. Kawalan retak dan perincian",
+   "title_ms": "6. Crack control dan detailing",
    "minutes": 6
   },
   {
@@ -322,7 +322,7 @@
    "view": "exercises",
    "anchor": "b5",
    "title_en": "Exercise B5 · Shear at the φ/5 section",
-   "title_ms": "Latihan B5 · Ricih pada section φ/5"
+   "title_ms": "Latihan B5 · Shear pada section φ/5"
   },
   {
    "id": "exercises-b6",
@@ -353,7 +353,7 @@
    "anchor": null,
    "selector": ".tk[data-ms=\"floor\"]",
    "title_en": "Explorer task 2: Tab 6, Activity 12B: predict what happens to the reduced shear…",
-   "title_ms": "Tugasan Explorer 2: Tab 6, Aktiviti 12B: ramal apa yang berlaku kepada ricih terkur…"
+   "title_ms": "Tugasan Explorer 2: Tab 6, Aktiviti 12B: ramal apa yang berlaku kepada shear terkur…"
   },
   {
    "id": "lab-deepen",

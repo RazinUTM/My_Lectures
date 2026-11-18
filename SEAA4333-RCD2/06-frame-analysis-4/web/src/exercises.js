@@ -99,13 +99,13 @@
              { id: "n", label: ["N<sub>A</sub>", "N<sub>A</sub>"], unit: "kN", fn: function (P) { return P.NA; }, rtol: 0.015 }],
     hints: [function () { return bi("Equal areas: <span style='text-decoration:overline'>x</span> is the average position. Cut the top storey at mid-height: M<sub>o</sub> = F × h/2.", "Luas sama: <span style='text-decoration:overline'>x</span> ialah purata kedudukan. Potong tingkat teratas di tengah ketinggian: M<sub>o</sub> = F × h/2."); },
             function () { return bi("r<sub>i</sub> = d<sub>i</sub>/d<sub>min</sub>; P = M<sub>o</sub>/Σ|r||d|.", "r<sub>i</sub> = d<sub>i</sub>/d<sub>min</sub>; P = M<sub>o</sub>/Σ|r||d|."); },
-            function () { return bi("N<sub>A</sub> = |r<sub>A</sub>| P, in tension (windward side).", "N<sub>A</sub> = |r<sub>A</sub>| P, dalam tegangan (sisi windward)."); }],
+            function () { return bi("N<sub>A</sub> = |r<sub>A</sub>| P, in tension (windward side).", "N<sub>A</sub> = |r<sub>A</sub>| P, dalam tension (sisi windward)."); }],
     solution: function (P) {
       var r = P.d.map(function (v) { return v / P.dmin; });
       return sol(["<span style='text-decoration:overline'>x</span> = (" + P.x.map(function (v) { return fmt(v, 1); }).join(" + ") + ")/" + P.n + " = " + f2(P.xbar) + " m; d = " + P.d.map(f2).join(", ") + " m",
         "r = " + r.map(f2).join(", ") + "; Σ|r||d| = " + f2(P.srd) + " m",
         "M<sub>o</sub> = " + fmt(P.F, 1) + " × " + fmt(P.h / 2, 2) + " = " + f2(P.Mo) + " kN m; P = " + f2(P.Mo) + "/" + f2(P.srd) + " = " + f3(P.P) + " kN",
-        "N<sub>A</sub> = " + f2(Math.abs(r[0])) + " × " + f3(P.P) + " = " + f2(P.NA) + " kN " + bi("(tension)", "(tegangan)")]);
+        "N<sub>A</sub> = " + f2(Math.abs(r[0])) + " × " + f3(P.P) + " = " + f2(P.NA) + " kN " + bi("(tension)", "(tension)")]);
     }
   });
 
@@ -135,12 +135,12 @@
     fields: [{ id: "f", label: ["F<sub>AB</sub>", "F<sub>AB</sub>"], unit: "kN", fn: function (P) { return P.FAB; }, rtol: 0.015 },
              { id: "h", label: ["H<sub>A</sub>", "H<sub>A</sub>"], unit: "kN", fn: function (P) { return P.HA; }, rtol: 0.015 }],
     hints: [function () { return bi("First the axial force in A: <span style='text-decoration:overline'>x</span>, the ratios r = d/d<sub>min</sub>, P = M<sub>o</sub>/Σ|r||d| with M<sub>o</sub> = F h/2.", "Mula-mula axial force dalam A: <span style='text-decoration:overline'>x</span>, nisbah r = d/d<sub>min</sub>, P = M<sub>o</sub>/Σ|r||d| dengan M<sub>o</sub> = F h/2."); },
-            function () { return bi("The part left of the cut through beam AB at mid-span holds column A only: the beam shear balances N<sub>A</sub>.", "Bahagian di kiri keratan beam AB di tengah span hanya mengandungi column A: shear beam mengimbangi N<sub>A</sub>."); },
-            function () { return bi("Moments about the beam cut for the same part: H<sub>A</sub> × h/2 = N<sub>A</sub> × L<sub>AB</sub>/2.", "Moment terhadap keratan beam bagi bahagian yang sama: H<sub>A</sub> × h/2 = N<sub>A</sub> × L<sub>AB</sub>/2."); }],
+            function () { return bi("The part left of the cut through beam AB at mid-span holds column A only: the beam shear balances N<sub>A</sub>.", "Bahagian di kiri beam section AB di tengah span hanya mengandungi column A: shear beam mengimbangi N<sub>A</sub>."); },
+            function () { return bi("Moments about the beam cut for the same part: H<sub>A</sub> × h/2 = N<sub>A</sub> × L<sub>AB</sub>/2.", "Moment terhadap beam section bagi bahagian yang sama: H<sub>A</sub> × h/2 = N<sub>A</sub> × L<sub>AB</sub>/2."); }],
     solution: function (P) {
       var r = P.d.map(function (v) { return v / P.dmin; });
       return sol(["<span style='text-decoration:overline'>x</span> = " + f2(P.xbar) + " m; d = " + P.d.map(f2).join(", ") + " m; r = " + r.map(f2).join(", ") + "; Σ|r||d| = " + f2(P.srd) + " m",
-        "M<sub>o</sub> = " + fmt(P.F, 1) + " × " + fmt(P.h / 2, 2) + " = " + f2(P.Mo) + " kN m; P = " + f3(P.P) + " kN; N<sub>A</sub> = " + f2(P.NA) + " kN " + bi("(tension)", "(tegangan)"),
+        "M<sub>o</sub> = " + fmt(P.F, 1) + " × " + fmt(P.h / 2, 2) + " = " + f2(P.Mo) + " kN m; P = " + f3(P.P) + " kN; N<sub>A</sub> = " + f2(P.NA) + " kN " + bi("(tension)", "(tension)"),
         "F<sub>AB</sub> = N<sub>A</sub> = " + f2(P.FAB) + " kN",
         "H<sub>A</sub> = " + f2(P.NA) + " × " + fmt(P.L[0] / 2, 2) + "/" + fmt(P.h / 2, 2) + " = " + f2(P.HA) + " kN"]);
     }
@@ -186,13 +186,13 @@
     },
     text: function (P) {
       return bi("A three-storey frame carries design wind forces of " + num(fmt(P.F[0], 1)) + " kN at the roof (z = " + num(fmt(P.z[0], 1)) + " m), " + num(fmt(P.F[1], 1)) + " kN at level 2 (z = " + num(fmt(P.z[1], 1)) + " m) and " + num(fmt(P.F[2], 1)) + " kN at level 1 (z = " + num(fmt(P.z[2], 1)) + " m). The ground storey is " + num(fmt(P.hg, 1)) + " m high. Find the storey shear of the ground storey and the overturning moment about its cut at mid-height.",
-                "Sebuah frame tiga tingkat menanggung daya angin rekabentuk " + num(fmt(P.F[0], 1)) + " kN di bumbung (z = " + num(fmt(P.z[0], 1)) + " m), " + num(fmt(P.F[1], 1)) + " kN pada aras 2 (z = " + num(fmt(P.z[1], 1)) + " m) dan " + num(fmt(P.F[2], 1)) + " kN pada aras 1 (z = " + num(fmt(P.z[2], 1)) + " m). Tingkat bawah setinggi " + num(fmt(P.hg, 1)) + " m. Cari storey shear tingkat bawah dan overturning moment terhadap keratannya di tengah ketinggian.");
+                "Sebuah frame tiga tingkat menanggung design wind force " + num(fmt(P.F[0], 1)) + " kN di bumbung (z = " + num(fmt(P.z[0], 1)) + " m), " + num(fmt(P.F[1], 1)) + " kN pada aras 2 (z = " + num(fmt(P.z[1], 1)) + " m) dan " + num(fmt(P.F[2], 1)) + " kN pada aras 1 (z = " + num(fmt(P.z[2], 1)) + " m). Tingkat bawah setinggi " + num(fmt(P.hg, 1)) + " m. Cari storey shear tingkat bawah dan overturning moment terhadap section-nya di tengah ketinggian.");
     },
     fields: [{ id: "v", label: ["V", "V"], unit: "kN", fn: function (P) { return P.V; }, rtol: 0.01 },
              { id: "m", label: ["M<sub>o</sub>", "M<sub>o</sub>"], unit: "kN m", fn: function (P) { return P.Mo; }, rtol: 0.01 }],
-    hints: [function () { return bi("The cut is at the mid-height of the ground storey, z = h<sub>g</sub>/2.", "Keratan berada di tengah ketinggian tingkat bawah, z = h<sub>g</sub>/2."); },
-            function () { return bi("V = the sum of every force above the cut.", "V = jumlah setiap daya di atas keratan."); },
-            function () { return bi("M<sub>o</sub> = Σ F × (z − z<sub>cut</sub>): each lever arm from the cut, not from the ground.", "M<sub>o</sub> = Σ F × (z − z<sub>cut</sub>): setiap lengan tuas dari keratan, bukan dari tanah."); }],
+    hints: [function () { return bi("The cut is at the mid-height of the ground storey, z = h<sub>g</sub>/2.", "Section berada di tengah ketinggian tingkat bawah, z = h<sub>g</sub>/2."); },
+            function () { return bi("V = the sum of every force above the cut.", "V = jumlah setiap daya di atas section."); },
+            function () { return bi("M<sub>o</sub> = Σ F × (z − z<sub>cut</sub>): each lever arm from the cut, not from the ground.", "M<sub>o</sub> = Σ F × (z − z<sub>cut</sub>): setiap lengan tuas dari section, bukan dari tanah."); }],
     solution: function (P) {
       return sol(["z<sub>cut</sub> = " + fmt(P.hg, 1) + "/2 = " + fmt(P.zc, 2) + " m; V = " + P.F.map(function (v) { return fmt(v, 1); }).join(" + ") + " = " + f2(P.V) + " kN",
         "M<sub>o</sub> = " + P.F.map(function (v, k) { return fmt(v, 1) + " × " + fmt(P.z[k] - P.zc, 2); }).join(" + ") + " = " + f2(P.Mo) + " kN m"]);

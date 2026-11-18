@@ -36,7 +36,7 @@
     },
     text: function (P) {
       return bi("An interior frame beam spans " + num(P.L) + " m in " + caseName(P.cs) + ". The slab panels on its two sides are " + num(P.Ly1) + " m and " + num(P.Ly2) + " m wide, and the beam is a continuous edge of both. Slab " + num(P.hs) + " mm, finishes " + num(P.fin) + " kN/m², imposed load " + num(P.qi) + " and partitions " + num(P.qp) + " kN/m²; beam " + num(P.bb + " × " + P.hb) + "; concrete 25 kN/m³. Find G<sub>k</sub>, Q<sub>k</sub> and w<sub>max</sub> per metre of beam (RDF Table 3.15).",
-                "Satu beam frame dalaman merentang " + num(P.L) + " m dalam " + caseName(P.cs) + ". Panel slab di kedua-dua sisinya selebar " + num(P.Ly1) + " m dan " + num(P.Ly2) + " m, dan beam ialah tepi selanjar bagi kedua-duanya. Slab " + num(P.hs) + " mm, kemasan " + num(P.fin) + " kN/m², imposed load " + num(P.qi) + " dan partition " + num(P.qp) + " kN/m²; beam " + num(P.bb + " × " + P.hb) + "; konkrit 25 kN/m³. Cari G<sub>k</sub>, Q<sub>k</sub> dan w<sub>max</sub> per meter beam (RDF Table 3.15).");
+                "Satu beam frame dalaman merentang " + num(P.L) + " m dalam " + caseName(P.cs) + ". Panel slab di kedua-dua sisinya selebar " + num(P.Ly1) + " m dan " + num(P.Ly2) + " m, dan beam ialah tepi continuous bagi kedua-duanya. Slab " + num(P.hs) + " mm, kemasan " + num(P.fin) + " kN/m², imposed load " + num(P.qi) + " dan partition " + num(P.qp) + " kN/m²; beam " + num(P.bb + " × " + P.hb) + "; konkrit 25 kN/m³. Cari G<sub>k</sub>, Q<sub>k</sub> dan w<sub>max</sub> per meter beam (RDF Table 3.15).");
     },
     fields: [{ id: "g", label: ["G<sub>k</sub>", "G<sub>k</sub>"], unit: "kN/m", fn: function (P) { return P.Gk; }, rtol: 0.015 },
              { id: "q", label: ["Q<sub>k</sub>", "Q<sub>k</sub>"], unit: "kN/m", fn: function (P) { return P.Qk; }, rtol: 0.015 },
@@ -67,12 +67,12 @@
     },
     text: function (P) {
       return bi("The beams of one floor are analysed as a continuous beam. AB is an end span of " + num(P.L1) + " m, pinned at A, carrying " + num(fmt(P.w1, 1)) + " kN/m; BC is an interior span of " + num(P.L2) + " m carrying " + num(fmt(P.w2, 1)) + " kN/m. All beams have the same section. Find the distribution factor F<sub>BA</sub>, the out-of-balance moment at B in the first row (the fixed-end moments only), and the balancing moment given to BA, with its sign (clockwise positive).",
-                "Beam satu lantai dianalisis sebagai continuous beam. AB ialah span hujung " + num(P.L1) + " m, pin di A, memikul " + num(fmt(P.w1, 1)) + " kN/m; BC ialah span dalaman " + num(P.L2) + " m memikul " + num(fmt(P.w2, 1)) + " kN/m. Semua beam mempunyai keratan yang sama. Cari distribution factor F<sub>BA</sub>, moment tidak seimbang di B dalam baris pertama (fixed-end moment sahaja), dan balancing moment yang diberi kepada BA, dengan tandanya (positif mengikut arah jam).");
+                "Beam satu lantai dianalisis sebagai continuous beam. AB ialah span hujung " + num(P.L1) + " m, pin di A, memikul " + num(fmt(P.w1, 1)) + " kN/m; BC ialah span dalaman " + num(P.L2) + " m memikul " + num(fmt(P.w2, 1)) + " kN/m. Semua beam mempunyai section yang sama. Cari distribution factor F<sub>BA</sub>, moment tidak seimbang di B dalam baris pertama (fixed-end moment sahaja), dan balancing moment yang diberi kepada BA, dengan tandanya (positif mengikut arah jam).");
     },
     fields: [{ id: "f", label: ["F<sub>BA</sub>", "F<sub>BA</sub>"], unit: "", fn: function (P) { return P.F1; }, rtol: 0.01 },
              { id: "u", label: ["ΣM at B", "ΣM di B"], unit: "kN m", fn: function (P) { return P.U; }, rtol: 0.01, atol: 0.2 },
              { id: "b", label: ["balance at BA", "imbangan di BA"], unit: "kN m", fn: function (P) { return P.b1; }, rtol: 0.015, atol: 0.2 }],
-    hints: [function () { return bi("K ∝ I/L; the same section, so K ∝ 1/L. AB has a pinned far end: use ¾ of its K.", "K ∝ I/L; keratan yang sama, jadi K ∝ 1/L. AB mempunyai hujung jauh pin: gunakan ¾ daripada K-nya."); },
+    hints: [function () { return bi("K ∝ I/L; the same section, so K ∝ 1/L. AB has a pinned far end: use ¾ of its K.", "K ∝ I/L; section yang sama, jadi K ∝ 1/L. AB mempunyai hujung jauh pin: gunakan ¾ daripada K-nya."); },
             function () { return bi("At B: FEM<sub>BA</sub> = +w<sub>1</sub>L<sub>1</sub>²/12 (right end of AB), FEM<sub>BC</sub> = −w<sub>2</sub>L<sub>2</sub>²/12 (left end of BC); ΣM is their sum.", "Di B: FEM<sub>BA</sub> = +w<sub>1</sub>L<sub>1</sub>²/12 (hujung kanan AB), FEM<sub>BC</sub> = −w<sub>2</sub>L<sub>2</sub>²/12 (hujung kiri BC); ΣM ialah jumlahnya."); },
             function () { return bi("The balancing moment at BA is −ΣM × F<sub>BA</sub>: it has the opposite sign to the out-of-balance moment.", "Balancing moment di BA ialah −ΣM × F<sub>BA</sub>: tandanya bertentangan dengan moment tidak seimbang."); }],
     solution: function (P) {
@@ -95,7 +95,7 @@
     },
     text: function (P) {
       return bi("A two-span beam ABC rests on knife-edge supports, pinned at A and C. AB = " + num(P.L1) + " m carries w<sub>max</sub> = " + num(fmt(P.w1, 1)) + " kN/m and BC = " + num(P.L2) + " m carries w<sub>min</sub> = " + num(fmt(P.w2, 1)) + " kN/m; the section is the same throughout. Find the hogging moment at B, the reaction at A and the largest sagging moment in AB.",
-                "Satu beam dua span ABC bertumpu pada knife-edge support, pin di A dan C. AB = " + num(P.L1) + " m memikul w<sub>max</sub> = " + num(fmt(P.w1, 1)) + " kN/m dan BC = " + num(P.L2) + " m memikul w<sub>min</sub> = " + num(fmt(P.w2, 1)) + " kN/m; keratan sama di sepanjangnya. Cari hogging moment di B, reaction di A dan sagging moment terbesar dalam AB.");
+                "Satu beam dua span ABC bertumpu pada knife-edge support, pin di A dan C. AB = " + num(P.L1) + " m memikul w<sub>max</sub> = " + num(fmt(P.w1, 1)) + " kN/m dan BC = " + num(P.L2) + " m memikul w<sub>min</sub> = " + num(fmt(P.w2, 1)) + " kN/m; section sama di sepanjangnya. Cari hogging moment di B, reaction di A dan sagging moment terbesar dalam AB.");
     },
     fields: [{ id: "m", label: ["M<sub>B</sub>", "M<sub>B</sub>"], unit: "kN m", fn: function (P) { return P.MB; }, rtol: 0.01 },
              { id: "v", label: ["V<sub>A</sub>", "V<sub>A</sub>"], unit: "kN", fn: function (P) { return P.VA; }, rtol: 0.01 },

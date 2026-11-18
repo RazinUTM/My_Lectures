@@ -76,7 +76,7 @@
         "P<sub>s,s</sub> = ½ × " + fmt(P.Ka, 4) + " × " + P.gs + " × " + fmt(P.h3, 1) + "² = " + fmt(P.Ps, 2) + " kN; P<sub>q,s</sub> = " + fmt(P.Ka, 4) + " × " + P.w + " × " + fmt(P.h3, 1) + " = " + fmt(P.Pq, 2) + " kN",
         "M<sub>Ed</sub> = 1.35 × " + fmt(P.Ps, 2) + " × " + fmt(P.h3, 1) + "/3 + 1.5 × " + fmt(P.Pq, 2) + " × " + fmt(P.h3, 1) + "/2 = " + fmt(P.M, 1) + " kN m/m",
         "V<sub>Ed</sub> = 1.35 × " + fmt(P.Ps, 2) + " + 1.5 × " + fmt(P.Pq, 2) + " = " + fmt(P.V, 1) + " kN/m",
-        bi("Tension is on the earth face; the base thickness plays no part here (Notes §3).", "Tegangan berada di muka tanah; ketebalan base tidak terlibat di sini (Nota §3).")]);
+        bi("Tension is on the earth face; the base thickness plays no part here (Notes §3).", "Tension berada di muka tanah; ketebalan base tidak terlibat di sini (Nota §3).")]);
     }
   });
 

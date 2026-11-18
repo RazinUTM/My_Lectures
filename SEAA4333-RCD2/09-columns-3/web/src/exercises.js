@@ -23,7 +23,7 @@
       return { l0: l0, N: N, Mt: Mt, Mb: Mb, dbl: dbl, ei: ei, Mi: Mi, M02: M02, M0e: M0e, floor: 0.4 * M02 > 0.6 * Mt + (dbl ? -0.4 : 0.4) * Mb + Mi };
     },
     text: function (P) {
-      var c = P.dbl ? bi("tension on opposite faces (double curvature)", "tegangan pada muka bertentangan (double curvature)") : bi("tension on the same face (single curvature)", "tegangan pada muka yang sama (single curvature)");
+      var c = P.dbl ? bi("tension on opposite faces (double curvature)", "tension pada muka bertentangan (double curvature)") : bi("tension on the same face (single curvature)", "tension pada muka yang sama (single curvature)");
       return bi("A braced slender column has l<sub>0</sub> = " + num(P.l0) + " mm and N<sub>Ed</sub> = " + num(P.N) + " kN; its first-order end moments are " + num(P.Mt) + " and " + num(P.Mb) + " kN m, " + c + ". With the course reading of the imperfection, find e<sub>i</sub>, M<sub>02</sub> and the equivalent moment M<sub>0e</sub>.",
                 "Satu column slender braced mempunyai l<sub>0</sub> = " + num(P.l0) + " mm dan N<sub>Ed</sub> = " + num(P.N) + " kN; first-order end moment-nya ialah " + num(P.Mt) + " dan " + num(P.Mb) + " kN m, " + c + ". Dengan bacaan imperfection kursus, cari e<sub>i</sub>, M<sub>02</sub> dan equivalent moment M<sub>0e</sub>.");
     },
@@ -50,7 +50,7 @@
     },
     text: function (P) {
       return bi("A slender column in " + num(CLS[P.fck]) + " concrete has λ = " + num(fmt(P.lam, 1)) + " about the axis of bending. EC2 Annex B gives φ(∞,t<sub>0</sub>) = " + num(fmt(P.phi, 2)) + ", and the quasi-permanent share of the first-order moment is M<sub>0Eqp</sub>/M<sub>0Ed</sub> = " + num(P.rq) + ". Find φ<sub>ef</sub>, β and K<sub>φ</sub>.",
-                "Satu column slender daripada konkrit " + num(CLS[P.fck]) + " mempunyai λ = " + num(fmt(P.lam, 1)) + " pada paksi lenturan. EC2 Annex B memberi φ(∞,t<sub>0</sub>) = " + num(fmt(P.phi, 2)) + ", dan bahagian quasi-permanent first-order moment ialah M<sub>0Eqp</sub>/M<sub>0Ed</sub> = " + num(P.rq) + ". Cari φ<sub>ef</sub>, β dan K<sub>φ</sub>.");
+                "Satu column slender daripada konkrit " + num(CLS[P.fck]) + " mempunyai λ = " + num(fmt(P.lam, 1)) + " pada paksi bending. EC2 Annex B memberi φ(∞,t<sub>0</sub>) = " + num(fmt(P.phi, 2)) + ", dan bahagian quasi-permanent first-order moment ialah M<sub>0Eqp</sub>/M<sub>0Ed</sub> = " + num(P.rq) + ". Cari φ<sub>ef</sub>, β dan K<sub>φ</sub>.");
     },
     fields: [{ id: "phief", label: ["φ<sub>ef</sub>", "φ<sub>ef</sub>"], unit: "", fn: function (P) { return P.phief; }, rtol: 0.01 },
              { id: "beta", label: ["β", "β"], unit: "", fn: function (P) { return P.beta; }, rtol: 0.01, atol: 0.003 },
@@ -74,7 +74,7 @@
     },
     text: function (P) {
       return bi("A slender column with B500 bars has d = " + num(P.d) + " mm in the plane of bending and l<sub>0</sub> = " + num(P.l0) + " mm; N<sub>Ed</sub> = " + num(P.N) + " kN, K<sub>r</sub> = " + num(fmt(P.Kr, 2)) + " and K<sub>φ</sub> = " + num(fmt(P.Kphi, 2)) + ". Find 1/r<sub>0</sub> (in 10⁻⁵ per mm), e<sub>2</sub> and M<sub>2</sub>.",
-                "Satu column slender dengan bar B500 mempunyai d = " + num(P.d) + " mm dalam satah lenturan dan l<sub>0</sub> = " + num(P.l0) + " mm; N<sub>Ed</sub> = " + num(P.N) + " kN, K<sub>r</sub> = " + num(fmt(P.Kr, 2)) + " dan K<sub>φ</sub> = " + num(fmt(P.Kphi, 2)) + ". Cari 1/r<sub>0</sub> (dalam 10⁻⁵ per mm), e<sub>2</sub> dan M<sub>2</sub>.");
+                "Satu column slender dengan bar B500 mempunyai d = " + num(P.d) + " mm dalam satah bending dan l<sub>0</sub> = " + num(P.l0) + " mm; N<sub>Ed</sub> = " + num(P.N) + " kN, K<sub>r</sub> = " + num(fmt(P.Kr, 2)) + " dan K<sub>φ</sub> = " + num(fmt(P.Kphi, 2)) + ". Cari 1/r<sub>0</sub> (dalam 10⁻⁵ per mm), e<sub>2</sub> dan M<sub>2</sub>.");
     },
     fields: [{ id: "r0", label: ["1/r<sub>0</sub>", "1/r<sub>0</sub>"], unit: "×10⁻⁵ /mm", fn: function (P) { return P.r0 * 1e5; }, rtol: 0.01 },
              { id: "e2", label: ["e<sub>2</sub>", "e<sub>2</sub>"], unit: "mm", fn: function (P) { return P.e2; }, rtol: 0.01 },
@@ -100,9 +100,9 @@
       return { h: h, l0: l0, N: N, Mt: Mt, Mb: Mb, dbl: dbl, M2: M2, Mi: Mi, M02: M02, M01: M01, M0e: M0e, Me0: Me0, MEd: g[1], gov: g[0] };
     },
     text: function (P) {
-      var c = P.dbl ? bi("tension on opposite faces", "tegangan pada muka bertentangan") : bi("tension on the same face", "tegangan pada muka yang sama");
+      var c = P.dbl ? bi("tension on opposite faces", "tension pada muka bertentangan") : bi("tension on the same face", "tension pada muka yang sama");
       return bi("A braced slender column has h = " + num(P.h) + " mm in the plane of bending, l<sub>0</sub> = " + num(P.l0) + " mm and N<sub>Ed</sub> = " + num(P.N) + " kN; its end moments are " + num(P.Mt) + " and " + num(P.Mb) + " kN m, " + c + ". Its second-order moment is M<sub>2</sub> = " + num(fmt(P.M2, 1)) + " kN m. Find M<sub>0e</sub>, M<sub>01</sub> + 0.5M<sub>2</sub> and the design moment M<sub>Ed</sub>.",
-                "Satu column slender braced mempunyai h = " + num(P.h) + " mm dalam satah lenturan, l<sub>0</sub> = " + num(P.l0) + " mm dan N<sub>Ed</sub> = " + num(P.N) + " kN; end moment-nya ialah " + num(P.Mt) + " dan " + num(P.Mb) + " kN m, " + c + ". Second-order moment-nya ialah M<sub>2</sub> = " + num(fmt(P.M2, 1)) + " kN m. Cari M<sub>0e</sub>, M<sub>01</sub> + 0.5M<sub>2</sub> dan design moment M<sub>Ed</sub>.");
+                "Satu column slender braced mempunyai h = " + num(P.h) + " mm dalam satah bending, l<sub>0</sub> = " + num(P.l0) + " mm dan N<sub>Ed</sub> = " + num(P.N) + " kN; end moment-nya ialah " + num(P.Mt) + " dan " + num(P.Mb) + " kN m, " + c + ". Second-order moment-nya ialah M<sub>2</sub> = " + num(fmt(P.M2, 1)) + " kN m. Cari M<sub>0e</sub>, M<sub>01</sub> + 0.5M<sub>2</sub> dan design moment M<sub>Ed</sub>.");
     },
     fields: [{ id: "m0e", label: ["M<sub>0e</sub>", "M<sub>0e</sub>"], unit: "kN m", fn: function (P) { return P.M0e; }, rtol: 0.01, atol: 0.2 },
              { id: "m01", label: ["M<sub>01</sub> + 0.5M<sub>2</sub>", "M<sub>01</sub> + 0.5M<sub>2</sub>"], unit: "kN m", fn: function (P) { return P.M01 + 0.5 * P.M2; }, rtol: 0.01 },

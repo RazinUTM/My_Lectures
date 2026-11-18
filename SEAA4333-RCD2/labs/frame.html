@@ -403,12 +403,12 @@ input[type=range].xs{width:100%;accent-color:var(--flight);margin:6px 0 2px}
             </div>
           </div>
           <div class="kv" id="mKV"></div>
-          <p class="note" data-ms="Moment hujung positif mengikut arah jam pada hujung anggota, seperti dalam nota: −wL²/12 di hujung kiri span, +wL²/12 di hujung kanan.">End moments are clockwise positive on the member end, as in the notes: −wL²/12 at the left end of a span, +wL²/12 at the right end.</p>
+          <p class="note" data-ms="Moment hujung positif mengikut arah jam pada hujung member, seperti dalam nota: −wL²/12 di hujung kiri span, +wL²/12 di hujung kanan.">End moments are clockwise positive on the member end, as in the notes: −wL²/12 at the left end of a span, +wL²/12 at the right end.</p>
         </div>
         <div class="col">
           <div class="task" id="act3b">
             <span class="tag" data-ms="Aktiviti 3B · berpasangan · 8 min">Activity 3B · pairs · 8 min</span>
-            <p data-ms="Kes 1 Worked Example 3.1 (Workbook 3.3). Sebelum setiap baris imbangan, taip balancing moment di B bagi anggota BA, kemudian tekan &lt;i&gt;Baris seterusnya&lt;/i&gt;. Tiga betul berturut-turut melengkapkan aktiviti ini.">Case 1 of Worked Example 3.1 (Workbook 3.3). Before each balancing row, type the balancing moment at B in member BA, then press <i>Next row</i>. Three right in a row complete the activity.</p>
+            <p data-ms="Kes 1 Worked Example 3.1 (Workbook 3.3). Sebelum setiap baris imbangan, taip balancing moment di B bagi member BA, kemudian tekan &lt;i&gt;Baris seterusnya&lt;/i&gt;. Tiga betul berturut-turut melengkapkan aktiviti ini.">Case 1 of Worked Example 3.1 (Workbook 3.3). Before each balancing row, type the balancing moment at B in member BA, then press <i>Next row</i>. Three right in a row complete the activity.</p>
             <div class="fields" style="margin-top:10px"><label for="mPred" data-ms="Imbangan seterusnya di BA">Next balance at BA</label><input id="mPred" type="number" step="0.01"><span class="u">kN m</span></div>
           </div>
           <div class="steps">
@@ -1271,7 +1271,7 @@ function sWhyRow(row, R){
     const beams = []; if (q > 0) beams.push(`${J[R.off + q]}${J[R.off + q - 1]} ${f2(row.v[2 * q - 1])}`); if (q < R.sIdx.length) beams.push(`${J[R.off + q]}${J[R.off + q + 1]} ${f2(row.v[2 * q])}`);
     parts.push(Lg(`at ${J[R.off + q]} ΣM = ${f2(row.U[q])}: ${beams.join(', ')}; columns ${f2(row.cu[q])} ↑ and ${f2(row.cl[q])} ↓`, `di ${J[R.off + q]} ΣM = ${f2(row.U[q])}: ${beams.join(', ')}; column ${f2(row.cu[q])} ↑ dan ${f2(row.cl[q])} ↓`));
   });
-  return Lg('Balance, −F × ΣM for every member: ', 'Imbangi, −F × ΣM bagi setiap anggota: ') + parts.join('; ') + '.';
+  return Lg('Balance, −F × ΣM for every member: ', 'Imbangi, −F × ΣM bagi setiap member: ') + parts.join('; ') + '.';
 }
 function sDoneText(fr, R, r, rc){
   const e = sPredEnd(R), d = Math.abs(r.final[e] - rc.final[e]);
@@ -1617,7 +1617,7 @@ const S3SHEET = {
   ],
   [
    "Sections",
-   "Keratan",
+   "Section",
    "slab 150 mm; beams 300 × 600; columns 300 × 450, 450 in the plane of the frame; at the first floor the storey below is 4.0 m and the storey above 3.5 m",
    "slab 150 mm; beam 300 × 600; column 300 × 450, 450 dalam satah frame; di tingkat satu, tingkat di bawah 4.0 m dan tingkat di atas 3.5 m"
   ],
@@ -1823,7 +1823,7 @@ const S4SHEET = {
   ],
   [
    "Sections",
-   "Keratan",
+   "Section",
    "beams 300 × 600; columns 300 × 450, 450 in the plane of the frame; the storey above the floor 3.5 m, below 4.0 m",
    "beam 300 × 600; column 300 × 450, 450 dalam satah frame; tingkat di atas lantai 3.5 m, di bawah 4.0 m"
   ],

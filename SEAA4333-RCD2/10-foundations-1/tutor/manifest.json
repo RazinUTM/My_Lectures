@@ -60,7 +60,7 @@
    "view": "notes",
    "anchor": "n4",
    "title_en": "4. Critical sections: bending, shear, punching",
-   "title_ms": "4. Section kritikal: lenturan, ricih, punching",
+   "title_ms": "4. Section kritikal: bending, shear, punching",
    "minutes": 10
   },
   {
@@ -76,7 +76,7 @@
    "view": "notes",
    "anchor": "n6",
    "title_en": "6. Strip footings and detailing",
-   "title_ms": "6. Strip footing dan perincian",
+   "title_ms": "6. Strip footing dan detailing",
    "minutes": 6
   },
   {
@@ -308,7 +308,7 @@
    "view": "exercises",
    "anchor": "b4",
    "title_en": "Exercise B4 · Vertical shear at d",
-   "title_ms": "Latihan B4 · Ricih menegak pada d"
+   "title_ms": "Latihan B4 · Vertical shear pada d"
   },
   {
    "id": "exercises-b5",

@@ -294,7 +294,7 @@
    "view": "exercises",
    "anchor": "b2",
    "title_en": "Exercise B2 · Strap: zero shear and the largest moment",
-   "title_ms": "Latihan B2 · Strap: ricih sifar dan moment terbesar"
+   "title_ms": "Latihan B2 · Strap: shear sifar dan moment terbesar"
   },
   {
    "id": "exercises-b3",
@@ -354,7 +354,7 @@
    "anchor": null,
    "selector": ".tk[data-ms=\"strapv\"]",
    "title_en": "Explorer task 3: Tab 4: switch the diagram to shear for case F7",
-   "title_ms": "Tugasan Explorer 3: Tab 4: tukar diagram kepada ricih bagi kes F7"
+   "title_ms": "Tugasan Explorer 3: Tab 4: tukar diagram kepada shear bagi kes F7"
   },
   {
    "id": "lab-piles",

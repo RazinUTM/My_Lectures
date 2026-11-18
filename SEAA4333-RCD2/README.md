@@ -27,8 +27,9 @@ Each Unit page is built on the lecturer's T&L app template: a header with breadc
 and the settings buttons (BM/EN · theme · text size · screen guide); seven tabs (Start with the plan before,
 in and after class; Notes with quick checks; Slides; Examples in answer-scheme form; Exercises with new
 numbers on every attempt; Explorer; Glossary); Dr RJ, the guide panel; and the licence footer.
-Explanations switch between English and Bahasa Melayu; technical terms stay in English. The printed
-workbook stays the book students write in during class.
+Explanations switch between English and Bahasa Melayu; technical terms stay in English (`glossary-bm.md`
+lists the terms and the everyday Malay words that stay Malay). The printed workbook stays the book students
+write in during class.
 
 ## Folder layout
 

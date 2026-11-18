@@ -340,7 +340,7 @@ input[type=range].xs{width:100%;accent-color:var(--flight);margin:6px 0 2px}
             </div>
           </div>
           <div class="group">
-            <span class="label" data-ms="Beam dalam satah lenturan pada paksi z">Beams in the plane of bending about z</span>
+            <span class="label" data-ms="Beam dalam satah bending pada paksi z">Beams in the plane of bending about z</span>
             <div class="fields">
               <label for="lzb" data-ms="Lebar">Width</label><input id="lzb" type="number" min="100" max="1000" step="25"><span class="u">mm</span>
               <label for="lzh" data-ms="Kedalaman">Depth</label><input id="lzh" type="number" min="0" max="1500" step="25"><span class="u">mm</span>
@@ -349,7 +349,7 @@ input[type=range].xs{width:100%;accent-color:var(--flight);margin:6px 0 2px}
             </div>
           </div>
           <div class="group">
-            <span class="label" data-ms="Beam dalam satah lenturan pada paksi y">Beams in the plane of bending about y</span>
+            <span class="label" data-ms="Beam dalam satah bending pada paksi y">Beams in the plane of bending about y</span>
             <div class="fields">
               <label for="lyb" data-ms="Lebar">Width</label><input id="lyb" type="number" min="100" max="1000" step="25"><span class="u">mm</span>
               <label for="lyh" data-ms="Kedalaman">Depth</label><input id="lyh" type="number" min="0" max="1500" step="25"><span class="u">mm</span>
@@ -477,7 +477,7 @@ input[type=range].xs{width:100%;accent-color:var(--flight);margin:6px 0 2px}
             <span class="label" data-ms="Section, simetri pada dua muka">Section, symmetric at two faces</span>
             <div class="fields">
               <label for="nb" data-ms="Lebar b">Width b</label><input id="nb" type="number" min="150" max="1200" step="25"><span class="u">mm</span>
-              <label for="nh" data-ms="Kedalaman h (satah lenturan)">Depth h (plane of bending)</label><input id="nh" type="number" min="150" max="1500" step="25"><span class="u">mm</span>
+              <label for="nh" data-ms="Kedalaman h (satah bending)">Depth h (plane of bending)</label><input id="nh" type="number" min="150" max="1500" step="25"><span class="u">mm</span>
               <label for="nfck">f<sub>ck</sub></label><select id="nfck"><option>25</option><option>30</option><option>35</option><option>40</option><option>45</option><option>50</option></select><span class="u">N/mm²</span>
               <label for="nn" data-ms="Bar pada setiap muka">Bars at each face</label><select id="nn"><option>2</option><option>3</option><option>4</option><option>5</option></select><span class="u"></span>
               <label for="nphi" data-ms="Diameter bar">Bar diameter</label><select id="nphi"><option>12</option><option>16</option><option>20</option><option>25</option><option>32</option><option>40</option></select><span class="u">mm</span>
@@ -532,17 +532,17 @@ input[type=range].xs{width:100%;accent-color:var(--flight);margin:6px 0 2px}
         <div class="col">
           <div class="head">
             <h2 data-ms="Design column pendek">Design a short column</h2>
-            <p class="lede" data-ms="Kaedah kursus Unit 8: M<sub>Ed</sub> dengan e<sub>i</sub> dan e<sub>0</sub>; design chart bagi d<sub>2</sub>/h anda atau yang lebih besar berikutnya; A<sub>s,min</sub>, A<sub>s,max</sub>; bar; semakan terus M<sub>Rd</sub> ≥ M<sub>Ed</sub>; link. Lenturan pada satu paksi; column mesti non-slender pada paksi itu (Unit 7).">The course method of Unit 8: M<sub>Ed</sub> with e<sub>i</sub> and e<sub>0</sub>; the design chart for your d<sub>2</sub>/h or the next larger; A<sub>s,min</sub>, A<sub>s,max</sub>; bars; the direct check M<sub>Rd</sub> ≥ M<sub>Ed</sub>; links. Bending about one axis; the column must be non-slender about it (Unit 7).</p>
+            <p class="lede" data-ms="Kaedah kursus Unit 8: M<sub>Ed</sub> dengan e<sub>i</sub> dan e<sub>0</sub>; design chart bagi d<sub>2</sub>/h anda atau yang lebih besar berikutnya; A<sub>s,min</sub>, A<sub>s,max</sub>; bar; semakan terus M<sub>Rd</sub> ≥ M<sub>Ed</sub>; link. Bending pada satu paksi; column mesti non-slender pada paksi itu (Unit 7).">The course method of Unit 8: M<sub>Ed</sub> with e<sub>i</sub> and e<sub>0</sub>; the design chart for your d<sub>2</sub>/h or the next larger; A<sub>s,min</sub>, A<sub>s,max</sub>; bars; the direct check M<sub>Rd</sub> ≥ M<sub>Ed</sub>; links. Bending about one axis; the column must be non-slender about it (Unit 7).</p>
           </div>
           <div class="group">
             <label class="label" for="dCase" data-ms="Kes">Case</label>
             <select id="dCase" class="full"></select>
           </div>
           <div class="group">
-            <span class="label" data-ms="Column dan beban">Column and loads</span>
+            <span class="label" data-ms="Column dan load">Column and loads</span>
             <div class="fields">
               <label for="db" data-ms="Lebar b">Width b</label><input id="db" type="number" min="150" max="1200" step="25"><span class="u">mm</span>
-              <label for="dh" data-ms="Kedalaman h (satah lenturan)">Depth h (plane of bending)</label><input id="dh" type="number" min="150" max="1500" step="25"><span class="u">mm</span>
+              <label for="dh" data-ms="Kedalaman h (satah bending)">Depth h (plane of bending)</label><input id="dh" type="number" min="150" max="1500" step="25"><span class="u">mm</span>
               <label for="dfck">f<sub>ck</sub></label><select id="dfck"><option>25</option><option>30</option><option>35</option><option>40</option><option>45</option><option>50</option></select><span class="u">N/mm²</span>
               <label for="dl0">l<sub>0</sub></label><input id="dl0" type="number" min="500" max="15000" step="10"><span class="u">mm</span>
               <label for="dN">N<sub>Ed</sub></label><input id="dN" type="number" min="0" max="30000" step="10"><span class="u">kN</span>
@@ -596,10 +596,10 @@ input[type=range].xs{width:100%;accent-color:var(--flight);margin:6px 0 2px}
             <select id="sCase" class="full"></select>
           </div>
           <div class="group">
-            <span class="label" data-ms="Column, beban dan creep (satu paksi)">Column, loads and creep (one axis)</span>
+            <span class="label" data-ms="Column, load dan creep (satu paksi)">Column, loads and creep (one axis)</span>
             <div class="fields">
               <label for="sb_b" data-ms="Lebar b">Width b</label><input id="sb_b" type="number" min="150" max="1200" step="25"><span class="u">mm</span>
-              <label for="sb_h" data-ms="Kedalaman h (satah lenturan)">Depth h (plane of bending)</label><input id="sb_h" type="number" min="150" max="1500" step="25"><span class="u">mm</span>
+              <label for="sb_h" data-ms="Kedalaman h (satah bending)">Depth h (plane of bending)</label><input id="sb_h" type="number" min="150" max="1500" step="25"><span class="u">mm</span>
               <label for="sb_d">d</label><input id="sb_d" type="number" min="100" max="1450" step="0.5"><span class="u">mm</span>
               <label for="sb_fck">f<sub>ck</sub></label><select id="sb_fck"><option>25</option><option>30</option><option>35</option><option>40</option><option>45</option><option>50</option></select><span class="u">N/mm²</span>
               <label for="sb_l0">l<sub>0</sub></label><input id="sb_l0" type="range" min="1000" max="9000" step="10"><output id="sb_l0o" class="u"></output>
@@ -1016,8 +1016,8 @@ el('aReveal').addEventListener('click', () => {
 
 /* ===================== 2 THE RACE ===================== */
 const RACE = [
-  {en: 'Braced (lift core and walls). 300 × 300, l = 3.3 m, k₁ = k₂ = 0.1. N<sub>Ed</sub> 1300, C30/37. Moments 40 and 20, tension on opposite faces.', ms: 'Braced (lift core dan wall). 300 × 300, l = 3.3 m, k₁ = k₂ = 0.1. N<sub>Ed</sub> 1300, C30/37. Moment 40 dan 20, tegangan pada muka bertentangan.', l0: 1950, lam: 22.5, lim: 36.8, sl: false, why: ['rₘ = −0.5, C = 2.2', 'rₘ = −0.5, C = 2.2']},
-  {en: 'As card 1, but the moments 40 and 20 give tension on the same face.', ms: 'Seperti kad 1, tetapi moment 40 dan 20 memberi tegangan pada muka yang sama.', l0: 1950, lam: 22.5, lim: 20.0, sl: true, why: ['rₘ = +0.5, C = 1.2', 'rₘ = +0.5, C = 1.2']},
+  {en: 'Braced (lift core and walls). 300 × 300, l = 3.3 m, k₁ = k₂ = 0.1. N<sub>Ed</sub> 1300, C30/37. Moments 40 and 20, tension on opposite faces.', ms: 'Braced (lift core dan wall). 300 × 300, l = 3.3 m, k₁ = k₂ = 0.1. N<sub>Ed</sub> 1300, C30/37. Moment 40 dan 20, tension pada muka bertentangan.', l0: 1950, lam: 22.5, lim: 36.8, sl: false, why: ['rₘ = −0.5, C = 2.2', 'rₘ = −0.5, C = 2.2']},
+  {en: 'As card 1, but the moments 40 and 20 give tension on the same face.', ms: 'Seperti kad 1, tetapi moment 40 dan 20 memberi tension pada muka yang sama.', l0: 1950, lam: 22.5, lim: 20.0, sl: true, why: ['rₘ = +0.5, C = 1.2', 'rₘ = +0.5, C = 1.2']},
   {en: 'As card 1, with no end moments from the analysis (balanced spans).', ms: 'Seperti kad 1, tanpa end moment daripada analisis (span seimbang).', l0: 1950, lam: 22.5, lim: 11.7, sl: true, why: ['no end moments: rₘ = 1, C = 0.7', 'tiada end moment: rₘ = 1, C = 0.7']},
   {en: 'Bare frame, no walls: ground floor, fixed base. 300 × 400, major axis, l = 3.0 m, k₁ = 0.1, k₂ = 0.4. N<sub>Ed</sub> 1600, C30/37. Moments 90 and 75, opposite faces.', ms: 'Frame tanpa wall: tingkat bawah, fixed base. 300 × 400, major axis, l = 3.0 m, k₁ = 0.1, k₂ = 0.4. N<sub>Ed</sub> 1600, C30/37. Moment 90 dan 75, muka bertentangan.', l0: 4208, lam: 36.4, lim: 12.2, sl: true, why: ['unbraced: Eq. 5.16, C = 0.7', 'unbraced: Eq. 5.16, C = 0.7']},
   {en: 'Braced, top storey. 300 × 300, l = 3.0 m, k₁ = k₂ = 0.3. N<sub>Ed</sub> 250, C30/37. Moments 60 and 30, opposite faces.', ms: 'Braced, tingkat teratas. 300 × 300, l = 3.0 m, k₁ = k₂ = 0.3. N<sub>Ed</sub> 250, C30/37. Moment 60 dan 30, muka bertentangan.', l0: 2100, lam: 24.2, lim: 83.8, sl: false, why: ['n = 0.163: a light load, a high limit', 'n = 0.163: load ringan, had tinggi']},
@@ -1069,7 +1069,7 @@ const S7 = [
   {ref: 'n', calc: ['n = N<sub>Ed</sub>/(A<sub>c</sub>f<sub>ck</sub>) = 1650 × 10³/(100 000 × 30)', 'n = N<sub>Ed</sub>/(A<sub>c</sub>f<sub>ck</sub>) = 1650 × 10³/(100 000 × 30)'], out: 'n = 0.550', slip: true,
    fix: ['n uses f<sub>cd</sub> = 0.85 × 30/1.5 = 17.0: n = 1650 × 10³/(100 000 × 17.0) = 0.971.', 'n menggunakan f<sub>cd</sub> = 0.85 × 30/1.5 = 17.0: n = 1650 × 10³/(100 000 × 17.0) = 0.971.']},
   {ref: 'C = 1.7 − rₘ', calc: ['rₘ = −18/30 = −0.6 (double curvature); C = 1.7 + 0.6', 'rₘ = −18/30 = −0.6 (double curvature); C = 1.7 + 0.6'], out: 'C = 2.3', slip: true,
-   fix: ['The moments give tension on the same face: single curvature, rₘ = +0.6, C = 1.1. (30 &gt; N<sub>Ed</sub>l₀/400 = 9.9, so the moments, not the imperfection, decide.)', 'Moment memberi tegangan pada muka yang sama: single curvature, rₘ = +0.6, C = 1.1. (30 &gt; N<sub>Ed</sub>l₀/400 = 9.9, jadi moment, bukan imperfection, yang menentukan.)']},
+   fix: ['The moments give tension on the same face: single curvature, rₘ = +0.6, C = 1.1. (30 &gt; N<sub>Ed</sub>l₀/400 = 9.9, so the moments, not the imperfection, decide.)', 'Moment memberi tension pada muka yang sama: single curvature, rₘ = +0.6, C = 1.1. (30 &gt; N<sub>Ed</sub>l₀/400 = 9.9, jadi moment, bukan imperfection, yang menentukan.)']},
   {ref: 'λ<sub>lim</sub>', calc: ['λ<sub>lim</sub> = 20 × 0.7 × 1.1 × 2.3/√0.550', 'λ<sub>lim</sub> = 20 × 0.7 × 1.1 × 2.3/√0.550'], out: 'λ<sub>lim</sub> = 47.8', slip: false,
    fix: ['Follows from lines 7 and 8: 20 × 0.7 × 1.1 × 1.1/√0.971 = 17.2.', 'Akibat baris 7 dan 8: 20 × 0.7 × 1.1 × 1.1/√0.971 = 17.2.']},
   {ref: '', calc: ['λ = 23.0 &lt; 47.8: non-slender; second-order effects ignored', 'λ = 23.0 &lt; 47.8: non-slender; second-order effect diabaikan'], out: 'non-slender', slip: false,
@@ -1282,7 +1282,7 @@ function paintB(){
   out.hidden = false; out.className = 'verdict ' + (right ? 'ok' : 'bad');
   out.innerHTML = (right ? Lg('<b>Right: B.</b> ', '<b>Betul: B.</b> ') : Lg('<b>Not quite: the answer is B.</b> ', '<b>Belum tepat: jawapannya B.</b> ')) +
     Lg(`The steel falls from ${f(a1, 0)} to ${f(a2, 0)} mm². Below the balance load (about 640 kN here) extra compression helps the section carry the moment. Beyond balance the steel rises again. So a column below balance must also be checked with its smallest axial load.`,
-       `Steel turun daripada ${f(a1, 0)} kepada ${f(a2, 0)} mm². Di bawah balance load (kira-kira 640 kN di sini) mampatan tambahan membantu section membawa moment. Selepas balance, steel naik semula. Jadi column di bawah balance juga mesti disemak dengan axial load terkecil.`);
+       `Steel turun daripada ${f(a1, 0)} kepada ${f(a2, 0)} mm². Di bawah balance load (kira-kira 640 kN di sini) compression tambahan membantu section membawa moment. Selepas balance, steel naik semula. Jadi column di bawah balance juga mesti disemak dengan axial load terkecil.`);
   box.hidden = false; drawB();
 }
 const BCH = {w: 640, h: 300, l: 64, r: 20, t: 18, b: 46};
@@ -1432,16 +1432,16 @@ const SHEETS = {
   s7: {rows: null, key: 'seaa4333-lab-column-s7', ms: 's7', title: ['Spot the error: Column S7', 'Cari kesilapan: Column S7'],
        lede: ['A submitted slenderness check about the minor axis of a braced column. It contains four slips. Find them all before you look at the answer.', 'Semakan slenderness yang dihantar bagi minor axis sebuah column braced. Ia mengandungi empat kesilapan. Cari kesemuanya sebelum melihat jawapan.'],
        tag: ['After class · Unit 7 · Explorer task 6', 'Selepas kelas · Unit 7 · Explorer tugasan 6'],
-       given: [['Column', 'Column', 'Braced, 250 × 400 (h = 400 mm in the plane of bending about z); C30/37', 'Braced, 250 × 400 (h = 400 mm dalam satah lenturan pada paksi z); C30/37'],
-               ['Floors', 'Lantai', '4.5 m apart; beams 250 × 450 spanning 5.0 m frame in on both sides in the plane of bending about y, at both floors', '4.5 m antara satu sama lain; beam 250 × 450 dengan span 5.0 m masuk pada kedua-dua sisi dalam satah lenturan pada paksi y, di kedua-dua lantai'],
+       given: [['Column', 'Column', 'Braced, 250 × 400 (h = 400 mm in the plane of bending about z); C30/37', 'Braced, 250 × 400 (h = 400 mm dalam satah bending pada paksi z); C30/37'],
+               ['Floors', 'Lantai', '4.5 m apart; beams 250 × 450 spanning 5.0 m frame in on both sides in the plane of bending about y, at both floors', '4.5 m antara satu sama lain; beam 250 × 450 dengan span 5.0 m masuk pada kedua-dua sisi dalam satah bending pada paksi y, di kedua-dua lantai'],
                ['Load', 'Load', 'N<sub>Ed</sub> = 1650 kN', 'N<sub>Ed</sub> = 1650 kN'],
-               ['Moments (y)', 'Moment (y)', '30 kN m at the top, 18 kN m at the bottom, tension on the same face', '30 kN m di atas, 18 kN m di bawah, tegangan pada muka yang sama']]},
+               ['Moments (y)', 'Moment (y)', '30 kN m at the top, 18 kN m at the bottom, tension on the same face', '30 kN m di atas, 18 kN m di bawah, tension pada muka yang sama']]},
   s8: {rows: S8, key: 'seaa4333-lab-column-s8', ms: 's8', title: ['Spot the error: Column S8', 'Cari kesilapan: Column S8'],
-       lede: ['A submitted design of a short column for bending about z. It contains four slips. Find them all before you look at the answer.', 'Design column pendek yang dihantar bagi lenturan pada paksi z. Ia mengandungi empat kesilapan. Cari kesemuanya sebelum melihat jawapan.'],
+       lede: ['A submitted design of a short column for bending about z. It contains four slips. Find them all before you look at the answer.', 'Design column pendek yang dihantar bagi bending pada paksi z. Ia mengandungi empat kesilapan. Cari kesemuanya sebelum melihat jawapan.'],
        tag: ['After class · Unit 8 · Explorer task 6', 'Selepas kelas · Unit 8 · Explorer tugasan 6'],
        given: [['Column', 'Column', 'Braced interior column 300 × 300; l<sub>0</sub> = 3.0 m; C30/37, B500; c<sub>nom</sub> = 30 mm, links H6', 'Column dalaman braced 300 × 300; l<sub>0</sub> = 3.0 m; C30/37, B500; c<sub>nom</sub> = 30 mm, link H6'],
                ['Load', 'Load', 'N<sub>Ed</sub> = 1500 kN', 'N<sub>Ed</sub> = 1500 kN'],
-               ['Moments (z)', 'Moment (z)', '15 kN m at the top, 10 kN m at the bottom, tension on opposite faces', '15 kN m di atas, 10 kN m di bawah, tegangan pada muka bertentangan']],
+               ['Moments (z)', 'Moment (z)', '15 kN m at the top, 10 kN m at the bottom, tension on opposite faces', '15 kN m di atas, 10 kN m di bawah, tension pada muka bertentangan']],
        summary: ['<b>Four slips, one unsafe column.</b> Lines 3 and 4 each halve the moment: submitted M<sub>Ed</sub> = 15.0 kN m, correct 30.0 kN m, where the minimum eccentricity governs. Line 7 uses d instead of h, which partly hides the error, and line 9 forgets the axial-load term of A<sub>s,min</sub>. The bars chosen, 4H12, carry only 28.8 kN m at 1500 kN: the column needs 4H16 (M<sub>Rd</sub> = 45.2 kN m) with H6-300 links, H6-175 near the floors and at the laps.',
                  '<b>Empat kesilapan, satu column yang tidak selamat.</b> Baris 3 dan 4 masing-masing mengurangkan moment separuh: M<sub>Ed</sub> yang dihantar 15.0 kN m, yang betul 30.0 kN m, tempat minimum eccentricity menentukan. Baris 7 menggunakan d dan bukan h, yang sebahagiannya menyembunyikan kesilapan itu, dan baris 9 terlupa sebutan axial load dalam A<sub>s,min</sub>. Bar yang dipilih, 4H12, hanya membawa 28.8 kN m pada 1500 kN: column itu memerlukan 4H16 (M<sub>Rd</sub> = 45.2 kN m) dengan link H6-300, H6-175 berhampiran lantai dan pada lap.']}
 };
@@ -1457,7 +1457,7 @@ function drawS8Fig(){
   S('rect', {x: x0 + 18, y: y0 + 18, width: w - 36, height: w - 36, fill: 'none', stroke: 'var(--ok)', rx: 5}, svg);
   [[0, 0], [1, 0], [0, 1], [1, 1]].forEach(([i, j]) => S('circle', {cx: x0 + 26 + i * (w - 52), cy: y0 + 26 + j * (w - 52), r: 6, fill: 'var(--ink-2)'}, svg));
   T(svg, x0 + w / 2, y0 + w + 26, '300 × 300', {'text-anchor': 'middle', class: 'small'});
-  T(svg, x0 + w / 2, y0 - 14, Lg('section, bending about z', 'section, lenturan pada paksi z'), {'text-anchor': 'middle', class: 'small'});
+  T(svg, x0 + w / 2, y0 - 14, Lg('section, bending about z', 'section, bending pada paksi z'), {'text-anchor': 'middle', class: 'small'});
   const mx = 380, top = 60, bot = 240, sc = 5;
   S('line', {x1: mx, x2: mx, y1: top, y2: bot, stroke: 'var(--ink-3)'}, svg);
   S('path', {d: `M${mx},${top} L${mx + 15 * sc},${top} L${mx - 10 * sc},${bot} L${mx},${bot} Z`, fill: 'var(--wash-flag)', stroke: 'var(--flight)', 'stroke-width': 1.5}, svg);
@@ -1816,11 +1816,11 @@ const S9 = [
    fix: ['Follows: 4H16 carry M<sub>Rd</sub> = 69.6 kN m &lt; M′<sub>Ed</sub> = 75.4 kN m (K′<sub>r</sub> = 0.536, d = 256 mm). 4H20 (1257 mm²) carry 85.7 kN m ≥ M′<sub>Ed</sub> = 79.0 kN m (K′<sub>r</sub> = 0.599).', 'Akibatnya: 4H16 membawa M<sub>Rd</sub> = 69.6 kN m &lt; M′<sub>Ed</sub> = 75.4 kN m (K′<sub>r</sub> = 0.536, d = 256 mm). 4H20 (1257 mm²) membawa 85.7 kN m ≥ M′<sub>Ed</sub> = 79.0 kN m (K′<sub>r</sub> = 0.599).']}
 ];
 SHEETS.s9 = {rows: S9, key: 'seaa4333-lab-column-s9', ms: 's9', title: ['Spot the error: Column S9', 'Cari kesilapan: Column S9'],
-  lede: ['A submitted second-order design of a slender braced column, bending about z. It contains four slips. Find them all before you look at the answer.', 'Design second-order yang dihantar bagi column braced yang slender, lenturan pada paksi z. Ia mengandungi empat kesilapan. Cari kesemuanya sebelum melihat jawapan.'],
+  lede: ['A submitted second-order design of a slender braced column, bending about z. It contains four slips. Find them all before you look at the answer.', 'Design second-order yang dihantar bagi column braced yang slender, bending pada paksi z. Ia mengandungi empat kesilapan. Cari kesemuanya sebelum melihat jawapan.'],
   tag: ['After class · Unit 9 · Explorer task 6', 'Selepas kelas · Unit 9 · Explorer tugasan 6'],
   given: [['Column', 'Column', 'Braced 300 × 300; l<sub>0</sub> = 4.5 m about z; C30/37, B500; c<sub>nom</sub> = 30 mm, links H6, so d = 254 mm with H20 bars', 'Braced 300 × 300; l<sub>0</sub> = 4.5 m pada paksi z; C30/37, B500; c<sub>nom</sub> = 30 mm, link H6, jadi d = 254 mm dengan bar H20'],
           ['Load', 'Load', 'N<sub>Ed</sub> = 1200 kN', 'N<sub>Ed</sub> = 1200 kN'],
-          ['Moments (z)', 'Moment (z)', '45 kN m at the top, 15 kN m at the bottom, tension on the same face', '45 kN m di atas, 15 kN m di bawah, tegangan pada muka yang sama'],
+          ['Moments (z)', 'Moment (z)', '45 kN m at the top, 15 kN m at the bottom, tension on the same face', '45 kN m di atas, 15 kN m di bawah, tension pada muka yang sama'],
           ['Creep', 'Creep', 'φ(∞,t<sub>0</sub>) = 1.706 (EC2 Annex B: RH 80 %, t<sub>0</sub> = 30 days, class R); M<sub>0Eqp</sub>/M<sub>0Ed</sub> = 0.67', 'φ(∞,t<sub>0</sub>) = 1.706 (EC2 Annex B: RH 80 %, t<sub>0</sub> = 30 hari, class R); M<sub>0Eqp</sub>/M<sub>0Ed</sub> = 0.67']],
   summary: ['<b>Four slips, one unsafe column.</b> Line 3 treats single curvature as double and halves M<sub>0e</sub>; line 5 uses φ(∞,t<sub>0</sub>) for φ<sub>ef</sub>; line 6 uses h for d; line 9 puts the design-chart ω into K<sub>r</sub>. Lines 5 and 6 partly cancel, but with M<sub>0e</sub> wrong, M<sub>02</sub> governs trial 2 and the steel falls to 513 mm². Correct: K<sub>r</sub> = 0.570, M<sub>2</sub> = 31.0 kN m, M<sub>Ed</sub> = 77.5 kN m (M<sub>0e</sub> + M<sub>2</sub>), A<sub>s</sub> = 1034 mm². The bars chosen, 4H16, carry 69.6 &lt; 75.4 kN m: the column needs 4H20 (85.7 ≥ 79.0 kN m) with H6-300 links, H6-175 near the floors and at the laps.',
             '<b>Empat kesilapan, satu column yang tidak selamat.</b> Baris 3 menganggap single curvature sebagai double dan mengurangkan M<sub>0e</sub> separuh; baris 5 menggunakan φ(∞,t<sub>0</sub>) bagi φ<sub>ef</sub>; baris 6 menggunakan h bagi d; baris 9 memasukkan ω design chart ke dalam K<sub>r</sub>. Baris 5 dan 6 sebahagiannya saling membatalkan, tetapi dengan M<sub>0e</sub> yang salah, M<sub>02</sub> menentukan cubaan 2 dan steel jatuh kepada 513 mm². Betul: K<sub>r</sub> = 0.570, M<sub>2</sub> = 31.0 kN m, M<sub>Ed</sub> = 77.5 kN m (M<sub>0e</sub> + M<sub>2</sub>), A<sub>s</sub> = 1034 mm². Bar yang dipilih, 4H16, membawa 69.6 &lt; 75.4 kN m: column itu memerlukan 4H20 (85.7 ≥ 79.0 kN m) dengan link H6-300, H6-175 berhampiran lantai dan pada lap.']};
@@ -1834,7 +1834,7 @@ function drawS9Fig(){
   S('rect', {x: x0 + 18, y: y0 + 18, width: w - 36, height: w - 36, fill: 'none', stroke: 'var(--ok)', rx: 5}, svg);
   [[0, 0], [1, 0], [0, 1], [1, 1]].forEach(([i, j]) => S('circle', {cx: x0 + 26 + i * (w - 52), cy: y0 + 26 + j * (w - 52), r: 6, fill: 'var(--ink-2)'}, svg));
   T(svg, x0 + w / 2, y0 + w + 26, '300 × 300', {'text-anchor': 'middle', class: 'small'});
-  T(svg, x0 + w / 2, y0 - 14, Lg('section, bending about z', 'section, lenturan pada paksi z'), {'text-anchor': 'middle', class: 'small'});
+  T(svg, x0 + w / 2, y0 - 14, Lg('section, bending about z', 'section, bending pada paksi z'), {'text-anchor': 'middle', class: 'small'});
   const mx = 360, top = 60, bot = 240, sc = 2.6;
   S('line', {x1: mx, x2: mx, y1: top, y2: bot, stroke: 'var(--ink-3)'}, svg);
   S('path', {d: `M${mx},${top} L${mx + 45 * sc},${top} L${mx + 15 * sc},${bot} L${mx},${bot} Z`, fill: 'var(--wash-flag)', stroke: 'var(--flight)', 'stroke-width': 1.5}, svg);

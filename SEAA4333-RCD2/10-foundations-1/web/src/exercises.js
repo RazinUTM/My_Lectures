@@ -30,7 +30,7 @@
     },
     text: function (P) {
       return bi("A column brings G<sub>k</sub> = " + num(P.Gk) + " kN and Q<sub>k</sub> = " + num(P.Qk) + " kN onto soil with an allowable bearing pressure of " + num(P.q) + " kN/m². The square pad will be " + num(P.h) + " mm thick. Taking the self-weight as 10% of the load at first, find the area required, the smallest side L (to 0.1 m) that passes the bearing check with the real self-weight, and the service pressure for that L.",
-                "Satu column membawa G<sub>k</sub> = " + num(P.Gk) + " kN dan Q<sub>k</sub> = " + num(P.Qk) + " kN ke atas tanah dengan allowable bearing pressure " + num(P.q) + " kN/m². Pad segi empat sama itu akan setebal " + num(P.h) + " mm. Dengan self-weight diambil 10% daripada load pada mulanya, cari luas yang diperlukan, sisi L terkecil (hingga 0.1 m) yang lulus semakan galas dengan self-weight sebenar, dan service pressure bagi L itu.");
+                "Satu column membawa G<sub>k</sub> = " + num(P.Gk) + " kN dan Q<sub>k</sub> = " + num(P.Qk) + " kN ke atas tanah dengan allowable bearing pressure " + num(P.q) + " kN/m². Pad segi empat sama itu akan setebal " + num(P.h) + " mm. Dengan self-weight diambil 10% daripada load pada mulanya, cari luas yang diperlukan, sisi L terkecil (hingga 0.1 m) yang lulus semakan bearing dengan self-weight sebenar, dan service pressure bagi L itu.");
     },
     fields: [{ id: "areq", label: ["A<sub>req</sub>", "A<sub>req</sub>"], unit: "m²", fn: function (P) { return P.Areq; }, rtol: 0.01 },
              { id: "L", label: ["L", "L"], unit: "m", fn: function (P) { return P.L; }, rtol: 0.004 },
@@ -125,7 +125,7 @@
       var s = vmin(P.d, P.fck); P.k = s.k; P.vmin = s.v; P.VR = s.v * b * P.d / 1000;
       return P;
     },
-    text: function (P) { return padText(P, "The bottom bars do not run l<sub>bd</sub> + d beyond the shear section, so ρ<sub>l</sub> = 0. Find the shear force at d from the column face, the size factor k, and the shear resistance V<sub>Rd,c</sub>.", "Bar bawah tidak menjangkau l<sub>bd</sub> + d melepasi section ricih, jadi ρ<sub>l</sub> = 0. Cari daya ricih pada d dari muka column, faktor saiz k, dan shear resistance V<sub>Rd,c</sub>."); },
+    text: function (P) { return padText(P, "The bottom bars do not run l<sub>bd</sub> + d beyond the shear section, so ρ<sub>l</sub> = 0. Find the shear force at d from the column face, the size factor k, and the shear resistance V<sub>Rd,c</sub>.", "Bar bawah tidak menjangkau l<sub>bd</sub> + d melepasi shear section, jadi ρ<sub>l</sub> = 0. Cari shear force pada d dari muka column, faktor saiz k, dan shear resistance V<sub>Rd,c</sub>."); },
     fields: [{ id: "v", label: ["V<sub>Ed</sub>", "V<sub>Ed</sub>"], unit: "kN", fn: function (P) { return P.V; }, rtol: 0.01 },
              { id: "k", label: ["k", "k"], unit: "", fn: function (P) { return P.k; }, rtol: 0.005 },
              { id: "vr", label: ["V<sub>Rd,c</sub>", "V<sub>Rd,c</sub>"], unit: "kN", fn: function (P) { return P.VR; }, rtol: 0.015 }],

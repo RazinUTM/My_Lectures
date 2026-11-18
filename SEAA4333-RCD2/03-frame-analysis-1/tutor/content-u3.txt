@@ -1,0 +1,516 @@
+# Unit 3 Frame Analysis I
+SEAA 4333 Reinforced Concrete Design II, Week 3. Units 1 and 2 designed one member at a time. In a building the beams and columns along each grid line work together as a frame: load one beam and its neighbours and the columns bend too. This Unit starts frame analysis by hand, for a braced frame under vertical load. It decides which spans to load for the worst moment at each section, works out the load each beam takes from the slab panels with Table 3.15, analyses the beams of one floor as a continuous beam by moment distribution, and finds the column moments from a small sub-frame at each joint. Which loading pattern gives the largest span moment? Notes, slides, model answers, exercises with new numbers on every attempt, and the Frame Lab.
+
+[start-outcomes] After this part you should be able to
+1. tell a braced frame from an unbraced one, and name the sub-frame the course uses for the beams of a floor, for one beam and for a column;
+2. arrange the variable load for the largest sagging and hogging moments, by Load Set 1 of EC2 and Load Set 2 of the Malaysian National Annex;
+3. work out the load on a frame beam from the slab panels on either side with Table 3.15;
+4. analyse the beams of a floor as a continuous beam by moment distribution, and find the shears, the span moments and the envelope;
+5. find the column moments by the one-free-joint sub-frame, and the moment the beam carries at an end support.
+
+[notes-n1] Notes 1. Frames and sub-frames
+Units 1 and 2 designed one member at a time: a flight, a landing. In a building the beams and columns along each grid line are cast together and work as a frame : a load on one beam bends its neighbours and the columns as well. Frame analysis finds the design moments and shears of the beams and the moments and axial forces of the columns. Units 3 to 6 do it by hand, with the simplified methods of the course.
+A building frame is three-dimensional, but it is analysed as a set of plane frames, one along each grid line. Each plane frame carries the load of the slab panels on either side of its beams (§3) and passes it down its columns to the foundations.
+Whether the frame also resists the wind decides the analysis it needs. In a braced frame , shear walls, a lift core or bracing carry all the horizontal load and keep the building stable; the beams and columns carry vertical load only. In an unbraced frame the beams and columns carry both, and the frame sways under the wind. Units 3 and 4 analyse braced frames under vertical load; Units 5 and 6 add the wind to an unbraced frame.
+[Figure: A plane frame along one grid line (left). Braced: the wall takes the wind and the frame carries vertical load. Unbraced: the frame takes the wind too, and sways.]
+Even a braced plane frame has many joints. The course follows the simplifications of BS 8110, which the faculty’s Design Rules and Formulae (RDF §11.0) keep for design to Eurocode 2: EC2 allows a structure to be idealised into parts (MS EN 1992-1-1, 5.1.1 and 5.3) but does not say how to cut a frame. There are three sub-frames, each with the far ends of its members fixed:
+- the one-level sub-frame : the beams of one floor with the columns just above and below it;
+- the two-free-joint sub-frame : one beam, the columns at its two ends, and the beams on either side at half their stiffness;
+- the continuous beam and one-free-joint sub-frame : the beams of one floor as a continuous beam on supports that do not restrain its rotation (knife-edge supports), for the beam moments; then, at each column, a sub-frame of that one joint with its columns and the beams either side at half stiffness, for the column moments.
+[Figure: The three sub-frames of RDF §11.0. This Unit uses the third: the continuous beam for the beams, and a one-free-joint sub-frame at each column. Unit 4 uses the first two and measures what the third misses.]
+The third method is the quickest by hand, and the course notes’ Example 4 uses it. It splits the work in two. The continuous beam finds the beam moments as if the columns held the beam up without holding it straight. The one-free-joint sub-frame then finds how much of the beam’s unbalanced load each column must take. The two answers are not exactly those of the whole frame, and §6 shows where they differ.
+Quick check (not graded): A building has a lift core that carries all the wind. What do the beams and columns of its frames carry?
+Options: Vertical and horizontal load: every frame shares the wind | Vertical load only: the frames are braced | Horizontal load only | Nothing: the core carries everything
+Explanation shown after answering: The core braces the frames: it takes the horizontal load and keeps the building stable, so each frame is analysed for vertical load only, by the sub-frames of this Unit and Unit 4.
+Quick check (not graded): Which sub-frame gives the moments in the beams of one floor without any column in it?
+Options: The one-level sub-frame | The two-free-joint sub-frame | The continuous beam on knife-edge supports | The one-free-joint sub-frame
+Explanation shown after answering: Method (iii) takes the beams as a continuous beam whose supports give no restraint to rotation; the columns come in afterwards, one joint at a time.
+Key points:
+- A building is analysed as plane frames, one per grid line; each carries the slab panels on either side.
+- Braced frame: vertical load only, the walls or core take the wind. Unbraced frame: both, and it sways.
+- Three sub-frames (RDF §11.0): one-level; two-free-joint; continuous beam with a one-free-joint sub-frame at each column.
+- This Unit: method (iii). Unit 4: methods (i) and (ii).
+
+[notes-n2] Notes 2. Load arrangements: which spans carry the variable load
+The permanent load is always there; the variable load, people, furniture and movable partitions, can be on any span or on none. A beam must be designed for the worst position of the variable load at each of its sections, and the worst position is not the same for every section.
+Each span is given either the maximum design load or the minimum: the same γ_G = 1.35 on every span, and the variable load on some spans only.
+EQUATION (3.1): w_{max} = 1.35\,G_k + 1.5\,Q_k, \qquad w_{min} = 1.35\,G_k
+Which spans to load follows from how a continuous beam deflects. A load on one span bends that span down and lifts the spans next to it, the next ones down again, and so on. So, for the largest sagging in a span, load that span and every second span from it ( alternate spans ). For the largest hogging at a support, load the two spans either side of it ( adjacent spans ), then every second span beyond. For the least moment in a span, leave that span light and load its neighbours: the span may then hog along its whole length.
+[Figure: The seven arrangements of the variable load on three spans. Load Set 1 (EC2) keeps the alternate and the adjacent cards; Load Set 2 (Malaysian National Annex) keeps the alternate cards and all spans loaded. The Frame Lab, tab 1, lets you try every card.]
+MS EN 1992-1-1, 5.1.3, recommends Load Set 1 : (a) alternate spans at w_{max} with the others at w_{min}, and (b) any two adjacent spans at w_{max} with the others at w_{min}. The Malaysian National Annex, like the UK one, gives Load Set 2 : (a) all spans at w_{max}, and (b) alternate spans at w_{max} (RDF §11.0). For three spans, Load Set 1 is four cases and Load Set 2 is three. The course notes and the course workbook use Load Set 1, and so do the examples of this Unit; the RC Design app uses Load Set 2 unless you choose otherwise.
+Effect Spans at w_{max} Arrangement Moment (kN m)
+largest sagging in AB AB, CD alternate spans 186.8
+largest hogging at B AB, BC adjacent spans 217.6
+largest sagging in BC BC alternate spans 91.7
+least moment in BC AB, CD alternate spans −25.0
+all spans loaded, for comparison AB, BC, CD Load Set 2 (a) M_B = 201.5
+The table gives the course notes’ frame of §3 (three 6 m spans), distributed to convergence. Notice the last row: all spans loaded is not the worst case for any section. It gives 201.5 kN m at B against 217.6 with AB and BC loaded, 7 % less. With unequal spans the gap grows: in the course workbook’s frame, spans 6, 5 and 8 m, M_B is 129.5 kN m with all spans loaded and 164.9 with AB and BC loaded, 21 % less, because the load on the long span CD turns joint C and relieves B. The National Annex permits Load Set 2; know what it leaves out when you use it.
+Quick check (not graded): A beam has three spans AB, BC and CD. Which arrangement gives the largest hogging moment at C?
+Options: All three spans at w_{max} | AB and CD at w_{max}, BC at w_{min} | BC and CD at w_{max}, AB at w_{min} | BC alone at w_{max}
+Explanation shown after answering: Load the two spans either side of C. The load on AB lifts BC and so relieves C a little: leaving AB light makes the hogging at C largest. That is case (b) of Load Set 1; Load Set 2 has no such case.
+Quick check (not graded): In the course notes’ frame the middle span BC hogs along its whole length (least moment −25.0 kN m). Under which arrangement?
+Options: AB and CD at w_{max}, BC at w_{min} | BC alone at w_{max} | All spans at w_{max} | AB and BC at w_{max}
+Explanation shown after answering: The heavy outer spans hog the supports B and C, and the light middle span cannot sag enough to overcome them. BC then needs top bars along its whole length, not only over the supports.
+Key points:
+- w_{max} = 1.35G_k + 1.5Q_k on loaded spans, w_{min} = 1.35G_k on the others.
+- Sagging in a span: alternate spans. Hogging at a support: the two adjacent spans. Least span moment: the neighbours loaded, the span light.
+- Load Set 1 (EC2 5.1.3): alternate and adjacent. Load Set 2 (Malaysian NA): alternate and all.
+- All spans loaded never governs alone; Load Set 2 can miss part of a support moment (7 % and 21 % in the course frames).
+
+[notes-n3] Notes 3. Loads on the beams from two-way slabs
+A beam on a frame line carries a strip of slab on each side. RCD I designed those slabs as two-way panels; the same RDF that gave their moments (Table 3.14) also shares their load among the four beams that support each panel (Table 3.15).
+Table 3.15 of the RDF (BS 8110 Table 3.15) gives shear coefficients for a panel supported on four sides. The load per metre on a supporting beam is β_v n l_x, where n is the load per m² and l_x the short side of the panel. The beams along the long sides of the panel take β_{vx}, which grows with the ratio l_y/l_x; the beams along the short sides take β_{vy}, one value for every ratio. Each coefficient also depends on the panel’s case (which of its edges are continuous) and on whether this edge is continuous or discontinuous.
+EQUATION (3.2): v = \beta_{v}\, n\, l_x \quad\text{per metre of beam;}\qquad \beta_{vx}\ \text{(long side)},\ \ \beta_{vy}\ \text{(short side)}
+Panel case Edge 1.0 1.1 1.2 1.3 1.4 1.5 1.75 2.0 β_{vy}
+1 Interior continuous 0.33 0.36 0.39 0.41 0.43 0.45 0.48 0.50 0.33
+2 One short edge discontinuous continuous 0.36 0.39 0.42 0.44 0.45 0.47 0.50 0.52 0.36
+discontinuous – – – – – – – – 0.24
+3 One long edge discontinuous continuous 0.36 0.40 0.44 0.47 0.49 0.51 0.55 0.59 0.36
+discontinuous 0.24 0.27 0.29 0.31 0.32 0.34 0.36 0.38 –
+4 Two adjacent edges discontinuous continuous 0.40 0.44 0.47 0.50 0.52 0.54 0.57 0.60 0.40
+discontinuous 0.26 0.29 0.31 0.33 0.34 0.35 0.38 0.40 0.26
+An interior frame beam is a continuous edge of the panels on both sides of it. Read each panel’s case from its place in the floor: an interior panel is case 1, an end panel with one short edge on the outside of the building is case 2, and so on; then interpolate between the columns of ratio. Add the two panels and the beam’s own weight below the slab:
+EQUATION (3.3): G_k = \beta_a g_k l_{x,a} + \beta_b g_k l_{x,b} + g_{beam}, \quad Q_k = \beta_a q_k l_{x,a} + \beta_b q_k l_{x,b}, \quad g_{beam} = b_b (h_b - h_s)\,\gamma_c
+[Figure: The course notes’ frame line: the panels either side of the beams, their ratios and the coefficients read from Table 3.15. The end bays are case 2, the middle bay case 1; the beam is a long side of every panel, so it takes β_{vx}.]
+The course notes’ frame (Example 1): three 6 m spans, panels 4 and 5 m wide, slab 150 mm, g_k = 3.75 + 1.25 = 5.00 kN/m² and q_k = 4.0 + 0.5 = 4.50 kN/m², beam 250 × 600. Span AB lies in an end bay (case 2): the 4 × 6 m panel has a ratio of 1.5 and β_{vx} = 0.47, the 5 × 6 m panel 1.2 and 0.42. G_k = 0.47 × 5.00 × 4 + 0.42 × 5.00 × 5 + 0.25 × 0.45 × 25 = 9.40 + 10.50 + 2.81 = 22.71 kN/m and Q_k = 8.46 + 9.45 = 17.91 kN/m, so w_{max} = 57.53 and w_{min} = 30.66 kN/m. The middle span (case 1, 0.45 and 0.39) gives G_k = 21.56, w_{max} = 54.42 and w_{min} = 29.11 kN/m. (The data list of the notes prints the finishes as 0.75 kN/m²; the calculation uses 1.25, as here.)
+Read the table for every panel, never copy it from another example. The course workbook (FrameAnalysis_3.xlsx, Ex 9.1) types the coefficients of this 6/6/6 m frame into a frame with spans of 6, 5 and 8 m. Read from the table, span BC (5 m) takes 0.40 and 0.33, and span CD (8 m) 0.52 and 0.48: w_{max} = 47.67 and 64.41 kN/m instead of 54.42 and 57.53. The 8 m span carries 12 % more than the sheet gives it. Faded Example 3.2 reads them correctly.
+Quick check (not graded): A beam runs along the 8 m side of an interior 5 m × 8 m panel (case 1). Its load per metre from this panel is β n l_x with
+Options: β = 0.33, l_x = 8 m | β = 0.46, l_x = 5 m | β = 0.46, l_x = 8 m | β = 0.50, l_x = 5 m
+Explanation shown after answering: The beam is on a long side, so it takes β_{vx} at l_y/l_x = 1.6: 0.45 + 0.4 × (0.48 − 0.45) = 0.46. l_x is always the short side, 5 m, whichever beam you load.
+Quick check (not graded): The beam along the 5 m side of the same panel takes, per metre,
+Options: 0.46 × n × 5 | 0.33 × n × 8 | 0.46 × n × 8 | 0.33 × n × 5
+Explanation shown after answering: A short side takes β_{vy} = 0.33 for an interior panel, whatever the ratio, times n l_x with l_x = 5 m. The long-side beams carry more per metre: 0.46 against 0.33.
+Key points:
+- Load per metre on a beam: v = β_v n l_x, l_x the short side of the panel.
+- Long side: β_{vx}, interpolated in l_y/l_x. Short side: β_{vy}, one value.
+- Case from the panel’s place in the floor; an interior frame beam is a continuous edge.
+- G_k = two panels plus the beam rib; Q_k = two panels; then w_{max} and w_{min}.
+
+[notes-n4] Notes 4. The continuous beam by moment distribution
+Method (iii) first takes the beams of one floor as a continuous beam on knife-edge supports: the columns hold the beam up but do not stop it turning. Its moments come from moment distribution, the hand method of Theory of Structures. This section recalls the steps in the form the course notes and the course workbook use.
+Stiffness. Each span has K = I/L; only the ratios matter. With I in 10⁹ mm⁴ and L in m, 10I/L comes out in 10⁵ mm³, the unit of the notes. An end span whose far end is a pin is ¾ as stiff as one whose far end is fixed (3EI/L against 4EI/L): use ¾K for it, release the pin once at the start, and carry nothing back to it afterwards.
+EQUATION (3.4): K = \frac{I}{L},\quad I = \frac{b h^3}{12};\qquad K' = \tfrac{3}{4}K\ \ \text{(far end pinned)};\qquad F = \frac{K}{\Sigma K}\ \ \text{at a joint}
+Distribution factors. At each interior joint, F = K/ΣK for each member meeting there; the factors at a joint add up to 1. At a pinned end the beam is the only member, so F = 1.
+Fixed-end moments. Lock every joint and load each span on its own: a uniform load w on a span L gives wL²/12 at both ends. In the table the end moments are clockwise positive: −wL²/12 at the left end of a span and +wL²/12 at the right end.
+EQUATION (3.5): \mathrm{FEM} = \mp\frac{w L^2}{12};\qquad \text{balance: } -F\,\Sigma M \ \text{at each free joint};\qquad \text{carry over: } \tfrac12 \ \text{to the far end}
+Balance and carry over. At each free joint, add the end moments there and give each member −F × (sum): the joint is now in equilibrium. Then carry half of each balancing moment to the far end of its span, except to a pin already released. The carried moments unbalance the joints again, so repeat. Stop when they are small: the course notes and the workbook stop after a fixed number of cycles (five in this example), and the app can also run to convergence and state the difference. Last, add up each column of the table.
+[Figure: Case 1 of the course notes’ beam: stiffnesses (end spans at ¾K), distribution factors and fixed-end moments. The first balance at B shares the out-of-balance 172.58 − 163.27 = 9.31 kN m as −3.99 and −5.32.]
+Case 1 of the course notes’ frame (Example 4): AB and BC at w_{max}, CD at w_{min}. K = 10 × 4.5/6 = 7.5 for every span, and ¾ × 7.5 = 5.63 for AB and CD. At B, F_{BA} = 5.63/(5.63 + 7.5) = 0.43 and F_{BC} = 0.57. In the first row, A and D are released (their fixed-end moments are balanced to zero) and B and C are balanced; in every later row only B and C:
+AB BA BC CB CD DC
+DF 1.00 0.43 0.57 0.57 0.43 1.00
+FEM −172.58 172.58 −163.27 163.27 −91.99 91.99
+Dist. 1 172.58 −3.99 −5.32 −40.73 −30.55 −91.99
+C.O. 1 86.29 −20.37 −2.66 −45.99
+Dist. 2 0.00 −28.25 −37.67 27.80 20.85 0.00
+C.O. 2 13.90 −18.84
+Dist. 3 0.00 −5.96 −7.94 10.76 8.07 0.00
+C.O. 3 5.38 −3.97
+Dist. 4 0.00 −2.31 −3.08 2.27 1.70 0.00
+C.O. 4 1.13 −1.54
+Dist. 5 0.00 −0.49 −0.65 0.88 0.66 0.00
+Σ 0.00 217.87 −217.87 137.24 −137.24 0.00
+After five cycles M_B = 217.87 and M_C = 137.24 kN m, as in the notes. Carried to convergence they are 217.63 and 137.03: five cycles were enough. The moments at A and D stay zero, because they are pins.
+Quick check (not graded): At joint B, the end span AB (far end pinned) has I/L = 6.0 and BC has 8.0. What is the distribution factor F_{BA}?
+Options: 0.36 | 0.43 | 0.57 | 0.75
+Explanation shown after answering: AB has a pinned far end, so K′ = ¾ × 6.0 = 4.5; F_{BA} = 4.5/(4.5 + 8.0) = 0.36 and F_{BC} = 0.64. 0.43 forgets the ¾.
+Quick check (not graded): After A has been released in the first row, how much of the next balancing moment at B is carried to A?
+Options: Half, as at any far end | All of it | A quarter, because of the ¾ stiffness | None: A is a released pin
+Explanation shown after answering: The ¾K already allows for the pin. Carrying moments back to A, and balancing it again, would count the pin twice; with ¾K the pin is released once and then left alone.
+Key points:
+- K = I/L (relative); ¾K for an end span with its far end pinned.
+- F = K/ΣK at a joint; F = 1 at a pin.
+- FEM = ∓wL²/12, clockwise positive.
+- Balance −F × ΣM, carry ½ to the far end (none to a released pin), repeat, then add the columns.
+
+[notes-n5] Notes 5. Shears, span moments and the envelope
+The table gives the moments at the supports. Statics turns them into shears and span moments, case by case, and the envelope keeps the worst of each for design.
+Take each span as a simple beam loaded by w and by its two end moments, here written as hogging magnitudes M_L and M_R. Moments about the right end give the left reaction; the shear is zero where the sagging moment is largest:
+EQUATION (3.6): V_L = \frac{wL}{2} + \frac{M_L - M_R}{L},\quad V_R = wL - V_L,\quad x_0 = \frac{V_L}{w},\quad M_{span} = \frac{V_L^{2}}{2w} - M_L
+Case 1, span AB: V_{AB} = 57.53 × 6/2 + (0 − 217.87)/6 = 172.58 − 36.31 = 136.27 kN and V_{BA} = 57.53 × 6 − 136.27 = 208.89 kN; x₀ = 136.27/57.53 = 2.37 m and M_{span} = 136.27²/(2 × 57.53) − 0 = 161.39 kN m. Span BC: V_{BC} = 176.70, V_{CB} = 149.83 kN, M_{span} = 69.00 kN m. Span CD: V_{CD} = 114.86, V_{DC} = 69.11 kN, M_{span} = 77.89 kN m.
+Do the same for every case, then collect, for each span, the largest hogging at each end, the largest sagging, the least span moment and the largest shears. This is the envelope . For the course notes’ frame (Load Set 1, five cycles; the governing case in brackets):
+kN m AB BC CD
+Hogging at the left end 0 217.87 (1) 217.87 (2)
+Hogging at the right end 217.87 (1) 217.87 (2) 0
+Largest sagging 186.58 (3) 91.65 (4) 186.58 (3)
+Least span moment 71.99 (4) −25.40 (3) 71.99 (4)
+Largest shear, left / right (kN) 146.52 / 208.89 176.70 / 176.70 208.89 / 146.52
+[Figure: The four cases of Load Set 1 and their envelope (hogging drawn up). Each case governs somewhere: case 1 at B, case 2 at C, case 3 the sagging of the end spans and the hogging along BC, case 4 the sagging of BC.]
+Look at BC. Its least moment is −25.40 kN m, in case 3: with AB and CD heavy and BC light, the middle span hogs along its whole length. Its bottom bars are designed for 91.65 kN m, but it also needs top bars right across the span, not only over the supports. An envelope that kept only the largest sagging would hide this.
+Check the table before you use it. At every joint the end moments add up to zero (with the columns, in Unit 4). The moment at a pinned end is zero. In every span V_L + V_R = wL, and the sagging moment is smaller than the free moment wL²/8. A table that fails one of these has a slip in it.
+Quick check (not graded): A 6 m span carries 50 kN/m, with hogging moments of 120 kN m at its left end and 180 kN m at its right end. What is the left reaction V_L?
+Options: 150 kN | 140 kN | 160 kN | 100 kN
+Explanation shown after answering: V_L = 50 × 6/2 + (120 − 180)/6 = 150 − 10 = 140 kN, and V_R = 300 − 140 = 160 kN. The larger hogging moment draws load towards its end.
+Quick check (not graded): Why does the envelope keep the least span moment as well as the largest?
+Options: To check the deflection | Because the code asks for two values per span | Because it may be hogging: then the span needs top bars along its length | To find the shear
+Explanation shown after answering: A light span between heavy neighbours can hog along its whole length (BC: −25.4 kN m). The largest sagging sizes the bottom bars; the least moment shows where top bars must run.
+Key points:
+- V_L = wL/2 + (M_L − M_R)/L with hogging magnitudes; V_R = wL − V_L.
+- x₀ = V_L/w; M_{span} = V_L²/2w − M_L.
+- Envelope: largest hogging, largest sagging, least span moment, largest shears, each with its case.
+- Check: ΣM = 0 at each joint, M = 0 at a pin, V_L + V_R = wL.
+
+[notes-n6] Notes 6. Column moments: the one-free-joint sub-frame
+The continuous beam gives the columns no moment: its supports are knife edges. The columns get theirs from a small sub-frame at each joint.
+RDF §11.0 (from BS 8110): at the joint considered, take the column above and the column below and the beams on either side; fix all their far ends, and give the beams half their actual stiffness, which allows for the flexibility of the frame beyond them. Arrange the variable load for the largest column moment: w_{max} on one side of the joint and w_{min} on the other.
+The joint is out of balance by the difference of the two fixed-end moments; try both sides at w_{max} and keep the larger. At an end column there is one beam only, and its whole fixed-end moment at w_{max} is out of balance. The joint shares it in proportion to stiffness:
+EQUATION (3.7): \Delta\mathrm{FEM} = \frac{w_{max} L_1^{2}}{12} - \frac{w_{min} L_2^{2}}{12},\qquad M_{c,u} = \Delta\mathrm{FEM}\,\frac{K_{c,u}}{\Sigma K},\quad M_{c,l} = \Delta\mathrm{FEM}\,\frac{K_{c,l}}{\Sigma K},\qquad \Sigma K = K_{c,u} + K_{c,l} + \tfrac12 K_{b,L} + \tfrac12 K_{b,R}
+Here K_b is the full I/L of each beam: the ¾ of §4 belonged to the continuous beam, not to this sub-frame. For a column K_c = I_c/h with h its storey height: at the first floor the upper column is a typical storey (3.5 m in the notes) and the lower column is the ground storey (4.0 m). Each column also passes half of its moment to its far end.
+[Figure: The one-free-joint sub-frames at A and B. Far ends fixed, beams at half stiffness, w_{max} on one side and w_{min} on the other. The end column takes far more than the interior one: its beam is unbalanced by the whole fixed-end moment.]
+The course notes’ frame: I_c = 300 × 400³/12 = 1.6 × 10⁹ mm⁴, K_{c,u} = 10 × 1.6/3.5 = 4.57 and K_{c,l} = 10 × 1.6/4.0 = 4.00. Joint A: ΔFEM = 57.53 × 6²/12 = 172.58 kN m; ΣK = 4.57 + 4.00 + ½ × 7.5 = 12.32; M_{c,u} = 172.58 × 4.57/12.32 = 64.03 and M_{c,l} = 56.03 kN m (the notes round K_{c,u} to 4.6 and print 64.3). Joint B: ΔFEM = 172.58 − 29.11 × 6²/12 = 172.58 − 87.33 = 85.25 kN m; ΣK = 4.57 + 4.00 + 3.75 + 3.75 = 16.07; M_{c,u} = 24.25 and M_{c,l} = 21.22 kN m.
+The beam at an end support. The continuous beam gives no moment at A, yet the columns there carry 64.03 + 56.03 = 120.06 kN m. By equilibrium of the joint the beam end carries the same 120.06 kN m of hogging, so the top bars of the end span at A must take it. The minimum of EC2 9.2.1.2(1), 15 % of the span moment (here 0.15 × 186.58 = 27.99 kN m), is for partial fixity that the analysis ignored; it is not this moment.
+How good is the one-free-joint sub-frame? It relieves one joint at a time with the far ends fixed, so it does not see the load on the spans beyond. Against the one-level sub-frame of Unit 4, the interior column B of the notes’ frame gets 24.25 kN m where the one-level sub-frame gives 30.29 (20 % less), and the end columns get 14 % more. The RC Design app takes the larger of the two at each column for design (its decision D53). The course method, and Problem D3 today, use the one-free-joint values.
+Quick check (not graded): An interior joint has two 6 m spans with w_{max} = 50 and w_{min} = 30 kN/m. What is ΔFEM for the column sub-frame?
+Options: 150 kN m | 0 | 60 kN m | 240 kN m
+Explanation shown after answering: One side at w_{max}, the other at w_{min}: ΔFEM = (50 − 30) × 6²/12 = 60 kN m. With both spans at w_{max} the joint would be balanced and the columns would get nothing, which is not the worst case.
+Quick check (not graded): In the one-free-joint sub-frame, each beam’s stiffness is taken as
+Options: ¾ of its I/L, as in the continuous beam | ½ of its I/L | its full I/L | zero: only the columns resist
+Explanation shown after answering: Half the actual stiffness, with the far end fixed (RDF §11.0). The ¾ belongs to an end span of the continuous beam with a pinned far end.
+Key points:
+- One-free-joint sub-frame: far ends fixed, beams at ½K, w_{max} on one side and w_{min} on the other.
+- ΔFEM = FEM(w_{max} side) − FEM(w_{min} side); at an end column, the whole FEM at w_{max}.
+- M_c = ΔFEM K_c/ΣK, ΣK = K_{c,u} + K_{c,l} + ½K_{b,L} + ½K_{b,R}.
+- At an end support the beam carries M_{c,u} + M_{c,l} of hogging, far above 0.15M_{span}.
+
+[slides-1] Slide 1: Frame Analysis I
+SEAA 4333 Reinforced Concrete Design II · Week 3 Frame Analysis I A braced frame under vertical load: which spans to load, the loads from the slabs, the continuous beam and the columns Workbook ch. 3 ABCD card Calculator RDF Ruler Phone or laptop Frame Lab Scan for this page’s Explorer tab: load-pattern cards, moment distribution, Frame S3.
+
+[slides-2] Slide 2: How the next three hours run
+Today · 180 minutes How the next three hours run 0:00 Warm-up Units 1–2 in three votes 0:10 Hook Which pattern gives the largest span moment? 0:15 Frames and sub-frames Braced, unbraced; three sub-frames 0:23 Activity 3A Load-pattern cards, teams 0:40 Loads and distribution Table 3.15; WE 3.1: I do 0:55 Activity 3B · FE 3.2 The stepper, then pairs 1:30 Break 10 minutes 1:40 Columns One-free-joint sub-frame; the end s
+
+[slides-3] Slide 3: Three questions from the last two weeks
+Warm-up · no notes · cards up Three questions from the last two weeks W1 · Unit 2 A flight rises from a 200 mm beam to a landing 1500 mm deep, with 2600 mm of goings on plan. Its effective span is A 2.60 m B 3.45 m C 4.30 m D 2.70 m W2 · Unit 2 Two flights at right angles share a landing with n_L = 11.0 kN/m². In each flight’s span the landing load per m² is A 11.0 B 5.5 C 22.0 D zero W3 · Unit 1 UBBL By-law 106 limi
+
+[slides-4] Slide 4: B, B, A, and what each means today
+Warm-up · answers B, B, A, and what each means today W1 B: 3.45 m A span runs between the centres of its supports. Today’s beams span centre to centre of the columns. W2 B: 5.5 A load shared by two members. Today a slab panel shares its load among four beams, by Table 3.15. W3 A: R ≤ 180, G ≥ 255 A rule set by a code. Today the National Annex sets which spans you must load. SEAA 4333 · Unit 3 · Frame Analysis I Workb
+
+[slides-5] Slide 5: Does the heaviest load give the largest moment?
+Hook · 5 minutes Does the heaviest load give the largest moment? SEAA 4333 · Unit 3 · Frame Analysis I Workbook 3.2
+
+[slides-6] Slide 6: A three-span beam ABCD carries its permanent load on every span. Where should the variable load go for the largest hogging moment at B?
+Concept check 1 · the big question · vote now, again after Activity 3A A three-span beam ABCD carries its permanent load on every span. Where should the variable load go for the largest hogging moment at B? A On all three spans B On AB and BC only C On AB and CD only D On BC only Vote · convince your neighbour · vote again Workbook 3.2
+
+[slides-7] Slide 7: One plane frame per grid line: braced or unbraced?
+Block A · talk 1 · 4 minutes One plane frame per grid line: braced or unbraced? Braced Walls, a core or braces take the wind; the frame carries vertical load. Units 3–4. Unbraced The frame takes the wind too, and sways. Units 5–6. SEAA 4333 · Unit 3 · Frame Analysis I Notes §1 · Workbook 3.2
+
+[slides-8] Slide 8: Three sub-frames (RDF §11.0, from BS 8110)
+Block A · talk 1 · 4 minutes Three sub-frames (RDF §11.0, from BS 8110) Far ends fixed. Today: (iii). Unit 4: (i) and (ii), and what (iii) misses. SEAA 4333 · Unit 3 · Frame Analysis I Notes §1 · Workbook 3.2
+
+[slides-9] Slide 9: Which spans carry the variable load?
+Block A · talk 2 · 5 minutes Which spans carry the variable load? w_{max} = 1.35Gk + 1.5Qk w_{min} = 1.35Gk Load Set 1 · EC2 5.1.3 alternate spans; any two adjacent spans Load Set 2 · Malaysian NA all spans; alternate spans SEAA 4333 · Unit 3 · Frame Analysis I Notes §2 · Workbook 3.2
+
+[slides-10] Slide 10: Load-pattern cards
+Activity 3A · teams of four · 12 minutes Load-pattern cards 1 · Sagging in AB Which card is worst? Agree, tap it in Lab tab 1, reveal. 2 · Hogging at B The same, then compare with your first vote on Concept check 1. 3 · Sagging in BC Which spans help BC, and which hurt it? 4 · Least moment in BC Can BC hog all along? Under which card? Record the four winning cards in Workbook 3.2. Then: which cards make up Load Set 1
+
+[slides-11] Slide 11: Every section has its own worst card
+Activity 3A · reveal Every section has its own worst card Sagging in AB AB + CD 186.8 kN m Hogging at B AB + BC 217.6 kN m Sagging in BC BC 91.7 kN m Least in BC AB + CD −25.0 kN m Sagging in a span: alternate spans. Hogging at a support: the two spans either side. Least span moment: the neighbours loaded, the span light. All spans loaded worst for no section: 167.9 in AB, 201.5 at B. Load Set 2 uses it; at B it miss
+
+[slides-12] Slide 12: The load on a frame beam from the slabs: Table 3.15
+Block B · talk 3 · 5 minutes The load on a frame beam from the slabs: Table 3.15 v = β_v n l_x l_x: the short side of the panel. Long side: β_{vx}, interpolated in l_y/l_x. Short side: β_{vy}. G_k = Σβ g_k l_x + rib Q_k = Σβ q_k l_x AB: 0.47 × 5 × 4 + 0.42 × 5 × 5 + 2.81 = 22.71 kN/m; w_{max} 57.53 SEAA 4333 · Unit 3 · Frame Analysis I Notes §3 · Workbook 3.3
+
+[slides-13] Slide 13: The continuous beam by moment distribution
+Block B · talk 4 · 5 minutes The continuous beam by moment distribution SEAA 4333 · Unit 3 · Frame Analysis I Notes §4 · Workbook 3.3
+
+[slides-14] Slide 14: Case 1: AB and BC at w max , five cycles
+Worked Example 3.1 · I do · 5 minutes Case 1: AB and BC at w_{max}, five cycles AB BA BC CB CD DC DF 1.00 0.43 0.57 0.57 0.43 1.00 FEM −172.58 172.58 −163.27 163.27 −91.99 91.99 Dist. 1 172.58 −3.99 −5.32 −40.73 −30.55 −91.99 C.O. 1 86.29 −20.37 −2.66 −45.99 Dist. 2 0.00 −28.25 −37.67 27.80 20.85 0.00 C.O. 2 13.90 −18.84 Dist. 3 0.00 −5.96 −7.94 10.76 8.07 0.00 C.O. 3 5.38 −3.97 Dist. 4 0.00 −2.31 −3.08 2.27 1.70 0.0
+
+[slides-15] Slide 15: Predict the next balance, row by row
+Activity 3B · pairs · 8 minutes Predict the next balance, row by row 1 · Before each row Choose AB + CD at w_{max}. Type the balancing moment at BA, then Next row. 2 · After the table Switch to “Full K, balance the pin every cycle”. Same answer? How many more cycles? 3 · Columns Lab tab 2, Columns: joint B. Work out M_{c,u} and M_{c,l} by hand, then reveal. Three right in a row ticks Explorer task 3. SEAA 4333 · Unit
+
+[slides-16] Slide 16: At joint C of the workbook’s frame, BC (5 m) and the end span CD (8 m, pinned at D) have the same section. What is the distribution factor F CB ?
+Concept check 2 · think 60 seconds, then vote At joint C of the workbook’s frame, BC (5 m) and the end span CD (8 m, pinned at D) have the same section. What is the distribution factor F_{CB}? A 0.50 B 0.62 C 0.68 D 0.32 Vote · convince your neighbour · vote again Workbook 3.3
+
+[slides-17] Slide 17: The workbook’s frame, read from Table 3.15
+Faded Example 3.2 · pairs · 18 minutes The workbook’s frame, read from Table 3.15 Steps 1 and 4 are given. Read β for BC and CD; G_k, Q_k, w_{max}, w_{min}. Largest hogging at C: five cycles. Span CD; columns at C and D; the beam at D. SEAA 4333 · Unit 3 · Frame Analysis I Workbook 3.4 · app FA5, β from Table 3.15
+
+[slides-18] Slide 18: Read the table and the long span gets its load
+Faded Example 3.2 · check Read the table and the long span gets its load BC 0.40 · 0.33 w_{max} 47.67, w_{min} 25.73 CD 0.52 · 0.482 w_{max} 64.41, w_{min} 34.10 Case 2, five cycles M_C = 363.58 M_B = 61.41; M_{CD} = 349.54 With the workbook’s typed β M_C 334.58 (−8 %), M_{CD} 308.13 (−12 %), column D 123.21 (−11 %) BC hogs all along even at w_{max}: at most −25.22 kN m. Top bars right across BC. SEAA 4333 · Unit 3 ·
+
+[slides-19] Slide 19: Shears, span moments and the envelope
+Block B · talk 5 · 5 minutes Shears, span moments and the envelope V_L = wL/2 + (M_L − M_R)/L M_{span} = V_L²/2w − M_L Keep, for every span: the largest hogging at each end, the largest sagging, the least span moment, the largest shears. SEAA 4333 · Unit 3 · Frame Analysis I Notes §5 · Workbook 3.3
+
+[slides-20] Slide 20: For the largest moment in the interior column B, how should the spans either side of B carry the variable load?
+Concept check 3 · predict, then the talk For the largest moment in the interior column B, how should the spans either side of B carry the variable load? A Both at w_{max} B Both at w_{min} C Every span of the floor at w_{max} D The span with the larger fixed-end moment at w_{max}, the other at w_{min} Vote · convince your neighbour · vote again Workbook 3.5
+
+[slides-21] Slide 21: Column moments: the one-free-joint sub-frame
+Block C · talk 6 · 8 minutes Column moments: the one-free-joint sub-frame M_c = ΔFEM K_c/ΣK ΣK = K_{c,u} + K_{c,l} + ½K_{b,L} + ½K_{b,R} full I/L for the beams, halved; not ¾ Beam at A: 64.03 + 56.03 = 120.06 The knife edge hid it: four times 0.15M_{span}. SEAA 4333 · Unit 3 · Frame Analysis I Notes §6 · Workbook 3.3
+
+[slides-22] Slide 22: Frame S3: four slips in a continuous-beam analysis
+Spot the error · teams · 12 minutes Frame S3: four slips in a continuous-beam analysis Lab tab 3, or Workbook 3.5. Spans AB 7.0, BC 5.0, CD 6.0 m on an interior line; panels 4.0 and 4.5 m; slab 150, finishes 1.5, imposed 3.0 + partitions 1.0 kN/m²; beams 300 × 600, columns 300 × 450; 4.0 m below the first floor, 3.5 m above. Load Set 1, ¾K, four cycles. Reader reads each line aloud; calculator rechecks; checker draws
+
+[slides-23] Slide 23: D3: the continuous-beam method (20 marks)
+Block D · alone · 30 minutes D3: the continuous-beam method (20 marks) Slab 150, finishes 1.5; imposed 3.0 + partitions 1.0 kN/m². AB: w_{max} 50.12, w_{min} 29.00; BC: 55.22, 31.76 kN/m. (a) Table 3.15 for CD: G_k, Q_k, w_{max}, w_{min} [4] (b) The arrangement for the largest hogging at B, Load Set 1 [2] (c) Four cycles: M_B and M_C [6] (d) Span BC: V_{BC}, V_{CB}, the span moment [4] (e) Column moments at B, one-fr
+
+[slides-24] Slide 24: Beam loads on your group’s frame line
+Project studio · 17 minutes Beam loads on your group’s frame line Choose An interior frame line of your building; mark its spans and the panels either side with their widths. Read For every panel: l_y/l_x, its case, long or short side, β from Table 3.15. Load Your slab, finishes and imposed load: G_k, Q_k, w_{max} and w_{min} for each span. Log One line: the line, the w’s, who checks them before Unit 4. SEAA 4333 · U
+
+[slides-25] Slide 25: Check the table before you use it
+Professional Habit 3 Check the table before you use it ΣM = 0 At every joint the end moments add up to zero (with the columns, in Unit 4). M = 0 at a pin A released end carries no moment. Frame S3, line 8: M_A = −59.25. V_L + V_R = wL In every span; and the span moment is below wL²/8. Then design Only a table that passes all three goes into the beam and column design. SEAA 4333 · Unit 3 · Frame Analysis I Workbook 3.
+
+[slides-26] Slide 26: Before Unit 4
+After class Before Unit 4 Notes §1–§6 47 min Exercises, all 14 45 min Explorer, 5 tasks: the cards, the stepper, a column, Frame S3 30 min Self-mark D3 on eLearning 15 min Mosley §3.4; the notes, Frame Analysis, Examples 1 and 4 reading Your group’s beam loads, checked studio SEAA 4333 · Unit 3 · Frame Analysis I Workbook 3.8
+
+[slides-27] Slide 27: Before you leave
+Exit ticket · 5 minutes · Workbook 3.8 Before you leave 1 A beam has three spans AB, BC and CD. Which spans carry w_{max} for the largest sagging moment in BC? 2 At an end column ΔFEM = 120 kN m, K_{c,u} = 4.0, K_{c,l} = 3.5 and ½K_b = 3.5. Find M_{c,u}. 3 What is still unclear? Tear off the slip and hand it in at the door. SEAA 4333 · Unit 3 · Frame Analysis I
+
+[examples-x1] Example 1 · Worked Example 3.1: the course notes’ frame
+Exam type frame analysis of a braced frame by the continuous-beam method Workbook 3.3 Time ≈ 35 min
+Question The braced frame of the course notes (Examples 1 and 4). The first-floor beams ABCD on an interior grid line have three spans of 6 m; the slab panels either side of them are 4 m and 5 m wide; AB and CD lie in end bays (case 2) and BC in an interior bay (case 1). Slab 150 mm; finishes 1.25 kN/m²; imposed load 4.0 and partitions 0.5 kN/m²; concrete 25 kN/m³; beams 250 × 600; columns 300 × 400, 400 in the plane of the frame; the storey above the first floor is 3.5 m and the one below 4.0 m. (a) Find G_k, Q_k, w_{max} and w_{min} for each span. (b) By the continuous-beam method with Load Set 1, find the support moments for the largest hogging at B, with five balancing cycles as in the notes. (c) Find the shears and the span moments of that case. (d) Find the column moments at A and B by the one-free-joint sub-frame, and the beam moment at the end support A. In the app: case FA3 of the RC Design Worked Solutions app; set the analysis to Actions on the beams for (a), then to Continuous beam, with the one-joint sub-frame with 5 cycles for (b) to (d).
+[Figure: Worked Example 3.1: the frame line on plan, the continuous beam for the largest hogging at B, and the column storeys for the sub-frames.]
+Physical picture. Three equal bays of slab sit on the beams of this grid line. The slab passes its load to the beams by Table 3.15. Seen from the beams, the columns hold them up without holding them straight: that is the continuous beam. Seen from a column, the beams on either side push it round unequally when one span is loaded and the other is not: that is the one-free-joint sub-frame.
+Plan. Loads per m² and per metre of beam; the arrangement for the largest hogging at B; stiffnesses and distribution factors; fixed-end moments; the distribution; shears and span moments; the column sub-frames at A and B; the beam at the end support.
+## Step 1 Loads on the slab and the beam
+Ref Calculations Output
+EC1 g_{slab} = 0.15 × 25 = 3.75 kN/m²; g_k = 3.75 + 1.25 5.00 kN/m²
+EC1 6.3.1.2(8) q_k = 4.0 + 0.5 (partitions as a variable action) 4.50 kN/m²
+(3.3) Beam rib below the slab: g_{beam} = 0.25 × (0.60 − 0.15) × 25 2.81 kN/m
+## Step 2 Spans AB and CD: Table 3.15, end bays
+Ref Calculations Output
+RDF T3.15 Case 2, the beam on a long side, continuous: 4 × 6 m panel, l_y/l_x = 1.5, β_{vx} = 0.47; 5 × 6 m panel, 1.2, β_{vx} = 0.42 0.47; 0.42
+(3.3) G_k = 0.47 × 5.00 × 4 + 0.42 × 5.00 × 5 + 2.81 = 9.40 + 10.50 + 2.81; Q_k = 0.47 × 4.50 × 4 + 0.42 × 4.50 × 5 22.71; 17.91 kN/m
+(3.1) w_{max} = 1.35 × 22.71 + 1.5 × 17.91; w_{min} = 1.35 × 22.71 57.53; 30.66 kN/m
+## Step 3 Span BC: Table 3.15, interior bay
+Ref Calculations Output
+RDF T3.15 Case 1: 1.5 → β_{vx} = 0.45; 1.2 → 0.39 0.45; 0.39
+(3.3) G_k = 0.45 × 5.00 × 4 + 0.39 × 5.00 × 5 + 2.81; Q_k = 0.45 × 4.50 × 4 + 0.39 × 4.50 × 5 21.56; 16.88 kN/m
+(3.1) w_{max} = 1.35 × 21.56 + 1.5 × 16.88; w_{min} = 1.35 × 21.56 54.42; 29.11 kN/m
+## Step 4 The arrangement, stiffnesses and fixed-end moments
+Ref Calculations Output
+EC2 5.1.3 Largest hogging at B, Load Set 1 (b): the two spans either side of B loaded AB, BC at w_{max}; CD at w_{min}
+(3.4) I_b = 250 × 600³/12 = 4.5 × 10⁹ mm⁴; K = 10 × 4.5/6 = 7.5 for each span; end spans, far end pinned: ¾ × 7.5 K′ = 5.63
+(3.4) F_{BA} = 5.63/(5.63 + 7.5); F_{BC} = 7.5/13.13; at C the same, mirrored 0.43; 0.57
+(3.5) FEM = wL²/12: AB 57.53 × 36/12; BC 54.42 × 36/12; CD 30.66 × 36/12 172.58; 163.27; 91.99 kN m
+## Step 5 Moment distribution, five cycles
+Ref Calculations Output
+(3.5) Row 1 releases A and D and balances B and C; then carry half to the far ends (none to A and D) and balance B and C again M_B = 217.87; M_C = 137.24 kN m
+check To convergence: 217.63 and 137.03 kN m; M_A = M_D = 0; ΣM = 0 at B and C ✓
+AB BA BC CB CD DC
+DF 1.00 0.429 0.571 0.571 0.429 1.00
+FEM −172.58 172.58 −163.27 163.27 −91.99 91.99
+Dist. 1 172.58 −3.99 −5.32 −40.73 −30.55 −91.99
+C.O. 1 86.29 −20.37 −2.66 −45.99
+Dist. 2 0.00 −28.25 −37.67 27.80 20.85 0.00
+C.O. 2 13.90 −18.84
+Dist. 3 0.00 −5.96 −7.94 10.76 8.07 0.00
+C.O. 3 5.38 −3.97
+Dist. 4 0.00 −2.31 −3.08 2.27 1.70 0.00
+C.O. 4 1.13 −1.54
+Dist. 5 0.00 −0.49 −0.65 0.88 0.66 0.00
+Σ 0.00 217.87 −217.87 137.24 −137.24 0.00
+## Step 6 Shears and span moments
+Ref Calculations Output
+(3.6) AB: V_{AB} = 57.53 × 3 + (0 − 217.87)/6; V_{BA} = 345.16 − V_{AB}; x₀ = V_{AB}/57.53; M = V_{AB}²/(2 × 57.53) 136.27; 208.89 kN; 161.39 kN m at 2.37 m
+(3.6) BC: V_{BC} = 54.42 × 3 + (217.87 − 137.24)/6; M = V_{BC}²/(2 × 54.42) − 217.87 176.70; 149.83 kN; 69.00 kN m
+(3.6) CD: V_{CD} = 30.66 × 3 + (137.24 − 0)/6; M = V_{CD}²/(2 × 30.66) − 137.24 114.86; 69.11 kN; 77.89 kN m
+## Step 7 Column moments: one-free-joint sub-frames at A and B
+Ref Calculations Output
+(3.4) I_c = 300 × 400³/12 = 1.6 × 10⁹ mm⁴; K_{c,u} = 10 × 1.6/3.5 (storey above); K_{c,l} = 10 × 1.6/4.0 (storey below) 4.57; 4.00
+(3.7) A, an end column: ΔFEM = 57.53 × 6²/12 = 172.58; ΣK = 4.57 + 4.00 + ½ × 7.5 = 12.32; M = 172.58 × K_c/12.32 64.03; 56.03 kN m
+(3.7) B: AB at w_{max}, BC at w_{min}: ΔFEM = 172.58 − 29.11 × 36/12 = 172.58 − 87.33 (the other way round gives 163.27 − 91.99 = 71.28, smaller); ΣK = 4.57 + 4.00 + 3.75 + 3.75 = 16.07 24.25; 21.22 kN m
+## Step 8 The beam at the end support A
+Ref Calculations Output
+Statics Equilibrium of joint A: the beam end carries M_{c,u} + M_{c,l} = 64.03 + 56.03 120.06 kN m
+EC2 9.2.1.2(1) For comparison, 15 % of the largest span moment of AB (186.58 kN m, case 3 of the envelope, Notes §5): 0.15 × 186.58 27.99 kN m
+Answer. w_{max}/w_{min} = 57.53/30.66 (AB, CD) and 54.42/29.11 kN/m (BC). For the largest hogging at B: M_B = 217.87 and M_C = 137.24 kN m; V_{AB} = 136.27, V_{BA} = 208.89, V_{BC} = 176.70, V_{CB} = 149.83 kN; span moments 161.39, 69.00 and 77.89 kN m. Columns: A 64.03 (upper) and 56.03 (lower), B 24.25 and 21.22 kN m; the beam takes 120.06 kN m of hogging at A.
+What the numbers say The notes print 64.3 at A because they round K_{c,u} to 4.6; the method is the same. The end column takes almost three times the moment of the interior one: at A the whole fixed-end moment is out of balance, at B only the difference between a loaded and an unloaded span. The 120 kN m at A is the moment the knife-edge support hid; it is four times the EC2 minimum, and the top bars at A must be designed for it. In the app, Column moments for design shows 30.29 and 26.50 kN m at B: the one-level sub-frame of Unit 4 gives more there than the one-free-joint sub-frame, and the app takes the larger.
+
+[examples-x2] Example 2 · Faded Example 3.2: the workbook’s frame, read from Table 3.15
+Exam type loads from the slabs and the continuous beam Workbook 3.4 Time ≈ 25 min
+Question The frame of the course workbook (FrameAnalysis_3.xlsx, Ex 9.1): the same building as Worked Example 3.1, but with spans AB = 6, BC = 5 and CD = 8 m. AB and CD lie in end bays (case 2), BC in an interior bay (case 1); the panels are again 4 m and 5 m wide. Steps 1 and 4 are given. Read the coefficients for BC and CD from Table 3.15, find the support moments for the largest hogging at C (Load Set 1, five cycles), the shears and span moment of CD, the column moments at C and D, and the beam moment at D. In the app: case FA5, with Shear coefficients β_v set to Read from Table 3.15 (the case itself keeps the workbook’s typed values).
+[Figure: Faded Example 3.2: every panel has its own ratio, so every span has its own coefficients. The workbook typed the 6/6/6 m values of Worked Example 3.1 for all three.]
+## Step 1 Loads and span AB (given)
+Ref Calculations Output
+(3.3) As Worked Example 3.1: g_k = 5.00, q_k = 4.50 kN/m², g_{beam} = 2.81 kN/m; AB, case 2, 0.47 and 0.42 57.53; 30.66 kN/m
+## Step 2 Span BC (5 m, case 1)
+Ref Calculations Output
+RDF T3.15 4 × 5 m panel: l_y/l_x = 1.25, the beam on a long side: β_{vx} = 0.39 + 0.5 × (0.41 − 0.39); 5 × 5 m panel: 1.0, β_{vx} = 0.33 0.40; 0.33
+(3.3) G_k = 0.40 × 5.00 × 4 + 0.33 × 5.00 × 5 + 2.81; Q_k = 0.40 × 4.50 × 4 + 0.33 × 4.50 × 5 19.06; 14.62 kN/m
+(3.1) w_{max} = 1.35 × 19.06 + 1.5 × 14.63; w_{min} = 1.35 × 19.06 47.67; 25.73 kN/m
+## Step 3 Span CD (8 m, case 2)
+Ref Calculations Output
+RDF T3.15 4 × 8 m panel: 2.0, β_{vx} = 0.52; 5 × 8 m panel: 1.6, β_{vx} = 0.47 + 0.4 × (0.50 − 0.47) 0.52; 0.482
+(3.3) G_k = 0.52 × 5.00 × 4 + 0.482 × 5.00 × 5 + 2.81; Q_k = 0.52 × 4.50 × 4 + 0.482 × 4.50 × 5 25.26; 20.20 kN/m
+(3.1) w_{max} = 1.35 × 25.26 + 1.5 × 20.21; w_{min} = 1.35 × 25.26 64.41; 34.10 kN/m
+## Step 4 Stiffnesses and distribution factors (given)
+Ref Calculations Output
+(3.4) K = 10 × 4.5/L: AB 7.5, BC 9.0, CD 5.63; end spans ¾K: AB 5.63, CD 4.22
+(3.4) F_{BA} = 5.63/14.63, F_{BC} = 9.0/14.63; F_{CB} = 9.0/13.22, F_{CD} = 4.22/13.22 B: 0.385, 0.615; C: 0.681, 0.319
+## Step 5 The arrangement and the distribution
+Ref Calculations Output
+EC2 5.1.3 Largest hogging at C: BC and CD at w_{max}, AB at w_{min}; FEM: AB 30.66 × 36/12, BC 47.67 × 25/12, CD 64.41 × 64/12 91.99; 99.32; 343.53 kN m
+(3.5) Five cycles, A and D released in row 1 M_B = 61.41; M_C = 363.58 kN m
+AB BA BC CB CD DC
+DF 1.00 0.385 0.615 0.681 0.319 1.00
+FEM −91.99 91.99 −99.32 99.32 −343.53 343.53
+Dist. 1 91.99 2.82 4.51 166.27 77.94 −343.53
+C.O. 1 45.99 83.14 2.26 −171.77
+Dist. 2 0.00 −49.67 −79.46 115.41 54.10 0.00
+C.O. 2 57.71 −39.73
+Dist. 3 0.00 −22.19 −35.51 27.05 12.68 0.00
+C.O. 3 13.53 −17.76
+Dist. 4 0.00 −5.20 −8.32 12.09 5.67 0.00
+C.O. 4 6.04 −4.16
+Dist. 5 0.00 −2.32 −3.72 2.83 1.33 0.00
+Σ 0.00 61.41 −61.41 363.58 −363.58 0.00
+## Step 6 Span CD, and a look at BC
+Ref Calculations Output
+(3.6) V_{CD} = 64.41 × 4 + (363.58 − 0)/8; V_{DC} = 515.30 − V_{CD}; x₀ = V_{CD}/64.41; M = V_{CD}²/(2 × 64.41) − 363.58 303.10; 212.20 kN; 349.54 kN m at 4.71 m
+(3.6) BC: V_{BC} = 47.67 × 2.5 + (61.41 − 363.58)/5 = 58.75 kN; M = 58.75²/(2 × 47.67) − 61.41 −25.22 kN m: BC hogs throughout
+## Step 7 Columns at C and D, and the beam at D
+Ref Calculations Output
+(3.7) C: CD at w_{max}, BC at w_{min}: ΔFEM = 343.53 − 25.73 × 25/12 = 343.53 − 53.61 (the other way round is negative); ΣK = 4.57 + 4.00 + ½ × 9.0 + ½ × 5.63 = 15.88 83.44; 73.01 kN m
+(3.7) D, an end column: ΔFEM = 343.53; ΣK = 4.57 + 4.00 + ½ × 5.63 = 11.38 137.95; 120.71 kN m
+Statics Beam at D: 137.95 + 120.71 258.66 kN m
+Answer. BC: 0.40 and 0.33, w_{max}/w_{min} = 47.67/25.73 kN/m; CD: 0.52 and 0.482, 64.41/34.10 kN/m. For the largest hogging at C: M_B = 61.41 and M_C = 363.58 kN m (to convergence 60.53 and 362.76); V_{CD} = 303.10, V_{DC} = 212.20 kN, M_{CD} = 349.54 kN m. Columns: C 83.44 and 73.01, D 137.95 and 120.71 kN m; beam at D 258.66 kN m.
+What the numbers say With the workbook’s typed coefficients (0.47 and 0.42 for CD) the same case gives M_C = 334.58 kN m, 8 % less, a span moment in CD of 308.13 kN m (12 % less) and an upper column at D of 123.21 kN m (11 % less): every effect of the long span is under-designed. Note BC as well: even at w_{max} it hogs along its whole length (−25.22 kN m at most), because the 8 m span hogs C so strongly; BC needs top bars right across.
+
+[examples-x3] Example 3 · Explain-type questions
+Exam type short written answers Time ≈ 3 min each
+Questions
+- A classmate analyses the beams of a floor with all spans at w_{max} only, “because that is the heaviest load”. What does this miss?
+- Why is the end span of the continuous beam given ¾ of its stiffness, and why is the pin released only once?
+- The continuous beam gives zero moment at an end support. Why must the top bars there still be designed for a large hogging moment?
+- In the one-free-joint sub-frame, the interior column B gets far less moment than the end column A. Is that a sign of a mistake?
+Write your four answers first, then open the model answers one by one.
+## Answer 1 Every pattern that governs
+All spans loaded is the heaviest total load but not the worst case for any section. In the course notes’ frame it gives 167.9 kN m of sagging in AB against 186.8 with alternate spans, and 201.5 kN m at B against 217.6 with the adjacent spans; it also hides the hogging along a light middle span (−25.0 kN m in BC). Each section has its own worst arrangement, which is why EC2 5.1.3 asks for alternate and adjacent patterns.
+## Answer 2 The pin is counted once
+A span pinned at its far end turns more easily than one fixed there: its stiffness is 3EI/L, ¾ of 4EI/L. Using ¾K builds the pin into the distribution factors, so the pin is released at the start and nothing is carried back to it. Balancing the pin again in every cycle with the full K gives the same answer, only more slowly; doing both, ¾K and carrying moments back to the pin, counts the pin twice and leaves a moment at the pin, which is wrong (Frame S3, line 8).
+## Answer 3 The knife edge hides it
+The knife-edge support is an idealisation for the beam moments. The real joint is monolithic with its columns, and the one-free-joint sub-frame gives them 64.0 + 56.0 = 120.1 kN m in Worked Example 3.1. By equilibrium the beam end carries the same moment. It is about four times 0.15M_{span} of EC2 9.2.1.2(1), which is a minimum for partial fixity, not an estimate of this moment.
+## Answer 4 No: the interior joint is nearly balanced
+At an interior joint the two beams pull in opposite directions, so only the difference between a loaded and an unloaded span is out of balance (85.3 kN m at B against 172.6 at A in Worked Example 3.1); B also has two beams to share it with. So the interior column gets less. But the one-free-joint sub-frame does underestimate it: it fixes the far ends and ignores the load beyond. The one-level sub-frame of Unit 4 gives B 30.3 kN m instead of 24.3, which is why the RC Design app designs for the larger of the two.
+
+[exercises-b1] Exercise B1 · The load on a beam from two panels
+Statement: generated in the app at run time (numbers change per attempt)
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-b2] Exercise B2 · Distribution factors and the first balance
+Statement: generated in the app at run time (numbers change per attempt)
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-b3] Exercise B3 · Two spans: the support moment
+Statement: generated in the app at run time (numbers change per attempt)
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-b4] Exercise B4 · Shears and the span moment
+Statement: generated in the app at run time (numbers change per attempt)
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-b5] Exercise B5 · An interior column
+Statement: generated in the app at run time (numbers change per attempt)
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-b6] Exercise B6 · An end column and the beam at the end
+Statement: generated in the app at run time (numbers change per attempt)
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-quick] Exercises: quick concept questions
+- Which statement describes a braced frame?
+- A beam has four spans AB, BC, CD and DE. For the largest sagging moment in CD, which spans carry w_{max} ?
+- Load Set 2 of the Malaysian National Annex is made of
+- A beam runs along the short side of an interior slab panel 5 m × 7 m. Its load per metre from this panel is
+- In the continuous beam, the end span AB is pinned at A. With ¾K for AB, what happens at A after the first row?
+- By the one-free-joint sub-frame, the column moments at an end column A are 60 kN m above and 50 kN m below. What hogging moment must the beam carry at A?
+- An interior frame beam spans 7.0 m in an interior bay (case 1); the panels either side are 4.5 m and 5.0 m wide. Slab 175 mm, finishes 1.5 kN/m², imposed 3.0 and partitions 1.0 kN/m², beam 300 × 600. Which line is wrong?
+- At the interior column B, AB spans 6.0 m (w_{max} = 55.0, w_{min} = 30.0 kN/m) and BC 7.0 m (w_{max} = 58.0, w_{min} = 32.0 kN/m); beams 300 × 600; column 300 × 450, 3.5 m above the floor and 4.0 m below. Which line is wrong?
+
+[lab-arr] Explorer task 1 · Tab 1, Activity 3A: for the four effects of the course notes’ frame (sagging in AB, hogging at B, sagging in BC, the least moment in BC), pick the card you expect to be worst, then reveal.
+Ticks itself: when four effects have been revealed after a pick · not ticked? mark done
+(The task's answer fields are checked in the app; they are not included here.)
+
+[lab-ls] Explorer task 2 · Tab 1: switch to the workbook’s frame (spans 6, 5 and 8 m) and reveal the hogging at B. How much does Load Set 2 miss, and why?
+Ticks itself: when the hogging at B of that frame is revealed · not ticked? mark done
+(The task's answer fields are checked in the app; they are not included here.)
+
+[lab-md] Explorer task 3 · Tab 2, Activity 3B: in case 1 of Worked Example 3.1, predict three balancing moments at BA in a row before each row is shown.
+Ticks itself: when three predictions in a row are right · not ticked? mark done
+(The task's answer fields are checked in the app; they are not included here.)
+
+[lab-col] Explorer task 4 · Tab 2, columns: work out the upper and lower column moments at an interior joint (start with B of the notes’ frame), type both and reveal.
+Ticks itself: when both values at an interior joint are right · not ticked? mark done
+(The task's answer fields are checked in the app; they are not included here.)
+
+[lab-s3] Explorer task 5 · Tab 3: find all four slips of Frame S3, tap their lines and press “Check”.
+Ticks itself: when all four slips are found, before Show · not ticked? mark done
+(The task's answer fields are checked in the app; they are not included here.)
+
+[glossary-frame-plane-frame] Glossary: frame · plane frame
+frame · plane frame: The beams and columns along one grid line of a building, analysed in their own plane; each carries the slab panels on either side of its beams.
+
+[glossary-braced-frame] Glossary: braced frame
+braced frame: A frame whose horizontal load is carried by shear walls, a core or bracing: its beams and columns carry vertical load only.
+
+[glossary-unbraced-frame] Glossary: unbraced frame
+unbraced frame: A frame whose beams and columns carry the horizontal load as well, and sway under it (Units 5 and 6).
+
+[glossary-sub-frame] Glossary: sub-frame
+sub-frame: A part cut from the frame for hand analysis, with the far ends of its members taken as fixed (RDF §11.0, from BS 8110).
+
+[glossary-one-level-sub-frame] Glossary: one-level sub-frame
+one-level sub-frame: The beams of one floor with the columns just above and below (Unit 4).
+
+[glossary-two-free-joint-sub-frame] Glossary: two-free-joint sub-frame
+two-free-joint sub-frame: One beam, the columns at its ends and the beams either side at half stiffness (Unit 4).
+
+[glossary-continuous-beam-knife-edge-supports] Glossary: continuous beam (knife-edge supports)
+continuous beam (knife-edge supports): The beams of one floor on supports that hold them up but do not restrain their rotation; it gives the beam moments of method (iii).
+
+[glossary-one-free-joint-sub-frame] Glossary: one-free-joint sub-frame
+one-free-joint sub-frame: One joint with its columns and the beams either side at half stiffness, far ends fixed, w_{max} on one side and w_{min} on the other; it gives the column moments.
+
+[glossary-load-arrangement-pattern-loading] Glossary: load arrangement · pattern loading
+load arrangement · pattern loading: Which spans carry the variable load. Each section has its own worst arrangement.
+
+[glossary-w-max-w-min] Glossary: w_{max} , w_{min}
+w_{max} , w_{min}: 1.35G_k + 1.5Q_k on a loaded span, 1.35G_k on an unloaded one: the same γ_G on every span.
+
+[glossary-load-set-1] Glossary: Load Set 1
+Load Set 1: EC2 5.1.3: alternate spans at w_{max} , and any two adjacent spans at w_{max} , the others at w_{min} . The course notes and workbook use it.
+
+[glossary-load-set-2] Glossary: Load Set 2
+Load Set 2: Malaysian (and UK) National Annex: all spans at w_{max} , and alternate spans at w_{max} . It can miss part of a support moment (7 % and 21 % at B in the course frames).
+
+[glossary-shear-coefficient-v-table-3-15] Glossary: shear coefficient β_v (Table 3.15)
+shear coefficient β_v (Table 3.15): The share of a two-way panel’s load per metre on each supporting beam: v = β_v n l_x .
+
+[glossary-vx-vy] Glossary: β_{vx} · β_{vy}
+β_{vx} · β_{vy}: β_{vx} for a beam on a long side of the panel, interpolated in l_y /l_x ; β_{vy} for a beam on a short side, one value for the case.
+
+[glossary-l-x-l-y] Glossary: l_x , l_y
+l_x , l_y: The short and the long side of a slab panel. The load per metre on any of its beams uses l_x .
+
+[glossary-panel-case] Glossary: panel case
+panel case: Which edges of a panel are continuous: case 1 interior, case 2 one short edge discontinuous, and so on (Table 3.15).
+
+[glossary-stiffness-k] Glossary: stiffness K
+stiffness K: I/L of a member; only the ratios matter. 10I/L with I in 10⁹ mm⁴ and L in m gives 10⁵ mm³.
+
+[glossary-k] Glossary: ¾K
+¾K: The stiffness of a span whose far end is pinned (3EI/L against 4EI/L). The pin is then released once and receives no carry-over.
+
+[glossary-distribution-factor-f] Glossary: distribution factor F
+distribution factor F: K/ΣK of a member at a joint: its share of the out-of-balance moment there. The factors at a joint add up to 1.
+
+[glossary-fixed-end-moment-fem] Glossary: fixed-end moment (FEM)
+fixed-end moment (FEM): The end moment of a span with both ends locked: wL²/12 for a uniform load; −wL²/12 at the left end and +wL²/12 at the right, clockwise positive.
+
+[glossary-balance-carry-over] Glossary: balance · carry-over
+balance · carry-over: Balance: give each member at a free joint −F × ΣM. Carry over: half of each balancing moment goes to the far end of its span.
+
+[glossary-cycle-convergence] Glossary: cycle · convergence
+cycle · convergence: One balance and one carry-over. Hand calculation stops after a set number of cycles; to convergence, the carried moments have become negligible.
+
+[glossary-envelope] Glossary: envelope
+envelope: The largest hogging, largest sagging, least span moment and largest shears of every section over all the load arrangements.
+
+[glossary-least-span-moment] Glossary: least span moment
+least span moment: The smallest of the span’s sagging peaks over the arrangements. Negative means the span hogs along its whole length and needs top bars across it.
+
+[glossary-fem] Glossary: ΔFEM
+ΔFEM: The out-of-balance moment at a joint in the column sub-frame: FEM of the w_{max} side minus FEM of the w_{min} side; at an end column, the whole FEM at w_{max} .
+
+[glossary-beam-moment-at-an-end-support] Glossary: beam moment at an end support
+beam moment at an end support: M_{c,u} + M_{c,l} by equilibrium of the joint. The continuous beam shows zero there; the top bars must take it.
+
+[glossary-professional-habit-3] Glossary: Professional Habit 3
+Professional Habit 3: Check the table before you use it: ΣM = 0 at every joint, M = 0 at a pin, V_L + V_R = wL in every span.

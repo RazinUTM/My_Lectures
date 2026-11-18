@@ -1,0 +1,6 @@
+rz-tutor-worker 0.3.0, copied 14 Nov 2026 from main at commit 17c2ad5: panel/, widget/, tools/add_panel.py,
+tools/build_manifest.py (MIT, see LICENSE). A pinned copy used by web/add_tutor.py. To update: copy the same files
+from a newer rz-tutor-worker release over this folder, rebuild the page (./build.sh) and check it in a browser.
+
+Not copied: feedback/ (this page has no Feedback tab yet; it needs app "seaa4333" registered in the Worker).
+No local patch.

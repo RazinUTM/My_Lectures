@@ -124,7 +124,7 @@ def manifest(soup: BeautifulSoup) -> dict:
         "notes": [s["id"] for s in soup.select("#v-notes section.nsec")],
         "slides": len(titles), "slideTitles": titles,
         "examples": [s["id"] for s in soup.select("#v-examples section.xsec")],
-        "lab": {"id": "frame", "milestones": [{"id": t["data-ms"]} for t in soup.select("#v-lab .tk[data-ms]")]},
+        "lab": {"id": "wind", "milestones": [{"id": t["data-ms"]} for t in soup.select("#v-lab .tk[data-ms]")]},
         "cando": len(soup.select(".cando .row")), "targetMin": 45,
         "avatarBase": "../shared/avatar/",
         "regions": REGIONS,

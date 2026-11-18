@@ -88,7 +88,7 @@
   },
   {
    "id": "slides-15",
-   "text": "[slides-15] Slide 15: Predict the next balance, row by row\nActivity 3B · pairs · 8 minutes Predict the next balance, row by row 1 · Before each row Choose AB + CD at w_{max}. Type the balancing moment at BA, then Next row. 2 · After the table Switch to “Full K, balance the pin every cycle”. Same answer? How many more cycles? 3 · Columns Lab tab 2, Columns: joint B. Work out M_{c,u} and M_{c,l} by hand, then reveal. Three right in a row ticks Explorer task 3. SEAA 4333 · Unit"
+   "text": "[slides-15] Slide 15: Predict the next balance, row by row\nActivity 3B · pairs · 8 minutes Predict the next balance, row by row 1 · Before each row Choose AB + CD at w_{max}. Type the balancing moment at BA, then Next row. 2 · After the table Switch to “Full K, balance the pin every cycle”. Same answer? How many more cycles? 3 · Columns Lab tab 2, Columns: the workbook’s frame, joint B. Work out M_{c,u} and M_{c,l} by hand, then reveal. Three right in a row ticks Explorer ta"
   },
   {
    "id": "slides-16",

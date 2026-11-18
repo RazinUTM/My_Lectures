@@ -1,0 +1,1026 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Wind Lab · SEAA 4333</title>
+<meta name="description" content="SEAA 4333 Units 5 and 6, Frame Analysis III and IV: which frames carry which wind; the MS 1553:2002 pressures and the wind forces on one frame, level by level; what matters most in the wind force; and a spot-the-error sheet.">
+<meta name="claude:viewport-fit-sides" content="cover">
+<script>(function(){try{var r=document.documentElement,p=JSON.parse(localStorage.getItem("seaa4333-prefs")||"null")||{};if(p.lang==="ms"){r.lang="ms";r.setAttribute("data-lang","ms")}if(p.theme==="light"||p.theme==="dark")r.setAttribute("data-theme",p.theme);if(+p.font)r.style.fontSize=(+p.font*100)+"%"}catch(e){}})();</script>
+<!-- Wind Lab (SEAA 4333 Units 5 and 6). SPDX-License-Identifier: MIT (code). Text and figures: CC BY-NC-SA 4.0.
+     Copyright (c) 2026 Ahmad Razin Zainal Abidin and Universiti Teknologi Malaysia. See ../LICENSE.md. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Wind Lab. Layout: the calculation pad of the Staircase, Column, Foundation, Retaining Wall and Frame Labs, laid on concrete. Controls stay monochrome ink;
+   colour is kept for the two bracing cases (braced blue, unbraced rust, validated for colour-vision
+   deficiency in both themes) and for pass/fail verdicts. The tabs follow the order of the Unit 5 and Unit 6 sessions. */
+:root{
+  --bg:#E6E4DF; --surface:#F7F6F2; --surface-2:#EEECE6;
+  --ink:#1D1C19; --ink-2:#47443D; --ink-3:#686459;
+  --rule:#CAC6BD; --grid:#E1DED6; --concrete:#D9D6CE; --concrete-edge:#9C978C;
+  --flight:#2463c4; --braced:#2463c4; --unbraced:#b8481a;
+  --ok:#0f6b37; --bad:#ad2a1f;
+  --wash-ok:rgba(15,107,55,.12); --wash-bad:rgba(173,42,31,.12); --wash-flag:rgba(36,99,196,.14);
+  --focus:#2463c4; --shadow:rgba(29,28,25,.14);
+  --f-display:"Archivo","Arial Narrow",Arial,system-ui,sans-serif;
+  --f-body:"Atkinson Hyperlegible","Segoe UI",Roboto,system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#131311; --surface:#1C1B19; --surface-2:#252420;
+    --ink:#ECE9E1; --ink-2:#BDB8AD; --ink-3:#958F84;
+    --rule:#37352F; --grid:#2A2925; --concrete:#3A3833; --concrete-edge:#77726A;
+    --flight:#5d9bf0; --braced:#4f8ee8; --unbraced:#df6a33;
+    --ok:#52c98a; --bad:#f2837a;
+    --wash-ok:rgba(82,201,138,.16); --wash-bad:rgba(242,131,122,.16); --wash-flag:rgba(93,155,240,.2);
+    --focus:#6aa6f0; --shadow:rgba(0,0,0,.5); color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#131311; --surface:#1C1B19; --surface-2:#252420;
+  --ink:#ECE9E1; --ink-2:#BDB8AD; --ink-3:#958F84;
+  --rule:#37352F; --grid:#2A2925; --concrete:#3A3833; --concrete-edge:#77726A;
+  --flight:#5d9bf0; --braced:#4f8ee8; --unbraced:#df6a33;
+  --ok:#52c98a; --bad:#f2837a;
+  --wash-ok:rgba(82,201,138,.16); --wash-bad:rgba(242,131,122,.16); --wash-flag:rgba(93,155,240,.2);
+  --focus:#6aa6f0; --shadow:rgba(0,0,0,.5); color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1rem;line-height:1.5}
+h1,h2,h3{font-family:var(--f-display);font-stretch:85%;line-height:1.15;text-wrap:balance;margin:0}
+p{margin:0}
+.wrap{max-width:1220px;margin-inline:auto;padding-inline:clamp(16px,3vw,32px);padding-left:max(clamp(16px,3vw,32px),env(safe-area-inset-left,0px));padding-right:max(clamp(16px,3vw,32px),env(safe-area-inset-right,0px))}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* top bar */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--bg);border-bottom:1px solid var(--rule)}
+.topbar .wrap{display:flex;align-items:center;gap:10px 20px;flex-wrap:wrap;padding-block:10px}
+.brand{display:flex;align-items:baseline;gap:6px 12px;flex-wrap:wrap;min-width:0}
+.brand h1{font-size:clamp(1.35rem,2.6vw,1.8rem);font-weight:800;letter-spacing:.01em}
+.unit{font:600 .74rem/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.timer{margin-left:auto;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.timer-display{font:600 1.3rem/1 var(--f-mono);font-variant-numeric:tabular-nums;padding:7px 12px;border:1.5px solid var(--ink);border-radius:8px;background:var(--surface);color:var(--ink);cursor:pointer;min-width:5.4ch;text-align:center}
+.timer-display.running{background:var(--ink);color:var(--surface)}
+.timer-display.done{background:var(--ink);color:var(--surface);animation:blink 1s steps(2) 6}
+@keyframes blink{50%{background:var(--surface);color:var(--ink)}}
+.btn{font:700 .86rem/1 var(--f-body);color:var(--ink);background:var(--surface);border:1.5px solid var(--ink);border-radius:999px;padding:8px 13px;cursor:pointer;min-height:36px}
+.btn:hover{background:var(--surface-2)}
+.btn.primary{background:var(--ink);color:var(--surface)}
+.btn.primary:hover{opacity:.9}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.sm{padding:6px 10px;font-size:.8rem;min-height:32px}
+
+/* tabs */
+.tabs{display:flex;gap:4px;overflow-x:auto;padding-top:14px;scrollbar-width:thin}
+.tab{flex:0 0 auto;display:flex;gap:8px;align-items:baseline;font:700 .95rem/1.2 var(--f-body);color:var(--ink-2);background:transparent;border:1px solid transparent;border-bottom:0;border-radius:10px 10px 0 0;padding:10px 14px 11px;cursor:pointer}
+.tab .n{font:600 .78rem var(--f-mono);color:var(--ink-3)}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected="true"]{background:var(--surface);color:var(--ink);border-color:var(--rule);position:relative;top:1px}
+.sheet{background:var(--surface);border:1px solid var(--rule);border-radius:0 var(--r) var(--r) var(--r);padding:clamp(14px,2.4vw,26px)}
+main{padding-bottom:40px}
+
+/* panels */
+.panel{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:920px){.panel{grid-template-columns:minmax(0,1fr)}}
+.col{display:flex;flex-direction:column;gap:18px;min-width:0}
+.head h2{font-size:clamp(1.4rem,2.6vw,1.9rem);font-weight:800}
+.lede{color:var(--ink-2);max-width:62ch;margin-top:6px}
+.group{display:flex;flex-direction:column;gap:8px}
+.label{font:700 .72rem/1.2 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.seg{display:inline-flex;flex-wrap:wrap;border:1.5px solid var(--ink);border-radius:12px;overflow:hidden;width:max-content;max-width:100%}
+.seg button{font:700 .86rem/1.15 var(--f-body);background:transparent;color:var(--ink);border:0;padding:9px 12px;cursor:pointer;min-height:38px}
+.seg button+button{border-left:1.5px solid var(--ink)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--surface)}
+.seg.vert{display:flex;flex-direction:column;width:100%}
+.seg.cells{display:grid;grid-template-columns:repeat(auto-fit,minmax(6.2rem,1fr));gap:1.5px;background:var(--ink);width:100%}
+.seg.cells button{background:var(--surface)}
+.task .seg.cells button{background:var(--bg)}
+.seg.cells button+button{border-left:0}
+.seg.cells button[aria-pressed="true"]{background:var(--ink)}
+.seg.vert button{text-align:left}
+.seg.vert button+button{border-left:0;border-top:1.5px solid var(--ink)}
+.fields{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:8px 10px;align-items:center}
+.fields label{font-size:.92rem}
+.fields .u{font:500 .8rem var(--f-mono);color:var(--ink-3)}
+.fields input,.fields select,select.full{width:100%;min-width:0;font:500 .95rem var(--f-mono);padding:7px 8px;border:1px solid var(--rule);border-radius:6px;background:var(--bg);color:var(--ink)}
+select.full{font-family:var(--f-body)}
+.task{border:1.5px solid var(--ink);border-radius:var(--r);padding:14px 16px;background:var(--bg)}
+.task .tag{display:inline-block;font:700 .7rem/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;background:var(--ink);color:var(--surface);padding:5px 8px;border-radius:4px}
+.task p{margin-top:8px}
+.note{font-size:.92rem;color:var(--ink-2);border-top:1px solid var(--rule);padding-top:10px}
+
+/* figures and the chart */
+.plotcard{border:1px solid var(--rule);border-radius:var(--r);background:var(--surface);padding:10px 10px 6px;min-width:0}
+.plothead{display:flex;justify-content:space-between;align-items:baseline;gap:6px 16px;flex-wrap:wrap;padding:2px 6px 4px}
+.plothead h3{font-size:1.06rem;font-weight:700}
+.legend{display:flex;gap:6px 14px;flex-wrap:wrap;font-size:.85rem;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.key{display:inline-block;width:18px;border-top:3px solid}
+.figbox{overflow-x:auto}
+svg.fig{display:block;width:100%;height:auto;min-width:460px}
+svg.fig text{font-family:var(--f-mono);font-size:12px;fill:var(--ink-2);paint-order:stroke;stroke:var(--surface);stroke-width:3px;stroke-linejoin:round}
+svg.fig .small{font-size:11px;fill:var(--ink-3)}
+svg.chart{display:block;width:100%;height:auto;touch-action:pan-y}
+svg.chart text{font-family:var(--f-mono);font-size:12px;fill:var(--ink-3)}
+svg.chart .axt{fill:var(--ink-2);font-family:var(--f-body);font-size:13px}
+.ctip{position:absolute;top:8px;left:0;z-index:5;pointer-events:none;display:flex;flex-direction:column;gap:3px;min-width:150px;padding:8px 10px;border:1px solid var(--rule);border-radius:8px;background:var(--surface);box-shadow:0 4px 14px var(--shadow);font:500 .8rem/1.3 var(--f-mono);font-variant-numeric:tabular-nums;color:var(--ink)}
+.ctip span{display:flex;align-items:center;gap:6px;color:var(--ink-2)}
+.ctip .key{width:14px}
+details.tview{margin:4px 6px 6px;font-size:.9rem}
+details.tview summary{cursor:pointer;font-weight:700;color:var(--ink-2);padding:4px 0;width:max-content;max-width:100%}
+details.tview .tbl{min-width:420px}
+
+/* tables */
+.scroll{overflow-x:auto}
+.tbl{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:.92rem}
+.tbl th,.tbl td{padding:7px 10px;border-bottom:1px solid var(--rule);text-align:left;vertical-align:top}
+.tbl th{font:700 .74rem/1.2 var(--f-mono);letter-spacing:.03em;color:var(--ink-3);text-transform:uppercase}
+.tbl th.out{text-align:right}
+.tbl td.m,.tbl .m{font-family:var(--f-mono);font-size:.86rem}
+.tbl td.out{font-family:var(--f-mono);font-weight:600;white-space:nowrap;text-align:right}
+.tbl td.ref{font-size:.8rem;color:var(--ink-3);width:7.5rem}
+.tbl tr.em td{background:var(--surface-2)}
+#lTable{min-width:520px;table-layout:fixed}
+#lTable col.cref{width:6.8rem}
+#lTable td.ax .c{font:.82rem/1.45 var(--f-mono);color:var(--ink-2);overflow-wrap:anywhere}
+#lTable td.ax .o{font:600 .92rem/1.4 var(--f-mono);font-variant-numeric:tabular-nums;color:var(--ink);margin-top:3px}
+#lTable td.ax span.o{margin-left:6px}
+#lTable tr.em td{vertical-align:middle}
+
+/* verdict pills and key values */
+.pill{display:inline-block;font:700 .72rem/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;padding:6px 8px;border-radius:999px;border:1.5px solid currentColor;min-width:4.6ch;text-align:center}
+.pill.ok{color:var(--ok);background:var(--wash-ok)}
+.pill.bad{color:var(--bad);background:var(--wash-bad)}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:8px}
+.kv div{background:var(--surface-2);border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:2px}
+.kv span{font:700 .7rem/1.2 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+.kv span.pill.ok{color:var(--ok)}.kv span.pill.bad{color:var(--bad)}
+.kv b{font:600 1.15rem/1.2 var(--f-mono);font-variant-numeric:tabular-nums}
+.verdict{font-size:.92rem;padding:8px 10px;border-radius:6px;margin-top:10px}
+.verdict.ok{background:var(--wash-ok);color:var(--ink)}
+.verdict.bad{background:var(--wash-bad);color:var(--ink)}
+.verdict b{color:inherit}
+
+/* the race */
+.racegrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,330px),1fr));gap:12px}
+.racecard{border:1px solid var(--rule);border-radius:var(--r);background:var(--surface);padding:12px 14px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.racecard .rhead{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:start}
+.racecard .rn{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--ink);color:var(--surface);font:700 .9rem/1 var(--f-mono)}
+.racecard .rhead p{font-size:.93rem}
+.racecard .verdict{margin-top:0}
+
+/* spot the error */
+.s1top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:920px){.s1top{grid-template-columns:minmax(0,1fr)}}
+.given{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;font-size:.92rem;background:var(--surface-2);border-radius:8px;padding:12px 14px;margin:0}
+.given dt{font:700 .78rem var(--f-mono);color:var(--ink-3);padding-top:2px}
+.given dd{margin:0}
+.sheetcalc{border-collapse:collapse;width:100%;font-size:.9rem;min-width:640px}
+.sheetcalc th{font:700 .72rem/1.2 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);text-align:left;padding:8px 10px;border-bottom:1.5px solid var(--ink)}
+.sheetcalc td{padding:9px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+.sheetcalc td.no{font:700 .9rem var(--f-mono);width:3.2rem}
+.sheetcalc td.ref{font-size:.8rem;color:var(--ink-3);width:8.5rem}
+.sheetcalc td.calc{font-family:var(--f-mono);font-size:.84rem}
+.sheetcalc td.out{font-family:var(--f-mono);font-size:.84rem;font-weight:600;width:10rem}
+.sheetcalc tbody tr{cursor:pointer}
+.sheetcalc tbody tr:hover td{background:var(--surface-2)}
+.sheetcalc tr.flag td{background:var(--wash-flag)}
+.sheetcalc tr.flag td.no::after{content:" ⚑";color:var(--flight)}
+.sheetcalc tr.hit td{background:var(--wash-ok)}
+.sheetcalc tr.miss td{background:var(--wash-bad)}
+.sheetcalc tr.false td{background:var(--surface-2);text-decoration:line-through;text-decoration-color:var(--ink-3)}
+.sheetcalc tr .fix{display:block;margin-top:6px;font-family:var(--f-body);font-size:.88rem;color:var(--ink);background:var(--surface);border-left:3px solid var(--ok);padding:6px 10px;border-radius:0 6px 6px 0;text-decoration:none}
+.sheetcalc tr.miss .fix{border-left-color:var(--bad)}
+.score{font:700 1.05rem var(--f-display);min-height:1.4em}
+.steps{display:flex;gap:8px;flex-wrap:wrap}
+.summary{border:1.5px solid var(--bad);border-radius:var(--r);padding:12px 14px;background:var(--wash-bad);font-size:.95rem}
+
+/* big timer */
+.bigtimer{position:fixed;inset:0;z-index:50;background:var(--ink);color:var(--surface);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:24px;cursor:pointer}
+.bigtimer .digits{font:600 clamp(5rem,22vw,16rem)/1 var(--f-mono);font-variant-numeric:tabular-nums}
+.bigtimer .hint{font:500 1rem var(--f-mono);opacity:.75}
+footer{color:var(--ink-3);font-size:.85rem;padding-block:18px 32px;max-width:90ch}
+@media (max-width:640px){
+  .topbar{position:static}
+  .timer{margin-left:0}
+  .tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding-bottom:10px}
+  .tab{border:1px solid var(--rule);border-radius:8px;padding:9px 10px}
+  .tab[aria-selected="true"]{top:0;background:var(--ink);color:var(--surface);border-color:var(--ink)}
+  .tab[aria-selected="true"] .n{color:var(--surface)}
+  .sheet{border-radius:var(--r)}
+}
+@media (prefers-reduced-motion:reduce){.timer-display.done{animation:none}}
+
+/* SEAA 4333 site bar: shown when the Lab is opened on its own, hidden inside the Unit page (the page has the settings) */
+.sitebar{background:var(--surface-2);border-bottom:1px solid var(--rule);font-size:.86rem}
+.sitebar .wrap{display:flex;align-items:center;justify-content:space-between;gap:8px 16px;flex-wrap:wrap;padding-block:6px}
+.sitebar .crumbs{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center;color:var(--ink-3)}
+.sitebar .crumbs a{color:var(--ink-2);text-decoration:none;font-weight:700}
+.sitebar .crumbs a:hover{text-decoration:underline}
+.sitebar .crumbs [aria-current]{color:var(--ink);font-weight:700}
+.sitebar .prefs{display:flex;gap:4px;flex-wrap:nowrap}
+.sitebar .prefs button{display:inline-grid;place-items:center;width:30px;height:30px;padding:0;border:1px solid var(--rule);border-radius:8px;background:var(--surface);color:var(--ink);cursor:pointer;font:700 .75rem/1 var(--f-body)}
+.sitebar .prefs button:hover{border-color:var(--ink)}
+.sitebar .prefs svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.sitebar .fontbtn{display:inline-flex!important;flex-direction:column;gap:2px}
+.sitebar .fontbtn .aa{font-size:.8rem;line-height:1}.sitebar .fontbtn .aa small{font-size:.55rem}
+.sitebar .fontbtn .lvl{display:flex;gap:2px}.sitebar .fontbtn .lvl i{width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.25}.sitebar .fontbtn .lvl i.on{opacity:1}
+:root.framed .sitebar{display:none}
+footer .lic{display:block;margin-top:6px}
+
+/* Unit 8: N–M interaction, design and detail */
+input[type=range].xs{width:100%;accent-color:var(--flight);margin:6px 0 2px}
+.xread{display:flex;flex-wrap:wrap;gap:6px 14px;font-family:var(--f-mono);font-size:.86rem;color:var(--ink-2)}
+.xread b{color:var(--ink)}
+.jig{display:grid;grid-template-columns:auto 1fr 1fr auto;gap:6px 10px;align-items:center;margin-top:10px}
+.jig .h{font-size:.8rem;color:var(--ink-3);font-weight:600}
+.jig input{width:100%;min-width:0;font:inherit;font-family:var(--f-mono);padding:5px 7px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink)}
+.jig .lab{font-weight:700;font-family:var(--f-mono)}
+.jig .st{font-weight:700;min-width:1.2em;text-align:center}
+.jig .st.ok{color:var(--ok)} .jig .st.bad{color:var(--bad)}
+.barpick{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.barpick select{font:inherit;padding:5px 8px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink)}
+.lk{display:grid;grid-template-columns:auto auto auto;gap:6px 10px;align-items:center;margin-top:8px}
+.lk input,.lk select{font:inherit;font-family:var(--f-mono);width:6.5em;padding:5px 7px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink)}
+.lk .st{font-size:.9rem}
+/* Wind Lab */
+:root{--s1:#2463c4;--s2:#b8481a;--s3:#167a55}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--s1:#4f8ee8;--s2:#df6a33;--s3:#3fa877}}
+:root[data-theme="dark"]{--s1:#4f8ee8;--s2:#df6a33;--s3:#3fa877}
+.owntbl td{padding:4px 6px}
+.owntbl input,.owntbl select{width:6.5em;font:500 .9rem var(--f-mono);padding:5px 6px;border:1px solid var(--rule);border-radius:6px;background:var(--bg);color:var(--ink)}
+.owntbl select{width:auto;max-width:12em}
+.owntbl td.u{font:500 .8rem var(--f-mono);color:var(--ink-3)}
+.tbl th:has(sub),.kv span:has(sub){text-transform:none;letter-spacing:.02em}
+#pKV span,#pSum span,#fKV span,#pTable th,#sTable th{text-transform:none;letter-spacing:.02em}
+#pTable td,#pTable th,#sTable td.out,#sTable th.out{white-space:nowrap}
+#pChart,#sChart{min-width:520px}
+#fPlan{min-width:440px}
+#pPred:disabled,#pCheck:disabled{opacity:.5}
+#sCards select{width:auto}
+#fFrames button{text-align:left}
+#sTable .btn.sm{min-height:30px}
+#pKV{grid-template-columns:repeat(2,minmax(0,1fr))}
+svg .halo{paint-order:stroke;stroke:var(--surface);stroke-width:4px;stroke-linejoin:round}
+[hidden]{display:none !important}
+</style>
+</head>
+<body>
+<div class="sitebar" id="sitebar"><div class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb" data-ms-aria="Laluan"><a href="https://razinutm.github.io/My_Lectures/">My Lectures</a><span aria-hidden="true">›</span><a href="../index.html">SEAA 4333</a><span aria-hidden="true">›</span><a href="../05-frame-analysis-3/index.html#lab">Unit 5</a><span aria-hidden="true">›</span><span aria-current="page">Wind Lab</span></nav>
+  <div class="prefs"><button type="button" id="btn-lang" title="Bahasa">BM</button><button type="button" id="btn-theme" title="Theme"></button><button type="button" id="btn-font" class="fontbtn" title="Text size"><span class="aa" aria-hidden="true">A<small>A</small></span><span class="lvl" aria-hidden="true"><i></i><i></i><i></i><i></i></span></button></div>
+</div></div>
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand">
+      <h1>Wind Lab</h1>
+      <span class="unit">SEAA 4333 · Units 5–6 · Frame Analysis III–IV</span>
+    </div>
+    <div class="timer" aria-label="Activity timer" data-ms-aria="Pemasa aktiviti">
+      <button class="timer-display" id="tDisplay" type="button" title="Show the timer full screen" data-ms-title="Tunjuk pemasa pada skrin penuh">5:00</button>
+      <div class="seg" role="group" aria-label="Timer length" data-ms-aria="Tempoh pemasa" id="tLen">
+        <button type="button" data-min="3">3</button>
+        <button type="button" data-min="5" aria-pressed="true">5</button>
+        <button type="button" data-min="10">10</button>
+        <button type="button" data-min="15">15</button>
+        <button type="button" data-min="20">20</button>
+      </div>
+      <button class="btn sm primary" id="tStart" type="button">Start</button>
+      <button class="btn sm" id="tReset" type="button" data-ms="Set semula">Reset</button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <nav class="tabs" role="tablist" aria-label="Lab sections" data-ms-aria="Bahagian Lab">
+    <button class="tab" role="tab" id="tab-face" aria-controls="panel-face" data-tab="face"><span class="n">1</span><span data-ms="Muka yang mana">Which face</span></button>
+    <button class="tab" role="tab" id="tab-press" aria-controls="panel-press" data-tab="press"><span class="n">2</span><span data-ms="Tekanan">Pressures</span></button>
+    <button class="tab" role="tab" id="tab-sens" aria-controls="panel-sens" data-tab="sens"><span class="n">3</span><span data-ms="Apa paling penting">What matters most</span></button>
+    <button class="tab" role="tab" id="tab-error" aria-controls="panel-error" data-tab="error"><span class="n">4</span><span data-ms="Cari kesilapan">Spot the error</span></button>
+  </nav>
+
+  <main class="sheet">
+    <!-- ===================== 1 WHICH FACE ===================== -->
+    <section id="panel-face" role="tabpanel" aria-labelledby="tab-face">
+      <div class="panel">
+        <div class="col">
+          <div class="head">
+            <h2 data-ms="Frame mana menanggung angin yang mana?">Which frames carry which wind?</h2>
+            <p class="lede" data-ms="Plane frame menahan sway dalam satahnya sendiri sahaja. Pilih arah angin, tentukan frame mana yang menanggungnya, dan baca b (normal kepada angin) dan d (sepanjangnya) untuk pekali leeward.">A plane frame resists sway in its own plane only. Choose a wind direction, decide which frames carry it, and read b (normal to the wind) and d (along it) for the leeward coefficient.</p>
+          </div>
+          <div class="group">
+            <label class="label" for="fCase" data-ms="Bangunan">Building</label>
+            <select id="fCase" class="full"></select>
+          </div>
+          <div class="group" id="fOwn" hidden>
+            <span class="label" data-ms="Pelan anda (m); frame merentang lebar">Your plan (m); the frames span the width</span>
+            <div class="fields"><label for="fL" data-ms="Panjang">Length</label><input type="number" id="fL" value="40" min="6" max="200" step="1"><span class="u">m</span><label for="fW" data-ms="Lebar">Width</label><input type="number" id="fW" value="16" min="6" max="200" step="1"><span class="u">m</span></div>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Arah angin">Wind direction</span>
+            <div class="seg" role="group" aria-label="Wind direction" data-ms-aria="Arah angin" id="fDir">
+              <button type="button" data-v="long" aria-pressed="true" data-ms="Ke atas muka panjang">Onto the long face</button>
+              <button type="button" data-v="short" data-ms="Ke atas muka pendek">Onto the short face</button>
+            </div>
+          </div>
+          <div class="task" id="act5a">
+            <span class="tag" data-ms="Aktiviti 5A · pasukan berempat · 12 min">Activity 5A · teams of four · 12 min</span>
+            <p data-ms="Bagi arah ini: frame mana yang menanggungnya, b, d dan C&lt;sub&gt;p,e&lt;/sub&gt; leeward (Table 5.2(b), bumbung rata: −0.5 bagi d/b ≤ 1, −0.3 pada 2, −0.2 mulai 4). Semak, kemudian tukar arah.">For this direction: which frames carry it, b, d and the leeward C<sub>p,e</sub> (Table 5.2(b), flat roof: −0.5 for d/b ≤ 1, −0.3 at 2, −0.2 from 4). Check, then switch the direction.</p>
+            <div class="seg vert" role="group" aria-label="Frames" data-ms-aria="Frame" id="fFrames">
+              <button type="button" data-v="trans" data-ms="Frame melintang, merentang lebar">The transverse frames, spanning the width</button>
+              <button type="button" data-v="long" data-ms="Frame line memanjang, sepanjang panjang bangunan">The longitudinal frame lines, along the length</button>
+            </div>
+            <div class="fields" style="margin-top:8px"><label for="fb">b</label><input type="number" id="fb" step="0.1"><span class="u">m</span><label for="fd">d</label><input type="number" id="fd" step="0.1"><span class="u">m</span><label for="fc">C<sub>p,e,L</sub></label><input type="number" id="fc" step="0.01"><span class="u"></span></div>
+            <div class="row" style="display:flex;gap:8px;margin-top:8px"><button class="btn primary" id="fCheck" type="button" data-ms="Semak">Check</button></div>
+            <p class="verdict" id="fOut" hidden></p>
+          </div>
+        </div>
+        <div class="col">
+          <div class="plotcard"><div class="plothead"><h3 data-ms="Pelan">Plan</h3><span class="legend" id="fLegend"></span></div>
+            <div class="figbox"><svg class="chart" id="fPlan" viewBox="0 0 680 420" role="img" aria-label="Plan of the building with the wind direction" data-ms-aria="Pelan bangunan dengan arah angin"></svg></div>
+          </div>
+          <div class="kv" id="fKV"></div>
+          <p class="note" data-ms="Frame ABCD bangunan nota merentang lebar 18 m: ia menanggung angin pada muka 51 m (keputusan D57 aplikasi RC Design). Contoh 5 nota mengenakan angin muka 18 m padanya.">Frame ABCD of the notes’ building spans the 18 m width: it carries the wind on the 51 m face (decision D57 of the RC Design app). The notes’ Example 5 put the wind of the 18 m face on it.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 2 PRESSURES ===================== -->
+    <section id="panel-press" role="tabpanel" aria-labelledby="tab-press" hidden>
+      <div class="panel">
+        <div class="col">
+          <div class="head">
+            <h2 data-ms="Tekanan aras demi aras">Pressures level by level</h2>
+            <p class="lede" data-ms="MS 1553:2002 bagi satu frame: V&lt;sub&gt;des&lt;/sub&gt;, C&lt;sub&gt;p,e&lt;/sub&gt;, C&lt;sub&gt;dyn&lt;/sub&gt;, kemudian net pressure dan daya W&lt;sub&gt;k&lt;/sub&gt; pada setiap lantai, dari bumbung ke bawah.">MS 1553:2002 for one frame: V<sub>des</sub>, C<sub>p,e</sub>, C<sub>dyn</sub>, then the net pressure and the force W<sub>k</sub> at each floor, from the roof down.</p>
+          </div>
+          <div class="group">
+            <label class="label" for="pCase" data-ms="Bangunan">Building</label>
+            <select id="pCase" class="full"></select>
+            <p class="note" id="pCaseNote" style="border:0;padding:0"></p>
+          </div>
+          <div class="group" id="pOwn" hidden>
+            <span class="label" data-ms="Bangunan anda">Your building</span>
+            <div class="seg" role="group" aria-label="Procedure" data-ms-aria="Prosedur" id="pProc">
+              <button type="button" data-v="anal" aria-pressed="true" data-ms="Analytical (Seksyen 2)">Analytical (Section 2)</button>
+              <button type="button" data-v="simp" data-ms="Appendix A (h ≤ 15 m)">Appendix A (h ≤ 15 m)</button>
+            </div>
+            <div class="scroll"><table class="tbl owntbl" id="pOwnTbl"></table></div>
+          </div>
+          <div class="kv" id="pKV"></div>
+          <div class="task" id="actP">
+            <span class="tag" data-ms="Latihan · aras demi aras">Practice · level by level</span>
+            <p data-ms="Kira net pressure p&lt;sub&gt;W&lt;/sub&gt; − p&lt;sub&gt;L&lt;/sub&gt; pada aras seterusnya, taip, dan semak; barisnya kemudian ditunjukkan. Tiga aras betul berturut-turut (dalam 2 %) menanda tugasan Explorer 2.">Work out the net pressure p<sub>W</sub> − p<sub>L</sub> at the next level, type it and check; its row is then shown. Three levels right in a row (within 2 %) tick Explorer task 2.</p>
+            <div class="row" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+              <div class="fields" style="flex:1;min-width:14rem"><label for="pPred" id="pNext"></label><input type="number" id="pPred" step="0.001"><span class="u">kN/m²</span></div>
+              <button class="btn primary" id="pCheck" type="button" data-ms="Semak">Check</button>
+              <button class="btn" id="pAll" type="button" data-ms="Tunjuk semua">Show all</button>
+            </div>
+            <p class="verdict" id="pOut" hidden></p>
+          </div>
+        </div>
+        <div class="col">
+          <div class="plotcard"><div class="plothead"><h3 data-ms="Net pressure pada setiap aras (kN/m²)">Net pressure at each level (kN/m²)</h3><span class="legend" id="pLegend"></span></div>
+            <div class="figbox"><svg class="chart" id="pChart" viewBox="0 0 680 400" role="img" aria-label="Windward pressure and leeward suction at each level" data-ms-aria="Tekanan windward dan suction leeward pada setiap aras"></svg></div>
+          </div>
+          <div class="scroll"><table class="tbl" id="pTable"></table></div>
+          <div class="kv" id="pSum"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 3 WHAT MATTERS MOST ===================== -->
+    <section id="panel-sens" role="tabpanel" aria-labelledby="tab-sens" hidden>
+      <div class="panel">
+        <div class="col">
+          <div class="head">
+            <h2 data-ms="Apa yang paling penting?">What matters most?</h2>
+            <p class="lede" id="sLede"></p>
+          </div>
+          <div class="task" id="act5b">
+            <span class="tag" data-ms="Aktiviti 5B · pasukan · 10 min">Activity 5B · teams · 10 min</span>
+            <p data-ms="Beri setiap perubahan satu kedudukan (1 = kesan terbesar) dan arahnya, kemudian hantar susunan pasukan. Selepas itu dedahkan perubahan satu demi satu.">Give each change a rank (1 = biggest effect) and its direction, then submit the team’s ranking. Then reveal the changes one by one.</p>
+            <div id="sCards" style="display:flex;flex-direction:column;gap:8px"></div>
+            <div class="row" style="display:flex;gap:8px;margin-top:8px"><button class="btn primary" id="sSubmit" type="button" data-ms="Hantar susunan">Submit the ranking</button><button class="btn" id="sReset" type="button" data-ms="Set semula">Reset</button></div>
+            <p class="verdict" id="sOut" hidden></p>
+          </div>
+        </div>
+        <div class="col">
+          <div class="plotcard"><div class="plothead"><h3 data-ms="Perubahan dalam ΣW&lt;sub&gt;k&lt;/sub&gt; pada frame ABCD">Change in ΣW<sub>k</sub> on frame ABCD</h3><span class="legend" id="sLegend"></span></div>
+            <div class="figbox"><svg class="chart" id="sChart" viewBox="0 0 680 380" role="img" aria-label="Signed change in the total wind force for each revealed change" data-ms-aria="Perubahan bertanda dalam jumlah daya angin bagi setiap perubahan yang didedahkan"></svg></div>
+          </div>
+          <div class="scroll"><table class="tbl" id="sTable"></table></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 4 SPOT THE ERROR ===================== -->
+    <section id="panel-error" role="tabpanel" aria-labelledby="tab-error" hidden>
+      <div class="col">
+        <div class="s1top">
+          <div class="col">
+            <div class="head">
+              <h2 data-ms="Wind S5: empat kesilapan">Wind S5: four slips</h2>
+              <p class="lede" data-ms="Pengiraan angin seorang pelajar bagi satu frame pejabat empat tingkat. Dua belas baris, empat kesilapan; baris lain sama ada betul atau hanya membawa kesilapan terdahulu ke hadapan.">A student’s wind calculation for one frame of a four-storey office. Twelve lines, four slips; the other lines are right or only carry an earlier slip forward.</p>
+            </div>
+            <dl class="given" id="eGiven" aria-label="Given data" data-ms-aria="Data yang diberi"></dl>
+          </div>
+          <div class="col">
+            <div class="plotcard"><div class="figbox" id="eFig"></div></div>
+            <div class="task">
+              <span class="tag" data-ms="Cari kesilapan · pasukan · 12 min · Workbook 5.6">Spot the error · teams · 12 min · Workbook 5.6</span>
+              <p data-ms="Peranan: pembaca membaca setiap baris dengan kuat; pengira menyemak semula aritmetik; penyemak melukis pelan dan anak panah angin dahulu; pelapor mencatat baris dan sebabnya dalam Workbook 5.6. Kemudian ketik baris itu di sini dan tekan &lt;i&gt;Semak&lt;/i&gt;.">Roles: the reader reads each line aloud; the calculator rechecks the arithmetic; the checker draws the plan and the wind arrow first; the reporter logs the line and the reason in Workbook 5.6. Then tap those lines here and press <i>Check</i>.</p>
+            </div>
+            <div class="steps">
+              <button class="btn primary" id="eCheck" type="button" data-ms="Semak">Check</button>
+              <button class="btn" id="eFix" type="button" data-ms="Tunjuk nilai yang dibetulkan">Show the corrected values</button>
+              <button class="btn" id="eReset" type="button" data-ms="Set semula">Reset</button>
+            </div>
+            <p class="score" id="eScore" aria-live="polite"></p>
+          </div>
+        </div>
+        <div class="scroll"><table class="sheetcalc" id="eSheet" aria-label="Wind S5 calculation sheet" data-ms-aria="Helaian pengiraan Wind S5"></table></div>
+        <div class="summary" id="eSummary" hidden></div>
+      </div>
+    </section>
+  </main>
+  <footer><span data-ms="Kaedah kursus SEAA 4333 (nota kursus, &lt;i&gt;Frame Analysis&lt;/i&gt;: tindakan angin; MS 1553:2002, Seksyen 2 hingga 6 dan Appendix A): V&lt;sub&gt;sit&lt;/sub&gt; = V&lt;sub&gt;s&lt;/sub&gt;M&lt;sub&gt;d&lt;/sub&gt;M&lt;sub&gt;z,cat&lt;/sub&gt;M&lt;sub&gt;s&lt;/sub&gt;M&lt;sub&gt;h&lt;/sub&gt; dan V&lt;sub&gt;des&lt;/sub&gt; = V&lt;sub&gt;sit&lt;/sub&gt;I; p = 0.613V&lt;sub&gt;des&lt;/sub&gt;²C&lt;sub&gt;fig&lt;/sub&gt;C&lt;sub&gt;dyn&lt;/sub&gt; dengan C&lt;sub&gt;p,e&lt;/sub&gt; = 0.8 pada dinding windward dan daripada d/b pada dinding leeward (Table 5.2(b), bumbung rata), dinding leeward pada V&lt;sub&gt;des&lt;/sub&gt; ketinggian bumbung; C&lt;sub&gt;dyn&lt;/sub&gt; = 1.0 apabila n&lt;sub&gt;a&lt;/sub&gt; &amp;gt; 1 Hz, daripada 6.2.1 di antara 0.2 dan 1 Hz; Appendix A bagi h ≤ 15 m. Daya pada satu frame di setiap lantai W&lt;sub&gt;k&lt;/sub&gt; = (p&lt;sub&gt;W&lt;/sub&gt; − p&lt;sub&gt;L&lt;/sub&gt;)B&lt;sub&gt;w&lt;/sub&gt;h&lt;sub&gt;trib&lt;/sub&gt;, separuh bay pada setiap sisi dan separuh tingkat di atas dan di bawah; setiap daya dinaikkan apabila tekanan purata kurang daripada 0.65 kN/m² (2.4.2, A2.2). Unit: m, kN. Pengiraan penuh, langkah demi langkah, ada dalam app &lt;a href=&quot;https://claude.ai/artifact/M5DFYjHubZFnbHVk8JDsAS&quot; style=&quot;color:inherit&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;RC Design Worked Solutions&lt;/a&gt; (Worked Example 5.1 ialah angin kes FA6 pada frame kes FA10, keputusan D57; nota seperti dicetak ialah kes FA10a; Faded Example 5.2 ialah kes FA8), yang boleh dibuka setelah pensyarah anda berkongsi pautannya.">Course method of SEAA 4333 (course notes, <i>Frame Analysis</i>: wind action; MS 1553:2002, Sections 2 to 6 and Appendix A): V<sub>sit</sub> = V<sub>s</sub>M<sub>d</sub>M<sub>z,cat</sub>M<sub>s</sub>M<sub>h</sub> and V<sub>des</sub> = V<sub>sit</sub>I; p = 0.613V<sub>des</sub>²C<sub>fig</sub>C<sub>dyn</sub> with C<sub>p,e</sub> = 0.8 on the windward wall and from d/b on the leeward wall (Table 5.2(b), flat roof), the leeward wall at V<sub>des</sub> of the roof height; C<sub>dyn</sub> = 1.0 when n<sub>a</sub> &gt; 1 Hz, from 6.2.1 between 0.2 and 1 Hz; Appendix A for h ≤ 15 m. The force on one frame at each floor W<sub>k</sub> = (p<sub>W</sub> − p<sub>L</sub>)B<sub>w</sub>h<sub>trib</sub>, half the bay on each side and half the storeys above and below; every force raised when the average pressure is below 0.65 kN/m² (2.4.2, A2.2). Units: m, kN. The full calculation, step by step, is in the <a href="https://claude.ai/artifact/M5DFYjHubZFnbHVk8JDsAS" style="color:inherit" target="_blank" rel="noopener">RC Design Worked Solutions</a> app (Worked Example 5.1 is the wind of case FA6 on the frame of case FA10, decision D57; the notes as printed are case FA10a; Faded Example 5.2 is case FA8), which opens once your lecturer has shared it.</span>
+  <span class="lic" data-ms="© 2026 Ahmad Razin Zainal Abidin dan Universiti Teknologi Malaysia (Fakulti Kejuruteraan Awam). Teks dan rajah: CC BY-NC-SA 4.0; kod: MIT. Lihat &lt;a href=&quot;https://github.com/RazinUTM/My_Lectures/blob/main/SEAA4333-RCD2/LICENSE.md&quot; style=&quot;color:inherit&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;lesen&lt;/a&gt;. Kemajuan disimpan dalam pelayar ini sahaja.">© 2026 Ahmad Razin Zainal Abidin and Universiti Teknologi Malaysia (Faculty of Civil Engineering). Text and figures: CC BY-NC-SA 4.0; code: MIT. See the <a href="https://github.com/RazinUTM/My_Lectures/blob/main/SEAA4333-RCD2/LICENSE.md" style="color:inherit" target="_blank" rel="noopener">licence</a>. Progress is stored in this browser only.</span></footer>
+</div>
+
+<div class="bigtimer" id="bigTimer" hidden>
+  <div class="digits" id="bigDigits">5:00</div>
+  <div class="hint" data-ms="Ketik di mana-mana untuk menutup">Tap anywhere to close</div>
+</div>
+
+<script>
+'use strict';
+const INF = Infinity;
+/* ---------- helpers ---------- */
+const NS = 'http://www.w3.org/2000/svg';
+function S(tag, attrs, parent){ const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+function T(parent, x, y, text, attrs){ const t = S('text', Object.assign({x, y}, attrs || {}), parent); t.textContent = text; return t; }
+const minus = s => String(s).replace(/^-/, '−');
+function f(v, d){ if (v === INF) return '∞'; if (!isFinite(v)) return '–'; const s = (Math.abs(v) < 1e-12 ? 0 : v).toFixed(d); return minus(s); }
+function sg(v, n){ if (!isFinite(v) || v === 0) return f(v, 0); return f(v, Math.max(0, n - 1 - Math.floor(Math.log10(Math.abs(v))))); }
+function el(id){ return document.getElementById(id); }
+function segGroup(node, onChange){ node.addEventListener('click', e => { const b = e.target.closest('button'); if (!b || !node.contains(b)) return; node.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); onChange(b.dataset.v); }); }
+function setSeg(node, v){ node.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.v === String(v)))); }
+function segVal(node){ const b = node.querySelector('button[aria-pressed="true"]'); return b ? b.dataset.v : null; }
+function store(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+function recall(k, dflt){ try { const s = localStorage.getItem(k); return s ? JSON.parse(s) : dflt; } catch (e) { return dflt; } }
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c])); }
+
+/* ---------- SEAA 4333: language, shared preferences, milestones ---------- */
+const root = document.documentElement;
+const PKEY = 'seaa4333-prefs', MKEY = 'seaa4333-lab-wind', FONT_STEPS = [0.9, 1, 1.15, 1.3];
+let LANG = 'en';
+function Lg(en, ms){ return LANG === 'ms' ? ms : en; }
+function readPrefs(){ const p = recall(PKEY, {}) || {}; return {lang: p.lang === 'ms' ? 'ms' : 'en', theme: p.theme === 'light' || p.theme === 'dark' ? p.theme : '', font: +p.font || 1}; }
+function writePrefs(ch){ const p = recall(PKEY, {}) || {}; Object.assign(p, ch); store(PKEY, p); }
+let PR = readPrefs();
+const FRAMED = (() => { try { return window.self !== window.top; } catch (e) { return true; } })();
+if (FRAMED) root.classList.add('framed');
+function applyStatic(){
+  document.querySelectorAll('[data-ms]').forEach(e => { if (!e.hasAttribute('data-en')) e.setAttribute('data-en', e.innerHTML); e.innerHTML = LANG === 'ms' ? e.getAttribute('data-ms') : e.getAttribute('data-en'); });
+  [['aria', 'aria-label'], ['title', 'title'], ['ph', 'placeholder']].forEach(([k, a]) => document.querySelectorAll('[data-ms-' + k + ']').forEach(e => {
+    if (!e.hasAttribute('data-en-' + k)) e.setAttribute('data-en-' + k, e.getAttribute(a) || ''); e.setAttribute(a, LANG === 'ms' ? e.getAttribute('data-ms-' + k) : e.getAttribute('data-en-' + k)); }));
+}
+const SUN = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></svg>';
+const MOON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>';
+const mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+function effTheme(){ return PR.theme || (mq && mq.matches ? 'dark' : 'light'); }
+function paintPrefButtons(){
+  const lb = el('btn-lang'), tb = el('btn-theme'), fb = el('btn-font'); if (!lb) return;
+  lb.textContent = LANG === 'ms' ? 'EN' : 'BM'; lb.title = LANG === 'ms' ? 'Language' : 'Bahasa'; lb.setAttribute('aria-label', LANG === 'ms' ? 'Language: English' : 'Bahasa: Melayu');
+  const dk = effTheme() === 'dark', tt = dk ? Lg('Light theme', 'Tema cerah') : Lg('Dark theme', 'Tema gelap'); tb.innerHTML = dk ? SUN : MOON; tb.title = tt; tb.setAttribute('aria-label', tt);
+  let k = 0; FONT_STEPS.forEach((v, i) => { if (Math.abs(v - PR.font) < Math.abs(FONT_STEPS[k] - PR.font)) k = i; });
+  fb.querySelectorAll('.lvl i').forEach((d, i) => d.classList.toggle('on', i <= k)); const ft = Lg('Text size ', 'Saiz teks ') + Math.round(PR.font * 100) + '%'; fb.title = ft; fb.setAttribute('aria-label', ft);
+}
+function applyPrefs(redraw){
+  LANG = PR.lang; root.lang = LANG; root.setAttribute('data-lang', LANG);
+  if (PR.theme) root.setAttribute('data-theme', PR.theme); else root.removeAttribute('data-theme');
+  root.style.fontSize = (PR.font * 100) + '%';
+  applyStatic(); paintPrefButtons();
+  if (redraw){ fillAllCases(); tPaint(); redrawAll(); }
+}
+function milestone(id){
+  const rec = recall(MKEY, {}) || {}; if (!rec[id]){ rec[id] = Date.now(); store(MKEY, rec); }
+  try { if (window.parent && window.parent !== window) window.parent.postMessage({type: 'seaa4333-lab', lab: 'wind', id}, '*'); } catch (e) {}
+}
+window.addEventListener('storage', e => { if (e.key === PKEY){ PR = readPrefs(); applyPrefs(true); } });
+if (mq){ const fm = () => { if (!PR.theme){ paintPrefButtons(); redrawAll(); } }; if (mq.addEventListener) mq.addEventListener('change', fm); else if (mq.addListener) mq.addListener(fm); }
+LANG = PR.lang;
+el('btn-lang').addEventListener('click', () => { PR.lang = LANG === 'ms' ? 'en' : 'ms'; writePrefs({lang: PR.lang}); applyPrefs(true); });
+el('btn-theme').addEventListener('click', () => { PR.theme = effTheme() === 'dark' ? 'light' : 'dark'; writePrefs({theme: PR.theme}); applyPrefs(true); });
+el('btn-font').addEventListener('click', () => { let k = FONT_STEPS.findIndex(v => Math.abs(v - PR.font) < 0.01); k = (k + 1) % FONT_STEPS.length; PR.font = FONT_STEPS[k]; writePrefs({font: PR.font}); applyPrefs(true); });
+
+/* ---------- timer ---------- */
+const timer = {len: 300, left: 300, running: false, id: null};
+const tDisplay = el('tDisplay'), bigTimer = el('bigTimer'), bigDigits = el('bigDigits'), tStart = el('tStart');
+function tfmt(s){ const m = Math.floor(s / 60), r = s % 60; return `${m}:${String(r).padStart(2, '0')}`; }
+function tPaint(){ tDisplay.textContent = tfmt(timer.left); bigDigits.textContent = tfmt(timer.left); tDisplay.classList.toggle('running', timer.running); tStart.textContent = timer.running ? Lg('Pause', 'Jeda') : Lg('Start', 'Mula'); }
+function tTick(){ timer.left = Math.max(0, timer.left - 1); if (timer.left === 0){ clearInterval(timer.id); timer.running = false; tDisplay.classList.add('done'); } tPaint(); }
+tStart.addEventListener('click', () => { if (timer.running){ clearInterval(timer.id); timer.running = false; } else { if (timer.left === 0) timer.left = timer.len; tDisplay.classList.remove('done'); timer.id = setInterval(tTick, 1000); timer.running = true; } tPaint(); });
+el('tReset').addEventListener('click', () => { clearInterval(timer.id); timer.running = false; timer.left = timer.len; tDisplay.classList.remove('done'); tPaint(); });
+segGroup(el('tLen'), () => {});
+el('tLen').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; timer.len = +b.dataset.min * 60; clearInterval(timer.id); timer.running = false; timer.left = timer.len; tDisplay.classList.remove('done'); tPaint(); });
+tDisplay.addEventListener('click', () => { bigTimer.hidden = false; });
+bigTimer.addEventListener('click', () => { bigTimer.hidden = true; });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') bigTimer.hidden = true; });
+
+/* ---------- tabs ---------- */
+const tabs = [...document.querySelectorAll('.tab')];
+const drawers = {};
+function showTab(id){
+  if (!tabs.some(t => t.dataset.tab === id)) id = 'face';
+  tabs.forEach(t => { const on = t.dataset.tab === id; t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1; el('panel-' + t.dataset.tab).hidden = !on; });
+  if (location.hash !== '#' + id) try { history.replaceState(null, '', '#' + id); } catch (e) {}
+  if (drawers[id]) drawers[id]();
+}
+tabs.forEach((t, i) => {
+  t.addEventListener('click', () => showTab(t.dataset.tab));
+  t.addEventListener('keydown', e => { if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return; const n = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length]; n.focus(); showTab(n.dataset.tab); });
+});
+
+
+/* ===================== Wind Lab model: MS 1553:2002 wind on one frame (a port of the RC Design app's wind, verified against it) ===================== */
+const WM = (() => {
+  const MZ_H = [3, 5, 10, 15, 20, 30, 40, 50, 75, 100, 150, 200, 250, 300, 400, 500];
+  const MZ = {1: [0.99, 1.05, 1.12, 1.16, 1.19, 1.22, 1.24, 1.25, 1.27, 1.29, 1.31, 1.32, 1.34, 1.35, 1.37, 1.38],
+              2: [0.85, 0.91, 1.00, 1.05, 1.08, 1.12, 1.16, 1.18, 1.22, 1.24, 1.27, 1.29, 1.31, 1.32, 1.35, 1.37],
+              3: [0.75, 0.75, 0.83, 0.89, 0.94, 1.00, 1.04, 1.07, 1.12, 1.16, 1.21, 1.24, 1.27, 1.29, 1.32, 1.35],
+              4: [0.75, 0.75, 0.75, 0.75, 0.75, 0.80, 0.85, 0.90, 0.98, 1.03, 1.11, 1.16, 1.20, 1.23, 1.28, 1.31]};
+  const MZA_H = [3, 5, 10, 15], MZA = {1: [0.99, 1.05, 1.12, 1.16], 2: [0.85, 0.91, 1.00, 1.05], 3: [0.75, 0.75, 0.83, 0.89], 4: [0.75, 0.75, 0.75, 0.75]};
+  const IH = {1: [0.17, 0.16, 0.16, 0.15, 0.15, 0.14, 0.13, 0.13, 0.12, 0.11, 0.10, 0.09, 0.08, 0.07, 0.07, 0.06],
+              2: [0.21, 0.20, 0.18, 0.18, 0.17, 0.16, 0.16, 0.15, 0.14, 0.13, 0.12, 0.11, 0.10, 0.09, 0.08, 0.07],
+              3: [0.27, 0.27, 0.24, 0.22, 0.21, 0.20, 0.19, 0.19, 0.18, 0.17, 0.15, 0.14, 0.13, 0.12, 0.11, 0.10],
+              4: [0.34, 0.34, 0.34, 0.34, 0.34, 0.34, 0.30, 0.27, 0.25, 0.23, 0.21, 0.20, 0.18, 0.17, 0.15, 0.14]};
+  const IMP = {1: 0.87, 2: 1.0, 3: 1.15, 4: 1.15};
+  function interp(xs, ys, x){ if (x <= xs[0]) return ys[0]; if (x >= xs[xs.length - 1]) return ys[ys.length - 1];
+    for (let i = 1; i < xs.length; i++) if (x <= xs[i]){ const t = (x - xs[i - 1]) / (xs[i] - xs[i - 1]); return ys[i - 1] + t * (ys[i] - ys[i - 1]); } return ys[ys.length - 1]; }
+  const mzcat = (tc, z) => interp(MZ_H, MZ[tc] || MZ[3], z), mzA = (tc, z) => interp(MZA_H, MZA[tc] || MZA[3], z), ih = (tc, h) => interp(MZ_H, IH[tc] || IH[3], h);
+  const cpeLee = db => interp([1, 2, 4], [-0.5, -0.3, -0.2], db);       // Table 5.2(b) and Table A2, roof pitch < 10 deg
+  function cdyn(h, s, b, na, Vdes, Ih, gv, xi){
+    const Lh = 1000 * Math.pow(h / 10, 0.25), Bs = 1 / (1 + Math.sqrt(36 * (h - s) ** 2 + 64 * b * b) / Lh);
+    const f1 = 3.5 * na * h * (1 + gv * Ih) / Vdes, f2 = 4 * na * b * (1 + gv * Ih) / Vdes, S = 1 / ((1 + f1) * (1 + f2));
+    const N = na * Lh * (1 + gv * Ih) / Vdes, Et = 0.47 * N / Math.pow(2 + N, 5 / 6), gR = Math.sqrt(2 * Math.log(600 * na));
+    const C = (1 + 2 * Ih * Math.sqrt(gv * gv * Bs + gR * gR * S * Et / xi)) / (1 + 2 * gv * Ih);
+    return {Lh, Bs, f1, f2, S, N, Et, gR, Ih, Cdyn: C};
+  }
+  /* b: inputs {proc 'anal'|'simp', Vs, icat, tcat, n (storeys), hg, ht, bw, dw, na, Lw1, Lw2, cplm (optional typed leeward), bsh (optional)} */
+  function wind(b){
+    const n = Math.max(2, Math.min(12, b.n)), H = b.hg + (n - 1) * b.ht, lv = [];
+    for (let k = n; k >= 1; k--) lv.push({k, name: k === n ? 'Roof' : 'Level ' + k, z: b.hg + (k - 1) * b.ht, hT: k === n ? b.ht / 2 : k === 1 ? (b.ht + b.hg) / 2 : b.ht});
+    const r = {H, db: b.dw / b.bw};
+    let mzf, pwf;
+    if (b.proc === 'simp'){
+      const Mzh = mzA(b.tcat, H), q0 = 0.613 * b.Vs * b.Vs / 1000, cpl = cpeLee(r.db);
+      Object.assign(r, {Mzh, q0, cpw: 0.8, cpl, Cdyn: 1, pL: q0 * Mzh * Mzh * cpl, Iw: 1});
+      mzf = z => mzA(b.tcat, z); pwf = z => q0 * mzf(z) ** 2 * 0.8;
+    } else {
+      const Mzh = mzcat(b.tcat, H), Vsit = b.Vs * Mzh, Iw = IMP[b.icat] || 1, Vdes = Vsit * Iw, cpl = b.cplm !== undefined ? b.cplm : cpeLee(r.db);
+      const cd = b.na > 1 ? {Cdyn: 1} : cdyn(H, 0, b.bsh !== undefined ? b.bsh : b.bw, b.na, Vdes, ih(b.tcat, H), 3.7, 0.05);
+      Object.assign(r, {Mzh, Vsit, Iw, Vdes, cpw: 0.8, cpl}, cd);
+      r.pL = 0.613 * Vdes * Vdes * cpl * r.Cdyn / 1000;
+      mzf = z => mzcat(b.tcat, z); pwf = z => 0.613 * (Vdes * mzf(z) / Mzh) ** 2 * 0.8 * r.Cdyn / 1000;
+    }
+    let sp = 0;
+    r.levels = lv.map(l => { const mz = mzf(l.z), pw = pwf(l.z), pt = pw - r.pL; sp += pt * l.hT; return Object.assign(l, {mz, pw, pt, vz: r.Vdes ? r.Vdes * mz / r.Mzh : null}); });
+    r.pbot = pwf(b.hg / 4) - r.pL; r.pavg = (sp + r.pbot * b.hg / 2) / H; r.kmin = Math.max(1, 0.65 / r.pavg); r.Bw = (b.Lw1 + b.Lw2) / 2;
+    r.levels.forEach(l => { l.Wk = l.pt * r.Bw * l.hT * r.kmin; });
+    r.Wtot = r.levels.reduce((a, l) => a + l.Wk, 0);
+    return r;
+  }
+  const PRESETS = {
+    we51: {proc: 'anal', Vs: 33.5, icat: 3, tcat: 3, n: 7, hg: 4.0, ht: 3.5, bw: 51, dw: 18, na: 0.2, Lw1: 4, Lw2: 5},
+    notes: {proc: 'anal', Vs: 33.5, icat: 3, tcat: 3, n: 7, hg: 4.0, ht: 3.5, bw: 18, dw: 51, na: 0.2, Lw1: 4, Lw2: 5, cplm: -0.25, bsh: 51},
+    fe52: {proc: 'simp', Vs: 33.5, icat: 2, tcat: 3, n: 3, hg: 4.0, ht: 3.5, bw: 51, dw: 18, na: 2.0, Lw1: 4, Lw2: 5}};
+  return {wind, mzcat, mzA, cpeLee, PRESETS, IMP};
+})();
+
+/* Wind S5: rows written by gen_s5.py from u5data (as submitted and corrected). */
+const S5SHEET = {
+ "rows": [
+  {
+   "ref": "given",
+   "calc": [
+    "Zone II: V<sub>s</sub> = 32.5 m/s; terrain category 2; level ground, M<sub>d</sub> = M<sub>s</sub> = M<sub>h</sub> = 1.0; offices; n<sub>a</sub> = 1.6 Hz",
+    "Zone II: V<sub>s</sub> = 32.5 m/s; terrain category 2; tanah rata, M<sub>d</sub> = M<sub>s</sub> = M<sub>h</sub> = 1.0; pejabat; n<sub>a</sub> = 1.6 Hz"
+   ],
+   "out": "—",
+   "slip": false,
+   "fix": [
+    "Right.",
+    "Betul."
+   ]
+  },
+  {
+   "ref": "(5.1)",
+   "calc": [
+    "Table 4.1, category 2 at h = 14.5 m: between 1.00 (10 m) and 1.05 (15 m), M<sub>z,cat</sub> = 1.045; V<sub>sit</sub> = 32.5 × 1.045",
+    "Table 4.1, category 2 pada h = 14.5 m: di antara 1.00 (10 m) dan 1.05 (15 m), M<sub>z,cat</sub> = 1.045; V<sub>sit</sub> = 32.5 × 1.045"
+   ],
+   "out": "33.96 m/s",
+   "slip": false,
+   "fix": [
+    "Right.",
+    "Betul."
+   ]
+  },
+  {
+   "ref": "(5.2)",
+   "calc": [
+    "Importance category III: I = 1.15; V<sub>des</sub> = 33.96 × 1.15",
+    "Importance category III: I = 1.15; V<sub>des</sub> = 33.96 × 1.15"
+   ],
+   "out": "39.06 m/s",
+   "slip": true,
+   "fix": [
+    "An office is importance category II (Table 3.2): I = 1.0, so V<sub>des</sub> = 33.96 m/s. Category III needs more than 300 people gathering in one area.",
+    "Pejabat ialah importance category II (Table 3.2): I = 1.0, jadi V<sub>des</sub> = 33.96 m/s. Category III memerlukan lebih daripada 300 orang berkumpul di satu kawasan."
+   ]
+  },
+  {
+   "ref": "6.1",
+   "calc": [
+    "n<sub>a</sub> = 1.6 Hz > 1 Hz: not wind-sensitive",
+    "n<sub>a</sub> = 1.6 Hz > 1 Hz: tidak wind-sensitive"
+   ],
+   "out": "C<sub>dyn</sub> = 1.0",
+   "slip": false,
+   "fix": [
+    "Right.",
+    "Betul."
+   ]
+  },
+  {
+   "ref": "Table 5.2(b)",
+   "calc": [
+    "d/b = 36/15 = 2.40",
+    "d/b = 36/15 = 2.40"
+   ],
+   "out": "C<sub>p,e,L</sub> = −0.28",
+   "slip": true,
+   "fix": [
+    "The frames span the 15 m width, so they carry the wind on the 36 m face: b = 36 m, d = 15 m, d/b = 0.42 ≤ 1 and C<sub>p,e,L</sub> = −0.5. Swapping b and d understates the suction by 44 %.",
+    "Frame merentang lebar 15 m, jadi ia menanggung angin pada muka 36 m: b = 36 m, d = 15 m, d/b = 0.42 ≤ 1 dan C<sub>p,e,L</sub> = −0.5. Menukar b dan d mengurangkan suction sebanyak 44 %."
+   ]
+  },
+  {
+   "ref": "(5.3)",
+   "calc": [
+    "p<sub>L</sub> = 0.613 × 39.06² × (−0.28)/1000, at every level",
+    "p<sub>L</sub> = 0.613 × 39.06² × (−0.28)/1000, pada setiap aras"
+   ],
+   "out": "−0.262 kN/m²",
+   "slip": false,
+   "fix": [
+    "The method is right; the number follows lines 3 and 5. Corrected: p<sub>L</sub> = 0.613 × 33.96² × (−0.5)/1000 = −0.354 kN/m².",
+    "Kaedahnya betul; nombornya mengikut baris 3 dan 5. Pembetulan: p<sub>L</sub> = 0.613 × 33.96² × (−0.5)/1000 = −0.354 kN/m²."
+   ]
+  },
+  {
+   "ref": "(5.3)",
+   "calc": [
+    "V<sub>des,z</sub> = 39.06 × M<sub>z,cat</sub>(z)/1.045; p<sub>W</sub> = 0.613 V<sub>des,z</sub>² × 0.8/1000 at the roof, level 3, level 2, level 1",
+    "V<sub>des,z</sub> = 39.06 × M<sub>z,cat</sub>(z)/1.045; p<sub>W</sub> = 0.613 V<sub>des,z</sub>² × 0.8/1000 di bumbung, aras 3, aras 2, aras 1"
+   ],
+   "out": "0.748 / 0.699 / 0.625 / 0.530 kN/m²",
+   "slip": false,
+   "fix": [
+    "The method is right; the numbers follow line 3. Corrected: 0.566 / 0.528 / 0.472 / 0.401 kN/m².",
+    "Kaedahnya betul; nombornya mengikut baris 3. Pembetulan: 0.566 / 0.528 / 0.472 / 0.401 kN/m²."
+   ]
+  },
+  {
+   "ref": "§4",
+   "calc": [
+    "Net pressure = p<sub>W</sub> + p<sub>L</sub>: the suction relieves the windward pressure",
+    "Net pressure = p<sub>W</sub> + p<sub>L</sub>: suction mengurangkan tekanan windward"
+   ],
+   "out": "0.486 / 0.437 / 0.363 / 0.269 kN/m²",
+   "slip": true,
+   "fix": [
+    "The windward push and the leeward pull both move the building downwind, so the net pressure on the frame is p<sub>W</sub> − p<sub>L</sub>, with p<sub>L</sub> negative. Corrected: 0.919 / 0.882 / 0.826 / 0.755 kN/m².",
+    "Tolakan windward dan tarikan leeward kedua-duanya menolak bangunan ke arah angin, jadi net pressure pada frame ialah p<sub>W</sub> − p<sub>L</sub>, dengan p<sub>L</sub> negatif. Pembetulan: 0.919 / 0.882 / 0.826 / 0.755 kN/m²."
+   ]
+  },
+  {
+   "ref": "§5",
+   "calc": [
+    "B<sub>w</sub> = 6/2 + 6/2",
+    "B<sub>w</sub> = 6/2 + 6/2"
+   ],
+   "out": "6.00 m",
+   "slip": false,
+   "fix": [
+    "Right.",
+    "Betul."
+   ]
+  },
+  {
+   "ref": "(5.6)",
+   "calc": [
+    "Roof: W<sub>k</sub> = 0.486 × 6.0 × 3.5",
+    "Bumbung: W<sub>k</sub> = 0.486 × 6.0 × 3.5"
+   ],
+   "out": "10.21 kN",
+   "slip": true,
+   "fix": [
+    "The roof collects only the upper half of the top storey: h<sub>trib</sub> = 3.5/2 = 1.75 m. Corrected: W<sub>k</sub> = 0.919 × 6.0 × 1.75 = 9.65 kN.",
+    "Bumbung hanya mengumpul separuh atas tingkat teratas: h<sub>trib</sub> = 3.5/2 = 1.75 m. Pembetulan: W<sub>k</sub> = 0.919 × 6.0 × 1.75 = 9.65 kN."
+   ]
+  },
+  {
+   "ref": "(5.6)",
+   "calc": [
+    "Levels 3 and 2: h<sub>trib</sub> = 3.5 m; level 1: (4.0 + 3.5)/2 = 3.75 m",
+    "Aras 3 dan 2: h<sub>trib</sub> = 3.5 m; aras 1: (4.0 + 3.5)/2 = 3.75 m"
+   ],
+   "out": "9.18 / 7.62 / 6.04 kN",
+   "slip": false,
+   "fix": [
+    "The method is right; the numbers follow line 8. Corrected: 18.52 / 17.34 / 16.98 kN.",
+    "Kaedahnya betul; nombornya mengikut baris 8. Pembetulan: 18.52 / 17.34 / 16.98 kN."
+   ]
+  },
+  {
+   "ref": "2.4.2",
+   "calc": [
+    "p<sub>avg</sub> = Σ(p × h)/H = 0.412 < 0.65: every force × 0.65/0.412 = 1.577; ΣW<sub>k</sub> = 33.05 × 1.577",
+    "p<sub>avg</sub> = Σ(p × h)/H = 0.412 < 0.65: setiap daya × 0.65/0.412 = 1.577; ΣW<sub>k</sub> = 33.05 × 1.577"
+   ],
+   "out": "52.14 kN",
+   "slip": false,
+   "fix": [
+    "The method is right; the numbers follow the slips. Corrected: p<sub>avg</sub> = 0.819 ≥ 0.65, the minimum does not govern, and ΣW<sub>k</sub> = 62.50 kN. The minimum hid part of the error: before it the sheet had 33.05 kN, 47 % low.",
+    "Kaedahnya betul; nombornya mengikut kesilapan. Pembetulan: p<sub>avg</sub> = 0.819 ≥ 0.65, minimum tidak menguasai, dan ΣW<sub>k</sub> = 62.50 kN. Minimum menyembunyikan sebahagian kesilapan: sebelum itu helaian mendapat 33.05 kN, 47 % rendah."
+   ]
+  }
+ ]
+};
+
+/* ===================== Wind Lab (SEAA 4333 Unit 5): which face, pressures, what matters most, Wind S5 ===================== */
+function css(v, d){ const s = getComputedStyle(root).getPropertyValue(v).trim(); return s || d; }
+function PAL(){ return {s1: css('--s1', '#2463c4'), s2: css('--s2', '#b8481a'), s3: css('--s3', '#167a55'), ink: css('--ink', '#1d1c19'), ink2: css('--ink-2', '#47443d'), ink3: css('--ink-3', '#7a766b'), rule: css('--rule', '#d3cfc6'), surf: css('--surface-2', '#ece9e1')}; }
+function clear(svg){ while (svg.firstChild) svg.removeChild(svg.firstChild); }
+function kvHTML(items){ return items.map(([k, v]) => `<div><span>${k}</span><b>${v}</b></div>`).join(''); }
+function arrowLine(g, x1, y1, x2, y2, col, w){
+  S('line', {x1, y1, x2, y2, stroke: col, 'stroke-width': w || 3}, g);
+  const a = Math.atan2(y2 - y1, x2 - x1), h = 10;
+  S('path', {d: `M${x2},${y2} L${x2 - h * Math.cos(a - 0.45)},${y2 - h * Math.sin(a - 0.45)} L${x2 - h * Math.cos(a + 0.45)},${y2 - h * Math.sin(a + 0.45)} Z`, fill: col}, g);
+}
+const NOTES_GX = [0, 4, 8, 12, 16, 21, 26, 31, 36, 41, 46, 51], NOTES_GY = [0, 6, 12, 18];
+function lvName(l){ return l.name === 'Roof' ? Lg('Roof', 'Bumbung') : Lg('Level ', 'Aras ') + l.k; }
+
+/* ---------------- tab 1: which face ---------------- */
+const fState = recall('seaa4333-wind-face', {solved: {}}) || {solved: {}};
+function fPlanDims(){
+  if (el('fCase').value === 'own'){ const L = Math.max(6, +el('fL').value || 40), W = Math.max(6, +el('fW').value || 16); return {L: Math.max(L, W), W: Math.min(L, W), own: true}; }
+  return {L: 51, W: 18, own: false};
+}
+function fAnswer(){
+  const {L, W} = fPlanDims(), dir = segVal(el('fDir')) || 'long';
+  const b = dir === 'long' ? L : W, d = dir === 'long' ? W : L;
+  return {dir, b, d, db: d / b, cpl: WM.cpeLee(d / b), frames: dir === 'long' ? 'trans' : 'long'};
+}
+function fKey(){ const {L, W, own} = fPlanDims(); return (own ? `own${L}x${W}` : 'nx') + ':' + (segVal(el('fDir')) || 'long'); }
+function drawFace(){
+  const svg = el('fPlan'); clear(svg); const P = PAL();
+  const {L, W, own} = fPlanDims(), A = fAnswer(), solved = !!fState.solved[fKey()];
+  const sc = Math.min(540 / L, 250 / W), x0 = (680 - L * sc) / 2 + 14, y0 = 60;
+  const gx = own ? Array.from({length: Math.max(2, Math.round(L / 5)) + 1}, (_, k) => k * L / Math.max(2, Math.round(L / 5))) : NOTES_GX;
+  const gy = own ? Array.from({length: Math.max(2, Math.round(W / 6)) + 1}, (_, k) => k * W / Math.max(2, Math.round(W / 6))) : NOTES_GY;
+  S('rect', {x: x0, y: y0, width: L * sc, height: W * sc, fill: P.surf, stroke: P.rule, 'stroke-width': 1.5}, svg);
+  const hiT = solved && A.frames === 'trans', hiL = solved && A.frames === 'long';
+  gx.forEach(x => S('line', {x1: x0 + x * sc, y1: y0, x2: x0 + x * sc, y2: y0 + W * sc, stroke: hiT ? P.s2 : P.rule, 'stroke-width': hiT ? 3 : 1.2}, svg));
+  gy.forEach(y => S('line', {x1: x0, y1: y0 + y * sc, x2: x0 + L * sc, y2: y0 + y * sc, stroke: hiL ? P.s3 : P.rule, 'stroke-width': hiL ? 3 : 1.2}, svg));
+  gx.forEach(x => gy.forEach(y => S('rect', {x: x0 + x * sc - 3, y: y0 + y * sc - 3, width: 6, height: 6, fill: P.ink2}, svg)));
+  if (!own){ const X = x0 + 16 * sc; S('line', {x1: X, y1: y0 - 6, x2: X, y2: y0 + W * sc + 6, stroke: P.s2, 'stroke-width': 4}, svg); T(svg, X, y0 - 12, 'ABCD', {'text-anchor': 'middle', fill: P.s2, 'font-weight': 700}); }
+  T(svg, x0 + L * sc / 2, y0 + W * sc + 22, `${f(L, 0)} m`, {'text-anchor': 'middle'});
+  T(svg, x0 + L * sc + 10, y0 + W * sc / 2 + 4, `${f(W, 0)} m`, {});
+  const g = S('g', {}, svg);
+  if (A.dir === 'long') for (let k = -1; k <= 1; k++){ const X = x0 + L * sc / 2 + k * 40; arrowLine(g, X, y0 + W * sc + 90, X, y0 + W * sc + 34, P.s1, 3); }
+  else for (let k = -1; k <= 1; k++){ const Y = y0 + W * sc / 2 + k * 26; arrowLine(g, x0 - 70, Y, x0 - 12, Y, P.s1, 3); }
+  T(svg, A.dir === 'long' ? x0 + L * sc / 2 + 70 : x0 - 72, A.dir === 'long' ? y0 + W * sc + 80 : y0 + W * sc / 2 - 44, Lg('wind', 'angin'), {fill: P.s1, 'font-weight': 700});
+  el('fLegend').innerHTML = solved ? (A.frames === 'trans' ? `<span style="color:${P.s2}">■ ${Lg('transverse frames carry it', 'frame melintang menanggungnya')}</span>` : `<span style="color:${P.s3}">■ ${Lg('longitudinal frame lines carry it', 'frame line memanjang menanggungnya')}</span>`) : '';
+  const kv = el('fKV');
+  if (!solved){ kv.innerHTML = kvHTML([[Lg('Answer', 'Jawapan'), Lg('hidden until checked', 'tersembunyi hingga disemak')]]); return; }
+  const items = [['b', f(A.b, 1) + ' m'], ['d', f(A.d, 1) + ' m'], ['d/b', f(A.db, 3)], ['C<sub>p,e,L</sub>', f(A.cpl, 2)]];
+  if (!own) items.push(A.dir === 'long' ? [Lg('Frame ABCD, ΣW<sub>k</sub>', 'Frame ABCD, ΣW<sub>k</sub>'), f(WM.wind(WM.PRESETS.we51).Wtot, 1) + ' kN'] : [Lg('The notes put this wind on ABCD', 'Nota mengenakan angin ini pada ABCD'), f(WM.wind(WM.PRESETS.notes).Wtot, 1) + ' kN']);
+  kv.innerHTML = kvHTML(items);
+}
+function fCheck(){
+  const A = fAnswer(), fr = segVal(el('fFrames')), b = +el('fb').value, d = +el('fd').value, c = +el('fc').value, out = el('fOut');
+  const okF = fr === A.frames, okB = Math.abs(b - A.b) < 0.051, okD = Math.abs(d - A.d) < 0.051, okC = isFinite(c) && el('fc').value !== '' && Math.abs(c - A.cpl) < 0.0105;
+  const all = okF && okB && okD && okC;
+  out.hidden = false; out.className = 'verdict ' + (all ? 'ok' : 'bad');
+  const why = A.dir === 'long' ? Lg('This wind blows across the building, in the plane of the frames that span the width: the transverse frames carry it.', 'Angin ini bertiup merentasi bangunan, dalam satah frame yang merentang lebar: frame melintang menanggungnya.')
+                               : Lg('This wind blows along the building, in the plane of the longitudinal frame lines: they carry it.', 'Angin ini bertiup sepanjang bangunan, dalam satah frame line memanjang: ia menanggungnya.');
+  out.innerHTML = (all ? Lg('<b>Right.</b> ', '<b>Betul.</b> ') : Lg('<b>Not yet.</b> ', '<b>Belum tepat.</b> ')) +
+    (okF ? '' : why + ' ') + ((okB && okD) ? '' : Lg('b is the face the wind blows on, d the depth along the wind. ', 'b ialah muka yang ditiup angin, d dalam sepanjang arah angin. ')) +
+    (okC || !(okB && okD) ? '' : Lg(`d/b = ${f(A.db, 3)}: interpolate Table 5.2(b). `, `d/b = ${f(A.db, 3)}: interpolasi Table 5.2(b). `)) + (all ? why : '');
+  if (all){
+    fState.solved[fKey()] = true; store('seaa4333-wind-face', fState);
+    const base = fKey().split(':')[0];
+    if (fState.solved[base + ':long'] && fState.solved[base + ':short']) milestone('face');
+  }
+  drawFace();
+}
+el('fCheck').addEventListener('click', fCheck);
+segGroup(el('fDir'), () => { el('fOut').hidden = true; ['fb', 'fd', 'fc'].forEach(i => el(i).value = ''); el('fFrames').querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', 'false')); drawFace(); });
+segGroup(el('fFrames'), () => {});
+el('fCase').addEventListener('change', () => { el('fOwn').hidden = el('fCase').value !== 'own'; el('fOut').hidden = true; drawFace(); });
+['fL', 'fW'].forEach(i => el(i).addEventListener('input', drawFace));
+
+/* ---------------- tab 2: pressures ---------------- */
+const pState = {shown: 0, streak: 0, key: ''};
+const OWN = recall('seaa4333-wind-own', {Vs: 33.5, tcat: 3, icat: 2, na: 1.5, n: 5, hg: 4.0, ht: 3.5, bw: 40, dw: 16, Lw1: 5, Lw2: 5}) || {};
+function pInputs(){
+  const c = el('pCase').value;
+  if (c !== 'own') return WM.PRESETS[c];
+  return Object.assign({proc: segVal(el('pProc')) || 'anal'}, OWN);
+}
+function pOwnTable(){
+  const rows = [['Vs', 'V<sub>s</sub>', 'm/s', `<select id="pVs"><option value="33.5">33.5 (Zone I)</option><option value="32.5">32.5 (Zone II)</option></select>`],
+                ['tcat', Lg('Terrain category', 'Terrain category'), '', `<select id="ptcat">${[1, 2, 3, 4].map(k => `<option value="${k}">${k}</option>`).join('')}</select>`],
+                ['icat', Lg('Importance category', 'Importance category'), '', `<select id="picat">${['I', 'II', 'III', 'IV'].map((t, k) => `<option value="${k + 1}">${t} (I = ${WM.IMP[k + 1].toFixed(2)})</option>`).join('')}</select>`],
+                ['na', 'n<sub>a</sub>', 'Hz', '<input id="pna" type="number" step="0.1" min="0.2" max="10">'], ['n', Lg('Storeys', 'Tingkat'), '', '<input id="pn" type="number" step="1" min="2" max="12">'],
+                ['hg', Lg('Ground storey', 'Tingkat bawah'), 'm', '<input id="phg" type="number" step="0.1" min="2.5" max="8">'], ['ht', Lg('Other storeys', 'Tingkat lain'), 'm', '<input id="pht" type="number" step="0.1" min="2.5" max="6">'],
+                ['bw', Lg('b, face the wind blows on', 'b, muka yang ditiup angin'), 'm', '<input id="pbw" type="number" step="1" min="5" max="200">'], ['dw', Lg('d, depth along the wind', 'd, dalam sepanjang angin'), 'm', '<input id="pdw" type="number" step="1" min="5" max="200">'],
+                ['Lw1', Lg('Bay on one side', 'Bay pada satu sisi'), 'm', '<input id="pLw1" type="number" step="0.5" min="2" max="15">'], ['Lw2', Lg('Bay on the other', 'Bay pada sisi lain'), 'm', '<input id="pLw2" type="number" step="0.5" min="2" max="15">']];
+  el('pOwnTbl').innerHTML = rows.map(([k, l, u, h]) => `<tr><td>${l}</td><td>${h}</td><td class="u">${u}</td></tr>`).join('');
+  rows.forEach(([k]) => { const e = el('p' + k); if (!e) return; e.value = OWN[k]; e.addEventListener('change', () => { OWN[k] = +e.value; store('seaa4333-wind-own', OWN); pState.shown = 0; pState.streak = 0; drawPress(); }); });
+}
+function drawPress(){
+  const P = PAL(), inp = pInputs(), r = WM.wind(inp), c = el('pCase').value;
+  const key = c + JSON.stringify(inp); if (key !== pState.key){ pState.key = key; pState.shown = 0; pState.streak = 0; el('pOut').hidden = true; }
+  const simp = inp.proc === 'simp';
+  el('pCaseNote').innerHTML = {we51: Lg('Worked Example 5.1: the notes’ building with the wind on the 51 m face (D57); frame ABCD, B<sub>w</sub> = 4.5 m.', 'Worked Example 5.1: bangunan nota dengan angin pada muka 51 m (D57); frame ABCD, B<sub>w</sub> = 4.5 m.'),
+    notes: Lg('As the notes print it (Example 5): the wind on the 18 m face, leeward −0.25 typed, C<sub>dyn</sub> with b<sub>sh</sub> = 51 m, put on frame ABCD.', 'Seperti yang dicetak dalam nota (Contoh 5): angin pada muka 18 m, leeward −0.25 ditaip, C<sub>dyn</sub> dengan b<sub>sh</sub> = 51 m, dikenakan pada frame ABCD.'),
+    fe52: Lg('Faded Example 5.2: three storeys on the same plan, Appendix A; the minimum of A2.2 governs.', 'Faded Example 5.2: tiga tingkat pada pelan yang sama, Appendix A; minimum A2.2 menguasai.'),
+    own: Lg('Your building: the frames carry the wind on face b. Appendix A needs h ≤ 15 m.', 'Bangunan anda: frame menanggung angin pada muka b. Appendix A memerlukan h ≤ 15 m.')}[c];
+  const items = simp ? [['0.613V<sub>s</sub>²', f(r.q0, 3) + ' kN/m²'], ['M<sub>z,cat</sub>(h)', f(r.Mzh, 3)], ['d/b', f(r.db, 3)], ['C<sub>p,e,L</sub>', f(r.cpl, 2)], ['p<sub>L</sub>', f(r.pL, 3) + ' kN/m²'], ['B<sub>w</sub>', f(r.Bw, 2) + ' m']]
+                     : [['V<sub>des</sub>', f(r.Vdes, 2) + ' m/s'], ['d/b', f(r.db, 3)], ['C<sub>p,e,L</sub>', f(r.cpl, 2)], ['C<sub>dyn</sub>', f(r.Cdyn, 3)], ['p<sub>L</sub>', f(r.pL, 3) + ' kN/m²'], ['B<sub>w</sub>', f(r.Bw, 2) + ' m']];
+  el('pKV').innerHTML = kvHTML(items);
+  if (simp && r.H > 15) el('pKV').innerHTML += `<div><span>${Lg('Check', 'Semak')}</span><b>${Lg('h > 15 m: use Section 2', 'h > 15 m: guna Seksyen 2')}</b></div>`;
+  const lv = r.levels, sh = pState.shown;
+  el('pNext').innerHTML = sh < lv.length ? `${lvName(lv[sh])} (z = ${f(lv[sh].z, 1)} m): p<sub>W</sub> − p<sub>L</sub>` : Lg('All levels shown', 'Semua aras ditunjukkan');
+  el('pPred').disabled = sh >= lv.length; el('pCheck').disabled = sh >= lv.length;
+  const head = `<tr><th>${Lg('Level', 'Aras')}</th><th class="out">z</th><th class="out">M<sub>z,cat</sub></th>${simp ? '' : '<th class="out">V<sub>des,z</sub></th>'}<th class="out">p<sub>W</sub></th><th class="out">p<sub>L</sub></th><th class="out">${Lg('net', 'net')}</th><th class="out">h<sub>trib</sub></th><th class="out">W<sub>k</sub></th></tr>`;
+  el('pTable').innerHTML = head + lv.map((l, i) => i < sh
+    ? `<tr><td>${lvName(l)}</td><td class="out">${f(l.z, 1)}</td><td class="out">${f(l.mz, 3)}</td>${simp ? '' : `<td class="out">${f(l.vz, 2)}</td>`}<td class="out">${f(l.pw, 3)}</td><td class="out">${f(r.pL, 3)}</td><td class="out"><b>${f(l.pt, 3)}</b></td><td class="out">${f(l.hT, 2)}</td><td class="out">${f(l.Wk, 2)}</td></tr>`
+    : `<tr><td>${lvName(l)}</td><td class="out">${f(l.z, 1)}</td><td class="out">?</td>${simp ? '' : '<td class="out">?</td>'}<td class="out">?</td><td class="out">?</td><td class="out">?</td><td class="out">${f(l.hT, 2)}</td><td class="out">?</td></tr>`).join('');
+  el('pSum').innerHTML = sh >= lv.length ? kvHTML([['ΣW<sub>k</sub>', f(r.Wtot, 2) + ' kN'], ['p<sub>avg</sub>', f(r.pavg, 3) + ' kN/m²'], [Lg('Minimum factor', 'Faktor minimum'), r.kmin > 1 ? '× ' + f(r.kmin, 3) : Lg('does not govern', 'tidak menguasai')]]) : '';
+  const svg = el('pChart'); clear(svg);
+  const pmax = Math.max(...lv.map(l => l.pt)) * 1.12, step = [0.05, 0.1, 0.2, 0.25, 0.5, 1, 2, 5].find(st => pmax / st <= 5) || 5, pm = Math.ceil(pmax / step) * step, dd = (String(step).split('.')[1] || '').length;
+  const x0 = 120, w = 480, bh = Math.min(34, 300 / lv.length - 8);
+  el('pLegend').innerHTML = `<span><i style="width:12px;height:12px;background:${P.s1};display:inline-block"></i>p<sub>W</sub></span><span><i style="width:12px;height:12px;background:${P.s2};display:inline-block"></i>−p<sub>L</sub></span>`;
+  for (let v = 0; v <= pm + 1e-9; v += step){ const X = x0 + v / pm * w; S('line', {x1: X, y1: 20, x2: X, y2: 360, stroke: P.rule, 'stroke-width': 1}, svg); T(svg, X, 380, f(v, dd), {'text-anchor': 'middle'}); }
+  lv.forEach((l, i) => {
+    const y = 30 + i * (bh + 8);
+    T(svg, x0 - 8, y + bh / 2 + 4, lvName(l), {'text-anchor': 'end', class: 'axt'});
+    if (i < sh){
+      S('rect', {x: x0, y, width: l.pw / pm * w, height: bh, fill: P.s1, rx: 3}, svg);
+      S('rect', {x: x0 + l.pw / pm * w + 1, y, width: -r.pL / pm * w - 1, height: bh, fill: P.s2, rx: 3}, svg);
+      T(svg, x0 + l.pt / pm * w + 6, y + bh / 2 + 4, f(l.pt, 3), {fill: P.ink, 'font-weight': 700, class: 'halo'});
+    } else S('rect', {x: x0, y, width: w * 0.04, height: bh, fill: 'none', stroke: P.rule, 'stroke-dasharray': '4 3'}, svg);
+  });
+}
+el('pCheck').addEventListener('click', () => {
+  const r = WM.wind(pInputs()), lv = r.levels, i = pState.shown, out = el('pOut'); if (i >= lv.length) return;
+  const v = +el('pPred').value, t = lv[i].pt, ok = el('pPred').value !== '' && Math.abs(v - t) <= 0.02 * Math.abs(t);
+  pState.streak = ok ? pState.streak + 1 : 0; pState.shown++;
+  out.hidden = false; out.className = 'verdict ' + (ok ? 'ok' : 'bad');
+  out.innerHTML = (ok ? Lg('<b>Right.</b> ', '<b>Betul.</b> ') : Lg('<b>Not yet.</b> ', '<b>Belum tepat.</b> ')) + `${lvName(lv[i])}: p<sub>W</sub> = ${f(lv[i].pw, 3)}, p<sub>L</sub> = ${f(r.pL, 3)}, ` + Lg('net', 'net') + ` = ${f(t, 3)} kN/m². ` +
+    (ok ? Lg(`Streak: ${pState.streak}.`, `Berturut-turut: ${pState.streak}.`) : Lg('The windward wall uses V<sub>des,z</sub> at this level; the leeward suction is the same at every level; net = p<sub>W</sub> − p<sub>L</sub>.', 'Dinding windward menggunakan V<sub>des,z</sub> pada aras ini; suction leeward sama pada setiap aras; net = p<sub>W</sub> − p<sub>L</sub>.'));
+  if (pState.streak >= 3) milestone('press');
+  el('pPred').value = ''; drawPress();
+});
+el('pAll').addEventListener('click', () => { pState.shown = 99; pState.streak = 0; el('pOut').hidden = true; drawPress(); });
+el('pCase').addEventListener('change', () => { el('pOwn').hidden = el('pCase').value !== 'own'; drawPress(); });
+segGroup(el('pProc'), () => { pState.shown = 0; drawPress(); });
+
+/* ---------------- tab 3: what matters most ---------------- */
+const SENS = [['tc2', 'Terrain category 3 → 2 (open terrain)', 'Terrain category 3 → 2 (kawasan terbuka)', {tcat: 2}, ['Terrain cat. 2', 'Terrain cat. 2']],
+              ['imp', 'Importance category III → II (I = 1.15 → 1.0)', 'Importance category III → II (I = 1.15 → 1.0)', {icat: 2}, ['I = 1.0', 'I = 1.0']],
+              ['na', 'n<sub>a</sub> = 0.2 → 1.8 Hz (C<sub>dyn</sub> → 1.0)', 'n<sub>a</sub> = 0.2 → 1.8 Hz (C<sub>dyn</sub> → 1.0)', {na: 1.8}, ['nₐ = 1.8 Hz', 'nₐ = 1.8 Hz']],
+              ['face', 'The wind on the 18 m face instead (b = 18, d = 51 m)', 'Angin pada muka 18 m pula (b = 18, d = 51 m)', {bw: 18, dw: 51}, ['18 m face', 'Muka 18 m']],
+              ['zone', 'Zone I → Zone II (V<sub>s</sub> = 33.5 → 32.5 m/s)', 'Zone I → Zone II (V<sub>s</sub> = 33.5 → 32.5 m/s)', {Vs: 32.5}, ['Zone II', 'Zone II']]];
+const sState = recall('seaa4333-wind-sens', {rank: {}, dir: {}, submitted: false, shown: {}}) || {rank: {}, dir: {}, submitted: false, shown: {}};
+function sVals(){ const base = WM.wind(WM.PRESETS.we51).Wtot; return {base, ch: SENS.map(([k, , , ov]) => { const v = WM.wind(Object.assign({}, WM.PRESETS.we51, ov)).Wtot; return {k, v, pc: 100 * (v / base - 1)}; })}; }
+function sTruth(){ const {ch} = sVals(); const order = ch.slice().sort((a, b) => Math.abs(b.pc) - Math.abs(a.pc)).map(c => c.k); const rank = {}; order.forEach((k, i) => { rank[k] = i + 1; }); return rank; }
+function drawSens(){
+  const P = PAL(), {base, ch} = sVals();
+  el('sLede').innerHTML = Lg(`Worked Example 5.1 gives ΣW<sub>k</sub> = ${f(base, 1)} kN on frame ABCD. Each card changes one thing, the others stay as in the example.`, `Worked Example 5.1 memberi ΣW<sub>k</sub> = ${f(base, 1)} kN pada frame ABCD. Setiap kad mengubah satu perkara, yang lain kekal seperti dalam contoh.`);
+  el('sCards').innerHTML = SENS.map(([k, en, ms]) => `<div style="display:grid;grid-template-columns:auto auto;justify-content:start;gap:6px 10px;align-items:center;border:1px solid var(--rule);border-radius:8px;padding:8px 10px">
+    <span style="grid-column:1/-1">${Lg(en, ms)}</span><select data-k="${k}" class="srank" ${sState.submitted ? 'disabled' : ''}><option value="">${Lg('rank', 'kedudukan')}</option>${[1, 2, 3, 4, 5].map(n => `<option value="${n}" ${sState.rank[k] == n ? 'selected' : ''}>${n}</option>`).join('')}</select>
+    <div class="seg" role="group" data-k="${k}"><button type="button" data-v="up" aria-pressed="${sState.dir[k] === 'up'}" ${sState.submitted ? 'disabled' : ''}>↑</button><button type="button" data-v="down" aria-pressed="${sState.dir[k] === 'down'}" ${sState.submitted ? 'disabled' : ''}>↓</button></div></div>`).join('');
+  el('sCards').querySelectorAll('.srank').forEach(s => s.addEventListener('change', () => { sState.rank[s.dataset.k] = s.value; store('seaa4333-wind-sens', sState); }));
+  el('sCards').querySelectorAll('.seg').forEach(g => segGroup(g, v => { sState.dir[g.dataset.k] = v; store('seaa4333-wind-sens', sState); }));
+  el('sTable').innerHTML = `<tr><th>${Lg('Change', 'Perubahan')}</th><th class="out">${Lg('your rank', 'kedudukan anda')}</th><th class="out">ΣW<sub>k</sub></th><th class="out">${Lg('change', 'perubahan')}</th><th></th></tr>` +
+    SENS.map(([k, en, ms], i) => { const c = ch[i], sh = sState.shown[k]; return `<tr><td>${Lg(en, ms)}</td><td class="out">${sState.rank[k] || '–'} ${sState.dir[k] === 'up' ? '↑' : sState.dir[k] === 'down' ? '↓' : ''}</td><td class="out">${sh ? f(c.v, 1) + ' kN' : '?'}</td><td class="out">${sh ? (c.pc > 0 ? '+' : '') + f(c.pc, 1) + ' %' : '?'}</td><td><button class="btn sm sreveal" data-k="${k}" type="button" ${!sState.submitted || sh ? 'disabled' : ''}>${Lg('Reveal', 'Dedah')}</button></td></tr>`; }).join('');
+  el('sTable').querySelectorAll('.sreveal').forEach(b => b.addEventListener('click', () => { sState.shown[b.dataset.k] = true; store('seaa4333-wind-sens', sState); if (sState.submitted && SENS.every(([k]) => sState.shown[k])) milestone('sens'); drawSens(); }));
+  const svg = el('sChart'); clear(svg); const x0 = 340, sc = 7, rows = ch.length;
+  el('sLegend').innerHTML = `<span style="color:${P.s2}">■ ${Lg('up', 'naik')}</span><span style="color:${P.s1}">■ ${Lg('down', 'turun')}</span>`;
+  [-40, -20, 0, 20, 40].forEach(t => { const X = x0 + t * sc; S('line', {x1: X, y1: 16, x2: X, y2: 340, stroke: t ? P.rule : P.ink3, 'stroke-width': t ? 1 : 1.5}, svg); T(svg, X, 360, (t > 0 ? '+' : '') + t + ' %', {'text-anchor': 'middle'}); });
+  ch.forEach((c, i) => {
+    const y = 30 + i * 62; T(svg, 12, y + 20, Lg(SENS[i][4][0], SENS[i][4][1]), {class: 'axt'});
+    if (!sState.shown[c.k]){ S('rect', {x: x0 - 20, y, width: 40, height: 30, fill: 'none', stroke: P.rule, 'stroke-dasharray': '4 3'}, svg); return; }
+    const wv = c.pc * sc; S('rect', {x: wv > 0 ? x0 : x0 + wv, y, width: Math.abs(wv), height: 30, fill: wv > 0 ? P.s2 : P.s1, rx: 3}, svg);
+    T(svg, wv > 0 ? x0 + wv + 6 : x0 + 6, y + 20, (c.pc > 0 ? '+' : '') + f(c.pc, 1) + ' %', {fill: P.ink, 'font-weight': 700, class: 'halo'});
+  });
+}
+el('sSubmit').addEventListener('click', () => {
+  const out = el('sOut'), ranks = SENS.map(([k]) => +sState.rank[k]), dirs = SENS.map(([k]) => sState.dir[k]);
+  out.hidden = false;
+  if (ranks.some(r => !r) || new Set(ranks).size !== 5 || dirs.some(d => !d)){ out.className = 'verdict bad'; out.innerHTML = Lg('Give every change a different rank from 1 to 5 and a direction.', 'Beri setiap perubahan kedudukan yang berbeza dari 1 hingga 5 dan satu arah.'); return; }
+  sState.submitted = true; store('seaa4333-wind-sens', sState);
+  const tr = sTruth(), {ch} = sVals(); const nr = SENS.filter(([k]) => +sState.rank[k] === tr[k]).length, nd = SENS.filter(([k], i) => (ch[i].pc > 0 ? 'up' : 'down') === sState.dir[k]).length;
+  out.className = 'verdict ' + (nr === 5 && nd === 5 ? 'ok' : 'bad'); out.innerHTML = Lg(`<b>Ranking submitted:</b> ${nr} of 5 ranks and ${nd} of 5 directions right. Now reveal the changes one by one and say why each moves the force as it does.`, `<b>Susunan dihantar:</b> ${nr} daripada 5 kedudukan dan ${nd} daripada 5 arah betul. Sekarang dedahkan perubahan satu demi satu dan terangkan mengapa setiap satu mengubah daya sebegitu.`);
+  drawSens();
+});
+el('sReset').addEventListener('click', () => { sState.rank = {}; sState.dir = {}; sState.submitted = false; sState.shown = {}; store('seaa4333-wind-sens', sState); el('sOut').hidden = true; drawSens(); });
+
+/* ---------------- tab 4: Wind S5 ---------------- */
+const S5KEY = 'seaa4333-wind-s5', S5IN = {proc: 'anal', Vs: 32.5, icat: 2, tcat: 2, n: 4, hg: 4.0, ht: 3.5, bw: 36, dw: 15, na: 1.6, Lw1: 6, Lw2: 6};
+const eState = {flag: new Set(recall(S5KEY, []) || []), checked: false, fixed: false};
+const S5GIVEN = [['Building', 'Bangunan', 'A four-storey office, plan 36 m × 15 m, flat roof at 14.5 m', 'Pejabat empat tingkat, pelan 36 m × 15 m, bumbung rata pada 14.5 m'],
+                 ['Frames', 'Frame', 'Span the 15 m width at 6 m centres', 'Merentang lebar 15 m pada pusat 6 m'],
+                 ['Wind', 'Angin', 'Onto the 36 m face', 'Ke atas muka 36 m'],
+                 ['Site', 'Tapak', 'Zone II (V<sub>s</sub> = 32.5 m/s), terrain category 2, level ground', 'Zone II (V<sub>s</sub> = 32.5 m/s), terrain category 2, tanah rata'],
+                 ['Frequency', 'Frekuensi', 'n<sub>a</sub> = 1.6 Hz', 'n<sub>a</sub> = 1.6 Hz'],
+                 ['Storeys', 'Tingkat', '4.0 m, then 3 × 3.5 m', '4.0 m, kemudian 3 × 3.5 m']];
+function drawS5Fig(){
+  const box = el('eFig'); box.innerHTML = ''; const P = PAL();
+  const svg = S('svg', {class: 'fig', viewBox: '0 0 620 300', role: 'img', 'aria-label': Lg('Wind S5 on plan: 36 m by 15 m, seven frames spanning the 15 m width at 6 m centres, the wind onto the 36 m face; and in elevation four storeys, 4.0 m then three of 3.5 m, to a flat roof at 14.5 m.', 'Wind S5 pada pelan: 36 m kali 15 m, tujuh frame merentang lebar 15 m pada pusat 6 m, angin ke atas muka 36 m; dan pada elevation empat tingkat, 4.0 m kemudian tiga tingkat 3.5 m, hingga bumbung rata pada 14.5 m.')}, box);
+  svg.style.minWidth = '320px';
+  const sc = 10, x0 = 30, y0 = 40, L = 36, W = 15;
+  S('rect', {x: x0, y: y0, width: L * sc, height: W * sc, fill: P.surf, stroke: P.rule, 'stroke-width': 1.4}, svg);
+  for (let k = 0; k <= 6; k++){ const X = x0 + 6 * k * sc; S('line', {x1: X, y1: y0, x2: X, y2: y0 + W * sc, stroke: 'var(--flight)', 'stroke-width': 3}, svg); }
+  T(svg, x0 + L * sc / 2, y0 - 10, '36 m', {'text-anchor': 'middle'}); T(svg, x0 + L * sc + 8, y0 + W * sc / 2 + 4, '15 m', {});
+  T(svg, x0 + 3 * sc, y0 + W * sc / 2 + 4, '6 m', {'text-anchor': 'middle', class: 'small'});
+  const g = S('g', {}, svg); [-1, 0, 1].forEach(k => { const X = x0 + L * sc / 2 + k * 60; arrowLine(g, X, y0 + W * sc + 78, X, y0 + W * sc + 18, P.s1, 3); });
+  T(svg, x0 + L * sc / 2 + 96, y0 + W * sc + 62, Lg('wind', 'angin'), {fill: P.s1, 'font-weight': 700});
+  const ex = 520, eb = 270, s2 = 14, hs = [4.0, 3.5, 3.5, 3.5];
+  let zz = 0; S('line', {x1: ex, x2: ex, y1: eb, y2: eb - 14.5 * s2, stroke: P.ink, 'stroke-width': 3}, svg);
+  hs.forEach((h, i) => { zz += h; S('line', {x1: ex - 36, x2: ex + 36, y1: eb - zz * s2, y2: eb - zz * s2, stroke: i === 3 ? P.ink3 : P.ink2, 'stroke-width': 2}, svg); T(svg, ex + 42, eb - (zz - h / 2) * s2 + 4, f(h, 1) + ' m', {class: 'small'}); });
+  S('rect', {x: ex - 22, y: eb, width: 44, height: 8, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
+  T(svg, ex, eb - 14.5 * s2 - 10, Lg('elevation · 14.5 m', 'elevation · 14.5 m'), {'text-anchor': 'middle', class: 'small'});
+}
+function drawSheet(){
+  const rows = S5SHEET.rows, st = eState, ok = WM.wind(S5IN);
+  el('eGiven').innerHTML = S5GIVEN.map(g => `<dt>${Lg(g[0], g[1])}</dt><dd>${Lg(g[2], g[3])}</dd>`).join('');
+  drawS5Fig();
+  let html = `<thead><tr><th>${Lg('Line', 'Baris')}</th><th>Ref</th><th>${Lg('Calculation', 'Pengiraan')}</th><th>Output</th></tr></thead><tbody>`;
+  rows.forEach((r, i) => {
+    const n = i + 1, fl = st.flag.has(n);
+    let cls = fl ? 'flag' : '';
+    if (st.checked || st.fixed){ if (r.slip && fl) cls = 'hit'; else if (r.slip && st.fixed) cls = 'miss'; else if (!r.slip && fl) cls = 'false'; }
+    const showFix = st.fixed ? r.fix[0] !== 'Right.' : (st.checked && fl && r.slip);
+    const fix = showFix ? `<span class="fix">${Lg(r.fix[0], r.fix[1])}</span>` : '';
+    html += `<tr class="${cls}" data-n="${n}" tabindex="0"><td class="no">${n}</td><td class="ref">${r.ref}</td><td class="calc">${Lg(r.calc[0], r.calc[1])}${fix}</td><td class="out">${r.out}</td></tr>`;
+  });
+  const t = el('eSheet'); t.innerHTML = html + '</tbody>';
+  t.querySelectorAll('tbody tr').forEach(tr => {
+    const tog = () => { const n = +tr.dataset.n; if (st.flag.has(n)) st.flag.delete(n); else st.flag.add(n); store(S5KEY, [...st.flag]); st.checked = false; drawSheet(); };
+    tr.addEventListener('click', tog); tr.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); tog(); } });
+  });
+  const hits = rows.filter((r, i) => r.slip && st.flag.has(i + 1)).length, fls = rows.filter((r, i) => !r.slip && st.flag.has(i + 1)).length;
+  el('eScore').textContent = st.checked ? Lg(`${hits} of 4 slips found` + (fls ? `; ${fls} line${fls > 1 ? 's' : ''} flagged that ${fls > 1 ? 'are' : 'is'} right or only carr${fls > 1 ? 'y' : 'ies'} a slip forward` : ''), `${hits} daripada 4 kesilapan dijumpai` + (fls ? `; ${fls} baris yang betul atau hanya membawa kesilapan ke hadapan turut ditanda` : '')) : Lg(`Lines flagged: ${st.flag.size}`, `Baris ditanda: ${st.flag.size}`);
+  const sum = el('eSummary');
+  if (st.fixed || (st.checked && hits === 4)){
+    sum.hidden = false;
+    const low = 100 * (1 - 33.05 / ok.Wtot);
+    sum.innerHTML = Lg(`<b>The four slips.</b> Line 3: an office is importance category II, I = 1.0. Line 5: b and d swapped; the frames carry the wind on the 36 m face, so d/b = 15/36 = 0.42 and C<sub>p,e,L</sub> = −0.5. Line 8: net = p<sub>W</sub> − p<sub>L</sub>; the leeward suction pulls the same way as the windward push. Line 10: the roof takes half a storey, h<sub>trib</sub> = 1.75 m. Lines 6, 7, 11 and 12 carry the slips forward. Corrected: ΣW<sub>k</sub> = ${f(ok.Wtot, 2)} kN with p<sub>avg</sub> = ${f(ok.pavg, 3)} kN/m², so the minimum does not govern. The sheet’s 52.14 kN looks close only because the 2.4.2 minimum raised its 33.05 kN, ${f(low, 0)} % low. Professional Habit 5, drawing the plan and the wind arrow first, catches lines 5, 8 and 10 before any number.`,
+                       `<b>Empat kesilapan.</b> Baris 3: pejabat ialah importance category II, I = 1.0. Baris 5: b dan d tertukar; frame menanggung angin pada muka 36 m, jadi d/b = 15/36 = 0.42 dan C<sub>p,e,L</sub> = −0.5. Baris 8: net = p<sub>W</sub> − p<sub>L</sub>; suction leeward menarik pada arah yang sama dengan tolakan windward. Baris 10: bumbung mengambil separuh tingkat, h<sub>trib</sub> = 1.75 m. Baris 6, 7, 11 dan 12 membawa kesilapan ke hadapan. Pembetulan: ΣW<sub>k</sub> = ${f(ok.Wtot, 2)} kN dengan p<sub>avg</sub> = ${f(ok.pavg, 3)} kN/m², jadi minimum tidak menguasai. Nilai 52.14 kN dalam helaian kelihatan hampir hanya kerana minimum 2.4.2 menaikkan 33.05 kN, ${f(low, 0)} % rendah. Professional Habit 5, melukis pelan dan anak panah angin dahulu, menangkap baris 5, 8 dan 10 sebelum sebarang nombor.`);
+  } else sum.hidden = true;
+}
+el('eCheck').addEventListener('click', () => { const rows = S5SHEET.rows; eState.checked = true; const hits = rows.filter((r, i) => r.slip && eState.flag.has(i + 1)).length; if (hits === 4 && !eState.fixed) milestone('s5'); drawSheet(); });
+el('eFix').addEventListener('click', () => { eState.fixed = true; drawSheet(); });
+el('eReset').addEventListener('click', () => { eState.flag = new Set(); store(S5KEY, []); eState.checked = false; eState.fixed = false; drawSheet(); });
+
+/* ---------------- shell hooks ---------------- */
+function fillAllCases(){
+  const fc = el('fCase'), fv = fc.value || 'nx';
+  fc.innerHTML = `<option value="nx">${Lg('The notes’ building, 51 m × 18 m', 'Bangunan nota, 51 m × 18 m')}</option><option value="own">${Lg('Your own plan', 'Pelan anda sendiri')}</option>`; fc.value = fv;
+  const pc = el('pCase'), pv = pc.value || 'we51';
+  pc.innerHTML = [['we51', 'Worked Example 5.1 (the notes’ building, D57)', 'Worked Example 5.1 (bangunan nota, D57)'], ['notes', 'The notes as printed (18 m face)', 'Nota seperti dicetak (muka 18 m)'],
+                  ['fe52', 'Faded Example 5.2 (Appendix A)', 'Faded Example 5.2 (Appendix A)'], ['own', 'Your own building', 'Bangunan anda sendiri']].map(([v, en, ms]) => `<option value="${v}">${Lg(en, ms)}</option>`).join(''); pc.value = pv;
+  pOwnTable();
+}
+function redrawAll(){ drawFace(); drawPress(); drawSens(); drawSheet(); }
+drawers.face = drawFace; drawers.press = drawPress; drawers.sens = drawSens; drawers.error = drawSheet;
+applyPrefs(false);
+fillAllCases(); tPaint(); redrawAll();
+function fromHash(){ const h = (location.hash || '').slice(1); showTab(h || 'face'); }
+fromHash(); window.addEventListener('hashchange', fromHash);
+
+</script>
+</body>
+</html>

@@ -1,0 +1,529 @@
+{
+ "app": "seaa4333",
+ "part": "u5",
+ "title": "Unit 5 Frame Analysis III",
+ "folder": "05-frame-analysis-3",
+ "course_meta": {
+  "key": "seaa4333-u5-v1",
+  "notes": [
+   "n1",
+   "n2",
+   "n3",
+   "n4",
+   "n5",
+   "n6"
+  ],
+  "slides": 26,
+  "examples": [
+   "x1",
+   "x2",
+   "x3"
+  ],
+  "cando": 5,
+  "targetMin": 45
+ },
+ "sections": [
+  {
+   "id": "start-outcomes",
+   "view": "start",
+   "anchor": null,
+   "selector": "ol.lo",
+   "title_en": "After this part you should be able to",
+   "title_ms": "Selepas bahagian ini, anda sepatutnya boleh"
+  },
+  {
+   "id": "notes-n1",
+   "view": "notes",
+   "anchor": "n1",
+   "title_en": "1. Unbraced frames and the lateral load",
+   "title_ms": "1. Unbraced frame dan lateral load",
+   "minutes": 7
+  },
+  {
+   "id": "notes-n2",
+   "view": "notes",
+   "anchor": "n2",
+   "title_en": "2. Wind on a building, and the procedures of MS 1553",
+   "title_ms": "2. Angin pada bangunan, dan prosedur MS 1553",
+   "minutes": 7
+  },
+  {
+   "id": "notes-n3",
+   "view": "notes",
+   "anchor": "n3",
+   "title_en": "3. The design wind speed",
+   "title_ms": "3. Design wind speed",
+   "minutes": 9
+  },
+  {
+   "id": "notes-n4",
+   "view": "notes",
+   "anchor": "n4",
+   "title_en": "4. From speed to pressure",
+   "title_ms": "4. Daripada laju kepada tekanan",
+   "minutes": 10
+  },
+  {
+   "id": "notes-n5",
+   "view": "notes",
+   "anchor": "n5",
+   "title_en": "5. From pressure to the forces on one frame",
+   "title_ms": "5. Daripada tekanan kepada daya pada satu frame",
+   "minutes": 8
+  },
+  {
+   "id": "notes-n6",
+   "view": "notes",
+   "anchor": "n6",
+   "title_en": "6. Low-rise buildings, and the second lateral load",
+   "title_ms": "6. Bangunan rendah, dan lateral load kedua",
+   "minutes": 6
+  },
+  {
+   "id": "slides-1",
+   "view": "slides",
+   "anchor": "1",
+   "title_en": "Slide 1: Frame Analysis III",
+   "title_ms": "Slide 1: Frame Analysis III"
+  },
+  {
+   "id": "slides-2",
+   "view": "slides",
+   "anchor": "2",
+   "title_en": "Slide 2: How the next three hours run",
+   "title_ms": "Slide 2: How the next three hours run"
+  },
+  {
+   "id": "slides-3",
+   "view": "slides",
+   "anchor": "3",
+   "title_en": "Slide 3: Three questions from last week",
+   "title_ms": "Slide 3: Three questions from last week"
+  },
+  {
+   "id": "slides-4",
+   "view": "slides",
+   "anchor": "4",
+   "title_en": "Slide 4: B, C, C, and what each means today",
+   "title_ms": "Slide 4: B, C, C, and what each means today"
+  },
+  {
+   "id": "slides-5",
+   "view": "slides",
+   "anchor": "5",
+   "title_en": "Slide 5: One building, one frame, two answers",
+   "title_ms": "Slide 5: One building, one frame, two answers"
+  },
+  {
+   "id": "slides-6",
+   "view": "slides",
+   "anchor": "6",
+   "title_en": "Slide 6: Frame ABCD spans the 18 m width of the building. Which wind does it carry?",
+   "title_ms": "Slide 6: Frame ABCD spans the 18 m width of the building. Which wind does it carry?"
+  },
+  {
+   "id": "slides-7",
+   "view": "slides",
+   "anchor": "7",
+   "title_en": "Slide 7: Unbraced frames: the frame carries the wind itself",
+   "title_ms": "Slide 7: Unbraced frames: the frame carries the wind itself"
+  },
+  {
+   "id": "slides-8",
+   "view": "slides",
+   "anchor": "8",
+   "title_en": "Slide 8: The design wind speed, level by level",
+   "title_ms": "Slide 8: The design wind speed, level by level"
+  },
+  {
+   "id": "slides-9",
+   "view": "slides",
+   "anchor": "9",
+   "title_en": "Slide 9: Which frames carry which wind?",
+   "title_ms": "Slide 9: Which frames carry which wind?"
+  },
+  {
+   "id": "slides-10",
+   "view": "slides",
+   "anchor": "10",
+   "title_en": "Slide 10: Each wind has its own b, d and frames",
+   "title_ms": "Slide 10: Each wind has its own b, d and frames"
+  },
+  {
+   "id": "slides-11",
+   "view": "slides",
+   "anchor": "11",
+   "title_en": "Slide 11: The notes’ building: the wind on frame ABCD",
+   "title_ms": "Slide 11: The notes’ building: the wind on frame ABCD"
+  },
+  {
+   "id": "slides-12",
+   "view": "slides",
+   "anchor": "12",
+   "title_en": "Slide 12: Level 1 of the notes’ building is at z = 4 m. Which speed gives the leeward suction there?",
+   "title_ms": "Slide 12: Level 1 of the notes’ building is at z = 4 m. Which speed gives the leeward suction there?"
+  },
+  {
+   "id": "slides-13",
+   "view": "slides",
+   "anchor": "13",
+   "title_en": "Slide 13: From speed to pressure",
+   "title_ms": "Slide 13: From speed to pressure"
+  },
+  {
+   "id": "slides-14",
+   "view": "slides",
+   "anchor": "14",
+   "title_en": "Slide 14: From pressure to one force per floor",
+   "title_ms": "Slide 14: From pressure to one force per floor"
+  },
+  {
+   "id": "slides-15",
+   "view": "slides",
+   "anchor": "15",
+   "title_en": "Slide 15: Over the height of a low frame the net pressure averages 0.58 kN/m². What happens to the level forces?",
+   "title_ms": "Slide 15: Over the height of a low frame the net pressure averages 0.58 kN/m². What happens to the level forces?"
+  },
+  {
+   "id": "slides-16",
+   "view": "slides",
+   "anchor": "16",
+   "title_en": "Slide 16: A low-rise building by Appendix A",
+   "title_ms": "Slide 16: A low-rise building by Appendix A"
+  },
+  {
+   "id": "slides-17",
+   "view": "slides",
+   "anchor": "17",
+   "title_en": "Slide 17: The minimum decides the wind",
+   "title_ms": "Slide 17: The minimum decides the wind"
+  },
+  {
+   "id": "slides-18",
+   "view": "slides",
+   "anchor": "18",
+   "title_en": "Slide 18: What matters most?",
+   "title_ms": "Slide 18: What matters most?"
+  },
+  {
+   "id": "slides-19",
+   "view": "slides",
+   "anchor": "19",
+   "title_en": "Slide 19: The terrain and the building matter more than the zone",
+   "title_ms": "Slide 19: The terrain and the building matter more than the zone"
+  },
+  {
+   "id": "slides-20",
+   "view": "slides",
+   "anchor": "20",
+   "title_en": "Slide 20: The second lateral load, and the design value",
+   "title_ms": "Slide 20: The second lateral load, and the design value"
+  },
+  {
+   "id": "slides-21",
+   "view": "slides",
+   "anchor": "21",
+   "title_en": "Slide 21: Wind S5: four slips in a wind calculation",
+   "title_ms": "Slide 21: Wind S5: four slips in a wind calculation"
+  },
+  {
+   "id": "slides-22",
+   "view": "slides",
+   "anchor": "22",
+   "title_en": "Slide 22: D5: the wind on a frame (20 marks)",
+   "title_ms": "Slide 22: D5: the wind on a frame (20 marks)"
+  },
+  {
+   "id": "slides-23",
+   "view": "slides",
+   "anchor": "23",
+   "title_en": "Slide 23: The wind on your group’s frame line",
+   "title_ms": "Slide 23: The wind on your group’s frame line"
+  },
+  {
+   "id": "slides-24",
+   "view": "slides",
+   "anchor": "24",
+   "title_en": "Slide 24: Draw the plan and the wind arrow before any number",
+   "title_ms": "Slide 24: Draw the plan and the wind arrow before any number"
+  },
+  {
+   "id": "slides-25",
+   "view": "slides",
+   "anchor": "25",
+   "title_en": "Slide 25: Before Unit 6",
+   "title_ms": "Slide 25: Before Unit 6"
+  },
+  {
+   "id": "slides-26",
+   "view": "slides",
+   "anchor": "26",
+   "title_en": "Slide 26: Before you leave",
+   "title_ms": "Slide 26: Before you leave"
+  },
+  {
+   "id": "examples-x1",
+   "view": "examples",
+   "anchor": "x1",
+   "title_en": "Example 1 · Worked Example 5.1: the notes’ building, the wind on frame ABCD",
+   "title_ms": "Contoh 1 · Worked Example 5.1: bangunan nota, angin pada frame ABCD"
+  },
+  {
+   "id": "examples-x2",
+   "view": "examples",
+   "anchor": "x2",
+   "title_en": "Example 2 · Faded Example 5.2: a low-rise building by Appendix A",
+   "title_ms": "Contoh 2 · Faded Example 5.2: bangunan rendah mengikut Appendix A"
+  },
+  {
+   "id": "examples-x3",
+   "view": "examples",
+   "anchor": "x3",
+   "title_en": "Example 3 · Explain-type questions",
+   "title_ms": "Contoh 3 · Soalan jenis terangkan"
+  },
+  {
+   "id": "exercises-b1",
+   "view": "exercises",
+   "anchor": "b1",
+   "title_en": "Exercise B1 · The design wind speed at the roof and at a level",
+   "title_ms": "Latihan B1 · Design wind speed di bumbung dan pada satu aras"
+  },
+  {
+   "id": "exercises-b2",
+   "view": "exercises",
+   "anchor": "b2",
+   "title_en": "Exercise B2 · The leeward suction: which face, d/b and p_L",
+   "title_ms": "Latihan B2 · Suction leeward: muka yang mana, d/b dan p_L"
+  },
+  {
+   "id": "exercises-b3",
+   "view": "exercises",
+   "anchor": "b3",
+   "title_en": "Exercise B3 · The net pressure at a level",
+   "title_ms": "Latihan B3 · Net pressure pada satu aras"
+  },
+  {
+   "id": "exercises-b4",
+   "view": "exercises",
+   "anchor": "b4",
+   "title_en": "Exercise B4 · The force on the frame at one level",
+   "title_ms": "Latihan B4 · Daya pada frame pada satu aras"
+  },
+  {
+   "id": "exercises-b5",
+   "view": "exercises",
+   "anchor": "b5",
+   "title_en": "Exercise B5 · The minimum design wind load",
+   "title_ms": "Latihan B5 · Minimum design wind load"
+  },
+  {
+   "id": "exercises-b6",
+   "view": "exercises",
+   "anchor": "b6",
+   "title_en": "Exercise B6 · The EC2 geometric imperfections",
+   "title_ms": "Latihan B6 · Geometric imperfection EC2"
+  },
+  {
+   "id": "exercises-quick",
+   "view": "exercises",
+   "anchor": null,
+   "selector": "#v-exercises div.q",
+   "title_en": "Exercises: quick concept questions",
+   "title_ms": "Latihan: soalan konsep pantas"
+  },
+  {
+   "id": "lab-face",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"face\"]",
+   "title_en": "Explorer task 1: Tab 1, Activity 5A: for each of the two wind directions on the…",
+   "title_ms": "Tugasan Explorer 1: Tab 1, Aktiviti 5A: bagi setiap dua arah angin pada bangunan ku…"
+  },
+  {
+   "id": "lab-press",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"press\"]",
+   "title_en": "Explorer task 2: Tab 2: work out the net pressure at three levels in a row befor…",
+   "title_ms": "Tugasan Explorer 2: Tab 2: kira net pressure pada tiga aras berturut-turut sebelum…"
+  },
+  {
+   "id": "lab-sens",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"sens\"]",
+   "title_en": "Explorer task 3: Tab 3, Activity 5B: rank the five changes by their effect on ΣW…",
+   "title_ms": "Tugasan Explorer 3: Tab 3, Aktiviti 5B: susun lima perubahan mengikut kesannya pada…"
+  },
+  {
+   "id": "lab-s5",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"s5\"]",
+   "title_en": "Explorer task 4: Tab 4: find all four slips in Wind S5, tap their lines and pres…",
+   "title_ms": "Tugasan Explorer 4: Tab 4: cari keempat-empat kesilapan dalam Wind S5, ketik barisn…"
+  },
+  {
+   "id": "glossary-unbraced-frame",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: unbraced frame",
+   "title_ms": "Glosari: unbraced frame"
+  },
+  {
+   "id": "glossary-braced-frame",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: braced frame",
+   "title_ms": "Glosari: braced frame"
+  },
+  {
+   "id": "glossary-basic-wind-speed-v-s",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: basic wind speed V_s",
+   "title_ms": "Glosari: basic wind speed V_s"
+  },
+  {
+   "id": "glossary-site-wind-speed-v-sit",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: site wind speed V_{sit}",
+   "title_ms": "Glosari: site wind speed V_{sit}"
+  },
+  {
+   "id": "glossary-design-wind-speed-v-des",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: design wind speed V_{des}",
+   "title_ms": "Glosari: design wind speed V_{des}"
+  },
+  {
+   "id": "glossary-terrain-category",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: terrain category",
+   "title_ms": "Glosari: terrain category"
+  },
+  {
+   "id": "glossary-m-z-cat",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: M_{z,cat}",
+   "title_ms": "Glosari: M_{z,cat}"
+  },
+  {
+   "id": "glossary-importance-factor-i",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: importance factor I",
+   "title_ms": "Glosari: importance factor I"
+  },
+  {
+   "id": "glossary-windward-leeward",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: windward, leeward",
+   "title_ms": "Glosari: windward, leeward"
+  },
+  {
+   "id": "glossary-b-d",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: b, d",
+   "title_ms": "Glosari: b, d"
+  },
+  {
+   "id": "glossary-c-p-e",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: C_{p,e}",
+   "title_ms": "Glosari: C_{p,e}"
+  },
+  {
+   "id": "glossary-c-fig",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: C_{fig}",
+   "title_ms": "Glosari: C_{fig}"
+  },
+  {
+   "id": "glossary-c-dyn",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: C_{dyn}",
+   "title_ms": "Glosari: C_{dyn}"
+  },
+  {
+   "id": "glossary-n-a",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: n_a",
+   "title_ms": "Glosari: n_a"
+  },
+  {
+   "id": "glossary-net-pressure",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: net pressure",
+   "title_ms": "Glosari: net pressure"
+  },
+  {
+   "id": "glossary-b-w-h-trib",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: B_w , h_{trib}",
+   "title_ms": "Glosari: B_w , h_{trib}"
+  },
+  {
+   "id": "glossary-minimum-design-wind-load",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: minimum design wind load",
+   "title_ms": "Glosari: minimum design wind load"
+  },
+  {
+   "id": "glossary-c-p-i",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: C_{p,i}",
+   "title_ms": "Glosari: C_{p,i}"
+  },
+  {
+   "id": "glossary-geometric-imperfection",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: geometric imperfection",
+   "title_ms": "Glosari: geometric imperfection"
+  },
+  {
+   "id": "glossary-professional-habit-5",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: Professional Habit 5",
+   "title_ms": "Glosari: Professional Habit 5"
+  }
+ ],
+ "equations_missing": 0
+}

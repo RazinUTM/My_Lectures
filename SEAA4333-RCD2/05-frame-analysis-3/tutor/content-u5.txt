@@ -1,0 +1,438 @@
+# Unit 5 Frame Analysis III
+SEAA 4333 Reinforced Concrete Design II, Week 5. Units 3 and 4 analysed a braced frame under vertical load. An unbraced frame must also carry the wind. This Unit finds how much: the design wind speed of MS 1553:2002 at each level of a building, the pressure on the windward and leeward walls, and the force that one frame collects at each floor. Which face of the building the wind blows on decides which frames carry it, and the same building can give two answers that differ by a quarter. Notes, slides, model answers, exercises with new numbers on every attempt, and the Wind Lab.
+
+[start-outcomes] After this part you should be able to
+1. say whether a frame is braced or unbraced, and which frames of a building carry the wind from each direction, with the breadth b and the depth d of MS 1553;
+2. find the design wind speed at each level of a building by MS 1553:2002, from V_s , M_{z,cat} , M_s , M_h and the importance factor;
+3. find the external pressure coefficients of both walls and the dynamic response factor, and the net design pressure at each level;
+4. turn the pressures into the wind force that one frame carries at each floor, and check the minimum design wind load;
+5. use the simplified procedure of Appendix A for a low-rise building, and add the EC2 geometric imperfections as a second lateral load.
+
+[notes-n1] Notes 1. Unbraced frames and the lateral load
+Units 3 and 4 analysed a braced frame. The wind on the building went to shear walls or a core, and the frame carried the vertical load alone. Without that bracing the frame itself must resist the wind, and the beams and columns take moments from it at every floor. This Unit finds the wind; Unit 6 analyses the frame under it.
+Braced and unbraced frames A braced frame does not contribute to the overall stability of the building: the lateral actions go to bracing members (shear walls, a lift or stair core), and the frame supports the vertical actions only. An unbraced frame contributes to the stability: all lateral actions are carried by its beams and columns, which support both the vertical and the lateral actions (course notes, Types of Frame).
+[Figure: Figure 1. A frame carries a horizontal force only through rigid joints or fixed bases (b); with pinned joints it needs bracing (c).]
+A frame with pinned beam-to-column connections and pinned bases is not stable under a lateral force: it folds sideways like a parallelogram (Figure 1a). It becomes stable in two ways. Rigid joints, or fixed bases, let the frame resist the sway by bending its members (b): this is the unbraced frame of this Unit. Or a stiff core or wall holds the frame up, and the frame can then have pinned joints (c).
+Two lateral actions act on an unbraced frame. The first is the wind , from MS 1553:2002, the subject of §2 to §5. The second comes from the building itself: no frame is built exactly plumb, and EC2 5.2 asks for the effect of a small out-of-plumb, applied as horizontal forces at each floor (§6).
+How the wind reaches a frame. The wind presses on the walls. The walls span between the floors, so each floor slab collects the pressure on half a storey above and half a storey below. The slab is very stiff in its own plane and passes that force to the frames, each frame taking the share of its own width. A plane frame therefore receives one horizontal force at each floor level, and the analysis of Unit 6 starts from those forces.
+Quick check (not graded): A building has rigid beam-to-column joints and no shear walls or core. Which statement is right?
+Options: Its frames are braced and carry vertical load only | The slabs carry the wind to the foundation on their own | Its frames are unbraced and must carry the wind as well | The wind can be ignored below 25 m
+Explanation shown after answering: With no bracing, the frames give the building its stability: they are unbraced and carry the vertical and the lateral actions. The slabs only collect the wind and share it between the frames.
+Key points:
+- Braced: the bracing takes the lateral load. Unbraced: the beams and columns take it, by bending at rigid joints.
+- Two lateral actions: the wind (MS 1553) and the geometric imperfections (EC2 5.2).
+- The floors collect the wind and give each frame one force per floor, in proportion to its width.
+
+[notes-n2] Notes 2. Wind on a building, and the procedures of MS 1553
+Wind flowing round a building pushes on the face it meets and pulls on the others. On the windward wall the air slows down against the building and the pressure rises (+). It separates at the corners, so the side walls, the roof and the leeward wall at the back are in suction (−). For the frame, the windward push and the leeward pull act in the same direction: both move the building downwind.
+The intensity of the wind action grows with the square of the wind speed, and the speed depends on the site: its region, the height above ground, the topography and the roughness of the terrain around it. A building answers the gusts in two parts: a background part, the static deflection under the pressure, and a resonant part, a vibration that matters only for flexible buildings. MS 1553 treats both with a static pressure, raised by a dynamic response factor when the building is flexible (§4).
+Procedure of MS 1553:2002 Use it for Pressure
+Simplified , Appendix A rectangular buildings up to 15 m high, h/b_{min} ≤ 3, importance categories I and II, not on an exposed site 0.613 V_s² M_{z,cat}² (C_{p,e} − C_{p,i})
+Analytical , Section 2 rectangular buildings up to 200 m high and roof spans up to 100 m 0.613 V_{des}² C_{fig} C_{dyn}
+Wind tunnel complex shapes and very tall or flexible structures from the model test
+This Unit follows the analytical procedure for the course building of 25 m (§3 to §5) and the simplified procedure for a low-rise building (§6). Both lead to the same chain of quantities:
+basic wind speed V_s → site wind speed V_{sit} → design wind speed V_{des} at each level → pressure on each wall → net pressure at each level → force W_k on the frame at each floor.
+Quick check (not graded): A three-storey office, 11 m high and rectangular on plan, stands in a suburb. Which procedure of MS 1553 may be used for its wind load?
+Options: Only the wind tunnel procedure | Only Appendix A | Only the analytical procedure | Appendix A or the analytical procedure
+Explanation shown after answering: It meets the limits of Appendix A (h ≤ 15 m, rectangular, an office is category II), and the analytical procedure covers any rectangular building up to 200 m. Both are allowed; §6 compares them for such a building.
+Key points:
+- Windward pressure and leeward suction both push the frame downwind; the net pressure is their difference p_W − p_L.
+- Appendix A for low-rise rectangular buildings; the analytical procedure up to 200 m; the wind tunnel for the rest.
+- The chain: V_s → V_{sit} → V_{des} → p → W_k at each floor.
+
+[notes-n3] Notes 3. The design wind speed
+The basic wind speed V_s is read from the map of MS 1553 (Figure A1): 33.5 m/s in Zone I and 32.5 m/s in Zone II; Kuala Lumpur is in Zone I. The site wind speed adjusts it to the site and the height, and the design wind speed adds the importance of the building:
+EQUATION (5.1): V_{sit} = V_s\,M_d\,M_{z,cat}\,M_s\,M_h
+EQUATION (5.2): V_{des} = V_{sit}\;I \qquad\qquad V_{des,z} = V_{des}\,\dfrac{M_{z,cat}(z)}{M_{z,cat}(h)}
+M_d = 1.0 is the wind directional multiplier, the same for every direction in MS 1553. M_s = 1.0 when shielding by other buildings is ignored, and M_h = 1.0 on level ground; both rise or fall only for particular sites (Table 4.3, Section 4.4). The multiplier that changes most is M_{z,cat} , the terrain/height multiplier of Table 4.1: the wind is slowed near the ground, and more so over rough terrain.
+Terrain category Surroundings (MS 1553 4.2.1, in brief) M_{z,cat} at 5 m at 25 m
+1 exposed open terrain with few or no obstructions, open water 1.05 1.205
+2 open terrain with well-scattered obstructions, such as farmland 0.91 1.100
+3 many closely spaced obstructions of house size: suburbs 0.75 0.970
+4 many large, high, closely spaced obstructions: city centres, industrial complexes 0.75 0.775
+[Figure: Figure 2. M_{z,cat} grows with height and falls with the roughness of the terrain. Between the tabulated heights it is interpolated linearly.]
+For the notes’ building (terrain category 3, roof at h = 25 m), M_{z,cat} lies between 0.94 at 20 m and 1.00 at 30 m: 0.970. With V_s = 33.5 m/s, V_{sit} = 33.5 × 1.0 × 0.970 × 1.0 × 1.0 = 32.49 m/s.
+The importance factor I of Table 3.2 raises the speed for buildings whose failure would cost more lives. Note the two different I’s of MS 1553: the importance factor I here, and the turbulence intensity I_h in §4.
+Importance category (Table 3.2) Buildings I
+I low hazard to human life if it fails: agricultural, temporary, minor storage 0.87
+II all buildings except those of categories I, III and IV: offices, flats, shops 1.00
+III more than 300 people congregating in one area 1.15
+IV essential buildings and structures 1.15
+The notes take category III for their building (I = 1.15), so V_{des} = 32.49 × 1.15 = 37.37 m/s at the roof. An ordinary office or block of flats is category II, I = 1.0: check the category from the use of the building, not from the example.
+The speed at each level. The windward pressure changes with height, so the speed is needed at every floor. Scaling V_{des} by the ratio of the multipliers (5.2) gives V_{des,z}: at level 1 (z = 4 m), M_{z,cat} = 0.750 and V_{des,z} = 37.37 × 0.750/0.970 = 28.89 m/s. The course notes compute each level directly as V_sM_{z,cat}(z) I, which is the same number.
+Quick check (not graded): Terrain category 3: M_{z,cat} = 0.75 at 5 m and 0.83 at 10 m. What is M_{z,cat} at level 2, z = 7.5 m?
+Options: 0.75 | 0.79 | 0.83 | 0.80
+Explanation shown after answering: Halfway between 5 and 10 m: 0.75 + 0.5 × (0.83 − 0.75) = 0.79. Table 4.1 is interpolated linearly; reading the lower row (0.75) would understate the speed at that level.
+Quick check (not graded): A school hall where 400 pupils gather is designed for wind. Which importance factor I applies?
+Options: 0.87 | 1.00 | 1.15 | 1.30
+Explanation shown after answering: More than 300 people congregate in one area: importance category III, I = 1.15 (Table 3.2). It raises the pressure by 1.15² = 1.32.
+Key points:
+- V_{sit} = V_sM_dM_{z,cat}M_sM_h; V_{des} = V_{sit}I.
+- M_{z,cat} from Table 4.1 by terrain category and height, interpolated; it changes most.
+- I from the use of the building (Table 3.2): 1.0 for offices and flats, 1.15 where more than 300 people gather.
+
+[notes-n4] Notes 4. From speed to pressure
+The design pressure on a wall follows from the dynamic pressure of the design wind speed, 0.613V_{des}² in Pa (that is ½ρV² with ρ = 1.225 kg/m³), times two factors:
+EQUATION (5.3), (5.4): p = 0.613\,V_{des}^{2}\,C_{fig}\,C_{dyn}\quad(\mathrm{Pa}) \qquad\qquad C_{fig} = C_{p,e}\,K_a\,K_c\,K_l\,K_p
+The aerodynamic shape factor C_{fig} is the external pressure coefficient C_{p,e} times four factors that are 1.0 for the walls of a frame: area reduction K_a, combination K_c, local pressure K_l (for cladding near edges) and porous cladding K_p. So C_{fig} = C_{p,e}.
+Windward wall (Table 5.2(a)): C_{p,e} = 0.8 with the speed varying with height, V_{des,z} at each level. (For h ≤ 25 m MS 1553 also allows 0.7 with the speed at z = h for every level.) Leeward wall (Table 5.2(b)): the suction depends on the shape of the building on plan, through d/b, and the speed is taken at z = h for every level (5.4.1), so the leeward suction is the same all the way up.
+d/b (roof pitch α < 10°) ≤ 1 2 ≥ 4
+C_{p,e} of the leeward wall, Table 5.2(b) −0.5 −0.3 −0.2
+b and d: which face? MS 1553 (Figure 5.2) names the plan dimensions by the wind: b is the breadth of the building normal to the wind, the face it blows on, and d is the depth along the wind. A plane frame carries the wind that blows in its own plane. Frame ABCD of the course building spans the 18 m width, so it carries the wind that blows across the building, onto the 51 m face: b = 51 m, d = 18 m, d/b = 0.35, C_{p,e} = −0.5.
+[Figure: Figure 3. Each wind direction has its own b and d, and its own frames.]
+The course notes (Example 5) take b = 18 m and d = 51 m, the wind on the 18 m face, and then apply its pressures to frame ABCD. That wind blows along the building and is carried by the longitudinal frames. The course follows decision D57 of the RC Design app (18 Nov 2026): frame ABCD takes the wind on the 51 m face. Over the frame the difference is +28.1 %: ΣW_k = 133.9 kN against the notes’ 104.5 kN (§5).
+The dynamic response factor C_{dyn} allows for the resonant part of the response. It depends on the first natural frequency n_a of the building (MS 1553 6.1): n_a > 1 Hz, the building is not wind-sensitive and C_{dyn} = 1.0; 0.2 Hz ≤ n_a ≤ 1 Hz, C_{dyn} comes from 6.2.1; below 0.2 Hz the building is outside MS 1553.
+EQUATION (5.5): C_{dyn} = \dfrac{1 + 2\,I_h\sqrt{g_v^{2}\,B_s + g_R^{2}\,S\,E_t/\zeta}}{1 + 2\,g_v\,I_h}
+I_h is the turbulence intensity at z = h (Table 6.1), g_v = 3.7 the peak factor of the upwind velocity, B_s the background factor, S the size reduction factor, E_t the spectrum of turbulence, g_R = √(2 ln(600n_a)) the resonant peak factor and ζ the damping ratio (0.05 for concrete at the ultimate limit state, Table 6.2). For the course building, with n_a = 0.2 Hz and b = 51 m: I_h = 0.205, B_s = 0.743, S = 0.188, E_t = 0.623, g_R = 3.094, so C_{dyn} = 1.327. Worked Example 5.1 shows each term.
+n_a = 0.2 Hz is the value of the notes’ example, and exactly the lowest frequency 6.1 covers. A 25 m concrete frame is usually much stiffer, near 1.8 Hz by the common estimate 46/h; then C_{dyn} = 1.0 and every pressure falls by a quarter (Activity 5B). Take n_a from the brief or from an analysis, never from habit.
+The pressures. At the roof, p_W = 0.613 × 37.37² × 0.8 × 1.327 = 0.909 kN/m², and the leeward suction p_L = 0.613 × 37.37² × (−0.5) × 1.327 = −0.568 kN/m² at every level. The net pressure on the building, p_W − p_L, is 1.477 kN/m² at the roof and 1.111 at level 1 (Figure 4).
+[Figure: Figure 4. The windward pressure grows with height; the leeward suction is constant; both push the frame downwind.]
+Quick check (not graded): A building is 36 m long and 15 m wide; its frames span the 15 m width. What is d/b for the wind those frames carry, and the leeward C_{p,e}?
+Options: 15/36 = 0.42; −0.5 | 36/15 = 2.4; −0.28 | 15/36 = 0.42; −0.3 | 36/15 = 2.4; −0.5
+Explanation shown after answering: Those frames carry the wind blowing across the building, onto the 36 m face: b = 36, d = 15, d/b = 0.42 ≤ 1, so C_{p,e} = −0.5. Swapping b and d (2.4) gives −0.28 and understates the suction by 44 %.
+Quick check (not graded): A building has a first natural frequency n_a = 1.8 Hz. What is C_{dyn}?
+Options: From 6.2.1, as for the course building | 1.0 | Outside MS 1553 | 0.8
+Explanation shown after answering: n_a > 1 Hz: the building is not wind-sensitive and C_{dyn} = 1.0 (6.1). Section 6.2.1 is needed only between 0.2 and 1 Hz.
+Key points:
+- p = 0.613V_{des}²C_{fig}C_{dyn}; for walls C_{fig} = C_{p,e}.
+- Windward 0.8 with V_{des,z}; leeward from d/b with V_{des} at h, the same at every level.
+- b is normal to the wind, d along it; a plane frame carries the wind in its own plane.
+- C_{dyn} = 1.0 when n_a > 1 Hz; Section 6.2.1 between 0.2 and 1 Hz.
+
+[notes-n5] Notes 5. From pressure to the forces on one frame
+Each floor collects the net pressure on a strip of wall: as wide as the frame’s share of the building, and as high as half the storey above plus half the storey below.
+EQUATION (5.6): W_k = \left(p_W - p_L\right)\,B_w\,h_{trib}
+B_w is half the distance to the next frame on each side. Frame ABCD stands between bays of 4 m and 5 m, so B_w = 2.0 + 2.5 = 4.5 m. h_{trib} is half a storey at the roof (1.75 m), a full storey of 3.5 m at levels 2 to 6, and at level 1 half of each of the two different storeys, (4.0 + 3.5)/2 = 3.75 m. The bottom half of the ground storey goes straight into the foundation and never reaches the frame’s beams.
+[Figure: Figure 5. The strip of wall that each floor of frame ABCD collects.]
+Level z (m) p_W − p_L (kN/m²) h_{trib} (m) W_k (kN)
+Roof 25.0 1.477 1.75 11.63
+Level 6 21.5 1.438 3.50 22.65
+Level 5 18.0 1.385 3.50 21.82
+Level 4 14.5 1.323 3.50 20.83
+Level 3 11.0 1.253 3.50 19.73
+Level 2 7.5 1.171 3.50 18.44
+Level 1 4.0 1.111 3.75 18.75
+Total 133.85
+At level 1, W_k = 1.111 × 4.5 × 3.75 = 18.75 kN; at the roof 1.477 × 4.5 × 1.75 = 11.63 kN. The roof force is the smallest even though the pressure is largest there, because it collects only half a storey.
+The minimum wind load (2.4.2). The wind load on the main structure shall not be less than 0.65 kN/m² times the area projected on a vertical plane normal to the wind. Average the net pressure over the height, the bottom half of the ground storey included: here p_{avg} = 1.279 kN/m² ≥ 0.65, so the minimum does not govern. When it does, every level force is scaled by 0.65/p_{avg} (§6). Frictional drag (2.5.3) is added only when d/h or d/b exceeds 4; here they are 0.72 and 0.35.
+Characteristic and design values. W_k is a characteristic action. The course method of the notes (Examples 6 and 7) takes BS 8110 load combination 3: W_d = 1.2W_k, with 1.2G_k + 1.2Q_k on every span. EN 1990 Eq. 6.10 uses 1.5W_k when the wind leads and 1.5 × 0.5 = 0.75W_k when the imposed load leads (ψ_0 = 0.5 for wind). Unit 6 forms these combinations.
+Quick check (not graded): Level 1 of a frame: the storey below is 4.0 m, the storey above 3.5 m, B_w = 4.5 m and p_W − p_L = 1.111 kN/m². What is W_k?
+Options: 17.50 kN | 20.00 kN | 8.75 kN | 18.75 kN
+Explanation shown after answering: h_{trib} = (4.0 + 3.5)/2 = 3.75 m, so W_k = 1.111 × 4.5 × 3.75 = 18.75 kN. 17.50 takes a 3.5 m storey and 20.00 a full 4.0 m one.
+Key points:
+- W_k = (p_W − p_L) B_w h_{trib}: half the bays either side, half the storeys above and below.
+- The roof takes half a storey; level 1 half of two different storeys; the bottom of the ground storey goes to the foundation.
+- Check p_{avg} ≥ 0.65 kN/m² (2.4.2); otherwise scale every force by 0.65/p_{avg}.
+- W_d = 1.2W_k in the course method (BS 8110 combination 3); 1.5W_k or 0.75W_k by EN 1990.
+
+[notes-n6] Notes 6. Low-rise buildings, and the second lateral load
+Appendix A simplifies the procedure for rectangular buildings up to 15 m high. There is no importance factor, no directional, shielding or hill multiplier and no C_{dyn}; M_{z,cat} comes from Table A1 and the leeward coefficient from Table A2 (the same values as Tables 4.1 and 5.2(b) at these heights):
+EQUATION (5.7): p = 0.613\,V_s^{2}\,M_{z,cat}^{2}\,\left(C_{p,e} - C_{p,i}\right)\quad(\mathrm{Pa})
+The internal pressure coefficient C_{p,i} is +0.6 or −0.3 for an enclosed building, both to be considered for the walls and the cladding. On the frame it cancels: the same internal pressure pushes out on the inside of the windward wall and the inside of the leeward wall, so the net horizontal force is 0.613V_s²M_{z,cat}² (C_{p,e,W} − C_{p,e,L}).
+For a three-storey building on the course plan (h = 11 m, terrain category 3, wind on the 51 m face), Faded Example 5.2 finds net pressures of 0.634, 0.587 and 0.553 kN/m² at the roof, level 2 and level 1. Their average over the height is p_{avg} = 0.577 kN/m², below 0.65: the minimum of A2.2 governs and every force is multiplied by 0.65/0.577 = 1.126. On low buildings in rough terrain the minimum often decides the wind load.
+The second lateral load: geometric imperfections (EC2 5.2). No frame is built exactly plumb. EC2 treats the frame as leaning by a small angle θ_i and applies, at each floor, a horizontal force equal to that angle times the vertical load that enters the frame there:
+EQUATION (5.8), (5.9): \theta_i = \theta_0\,\alpha_h\,\alpha_m,\quad \alpha_h = \dfrac{2}{\sqrt{l}}\ \left(\tfrac{2}{3} \le \alpha_h \le 1\right),\quad \alpha_m = \sqrt{0.5\left(1 + \dfrac{1}{m}\right)} \qquad H_i = \theta_i\,N_i
+θ_0 = 1/200 is the recommended basic value, l the height of the frame in metres and m the number of columns that share the load. For the course frame, l = 25 m gives α_h = 2/√25 = 0.40, raised to the lower limit 2/3; four columns give α_m = 0.791; so θ_i = (1/200)(2/3)(0.791) = 1/379. A floor that brings about 1350 kN into the frame then adds H_i ≈ 1350/379 = 3.6 kN.
+Which route uses them? The RC Design app adds the imperfections to the wind on the EN 1990 route by default (decision D83, agreed 15 Nov 2026): for the course frame they raise the lateral forces by about a quarter. The course method of the notes, BS 8110 combination 3, analyses the wind alone. Unit 6 states which route each example takes.
+Quick check (not graded): A frame 25 m high has four columns. What is θ_i by EC2 Eq. 5.1, with θ_0 = 1/200?
+Options: 1/200 | 1/379 | 1/632 | 1/253
+Explanation shown after answering: α_h = 2/√25 = 0.40 is below the limit, so α_h = 2/3; α_m = √(0.5 × 1.25) = 0.791; θ_i = 0.00264 = 1/379. 1/632 forgets the lower limit on α_h.
+Key points:
+- Appendix A: p = 0.613V_s²M_{z,cat}²(C_{p,e} − C_{p,i}); C_{p,i} cancels on the frame.
+- On low buildings the minimum of 0.65 kN/m² often governs.
+- Imperfections: θ_i = θ_0α_hα_m, H_i = θ_iN_i at each floor; with the wind on the EN 1990 route.
+
+[slides-1] Slide 1: Frame Analysis III
+SEAA 4333 Reinforced Concrete Design II · Week 5 Frame Analysis III The wind on a building: how much one frame carries, and where it acts Workbook ch. 5 ABCD card Calculator MS 1553 tables Ruler Phone or laptop Wind Lab Scan for this page’s Explorer tab: which face, the pressures level by level, what matters most, Wind S5.
+
+[slides-2] Slide 2: How the next three hours run
+Today · 180 minutes How the next three hours run 0:00 Warm-up Unit 4 in three votes 0:10 Hook Two answers for one frame 0:17 Unbraced frames · wind speed What carries the wind; V_{des} 0:29 Activity 5A Which frames carry which wind? 0:44 WE 5.1 The notes’ building: I do 0:58 Pressure · forces C_{p,e}, C_{dyn}; one force per floor 1:12 FE 5.2 A low-rise building, pairs 1:30 Break 10 minutes 1:40 Activity 5B What matte
+
+[slides-3] Slide 3: Three questions from last week
+Warm-up · no notes · cards up Three questions from last week W1 · Unit 4 Which method gives the moment at an end support directly, in its own envelope? A The continuous beam on knife edges B The one-level sub-frame C The one-free-joint sub-frame D None of them W2 · Unit 4 Above column B: one-free-joint 24.25 kN m, one-level 30.29 kN m. The column is designed for A 24.25 kN m B 27.27 kN m (the mean) C 30.29 kN m D 54.
+
+[slides-4] Slide 4: B, C, C, and what each means today
+Warm-up · answers B, C, C, and what each means today W1 B: the one-level sub-frame The continuous beam needs M_{c,u} + M_{c,l} as a separate check (D96). Today the frame carries the wind as well. W2 C: 30.29 kN m The larger of the two values (D53). Today’s wind adds column moments of its own (Unit 6). W3 C: ½K Neighbours fixed at their far ends are taken at half stiffness. Today: no sub-frames; the wind first. SEAA 4
+
+[slides-5] Slide 5: One building, one frame, two answers
+Hook · 5 minutes One building, one frame, two answers SEAA 4333 · Unit 5 · Frame Analysis III Workbook 5.2
+
+[slides-6] Slide 6: Frame ABCD spans the 18 m width of the building. Which wind does it carry?
+Concept check 1 · the big question · vote now, again after Activity 5A Frame ABCD spans the 18 m width of the building. Which wind does it carry? A The wind blowing onto the 18 m face B The wind blowing onto the 51 m face C Both winds, each in full D Neither: the floors carry the wind to the ground Vote · convince your neighbour · vote again Workbook 5.2
+
+[slides-7] Slide 7: Unbraced frames: the frame carries the wind itself
+Block A · talk 1 · 5 minutes Unbraced frames: the frame carries the wind itself Braced walls or a core take the wind; the frame carries vertical load only (Units 3–4) Unbraced rigid joints: the beams and columns carry the wind in bending Floors collect the wind from the walls and give each frame one force per floor SEAA 4333 · Unit 5 · Frame Analysis III Notes §1 · Workbook 5.2
+
+[slides-8] Slide 8: The design wind speed, level by level
+Block A · talk 2 · 7 minutes The design wind speed, level by level V_{sit} = V_s M_d M_{z,cat} M_s M_h V_{des} = V_{sit} × I V_{des,z} = V_{des} M_{z,cat}(z)/M_{z,cat}(h) V_s: 33.5 m/s (Zone I), 32.5 m/s (Zone II). M_{z,cat}: Table 4.1, by terrain category; interpolate. I: Table 3.2; 1.0 for offices and flats, 1.15 where more than 300 people gather. SEAA 4333 · Unit 5 · Frame Analysis III Notes §2–§3 · Workbook 5.3
+
+[slides-9] Slide 9: Which frames carry which wind?
+Activity 5A · teams of four · 12 minutes Which frames carry which wind? For each wind: the 51 m face, then the 18 m face 1 · Which frames resist it: the transverse frames (like ABCD) or the longitudinal frame lines? 2 · b, normal to the wind; d, along it; d/b. 3 · The leeward C_{p,e} from Table 5.2(b). 4 · Which of the two winds goes on frame ABCD? Table 5.2(b), roof pitch < 10°: d/b ≤ 1 → −0.5 · d/b = 2 → −0.3 · d/b
+
+[slides-10] Slide 10: Each wind has its own b, d and frames
+Activity 5A · reveal Each wind has its own b, d and frames SEAA 4333 · Unit 5 · Frame Analysis III Notes §4 · Workbook 5.3
+
+[slides-11] Slide 11: The notes’ building: the wind on frame ABCD
+Worked Example 5.1 · I do · 10 minutes The notes’ building: the wind on frame ABCD Level z (m) M_{z,cat} V_{des,z} p_W p_W − p_L Roof 25.0 0.970 37.37 0.909 1.477 Level 6 21.5 0.949 36.56 0.870 1.438 Level 5 18.0 0.920 35.44 0.818 1.385 Level 4 14.5 0.884 34.06 0.755 1.323 Level 3 11.0 0.842 32.44 0.685 1.253 Level 2 7.5 0.790 30.43 0.603 1.171 Level 1 4.0 0.750 28.89 0.543 1.111 Speed V_{sit} 32.49; I 1.15 → V_{des}
+
+[slides-12] Slide 12: Level 1 of the notes’ building is at z = 4 m. Which speed gives the leeward suction there?
+Concept check 2 · think 60 seconds, then vote Level 1 of the notes’ building is at z = 4 m. Which speed gives the leeward suction there? A V_{des} at the roof, 37.37 m/s B V_{des,z} at 4 m, 28.89 m/s C V_s = 33.5 m/s D V_{sit} = 32.49 m/s Vote · convince your neighbour · vote again Workbook 5.3
+
+[slides-13] Slide 13: From speed to pressure
+Block B · talk 3 · 6 minutes From speed to pressure p = 0.613 V² C_{fig} C_{dyn} (Pa) C_{fig} = C_{p,e} K_a K_c K_l K_p Windward 0.8 with V_{des,z}; leeward from d/b with V_{des} at h. C_{dyn} = 1.0 if n_a > 1 Hz; 6.2.1 for 0.2–1 Hz. Net = p_W − p_L: both push downwind. SEAA 4333 · Unit 5 · Frame Analysis III Notes §4 · Workbook 5.4
+
+[slides-14] Slide 14: From pressure to one force per floor
+Block B · talk 4 · 6 minutes From pressure to one force per floor W_k = (p_W − p_L) B_w h_{trib} Roof: half a storey. Level 1: half of two different storeys. ΣW_k = 133.9 kN on frame ABCD. Minimum (2.4.2): p_{avg} = 1.279 ≥ 0.65 kN/m². SEAA 4333 · Unit 5 · Frame Analysis III Notes §5 · Workbook 5.4
+
+[slides-15] Slide 15: Over the height of a low frame the net pressure averages 0.58 kN/m². What happens to the level forces?
+Concept check 3 · vote Over the height of a low frame the net pressure averages 0.58 kN/m². What happens to the level forces? A Only the roof force is raised B Nothing: each level is checked alone C Every force is multiplied by 0.65/0.58 = 1.12 D 0.65 kN/m² replaces the pressure at the roof only Vote · convince your neighbour · vote again Workbook 5.4
+
+[slides-16] Slide 16: A low-rise building by Appendix A
+Faded Example 5.2 · pairs · 18 minutes A low-rise building by Appendix A Steps 1 and 3 are given. M_{z,cat} at 11, 7.5 and 4 m (Table A1). p = 0.613 V_s² M_{z,cat}² × C_{p,e}; C_{p,i} cancels. p_{avg} against 0.65 kN/m² (A2.2). The forces on frame ABCD. SEAA 4333 · Unit 5 · Frame Analysis III Lab tab 2 · Workbook 5.4
+
+[slides-17] Slide 17: The minimum decides the wind
+Faded Example 5.2 · check The minimum decides the wind Net pressures 0.634 · 0.587 · 0.553 kN/m² p_L = −0.244 at every level Minimum (A2.2) p_{avg} = 0.577 < 0.65 every force × 1.126 Forces 5.62 · 10.42 · 10.52 kN ΣW_k = 26.56 kN The analytical procedure with I = 1.0 and C_{dyn} = 1.0 gives the same 26.56 kN: Appendix A is that procedure with those factors fixed. SEAA 4333 · Unit 5 · Frame Analysis III Notes §6 · Wor
+
+[slides-18] Slide 18: What matters most?
+Activity 5B · teams · 10 minutes What matters most? Worked Example 5.1 gives ΣW_k = 133.9 kN on frame ABCD. Rank the five changes by the size of their effect, biggest first, with the direction (up or down). Then reveal them one by one in Lab tab 3. Change 1 Terrain category 3 → 2 (open terrain) Change 2 Importance category III → II (I = 1.15 → 1.0) Change 3 n_a = 0.2 Hz → 1.8 Hz (C_{dyn} → 1.0) Change 4 Wind on the 1
+
+[slides-19] Slide 19: The terrain and the building matter more than the zone
+Activity 5B · reveal The terrain and the building matter more than the zone SEAA 4333 · Unit 5 · Frame Analysis III Notes §3–§4 · Workbook 5.5
+
+[slides-20] Slide 20: The second lateral load, and the design value
+Block C · talk 5 · 5 minutes The second lateral load, and the design value EC2 5.2 imperfections θ_i = (1/200) α_h α_m · H_i = θ_i N_i Course frame: l = 25 m → α_h = 2/3; m = 4 → α_m = 0.791; θ_i = 1/379. With the wind on the EN 1990 route (app default, D83). Design value of the wind Course method (notes Ex 6–7, BS 8110 combination 3): W_d = 1.2W_k, with 1.2G_k + 1.2Q_k. EN 1990 Eq. 6.10: 1.5W_k when the wind leads;
+
+[slides-21] Slide 21: Wind S5: four slips in a wind calculation
+Spot the error · teams · 12 minutes Wind S5: four slips in a wind calculation Lab tab 4, or Workbook 5.6. Twelve lines. Reader reads each line aloud; calculator rechecks; checker draws the plan and the wind arrow first; reporter logs line and reason. Which slip would Professional Habit 5 catch before any number? SEAA 4333 · Unit 5 · Frame Analysis III Lab tab 4 · Workbook 5.6
+
+[slides-22] Slide 22: D5: the wind on a frame (20 marks)
+Block D · alone · 30 minutes D5: the wind on a frame (20 marks) (a) The wind on the frames: b, d and the leeward C_{p,e} [3] (b) V_{sit}, V_{des} and C_{dyn}, with reasons [4] (c) p_W at each level, p_L and the net pressures [6] (d) W_k at each level and ΣW_k [5] (e) The minimum of 2.4.2 [2] Ref | Calculations | Output. No app, no notes; the MS 1553 tables are allowed. Self-mark with the scheme after class. SEAA 4333
+
+[slides-23] Slide 23: The wind on your group’s frame line
+Project studio · 12 minutes The wind on your group’s frame line Draw The plan, the wind arrow in the plane of your frame line, b and d. Speed Zone, terrain category, importance category, n_a: V_{des} and V_{des,z}. Pressure C_{p,e} both walls, C_{dyn}; the net pressure at each level. Log B_w, the level forces, ΣW_k, the minimum; who checks it before Unit 6. SEAA 4333 · Unit 5 · Frame Analysis III Workbook 5.7
+
+[slides-24] Slide 24: Draw the plan and the wind arrow before any number
+Professional Habit 5 Draw the plan and the wind arrow before any number The arrow in the plane of the frame you analyse b and d b across the arrow, d along it; d/b for the leeward wall The strip B_w: half the bay each side; h_{trib}: half the storeys above and below The site zone, terrain, importance, n_a: written before the first speed Wind S5’s slips at lines 5, 8 and 10 all start from not drawing this. SEAA 4333 ·
+
+[slides-25] Slide 25: Before Unit 6
+After class Before Unit 6 Notes §1–§6 47 min Exercises, all 14 45 min Explorer, 4 tasks: which face, pressures, what matters most, Wind S5 30 min Self-mark D5 on eLearning 15 min The notes, Frame Analysis, Wind Action and Example 5; MS 1553 Sections 2 and 5, 6.2.1, Appendix A reading The wind on your frame line, checked studio SEAA 4333 · Unit 5 · Frame Analysis III Workbook 5.8
+
+[slides-26] Slide 26: Before you leave
+Exit ticket · 5 minutes · Workbook 5.8 Before you leave 1 A building is 30 m long and 12 m wide; its frames span the 12 m width. For the wind these frames carry, find d/b and the leeward C_{p,e}. 2 The net pressure at the roof is 1.20 kN/m², the frames are at 5 m centres and the top storey is 3.5 m high. Find W_k at the roof. 3 What is still unclear? Tear off the slip and hand it in at the door. SEAA 4333 · Unit 5 ·
+
+[examples-x1] Example 1 · Worked Example 5.1: the notes’ building, the wind on frame ABCD
+Exam type wind load on a frame by the analytical procedure of MS 1553:2002 Workbook 5.3 Time ≈ 30 min
+Question The building of the course notes (Example 5) in Kuala Lumpur (Zone I), suburban terrain in all directions, flat ground: 51 m × 18 m on plan, seven storeys (4.0 m, then 6 × 3.5 m) to a flat roof at h = 25 m, importance category III, first natural frequency n_a = 0.2 Hz, damping ratio 0.05, g_v = 3.7. Frame ABCD spans the 18 m width, between bays of 4 m and 5 m. Find the wind force on frame ABCD at every floor: (a) the design wind speed; (b) the shape factors and C_{dyn}; (c) the net pressure at each level; (d) the forces W_k and their total. In the app: case FA6 (the wind) and FA10 (the forces on the frame) of the RC Design Worked Solutions app, as they stand since v15.16 (the wind on the 51 m face).
+[Figure: Worked Example 5.1: the wind blows onto the 51 m face, in the plane of frame ABCD.]
+Physical picture. The wind pushes on the 51 m face and pulls on the face behind it. The floors collect both and share them between the twelve transverse frames; frame ABCD takes the share of a strip 4.5 m wide. The pressure grows with height on the windward face only.
+Plan. The wind and the frame; V_{des}; C_{p,e} for both walls; C_{dyn}; p_W, p_L and the net pressure at each level; the forces and the minimum.
+## Step 1 The wind that frame ABCD carries
+Ref Calculations Output
+Fig. 5.2 Frame ABCD lies across the building, so it carries the wind that blows across it, onto the 51 m face: b (normal to the wind) = 51 m, d (along it) = 18 m b = 51 m; d = 18 m
+§5 B_w = 4.0/2 + 5.0/2 (half the bay on each side) 4.50 m
+## Step 2 Design wind speed
+Ref Calculations Output
+Table 4.1 Terrain category 3 at h = 25 m: between 0.94 (20 m) and 1.00 (30 m) M_{z,cat} = 0.970
+(5.1) V_{sit} = 33.5 × 1.0 × 0.970 × 1.0 × 1.0 32.49 m/s
+(5.2) Category III (more than 300 people in one area, as the notes take it): I = 1.15; V_{des} = 32.49 × 1.15 37.37 m/s
+## Step 3 Shape factors
+Ref Calculations Output
+Table 5.2(a) Windward wall, speed varying with height C_{p,e,W} = 0.8
+Table 5.2(b) Leeward wall, roof pitch 0°: d/b = 18/51 = 0.353 ≤ 1 C_{p,e,L} = −0.5
+(5.4) K_a = K_c = K_l = K_p = 1.0 for the walls of the frame, so C_{fig} = C_{p,e} 0.8; −0.5
+## Step 4 Dynamic response factor
+Ref Calculations Output
+6.1 n_a = 0.2 Hz lies in 0.2–1 Hz: the building is wind-sensitive and C_{dyn} comes from 6.2.1 6.2.1
+Table 6.1 Terrain category 3 at z = h = 25 m I_h = 0.205
+6.2.1 L_h = 1000 (25/10)^{0.25}; B_s = 1/[1 + √(36 × 25² + 64 × 51²)/L_h] 1257.43 m; 0.743
+6.2.1 S = 1/[(1 + 3.5n_ah(1 + g_vI_h)/V_{des})(1 + 4n_ab(1 + g_vI_h)/V_{des})] = 1/[(1 + 0.824)(1 + 1.920)] 0.188
+6.2.1 N = n_aL_h(1 + g_vI_h)/V_{des}; E_t = 0.47N/(2 + N)^{5/6}; g_R = √(2 ln(600 × 0.2)) 11.834; 0.623; 3.094
+(5.5) C_{dyn} = [1 + 2 × 0.205 √(3.7² × 0.743 + 3.094² × 0.188 × 0.623/0.05)]/(1 + 2 × 3.7 × 0.205) 1.327
+## Step 5 Pressures at the levels (kN/m²)
+Ref Calculations Output
+(5.2) V_{des,z} = 37.37 × M_{z,cat}(z)/0.970, with M_{z,cat}(z) from Table 4.1 at each level table
+(5.3) p_W = 0.613 V_{des,z}² × 0.8 × 1.327/1000; p_L = 0.613 × 37.37² × (−0.5) × 1.327/1000 at every level p_L = −0.568
+Level z (m) M_{z,cat} V_{des,z} (m/s) p_W p_L p_W − p_L
+Roof 25.0 0.970 37.37 0.909 −0.568 1.477
+Level 6 21.5 0.949 36.56 0.870 −0.568 1.438
+Level 5 18.0 0.920 35.44 0.818 −0.568 1.385
+Level 4 14.5 0.884 34.06 0.755 −0.568 1.323
+Level 3 11.0 0.842 32.44 0.685 −0.568 1.253
+Level 2 7.5 0.790 30.43 0.603 −0.568 1.171
+Level 1 4.0 0.750 28.89 0.543 −0.568 1.111
+## Step 6 Forces on frame ABCD and the minimum
+Ref Calculations Output
+(5.6) W_k = (p_W − p_L) × 4.50 × h_{trib}: 1.75 m at the roof, 3.5 m at levels 2–6, (4.0 + 3.5)/2 = 3.75 m at level 1 ΣW_k = 133.85 kN
+2.4.2 Average net pressure over the 25 m, the bottom half of the ground storey included: 1.279 ≥ 0.65 kN/m² minimum does not govern
+2.5.3 d/h = 18/25 = 0.72; d/b = 0.35; both ≤ 4 no frictional drag
+Level p_W − p_L (kN/m²) B_w (m) h_{trib} (m) W_k (kN)
+Roof 1.477 4.50 1.75 11.63
+Level 6 1.438 4.50 3.50 22.65
+Level 5 1.385 4.50 3.50 21.82
+Level 4 1.323 4.50 3.50 20.83
+Level 3 1.253 4.50 3.50 19.73
+Level 2 1.171 4.50 3.50 18.44
+Level 1 1.111 4.50 3.75 18.75
+Total 133.85
+Answer. V_{des} = 37.37 m/s; C_{p,e} = 0.8 and −0.5; C_{dyn} = 1.327; net pressure 1.477 kN/m² at the roof to 1.111 at level 1; W_k = 11.63, 22.65, 21.82, 20.83, 19.73, 18.44, 18.75 kN from the roof down; ΣW_k = 133.85 kN.
+What the numbers say The notes apply the wind of the 18 m face to this frame and get ΣW_k = 104.5 kN; the wind in the frame’s own plane is +28.1 % more, almost all of it from the leeward suction (−0.5 for d/b = 0.35 against −0.25 for 2.83). C_{dyn} adds a third to every pressure here; with n_a = 1.8 Hz, a usual frequency for such a frame, it would be 1.0 and ΣW_k = 100.9 kN. Unit 6 takes these forces, times 1.2 in the course method, through the frame.
+
+[examples-x2] Example 2 · Faded Example 5.2: a low-rise building by Appendix A
+Exam type wind load on a low-rise frame by the simplified procedure Workbook 5.4 Time ≈ 25 min
+Question A three-storey office on the plan of Worked Example 5.1 (51 m × 18 m), storeys 4.0, 3.5 and 3.5 m to a flat roof at h = 11 m, Zone I, terrain category 3, the wind on the 51 m face. Find the wind force on frame ABCD (B_w = 4.5 m) at each floor by MS 1553 Appendix A, with the minimum of A2.2. Steps 1 and 3 are given; complete the others in the workbook, then open them here. In the app: case FA8 (low-rise frame: Appendix A and the portal method), its wind steps.
+[Figure: Faded Example 5.2: three storeys, h = 11 m, so Appendix A applies.]
+## Step 1 Can Appendix A be used? (given)
+Ref Calculations Output
+A1 h = 11 m ≤ 15 m; h/b_{min} = 11/18 = 0.61 ≤ 3; offices: category II; rectangular plan, level site yes
+## Step 2 M_{z,cat} at each level
+Ref Calculations Output
+Table A1 Terrain category 3: 0.75 to 5 m, 0.83 at 10 m, 0.89 at 15 m; roof 11 m, level 2 at 7.5 m, level 1 at 4 m 0.842; 0.790; 0.750
+## Step 3 Coefficients (given)
+Ref Calculations Output
+A2.3 Windward wall C_{p,e,W} = 0.8
+Table A2 Leeward wall, roof pitch 0°, d/b = 18/51 = 0.353 C_{p,e,L} = −0.5
+A2.1 C_{p,i} = +0.6 or −0.3 acts on the inside of both walls and cancels in the force on the frame —
+## Step 4 Pressures (kN/m²)
+Ref Calculations Output
+(5.7) 0.613 V_s² = 0.613 × 33.5²/1000; p_W = 0.688 M_{z,cat}(z)² × 0.8; p_L = 0.688 × 0.842² × (−0.5) 0.688; p_L = −0.244
+## Step 5 The minimum (A2.2)
+Ref Calculations Output
+A2.2 p_{avg} = (0.634 × 1.75 + 0.587 × 3.5 + 0.553 × 3.75 + 0.553 × 2.0)/11, the bottom 2.0 m at the pressure of z = 1 m 0.577 kN/m²
+A2.2 0.577 < 0.65: the minimum governs; every force × 0.65/0.577 k = 1.126
+## Step 6 Forces on frame ABCD
+Ref Calculations Output
+(5.6) W_k = (p_W − p_L) × 4.50 × h_{trib} × 1.126 ΣW_k = 26.56 kN
+Level z (m) M_{z,cat} (Table A1) p_W p_L p_W − p_L h_{trib} (m) W_k (kN)
+Roof 11.0 0.842 0.390 −0.244 0.634 1.75 5.62
+Level 2 7.5 0.790 0.343 −0.244 0.587 3.50 10.42
+Level 1 4.0 0.750 0.310 −0.244 0.553 3.75 10.52
+Total 26.56
+Answer. M_{z,cat} = 0.842, 0.790, 0.750; net pressures 0.634, 0.587, 0.553 kN/m²; p_{avg} = 0.577 < 0.65, k = 1.126; W_k = 5.62, 10.42, 10.52 kN; ΣW_k = 26.56 kN.
+What the numbers say The minimum adds +12.6 % to every force: on a low building in a suburb the pressures alone fall below 0.65 kN/m². The analytical procedure with I = 1.0 and C_{dyn} = 1.0 gives the same pressures and the same 26.56 kN, since Appendix A is that procedure with those factors fixed. Per metre of height the frame carries about a quarter of the wind of Worked Example 5.1: no C_{dyn}, no importance factor and lower speeds near the ground.
+
+[examples-x3] Example 3 · Explain-type questions
+Exam type short written answers Time ≈ 3 min each
+Questions
+- Why is the leeward suction the same at every level, while the windward pressure grows with height?
+- Frame ABCD spans the 18 m width of the course building. Why does it carry the wind on the 51 m face, and not the wind on the 18 m face that the notes use?
+- The internal pressure coefficient of an enclosed building is +0.6 or −0.3. Why does it not enter the wind force on the frame?
+- A low building in a suburb can be designed for more wind than its pressures give. Why?
+Write your four answers first, then open the model answers one by one.
+## Answer 1 The suction is set by the flow behind the building
+The windward wall meets the oncoming wind, whose speed grows with height, so p_W follows V_{des,z}. The leeward wall sits in the wake: the flow separates at the roof edge and the suction behind is governed by the speed at the top, so MS 1553 5.4.1 takes V_{des} at z = h for every level.
+## Answer 2 A plane frame carries the wind in its own plane
+A frame resists sway in its own plane only. Frame ABCD lies across the building, so it resists the wind that blows across it, onto the 51 m face (b = 51, d = 18 m, leeward −0.5). The wind on the 18 m face blows along the building and goes to the longitudinal frames. The notes’ choice gives 104.5 kN on ABCD against 133.9 kN (decision D57).
+## Answer 3 It acts on both walls and cancels
+The internal pressure pushes outwards (or pulls inwards) equally on the inside of the windward and the leeward wall. Its horizontal resultants are equal and opposite, so the net force on the frame is 0.613V_s²M_{z,cat}²(C_{p,e,W} − C_{p,e,L}). It still matters for the walls, the cladding and the roof.
+## Answer 4 The minimum design wind load
+MS 1553 sets a floor of 0.65 kN/m² on the projected area for the main structure (2.4.2, A2.2). Low in rough terrain, M_{z,cat} is near 0.75 and the net pressures fall below it: Faded Example 5.2 averages 0.577 kN/m², so every force is scaled by 1.126.
+
+[exercises-b1] Exercise B1 · The design wind speed at the roof and at a level
+Statement: generated in the app at run time (numbers change per attempt)
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-b2] Exercise B2 · The leeward suction: which face, d/b and p_L
+Statement: generated in the app at run time (numbers change per attempt)
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-b3] Exercise B3 · The net pressure at a level
+Statement: generated in the app at run time (numbers change per attempt)
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-b4] Exercise B4 · The force on the frame at one level
+Statement: generated in the app at run time (numbers change per attempt)
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-b5] Exercise B5 · The minimum design wind load
+Statement: generated in the app at run time (numbers change per attempt)
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-b6] Exercise B6 · The EC2 geometric imperfections
+Statement: generated in the app at run time (numbers change per attempt)
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-quick] Exercises: quick concept questions
+- Which frame carries the wind on a building by bending in its own beams and columns?
+- Terrain category 3 of MS 1553 describes
+- A ten-storey block of flats is designed for wind. Its importance factor I is
+- For a flat-roofed building with d/b = 2, the leeward C_{p,e} of Table 5.2(b) is
+- A building has n_a = 0.5 Hz. Its C_{dyn}
+- In a frame whose storeys above the ground storey are all equal, which floor receives the smallest wind force?
+- A building is 40 m long and 15 m wide; its frames span the 15 m width. At the roof V_{des} = 36.0 m/s and n_a = 1.5 Hz. A student works out the leeward suction on these frames. Which line is wrong?
+- A frame stands between bays of 6 m; every storey above the ground storey is 3.5 m. The net pressure is 1.05 kN/m² at the roof and 0.98 kN/m² at level 4, the floor below it. A student works out the forces. Which line is wrong?
+
+[lab-face] Explorer task 1 · Tab 1, Activity 5A: for each of the two wind directions on the course building, name the frames that carry it and type b, d and the leeward C_{p,e} .
+Ticks itself: when both directions are right · not ticked? mark done
+(The task's answer fields are checked in the app; they are not included here.)
+
+[lab-press] Explorer task 2 · Tab 2: work out the net pressure at three levels in a row before each row is shown (any building).
+Ticks itself: when three levels in a row are right · not ticked? mark done
+(The task's answer fields are checked in the app; they are not included here.)
+
+[lab-sens] Explorer task 3 · Tab 3, Activity 5B: rank the five changes by their effect on ΣW_k , then reveal each one.
+Ticks itself: when all five changes have been revealed after the ranking · not ticked? mark done
+(The task's answer fields are checked in the app; they are not included here.)
+
+[lab-s5] Explorer task 4 · Tab 4: find all four slips in Wind S5, tap their lines and press “Check”.
+Ticks itself: when all four slips are found, before Show · not ticked? mark done
+(The task's answer fields are checked in the app; they are not included here.)
+
+[glossary-unbraced-frame] Glossary: unbraced frame
+unbraced frame: A frame that gives the building its stability: rigid joints or fixed bases let its beams and columns carry the lateral actions as well as the vertical ones.
+
+[glossary-braced-frame] Glossary: braced frame
+braced frame: A frame whose lateral actions go to bracing members (shear walls, a core); it carries the vertical actions only.
+
+[glossary-basic-wind-speed-v-s] Glossary: basic wind speed V_s
+basic wind speed V_s: The wind speed of the region from the map of MS 1553 (Figure A1): 33.5 m/s in Zone I, 32.5 m/s in Zone II.
+
+[glossary-site-wind-speed-v-sit] Glossary: site wind speed V_{sit}
+site wind speed V_{sit}: V_s M_d M_{z,cat} M_s M_h : the basic speed adjusted for direction, terrain and height, shielding and hills (Eq. 1).
+
+[glossary-design-wind-speed-v-des] Glossary: design wind speed V_{des}
+design wind speed V_{des}: V_{sit} × I, at the roof; at a lower level V_{des,z} = V_{des} M_{z,cat} (z)/M_{z,cat} (h).
+
+[glossary-terrain-category] Glossary: terrain category
+terrain category: The roughness of the ground upwind, from 1 (open water, flat open land) to 4 (city centres); it sets M_{z,cat} .
+
+[glossary-m-z-cat] Glossary: M_{z,cat}
+M_{z,cat}: The terrain/height multiplier of Table 4.1 (Table A1 in Appendix A), interpolated linearly in height.
+
+[glossary-importance-factor-i] Glossary: importance factor I
+importance factor I: Table 3.2: 0.87 (category I), 1.0 (II: offices, flats), 1.15 (III: more than 300 people in one area; IV: essential buildings). Not the turbulence intensity I_h .
+
+[glossary-windward-leeward] Glossary: windward, leeward
+windward, leeward: The wall the wind blows on (pressure, +) and the wall at the back (suction, −). Both push the frame downwind.
+
+[glossary-b-d] Glossary: b, d
+b, d: MS 1553 Figure 5.2: b is the breadth of the building normal to the wind, d its depth along the wind. A plane frame carries the wind in its own plane.
+
+[glossary-c-p-e] Glossary: C_{p,e}
+C_{p,e}: External pressure coefficient: 0.8 on the windward wall (Table 5.2(a)); on the leeward wall from d/b (Table 5.2(b)): −0.5 for d/b ≤ 1, −0.3 at 2, −0.2 from 4.
+
+[glossary-c-fig] Glossary: C_{fig}
+C_{fig}: Aerodynamic shape factor C_{p,e} K_a K_c K_l K_p ; for the walls of a frame the K factors are 1.0.
+
+[glossary-c-dyn] Glossary: C_{dyn}
+C_{dyn}: Dynamic response factor: 1.0 when n_a > 1 Hz; from 6.2.1 between 0.2 and 1 Hz (Eq. 10).
+
+[glossary-n-a] Glossary: n_a
+n_a: The first natural frequency of the building in the direction of the wind; it decides whether the building is wind-sensitive (6.1).
+
+[glossary-net-pressure] Glossary: net pressure
+net pressure: p_W − p_L at a level: the windward pressure minus the (negative) leeward suction.
+
+[glossary-b-w-h-trib] Glossary: B_w , h_{trib}
+B_w , h_{trib}: The width of building a frame carries (half the bay on each side) and the height a floor carries (half the storey above and below).
+
+[glossary-minimum-design-wind-load] Glossary: minimum design wind load
+minimum design wind load: 0.65 kN/m² times the projected area for the main structure (2.4.2, A2.2): scale the forces by 0.65/p_{avg} when the average net pressure is lower.
+
+[glossary-c-p-i] Glossary: C_{p,i}
+C_{p,i}: Internal pressure coefficient, +0.6 or −0.3 for an enclosed building; it cancels in the force on the frame.
+
+[glossary-geometric-imperfection] Glossary: geometric imperfection
+geometric imperfection: The out-of-plumb of EC2 5.2: θ_i = θ_0 α_h α_m , applied as H_i = θ_i N_i at each floor.
+
+[glossary-professional-habit-5] Glossary: Professional Habit 5
+Professional Habit 5: Draw the plan and the wind arrow before any number: mark b, d and the frames that carry this wind.

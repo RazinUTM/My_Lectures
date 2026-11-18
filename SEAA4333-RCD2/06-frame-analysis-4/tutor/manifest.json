@@ -1,0 +1,529 @@
+{
+ "app": "seaa4333",
+ "part": "u6",
+ "title": "Unit 6 Frame Analysis IV",
+ "folder": "06-frame-analysis-4",
+ "course_meta": {
+  "key": "seaa4333-u6-v1",
+  "notes": [
+   "n1",
+   "n2",
+   "n3",
+   "n4",
+   "n5",
+   "n6"
+  ],
+  "slides": 26,
+  "examples": [
+   "x1",
+   "x2",
+   "x3"
+  ],
+  "cando": 5,
+  "targetMin": 45
+ },
+ "sections": [
+  {
+   "id": "start-outcomes",
+   "view": "start",
+   "anchor": null,
+   "selector": "ol.lo",
+   "title_en": "After this part you should be able to",
+   "title_ms": "Selepas bahagian ini, anda sepatutnya boleh"
+  },
+  {
+   "id": "notes-n1",
+   "view": "notes",
+   "anchor": "n1",
+   "title_en": "1. The frame under lateral load",
+   "title_ms": "1. Frame di bawah lateral load",
+   "minutes": 7
+  },
+  {
+   "id": "notes-n2",
+   "view": "notes",
+   "anchor": "n2",
+   "title_en": "2. The cantilever method",
+   "title_ms": "2. Cantilever method",
+   "minutes": 8
+  },
+  {
+   "id": "notes-n3",
+   "view": "notes",
+   "anchor": "n3",
+   "title_en": "3. Storey by storey: the course frame",
+   "title_ms": "3. Tingkat demi tingkat: frame kursus",
+   "minutes": 8
+  },
+  {
+   "id": "notes-n4",
+   "view": "notes",
+   "anchor": "n4",
+   "title_en": "4. The portal method",
+   "title_ms": "4. Portal method",
+   "minutes": 8
+  },
+  {
+   "id": "notes-n5",
+   "view": "notes",
+   "anchor": "n5",
+   "title_en": "5. Adding the wind to the vertical load",
+   "title_ms": "5. Menambah angin kepada load menegak",
+   "minutes": 9
+  },
+  {
+   "id": "notes-n6",
+   "view": "notes",
+   "anchor": "n6",
+   "title_en": "6. The EN 1990 route, and which method when",
+   "title_ms": "6. Laluan EN 1990, dan kaedah mana bila",
+   "minutes": 7
+  },
+  {
+   "id": "slides-1",
+   "view": "slides",
+   "anchor": "1",
+   "title_en": "Slide 1: Frame Analysis IV",
+   "title_ms": "Slide 1: Frame Analysis IV"
+  },
+  {
+   "id": "slides-2",
+   "view": "slides",
+   "anchor": "2",
+   "title_en": "Slide 2: How the next three hours run",
+   "title_ms": "Slide 2: How the next three hours run"
+  },
+  {
+   "id": "slides-3",
+   "view": "slides",
+   "anchor": "3",
+   "title_en": "Slide 3: Three questions from last week",
+   "title_ms": "Slide 3: Three questions from last week"
+  },
+  {
+   "id": "slides-4",
+   "view": "slides",
+   "anchor": "4",
+   "title_en": "Slide 4: A, B, B, and what each means today",
+   "title_ms": "Slide 4: A, B, B, and what each means today"
+  },
+  {
+   "id": "slides-5",
+   "view": "slides",
+   "anchor": "5",
+   "title_en": "Slide 5: The column the vertical load hardly bends",
+   "title_ms": "Slide 5: The column the vertical load hardly bends"
+  },
+  {
+   "id": "slides-6",
+   "view": "slides",
+   "anchor": "6",
+   "title_en": "Slide 6: The wind multiplies the moment in the lower column at B by 14. Which other member of level 1 changes as much?",
+   "title_ms": "Slide 6: The wind multiplies the moment in the lower column at B by 14. Which other member of level 1 changes as much?"
+  },
+  {
+   "id": "slides-7",
+   "view": "slides",
+   "anchor": "7",
+   "title_en": "Slide 7: Where the moment is zero",
+   "title_ms": "Slide 7: Where the moment is zero"
+  },
+  {
+   "id": "slides-8",
+   "view": "slides",
+   "anchor": "8",
+   "title_en": "Slide 8: Two assumptions, two methods",
+   "title_ms": "Slide 8: Two assumptions, two methods"
+  },
+  {
+   "id": "slides-9",
+   "view": "slides",
+   "anchor": "9",
+   "title_en": "Slide 9: The same storey by two assumptions",
+   "title_ms": "Slide 9: The same storey by two assumptions"
+  },
+  {
+   "id": "slides-10",
+   "view": "slides",
+   "anchor": "10",
+   "title_en": "Slide 10: Close for the columns, further apart for the beams",
+   "title_ms": "Slide 10: Close for the columns, further apart for the beams"
+  },
+  {
+   "id": "slides-11",
+   "view": "slides",
+   "anchor": "11",
+   "title_en": "Slide 11: Frame ABCD by the cantilever method",
+   "title_ms": "Slide 11: Frame ABCD by the cantilever method"
+  },
+  {
+   "id": "slides-12",
+   "view": "slides",
+   "anchor": "12",
+   "title_en": "Slide 12: Storey 2 of frame ABCD: N A = 6.04 kN in tension; in storey 1 it was 1.22 kN. The shear in beam AB at level 6 is",
+   "title_ms": "Slide 12: Storey 2 of frame ABCD: N A = 6.04 kN in tension; in storey 1 it was 1.22 kN. The shear in beam AB at level 6 is"
+  },
+  {
+   "id": "slides-13",
+   "view": "slides",
+   "anchor": "13",
+   "title_en": "Slide 13: The portal method, joint by joint",
+   "title_ms": "Slide 13: The portal method, joint by joint"
+  },
+  {
+   "id": "slides-14",
+   "view": "slides",
+   "anchor": "14",
+   "title_en": "Slide 14: In Faded Example 6.2 the spans are 6, 5 and 8 m. By the portal method, which beam of a level carries the largest shear?",
+   "title_ms": "Slide 14: In Faded Example 6.2 the spans are 6, 5 and 8 m. By the portal method, which beam of a level carries the largest shear?"
+  },
+  {
+   "id": "slides-15",
+   "view": "slides",
+   "anchor": "15",
+   "title_en": "Slide 15: A low-rise frame by the portal method",
+   "title_ms": "Slide 15: A low-rise frame by the portal method"
+  },
+  {
+   "id": "slides-16",
+   "view": "slides",
+   "anchor": "16",
+   "title_en": "Slide 16: Equal beam shears, axial force at the ends only",
+   "title_ms": "Slide 16: Equal beam shears, axial force at the ends only"
+  },
+  {
+   "id": "slides-17",
+   "view": "slides",
+   "anchor": "17",
+   "title_en": "Slide 17: Adding the wind to the vertical load",
+   "title_ms": "Slide 17: Adding the wind to the vertical load"
+  },
+  {
+   "id": "slides-18",
+   "view": "slides",
+   "anchor": "18",
+   "title_en": "Slide 18: Predict, then combine at level 1",
+   "title_ms": "Slide 18: Predict, then combine at level 1"
+  },
+  {
+   "id": "slides-19",
+   "view": "slides",
+   "anchor": "19",
+   "title_en": "Slide 19: The interior columns change most; end A reverses a little",
+   "title_ms": "Slide 19: The interior columns change most; end A reverses a little"
+  },
+  {
+   "id": "slides-20",
+   "view": "slides",
+   "anchor": "20",
+   "title_en": "Slide 20: The EN 1990 route, and how far to trust a hand method",
+   "title_ms": "Slide 20: The EN 1990 route, and how far to trust a hand method"
+  },
+  {
+   "id": "slides-21",
+   "view": "slides",
+   "anchor": "21",
+   "title_en": "Slide 21: Frame S6: four slips in a portal analysis",
+   "title_ms": "Slide 21: Frame S6: four slips in a portal analysis"
+  },
+  {
+   "id": "slides-22",
+   "view": "slides",
+   "anchor": "22",
+   "title_en": "Slide 22: D6: a two-bay frame under the wind (20 marks)",
+   "title_ms": "Slide 22: D6: a two-bay frame under the wind (20 marks)"
+  },
+  {
+   "id": "slides-23",
+   "view": "slides",
+   "anchor": "23",
+   "title_en": "Slide 23: The wind moments on your group’s frame line",
+   "title_ms": "Slide 23: The wind moments on your group’s frame line"
+  },
+  {
+   "id": "slides-24",
+   "view": "slides",
+   "anchor": "24",
+   "title_en": "Slide 24: Check every storey’s equilibrium before using its moments",
+   "title_ms": "Slide 24: Check every storey’s equilibrium before using its moments"
+  },
+  {
+   "id": "slides-25",
+   "view": "slides",
+   "anchor": "25",
+   "title_en": "Slide 25: Before Unit 7",
+   "title_ms": "Slide 25: Before Unit 7"
+  },
+  {
+   "id": "slides-26",
+   "view": "slides",
+   "anchor": "26",
+   "title_en": "Slide 26: Before you leave",
+   "title_ms": "Slide 26: Before you leave"
+  },
+  {
+   "id": "examples-x1",
+   "view": "examples",
+   "anchor": "x1",
+   "title_en": "Example 1 · Worked Example 6.1: frame ABCD by the cantilever method",
+   "title_ms": "Contoh 1 · Worked Example 6.1: frame ABCD dengan cantilever method"
+  },
+  {
+   "id": "examples-x2",
+   "view": "examples",
+   "anchor": "x2",
+   "title_en": "Example 2 · Faded Example 6.2: a low-rise frame by the portal method",
+   "title_ms": "Contoh 2 · Faded Example 6.2: frame rendah dengan portal method"
+  },
+  {
+   "id": "examples-x3",
+   "view": "examples",
+   "anchor": "x3",
+   "title_en": "Example 3 · Explain-type questions",
+   "title_ms": "Contoh 3 · Soalan jenis terangkan"
+  },
+  {
+   "id": "exercises-b1",
+   "view": "exercises",
+   "anchor": "b1",
+   "title_en": "Exercise B1 · Portal method: the column shears",
+   "title_ms": "Latihan B1 · Portal method: shear column"
+  },
+  {
+   "id": "exercises-b2",
+   "view": "exercises",
+   "anchor": "b2",
+   "title_en": "Exercise B2 · Portal method: the beam moments at a level",
+   "title_ms": "Latihan B2 · Portal method: moment beam pada satu aras"
+  },
+  {
+   "id": "exercises-b3",
+   "view": "exercises",
+   "anchor": "b3",
+   "title_en": "Exercise B3 · Cantilever method: the axial force in a column",
+   "title_ms": "Latihan B3 · Cantilever method: axial force dalam column"
+  },
+  {
+   "id": "exercises-b4",
+   "view": "exercises",
+   "anchor": "b4",
+   "title_en": "Exercise B4 · Cantilever method: a beam shear and a column shear",
+   "title_ms": "Latihan B4 · Cantilever method: shear beam dan shear column"
+  },
+  {
+   "id": "exercises-b5",
+   "view": "exercises",
+   "anchor": "b5",
+   "title_en": "Exercise B5 · Wind plus gravity at a beam",
+   "title_ms": "Latihan B5 · Angin dan graviti pada beam"
+  },
+  {
+   "id": "exercises-b6",
+   "view": "exercises",
+   "anchor": "b6",
+   "title_en": "Exercise B6 · The storey shear and the overturning moment",
+   "title_ms": "Latihan B6 · Storey shear dan overturning moment"
+  },
+  {
+   "id": "exercises-quick",
+   "view": "exercises",
+   "anchor": null,
+   "selector": "#v-exercises div.q",
+   "title_en": "Exercises: quick concept questions",
+   "title_ms": "Latihan: soalan konsep pantas"
+  },
+  {
+   "id": "lab-cant",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"cant\"]",
+   "title_en": "Explorer task 1: Tab 5: work one storey of a frame by the cantilever method",
+   "title_ms": "Tugasan Explorer 1: Tab 5: kira satu tingkat frame dengan cantilever method"
+  },
+  {
+   "id": "lab-port",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"port\"]",
+   "title_en": "Explorer task 2: Tab 5: work one storey by the portal method",
+   "title_ms": "Tugasan Explorer 2: Tab 5: kira satu tingkat dengan portal method"
+  },
+  {
+   "id": "lab-comb",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"comb\"]",
+   "title_en": "Explorer task 3: Tab 6, Activity 6B: predict which member the wind changes most,…",
+   "title_ms": "Tugasan Explorer 3: Tab 6, Aktiviti 6B: ramal anggota yang paling banyak diubah ole…"
+  },
+  {
+   "id": "lab-s6",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"s6\"]",
+   "title_en": "Explorer task 4: Tab 4: switch the sheet to Frame S6, find all four slips, tap t…",
+   "title_ms": "Tugasan Explorer 4: Tab 4: tukar helaian kepada Frame S6, cari keempat-empat kesila…"
+  },
+  {
+   "id": "glossary-lateral-load",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: lateral load",
+   "title_ms": "Glosari: lateral load"
+  },
+  {
+   "id": "glossary-sway",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: sway",
+   "title_ms": "Glosari: sway"
+  },
+  {
+   "id": "glossary-double-curvature",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: double curvature",
+   "title_ms": "Glosari: double curvature"
+  },
+  {
+   "id": "glossary-point-of-contraflexure",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: point of contraflexure",
+   "title_ms": "Glosari: point of contraflexure"
+  },
+  {
+   "id": "glossary-storey-shear-v",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: storey shear V",
+   "title_ms": "Glosari: storey shear V"
+  },
+  {
+   "id": "glossary-overturning-moment-m-o",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: overturning moment M_o",
+   "title_ms": "Glosari: overturning moment M_o"
+  },
+  {
+   "id": "glossary-cantilever-method",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: cantilever method",
+   "title_ms": "Glosari: cantilever method"
+  },
+  {
+   "id": "glossary-portal-method",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: portal method",
+   "title_ms": "Glosari: portal method"
+  },
+  {
+   "id": "glossary-centroid-x",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: centroid x",
+   "title_ms": "Glosari: centroid x"
+  },
+  {
+   "id": "glossary-r-i-p",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: r_i , P",
+   "title_ms": "Glosari: r_i , P"
+  },
+  {
+   "id": "glossary-column-shear-h",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: column shear H",
+   "title_ms": "Glosari: column shear H"
+  },
+  {
+   "id": "glossary-beam-shear-f",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: beam shear F",
+   "title_ms": "Glosari: beam shear F"
+  },
+  {
+   "id": "glossary-k-i",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: k_i",
+   "title_ms": "Glosari: k_i"
+  },
+  {
+   "id": "glossary-joint-balance",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: joint balance",
+   "title_ms": "Glosari: joint balance"
+  },
+  {
+   "id": "glossary-bs-8110-load-combination-3",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: BS 8110 load combination 3",
+   "title_ms": "Glosari: BS 8110 load combination 3"
+  },
+  {
+   "id": "glossary-moment-reversal",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: moment reversal",
+   "title_ms": "Glosari: moment reversal"
+  },
+  {
+   "id": "glossary-en-1990-eq-6-10",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: EN 1990 Eq. 6.10",
+   "title_ms": "Glosari: EN 1990 Eq. 6.10"
+  },
+  {
+   "id": "glossary-0",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: ψ_0",
+   "title_ms": "Glosari: ψ_0"
+  },
+  {
+   "id": "glossary-stiffness-analysis",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: stiffness analysis",
+   "title_ms": "Glosari: stiffness analysis"
+  },
+  {
+   "id": "glossary-professional-habit-6",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: Professional Habit 6",
+   "title_ms": "Glosari: Professional Habit 6"
+  }
+ ],
+ "equations_missing": 0
+}

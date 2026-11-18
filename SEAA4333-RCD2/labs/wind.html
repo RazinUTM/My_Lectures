@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Wind Lab · SEAA 4333</title>
-<meta name="description" content="SEAA 4333 Units 5 and 6, Frame Analysis III and IV: which frames carry which wind; the MS 1553:2002 pressures and the wind forces on one frame, level by level; what matters most in the wind force; and a spot-the-error sheet.">
+<meta name="description" content="SEAA 4333 Units 5 and 6, Frame Analysis III and IV: which frames carry which wind; the MS 1553:2002 pressures and the wind forces on one frame, level by level; what matters most in the wind force; the cantilever and portal methods storey by storey; the wind added to the vertical load at one level; and two spot-the-error sheets.">
 <meta name="claude:viewport-fit-sides" content="cover">
 <script>(function(){try{var r=document.documentElement,p=JSON.parse(localStorage.getItem("seaa4333-prefs")||"null")||{};if(p.lang==="ms"){r.lang="ms";r.setAttribute("data-lang","ms")}if(p.theme==="light"||p.theme==="dark")r.setAttribute("data-theme",p.theme);if(+p.font)r.style.fontSize=(+p.font*100)+"%"}catch(e){}})();</script>
 <!-- Wind Lab (SEAA 4333 Units 5 and 6). SPDX-License-Identifier: MIT (code). Text and figures: CC BY-NC-SA 4.0.
@@ -266,13 +266,20 @@ input[type=range].xs{width:100%;accent-color:var(--flight);margin:6px 0 2px}
 #fFrames button{text-align:left}
 #sTable .btn.sm{min-height:30px}
 #pKV{grid-template-columns:repeat(2,minmax(0,1fr))}
+#lKV,#cCols{font-variant-numeric:tabular-nums}
+#lKV span{text-transform:none;letter-spacing:.02em}
+#lFrame{min-width:440px}
+#cChart,#aChart{min-width:520px}
+#lFields input{width:6.5em}
+#lTable td,#lTable th,#cTable td,#cTable th,#cCols td,#cCols th{white-space:nowrap}
+#eWhich{margin-bottom:10px}
 svg .halo{paint-order:stroke;stroke:var(--surface);stroke-width:4px;stroke-linejoin:round}
 [hidden]{display:none !important}
 </style>
 </head>
 <body>
 <div class="sitebar" id="sitebar"><div class="wrap">
-  <nav class="crumbs" aria-label="Breadcrumb" data-ms-aria="Laluan"><a href="https://razinutm.github.io/My_Lectures/">My Lectures</a><span aria-hidden="true">›</span><a href="../index.html">SEAA 4333</a><span aria-hidden="true">›</span><a href="../05-frame-analysis-3/index.html#lab">Unit 5</a><span aria-hidden="true">›</span><span aria-current="page">Wind Lab</span></nav>
+  <nav class="crumbs" aria-label="Breadcrumb" data-ms-aria="Laluan"><a href="https://razinutm.github.io/My_Lectures/">My Lectures</a><span aria-hidden="true">›</span><a href="../index.html">SEAA 4333</a><span aria-hidden="true">›</span><a href="../05-frame-analysis-3/index.html#lab">Unit 5</a><span aria-hidden="true">·</span><a href="../06-frame-analysis-4/index.html#lab">Unit 6</a><span aria-hidden="true">›</span><span aria-current="page">Wind Lab</span></nav>
   <div class="prefs"><button type="button" id="btn-lang" title="Bahasa">BM</button><button type="button" id="btn-theme" title="Theme"></button><button type="button" id="btn-font" class="fontbtn" title="Text size"><span class="aa" aria-hidden="true">A<small>A</small></span><span class="lvl" aria-hidden="true"><i></i><i></i><i></i><i></i></span></button></div>
 </div></div>
 <header class="topbar">
@@ -302,6 +309,8 @@ svg .halo{paint-order:stroke;stroke:var(--surface);stroke-width:4px;stroke-linej
     <button class="tab" role="tab" id="tab-press" aria-controls="panel-press" data-tab="press"><span class="n">2</span><span data-ms="Tekanan">Pressures</span></button>
     <button class="tab" role="tab" id="tab-sens" aria-controls="panel-sens" data-tab="sens"><span class="n">3</span><span data-ms="Apa paling penting">What matters most</span></button>
     <button class="tab" role="tab" id="tab-error" aria-controls="panel-error" data-tab="error"><span class="n">4</span><span data-ms="Cari kesilapan">Spot the error</span></button>
+    <button class="tab" role="tab" id="tab-lat" aria-controls="panel-lat" data-tab="lat"><span class="n">5</span><span data-ms="Portal atau cantilever">Portal or cantilever</span></button>
+    <button class="tab" role="tab" id="tab-comb" aria-controls="panel-comb" data-tab="comb"><span class="n">6</span><span data-ms="Angin dan graviti">Wind plus gravity</span></button>
   </nav>
 
   <main class="sheet">
@@ -423,17 +432,21 @@ svg .halo{paint-order:stroke;stroke:var(--surface);stroke-width:4px;stroke-linej
       <div class="col">
         <div class="s1top">
           <div class="col">
+            <div class="seg" role="group" aria-label="Sheet" data-ms-aria="Helaian" id="eWhich">
+              <button type="button" data-v="s5" aria-pressed="true">Wind S5 · Unit 5</button>
+              <button type="button" data-v="s6">Frame S6 · Unit 6</button>
+            </div>
             <div class="head">
-              <h2 data-ms="Wind S5: empat kesilapan">Wind S5: four slips</h2>
-              <p class="lede" data-ms="Pengiraan angin seorang pelajar bagi satu frame pejabat empat tingkat. Dua belas baris, empat kesilapan; baris lain sama ada betul atau hanya membawa kesilapan terdahulu ke hadapan.">A student’s wind calculation for one frame of a four-storey office. Twelve lines, four slips; the other lines are right or only carry an earlier slip forward.</p>
+              <h2 id="eTitle">Wind S5: four slips</h2>
+              <p class="lede" id="eLede"></p>
             </div>
             <dl class="given" id="eGiven" aria-label="Given data" data-ms-aria="Data yang diberi"></dl>
           </div>
           <div class="col">
             <div class="plotcard"><div class="figbox" id="eFig"></div></div>
             <div class="task">
-              <span class="tag" data-ms="Cari kesilapan · pasukan · 12 min · Workbook 5.6">Spot the error · teams · 12 min · Workbook 5.6</span>
-              <p data-ms="Peranan: pembaca membaca setiap baris dengan kuat; pengira menyemak semula aritmetik; penyemak melukis pelan dan anak panah angin dahulu; pelapor mencatat baris dan sebabnya dalam Workbook 5.6. Kemudian ketik baris itu di sini dan tekan &lt;i&gt;Semak&lt;/i&gt;.">Roles: the reader reads each line aloud; the calculator rechecks the arithmetic; the checker draws the plan and the wind arrow first; the reporter logs the line and the reason in Workbook 5.6. Then tap those lines here and press <i>Check</i>.</p>
+              <span class="tag" id="eTag">Spot the error · teams · 12 min</span>
+              <p id="eRoles"></p>
             </div>
             <div class="steps">
               <button class="btn primary" id="eCheck" type="button" data-ms="Semak">Check</button>
@@ -443,12 +456,120 @@ svg .halo{paint-order:stroke;stroke:var(--surface);stroke-width:4px;stroke-linej
             <p class="score" id="eScore" aria-live="polite"></p>
           </div>
         </div>
-        <div class="scroll"><table class="sheetcalc" id="eSheet" aria-label="Wind S5 calculation sheet" data-ms-aria="Helaian pengiraan Wind S5"></table></div>
+        <div class="scroll"><table class="sheetcalc" id="eSheet" aria-label="Calculation sheet"></table></div>
         <div class="summary" id="eSummary" hidden></div>
       </div>
     </section>
+
+    <!-- ===================== 5 PORTAL OR CANTILEVER ===================== -->
+    <section id="panel-lat" role="tabpanel" aria-labelledby="tab-lat" hidden>
+      <div class="panel">
+        <div class="col">
+          <div class="head">
+            <h2 data-ms="Portal atau cantilever">Portal or cantilever</h2>
+            <p class="lede" data-ms="Potong satu tingkat di tengah ketinggian: daya di atas memberi storey shear V dan overturning moment M&lt;sub&gt;o&lt;/sub&gt;. Portal method membahagikan V mengikut span; cantilever method membahagikan M&lt;sub&gt;o&lt;/sub&gt; mengikut jarak dari centroid. Kira satu tingkat, kemudian bandingkan kedua-duanya.">Cut a storey at mid-height: the forces above give the storey shear V and the overturning moment M<sub>o</sub>. The portal method shares V by the spans; the cantilever method shares M<sub>o</sub> by the distance from the centroid. Work one storey, then compare the two.</p>
+          </div>
+          <div class="group">
+            <label class="label" for="lCase" data-ms="Frame">Frame</label>
+            <select id="lCase" class="full"></select>
+          </div>
+          <div class="group" id="lOwn" hidden>
+            <span class="label" data-ms="Frame anda (daya rekabentuk W&lt;sub&gt;d&lt;/sub&gt; = 1.2W&lt;sub&gt;k&lt;/sub&gt;)">Your frame (design forces W<sub>d</sub> = 1.2W<sub>k</sub>)</span>
+            <div class="fields"><label for="lSpans" data-ms="Span (m)">Spans (m)</label><input type="text" id="lSpans" value="6, 6, 6" inputmode="decimal" style="width:12em"></div>
+            <div class="fields"><label for="lHg" data-ms="Tingkat bawah">Ground storey</label><input type="number" id="lHg" value="4" min="2" max="8" step="0.1"><span class="u">m</span><label for="lHt" data-ms="Tingkat lain">Other storeys</label><input type="number" id="lHt" value="3.5" min="2" max="8" step="0.1"><span class="u">m</span></div>
+            <div class="fields"><label for="lF" data-ms="W&lt;sub&gt;d&lt;/sub&gt;, bumbung ke bawah">W<sub>d</sub>, roof down</label><input type="text" id="lF" value="10, 20, 20, 20" inputmode="decimal" style="width:12em"><span class="u">kN</span></div>
+            <p class="note" id="lOwnNote" style="border:0;padding:0"></p>
+          </div>
+          <div class="group">
+            <label class="label" for="lStorey" data-ms="Tingkat">Storey</label>
+            <select id="lStorey" class="full"></select>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Kaedah">Method</span>
+            <div class="seg" role="group" aria-label="Method" data-ms-aria="Kaedah" id="lMeth">
+              <button type="button" data-v="cant" aria-pressed="true">Cantilever</button>
+              <button type="button" data-v="port">Portal</button>
+            </div>
+          </div>
+          <div class="task" id="lTurn">
+            <span class="tag" data-ms="Giliran anda · satu tingkat">Your turn · one storey</span>
+            <p id="lTurnTxt"></p>
+            <div class="fields" id="lFields"></div>
+            <div class="row" style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap"><button class="btn primary" id="lCheck" type="button" data-ms="Semak">Check</button><button class="btn" id="lShow" type="button" data-ms="Tunjuk tingkat ini">Show the storey</button></div>
+            <p class="verdict" id="lOut" hidden></p>
+          </div>
+          <div class="task" id="act6a">
+            <span class="tag" data-ms="Aktiviti 6A · pasukan berempat · 12 min">Activity 6A · teams of four · 12 min</span>
+            <p data-ms="Ramal dahulu: bagi tingkat ini, kaedah manakah memberi moment yang lebih besar? Kemudian dedahkan kedua-duanya.">Predict first: for this storey, which method gives the larger moment? Then reveal both.</p>
+            <div id="aPred" style="display:flex;flex-direction:column;gap:8px"></div>
+            <div class="row" style="display:flex;gap:8px;margin-top:8px"><button class="btn primary" id="aReveal" type="button" data-ms="Dedahkan kedua-duanya">Reveal both</button><button class="btn" id="aReset" type="button" data-ms="Set semula">Reset</button></div>
+            <p class="verdict" id="aOut" hidden></p>
+          </div>
+        </div>
+        <div class="col">
+          <div class="plotcard"><div class="plothead"><h3 id="lFigTitle"></h3><span class="legend" id="lLegend"></span></div>
+            <div class="figbox"><svg class="chart" id="lFrame" viewBox="0 0 680 460" role="img" aria-label="Elevation of the frame with the design wind forces and the storey cut at mid-height" data-ms-aria="Elevation frame dengan daya angin rekabentuk dan tingkat yang dipotong di tengah ketinggian"></svg></div>
+          </div>
+          <div class="kv" id="lKV"></div>
+          <div class="scroll"><table class="tbl" id="lTable"></table></div>
+          <div class="plotcard" id="aCard" hidden><div class="plothead"><h3 data-ms="Dua kaedah, tingkat yang sama (kN m)">The two methods, the same storey (kN m)</h3><span class="legend" id="aLegend"></span></div>
+            <div class="figbox"><svg class="chart" id="aChart" viewBox="0 0 680 320" role="img" aria-label="Column and beam moments of the storey by the portal and the cantilever method" data-ms-aria="Moment column dan beam tingkat ini dengan portal method dan cantilever method"></svg></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 6 WIND PLUS GRAVITY ===================== -->
+    <section id="panel-comb" role="tabpanel" aria-labelledby="tab-comb" hidden>
+      <div class="panel">
+        <div class="col">
+          <div class="head">
+            <h2 data-ms="Angin dan graviti pada satu aras">Wind plus gravity at one level</h2>
+            <p class="lede" data-ms="Course method (BS 8110 load combination 3): one-level sub-frame dengan setiap span pada 1.2(G&lt;sub&gt;k&lt;/sub&gt; + Q&lt;sub&gt;k&lt;/sub&gt;), ditambah moment angin pada 1.2W&lt;sub&gt;k&lt;/sub&gt;. Setiap hujung beam: M&lt;sub&gt;v&lt;/sub&gt; + M&lt;sub&gt;w&lt;/sub&gt;, dan reversal M&lt;sub&gt;w&lt;/sub&gt; − M&lt;sub&gt;v&lt;/sub&gt; apabila positif; setiap column: |M&lt;sub&gt;v&lt;/sub&gt;| + M&lt;sub&gt;w&lt;/sub&gt;.">The course method (BS 8110 load combination 3): the one-level sub-frame with every span at 1.2(G<sub>k</sub> + Q<sub>k</sub>), plus the wind moments at 1.2W<sub>k</sub>. Each beam end: M<sub>v</sub> + M<sub>w</sub>, and the reversal M<sub>w</sub> − M<sub>v</sub> when positive; each column: |M<sub>v</sub>| + M<sub>w</sub>.</p>
+          </div>
+          <div class="group">
+            <label class="label" for="cCase" data-ms="Aras">Level</label>
+            <select id="cCase" class="full"></select>
+            <p class="note" id="cCaseNote" style="border:0;padding:0"></p>
+          </div>
+          <div class="group" id="cOwn" hidden>
+            <span class="label" data-ms="Moment menegak anda pada aras 1 (kN m, hogging positif)">Your vertical moments at level 1 (kN m, hogging positive)</span>
+            <div class="scroll"><table class="tbl owntbl" id="cOwnTbl"></table></div>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Angin dalam rajah">Wind in the diagram</span>
+            <div class="seg" role="group" aria-label="Wind direction" data-ms-aria="Arah angin" id="cDir">
+              <button type="button" data-v="1" aria-pressed="true" data-ms="Dari kiri">From the left</button>
+              <button type="button" data-v="-1" data-ms="Dari kanan">From the right</button>
+            </div>
+          </div>
+          <div class="task" id="act6b">
+            <span class="tag" data-ms="Aktiviti 6B · pasukan · 10 min">Activity 6B · teams · 10 min</span>
+            <p data-ms="Ramal dahulu, kemudian dedahkan gabungan.">Predict first, then reveal the combination.</p>
+            <div id="bPred" style="display:flex;flex-direction:column;gap:8px"></div>
+            <div class="row" style="display:flex;gap:8px;margin-top:8px"><button class="btn primary" id="bReveal" type="button" data-ms="Dedahkan">Reveal</button><button class="btn" id="bReset" type="button" data-ms="Set semula">Reset</button></div>
+            <p class="verdict" id="bOut" hidden></p>
+          </div>
+          <div class="task" id="cTurn">
+            <span class="tag" data-ms="Giliran anda · satu beam">Your turn · one beam</span>
+            <p data-ms="Pilih satu beam: taip moment hogging terbesarnya di hujung dan moment sagging bagi reversal (0 jika tiada). Nilainya disembunyikan dalam jadual sehingga anda menyemak.">Choose a beam: type its largest hogging moment at an end and the sagging moment of a reversal (0 if none). Its values stay hidden in the table until you check.</p>
+            <div class="fields"><label for="cSpan" data-ms="Beam">Beam</label><select id="cSpan"></select></div>
+            <div class="fields" style="margin-top:6px"><label for="cHog" data-ms="Hogging terbesar">Largest hogging</label><input type="number" id="cHog" step="0.01"><span class="u">kN m</span><label for="cRev" data-ms="Reversal">Reversal</label><input type="number" id="cRev" step="0.01"><span class="u">kN m</span></div>
+            <div class="row" style="display:flex;gap:8px;margin-top:8px"><button class="btn primary" id="cCheck" type="button" data-ms="Semak">Check</button><button class="btn" id="cShow" type="button" data-ms="Tunjuk">Show</button></div>
+            <p class="verdict" id="cOut" hidden></p>
+          </div>
+        </div>
+        <div class="col">
+          <div class="plotcard"><div class="plothead"><h3 id="cFigTitle"></h3><span class="legend" id="cLegend"></span></div>
+            <div class="figbox"><svg class="chart" id="cChart" viewBox="0 0 680 400" role="img" aria-label="Bending moments along the beams of the level: the vertical load, and the vertical load with the wind" data-ms-aria="Bending moment sepanjang beam aras ini: load menegak, dan load menegak dengan angin"></svg></div>
+          </div>
+          <div class="scroll"><table class="tbl" id="cTable"></table></div>
+          <div class="scroll"><table class="tbl" id="cCols"></table></div>
+        </div>
+      </div>
+    </section>
   </main>
-  <footer><span data-ms="Kaedah kursus SEAA 4333 (nota kursus, &lt;i&gt;Frame Analysis&lt;/i&gt;: tindakan angin; MS 1553:2002, Seksyen 2 hingga 6 dan Appendix A): V&lt;sub&gt;sit&lt;/sub&gt; = V&lt;sub&gt;s&lt;/sub&gt;M&lt;sub&gt;d&lt;/sub&gt;M&lt;sub&gt;z,cat&lt;/sub&gt;M&lt;sub&gt;s&lt;/sub&gt;M&lt;sub&gt;h&lt;/sub&gt; dan V&lt;sub&gt;des&lt;/sub&gt; = V&lt;sub&gt;sit&lt;/sub&gt;I; p = 0.613V&lt;sub&gt;des&lt;/sub&gt;²C&lt;sub&gt;fig&lt;/sub&gt;C&lt;sub&gt;dyn&lt;/sub&gt; dengan C&lt;sub&gt;p,e&lt;/sub&gt; = 0.8 pada dinding windward dan daripada d/b pada dinding leeward (Table 5.2(b), bumbung rata), dinding leeward pada V&lt;sub&gt;des&lt;/sub&gt; ketinggian bumbung; C&lt;sub&gt;dyn&lt;/sub&gt; = 1.0 apabila n&lt;sub&gt;a&lt;/sub&gt; &amp;gt; 1 Hz, daripada 6.2.1 di antara 0.2 dan 1 Hz; Appendix A bagi h ≤ 15 m. Daya pada satu frame di setiap lantai W&lt;sub&gt;k&lt;/sub&gt; = (p&lt;sub&gt;W&lt;/sub&gt; − p&lt;sub&gt;L&lt;/sub&gt;)B&lt;sub&gt;w&lt;/sub&gt;h&lt;sub&gt;trib&lt;/sub&gt;, separuh bay pada setiap sisi dan separuh tingkat di atas dan di bawah; setiap daya dinaikkan apabila tekanan purata kurang daripada 0.65 kN/m² (2.4.2, A2.2). Unit: m, kN. Pengiraan penuh, langkah demi langkah, ada dalam app &lt;a href=&quot;https://claude.ai/artifact/M5DFYjHubZFnbHVk8JDsAS&quot; style=&quot;color:inherit&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;RC Design Worked Solutions&lt;/a&gt; (Worked Example 5.1 ialah angin kes FA6 pada frame kes FA10, keputusan D57; nota seperti dicetak ialah kes FA10a; Faded Example 5.2 ialah kes FA8), yang boleh dibuka setelah pensyarah anda berkongsi pautannya.">Course method of SEAA 4333 (course notes, <i>Frame Analysis</i>: wind action; MS 1553:2002, Sections 2 to 6 and Appendix A): V<sub>sit</sub> = V<sub>s</sub>M<sub>d</sub>M<sub>z,cat</sub>M<sub>s</sub>M<sub>h</sub> and V<sub>des</sub> = V<sub>sit</sub>I; p = 0.613V<sub>des</sub>²C<sub>fig</sub>C<sub>dyn</sub> with C<sub>p,e</sub> = 0.8 on the windward wall and from d/b on the leeward wall (Table 5.2(b), flat roof), the leeward wall at V<sub>des</sub> of the roof height; C<sub>dyn</sub> = 1.0 when n<sub>a</sub> &gt; 1 Hz, from 6.2.1 between 0.2 and 1 Hz; Appendix A for h ≤ 15 m. The force on one frame at each floor W<sub>k</sub> = (p<sub>W</sub> − p<sub>L</sub>)B<sub>w</sub>h<sub>trib</sub>, half the bay on each side and half the storeys above and below; every force raised when the average pressure is below 0.65 kN/m² (2.4.2, A2.2). Units: m, kN. The full calculation, step by step, is in the <a href="https://claude.ai/artifact/M5DFYjHubZFnbHVk8JDsAS" style="color:inherit" target="_blank" rel="noopener">RC Design Worked Solutions</a> app (Worked Example 5.1 is the wind of case FA6 on the frame of case FA10, decision D57; the notes as printed are case FA10a; Faded Example 5.2 is case FA8), which opens once your lecturer has shared it.</span>
+  <footer><span data-ms="Kaedah kursus SEAA 4333 (nota kursus, &lt;i&gt;Frame Analysis&lt;/i&gt;: tindakan angin; MS 1553:2002, Seksyen 2 hingga 6 dan Appendix A): V&lt;sub&gt;sit&lt;/sub&gt; = V&lt;sub&gt;s&lt;/sub&gt;M&lt;sub&gt;d&lt;/sub&gt;M&lt;sub&gt;z,cat&lt;/sub&gt;M&lt;sub&gt;s&lt;/sub&gt;M&lt;sub&gt;h&lt;/sub&gt; dan V&lt;sub&gt;des&lt;/sub&gt; = V&lt;sub&gt;sit&lt;/sub&gt;I; p = 0.613V&lt;sub&gt;des&lt;/sub&gt;²C&lt;sub&gt;fig&lt;/sub&gt;C&lt;sub&gt;dyn&lt;/sub&gt; dengan C&lt;sub&gt;p,e&lt;/sub&gt; = 0.8 pada dinding windward dan daripada d/b pada dinding leeward (Table 5.2(b), bumbung rata), dinding leeward pada V&lt;sub&gt;des&lt;/sub&gt; ketinggian bumbung; C&lt;sub&gt;dyn&lt;/sub&gt; = 1.0 apabila n&lt;sub&gt;a&lt;/sub&gt; &amp;gt; 1 Hz, daripada 6.2.1 di antara 0.2 dan 1 Hz; Appendix A bagi h ≤ 15 m. Daya pada satu frame di setiap lantai W&lt;sub&gt;k&lt;/sub&gt; = (p&lt;sub&gt;W&lt;/sub&gt; − p&lt;sub&gt;L&lt;/sub&gt;)B&lt;sub&gt;w&lt;/sub&gt;h&lt;sub&gt;trib&lt;/sub&gt;, separuh bay pada setiap sisi dan separuh tingkat di atas dan di bawah; setiap daya dinaikkan apabila tekanan purata kurang daripada 0.65 kN/m² (2.4.2, A2.2). Unit: m, kN. Unit 6 (nota kursus, &lt;i&gt;Frame Analysis&lt;/i&gt;: cantilever method dan portal method, Contoh 6 dan 7): point of contraflexure di tengah ketinggian dan tengah span; cantilever method N&lt;sub&gt;i&lt;/sub&gt; = r&lt;sub&gt;i&lt;/sub&gt;P dengan P = M&lt;sub&gt;o&lt;/sub&gt;/Σ|r||d|; portal method H&lt;sub&gt;i&lt;/sub&gt; = k&lt;sub&gt;i&lt;/sub&gt;V dengan k&lt;sub&gt;i&lt;/sub&gt; = (L&lt;sub&gt;left&lt;/sub&gt; + L&lt;sub&gt;right&lt;/sub&gt;)/(2ΣL); M&lt;sub&gt;col&lt;/sub&gt; = H h/2; BS 8110 load combination 3 pada satu aras, 1.2(G&lt;sub&gt;k&lt;/sub&gt; + Q&lt;sub&gt;k&lt;/sub&gt; + W&lt;sub&gt;k&lt;/sub&gt;): hujung beam M&lt;sub&gt;v&lt;/sub&gt; + M&lt;sub&gt;w&lt;/sub&gt;, reversal M&lt;sub&gt;w&lt;/sub&gt; − M&lt;sub&gt;v&lt;/sub&gt;, column |M&lt;sub&gt;v&lt;/sub&gt;| + M&lt;sub&gt;w&lt;/sub&gt;. Pengiraan penuh, langkah demi langkah, ada dalam app &lt;a href=&quot;https://claude.ai/artifact/M5DFYjHubZFnbHVk8JDsAS&quot; style=&quot;color:inherit&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;RC Design Worked Solutions&lt;/a&gt; (Worked Example 5.1 ialah angin kes FA6 pada frame kes FA10, keputusan D57; nota seperti dicetak ialah kes FA10a; Faded Example 5.2 ialah kes FA8; gabungan pada aras 1 ialah kes FA10), yang boleh dibuka setelah pensyarah anda berkongsi pautannya.">Course method of SEAA 4333 (course notes, <i>Frame Analysis</i>: wind action; MS 1553:2002, Sections 2 to 6 and Appendix A): V<sub>sit</sub> = V<sub>s</sub>M<sub>d</sub>M<sub>z,cat</sub>M<sub>s</sub>M<sub>h</sub> and V<sub>des</sub> = V<sub>sit</sub>I; p = 0.613V<sub>des</sub>²C<sub>fig</sub>C<sub>dyn</sub> with C<sub>p,e</sub> = 0.8 on the windward wall and from d/b on the leeward wall (Table 5.2(b), flat roof), the leeward wall at V<sub>des</sub> of the roof height; C<sub>dyn</sub> = 1.0 when n<sub>a</sub> &gt; 1 Hz, from 6.2.1 between 0.2 and 1 Hz; Appendix A for h ≤ 15 m. The force on one frame at each floor W<sub>k</sub> = (p<sub>W</sub> − p<sub>L</sub>)B<sub>w</sub>h<sub>trib</sub>, half the bay on each side and half the storeys above and below; every force raised when the average pressure is below 0.65 kN/m² (2.4.2, A2.2). Units: m, kN. Unit 6 (course notes, <i>Frame Analysis</i>: the cantilever and portal methods, Examples 6 and 7): points of contraflexure at mid-height and mid-span; cantilever method N<sub>i</sub> = r<sub>i</sub>P with P = M<sub>o</sub>/Σ|r||d|; portal method H<sub>i</sub> = k<sub>i</sub>V with k<sub>i</sub> = (L<sub>left</sub> + L<sub>right</sub>)/(2ΣL); M<sub>col</sub> = H h/2; BS 8110 load combination 3 at one level, 1.2(G<sub>k</sub> + Q<sub>k</sub> + W<sub>k</sub>): beam ends M<sub>v</sub> + M<sub>w</sub>, the reversal M<sub>w</sub> − M<sub>v</sub>, columns |M<sub>v</sub>| + M<sub>w</sub>. The full calculation, step by step, is in the <a href="https://claude.ai/artifact/M5DFYjHubZFnbHVk8JDsAS" style="color:inherit" target="_blank" rel="noopener">RC Design Worked Solutions</a> app (Worked Example 5.1 is the wind of case FA6 on the frame of case FA10, decision D57; the notes as printed are case FA10a; Faded Example 5.2 is case FA8; the combination at level 1 is case FA10), which opens once your lecturer has shared it.</span>
   <span class="lic" data-ms="© 2026 Ahmad Razin Zainal Abidin dan Universiti Teknologi Malaysia (Fakulti Kejuruteraan Awam). Teks dan rajah: CC BY-NC-SA 4.0; kod: MIT. Lihat &lt;a href=&quot;https://github.com/RazinUTM/My_Lectures/blob/main/SEAA4333-RCD2/LICENSE.md&quot; style=&quot;color:inherit&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;lesen&lt;/a&gt;. Kemajuan disimpan dalam pelayar ini sahaja.">© 2026 Ahmad Razin Zainal Abidin and Universiti Teknologi Malaysia (Faculty of Civil Engineering). Text and figures: CC BY-NC-SA 4.0; code: MIT. See the <a href="https://github.com/RazinUTM/My_Lectures/blob/main/SEAA4333-RCD2/LICENSE.md" style="color:inherit" target="_blank" rel="noopener">licence</a>. Progress is stored in this browser only.</span></footer>
 </div>
 
@@ -765,7 +886,289 @@ const S5SHEET = {
  ]
 };
 
-/* ===================== Wind Lab (SEAA 4333 Unit 5): which face, pressures, what matters most, Wind S5 ===================== */
+/* Frame S6: rows written by gen_s6.py from u6data (as submitted and corrected). */
+const S6SHEET = {
+ "rows": [
+  {
+   "ref": "FA10",
+   "calc": [
+    "BS 8110: W<sub>d</sub> = 1.4W<sub>k</sub>, since the wind is the main lateral load",
+    "BS 8110: W<sub>d</sub> = 1.4W<sub>k</sub>, kerana angin ialah lateral load utama"
+   ],
+   "out": "13.51 / 25.93 / 24.28 / 23.77 kN",
+   "slip": true,
+   "fix": [
+    "Load combination 3 (dead, imposed and wind together) takes 1.2 on each: W<sub>d</sub> = 1.2W<sub>k</sub> = 11.58 / 22.22 / 20.81 / 20.38 kN, with 1.2(G<sub>k</sub> + Q<sub>k</sub>) on the beams. 1.4W<sub>k</sub> belongs to combination 2, without the imposed load.",
+    "Load combination 3 (dead, imposed dan angin bersama) mengambil 1.2 bagi setiap satu: W<sub>d</sub> = 1.2W<sub>k</sub> = 11.58 / 22.22 / 20.81 / 20.38 kN, dengan 1.2(G<sub>k</sub> + Q<sub>k</sub>) pada beam. 1.4W<sub>k</sub> milik combination 2, tanpa imposed load."
+   ]
+  },
+  {
+   "ref": "(6.1)",
+   "calc": [
+    "V = ΣW<sub>d</sub> above the cut: above level 1, 13.51 + 25.93 + 24.28; the ground storey, + 23.77",
+    "V = ΣW<sub>d</sub> di atas keratan: di atas aras 1, 13.51 + 25.93 + 24.28; tingkat bawah, + 23.77"
+   ],
+   "out": "63.72 / 87.50 kN",
+   "slip": false,
+   "fix": [
+    "The method is right; the numbers follow line 1. Corrected: 54.62 and 75.00 kN.",
+    "Kaedahnya betul; nombornya mengikut baris 1. Pembetulan: 54.62 dan 75.00 kN."
+   ]
+  },
+  {
+   "ref": "§4",
+   "calc": [
+    "Portal method: three columns, so each carries a third, H = V/3",
+    "Portal method: tiga column, jadi setiap satu membawa satu pertiga, H = V/3"
+   ],
+   "out": "21.24 / 29.17 kN",
+   "slip": true,
+   "fix": [
+    "Each bay takes a share by its span and each column half of each bay beside it: k = 7/30, 15/30, 8/30. Ground storey: H = 17.50 / 37.50 / 20.00 kN; above level 1: 12.74 / 27.31 / 14.57 kN. The interior column takes half the shear, not a third.",
+    "Setiap bay mengambil bahagian mengikut span-nya dan setiap column separuh daripada setiap bay di sebelahnya: k = 7/30, 15/30, 8/30. Tingkat bawah: H = 17.50 / 37.50 / 20.00 kN; di atas aras 1: 12.74 / 27.31 / 14.57 kN. Column dalaman mengambil separuh shear, bukan satu pertiga."
+   ]
+  },
+  {
+   "ref": "(6.4)",
+   "calc": [
+    "M<sub>col</sub> = H × h: above level 1, 21.24 × 3.5; the ground storey, 29.17 × 4.0",
+    "M<sub>col</sub> = H × h: di atas aras 1, 21.24 × 3.5; tingkat bawah, 29.17 × 4.0"
+   ],
+   "out": "74.34 / 116.66 kN m",
+   "slip": true,
+   "fix": [
+    "The point of contraflexure is at mid-height, so each column bends over half its height: M<sub>col</sub> = H h/2. At A: 12.74 × 1.75 = 22.30 above level 1 and 17.50 × 2.0 = 35.00 kN m below; at B: 47.79 and 75.00 kN m.",
+    "Point of contraflexure berada di tengah ketinggian, jadi setiap column melentur sepanjang separuh ketinggiannya: M<sub>col</sub> = H h/2. Di A: 12.74 × 1.75 = 22.30 di atas aras 1 dan 17.50 × 2.0 = 35.00 kN m di bawah; di B: 47.79 dan 75.00 kN m."
+   ]
+  },
+  {
+   "ref": "(6.5)",
+   "calc": [
+    "Joint A at level 1: M<sub>AB</sub> = M<sub>c,above</sub> + M<sub>c,below</sub> = 74.34 + 116.66",
+    "Joint A pada aras 1: M<sub>AB</sub> = M<sub>c,above</sub> + M<sub>c,below</sub> = 74.34 + 116.66"
+   ],
+   "out": "191.00 kN m",
+   "slip": false,
+   "fix": [
+    "The method is right; the numbers follow lines 3 and 4. Corrected: 22.30 + 35.00 = 57.30 kN m.",
+    "Kaedahnya betul; nombornya mengikut baris 3 dan 4. Pembetulan: 22.30 + 35.00 = 57.30 kN m."
+   ]
+  },
+  {
+   "ref": "(6.5)",
+   "calc": [
+    "Joint B: M<sub>BC</sub> = M<sub>c,below</sub> − M<sub>AB</sub> = 116.66 − 191.00",
+    "Joint B: M<sub>BC</sub> = M<sub>c,below</sub> − M<sub>AB</sub> = 116.66 − 191.00"
+   ],
+   "out": "−74.34 kN m",
+   "slip": true,
+   "fix": [
+    "The joint balance takes both columns at B: M<sub>BC</sub> = M<sub>c,above</sub> + M<sub>c,below</sub> − M<sub>AB</sub>. With the sheet’s own numbers that gives 74.34 + 116.66 − 191.00 = 0.00; corrected, 47.79 + 75.00 − 57.30 = 65.49 kN m. A negative beam moment from a joint balance is a warning.",
+    "Keseimbangan joint mengambil kedua-dua column di B: M<sub>BC</sub> = M<sub>c,above</sub> + M<sub>c,below</sub> − M<sub>AB</sub>. Dengan nombor helaian itu sendiri, hasilnya 74.34 + 116.66 − 191.00 = 0.00; pembetulan, 47.79 + 75.00 − 57.30 = 65.49 kN m. Moment beam negatif daripada keseimbangan joint ialah amaran."
+   ]
+  },
+  {
+   "ref": "(6.3)",
+   "calc": [
+    "F = 2M/L: F<sub>AB</sub> = 2 × 191.00/7.0; F<sub>BC</sub> = 2 × (−74.34)/8.0",
+    "F = 2M/L: F<sub>AB</sub> = 2 × 191.00/7.0; F<sub>BC</sub> = 2 × (−74.34)/8.0"
+   ],
+   "out": "54.57 / −18.59 kN",
+   "slip": false,
+   "fix": [
+    "The method is right; the numbers follow lines 5 and 6. Corrected: 16.37 kN in both beams, as the portal method always gives at one level.",
+    "Kaedahnya betul; nombornya mengikut baris 5 dan 6. Pembetulan: 16.37 kN dalam kedua-dua beam, seperti yang sentiasa diberi oleh portal method pada satu aras."
+   ]
+  },
+  {
+   "ref": "check",
+   "calc": [
+    "ΣH = 3 × 29.17 = 87.51 kN = V ✓",
+    "ΣH = 3 × 29.17 = 87.51 kN = V ✓"
+   ],
+   "out": "OK",
+   "slip": false,
+   "fix": [
+    "Right as arithmetic, but this check cannot catch line 3: equal shares add up to V too. The sway-moment check catches line 4: Σ(M<sub>top</sub> + M<sub>bottom</sub>) = 3 × 2 × 116.66 = 699.96 kN m against V h = 87.50 × 4.0 = 350.00 kN m.",
+    "Betul sebagai aritmetik, tetapi semakan ini tidak dapat menangkap baris 3: bahagian sama juga berjumlah V. Semakan sway moment menangkap baris 4: Σ(M<sub>top</sub> + M<sub>bottom</sub>) = 3 × 2 × 116.66 = 699.96 kN m berbanding V h = 87.50 × 4.0 = 350.00 kN m."
+   ]
+  },
+  {
+   "ref": "FA10",
+   "calc": [
+    "Level 1, beam AB at B: M<sub>v</sub> + M<sub>w</sub> = 321.86 + 191.00",
+    "Aras 1, beam AB di B: M<sub>v</sub> + M<sub>w</sub> = 321.86 + 191.00"
+   ],
+   "out": "512.86 kN m",
+   "slip": false,
+   "fix": [
+    "The rule is right; the wind moment follows lines 3 to 5. Corrected: 321.86 + 57.30 = 379.16 kN m.",
+    "Peraturannya betul; moment angin mengikut baris 3 hingga 5. Pembetulan: 321.86 + 57.30 = 379.16 kN m."
+   ]
+  },
+  {
+   "ref": "FA10",
+   "calc": [
+    "Beam AB at A: M<sub>w</sub> − M<sub>v</sub> = 191.00 − 130.22 &gt; 0: a reversal",
+    "Beam AB di A: M<sub>w</sub> − M<sub>v</sub> = 191.00 − 130.22 &gt; 0: reversal"
+   ],
+   "out": "60.78 kN m sagging",
+   "slip": false,
+   "fix": [
+    "The check is right; the reversal comes from the slips. Corrected: 57.30 − 130.22 &lt; 0, so A does not reverse.",
+    "Semakannya betul; reversal itu datang daripada kesilapan. Pembetulan: 57.30 − 130.22 &lt; 0, jadi A tidak mengalami reversal."
+   ]
+  },
+  {
+   "ref": "FA10",
+   "calc": [
+    "Lower column at B: |M<sub>v</sub>| + M<sub>w</sub> = 18.71 + 116.66",
+    "Column bawah di B: |M<sub>v</sub>| + M<sub>w</sub> = 18.71 + 116.66"
+   ],
+   "out": "135.37 kN m",
+   "slip": false,
+   "fix": [
+    "The rule is right; the number follows lines 3 and 4. Corrected: 18.71 + 75.00 = 93.71 kN m.",
+    "Peraturannya betul; nombornya mengikut baris 3 dan 4. Pembetulan: 18.71 + 75.00 = 93.71 kN m."
+   ]
+  }
+ ],
+ "sum": {
+  "okAB": 57.3,
+  "okBC": 65.49,
+  "okFB": 16.37142857142857,
+  "okBB": 379.16,
+  "okCol": 93.71000000000001,
+  "subAB": 191.0,
+  "subBB": 512.86,
+  "subRev": 60.78,
+  "subCol": 135.37,
+  "V4": 74.99608074343125,
+  "H4": [
+   17.499085506800625,
+   37.498040371715625,
+   19.998954864915
+  ],
+  "Mc4": [
+   34.99817101360125,
+   74.99608074343125,
+   39.99790972983
+  ]
+ },
+ "Wk": [
+  9.651446969226562,
+  18.520516444828125,
+  17.344910638453126,
+  16.979859900351567
+ ],
+ "vA": 130.22106363304493,
+ "vB": 321.86216761891075,
+ "vcl": 18.70540216165809
+};
+
+/* Wind Lab, Unit 6: the cantilever and portal methods storey by storey and the course method's combination at one level.
+   A port of u6core.py (cantilever, portal, combine), which is verified value by value against the RC Design app (u3/fr_node.js);
+   this port is checked against u6core by u5/lab/test_wf.js and check_wf.py. Sign conventions as the app: N + = compression
+   (leeward side); beam shears and beam moments as magnitudes; the wind blows from the left. Units: m, kN. */
+const WF = (function () {
+  function frameX(spans) { const x = [0]; spans.forEach(L => x.push(x[x.length - 1] + L)); return x; }
+
+  /* lv: [{name, z, F}] from the roof down, the last entry the ground (z = 0). Storey s lies between level s-1 and level s. */
+  function cantilever(x, lv) {
+    const nc = x.length, nb = nc - 1, m = lv.length - 1;
+    const xbar = x.reduce((a, b) => a + b, 0) / nc;
+    const d = x.map(v => v - xbar);
+    const dmin = Math.min(...d.map(Math.abs).filter(v => v > 1e-9));
+    const r = d.map(v => v / dmin);
+    const sumRd = d.reduce((a, v) => a + v * v / dmin, 0);
+    const Lb = []; for (let j = 0; j < nb; j++) Lb.push(x[j + 1] - x[j]);
+    const st = [];
+    let Nprev = new Array(nc).fill(0), Hprev = new Array(nc).fill(0), hprev = 0;
+    for (let s = 1; s <= m; s++) {
+      const h = lv[s - 1].z - lv[s].z, zcut = lv[s].z + h / 2;
+      let Mo = 0, Ftot = 0; const terms = [];
+      for (let k = 0; k < s; k++) { const arm = lv[k].z - zcut; Mo += lv[k].F * arm; Ftot += lv[k].F; terms.push({F: lv[k].F, arm}); }
+      const P = Mo / sumRd;
+      const N = r.map(ri => Math.abs(ri) * P * Math.sign(ri));
+      const dN = N.map((v, i) => v - Nprev[i]);
+      const Fb = []; let acc = 0;
+      for (let j = 0; j < nb; j++) { acc += dN[j]; Fb.push(-acc); }
+      const H = new Array(nc).fill(0);
+      for (let j = 0; j < nb; j++) {
+        const xF = x[j] + Lb[j] / 2;
+        let rhs = 0; for (let i = 0; i <= j; i++) rhs += -dN[i] * (xF - x[i]);
+        let lhs = 0; for (let i = 0; i < j; i++) lhs += H[i] * h / 2;
+        for (let i = 0; i <= j; i++) lhs += Hprev[i] * hprev / 2;
+        H[j] = (rhs - lhs) / (h / 2);
+      }
+      let sH = 0; for (let i = 0; i < nb; i++) sH += H[i]; H[nc - 1] = Ftot - sH;
+      const Mcol = H.map(v => v * h / 2);
+      const Mbeam = Fb.map((v, j) => Math.abs(v) * Lb[j] / 2);
+      st.push({s, top: lv[s - 1].name, bottom: lv[s].name, h, zcut, Mo, terms, Ftot, P, N, dN, Fb: Fb.map(Math.abs), H, Mcol, Mbeam});
+      Nprev = N; Hprev = H; hprev = h;
+    }
+    return {xbar, d, r, dmin, sumRd, Lb, storeys: st};
+  }
+
+  function portal(x, lv) {
+    const nc = x.length, nb = nc - 1, m = lv.length - 1;
+    const Lb = []; for (let j = 0; j < nb; j++) Lb.push(x[j + 1] - x[j]);
+    const Lsum = Lb.reduce((a, b) => a + b, 0);
+    const k = []; for (let i = 0; i < nc; i++) k.push(((i > 0 ? Lb[i - 1] : 0) + (i < nb ? Lb[i] : 0)) / (2 * Lsum));
+    const st = [];
+    let Nprev = new Array(nc).fill(0), Mprev = new Array(nc).fill(0);
+    for (let s = 1; s <= m; s++) {
+      const h = lv[s - 1].z - lv[s].z, zcut = lv[s].z + h / 2;
+      let Ftot = 0, Mo = 0; const terms = [];
+      for (let q = 0; q < s; q++) { Ftot += lv[q].F; const arm = lv[q].z - zcut; Mo += lv[q].F * arm; terms.push({F: lv[q].F, arm}); }
+      const Vbay = Lb.map(L => Ftot * L / Lsum);
+      const H = k.map(ki => ki * Ftot), Mcol = H.map(v => v * h / 2);
+      const Mbeam = [], Jsteps = []; let mLeft = 0;
+      for (let j = 0; j < nb; j++) { const mr = Mprev[j] + Mcol[j] - mLeft; Jsteps.push({j, above: Mprev[j], below: Mcol[j], left: mLeft, right: mr}); Mbeam.push(mr); mLeft = mr; }
+      const Fb = Mbeam.map((Mj, j) => 2 * Mj / Lb[j]);
+      const dN = []; for (let i = 0; i < nc; i++) dN.push((i > 0 ? Fb[i - 1] : 0) - (i < nb ? Fb[i] : 0));
+      const N = Nprev.map((v, i) => v + dN[i]);
+      st.push({s, top: lv[s - 1].name, bottom: lv[s].name, h, zcut, Mo, terms, Ftot, Vbay, H, Mcol, Mbeam, Jsteps, Fb, dN, N});
+      Nprev = N; Mprev = Mcol;
+    }
+    return {Lb, Lsum, k, storeys: st};
+  }
+
+  /* vert: {sp: [{L, w, hL, hR}], Mcu: [...], Mcl: [...]} (hogging positive at the beam ends; column moments with their signs);
+     res: a cantilever() or portal() result; s: the storey under the level (level 1 = the ground storey, s = m). */
+  function combine(vert, res, s) {
+    const st = res.storeys, n = vert.sp.length;
+    const Mw = st[s - 1].Mbeam, Mcu_w = s >= 2 ? st[s - 2].Mcol : new Array(n + 1).fill(0), Mcl_w = st[s - 1].Mcol;
+    const rows = [], cols = [];
+    vert.sp.forEach((sp, i) => {
+      const {w, L, hL, hR} = sp, VL = w * L / 2 + (hL - hR) / L, mw = Mw[i];
+      let best = -1e18;
+      [1, -1].forEach(sgn => {
+        const cands = [0, L]; const xs = w > 0 ? (VL - sgn * 2 * mw / L) / w : null;
+        if (xs !== null && xs >= 0 && xs <= L) cands.push(xs);
+        cands.forEach(xx => { const M = -hL + VL * xx - w * xx * xx / 2 + sgn * mw * (1 - 2 * xx / L); if (M > best) best = M; });
+      });
+      best = Math.max(0, best);
+      const xv = w > 0 ? Math.min(Math.max(VL / w, 0), L) : L / 2, sag = -hL + VL * xv - w * xv * xv / 2;
+      rows.push({span: i + 1, L, w, VL, hL, hR, sag, mw, cL: hL + mw, cR: hR + mw, cS: best, rL: Math.max(0, mw - hL), rR: Math.max(0, mw - hR)});
+    });
+    for (let j = 0; j <= n; j++) {
+      const vu = Math.abs(vert.Mcu[j]), vl = Math.abs(vert.Mcl[j]), wu = Math.abs(Mcu_w[j]), wl = Math.abs(Mcl_w[j]);
+      cols.push({j, vu, vl, wu, wl, cu: vu + wu, cl: vl + wl});
+    }
+    return {rows, cols};
+  }
+
+  /* the moment along span i with the wind from the left (dir = 1) or the right (dir = -1), sagging positive */
+  function spanM(row, xx, dir) { return -row.hL + row.VL * xx - row.w * xx * xx / 2 + dir * row.mw * (1 - 2 * xx / row.L); }
+
+  return {frameX, cantilever, portal, combine, spanM};
+})();
+
+/* Wind Lab, Unit 6: case data written by gen_wf.py from u6data. */
+const WFDATA = {"lat": {"we61": {"en": "Frame ABCD, Worked Example 6.1 (the wind of WE 5.1 × 1.2)", "ms": "Frame ABCD, Worked Example 6.1 (angin WE 5.1 × 1.2)", "spans": [6.0, 6.0, 6.0], "levels": [{"name": "Roof", "k": null, "z": 25.0, "F": 13.95550938354676}, {"name": "Level 6", "k": 6, "z": 21.5, "F": 27.17536557396738}, {"name": "Level 5", "k": 5, "z": 18.0, "F": 26.18593311359296}, {"name": "Level 4", "k": 4, "z": 14.5, "F": 25.000388534958685}, {"name": "Level 3", "k": 3, "z": 11.0, "F": 23.677056162540033}, {"name": "Level 2", "k": 2, "z": 7.5, "F": 22.12787448107262}, {"name": "Level 1", "k": 1, "z": 4.0, "F": 22.50361521775202}, {"name": "Ground", "k": null, "z": 0.0, "F": 0.0}]}, "notes": {"en": "Frame ABCD, the notes’ Example 6 (its printed forces)", "ms": "Frame ABCD, Contoh 6 nota (daya yang dicetak)", "spans": [6.0, 6.0, 6.0], "levels": [{"name": "Roof", "k": null, "z": 25.0, "F": 11.3}, {"name": "Level 6", "k": 6, "z": 21.5, "F": 21.8}, {"name": "Level 5", "k": 5, "z": 18.0, "F": 20.8}, {"name": "Level 4", "k": 4, "z": 14.5, "F": 19.8}, {"name": "Level 3", "k": 3, "z": 11.0, "F": 18.3}, {"name": "Level 2", "k": 2, "z": 7.5, "F": 16.7}, {"name": "Level 1", "k": 1, "z": 4.0, "F": 16.7}, {"name": "Ground", "k": null, "z": 0.0, "F": 0.0}]}, "fe62": {"en": "Faded Example 6.2, low-rise frame (6, 5 and 8 m)", "ms": "Faded Example 6.2, frame rendah (6, 5 dan 8 m)", "spans": [6.0, 5.0, 8.0], "levels": [{"name": "Roof", "k": null, "z": 11.0, "F": 6.749207668534885}, {"name": "Level 2", "k": 2, "z": 7.5, "F": 12.504089472056693}, {"name": "Level 1", "k": 1, "z": 4.0, "F": 12.623936647440276}, {"name": "Ground", "k": null, "z": 0.0, "F": 0.0}]}, "s6": {"en": "Frame S6, corrected (the frame line of Wind S5)", "ms": "Frame S6, dibetulkan (frame line Wind S5)", "spans": [7.0, 8.0], "levels": [{"name": "Roof", "k": null, "z": 14.5, "F": 11.581736363071874}, {"name": "Level 3", "k": 3, "z": 11.0, "F": 22.224619733793748}, {"name": "Level 2", "k": 2, "z": 7.5, "F": 20.81389276614375}, {"name": "Level 1", "k": 1, "z": 4.0, "F": 20.37583188042188}, {"name": "Ground", "k": null, "z": 0.0, "F": 0.0}]}}, "comb": {"we61": {"en": "Frame ABCD at level 1 (course method, FA10)", "ms": "Frame ABCD pada aras 1 (course method, FA10)", "lat": "we61", "method": "cant", "vert": {"sp": [{"L": 6, "w": 48.74699999999999, "hL": 82.16635453042822, "hR": 165.60973123079023}, {"L": 6, "w": 46.125, "hL": 146.9133867106072, "hR": 146.9133867106072}, {"L": 6, "w": 48.74699999999999, "hL": 165.60973123079023, "hR": 82.16635453042822}], "Mcu": [43.822055749561734, -9.971383744097622, 9.971383744097622, -43.822055749561734], "Mcl": [38.34429878086652, -8.724960776085421, 8.724960776085421, -38.34429878086652]}}, "notes": {"en": "Frame ABCD, the notes’ wind (FA10a)", "ms": "Frame ABCD, angin nota (FA10a)", "lat": null, "levels": [{"name": "Roof", "k": null, "z": 25.0, "F": 11.271757579018535}, {"name": "Level 6", "k": 6, "z": 21.5, "F": 21.80786196491094}, {"name": "Level 5", "k": 5, "z": 18.0, "F": 20.81842950453651}, {"name": "Level 4", "k": 4, "z": 14.5, "F": 19.632884925902236}, {"name": "Level 3", "k": 3, "z": 11.0, "F": 18.30955255348359}, {"name": "Level 2", "k": 2, "z": 7.5, "F": 16.760370872016175}, {"name": "Level 1", "k": 1, "z": 4.0, "F": 16.752718493762973}, {"name": "Ground", "k": null, "z": 0.0, "F": 0.0}], "spans": [6.0, 6.0, 6.0], "method": "cant", "vert": {"sp": [{"L": 6, "w": 48.74699999999999, "hL": 82.16635453042822, "hR": 165.60973123079023}, {"L": 6, "w": 46.125, "hL": 146.9133867106072, "hR": 146.9133867106072}, {"L": 6, "w": 48.74699999999999, "hL": 165.60973123079023, "hR": 82.16635453042822}], "Mcu": [43.822055749561734, -9.971383744097622, 9.971383744097622, -43.822055749561734], "Mcl": [38.34429878086652, -8.724960776085421, 8.724960776085421, -38.34429878086652]}}, "s6": {"en": "Frame S6 at level 1, corrected (portal method)", "ms": "Frame S6 pada aras 1, dibetulkan (portal method)", "lat": "s6", "method": "port", "vert": {"sp": [{"L": 7.0, "w": 59.463, "hL": 130.22106363304493, "hR": 321.86216761891075}, {"L": 8.0, "w": 60.374999999999986, "hL": 361.9451722510353, "hR": 202.29756381095842}], "Mcu": [69.45123393762397, 21.37760247046639, -107.89203403251115], "Mcl": [60.76982969542097, 18.70540216165809, -94.40552977844726]}}}};
+
+/* ===================== Wind Lab (SEAA 4333 Unit 5): which face, pressures, what matters most (tab 4 in wl_err.js, Unit 6 tabs and the shell hooks in wl6_script.js) ===================== */
 function css(v, d){ const s = getComputedStyle(root).getPropertyValue(v).trim(); return s || d; }
 function PAL(){ return {s1: css('--s1', '#2463c4'), s2: css('--s2', '#b8481a'), s3: css('--s3', '#167a55'), ink: css('--ink', '#1d1c19'), ink2: css('--ink-2', '#47443d'), ink3: css('--ink-3', '#7a766b'), rule: css('--rule', '#d3cfc6'), surf: css('--surface-2', '#ece9e1')}; }
 function clear(svg){ while (svg.firstChild) svg.removeChild(svg.firstChild); }
@@ -947,15 +1350,41 @@ el('sSubmit').addEventListener('click', () => {
 });
 el('sReset').addEventListener('click', () => { sState.rank = {}; sState.dir = {}; sState.submitted = false; sState.shown = {}; store('seaa4333-wind-sens', sState); el('sOut').hidden = true; drawSens(); });
 
-/* ---------------- tab 4: Wind S5 ---------------- */
-const S5KEY = 'seaa4333-wind-s5', S5IN = {proc: 'anal', Vs: 32.5, icat: 2, tcat: 2, n: 4, hg: 4.0, ht: 3.5, bw: 36, dw: 15, na: 1.6, Lw1: 6, Lw2: 6};
-const eState = {flag: new Set(recall(S5KEY, []) || []), checked: false, fixed: false};
+
+/* ---------------- tab 4: spot the error, two sheets: Wind S5 (Unit 5) and Frame S6 (Unit 6) ---------------- */
+const S5KEY = 'seaa4333-wind-s5', S6KEY = 'seaa4333-wind-s6', SHKEY = 'seaa4333-wind-sheet';
+const S5IN = {proc: 'anal', Vs: 32.5, icat: 2, tcat: 2, n: 4, hg: 4.0, ht: 3.5, bw: 36, dw: 15, na: 1.6, Lw1: 6, Lw2: 6};
 const S5GIVEN = [['Building', 'Bangunan', 'A four-storey office, plan 36 m × 15 m, flat roof at 14.5 m', 'Pejabat empat tingkat, pelan 36 m × 15 m, bumbung rata pada 14.5 m'],
                  ['Frames', 'Frame', 'Span the 15 m width at 6 m centres', 'Merentang lebar 15 m pada pusat 6 m'],
                  ['Wind', 'Angin', 'Onto the 36 m face', 'Ke atas muka 36 m'],
                  ['Site', 'Tapak', 'Zone II (V<sub>s</sub> = 32.5 m/s), terrain category 2, level ground', 'Zone II (V<sub>s</sub> = 32.5 m/s), terrain category 2, tanah rata'],
                  ['Frequency', 'Frekuensi', 'n<sub>a</sub> = 1.6 Hz', 'n<sub>a</sub> = 1.6 Hz'],
                  ['Storeys', 'Tingkat', '4.0 m, then 3 × 3.5 m', '4.0 m, kemudian 3 × 3.5 m']];
+const S6GIVEN = [['Frame', 'Frame', 'The frame line of Wind S5: columns A, B, C; spans 7.0 m and 8.0 m; frames at 6 m centres', 'Frame line Wind S5: column A, B, C; span 7.0 m dan 8.0 m; frame pada pusat 6 m'],
+                 ['Storeys', 'Tingkat', '4.0 m, then 3 × 3.5 m; level 1 at 4.0 m', '4.0 m, kemudian 3 × 3.5 m; aras 1 pada 4.0 m'],
+                 ['W<sub>k</sub>', 'W<sub>k</sub>', () => 'Wind S5 corrected: ' + S6SHEET.Wk.map(v => f(v, 2)).join(', ') + ' kN (roof, levels 3, 2, 1)', () => 'Wind S5 dibetulkan: ' + S6SHEET.Wk.map(v => f(v, 2)).join(', ') + ' kN (bumbung, aras 3, 2, 1)'],
+                 ['Method', 'Kaedah', 'Portal method; BS 8110 load combination 3', 'Portal method; BS 8110 load combination 3'],
+                 ['Vertical', 'Menegak', () => `Level 1, 1.2(G<sub>k</sub> + Q<sub>k</sub>): AB hogging ${f(S6SHEET.vA, 2)} at A, ${f(S6SHEET.vB, 2)} at B; lower column at B ${f(Math.abs(S6SHEET.vcl), 2)} kN m`,
+                  () => `Aras 1, 1.2(G<sub>k</sub> + Q<sub>k</sub>): AB hogging ${f(S6SHEET.vA, 2)} di A, ${f(S6SHEET.vB, 2)} di B; column bawah di B ${f(Math.abs(S6SHEET.vcl), 2)} kN m`]];
+const SHEETS = {
+  s5: {key: S5KEY, ms: 's5', rows: () => S5SHEET.rows, given: S5GIVEN, fig: () => drawS5Fig(),
+       title: ['Wind S5: four slips', 'Wind S5: empat kesilapan'],
+       lede: ['A student’s wind calculation for one frame of a four-storey office. Twelve lines, four slips; the other lines are right or only carry an earlier slip forward.',
+              'Pengiraan angin seorang pelajar bagi satu frame pejabat empat tingkat. Dua belas baris, empat kesilapan; baris lain sama ada betul atau hanya membawa kesilapan terdahulu ke hadapan.'],
+       tag: ['Spot the error · teams · 12 min · Workbook 5.6', 'Cari kesilapan · pasukan · 12 min · Workbook 5.6'],
+       roles: ['Roles: the reader reads each line aloud; the calculator rechecks the arithmetic; the checker draws the plan and the wind arrow first; the reporter logs the line and the reason in Workbook 5.6. Then tap those lines here and press <i>Check</i>.',
+               'Peranan: pembaca membaca setiap baris dengan kuat; pengira menyemak semula aritmetik; penyemak melukis pelan dan anak panah angin dahulu; pelapor mencatat baris dan sebabnya dalam Workbook 5.6. Kemudian ketik baris itu di sini dan tekan <i>Semak</i>.'],
+       aria: ['Wind S5 calculation sheet', 'Helaian pengiraan Wind S5']},
+  s6: {key: S6KEY, ms: 's6', rows: () => S6SHEET.rows, given: S6GIVEN, fig: () => drawS6Fig(),
+       title: ['Frame S6: four slips', 'Frame S6: empat kesilapan'],
+       lede: ['A student’s portal analysis of the frame line of Wind S5 and its combination at level 1. Eleven lines, four slips; the other lines are right or only carry an earlier slip forward.',
+              'Analisis portal seorang pelajar bagi frame line Wind S5 dan gabungannya pada aras 1. Sebelas baris, empat kesilapan; baris lain sama ada betul atau hanya membawa kesilapan terdahulu ke hadapan.'],
+       tag: ['Spot the error · teams · 12 min · Workbook 6.6', 'Cari kesilapan · pasukan · 12 min · Workbook 6.6'],
+       roles: ['Roles: the reader reads each line aloud; the calculator rechecks the arithmetic; the checker tests every storey’s equilibrium (ΣH = V, the sway moment, each joint); the reporter logs the line and the reason in Workbook 6.6. Then tap those lines here and press <i>Check</i>.',
+               'Peranan: pembaca membaca setiap baris dengan kuat; pengira menyemak semula aritmetik; penyemak menguji keseimbangan setiap tingkat (ΣH = V, sway moment, setiap joint); pelapor mencatat baris dan sebabnya dalam Workbook 6.6. Kemudian ketik baris itu di sini dan tekan <i>Semak</i>.'],
+       aria: ['Frame S6 calculation sheet', 'Helaian pengiraan Frame S6']}};
+const eStates = {s5: {flag: new Set(recall(S5KEY, []) || []), checked: false, fixed: false}, s6: {flag: new Set(recall(S6KEY, []) || []), checked: false, fixed: false}};
+let eWhich = recall(SHKEY, 's5') === 's6' ? 's6' : 's5';
 function drawS5Fig(){
   const box = el('eFig'); box.innerHTML = ''; const P = PAL();
   const svg = S('svg', {class: 'fig', viewBox: '0 0 620 300', role: 'img', 'aria-label': Lg('Wind S5 on plan: 36 m by 15 m, seven frames spanning the 15 m width at 6 m centres, the wind onto the 36 m face; and in elevation four storeys, 4.0 m then three of 3.5 m, to a flat roof at 14.5 m.', 'Wind S5 pada pelan: 36 m kali 15 m, tujuh frame merentang lebar 15 m pada pusat 6 m, angin ke atas muka 36 m; dan pada elevation empat tingkat, 4.0 m kemudian tiga tingkat 3.5 m, hingga bumbung rata pada 14.5 m.')}, box);
@@ -973,10 +1402,27 @@ function drawS5Fig(){
   S('rect', {x: ex - 22, y: eb, width: 44, height: 8, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
   T(svg, ex, eb - 14.5 * s2 - 10, Lg('elevation · 14.5 m', 'elevation · 14.5 m'), {'text-anchor': 'middle', class: 'small'});
 }
+function drawS6Fig(){
+  const box = el('eFig'); box.innerHTML = ''; const P = PAL();
+  const svg = S('svg', {class: 'fig', viewBox: '0 0 620 300', role: 'img', 'aria-label': Lg('Frame S6 in elevation: columns A, B and C, spans 7.0 and 8.0 m, four storeys of 4.0 m then three of 3.5 m, the characteristic wind forces of Wind S5 at the roof and levels 3, 2 and 1.', 'Frame S6 pada elevation: column A, B dan C, span 7.0 dan 8.0 m, empat tingkat 4.0 m kemudian tiga tingkat 3.5 m, daya angin ciri Wind S5 di bumbung dan aras 3, 2 dan 1.')}, box);
+  svg.style.minWidth = '320px';
+  const sx = 26, sz = 15, x0 = 190, yb = 262, xs = [0, 7, 15], zs = [4.0, 7.5, 11.0, 14.5];
+  xs.forEach((x, i) => { S('line', {x1: x0 + x * sx, x2: x0 + x * sx, y1: yb, y2: yb - 14.5 * sz, stroke: P.ink, 'stroke-width': 3}, svg); S('rect', {x: x0 + x * sx - 14, y: yb, width: 28, height: 7, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg); T(svg, x0 + x * sx, yb - 14.5 * sz - 8, 'ABC'[i], {'text-anchor': 'middle', 'font-weight': 700}); });
+  zs.forEach(z => S('line', {x1: x0, x2: x0 + 15 * sx, y1: yb - z * sz, y2: yb - z * sz, stroke: P.ink, 'stroke-width': 3}, svg));
+  const names = [Lg('Level 1', 'Aras 1'), Lg('Level 2', 'Aras 2'), Lg('Level 3', 'Aras 3'), Lg('Roof', 'Bumbung')], Wk = S6SHEET.Wk.slice().reverse();
+  zs.forEach((z, i) => { const y = yb - z * sz; arrowLine(svg, x0 - 70, y, x0 - 4, y, P.s1, 2.6); T(svg, x0 - 76, y + 4, f(Wk[i], 2), {'text-anchor': 'end', fill: P.s1, 'font-weight': 700, class: 'small'}); T(svg, x0 + 15 * sx + 10, y + 4, names[i], {class: 'small'}); });
+  const tw = T(svg, x0 - 76, yb - 14.5 * sz - 24, 'W', {'text-anchor': 'end', fill: P.s1, class: 'small'});
+  S('tspan', {'baseline-shift': 'sub', 'font-size': 9}, tw).textContent = 'k'; S('tspan', {}, tw).textContent = ' (kN)';
+  T(svg, x0 + 3.5 * sx, yb + 26, '7.0 m', {'text-anchor': 'middle', class: 'small'}); T(svg, x0 + 11 * sx, yb + 26, '8.0 m', {'text-anchor': 'middle', class: 'small'});
+}
 function drawSheet(){
-  const rows = S5SHEET.rows, st = eState, ok = WM.wind(S5IN);
-  el('eGiven').innerHTML = S5GIVEN.map(g => `<dt>${Lg(g[0], g[1])}</dt><dd>${Lg(g[2], g[3])}</dd>`).join('');
-  drawS5Fig();
+  const SH = SHEETS[eWhich], rows = SH.rows(), st = eStates[eWhich];
+  setSeg(el('eWhich'), eWhich);
+  el('eTitle').innerHTML = Lg(SH.title[0], SH.title[1]); el('eLede').innerHTML = Lg(SH.lede[0], SH.lede[1]);
+  el('eTag').innerHTML = Lg(SH.tag[0], SH.tag[1]); el('eRoles').innerHTML = Lg(SH.roles[0], SH.roles[1]);
+  el('eSheet').setAttribute('aria-label', Lg(SH.aria[0], SH.aria[1]));
+  el('eGiven').innerHTML = SH.given.map(g => `<dt>${Lg(g[0], g[1])}</dt><dd>${typeof g[2] === 'function' ? Lg(g[2](), g[3]()) : Lg(g[2], g[3])}</dd>`).join('');
+  SH.fig();
   let html = `<thead><tr><th>${Lg('Line', 'Baris')}</th><th>Ref</th><th>${Lg('Calculation', 'Pengiraan')}</th><th>Output</th></tr></thead><tbody>`;
   rows.forEach((r, i) => {
     const n = i + 1, fl = st.flag.has(n);
@@ -988,7 +1434,7 @@ function drawSheet(){
   });
   const t = el('eSheet'); t.innerHTML = html + '</tbody>';
   t.querySelectorAll('tbody tr').forEach(tr => {
-    const tog = () => { const n = +tr.dataset.n; if (st.flag.has(n)) st.flag.delete(n); else st.flag.add(n); store(S5KEY, [...st.flag]); st.checked = false; drawSheet(); };
+    const tog = () => { const n = +tr.dataset.n; if (st.flag.has(n)) st.flag.delete(n); else st.flag.add(n); store(SH.key, [...st.flag]); st.checked = false; drawSheet(); };
     tr.addEventListener('click', tog); tr.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); tog(); } });
   });
   const hits = rows.filter((r, i) => r.slip && st.flag.has(i + 1)).length, fls = rows.filter((r, i) => !r.slip && st.flag.has(i + 1)).length;
@@ -996,14 +1442,287 @@ function drawSheet(){
   const sum = el('eSummary');
   if (st.fixed || (st.checked && hits === 4)){
     sum.hidden = false;
-    const low = 100 * (1 - 33.05 / ok.Wtot);
-    sum.innerHTML = Lg(`<b>The four slips.</b> Line 3: an office is importance category II, I = 1.0. Line 5: b and d swapped; the frames carry the wind on the 36 m face, so d/b = 15/36 = 0.42 and C<sub>p,e,L</sub> = −0.5. Line 8: net = p<sub>W</sub> − p<sub>L</sub>; the leeward suction pulls the same way as the windward push. Line 10: the roof takes half a storey, h<sub>trib</sub> = 1.75 m. Lines 6, 7, 11 and 12 carry the slips forward. Corrected: ΣW<sub>k</sub> = ${f(ok.Wtot, 2)} kN with p<sub>avg</sub> = ${f(ok.pavg, 3)} kN/m², so the minimum does not govern. The sheet’s 52.14 kN looks close only because the 2.4.2 minimum raised its 33.05 kN, ${f(low, 0)} % low. Professional Habit 5, drawing the plan and the wind arrow first, catches lines 5, 8 and 10 before any number.`,
-                       `<b>Empat kesilapan.</b> Baris 3: pejabat ialah importance category II, I = 1.0. Baris 5: b dan d tertukar; frame menanggung angin pada muka 36 m, jadi d/b = 15/36 = 0.42 dan C<sub>p,e,L</sub> = −0.5. Baris 8: net = p<sub>W</sub> − p<sub>L</sub>; suction leeward menarik pada arah yang sama dengan tolakan windward. Baris 10: bumbung mengambil separuh tingkat, h<sub>trib</sub> = 1.75 m. Baris 6, 7, 11 dan 12 membawa kesilapan ke hadapan. Pembetulan: ΣW<sub>k</sub> = ${f(ok.Wtot, 2)} kN dengan p<sub>avg</sub> = ${f(ok.pavg, 3)} kN/m², jadi minimum tidak menguasai. Nilai 52.14 kN dalam helaian kelihatan hampir hanya kerana minimum 2.4.2 menaikkan 33.05 kN, ${f(low, 0)} % rendah. Professional Habit 5, melukis pelan dan anak panah angin dahulu, menangkap baris 5, 8 dan 10 sebelum sebarang nombor.`);
+    if (eWhich === 's5'){
+      const ok = WM.wind(S5IN), low = 100 * (1 - 33.05 / ok.Wtot);
+      sum.innerHTML = Lg(`<b>The four slips.</b> Line 3: an office is importance category II, I = 1.0. Line 5: b and d swapped; the frames carry the wind on the 36 m face, so d/b = 15/36 = 0.42 and C<sub>p,e,L</sub> = −0.5. Line 8: net = p<sub>W</sub> − p<sub>L</sub>; the leeward suction pulls the same way as the windward push. Line 10: the roof takes half a storey, h<sub>trib</sub> = 1.75 m. Lines 6, 7, 11 and 12 carry the slips forward. Corrected: ΣW<sub>k</sub> = ${f(ok.Wtot, 2)} kN with p<sub>avg</sub> = ${f(ok.pavg, 3)} kN/m², so the minimum does not govern. The sheet’s 52.14 kN looks close only because the 2.4.2 minimum raised its 33.05 kN, ${f(low, 0)} % low. Professional Habit 5, drawing the plan and the wind arrow first, catches lines 5, 8 and 10 before any number.`,
+                         `<b>Empat kesilapan.</b> Baris 3: pejabat ialah importance category II, I = 1.0. Baris 5: b dan d tertukar; frame menanggung angin pada muka 36 m, jadi d/b = 15/36 = 0.42 dan C<sub>p,e,L</sub> = −0.5. Baris 8: net = p<sub>W</sub> − p<sub>L</sub>; suction leeward menarik pada arah yang sama dengan tolakan windward. Baris 10: bumbung mengambil separuh tingkat, h<sub>trib</sub> = 1.75 m. Baris 6, 7, 11 dan 12 membawa kesilapan ke hadapan. Pembetulan: ΣW<sub>k</sub> = ${f(ok.Wtot, 2)} kN dengan p<sub>avg</sub> = ${f(ok.pavg, 3)} kN/m², jadi minimum tidak menguasai. Nilai 52.14 kN dalam helaian kelihatan hampir hanya kerana minimum 2.4.2 menaikkan 33.05 kN, ${f(low, 0)} % rendah. Professional Habit 5, melukis pelan dan anak panah angin dahulu, menangkap baris 5, 8 dan 10 sebelum sebarang nombor.`);
+    } else {
+      const s = S6SHEET.sum;
+      sum.innerHTML = Lg(`<b>The four slips.</b> Line 1: combination 3 takes 1.2W<sub>k</sub> with 1.2(G<sub>k</sub> + Q<sub>k</sub>). Line 3: the portal method shares the storey shear by the spans, k = 7/30, 15/30, 8/30, so the interior column takes half. Line 4: the point of contraflexure is at mid-height, M<sub>col</sub> = H h/2. Line 6: joint B forgets the column above. Lines 2, 5, 7, 9, 10 and 11 carry the slips forward; line 8 is right but checks only ΣH, which equal shares pass. Corrected: beam AB at level 1 carries ${f(s.okAB, 2)} kN m, not ${f(s.subAB, 2)}; AB at B ${f(s.okBB, 2)} kN m, not ${f(s.subBB, 2)}; A does not reverse; the lower column at B ${f(s.okCol, 2)} kN m, not ${f(s.subCol, 2)}. Professional Habit 6 catches lines 4 and 6: the sway moment of the storey and the balance at joint B fail.`,
+                         `<b>Empat kesilapan.</b> Baris 1: combination 3 mengambil 1.2W<sub>k</sub> dengan 1.2(G<sub>k</sub> + Q<sub>k</sub>). Baris 3: portal method membahagikan storey shear mengikut span, k = 7/30, 15/30, 8/30, jadi column dalaman mengambil separuh. Baris 4: point of contraflexure berada di tengah ketinggian, M<sub>col</sub> = H h/2. Baris 6: joint B melupakan column di atas. Baris 2, 5, 7, 9, 10 dan 11 membawa kesilapan ke hadapan; baris 8 betul tetapi hanya menyemak ΣH, yang turut dilepasi oleh bahagian sama. Pembetulan: beam AB pada aras 1 membawa ${f(s.okAB, 2)} kN m, bukan ${f(s.subAB, 2)}; AB di B ${f(s.okBB, 2)} kN m, bukan ${f(s.subBB, 2)}; A tidak mengalami reversal; column bawah di B ${f(s.okCol, 2)} kN m, bukan ${f(s.subCol, 2)}. Professional Habit 6 menangkap baris 4 dan 6: sway moment tingkat dan keseimbangan di joint B gagal.`);
+    }
   } else sum.hidden = true;
 }
-el('eCheck').addEventListener('click', () => { const rows = S5SHEET.rows; eState.checked = true; const hits = rows.filter((r, i) => r.slip && eState.flag.has(i + 1)).length; if (hits === 4 && !eState.fixed) milestone('s5'); drawSheet(); });
-el('eFix').addEventListener('click', () => { eState.fixed = true; drawSheet(); });
-el('eReset').addEventListener('click', () => { eState.flag = new Set(); store(S5KEY, []); eState.checked = false; eState.fixed = false; drawSheet(); });
+segGroup(el('eWhich'), v => { eWhich = v === 's6' ? 's6' : 's5'; store(SHKEY, eWhich); drawSheet(); });
+el('eCheck').addEventListener('click', () => { const SH = SHEETS[eWhich], st = eStates[eWhich], rows = SH.rows(); st.checked = true; const hits = rows.filter((r, i) => r.slip && st.flag.has(i + 1)).length; if (hits === 4 && !st.fixed) milestone(SH.ms); drawSheet(); });
+el('eFix').addEventListener('click', () => { eStates[eWhich].fixed = true; drawSheet(); });
+el('eReset').addEventListener('click', () => { const st = eStates[eWhich]; st.flag = new Set(); store(SHEETS[eWhich].key, []); st.checked = false; st.fixed = false; drawSheet(); });
+
+/* ===================== Wind Lab, Unit 6: portal or cantilever (tab 5) and wind plus gravity (tab 6) ===================== */
+const LATKEY = 'seaa4333-wind-lat', COMBKEY = 'seaa4333-wind-comb';
+const lState = Object.assign({own: {spans: '6, 6, 6', hg: 4, ht: 3.5, F: '10, 20, 20, 20'}, seen: {}, pred: {}, storey: {}}, recall(LATKEY, {}) || {});
+const cState = Object.assign({own: {}, pred: {}, seen: {}}, recall(COMBKEY, {}) || {});
+function saveL(){ store(LATKEY, lState); }
+function saveC(){ store(COMBKEY, cState); }
+const COLN = i => String.fromCharCode(65 + i);
+const beamName = j => COLN(j) + COLN(j + 1);
+function parseList(s){ return String(s || '').split(/[,;\s]+/).filter(t => t !== '').map(t => parseFloat(t.replace('−', '-'))); }
+function lvN(l){ return l.name === 'Ground' ? Lg('ground', 'tanah') : lvName(l); }
+function near(v, t){ return isFinite(v) && Math.abs(v - t) <= Math.max(0.02 * Math.abs(t), 0.05); }
+function verdict(node, ok, html){ node.hidden = false; node.className = 'verdict ' + (ok ? 'ok' : 'bad'); node.innerHTML = html; }
+
+/* ---------------- tab 5: portal or cantilever ---------------- */
+function latFrame(){
+  const v = el('lCase').value || 'we61';
+  if (v !== 'own'){ const c = WFDATA.lat[v]; return {key: v, spans: c.spans, levels: c.levels, own: false}; }
+  const o = lState.own, spans = parseList(o.spans), F = parseList(o.F), hg = +o.hg, ht = +o.ht;
+  let err = '';
+  if (!(spans.length >= 1 && spans.length <= 5 && spans.every(L => isFinite(L) && L >= 2 && L <= 15))) err = Lg('Spans: 1 to 5 values, each 2–15 m.', 'Span: 1 hingga 5 nilai, setiap satu 2–15 m.');
+  else if (!(F.length >= 1 && F.length <= 10 && F.every(x => isFinite(x) && x >= 0 && x <= 500))) err = Lg('Forces: 1 to 10 values from the roof down, each 0–500 kN.', 'Daya: 1 hingga 10 nilai dari bumbung ke bawah, setiap satu 0–500 kN.');
+  else if (!(hg >= 2 && hg <= 8 && ht >= 2 && ht <= 8)) err = Lg('Storey heights: 2–8 m.', 'Ketinggian tingkat: 2–8 m.');
+  if (err) return {key: 'own-bad', err, spans: WFDATA.lat.we61.spans, levels: WFDATA.lat.we61.levels, own: true};
+  const n = F.length, levels = [];
+  for (let i = 0; i < n; i++){ const k = n - i; levels.push({name: i === 0 ? 'Roof' : 'Level ' + k, k: i === 0 ? null : k, z: hg + (k - 1) * ht, F: F[i]}); }
+  levels.push({name: 'Ground', k: null, z: 0, F: 0});
+  return {key: 'own:' + spans.join('/') + ':' + hg + '/' + ht + ':' + F.join('/'), spans, levels, own: true};
+}
+function latAll(){
+  const fr = latFrame(), x = WF.frameX(fr.spans);
+  return Object.assign(fr, {x, cant: WF.cantilever(x, fr.levels), port: WF.portal(x, fr.levels), m: fr.levels.length - 1});
+}
+function latStorey(A){
+  const sel = el('lStorey'); const keep = +(lState.storey[A.key] || A.m);
+  const opts = A.cant.storeys.map(st => `<option value="${st.s}">${Lg('Storey ', 'Tingkat ')}${st.s}: ${lvN(A.levels[st.s - 1])} – ${lvN(A.levels[st.s])}${st.s === A.m ? Lg(' (ground storey)', ' (tingkat bawah)') : ''}</option>`).join('');
+  if (sel.dataset.k !== A.key + LANG){ sel.innerHTML = opts; sel.dataset.k = A.key + LANG; }
+  const s = keep >= 1 && keep <= A.m ? keep : A.m; sel.value = String(s); return s;
+}
+function latTurnSpec(meth, A, st){
+  const nb = A.spans.length;
+  return meth === 'cant'
+    ? [['N<sub>A</sub> (' + Lg('tension', 'tegangan') + ')', 'kN', -st.N[0]], ['H<sub>A</sub>', 'kN', st.H[0]], ['M<sub>AB</sub>', 'kN m', st.Mbeam[0]]]
+    : [['H<sub>A</sub>', 'kN', st.H[0]], ['H<sub>B</sub>', 'kN', st.H[Math.min(1, nb)]], ['M<sub>AB</sub>', 'kN m', st.Mbeam[0]]];
+}
+function drawLat(){
+  const A = latAll(), P = PAL(), meth = segVal(el('lMeth')) || 'cant';
+  el('lOwn').hidden = !A.own;
+  el('lOwnNote').innerHTML = A.err ? `<b>${A.err}</b>` : (A.own ? Lg('Type the spans, the storey heights and W<sub>d</sub> at each level from the roof down; tab 6 uses this frame for your own level.', 'Taip span, ketinggian tingkat dan W<sub>d</sub> pada setiap aras dari bumbung ke bawah; tab 6 menggunakan frame ini bagi aras anda sendiri.') : '');
+  const s = latStorey(A), stC = A.cant.storeys[s - 1], stP = A.port.storeys[s - 1], st = meth === 'cant' ? stC : stP;
+  const key = `${A.key}:${s}:${meth}`, seen = !!lState.seen[key], nb = A.spans.length, nc = nb + 1;
+  /* your turn */
+  const spec = latTurnSpec(meth, A, st);
+  el('lTurnTxt').innerHTML = meth === 'cant'
+    ? Lg(`By the cantilever method, find for storey ${s} the axial force in column A, the shear in column A at the cut, and the moment in beam AB at the top of the storey (${lvN(A.levels[s - 1])}).`, `Dengan cantilever method, cari bagi tingkat ${s} axial force dalam column A, shear dalam column A pada keratan, dan moment dalam beam AB di atas tingkat itu (${lvN(A.levels[s - 1])}).`)
+    : Lg(`By the portal method, find for storey ${s} the shears in columns A and B, and the moment in beam AB at the top of the storey (${lvN(A.levels[s - 1])}).`, `Dengan portal method, cari bagi tingkat ${s} shear dalam column A dan B, dan moment dalam beam AB di atas tingkat itu (${lvN(A.levels[s - 1])}).`);
+  const fl = el('lFields');
+  if (fl.dataset.k !== key + LANG){ fl.dataset.k = key + LANG; fl.innerHTML = spec.map((sp, i) => `<label for="lIn${i}">${sp[0]}</label><input type="number" id="lIn${i}" step="0.01"><span class="u">${sp[1]}</span>`).join(''); el('lOut').hidden = true; }
+  /* constants of the storey */
+  const items = [['V', f(st.Ftot, 2) + ' kN'], ['M<sub>o</sub>', f(st.Mo, 2) + ' kN m'], ['z<sub>cut</sub>', f(st.zcut, 2) + ' m']];
+  if (meth === 'cant') items.push(['<span style="text-decoration:overline">x</span>', f(A.cant.xbar, 3) + ' m'], ['Σ|r||d|', f(A.cant.sumRd, 3) + ' m']);
+  else items.push(['ΣL', f(A.port.Lsum, 2) + ' m'], ['h', f(st.h, 2) + ' m']);
+  el('lKV').innerHTML = kvHTML(items);
+  /* table */
+  const T5 = el('lTable');
+  if (seen){
+    let h = `<tr><th>${Lg('Column', 'Column')}</th>${meth === 'cant' ? `<th class="out">N (kN)</th>` : '<th class="out">N (kN)</th>'}<th class="out">H (kN)</th><th class="out">M<sub>col</sub> (kN m)</th></tr>`;
+    for (let i = 0; i < nc; i++){ const N = st.N[i], tc = Math.abs(N) < 1e-9 ? '0' : (N < 0 ? 'T ' : 'C ') + f(Math.abs(N), 2); h += `<tr><td>${COLN(i)}</td><td class="out">${tc}</td><td class="out">${f(st.H[i], 2)}</td><td class="out">${f(st.Mcol[i], 2)}</td></tr>`; }
+    h += `<tr><th>${Lg('Beam', 'Beam')} (${lvN(A.levels[s - 1])})</th><th class="out">L (m)</th><th class="out">F (kN)</th><th class="out">M<sub>beam</sub> (kN m)</th></tr>`;
+    for (let j = 0; j < nb; j++) h += `<tr><td>${beamName(j)}</td><td class="out">${f(A.spans[j], 2)}</td><td class="out">${f(st.Fb[j], 3)}</td><td class="out"><b>${f(st.Mbeam[j], 2)}</b></td></tr>`;
+    T5.innerHTML = h;
+  } else T5.innerHTML = `<tr><td>${Lg('Work the storey and press Check, or Show the storey: the column and beam forces appear here and on the frame.', 'Kira tingkat ini dan tekan Semak, atau Tunjuk tingkat ini: daya column dan beam dipaparkan di sini dan pada frame.')}</td></tr>`;
+  /* frame drawing */
+  const svg = el('lFrame'); clear(svg);
+  el('lFigTitle').innerHTML = Lg(`${meth === 'cant' ? 'Cantilever' : 'Portal'} method · storey ${s}`, `${meth === 'cant' ? 'Cantilever' : 'Portal'} method · tingkat ${s}`);
+  el('lLegend').innerHTML = `<span><i style="width:14px;height:3px;background:${P.s1};display:inline-block"></i>W<sub>d</sub></span><span><i style="width:14px;height:3px;background:${P.s2};display:inline-block"></i>${Lg('cut forces', 'daya keratan')}</span>`;
+  const Ltot = A.x[nc - 1], Hh = A.levels[0].z, scl = Math.min(440 / Ltot, 360 / Hh), X0 = 120 + (440 - Ltot * scl) / 2, YB = 410;
+  const X = xx => X0 + xx * scl, Y = z => YB - z * scl;
+  const zt = A.levels[s - 1].z, zb = A.levels[s].z;
+  S('rect', {x: X(0) - 18, y: Y(zt), width: Ltot * scl + 36, height: (zt - zb) * scl, fill: P.surf}, svg);
+  A.x.forEach((xx, i) => { S('line', {x1: X(xx), x2: X(xx), y1: Y(0), y2: Y(Hh), stroke: P.ink, 'stroke-width': 2.6}, svg); S('rect', {x: X(xx) - 10, y: Y(0), width: 20, height: 6, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg); T(svg, X(xx), Y(Hh) - 8, COLN(i), {'text-anchor': 'middle', 'font-weight': 700}); });
+  A.levels.slice(0, -1).forEach(l => {
+    S('line', {x1: X(0), x2: X(Ltot), y1: Y(l.z), y2: Y(l.z), stroke: P.ink, 'stroke-width': 2.6}, svg);
+    arrowLine(svg, X(0) - 58, Y(l.z), X(0) - 4, Y(l.z), P.s1, 2.2);
+    T(svg, X(0) - 62, Y(l.z) + 4, f(l.F, 2), {'text-anchor': 'end', fill: P.s1, 'font-weight': 700, class: 'small'});
+    T(svg, X(Ltot) + 10, Y(l.z) + 4, lvName(l), {class: 'small'});
+  });
+  S('line', {x1: X(0) - 18, x2: X(Ltot) + 18, y1: Y(st.zcut), y2: Y(st.zcut), stroke: P.s2, 'stroke-width': 1.4, 'stroke-dasharray': '6 4'}, svg);
+  T(svg, X(Ltot) + 10, Y(st.zcut) + 4, Lg('cut', 'keratan'), {class: 'small', fill: P.s2});
+  A.spans.forEach((L, j) => T(svg, X(A.x[j] + L / 2), YB + 24, f(L, 1) + ' m', {'text-anchor': 'middle', class: 'small'}));
+  if (meth === 'cant') { S('line', {x1: X(A.cant.xbar), x2: X(A.cant.xbar), y1: Y(0) + 8, y2: Y(0) + 30, stroke: P.ink3, 'stroke-width': 1.2, 'stroke-dasharray': '3 3'}, svg); T(svg, X(A.cant.xbar) + 4, Y(0) + 40, Lg('centroid', 'centroid'), {class: 'small', fill: P.ink3}); }
+  if (seen){
+    A.x.forEach((xx, i) => {
+      const yc = Y(st.zcut);
+      arrowLine(svg, X(xx) + 2, yc - 7, X(xx) - 24, yc - 7, P.s2, 2);
+      T(svg, X(xx) - 28, yc - 3, f(st.H[i], 2), {fill: P.s2, class: 'small halo', 'font-weight': 700, 'text-anchor': 'end'});
+      const N = st.N[i]; if (Math.abs(N) > 1e-9) T(svg, X(xx) + 4, yc + 16, (N < 0 ? 'T ' : 'C ') + f(Math.abs(N), 2), {class: 'small halo', fill: P.ink2});
+    });
+    A.spans.forEach((L, j) => T(svg, X(A.x[j] + L / 2), Y(zt) - 6, 'M ' + f(st.Mbeam[j], 2), {'text-anchor': 'middle', class: 'small halo', fill: P.s2, 'font-weight': 700}));
+  }
+  /* Activity 6A */
+  const pk = `${A.key}:${s}`, pr = lState.pred[pk] || {}, bi = nb >= 2 ? 1 : 0, ci = nc >= 3 ? 1 : nc - 1;
+  const items6a = [['a', Lg(`the outer column A`, `column luar A`), stP.Mcol[0], stC.Mcol[0]], ['b', nc >= 3 ? Lg(`the interior column B`, `column dalam B`) : Lg('column B', 'column B'), stP.Mcol[ci], stC.Mcol[ci]],
+                   ['c', Lg(`beam ${beamName(bi)}`, `beam ${beamName(bi)}`), stP.Mbeam[bi], stC.Mbeam[bi]]];
+  const ap = el('aPred');
+  if (ap.dataset.k !== pk + LANG){ ap.dataset.k = pk + LANG;
+    ap.innerHTML = items6a.map(([k, lab]) => `<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><span style="min-width:11em">${lab}</span><div class="seg" role="group" data-q="${k}" aria-label="${lab}"><button type="button" data-v="port" aria-pressed="${pr[k] === 'port'}">${Lg('Portal larger', 'Portal lebih besar')}</button><button type="button" data-v="cant" aria-pressed="${pr[k] === 'cant'}">${Lg('Cantilever larger', 'Cantilever lebih besar')}</button></div></div>`).join('');
+    ap.querySelectorAll('.seg').forEach(sg => segGroup(sg, v => { const p2 = lState.pred[pk] || {}; p2[sg.dataset.q] = v; lState.pred[pk] = p2; saveL(); }));
+  }
+  const aCard = el('aCard'), aOut = el('aOut');
+  if (pr.revealed){
+    aCard.hidden = false;
+    const res = items6a.map(([k, lab, vp, vc]) => { const same = Math.abs(vp - vc) <= 0.01 * Math.max(vp, vc), truth = vp > vc ? 'port' : 'cant'; return {k, lab, vp, vc, same, ok: same || pr[k] === truth, truth}; });
+    const nok = res.filter(r => r.ok).length;
+    verdict(aOut, nok === 3, Lg(`<b>${nok} of 3.</b> `, `<b>${nok} daripada 3.</b> `) + res.map(r => `${r.lab}: ${Lg('portal', 'portal')} ${f(r.vp, 2)}, ${Lg('cantilever', 'cantilever')} ${f(r.vc, 2)} kN m` + (r.same ? Lg(' (the same)', ' (sama)') : '')).join('; ') + '. ' +
+      Lg('The columns agree within about 10 % on a regular frame; the beams differ more, because the portal method gives every beam of a level the same shear.', 'Column sepadan dalam lingkungan 10 % pada frame yang sekata; beam lebih berbeza, kerana portal method memberi setiap beam pada satu aras shear yang sama.'));
+    drawCompare(stP, stC, nb);
+  } else { aCard.hidden = true; aOut.hidden = true; }
+}
+function drawCompare(stP, stC, nb){
+  const P = PAL(), svg = el('aChart'); clear(svg);
+  const rows = []; for (let i = 0; i <= nb; i++) rows.push([Lg('col. ', 'col. ') + COLN(i), stP.Mcol[i], stC.Mcol[i]]);
+  for (let j = 0; j < nb; j++) rows.push([Lg('beam ', 'beam ') + beamName(j), stP.Mbeam[j], stC.Mbeam[j]]);
+  el('aLegend').innerHTML = `<span><i style="width:12px;height:12px;background:${P.s3};display:inline-block"></i>${Lg('portal', 'portal')}</span><span><i style="width:12px;height:12px;background:${P.s1};display:inline-block"></i>${Lg('cantilever', 'cantilever')}</span>`;
+  const vmax = Math.max(...rows.map(r => Math.max(r[1], r[2]))) * 1.15 || 1, x0 = 110, w = 480, gh = Math.min(30, 280 / rows.length), bh = gh / 2 - 2;
+  svg.setAttribute('viewBox', `0 0 680 ${Math.max(140, 20 + rows.length * gh + 20)}`);
+  rows.forEach((r, i) => {
+    const y = 14 + i * gh;
+    T(svg, x0 - 8, y + gh / 2 + 3, r[0], {'text-anchor': 'end', class: 'axt'});
+    S('rect', {x: x0, y, width: r[1] / vmax * w, height: bh, fill: P.s3, rx: 2}, svg); T(svg, x0 + r[1] / vmax * w + 5, y + bh - 1, f(r[1], 1), {class: 'small halo'});
+    S('rect', {x: x0, y: y + bh + 2, width: r[2] / vmax * w, height: bh, fill: P.s1, rx: 2}, svg); T(svg, x0 + r[2] / vmax * w + 5, y + 2 * bh + 1, f(r[2], 1), {class: 'small halo'});
+  });
+}
+el('lCase').addEventListener('change', () => drawLat());
+el('lStorey').addEventListener('change', () => { const A = latFrame(); lState.storey[A.key] = +el('lStorey').value; saveL(); drawLat(); });
+segGroup(el('lMeth'), () => drawLat());
+['lSpans', 'lHg', 'lHt', 'lF'].forEach(id => el(id).addEventListener('change', () => { lState.own = {spans: el('lSpans').value, hg: +el('lHg').value, ht: +el('lHt').value, F: el('lF').value}; saveL(); drawLat(); }));
+el('lCheck').addEventListener('click', () => {
+  const A = latAll(); if (A.err) return; const meth = segVal(el('lMeth')) || 'cant', s = +el('lStorey').value, st = A[meth].storeys[s - 1];
+  const spec = latTurnSpec(meth, A, st); let nok = 0;
+  const parts = spec.map((sp, i) => { const inp = el('lIn' + i), v = parseFloat(inp.value), ok = inp.value !== '' && near(v, sp[2]); if (ok) nok++; inp.style.borderColor = ok ? 'var(--s3)' : 'var(--s2)'; return `${sp[0]} ${ok ? '✓' : '✗'}`; });
+  const all = nok === spec.length;
+  if (all){ lState.seen[`${A.key}:${s}:${meth}`] = true; saveL(); milestone(meth); }
+  verdict(el('lOut'), all, (all ? Lg('<b>Right.</b> ', '<b>Betul.</b> ') : Lg(`<b>${nok} of 3.</b> `, `<b>${nok} daripada 3.</b> `)) + parts.join(' · ') + (all ? '' : ' ' + (meth === 'cant'
+    ? Lg('Order: M<sub>o</sub> → P = M<sub>o</sub>/Σ|r||d| → N = rP → the beam shear from ΔN to its left → H from moments about the beam cut (with the storey above’s shears × h<sub>above</sub>/2) → M = F L/2.', 'Urutan: M<sub>o</sub> → P = M<sub>o</sub>/Σ|r||d| → N = rP → shear beam daripada ΔN di sebelah kirinya → H daripada moment terhadap keratan beam (dengan shear tingkat di atas × h<sub>above</sub>/2) → M = F L/2.')
+    : Lg('H = kV with k = (L<sub>left</sub> + L<sub>right</sub>)/(2ΣL); M<sub>col</sub> = H h/2; at joint A, M<sub>AB</sub> = the column moment above (the storey above, if any) + the column moment below.', 'H = kV dengan k = (L<sub>left</sub> + L<sub>right</sub>)/(2ΣL); M<sub>col</sub> = H h/2; di joint A, M<sub>AB</sub> = moment column di atas (tingkat di atas, jika ada) + moment column di bawah.'))));
+  drawLat();
+});
+el('lShow').addEventListener('click', () => { const A = latFrame(); if (A.err) return; const meth = segVal(el('lMeth')) || 'cant'; lState.seen[`${A.key}:${+el('lStorey').value}:${meth}`] = true; saveL(); drawLat(); });
+el('aReveal').addEventListener('click', () => { const A = latFrame(); if (A.err) return; const pk = `${A.key}:${+el('lStorey').value}`, p2 = lState.pred[pk] || {};
+  if (!p2.a || !p2.b || !p2.c){ verdict(el('aOut'), false, Lg('Predict all three first.', 'Ramal ketiga-tiganya dahulu.')); return; }
+  p2.revealed = true; lState.pred[pk] = p2; saveL(); drawLat(); });
+el('aReset').addEventListener('click', () => { const A = latFrame(); delete lState.pred[`${A.key}:${+el('lStorey').value}`]; saveL(); el('aPred').dataset.k = ''; drawLat(); });
+
+/* ---------------- tab 6: wind plus gravity ---------------- */
+function combCase(){
+  const v = el('cCase').value || 'we61';
+  if (v !== 'own'){
+    const c = WFDATA.comb[v], src = c.lat ? WFDATA.lat[c.lat] : c, x = WF.frameX(src.spans), lv = src.levels;
+    const res = c.method === 'cant' ? WF.cantilever(x, lv) : WF.portal(x, lv);
+    return {key: v, spans: src.spans, method: c.method, vert: c.vert, res, m: lv.length - 1, own: false};
+  }
+  const A = latAll(), meth = segVal(el('lMeth')) || 'cant', n = A.spans.length, o = cState.own || {};
+  const sp = A.spans.map((L, j) => { const w = +(o['w' + j] ?? 40), d = w * L * L / 12; return {L, w, hL: +(o['hL' + j] ?? +(0.9 * d).toFixed(1)), hR: +(o['hR' + j] ?? +(0.9 * d).toFixed(1))}; });
+  const Mcu = [], Mcl = []; for (let i = 0; i <= n; i++){ const dflt = i === 0 ? 30 : i === n ? -30 : 0; Mcu.push(+(o['u' + i] ?? dflt)); Mcl.push(+(o['l' + i] ?? dflt)); }
+  return {key: 'own:' + A.key + ':' + meth + ':' + JSON.stringify(o), spans: A.spans, method: meth, vert: {sp, Mcu, Mcl}, res: A[meth], m: A.m, own: true, err: A.err};
+}
+function combOwnTable(C){
+  const n = C.spans.length, o = cState.own || {};
+  let h = `<tr><th></th><th>w (kN/m)</th><th>${Lg('hog. left', 'hog. kiri')}</th><th>${Lg('hog. right', 'hog. kanan')}</th></tr>`;
+  C.vert.sp.forEach((s, j) => { h += `<tr><td>${beamName(j)} (${f(s.L, 1)} m)</td><td><input type="number" step="0.1" data-k="w${j}" value="${s.w}"></td><td><input type="number" step="0.1" data-k="hL${j}" value="${s.hL}"></td><td><input type="number" step="0.1" data-k="hR${j}" value="${s.hR}"></td></tr>`; });
+  h += `<tr><th></th><th>${Lg('col. above', 'col. atas')}</th><th>${Lg('col. below', 'col. bawah')}</th><th></th></tr>`;
+  for (let i = 0; i <= n; i++) h += `<tr><td>${COLN(i)}</td><td><input type="number" step="0.1" data-k="u${i}" value="${C.vert.Mcu[i]}"></td><td><input type="number" step="0.1" data-k="l${i}" value="${C.vert.Mcl[i]}"></td><td></td></tr>`;
+  const t = el('cOwnTbl'); t.innerHTML = h;
+  t.querySelectorAll('input').forEach(inp => inp.addEventListener('change', () => { const o2 = cState.own || {}; o2[inp.dataset.k] = parseFloat(inp.value) || 0; cState.own = o2; saveC(); drawComb(); }));
+}
+function combTruth(C, R){
+  /* the member the wind changes most, in proportion to its vertical moment, and whether any end reverses */
+  const n = C.spans.length, cand = [];
+  R.rows.forEach((r, j) => { const outer = j === 0 || j === n - 1; [['L', r.hL, r.cL], ['R', r.hR, r.cR]].forEach(([e, v, c]) => cand.push({cat: outer ? 'ob' : 'ib', ratio: c / Math.max(Math.abs(v), 1e-6)})); });
+  R.cols.forEach((c, i) => cand.push({cat: i === 0 || i === n ? 'oc' : 'ic', ratio: c.cl / Math.max(c.vl, 1e-6)}));
+  cand.sort((a, b) => b.ratio - a.ratio);
+  return {cat: cand[0].cat, rev: R.rows.some(r => r.rL > 1e-9 || r.rR > 1e-9)};
+}
+function drawComb(){
+  const C = combCase(), P = PAL(), dir = +(segVal(el('cDir')) || 1), n = C.spans.length;
+  el('cOwn').hidden = !C.own; if (C.own) { if (el('cOwnTbl').dataset.k !== C.spans.join('/') + LANG){ el('cOwnTbl').dataset.k = C.spans.join('/') + LANG; combOwnTable(C); } }
+  el('cCaseNote').innerHTML = C.own ? (C.err ? `<b>${C.err}</b>` : Lg(`Your frame of tab 5 (${C.method === 'cant' ? 'cantilever' : 'portal'} method): type your vertical moments at level 1 from the one-level sub-frame of Unit 4.`, `Frame anda dalam tab 5 (${C.method === 'cant' ? 'cantilever' : 'portal'} method): taip moment menegak anda pada aras 1 daripada one-level sub-frame Unit 4.`))
+    : {we61: Lg('Frame ABCD: the one-level sub-frame at 1.2(G<sub>k</sub> + Q<sub>k</sub>) and the wind of Worked Example 6.1 by the cantilever method (app case FA10).', 'Frame ABCD: one-level sub-frame pada 1.2(G<sub>k</sub> + Q<sub>k</sub>) dan angin Worked Example 6.1 dengan cantilever method (kes app FA10).'),
+       notes: Lg('The same vertical load with the notes’ own wind (the 18 m face, case FA10a): the wind moments are about 20 % smaller.', 'Load menegak yang sama dengan angin nota sendiri (muka 18 m, kes FA10a): moment angin kira-kira 20 % lebih kecil.'),
+       s6: Lg('Frame S6 corrected: the frame line of Wind S5 (spans 7.0 and 8.0 m), 1.2W<sub>k</sub> by the portal method, and its one-level sub-frame at level 1.', 'Frame S6 dibetulkan: frame line Wind S5 (span 7.0 dan 8.0 m), 1.2W<sub>k</sub> dengan portal method, dan one-level sub-frame-nya pada aras 1.')}[C.key];
+  const R = WF.combine(C.vert, C.res, C.m), pk = C.key, pr = cState.pred[pk] || {}, rev = !!pr.revealed;
+  /* prediction */
+  const bp = el('bPred');
+  if (bp.dataset.k !== pk + LANG){ bp.dataset.k = pk + LANG;
+    const cats = [['ob', Lg('an end of an outer beam', 'hujung beam luar')], ['ib', Lg('an end of an inner beam', 'hujung beam dalam')], ['oc', Lg('an outer lower column', 'column bawah luar')], ['ic', Lg('an interior lower column', 'column bawah dalam')]].filter(([k]) => n >= 3 || k !== 'ib').filter(([k]) => n >= 2 || k !== 'ic');
+    bp.innerHTML = `<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><span style="min-width:12em">${Lg('Does any beam end reverse?', 'Adakah mana-mana hujung beam mengalami reversal?')}</span><div class="seg" role="group" data-q="rev"><button type="button" data-v="yes" aria-pressed="${pr.rev === 'yes'}">${Lg('Yes', 'Ya')}</button><button type="button" data-v="no" aria-pressed="${pr.rev === 'no'}">${Lg('No', 'Tidak')}</button></div></div>`
+      + `<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><label for="bCat" style="min-width:12em">${Lg('Which changes most, in proportion?', 'Yang mana paling berubah, secara berkadar?')}</label><select id="bCat"><option value="">—</option>${cats.map(([k, t]) => `<option value="${k}"${pr.cat === k ? ' selected' : ''}>${t}</option>`).join('')}</select></div>`;
+    segGroup(bp.querySelector('.seg'), v => { const p2 = cState.pred[pk] || {}; p2.rev = v; cState.pred[pk] = p2; saveC(); });
+    el('bCat').addEventListener('change', () => { const p2 = cState.pred[pk] || {}; p2.cat = el('bCat').value; cState.pred[pk] = p2; saveC(); });
+  }
+  const tr = combTruth(C, R), catName = {ob: Lg('an end of an outer beam', 'hujung beam luar'), ib: Lg('an end of an inner beam', 'hujung beam dalam'), oc: Lg('an outer lower column', 'column bawah luar'), ic: Lg('an interior lower column', 'column bawah dalam')};
+  if (rev){
+    const ok1 = (pr.rev === 'yes') === tr.rev, ok2 = pr.cat === tr.cat;
+    verdict(el('bOut'), ok1 && ok2, `${ok1 ? '✓' : '✗'} ` + (tr.rev ? Lg('A beam end reverses: ', 'Satu hujung beam mengalami reversal: ') + R.rows.filter(r => r.rL > 1e-9 || r.rR > 1e-9).map(r => `${beamName(r.span - 1)} ${Lg('at ', 'di ')}${r.rL > 1e-9 ? COLN(r.span - 1) : COLN(r.span)}`).join(', ') + Lg(' (its value: your turn below).', ' (nilainya: giliran anda di bawah).') : Lg('No beam end reverses.', 'Tiada hujung beam mengalami reversal.'))
+      + ` ${ok2 ? '✓' : '✗'} ` + Lg('Most changed, in proportion: ', 'Paling berubah, secara berkadar: ') + catName[tr.cat] + '. ' + (tr.cat === 'ic' ? Lg('An interior joint is nearly balanced under the vertical load, and the wind gives the interior columns the largest shears.', 'Joint dalam hampir seimbang di bawah load menegak, dan angin memberi column dalam shear terbesar.') : ''));
+  } else el('bOut').hidden = true;
+  /* your turn: span select */
+  const cs = el('cSpan');
+  if (cs.dataset.k !== pk + LANG){ cs.dataset.k = pk + LANG; cs.innerHTML = C.spans.map((L, j) => `<option value="${j}">${beamName(j)} (${f(L, 1)} m)</option>`).join(''); el('cOut').hidden = true; }
+  const tj = +cs.value || 0, anySeen = C.spans.some((L, j) => cState.seen[`${pk}:${j}`]);
+  /* table of beams */
+  const hid = j => !anySeen;
+  let h = `<tr><th>${Lg('Beam', 'Beam')}</th><th class="out">M<sub>v</sub> ${Lg('left / right', 'kiri / kanan')}</th><th class="out">M<sub>w</sub></th><th class="out">${Lg('design hogging', 'hogging rekabentuk')}</th><th class="out">${Lg('reversal', 'reversal')}</th><th class="out">${Lg('span sagging', 'sagging span')}</th></tr>`;
+  R.rows.forEach((r, j) => {
+    const show = rev && !hid(j), q = '?';
+    h += `<tr><td>${beamName(j)}</td><td class="out">${f(r.hL, 2)} / ${f(r.hR, 2)}</td><td class="out">${f(r.mw, 2)}</td><td class="out">${show ? `<b>${f(r.cL, 2)} / ${f(r.cR, 2)}</b>` : q}</td><td class="out">${show ? (r.rL > 1e-9 || r.rR > 1e-9 ? `<b>${f(r.rL, 2)} / ${f(r.rR, 2)}</b>` : '0') : q}</td><td class="out">${rev ? f(r.cS, 2) : q} <span class="small" style="color:var(--ink-3)">(${f(r.sag, 2)})</span></td></tr>`;
+  });
+  el('cTable').innerHTML = h;
+  let hc = `<tr><th>${Lg('Joint', 'Joint')}</th><th class="out">${Lg('upper col.', 'col. atas')} M<sub>v</sub> + M<sub>w</sub></th><th class="out">${Lg('lower col.', 'col. bawah')} M<sub>v</sub> + M<sub>w</sub></th></tr>`;
+  R.cols.forEach(c => { hc += `<tr><td>${COLN(c.j)}</td><td class="out">${f(c.vu, 2)} + ${f(c.wu, 2)}${rev ? ` = <b>${f(c.cu, 2)}</b>` : ''}</td><td class="out">${f(c.vl, 2)} + ${f(c.wl, 2)}${rev ? ` = <b>${f(c.cl, 2)}</b>` : ''}</td></tr>`; });
+  el('cCols').innerHTML = hc;
+  /* moment diagram along the level */
+  const svg = el('cChart'); clear(svg);
+  el('cFigTitle').innerHTML = Lg('Moments along level 1 (kN m)', 'Moment sepanjang aras 1 (kN m)');
+  el('cLegend').innerHTML = `<span><i style="width:14px;height:3px;background:${P.ink3};display:inline-block"></i>1.2(G<sub>k</sub> + Q<sub>k</sub>)</span><span><i style="width:14px;height:3px;background:${P.s1};display:inline-block"></i>1.2W<sub>k</sub></span>` + (rev ? `<span><i style="width:14px;height:3px;background:${P.s2};display:inline-block"></i>${Lg('sum', 'jumlah')}</span>` : '');
+  const Ltot = C.spans.reduce((a, b) => a + b, 0), x0 = 40, wpx = 600, sx = wpx / Ltot;
+  let mmax = 1; R.rows.forEach(r => { mmax = Math.max(mmax, r.hL + r.mw, r.hR + r.mw, Math.abs(r.sag), r.cS, r.mw); });
+  const y0 = 200, sy = 150 / mmax, Y = M => y0 + M * sy;   /* sagging (positive) drawn below the beam, hogging above */
+  S('line', {x1: x0, x2: x0 + wpx, y1: y0, y2: y0, stroke: P.ink, 'stroke-width': 2.4}, svg);
+  let xa = 0;
+  R.rows.forEach((r, j) => {
+    const L = r.L, X = xx => x0 + (xa + xx) * sx, pts = (fn) => { let d = ''; for (let k = 0; k <= 40; k++){ const xx = L * k / 40; d += (k ? 'L' : 'M') + X(xx).toFixed(1) + ',' + Y(fn(xx)).toFixed(1); } return d; };
+    S('line', {x1: X(0), x2: X(0), y1: y0 - 160, y2: y0 + 160, stroke: P.rule, 'stroke-width': 1}, svg);
+    S('path', {d: pts(xx => -r.hL + r.VL * xx - r.w * xx * xx / 2), fill: 'none', stroke: P.ink3, 'stroke-width': 2}, svg);
+    S('path', {d: pts(xx => dir * r.mw * (1 - 2 * xx / L)), fill: 'none', stroke: P.s1, 'stroke-width': 1.6, 'stroke-dasharray': '5 4'}, svg);
+    if (rev) S('path', {d: pts(xx => WF.spanM(r, xx, dir)), fill: 'none', stroke: P.s2, 'stroke-width': 2.4}, svg);
+    T(svg, X(L / 2), y0 + 176, beamName(j), {'text-anchor': 'middle', 'font-weight': 700, class: 'small'});
+    const eL = -r.hL + dir * r.mw, eR = -r.hR - dir * r.mw;
+    const lab = e => e > 1e-9 ? Lg('sag ', 'sag ') + f(e, 1) : f(-e, 1);   /* e: the end moment, sagging positive */
+    if (rev && !hid(j)){ T(svg, X(0) + 4, Y(Math.min(eL, -r.hL)) - 6, lab(eL), {class: 'small halo', fill: P.s2, 'font-weight': 700}); T(svg, X(L) - 4, Y(Math.min(eR, -r.hR)) - 6, lab(eR), {class: 'small halo', fill: P.s2, 'font-weight': 700, 'text-anchor': 'end'}); }
+    else { T(svg, X(0) + 4, Y(-r.hL) - 6, f(r.hL, 1), {class: 'small halo', fill: P.ink2}); T(svg, X(L) - 4, Y(-r.hR) - 6, f(r.hR, 1), {class: 'small halo', fill: P.ink2, 'text-anchor': 'end'}); }
+    xa += L;
+  });
+  S('line', {x1: x0 + wpx, x2: x0 + wpx, y1: y0 - 160, y2: y0 + 160, stroke: P.rule, 'stroke-width': 1}, svg);
+  T(svg, x0, 30, Lg('hogging', 'hogging'), {class: 'small', fill: P.ink3}); T(svg, x0, 392, Lg('sagging', 'sagging'), {class: 'small', fill: P.ink3});
+  T(svg, x0 + wpx, 30, dir > 0 ? Lg('wind from the left →', 'angin dari kiri →') : Lg('← wind from the right', '← angin dari kanan'), {class: 'small', fill: P.s1, 'text-anchor': 'end'});
+}
+el('cCase').addEventListener('change', () => drawComb());
+segGroup(el('cDir'), () => drawComb());
+el('cSpan').addEventListener('change', () => { el('cOut').hidden = true; el('cHog').value = ''; el('cRev').value = ''; drawComb(); });
+el('bReveal').addEventListener('click', () => { const C = combCase(), p2 = cState.pred[C.key] || {};
+  if (!p2.rev || !p2.cat){ verdict(el('bOut'), false, Lg('Make both predictions first.', 'Buat kedua-dua ramalan dahulu.')); return; }
+  p2.revealed = true; cState.pred[C.key] = p2; saveC(); drawComb(); });
+el('bReset').addEventListener('click', () => { const C = combCase(); delete cState.pred[C.key]; saveC(); el('bPred').dataset.k = ''; drawComb(); });
+el('cCheck').addEventListener('click', () => {
+  const C = combCase(), R = WF.combine(C.vert, C.res, C.m), j = +el('cSpan').value || 0, r = R.rows[j], pr = cState.pred[C.key] || {};
+  const hog = Math.max(r.cL, r.cR), rv = Math.max(r.rL, r.rR), vh = parseFloat(el('cHog').value), vr = parseFloat(el('cRev').value);
+  const ok1 = el('cHog').value !== '' && near(vh, hog), ok2 = el('cRev').value !== '' && near(vr, rv), all = ok1 && ok2;
+  if (all){ cState.seen[`${C.key}:${j}`] = true; saveC(); if (pr.revealed) milestone('comb'); }
+  verdict(el('cOut'), all, (all ? Lg('<b>Right.</b> ', '<b>Betul.</b> ') : '') + Lg(`Largest hogging ${ok1 ? '✓' : '✗'} · reversal ${ok2 ? '✓' : '✗'}. `, `Hogging terbesar ${ok1 ? '✓' : '✗'} · reversal ${ok2 ? '✓' : '✗'}. `)
+    + (all ? (pr.revealed ? '' : Lg('Reveal the combination (Activity 6B) to tick the Explorer task.', 'Dedahkan gabungan (Aktiviti 6B) untuk menanda tugasan Explorer.'))
+           : Lg('The larger vertical end moment plus M<sub>w</sub>; at the other end M<sub>w</sub> − M<sub>v</sub>, if positive.', 'Moment hujung menegak yang lebih besar ditambah M<sub>w</sub>; di hujung yang lain M<sub>w</sub> − M<sub>v</sub>, jika positif.')));
+  drawComb();
+});
+el('cShow').addEventListener('click', () => { const C = combCase(); cState.seen[`${C.key}:${+el('cSpan').value || 0}`] = true; saveC(); drawComb(); });
 
 /* ---------------- shell hooks ---------------- */
 function fillAllCases(){
@@ -1013,12 +1732,18 @@ function fillAllCases(){
   pc.innerHTML = [['we51', 'Worked Example 5.1 (the notes’ building, D57)', 'Worked Example 5.1 (bangunan nota, D57)'], ['notes', 'The notes as printed (18 m face)', 'Nota seperti dicetak (muka 18 m)'],
                   ['fe52', 'Faded Example 5.2 (Appendix A)', 'Faded Example 5.2 (Appendix A)'], ['own', 'Your own building', 'Bangunan anda sendiri']].map(([v, en, ms]) => `<option value="${v}">${Lg(en, ms)}</option>`).join(''); pc.value = pv;
   pOwnTable();
+  const lc = el('lCase'), lv = lc.value || 'we61';
+  lc.innerHTML = Object.entries(WFDATA.lat).map(([k, c]) => `<option value="${k}">${Lg(c.en, c.ms)}</option>`).join('') + `<option value="own">${Lg('Your own frame', 'Frame anda sendiri')}</option>`; lc.value = lv;
+  const o = lState.own; el('lSpans').value = o.spans; el('lHg').value = o.hg; el('lHt').value = o.ht; el('lF').value = o.F;
+  const cc = el('cCase'), cv = cc.value || 'we61';
+  cc.innerHTML = Object.entries(WFDATA.comb).map(([k, c]) => `<option value="${k}">${Lg(c.en, c.ms)}</option>`).join('') + `<option value="own">${Lg('Your own level (your frame of tab 5)', 'Aras anda sendiri (frame anda dalam tab 5)')}</option>`; cc.value = cv;
+  ['lStorey', 'lFields', 'aPred', 'bPred', 'cSpan', 'cOwnTbl'].forEach(id => { el(id).dataset.k = ''; });
 }
-function redrawAll(){ drawFace(); drawPress(); drawSens(); drawSheet(); }
-drawers.face = drawFace; drawers.press = drawPress; drawers.sens = drawSens; drawers.error = drawSheet;
+function redrawAll(){ drawFace(); drawPress(); drawSens(); drawSheet(); drawLat(); drawComb(); }
+drawers.face = drawFace; drawers.press = drawPress; drawers.sens = drawSens; drawers.error = drawSheet; drawers.lat = drawLat; drawers.comb = drawComb;
 applyPrefs(false);
 fillAllCases(); tPaint(); redrawAll();
-function fromHash(){ const h = (location.hash || '').slice(1); showTab(h || 'face'); }
+function fromHash(){ let h = (location.hash || '').slice(1); if (h === 's6' || h === 's5'){ eWhich = h; store(SHKEY, eWhich); h = 'error'; } showTab(h || 'face'); }
 fromHash(); window.addEventListener('hashchange', fromHash);
 
 </script>

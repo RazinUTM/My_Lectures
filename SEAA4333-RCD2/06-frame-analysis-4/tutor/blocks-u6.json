@@ -1,0 +1,274 @@
+{
+ "part": "u6",
+ "title": "Unit 6 Frame Analysis IV",
+ "blocks": [
+  {
+   "id": "start-outcomes",
+   "text": "[start-outcomes] After this part you should be able to\n1. explain why an unbraced frame under lateral load has points of contraflexure near the mid-height of its columns and the mid-span of its beams, and which assumption each approximate method adds;\n2. analyse a frame storey by storey by the cantilever method: the column axial forces, the beam and column shears, and the bending moments;\n3. analyse a frame by the portal method: the storey shear shared by the spans, the beam moments joint by joint, and the column axial forces;\n4. combine the wind moments with the vertical-load moments at a level by the course method (BS 8110 load combination 3), for both wind directions, with the reversal of a beam end;\n5. compare the cantilever and portal methods, and the course method with the EN 1990 combinations and the EC2 imperfections."
+  },
+  {
+   "id": "notes-n1",
+   "text": "[notes-n1] Notes 1. The frame under lateral load\nUnit 5 ended with one force per floor on frame ABCD: the wind of Worked Example 5.1, from 11.63 kN at the roof to 18.75 kN at level 1. This Unit takes those forces down through the frame to the foundations, finds the moments they cause in every beam and column, and adds them to the moments of the vertical load.\n[Figure: Figure 1. An unbraced frame under lateral load: every member bends in double curvature, with a point of contraflexure near its middle.]\nUnder horizontal forces at the floors, an unbraced frame sways. The floors move sideways almost as rigid bodies, and the rigid joints force each column and each beam to bend in double curvature : the moment at one end is opposite to the moment at the other (Figure 1). Somewhere in between the moment is zero, at a point of contraflexure . In a regular frame it lies close to the mid-height of every column and the mid-span of every beam.\nA frame with rigid joints is highly indeterminate, and its exact moments come from a stiffness analysis, by computer. By hand, the points of contraflexure open a short cut: a hinge at each one removes an unknown moment. A frame of several bays is still indeterminate after that, and one more assumption about how each storey shares its load closes the problem. The two classic choices give the two methods of the course:\n[Figure: Figure 2. The two assumptions: the portal method shares the storey shear by the spans; the cantilever method shares the axial forces by the distance from the centroid.]\nMethod Assumption added to the points of contraflexure Suits\nCantilever (§2, §3) the column axial forces are proportional to their distance from the centroid of the column areas, as in a cantilever bending as one piece tall, slender frames, where the frame bends like a cantilever\nPortal (§4) the storey shear is shared between the bays in proportion to their spans, each bay's share split equally between its two columns low, wide frames, where the columns sway in shear\nQuick check (not graded): In a regular unbraced frame under wind, where are the bending moments of a column of an intermediate storey taken as zero?\nOptions: At both ends | At mid-height | At the floor below | Nowhere: the moment is constant\nExplanation shown after answering: The column bends in double curvature, so its end moments are opposite and the moment passes through zero near mid-height. Both methods put a hinge there, and at the mid-span of the beams.\nKey points:\n- Under lateral load every member of an unbraced frame bends in double curvature; its moment is zero near mid-height or mid-span.\n- Hinges at the points of contraflexure, plus one assumption per storey, make each storey statically determinate.\n- Cantilever method: axial forces by the distance from the centroid. Portal method: the storey shear by the spans."
+  },
+  {
+   "id": "notes-n2",
+   "text": "[notes-n2] Notes 2. The cantilever method\nCantilever method: the assumptions (1) The points of contraflexure are at the mid-height of every column and the mid-span of every beam. (2) The axial force in each column is proportional to its distance from the centroid of the column areas; with equal areas, the centroid is the average position of the columns. The windward columns are in tension, the leeward ones in compression (course notes; Mosley, Bungey and Hulse §3.4.2).\nCut the frame at the mid-height of the columns of a storey, where their moments are zero. The part above the cut carries the lateral loads above it, and its overturning moment about the cut is resisted by the axial forces of the columns alone:\nEQUATION (6.1): M_o = \\sum_{k \\,\\text{above}} F_k\\,\\left(z_k - z_{cut}\\right), \\qquad z_{cut} = \\text{mid-height of the storey}\nEQUATION (6.2): N_i = r_i\\,P, \\qquad r_i = \\frac{d_i}{d_{min}}, \\qquad P = \\frac{M_o}{\\sum \\lvert r_i \\rvert\\,\\lvert d_i \\rvert}\nHere d_i is the distance of column i from the centroid and P the axial force of a column at the smallest distance d_{min}. Frame ABCD has columns at 0, 6, 12 and 18 m: the centroid is at 9 m, the distances 9, 3, 3 and 9 m, so the axial forces are 3P, P, P and 3P, and Σ|r||d| = 3 × 9 + 3 + 3 + 3 × 9 = 60 m.\n[Figure: Figure 3. Storey 1 of Worked Example 6.1, cut at the column mid-heights: M_o = 13.96 × 1.75 kN m gives the axial forces; the beam cuts give the column shears.]\nBeam shears. Cut each beam at mid-span as well. The part of the storey to the left of a beam cut is in vertical equilibrium: the shear in the beam at the cut balances the changes of axial force of the columns to its left, ΔN_i = N_i − N_{i,storey above}:\nEQUATION (6.3): F_j = \\sum_{i \\le j} \\Delta N_i \\qquad \\text{(the beam to the right of column } j\\text{, at the level above the storey)}\nColumn shears. Take moments about each beam cut for the same part: the column shears of the storey, acting at h/2 below the beam, and those of the storey above, at h/2 above it, balance the moments of the ΔN_i. Working from the windward column gives each column shear in turn; the last one follows from ΣH = the storey shear. The moments are then the shears times half the length:\nEQUATION (6.4): M_{col} = H\\,\\frac{h}{2} \\;\\;\\text{(top and bottom of the storey)}, \\qquad M_{beam} = F\\,\\frac{L}{2} \\;\\;\\text{(both ends of the beam)}\nQuick check (not graded): A frame has three columns of equal area at 0, 6 and 10 m. Which axial-force ratios does the cantilever method give?\nOptions: 1 : 1 : 1 | 1 : 0 : 1 | 8 : 1 : 7 | 6 : 0 : 4\nExplanation shown after answering: The centroid is at (0 + 6 + 10)/3 = 5.33 m; the distances are 5.33, 0.67 and 4.67 m, and divided by the smallest, 0.67 m, they give 8 : 1 : 7. The middle column is not at the centroid, so it takes a small axial force, on the leeward side.\nQuick check (not graded): In storey 1 of frame ABCD, M_o = 24.42 kN m and Σ|r||d| = 60 m. What is the axial force in column A?\nOptions: 1.22 kN, tension | 0.41 kN, tension | 1.22 kN, compression | 4.07 kN, tension\nExplanation shown after answering: P = 24.42/60 = 0.407 kN, and A, the windward outer column, takes 3P = 1.22 kN in tension. D takes the same in compression.\nKey points:\n- Cut at the column mid-heights: the overturning moment of the loads above is resisted by the column axial forces, in proportion to their distance from the centroid.\n- Beam shears from vertical equilibrium of the part left of each beam cut; column shears from moments about each beam cut; the last from ΣH.\n- Moments: H h/2 in the columns, F L/2 in the beams."
+  },
+  {
+   "id": "notes-n3",
+   "text": "[notes-n3] Notes 3. Storey by storey: the course frame\nWorked Example 6.1 (Examples tab) analyses frame ABCD of the course notes under the wind of Worked Example 5.1 with the design factor of the course method, W_d = 1.2W_k: 13.96 kN at the roof to 22.50 kN at level 1, 160.63 kN in all. The table gives every storey; by symmetry C and D mirror B and A, with the axial forces in compression.\nStorey M_o (kN m) P (kN) N_A / N_B (kN) H_A / H_B (kN) M_{col} A / B (kN m) M_{beam} AB / BC (kN m)\n1 (Roof–Level 6) 24.42 0.407 1.22 / 0.41 2.09 / 4.88 3.66 / 8.55 3.66 / 4.88\n2 (Level 6–Level 5) 120.82 2.014 6.04 / 2.01 6.17 / 14.40 10.80 / 25.19 14.46 / 19.28\n3 (Level 5–Level 4) 310.61 5.177 15.53 / 5.18 10.10 / 23.56 17.67 / 41.23 28.47 / 37.96\n4 (Level 4–Level 3) 589.97 9.833 29.50 / 9.83 13.85 / 32.31 24.23 / 56.54 41.90 / 55.87\n5 (Level 3–Level 2) 954.51 15.909 47.73 / 15.91 17.40 / 40.60 30.45 / 71.05 54.68 / 72.91\n6 (Level 2–Level 1) 1399.21 23.320 69.96 / 23.32 20.72 / 48.34 36.26 / 84.60 66.71 / 88.94\n7 (Level 1–Ground) 1962.18 32.703 98.11 / 32.70 24.09 / 56.22 48.19 / 112.44 84.44 / 112.59\nThree things grow down the frame. The overturning moment grows fastest, with the force and the lever arm together, and with it the axial forces: 98.1 kN in each outer column of the ground storey. The storey shear grows with the sum of the forces, and with it the column shears and moments. The interior columns take about 2.3 times the shear of the outer ones, and the middle beam carries the largest moments, 112.59 kN m at level 1.\nCheck every joint. At a joint the beam moments must balance the column moments. At B on level 1 the beams give 84.44 + 112.59 = 197.04 kN m and the columns 84.60 (above) + 112.44 (below) = 197.04 kN m. A storey that fails this check, or whose column shears do not add up to the storey shear, has a slip in it.\nAgainst the notes. The course notes’ Example 6 runs the same method with the forces of the wind of the 18 m face (11.3 kN at the roof to 16.7 kN at level 1). With those forces the method gives P = 0.330, 1.625 and 4.162 kN in the top three storeys, as the notes print (0.33, 1.62 and 4.16), and column shears equal to theirs within rounding. With the wind in the plane of the frame (Unit 5, decision D57) every force is about 28 % larger, and so is every result: the ground-storey interior column moment is 112.44 kN m against 87.75 kN m with the notes’ wind.\nQuick check (not graded): At an interior joint of level 1 of frame ABCD, the column above takes 84.60 kN m and the column below 112.44 kN m. The beam on the left takes 84.44 kN m. What must the beam on the right take?\nOptions: 84.44 kN m | 28.00 kN m | 197.04 kN m | 112.60 kN m\nExplanation shown after answering: The joint is in equilibrium: the beams together balance the columns together, 84.60 + 112.44 = 197.04 kN m, so the right beam takes 197.04 − 84.44 = 112.60 kN m (the table: 112.59, the difference is rounding).\nKey points:\n- The overturning moment, the axial forces and the shears all grow down the frame; the ground storey and level 1 govern.\n- Check each storey: ΣH = the storey shear, and at every joint Σ beam moments = Σ column moments.\n- With the wind of D57 every result of the notes’ Example 6 is about 28 % larger."
+  },
+  {
+   "id": "notes-n4",
+   "text": "[notes-n4] Notes 4. The portal method\nPortal method: the assumptions (1) The points of contraflexure are at the mid-height of every column and the mid-span of every beam. (2) The shear of each storey is shared between the bays in proportion to their spans. (3) The shear of each bay is shared equally by its two columns, so an interior column takes half of each bay beside it (course notes; Mosley, Bungey and Hulse §3.4.2).\nEQUATION (6.5): H_i = k_i\\,V, \\qquad k_i = \\frac{L_{left} + L_{right}}{2\\sum L}, \\qquad V = \\sum_{\\text{above}} F\nThe column moments follow at once, H h/2 at the top and bottom of the storey. The beam moments come from the equilibrium of each joint, working from the windward side: the beam on the right of a joint balances the columns above and below it, less the beam on its left. The beam shear follows from the moment zero at mid-span, and each beam shear passes to the columns as axial force:\nEQUATION (6.6): M_{b,right} = M_{c,above} + M_{c,below} - M_{b,left}, \\qquad F = \\frac{2M_b}{L}, \\qquad \\Delta N_i = F_{left} - F_{right}\n[Figure: Figure 4. The portal method at the roof of Faded Example 6.2: the joint balance from A to D gives the beam moments, and every beam carries the same shear.]\nTwo results are worth knowing. Because every column takes the half spans beside it, every beam at a level carries the same shear : at the roof of Faded Example 6.2, F = 0.62 kN in all three beams, although their spans are 6, 5 and 8 m. So the interior columns receive equal and opposite beam shears and only the two outer columns carry axial force from the wind. The joint balance also closes by itself at the leeward column: the last beam moment equals the column moments there, a free check of the arithmetic.\n[Figure: Figure 5. The same storey by the two assumptions (Activity 6A): close for the columns, further apart for the beams.]\nPortal or cantilever? On frame ABCD the two methods give column moments within about 10 % (Figure 5): 53.54 against 48.19 kN m in an outer column of the ground storey, 107.08 against 112.44 in an interior one. The beams differ more: the portal method gives every beam of level 1 the same 93.83 kN m, the cantilever method 84.44 in the outer beams and 112.59 in the middle one, 20 % more. Neither is exact. The portal method suits low, wide frames whose columns sway in shear; the cantilever method suits tall, slender frames that bend as a whole. The course notes use the cantilever method for the seven-storey frame (Example 6).\nQuick check (not graded): A storey with spans 6, 5 and 8 m carries a storey shear of 19.25 kN. By the portal method, what shear does column B (between the 6 m and 5 m spans) take?\nOptions: 4.81 kN | 5.57 kN | 6.42 kN | 3.04 kN\nExplanation shown after answering: k_B = (6 + 5)/(2 × 19) = 0.289, so H_B = 0.289 × 19.25 = 5.57 kN. An equal share would be 19.25/4 = 4.81 kN; 3.04 kN is column A’s share, (0 + 6)/38.\nQuick check (not graded): By the portal method, which columns of a three-bay frame carry axial force from the wind?\nOptions: All four, in proportion to their distance from the centroid | The two interior ones only | The two outer ones only | None\nExplanation shown after answering: Every beam at a level carries the same shear, so an interior column receives equal and opposite shears from its two beams: no axial force. The outer columns take the beam shears down, tension on the windward side and compression on the leeward side. A is the cantilever method’s assumption.\nKey points:\n- Portal: the storey shear by k_i = (L_{left} + L_{right})/(2ΣL); the beam moments joint by joint from the windward side.\n- Every beam at a level carries the same shear; only the outer columns take axial force.\n- The two methods agree closely for the columns of a regular frame, less for the beams; portal for low frames, cantilever for tall ones."
+  },
+  {
+   "id": "notes-n5",
+   "text": "[notes-n5] Notes 5. Adding the wind to the vertical load\nThe course method takes the wind with the vertical load by BS 8110 load combination 3, 1.2G_k + 1.2Q_k + 1.2W_k, with every span loaded, as the course notes’ Example 7 does. It is a course convention, not an EN 1990 combination (§6). BS 8110 also asks for 1.4G_k + 1.6Q_k (the analyses of Units 3 and 4) and for 1.0G_k or 1.4G_k with 1.4W_k, which the notes do not take.\nAt one level, the combination has three parts. (1) The vertical load: the one-level sub-frame of Unit 4 with every span at 1.2(G_k + Q_k) gives the beam-end, span and column moments. (2) The wind: the lateral analysis with W_d = 1.2W_k gives the beam moments of the level (from the storey below it), the upper column moments (from the storey above) and the lower column moments (from the storey below). (3) The sum, by superposition, for both wind directions:\n[Figure: Figure 6. The wind hogs one end of a beam and relieves the other; the vertical load hogs both. Wind from the other side: the mirror image.]\nEQUATION (6.7): M_{end} = M_v + M_w \\;\\text{(hogging)}, \\qquad M_{rev} = M_w - M_v \\;\\text{(sagging, if positive)}, \\qquad M_{col} = \\lvert M_v \\rvert + M_w\nThe span moment is the largest value of M_v(x) ± M_w(1 − 2x/L) along the span: the wind moment varies linearly from one end to the other, so the largest sagging moves towards the relieved end and grows. For frame ABCD at level 1 (Activity 6B):\nSpan M_v left M_v right M_w Combined left Combined right Span sagging Reversal\nAB 82.17 165.61 84.44 166.61 250.05 113.61 2.28 at A\nBC 146.91 146.91 112.59 259.51 259.51 75.92 —\nCD 165.61 82.17 84.44 250.05 166.61 113.61 2.28 at D\nJoint Upper: M_v + M_w = Lower: M_v + M_w =\nA 43.82 36.26 80.08 38.34 48.19 86.53\nB 9.97 84.60 94.57 8.72 112.44 121.16\n[Figure: Figure 7. The combination at level 1 of frame ABCD, BS 8110 combination 3 (kN m).]\nThe wind adds most where the vertical load gives least. The hogging of BC at B rises from 146.91 to 259.51 kN m (+77 %), but the lower column at B, which the balanced vertical load hardly bends (8.72 kN m), takes 121.16 kN m, fourteen times as much. At A the wind moment 84.44 kN m exceeds the vertical 82.17 kN m, so with the wind from the left the end reverses : a sagging moment of 2.28 kN m that needs bottom bars anchored at the support. With the wind of the notes (the 18 m face) the same values are 235.07 and 96.47 kN m.\nQuick check (not graded): At an end support the vertical load gives 60 kN m of hogging and the wind 75 kN m. What does the course method design that end for?\nOptions: 135 kN m hogging only | 15 kN m hogging only | 75 kN m hogging only | 135 kN m hogging, and 15 kN m sagging for the other wind direction\nExplanation shown after answering: With the wind one way the end hogs by 60 + 75 = 135 kN m; with the wind the other way it is relieved, 60 − 75 = −15: a sagging of 15 kN m. Both go into the design: top bars for 135, bottom bars anchored at the support for 15.\nKey points:\n- Course method: 1.2(G_k + Q_k) on every span with 1.2W_k (BS 8110 combination 3), by superposition at each level.\n- Beam ends: M_v + M_w for the hogging, M_w − M_v for a reversal; columns: |M_v| + M_w.\n- The wind matters most where the vertical load is balanced: the interior columns and the end supports."
+  },
+  {
+   "id": "notes-n6",
+   "text": "[notes-n6] Notes 6. The EN 1990 route, and which method when\nThe code route is EN 1990 Eq. 6.10 with the Malaysian National Annex, the default of the RC Design app. The wind is a variable action like the imposed load, and each in turn leads, with the other at its combination value (ψ_0 = 0.7 for the imposed load and 0.5 for the wind, as the app takes them):\nCombination (EN 1990 Eq. 6.10) Factors What it checks\n1 Imposed load leading 1.35G_k + 1.5Q_k + 0.75W_k the largest vertical load with some wind\n2 Wind leading 1.35G_k + 1.05Q_k + 1.5W_k the largest wind moments: the columns and the hogging at the ends\n3 Permanent favourable 1.0G_k + 1.5W_k the reversal of a beam end, with the least vertical load\nOn this route the app also adds the EC2 geometric imperfections (5.2; decision D83): at each floor H_i = θ_iN_i, with θ_i = 1/379.5 for the course frame and N_i the factored vertical load that the floor brings in, about 3.5 kN per level beside the wind. On the workbook’s frame (app case FA9, spans 6, 5 and 8 m) combination 2 governs the hogging (430.4 kN m at C) and every column (the lower column at C, 211.6 kN m), and combination 3 gives a reversal of up to 79.2 kN m at a relieved beam end. The course method finds 2.28 kN m at A of frame ABCD: a different frame, but the trend is general, since 1.0G_k is much less than 1.2(G_k + Q_k) and 1.5W_k more than 1.2W_k.\nWhich method, and how far to trust it. Both approximate methods assume a regular frame: equal storey heights within a storey, columns of equal area (cantilever), points of contraflexure at the middle. They ignore the relative stiffness of the beams and the columns, which decides where the points of contraflexure really are; in the ground storey of a frame with fixed bases the point moves up, and a stiff beam over flexible columns changes the shares. The course uses them to understand the load path and to check a computer analysis by its order of magnitude and its equilibrium; the design values of a real frame come from a stiffness analysis.\nQuick check (not graded): Which EN 1990 combination checks whether a beam end reverses under the wind?\nOptions: 1.35G_k + 1.5Q_k + 0.75W_k | 1.35G_k + 1.05Q_k + 1.5W_k | 1.0G_k + 1.5W_k | 1.2G_k + 1.2Q_k + 1.2W_k\nExplanation shown after answering: A reversal needs a small vertical moment and a large wind moment: the permanent load at its favourable value 1.0 with the wind leading. D is the course method (BS 8110), which keeps the imposed load on every span and so finds a much smaller reversal.\nKey points:\n- EN 1990: imposed leading, wind leading, and 1.0G_k + 1.5W_k for the reversal; the app adds the EC2 imperfections (D83).\n- The course method stays BS 8110 combination 3; the EN 1990 route gives larger wind moments and larger reversals.\n- Approximate methods explain the load path and check a computer analysis; they are not the final design values."
+  },
+  {
+   "id": "slides-1",
+   "text": "[slides-1] Slide 1: Frame Analysis IV\nSEAA 4333 Reinforced Concrete Design II · Week 6 Frame Analysis IV The frame under the wind: two approximate methods, and the wind added to the vertical load Workbook ch. 6 ABCD card Calculator Your Unit 5 wind forces Ruler Phone or laptop Wind Lab Scan for this page’s Explorer tab: portal or cantilever, wind plus gravity, Frame S6."
+  },
+  {
+   "id": "slides-2",
+   "text": "[slides-2] Slide 2: How the next three hours run\nToday · 180 minutes How the next three hours run 0:00 Warm-up Unit 5 in three votes 0:10 Hook The column the vertical load hardly bends 0:17 Contraflexure · two methods Where M = 0; what each method adds 0:29 Activity 6A The same storey by two assumptions 0:44 WE 6.1 Cantilever method, storey by storey: I do 0:58 Portal method Joint by joint 1:12 FE 6.2 A low-rise frame, pairs 1:30 Break 10 minutes 1:40 Wind plus gra"
+  },
+  {
+   "id": "slides-3",
+   "text": "[slides-3] Slide 3: Three questions from last week\nWarm-up · no notes · cards up Three questions from last week W1 · Unit 5 The leeward suction on frame ABCD at level 1 uses the speed A V_{des} at the roof B V_{des,z} at level 1 C V_s of the zone D V_{sit} at level 1 W2 · Unit 5 Every storey above the ground storey is 3.5 m. The roof collects the wind over a height of A 3.5 m B 1.75 m C 5.25 m D 7.0 m W3 · Unit 5 The net pressure averages 0.52 kN/m² over a low frame."
+  },
+  {
+   "id": "slides-4",
+   "text": "[slides-4] Slide 4: A, B, B, and what each means today\nWarm-up · answers A, B, B, and what each means today W1 A: V_{des} at the roof The leeward wall takes V_{des} at z = h for every level (5.4.1). Today the forces are in hand; we analyse the frame under them. W2 B: 1.75 m Half the top storey. So the roof force is the smallest, 13.96 kN on frame ABCD, and it is the whole shear of the top storey. W3 B: × 1.25 The minimum of 2.4.2 scales every level. Today’s forces alread"
+  },
+  {
+   "id": "slides-5",
+   "text": "[slides-5] Slide 5: The column the vertical load hardly bends\nHook · 5 minutes The column the vertical load hardly bends SEAA 4333 · Unit 6 · Frame Analysis IV Workbook 6.2"
+  },
+  {
+   "id": "slides-6",
+   "text": "[slides-6] Slide 6: The wind multiplies the moment in the lower column at B by 14. Which other member of level 1 changes as much?\nConcept check 1 · the big question · vote now, again after Activity 6B The wind multiplies the moment in the lower column at B by 14. Which other member of level 1 changes as much? A Beam BC at its end B B The lower column at A C Beam AB at its end A D The lower column at C Vote · convince your neighbour · vote again Workbook 6.2"
+  },
+  {
+   "id": "slides-7",
+   "text": "[slides-7] Slide 7: Where the moment is zero\nBlock A · talk 1 · 5 minutes Where the moment is zero Sway rigid joints: every column and beam bends in double curvature Contraflexure M = 0 near mid-height and mid-span; both methods put it exactly there Cut there each storey: V and M_o from the forces above; one more assumption makes it determinate SEAA 4333 · Unit 6 · Frame Analysis IV Notes §1 · Workbook 6.2"
+  },
+  {
+   "id": "slides-8",
+   "text": "[slides-8] Slide 8: Two assumptions, two methods\nBlock A · talk 2 · 7 minutes Two assumptions, two methods Portal the storey shear: each bay’s share by its span, half to each leg Cantilever the overturning moment: axial force ∝ distance from the centroid (equal areas) When portal for low, wide frames; cantilever for tall, slender ones SEAA 4333 · Unit 6 · Frame Analysis IV Notes §1–§2 · Workbook 6.2"
+  },
+  {
+   "id": "slides-9",
+   "text": "[slides-9] Slide 9: The same storey by two assumptions\nActivity 6A · teams of four · 12 minutes The same storey by two assumptions Predict first (30 s, alone) Which method gives the larger moment in (1) the outer column A, (2) the interior column B, (3) the middle beam BC? Then Pair 1: the portal method on the ground storey and level 1 (shares, H, M_{col}, the joint balance). Pair 2: the cantilever method from Lab tab 5 (P, N, H, M_{col}, the beams). Compare: where do th"
+  },
+  {
+   "id": "slides-10",
+   "text": "[slides-10] Slide 10: Close for the columns, further apart for the beams\nActivity 6A · reveal Close for the columns, further apart for the beams SEAA 4333 · Unit 6 · Frame Analysis IV Notes §4 · Workbook 6.2"
+  },
+  {
+   "id": "slides-11",
+   "text": "[slides-11] Slide 11: Frame ABCD by the cantilever method\nWorked Example 6.1 · I do · 12 minutes Frame ABCD by the cantilever method Centroid x = 9 m; d = ±9, ±3; r = ∓3, ∓1; Σ|r||d| = 60.00 m Each storey: M_o → P → N → beam shears (ΔN) → column shears (moments about each beam cut) → moments. Storey M_o P N_A/N_B (T) F_{AB}/F_{BC} H_A/H_B M_{AB}/M_{BC} 1 24.42 0.407 1.22/0.41 1.22/1.63 2.09/4.88 3.66/4.88 2 120.82 2.014 6.04/2.01 4.82/6.43 6.17/14.40 14.46/19.28 7 1962.18 3"
+  },
+  {
+   "id": "slides-12",
+   "text": "[slides-12] Slide 12: Storey 2 of frame ABCD: N A = 6.04 kN in tension; in storey 1 it was 1.22 kN. The shear in beam AB at level 6 is\nConcept check 2 · think 60 seconds, then vote Storey 2 of frame ABCD: N_A = 6.04 kN in tension; in storey 1 it was 1.22 kN. The shear in beam AB at level 6 is A 6.04 kN B 4.82 kN C 1.22 kN D 7.26 kN Vote · convince your neighbour · vote again Workbook 6.3"
+  },
+  {
+   "id": "slides-13",
+   "text": "[slides-13] Slide 13: The portal method, joint by joint\nBlock B · talk 3 · 7 minutes The portal method, joint by joint k_i = (L_{left} + L_{right})/(2ΣL) · H_i = k_i V M_{col} = H h/2 M_{b,right} = M_{c,above} + M_{c,below} − M_{b,left} F = 2M_b/L Start at the windward joint and walk along the level. Every beam of a level carries the same shear: only the outer columns take axial force. SEAA 4333 · Unit 6 · Frame Analysis IV Notes §4 · Workbook 6.4"
+  },
+  {
+   "id": "slides-14",
+   "text": "[slides-14] Slide 14: In Faded Example 6.2 the spans are 6, 5 and 8 m. By the portal method, which beam of a level carries the largest shear?\nConcept check 3 · vote In Faded Example 6.2 the spans are 6, 5 and 8 m. By the portal method, which beam of a level carries the largest shear? A The 8 m span B The 5 m span C The 6 m span D All three carry the same shear Vote · convince your neighbour · vote again Workbook 6.4"
+  },
+  {
+   "id": "slides-15",
+   "text": "[slides-15] Slide 15: A low-rise frame by the portal method\nFaded Example 6.2 · pairs · 18 minutes A low-rise frame by the portal method Steps 1 and 2 are given: the forces and the shares k. V for each storey. H and M_{col} = H h/2. The joint balance at levels 2 and 1. F and the axial force in column A. SEAA 4333 · Unit 6 · Frame Analysis IV Examples tab · Workbook 6.4"
+  },
+  {
+   "id": "slides-16",
+   "text": "[slides-16] Slide 16: Equal beam shears, axial force at the ends only\nFaded Example 6.2 · check Equal beam shears, axial force at the ends only Storey V H (A B C D) M_{col} M_{beam} (AB BC CD) F N_A (T) 1 6.75 1.07 · 1.95 · 2.31 · 1.42 1.86 · 3.42 · 4.04 · 2.49 1.86 · 1.55 · 2.49 0.622 0.62 2 19.25 3.04 · 5.57 · 6.59 · 4.05 5.32 · 9.75 · 11.53 · 7.09 7.18 · 5.99 · 9.58 2.395 3.02 3 31.88 5.03 · 9.23 · 10.91 · 6.71 10.07 · 18.46 · 21.81 · 13.42 15.39 · 12.82 · 20.52 5.129 8.15 The canti"
+  },
+  {
+   "id": "slides-17",
+   "text": "[slides-17] Slide 17: Adding the wind to the vertical load\nBlock C · talk 4 · 6 minutes Adding the wind to the vertical load BS 8110 comb. 3: 1.2(G_k + Q_k + W_k) ends: M_v + M_w · reversal: M_w − M_v > 0 columns: |M_v| + M_w Level n: the beams take M_{beam} of the storey below the level; the upper columns M_{col} of the storey above, the lower columns of the storey below. The wind blows from either side: each end in turn. SEAA 4333 · Unit 6 · Frame Analysis IV Notes §5 · Wo"
+  },
+  {
+   "id": "slides-18",
+   "text": "[slides-18] Slide 18: Predict, then combine at level 1\nActivity 6B · teams · 10 minutes Predict, then combine at level 1 Level 1 (kN m) 1.2(G_k + Q_k) 1.2W_k AB: end A / end B 82.17 / 165.61 84.44 BC: end B / end C 146.91 / 146.91 112.59 Lower column A / B 38.34 / 8.72 48.19 / 112.44 Upper column A / B 43.82 / 9.97 36.26 / 84.60 Predict (alone, 1 minute) Does any beam end reverse? Which member grows most, in proportion? Then, as a team The design moment at every beam end"
+  },
+  {
+   "id": "slides-19",
+   "text": "[slides-19] Slide 19: The interior columns change most; end A reverses a little\nActivity 6B · reveal · then vote Concept check 1 again The interior columns change most; end A reverses a little SEAA 4333 · Unit 6 · Frame Analysis IV Notes §5 · Workbook 6.5"
+  },
+  {
+   "id": "slides-20",
+   "text": "[slides-20] Slide 20: The EN 1990 route, and how far to trust a hand method\nBlock C · talk 5 · 6 minutes The EN 1990 route, and how far to trust a hand method EN 1990 Eq. 6.10 Factors FA9 (kN m) 1 Imposed leading 1.35G_k + 1.5Q_k + 0.75W_k the largest vertical load 2 Wind leading 1.35G_k + 1.05Q_k + 1.5W_k hogging 430.4 at C; columns 3 G favourable 1.0G_k + 1.5W_k reversal up to 79.2 With EN 1990 ψ_0: 0.7 imposed, 0.5 wind. Add the EC2 imperfections H_i = θ_iN_i, θ_i = 1/379.5 for the course"
+  },
+  {
+   "id": "slides-21",
+   "text": "[slides-21] Slide 21: Frame S6: four slips in a portal analysis\nSpot the error · teams · 12 minutes Frame S6: four slips in a portal analysis Lab tab 4 (switch to Frame S6), or Workbook 6.6. Eleven lines. Reader reads each line aloud; calculator rechecks; checker tests every storey’s equilibrium; reporter logs line and reason. Which slips would Professional Habit 6 catch? SEAA 4333 · Unit 6 · Frame Analysis IV Lab tab 4 · Workbook 6.6"
+  },
+  {
+   "id": "slides-22",
+   "text": "[slides-22] Slide 22: D6: a two-bay frame under the wind (20 marks)\nBlock D · alone · 30 minutes D6: a two-bay frame under the wind (20 marks) (a) The centroid, r_i and Σ|r||d| [3] (b) Storeys 1 and 2: the axial forces, the beam shears and the column shears [6] (c) The ground storey: N, F, H, M_{col} and the beam moments of level 1 [5] (d) Level 1: the design moment at each beam end, and any reversal [4] (e) The lower columns at level 1 [2] Cantilever method, BS 8110 combination 3. R"
+  },
+  {
+   "id": "slides-23",
+   "text": "[slides-23] Slide 23: The wind moments on your group’s frame line\nProject studio · 12 minutes The wind moments on your group’s frame line Forces Your Unit 5 W_k at each level, × 1.2; draw them on the frame line. Method Portal or cantilever, and why: the height and width of your frame. Storeys V, H, M_{col} and the beam moments, storey by storey; check each. Combine With your Unit 4 moments at level 1: the ends, the reversal, the columns. SEAA 4333 · Unit 6 · Frame Analysis IV Workb"
+  },
+  {
+   "id": "slides-24",
+   "text": "[slides-24] Slide 24: Check every storey’s equilibrium before using its moments\nProfessional Habit 6 Check every storey’s equilibrium before using its moments Shear ΣH = V in every storey Sway moment Σ(M_{top} + M_{bottom}) of the columns = V h Joints Σ M_{beam} = Σ M_{col} at every joint; a negative beam moment is a warning Overturning cantilever method: ΣN_i d_i = M_o Frame S6: lines 4 and 6 fail these checks; line 8 tests only ΣH, which equal shares still pass. SEAA 4333 · Unit 6 · Frame Anal"
+  },
+  {
+   "id": "slides-25",
+   "text": "[slides-25] Slide 25: Before Unit 7\nAfter class Before Unit 7 Notes §1–§6 47 min Exercises, all 14 45 min Explorer, 4 tasks: a cantilever storey, a portal storey, the combination at level 1, Frame S6 30 min Self-mark D6 on eLearning 15 min The notes, Frame Analysis: the cantilever and portal methods, Examples 6 and 7; Mosley, Bungey and Hulse §3.4.2 reading The wind moments on your frame line, checked studio SEAA 4333 · Unit 6 · Frame Analysis IV Workb"
+  },
+  {
+   "id": "slides-26",
+   "text": "[slides-26] Slide 26: Before you leave\nExit ticket · 5 minutes · Workbook 6.8 Before you leave 1 A two-bay frame has spans of 5 m and 7 m. A storey carries a storey shear of 24 kN. By the portal method, find the shear in the interior column. 2 A beam end carries 50 kN m hogging from 1.2(G_k + Q_k) and 65 kN m from 1.2W_k. Find its design moments. 3 What is still unclear? Tear off the slip and hand it in at the door. SEAA 4333 · Unit 6 · Frame Analysis IV"
+  },
+  {
+   "id": "examples-x1",
+   "text": "[examples-x1] Example 1 · Worked Example 6.1: frame ABCD by the cantilever method\nExam type lateral load on a frame by the cantilever method Workbook 6.3 Time ≈ 35 min\nQuestion Frame ABCD of the course notes (spans 6 + 6 + 6 m, columns of equal area, storeys 4.0 m, then 6 × 3.5 m to 25 m) carries the wind of Worked Example 5.1 with the design factor of the course method, W_d = 1.2W_k: 13.96, 27.18, 26.19, 25.00, 23.68, 22.13 and 22.50 kN from the roof down. By the cantilever method, find for every storey: (a) the column axial forces; (b) the beam shears and the column shears; (c) the column and beam moments. Check the equilibrium of the ground storey and of joint B at level 1. In the app: case FA10 of the RC Design Worked Solutions app (Analysis: cantilever method); the notes’ Example 6 with the notes’ forces is case FA10a.\n[Figure: Worked Example 6.1: frame ABCD under W_d = 1.2W_k; the centroid of the four equal columns is at 9 m.]\nPhysical picture. The frame leans downwind as one tall cantilever: the windward columns stretch, the leeward ones shorten, and the further a column is from the centroid the more axial force it takes. The beams tie the columns together, so each beam carries the change of axial force of the columns beside it as a shear.\nPlan. The axial-force ratios; storey 1 in full; storey 2 with the shears of storey 1; the other storeys in a table; the moments; the checks.\n## Step 1 Centroid and axial-force ratios\nRef Calculations Output\n(6.2) x̄ = (0 + 6 + 12 + 18)/4; d = x − x̄ = −9, −3, 3, 9 m; r = d/d_{min} x̄ = 9 m; 3P, P, P, 3P\n(6.2) Σ|r||d| = 3 × 9 + 1 × 3 + 1 × 3 + 3 × 9 60 m\n## Step 2 Storey 1: the roof storey, cut 1.75 m below the roof\nRef Calculations Output\n(6.1) M_o = 13.96 × 1.75 24.42 kN m\n(6.2) P = 24.42/60; N = 3P, P, P, 3P P = 0.407; 1.22 T, 0.41 T, 0.41 C, 1.22 C\n(6.3) Beam shears at the roof, from the axial forces to the left of each beam cut: F_{AB} = 1.22; F_{BC} = 1.22 + 0.41; F_{CD} = 1.22 + 0.41 − 0.41 1.22; 1.63; 1.22 kN\nmoments About the AB cut (x = 3 m): H_A × 1.75 = 1.22 × 3 = 3.66 H_A = 2.09 kN\nmoments About the BC cut (x = 9 m): (H_A + H_B) × 1.75 = 1.22 × 9 + 0.41 × 3 = 12.21 H_B = 4.88 kN\nmoments About the CD cut (x = 15 m): ΣH × 1.75 = 1.22 × 15 + 0.41 × 9 − 0.41 × 3 = 20.76; H_D = 13.96 − ΣH H_C = 4.88; H_D = 2.09 kN\n## Step 3 Storey 2: Level 6 to Level 5, cut 1.75 m below Level 6\nRef Calculations Output\n(6.1) M_o = 13.96 × 5.25 + 27.18 × 1.75 120.82 kN m\n(6.2) P = 120.82/60 P = 2.014; 6.04 T, 2.01 T, 2.01 C, 6.04 C\n(6.3) ΔN = N − N_{storey 1} = 4.82, 1.61, …; beam shears at Level 6 4.82; 6.43; 4.82 kN\nmoments About the AB cut at Level 6: H_A × 1.75 + 2.09 × 1.75 (storey 1 above) = 4.82 × 3 H_A = 6.17 kN\nmoments About the BC and CD cuts in the same way; H_D from ΣH = 13.96 + 27.18 14.40; 14.40; 6.17 kN\n## Step 4 Storeys 3 to 7 in the same way\nRef Calculations Output\n(6.1)–(6.3) Each storey: M_o of the forces above about its cut; P = M_o/60; ΔN; the beam shears; the column shears with those of the storey above. C and D mirror B and A table\nStorey M_o (kN m) P (kN) N_A / N_B (kN) F_{AB} / F_{BC} (kN) H_A / H_B (kN)\n3 310.61 5.177 15.53 / 5.18 9.49 / 12.65 10.10 / 23.56\n4 589.97 9.833 29.50 / 9.83 13.97 / 18.62 13.85 / 32.31\n5 954.51 15.909 47.73 / 15.91 18.23 / 24.30 17.40 / 40.60\n6 1399.21 23.320 69.96 / 23.32 22.24 / 29.65 20.72 / 48.34\n7 1962.18 32.703 98.11 / 32.70 28.15 / 37.53 24.09 / 56.22\n## Step 5 Moments\nRef Calculations Output\n(6.4) Columns: M = H h/2 at the top and bottom of each storey; beams: M = F L/2 = 3F at both ends, at the level above the storey table\nStorey h (m) M_{col} A (kN m) M_{col} B (kN m) Level above M_{beam} AB (kN m) M_{beam} BC (kN m)\n1 3.5 3.66 8.55 Roof 3.66 4.88\n2 3.5 10.80 25.19 Level 6 14.46 19.28\n3 3.5 17.67 41.23 Level 5 28.47 37.96\n4 3.5 24.23 56.54 Level 4 41.90 55.87\n5 3.5 30.45 71.05 Level 3 54.68 72.91\n6 3.5 36.26 84.60 Level 2 66.71 88.94\n7 4.0 48.19 112.44 Level 1 84.44 112.59\n## Step 6 Checks\nRef Calculations Output\nΣH Ground storey: 2 × 24.09 + 2 × 56.22 against ΣW_d = 160.63 160.63 = 160.63 kN ✓\nΣM Ground storey: ΣN × d = 2 × 98.11 × 9 + 2 × 32.70 × 3 against M_o 1962.18 = 1962.18 kN m ✓\njoint B Level 1: beams 84.44 + 112.59; columns 84.60 + 112.44 197.04 ≈ 197.04 ✓\nAnswer. Ground storey: N = 98.11 T, 32.70 T, 32.70 C, 98.11 C kN; H = 24.09, 56.22, 56.22, 24.09 kN; column moments 48.19 and 112.44 kN m (outer and interior). Level 1: beam moments 84.44, 112.59, 84.44 kN m.\nWhat the numbers say The interior columns take 70 % of the storey shear, and the middle beam the largest beam moment. With the notes’ wind (Example 6) the interior column of the ground storey takes 87.75 kN m against 112.44: the method is the same, the forces 28 % larger. These wind moments go into the combination of §5 and Activity 6B, and into the columns of Units 7 to 9."
+  },
+  {
+   "id": "examples-x2",
+   "text": "[examples-x2] Example 2 · Faded Example 6.2: a low-rise frame by the portal method\nExam type lateral load on a frame by the portal method Workbook 6.4 Time ≈ 25 min\nQuestion The three-storey office of Faded Example 5.2 has the workbook’s frame line in place of ABCD: spans 6, 5 and 8 m (d = 19 m, d/b = 0.37, so the pressures and the forces of Faded Example 5.2 stand), storeys 4.0, 3.5 and 3.5 m. With W_d = 1.2W_k = 6.75, 12.50 and 12.62 kN from the roof down, find by the portal method the column shears and moments, the beam moments and shears and the axial force in column A in every storey. Steps 1 and 2 are given; complete the others in the workbook, then open them here. In the app: case FA8 with spans 6, 5 and 8 m, Combination rule set to the course method (BS 8110) and the lateral load set to the wind alone.\n[Figure: Faded Example 6.2: the workbook’s frame line in the low-rise building; W_d = 1.2W_k.]\n## Step 1 Shares of the storey shear (given)\nRef Calculations Output\n(6.5) k = (0 + 6)/38, (6 + 5)/38, (5 + 8)/38, (8 + 0)/38 0.158 / 0.289 / 0.342 / 0.211\n## Step 2 Storey 1: the roof storey (given)\nRef Calculations Output\n(6.5) V = 6.75; H = k V; M_{col} = H × 1.75 1.86 / 3.42 / 4.04 / 2.49 kN m\n(6.6) AB: 1.86 = 1.86; BC: 3.42 − 1.86 = 1.55; CD: 4.04 − 1.55 = 2.49 1.86 / 1.55 / 2.49 kN m\n(6.6) F = 2M/L in each beam; the outer columns take ±ΣF F = 0.62 kN; N_A = 0.62 T\n## Step 3 Storey 2: Level 2 to Level 1\nRef Calculations Output\n(6.5) V = 6.75 + 12.50; H = k V; M_{col} = H × 1.75 V = 19.25; 5.32 / 9.75 / 11.53 / 7.09 kN m\n(6.6) Level 2, the column above from storey 1: AB: 1.86 + 5.32 = 7.18; BC: 3.42 + 9.75 − 7.18 = 5.99; CD: 4.04 + 11.53 − 5.99 = 9.58 7.18 / 5.99 / 9.58 kN m\n(6.6) F = 2M/L; check at D: 2.49 + 7.09 = 9.58 F = 2.39 kN; N_A = 3.02 T\n## Step 4 Storey 3: the ground storey\nRef Calculations Output\n(6.5) V = 19.25 + 12.62; H = k V; M_{col} = H × 2.0 V = 31.88; 10.07 / 18.46 / 21.81 / 13.42 kN m\n(6.6) Level 1: AB: 5.32 + 10.07 = 15.39; BC: 9.75 + 18.46 − 15.39 = 12.82; CD: 11.53 + 21.81 − 12.82 = 20.52 15.39 / 12.82 / 20.52 kN m\n(6.6) F = 2M/L F = 5.13 kN; N_A = 8.15 T\nStorey V (kN) H A / B / C / D (kN) M_{col} A / B / C / D (kN m) Beams at the level above (kN m) F (kN) N_A (kN)\n1 6.75 1.07 / 1.95 / 2.31 / 1.42 1.86 / 3.42 / 4.04 / 2.49 1.86 / 1.55 / 2.49 0.62 0.62\n2 19.25 3.04 / 5.57 / 6.59 / 4.05 5.32 / 9.75 / 11.53 / 7.09 7.18 / 5.99 / 9.58 2.39 3.02\n3 31.88 5.03 / 9.23 / 10.91 / 6.71 10.07 / 18.46 / 21.81 / 13.42 15.39 / 12.82 / 20.52 5.13 8.15\n## Step 5 Against the cantilever method\nRef Calculations Output\ncompare The same frame and forces by the cantilever method (x̄ = 6.33 m), ground storey and level 1 table\nGround storey and level 1 Portal Cantilever\nH A / B / C / D (kN) 5.03 / 9.23 / 10.91 / 6.71 4.44 / 9.37 / 11.50 / 6.57\nBeams AB / BC / CD (kN m) 15.39 / 12.82 / 20.52 13.56 / 15.07 / 20.09\nAnswer. Ground storey: H = 5.03, 9.23, 10.91, 6.71 kN; column moments 10.07, 18.46, 21.81, 13.42 kN m. Level 1: beam moments 15.39, 12.82, 20.52 kN m, F = 5.13 kN in every beam; N_A = 8.15 kN (T), N_D the same in compression, the interior columns none.\nWhat the numbers say Column C, between the 5 m and 8 m spans, takes the largest share, and the 8 m beam the largest moment: in the portal method a long span draws load to its columns. The cantilever method gives the interior columns of this frame within 6 % of the portal values but moves load between the beams (BC up, AB down), because the centroid sits off the middle bay. For a low frame like this one the portal method is the natural choice."
+  },
+  {
+   "id": "examples-x3",
+   "text": "[examples-x3] Example 3 · Explain-type questions\nExam type short written answers Time ≈ 3 min each\nQuestions\n- Why may the points of contraflexure be taken at mid-height and mid-span, and where is that poorest?\n- Why does the portal method give every beam at a level the same shear?\n- In frame ABCD at level 1 the wind adds 77 % to the hogging of BC at B but makes the lower column at B fourteen times larger. Why the difference?\n- What is the reversal of a beam end, and what does it need in the design?\nWrite your four answers first, then open the model answers one by one.\n## Answer 1 Double curvature, if the members are alike\nWith rigid joints and floors moving sideways, each column and beam bends in double curvature; when the beams and columns at both ends of a member are alike, its end moments are nearly equal and opposite, so the zero falls near the middle. It is poorest in the ground storey with fixed bases, where the point moves up from mid-height, and wherever a stiff member meets a flexible one.\n## Answer 2 The shares are half spans\nEach column takes the half spans beside it, so the joint balance gives each beam a moment proportional to its span: M_b = (V_{above}h_{above} + V h)L/(4ΣL). Then F = 2M_b/L is the same for every span, and an interior column receives equal and opposite shears from its two beams: no axial force.\n## Answer 3 Balanced against antisymmetric\nUnder the vertical load the beams on both sides of B hog almost equally, so the joint is nearly balanced and the columns take only the small difference, 8.72 kN m below B. The wind bends the frame antisymmetrically: every beam end and every column at the joint turns the same way, and the column takes its full share, 112.44 kN m. The hogging was large already (146.91 kN m), so the same wind adds less in proportion.\n## Answer 4 Sagging at a support\nAt the end the wind relieves, the beam-end moment is M_w − M_v; when the wind moment is the larger, the end sags: 2.28 kN m at A of frame ABCD by the course method. The section then needs bottom bars carried into the support and anchored there, not stopped short as for a hogging end. On the EN 1990 route the check is 1.0G_k + 1.5W_k, which finds much larger reversals."
+  },
+  {
+   "id": "exercises-b1",
+   "text": "[exercises-b1] Exercise B1 · Portal method: the column shears\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-b2",
+   "text": "[exercises-b2] Exercise B2 · Portal method: the beam moments at a level\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-b3",
+   "text": "[exercises-b3] Exercise B3 · Cantilever method: the axial force in a column\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-b4",
+   "text": "[exercises-b4] Exercise B4 · Cantilever method: a beam shear and a column shear\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-b5",
+   "text": "[exercises-b5] Exercise B5 · Wind plus gravity at a beam\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-b6",
+   "text": "[exercises-b6] Exercise B6 · The storey shear and the overturning moment\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-quick",
+   "text": "[exercises-quick] Exercises: quick concept questions\n- Both approximate methods for a frame under lateral load place a point of contraflexure\n- The cantilever method takes the axial force in each column of a storey (columns of equal area) as\n- In a frame of equal spans, the portal method gives an interior column\n- By the portal method, which columns of a storey carry an axial force from the wind?\n- At a beam end, 1.2(G_k + Q_k ) gives 60 kN m hogging and the wind 1.2W_k gives 85 kN m. When the wind blows from the side that relieves this end, the end\n- The course method combines the vertical load and the wind by BS 8110 load combination 3. Its factors are\n- A two-bay frame ABC has spans AB = 6 m and BC = 8 m. Its top storey, 3.5 m high, carries the roof force of 20 kN. A student works out the moment in the roof beam AB by the portal method. Which line is wrong?\n- At level 1 of an unbraced frame, 1.2(G_k + Q_k ) gives beam AB hogging moments of 40 kN m at A and 150 kN m at B; the wind 1.2W_k gives 70 kN m at each end. A student finds the design moments at the ends. Which line is wrong?"
+  },
+  {
+   "id": "lab-cant",
+   "text": "[lab-cant] Explorer task 1 · Tab 5: work one storey of a frame by the cantilever method. Type N_A , H_A and M_{AB} for that storey, then press “Check”.\nTicks itself: when all three are right · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-port",
+   "text": "[lab-port] Explorer task 2 · Tab 5: work one storey by the portal method. Type H_A , H_B and M_{AB} , then press “Check”.\nTicks itself: when all three are right · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-comb",
+   "text": "[lab-comb] Explorer task 3 · Tab 6, Activity 6B: predict which member the wind changes most, reveal the combination at level 1, then work one beam end (the largest hogging and the reversal).\nTicks itself: when the beam end is right · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-s6",
+   "text": "[lab-s6] Explorer task 4 · Tab 4: switch the sheet to Frame S6, find all four slips, tap their lines and press “Check”.\nTicks itself: when all four slips are found, before Show · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "glossary-lateral-load",
+   "text": "[glossary-lateral-load] Glossary: lateral load\nlateral load: A horizontal action on the frame: the wind (Unit 5) and, by EC2, the equivalent forces of the geometric imperfections."
+  },
+  {
+   "id": "glossary-sway",
+   "text": "[glossary-sway] Glossary: sway\nsway: The sideways movement of the floors of an unbraced frame under lateral load; each storey drifts relative to the one below."
+  },
+  {
+   "id": "glossary-double-curvature",
+   "text": "[glossary-double-curvature] Glossary: double curvature\ndouble curvature: A member bent by end moments that turn the same way, as a column of a swaying storey: the moment changes sign between the ends."
+  },
+  {
+   "id": "glossary-point-of-contraflexure",
+   "text": "[glossary-point-of-contraflexure] Glossary: point of contraflexure\npoint of contraflexure: Where the bending moment changes sign. Both approximate methods put one at the mid-height of every column and the mid-span of every beam."
+  },
+  {
+   "id": "glossary-storey-shear-v",
+   "text": "[glossary-storey-shear-v] Glossary: storey shear V\nstorey shear V: The sum of the lateral forces above a cut through a storey; the column shears of the storey add up to it."
+  },
+  {
+   "id": "glossary-overturning-moment-m-o",
+   "text": "[glossary-overturning-moment-m-o] Glossary: overturning moment M_o\noverturning moment M_o: The moment of the lateral forces above the cut, about the cut at the mid-height of the storey: ΣF(z − z_{cut} )."
+  },
+  {
+   "id": "glossary-cantilever-method",
+   "text": "[glossary-cantilever-method] Glossary: cantilever method\ncantilever method: The frame bends as one cantilever about the centroid of its columns: column axial forces in proportion to their distance from the centroid (equal areas). Suits tall, slender frames."
+  },
+  {
+   "id": "glossary-portal-method",
+   "text": "[glossary-portal-method] Glossary: portal method\nportal method: Each bay acts as a portal: the storey shear is shared by the bays in proportion to their spans, half to each leg. Suits low, wide frames."
+  },
+  {
+   "id": "glossary-centroid-x",
+   "text": "[glossary-centroid-x] Glossary: centroid x\ncentroid x: Σx_i A_i /ΣA_i of the columns of a storey; with equal areas, the average column position."
+  },
+  {
+   "id": "glossary-r-i-p",
+   "text": "[glossary-r-i-p] Glossary: r_i , P\nr_i , P: r_i = d_i /d_{min} , the column’s distance from the centroid over the smallest one; P = M_o /Σ|r||d|, the axial force at d_{min} ; N_i = r_i P."
+  },
+  {
+   "id": "glossary-column-shear-h",
+   "text": "[glossary-column-shear-h] Glossary: column shear H\ncolumn shear H: The horizontal force in a column at its point of contraflexure; M_{col} = H h/2 at each end."
+  },
+  {
+   "id": "glossary-beam-shear-f",
+   "text": "[glossary-beam-shear-f] Glossary: beam shear F\nbeam shear F: The vertical force in a beam at its mid-span: the change of axial force to the left (cantilever) or 2M_b /L (portal); M_{beam} = F L/2."
+  },
+  {
+   "id": "glossary-k-i",
+   "text": "[glossary-k-i] Glossary: k_i\nk_i: The portal share of column i, (L_{left} + L_{right} )/(2ΣL); H_i = k_i V."
+  },
+  {
+   "id": "glossary-joint-balance",
+   "text": "[glossary-joint-balance] Glossary: joint balance\njoint balance: At a joint the beam moments balance the column moments: M_{b,right} = M_{c,above} + M_{c,below} − M_{b,left} , joint by joint from the windward side."
+  },
+  {
+   "id": "glossary-bs-8110-load-combination-3",
+   "text": "[glossary-bs-8110-load-combination-3] Glossary: BS 8110 load combination 3\nBS 8110 load combination 3: Dead, imposed and wind together at 1.2(G_k + Q_k + W_k ): the course method, with every span loaded."
+  },
+  {
+   "id": "glossary-moment-reversal",
+   "text": "[glossary-moment-reversal] Glossary: moment reversal\nmoment reversal: A beam end whose hogging moment the wind turns into sagging, when M_w > M_v ; it needs bottom steel at the support, anchored into the column."
+  },
+  {
+   "id": "glossary-en-1990-eq-6-10",
+   "text": "[glossary-en-1990-eq-6-10] Glossary: EN 1990 Eq. 6.10\nEN 1990 Eq. 6.10: The fundamental combination: one leading variable action at 1.5, the others at 1.5ψ_0 ; G at 1.35, or 1.0 where it helps."
+  },
+  {
+   "id": "glossary-0",
+   "text": "[glossary-0] Glossary: ψ_0\nψ_0: The combination factor of an accompanying variable action; the app takes 0.7 for the imposed load and 0.5 for the wind."
+  },
+  {
+   "id": "glossary-stiffness-analysis",
+   "text": "[glossary-stiffness-analysis] Glossary: stiffness analysis\nstiffness analysis: A full analysis of the frame (the stiffness method in a computer program), which finds the points of contraflexure from the member stiffnesses; the approximate methods check its order of magnitude."
+  },
+  {
+   "id": "glossary-professional-habit-6",
+   "text": "[glossary-professional-habit-6] Glossary: Professional Habit 6\nProfessional Habit 6: Check every storey’s equilibrium before using its moments: ΣH = V and, for the cantilever method, ΣN_i x_i about the centroid = M_o ."
+  }
+ ]
+}

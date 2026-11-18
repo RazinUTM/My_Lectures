@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Staircase Lab · SEAA 4333</title>
-<meta name="description" content="SEAA 4333 Unit 1, Staircases I: plan and check stair geometry by the by-laws, turn the waist into a load on plan, model the stair as a beam on plan, detail the bars, and find the slips in a submitted calculation.">
+<meta name="description" content="SEAA 4333 Units 1 and 2, Staircases I and II: plan and check stair geometry by the by-laws, turn the waist into a load on plan, model the stair as a beam on plan, detail the bars, design a flight that rests on a landing and the landing itself, read stair plans, and find the slips in two submitted calculations.">
 <meta name="claude:viewport-fit-sides" content="cover">
 <script>(function(){try{var r=document.documentElement,p=JSON.parse(localStorage.getItem("seaa4333-prefs")||"null")||{};if(p.lang==="ms"){r.lang="ms";r.setAttribute("data-lang","ms")}if(p.theme==="light"||p.theme==="dark")r.setAttribute("data-theme",p.theme);if(+p.font)r.style.fontSize=(+p.font*100)+"%"}catch(e){}})();</script>
-<!-- Staircase Lab (SEAA 4333 Unit 1). SPDX-License-Identifier: MIT (code). Text and figures: CC BY-NC-SA 4.0.
+<!-- Staircase Lab (SEAA 4333 Units 1 and 2). SPDX-License-Identifier: MIT (code). Text and figures: CC BY-NC-SA 4.0.
      Copyright (c) 2026 Ahmad Razin Zainal Abidin and Universiti Teknologi Malaysia. See ../LICENSE.md. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,7 +15,7 @@
 <style>
 /* Layout: a calculation pad laid on concrete. Controls stay monochrome ink; colour is kept for
    the flight load (blue), the landing load (green), reinforcement (rust) and pass/fail verdicts.
-   Five tabs follow the order of the Unit 1 session. */
+   Tabs 1 to 5 follow the Unit 1 session; Stair S2 in tab 5 and tabs 6 and 7 were added for Unit 2. */
 :root{
   --bg:#E6E4DF; --surface:#F7F6F2; --surface-2:#EEECE6;
   --ink:#1D1C19; --ink-2:#47443D; --ink-3:#686459;
@@ -239,18 +239,29 @@ footer{color:var(--ink-3);font-size:.85rem;padding-block:18px 32px;max-width:90c
 .sitebar .fontbtn .lvl{display:flex;gap:2px}.sitebar .fontbtn .lvl i{width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.25}.sitebar .fontbtn .lvl i.on{opacity:1}
 :root.framed .sitebar{display:none}
 footer .lic{display:block;margin-top:6px}
+
+/* Unit 2: vote buttons inside a veil, pass/fail rows in the result tables */
+.choice{display:grid;gap:8px;width:100%;max-width:46ch}
+.choice .btn{border-radius:10px;text-align:left;line-height:1.35;padding:10px 12px;white-space:normal}
+.choice .btn b{font-family:var(--f-display);font-size:1.05rem;margin-right:6px}
+.veilwrap:has(> .veil:not([hidden])){min-height:400px}
+.tbl tr.badrow td{background:var(--wash-bad)}
+.tbl .okm{color:var(--ok);font-weight:700}
+.tbl .badm{color:var(--bad);font-weight:700}
+#panel-plan .verdict{line-height:1.5}
+#lKV span{text-transform:none;letter-spacing:.02em;font-size:.74rem}
 </style>
 </head>
 <body>
 <div class="sitebar" id="sitebar"><div class="wrap">
-  <nav class="crumbs" aria-label="Breadcrumb" data-ms-aria="Laluan"><a href="https://razinutm.github.io/My_Lectures/">My Lectures</a><span aria-hidden="true">›</span><a href="../index.html">SEAA 4333</a><span aria-hidden="true">›</span><a href="../01-staircases-1/index.html#lab">Unit 1</a><span aria-hidden="true">›</span><span aria-current="page">Staircase Lab</span></nav>
+  <nav class="crumbs" aria-label="Breadcrumb" data-ms-aria="Laluan"><a href="https://razinutm.github.io/My_Lectures/">My Lectures</a><span aria-hidden="true">›</span><a href="../index.html">SEAA 4333</a><span aria-hidden="true">›</span><a href="../01-staircases-1/index.html#lab">Unit 1</a><span aria-hidden="true">·</span><a href="../02-staircases-2/index.html#lab">Unit 2</a><span aria-hidden="true">›</span><span aria-current="page">Staircase Lab</span></nav>
   <div class="prefs"><button type="button" id="btn-lang" title="Bahasa">BM</button><button type="button" id="btn-theme" title="Theme"></button><button type="button" id="btn-font" class="fontbtn" title="Text size"><span class="aa" aria-hidden="true">A<small>A</small></span><span class="lvl" aria-hidden="true"><i></i><i></i><i></i><i></i></span></button></div>
 </div></div>
 <header class="topbar">
   <div class="wrap">
     <div class="brand">
       <h1>Staircase Lab</h1>
-      <span class="unit">SEAA 4333 · Unit 1 · Staircases I</span>
+      <span class="unit">SEAA 4333 · Units 1–2 · Staircases I–II</span>
     </div>
     <div class="timer" aria-label="Activity timer" data-ms-aria="Pemasa aktiviti">
       <button class="timer-display" id="tDisplay" type="button" title="Show the timer full screen" data-ms-title="Tunjuk pemasa pada skrin penuh">5:00</button>
@@ -274,6 +285,8 @@ footer .lic{display:block;margin-top:6px}
     <button class="tab" role="tab" id="tab-span" aria-controls="panel-span" data-tab="span"><span class="n">3</span><span data-ms="Span &amp; moment">Span &amp; moment</span></button>
     <button class="tab" role="tab" id="tab-detail" aria-controls="panel-detail" data-tab="detail"><span class="n">4</span><span data-ms="Detailing">Detailing</span></button>
     <button class="tab" role="tab" id="tab-error" aria-controls="panel-error" data-tab="error"><span class="n">5</span><span data-ms="Cari kesilapan">Spot the error</span></button>
+    <button class="tab" role="tab" id="tab-landing" aria-controls="panel-landing" data-tab="landing"><span class="n">6</span><span data-ms="Landing">Landings</span></button>
+    <button class="tab" role="tab" id="tab-plan" aria-controls="panel-plan" data-tab="plan"><span class="n">7</span><span data-ms="Pembaca pelan">Plan reader</span></button>
   </nav>
 
   <main class="sheet">
@@ -495,11 +508,19 @@ footer .lic{display:block;margin-top:6px}
       </div>
     </section>
 
-    <!-- ===================== 5 SPOT THE ERROR ===================== -->
+    <!-- ===================== 5 SPOT THE ERROR (Stair S1, Unit 1 · Stair S2, Unit 2) ===================== -->
     <section id="panel-error" role="tabpanel" aria-labelledby="tab-error" hidden>
       <div class="col">
+        <div class="group">
+          <span class="label" data-ms="Pengiraan">Calculation</span>
+          <div class="seg" role="group" aria-label="Which calculation" data-ms-aria="Pengiraan mana" id="eWhich">
+            <button type="button" data-v="s1" aria-pressed="true" data-ms="Tangga S1 · Unit 1">Stair S1 · Unit 1</button>
+            <button type="button" data-v="s2" aria-pressed="false" data-ms="Tangga S2 · Unit 2">Stair S2 · Unit 2</button>
+          </div>
+        </div>
         <div class="s1top">
           <div class="col">
+            <div class="col" id="eInfo1">
             <div class="head">
               <h2 data-ms="Cari kesilapan: Tangga S1">Spot the error: Stair S1</h2>
               <p class="lede" data-ms="Pengiraan yang dihantar bagi flight dengan landing di atas. Ia mengandungi empat kesilapan. Cari kesemuanya sebagai satu pasukan sebelum sesiapa melihat jawapan.">A submitted calculation for a flight with a landing at the top. It contains four slips. Find them as a team before anyone looks at the answer.</p>
@@ -511,12 +532,30 @@ footer .lic{display:block;margin-top:6px}
               <dt data-ms="Action">Actions</dt><dd data-ms="Finishes 1.0 kN/m², imposed 4.0 kN/m² (kedua-duanya on plan)">Finishes 1.0 kN/m², imposed 4.0 kN/m² (both on plan)</dd>
               <dt data-ms="Bahan">Materials</dt><dd>C25/30, f<sub>yk</sub> = 500 N/mm², γ<sub>c</sub> = 25 kN/m³</dd>
             </dl>
+            </div>
+            <div class="col" id="eInfo2" hidden>
+            <div class="head">
+              <h2 data-ms="Cari kesilapan: Tangga S2">Spot the error: Stair S2</h2>
+              <p class="lede" data-ms="Pengiraan yang dihantar bagi tangga open-well: flight dari beam ke landing, kemudian landing. Seperti yang dihantar, setiap semakan lulus, namun ia mengandungi empat kesilapan. Cari kesemuanya sebagai satu pasukan sebelum sesiapa melihat jawapan.">A submitted calculation for an open-well stair: the flight from a beam to the landing, then the landing. As submitted, every check passes, yet it contains four slips. Find them as a team before anyone looks at the answer.</p>
+            </div>
+            <dl class="given" aria-label="Given data" data-ms-aria="Data yang diberi">
+              <dt data-ms="Geometri">Geometry</dt><dd data-ms="10 riser setinggi 170 mm; 10 going sepanjang 255 mm = 2550 mm on plan (going teratas dilukis pada flight, seperti dalam nota); dua flight selebar 1200 mm di kiri dan kanan well 200 mm">10 risers of 170 mm; 10 goings of 255 mm = 2550 mm on plan (the top going drawn on the flight, as in the notes); two flights 1200 mm wide either side of a 200 mm well</dd>
+              <dt data-ms="Support">Supports</dt><dd data-ms="Kaki: beam selebar 200 mm, monolitik dan continuous. Atas: landing sedalam 1200 mm, yang merentang di antara dinding 200 mm merentasi kedua-dua flight dan well">Foot: beam 200 mm wide, monolithic and continuous. Top: the landing, 1200 mm deep, which spans between 200 mm walls across both flights and the well</dd>
+              <dt>Slab</dt><dd data-ms="Waist h = 140 mm; landing setebal 150 mm; cover 25 mm; bar H10, bar landing di lapisan dalam">Waist h = 140 mm; landing 150 mm thick; cover 25 mm; H10 bars, the landing’s in the inner layer</dd>
+              <dt data-ms="Action">Actions</dt><dd data-ms="Finishes 1.2 kN/m², imposed 3.0 kN/m² (kedua-duanya on plan)">Finishes 1.2 kN/m², imposed 3.0 kN/m² (both on plan)</dd>
+              <dt data-ms="Bahan">Materials</dt><dd>C25/30, f<sub>yk</sub> = 500 N/mm², γ<sub>c</sub> = 25 kN/m³</dd>
+            </dl>
+            </div>
           </div>
           <div class="col">
             <div class="plotcard"><div class="figbox" id="eFig"></div></div>
-            <div class="task">
+            <div class="task" id="eTask1">
               <span class="tag" data-ms="Aktiviti 1D · pasukan berempat · 17 min">Activity 1D · teams of four · 17 min</span>
               <p data-ms="Tulis nombor baris yang anda syaki dalam Workbook 1.8, setiap satu dengan sebab dalam satu baris. Kemudian ketik baris itu di sini dan tekan <i>Semak</i>.">Write the line numbers you suspect in Workbook 1.8, each with a one-line reason. Then tap those lines here and press <i>Check</i>.</p>
+            </div>
+            <div class="task" id="eTask2" hidden>
+              <span class="tag" data-ms="Unit 2 · pasukan berempat · 12 min">Unit 2 · teams of four · 12 min</span>
+              <p data-ms="Tulis nombor baris yang anda syaki dalam Workbook 2.5, setiap satu dengan sebab dalam satu baris. Kemudian ketik baris itu di sini dan tekan <i>Semak</i>.">Write the line numbers you suspect in Workbook 2.5, each with a one-line reason. Then tap those lines here and press <i>Check</i>.</p>
             </div>
             <div class="steps">
               <button class="btn primary" id="eCheck" type="button" data-ms="Semak">Check</button>
@@ -526,12 +565,181 @@ footer .lic{display:block;margin-top:6px}
             <p class="score" id="eScore" aria-live="polite">Lines flagged: 0</p>
           </div>
         </div>
-        <div class="scroll"><table class="sheetcalc" id="eSheet" aria-label="Stair S1 calculation sheet" data-ms-aria="Helaian pengiraan Tangga S1"></table></div>
+        <div class="scroll"><table class="sheetcalc" id="eSheet" aria-label="Stair S1 calculation sheet"></table></div>
         <div class="summary" id="eSummary" hidden></div>
       </div>
     </section>
+
+    <!-- ===================== 6 LANDINGS (Unit 2) ===================== -->
+    <section id="panel-landing" role="tabpanel" aria-labelledby="tab-landing" hidden>
+      <div class="panel">
+        <div class="col">
+          <div class="head">
+            <h2 data-ms="Landing: ke mana load flight pergi">Landings: where the flight’s load goes</h2>
+            <p class="lede" data-ms="Open well: flight bertumpu pada landing yang merentang di antara dinding. Right angles: landing bersama berada dalam dua span. Kaedah kursus SEAA 4333, seperti RC Design app.">Open well: the flight rests on a landing that spans between walls. Right angles: a shared landing lies inside two spans. The course method of SEAA 4333, as in the RC Design app.</p>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Susunan">Arrangement</span>
+            <div class="seg" role="group" aria-label="Arrangement" data-ms-aria="Susunan" id="lMode">
+              <button type="button" data-v="open" aria-pressed="true">Open well</button>
+              <button type="button" data-v="right" data-ms="Sudut tepat, dinding">Right angles, walls</button>
+            </div>
+          </div>
+          <div class="group">
+            <label class="label" for="lPreset" data-ms="Contoh">Example</label>
+            <select id="lPreset" class="full"></select>
+          </div>
+          <div class="fields" id="lFields">
+            <label for="lR">Rise R</label><input id="lR" type="number" step="5" min="120" max="200"><span class="u">mm</span>
+            <label for="lG">Going G</label><input id="lG" type="number" step="5" min="220" max="320"><span class="u">mm</span>
+            <label for="lnR" data-ms="Riser dalam flight">Risers in the flight</label><input id="lnR" type="number" step="1" min="3" max="16"><span class="u"></span>
+            <label for="lnG" data-ms="Going pada cerun">Goings on the slope</label><input id="lnG" type="number" step="1" min="3" max="16"><span class="u"></span>
+            <label for="lh">Waist h</label><input id="lh" type="number" step="5" min="100" max="250"><span class="u">mm</span>
+            <label for="lbF" data-ms="Lebar flight b<sub>F</sub>">Flight width b<sub>F</sub></label><input id="lbF" type="number" step="50" min="800" max="2400"><span class="u">mm</span>
+            <label for="ltA" id="ltALab">Beam at the foot</label><input id="ltA" type="number" step="10" min="100" max="600"><span class="u">mm</span>
+            <label for="lLL" id="lLLLab">Landing depth</label><input id="lLL" type="number" step="50" min="0" max="3000"><span class="u">mm</span>
+            <label for="lhL" data-ms="Ketebalan landing h<sub>L</sub>">Landing thickness h<sub>L</sub></label><input id="lhL" type="number" step="5" min="100" max="300"><span class="u">mm</span>
+            <label for="lwell" class="ow" data-ms="Well">Well</label><input id="lwell" class="ow" type="number" step="10" min="0" max="1000"><span class="u ow">mm</span>
+            <label for="ltw" class="ow" data-ms="Dinding di bawah landing">Walls under the landing</label><input id="ltw" class="ow" type="number" step="10" min="100" max="400"><span class="u ow">mm</span>
+            <label for="ltB" class="ra" data-ms="Support di B, lebar">Support at B, width</label><input id="ltB" class="ra" type="number" step="10" min="100" max="600"><span class="u ra">mm</span>
+            <label for="lgk" data-ms="Finishes g<sub>k</sub>">Finishes g<sub>k</sub></label><input id="lgk" type="number" step="0.1" min="0" max="5"><span class="u">kN/m²</span>
+            <label for="lqk">Imposed q<sub>k</sub></label><input id="lqk" type="number" step="0.5" min="0" max="10"><span class="u">kN/m²</span>
+            <label for="lfck" data-ms="Konkrit">Concrete</label><select id="lfck"><option value="25">C25/30</option><option value="30">C30/37</option><option value="35">C35/45</option></select><span class="u"></span>
+          </div>
+          <div class="group ra">
+            <span class="label" data-ms="Support di B">Support at B</span>
+            <div class="seg" role="group" aria-label="Support at B" data-ms-aria="Support di B" id="lBend">
+              <button type="button" data-v="simple" data-ms="Dinding, simply supported">Wall, simply supported</button>
+              <button type="button" data-v="cont" data-ms="Beam, continuous">Beam, continuous</button>
+            </div>
+            <span class="label" data-ms="Landing B">Landing B</span>
+            <div class="seg" role="group" aria-label="Landing B" data-ms-aria="Landing B" id="lShare">
+              <button type="button" data-v="0.5" data-ms="Dikongsi: ½ n<sub>L</sub>">Shared: ½ n<sub>L</sub></button>
+              <button type="button" data-v="1" data-ms="Flight ini sahaja: n<sub>L</sub>">This flight alone: n<sub>L</sub></button>
+            </div>
+            <span class="label" data-ms="Dibina ke dalam dinding (BS 8110 3.10.1.2)">Built into walls (BS 8110 3.10.1.2)</span>
+            <div class="seg" role="group" aria-label="Built into walls" data-ms-aria="Dibina ke dalam dinding" id="lWalls">
+              <button type="button" data-v="0" data-ms="Tiada">None</button>
+              <button type="button" data-v="1" data-ms="Satu sisi">One side</button>
+              <button type="button" data-v="2" data-ms="Kedua-dua sisi">Both sides</button>
+            </div>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Bar flight (main dan top)">Flight bars (main and top)</span>
+            <div class="fields">
+              <label for="lphi" data-ms="Diameter">Diameter</label><select id="lphi"><option value="8">H8</option><option value="10">H10</option><option value="12">H12</option><option value="16">H16</option></select><span class="u"></span>
+              <label for="ls" data-ms="Jarak">Spacing</label><input id="ls" type="number" step="25" min="75" max="400"><span class="u">mm</span>
+            </div>
+          </div>
+          <div class="group ow">
+            <span class="label" data-ms="Bar landing (lapisan dalam)">Landing bars (inner layer)</span>
+            <div class="fields">
+              <label for="lphiL" data-ms="Diameter">Diameter</label><select id="lphiL"><option value="10">H10</option><option value="12">H12</option><option value="16">H16</option></select><span class="u"></span>
+              <label for="lnL" data-ms="Bilangan bar">Number of bars</label><input id="lnL" type="number" step="1" min="3" max="40"><span class="u"></span>
+            </div>
+          </div>
+          <div class="task ow">
+            <span class="tag" data-ms="Aktiviti 2A · berpasangan · 8 min">Activity 2A · pairs · 8 min</span>
+            <p data-ms="<b>Load manakah yang berada pada span?</b> Contoh 3 nota kursus. Pilih, kira F dalam Workbook 2.2, kemudian pilih di sini untuk mendedahkan."><b>Which loads lie on the span?</b> The course notes’ Example 3. Choose, work out F in Workbook 2.2, then choose here to reveal.</p>
+          </div>
+          <div class="task ow">
+            <span class="tag" data-ms="Aktiviti 2B · berpasangan · 6 min">Activity 2B · pairs · 6 min</span>
+            <p data-ms="<b>Semakan landing.</b> Landing dalam nota, 17H10, dengan load yang dibetulkan: semakan manakah yang gagal? Semak dalam Workbook 2.3, pilih di bawah landing, kemudian ubah landing sehingga lulus."><b>The landing’s checks.</b> The notes’ landing, 17H10, with the corrected load: which check fails? Check in Workbook 2.3, choose below the landing, then change the landing until it passes.</p>
+          </div>
+          <div class="task ra">
+            <span class="tag" data-ms="Faded Example 2.2 · berpasangan">Faded Example 2.2 · pairs</span>
+            <p data-ms="Tukar landing B antara <i>dikongsi</i> dan <i>flight ini sahaja</i>, dan perhatikan F, M dan steel. Akhiri dengan landing dikongsi dan setiap semakan lulus. Cuba juga contoh WE 1.1 yang dibina ke dalam dinding.">Switch landing B between <i>shared</i> and <i>this flight alone</i>, and watch F, M and the steel. Finish with the shared landing and every check passing. Try the example of WE 1.1 built into walls too.</p>
+          </div>
+          <p class="note" data-ms="Effective span di atas landing: L = L<sub>a</sub> + ½(L<sub>b1</sub> + L<sub>b2</sub>), L<sub>b</sub> ≤ 1.8 m (BS 8110 3.10.1.3). Jalur landing di dalam span memikul n<sub>L</sub> (audit T-01). Landing open-well: w<sub>L</sub> = n<sub>L</sub>b<sub>L</sub> + V<sub>A</sub>, M<sub>L</sub> = w<sub>L</sub>L<sub>L</sub>²/8, K = 1.0. Landing bersama: ½ n<sub>L</sub> (Mosley §8.8.2). Dinding: κ<sub>w</sub> = (b<sub>F</sub> − 150n<sub>w</sub>)/(b<sub>F</sub> + 75n<sub>w</sub>), bagi flight dan landing yang dipikul oleh flight itu sahaja.">Effective span on a landing: L = L<sub>a</sub> + ½(L<sub>b1</sub> + L<sub>b2</sub>), L<sub>b</sub> ≤ 1.8 m (BS 8110 3.10.1.3). The landing strip inside the span carries n<sub>L</sub> (audit T-01). Open-well landing: w<sub>L</sub> = n<sub>L</sub>b<sub>L</sub> + V<sub>A</sub>, M<sub>L</sub> = w<sub>L</sub>L<sub>L</sub>²/8, K = 1.0. Shared landing: ½ n<sub>L</sub> (Mosley §8.8.2). Walls: κ<sub>w</sub> = (b<sub>F</sub> − 150n<sub>w</sub>)/(b<sub>F</sub> + 75n<sub>w</sub>), for the flight and for a landing carried by this flight alone.</p>
+        </div>
+        <div class="col">
+          <div class="plotcard">
+            <div class="plothead"><h3 id="lFigH">The flight, and the beam it becomes</h3><div class="legend"><span><i class="key box" style="background:var(--flight)"></i><span data-ms="load flight">flight load</span></span><span><i class="key box" style="background:var(--landing)"></i><span data-ms="load landing">landing load</span></span><span><i class="key" style="border-top-color:var(--react)"></i><span data-ms="reaction">reactions</span></span></div></div>
+            <div class="figbox" id="lFig"></div>
+          </div>
+          <div class="veilwrap">
+            <div class="kv" id="lKV"></div>
+            <div class="scroll"><table class="tbl" id="lTable" aria-label="The flight" data-ms-aria="Flight"></table></div>
+            <div class="veil" id="lVeilA" hidden>
+              <div class="inner">
+                <h3 data-ms="Aktiviti 2A · undi dahulu">Activity 2A · vote first</h3>
+                <p data-ms="Effective span L = 3.45 m, dari tengah beam ke tengah landing. Load manakah yang berada padanya?">Effective span L = 3.45 m, from the centre of the beam to the centre of the landing. Which loads lie on it?</p>
+                <div class="choice" id="lChoiceA">
+                  <button type="button" class="btn" data-k="A" data-ms="<b>A</b> load flight sepanjang 2.60 m"><b>A</b> the flight load over 2.60 m</button>
+                  <button type="button" class="btn" data-k="B" data-ms="<b>B</b> load flight sepanjang 2.70 m"><b>B</b> the flight load over 2.70 m</button>
+                  <button type="button" class="btn" data-k="C" data-ms="<b>C</b> load flight sepanjang 2.70 m dan load landing sepanjang 0.75 m"><b>C</b> the flight load over 2.70 m and the landing load over 0.75 m</button>
+                  <button type="button" class="btn" data-k="D" data-ms="<b>D</b> load flight sepanjang 2.70 m dan load landing sepanjang 1.50 m"><b>D</b> the flight load over 2.70 m and the landing load over the whole 1.50 m</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="verdict" id="lVerdictA" hidden></p>
+          <div class="plotcard ow">
+            <div class="plothead"><h3 data-ms="Landing: slab di antara dinding">The landing: a slab between the walls</h3><div class="legend"><span><i class="key" style="border-top-color:var(--rebar)"></i><span data-ms="bar landing">landing bars</span></span></div></div>
+            <div class="figbox" id="lFigL"></div>
+          </div>
+          <div class="veilwrap ow">
+            <div class="scroll"><table class="tbl" id="lTableL" aria-label="The landing" data-ms-aria="Landing"></table></div>
+            <div class="veil" id="lVeilB" hidden>
+              <div class="inner">
+                <h3 data-ms="Aktiviti 2B · undi dahulu">Activity 2B · vote first</h3>
+                <p data-ms="Landing dalam nota, 17H10, dengan load yang dibetulkan. Semakan manakah yang gagal?">The notes’ landing, 17H10, with the corrected load. Which check fails?</p>
+                <div class="choice" id="lChoiceB">
+                  <button type="button" class="btn" data-k="A" data-ms="<b>A</b> tiada: landing lulus"><b>A</b> none: the landing passes</button>
+                  <button type="button" class="btn" data-k="B"><b>B</b> bending</button>
+                  <button type="button" class="btn" data-k="C"><b>C</b> shear</button>
+                  <button type="button" class="btn" data-k="D"><b>D</b> deflection</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="verdict ow" id="lVerdictB" hidden></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 7 PLAN READER (Unit 2) ===================== -->
+    <section id="panel-plan" role="tabpanel" aria-labelledby="tab-plan" hidden>
+      <div class="panel">
+        <div class="col">
+          <div class="head">
+            <h2 data-ms="Pembaca pelan">Plan reader</h2>
+            <p class="lede" data-ms="Setiap pelan baharu. Baca arah, kira riser, cari R dan effective span. Nota di bawah pelan menyatakan cara anak tangga terakhir dilukis.">Each plan is new. Read the direction, count the risers, find R and the effective span. The note under the plan says how the last step is drawn.</p>
+          </div>
+          <div class="group">
+            <span class="label" id="rQ1" data-ms="1 · Di manakah bahagian bawah flight Q?">1 · Where is the bottom of flight Q?</span>
+            <div class="seg" role="group" aria-label="Bottom of flight Q" data-ms-aria="Bahagian bawah flight Q" id="rBottom">
+              <button type="button" data-v="floor" data-ms="Di lantai pelan ini">At the floor of this plan</button>
+              <button type="button" data-v="landing" data-ms="Di half landing">At the half landing</button>
+            </div>
+          </div>
+          <div class="fields">
+            <label for="rnR" data-ms="2 · Riser dalam satu flight">2 · Risers in one flight</label><input id="rnR" type="number" step="1" min="1" max="30"><span class="u"></span>
+            <label for="rR" data-ms="3 · Rise R">3 · Rise R</label><input id="rR" type="number" step="0.1" min="50" max="300"><span class="u">mm</span>
+            <label for="rL" data-ms="4 · Effective span flight Q">4 · Effective span of flight Q</label><input id="rL" type="number" step="1" min="500" max="9000"><span class="u">mm</span>
+          </div>
+          <div class="steps">
+            <button class="btn primary" id="rCheck" type="button" data-ms="Semak">Check</button>
+            <button class="btn" id="rNew" type="button" data-ms="Pelan baharu">New plan</button>
+          </div>
+          <p class="score" id="rScore" aria-live="polite"></p>
+          <p class="verdict" id="rFeedback" hidden></p>
+          <div class="task">
+            <span class="tag" data-ms="Plan reader · 5 min">Plan reader · 5 min</span>
+            <p data-ms="Tiga pelan berturut-turut tanpa kesilapan menanda tugasan Explorer 5. Kesilapan yang paling biasa: mengira tread sebagai riser.">Three plans in a row without a slip ticks Explorer task 5. The commonest slip: counting the treads as risers.</p>
+          </div>
+        </div>
+        <div class="col">
+          <div class="plotcard">
+            <div class="plothead"><h3 id="rTitle" data-ms="Pelan tingkat satu">First-floor plan</h3></div>
+            <div class="figbox" id="rFig"></div>
+          </div>
+          <p class="note" id="rGiven"></p>
+        </div>
+      </div>
+    </section>
   </main>
-  <footer><span data-ms="Kaedah kursus SEAA 4333 (nota dan Mosley, Bungey &amp;amp; Hulse §8.8): load per m² on plan; M = FL/10 dengan hujung continuous, FL/8 tanpanya; setiap semakan mengikut EC2 (MS EN 1992-1-1). Peraturan geometri daripada Uniform Building By-Laws 1984. Unit: mm, kN, m. Design penuh setiap contoh, langkah demi langkah, ada dalam app &lt;a href=&quot;https://claude.ai/artifact/M5DFYjHubZFnbHVk8JDsAS&quot; style=&quot;color:inherit&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;RC Design Worked Solutions&lt;/a&gt;, yang boleh dibuka setelah pensyarah anda berkongsi pautannya.">Course method of SEAA 4333 (notes and Mosley, Bungey &amp; Hulse §8.8): loads per m² on plan; M = FL/10 with a continuous end, FL/8 with none; every check to EC2 (MS EN 1992-1-1). Geometry rules from the Uniform Building By-Laws 1984. Units: mm, kN, m. The full design of each example, step by step, is in the <a href="https://claude.ai/artifact/M5DFYjHubZFnbHVk8JDsAS" style="color:inherit" target="_blank" rel="noopener">RC Design Worked Solutions</a> app, which opens once your lecturer has shared it.</span>
+  <footer><span data-ms="Kaedah kursus SEAA 4333 (nota dan Mosley, Bungey &amp;amp; Hulse §8.8): load per m² on plan; M = FL/10 dengan hujung continuous, FL/8 tanpanya; setiap semakan mengikut EC2 (MS EN 1992-1-1). Peraturan geometri daripada Uniform Building By-Laws 1984. Effective span di atas landing dan tangga yang dibina ke dalam dinding mengikut BS 8110-1, 3.10.1.3 dan 3.10.1.2, seperti yang digunakan oleh RC Design app. Unit: mm, kN, m. Design penuh setiap contoh, langkah demi langkah, ada dalam app &lt;a href=&quot;https://claude.ai/artifact/M5DFYjHubZFnbHVk8JDsAS&quot; style=&quot;color:inherit&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;RC Design Worked Solutions&lt;/a&gt;, yang boleh dibuka setelah pensyarah anda berkongsi pautannya.">Course method of SEAA 4333 (notes and Mosley, Bungey &amp; Hulse §8.8): loads per m² on plan; M = FL/10 with a continuous end, FL/8 with none; every check to EC2 (MS EN 1992-1-1). Geometry rules from the Uniform Building By-Laws 1984. The effective span on a landing and stairs built into walls follow BS 8110-1, 3.10.1.3 and 3.10.1.2, as the RC Design app uses them. Units: mm, kN, m. The full design of each example, step by step, is in the <a href="https://claude.ai/artifact/M5DFYjHubZFnbHVk8JDsAS" style="color:inherit" target="_blank" rel="noopener">RC Design Worked Solutions</a> app, which opens once your lecturer has shared it.</span>
   <span class="lic" data-ms="© 2026 Ahmad Razin Zainal Abidin dan Universiti Teknologi Malaysia (Fakulti Kejuruteraan Awam). Teks dan rajah: CC BY-NC-SA 4.0; kod: MIT. Lihat &lt;a href=&quot;https://github.com/RazinUTM/My_Lectures/blob/main/SEAA4333-RCD2/LICENSE.md&quot; style=&quot;color:inherit&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;lesen&lt;/a&gt;. Kemajuan dan jadual kelas disimpan dalam pelayar ini sahaja.">© 2026 Ahmad Razin Zainal Abidin and Universiti Teknologi Malaysia (Faculty of Civil Engineering). Text and figures: CC BY-NC-SA 4.0; code: MIT. See the <a href="https://github.com/RazinUTM/My_Lectures/blob/main/SEAA4333-RCD2/LICENSE.md" style="color:inherit" target="_blank" rel="noopener">licence</a>. Progress and the class table are stored in this browser only.</span></footer>
 </div>
 
@@ -1251,7 +1459,7 @@ el('kReveal').addEventListener('click', () => { kinkShown = true; drawDetail(); 
 el('kHide').addEventListener('click', () => { kinkShown = false; drawDetail(); });
 drawers.detail = drawDetail;
 
-/* ===================== 5 SPOT THE ERROR ===================== */
+/* ===================== 5 SPOT THE ERROR (Stair S1, Unit 1 · Stair S2, Unit 2) ===================== */
 const S1 = [
   {ref: 'UBBL 106, 108', calc: 'R = 1530/9 = 170 mm ≤ 180; G = 270 mm ≥ 255; 9 risers ≤ 16; 2R + G = 610 mm', out: ['Geometry OK', 'Geometri OK']},
   {ref: ['Notes', 'Nota'], calc: 'y = h√(R² + G²)/G = 160 × √(170² + 270²)/270 = 189.1 mm', out: 'y = 189.1 mm'},
@@ -1269,42 +1477,549 @@ const S1 = [
   {ref: 'EC2 9.3.1.1(3)', calc: 'h = 160 ≤ 200 mm: main 225 ≤ min(2h, 250) = 250; distribution H8-300 ≤ min(3h, 400) = 400', out: 'Cracking OK'},
   {ref: ['Course detailing', 'Detailing kursus'], calc: ['Top bars at A: same as main bars over 0.3L = 0.3 × 3830 = 1149 mm from the face', 'Top bar di A: sama seperti main bar sepanjang 0.3L = 0.3 × 3830 = 1149 mm dari muka'], out: ['Top bars 0.3L', 'Top bar 0.3L'], follows: true, fix: ['Rule right; with L = 4030 mm the length is 1209 mm.', 'Peraturan betul; dengan L = 4030 mm panjangnya 1209 mm.']}
 ];
-const e5 = {flag: new Set(), checked: false, fixed: false};
+// Stair S2 (Unit 2): an open-well stair, the flight from a beam to the landing, then the landing. Values from the
+// course model (design2 above): correct F 45.58, M 14.81, A_s 326 > 314; w_L 30.80, M_L 30.18, A_s,L 685 > 471, L/d 12.53 < 25.45.
+const S2 = [
+  {ref: 'UBBL 106, 108', calc: ['R = 1700/10 = 170 mm ≤ 180; G = 255 mm ≥ 255; 10 risers ≤ 16; 2R + G = 595 mm; landing 1200 ≥ flight width 1200', 'R = 1700/10 = 170 mm ≤ 180; G = 255 mm ≥ 255; 10 riser ≤ 16; 2R + G = 595 mm; landing 1200 ≥ lebar flight 1200'], out: ['Geometry OK', 'Geometri OK']},
+  {ref: ['Notes', 'Nota'], calc: 'y = 140 × √(170² + 255²)/255 = 168.3 mm; t = 168.3 + 85 = 253.3 mm; n<sub>f</sub> = 1.35 × (1.2 + 25 × 0.2533) + 1.5 × 3.0 = 14.67 kN/m²; n<sub>L</sub> = 1.35 × (1.2 + 25 × 0.150) + 1.5 × 3.0 = 11.18 kN/m²', out: 'n<sub>f</sub> 14.67; n<sub>L</sub> 11.18'},
+  {ref: 'BS 8110 3.10.1.3', calc: 'L = 2550 + ½(200 + 1200) = 3250 mm; F = n<sub>f</sub> × l<sub>f</sub> = 14.67 × 2.65 = 38.87 kN', out: 'F = 38.87 kN', err: 'A', fix: ['The span ends at the centre of the landing, so its last 0.60 m is landing and carries n<sub>L</sub>: F = 14.67 × 2.65 + 11.18 × 0.60 = 38.87 + 6.71 = 45.58 kN. This is the slip of the notes’ Example 3.', 'Span berakhir di tengah landing, jadi 0.60 m terakhirnya ialah landing dan memikul n<sub>L</sub>: F = 14.67 × 2.65 + 11.18 × 0.60 = 38.87 + 6.71 = 45.58 kN. Inilah kesilapan Contoh 3 dalam nota.']},
+  {ref: ['Course method', 'Kaedah kursus'], calc: ['End B continuous → M = FL/10 = 38.87 × 3.25/10 = 12.63 kN m/m; V<sub>A</sub> = (38.87 × 1.325 − 12.63)/3.25 = 11.96 kN/m at the landing; V<sub>B</sub> = 26.91 kN/m', 'Hujung B continuous → M = FL/10 = 38.87 × 3.25/10 = 12.63 kN m/m; V<sub>A</sub> = (38.87 × 1.325 − 12.63)/3.25 = 11.96 kN/m di landing; V<sub>B</sub> = 26.91 kN/m'], out: 'M = 12.63 kN m/m', follows: true, fix: ['Method right; with the landing strip: M = 45.58 × 3.25/10 = 14.81 kN m/m; V<sub>A</sub> = (38.87 × 1.325 + 6.71 × 2.95 − 14.81)/3.25 = 17.38 kN/m; V<sub>B</sub> = 28.20 kN/m.', 'Kaedah betul; dengan jalur landing: M = 45.58 × 3.25/10 = 14.81 kN m/m; V<sub>A</sub> = (38.87 × 1.325 + 6.71 × 2.95 − 14.81)/3.25 = 17.38 kN/m; V<sub>B</sub> = 28.20 kN/m.']},
+  {ref: 'RDF §6.0; EC2 6.2.2, 7.4.2', calc: 'd = 140 − 25 − 5 = 110 mm; K = 0.042; z = 0.95d = 104.5 mm; A<sub>s</sub> = 12.63 × 10⁶/(0.87 × 500 × 104.5) = 278 mm²/m; V<sub>Ed</sub> = 26.9 ≤ V<sub>Rd,c</sub> = 54.4 kN; (l/d)<sub>allow</sub> = 52.0 ≥ 3250/110 = 29.5', out: 'H10-250 (314)', follows: true, fix: ['With M = 14.81 kN m/m: K = 0.049, z = 104.5 mm, A<sub>s</sub> = 326 mm²/m > 314, so H10-250 is short: use H10-225 (349). Shear (28.2 ≤ 54.4 kN) and deflection (45.7 ≥ 29.5) still pass.', 'Dengan M = 14.81 kN m/m: K = 0.049, z = 104.5 mm, A<sub>s</sub> = 326 mm²/m > 314, jadi H10-250 tidak mencukupi: gunakan H10-225 (349). Shear (28.2 ≤ 54.4 kN) dan deflection (45.7 ≥ 29.5) masih lulus.']},
+  {ref: ['Notes §4', 'Nota §4'], calc: ['Landing load per metre of its span: w<sub>L</sub> = n<sub>L</sub> × 1.0 + V<sub>A</sub> = 11.18 × 1.0 + 11.96 = 23.14 kN/m', 'Load landing per meter span-nya: w<sub>L</sub> = n<sub>L</sub> × 1.0 + V<sub>A</sub> = 11.18 × 1.0 + 11.96 = 23.14 kN/m'], out: 'w<sub>L</sub> = 23.14 kN/m', err: 'B', fix: ['The landing is a beam as wide as the landing is deep, b<sub>L</sub> = 1.2 m, not a 1 m strip: its own load is 11.18 × 1.2 = 13.42 kN/m. With V<sub>A</sub> corrected in line 4: w<sub>L</sub> = 13.42 + 17.38 = 30.80 kN/m.', 'Landing ialah beam yang lebarnya sama dengan kedalaman landing, b<sub>L</sub> = 1.2 m, bukan jalur 1 m: load sendirinya 11.18 × 1.2 = 13.42 kN/m. Dengan V<sub>A</sub> yang dibetulkan dalam baris 4: w<sub>L</sub> = 13.42 + 17.38 = 30.80 kN/m.']},
+  {ref: ['Notes §4; RDF §6.0', 'Nota §4; RDF §6.0'], calc: 'L<sub>L</sub> = (2 × 1200 + 200 + 200)/1000 = 2.80 m; M<sub>L</sub> = w<sub>L</sub>L<sub>L</sub>²/10 = 23.14 × 2.80²/10 = 18.14 kN m; d<sub>L</sub> = 150 − 25 − 10 − 5 = 110 mm; A<sub>s</sub> = 399 mm²; 6H10 (471) at (1200 − 50 − 10)/5 = 228 mm', out: '6H10 (471)', err: 'C', fix: ['The landing is simply supported on the two walls: M<sub>L</sub> = w<sub>L</sub>L<sub>L</sub>²/8 = 30.80 × 2.80²/8 = 30.18 kN m. K = 0.083, z = 101.2 mm, A<sub>s</sub> = 685 mm² > 471: 6H10 fails. Shear passes: V<sub>L</sub> = 43.1 ≤ 65.7 kN.', 'Landing disokong secara simple pada dua dinding: M<sub>L</sub> = w<sub>L</sub>L<sub>L</sub>²/8 = 30.80 × 2.80²/8 = 30.18 kN m. K = 0.083, z = 101.2 mm, A<sub>s</sub> = 685 mm² > 471: 6H10 gagal. Shear lulus: V<sub>L</sub> = 43.1 ≤ 65.7 kN.']},
+  {ref: 'EC2 7.4.2', calc: ['K = 1.3, as for the flight; ρ = 399/(1200 × 110) = 0.30 %; (l/d)<sub>allow</sub> = 1.3 × 31.86 × 471/399 = 48.9 ≥ 2800/110 = 25.5', 'K = 1.3, seperti flight; ρ = 399/(1200 × 110) = 0.30 %; (l/d)<sub>allow</sub> = 1.3 × 31.86 × 471/399 = 48.9 ≥ 2800/110 = 25.5'], out: 'Deflection OK', err: 'D', fix: ['The landing is a single simply supported span: K = 1.0. With A<sub>s</sub> = 685 mm², ρ = 0.52 % > ρ<sub>0</sub>, so Eq. 7.16b gives 18.2; × 471/685 = 12.5 < 25.5: deflection fails.', 'Landing ialah satu span yang disokong secara simple: K = 1.0. Dengan A<sub>s</sub> = 685 mm², ρ = 0.52 % > ρ<sub>0</sub>, jadi Eq. 7.16b memberi 18.2; × 471/685 = 12.5 < 25.5: deflection gagal.']}
+];
+const SHEETS = {
+  s1: {rows: S1, ms: 's1', aria: ['Stair S1 calculation sheet', 'Helaian pengiraan Tangga S1'],
+    summary: ['<b>What the four slips did.</b> The design moment came out at 17.8 kNm instead of 24.6 kNm (72%). The stair needs A<sub>s</sub> = 461 mm²/m (H10-150, 524 mm²/m); the H10-225 submitted gives 349 mm²/m, which is 24% short. Each slip looked small; together they made the stair unsafe.', '<b>Kesan empat kesilapan.</b> Design moment yang diperoleh ialah 17.8 kNm, bukannya 24.6 kNm (72%). Tangga itu memerlukan A<sub>s</sub> = 461 mm²/m (H10-150, 524 mm²/m); H10-225 yang dihantar memberi 349 mm²/m, iaitu kurang 24%. Setiap kesilapan nampak kecil; bersama-sama ia menjadikan tangga tidak selamat.']},
+  s2: {rows: S2, ms: 's2', aria: ['Stair S2 calculation sheet', 'Helaian pengiraan Tangga S2'],
+    summary: ['<b>What the four slips did.</b> As submitted, every check passed. Corrected, the flight needs A<sub>s</sub> = 326 mm²/m, so H10-250 (314) is 4% short: use H10-225. The landing needs 685 mm², so 6H10 (471) is 31% short, and it fails deflection, 12.5 against 25.5. Slip A left 15% of the flight’s load out and passed the shortfall to the landing through V<sub>A</sub>; slips B and C together put M<sub>L</sub> at 60% of its value; slip D hid the largest error, 48.9 against 12.5. Revise the landing: 175 mm with 8H10 (568 ≤ 628 mm², 28.9 ≥ 20.7), or keep 150 mm with 13H10 at 95 mm (27.1 ≥ 25.5).',
+      '<b>Kesan empat kesilapan.</b> Seperti yang dihantar, setiap semakan lulus. Setelah dibetulkan, flight memerlukan A<sub>s</sub> = 326 mm²/m, jadi H10-250 (314) kurang 4%: gunakan H10-225. Landing memerlukan 685 mm², jadi 6H10 (471) kurang 31%, dan ia gagal deflection, 12.5 berbanding 25.5. Kesilapan A meninggalkan 15% load flight dan memindahkan kekurangan itu kepada landing melalui V<sub>A</sub>; kesilapan B dan C bersama-sama menjadikan M<sub>L</sub> 60% daripada nilainya; kesilapan D menyembunyikan ralat terbesar, 48.9 berbanding 12.5. Ubah landing: 175 mm dengan 8H10 (568 ≤ 628 mm², 28.9 ≥ 20.7), atau kekalkan 150 mm dengan 13H10 pada 95 mm (27.1 ≥ 25.5).']}
+};
+const e5 = {which: 's1', st: {s1: {flag: new Set(), checked: false, fixed: false}, s2: {flag: new Set(), checked: false, fixed: false}}};
 function drawError(){
-  const tb = el('eSheet');
+  const sh = SHEETS[e5.which], rows = sh.rows, st = e5.st[e5.which], tb = el('eSheet');
+  setSeg(el('eWhich'), e5.which);
+  el('eInfo1').hidden = e5.which !== 's1'; el('eInfo2').hidden = e5.which !== 's2';
+  el('eTask1').hidden = e5.which !== 's1'; el('eTask2').hidden = e5.which !== 's2';
+  tb.setAttribute('aria-label', B(sh.aria));
   tb.innerHTML = '<thead><tr><th>' + Lg('Line', 'Baris') + '</th><th>Ref.</th><th>' + Lg('Calculation', 'Pengiraan') + '</th><th>Output</th></tr></thead>';
   const body = document.createElement('tbody');
-  S1.forEach((ln, i) => {
-    const tr = document.createElement('tr'); tr.tabIndex = 0; tr.setAttribute('role', 'button'); tr.setAttribute('aria-pressed', String(e5.flag.has(i)));
-    let cls = e5.flag.has(i) ? 'flag' : '';
-    if (e5.checked){ if (ln.err && e5.flag.has(i)) cls = 'hit'; else if (ln.err) cls = 'miss'; else if (e5.flag.has(i)) cls = 'false'; }
+  rows.forEach((ln, i) => {
+    const tr = document.createElement('tr'); tr.tabIndex = 0; tr.setAttribute('role', 'button'); tr.setAttribute('aria-pressed', String(st.flag.has(i)));
+    let cls = st.flag.has(i) ? 'flag' : '';
+    if (st.checked){ if (ln.err && st.flag.has(i)) cls = 'hit'; else if (ln.err) cls = 'miss'; else if (st.flag.has(i)) cls = 'false'; }
     tr.className = cls;
-    const showFix = e5.fixed && (ln.err || ln.follows);
+    const showFix = st.fixed && (ln.err || ln.follows);
     tr.innerHTML = `<td class="no">${i + 1}</td><td class="ref">${B(ln.ref)}</td><td class="calc">${B(ln.calc)}${showFix ? `<span class="fix">${ln.err ? `<b>${Lg('Slip', 'Kesilapan')} ${ln.err}.</b> ` : '<b>' + Lg('Follows.', 'Terbawa.') + '</b> '}${B(ln.fix)}</span>` : ''}</td><td class="out">${B(ln.out)}</td>`;
-    const toggle = () => { if (e5.checked) return; if (e5.flag.has(i)) e5.flag.delete(i); else e5.flag.add(i); drawError(); };
+    const toggle = () => { if (st.checked) return; if (st.flag.has(i)) st.flag.delete(i); else st.flag.add(i); drawError(); };
     tr.addEventListener('click', toggle);
     tr.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggle(); } });
     body.appendChild(tr);
   });
   tb.appendChild(body);
-  const found = new Set([...e5.flag].filter(i => S1[i].err).map(i => S1[i].err));
-  const falseN = [...e5.flag].filter(i => !S1[i].err).length;
-  el('eScore').textContent = e5.checked ? Lg(`Slips found: ${found.size} of 4 · false alarms: ${falseN}`, `Kesilapan ditemui: ${found.size} daripada 4 · amaran palsu: ${falseN}`) : Lg(`Lines flagged: ${e5.flag.size}`, `Baris ditanda: ${e5.flag.size}`);
-  if (e5.checked && !e5.fixed && found.size === 4) milestone('s1');
-  el('eCheck').disabled = e5.checked;
+  const found = new Set([...st.flag].filter(i => rows[i].err).map(i => rows[i].err));
+  const falseN = [...st.flag].filter(i => !rows[i].err).length;
+  el('eScore').textContent = st.checked ? Lg(`Slips found: ${found.size} of 4 · false alarms: ${falseN}`, `Kesilapan ditemui: ${found.size} daripada 4 · amaran palsu: ${falseN}`) : Lg(`Lines flagged: ${st.flag.size}`, `Baris ditanda: ${st.flag.size}`);
+  if (st.checked && !st.fixed && found.size === 4) milestone(sh.ms);
+  el('eCheck').disabled = st.checked;
   const sm = el('eSummary');
-  sm.hidden = !e5.fixed;
-  if (e5.fixed) sm.innerHTML = Lg('<b>What the four slips did.</b> The design moment came out at 17.8 kNm instead of 24.6 kNm (72%). The stair needs A<sub>s</sub> = 461 mm²/m (H10-150, 524 mm²/m); the H10-225 submitted gives 349 mm²/m, which is 24% short. Each slip looked small; together they made the stair unsafe.', '<b>Kesan empat kesilapan.</b> Design moment yang diperoleh ialah 17.8 kNm, bukannya 24.6 kNm (72%). Tangga itu memerlukan A<sub>s</sub> = 461 mm²/m (H10-150, 524 mm²/m); H10-225 yang dihantar memberi 349 mm²/m, iaitu kurang 24%. Setiap kesilapan nampak kecil; bersama-sama ia menjadikan tangga tidak selamat.');
+  sm.hidden = !st.fixed;
+  if (st.fixed) sm.innerHTML = B(sh.summary);
 }
-el('eCheck').addEventListener('click', () => { e5.checked = true; drawError(); });
-el('eFix').addEventListener('click', () => { e5.checked = true; e5.fixed = true; drawError(); });
-el('eReset').addEventListener('click', () => { e5.flag.clear(); e5.checked = false; e5.fixed = false; drawError(); });
+segGroup(el('eWhich'), v => { e5.which = v === 's2' ? 's2' : 's1'; drawErrorFig(); drawError(); });
+el('eCheck').addEventListener('click', () => { e5.st[e5.which].checked = true; drawError(); });
+el('eFix').addEventListener('click', () => { const st = e5.st[e5.which]; st.checked = true; st.fixed = true; drawError(); });
+el('eReset').addEventListener('click', () => { const st = e5.st[e5.which]; st.flag.clear(); st.checked = false; st.fixed = false; drawError(); });
 function drawErrorFig(){
+  if (e5.which === 's2'){
+    drawOW(el('eFig'), {R: 170, G: 255, nR: 10, nG: 10, h: 140, bF: 1200, tA: 200, LL: 1200, hL: 150, well: 200, tw: 200}, null,
+      {model: false, aria: Lg('Stair S2 elevation with its dimensions', 'Elevation Tangga S2 dengan dimensinya'), label: Lg('Stair S2 · elevation, mm', 'Tangga S2 · elevation, mm')});
+    return;
+  }
   const c = {type: 'landTop', flight: 2430, landing: 1400, bA: 200, bB: 200, contA: true, contB: false};
   const p = {R: 170, G: 270, h: 160, hL: 160, same: true, fin: 1.0, qk: 4.0, gc: 25};
   drawStair(el('eFig'), c, p, {aria: Lg('Stair S1 elevation with its dimensions', 'Elevation Tangga S1 dengan dimensinya'), label: Lg('Stair S1 · elevation, mm', 'Tangga S1 · elevation, mm'), dims: true});
 }
 drawers.error = () => { drawErrorFig(); drawError(); };
+
+/* ===================== Unit 2: the RC Design app's staircase model (MODEL_STAIR), ported for tabs 6 and 5 ===================== */
+// ==MODEL2-BEGIN==
+const KBAL2 = 0.454 * (1 - 0.44) / 1.25 - 0.182 * Math.pow((1 - 0.44) / 1.25, 2);
+const BASE2 = {stype: 'flight', R: 175, G: 255, nR: 10, nG: 10, h: 115, bF: 1200, phi: 8, tA: 250, contA: 'cont', lanA: 'no', LLA: 1500, shA: 1, tB: 250, contB: 'cont', lanB: 'no', LLB: 1500, shB: 1,
+  LLw: 1500, well: 200, tw: 200, hL: 115, cnom: 25, gk: 1, qk: 4, gc: 25, fck: 25, fyk: 500, srule: 'max', secb: 'prov', llay: 'inner', p_m: 8, s_m: 125, p_t: 8, s_t: 125, p_s: 8, s_s: 300,
+  p_L: 10, n_L: 12, nw: 0, wrule: 'full', mexact: 'exact'};
+function barArea(p, s){ return Math.PI * p * p / 4 * 1000 / s; }
+function design2(P0){
+  const P = Object.assign({}, BASE2, P0), o = {};
+  const land = P.stype === 'land', fl = !land;
+  const LA = fl && P.lanA === 'yes', LB = fl && P.lanB === 'yes';
+  const cA = fl && P.contA === 'cont', cB = P.contB === 'cont';
+  const nc = (cA ? 1 : 0) + (cB ? 1 : 0), ten = nc > 0;
+  const R = P.R, G = P.G, h = P.h, fck = P.fck, fyk = P.fyk, cn = P.cnom;
+  o.Lf = P.nG * G; o.Hf = P.nR * R; o.alpha = Math.atan2(R, G) * 180 / Math.PI; o.cmf = 2 * R + G;
+  o.y = h * Math.hypot(G, R) / G; o.t = o.y + R / 2;
+  if (fl){
+    const lf = o.Lf + (LA ? 0 : P.tA / 2) + (LB ? 0 : P.tB / 2);
+    o.lf = lf / 1000;
+    if (LA) o.lLA = (P.LLA + P.tA / 2) / 1000;
+    if (LB) o.lLB = (P.LLB + P.tB / 2) / 1000;
+    o.L = (LA ? o.lLA : 0) + o.lf + (LB ? o.lLB : 0);
+  } else {
+    o.La = o.Lf; o.Lb1 = Math.min(P.tB, 1800); o.Lb2 = Math.min(P.LLw, 1800);
+    o.L = (o.La + 0.5 * (o.Lb1 + o.Lb2)) / 1000;
+    o.lf = (o.La + o.Lb1 / 2) / 1000; o.lL = o.Lb2 / 2 / 1000;
+    o.LL = (2 * P.bF + P.well + P.tw) / 1000; o.bL = P.LLw;
+  }
+  const L = o.L;
+  o.gswf = o.t / 1000 * P.gc; o.Gkf = P.gk + o.gswf; o.nf = 1.35 * o.Gkf + 1.5 * P.qk;
+  if (land || LA || LB){
+    o.gswL = P.hL / 1000 * P.gc; o.GkL = P.gk + o.gswL; o.nL = 1.35 * o.GkL + 1.5 * P.qk;
+    if (LA) o.nLA = P.shA * o.nL;
+    if (LB) o.nLB = P.shB * o.nL;
+  }
+  const nw = +P.nw || 0, wb = nw > 0 && P.wrule === 'bs';
+  if (wb){
+    o.bld = P.bF - nw * 150; o.bef = P.bF + nw * 75; o.kw = o.bld / o.bef; o.nfw = o.kw * o.nf;
+    if (LA && P.shA >= 1) o.nLAw = o.kw * o.nLA;
+    if (LB && P.shB >= 1) o.nLBw = o.kw * o.nLB;
+  }
+  const wk = k => (wb ? k + 'w' : k);
+  let segs = [];
+  if (fl){
+    if (LA) segs.push(['LA', P.shA >= 1 ? wk('nLA') : 'nLA', 'lLA', 'xLA']);
+    segs.push(['f', wk('nf'), 'lf', 'xf']);
+    if (LB) segs.push(['LB', P.shB >= 1 ? wk('nLB') : 'nLB', 'lLB', 'xLB']);
+  } else segs = [['L', 'nL', 'lL', 'xL'], ['f', wk('nf'), 'lf', 'xf']];
+  o.segs = segs.map(q => ({k: q[0], n: q[1], l: q[2]}));
+  o.F = segs.reduce((s, q) => s + o[q[1]] * o[q[2]], 0);
+  o.M = o.F * L / (ten ? 10 : 8);
+  for (let i = segs.length - 1; i >= 0; i--){ let s = 0; for (let j = i + 1; j < segs.length; j++) s += o[segs[j][2]]; o[segs[i][3]] = s + o[segs[i][2]] / 2; }
+  let numer = segs.reduce((s, q) => s + o[q[1]] * o[q[2]] * o[q[3]], 0);
+  if (cA) numer += o.M;
+  if (cB) numer -= o.M;
+  o.VA = numer / L; o.VB = o.F - o.VA; o.VEd = Math.max(o.VA, o.VB);
+  if (!ten && segs.length > 1 && P.mexact !== 'fl8'){
+    let a = 0, Va = o.VA, Ma = 0, z = null;
+    segs.forEach(q => { const n = o[q[1]], l = o[q[2]]; const Vb = Va - n * l, Mb = Ma + Va * l - n * l * l / 2;
+      if (z === null && Vb <= 1e-9 && n > 0) z = [a + Va / n, Ma + Va * Va / (2 * n)]; a += l; Va = Vb; Ma = Mb; });
+    if (z === null) z = [a, 0];
+    o.x0 = z[0]; o.Mx = z[1]; o.M8 = o.M; o.M = Math.max(o.M, o.Mx);
+  }
+  const M = o.M;
+  o.d = h - cn - P.phi / 2; o.dt = h - cn - P.p_t / 2;
+  o.fctm = 0.3 * Math.pow(fck, 2 / 3); o.rmin = Math.max(0.26 * o.fctm / fyk, 0.0013); o.Asmax = 0.04 * 1000 * h; o.Kbal = KBAL2;
+  const flex = (g, Mv, d, b, prov) => {
+    const K = Mv * 1e6 / (b * d * d * fck);
+    const z0 = K <= 0.2835 ? d * (0.5 + Math.sqrt(Math.max(0.25 - K / 1.134, 0))) : NaN;
+    const z = Math.min(z0, 0.95 * d), As = Mv * 1e6 / (0.87 * fyk * z), Asmin = o.rmin * b * d;
+    o['K_' + g] = K; o['z_' + g] = z; o['As_' + g] = As; o['Asmin_' + g] = Asmin; o['Asd_' + g] = Math.max(As, Asmin); o['Asp_' + g] = prov;
+  };
+  flex('m', M, o.d, 1000, barArea(P.p_m, P.s_m));
+  if (nc > 0) flex('t', M, o.dt, 1000, barArea(P.p_t, P.s_t)); else o.Asp_t = barArea(P.p_t, P.s_t);
+  if (nc < 2) o.Asq = 0.25 * o.Asd_m;
+  const atA = o.VA >= o.VB - 1e-9, cont = atA ? cA : cB;
+  o.Asl_m = cont ? o.Asp_t : o.Asp_m; o.dv = cont ? o.dt : o.d;
+  const shear = (g, Asl, d, b) => {
+    const k = Math.min(1 + Math.sqrt(200 / d), 2), rho = Math.min(Asl / (b * d), 0.02);
+    o['k_' + g] = k; o['rho1_' + g] = rho;
+    o['VRdc_' + g] = 0.12 * k * Math.pow(100 * rho * fck, 1 / 3) * b * d / 1e3;
+    o['Vmn_' + g] = 0.035 * Math.pow(k, 1.5) * Math.sqrt(fck) * b * d / 1e3;
+    o['VRd_' + g] = Math.max(o['VRdc_' + g], o['Vmn_' + g]);
+  };
+  shear('m', o.Asl_m, o.dv, 1000);
+  o.rho0 = Math.sqrt(fck) * 1e-3;
+  const defl = (g, b, d, Lk, K) => {
+    const rho = o['As_' + g] / (b * d), r = o.rho0 / rho;
+    o['rho_' + g] = rho; o['Ksys_' + g] = K;
+    o['ldb_' + g] = rho <= o.rho0 ? K * (11 + 1.5 * Math.sqrt(fck) * r + 3.2 * Math.sqrt(fck) * Math.pow(r - 1, 1.5)) : K * (11 + 1.5 * Math.sqrt(fck) * r);
+    o['F1_' + g] = Math.min(7 / o[Lk], 1); o['F2_' + g] = Math.min(o['Asp_' + g] / o['As_' + g], 1.5);
+    o['ldall_' + g] = Math.min(o['ldb_' + g] * o['F1_' + g] * o['F2_' + g], 40 * K); o['ldact_' + g] = o[Lk] * 1000 / d;
+  };
+  defl('m', 1000, o.d, 'L', nc === 2 ? 1.5 : nc === 1 ? 1.3 : 1.0);
+  if (land){
+    const hL = P.hL;
+    o.wL = o.nL * o.bL / 1000 + o.VA; o.ML = o.wL * o.LL * o.LL / 8; o.VL = o.wL * o.LL / 2;
+    o.dL = P.llay === 'outer' ? hL - cn - P.p_L / 2 : hL - cn - P.p_m - P.p_L / 2;
+    o.AsmaxL = 0.04 * o.bL * hL;
+    flex('L', o.ML, o.dL, o.bL, P.n_L * Math.PI * P.p_L * P.p_L / 4);
+    o.sL = (o.bL - 2 * cn - P.p_L) / (P.n_L - 1);
+    o.Asl_L = o.Asp_L; shear('L', o.Asl_L, o.dL, o.bL);
+    defl('L', o.bL, o.dL, 'LL', 1.0);
+  }
+  o.sP = Math.min(3 * h, 400); o.sS = Math.min(3.5 * h, 450);
+  const strict = P.srule === 'max';
+  if (strict){ o.sPm = Math.min(2 * h, 250); o.sSm = Math.min(3 * h, 400); }
+  if (land){ o.sPL = Math.min(3 * P.hL, 400); if (strict) o.sPLm = Math.min(2 * P.hL, 250); }
+  o.Asdr = 0.2 * (P.secb === 'prov' ? (nc ? Math.max(o.Asp_m, o.Asp_t) : o.Asp_m) : o.As_m);
+  o.Asdp = barArea(P.p_s, P.s_s);
+  o.ltA = (cA ? 0.3 : 0.2) * L * 1000; o.ltB = (cB ? 0.3 : 0.2) * L * 1000;
+  const ck = {};
+  ck.Kbal_m = o.K_m <= KBAL2;
+  ck.As_m = o.Asd_m <= o.Asp_m && o.Asp_m <= o.Asmax;
+  if (nc > 0) ck.As_t = o.Asd_t <= o.Asp_t && o.Asp_t <= o.Asmax;
+  if (nc < 2) ck.Asq = o.Asq <= o.Asp_t;
+  ck.V_m = o.VEd <= o.VRd_m;
+  ck.defl_m = o.ldact_m <= o.ldall_m;
+  const lim = (a, b) => (strict ? o[a] : o[b]);
+  ck.s_m = P.s_m <= lim('sPm', 'sP');
+  ck.s_t = P.s_t <= (strict && nc > 0 ? o.sPm : o.sP);
+  ck.s_s = P.s_s <= lim('sSm', 'sS');
+  ck.sec = o.Asdr <= o.Asdp;
+  ck.phi = P.p_m <= P.phi;
+  if (land){
+    ck.Kbal_L = o.K_L <= KBAL2; ck.As_L = o.Asd_L <= o.Asp_L && o.Asp_L <= o.AsmaxL; ck.V_L = o.VL <= o.VRd_L;
+    ck.defl_L = o.ldact_L <= o.ldall_L; ck.s_L = o.sL <= (strict ? o.sPLm : o.sPL);
+  }
+  o.checks = ck;
+  o.ok_flight = Object.keys(ck).filter(k => !/_L$/.test(k)).every(k => ck[k]);
+  o.ok_landing = land ? Object.keys(ck).filter(k => /_L$/.test(k)).every(k => ck[k]) : true;
+  o.ok = Object.keys(ck).every(k => ck[k]);
+  return o;
+}
+// ==MODEL2-END==
+
+/* ===================== 6 LANDINGS (Unit 2) ===================== */
+const L6 = {
+  open: {
+    ex3: {label: ['Notes’ Example 3 · WE 2.1 (app ST7)', 'Contoh 3 nota · WE 2.1 (app ST7)'], v: {R: 170, G: 260, nR: 10, nG: 10, h: 150, bF: 1500, tA: 200, LL: 1500, hL: 150, well: 200, tw: 200, tB: 200, gk: 1.2, qk: 3.0, fck: 25, phi: 10, s: 250, phiL: 10, nL: 17, Bend: 'simple', share: 1, walls: 0}},
+    ex3r: {label: ['WE 2.1 revised (app ST7R)', 'WE 2.1 diubah (app ST7R)'], v: {R: 170, G: 260, nR: 10, nG: 10, h: 150, bF: 1500, tA: 200, LL: 1500, hL: 200, well: 200, tw: 200, tB: 200, gk: 1.2, qk: 3.0, fck: 25, phi: 10, s: 200, phiL: 10, nL: 12, Bend: 'simple', share: 1, walls: 0}}
+  },
+  right: {
+    ex4: {label: ['Notes’ Example 4 · FE 2.2 (app ST8)', 'Contoh 4 nota · FE 2.2 (app ST8)'], v: {R: 170, G: 255, nR: 10, nG: 10, h: 150, bF: 1200, tA: 200, LL: 1500, hL: 150, well: 200, tw: 200, tB: 200, gk: 1.0, qk: 3.0, fck: 25, phi: 10, s: 175, phiL: 10, nL: 12, Bend: 'simple', share: 0.5, walls: 0}},
+    we11w: {label: ['WE 1.1 built into walls on both sides (app ST2 type)', 'WE 1.1 dibina ke dalam dinding di kedua-dua sisi (jenis app ST2)'], v: {R: 175, G: 260, nR: 10, nG: 10, h: 125, bF: 1200, tA: 250, LL: 0, hL: 125, well: 200, tw: 200, tB: 250, gk: 1.2, qk: 4.0, fck: 25, phi: 8, s: 225, phiL: 10, nL: 12, Bend: 'cont', share: 1, walls: 2}}
+  }
+};
+const LS = {mode: 'open', key: 'ex3', v: Object.assign({}, L6.open.ex3.v), aShown: false, aChoice: null, bShown: false, bChoice: null, barsChanged: false, landChanged: false, shareSeen: new Set()};
+const L6IDS = {R: 'lR', G: 'lG', nR: 'lnR', nG: 'lnG', h: 'lh', bF: 'lbF', tA: 'ltA', LL: 'lLL', hL: 'lhL', well: 'lwell', tw: 'ltw', tB: 'ltB', gk: 'lgk', qk: 'lqk', fck: 'lfck', phi: 'lphi', s: 'ls', phiL: 'lphiL', nL: 'lnL'};
+function fillL6Preset(){
+  const sel = el('lPreset'); sel.innerHTML = '';
+  for (const k in L6[LS.mode]){ const o = document.createElement('option'); o.value = k; o.textContent = B(L6[LS.mode][k].label); sel.appendChild(o); }
+  const o = document.createElement('option'); o.value = 'custom'; o.textContent = Lg('Custom (your own values)', 'Sendiri (nilai anda)'); sel.appendChild(o);
+  sel.value = LS.key;
+}
+function syncL6(){
+  for (const k in L6IDS) el(L6IDS[k]).value = LS.v[k];
+  setSeg(el('lMode'), LS.mode); setSeg(el('lBend'), LS.v.Bend); setSeg(el('lShare'), String(LS.v.share)); setSeg(el('lWalls'), String(LS.v.walls));
+  const open = LS.mode === 'open';
+  document.querySelectorAll('#panel-landing .ow').forEach(e => { e.hidden = !open; });
+  document.querySelectorAll('#panel-landing .ra').forEach(e => { e.hidden = open; });
+  el('ltALab').innerHTML = open ? Lg('Beam at the foot', 'Beam di kaki') : Lg('Beam at A, continuous', 'Beam di A, continuous');
+  el('lLLLab').innerHTML = open ? Lg('Landing depth', 'Kedalaman landing') : Lg('Landing B depth (0: none)', 'Kedalaman landing B (0: tiada)');
+}
+function readL6(){
+  for (const k in L6IDS){ const v = parseFloat(el(L6IDS[k]).value); if (isFinite(v)) LS.v[k] = v; }
+  const v = LS.v;
+  v.nR = Math.round(Math.min(Math.max(v.nR, 3), 16)); v.nG = Math.round(v.nG);
+  if (v.nG !== v.nR && v.nG !== v.nR - 1){ v.nG = v.nR; el('lnG').value = v.nG; }
+  if (LS.mode === 'open' && v.LL < 600){ v.LL = 600; el('lLL').value = 600; }
+  if (v.LL > 0 && v.LL < 300){ v.LL = 300; el('lLL').value = 300; }
+  v.nL = Math.max(3, Math.round(v.nL)); v.s = Math.max(50, v.s);
+  return v;
+}
+function l6Input(v){
+  const common = {R: v.R, G: v.G, nR: v.nR, nG: v.nG, h: v.h, bF: v.bF, phi: v.phi, p_m: v.phi, s_m: v.s, p_t: v.phi, s_t: v.s, p_s: 10, s_s: 300, hL: v.hL, gk: v.gk, qk: v.qk, fck: v.fck};
+  if (LS.mode === 'open') return Object.assign(common, {stype: 'land', tB: v.tA, contB: 'cont', LLw: v.LL, well: v.well, tw: v.tw, p_L: v.phiL, n_L: v.nL});
+  return Object.assign(common, {stype: 'flight', tA: v.tA, contA: 'cont', lanA: 'no', tB: v.tB, contB: v.Bend, lanB: v.LL > 0 ? 'yes' : 'no', LLB: v.LL, shB: v.share, nw: v.walls, wrule: v.walls > 0 ? 'bs' : 'full'});
+}
+function flightPass(r){ const c = r.checks; return c.Kbal_m && c.As_m && (c.As_t !== false) && c.s_m && c.V_m && c.defl_m; }
+function landingPass(r){ const c = r.checks; return c.Kbal_L && c.As_L && c.V_L && c.defl_L && c.s_L; }
+function owGeom(v){
+  const R = v.R, G = v.G, s = Math.hypot(G, R), yw = v.h * s / G, H = v.nR * R, La = v.nG * G;
+  const top = [[0, 0]];
+  for (let k = 1; k <= v.nR; k++){ const x = (k - 1) * G; if (k > 1) top.push([x, (k - 1) * R]); top.push([x, k * R]); if (k <= v.nG) top.push([x + G, k * R]); }
+  const xs = Math.min((H - v.hL - R + yw) * G / R, La + v.LL);
+  return {H, La, yw, xs, top};
+}
+function beam2(svg, m, xL, xR, top0, opts){
+  const g = S('g', {}, svg), yb = top0 + 96, span = xR - xL;
+  const nmax = Math.max.apply(null, m.segs.map(q => q.n).concat([1]));
+  let x = 0;
+  m.segs.forEach(q => {
+    const x0 = xL + x / m.L * span, x1 = xL + (x + q.l) / m.L * span; x += q.l;
+    if (opts.loads){
+      const hp = 16 + 30 * q.n / nmax, col = q.kind === 'flight' ? 'var(--flight)' : 'var(--landing)';
+      S('rect', {x: x0, y: yb - 6 - hp, width: Math.max(x1 - x0, 1), height: hp, fill: col, 'fill-opacity': 0.16, stroke: col, 'stroke-width': 1.25}, g);
+      for (let xx = x0 + 9; xx < x1 - 3; xx += 20){ S('line', {x1: xx, x2: xx, y1: yb - 6 - hp + 3, y2: yb - 11, stroke: col, 'stroke-width': 1}, g); arrowHead(g, xx, yb - 7, Math.PI / 2, 5, col); }
+      T(g, (x0 + x1) / 2, yb - 12 - hp, q.txt, {'text-anchor': 'middle', fill: col, 'font-weight': 600, class: 'small'});
+    }
+    if (m.segs.length > 1 && opts.loads) dimH(g, x0, x1, yb + 32, (q.kind === 'flight' ? Lg('flight ', 'flight ') : Lg('landing ', 'landing ')) + f(q.l, 2), 'var(--ink-3)', false);
+  });
+  S('line', {x1: xL, x2: xR, y1: yb, y2: yb, stroke: 'var(--ink)', 'stroke-width': 3}, g);
+  const sup = (xx, type) => { if (type === 'cont') S('rect', {x: xx - 7, y: yb - 3, width: 14, height: 28, fill: 'var(--surface-2)', stroke: 'var(--ink-2)', 'stroke-width': 1.5}, g);
+    else S('path', {d: `M${xx},${yb + 1}L${xx - 10},${yb + 18}L${xx + 10},${yb + 18}Z`, fill: 'var(--surface)', stroke: 'var(--ink-2)', 'stroke-width': 1.5}, g); };
+  sup(xL, m.left); sup(xR, m.right);
+  dimH(g, xL, xR, yb + 64, `L = ${f(m.L * 1000, 0)} mm`, 'var(--ink)', false);
+  T(g, xL - 6, yb + 96, m.leftLab, {'text-anchor': 'start', class: 'small'}); T(g, xR + 6, yb + 96, m.rightLab, {'text-anchor': 'end', class: 'small'});
+  if (opts.reac){
+    T(g, xL - 6, yb + 112, m.leftV + ' ' + f(m.VL, 2) + ' kN', {'text-anchor': 'start', fill: 'var(--react)', 'font-weight': 600});
+    T(g, xR + 6, yb + 112, m.rightV + ' ' + f(m.VR, 2) + ' kN', {'text-anchor': 'end', fill: 'var(--react)', 'font-weight': 600});
+  }
+  if (opts.loads) T(g, (xL + xR) / 2, top0 + 14, `F = ${f(m.F, 2)} kN · M = ${f(m.M, 2)} kN m`, {'text-anchor': 'middle', 'font-weight': 600});
+}
+function drawOW(box, v, r, opts){
+  box.innerHTML = '';
+  const W = 700, padL = 24, padR = 24, g0 = owGeom(v), H = g0.H, La = g0.La, tB = v.tA, Ld = v.LL, Lb2 = Math.min(Ld, 1800);
+  const stub = 420, beamD = 400, xmin = -tB - stub, xmax = La + Ld + 80;
+  const k = (W - padL - padR) / (xmax - xmin), yTop = H + 70 / k, yBot = -beamD - 24 / k;
+  const elevH = (yTop - yBot) * k + 50, modelH = opts.model ? 220 : 0, Hs = elevH + modelH + 8;
+  const svg = S('svg', {class: 'fig', viewBox: `0 0 ${W} ${Hs.toFixed(0)}`, role: 'img', 'aria-label': opts.aria || 'Open-well stair'}, box);
+  const X = x => padL + (x - xmin) * k, Y = y => (yTop - y) * k, g = S('g', {}, svg);
+  if (opts.label) T(g, padL, 16, opts.label, {class: 'lab'});
+  S('rect', {x: X(-tB), y: Y(0), width: tB * k, height: beamD * k, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)', 'stroke-width': 1.25}, g);
+  S('rect', {x: X(-tB - stub), y: Y(0), width: stub * k, height: 150 * k, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)', 'stroke-width': 1.25}, g);
+  T(g, X(-tB / 2), Y(-beamD) + 14, 'beam', {'text-anchor': 'middle', class: 'small'});
+  const pts = g0.top.concat([[La + Ld, H], [La + Ld, H - v.hL], [g0.xs, H - v.hL], [0, v.R - g0.yw]]);
+  S('path', {d: pts.map((q, i) => (i ? 'L' : 'M') + X(q[0]).toFixed(1) + ',' + Y(q[1]).toFixed(1)).join('') + 'Z', fill: 'var(--concrete)', stroke: 'var(--concrete-edge)', 'stroke-width': 1.25, 'stroke-linejoin': 'round'}, g);
+  const cA = X(-tB / 2), cB = X(La + Lb2 / 2), yd = (yTop - yBot) * k + 18, col = 'var(--ink-2)';
+  T(g, cB - 6, Y(H) - 8, Lg('landing: spans between walls', 'landing: merentang di antara dinding'), {'text-anchor': 'end', class: 'small'});
+  dimH(g, X(-tB), X(0), yd, f(tB, 0), col, false);
+  dimH(g, X(0), X(La), yd, `${v.nG} × ${f(v.G, 0)} = ${f(La, 0)}`, col, false);
+  dimH(g, X(La), X(La + Ld), yd, f(Ld, 0), col, false);
+  dimV(g, padL + 4, Y(0), Y(H), `${v.nR} × ${f(v.R, 0)} = ${f(H, 0)}`, col, 'right');
+  if (opts.model){
+    const top0 = elevH;
+    [cA, cB].forEach(cx => S('line', {x1: cx, x2: cx, y1: Y(H + 40 / k), y2: top0 + 96, stroke: 'var(--ink-3)', 'stroke-dasharray': '3 4', 'stroke-width': 1}, svg));
+    const segs = [{kind: 'flight', n: r.nfw || r.nf, l: r.lf, txt: `${f(r.nfw || r.nf, 2)} kN/m`}, {kind: 'landing', n: r.nL, l: r.lL, txt: `${f(r.nL, 2)} kN/m`}];
+    beam2(svg, {segs, L: r.L, left: 'cont', right: 'simple', leftLab: Lg('B · beam, continuous', 'B · beam, continuous'), rightLab: Lg('A · centre of the landing', 'A · tengah landing'),
+      leftV: 'VB', rightV: 'VA', VL: r.VB, VR: r.VA, F: r.F, M: r.M}, cA, cB, top0, opts);
+  }
+  return svg;
+}
+function drawOWLanding(box, v, r, opts){
+  box.innerHTML = '';
+  const W = 700, Hs = 300, svg = S('svg', {class: 'fig', viewBox: `0 0 ${W} ${Hs}`, role: 'img', 'aria-label': Lg('The landing on plan and as a beam', 'Landing pada pelan dan sebagai beam')}, box);
+  const g = S('g', {}, svg), widthMM = 2 * v.bF + v.well + 2 * v.tw, depthMM = v.LL + 900;
+  const k = Math.min(330 / widthMM, 250 / depthMM), ox = 18, oy = 22, X = x => ox + x * k, Y = y => oy + y * k;
+  S('rect', {x: X(0), y: Y(0), width: v.tw * k, height: depthMM * k, fill: 'var(--surface-2)', stroke: 'var(--concrete-edge)', 'stroke-width': 1}, g);
+  S('rect', {x: X(v.tw + 2 * v.bF + v.well), y: Y(0), width: v.tw * k, height: depthMM * k, fill: 'var(--surface-2)', stroke: 'var(--concrete-edge)', 'stroke-width': 1}, g);
+  S('rect', {x: X(v.tw), y: Y(0), width: (2 * v.bF + v.well) * k, height: v.LL * k, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)', 'stroke-width': 1.25}, g);
+  [[v.tw, v.tw + v.bF], [v.tw + v.bF + v.well, v.tw + 2 * v.bF + v.well]].forEach(([a, b]) => {
+    S('rect', {x: X(a), y: Y(v.LL), width: (b - a) * k, height: 900 * k, fill: 'var(--surface)', stroke: 'var(--ink-3)', 'stroke-width': 1}, g);
+    for (let yy = v.LL + 150; yy < depthMM; yy += 150) S('line', {x1: X(a), x2: X(b), y1: Y(yy), y2: Y(yy), stroke: 'var(--rule)', 'stroke-width': 1}, g);
+  });
+  const n = Math.min(v.nL, 40);
+  for (let i = 0; i < n; i++){ const yy = 25 + v.phiL / 2 + i * (v.LL - 50 - v.phiL) / Math.max(n - 1, 1); S('line', {x1: X(v.tw * 0.4), x2: X(v.tw * 1.6 + 2 * v.bF + v.well), y1: Y(yy), y2: Y(yy), stroke: 'var(--rebar)', 'stroke-width': 1.2}, g); }
+  T(g, X(v.tw + v.bF + v.well / 2), Y(v.LL) + 14, Lg('flights', 'flight'), {'text-anchor': 'middle', class: 'small'});
+  dimH(g, X(v.tw / 2), X(v.tw * 1.5 + 2 * v.bF + v.well), Y(depthMM) + 16, `LL ${f(r.LL * 1000, 0)}`, 'var(--ink-2)', false);
+  T(g, X(v.tw + v.bF + v.well / 2), Y(0) - 6, `${v.nL}H${v.phiL} · s ${f(r.sL, 0)} mm`, {'text-anchor': 'middle', class: 'small', fill: 'var(--rebar)'});
+  // the landing as a beam: its own load over its whole depth b_L plus the flight's reaction V_A
+  const x0 = 400, x1 = 670, yb = 170;
+  T(g, (x0 + x1) / 2, 30, Lg('The landing as a beam, ' + f(r.bL / 1000, 2) + ' m wide', 'Landing sebagai beam selebar ' + f(r.bL / 1000, 2) + ' m'), {'text-anchor': 'middle', class: 'lab'});
+  S('line', {x1: x0, x2: x1, y1: yb, y2: yb, stroke: 'var(--ink)', 'stroke-width': 3}, g);
+  [x0, x1].forEach(xx => S('path', {d: `M${xx},${yb + 1}L${xx - 9},${yb + 16}L${xx + 9},${yb + 16}Z`, fill: 'var(--surface)', stroke: 'var(--ink-2)', 'stroke-width': 1.5}, g));
+  T(g, x0, yb + 30, Lg('wall', 'dinding'), {'text-anchor': 'middle', class: 'small'}); T(g, x1, yb + 30, Lg('wall', 'dinding'), {'text-anchor': 'middle', class: 'small'});
+  dimH(g, x0, x1, yb + 48, `LL ${f(r.LL, 2)} m`, 'var(--ink-2)', false);
+  if (opts.load){
+    const own = r.nL * r.bL / 1000, h1 = 50 * own / r.wL, h2 = 50 * r.VA / r.wL;
+    S('rect', {x: x0, y: yb - 4 - h1, width: x1 - x0, height: h1, fill: 'var(--landing)', 'fill-opacity': 0.16, stroke: 'var(--landing)'}, g);
+    S('rect', {x: x0, y: yb - 4 - h1 - h2, width: x1 - x0, height: h2, fill: 'var(--react)', 'fill-opacity': 0.14, stroke: 'var(--react)'}, g);
+    T(g, (x0 + x1) / 2, yb - 12 - h1 - h2, `wL = ${f(own, 2)} + ${f(r.VA, 2)} = ${f(r.wL, 2)} kN/m`, {'text-anchor': 'middle', 'font-weight': 600});
+    T(g, (x0 + x1) / 2, yb + 92, `ML ${f(r.ML, 2)} kN m · VL ${f(r.VL, 2)} kN`, {'text-anchor': 'middle'});
+  } else T(g, (x0 + x1) / 2, yb - 30, Lg('load: after Activity 2A', 'load: selepas Aktiviti 2A'), {'text-anchor': 'middle', class: 'small'});
+}
+function drawRA(box, v, r){
+  box.innerHTML = '';
+  const W = 700, walls = v.walls > 0, Hs = walls ? 432 : 250;
+  const svg = S('svg', {class: 'fig', viewBox: `0 0 ${W} ${Hs}`, role: 'img', 'aria-label': Lg('The flight as a beam', 'Flight sebagai beam')}, box);
+  const segs = [{kind: 'flight', n: r.nfw || r.nf, l: r.lf, txt: `${f(r.nfw || r.nf, 2)} kN/m`}];
+  if (v.LL > 0){ const nn = (v.share >= 1 && r.nLBw) ? r.nLBw : r.nLB; segs.push({kind: 'landing', n: nn, l: r.lLB, txt: `${f(nn, 2)} kN/m` + (v.share < 1 ? Lg(' (½, shared)', ' (½, dikongsi)') : '')}); }
+  const rightLab = v.Bend === 'cont' ? Lg('B · beam, continuous', 'B · beam, continuous') : Lg('B · wall, simple', 'B · dinding, simple');
+  beam2(svg, {segs, L: r.L, left: 'cont', right: v.Bend, leftLab: Lg('A · beam, continuous', 'A · beam, continuous'), rightLab, leftV: 'VA', rightV: 'VB', VL: r.VA, VR: r.VB, F: r.F, M: r.M}, 60, 640, 0, {loads: true, reac: true});
+  if (walls){
+    // cross-section of the flight built into one wall (left) or two: BS 8110 3.10.1.2 as the course uses it
+    const g = S('g', {}, svg), y0 = 300, k = 0.2, cx = 350, bF = v.bF, nw = v.walls, wl = 1, wr = nw > 1 ? 1 : 0;
+    const X = xx => cx + (xx - bF / 2) * k, hh = Math.max(v.h * k * 1.3, 20), wallW = 230;
+    T(g, cx, 244, Lg('Across the flight: built into walls', 'Merentasi flight: dibina ke dalam dinding'), {'text-anchor': 'middle', class: 'lab'});
+    S('rect', {x: X(-wallW), y: y0 - 30, width: wallW * k, height: hh + 60, fill: 'var(--surface-2)', stroke: 'var(--concrete-edge)'}, g);
+    if (wr) S('rect', {x: X(bF), y: y0 - 30, width: wallW * k, height: hh + 60, fill: 'var(--surface-2)', stroke: 'var(--concrete-edge)'}, g);
+    S('rect', {x: X(-75 * wl), y: y0, width: (bF + 75 * (wl + wr)) * k, height: hh, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, g);
+    S('rect', {x: X(0), y: y0, width: 150 * k, height: hh, fill: 'var(--wash-bad)', stroke: 'var(--bad)', 'stroke-dasharray': '3 3'}, g);
+    if (wr) S('rect', {x: X(bF - 150), y: y0, width: 150 * k, height: hh, fill: 'var(--wash-bad)', stroke: 'var(--bad)', 'stroke-dasharray': '3 3'}, g);
+    dimH(g, X(150 * wl), X(bF - 150 * wr), y0 - 10, Lg(`loaded width bld ${f(r.bld, 0)}`, `lebar dibebani bld ${f(r.bld, 0)}`), 'var(--flight)');
+    dimH(g, X(-75 * wl), X(bF + 75 * wr), y0 + hh + 14, Lg(`effective breadth beff ${f(r.bef, 0)}`, `lebar berkesan beff ${f(r.bef, 0)}`), 'var(--ink-2)', false);
+    T(g, cx, y0 + hh + 58, `κw = bld/beff = ${f(r.bld, 0)}/${f(r.bef, 0)} = ${f(r.kw, 3)}`, {'text-anchor': 'middle', 'font-weight': 600});
+    T(g, cx, y0 + hh + 76, Lg('Shaded: the 150 mm strip along each wall, taken off the loaded width;', 'Berlorek: jalur 150 mm di sepanjang setiap dinding, ditolak daripada lebar dibebani;'), {'text-anchor': 'middle', class: 'small'});
+    T(g, cx, y0 + hh + 91, Lg('the section is 75 mm wider for each wall', 'keratan bertambah lebar 75 mm bagi setiap dinding'), {'text-anchor': 'middle', class: 'small'});
+  }
+}
+function row6(ref, calc, out, ok){ return {ref, calc, out, ok}; }
+function table6(tb, rows, show){
+  tb.innerHTML = '<thead><tr><th>Ref.</th><th>' + Lg('Calculation', 'Pengiraan') + '</th><th style="text-align:right">Output</th></tr></thead>';
+  const body = document.createElement('tbody');
+  rows.forEach(q => { const tr = document.createElement('tr'); if (q.ok !== null && q.ok !== undefined && show) tr.className = q.ok ? 'okrow' : 'badrow';
+    tr.innerHTML = `<td class="ref">${q.ref}</td><td class="m">${q.calc}</td><td class="out">${q.out}${q.ok !== null && q.ok !== undefined && show ? (q.ok ? ' <span class="okm">✓</span>' : ' <span class="badm">✗</span>') : ''}</td>`; body.appendChild(tr); });
+  tb.appendChild(body);
+}
+function flightRows(v, r){
+  const rows = [], ck = r.checks, open = LS.mode === 'open';
+  rows.push(row6(Lg('Notes', 'Nota'), `t = y + R/2 = ${f(r.y, 2)} + ${f(v.R / 2, 1)}; n<sub>f</sub> = 1.35 × (${f(v.gk, 1)} + 25 × ${f(r.t / 1000, 4)}) + 1.5 × ${f(v.qk, 1)}`, `${f(r.nf, 3)} kN/m²`));
+  if (r.kw) rows.push(row6('BS 8110 3.10.1.2', `κ<sub>w</sub> = (${v.bF} − 150 × ${v.walls})/(${v.bF} + 75 × ${v.walls}) = ${f(r.kw, 4)}; n′<sub>f</sub> = κ<sub>w</sub>n<sub>f</sub>`, `${f(r.nfw, 3)} kN/m²`));
+  if (r.nL !== undefined) rows.push(row6(Lg('Notes', 'Nota'), `n<sub>L</sub> = 1.35 × (${f(v.gk, 1)} + 25 × ${f(v.hL / 1000, 3)}) + 1.5 × ${f(v.qk, 1)}` + (!open && v.share < 1 ? Lg('; shared: ½ n<sub>L</sub>', '; dikongsi: ½ n<sub>L</sub>') : ''),
+    `${f(r.nL, 3)}${!open && v.share < 1 ? ' → ' + f(r.nLB, 3) : ''} kN/m²`));
+  if (open) rows.push(row6('BS 8110 3.10.1.3', `L = ${f(r.La, 0)} + ½(${f(r.Lb1, 0)} + ${f(r.Lb2, 0)}); l<sub>f</sub> = ${f(r.lf, 3)}, l<sub>L</sub> = ${f(r.lL, 3)} m`, `L = ${f(r.L, 3)} m`));
+  else rows.push(row6(Lg('Notes', 'Nota'), `l<sub>f</sub> = ${f(r.lf, 3)} m` + (r.lLB ? `; l<sub>LB</sub> = ${f(r.lLB, 3)} m` : ''), `L = ${f(r.L, 3)} m`));
+  rows.push(row6(Lg('Notes', 'Nota'), 'F = Σ n l = ' + (open ? r.segs.slice().reverse() : r.segs).map(q => `${f(r[q.n], 3)} × ${f(r[q.l], 3)}`).join(' + '), `${f(r.F, 3)} kN`));
+  rows.push(row6(Lg('Course method', 'Kaedah kursus'), r.Mx !== undefined ? Lg(`both ends simple: M = max(FL/8, peak) = max(${f(r.M8, 2)}, ${f(r.Mx, 2)})`, `kedua-dua hujung simple: M = max(FL/8, puncak) = max(${f(r.M8, 2)}, ${f(r.Mx, 2)})`) : (r.Ksys_m > 1 ? 'M = FL/10' : 'M = FL/8'), `${f(r.M, 3)} kN m/m`));
+  rows.push(row6(Lg('Statics', 'Statik'), open ? Lg('V<sub>A</sub> at the landing; V<sub>B</sub> at the beam', 'V<sub>A</sub> di landing; V<sub>B</sub> di beam') : 'V<sub>A</sub>; V<sub>B</sub>', `${f(r.VA, 2)}; ${f(r.VB, 2)} kN/m`));
+  rows.push(row6('RDF §6.0', `d = ${v.h} − 25 − ${v.phi}/2 = ${f(r.d, 0)}; K = ${f(r.K_m, 4)}; z = ${f(r.z_m, 1)}; A<sub>s</sub> = ${f(r.As_m, 1)} (min ${f(r.Asmin_m, 0)}) mm²/m`, `H${v.phi}-${v.s}: ${f(r.Asp_m, 0)}`, !!(ck.Kbal_m && ck.As_m && ck.As_t !== false)));
+  rows.push(row6('EC2 9.3.1.1(3)', `s = ${v.s} ≤ min(2h, 250) = ${f(r.sPm, 0)} mm`, `${v.s} mm`, ck.s_m));
+  rows.push(row6('EC2 6.2.2', `V<sub>Ed</sub> = ${f(r.VEd, 2)} ≤ V<sub>Rd,c</sub> = ${f(r.VRd_m, 2)} kN`, `${f(r.VRd_m, 1)} kN`, ck.V_m));
+  rows.push(row6('EC2 7.4.2', `K = ${f(r.Ksys_m, 1)}; ρ = ${f(r.rho_m * 100, 3)} %; ${Lg('allowed', 'dibenarkan')} ${f(r.ldall_m, 2)}, ${Lg('actual', 'sebenar')} ${f(r.ldact_m, 2)}`, `${f(r.ldall_m, 1)} / ${f(r.ldact_m, 1)}`, ck.defl_m));
+  return rows;
+}
+function landingRows(v, r){
+  const ck = r.checks;
+  return [row6(Lg('Notes §4', 'Nota §4'), `w<sub>L</sub> = n<sub>L</sub>b<sub>L</sub> + V<sub>A</sub> = ${f(r.nL, 4)} × ${f(r.bL / 1000, 2)} + ${f(r.VA, 3)}`, `${f(r.wL, 3)} kN/m`),
+    row6(Lg('Notes §4', 'Nota §4'), `L<sub>L</sub> = (2 × ${v.bF} + ${v.well} + ${v.tw})/1000 = ${f(r.LL, 3)} m; M<sub>L</sub> = w<sub>L</sub>L<sub>L</sub>²/8; V<sub>L</sub> = w<sub>L</sub>L<sub>L</sub>/2`, `${f(r.ML, 2)} kN m; ${f(r.VL, 2)} kN`),
+    row6('RDF §6.0', `d<sub>L</sub> = ${v.hL} − 25 − ${v.phi} − ${v.phiL}/2 = ${f(r.dL, 0)}; K = ${f(r.K_L, 4)}; z = ${f(r.z_L, 1)}; A<sub>s</sub> = ${f(r.As_L, 0)} mm²`, `${v.nL}H${v.phiL}: ${f(r.Asp_L, 0)} mm²`, !!(ck.Kbal_L && ck.As_L)),
+    row6('EC2 9.3.1.1(3)', `s = (${f(r.bL, 0)} − 50 − ${v.phiL})/(${v.nL} − 1) = ${f(r.sL, 0)} ≤ min(2h<sub>L</sub>, 250) = ${f(r.sPLm, 0)} mm`, `${f(r.sL, 0)} mm`, ck.s_L),
+    row6('EC2 6.2.2', `V<sub>L</sub> = ${f(r.VL, 2)} ≤ V<sub>Rd,c</sub> = ${f(r.VRd_L, 2)} kN`, `${f(r.VRd_L, 1)} kN`, ck.V_L),
+    row6('EC2 7.4.2', `K = 1.0; ρ = ${f(r.rho_L * 100, 3)} % ${r.rho_L > r.rho0 ? '&gt;' : '≤'} ρ<sub>0</sub>: Eq. 7.16${r.rho_L > r.rho0 ? 'b' : 'a'}; ${Lg('allowed', 'dibenarkan')} ${f(r.ldall_L, 2)}, ${Lg('actual', 'sebenar')} ${f(r.ldact_L, 2)}`, `${f(r.ldall_L, 1)} / ${f(r.ldact_L, 1)}`, ck.defl_L)];
+}
+function kv6(items){ el('lKV').innerHTML = items.map(([k, val]) => `<div><span>${k}</span><b>${val}</b></div>`).join(''); }
+const VERD_A = {
+  C: ['<b>C, right.</b> The span ends at the centre of the landing, so its last 0.75 m is landing and carries n<sub>L</sub>: F = 40.60 + 8.39 = 48.99 kN for the notes’ Example 3. The notes count the flight only (B): 17 % of the load is missing.',
+      '<b>C, betul.</b> Span berakhir di tengah landing, jadi 0.75 m terakhirnya ialah landing dan memikul n<sub>L</sub>: F = 40.60 + 8.39 = 48.99 kN bagi Contoh 3 nota. Nota mengira flight sahaja (B): 17 % daripada load tertinggal.'],
+  A: ['the flight part runs to the centre of the beam, 2.70 m, not 2.60 m; and the landing strip is missing.', 'bahagian flight berjalan hingga tengah beam, 2.70 m, bukan 2.60 m; dan jalur landing tertinggal.'],
+  B: ['this is the notes’ answer: it leaves the landing strip inside the span unloaded.', 'inilah jawapan nota: ia membiarkan jalur landing di dalam span tanpa load.'],
+  D: ['only the half of the landing inside the span, 0.75 m, belongs to this span; the span ends at the centre of the landing.', 'hanya separuh landing yang berada di dalam span, 0.75 m, milik span ini; span berakhir di tengah landing.']
+};
+const VERD_B = {
+  D: ['<b>D, right.</b> Bending (1197 ≤ 1335 mm²) and shear (59.9 ≤ 107.9 kN) pass; ρ = 0.73 % is above ρ<sub>0</sub>, so Eq. 7.16b gives 16.2 and the limit is 18.0 against 30.9. Even at the 1.5 cap the limit is 24.3: bars cannot cure it. Deepen the landing: try h<sub>L</sub> = 200 mm with 12H10.',
+      '<b>D, betul.</b> Bending (1197 ≤ 1335 mm²) dan shear (59.9 ≤ 107.9 kN) lulus; ρ = 0.73 % melebihi ρ<sub>0</sub>, jadi Eq. 7.16b memberi 16.2 dan hadnya 18.0 berbanding 30.9. Walaupun pada had 1.5, hadnya 24.3: bar tidak dapat menyelesaikannya. Dalamkan landing: cuba h<sub>L</sub> = 200 mm dengan 12H10.'],
+  other: ['Bending (1197 ≤ 1335 mm²) and shear (59.9 ≤ 107.9 kN) pass for the notes’ landing; deflection fails, 18.0 against 30.9, and even at the 1.5 cap the limit is 24.3. Deepen the landing: try h<sub>L</sub> = 200 mm with 12H10.',
+          'Bending (1197 ≤ 1335 mm²) dan shear (59.9 ≤ 107.9 kN) lulus bagi landing dalam nota; deflection gagal, 18.0 berbanding 30.9, dan walaupun pada had 1.5 hadnya 24.3. Dalamkan landing: cuba h<sub>L</sub> = 200 mm dengan 12H10.']
+};
+function drawLanding(){
+  const v = readL6(), r = design2(l6Input(v)), open = LS.mode === 'open';
+  el('lFigH').innerHTML = open ? Lg('The flight, and the beam it becomes', 'Flight, dan beam yang terbentuk daripadanya') : v.LL > 0 ? Lg('The flight with landing B, as a beam', 'Flight dengan landing B, sebagai beam') : Lg('The flight as a beam', 'Flight sebagai beam');
+  if (open){
+    drawOW(el('lFig'), v, r, {model: true, loads: LS.aShown, reac: LS.aShown, aria: Lg('Open-well stair and its beam model', 'Tangga open-well dan beam model-nya')});
+    drawOWLanding(el('lFigL'), v, r, {load: LS.aShown});
+    kv6([[Lg('Span L', 'Span L'), f(r.L * 1000, 0) + ' mm'], [Lg('Total load F', 'Jumlah load F'), f(r.F, 2) + ' kN'], ['Design moment M', f(r.M, 2) + ' kN m'],
+      [Lg('Reaction at the landing V<sub>A</sub>', 'Reaction di landing V<sub>A</sub>'), f(r.VA, 2) + ' kN'], [Lg('Landing load w<sub>L</sub>', 'Load landing w<sub>L</sub>'), f(r.wL, 2) + ' kN/m'], [Lg('Landing moment M<sub>L</sub>', 'Moment landing M<sub>L</sub>'), f(r.ML, 2) + ' kN m']]);
+    table6(el('lTable'), flightRows(v, r), true);
+    table6(el('lTableL'), landingRows(v, r), LS.bShown);
+    el('lVeilA').hidden = LS.aShown;
+    el('lVeilB').hidden = LS.bShown;
+    el('lChoiceB').querySelectorAll('button').forEach(b => { b.disabled = !LS.aShown; });
+    if (LS.aShown && LS.barsChanged && flightPass(r)) milestone('bars');
+    if (LS.bShown && LS.landChanged && landingPass(r)) milestone('landing');
+  } else {
+    drawRA(el('lFig'), v, r);
+    kv6([[Lg('Span L', 'Span L'), f(r.L * 1000, 0) + ' mm'], [Lg('Total load F', 'Jumlah load F'), f(r.F, 2) + ' kN'], ['Design moment M', f(r.M, 2) + ' kN m'],
+      ['Reaction V<sub>A</sub>', f(r.VA, 2) + ' kN'], ['Reaction V<sub>B</sub>', f(r.VB, 2) + ' kN'], [Lg('Steel needed A<sub>s</sub>', 'Steel diperlukan A<sub>s</sub>'), f(r.As_m, 0) + ' mm²/m']]);
+    table6(el('lTable'), flightRows(v, r), true);
+    el('lVeilA').hidden = true;
+    if (v.LL > 0){ LS.shareSeen.add(String(v.share)); if (LS.shareSeen.has('0.5') && LS.shareSeen.has('1') && v.share < 1 && flightPass(r)) milestone('share'); }
+  }
+  el('lVerdictA').hidden = !(open && LS.aShown);
+  if (open && LS.aShown){ const ok = LS.aChoice === 'C'; el('lVerdictA').className = 'verdict ' + (ok ? 'ok' : 'bad'); el('lVerdictA').innerHTML = ok ? B(VERD_A.C) : Lg(`<b>You chose ${LS.aChoice}; the answer is C:</b> `, `<b>Anda memilih ${LS.aChoice}; jawapannya C:</b> `) + B(VERD_A[LS.aChoice]) + ' ' + B(VERD_A.C).replace(/^<b>[^<]*<\/b>\s*/, ''); }
+  el('lVerdictB').hidden = !(open && LS.bShown);
+  if (open && LS.bShown){ const ok = LS.bChoice === 'D'; el('lVerdictB').className = 'verdict ' + (ok ? 'ok' : 'bad'); el('lVerdictB').innerHTML = ok ? B(VERD_B.D) : Lg(`<b>You chose ${LS.bChoice}; the answer is D.</b> `, `<b>Anda memilih ${LS.bChoice}; jawapannya D.</b> `) + B(VERD_B.other); }
+}
+function loadL6(mode, key){
+  LS.mode = mode; LS.key = key;
+  if (L6[mode][key]) LS.v = Object.assign({}, L6[mode][key].v);
+  LS.barsChanged = false; LS.landChanged = false;
+  fillL6Preset(); syncL6(); drawLanding();
+}
+segGroup(el('lMode'), m => loadL6(m, Object.keys(L6[m])[0]));
+el('lPreset').addEventListener('change', () => { if (el('lPreset').value !== 'custom') loadL6(LS.mode, el('lPreset').value); else { LS.key = 'custom'; } });
+Object.keys(L6IDS).forEach(k => el(L6IDS[k]).addEventListener(el(L6IDS[k]).tagName === 'SELECT' ? 'change' : 'input', () => {
+  LS.key = 'custom'; el('lPreset').value = 'custom';
+  if (k === 'phi' || k === 's') LS.barsChanged = true;
+  if ((k === 'hL' || k === 'phiL' || k === 'nL') && LS.bShown) LS.landChanged = true;
+  drawLanding();
+}));
+segGroup(el('lBend'), b => { LS.v.Bend = b; LS.key = 'custom'; el('lPreset').value = 'custom'; drawLanding(); });
+segGroup(el('lShare'), s => { LS.v.share = +s; LS.key = 'custom'; el('lPreset').value = 'custom'; drawLanding(); });
+segGroup(el('lWalls'), w => { LS.v.walls = +w; LS.key = 'custom'; el('lPreset').value = 'custom'; drawLanding(); });
+el('lChoiceA').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; LS.aShown = true; LS.aChoice = b.dataset.k; milestone('span'); drawLanding(); });
+el('lChoiceB').addEventListener('click', e => { const b = e.target.closest('button'); if (!b || b.disabled) return; LS.bShown = true; LS.bChoice = b.dataset.k; drawLanding(); });
+drawers.landing = () => { fillL6Preset(); syncL6(); drawLanding(); };
+onResize(el('lFig'), () => { if (!el('panel-landing').hidden) drawLanding(); });
+
+/* ===================== 7 PLAN READER (Unit 2) ===================== */
+// A generated first-floor plan of a dog-leg or open-well stair: UP and DN both start at the floor of the plan and run to
+// the half landings at the far end. Flight Q is one of the two; the student reads its direction, risers, R and span.
+const RS = {plan: null, streak: 0, best: recall('seaa4333-stairlab-plans', 0) || 0, checked: false, last: null};
+function rpick(a){ return a[Math.floor(Math.random() * a.length)]; }
+function newPlan(){
+  const nR = rpick([8, 9, 10, 11, 12]), R = rpick([150, 155, 160, 165, 170, 175, 180]), G = rpick([250, 255, 260, 265, 270, 275, 280, 290, 300]);
+  const top = Math.random() < 1 / 3;                       // top going drawn on the flight, as in the notes' Examples 3 and 4
+  const p = {nR, R, G, H: 2 * nR * R, top, nT: top ? nR : nR - 1, b: rpick([200, 225, 250, 300]), Ld: rpick([1200, 1350, 1500, 1800, 2000, 2100]),
+    bF: rpick([1000, 1100, 1200, 1300, 1400, 1500]), well: rpick([0, 0, 150, 200, 300]), landLeft: Math.random() < 0.5, upTop: Math.random() < 0.5, qIsUp: Math.random() < 0.5};
+  p.Lf = p.nT * G; p.Rans = p.H / 2 / nR; p.L = p.Lf + (p.b + Math.min(p.Ld, 1800)) / 2;
+  RS.plan = p; RS.checked = false; RS.last = null;
+  ['rnR', 'rR', 'rL'].forEach(id => { el(id).value = ''; }); setSeg(el('rBottom'), '');
+  drawPlanR();
+}
+function drawPlanR(){
+  const p = RS.plan, box = el('rFig'); box.innerHTML = '';
+  const tw = 200, floorL = 1100, totL = p.Ld + p.Lf + floorL, totW = 2 * p.bF + p.well;
+  const W = 700, ox = 40, oy = 40, k = Math.min((W - 2 * ox) / (totL + 2 * tw), 330 / (totW + 2 * tw)), Hs = oy + (totW + 2 * tw) * k + 60;
+  const svg = S('svg', {class: 'fig', viewBox: `0 0 ${W} ${Hs.toFixed(0)}`, role: 'img', 'aria-label': Lg('Generated stair plan', 'Pelan tangga yang dijana')}, box);
+  const g = S('g', {}, svg);
+  const xm = x => (p.landLeft ? x : totL - x);          // x is measured from the landing end; mirrored when the landing is on the right
+  const X = x => ox + tw * k + xm(x) * k, Y = y => oy + tw * k + y * k;
+  const rect = (x0, x1, y0, y1, attrs) => S('rect', Object.assign({x: Math.min(X(x0), X(x1)), y: Y(y0), width: Math.abs(X(x1) - X(x0)), height: (y1 - y0) * k}, attrs), g);
+  const xF = p.Ld + p.Lf;                                // the floor edge
+  rect(-tw, totL, -tw, 0, {fill: 'var(--surface-2)', stroke: 'var(--concrete-edge)'}); rect(-tw, totL, totW, totW + tw, {fill: 'var(--surface-2)', stroke: 'var(--concrete-edge)'});
+  rect(-tw, 0, 0, totW, {fill: 'var(--surface-2)', stroke: 'var(--concrete-edge)'});
+  rect(0, p.Ld, 0, totW, {fill: 'var(--concrete)', stroke: 'var(--ink-2)'});
+  rect(xF, totL, 0, totW, {fill: 'var(--surface)', stroke: 'var(--ink-2)'});
+  rect(xF, xF + p.b, 0, totW, {fill: 'none', stroke: 'var(--ink-3)', 'stroke-dasharray': '5 4'});
+  const fl = (y0, y1) => { rect(p.Ld, xF, y0, y1, {fill: 'var(--surface)', stroke: 'var(--ink-2)'}); for (let i = 1; i < p.nT; i++){ const xx = X(p.Ld + i * p.G); S('line', {x1: xx, x2: xx, y1: Y(y0), y2: Y(y1), stroke: 'var(--ink-3)', 'stroke-width': 1}, g); } };
+  const yUp0 = p.upTop ? 0 : p.bF + p.well, yDn0 = p.upTop ? p.bF + p.well : 0;
+  fl(yUp0, yUp0 + p.bF); fl(yDn0, yDn0 + p.bF);
+  // break line across the UP flight about 1.2 m above the floor: the rest of it belongs to the plan above
+  const kB = Math.max(1, Math.min(p.nT - 1, Math.round(1200 / p.R))), xb = xF - kB * p.G;
+  S('path', {d: `M${X(xb + 120)},${Y(yUp0 - 40)}L${X(xb)},${Y(yUp0 + p.bF * 0.45)}L${X(xb + 90)},${Y(yUp0 + p.bF * 0.55)}L${X(xb - 40)},${Y(yUp0 + p.bF + 40)}`, fill: 'none', stroke: 'var(--ink)', 'stroke-width': 1.8}, g);
+  const arrow = (y, xEnd, lab) => { const x0 = X(xF + floorL * 0.62), x1 = X(xEnd), yy = Y(y); S('circle', {cx: x0, cy: yy, r: 3.5, fill: 'var(--ink)'}, g); S('line', {x1: x0, x2: x1, y1: yy, y2: yy, stroke: 'var(--ink)', 'stroke-width': 1.8}, g); arrowHead(g, x1, yy, x1 < x0 ? Math.PI : 0, 8, 'var(--ink)'); T(g, X(xF + floorL * 0.62) + (x1 < x0 ? 8 : -8), yy - 7, lab, {'text-anchor': x1 < x0 ? 'start' : 'end', 'font-weight': 700, fill: 'var(--ink)'}); };
+  arrow(yUp0 + p.bF / 2, xb + 150, 'UP'); arrow(yDn0 + p.bF / 2, p.Ld + 120, 'DN');
+  const qY = p.qIsUp ? yUp0 : yDn0, pY = p.qIsUp ? yDn0 : yUp0;
+  T(g, X(p.Ld + p.Lf * 0.3), Y(qY + p.bF * 0.28) + 5, 'Q', {'text-anchor': 'middle', 'font-weight': 800, fill: 'var(--flight)', 'font-size': 16});
+  T(g, X(p.Ld + p.Lf * 0.3), Y(pY + p.bF * 0.28) + 5, 'P', {'text-anchor': 'middle', 'font-weight': 800, fill: 'var(--ink-3)', 'font-size': 16});
+  T(g, X(p.Ld / 2), Y(totW / 2) + 4, Lg('half landing', 'half landing'), {'text-anchor': 'middle', class: 'small'});
+  T(g, X(xF + floorL / 2), Y(-tw) - 8, Lg('floor of this plan', 'lantai pelan ini'), {'text-anchor': 'middle', class: 'small'});
+  T(g, X(xF + p.b / 2), Y(-tw) - 22, Lg('beam (dashed)', 'beam (putus-putus)'), {'text-anchor': 'middle', class: 'small'});
+  const yd = Y(totW + tw) + 16;
+  const dH = (a, b, lab) => dimH(g, Math.min(X(a), X(b)), Math.max(X(a), X(b)), yd, lab, 'var(--ink-2)', false);
+  dH(0, p.Ld, f(p.Ld, 0)); dH(p.Ld, xF, `${p.nT} @ ${p.G} = ${p.Lf}`); dH(xF, xF + p.b, f(p.b, 0));
+  el('rGiven').innerHTML = Lg(`Storey height ${p.H} mm, with the half landing midway. Each flight is carried at the floor by a beam ${p.b} mm wide (dashed) and rests on the landing at its other end; the landing spans between the walls. `,
+    `Ketinggian tingkat ${p.H} mm, dengan half landing di tengah-tengah. Setiap flight disokong di lantai oleh beam selebar ${p.b} mm (putus-putus) dan bertumpu pada landing di hujung yang satu lagi; landing merentang di antara dinding. `)
+    + (p.top ? Lg('<b>The top going of each flight is level with the landing or floor above it and is drawn on the flight</b>, as in the course notes’ Examples 3 and 4.', '<b>Going teratas setiap flight sama aras dengan landing atau lantai di atasnya dan dilukis pada flight</b>, seperti dalam Contoh 3 dan 4 nota kursus.')
+      : Lg('<b>Each flight ends on the landing or the floor, which forms its last step.</b>', '<b>Setiap flight berakhir pada landing atau lantai, yang membentuk anak tangga terakhirnya.</b>'));
+  paintPlanFeedback();
+}
+function paintPlanFeedback(){
+  const p = RS.plan, fb = el('rFeedback'), q = RS.last;
+  el('rScore').textContent = Lg(`In a row: ${RS.streak} · best ${RS.best}`, `Berturut-turut: ${RS.streak} · terbaik ${RS.best}`);
+  fb.hidden = !q; if (!q) return;
+  fb.className = 'verdict ' + (q.all ? 'ok' : 'bad');
+  const mk = ok => (ok ? '✓' : '✗'), lb = Math.min(p.Ld, 1800);
+  const nTxt = p.top ? Lg(`the top going is drawn on the flight, so its ${p.nT} goings mean n<sub>R</sub> = ${p.nR} risers`, `going teratas dilukis pada flight, jadi ${p.nT} going bermakna n<sub>R</sub> = ${p.nR} riser`)
+    : Lg(`${p.nT} treads, and the landing or floor is the last step: n<sub>R</sub> = ${p.nR}`, `${p.nT} tread, dan landing atau lantai ialah anak tangga terakhir: n<sub>R</sub> = ${p.nR}`);
+  fb.innerHTML = Lg(`${mk(q.okB)} Flight Q is the ${p.qIsUp ? 'UP' : 'DN'} flight: its bottom is ${p.qIsUp ? 'at the floor of this plan' : 'at the half landing below'}. `, `${mk(q.okB)} Flight Q ialah flight ${p.qIsUp ? 'UP' : 'DN'}: bahagian bawahnya ${p.qIsUp ? 'di lantai pelan ini' : 'di half landing di bawah'}. `)
+    + `${mk(q.okN)} ${nTxt}. ${mk(q.okR)} R = ${p.H}/2/${p.nR} = ${f(p.Rans, 1)} mm. `
+    + `${mk(q.okL)} L = ${p.Lf} + ½(${p.b} + ${lb}) = ${f(p.L, 1)} mm` + (p.Ld > 1800 ? Lg(' (a landing deeper than 1.8 m counts as 1800)', ' (landing yang lebih dalam daripada 1.8 m dikira 1800)') : '') + '.'
+    + (q.all ? '' : Lg(' Press “New plan” to try another.', ' Tekan “Pelan baharu” untuk mencuba yang lain.'));
+}
+segGroup(el('rBottom'), () => {});
+el('rNew').addEventListener('click', newPlan);
+el('rCheck').addEventListener('click', () => {
+  const p = RS.plan; if (!p || RS.checked) return;
+  const bb = el('rBottom').querySelector('button[aria-pressed="true"]'), bottom = bb ? bb.dataset.v : '';
+  const nR = parseFloat(el('rnR').value), R = parseFloat(el('rR').value), L = parseFloat(el('rL').value);
+  const q = {okB: bottom === (p.qIsUp ? 'floor' : 'landing'), okN: nR === p.nR, okR: Math.abs(R - p.Rans) <= 0.6, okL: Math.abs(L - p.L) <= 1.5};
+  q.all = q.okB && q.okN && q.okR && q.okL; RS.checked = true; RS.last = q;
+  RS.streak = q.all ? RS.streak + 1 : 0; if (RS.streak > RS.best){ RS.best = RS.streak; store('seaa4333-stairlab-plans', RS.best); }
+  if (RS.streak >= 3) milestone('plan');
+  paintPlanFeedback();
+});
+drawers.plan = () => { if (!RS.plan) newPlan(); else drawPlanR(); };
 
 /* ---------- start ---------- */
 function redrawAll(){ const open = tabs.find(t => t.getAttribute('aria-selected') === 'true'); if (open && drawers[open.dataset.tab]) drawers[open.dataset.tab](); }
@@ -1315,7 +2030,7 @@ el('btn-theme').addEventListener('click', () => { PR.theme = effTheme() === 'dar
 el('btn-font').addEventListener('click', e => { const i = FONT_STEPS.findIndex(v => Math.abs(v - PR.font) < 1e-6); const n = e.shiftKey ? (i <= 0 ? FONT_STEPS.length - 1 : i - 1) : (i + 1) % FONT_STEPS.length; PR.font = FONT_STEPS[n < 0 ? 1 : n]; writePrefs({font: PR.font}); applyPrefs(true); });
 tPaint();
 syncInputs();
-showTab((location.hash || '#geometry').slice(1));
+{ const h0 = (location.hash || '#geometry').slice(1); if (h0 === 's2'){ e5.which = 's2'; showTab('error'); } else showTab(h0); }
 onResize(el('cFig'), () => { if (!el('panel-span').hidden) drawSpan(); });
 </script>
 </body>

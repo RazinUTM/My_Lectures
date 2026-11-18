@@ -15,7 +15,7 @@ Stair spanning along its length A stair carried by supports at its two ends: bea
 - The going G is the horizontal depth of a tread, without the nosing overhang.
 - The rise R is the height of one step; the riser is the vertical face that makes it.
 - The effective span L is measured on plan, centre to centre of the supports.
-This week covers flights that span along their length, alone or with a landing at the top or the bottom. Week 2 adds stairs supported by their landings, two flights at right angles, and stairs with their sides built into walls, which span across their width.
+This week covers flights that span along their length, alone or with a landing at the top or the bottom. Week 2 adds stairs supported by their landings, two flights at right angles, and stairs with their sides built into walls, which still span along their length while the walls carry a strip along each side.
 Key points:
 - A stair is designed as a one-way slab on a 1 m strip.
 - Three steps are new: the geometry, the load on plan and the span on plan.

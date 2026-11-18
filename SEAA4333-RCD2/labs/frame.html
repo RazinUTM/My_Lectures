@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Frame Lab · SEAA 4333</title>
-<meta name="description" content="SEAA 4333 Unit 3, Frame Analysis I: load-pattern cards for the arrangement of the variable load on a continuous beam (EC2 Load Set 1 and Load Set 2 of the Malaysian National Annex); the moment distribution of the beams of one floor, row by row, with the one-free-joint sub-frame for the column moments; and a spot-the-error sheet.">
+<meta name="description" content="SEAA 4333 Units 3 and 4, Frame Analysis I and II: load-pattern cards for the arrangement of the variable load (EC2 Load Set 1 and Load Set 2 of the Malaysian National Annex); the moment distribution of the beams of one floor with the one-free-joint sub-frame for the columns; the one-level and two-free-joint sub-frames row by row with the columns in the joints; the three methods compared; and two spot-the-error sheets.">
 <meta name="claude:viewport-fit-sides" content="cover">
 <script>(function(){try{var r=document.documentElement,p=JSON.parse(localStorage.getItem("seaa4333-prefs")||"null")||{};if(p.lang==="ms"){r.lang="ms";r.setAttribute("data-lang","ms")}if(p.theme==="light"||p.theme==="dark")r.setAttribute("data-theme",p.theme);if(+p.font)r.style.fontSize=(+p.font*100)+"%"}catch(e){}})();</script>
-<!-- Frame Lab (SEAA 4333 Unit 3). SPDX-License-Identifier: MIT (code). Text and figures: CC BY-NC-SA 4.0.
+<!-- Frame Lab (SEAA 4333 Units 3 and 4). SPDX-License-Identifier: MIT (code). Text and figures: CC BY-NC-SA 4.0.
      Copyright (c) 2026 Ahmad Razin Zainal Abidin and Universiti Teknologi Malaysia. See ../LICENSE.md. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,7 +15,7 @@
 <style>
 /* Frame Lab. Layout: the calculation pad of the Staircase, Column, Foundation and Retaining Wall Labs, laid on concrete. Controls stay monochrome ink;
    colour is kept for the two bracing cases (braced blue, unbraced rust, validated for colour-vision
-   deficiency in both themes) and for pass/fail verdicts. The tabs follow the order of the Unit 3 session. */
+   deficiency in both themes) and for pass/fail verdicts. The tabs follow the order of the Unit 3 and Unit 4 sessions. */
 :root{
   --bg:#E6E4DF; --surface:#F7F6F2; --surface-2:#EEECE6;
   --ink:#1D1C19; --ink-2:#47443D; --ink-3:#686459;
@@ -275,19 +275,26 @@ input[type=range].xs{width:100%;accent-color:var(--flight);margin:6px 0 2px}
 #act3c .seg button{min-width:2.6rem}
 #mSpans th,#mKV span,#aKV span{text-transform:none;letter-spacing:.02em}
 @media (max-width:640px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+:root{--s1:#2463c4;--s2:#b8481a;--s3:#167a55}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--s1:#4f8ee8;--s2:#df6a33;--s3:#3fa877}}
+:root[data-theme="dark"]{--s1:#4f8ee8;--s2:#df6a33;--s3:#3fa877}
+#xChart{min-width:520px}
+#sTable th.colh{color:var(--ink-2)}
+#sKV span,#xTable th,#sSpans th,#sTable th{text-transform:none;letter-spacing:.02em}
+#xPick button,#sMeth button{text-align:left}
 [hidden]{display:none !important}
 </style>
 </head>
 <body>
 <div class="sitebar" id="sitebar"><div class="wrap">
-  <nav class="crumbs" aria-label="Breadcrumb" data-ms-aria="Laluan"><a href="https://razinutm.github.io/My_Lectures/">My Lectures</a><span aria-hidden="true">›</span><a href="../index.html">SEAA 4333</a><span aria-hidden="true">›</span><a href="../03-frame-analysis-1/index.html#lab">Unit 3</a><span aria-hidden="true">›</span><span aria-current="page">Frame Lab</span></nav>
+  <nav class="crumbs" aria-label="Breadcrumb" data-ms-aria="Laluan"><a href="https://razinutm.github.io/My_Lectures/">My Lectures</a><span aria-hidden="true">›</span><a href="../index.html">SEAA 4333</a><span aria-hidden="true">›</span><a href="../03-frame-analysis-1/index.html#lab">Unit 3</a><span aria-hidden="true">·</span><a href="../04-frame-analysis-2/index.html#lab">Unit 4</a><span aria-hidden="true">›</span><span aria-current="page">Frame Lab</span></nav>
   <div class="prefs"><button type="button" id="btn-lang" title="Bahasa">BM</button><button type="button" id="btn-theme" title="Theme"></button><button type="button" id="btn-font" class="fontbtn" title="Text size"><span class="aa" aria-hidden="true">A<small>A</small></span><span class="lvl" aria-hidden="true"><i></i><i></i><i></i><i></i></span></button></div>
 </div></div>
 <header class="topbar">
   <div class="wrap">
     <div class="brand">
       <h1>Frame Lab</h1>
-      <span class="unit">SEAA 4333 · Unit 3 · Frame Analysis I</span>
+      <span class="unit">SEAA 4333 · Units 3–4 · Frame Analysis I–II</span>
     </div>
     <div class="timer" aria-label="Activity timer" data-ms-aria="Pemasa aktiviti">
       <button class="timer-display" id="tDisplay" type="button" title="Show the timer full screen" data-ms-title="Tunjuk pemasa pada skrin penuh">5:00</button>
@@ -309,6 +316,8 @@ input[type=range].xs{width:100%;accent-color:var(--flight);margin:6px 0 2px}
     <button class="tab" role="tab" id="tab-arr" aria-controls="panel-arr" data-tab="arr"><span class="n">1</span><span data-ms="Load arrangement">Load arrangements</span></button>
     <button class="tab" role="tab" id="tab-md" aria-controls="panel-md" data-tab="md"><span class="n">2</span><span data-ms="Moment distribution">Moment distribution</span></button>
     <button class="tab" role="tab" id="tab-error" aria-controls="panel-error" data-tab="error"><span class="n">3</span><span data-ms="Cari kesilapan">Spot the error</span></button>
+    <button class="tab" role="tab" id="tab-sub" aria-controls="panel-sub" data-tab="sub"><span class="n">4</span><span data-ms="Sub-frame">Sub-frames</span></button>
+    <button class="tab" role="tab" id="tab-cmp" aria-controls="panel-cmp" data-tab="cmp"><span class="n">5</span><span data-ms="Bandingkan">Compare</span></button>
   </nav>
 
   <main class="sheet">
@@ -444,6 +453,7 @@ input[type=range].xs{width:100%;accent-color:var(--flight);margin:6px 0 2px}
             <div class="head">
               <div class="seg" role="group" aria-label="Sheet" data-ms-aria="Helaian" id="eWhich" style="margin-bottom:10px">
                 <button type="button" data-v="s3" aria-pressed="true">Frame S3 · Unit 3</button>
+                <button type="button" data-v="s4">Frame S4 · Unit 4</button>
               </div>
               <h2 id="eTitle">Spot the error</h2>
               <p class="lede" id="eLede"></p>
@@ -468,8 +478,125 @@ input[type=range].xs{width:100%;accent-color:var(--flight);margin:6px 0 2px}
         <div class="summary" id="eSummary" hidden></div>
       </div>
     </section>
+
+    <!-- ===================== 4 SUB-FRAMES (Unit 4) ===================== -->
+    <section id="panel-sub" role="tabpanel" aria-labelledby="tab-sub" hidden>
+      <div class="panel">
+        <div class="col">
+          <div class="head">
+            <h2 data-ms="Sub-frame, baris demi baris">Sub-frames, row by row</h2>
+            <p class="lede" data-ms="One-level sub-frame mengimbangi setiap joint satu lantai bersama column-nya; two-free-joint sub-frame mengambil satu beam bersama column di hujungnya dan jirannya pada ½K. Jalankan jadual satu baris pada satu masa dan ramal imbangan seterusnya.">The one-level sub-frame balances every joint of a floor with its columns; the two-free-joint sub-frame takes one beam with the columns at its ends and its neighbours at ½K. Run the table one row at a time and predict the next balance.</p>
+          </div>
+          <div class="group">
+            <label class="label" for="sCase" data-ms="Frame">Frame</label>
+            <select id="sCase" class="full"></select>
+            <p class="note" id="sCaseNote" style="border:0;padding:0"></p>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Sub-frame">Sub-frame</span>
+            <div class="seg vert" role="group" aria-label="Sub-frame" data-ms-aria="Sub-frame" id="sMeth">
+              <button type="button" data-v="o" aria-pressed="true" data-ms="One-level: lantai dan column-nya, K penuh">One-level: the floor and its columns, full K</button>
+              <button type="button" data-v="t" data-ms="Two-free-joint: satu beam, jiran pada ½K">Two-free-joint: one beam, neighbours at ½K</button>
+            </div>
+          </div>
+          <div class="group" id="sBeamG" hidden>
+            <span class="label" data-ms="Beam">Beam</span>
+            <div class="seg" role="group" aria-label="Beam" data-ms-aria="Beam" id="sBeam"></div>
+          </div>
+          <div class="group">
+            <label class="label" for="sPat" data-ms="Kes load">Load case</label>
+            <select id="sPat" class="full"></select>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Bilangan cycle">Number of cycles</span>
+            <div class="seg" role="group" aria-label="Number of cycles" data-ms-aria="Bilangan cycle" id="sCyc">
+              <button type="button" data-v="3">3</button>
+              <button type="button" data-v="4" aria-pressed="true">4</button>
+              <button type="button" data-v="7">7</button>
+              <button type="button" data-v="0" data-ms="hingga converge">to convergence</button>
+            </div>
+          </div>
+          <div class="kv" id="sKV"></div>
+          <p class="note" data-ms="Column: K&lt;sub&gt;c&lt;/sub&gt; = I&lt;sub&gt;c&lt;/sub&gt;/h dengan ketinggian tingkatnya sendiri; hujung jauh fixed. Column mengambil −F × ΣM di joint-nya dalam setiap baris imbangan dan menyimpannya; tiada apa-apa dibawa dari column ke lantai. ↑ column atas, ↓ column bawah. Continuous beam ada dalam tab 2.">Columns: K<sub>c</sub> = I<sub>c</sub>/h for their own storey heights; far ends fixed. A column takes −F × ΣM at its joint in every balancing row and keeps it; nothing is carried from a column into the floor. ↑ upper column, ↓ lower column. The continuous beam is in tab 2.</p>
+        </div>
+        <div class="col">
+          <div class="task" id="act4a">
+            <span class="tag" data-ms="Aktiviti 4A · relay · pasukan berempat">Activity 4A · the relay · teams of four</span>
+            <p data-ms="One-level sub-frame frame nota, kes 4 (BC sahaja), seperti dalam Workbook 4.3. Semak jadual pasukan anda baris demi baris: sebelum setiap baris imbangan, taip balancing moment di BA, kemudian tekan &lt;i&gt;Baris seterusnya&lt;/i&gt;. Tiga betul berturut-turut melengkapkan semakan.">One-level sub-frame of the notes’ frame, case 4 (BC alone), as in Workbook 4.3. Check your team’s table row by row: before each balancing row, type the balancing moment at BA, then press <i>Next row</i>. Three right in a row completes the check.</p>
+            <div class="fields" style="margin-top:10px"><label for="sPred" id="sPredL">Next balance at BA</label><input id="sPred" type="number" step="0.01"><span class="u">kN m</span></div>
+          </div>
+          <div class="steps">
+            <button class="btn primary" id="sNext" type="button" data-ms="Baris seterusnya">Next row</button>
+            <button class="btn" id="sAll" type="button" data-ms="Tunjuk semua">Show all</button>
+            <button class="btn" id="sReset" type="button" data-ms="Set semula">Reset</button>
+          </div>
+          <p class="verdict" id="sOut" hidden aria-live="polite"></p>
+          <p class="note" id="sWhy" style="border:0;padding:0" aria-live="polite"></p>
+          <div class="plotcard">
+            <div class="plothead"><h3 data-ms="Jadual distribution, dengan column">The distribution table, with the columns</h3></div>
+            <div class="scroll"><table class="tbl mdtbl" id="sTable"></table></div>
+          </div>
+          <div id="sRes" hidden>
+            <div class="scroll"><table class="tbl" id="sSpans"></table></div>
+            <p class="note" id="sCheck" style="border:0;padding:0"></p>
+          </div>
+          <div class="task" id="act4t">
+            <span class="tag" data-ms="Two-free-joint · distribution factor">Two-free-joint · distribution factors</span>
+            <p data-ms="Pilih Two-free-joint dan satu beam. Kira distribution factor di joint yang dinamakan di bawah, dengan ½K bagi jiran, taip dan semak. Mulakan dengan beam AB frame workbook.">Choose Two-free-joint and a beam. Work out the distribution factors at the joint named below, with ½K for the neighbour, type them and check. Start with beam AB of the workbook’s frame.</p>
+            <p class="note" id="tJointQ" style="border:0;padding:0"></p>
+            <div class="fields" style="margin-top:10px">
+              <label for="tF1" id="tF1L">F</label><input id="tF1" type="number" step="0.001"><span class="u"></span>
+              <label for="tF2" id="tF2L">F</label><input id="tF2" type="number" step="0.001"><span class="u"></span>
+            </div>
+            <div class="steps" style="margin-top:10px"><button class="btn primary" id="tCheck" type="button" data-ms="Semak">Check</button></div>
+            <p class="verdict" id="tOut" hidden aria-live="polite"></p>
+            <div class="figbox" id="tFigBox" hidden><svg class="fig" id="tFig" viewBox="0 0 560 260" role="img" aria-label="Two-free-joint sub-frame of the chosen beam" data-ms-aria="Two-free-joint sub-frame bagi beam yang dipilih"></svg></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 5 COMPARE (Unit 4) ===================== -->
+    <section id="panel-cmp" role="tabpanel" aria-labelledby="tab-cmp" hidden>
+      <div class="panel">
+        <div class="col">
+          <div class="head">
+            <h2 data-ms="Berapa banyak yang hilang?">How much do we lose?</h2>
+            <p class="lede" data-ms="Tiga kaedah pada frame yang sama dan load yang sama (Load Set 1): continuous beam dengan column one-free-joint (Unit 3, lima cycle), two-free-joint sub-frame dan one-level sub-frame (empat cycle setiap satu).">Three methods on the same frame and the same loads (Load Set 1): the continuous beam with one-free-joint columns (Unit 3, five cycles), the two-free-joint sub-frames and the one-level sub-frame (four cycles each).</p>
+          </div>
+          <div class="group">
+            <label class="label" for="xCase" data-ms="Frame">Frame</label>
+            <select id="xCase" class="full"></select>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Kesan">Effect</span>
+            <div class="seg vert" role="group" aria-label="Effect" data-ms-aria="Kesan" id="xEff"></div>
+          </div>
+          <p class="note" id="xDone" style="border:0;padding:0" aria-live="polite"></p>
+          <p class="note" data-ms="Nilai kesan ialah envelope kes Load Set 1. Hogging di B mempunyai dua nilai dalam frame, satu bagi setiap beam; column mengambil perbezaannya. Bagi frame anda sendiri, tetapkan span dan load-nya dalam tab 1.">The values are the envelopes of the Load Set 1 cases. The hogging at B has two values in a frame, one for each beam; the columns take the difference. For your own frame, set its spans and loads in tab 1.</p>
+        </div>
+        <div class="col">
+          <div class="task" id="act4b">
+            <span class="tag" data-ms="Aktiviti 4B · pasukan · 10 min">Activity 4B · teams · 10 min</span>
+            <p data-ms="Bagi setiap kesan, pilih kaedah yang anda jangka memberi nilai terbesar, kemudian tekan &lt;i&gt;Dedahkan&lt;/i&gt;. Rekod pilihan anda bersama satu sebab dalam Workbook 4.5.">For each effect, pick the method you expect to give the largest value, then press <i>Reveal</i>. Record your picks with one reason each in Workbook 4.5.</p>
+            <p id="xCur" style="margin-top:8px"></p>
+            <div class="seg vert" role="group" aria-label="Method" data-ms-aria="Kaedah" id="xPick" style="margin-top:8px"></div>
+          </div>
+          <div class="steps">
+            <button class="btn primary" id="xReveal" type="button" data-ms="Dedahkan">Reveal</button>
+            <button class="btn" id="xNext" type="button" data-ms="Kesan seterusnya">Next effect</button>
+          </div>
+          <p class="verdict" id="xOut" hidden aria-live="polite"></p>
+          <div class="plotcard">
+            <div class="plothead"><h3 data-ms="Kesan yang telah didedahkan">The effects revealed so far</h3><span class="legend" id="xLegend"></span></div>
+            <div class="figbox"><svg class="chart" id="xChart" viewBox="0 0 680 420" role="img" aria-label="Grouped bars of the seven effects by the three methods" data-ms-aria="Bar berkumpulan bagi tujuh kesan mengikut tiga kaedah"></svg></div>
+          </div>
+          <div class="scroll"><table class="tbl" id="xTable"></table></div>
+        </div>
+      </div>
+    </section>
   </main>
-  <footer><span data-ms="Kaedah kursus SEAA 4333 (nota kursus, &lt;i&gt;Frame Analysis&lt;/i&gt;; RDF §11.0 dan Table 3.15; Mosley, Bungey &amp;amp; Hulse §3.4; MS EN 1992-1-1, 5.1.3, dengan Malaysian National Annex): susunan Load Set 1 dan Load Set 2 dengan w&lt;sub&gt;max&lt;/sub&gt; = 1.35G&lt;sub&gt;k&lt;/sub&gt; + 1.5Q&lt;sub&gt;k&lt;/sub&gt; dan w&lt;sub&gt;min&lt;/sub&gt; = 1.35G&lt;sub&gt;k&lt;/sub&gt;; beam satu lantai sebagai continuous beam di atas knife-edge support, melalui moment distribution dengan span hujung pada ¾K dan pin dilepaskan sekali; shear dan moment span melalui statik; moment column melalui one-free-joint sub-frame (hujung jauh fixed, beam pada separuh stiffness, w&lt;sub&gt;max&lt;/sub&gt; pada satu sisi dan w&lt;sub&gt;min&lt;/sub&gt; pada sisi lain). Unit: m, kN. Analisis penuh setiap frame, langkah demi langkah, ada dalam app &lt;a href=&quot;https://claude.ai/artifact/M5DFYjHubZFnbHVk8JDsAS&quot; style=&quot;color:inherit&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;RC Design Worked Solutions&lt;/a&gt; (Worked Example 3.1 ialah kes FA3; Faded Example 3.2 ialah kes FA5 dengan pekali dibaca daripada Table 3.15), yang boleh dibuka setelah pensyarah anda berkongsi pautannya.">Course method of SEAA 4333 (course notes, <i>Frame Analysis</i>; RDF §11.0 and Table 3.15; Mosley, Bungey &amp; Hulse §3.4; MS EN 1992-1-1, 5.1.3, with the Malaysian National Annex): the arrangements of Load Set 1 and Load Set 2 with w<sub>max</sub> = 1.35G<sub>k</sub> + 1.5Q<sub>k</sub> and w<sub>min</sub> = 1.35G<sub>k</sub>; the beams of one floor as a continuous beam on knife-edge supports, by moment distribution with the end spans at ¾K and the pins released once; shears and span moments by statics; the column moments by the one-free-joint sub-frame (far ends fixed, beams at half stiffness, w<sub>max</sub> on one side and w<sub>min</sub> on the other). Units: m, kN. The full analysis of each frame, step by step, is in the <a href="https://claude.ai/artifact/M5DFYjHubZFnbHVk8JDsAS" style="color:inherit" target="_blank" rel="noopener">RC Design Worked Solutions</a> app (Worked Example 3.1 is case FA3; Faded Example 3.2 is case FA5 with the coefficients read from Table 3.15), which opens once your lecturer has shared it.</span>
+  <footer><span data-ms="Kaedah kursus SEAA 4333 (nota kursus, &lt;i&gt;Frame Analysis&lt;/i&gt;; RDF §11.0 dan Table 3.15; Mosley, Bungey &amp;amp; Hulse §3.4; MS EN 1992-1-1, 5.1.3, dengan Malaysian National Annex): susunan Load Set 1 dan Load Set 2 dengan w&lt;sub&gt;max&lt;/sub&gt; = 1.35G&lt;sub&gt;k&lt;/sub&gt; + 1.5Q&lt;sub&gt;k&lt;/sub&gt; dan w&lt;sub&gt;min&lt;/sub&gt; = 1.35G&lt;sub&gt;k&lt;/sub&gt;; beam satu lantai sebagai continuous beam di atas knife-edge support, melalui moment distribution dengan span hujung pada ¾K dan pin dilepaskan sekali; shear dan moment span melalui statik; moment column melalui one-free-joint sub-frame (hujung jauh fixed, beam pada separuh stiffness, w&lt;sub&gt;max&lt;/sub&gt; pada satu sisi dan w&lt;sub&gt;min&lt;/sub&gt; pada sisi lain); one-level sub-frame (lantai bersama column di atas dan di bawah, K penuh, hujung jauh fixed) dan two-free-joint sub-frame (satu beam bersama column-nya, jiran pada ½K, tiada carry-over ke hujung fixed), empat balancing cycle seperti nota. Unit: m, kN. Analisis penuh setiap frame, langkah demi langkah, ada dalam app &lt;a href=&quot;https://claude.ai/artifact/M5DFYjHubZFnbHVk8JDsAS&quot; style=&quot;color:inherit&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;RC Design Worked Solutions&lt;/a&gt; (Worked Example 3.1 dan 4.1 ialah kes FA3; Faded Example 3.2 ialah kes FA5 dan Faded Example 4.2 kes FA4, dengan pekali dibaca daripada Table 3.15), yang boleh dibuka setelah pensyarah anda berkongsi pautannya.">Course method of SEAA 4333 (course notes, <i>Frame Analysis</i>; RDF §11.0 and Table 3.15; Mosley, Bungey &amp; Hulse §3.4; MS EN 1992-1-1, 5.1.3, with the Malaysian National Annex): the arrangements of Load Set 1 and Load Set 2 with w<sub>max</sub> = 1.35G<sub>k</sub> + 1.5Q<sub>k</sub> and w<sub>min</sub> = 1.35G<sub>k</sub>; the beams of one floor as a continuous beam on knife-edge supports, by moment distribution with the end spans at ¾K and the pins released once; shears and span moments by statics; the column moments by the one-free-joint sub-frame (far ends fixed, beams at half stiffness, w<sub>max</sub> on one side and w<sub>min</sub> on the other); the one-level sub-frame (the floor with the columns above and below, full K, far ends fixed) and the two-free-joint sub-frames (one beam with its columns, the neighbours at ½K, nothing carried to the fixed ends), four balancing cycles as the notes. Units: m, kN. The full analysis of each frame, step by step, is in the <a href="https://claude.ai/artifact/M5DFYjHubZFnbHVk8JDsAS" style="color:inherit" target="_blank" rel="noopener">RC Design Worked Solutions</a> app (Worked Examples 3.1 and 4.1 are case FA3; Faded Example 3.2 is case FA5 and Faded Example 4.2 case FA4, with the coefficients read from Table 3.15), which opens once your lecturer has shared it.</span>
   <span class="lic" data-ms="© 2026 Ahmad Razin Zainal Abidin dan Universiti Teknologi Malaysia (Fakulti Kejuruteraan Awam). Teks dan rajah: CC BY-NC-SA 4.0; kod: MIT. Lihat &lt;a href=&quot;https://github.com/RazinUTM/My_Lectures/blob/main/SEAA4333-RCD2/LICENSE.md&quot; style=&quot;color:inherit&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;lesen&lt;/a&gt;. Kemajuan disimpan dalam pelayar ini sahaja.">© 2026 Ahmad Razin Zainal Abidin and Universiti Teknologi Malaysia (Faculty of Civil Engineering). Text and figures: CC BY-NC-SA 4.0; code: MIT. See the <a href="https://github.com/RazinUTM/My_Lectures/blob/main/SEAA4333-RCD2/LICENSE.md" style="color:inherit" target="_blank" rel="noopener">licence</a>. Progress is stored in this browser only.</span></footer>
 </div>
 
@@ -674,6 +801,86 @@ const FRM = (() => {
     return {j, hasL, hasR, dfem, side, Kcu, Kcl, kbl, kbr, s, Mcu: dfem * Kcu / s, Mcl: dfem * Kcl / s, fmx, fmn};
   }
   return {J, spanName, mdist, spanStat, allPats, inLS1, inLS2, patName, contBeam, effects, colSub};
+})();
+
+/* ===================== Unit 4: the one-level and two-free-joint sub-frames (a port of the RC Design app, verified against it) ===================== */
+const FRM4 = (() => {
+  const {mdist, spanStat, spanName, J} = FRM;
+  /* Load Set 1 in the app's order: the adjacent pairs from the left, then the alternate spans */
+  function ls1(n){
+    const out = [], idx = [...Array(n).keys()];
+    const push = on => { const l = idx.map(i => on.includes(i)); if (!out.some(o => o.every((x, k) => x === l[k]))) out.push(l); };
+    for (let i = 0; i < n - 1; i++) push([i, i + 1]);
+    push(idx.filter(i => i % 2 === 0)); push(idx.filter(i => i % 2 === 1));
+    return out;
+  }
+  function stiff(fr){ return {Kb: fr.L.map(L => 10 * fr.Ib / L), Kcu: 10 * fr.Ic / fr.hu, Kcl: 10 * fr.Ic / fr.hl}; }
+  /* the cases of one sub-frame: sIdx the global spans, kb/jt/cols per local member and joint; main = the local span kept (two-free-joint) */
+  function runCases(fr, sIdx, kb, jt, cols, lpats, ncyc, main){
+    const {Kcu, Kcl} = stiff(fr), nl = sIdx.length, off = sIdx[0], Ls = sIdx.map(i => fr.L[i]);
+    const cases = lpats.map(pat => {
+      const w = sIdx.map((i, q) => pat[q] ? fr.wmax[i] : fr.wmin[i]);
+      const r = mdist({n: nl, L: Ls, w, kb, kcu: cols.map(c => c ? Kcu : 0), kcl: cols.map(c => c ? Kcl : 0), jt, ncyc});
+      const st = {};
+      (main === undefined ? [...Array(nl).keys()] : [main]).forEach(q => { st[q] = spanStat(w[q], Ls[q], r.final[2 * q], r.final[2 * q + 1]); });
+      return {pat, w, r, st};
+    });
+    const env = {spans: {}, cols: {}};
+    (main === undefined ? [...Array(nl).keys()] : [main]).forEach(q => {
+      env.spans[sIdx[q]] = {hL: Math.max(...cases.map(c => -c.r.final[2 * q])), hR: Math.max(...cases.map(c => c.r.final[2 * q + 1])),
+                            sg: Math.max(...cases.map(c => c.st[q].Mmax)), sgmin: Math.min(...cases.map(c => c.st[q].Mmax)),
+                            vl: Math.max(...cases.map(c => c.st[q].VL)), vr: Math.max(...cases.map(c => c.st[q].VR))};
+    });
+    jt.forEach((t, q) => { if (cols[q]) env.cols[off + q] = [Math.max(...cases.map(c => Math.abs(c.r.Mcu[q]))), Math.max(...cases.map(c => Math.abs(c.r.Mcl[q])))]; });
+    return {cases, env, off, sIdx, kb, jt, cols};
+  }
+  /* one-level sub-frame: the beams of the floor at full K, the columns above and below at every joint, far ends fixed */
+  function sub1(fr, ncyc){
+    const n = fr.L.length, {Kb} = stiff(fr);
+    const res = runCases(fr, [...Array(n).keys()], Kb.slice(), new Array(n + 1).fill('free'), new Array(n + 1).fill(true), ls1(n), ncyc);
+    res.pats = ls1(n); return res;
+  }
+  /* two-free-joint sub-frame of beam b: its two end joints free with their columns, the neighbours at ½K with their far ends fixed;
+     the cases are the distinct Load Set 1 loadings of the spans inside the sub-frame */
+  function sub2beam(fr, b, ncyc){
+    const n = fr.L.length, {Kb} = stiff(fr);
+    const sIdx = (b > 0 ? [b - 1] : []).concat([b], b < n - 1 ? [b + 1] : []), main = sIdx.indexOf(b), off = sIdx[0];
+    const kb = sIdx.map(i => i === b ? Kb[i] : 0.5 * Kb[i]);
+    const jt = [], cols = [];
+    for (let q = 0; q <= sIdx.length; q++){ const gj = off + q, free = gj === b || gj === b + 1; jt.push(free ? 'free' : 'fixed'); cols.push(free); }
+    const lp = [];
+    ls1(n).forEach(p => { const l = sIdx.map(i => p[i]); if (!lp.some(o => o.every((x, k) => x === l[k]))) lp.push(l); });
+    const res = runCases(fr, sIdx, kb, jt, cols, lp, ncyc, main);
+    res.b = b; res.main = main; res.lpats = lp; return res;
+  }
+  function sub2(fr, ncyc){
+    const beams = fr.L.map((_, b) => sub2beam(fr, b, ncyc)), cu = {}, cl = {};
+    beams.forEach(B => Object.entries(B.env.cols).forEach(([gj, [a, c]]) => { cu[gj] = Math.max(cu[gj] || 0, a); cl[gj] = Math.max(cl[gj] || 0, c); }));
+    return {beams, cu, cl};
+  }
+  /* Unit 3's method: the continuous beam over Load Set 1 (¾K, pins released once), the one-free-joint sub-frames for the columns */
+  function cont(fr, ncyc){
+    const n = fr.L.length, cases = ls1(n).map(p => FRM.contBeam(fr, p, ncyc, 'q'));
+    const hL = fr.L.map((_, i) => Math.max(...cases.map(c => -c.final[2 * i]))), hR = fr.L.map((_, i) => Math.max(...cases.map(c => c.final[2 * i + 1])));
+    const sg = fr.L.map((_, i) => Math.max(...cases.map(c => c.spans[i].Mmax)));
+    const cols = [...Array(n + 1).keys()].map(j => FRM.colSub(fr, j));
+    return {cases, hL, hR, sg, cols};
+  }
+  /* the seven effects of Activity 4B: [continuous beam (5 cycles) + one-free-joint, two-free-joint (4), one-level (4)] */
+  function compare(fr){
+    const C = cont(fr, 5), T = sub2(fr, 4), O = sub1(fr, 4);
+    const tA = T.beams[0].env.spans[0], tB = T.beams[1].env.spans[1];
+    return [
+      {id: 'hA', en: 'Hogging at A (beam AB)', ms: 'Hogging di A (beam AB)', v: [0, tA.hL, O.env.spans[0].hL], endA: C.cols[0].Mcu + C.cols[0].Mcl},
+      {id: 'hBab', en: 'Hogging at B, beam AB', ms: 'Hogging di B, beam AB', v: [C.hR[0], tA.hR, O.env.spans[0].hR]},
+      {id: 'hBbc', en: 'Hogging at B, beam BC', ms: 'Hogging di B, beam BC', v: [C.hL[1], tB.hL, O.env.spans[1].hL]},
+      {id: 'sAB', en: 'Sagging in AB', ms: 'Sagging dalam AB', v: [C.sg[0], tA.sg, O.env.spans[0].sg]},
+      {id: 'sBC', en: 'Sagging in BC', ms: 'Sagging dalam BC', v: [C.sg[1], tB.sg, O.env.spans[1].sg]},
+      {id: 'cA', en: 'Upper column at A', ms: 'Column atas di A', v: [C.cols[0].Mcu, T.cu[0], O.env.cols[0][0]]},
+      {id: 'cB', en: 'Upper column at B', ms: 'Column atas di B', v: [C.cols[1].Mcu, T.cu[1], O.env.cols[1][0]]}
+    ];
+  }
+  return {ls1, stiff, sub1, sub2beam, sub2, cont, compare};
 })();
 
 /* ===================== frames ===================== */
@@ -983,6 +1190,250 @@ function drawColFig(fr, c){
 }
 drawers.md = () => {};
 
+/* ===================== 4 SUB-FRAMES (Unit 4) ===================== */
+const SUB_NOTE = {
+  fa3: ['The course notes’ frame: Worked Example 4.1 is the one-level sub-frame, case 1; Activity 4A is case 4 (BC alone). The two-free-joint sub-frames are the notes’ Example 3.', 'Frame nota kursus: Worked Example 4.1 ialah one-level sub-frame, kes 1; Aktiviti 4A ialah kes 4 (BC sahaja). Two-free-joint sub-frame ialah Contoh 3 nota.'],
+  fa1: ['The course workbook’s frame with β read from Table 3.15: Faded Example 4.2 is the two-free-joint sub-frame of beam CD, BC light and CD loaded.', 'Frame workbook kursus dengan β dibaca daripada Table 3.15: Faded Example 4.2 ialah two-free-joint sub-frame beam CD, BC ringan dan CD dibebani.'],
+  own: ['Your own frame: set its spans and loads in tab 1. Beams 250 × 600 (I<sub>b</sub> 4.5), columns 300 × 400 (I<sub>c</sub> 1.6), 3.5 m above and 4.0 m below.', 'Frame anda sendiri: tetapkan span dan load-nya dalam tab 1. Beam 250 × 600 (I<sub>b</sub> 4.5), column 300 × 400 (I<sub>c</sub> 1.6), 3.5 m di atas dan 4.0 m di bawah.']
+};
+let sCaseK = 'fa3', sMeth = 'o', sBeam = 0, sPatK = 3, sCyc = 4, sShown = 2, sStreak = 0;
+function sFrame(){ return frameOf(sCaseK); }
+function sRun(){
+  const fr = sFrame(), n = fr.L.length;
+  let R, Rc;
+  if (sMeth === 'o'){ R = FRM4.sub1(fr, sCyc); Rc = FRM4.sub1(fr, 0); }
+  else { sBeam = Math.min(sBeam, n - 1); R = FRM4.sub2beam(fr, sBeam, sCyc); Rc = FRM4.sub2beam(fr, sBeam, 0); }
+  const k = Math.max(0, Math.min(sPatK, R.cases.length - 1));
+  return {fr, n, R, k, c: R.cases[k], cc: Rc.cases[k]};
+}
+function sPatLabel(sIdx, pat){
+  const on = sIdx.filter((i, q) => pat[q]).map(FRM.spanName), off = sIdx.filter((i, q) => !pat[q]).map(FRM.spanName);
+  return Lg(`${on.join(' + ')} at w_max`, `${on.join(' + ')} pada w_max`) + (off.length ? Lg(`, ${off.join(' + ')} at w_min`, `, ${off.join(' + ')} pada w_min`) : '');
+}
+function fillSubSelects(){
+  const s = el('sPat'), {R} = sRun(); s.innerHTML = '';
+  const pats = sMeth === 'o' ? R.pats : R.lpats;
+  pats.forEach((p, k) => { const o = document.createElement('option'); o.value = k; o.textContent = Lg(`Case ${k + 1}: `, `Kes ${k + 1}: `) + sPatLabel(R.sIdx, p); s.appendChild(o); });
+  if (sPatK >= pats.length) sPatK = 0;
+  s.value = sPatK;
+  const n = sFrame().L.length;
+  el('sBeamG').hidden = sMeth !== 'o' ? false : true;
+  el('sBeam').innerHTML = [...Array(n).keys()].map(b => `<button type="button" data-v="${b}" aria-pressed="${b === sBeam}">${FRM.spanName(b)}</button>`).join('');
+  setSeg(el('sMeth'), sMeth); setSeg(el('sCyc'), sCyc);
+}
+/* the member ends and the columns of the table, with their global names */
+function sCols(R){
+  const ends = [], cols = [];
+  R.sIdx.forEach(i => { ends.push(J[i] + J[i + 1], J[i + 1] + J[i]); });
+  R.jt.forEach((t, q) => { if (R.cols[q]){ cols.push({q, nm: J[R.off + q] + '↑', up: true}, {q, nm: J[R.off + q] + '↓', up: false}); } });
+  return {ends, cols};
+}
+function sPredEnd(R){ return sMeth === 'o' ? 1 : 2 * R.main; }      // BA in the one-level sub-frame; the beam's own left end otherwise
+function sPredName(R){ const e = sPredEnd(R), i = R.sIdx[Math.floor(e / 2)]; return e % 2 === 0 ? J[i] + J[i + 1] : J[i + 1] + J[i]; }
+function drawSub(){
+  const {fr, n, R, c, cc} = sRun(), r = c.r, {ends, cols} = sCols(R), total = r.rows.length + 1;
+  sShown = Math.max(2, Math.min(sShown, total));
+  const done = sShown >= total;
+  el('sCaseNote').innerHTML = Lg(SUB_NOTE[sCaseK][0], SUB_NOTE[sCaseK][1]);
+  const {Kcu, Kcl} = FRM4.stiff(fr);
+  el('sKV').innerHTML = kvHtml([[Lg('K used, beams', 'K digunakan, beam'), R.sIdx.map((i, q) => `${FRM.spanName(i)} ${f(R.kb[q], 3)}`).join(' · ')], [Lg('K, columns', 'K, column'), `${f(Kcu, 3)} ↑ · ${f(Kcl, 3)} ↓`],
+                                ['w (kN/m)', R.sIdx.map((i, q) => `${FRM.spanName(i)} ${f(c.w[q], 2)}`).join(' · ')], [Lg('Joints balanced', 'Joint diimbangi'), R.jt.map((t, q) => t === 'free' ? J[R.off + q] : null).filter(Boolean).join(', ')]]);
+  let h = `<thead><tr><th></th>${ends.map(x => `<th>${x}</th>`).join('')}${cols.map(x => `<th class="colh">${x.nm}</th>`).join('')}</tr></thead><tbody>`;
+  const dfCell = e => { const j = e % 2 === 0 ? e / 2 : (e + 1) / 2; return R.jt[j] === 'fixed' ? '—' : f(r.df[e], 3); };
+  h += `<tr class="dfrow"><td>DF</td>${r.df.map((d, e) => `<td>${dfCell(e)}</td>`).join('')}${cols.map(x => `<td>${f(x.up ? r.dfu[x.q] : r.dfl[x.q], 3)}</td>`).join('')}</tr>`;
+  const vis = r.rows.slice(0, sShown - 1);
+  vis.forEach((row, q) => {
+    const last = q === vis.length - 1 && !done;
+    const cv = cols.map(x => row.kind === 'bal' ? f2(x.up ? row.cu[x.q] : row.cl[x.q]) : '');
+    h += `<tr class="${row.kind}${last ? ' cur' : ''}"><td>${rowLab(row)}</td>${row.v.map(v => `<td>${row.kind === 'co' && Math.abs(v) < 1e-9 ? '' : f2(v)}</td>`).join('')}${cv.map(v => `<td>${v}</td>`).join('')}</tr>`;
+  });
+  if (done) h += `<tr class="sum"><td>Σ</td>${r.final.map(v => `<td><b>${f2(v)}</b></td>`).join('')}${cols.map(x => `<td><b>${f2(x.up ? r.Mcu[x.q] : r.Mcl[x.q])}</b></td>`).join('')}</tr>`;
+  el('sTable').innerHTML = h + '</tbody>';
+  const nextRow = r.rows[sShown - 1], pred = el('sPred');
+  el('sPredL').innerHTML = Lg(`Next balance at ${sPredName(R)}`, `Imbangan seterusnya di ${sPredName(R)}`);
+  pred.disabled = done || !nextRow || nextRow.kind !== 'bal';
+  pred.placeholder = done ? '' : (nextRow && nextRow.kind === 'bal' ? Lg(`balance at ${sPredName(R)}`, `imbangan di ${sPredName(R)}`) : Lg('carry-over row: just press Next', 'baris carry-over: tekan sahaja Seterusnya'));
+  el('sNext').disabled = done;
+  const lastRow = vis[vis.length - 1];
+  el('sWhy').innerHTML = done ? sDoneText(fr, R, r, cc.r) : sWhyRow(lastRow, R);
+  el('sRes').hidden = !done;
+  if (done) drawSubResult(fr, R, c);
+  sPaintTj();
+}
+function sWhyRow(row, R){
+  if (!row) return '';
+  if (row.kind === 'fem') return Lg('Fixed-end moments, −wL²/12 and +wL²/12; every joint locked. The columns carry nothing yet.', 'Fixed-end moment, −wL²/12 dan +wL²/12; setiap joint dikunci. Column belum memikul apa-apa.');
+  if (row.kind === 'co') return Lg('Carry over: half of each beam’s balancing moment goes to the far end of that beam' + (R.jt.includes('fixed') ? ', but nothing to the fixed far ends.' : ', A and D included.') + ' The columns get nothing in this row.',
+                                   'Carry over: separuh balancing moment setiap beam pergi ke hujung jauh beam itu' + (R.jt.includes('fixed') ? ', tetapi tiada apa-apa ke hujung jauh yang fixed.' : ', termasuk A dan D.') + ' Column tidak mendapat apa-apa dalam baris ini.');
+  const parts = [];
+  R.jt.forEach((t, q) => {
+    if (t !== 'free' || !row.U || Math.abs(row.U[q]) < 1e-9) return;
+    const beams = []; if (q > 0) beams.push(`${J[R.off + q]}${J[R.off + q - 1]} ${f2(row.v[2 * q - 1])}`); if (q < R.sIdx.length) beams.push(`${J[R.off + q]}${J[R.off + q + 1]} ${f2(row.v[2 * q])}`);
+    parts.push(Lg(`at ${J[R.off + q]} ΣM = ${f2(row.U[q])}: ${beams.join(', ')}; columns ${f2(row.cu[q])} ↑ and ${f2(row.cl[q])} ↓`, `di ${J[R.off + q]} ΣM = ${f2(row.U[q])}: ${beams.join(', ')}; column ${f2(row.cu[q])} ↑ dan ${f2(row.cl[q])} ↓`));
+  });
+  return Lg('Balance, −F × ΣM for every member: ', 'Imbangi, −F × ΣM bagi setiap anggota: ') + parts.join('; ') + '.';
+}
+function sDoneText(fr, R, r, rc){
+  const e = sPredEnd(R), d = Math.abs(r.final[e] - rc.final[e]);
+  return Lg(`Σ: add each column of the table. The columns hold what the beams leave at each joint. After ${r.cycles} balancing row${r.cycles > 1 ? 's' : ''}, ${sPredName(R)} is ${f2(r.final[e])} kN m; to convergence ${f2(rc.final[e])} (${f(d, 2)} apart).`,
+            `Σ: jumlahkan setiap lajur jadual. Column memegang apa yang ditinggalkan beam di setiap joint. Selepas ${r.cycles} baris imbangan, ${sPredName(R)} ialah ${f2(r.final[e])} kN m; hingga converge ${f2(rc.final[e])} (berbeza ${f(d, 2)}).`);
+}
+function drawSubResult(fr, R, c){
+  const r = c.r, keep = sMeth === 'o' ? R.sIdx.map((_, q) => q) : [R.main];
+  let h = `<thead><tr><th>${Lg('Span', 'Span')}</th><th>w (kN/m)</th><th>M<sub>L</sub> ${Lg('hog', 'hog')}</th><th>M<sub>R</sub> ${Lg('hog', 'hog')}</th><th>V<sub>L</sub> (kN)</th><th>V<sub>R</sub> (kN)</th><th>x₀ (m)</th><th>M<sub>span</sub> (kN m)</th></tr></thead><tbody>`;
+  keep.forEach(q => { const s = c.st[q]; h += `<tr><td>${FRM.spanName(R.sIdx[q])}</td><td>${f(s.w, 2)}</td><td>${f2(-r.final[2 * q])}</td><td>${f2(r.final[2 * q + 1])}</td><td>${f2(s.VL)}</td><td>${f2(s.VR)}</td><td>${f(s.xm, 2)}</td><td><b>${f2(s.Mmax)}</b></td></tr>`; });
+  el('sSpans').innerHTML = h + '</tbody>';
+  const chk = [];
+  R.jt.forEach((t, q) => {
+    if (t !== 'free') return;
+    let sb = 0; if (q > 0) sb += r.final[2 * q - 1]; if (q < R.sIdx.length) sb += r.final[2 * q];
+    const par = v => v < 0 ? `(${f2(v)})` : f2(v);
+    chk.push(Lg(`${J[R.off + q]}: beams ${f2(sb)}, columns ${f2(r.Mcu[q])} + ${par(r.Mcl[q])} = ${f2(r.Mcu[q] + r.Mcl[q])}; far ends ${f2(r.Mcu[q] / 2)} and ${f2(r.Mcl[q] / 2)}`,
+                `${J[R.off + q]}: beam ${f2(sb)}, column ${f2(r.Mcu[q])} + ${par(r.Mcl[q])} = ${f2(r.Mcu[q] + r.Mcl[q])}; hujung jauh ${f2(r.Mcu[q] / 2)} dan ${f2(r.Mcl[q] / 2)}`));
+  });
+  el('sCheck').innerHTML = Lg('<b>Check ΣM = 0 at every free joint</b>, beams and columns together, and the far ends of the columns (½): ', '<b>Semak ΣM = 0 di setiap joint bebas</b>, beam dan column bersama, dan hujung jauh column (½): ') + chk.join('; ') + '.' +
+    (sMeth === 't' ? Lg(' Keep only this beam’s results; a column takes the larger of its two sub-frames.', ' Kekalkan hasil beam ini sahaja; column mengambil yang lebih besar daripada dua sub-frame-nya.') : '');
+}
+function sReset(){ sShown = 2; sStreak = 0; el('sOut').hidden = true; el('sPred').value = ''; drawSub(); }
+el('sCase').addEventListener('change', () => { sCaseK = el('sCase').value; sBeam = Math.min(sBeam, sFrame().L.length - 1); fillSubSelects(); sReset(); });
+segGroup(el('sMeth'), v => { sMeth = v; sPatK = (sMeth === 'o' && sCaseK === 'fa3') ? 3 : 0; fillSubSelects(); sReset(); });
+el('sBeam').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; sBeam = +b.dataset.v; sPatK = Math.min(sPatK, 1); fillSubSelects(); sReset(); });
+el('sPat').addEventListener('change', () => { sPatK = +el('sPat').value; sReset(); });
+segGroup(el('sCyc'), v => { sCyc = +v; sReset(); });
+el('sNext').addEventListener('click', () => {
+  const {R, c} = sRun(), r = c.r, row = r.rows[sShown - 1], out = el('sOut');
+  if (row && row.kind === 'bal'){
+    const raw = el('sPred').value.trim(), v = parseFloat(raw), e = sPredEnd(R), act = row.v[e];
+    if (raw === '' || !isFinite(v)){ sStreak = 0; out.hidden = true; }
+    else {
+      const ok = Math.abs(v - act) <= Math.max(0.05, 0.01 * Math.abs(act)), j = e % 2 === 0 ? e / 2 : (e + 1) / 2;
+      sStreak = ok ? sStreak + 1 : 0; out.hidden = false; out.className = 'verdict ' + (ok ? 'ok' : 'bad');
+      out.innerHTML = ok ? Lg(`Right: ${f2(act)} kN m. ${sStreak} in a row.`, `Betul: ${f2(act)} kN m. ${sStreak} berturut-turut.`)
+                         : Lg(`Not this time: ${f2(act)} kN m. At ${J[R.off + j]}, ΣM = ${f2(row.U[j])} kN m; ${sPredName(R)} takes −ΣM × F = −(${f2(row.U[j])}) × ${f(r.df[e], 3)}, with the columns in ΣK.`,
+                                `Belum tepat: ${f2(act)} kN m. Di ${J[R.off + j]}, ΣM = ${f2(row.U[j])} kN m; ${sPredName(R)} mengambil −ΣM × F = −(${f2(row.U[j])}) × ${f(r.df[e], 3)}, dengan column dalam ΣK.`);
+      if (sStreak >= 3 && sMeth === 'o') milestone('relay');
+    }
+  } else out.hidden = true;
+  el('sPred').value = ''; sShown++; drawSub();
+});
+el('sAll').addEventListener('click', () => { sShown = 999; sStreak = 0; el('sOut').hidden = true; drawSub(); });
+el('sReset').addEventListener('click', sReset);
+
+/* ---------- the distribution factors of a two-free-joint sub-frame ---------- */
+function sTjJoint(n, b){ return b < n - 1 ? {j: b + 1, beam: [b + 1, b], nb: [b + 1, b + 2]} : {j: b, beam: [b, b + 1], nb: [b, b - 1]}; }
+let tKeyLast = '';
+function sPaintTj(){
+  const fr = sFrame(), n = fr.L.length, q = el('tJointQ');
+  const tKey = [sCaseK, sMeth, sBeam, fr.L.join(',')].join('|');
+  if (tKey !== tKeyLast){ tKeyLast = tKey; el('tOut').hidden = true; el('tFigBox').hidden = true; el('tF1').value = ''; el('tF2').value = ''; }
+  if (sMeth !== 't'){ q.innerHTML = Lg('Choose <i>Two-free-joint</i> above and a beam.', 'Pilih <i>Two-free-joint</i> di atas dan satu beam.'); el('tF1L').innerHTML = 'F'; el('tF2L').innerHTML = 'F'; return; }
+  const T = sTjJoint(n, Math.min(sBeam, n - 1));
+  q.innerHTML = Lg(`Beam ${FRM.spanName(Math.min(sBeam, n - 1))}: the factors at joint ${J[T.j]}.`, `Beam ${FRM.spanName(Math.min(sBeam, n - 1))}: faktor di joint ${J[T.j]}.`);
+  el('tF1L').innerHTML = `F<sub>${J[T.beam[0]]}${J[T.beam[1]]}</sub>`; el('tF2L').innerHTML = `F<sub>${J[T.nb[0]]}${J[T.nb[1]]}</sub>`;
+}
+el('tCheck').addEventListener('click', () => {
+  const out = el('tOut');
+  if (sMeth !== 't'){ out.hidden = false; out.className = 'verdict bad'; out.innerHTML = Lg('Choose <i>Two-free-joint</i> and a beam first.', 'Pilih <i>Two-free-joint</i> dan satu beam dahulu.'); return; }
+  const fr = sFrame(), n = fr.L.length, b = Math.min(sBeam, n - 1), R = FRM4.sub2beam(fr, b, 4), r = R.cases[0].r, T = sTjJoint(n, b);
+  const q = T.j - R.off, eBeam = T.j === b + 1 ? 2 * R.main + 1 : 2 * R.main, eNb = T.j === b + 1 ? 2 * (R.main + 1) : 2 * (R.main - 1) + 1;
+  const Fb = r.df[eBeam], Fn = r.df[eNb], {Kb, Kcu, Kcl} = FRM4.stiff(fr), Kn = Kb[T.j === b + 1 ? b + 1 : b - 1];
+  const v1 = parseFloat(el('tF1').value), v2 = parseFloat(el('tF2').value);
+  const ok1 = isFinite(v1) && Math.abs(v1 - Fb) <= 0.005, ok2 = isFinite(v2) && Math.abs(v2 - Fn) <= 0.005, both = ok1 && ok2;
+  out.hidden = false; out.className = 'verdict ' + (both ? 'ok' : 'bad');
+  const nm = J[T.j];
+  out.innerHTML = (both ? Lg('Right. ', 'Betul. ') : (isFinite(v1) || isFinite(v2)) ? Lg('Not yet. ', 'Belum tepat. ') : '') +
+    Lg(`At ${nm}: the beam at full K = ${f(Kb[b], 3)}, the neighbour at ½K = ½ × ${f(Kn, 3)} = ${f(Kn / 2, 3)}, the columns ${f(Kcu, 3)} and ${f(Kcl, 3)}; ΣK = ${f(r.sumK[q], 3)}. F<sub>beam</sub> = ${f(Fb, 3)}, F<sub>neighbour</sub> = ${f(Fn, 3)}.` + (Math.abs(v1 - Kb[b] / (r.sumK[q] + Kn / 2)) < 0.005 ? ' Your first value takes the neighbour at full K.' : ''),
+       `Di ${nm}: beam pada K penuh = ${f(Kb[b], 3)}, jiran pada ½K = ½ × ${f(Kn, 3)} = ${f(Kn / 2, 3)}, column ${f(Kcu, 3)} dan ${f(Kcl, 3)}; ΣK = ${f(r.sumK[q], 3)}. F<sub>beam</sub> = ${f(Fb, 3)}, F<sub>jiran</sub> = ${f(Fn, 3)}.` + (Math.abs(v1 - Kb[b] / (r.sumK[q] + Kn / 2)) < 0.005 ? ' Nilai pertama anda mengambil jiran pada K penuh.' : ''));
+  if (both) milestone('twoj');
+  drawTjFig(fr, R); el('tFigBox').hidden = false;
+});
+function drawTjFig(fr, R){
+  const svg = el('tFig'); clear(svg);
+  const {xs} = beamGeom(R.sIdx.map(i => fr.L[i]), 40, 520), yb = 130, {Kcu, Kcl} = FRM4.stiff(fr);
+  R.sIdx.forEach((i, q) => {
+    const main = q === R.main;
+    S('line', {x1: xs[q], x2: xs[q + 1], y1: yb, y2: yb, stroke: main ? 'var(--ink)' : 'var(--ink-3)', 'stroke-width': main ? 4 : 3, 'stroke-dasharray': main ? '' : '8 5'}, svg);
+    T(svg, (xs[q] + xs[q + 1]) / 2, yb - 12, `${FRM.spanName(i)}: ${main ? 'K' : '½K'} = ${f(R.kb[q], 2)}`, {'text-anchor': 'middle', style: `fill:${main ? 'var(--ink)' : 'var(--ink-2)'}`});
+  });
+  R.jt.forEach((t, q) => {
+    const x = xs[q];
+    if (t === 'fixed'){ S('rect', {x: q === 0 ? x - 10 : x, y: yb - 20, width: 10, height: 40, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg); }
+    else {
+      S('line', {x1: x, x2: x, y1: yb - 90, y2: yb + 100, stroke: 'var(--ink)', 'stroke-width': 3}, svg);
+      [[yb - 90, -1], [yb + 100, 1]].forEach(([y, d]) => S('rect', {x: x - 18, y: d < 0 ? y - 8 : y, width: 36, height: 8, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg));
+    }
+    T(svg, x + 6, yb + 22, J[R.off + q], {style: 'font-weight:700;fill:var(--ink)'});
+  });
+  T(svg, 280, 252, Lg(`columns: K = ${f(Kcu, 2)} above, ${f(Kcl, 2)} below; far ends fixed; nothing carried to a fixed end`, `column: K = ${f(Kcu, 2)} di atas, ${f(Kcl, 2)} di bawah; hujung jauh fixed; tiada carry-over ke hujung fixed`), {'text-anchor': 'middle', class: 'small'});
+}
+drawers.sub = () => {};
+
+/* ===================== 5 COMPARE (Activity 4B) ===================== */
+const XKEY = 'seaa4333-lab-frame-4b';
+let xSt = recall(XKEY, null) || {};
+xSt.picks = xSt.picks || {}; xSt.shown = xSt.shown || {};
+let xCaseK = 'fa3', xEffK = 'hA';
+const XMETH = [['Continuous beam + one-free-joint (Unit 3)', 'Continuous beam + one-free-joint (Unit 3)'], ['Two-free-joint sub-frames', 'Two-free-joint sub-frame'], ['One-level sub-frame', 'One-level sub-frame']];
+const XCOL = ['var(--s1)', 'var(--s2)', 'var(--s3)'];
+function xFrameKey(){ return xCaseK + (xCaseK === 'own' ? ownN + ':' + ownL.slice(0, ownN).join(',') + ':' + ownG.slice(0, ownN).join(',') + ':' + ownQ.slice(0, ownN).join(',') : ''); }
+function xKey(id){ return xFrameKey() + '|' + (id || xEffK); }
+function xSave(){ store(XKEY, xSt); }
+function drawCmp(){
+  const fr = frameOf(xCaseK), E = FRM4.compare(fr);
+  if (!E.some(e => e.id === xEffK)) xEffK = E[0].id;
+  el('xEff').innerHTML = E.map(e => `<button type="button" data-v="${e.id}" aria-pressed="${e.id === xEffK}">${Lg(e.en, e.ms)}${xSt.shown[xKey(e.id)] ? ' ✓' : ''}</button>`).join('');
+  const key = xKey(), pick = xSt.picks[key], shown = !!xSt.shown[key], cur = E.find(e => e.id === xEffK);
+  el('xPick').innerHTML = XMETH.map((m, k) => `<button type="button" data-v="${k}" aria-pressed="${pick === k}">${Lg(m[0], m[1])}</button>`).join('');
+  el('xCur').innerHTML = Lg(`Effect: <b>${cur.en}</b>. Which method gives the largest value?`, `Kesan: <b>${cur.ms}</b>. Kaedah manakah yang memberi nilai terbesar?`);
+  const out = el('xOut');
+  if (shown){
+    const best = cur.v.indexOf(Math.max(...cur.v)), right = pick === best;
+    out.hidden = false; out.className = 'verdict ' + (right ? 'ok' : 'bad');
+    const vals = cur.v.map((v, k) => `${Lg(XMETH[k][0], XMETH[k][1])} ${f2(v)}`).join('; ');
+    let extra = '';
+    if (cur.id === 'hA') extra = Lg(` The knife edge shows 0, yet Unit 3’s column check puts ${f2(cur.endA)} kN m on the beam at A.`, ` Knife edge menunjukkan 0, namun semakan column Unit 3 meletakkan ${f2(cur.endA)} kN m pada beam di A.`);
+    if (cur.id === 'cB' || cur.id === 'cA') extra = Lg(' The course designs each column for the larger of the one-free-joint and one-level values.', ' Kursus mereka bentuk setiap column bagi yang lebih besar antara nilai one-free-joint dan one-level.');
+    out.innerHTML = (pick === undefined ? Lg('No method picked. ', 'Tiada kaedah dipilih. ') : right ? Lg('Right. ', 'Betul. ') : Lg('Not this time. ', 'Belum tepat. ')) +
+      Lg(`Largest: ${XMETH[best][0]}. ${vals} kN m.`, `Terbesar: ${XMETH[best][1]}. ${vals} kN m.`) + extra;
+  } else out.hidden = true;
+  el('xDone').textContent = Lg(`${E.filter(e => xSt.shown[xKey(e.id)]).length} of 7 effects revealed`, `${E.filter(e => xSt.shown[xKey(e.id)]).length} daripada 7 kesan didedahkan`);
+  drawCmpChart(E);
+  let h = `<thead><tr><th>${Lg('Effect (kN m)', 'Kesan (kN m)')}</th>${XMETH.map(m => `<th>${Lg(m[0], m[1])}</th>`).join('')}</tr></thead><tbody>`;
+  E.forEach(e => { const sh = !!xSt.shown[xKey(e.id)]; h += `<tr><td>${Lg(e.en, e.ms)}</td>${e.v.map(v => `<td>${sh ? f2(v) : '?'}</td>`).join('')}</tr>`; });
+  el('xTable').innerHTML = h + '</tbody>';
+  el('xLegend').innerHTML = XMETH.map((m, k) => `<span><i class="key" style="border-color:${XCOL[k]};border-top-width:6px"></i>${Lg(m[0], m[1])}</span>`).join('');
+}
+function drawCmpChart(E){
+  const svg = el('xChart'); clear(svg);
+  const x0 = 200, x1 = 640, top = 16, gh = 52, bh = 12;
+  const mx = Math.max(1, ...E.flatMap(e => e.v)) * 1.08, sc = (x1 - x0) / mx;
+  for (let t = 0; t <= mx; t += mx > 300 ? 100 : 50){ const X = x0 + t * sc; S('line', {x1: X, x2: X, y1: top, y2: top + 7 * gh, stroke: 'var(--grid)', 'stroke-width': 1}, svg); T(svg, X, top + 7 * gh + 14, f(t, 0), {'text-anchor': 'middle', class: 'small'}); }
+  E.forEach((e, g) => {
+    const y = top + g * gh, sh = !!xSt.shown[xKey(e.id)];
+    T(svg, x0 - 8, y + 26, Lg(e.en, e.ms), {'text-anchor': 'end', class: 'small', style: 'fill:var(--ink)'});
+    e.v.forEach((v, k) => {
+      const yy = y + 6 + k * (bh + 2);
+      if (!sh){ S('rect', {x: x0, y: yy, width: 30, height: bh, fill: 'var(--surface-2)', stroke: 'var(--rule)', rx: 2}, svg); if (k === 1) T(svg, x0 + 38, yy + 10, '?', {class: 'small', style: 'fill:var(--ink-3)'}); return; }
+      const w = Math.max(v * sc, 3);
+      S('rect', {x: x0, y: yy, width: w, height: bh, fill: XCOL[k], rx: 2}, svg);
+      T(svg, x0 + w + 5, yy + 10, f(v, 1), {class: 'small', style: 'fill:var(--ink-2)'});
+    });
+  });
+  T(svg, x1, top + 7 * gh + 30, Lg('kN m, envelope of the Load Set 1 cases', 'kN m, envelope kes Load Set 1'), {'text-anchor': 'end', class: 'small'});
+}
+el('xCase').addEventListener('change', () => { xCaseK = el('xCase').value; drawCmp(); });
+el('xEff').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; xEffK = b.dataset.v; drawCmp(); });
+el('xPick').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; xSt.picks[xKey()] = +b.dataset.v; xSave(); drawCmp(); });
+el('xReveal').addEventListener('click', () => {
+  const key = xKey(); if (xSt.picks[key] === undefined){ const out = el('xOut'); out.hidden = false; out.className = 'verdict bad'; out.innerHTML = Lg('Pick a method first, then reveal.', 'Pilih satu kaedah dahulu, kemudian dedahkan.'); return; }
+  xSt.shown[key] = true; xSave();
+  const E = FRM4.compare(frameOf(xCaseK));
+  if (E.every(e => xSt.shown[xKey(e.id)] && xSt.picks[xKey(e.id)] !== undefined)) milestone('cmp');
+  drawCmp();
+});
+el('xNext').addEventListener('click', () => { const E = FRM4.compare(frameOf(xCaseK)); const k = E.findIndex(e => e.id === xEffK); xEffK = E[(k + 1) % E.length].id; drawCmp(); });
+drawers.cmp = () => { drawCmp(); };
+
 /* Frame S3: rows written by gen_s3.py from u3s3 (as submitted) and u3core (corrected). */
 const S3SHEET = {
  "rows": [
@@ -1189,10 +1640,216 @@ const S3SHEET = {
  ]
 };
 
-/* ===================== 3 SPOT THE ERROR: FRAME S3 ===================== */
-const SHEETS = {s3: S3SHEET};
-const eWhich = 's3';
-const eState = {s3: {flag: new Set(recall(S3SHEET.key, [])), checked: false, fixed: false}};
+/* Frame S4: rows written by gen_s4.py from u4s4 (as submitted and corrected). */
+const S4SHEET = {
+ "rows": [
+  {
+   "ref": "given",
+   "calc": [
+    "Loads per metre of beam (from Table 3.15): AB w<sub>max</sub> 52.40, w<sub>min</sub> 30.15; BC w<sub>max</sub> 48.60, w<sub>min</sub> 27.90 kN/m",
+    "Load per meter beam (daripada Table 3.15): AB w<sub>max</sub> 52.40, w<sub>min</sub> 30.15; BC w<sub>max</sub> 48.60, w<sub>min</sub> 27.90 kN/m"
+   ],
+   "out": "—",
+   "slip": false,
+   "fix": [
+    "Right.",
+    "Betul."
+   ]
+  },
+  {
+   "ref": "(3.4)",
+   "calc": [
+    "I<sub>b</sub> = 300 × 600³/12 = 5.40 × 10⁹ mm⁴; I<sub>c</sub> = 300 × 450³/12 = 2.28 × 10⁹ mm⁴; K<sub>c,u</sub> = 10 × 2.28/3.5; K<sub>c,l</sub> = 10 × 2.28/4.0",
+    "I<sub>b</sub> = 300 × 600³/12 = 5.40 × 10⁹ mm⁴; I<sub>c</sub> = 300 × 450³/12 = 2.28 × 10⁹ mm⁴; K<sub>c,u</sub> = 10 × 2.28/3.5; K<sub>c,l</sub> = 10 × 2.28/4.0"
+   ],
+   "out": "K<sub>c,u</sub> 6.51; K<sub>c,l</sub> 5.70",
+   "slip": false,
+   "fix": [
+    "Right.",
+    "Betul."
+   ]
+  },
+  {
+   "ref": "(3.4)",
+   "calc": [
+    "AB is an end span: K<sub>AB</sub> = ¾ × 10 × 5.40/7.0",
+    "AB ialah span hujung: K<sub>AB</sub> = ¾ × 10 × 5.40/7.0"
+   ],
+   "out": "5.79",
+   "slip": true,
+   "fix": [
+    "A has a column above and a column below: it is a joint, not a pin, and AB keeps its full stiffness, K<sub>AB</sub> = 10 × 5.40/7.0 = 7.71. ¾K belongs to an end span of the continuous beam (Unit 3).",
+    "A mempunyai column di atas dan di bawah: ia ialah joint, bukan pin, dan AB mengekalkan stiffness penuhnya, K<sub>AB</sub> = 10 × 5.40/7.0 = 7.71. ¾K adalah bagi span hujung continuous beam (Unit 3)."
+   ]
+  },
+  {
+   "ref": "(3.4)",
+   "calc": [
+    "K<sub>BC</sub> = 10 × 5.40/5.5",
+    "K<sub>BC</sub> = 10 × 5.40/5.5"
+   ],
+   "out": "9.82",
+   "slip": true,
+   "fix": [
+    "In the sub-frame of AB, BC is a neighbour fixed at its far end C, and RDF §11.0 takes it at half its stiffness: ½K<sub>BC</sub> = 4.91. Full K makes B too stiff on the BC side.",
+    "Dalam sub-frame AB, BC ialah jiran yang fixed di hujung jauhnya C, dan RDF §11.0 mengambilnya pada separuh stiffness: ½K<sub>BC</sub> = 4.91. K penuh menjadikan B terlalu kaku pada sisi BC."
+   ]
+  },
+  {
+   "ref": "(4.1)",
+   "calc": [
+    "A: ΣK = 5.79 + 6.51 + 5.70 = 17.99; B: ΣK = 5.79 + 9.82 + 6.51 + 5.70 = 27.81; F = K/ΣK",
+    "A: ΣK = 5.79 + 6.51 + 5.70 = 17.99; B: ΣK = 5.79 + 9.82 + 6.51 + 5.70 = 27.81; F = K/ΣK"
+   ],
+   "out": "A 0.322/0.362/0.317; B 0.208/0.353/0.234/0.205",
+   "slip": false,
+   "fix": [
+    "The method is right; the numbers follow lines 3 and 4. With K<sub>AB</sub> = 7.71 and ½K<sub>BC</sub> = 4.91: A 0.387/0.327/0.286 (ΣK 19.92); B 0.311/0.198/0.262/0.229 (ΣK 24.83).",
+    "Kaedahnya betul; nombornya mengikut baris 3 dan 4. Dengan K<sub>AB</sub> = 7.71 dan ½K<sub>BC</sub> = 4.91: A 0.387/0.327/0.286 (ΣK 19.92); B 0.311/0.198/0.262/0.229 (ΣK 24.83)."
+   ]
+  },
+  {
+   "ref": "EC2 5.1.3",
+   "calc": [
+    "Largest sagging in AB: AB and BC both at w<sub>max</sub>, the heaviest case of the sub-frame",
+    "Sagging terbesar dalam AB: AB dan BC kedua-duanya pada w<sub>max</sub>, kes paling berat bagi sub-frame"
+   ],
+   "out": "52.40; 48.60 kN/m",
+   "slip": true,
+   "fix": [
+    "For the largest sagging in AB, load AB and leave its neighbour light: BC at w<sub>min</sub> = 27.90 kN/m. A load on BC turns B against AB and relieves the span (Unit 3, Notes §2).",
+    "Bagi sagging terbesar dalam AB, bebani AB dan biarkan jirannya ringan: BC pada w<sub>min</sub> = 27.90 kN/m. Load pada BC memutarkan B menentang AB dan melegakan span itu (Unit 3, Nota §2)."
+   ]
+  },
+  {
+   "ref": "(3.5)",
+   "calc": [
+    "FEM = wL²/12: AB 52.40 × 7.0²/12; BC 48.60 × 5.5²/12",
+    "FEM = wL²/12: AB 52.40 × 7.0²/12; BC 48.60 × 5.5²/12"
+   ],
+   "out": "213.97; 122.51 kN m",
+   "slip": false,
+   "fix": [
+    "Follows line 6: with BC at 27.90 kN/m its FEM is 70.33 kN m; AB stays 213.97.",
+    "Mengikut baris 6: dengan BC pada 27.90 kN/m, FEM-nya 70.33 kN m; AB kekal 213.97."
+   ]
+  },
+  {
+   "ref": "(4.1)",
+   "calc": [
+    "Four cycles; A and B balanced in every row, the columns included; nothing carried to C",
+    "Empat cycle; A dan B diimbangi dalam setiap baris, termasuk column; tiada apa-apa dibawa ke C"
+   ],
+   "out": "M<sub>AB</sub> −154.14; M<sub>BA</sub> 223.85; M<sub>BC</sub> −167.69 kN m",
+   "slip": false,
+   "fix": [
+    "The method is right; the moments follow lines 3 to 7. Corrected: M<sub>AB</sub> = −149.13, M<sub>BA</sub> = 201.73, M<sub>BC</sub> = −108.03 kN m.",
+    "Kaedahnya betul; moment mengikut baris 3 hingga 7. Dibetulkan: M<sub>AB</sub> = −149.13, M<sub>BA</sub> = 201.73, M<sub>BC</sub> = −108.03 kN m."
+   ]
+  },
+  {
+   "ref": "(4.2)",
+   "calc": [
+    "Column moments: the sum of each column’s shares in the balancing rows",
+    "Moment column: jumlah bahagian setiap column dalam baris imbangan"
+   ],
+   "out": "A 82.21 / 71.93; B −29.95 / −26.21 kN m",
+   "slip": false,
+   "fix": [
+    "Follows. Corrected: at A 79.53 above and 69.59 below; at B −49.98 and −43.73 kN m. The sheet’s column at B is 40 % low.",
+    "Mengikut. Dibetulkan: di A 79.53 di atas dan 69.59 di bawah; di B −49.98 dan −43.73 kN m. Column di B dalam helaian 40 % terlalu rendah."
+   ]
+  },
+  {
+   "ref": "(4.4)",
+   "calc": [
+    "V<sub>AB</sub> = 52.40 × 3.5 + (154.14 − 223.85)/7.0; V<sub>BA</sub> = 366.80 − V<sub>AB</sub>",
+    "V<sub>AB</sub> = 52.40 × 3.5 + (154.14 − 223.85)/7.0; V<sub>BA</sub> = 366.80 − V<sub>AB</sub>"
+   ],
+   "out": "173.44; 193.36 kN",
+   "slip": false,
+   "fix": [
+    "The method is right. Corrected: V<sub>AB</sub> = 175.88, V<sub>BA</sub> = 190.92 kN.",
+    "Kaedahnya betul. Dibetulkan: V<sub>AB</sub> = 175.88, V<sub>BA</sub> = 190.92 kN."
+   ]
+  },
+  {
+   "ref": "(4.4)",
+   "calc": [
+    "x₀ = 173.44/52.40; M<sub>span</sub> = V<sub>AB</sub>²/2w = 173.44²/(2 × 52.40)",
+    "x₀ = 173.44/52.40; M<sub>span</sub> = V<sub>AB</sub>²/2w = 173.44²/(2 × 52.40)"
+   ],
+   "out": "3.31 m; 287.04 kN m",
+   "slip": true,
+   "fix": [
+    "M<sub>span</sub> = V<sub>AB</sub>²/2w − M<sub>AB</sub>: A hogs, so its moment comes off the free span moment. With the sheet’s own numbers, 287.04 − 154.14 = 132.90 kN m; corrected, 146.06 kN m at 3.36 m.",
+    "M<sub>span</sub> = V<sub>AB</sub>²/2w − M<sub>AB</sub>: A hogging, jadi moment-nya ditolak daripada free span moment. Dengan nombor helaian sendiri, 287.04 − 154.14 = 132.90 kN m; dibetulkan, 146.06 kN m pada 3.36 m."
+   ]
+  },
+  {
+   "ref": "(4.3)",
+   "calc": [
+    "Far ends of the columns at A: ½ × 82.21 at the top of the upper column, ½ × 71.93 at the foot of the lower one",
+    "Hujung jauh column di A: ½ × 82.21 di atas column atas, ½ × 71.93 di kaki column bawah"
+   ],
+   "out": "41.10; 35.97 kN m",
+   "slip": false,
+   "fix": [
+    "The method is right. Corrected: 39.77 and 34.80 kN m.",
+    "Kaedahnya betul. Dibetulkan: 39.77 dan 34.80 kN m."
+   ]
+  }
+ ],
+ "key": "seaa4333-lab-frame-s4",
+ "ms": "s4",
+ "title": [
+  "Frame S4: spot the error",
+  "Frame S4: cari kesilapan"
+ ],
+ "lede": [
+  "A submitted two-free-joint sub-frame for beam AB of an interior frame, for the largest sagging moment in AB, with the column moments at A. The numbers look reasonable, yet the sheet contains four slips. Find them all as a team before anyone looks at the answer.",
+  "Two-free-joint sub-frame yang dihantar bagi beam AB sebuah frame dalaman, bagi sagging moment terbesar dalam AB, dengan moment column di A. Nombornya nampak munasabah, namun helaian ini mengandungi empat kesilapan. Cari kesemuanya sebagai satu pasukan sebelum sesiapa melihat jawapan."
+ ],
+ "tag": [
+  "Block C · teams of four · 12 min · Workbook 4.6",
+  "Blok C · pasukan berempat · 12 min · Workbook 4.6"
+ ],
+ "given": [
+  [
+   "Sub-frame",
+   "Sub-frame",
+   "beam AB of an interior frame line: AB = 7.0 m, the next span BC = 5.5 m, fixed at its far end C; joints A and B free with their columns",
+   "beam AB sebuah frame line dalaman: AB = 7.0 m, span seterusnya BC = 5.5 m, fixed di hujung jauhnya C; joint A dan B bebas bersama column-nya"
+  ],
+  [
+   "Sections",
+   "Keratan",
+   "beams 300 × 600; columns 300 × 450, 450 in the plane of the frame; the storey above the floor 3.5 m, below 4.0 m",
+   "beam 300 × 600; column 300 × 450, 450 dalam satah frame; tingkat di atas lantai 3.5 m, di bawah 4.0 m"
+  ],
+  [
+   "Loads",
+   "Load",
+   "AB: w<sub>max</sub> 52.40, w<sub>min</sub> 30.15 kN/m; BC: w<sub>max</sub> 48.60, w<sub>min</sub> 27.90 kN/m",
+   "AB: w<sub>max</sub> 52.40, w<sub>min</sub> 30.15 kN/m; BC: w<sub>max</sub> 48.60, w<sub>min</sub> 27.90 kN/m"
+  ],
+  [
+   "Method",
+   "Kaedah",
+   "RDF §11.0, two-free-joint sub-frame; four balancing cycles",
+   "RDF §11.0, two-free-joint sub-frame; empat balancing cycle"
+  ]
+ ],
+ "summary": [
+  "<b>Four slips, each a rule carried in from another model.</b> Line 3 uses the continuous beam’s ¾K at a joint with columns; line 4 forgets the ½K of a neighbour fixed at its far end; line 6 loads BC for a sagging case of AB; line 11 drops M<sub>AB</sub> from the span moment, as if A were a pin. Corrected: M<sub>AB</sub> = −149.13, M<sub>BA</sub> = 201.73 kN m; the columns at A 79.53 and 69.59, at B −49.98 and −43.73 kN m; the largest sagging in AB 146.06 kN m at 3.36 m, against the sheet’s 287.04. Professional Habit 4: write the model at the top of the sheet first (two-free-joint: AB full K, BC ½K, A and B balanced, nothing carried to C).",
+  "<b>Empat kesilapan, setiap satu peraturan yang dibawa dari model lain.</b> Baris 3 menggunakan ¾K continuous beam di joint yang mempunyai column; baris 4 terlupa ½K bagi jiran yang fixed di hujung jauhnya; baris 6 membebani BC bagi kes sagging AB; baris 11 meninggalkan M<sub>AB</sub> daripada moment span, seolah-olah A ialah pin. Dibetulkan: M<sub>AB</sub> = −149.13, M<sub>BA</sub> = 201.73 kN m; column di A 79.53 dan 69.59, di B −49.98 dan −43.73 kN m; sagging terbesar dalam AB 146.06 kN m pada 3.36 m, berbanding 287.04 dalam helaian. Professional Habit 4: tulis model di bahagian atas helaian dahulu (two-free-joint: AB K penuh, BC ½K, A dan B diimbangi, tiada apa-apa dibawa ke C)."
+ ]
+};
+
+/* ===================== 3 SPOT THE ERROR: FRAME S3 (Unit 3) AND FRAME S4 (Unit 4) ===================== */
+const SHEETS = {s3: S3SHEET, s4: S4SHEET};
+let eWhich = 's3';
+const eState = {s3: {flag: new Set(recall(S3SHEET.key, [])), checked: false, fixed: false}, s4: {flag: new Set(recall(S4SHEET.key, [])), checked: false, fixed: false}};
 function drawS3Fig(){
   const box = el('eFig'); box.innerHTML = '';
   const svg = S('svg', {class: 'fig', viewBox: '0 0 620 300', role: 'img', 'aria-label': Lg('Frame S3 on plan: an interior grid line with spans AB 7.0, BC 5.0 and CD 6.0 m, slab panels 4.0 m wide above it and 4.5 m below; and in elevation the first floor with a 3.5 m storey above and a 4.0 m storey below.', 'Frame S3 pada pelan: grid line dalaman dengan span AB 7.0, BC 5.0 dan CD 6.0 m, panel slab selebar 4.0 m di atasnya dan 4.5 m di bawahnya; dan pada elevation, tingkat satu dengan tingkat 3.5 m di atas dan 4.0 m di bawah.')}, box);
@@ -1225,8 +1882,8 @@ function drawSheet(){
   setSeg(el('eWhich'), eWhich);
   el('eTitle').innerHTML = Lg(Sh.title[0], Sh.title[1]); el('eLede').innerHTML = Lg(Sh.lede[0], Sh.lede[1]); el('eTag').innerHTML = Lg(Sh.tag[0], Sh.tag[1]);
   el('eGiven').innerHTML = Sh.given.map(g => `<dt>${Lg(g[0], g[1])}</dt><dd>${Lg(g[2], g[3])}</dd>`).join('');
-  el('eSheet').setAttribute('aria-label', Lg('Frame S3 calculation sheet', 'Helaian pengiraan Frame S3'));
-  drawS3Fig();
+  el('eSheet').setAttribute('aria-label', eWhich === 's3' ? Lg('Frame S3 calculation sheet', 'Helaian pengiraan Frame S3') : Lg('Frame S4 calculation sheet', 'Helaian pengiraan Frame S4'));
+  if (eWhich === 's3') drawS3Fig(); else drawS4Fig();
   const t = el('eSheet');
   let html = `<thead><tr><th>${Lg('Line', 'Baris')}</th><th>Ref</th><th>${Lg('Calculation', 'Pengiraan')}</th><th>Output</th></tr></thead><tbody>`;
   rows.forEach((r, i) => {
@@ -1247,17 +1904,37 @@ function drawSheet(){
   if (st.fixed || (st.checked && hits === 4)){ sum.hidden = false; sum.innerHTML = Lg(Sh.summary[0], Sh.summary[1]); }
   else sum.hidden = true;
 }
+function drawS4Fig(){
+  const box = el('eFig'); box.innerHTML = '';
+  const svg = S('svg', {class: 'fig', viewBox: '0 0 620 300', role: 'img', 'aria-label': Lg('Frame S4: the two-free-joint sub-frame of beam AB, 7.0 m, with the next span BC, 5.5 m, fixed at its far end C; columns at A and B, 3.5 m above the floor and 4.0 m below, fixed at their far ends.', 'Frame S4: two-free-joint sub-frame beam AB, 7.0 m, dengan span seterusnya BC, 5.5 m, fixed di hujung jauhnya C; column di A dan B, 3.5 m di atas lantai dan 4.0 m di bawah, fixed di hujung jauhnya.')}, box);
+  svg.style.minWidth = '320px';
+  const xA = 40, xB = 330, xC = 558, yb = 140;
+  [[xA, xB], [xB, xC]].forEach(([a, b]) => S('line', {x1: a, x2: b, y1: yb, y2: yb, stroke: 'var(--ink)', 'stroke-width': 4}, svg));
+  S('rect', {x: xC, y: yb - 20, width: 10, height: 40, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
+  [xA, xB].forEach(x => {
+    S('line', {x1: x, x2: x, y1: yb - 84, y2: yb + 96, stroke: 'var(--ink)', 'stroke-width': 3}, svg);
+    [[yb - 84, -1], [yb + 96, 1]].forEach(([y, d]) => S('rect', {x: x - 18, y: d < 0 ? y - 8 : y, width: 36, height: 8, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg));
+  });
+  [[xA, 'A'], [xB, 'B'], [xC, 'C']].forEach(([x, nm]) => T(svg, x + 6, yb + 22, nm, {style: 'font-weight:700;fill:var(--ink)'}));
+  const wlab = (x, a, b) => { const t = S('text', {x, y: yb - 26, 'text-anchor': 'middle', class: 'small'}, svg);
+    [['w', 0], ['max', 1], [` ${a} · w`, 0], ['min', 1], [` ${b} kN/m`, 0]].forEach(([s, sub]) => { const ts = S('tspan', sub ? {'baseline-shift': 'sub', 'font-size': '75%'} : {}, t); ts.textContent = s; }); };
+  wlab((xA + xB) / 2, '52.40', '30.15'); wlab((xB + xC) / 2, '48.60', '27.90');
+  T(svg, (xA + xB) / 2, yb + 120, '7.0 m', {'text-anchor': 'middle'}); T(svg, (xB + xC) / 2, yb + 120, '5.5 m', {'text-anchor': 'middle'});
+  T(svg, xA + 10, yb - 60, '3.5 m', {class: 'small'}); T(svg, xA + 10, yb + 70, '4.0 m', {class: 'small'});
+}
+segGroup(el('eWhich'), v => { eWhich = v; drawSheet(); });
 el('eCheck').addEventListener('click', () => { const st = eState[eWhich], rows = SHEETS[eWhich].rows; st.checked = true; const hits = rows.filter((r, i) => r.slip && st.flag.has(i + 1)).length; if (hits === 4 && !st.fixed) milestone(SHEETS[eWhich].ms); drawSheet(); });
 el('eFix').addEventListener('click', () => { eState[eWhich].fixed = true; drawSheet(); });
 el('eReset').addEventListener('click', () => { const st = eState[eWhich]; st.flag = new Set(); store(SHEETS[eWhich].key, []); st.checked = false; st.fixed = false; drawSheet(); });
 
 /* ---------- start ---------- */
-function fillAllCases(){ fillCaseSelect('aCase', aCaseK); fillCaseSelect('mCase', mCaseK); fillPatSelect(); }
-function redrawAll(){ paintOwnTable(); paintEffects(); drawArr(); drawMd(); paintJoints(); drawSheet(); }
+function fillAllCases(){ fillCaseSelect('aCase', aCaseK); fillCaseSelect('mCase', mCaseK); fillPatSelect(); fillCaseSelect('sCase', sCaseK); fillCaseSelect('xCase', xCaseK); fillSubSelects(); }
+function redrawAll(){ paintOwnTable(); paintEffects(); drawArr(); drawMd(); paintJoints(); drawSheet(); drawSub(); drawCmp(); }
 applyPrefs(false);
 fillAllCases(); tPaint(); redrawAll();
-showTab((location.hash || '').slice(1) || 'arr');
-window.addEventListener('hashchange', () => showTab((location.hash || '').slice(1)));
+function fromHash(){ const h = (location.hash || '').slice(1); if (h === 's4' || h === 's3'){ eWhich = h; drawSheet(); showTab('error'); } else showTab(h || 'arr'); }
+fromHash();
+window.addEventListener('hashchange', fromHash);
 
 </script>
 </body>

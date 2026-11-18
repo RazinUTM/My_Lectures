@@ -1486,6 +1486,13 @@ main [id],main h2,main h3,main tr{scroll-margin-top:104px}
   $$(".readck input").forEach(function (ck) { ck.addEventListener("change", function () { var sec = ck.closest(".nsec, .xsec"); ST.read[sec.id] = ck.checked; syncRead(); updateProgress(); }); });
   $$("[data-nmode]").forEach(function (b) { b.addEventListener("click", function () { ST.nmode = b.getAttribute("data-nmode"); applyNmode(); save(); }); });
   function applyNmode() { var art = $(".article"); if (!art) return; art.classList.toggle("keyonly", ST.nmode === "key"); $$("[data-nmode]").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-nmode") === ST.nmode)); }); $$("details.kp").forEach(function (d) { if (ST.nmode === "key") d.open = true; }); }
+  /* an option button is a flex box: its words must be one flex item, or a bare <sub> becomes an item of its own ("1.2G k").
+     Options already in one span, or in the paired .en/.ms spans, are left as they are. */
+  $$("button.opt").forEach(function (o) {
+    var kids = Array.prototype.filter.call(o.childNodes, function (n) { return n.nodeType === 1 || (n.nodeType === 3 && n.textContent.trim() !== ""); });
+    if (kids.length < 2 || kids.every(function (n) { return n.nodeType === 1 && n.tagName === "SPAN" && (n.classList.contains("en") || n.classList.contains("ms")); })) return;
+    var w = document.createElement("span"); while (o.firstChild) w.appendChild(o.firstChild); o.appendChild(w);
+  });
   $$(".qc").forEach(function (q) {
     var id = q.getAttribute("data-qc"), ans = q.getAttribute("data-ans"), opts = $$(".opt", q), fb = $(".fb", q);
     function paint() { var r = ST.qc[id]; if (!r) return; markOpts(opts, ans, r.pick); q.setAttribute("data-done", r.ok ? "ok" : "no");

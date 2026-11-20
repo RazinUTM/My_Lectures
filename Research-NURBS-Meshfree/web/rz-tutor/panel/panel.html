@@ -1,0 +1,16 @@
+<!-- SPDX-License-Identifier: MIT · Copyright (c) 2026 Ahmad Razin Zainal Abidin and Universiti Teknologi Malaysia
+     Guide panel fragment (rz-tnl-app-template, region 3), placed after the main column inside the .cols wrapper.
+     Corner-stage layout: the chat bubble takes the full width; Dr RJ stands in front of its bottom-right corner.
+     The avatar <img> gets its first src from the page's own avatar map (data-avsrc) and later poses from the glue. -->
+<aside class="explain" id="rzguide" aria-label="Guide · Dr Razin Junior (RJ)">
+  <div class="panelhead"><span class="pdot"></span><span><span class="en">Guide</span><span class="ms">Panduan</span> · Dr Razin Junior (RJ)</span></div>
+  <section class="guide">
+    <div class="bubble">
+      <span class="tbadge">Dr RJ</span>
+      <div class="say" id="rjsay"><span class="en">Hi, I'm Dr RJ. Ask me anything about this page — I'll answer from the course notes and point you to the right section.</span><span class="ms">Hai, saya Dr RJ. Tanya apa-apa tentang page ini — saya jawab daripada nota kursus dan tunjukkan seksyen yang sesuai.</span></div>
+      <div id="tutor"></div>
+    </div>
+    <img id="rjav" class="rjav" data-avsrc="offer" alt="" aria-hidden="true" decoding="async">
+  </section>
+</aside>
+<button type="button" class="rjfab" id="rjfab" aria-label="Dr RJ" title="Dr RJ"><img data-avsrc="badge" alt="" width="40" height="40"></button>

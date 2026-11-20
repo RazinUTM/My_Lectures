@@ -5,10 +5,11 @@
 
 What: reads project/deck.json and project/slides/<id>.html from a folder (the Slides artifact's own
 files), keeps the slides in deck order, drops the speaker notes (<aside>), drops the slides listed in
-SKIP, rewrites any artifact image addresses (/_blob/<id>) to img/<name>.webp (the figures the notes
-use too, made by web/make_figs.py) through web/deck_assets.json (the Unit 7 slides already point at
-img/<name>.webp, so the map is empty), applies the small web-only edits in EDITS, and writes slides/deck.html: one <div class="sl" data-title="…"> per slide, the format the
-course engine's slide viewer reads.
+SKIP, rewrites the artifact image addresses (/_blob/<id>) to img/<name>.webp (the figures the notes
+use too, made by web/make_figs.py) through web/deck_assets.json (nine figures, mapped on 20 Nov 2026
+when the exit-ticket slide gained the survey card), applies the small web-only edits in EDITS, and
+writes slides/deck.html: one <div class="sl" data-title="…"> per slide, the format the course engine's
+slide viewer reads.
 
 How to call it, from this topic folder:
   python3 web/make_deck.py <folder that holds project/deck.json>

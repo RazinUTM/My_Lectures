@@ -213,7 +213,7 @@ Professional Habit 7 Estimate λ before you calculate it λ ≈ 3.5 l₀/h a 300
 After class Before Unit 8 Notes §1–§6 and the exercises on the Unit 7 page (45 min) Column S7 in Lab tab 3: four slips to find Self-mark D7 with the answer scheme on UTM eLearning Bring N and M of your column, and read notes Examples 2 and 3 SEAA 4333 · Unit 7 · Columns I Workbook 7.10
 
 [slides-31] Slide 31: Before you leave
-Exit ticket · 5 minutes · Workbook 7.11 Before you leave 1 A braced 300 × 300 column, l = 3.0 m between stiff beams (k = 0.1 at both ends), NEd = 1500 kN, C30/37, no end moments. Slender or not? One line of working. 2 Why is an unbraced column almost always slender? 3 What is still unclear for you today? Tear off the slip and hand it in at the door. Next week: Test 1, then short columns. SEAA 4333 · Unit 7 · Columns
+Exit ticket · 5 minutes · Workbook 7.11 Before you leave 1 A braced 300 × 300 column, l = 3.0 m between stiff beams (k = 0.1 at both ends), NEd = 1500 kN, C30/37, no end moments. Slender or not? One line of working. 2 Why is an unbraced column almost always slender? 3 What is still unclear for you today? Survey Then the mid-semester survey on UTM eLearning: five items, one open question, two minutes, anonymous. Tear
 
 [examples-x1] Example 1 · Worked Example 7.1: a braced column between stiff beams
 Exam type classify a column about both axes Workbook 7.5 Time ≈ 20 min

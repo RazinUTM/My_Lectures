@@ -66,6 +66,7 @@ SEAA4333-RCD2/
 ├── labs/foundation.html      the Foundation Lab (Explorer of Units 10 to 12: bearing pressure, critical sections, spot the error, strap footing, pile group, pile cap)
 ├── labs/retaining-wall.html  the Retaining Wall Lab (Explorer of Units 13 and 14: earth pressure, stability with a design challenge, spot the error, members, key and water)
 ├── shared/                   course.css, course.js, the avatar poses, the course home source
+├── survey/                   the perception survey of Weeks 7 and 15: questions for a UTM eLearning Feedback activity, the paper slip, and make_survey.py, which writes both from one list of items
 └── tutor/course.json         every Unit's sections, for the tutor (generated)
 ```
 

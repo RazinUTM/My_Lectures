@@ -1,0 +1,644 @@
+{
+ "app": "seaa4333",
+ "part": "u7",
+ "title": "Unit 7 Columns I",
+ "folder": "07-columns-1",
+ "course_meta": {
+  "key": "seaa4333-u7-v1",
+  "notes": [
+   "n1",
+   "n2",
+   "n3",
+   "n4",
+   "n5",
+   "n6"
+  ],
+  "slides": 31,
+  "examples": [
+   "x1",
+   "x2",
+   "x3"
+  ],
+  "cando": 5,
+  "targetMin": 45
+ },
+ "sections": [
+  {
+   "id": "start-outcomes",
+   "view": "start",
+   "anchor": null,
+   "selector": "ol.lo",
+   "title_en": "After this part you should be able to",
+   "title_ms": "Selepas bahagian ini, anda sepatutnya boleh"
+  },
+  {
+   "id": "notes-n1",
+   "view": "notes",
+   "anchor": "n1",
+   "title_en": "1. Columns in a frame",
+   "title_ms": "1. Column dalam frame",
+   "minutes": 6
+  },
+  {
+   "id": "notes-n2",
+   "view": "notes",
+   "anchor": "n2",
+   "title_en": "2. Braced or unbraced, short or slender",
+   "title_ms": "2. Braced atau unbraced, short atau slender",
+   "minutes": 6
+  },
+  {
+   "id": "notes-n3",
+   "view": "notes",
+   "anchor": "n3",
+   "title_en": "3. Effective length",
+   "title_ms": "3. Effective length",
+   "minutes": 7
+  },
+  {
+   "id": "notes-n4",
+   "view": "notes",
+   "anchor": "n4",
+   "title_en": "4. Effective length from the beams",
+   "title_ms": "4. Effective length daripada beam",
+   "minutes": 9
+  },
+  {
+   "id": "notes-n5",
+   "view": "notes",
+   "anchor": "n5",
+   "title_en": "5. The slenderness ratio",
+   "title_ms": "5. Slenderness ratio",
+   "minutes": 5
+  },
+  {
+   "id": "notes-n6",
+   "view": "notes",
+   "anchor": "n6",
+   "title_en": "6. The slenderness limit",
+   "title_ms": "6. Slenderness limit",
+   "minutes": 7
+  },
+  {
+   "id": "slides-1",
+   "view": "slides",
+   "anchor": "1",
+   "title_en": "Slide 1: Columns I",
+   "title_ms": "Slide 1: Columns I"
+  },
+  {
+   "id": "slides-2",
+   "view": "slides",
+   "anchor": "2",
+   "title_en": "Slide 2: How the next three hours run",
+   "title_ms": "Slide 2: How the next three hours run"
+  },
+  {
+   "id": "slides-3",
+   "view": "slides",
+   "anchor": "3",
+   "title_en": "Slide 3: Three questions from the frame analysis",
+   "title_ms": "Slide 3: Three questions from the frame analysis"
+  },
+  {
+   "id": "slides-4",
+   "view": "slides",
+   "anchor": "4",
+   "title_en": "Slide 4: B, C, A, and what each means for a column",
+   "title_ms": "Slide 4: B, C, A, and what each means for a column"
+  },
+  {
+   "id": "slides-5",
+   "view": "slides",
+   "anchor": "5",
+   "title_en": "Slide 5: Why does a long ruler buckle when a short one does not?",
+   "title_ms": "Slide 5: Why does a long ruler buckle when a short one does not?"
+  },
+  {
+   "id": "slides-6",
+   "view": "slides",
+   "anchor": "6",
+   "title_en": "Slide 6: Three weeks of columns; today is step 6 of 9",
+   "title_ms": "Slide 6: Three weeks of columns; today is step 6 of 9"
+  },
+  {
+   "id": "slides-7",
+   "view": "slides",
+   "anchor": "7",
+   "title_en": "Slide 7: Short columns crush; slender ones bend first",
+   "title_ms": "Slide 7: Short columns crush; slender ones bend first"
+  },
+  {
+   "id": "slides-8",
+   "view": "slides",
+   "anchor": "8",
+   "title_en": "Slide 8: Braced or unbraced? Ask who carries the wind",
+   "title_ms": "Slide 8: Braced or unbraced? Ask who carries the wind"
+  },
+  {
+   "id": "slides-9",
+   "view": "slides",
+   "anchor": "9",
+   "title_en": "Slide 9: Effective length: the pin-ended column that buckles at the same load",
+   "title_ms": "Slide 9: Effective length: the pin-ended column that buckles at the same load"
+  },
+  {
+   "id": "slides-10",
+   "view": "slides",
+   "anchor": "10",
+   "title_en": "Slide 10: Four columns, same section and clear height l. Which has the lowest buckling load?",
+   "title_ms": "Slide 10: Four columns, same section and clear height l. Which has the lowest buckling load?"
+  },
+  {
+   "id": "slides-11",
+   "view": "slides",
+   "anchor": "11",
+   "title_en": "Slide 11: B: the free top sways, so l₀ = 2l",
+   "title_ms": "Slide 11: B: the free top sways, so l₀ = 2l"
+  },
+  {
+   "id": "slides-12",
+   "view": "slides",
+   "anchor": "12",
+   "title_en": "Slide 12: In a frame, the beams set k at each end",
+   "title_ms": "Slide 12: In a frame, the beams set k at each end"
+  },
+  {
+   "id": "slides-13",
+   "view": "slides",
+   "anchor": "13",
+   "title_en": "Slide 13: A braced column between stiff beams (k = 0.1 at both ends) has l₀ = 0.59l. The walls are taken away and the same column is now unbraced. Predict l₀.",
+   "title_ms": "Slide 13: A braced column between stiff beams (k = 0.1 at both ends) has l₀ = 0.59l. The walls are taken away and the same column is now unbraced. Predict l₀."
+  },
+  {
+   "id": "slides-14",
+   "view": "slides",
+   "anchor": "14",
+   "title_en": "Slide 14: C: 1.22l, about twice as long, and λlim falls too",
+   "title_ms": "Slide 14: C: 1.22l, about twice as long, and λlim falls too"
+  },
+  {
+   "id": "slides-15",
+   "view": "slides",
+   "anchor": "15",
+   "title_en": "Slide 15: Slenderness: λ = l₀/i, about each axis",
+   "title_ms": "Slide 15: Slenderness: λ = l₀/i, about each axis"
+  },
+  {
+   "id": "slides-16",
+   "view": "slides",
+   "anchor": "16",
+   "title_en": "Slide 16: The limit: λlim = 20ABC/√n",
+   "title_ms": "Slide 16: The limit: λlim = 20ABC/√n"
+  },
+  {
+   "id": "slides-17",
+   "view": "slides",
+   "anchor": "17",
+   "title_en": "Slide 17: A braced column between stiff beams",
+   "title_ms": "Slide 17: A braced column between stiff beams"
+  },
+  {
+   "id": "slides-18",
+   "view": "slides",
+   "anchor": "18",
+   "title_en": "Slide 18: The slenderness check in eight lines",
+   "title_ms": "Slide 18: The slenderness check in eight lines"
+  },
+  {
+   "id": "slides-19",
+   "view": "slides",
+   "anchor": "19",
+   "title_en": "Slide 19: Faded Example 7.2: an unbraced column on a fixed base",
+   "title_ms": "Slide 19: Faded Example 7.2: an unbraced column on a fixed base"
+  },
+  {
+   "id": "slides-20",
+   "view": "slides",
+   "anchor": "20",
+   "title_en": "Slide 20: Slender about both axes; braced, it would not be",
+   "title_ms": "Slide 20: Slender about both axes; braced, it would not be"
+  },
+  {
+   "id": "slides-21",
+   "view": "slides",
+   "anchor": "21",
+   "title_en": "Slide 21: Break",
+   "title_ms": "Slide 21: Break"
+  },
+  {
+   "id": "slides-22",
+   "view": "slides",
+   "anchor": "22",
+   "title_en": "Slide 22: A braced 250 × 500 column has l₀ = 3.0 m about both axes. Which is right?",
+   "title_ms": "Slide 22: A braced 250 × 500 column has l₀ = 3.0 m about both axes. Which is right?"
+  },
+  {
+   "id": "slides-23",
+   "view": "slides",
+   "anchor": "23",
+   "title_en": "Slide 23: Braced column: end moments 60 kN m (top) and 35 kN m (bottom), tension on opposite faces. NEd l₀/400 = 9.6 kN m. What is C?",
+   "title_ms": "Slide 23: Braced column: end moments 60 kN m (top) and 35 kN m (bottom), tension on opposite faces. NEd l₀/400 = 9.6 kN m. What is C?"
+  },
+  {
+   "id": "slides-24",
+   "view": "slides",
+   "anchor": "24",
+   "title_en": "Slide 24: B and B",
+   "title_ms": "Slide 24: B and B"
+  },
+  {
+   "id": "slides-25",
+   "view": "slides",
+   "anchor": "25",
+   "title_en": "Slide 25: The race: classify eight columns",
+   "title_ms": "Slide 25: The race: classify eight columns"
+  },
+  {
+   "id": "slides-26",
+   "view": "slides",
+   "anchor": "26",
+   "title_en": "Slide 26: Five slender, three short",
+   "title_ms": "Slide 26: Five slender, three short"
+  },
+  {
+   "id": "slides-27",
+   "view": "slides",
+   "anchor": "27",
+   "title_en": "Slide 27: D7: a past-paper question (15 marks)",
+   "title_ms": "Slide 27: D7: a past-paper question (15 marks)"
+  },
+  {
+   "id": "slides-28",
+   "view": "slides",
+   "anchor": "28",
+   "title_en": "Slide 28: Is your column short or slender?",
+   "title_ms": "Slide 28: Is your column short or slender?"
+  },
+  {
+   "id": "slides-29",
+   "view": "slides",
+   "anchor": "29",
+   "title_en": "Slide 29: Estimate λ before you calculate it",
+   "title_ms": "Slide 29: Estimate λ before you calculate it"
+  },
+  {
+   "id": "slides-30",
+   "view": "slides",
+   "anchor": "30",
+   "title_en": "Slide 30: Before Unit 8",
+   "title_ms": "Slide 30: Before Unit 8"
+  },
+  {
+   "id": "slides-31",
+   "view": "slides",
+   "anchor": "31",
+   "title_en": "Slide 31: Before you leave",
+   "title_ms": "Slide 31: Before you leave"
+  },
+  {
+   "id": "examples-x1",
+   "view": "examples",
+   "anchor": "x1",
+   "title_en": "Example 1 · Worked Example 7.1: a braced column between stiff beams",
+   "title_ms": "Contoh 1 · Worked Example 7.1: column braced di antara beam yang kaku"
+  },
+  {
+   "id": "examples-x2",
+   "view": "examples",
+   "anchor": "x2",
+   "title_en": "Example 2 · Faded Example 7.2: an unbraced column on a fixed base",
+   "title_ms": "Contoh 2 · Faded Example 7.2: column unbraced pada fixed base"
+  },
+  {
+   "id": "examples-x3",
+   "view": "examples",
+   "anchor": "x3",
+   "title_en": "Example 3 · Explain-type questions",
+   "title_ms": "Contoh 3 · Soalan jenis terangkan"
+  },
+  {
+   "id": "exercises-b1",
+   "view": "exercises",
+   "anchor": "b1",
+   "title_en": "Exercise B1 · Stiffnesses and the relative flexibility k",
+   "title_ms": "Latihan B1 · Stiffness dan relative flexibility k"
+  },
+  {
+   "id": "exercises-b2",
+   "view": "exercises",
+   "anchor": "b2",
+   "title_en": "Exercise B2 · Effective length of a braced column",
+   "title_ms": "Latihan B2 · Effective length bagi column braced"
+  },
+  {
+   "id": "exercises-b3",
+   "view": "exercises",
+   "anchor": "b3",
+   "title_en": "Exercise B3 · Effective length of an unbraced column",
+   "title_ms": "Latihan B3 · Effective length bagi column unbraced"
+  },
+  {
+   "id": "exercises-b4",
+   "view": "exercises",
+   "anchor": "b4",
+   "title_en": "Exercise B4 · Slenderness ratios about both axes",
+   "title_ms": "Latihan B4 · Slenderness ratio pada kedua-dua paksi"
+  },
+  {
+   "id": "exercises-b5",
+   "view": "exercises",
+   "anchor": "b5",
+   "title_en": "Exercise B5 · The slenderness limit",
+   "title_ms": "Latihan B5 · Slenderness limit"
+  },
+  {
+   "id": "exercises-b6",
+   "view": "exercises",
+   "anchor": "b6",
+   "title_en": "Exercise B6 · Classify a column",
+   "title_ms": "Latihan B6 · Klasifikasi column"
+  },
+  {
+   "id": "exercises-quick",
+   "view": "exercises",
+   "anchor": null,
+   "selector": "#v-exercises div.q",
+   "title_en": "Exercises: quick concept questions",
+   "title_ms": "Latihan: soalan konsep pantas"
+  },
+  {
+   "id": "lab-we71",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"we71\"]",
+   "title_en": "Explorer task 1: Tab 1: pick the case “WE 7.1” and compare k, l_0 , λ and λ_{lim…",
+   "title_ms": "Tugasan Explorer 1: Tab 1: pilih kes “WE 7.1” dan bandingkan k, l_0 , λ dan λ_{lim}…"
+  },
+  {
+   "id": "lab-floor",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"floor\"]",
+   "title_en": "Explorer task 2: Tab 1: make the beams deeper until k stops changing",
+   "title_ms": "Tugasan Explorer 2: Tab 1: jadikan beam lebih dalam sehingga k berhenti berubah"
+  },
+  {
+   "id": "lab-sway",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"sway\"]",
+   "title_en": "Explorer task 3: Tab 1: switch the column from braced to unbraced",
+   "title_ms": "Tugasan Explorer 3: Tab 1: tukar column daripada braced kepada unbraced"
+  },
+  {
+   "id": "lab-curv",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"curv\"]",
+   "title_en": "Explorer task 4: Tab 1: with the column braced, flip the moments about z from do…",
+   "title_ms": "Tugasan Explorer 4: Tab 1: dengan column braced, tukar moment pada paksi z daripada…"
+  },
+  {
+   "id": "lab-race",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"race\"]",
+   "title_en": "Explorer task 5: Tab 2: classify all eight columns of the race and press “Check”",
+   "title_ms": "Tugasan Explorer 5: Tab 2: klasifikasikan kesemua lapan column dalam perlumbaan dan…"
+  },
+  {
+   "id": "lab-s7",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"s7\"]",
+   "title_en": "Explorer task 6: Tab 3: find all four slips in Column S7, tap their lines and pr…",
+   "title_ms": "Tugasan Explorer 6: Tab 3: cari keempat-empat kesilapan dalam Column S7, ketik bari…"
+  },
+  {
+   "id": "glossary-column",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: column",
+   "title_ms": "Glosari: column"
+  },
+  {
+   "id": "glossary-braced-member",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: braced member",
+   "title_ms": "Glosari: braced member"
+  },
+  {
+   "id": "glossary-bracing-member-bracing-system",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: bracing member · bracing system",
+   "title_ms": "Glosari: bracing member · bracing system"
+  },
+  {
+   "id": "glossary-unbraced-member-sway",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: unbraced member · sway",
+   "title_ms": "Glosari: unbraced member · sway"
+  },
+  {
+   "id": "glossary-non-slender-short-column",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: non-slender (short) column",
+   "title_ms": "Glosari: non-slender (short) column"
+  },
+  {
+   "id": "glossary-slender-column",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: slender column",
+   "title_ms": "Glosari: slender column"
+  },
+  {
+   "id": "glossary-first-order-effects",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: first-order effects",
+   "title_ms": "Glosari: first-order effects"
+  },
+  {
+   "id": "glossary-second-order-effects-p",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: second-order effects · P–Δ",
+   "title_ms": "Glosari: second-order effects · P–Δ"
+  },
+  {
+   "id": "glossary-buckling-euler-load-n-cr",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: buckling · Euler load N_{cr}",
+   "title_ms": "Glosari: buckling · Euler load N_{cr}"
+  },
+  {
+   "id": "glossary-effective-length-l-0",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: effective length l_0",
+   "title_ms": "Glosari: effective length l_0"
+  },
+  {
+   "id": "glossary-clear-height-l",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: clear height l",
+   "title_ms": "Glosari: clear height l"
+  },
+  {
+   "id": "glossary-point-of-contraflexure",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: point of contraflexure",
+   "title_ms": "Glosari: point of contraflexure"
+  },
+  {
+   "id": "glossary-end-restraint",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: end restraint",
+   "title_ms": "Glosari: end restraint"
+  },
+  {
+   "id": "glossary-relative-flexibility-k",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: relative flexibility k",
+   "title_ms": "Glosari: relative flexibility k"
+  },
+  {
+   "id": "glossary-stiffness-k-i-l",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: stiffness K = I/l",
+   "title_ms": "Glosari: stiffness K = I/l"
+  },
+  {
+   "id": "glossary-fixed-base-pinned-end",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: fixed base · pinned end",
+   "title_ms": "Glosari: fixed base · pinned end"
+  },
+  {
+   "id": "glossary-radius-of-gyration-i",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: radius of gyration i",
+   "title_ms": "Glosari: radius of gyration i"
+  },
+  {
+   "id": "glossary-slenderness-ratio",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: slenderness ratio λ",
+   "title_ms": "Glosari: slenderness ratio λ"
+  },
+  {
+   "id": "glossary-slenderness-limit-lim",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: slenderness limit λ_{lim}",
+   "title_ms": "Glosari: slenderness limit λ_{lim}"
+  },
+  {
+   "id": "glossary-relative-axial-force-n",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: relative axial force n",
+   "title_ms": "Glosari: relative axial force n"
+  },
+  {
+   "id": "glossary-moment-ratio-r-m",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: moment ratio r_m",
+   "title_ms": "Glosari: moment ratio r_m"
+  },
+  {
+   "id": "glossary-single-curvature-double-curvature",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: single curvature · double curvature",
+   "title_ms": "Glosari: single curvature · double curvature"
+  },
+  {
+   "id": "glossary-geometric-imperfection-e-i",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: geometric imperfection e_i",
+   "title_ms": "Glosari: geometric imperfection e_i"
+  },
+  {
+   "id": "glossary-minimum-eccentricity-e-0",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: minimum eccentricity e_0",
+   "title_ms": "Glosari: minimum eccentricity e_0"
+  },
+  {
+   "id": "glossary-effective-creep-ratio-ef",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: effective creep ratio φ_{ef}",
+   "title_ms": "Glosari: effective creep ratio φ_{ef}"
+  },
+  {
+   "id": "glossary-mechanical-reinforcement-ratio",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: mechanical reinforcement ratio ω",
+   "title_ms": "Glosari: mechanical reinforcement ratio ω"
+  },
+  {
+   "id": "glossary-major-axis-minor-axis",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: major axis · minor axis",
+   "title_ms": "Glosari: major axis · minor axis"
+  },
+  {
+   "id": "glossary-nominal-curvature-method",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: nominal curvature method",
+   "title_ms": "Glosari: nominal curvature method"
+  }
+ ],
+ "equations_missing": 0
+}

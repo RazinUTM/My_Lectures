@@ -20,3 +20,5 @@
 # OS / editor
 .DS_Store
 Thumbs.db
+# Build-time npm packages (installed by build.sh from web/package.json)
+node_modules/

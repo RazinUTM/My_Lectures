@@ -1,0 +1,322 @@
+{
+ "part": "u8",
+ "title": "Unit 8 Columns II",
+ "blocks": [
+  {
+   "id": "start-outcomes",
+   "text": "[start-outcomes] After this part you should be able to\n1. find the design moment of a non-slender column from its end moments, the imperfection e_i = l_0 /400 and the minimum eccentricity e_0 ;\n2. calculate N and M of a section for a given neutral axis depth by strain compatibility, and sketch its N–M interaction diagram with the squash, x = h, balance and pure-bending points;\n3. find the longitudinal steel from a design chart, check it against A_{s,min} and A_{s,max} , and confirm M_{Rd} ≥ M_{Ed} for the bars chosen;\n4. check the cover for durability, bond and fire, detail the links of a column, and find the slips in someone else’s design."
+  },
+  {
+   "id": "notes-n1",
+   "text": "[notes-n1] Notes 1. The design moment\nUnit 7 classified the column. If it is non-slender about the axis of bending, its second-order effects may be ignored, and this Unit designs it for the axial force and the first-order moments from the analysis. Two small allowances are added on the way, because no real column is perfectly straight and no load is perfectly centred. The table places the Unit in the nine design steps of the course notes.\nStep Task Reference Unit\n1–2 Design life, exposure, fire resistance; materials EN 1990 Table 2.1; EC2 Table 4.1 RCD I\n3–4 Column size for fire; cover for durability, fire and bond EN 1992-1-2 Table 5.2a; EC2 4.4.1 8 (§5)\n5 Axial force and moments from the analysis EC2 Section 5 3–6\n6 Classify: braced or unbraced, short or slender EC2 5.8.3 7\n7 Design moment (with the second-order moment if slender) EC2 5.2, 6.1(4) 8 (§1), 9\n8–9 Longitudinal bars from the N–M interaction; links and detailing EC2 6.1; 9.5 8 (§2–§6)\nGeometric imperfection (EC2 5.2) The column may be out of line or out of plumb. EC2 represents this by an eccentricity e_i of the axial load; for an isolated column in a braced structure it may always be taken as l_0/400 (EC2 5.2(9)), with l_0 the effective length from Unit 7.\nEQUATION (8.1): e_i = \\frac{l_0}{400}\nEQUATION (8.2): M_{02} = \\max\\left(|M_{top}|,\\,|M_{bot}|\\right) + N_{Ed}\\,e_i\nMinimum eccentricity (EC2 6.1(4)) A section under compression is designed for at least N_{Ed}e_0, with e_0 = h/30 but not less than 20 mm, where h is the depth of the section in the plane of bending.\nEQUATION (8.3): e_0 = \\max\\left(\\frac{h}{30},\\;20\\ \\mathrm{mm}\\right), \\qquad M_{Ed} = \\max\\left(M_{02},\\;N_{Ed}\\,e_0\\right)\nWorked Example 8.1 (§4 and Examples): l_0 = 1806 mm, N_{Ed} = 2400 kN, end moments 90 and 60 kN m, h = 400 mm. Then e_i = 1806/400 = 4.5 mm, N_{Ed}e_i = 2400 × 0.0045 = 10.8 kN m and M_{02} = 90 + 10.8 = 100.8 kN m. The minimum is e_0 = max(13.3; 20) = 20 mm, N_{Ed}e_0 = 48.0 kN m, so M_{Ed} = 100.8 kN m. For an interior column with small end moments the minimum often governs: with N_{Ed} = 1500 kN, l_0 = 3.0 m, end moment 15 kN m and h = 300 mm, M_{02} = 15 + 11.3 = 26.3 kN m but N_{Ed}e_0 = 30.0 kN m.\n- The imperfection moment is added to the larger end moment, whatever its sign: with symmetric bars the column is designed for the magnitude.\n- e_i and e_0 are not added together. e_i is part of the design moment; e_0 is only a floor under it.\n- Check more than one load case: the largest N_{Ed} with its moment, the largest moment with its N_{Ed}, and the smallest N_{Ed} with its moment. §3 shows why the last one can govern.\nKey points:\n- Non-slender column: design for N_{Ed} and M_{Ed} = max(M_{02}, N_{Ed}e_0).\n- M_{02} = larger end moment + N_{Ed}l_0/400.\n- e_0 = max(h/30, 20 mm), with h in the plane of bending.\nQuick check (not graded): A braced, non-slender column 300 × 300 has l_0 = 3.2 m, N_{Ed} = 1500 kN and a larger end moment of 40 kN m. Its design moment is\nOptions: 40.0 kN m | 52.0 kN m | 30.0 kN m | 70.0 kN m\nExplanation shown after answering: e_i = 3200/400 = 8 mm, so M_{02} = 40 + 1500 × 0.008 = 52.0 kN m; N_{Ed}e_0 = 1500 × 0.020 = 30.0 kN m is smaller, so M_{Ed} = 52.0 kN m. 40.0 leaves out the imperfection; 70.0 adds e_0 on top, which EC2 does not ask for."
+  },
+  {
+   "id": "notes-n2",
+   "text": "[notes-n2] Notes 2. The section under N and M\nA column section is analysed with the same assumptions as a beam in RCD I (EC2 6.1(2)): plane sections remain plane; a bar has the strain of the concrete around it; concrete in tension is ignored; the concrete stress is a rectangular block of 0.567f_{ck} over a depth s = 0.8x (f_{ck} ≤ 50 MPa); the steel is elastic with E_s = 200 kN/mm² up to f_{yd} = 0.87f_{yk}. Three things are new in a column.\n- N is not zero. In a beam the compression equals the tension; in a column the forces add up to the axial load: N = F_c + F_{sc} − F_s.\n- The neutral axis can lie below the section (x > h): the whole section is then in compression. The strain at the most compressed face can no longer reach 0.0035, so EC2 Figure 6.1 pivots the strain diagram on 0.002 at 3h/7 from that face. In pure compression the strain is 0.002 everywhere.\n- Many bars do not yield. Each bar’s stress comes from its strain, σ_s = E_sε_s, capped at ±f_{yd}.\n[Figure: Strain compatibility: choose a neutral axis depth x, read the strain at each bar, turn strains into stresses and forces, and add them up to one pair (N, M). Moments are taken about the centre of the section, h/2.]\nEQUATION (8.4): \\varepsilon(y) = 0.0035\\,\\frac{x-y}{x}\\ \\ (x \\le h), \\qquad \\varepsilon(y) = 0.002\\,\\frac{x-y}{x-3h/7}\\ \\ (x > h)\nEQUATION (8.5): F_c = 0.567 f_{ck}\\,b\\,s,\\ \\ s = \\min(0.8x,\\,h); \\qquad \\sigma_s = E_s\\varepsilon_s,\\ \\ |\\sigma_s| \\le 0.87 f_{yk}\nEQUATION (8.6): N = F_c + F_{sc} - F_s, \\qquad M = F_c\\left(\\frac{h}{2}-\\frac{s}{2}\\right) + F_{sc}\\left(\\frac{h}{2}-d_2\\right) + F_s\\left(d-\\frac{h}{2}\\right)\nHere y is measured from the compression face, d_2 = c_{nom} + φ_{link} + φ/2 is the depth of the compression bars and d = h − d_2 that of the tension bars; F_{sc} and F_s are the bar forces, each from its own strain (F_s becomes a compression when x is deep). As in the course charts, the concrete displaced by the bars is ignored.\nExample, the section of Worked Example 8.1 (400 × 400, 4H16, d_2 = 44 mm, C30/37) with x = 219.6 mm: s = 175.7 mm and F_c = 0.567 × 30 × 400 × 175.7 = 1195.1 kN. Top bars: ε = 0.0035 × (219.6 − 44)/219.6 = 0.0028 > 0.00217, so they yield: F_{sc} = 435 × 402 = 174.9 kN. Bottom bars: ε = 0.0035 × (219.6 − 356)/219.6 = −0.00217, they just yield in tension: F_s = 174.9 kN. N = 1195.1 + 174.9 − 174.9 = 1195 kN and M = 1195.1 × (0.200 − 0.0878) + 2 × 174.9 × 0.156 = 134.1 + 54.6 = 188.6 kN m (188.64 before rounding). One x, one point (N, M).\nKey points:\n- Same assumptions as beams; equilibrium now gives N = F_c + F_{sc} − F_s.\n- x ≤ h: 0.0035 at the face. x > h: 0.002 at 3h/7 (EC2 Figure 6.1).\n- Bar stress from strain, |σ_s| ≤ 0.87f_{yk}; moments about h/2.\nQuick check (not graded): A column section has d = 350 mm and B500 bars. At what neutral axis depth does the concrete reach 0.0035 just as the tension bars yield?\nOptions: 175 mm | 216 mm | 280 mm | 350 mm\nExplanation shown after answering: Similar triangles: x/d = 0.0035/(0.0035 + 0.00217) = 0.617, so x = 0.617 × 350 = 216 mm. This is the balance point of §3. 280 mm is 0.8d, the depth of the stress block at x = d, not a neutral axis."
+  },
+  {
+   "id": "notes-n3",
+   "text": "[notes-n3] Notes 3. The N–M interaction diagram\nSqueeze a row of loose books between your hands and you can lift the whole row: the compression lets it carry its own weight in bending. Squeeze harder and harder, though, and the books at the ends start to crush. A column section behaves the same way. Repeat the calculation of §2 for every neutral axis depth, from a sliver to far below the section, and plot each pair (M, N): the closed curve is the N–M interaction diagram . Every point inside it is a safe combination; the curve itself is the capacity.\n[Figure: The hook of the week: compression lets loose blocks resist bending. Does more compression always help?]\n[Figure: Four strain profiles of one section give four key points of its curve. These are the four team points of Activity 8A.]\nEQUATION (8.7): N_0 = 0.567 f_{ck}\\,b\\,h + 400\\,A_s \\qquad (\\varepsilon = 0.002\\ \\text{everywhere, B500})\nEQUATION (8.8): x_{bal} = \\frac{0.0035}{0.0035 + 0.87 f_{yk}/E_s}\\,d = 0.617\\,d \\qquad (f_{yk} = 500\\ \\mathrm{MPa})\nPoint Strain state N (kN) M (kN m)\nA · squash 0.002 everywhere: every bar at 200 000 × 0.002 = 400 N/mm² 3043 0\nB · x = h 0.0035 at the top, zero at the bottom face: the whole section just in compression 2383 109.5\nC · balance 0.0035 at the top as the tension bars reach ε_{yd} = 0.00217 (x = 0.617d) 1195 188.6\nD · N = 0 pure bending, as a beam: x = 39 mm, even the top bars are in slight tension 0 60.6\n[Figure: The interaction diagram of the Worked Example 8.1 section. Its design point (100.8; 2400) lies inside the curve, so the column is safe; at N = 2400 kN the capacity is M_{Rd} = 107.5 kN m.]\nThe big question. Does more axial load raise or lower the moment capacity? Both, and the balance point divides them. Below C the tension bars yield first ( tension controls ): extra compression holds the section together, as the squeeze holds the books, and M_{Rd} rises, from 60.6 kN m at N = 0 to 188.6 kN m at 1195 kN. Above C the concrete crushes before the tension bars yield ( compression controls ): the axial load already uses the concrete, so every extra kilonewton leaves less for bending, down to zero at the squash load.\n[Figure: Activity 8B: the same moment needs less steel as N grows towards the balance load, then more. A column below balance must therefore also be checked with its smallest axial load.]\nKey points:\n- The curve is the capacity; a design point (M_{Ed}, N_{Ed}) inside it is safe.\n- Key points: squash N_0, x = h, balance (x = 0.617d, largest M), pure bending.\n- Below balance, more N raises M_{Rd}; above balance, more N lowers it.\nQuick check (not graded): On the curve of the Worked Example 8.1 section (balance at 1195 kN), N_{Ed} rises from 600 to 900 kN while M_{Ed} stays at 140 kN m. The column becomes\nOptions: less safe, because it carries more load | safer, because M_{Rd} rises below balance | exactly as safe: N does not affect M_{Rd} | unsafe, because it is now above balance\nExplanation shown after answering: Both loads are below the balance load, where tension controls. M_{Rd} rises from 147.9 to 175.1 kN m, so the margin over 140 kN m grows from 6% to 25%. The reverse also holds: if N falls, the column below balance loses capacity."
+  },
+  {
+   "id": "notes-n4",
+   "text": "[notes-n4] Notes 4. Design charts and the direct check\nAn interaction diagram belongs to one section. Divide N by bhf_{ck} and M by bh²f_{ck}, and the curves of every rectangular section with symmetric bars, f_{ck} ≤ 50 MPa and B500 steel collapse onto one family, labelled by the amount of steel ω. Only the relative bar position d_2/h remains, so there is one chart for each d_2/h.\nEQUATION (8.9): \\nu = \\frac{N_{Ed}}{b\\,h\\,f_{ck}},\\quad \\mu = \\frac{M_{Ed}}{b\\,h^2 f_{ck}} \\ \\Rightarrow\\ \\omega = \\frac{A_s f_{yk}}{b\\,h\\,f_{ck}},\\qquad A_s = \\omega\\,\\frac{b\\,h\\,f_{ck}}{f_{yk}}\n[Figure: Design chart for d_2/h = 0.15, drawn for this course by strain compatibility (§2). The charts for 0.10 and 0.20 follow; all three are printed in the workbook.]\n[Figure: Design chart for d_2/h = 0.10.]\n[Figure: Design chart for d_2/h = 0.20.]\n- d_2 = c_{nom} + φ_{link} + φ/2 with an assumed bar size; find d_2/h.\n- Choose the chart: round d_2/h to two decimals and use that chart if there is one, otherwise the next larger d_2/h, which is on the safe side (or interpolate between two charts).\n- Calculate ν and μ, find the point and read ω between the curves.\n- A_s = ωbhf_{ck}/f_{yk}; apply A_{s,min} (§5) and choose bars.\n- Direct check: for the bars chosen, find x with N = N_{Ed} and the M_{Rd} at that x (§2, or the Column Lab); confirm M_{Rd} ≥ M_{Ed}.\nWorked Example 8.1: d_2 = 30 + 6 + 8 = 44 mm, d_2/h = 0.11, so the 0.15 chart. ν = 2400 × 10³/(400 × 400 × 30) = 0.50 and μ = 100.8 × 10⁶/(400 × 400² × 30) = 0.0525: the point lies just right of the ω = 0 curve, ω ≈ 0.08, so A_s = 0.08 × 400 × 400 × 30/500 = 768 mm². With A_{s,min} = 552 mm², 4H16 (804 mm²). Direct check with 4H16: N = 2400 kN at x = 403 mm, where M_{Rd} = 107.5 kN m ≥ 100.8 kN m.\nWhy the direct check? A chart read by eye is good to about ±0.02 in ω, and a misread curve is easy to miss. The original course spreadsheet read two charts a quarter to a third too low, and the bars it chose failed when checked by strain compatibility. One more line in the calculation catches that.\nKey points:\n- ν = N/(bhf_{ck}), μ = M/(bh²f_{ck}), with h, not d; A_s = ωbhf_{ck}/f_{yk}.\n- d_2/h to two decimals: that chart, or the next larger.\n- Always finish with the direct check M_{Rd} ≥ M_{Ed} for the bars chosen.\nQuick check (not graded): Your column has d_2/h = 0.12 and you have charts for 0.10, 0.15 and 0.20. Without interpolating, which chart gives a safe reading closest to the truth?\nOptions: 0.10 | either 0.10 or 0.15, they agree | 0.15 | 0.20\nExplanation shown after answering: Bars deeper in the section (larger d_2/h) have a shorter lever arm, so a chart with a larger d_2/h asks for more steel: 0.15 is safe, 0.20 is safe but further from the truth, and 0.10 would ask for too little."
+  },
+  {
+   "id": "notes-n5",
+   "text": "[notes-n5] Notes 5. Bars, cover and fire\nEQUATION (8.10): A_{s,min} = \\max\\left(\\frac{0.10\\,N_{Ed}}{0.87 f_{yk}},\\;0.002\\,A_c\\right), \\qquad A_{s,max} = 0.04\\,A_c\\ \\ (0.08\\,A_c\\ \\text{at laps})\n- A_{s,min} (EC2 9.5.2(2)) guards against creep and shrinkage shifting the load onto the bars; for a heavily loaded column the 0.10N_{Ed}/f_{yd} term governs: Worked Example 8.1, 0.10 × 2400 × 10³/435 = 552 mm² > 0.002 × 160 000 = 320 mm².\n- A_{s,max} (EC2 9.5.2(3)) keeps the concrete placeable: 4% outside laps, 8% at laps, where the bars double up.\n- At least one bar in each corner, so at least four in a rectangular column (EC2 9.5.2(4)); bars at least 12 mm (RDF).\nThe cover is set as in RCD I, then checked for fire through the axis distance a, from the face to the centre of the main bar.\nEQUATION (8.11): c_{nom} = c_{min} + \\Delta c_{dev},\\quad c_{min} = \\max\\left(c_{min,b},\\,c_{min,dur},\\,10\\right); \\qquad a = c_{nom} + \\phi_{link} + \\frac{\\phi}{2} \\ \\ge\\ a_{fire}\n- Bond (EC2 4.4.1.2(3)): each bar needs a cover of at least its own diameter, so at the link c_{min,b} = max(φ_{link}, φ − φ_{link}).\n- Durability (EC2 Table 4.4N): inside a building (XC1), 15 mm, or 10 mm with C30/37 or stronger (structural class S3). Δc_{dev} = 10 mm.\n- Fire (EN 1992-1-2 Table 5.2a, method A, for braced columns within the limits of its 5.3.2): use the pair whose b_{min} does not exceed your column’s smaller side. μ_{fi}, the ratio of the axial load in fire to the resistance, may be taken as 0.7 on the safe side.\nFire resistance μ_{fi} = 0.2 μ_{fi} = 0.5 μ_{fi} = 0.7\nR60 200/25 200/36 · 300/31 250/46 · 350/40\nR90 200/31 · 300/25 300/45 · 400/38 350/53 · 450/40\nR120 250/40 · 350/35 350/45 · 450/40 350/57 · 450/51\nWorked Example 8.1 (C30/37, XC1, R60, H6 links, H16 bars): bond at the link max(6; 16 − 6) = 10 mm, durability 10 mm, so c_{min} = 10 and c_{nom} = 20 mm. Fire: b = 400 ≥ 350, so a ≥ 40 mm and c_{nom} ≥ 40 − 6 − 8 = 26 mm. Fire governs: c_{nom} = 30 mm, a = 44 mm.\nKey points:\n- A_{s,min} = max(0.10N_{Ed}/f_{yd}, 0.002A_c); A_{s,max} = 0.04A_c.\n- At least 4 bars of at least 12 mm in a rectangular column.\n- c_{nom} from bond and durability, then a = c_{nom} + φ_{link} + φ/2 against Table 5.2a.\nQuick check (not graded): A 300 × 300 column carries N_{Ed} = 1800 kN; the chart asks for 380 mm² of B500 steel. What area must you provide at least?\nOptions: 380 mm² | 414 mm² | 180 mm² | 3600 mm²\nExplanation shown after answering: A_{s,min} = max(0.10 × 1800 × 10³/435; 0.002 × 90 000) = max(414; 180) = 414 mm², more than the 380 mm² the chart asks for, so 4H12 (452 mm²). 180 mm² forgets the axial-load term; 3600 mm² is A_{s,max}."
+  },
+  {
+   "id": "notes-n6",
+   "text": "[notes-n6] Notes 6. Links and detailing\nA compression bar is a thin strut. Between two links it can buckle outwards and push off the cover, so the links hold every bar in line and confine the concrete core. EC2 9.5.3 sets their size and spacing.\nEQUATION (8.12): \\phi_{link} \\ge \\max\\left(6\\ \\mathrm{mm},\\ \\frac{\\phi_{max}}{4}\\right), \\qquad s_{cl,max} = \\min\\left(20\\,\\phi_{min},\\ b,\\ 400\\ \\mathrm{mm}\\right)\n[Figure: Links: the spacing closes up to 0.6s_{cl,max} next to beams and slabs and at laps; every corner bar sits in a link bend, and no compression bar is more than 150 mm from a restrained one.]\n- The diameter rule uses the largest bar; the spacing rule uses the smallest bar, the one most likely to buckle.\n- Reduce the spacing by 0.6 within a distance equal to the larger column dimension above and below a beam or slab, and at laps when the largest bar exceeds 14 mm, with at least three links in the lap length (EC2 9.5.3(4)).\n- Every corner bar is held by a link; no bar in the compression zone may be more than 150 mm from a restrained bar, otherwise add a tie (EC2 9.5.3(6)).\n- Round each spacing down to a practical multiple of 25 mm, as the course notes do.\nWorked Example 8.1 (4H16, 400 × 400): φ_{link} ≥ max(6; 16/4) = 6 mm, H6. s_{cl,max} = min(20 × 16; 400; 400) = 320 mm: H6-300. Within 400 mm of each floor and at the laps (16 > 14 mm): 0.6 × 320 = 192 mm, H6-175.\nStep The design of a short column, in one table Notes\n1 Classify: non-slender about the axis of bending (Unit 7) λ ≤ λ_{lim}\n2 Cover for bond, durability and fire §5\n3 M_{Ed} = max(M_{02}, N_{Ed}e_0) §1\n4 d_2/h, ν, μ; the chart; A_s §4\n5 A_{s,min}, A_{s,max}; choose the bars §5\n6 Direct check M_{Rd} ≥ M_{Ed} §2–§4\n7 Links: size, spacing, closer zones; sketch the section §6\nKey points:\n- φ_{link} ≥ max(6, φ_{max}/4); s_{cl,max} = min(20φ_{min}, b, 400).\n- 0.6s_{cl,max} near beams and slabs, and at laps when φ > 14 mm.\n- Corner bars in link bends; no bar more than 150 mm from a restrained one.\nQuick check (not graded): A 400 × 400 column has 4H25 at the corners and 4H16 at mid-faces. The largest link spacing allowed away from the beams is\nOptions: 500 mm | 320 mm | 400 mm | 192 mm\nExplanation shown after answering: The spacing rule takes the smallest bar: min(20 × 16; 400; 400) = 320 mm, so H8-300 in practice (H8, because 25/4 = 6.25 mm > 6 mm). 500 mm uses the H25; 192 mm is the reduced spacing near the beams."
+  },
+  {
+   "id": "slides-1",
+   "text": "[slides-1] Slide 1: Columns II\nSEAA 4333 Reinforced Concrete Design II · Week 9 Columns II Short columns: axial load and moment, bars and links Workbook ch. 8 ABCD card Calculator Phone or laptop Column Lab Scan for this page’s Explorer tab. Tabs 4 and 5 are today’s."
+  },
+  {
+   "id": "slides-2",
+   "text": "[slides-2] Slide 2: How the next three hours run\nToday · 180 minutes How the next three hours run 0:00 Warm-up Unit 7 in three votes 0:10 Hook A row of books 0:15 Design moment eᵢ and e₀ 0:27 One x, one point Strain compatibility 0:40 Jigsaw Activity 8A, Lab tab 4 1:10 Predict, reveal Activity 8B 1:20 Break 10 minutes 1:30 Charts, WE 8.1 I do 1:50 Faded example Activity 8C, pairs 2:15 Exam-size problem Alone, 25 minutes 2:45 Studio, exit Your column No talk longer"
+  },
+  {
+   "id": "slides-3",
+   "text": "[slides-3] Slide 3: Three questions to start the design\nWarm-up · no notes · cards up Three questions to start the design W1 · Unit 7 Braced column between stiff beams, k = 0.1 at both ends, l = 3.0 m. l₀ is A 1.50 m B 1.77 m C 3.00 m D 3.66 m W2 · Unit 7 About z: λ = 30, λlim = 45. The design of the column needs A the second-order moment M₂ B its first-order moments with imperfections C an unbraced l₀ D a bigger section W3 · RCD I In a section at the ULS, a B500 bar carr"
+  },
+  {
+   "id": "slides-4",
+   "text": "[slides-4] Slide 4: B, B, A, and what each means today\nWarm-up · answers B, B, A, and what each means today W1 B: 0.59l = 1.77 m k at its floor: the beams hold the ends almost rigidly. l₀ also gives eᵢ = l₀/400 today. W2 B: first order + eᵢ Non-slender: no M₂. Today adds N·eᵢ and the floor N·e₀, then the bars. W3 A: ε ≥ εyd = 0.00217 Below that strain σ = 200 000ε. In a column some bars never get there. SEAA 4333 · Unit 8 · Columns II Workbook 8.1"
+  },
+  {
+   "id": "slides-5",
+   "text": "[slides-5] Slide 5: Can a row of loose books carry its own weight?\nHook · 5 minutes Can a row of loose books carry its own weight? In pairs: lift a row of six to ten books by squeezing the two ends. Squeeze harder. Does the row keep getting stronger? A column is the same: axial load N, bending M. SEAA 4333 · Unit 8 · Columns II Workbook 8.1"
+  },
+  {
+   "id": "slides-6",
+   "text": "[slides-6] Slide 6: A column section carries a moment. If its axial load grows, its moment capacity\nConcept check 1 · the big question · vote now, again after the jigsaw A column section carries a moment. If its axial load grows, its moment capacity A always rises B always falls C rises, then falls D does not change Vote · convince your neighbour · vote again Workbook 8.1"
+  },
+  {
+   "id": "slides-7",
+   "text": "[slides-7] Slide 7: Today designs the columns Unit 7 called short\nBlock A · where this sits Today designs the columns Unit 7 called short Unit 7 · week 7 Classify Braced or unbraced; l₀; λ against λlim about each axis. Unit 8 · today Short columns Design moment; N–M interaction; charts and the direct check; bars, cover, links. Unit 9 · week 10 Slender, biaxial Second-order moment M₂ by nominal curvature; bending about both axes. Steps 3–4 (cover and fire) and 7–9 (design moment, ba"
+  },
+  {
+   "id": "slides-8",
+   "text": "[slides-8] Slide 8: The design moment: the analysis, plus two allowances\nBlock A · talk 1 · 10 minutes The design moment: the analysis, plus two allowances eᵢ = l₀/400 Imperfection (EC2 5.2): out of line, out of plumb. Always added: M₀₂ = |M|max + NEd·eᵢ. e₀ = max(h/30; 20 mm) Minimum eccentricity (EC2 6.1(4)): a floor, never added to M₀₂. MEd = max(M₀₂; NEd·e₀) h is the depth in the plane of bending. WE 8.1 : l₀ 1806, NEd 2400, M 90 / 60, h 400 eᵢ = 4.5 mm → 10.8 kN m M₀₂ = 100.8 kN m N·"
+  },
+  {
+   "id": "slides-9",
+   "text": "[slides-9] Slide 9: Strain compatibility: one neutral axis, one point (N, M)\nBlock A · talk 2 · 12 minutes Strain compatibility: one neutral axis, one point (N, M) Same rules as beams; three things are new: 1 · N = Fc + Fsc − Fs, not zero 2 · x can be below the section: pivot 0.002 at 3h/7 3 · many bars do not yield: σ = 200 000ε ≤ 435 SEAA 4333 · Unit 8 · Columns II Workbook 8.2"
+  },
+  {
+   "id": "slides-10",
+   "text": "[slides-10] Slide 10: Four strain profiles, four points of one curve\nBlock A · talk 2 · the four key points Four strain profiles, four points of one curve A: squash · B: x = h · C: balance, x = 0.617d · D: N = 0, like a beam. Your team gets one of them. SEAA 4333 · Unit 8 · Columns II Workbook 8.3"
+  },
+  {
+   "id": "slides-11",
+   "text": "[slides-11] Slide 11: Four teams build one interaction curve\nActivity 8A · jigsaw · 30 minutes Four teams build one interaction curve Section (WE 8.1) 400 × 400, C30/37, B500 4H16: 2 bars each face As/2 = 402 mm² per face d₂ = 44 mm, d = 356 mm Es = 200 kN/mm², fyd = 435 A · squash x → ∞: strain 0.002 everywhere. Find N₀. B · x = h 0.0035 at the top, zero at the bottom face. Find N and M. C · balance x = 0.617d: concrete 0.0035, bottom bars at εyd. Find N and M. D · N = 0 Find"
+  },
+  {
+   "id": "slides-12",
+   "text": "[slides-12] Slide 12: C: the capacity rises, then falls. The turn is the balance point\nActivity 8A · reveal C: the capacity rises, then falls. The turn is the balance point A (0; 3043) B (109.5; 2383) C (188.6; 1195) D (60.6; 0) Below C, more N raises M_{Rd}; above C, it lowers it. WE 8.1 sits inside the curve: (100.8; 2400). SEAA 4333 · Unit 8 · Columns II Workbook 8.3"
+  },
+  {
+   "id": "slides-13",
+   "text": "[slides-13] Slide 13: Why more axial load can mean more moment\nBlock A · the big question, answered Why more axial load can mean more moment below balance · tension controls Tension bars already yield: Fs is fixed. Extra N deepens the block; its moment 0.567fck·b·s(h − s)/2 grows while s < h/2. above balance · compression controls The concrete crushes before the tension bars yield. The axial load uses the concrete; each extra kN leaves less for bending. For design: check the lar"
+  },
+  {
+   "id": "slides-14",
+   "text": "[slides-14] Slide 14: A 300 × 300 roof column needs bars for MEd = 92.3 kN m. If NEd rises from 350 to 700 kN, the steel needed\nActivity 8B · predict, then reveal in Lab tab 4 A 300 × 300 roof column needs bars for MEd = 92.3 kN m. If NEd rises from 350 to 700 kN, the steel needed A rises B falls C stays the same D cannot be found Vote · convince your neighbour · vote again Workbook 8.4"
+  },
+  {
+   "id": "slides-15",
+   "text": "[slides-15] Slide 15: B: it falls, from 1169 to 847 mm², then rises again\nActivity 8B · reveal B: it falls, from 1169 to 847 mm², then rises again Least steel near the balance load, 640 kN. Below it, less N needs more steel: 175 kN needs 1528 mm². So a light load case can govern a roof column. SEAA 4333 · Unit 8 · Columns II Workbook 8.4"
+  },
+  {
+   "id": "slides-16",
+   "text": "[slides-16] Slide 16: Break\n1:20 Break 10 minutes. Back at 1:30. Next: from the curve to the bars, with a design chart."
+  },
+  {
+   "id": "slides-17",
+   "text": "[slides-17] Slide 17: Design charts: every section on one page\nBlock B · talk 3 · 10 minutes Design charts: every section on one page ν = N/(bh·fck) μ = M/(bh²·fck) As = ω·bh·fck/fyk One chart per d₂/h. Round d₂/h to two decimals: that chart, or the next larger (safe side). h, not d: the beam habit M/bd² gives the wrong point. Read ω between the curves to about ±0.02. SEAA 4333 · Unit 8 · Columns II Workbook 8.5"
+  },
+  {
+   "id": "slides-18",
+   "text": "[slides-18] Slide 18: A heavily loaded interior column\nBlock B · Worked Example 8.1 · I do A heavily loaded interior column Braced , fixed base 400 × 400; C30/37; XC1; R60 Beams 300 × 600, 6.0 m, 4 sides l₀ = 1806 mm (Unit 7) NEd 2400 kN Mz 90 / 60 (opposite faces) cnom 30 (fire), links H6 App case C4 Calculation Output λ = 1806/115.5; λlim (C 2.367, n 0.882) 15.6 < 38.8 M₀₂ = 90 + 2400 × 0.0045 100.8 kN m N·e₀ = 2400 × 0.020 48.0 < 100.8 d₂ = 44, d₂/h 0.11 → chart 0.15;"
+  },
+  {
+   "id": "slides-19",
+   "text": "[slides-19] Slide 19: Check the bars you chose, not the chart you read\nBlock B · the direct check Check the bars you chose, not the chart you read WE 8.1 · 4H16 Find x with N = 2400 kN: x = 403 mm (pivot). Then Fc = 2192.5, Fsc = 174.9, Fs = +32.5 kN: M_{Rd} = 85.3 + 27.3 − 5.1 = 107.5 kN m . Why bother? A chart read by eye is good to ±0.02. The original course spreadsheet read two charts a quarter to a third low; its bars failed this check. In the exam: one line of strain compatibility"
+  },
+  {
+   "id": "slides-20",
+   "text": "[slides-20] Slide 20: A braced, non-slender 300 × 300 column: l₀ = 3.2 m, NEd = 1500 kN, larger end moment 40 kN m. MEd is\nConcept check 2 · think 60 s, then vote A braced, non-slender 300 × 300 column: l₀ = 3.2 m, NEd = 1500 kN, larger end moment 40 kN m. MEd is A 40.0 kN m B 52.0 kN m C 30.0 kN m D 70.0 kN m Vote · convince your neighbour · vote again Workbook 8.7"
+  },
+  {
+   "id": "slides-21",
+   "text": "[slides-21] Slide 21: Faded Example 8.2: a roof-level edge column\nActivity 8C · pairs · 20 minutes Faded Example 8.2: a roof-level edge column Steps 1, 2 and 5 are done in Workbook 8.6. Finish steps 3, 4 and 6 in pairs. NEd 350 kN; Mz 90 / 45 (opposite faces); l₀ 2.6 m; C30/37; cnom 30; H6 links; H20 bars. Then check in Lab tab 5 (case FE 8.2). SEAA 4333 · Unit 8 · Columns II Workbook 8.6"
+  },
+  {
+   "id": "slides-22",
+   "text": "[slides-22] Slide 22: 4H20; tension controls, so check the light load case\nActivity 8C · check 4H20; tension controls, so check the light load case Calculation Output eᵢ = 6.5; M₀₂ = 90 + 350 × 0.0065 92.3 kN m N·e₀ = 7.0 < 92.3 MEd 92.3 d₂ = 46 → chart 0.15; ν; μ 0.130; 0.114 ω ≈ 0.21: As = 0.21 × 300 × 300 × 30/500 1134 mm² As,min = max(80; 180); 4H20 1257 mm² x = 96 mm: MRd (Step 5) 96.2 ≥ 92.3 ✓ H6; s ≤ min(400; 300; 400); 0.6 × 300 H6-300 / 175 Balance load 640 kN. With N = 175 kN and"
+  },
+  {
+   "id": "slides-23",
+   "text": "[slides-23] Slide 23: Bars, cover and links\nBlock C · talk 4 · 8 minutes Bars, cover and links As,min = max(0.10NEd/435; 0.002Ac) As,max = 0.04Ac ≥ 4 bars, ≥ 12 mm · a = cnom + φlink + φ/2 ≥ Table 5.2a φlink ≥ max(6; φmax/4) s ≤ min(20φmin; b; 400) 0.6s over max(b, h) at beams and slabs, and at laps if φ > 14 mm SEAA 4333 · Unit 8 · Columns II Workbook 8.8"
+  },
+  {
+   "id": "slides-24",
+   "text": "[slides-24] Slide 24: 400 × 400 column, 4H25 at the corners and 4H16 at mid-faces. The largest link spacing away from the beams is\nConcept check 3 · think 60 s, then vote 400 × 400 column, 4H25 at the corners and 4H16 at mid-faces. The largest link spacing away from the beams is A 500 mm B 320 mm C 400 mm D 192 mm Vote · convince your neighbour · vote again Workbook 8.7"
+  },
+  {
+   "id": "slides-25",
+   "text": "[slides-25] Slide 25: B and B\nConcept checks 2 and 3 · answers B and B CC2 · B: 52.0 kN m eᵢ = 3200/400 = 8 mm; M₀₂ = 40 + 1500 × 0.008 = 52.0; N·e₀ = 30.0 is only a floor. CC3 · B: 320 mm min(20 × 16; 400; 400) = 320 → H8-300; 0.6 × 320 = 192 → H8-175 near the floors and at laps. SEAA 4333 · Unit 8 · Columns II Workbook 8.7"
+  },
+  {
+   "id": "slides-26",
+   "text": "[slides-26] Slide 26: D8: a past-paper question (15 marks)\nBlock D · alone · 25 minutes D8: a past-paper question (15 marks) Braced; C25/30; B500; cnom 30; links H6; bars H20. Bending about z only. (a) non-slender? [3] (b) MEd [3] (c) As from the chart, bars [5] (d) As,min, As,max [2] (e) links [2] Ref | Calculations | Output. Charts allowed; app and Lab closed. Self-mark after class. SEAA 4333 · Unit 8 · Columns II Workbook 8.9"
+  },
+  {
+   "id": "slides-27",
+   "text": "[slides-27] Slide 27: Design your column, one storey at a time\nProject studio · 15 minutes Design your column, one storey at a time 1 Take one storey that Unit 7 called short: MEd with eᵢ and e₀, for the largest and the smallest N. 2 Cover for R60; d₂/h; the chart; bars; the direct check in Lab tab 5. 3 Links and a section sketch with bar marks. Log it in Workbook 8.10: the numbers and one decision (for example, the same bars from roof to ground, or a change at a floor). SEAA 43"
+  },
+  {
+   "id": "slides-28",
+   "text": "[slides-28] Slide 28: Know which side of balance you are on\nProfessional Habit 8 Know which side of balance you are on ν ≳ 0.25 above balance: compression controls; the largest N governs ν ≲ 0.25 below balance: tension controls; check the smallest N too ν > 0.5 x near or below h: expect light bars, often As,min Balance sits near ν = 0.24 on these charts. Work out ν first; it tells you which load case to fear. SEAA 4333 · Unit 8 · Columns II Workbook 8.10"
+  },
+  {
+   "id": "slides-29",
+   "text": "[slides-29] Slide 29: Before Unit 9\nAfter class Before Unit 9 Notes §1–§6 and the exercises on the Unit 8 page (45 min) Column S8 in Lab tab 3: four slips to find Self-mark D8 with the answer scheme on UTM eLearning Bring the moments of your column about both axes SEAA 4333 · Unit 8 · Columns II Workbook 8.10"
+  },
+  {
+   "id": "slides-30",
+   "text": "[slides-30] Slide 30: Before you leave\nExit ticket · 5 minutes · Workbook 8.11 Before you leave 1 300 × 300 column, l₀ = 3.0 m, NEd = 1500 kN, larger end moment 15 kN m. What is MEd? One line. 2 Why can more axial load raise a column’s moment capacity? 3 What is still unclear for you today? Tear off the slip and hand it in at the door. Next week: slender columns. SEAA 4333 · Unit 8 · Columns II"
+  },
+  {
+   "id": "examples-x1",
+   "text": "[examples-x1] Example 1 · Worked Example 8.1: a heavily loaded interior column\nExam type design a short column about one axis Workbook 8.5 Time ≈ 25 min\nQuestion A braced first-storey column 400 × 400 stands on a pad footing designed for the moment, so its base is fixed. The first floor is 3.5 m above the top of the footing, and beams 300 × 600 spanning 6.0 m frame into the column on all four sides. N_{Ed} = 2400 kN; the first-order end moments about z are 90 kN m at the top and 60 kN m at the bottom, giving tension on opposite faces; about y the analysis gives no moment. C30/37, B500, exposure XC1, fire resistance R60; links H6, bars assumed H16. Design the longitudinal bars and the links for bending about z. In the app: case C4 of the RC Design Worked Solutions app is this column.\n[Figure: Worked Example 8.1: the column, its beams and its first-order moments about z.]\nPhysical picture. A squat column under a heavy load: ν = 0.5, half of what plain concrete could carry. The deep beams hold it firmly, so it is short, and the axial load is so large that the whole section will be in compression.\nPlan. Classify (Unit 7); cover; M_{Ed}; ν and μ on the right chart; A_s, A_{s,min}, A_{s,max} and the bars; the direct check; links.\n## Step 1 Short or slender about z (Unit 7)\nRef Calculations Output\n(7.4) l = 3500 − 600 = 2900 mm; K_c = 400⁴/12/2900 = 7.356 × 10⁵ mm³; each beam 300 × 600³/12/6000 = 9.000 × 10⁵ mm³; top: k_2 = 7.356/(2 × 18.0); fixed base k_1 = 0.1 k_2 = 0.204\n(7.2) l_0 = 0.5 × 2900 × √[(1 + 0.1/0.55)(1 + 0.204/0.654)]; λ = 1806/(400/√12) l_0 = 1806 mm; λ = 15.6\n(7.7)–(7.9) n = 2400 × 10³/(160 000 × 17.0) = 0.882; 90 > N_{Ed}l_0/400 = 10.8, double curvature: r_m = −60/90, C = 2.367; λ_{lim} = 20 × 0.7 × 1.1 × 2.367/√0.882 = 38.8 > 15.6 Non-slender about z\n## Step 2 Cover for bond, durability and fire\nRef Calculations Output\nEC2 4.4.1.2 Bond at the link: max(6; 16 − 6) = 10 mm; durability, XC1 with C30/37 (S3): 10 mm; c_{min} = 10, Δc_{dev} = 10 c_{nom} ≥ 20 mm\nEN 1992-1-2 Table 5.2a R60, μ_{fi} = 0.7, b = 400 ≥ 350: a ≥ 40 mm, so c_{nom} ≥ 40 − 6 − 8 = 26 mm c_{nom} = 30 mm; a = 44 mm\n## Step 3 Design moment\nRef Calculations Output\n(8.1), (8.2) e_i = 1806/400 = 4.5 mm; M_{02} = 90 + 2400 × 0.0045 M_{02} = 100.8 kN m\n(8.3) e_0 = max(400/30; 20) = 20 mm; N_{Ed}e_0 = 2400 × 0.020 = 48.0 kN m < 100.8 M_{Ed} = 100.8 kN m\n## Step 4 Design chart\nRef Calculations Output\n§4 d_2 = 30 + 6 + 16/2 = 44 mm; d_2/h = 0.11: use the chart for 0.15 (next larger) d_2/h = 0.15\n(8.9) ν = 2400 × 10³/(400 × 400 × 30); μ = 100.8 × 10⁶/(400 × 400² × 30) ν = 0.50; μ = 0.0525\nChart The point lies just right of the ω = 0 curve: ω ≈ 0.08; A_s = 0.08 × 400 × 400 × 30/500 A_{s,req} ≈ 768 mm²\n## Step 5 Steel limits and bars\nRef Calculations Output\n(8.10) A_{s,min} = max(0.10 × 2400 × 10³/435; 0.002 × 160 000) = max(552; 320); A_{s,max} = 0.04 × 160 000 552 mm²; 6400 mm²\nEC2 9.5.2 4 bars, one per corner, ≥ 12 mm: 4H16 = 804 mm² ≥ 768 and ≥ 552 Provide 4H16\n## Step 6 Direct check by strain compatibility\nRef Calculations Output\n(8.4) Try x = 402.8 mm > h: pivot 0.002 at 3h/7 = 171.4 mm; top bars ε = 0.0031 (yield, 435 N/mm²); bottom bars ε = 0.00041 (81 N/mm², compression) x = 402.8 mm\n(8.5), (8.6) s = 0.8 × 402.8 = 322.2 mm; F_c = 17.0 × 400 × 322.2 = 2192.5 kN; F_{sc} = 435 × 402 = 174.9 kN; bottom bars +32.5 kN ; N = 2192.5 + 174.9 + 32.5 N = 2400 kN ✓\n(8.6) M_{Rd} = 2192.5 × 0.0389 + 174.9 × 0.156 − 32.5 × 0.156 = 85.3 + 27.3 − 5.1 M_{Rd} = 107.5 ≥ 100.8 kN m ✓\n## Step 7 Links\nRef Calculations Output\n(8.12) φ_{link} ≥ max(6; 16/4); s_{cl,max} = min(20 × 16; 400; 400) = 320 mm H6-300\nEC2 9.5.3(4) Within 400 mm above and below each floor, and at the laps (16 > 14 mm): 0.6 × 320 = 192 mm H6-175\nAnswer. Non-slender about z; M_{Ed} = 100.8 kN m; 4H16 (804 mm²) with c_{nom} = 30 mm, M_{Rd} = 107.5 kN m ≥ 100.8 kN m; links H6-300, closing to H6-175 within 400 mm of each floor and at the laps.\nWhat the numbers say The neutral axis lies just below the section (x = 403 mm > h), so even the “tension” bars are compressed: the design point sits just above point B of the interaction diagram (2383 kN), where compression controls. The bars are light, 0.5% of the section, and A_{s,min} (552 mm²) is close to governing; strain compatibility alone would ask for 694 mm², and the 0.10 chart for 685 mm², so all three routes lead to 4H16. About y the analysis gives no moment, but the column is not finished: about y it is slender (λ = 15.6 > λ_{lim} = 11.5, as C = 0.7 with no end moments) and must carry N_{Ed}e_0 = 48 kN m while the 90 kN m end moment acts about z. Unit 9 checks the two together (Faded Example 9.2): with 4H16, Eq. 5.39 gives 1.02, so the complete design is 4H20."
+  },
+  {
+   "id": "examples-x2",
+   "text": "[examples-x2] Example 2 · Faded Example 8.2: a roof-level edge column\nExam type design a short column, moment dominant Workbook 8.6 Time ≈ 20 min\nQuestion A top-storey edge column 300 × 300 carries a roof beam 300 × 600 spanning 9.0 m at its top. The building is braced and l_0 = 2.6 m about z (Unit 7). N_{Ed} = 350 kN; the first-order end moments about z are 90 kN m at the top and 45 kN m at the bottom, giving tension on opposite faces. C30/37, B500, XC1, R60; links H6, bars assumed H20. Design the longitudinal bars and the links for bending about z.\n[Figure: Faded Example 8.2: the long roof beam bends the column hard while the axial load is light.]\nPhysical picture. The opposite of Example 1: little axial load (ν = 0.13) and a large moment, e = M/N ≈ 260 mm, almost the full depth. The section behaves like a beam with some compression: expect a shallow neutral axis and yielding tension bars.\nPlan. As Example 1. In the workbook, Steps 3, 4 and 6 are left for you to complete.\n## Step 1 Short or slender about z\nRef Calculations Output\n(7.5)–(7.9) λ = 2600/(300/√12) = 30.0; n = 350 × 10³/(90 000 × 17.0) = 0.229; 90 > N_{Ed}l_0/400 = 2.3, double curvature: r_m = −45/90 = −0.5, C = 2.2; λ_{lim} = 20 × 0.7 × 1.1 × 2.2/√0.229 = 70.8 > 30.0 Non-slender about z\n## Step 2 Cover\nRef Calculations Output\nEC2 4.4.1.2 Bond at the link: max(6; 20 − 6) = 14 mm; durability 10 mm; c_{nom} ≥ 14 + 10 c_{nom} ≥ 24 mm\nEN 1992-1-2 Table 5.2a R60, μ_{fi} = 0.7, b = 300 < 350: the 250/46 pair, a ≥ 46 mm, c_{nom} ≥ 46 − 6 − 10 = 30 mm c_{nom} = 30 mm; a = 46 mm\n## Step 3 Design moment\nRef Calculations Output\n(8.1)–(8.3) e_i = 2600/400 = 6.5 mm; M_{02} = 90 + 350 × 0.0065 = 92.3 kN m; N_{Ed}e_0 = 350 × 0.020 = 7.0 kN m M_{Ed} = 92.3 kN m\n## Step 4 Design chart and bars\nRef Calculations Output\n§4 d_2 = 30 + 6 + 10 = 46 mm; d_2/h = 0.153: chart 0.15. ν = 350 × 10³/(300 × 300 × 30) = 0.130; μ = 92.3 × 10⁶/(300 × 300² × 30) = 0.114 ν = 0.130; μ = 0.114\nChart Between the 0.2 and 0.3 curves, nearer 0.2: ω ≈ 0.21; A_s = 0.21 × 300 × 300 × 30/500 A_{s,req} ≈ 1134 mm²\n(8.10) A_{s,min} = max(0.10 × 350 × 10³/435; 0.002 × 90 000) = max(80; 180); A_{s,max} = 3600 mm²; 4H20 = 1257 mm² Provide 4H20\n## Step 5 Direct check\nRef Calculations Output\n(8.4), (8.5) x = 96.4 mm: s = 77.1 mm, F_c = 17.0 × 300 × 77.1 = 393.4 kN; top bars ε = 0.00183, σ = 366 N/mm², F_{sc} = 229.9 kN (not yielded); bottom bars ε = −0.0057, yield, F_s = 435 × 628 = 273.3 kN N = 393.4 + 229.9 − 273.3 = 350 kN ✓\n(8.6) M_{Rd} = 393.4 × 0.1115 + 229.9 × 0.104 + 273.3 × 0.104 = 43.9 + 23.9 + 28.4 M_{Rd} = 96.2 ≥ 92.3 kN m ✓\n## Step 6 Links\nRef Calculations Output\n(8.12) φ_{link} ≥ max(6; 20/4 = 5) = 6 mm; s_{cl,max} = min(20 × 20; 300; 400) = 300 mm H6-300\nEC2 9.5.3(4) Within 300 mm of the roof beam and the floor, and at the laps (20 > 14 mm): 0.6 × 300 = 180 mm H6-175\nAnswer. Non-slender; M_{Ed} = 92.3 kN m; 4H20 (1257 mm²) with c_{nom} = 30 mm, M_{Rd} = 96.2 kN m ≥ 92.3 kN m; links H6-300, closing to H6-175 within 300 mm of the beam and the floor and at the laps.\nWhat the numbers say Here x = 96 mm: tension controls. The bottom bars yield, the top bars do not, and the column sits well below its balance load of 640 kN. That has a consequence (Activity 8B): if another load case gives the same moment with less axial load, for example wind or a pattern of roof loading, the column needs more steel, not less. With N = 175 kN and 92.3 kN m it needs 1528 mm², and 4H20 carries only 80.1 kN m. Check the smallest N_{Ed} with its moment as well as the largest. Fire set the cover here, and only just: a = 46 mm is exactly the table value."
+  },
+  {
+   "id": "examples-x3",
+   "text": "[examples-x3] Example 3 · Explain-type questions\nExam type short written answers Time ≈ 3 min each\nQuestions\n- The frame analysis gives the end moments of a short column exactly. Why does EC2 still add N_{Ed}e_i to them?\n- Explain, with the forces in the section, why a column below its balance point can carry more moment when its axial load increases.\n- Why must a column be checked with its smallest axial load as well as its largest?\n- Why does EC2 ask for closer links near beams and slabs and at laps?\nWrite your four answers first, then open the model answers one by one.\n## Answer 1 Real columns are not straight\nThe analysis assumes a perfectly straight and plumb column loaded along its axis. Real columns are built within tolerances: slightly out of line, slightly out of plumb, with the load slightly off centre. The axial load then acts with an eccentricity and adds a moment the analysis never saw. EC2 5.2 represents this by e_i, which for a braced column may be taken as l_0/400; N_{Ed}e_i is added to the larger end moment. For heavily loaded columns it is not small: 10.8 kN m in Worked Example 8.1, 12% of the end moment.\n## Answer 2 A deeper block with a good lever arm\nBelow balance the tension bars have yielded, so their force stays at f_{yd}A_s/2. From N = F_c + F_{sc} − F_s, extra axial load must then be carried mostly by a larger concrete force (the compression bars add a little as their strain grows): the neutral axis moves down and the block deepens. The block’s moment about the centre is F_c(h − s)/2 = 0.567f_{ck}b·s(h − s)/2, which grows with s as long as s < h/2. So more N gives more M, until the tension bars stop yielding at the balance point, where s = 0.8 × 0.617d ≈ 0.43h, close to the h/2 that gives the block its largest moment. Beyond it the tension bar force falls away and the block runs out of lever arm, so M_{Rd} drops.\n## Answer 3 Less N can mean less capacity\nBecause of Answer 2: below balance, a smaller axial load gives a smaller M_{Rd}. A load case with less N but a similar moment, such as wind on a frame, uplift, or a pattern of imposed load that loads the beam but not the floors above, can therefore govern. In Faded Example 8.2 the 4H20 that carry 96.2 kN m at 350 kN carry only 80.1 kN m at 175 kN. Columns are checked for the largest N with its moment, the largest moment with its N, and the smallest N with its moment.\n## Answer 4 Where the bars work hardest\nThe column moment is largest at its ends, next to the beams and slabs, so the bars there carry the most compression and are the most likely to buckle; the region is also disturbed by the forces entering from the floor, and the bars are often cranked or lapped there. At a lap two bars pass their force through the concrete between them, which creates splitting forces across the lap; links resist them, which is why EC2 9.5.3(4) asks for 0.6s_{cl,max} and at least three links over the lap of bars larger than 14 mm."
+  },
+  {
+   "id": "exercises-b1",
+   "text": "[exercises-b1] Exercise B1 · The design moment\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-b2",
+   "text": "[exercises-b2] Exercise B2 · Chart parameters and steel\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-b3",
+   "text": "[exercises-b3] Exercise B3 · Steel limits\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-b4",
+   "text": "[exercises-b4] Exercise B4 · Squash load and balance point\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-b5",
+   "text": "[exercises-b5] Exercise B5 · The point x = h\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-b6",
+   "text": "[exercises-b6] Exercise B6 · Link size and spacing\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-quick",
+   "text": "[exercises-quick] Exercises: quick concept questions\n- A column section is 450 mm deep in the plane of bending. Its minimum eccentricity e_0 is\n- For a non-slender column, the imperfection moment N_{Ed} e_i is\n- A column works below its balance point. Its axial load increases while its moment stays the same. Its moment capacity\n- At the balance point of a column section\n- The horizontal axis of the column design charts of this course is\n- A 300 × 400 column has 4H20 at the corners and 2H12 at mid-faces. The largest link spacing away from the beams is\n- A braced, non-slender column 300 × 300 has l_0 = 3.0 m and N_{Ed} = 1200 kN; its end moments are 40 and 20 kN m, giving tension on opposite faces. One line contains the slip. Which one?\n- A column 350 × 450 has 4H25 at the corners and 2H16 at the middle of the 450 mm faces. One line of its link design contains the slip. Which one?"
+  },
+  {
+   "id": "lab-jig",
+   "text": "[lab-jig] Explorer task 1 · Tab 4: enter your team’s point of Activity 8A (A, B, C or D) for the Worked Example 8.1 section, then the other three. Which point has the largest moment?\nTicks itself: when all four points are within 2% of the Lab’s values · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-bal",
+   "text": "[lab-bal] Explorer task 2 · Tab 4: drag the neutral axis to the balance point, where the tension bars just yield. Read x and compare M with the moments a little above and below it.\nTicks itself: when x is within 2 mm of the balance depth of the section shown · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-b8",
+   "text": "[lab-b8] Explorer task 3 · Tab 4, Activity 8B: predict whether raising N_{Ed} from 350 to 700 kN raises or lowers the steel needed for 92.3 kN m, then reveal.\nTicks itself: when you reveal Activity 8B after a prediction · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-we81",
+   "text": "[lab-we81] Explorer task 4 · Tab 5: load Worked Example 8.1, choose 4H16 and confirm M_{Rd} ≥ M_{Ed} with your workbook.\nTicks itself: when Worked Example 8.1 passes with 4H16 in tab 5 · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-link",
+   "text": "[lab-link] Explorer task 5 · Tab 5: enter the link diameter, the spacing and the closer spacing for the bars chosen, and press “Check links”.\nTicks itself: when all three link entries satisfy EC2 9.5.3 · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-s8",
+   "text": "[lab-s8] Explorer task 6 · Tab 3: pick Column S8, find all four slips, tap their lines and press “Check”.\nTicks itself: when all four slips of S8 are found, before Show · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "glossary-axial-load-ratio",
+   "text": "[glossary-axial-load-ratio] Glossary: axial load ratio ν\naxial load ratio ν: N_{Ed} /(bhf_{ck} ): the vertical axis of the column design charts."
+  },
+  {
+   "id": "glossary-axis-distance-a",
+   "text": "[glossary-axis-distance-a] Glossary: axis distance a\naxis distance a: The distance from the concrete face to the centre of a main bar, a = c_{nom} + φ_{link} + φ/2; checked against EN 1992-1-2 Table 5.2a for fire."
+  },
+  {
+   "id": "glossary-balance-point",
+   "text": "[glossary-balance-point] Glossary: balance point\nbalance point: The state in which the concrete reaches 0.0035 just as the tension bars yield, at x = 0.617d for B500; the largest moment on the N–M curve."
+  },
+  {
+   "id": "glossary-compression-controls",
+   "text": "[glossary-compression-controls] Glossary: compression controls\ncompression controls: Above the balance point: the concrete crushes before the tension bars yield, and more axial load lowers M_{Rd} ."
+  },
+  {
+   "id": "glossary-d-2",
+   "text": "[glossary-d-2] Glossary: d_2\nd_2: The depth of the compression bars below the compression face, c_{nom} + φ_{link} + φ/2; d_2 /h selects the design chart."
+  },
+  {
+   "id": "glossary-design-chart",
+   "text": "[glossary-design-chart] Glossary: design chart\ndesign chart: A family of N–M curves in the normalised axes ν and μ, one curve per steel ratio ω, for one value of d_2 /h; valid for rectangular sections with symmetric bars, f_{ck} ≤ 50 MPa and B500."
+  },
+  {
+   "id": "glossary-design-moment-m-ed",
+   "text": "[glossary-design-moment-m-ed] Glossary: design moment M_{Ed}\ndesign moment M_{Ed}: For a non-slender column, max(M_{02} , N_{Ed} e_0 )."
+  },
+  {
+   "id": "glossary-design-yield-strain-yd",
+   "text": "[glossary-design-yield-strain-yd] Glossary: design yield strain ε_{yd}\ndesign yield strain ε_{yd}: f_{yd} /E_s = 435/200 000 = 0.00217 for B500: below it a bar’s stress is E_s ε."
+  },
+  {
+   "id": "glossary-direct-check",
+   "text": "[glossary-direct-check] Glossary: direct check\ndirect check: Finding M_{Rd} at N_{Ed} for the bars actually chosen, by strain compatibility, and confirming M_{Rd} ≥ M_{Ed} ."
+  },
+  {
+   "id": "glossary-imperfection-eccentricity-e-i",
+   "text": "[glossary-imperfection-eccentricity-e-i] Glossary: imperfection eccentricity e_i\nimperfection eccentricity e_i: The eccentricity that represents a column built out of line or out of plumb; l_0 /400 for a braced column (EC2 5.2(9))."
+  },
+  {
+   "id": "glossary-lap",
+   "text": "[glossary-lap] Glossary: lap\nlap: A joint in which two bars overlap so that one passes its force to the other through the concrete; at laps of bars over 14 mm the link spacing is reduced by 0.6."
+  },
+  {
+   "id": "glossary-link",
+   "text": "[glossary-link] Glossary: link\nlink: Transverse reinforcement round the main bars: it holds them against buckling and confines the core. φ ≥ max(6 mm, φ_{max} /4) (EC2 9.5.3)."
+  },
+  {
+   "id": "glossary-load-cases-for-a-column",
+   "text": "[glossary-load-cases-for-a-column] Glossary: load cases for a column\nload cases for a column: The largest N_{Ed} with its moment, the largest moment with its N_{Ed} , and the smallest N_{Ed} with its moment; below balance the last can govern."
+  },
+  {
+   "id": "glossary-m-02",
+   "text": "[glossary-m-02] Glossary: M_{02}\nM_{02}: The larger first-order end moment plus N_{Ed} e_i ."
+  },
+  {
+   "id": "glossary-maximum-steel-a-s-max",
+   "text": "[glossary-maximum-steel-a-s-max] Glossary: maximum steel A_{s,max}\nmaximum steel A_{s,max}: 0.04A_c outside laps and 0.08A_c at laps (EC2 9.5.2(3))."
+  },
+  {
+   "id": "glossary-mechanical-steel-ratio",
+   "text": "[glossary-mechanical-steel-ratio] Glossary: mechanical steel ratio ω\nmechanical steel ratio ω: A_s f_{yk} /(bhf_{ck} ): the label of each curve on a design chart; A_s = ωbhf_{ck} /f_{yk} ."
+  },
+  {
+   "id": "glossary-minimum-eccentricity-e-0",
+   "text": "[glossary-minimum-eccentricity-e-0] Glossary: minimum eccentricity e_0\nminimum eccentricity e_0: h/30 but not less than 20 mm (EC2 6.1(4)): the design moment is never less than N_{Ed} e_0 ."
+  },
+  {
+   "id": "glossary-minimum-steel-a-s-min",
+   "text": "[glossary-minimum-steel-a-s-min] Glossary: minimum steel A_{s,min}\nminimum steel A_{s,min}: max(0.10N_{Ed} /f_{yd} , 0.002A_c ) (EC2 9.5.2(2)); with at least four bars of 12 mm or more in a rectangular column."
+  },
+  {
+   "id": "glossary-moment-ratio",
+   "text": "[glossary-moment-ratio] Glossary: moment ratio μ\nmoment ratio μ: M_{Ed} /(bh²f_{ck} ), with the full depth h: the horizontal axis of the column design charts."
+  },
+  {
+   "id": "glossary-fi",
+   "text": "[glossary-fi] Glossary: μ_{fi}\nμ_{fi}: The ratio of the axial load in a fire to the design resistance at normal temperature; 0.7 may be taken on the safe side in Table 5.2a."
+  },
+  {
+   "id": "glossary-n-m-interaction-diagram",
+   "text": "[glossary-n-m-interaction-diagram] Glossary: N–M interaction diagram\nN–M interaction diagram: The closed curve of the pairs (M, N) that a section can just resist, found by strain compatibility for every neutral axis depth; points inside it are safe."
+  },
+  {
+   "id": "glossary-pivot",
+   "text": "[glossary-pivot] Glossary: pivot\npivot: For x > h EC2 Figure 6.1 rotates the strain diagram about a strain of 0.002 at 3h/7 from the more compressed face; in pure compression the strain is 0.002 everywhere."
+  },
+  {
+   "id": "glossary-s-cl-max",
+   "text": "[glossary-s-cl-max] Glossary: s_{cl,max}\ns_{cl,max}: The largest link spacing: the least of 20 times the smallest main bar, the smaller side of the column and 400 mm (EC2 9.5.3(3))."
+  },
+  {
+   "id": "glossary-squash-load-n-0",
+   "text": "[glossary-squash-load-n-0] Glossary: squash load N_0\nsquash load N_0: The axial capacity with no moment: 0.567f_{ck} bh + 400A_s with B500 bars at a strain of 0.002."
+  },
+  {
+   "id": "glossary-strain-compatibility",
+   "text": "[glossary-strain-compatibility] Glossary: strain compatibility\nstrain compatibility: Section analysis in which plane sections remain plane and every bar has the strain of the concrete around it: strains give stresses, stresses give forces, forces give N and M."
+  },
+  {
+   "id": "glossary-tension-controls",
+   "text": "[glossary-tension-controls] Glossary: tension controls\ntension controls: Below the balance point: the tension bars yield before the concrete crushes, and more axial load raises M_{Rd} ."
+  }
+ ]
+}

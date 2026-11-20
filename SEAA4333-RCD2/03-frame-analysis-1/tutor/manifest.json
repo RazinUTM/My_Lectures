@@ -1,0 +1,600 @@
+{
+ "app": "seaa4333",
+ "part": "u3",
+ "title": "Unit 3 Frame Analysis I",
+ "folder": "03-frame-analysis-1",
+ "course_meta": {
+  "key": "seaa4333-u3-v1",
+  "notes": [
+   "n1",
+   "n2",
+   "n3",
+   "n4",
+   "n5",
+   "n6"
+  ],
+  "slides": 27,
+  "examples": [
+   "x1",
+   "x2",
+   "x3"
+  ],
+  "cando": 5,
+  "targetMin": 45
+ },
+ "sections": [
+  {
+   "id": "start-outcomes",
+   "view": "start",
+   "anchor": null,
+   "selector": "ol.lo",
+   "title_en": "After this part you should be able to",
+   "title_ms": "Selepas bahagian ini, anda sepatutnya boleh"
+  },
+  {
+   "id": "notes-n1",
+   "view": "notes",
+   "anchor": "n1",
+   "title_en": "1. Frames and sub-frames",
+   "title_ms": "1. Frame dan sub-frame",
+   "minutes": 7
+  },
+  {
+   "id": "notes-n2",
+   "view": "notes",
+   "anchor": "n2",
+   "title_en": "2. Load arrangements: which spans carry the variable load",
+   "title_ms": "2. Load arrangement: span mana yang memikul load berubah",
+   "minutes": 8
+  },
+  {
+   "id": "notes-n3",
+   "view": "notes",
+   "anchor": "n3",
+   "title_en": "3. Loads on the beams from two-way slabs",
+   "title_ms": "3. Load pada beam daripada slab two-way",
+   "minutes": 8
+  },
+  {
+   "id": "notes-n4",
+   "view": "notes",
+   "anchor": "n4",
+   "title_en": "4. The continuous beam by moment distribution",
+   "title_ms": "4. Continuous beam melalui moment distribution",
+   "minutes": 9
+  },
+  {
+   "id": "notes-n5",
+   "view": "notes",
+   "anchor": "n5",
+   "title_en": "5. Shears, span moments and the envelope",
+   "title_ms": "5. Shear, moment span dan envelope",
+   "minutes": 7
+  },
+  {
+   "id": "notes-n6",
+   "view": "notes",
+   "anchor": "n6",
+   "title_en": "6. Column moments: the one-free-joint sub-frame",
+   "title_ms": "6. Moment column: one-free-joint sub-frame",
+   "minutes": 8
+  },
+  {
+   "id": "slides-1",
+   "view": "slides",
+   "anchor": "1",
+   "title_en": "Slide 1: Frame Analysis I",
+   "title_ms": "Slide 1: Frame Analysis I"
+  },
+  {
+   "id": "slides-2",
+   "view": "slides",
+   "anchor": "2",
+   "title_en": "Slide 2: How the next three hours run",
+   "title_ms": "Slide 2: How the next three hours run"
+  },
+  {
+   "id": "slides-3",
+   "view": "slides",
+   "anchor": "3",
+   "title_en": "Slide 3: Three questions from the last two weeks",
+   "title_ms": "Slide 3: Three questions from the last two weeks"
+  },
+  {
+   "id": "slides-4",
+   "view": "slides",
+   "anchor": "4",
+   "title_en": "Slide 4: B, B, A, and what each means today",
+   "title_ms": "Slide 4: B, B, A, and what each means today"
+  },
+  {
+   "id": "slides-5",
+   "view": "slides",
+   "anchor": "5",
+   "title_en": "Slide 5: Does the heaviest load give the largest moment?",
+   "title_ms": "Slide 5: Does the heaviest load give the largest moment?"
+  },
+  {
+   "id": "slides-6",
+   "view": "slides",
+   "anchor": "6",
+   "title_en": "Slide 6: A three-span beam ABCD carries its permanent load on every span. Where should the variable load go for the largest hogging moment at B?",
+   "title_ms": "Slide 6: A three-span beam ABCD carries its permanent load on every span. Where should the variable load go for the largest hogging moment at B?"
+  },
+  {
+   "id": "slides-7",
+   "view": "slides",
+   "anchor": "7",
+   "title_en": "Slide 7: One plane frame per grid line: braced or unbraced?",
+   "title_ms": "Slide 7: One plane frame per grid line: braced or unbraced?"
+  },
+  {
+   "id": "slides-8",
+   "view": "slides",
+   "anchor": "8",
+   "title_en": "Slide 8: Three sub-frames (RDF §11.0, from BS 8110)",
+   "title_ms": "Slide 8: Three sub-frames (RDF §11.0, from BS 8110)"
+  },
+  {
+   "id": "slides-9",
+   "view": "slides",
+   "anchor": "9",
+   "title_en": "Slide 9: Which spans carry the variable load?",
+   "title_ms": "Slide 9: Which spans carry the variable load?"
+  },
+  {
+   "id": "slides-10",
+   "view": "slides",
+   "anchor": "10",
+   "title_en": "Slide 10: Load-pattern cards",
+   "title_ms": "Slide 10: Load-pattern cards"
+  },
+  {
+   "id": "slides-11",
+   "view": "slides",
+   "anchor": "11",
+   "title_en": "Slide 11: Every section has its own worst card",
+   "title_ms": "Slide 11: Every section has its own worst card"
+  },
+  {
+   "id": "slides-12",
+   "view": "slides",
+   "anchor": "12",
+   "title_en": "Slide 12: The load on a frame beam from the slabs: Table 3.15",
+   "title_ms": "Slide 12: The load on a frame beam from the slabs: Table 3.15"
+  },
+  {
+   "id": "slides-13",
+   "view": "slides",
+   "anchor": "13",
+   "title_en": "Slide 13: The continuous beam by moment distribution",
+   "title_ms": "Slide 13: The continuous beam by moment distribution"
+  },
+  {
+   "id": "slides-14",
+   "view": "slides",
+   "anchor": "14",
+   "title_en": "Slide 14: Case 1: AB and BC at w max , five cycles",
+   "title_ms": "Slide 14: Case 1: AB and BC at w max , five cycles"
+  },
+  {
+   "id": "slides-15",
+   "view": "slides",
+   "anchor": "15",
+   "title_en": "Slide 15: Predict the next balance, row by row",
+   "title_ms": "Slide 15: Predict the next balance, row by row"
+  },
+  {
+   "id": "slides-16",
+   "view": "slides",
+   "anchor": "16",
+   "title_en": "Slide 16: At joint C of the workbook’s frame, BC (5 m) and the end span CD (8 m, pinned at D) have the same section. What is the distribution factor F CB ?",
+   "title_ms": "Slide 16: At joint C of the workbook’s frame, BC (5 m) and the end span CD (8 m, pinned at D) have the same section. What is the distribution factor F CB ?"
+  },
+  {
+   "id": "slides-17",
+   "view": "slides",
+   "anchor": "17",
+   "title_en": "Slide 17: The workbook’s frame, read from Table 3.15",
+   "title_ms": "Slide 17: The workbook’s frame, read from Table 3.15"
+  },
+  {
+   "id": "slides-18",
+   "view": "slides",
+   "anchor": "18",
+   "title_en": "Slide 18: Read the table and the long span gets its load",
+   "title_ms": "Slide 18: Read the table and the long span gets its load"
+  },
+  {
+   "id": "slides-19",
+   "view": "slides",
+   "anchor": "19",
+   "title_en": "Slide 19: Shears, span moments and the envelope",
+   "title_ms": "Slide 19: Shears, span moments and the envelope"
+  },
+  {
+   "id": "slides-20",
+   "view": "slides",
+   "anchor": "20",
+   "title_en": "Slide 20: For the largest moment in the interior column B, how should the spans either side of B carry the variable load?",
+   "title_ms": "Slide 20: For the largest moment in the interior column B, how should the spans either side of B carry the variable load?"
+  },
+  {
+   "id": "slides-21",
+   "view": "slides",
+   "anchor": "21",
+   "title_en": "Slide 21: Column moments: the one-free-joint sub-frame",
+   "title_ms": "Slide 21: Column moments: the one-free-joint sub-frame"
+  },
+  {
+   "id": "slides-22",
+   "view": "slides",
+   "anchor": "22",
+   "title_en": "Slide 22: Frame S3: four slips in a continuous-beam analysis",
+   "title_ms": "Slide 22: Frame S3: four slips in a continuous-beam analysis"
+  },
+  {
+   "id": "slides-23",
+   "view": "slides",
+   "anchor": "23",
+   "title_en": "Slide 23: D3: the continuous-beam method (20 marks)",
+   "title_ms": "Slide 23: D3: the continuous-beam method (20 marks)"
+  },
+  {
+   "id": "slides-24",
+   "view": "slides",
+   "anchor": "24",
+   "title_en": "Slide 24: Beam loads on your group’s frame line",
+   "title_ms": "Slide 24: Beam loads on your group’s frame line"
+  },
+  {
+   "id": "slides-25",
+   "view": "slides",
+   "anchor": "25",
+   "title_en": "Slide 25: Check the table before you use it",
+   "title_ms": "Slide 25: Check the table before you use it"
+  },
+  {
+   "id": "slides-26",
+   "view": "slides",
+   "anchor": "26",
+   "title_en": "Slide 26: Before Unit 4",
+   "title_ms": "Slide 26: Before Unit 4"
+  },
+  {
+   "id": "slides-27",
+   "view": "slides",
+   "anchor": "27",
+   "title_en": "Slide 27: Before you leave",
+   "title_ms": "Slide 27: Before you leave"
+  },
+  {
+   "id": "examples-x1",
+   "view": "examples",
+   "anchor": "x1",
+   "title_en": "Example 1 · Worked Example 3.1: the course notes’ frame",
+   "title_ms": "Contoh 1 · Worked Example 3.1: frame nota kursus"
+  },
+  {
+   "id": "examples-x2",
+   "view": "examples",
+   "anchor": "x2",
+   "title_en": "Example 2 · Faded Example 3.2: the workbook’s frame, read from Table 3.15",
+   "title_ms": "Contoh 2 · Faded Example 3.2: frame workbook, dibaca daripada Table 3.15"
+  },
+  {
+   "id": "examples-x3",
+   "view": "examples",
+   "anchor": "x3",
+   "title_en": "Example 3 · Explain-type questions",
+   "title_ms": "Contoh 3 · Soalan jenis terangkan"
+  },
+  {
+   "id": "exercises-b1",
+   "view": "exercises",
+   "anchor": "b1",
+   "title_en": "Exercise B1 · The load on a beam from two panels",
+   "title_ms": "Latihan B1 · Load pada beam daripada dua panel"
+  },
+  {
+   "id": "exercises-b2",
+   "view": "exercises",
+   "anchor": "b2",
+   "title_en": "Exercise B2 · Distribution factors and the first balance",
+   "title_ms": "Latihan B2 · Distribution factor dan imbangan pertama"
+  },
+  {
+   "id": "exercises-b3",
+   "view": "exercises",
+   "anchor": "b3",
+   "title_en": "Exercise B3 · Two spans: the support moment",
+   "title_ms": "Latihan B3 · Dua span: moment support"
+  },
+  {
+   "id": "exercises-b4",
+   "view": "exercises",
+   "anchor": "b4",
+   "title_en": "Exercise B4 · Shears and the span moment",
+   "title_ms": "Latihan B4 · Shear dan moment span"
+  },
+  {
+   "id": "exercises-b5",
+   "view": "exercises",
+   "anchor": "b5",
+   "title_en": "Exercise B5 · An interior column",
+   "title_ms": "Latihan B5 · Column dalaman"
+  },
+  {
+   "id": "exercises-b6",
+   "view": "exercises",
+   "anchor": "b6",
+   "title_en": "Exercise B6 · An end column and the beam at the end",
+   "title_ms": "Latihan B6 · Column hujung dan beam di hujung"
+  },
+  {
+   "id": "exercises-quick",
+   "view": "exercises",
+   "anchor": null,
+   "selector": "#v-exercises div.q",
+   "title_en": "Exercises: quick concept questions",
+   "title_ms": "Latihan: soalan konsep pantas"
+  },
+  {
+   "id": "lab-arr",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"arr\"]",
+   "title_en": "Explorer task 1: Tab 1, Activity 3A: for the four effects of the course notes’ f…",
+   "title_ms": "Tugasan Explorer 1: Tab 1, Aktiviti 3A: bagi empat kesan frame nota kursus (sagging…"
+  },
+  {
+   "id": "lab-ls",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"ls\"]",
+   "title_en": "Explorer task 2: Tab 1: switch to the workbook’s frame (spans 6, 5 and 8 m) and…",
+   "title_ms": "Tugasan Explorer 2: Tab 1: tukar kepada frame workbook (span 6, 5 dan 8 m) dan deda…"
+  },
+  {
+   "id": "lab-md",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"md\"]",
+   "title_en": "Explorer task 3: Tab 2, Activity 3B: in case 1 of Worked Example 3.1, predict th…",
+   "title_ms": "Tugasan Explorer 3: Tab 2, Aktiviti 3B: dalam kes 1 Worked Example 3.1, ramal tiga…"
+  },
+  {
+   "id": "lab-col",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"col\"]",
+   "title_en": "Explorer task 4: Tab 2, columns: work out the upper and lower column moments at…",
+   "title_ms": "Tugasan Explorer 4: Tab 2, column: kira moment column atas dan bawah di joint dalam…"
+  },
+  {
+   "id": "lab-s3",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"s3\"]",
+   "title_en": "Explorer task 5: Tab 3: find all four slips of Frame S3, tap their lines and pre…",
+   "title_ms": "Tugasan Explorer 5: Tab 3: cari keempat-empat kesilapan Frame S3, ketik barisnya da…"
+  },
+  {
+   "id": "glossary-frame-plane-frame",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: frame · plane frame",
+   "title_ms": "Glosari: frame · plane frame"
+  },
+  {
+   "id": "glossary-braced-frame",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: braced frame",
+   "title_ms": "Glosari: braced frame"
+  },
+  {
+   "id": "glossary-unbraced-frame",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: unbraced frame",
+   "title_ms": "Glosari: unbraced frame"
+  },
+  {
+   "id": "glossary-sub-frame",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: sub-frame",
+   "title_ms": "Glosari: sub-frame"
+  },
+  {
+   "id": "glossary-one-level-sub-frame",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: one-level sub-frame",
+   "title_ms": "Glosari: one-level sub-frame"
+  },
+  {
+   "id": "glossary-two-free-joint-sub-frame",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: two-free-joint sub-frame",
+   "title_ms": "Glosari: two-free-joint sub-frame"
+  },
+  {
+   "id": "glossary-continuous-beam-knife-edge-supports",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: continuous beam (knife-edge supports)",
+   "title_ms": "Glosari: continuous beam (knife-edge supports)"
+  },
+  {
+   "id": "glossary-one-free-joint-sub-frame",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: one-free-joint sub-frame",
+   "title_ms": "Glosari: one-free-joint sub-frame"
+  },
+  {
+   "id": "glossary-load-arrangement-pattern-loading",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: load arrangement · pattern loading",
+   "title_ms": "Glosari: load arrangement · pattern loading"
+  },
+  {
+   "id": "glossary-w-max-w-min",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: w_{max} , w_{min}",
+   "title_ms": "Glosari: w_{max} , w_{min}"
+  },
+  {
+   "id": "glossary-load-set-1",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: Load Set 1",
+   "title_ms": "Glosari: Load Set 1"
+  },
+  {
+   "id": "glossary-load-set-2",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: Load Set 2",
+   "title_ms": "Glosari: Load Set 2"
+  },
+  {
+   "id": "glossary-shear-coefficient-v-table-3-15",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: shear coefficient β_v (Table 3.15)",
+   "title_ms": "Glosari: shear coefficient β_v (Table 3.15)"
+  },
+  {
+   "id": "glossary-vx-vy",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: β_{vx} · β_{vy}",
+   "title_ms": "Glosari: β_{vx} · β_{vy}"
+  },
+  {
+   "id": "glossary-l-x-l-y",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: l_x , l_y",
+   "title_ms": "Glosari: l_x , l_y"
+  },
+  {
+   "id": "glossary-panel-case",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: panel case",
+   "title_ms": "Glosari: panel case"
+  },
+  {
+   "id": "glossary-stiffness-k",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: stiffness K",
+   "title_ms": "Glosari: stiffness K"
+  },
+  {
+   "id": "glossary-k",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: ¾K",
+   "title_ms": "Glosari: ¾K"
+  },
+  {
+   "id": "glossary-distribution-factor-f",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: distribution factor F",
+   "title_ms": "Glosari: distribution factor F"
+  },
+  {
+   "id": "glossary-fixed-end-moment-fem",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: fixed-end moment (FEM)",
+   "title_ms": "Glosari: fixed-end moment (FEM)"
+  },
+  {
+   "id": "glossary-balance-carry-over",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: balance · carry-over",
+   "title_ms": "Glosari: balance · carry-over"
+  },
+  {
+   "id": "glossary-cycle-convergence",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: cycle · convergence",
+   "title_ms": "Glosari: cycle · convergence"
+  },
+  {
+   "id": "glossary-envelope",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: envelope",
+   "title_ms": "Glosari: envelope"
+  },
+  {
+   "id": "glossary-least-span-moment",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: least span moment",
+   "title_ms": "Glosari: least span moment"
+  },
+  {
+   "id": "glossary-fem",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: ΔFEM",
+   "title_ms": "Glosari: ΔFEM"
+  },
+  {
+   "id": "glossary-beam-moment-at-an-end-support",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: beam moment at an end support",
+   "title_ms": "Glosari: beam moment at an end support"
+  },
+  {
+   "id": "glossary-professional-habit-3",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: Professional Habit 3",
+   "title_ms": "Glosari: Professional Habit 3"
+  }
+ ],
+ "equations_missing": 0
+}

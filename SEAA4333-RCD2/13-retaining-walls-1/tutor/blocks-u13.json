@@ -1,0 +1,334 @@
+{
+ "part": "u13",
+ "title": "Unit 13 Retaining Walls I",
+ "blocks": [
+  {
+   "id": "start-outcomes",
+   "text": "[start-outcomes] After this part you should be able to\n1. name the types of retaining wall and the three ways a wall fails the ground, and give a cantilever wall its first dimensions;\n2. find the active pressure of Rankine with a surcharge, the two thrusts and their lines of action, and tabulate every load on the wall with its moment about the toe;\n3. check overturning (EQU) and sliding, in combination 1 and in EC7 Combination 2, with the right partial factor on every load;\n4. find where the resultant meets the base, check the middle third and the bearing pressure, and change the toe or the heel so that the wall passes every check."
+  },
+  {
+   "id": "notes-n1",
+   "text": "[notes-n1] Notes 1. Retaining walls: what they do and how they fail\nA retaining wall holds soil at a steeper face than the soil would keep by itself, wherever the ground level changes abruptly: a road in cutting, a basement, a platform on a slope. The soil it holds pushes on it sideways. The wall must send that push into the ground without turning over, sliding or overloading the ground, and each of its parts must carry its bending and shear. This Unit takes the stability; Unit 14 takes the parts.\n[Figure: The three stability failures: overturning about the toe, sliding on the base, and bearing failure under the toe (course notes: overturn, slide, settle).]\nThe course notes list three ways a wall fails the ground. It overturns when the moment of the thrust about the toe exceeds the moment of the weights. It slides when the thrust exceeds the friction under the base. It settles , or fails in bearing, when the pressure under the toe exceeds what the ground can carry. The three checks use the same table of loads; they differ in the partial factors and in what they compare.\n[Figure: Types of wall. A gravity wall relies on its own weight; a cantilever wall on the weight of the backfill standing on its heel; counterforts and buttresses brace the stem of a high wall.]\nType How it stands Typical use\nGravity its own weight; plain concrete or masonry, the thrust line kept in the middle third so that no tension develops low walls, to about 3 m\nCantilever a vertical cantilever (stem) on a wide base slab; the weight of the soil on the heel does most of the holding economical to about 8 m\nCounterfort stem and base tied together at intervals by bracing walls behind the stem, in tension high walls, above 6 to 7 m\nButtress the same, with the bracing in front, in compression where the space in front can be given up\nThe notes also name gabion, crib, tieback and segmental (keystone) walls, which hold soil by other means. This course designs the cantilever wall in full (Units 13 and 14); the RC Design app adds a gravity wall, a counterfort wall and a basement wall for comparison.\n[Figure: The parts of a cantilever wall and the first dimensions of the course notes and Mosley. The thrust is taken on the virtual back, over the whole height H.]\nA cantilever wall has a stem , which holds the soil, and a base slab with a toe in front of the stem and a heel behind it. First dimensions come from experience: a base of 0.6H to 0.7H, a stem about 80 mm thick at its root for every metre of backfill, tapering to about 0.6 of that at the top, a base as thick as the stem root, and a toe about twice that thickness. For the 4.5 m stem of the notes’ wall this gives a 400 mm stem root, 240 mm at the top, a 400 mm base 3.2 m wide and an 800 mm toe. These are a first trial; the three checks decide the base.\nQuick check (not graded): A cantilever wall is 4.9 m high from the top of the backfill to the underside of its base. By the first-dimension rule, its base is about\nOptions: 1.5 to 2.0 m wide | 2.9 to 3.4 m wide | 4.9 m wide | 0.4 m wide\nExplanation shown after answering: B = 0.6H to 0.7H = 2.94 to 3.43 m; the notes take 3.2 m. 0.4 m is the thickness of the stem root (80 mm per metre of the 4.5 m of backfill, rounded up).\nKey points:\n- Three stability failures: overturning about the toe, sliding on the base, bearing under the toe.\n- Gravity walls stand by their own weight; cantilever walls by the soil on the heel; counterforts and buttresses brace high walls.\n- First trial: B = 0.6H to 0.7H; stem root 80 mm per metre of backfill; base as thick as the stem root; toe about twice that."
+  },
+  {
+   "id": "notes-n2",
+   "text": "[notes-n2] Notes 2. Active pressure and the two thrusts\nSoil is not a liquid: it has shearing strength, so it pushes sideways with only a fraction of its vertical pressure. When the wall yields a little, the soil behind it relaxes to its smallest sideways pressure, the active pressure. Rankine’s theory gives that fraction, K_a, from the angle of shearing resistance φ alone.\nEQUATION (13.1): K_a = \\frac{1-\\sin\\varphi}{1+\\sin\\varphi}\nFor the well-drained sand of the notes’ wall, φ = 35° and K_a = (1 − 0.574)/(1 + 0.574) = 0.271. At a depth z below a level surface the vertical pressure is γz, plus any uniform surcharge w that stands on the backfill (traffic, stored material, a slab on grade). The pressure on the wall is K_a times that:\nEQUATION (13.2): p = K_a\\,(\\gamma z + w)\n[Figure: The active pressure of Worked Example 13.1: γ = 19 kN/m³, φ = 35°, w = 10 kN/m², H = 4.9 m.]\nThe diagram has two parts. The soil gives a triangle, zero at the surface and K_aγH at the bottom; its resultant acts at a third of the height. The surcharge gives a rectangle, K_aw at every depth; its resultant acts at mid-height. Per metre length of wall:\nEQUATION (13.3): P_s = \\tfrac{1}{2}K_a\\,\\gamma\\,H^2 \\ \\ \\text{at } \\frac{H}{3}, \\qquad P_q = K_a\\,w\\,H \\ \\ \\text{at } \\frac{H}{2}\nFor the notes’ wall, P_s = ½ × 0.271 × 19 × 4.9² = 61.8 kN/m at 1.63 m above the underside of the base, and P_q = 0.271 × 10 × 4.9 = 13.3 kN/m at 2.45 m. The soil thrust is a permanent action; the surcharge thrust is a variable one. They are kept apart in every step that follows, because they take different partial factors.\nWhich height? For stability the wall and the soil on its heel move together as one body. The thrust is therefore taken on the virtual back , the vertical plane through the end of the heel, from the surface down to the underside of the base: H = h_3 + h = 4.5 + 0.4 = 4.9 m, not the 4.5 m of the stem. Stopping at the top of the base loses 16 % of the soil thrust here (52.1 instead of 61.8 kN/m) and is the commonest slip in this topic. The stem alone is loaded over 4.5 m; that is for its bending in Unit 14.\nThree conditions stand behind these formulas: the backfill is level, it is granular (c = 0, as in the notes), and it is drained. Water behind a wall adds its full pressure, 9.81 kN/m² for every metre of depth against about 5 kN/m² for this sand, and lifts the base as well; weep holes and a drainage layer behind the stem keep it away. A sloping backfill and a water table come in Unit 14.\nQuick check (not graded): γ = 19 kN/m³, φ = 35°, w = 10 kN/m², H = 4.9 m. The total characteristic thrust on the virtual back, P_s + P_q, is\nOptions: 61.8 kN/m | 75.1 kN/m | 64.3 kN/m | 136.9 kN/m\nExplanation shown after answering: 61.8 + 13.3 = 75.1 kN/m. 61.8 leaves out the surcharge; 64.3 uses the stem height of 4.5 m; 136.9 forgets the ½ of the triangle.\nQuick check (not graded): A uniform surcharge w on the backfill adds, on the wall,\nOptions: a pressure K_aw, the same at every depth | a triangle of pressure, like the soil | nothing: it acts downward only | a point load at the top of the stem\nExplanation shown after answering: The surcharge raises the vertical pressure by w at every depth, so the sideways pressure rises by K_aw everywhere: a rectangle, with its resultant K_awH at mid-height. It also loads the heel, w per metre, which matters in §3.\nKey points:\n- K_a = (1 − sin φ)/(1 + sin φ); p = K_a(γz + w).\n- Soil: triangle, P_s = ½K_aγH² at H/3 (permanent). Surcharge: rectangle, P_q = K_awH at H/2 (variable).\n- H runs from the surface to the underside of the base, on the virtual back through the heel end.\n- Level, granular, drained backfill; water and slopes in Unit 14."
+  },
+  {
+   "id": "notes-n3",
+   "text": "[notes-n3] Notes 3. The table of loads and moments about the toe\nEvery stability check starts from one table: each load on a metre length of wall, its lever arm about the toe A, and its moment. Build the table once, with characteristic values and no factors; the three checks then pick from its sums.\n[Figure: The loads of Worked Example 13.1 and their moments about the toe A, per metre length of wall.]\nThe vertical loads are weights: the stem, split into a triangle and a rectangle when it tapers, the base, and the soil standing on the heel (concrete 25 kN/m³, the soil at its own γ). Each acts at its centroid; the arm is measured from A, the end of the toe, because that is the point the wall would turn about. The horizontal loads are the two thrusts of §2, with arms H/3 and H/2 measured up from the underside of the base. Moments of the weights turn the wall back onto its heel: they are restoring . Moments of the thrusts turn it over the toe: they are overturning .\nLoad kN/m Arm about A (m) Moment (kN m/m) Kind\nW_1 stem, tapered part: ½ × 0.16 × 4.5 × 25 9.0 0.8 + ⅔ × 0.16 = 0.907 8.2 permanent, restoring\nW_2 stem, rectangle: 0.24 × 4.5 × 25 27.0 0.8 + 0.16 + 0.12 = 1.08 29.2 permanent, restoring\nW_3 base: 0.4 × 3.2 × 25 32.0 1.60 51.2 permanent, restoring\nW_4 soil on the heel: 19 × 4.5 × 2.0 171.0 0.8 + 0.4 + 1.0 = 2.20 376.2 permanent, restoring\nW_q surcharge on the heel: 10 × 2.0 20.0 2.20 44.0 variable, restoring\nP_s soil thrust 61.8 4.9/3 = 1.633 101.0 permanent, overturning\nP_q surcharge thrust 13.3 4.9/2 = 2.45 32.5 variable, overturning\nFour sums come out of the table, and they are all the checks need. Permanent, vertical: ΣV_{k,G} = 239.0 kN with ΣM_{r,G} = 464.7 kN m. Variable, vertical: V_{k,Q} = 20.0 kN with M_{r,Q} = 44.0 kN m. Permanent, horizontal: H_{k,G} = 61.8 kN with M_{o,G} = 101.0 kN m. Variable, horizontal: H_{k,Q} = 13.3 kN with M_{o,Q} = 32.5 kN m. Note where the weight comes from: the soil on the heel is 171 of the 239 kN. The concrete of the whole wall is only 68 kN.\nThe surcharge appears twice The same surcharge pushes the wall over (its thrust, 13.3 kN) and holds it down (its weight on the heel, 20 kN). The two effects are listed apart, because the stability checks treat them in opposite ways: the thrust is an unfavourable variable action and is always counted; the weight on the heel is a favourable variable action, and a favourable variable action is taken as zero (§4). The surcharge might be standing only beyond the heel.\nTwo things are left out on purpose. The soil in front of the wall could resist sliding by its passive pressure, but it is often dug out or backfilled loosely later, so the course ignores it, as the notes and Mosley do. The soil over the toe is ignored as well. Both omissions are on the safe side.\nQuick check (not graded): In the notes’ wall (toe 0.8 m, stem 0.4 m, heel 2.0 m), the lever arm about A of the soil standing on the heel is\nOptions: 1.0 m | 1.6 m | 2.2 m | 3.2 m\nExplanation shown after answering: The soil block is 2.0 m wide and starts 1.2 m from A: 0.8 + 0.4 + 2.0/2 = 2.2 m. 1.6 m is the centre of the base; 3.2 m is the heel end, where the vertical part of a sloping thrust would act (Unit 14).\nKey points:\n- One table per metre of wall: load, arm about the toe A, moment; characteristic values.\n- Keep four sums: permanent and variable, vertical (restoring) and horizontal (overturning).\n- The surcharge is listed twice: its thrust (unfavourable) and its weight on the heel (favourable).\n- Passive resistance in front and the soil over the toe are ignored."
+  },
+  {
+   "id": "notes-n4",
+   "text": "[notes-n4] Notes 4. Overturning and sliding\nA wall is unstable when a large push meets a small weight. So the stability checks do the opposite of what a column design does: they factor the push up and the weight down. The rule behind every number in this section is one question, asked of each load in each check: does it help or does it harm?\nCheck Weights (permanent, help) Soil thrust (permanent, harms) Surcharge thrust (variable, harms) Surcharge on the heel (variable, helps)\nOverturning (EQU) 0.9 1.1 1.5 0\nSliding, combination 1 1.0 1.35 1.5 0\nSliding, EC7 Combination 2 1.0 1.0, with K_{a,d} 1.3, with K_{a,d} 0\nOverturning is a check of static equilibrium (EQU): moments about the toe A. The overturning moments take 1.1 (permanent) and 1.5 (variable); the restoring moment of the weights takes 0.9; the surcharge on the heel takes nothing.\nEQUATION (13.4): 1.1\\,M_{o,G} + 1.5\\,M_{o,Q} \\ \\le\\ 0.9\\,M_{r,G}\nFor the notes’ wall: 1.1 × 101.0 + 1.5 × 32.5 = 159.9 kN m against 0.9 × 464.7 = 418.2 kN m. The wall is 2.6 times safe against overturning; a wall whose base satisfies the other checks nearly always is.\nSliding is resisted by friction under the base: μ times the vertical load, where μ = tan δ is the coefficient of friction between the concrete and the ground. In combination 1 the thrusts take 1.35 and 1.5 and the weights 1.0:\nEQUATION (13.5): 1.35\\,H_{k,G} + 1.5\\,H_{k,Q} \\ \\le\\ \\mu\\,\\left(1.0\\,V_{k,G}\\right)\nFor the notes’ wall: 1.35 × 61.8 + 1.5 × 13.3 = 103.4 kN against 0.5 × 239.0 = 119.5 kN. The check passes with 16 % to spare, and the course notes stop here. Sliding is usually the check that decides the base, as Mosley observes.\n[Figure: The same wall in the two sliding checks. Combination 1 factors the loads; Combination 2 factors the strength of the soil.]\nWhy a second combination? Eurocode 7 (MS EN 1997-1, Design Approach 1) asks for two combinations, and the design must satisfy both. Combination 1 puts the uncertainty on the loads: 1.35 and 1.5 on the actions, the soil at its characteristic strength. Combination 2 puts it on the ground: the actions take 1.0 and 1.3, and the strength of the soil is divided by 1.25, as tan φ. A weaker soil pushes harder (K_a rises) and grips less (μ falls), so both sides of the sliding check move the wrong way. The course notes and Mosley’s sliding check use the load factors only; the RC Design app checks both combinations, and so does this course.\nEQUATION (13.6): \\varphi_d = \\tan^{-1}\\!\\left(\\frac{\\tan\\varphi}{1.25}\\right), \\qquad K_{a,d} = \\frac{1-\\sin\\varphi_d}{1+\\sin\\varphi_d}\nEQUATION (13.7): \\left(1.0\\,H_{k,G} + 1.3\\,H_{k,Q}\\right)\\frac{K_{a,d}}{K_a} \\ \\le\\ \\frac{\\mu}{1.25}\\,V_{k,G}\nFor the notes’ wall: φ_d = tan⁻¹(tan 35°/1.25) = 29.26°, K_{a,d} = 0.343, so every thrust grows by K_{a,d}/K_a = 1.267. The sliding force is (61.8 + 1.3 × 13.3) × 1.267 = 100.2 kN; the friction is (0.5/1.25) × 239.0 = 95.6 kN. The wall slides, by 5 %. Lengthening the heel from 2.0 to 2.2 m adds 19.1 kN of weight and brings the friction to 103.2 kN (Worked Example 13.1).\nWhere friction is not enough and the base cannot grow, a key under the base (a heel beam) adds the passive resistance of the ground in front of it; that is Unit 14.\nQuick check (not graded): In the sliding check of combination 1, the weight of the soil on the heel is multiplied by\nOptions: 1.35 | 1.0 | 0.9 | 0\nExplanation shown after answering: The weight helps the wall to resist sliding: a favourable permanent action takes 1.0 here. 0.9 is its factor in the overturning (EQU) check; 1.35 would overstate the friction by a third, on the unsafe side; 0 is for a favourable variable action, such as the surcharge on the heel.\nQuick check (not graded): EC7 Combination 2 for a sand with φ = 35°: the design angle φ_d = tan⁻¹(tan φ/1.25) is\nOptions: 28.0° | 29.3° | 35.0° | 43.8°\nExplanation shown after answering: tan 35° = 0.700; 0.700/1.25 = 0.560; tan⁻¹ 0.560 = 29.3°. The factor divides tan φ, not φ: 35/1.25 = 28.0° is the slip. With 29.3°, K_{a,d} = 0.343 against K_a = 0.271.\nKey points:\n- Overturning (EQU): 1.1M_{o,G} + 1.5M_{o,Q} ≤ 0.9M_{r,G}.\n- Sliding, combination 1: 1.35H_{k,G} + 1.5H_{k,Q} ≤ μ × 1.0V_{k,G}.\n- Sliding, EC7 Combination 2: φ_d = tan⁻¹(tan φ/1.25); thrusts × 1.0 and 1.3 with K_{a,d}; friction (μ/1.25)V_{k,G}.\n- A favourable variable action counts as zero: leave the surcharge on the heel out of every resistance.\n- Passive resistance in front of the base is ignored."
+  },
+  {
+   "id": "notes-n5",
+   "text": "[notes-n5] Notes 5. The resultant, the middle third and the bearing pressure\nThe base of a wall is a strip footing under an eccentric load: all the vertical load, pushed towards the toe by the moment of the thrust. Unit 10’s pressure formula applies as it stands. The only new step is finding where the resultant meets the base.\nThe course checks the bearing pressure with characteristic (service) loads against the allowable bearing pressure q_a, as the notes do. Here every load counts, the surcharge on the heel included: N_k = ΣV_{k,G} + V_{k,Q}, and the net moment about the toe is ΔM_k = the restoring moments less the overturning moments. The resultant meets the base at x from A, and its eccentricity is measured from the centre of the base:\nEQUATION (13.8): \\bar{x} = \\frac{\\Delta M_k}{N_k}, \\qquad e = \\frac{B}{2} - \\bar{x} \\ \\le\\ \\frac{B}{6}\nFor the notes’ wall: N_k = 239.0 + 20.0 = 259.0 kN; ΔM_k = 464.72 + 44.0 − 100.96 − 32.53 = 375.23 kN m; x = 375.23/259.0 = 1.4488 m; e = 1.6 − 1.4488 = 0.1512 m, well inside B/6 = 0.533 m. Inside the middle third the whole base stays in contact and the pressure is a trapezium:\nEQUATION (13.9): q_{max},\\ q_{min} = \\frac{N_k}{B} \\pm \\frac{6\\,N_k\\,e}{B^2}, \\qquad q_{max} \\ \\le\\ q_a\nHere q = 259.0/3.2 ± 6 × 259.0 × 0.1512/3.2² = 80.94 ± 22.95, that is 103.9 kN/m² at the toe and 58.0 kN/m² at the heel end, against q_a = 200 kN/m². The bearing check passes easily; on weaker ground it is the toe pressure that sizes the base (Faded Example 13.2).\n[Figure: The resultant inside the middle third gives a trapezium; outside it part of the base lifts and the pressure becomes a triangle.]\nIf e exceeds B/6, the heel end lifts, because soil cannot pull. The pressure becomes a triangle whose centroid lies under the resultant, so the contact length is 3 x and\nEQUATION (13.10): q_{max} = \\frac{2\\,N_k}{3\\,\\bar{x}} \\qquad \\text{(}e \\gt B/6\\text{: contact over } 3\\bar{x}\\text{)}\nA lifting heel loses friction where it lifts and rocks the wall under changing loads, so the course does not accept it under service loads: when e > B/6, widen the base, usually at the toe.\nThe toe pressure at the ultimate limit state Mosley (§10.8.2) also finds the toe pressure under the factored loads, and the RC Design app does it for every wall: combination 1 (thrusts × 1.35 and 1.5), combination 2 (× 1.0 and 1.3) and EC7 Combination 2. In combination 1 each weight takes 1.35 if it raises the toe pressure and 1.0 if it lowers it. A vertical load at x from the toe changes the toe pressure by (W/B)(4 − 6x/B), so it raises it when its centroid lies within 2B/3 of the toe: the wall’s own weight usually does, the soil on the heel usually does not. For the notes’ wall the three values are 146.5, 110.4 and 132.8 kN/m², all below 200. The app compares them with q_a, which is an allowable (service) value: that is on the safe side, and a failure there is marked for review rather than as a certain failure of the wall. In hand calculations the service check above is the course check.\nQuick check (not graded): A wall on a 3.0 m base has N_k = 240 kN and a net moment about the toe of 300 kN m. The resultant is\nOptions: inside the middle third: e = 0.25 m ≤ 0.50 m | outside it: e = 1.25 m | at the centre: e = 0 | outside it: e = 0.75 m\nExplanation shown after answering: x = 300/240 = 1.25 m from the toe; e = 3.0/2 − 1.25 = 0.25 m; B/6 = 0.50 m. 1.25 m is x , measured from the toe, not the eccentricity, which is measured from the centre.\nQuick check (not graded): The same wall (B = 3.0 m, N_k = 240 kN, e = 0.25 m). The pressure at the toe is\nOptions: 80 kN/m² | 100 kN/m² | 120 kN/m² | 40 kN/m²\nExplanation shown after answering: N/B = 80; 6Ne/B² = 6 × 240 × 0.25/9 = 40; q_{max} = 80 + 40 = 120 kN/m² at the toe and 40 kN/m² at the heel end.\nKey points:\n- Service loads, all of them: N_k = ΣV_{k,G} + V_{k,Q}; ΔM_k = restoring − overturning, about the toe.\n- x = ΔM_k/N_k from the toe; e = B/2 − x ≤ B/6 (the middle third).\n- q = N_k/B ± 6N_ke/B²; q_{max} at the toe ≤ q_a.\n- Outside the middle third: q_{max} = 2N_k/3 x over a contact of 3 x ; the course asks for a wider base.\n- The app also reports the toe pressure at the ULS, compared with q_a on the safe side."
+  },
+  {
+   "id": "notes-n6",
+   "text": "[notes-n6] Notes 6. Sizing the base: the heel holds, the toe spreads\nWhen a check fails, the base must change. Which end? The heel and the toe do different jobs, and a metre of one is not worth a metre of the other.\nThe heel holds. Every metre of heel carries a column of backfill: 19 × 4.5 = 85.5 kN in the notes’ wall, against 10 kN for the metre of base slab under it. That weight is what the friction and most of the restoring moment come from. If the wall slides, lengthen the heel.\nThe toe spreads. A longer toe adds almost no weight, but it moves the edge A forward: the resultant then meets the base nearer its centre, the eccentricity falls, and so does the toe pressure. If the toe pressure is too high or the resultant leaves the middle third, lengthen the toe.\n[Figure: The same 3.2 m base with the stem moved along it. Sliding wants a long heel; the toe pressure wants a long toe; both pass in between.]\nThe two jobs pull against each other on a base of fixed width: moving the stem forward lengthens the heel and shortens the toe. For the notes’ 3.2 m base both the sliding check and the toe pressure pass with the toe between 0.32 and 0.66 m. The notes’ 0.8 m toe lies just outside: the wall slides in Combination 2. A toe of 0.6 m with a heel of 2.2 m passes every check with no more concrete than the wall that failed; lengthening the heel alone (base 3.4 m, Worked Example 13.1) passes with 3 % more.\nThe design loop 1. First dimensions from §1. 2. Pressures and thrusts over H (§2). 3. The table of loads and moments about the toe (§3). 4. Overturning; sliding in combination 1 and in EC7 Combination 2 (§4). 5. The resultant, the middle third and the bearing pressure (§5). 6. If a check fails: the heel for sliding and overturning, the toe for the pressure; then repeat from step 3, since only the weights and their arms change. The thrusts change only if H changes.\nStability sizes the base; it does not design the concrete. A thin base may pass every check here and still fail in bending or shear at the stem. Unit 14 designs the stem, the toe and the heel as cantilevers, with their bars and their detailing, and adds the key, the sloping backfill and the water table.\nQuick check (not graded): A wall passes overturning and bearing but fails sliding by 5 %. The change that gains the most friction for the least concrete is\nOptions: a thicker base | a longer toe | a longer heel | a thicker stem\nExplanation shown after answering: A longer heel carries more backfill: 85.5 kN of soil for every 10 kN of concrete in the notes’ wall. A longer toe adds only its own concrete. A thicker base adds a little weight but also raises H, so the thrust grows faster than the friction.\nKey points:\n- The heel holds: its soil gives the weight, so the friction and the restoring moment.\n- The toe spreads: it centres the resultant and lowers the toe pressure.\n- On a fixed base the two trade against each other; look for the window where both pass.\n- After a change, repeat from the table of loads; the thrusts stay unless H changes."
+  },
+  {
+   "id": "slides-1",
+   "text": "[slides-1] Slide 1: Retaining Walls I\nSEAA 4333 Reinforced Concrete Design II · Week 14 Retaining Walls I Stability of a cantilever wall: the thrust of the soil, and the three checks that size the base Workbook ch. 13 ABCD card Calculator Phone or laptop Retaining Wall Lab Scan for this page’s Explorer tab. A new Lab: tabs 1 to 3 today."
+  },
+  {
+   "id": "slides-2",
+   "text": "[slides-2] Slide 2: How the next three hours run\nToday · 180 minutes How the next three hours run 0:00 Warm-up Units 10 and 12 in three votes 0:10 Hook One wall, two sliding checks 0:16 The wall Failures, types, pressure 0:30 Activity 13A The two thrusts, pairs 0:40 WE 13.1 The notes’ wall, I do 0:55 Help or harm? Factors, EC7 Combination 2 1:05 Activity 13B Stop the sliding, pairs 1:15 Break 10 minutes 1:25 Bearing The middle third 1:31 FE 13.2 · S13 Pairs, then t"
+  },
+  {
+   "id": "slides-3",
+   "text": "[slides-3] Slide 3: Three questions from the foundations\nWarm-up · no notes · cards up Three questions from the foundations W1 · Unit 10 A pad carries N at an eccentricity e greater than L/6. Under it, A the pressure is uniform B the pressure is a trapezium C part of the base lifts: a triangle of pressure D the soil pulls down on one edge W2 · Unit 10 A pad B × L carries N and a moment M that bends it along L. The edge pressures are A N/BL ± 6M/BL² B N/BL ± M/BL² C N/BL ±"
+  },
+  {
+   "id": "slides-4",
+   "text": "[slides-4] Slide 4: C, A, B, and what each means today\nWarm-up · answers C, A, B, and what each means today W1 C: part of the base lifts Soil cannot pull. Today the base of a wall is the same strip: keep the resultant in the middle third. W2 A: N/BL ± 6M/BL² Per metre of wall, with M = Ne: q = N/B ± 6Ne/B². The largest pressure is at the toe. W3 B: 0.25 A reduction with its limit. Today: a factor with its direction, by whether the load helps or harms. SEAA 4333 · Unit 13"
+  },
+  {
+   "id": "slides-5",
+   "text": "[slides-5] Slide 5: The notes’ wall: one sliding check passes, one fails\nHook · 5 minutes The notes’ wall: one sliding check passes, one fails Same wall, same sand, same surcharge. Combination 1: 103.4 against 119.5 kN, a pass with 16 % to spare. EC7 Combination 2: 100.2 against 95.6 kN, and the wall slides. What changed between the two checks? SEAA 4333 · Unit 13 · Retaining Walls I Workbook 13.2"
+  },
+  {
+   "id": "slides-6",
+   "text": "[slides-6] Slide 6: Why does the notes’ wall pass sliding in combination 1 and fail in EC7 Combination 2?\nConcept check 1 · the big question · vote now, again after Activity 13B Why does the notes’ wall pass sliding in combination 1 and fail in EC7 Combination 2? A Combination 2 has larger load factors B Combination 2 factors the soil’s strength: the thrust rises and the friction falls C Combination 2 adds the surcharge on the heel D Combination 2 leaves out the weight of the soil Vote · convince your neighbour · vote ag"
+  },
+  {
+   "id": "slides-7",
+   "text": "[slides-7] Slide 7: Three ways a wall fails the ground\nBlock A · talk 1 · 3 minutes Three ways a wall fails the ground Overturn moment of the thrust against moment of the weights, about the toe Slide thrust against friction under the base Settle toe pressure against what the ground can carry SEAA 4333 · Unit 13 · Retaining Walls I Notes §1 · Workbook 13.2"
+  },
+  {
+   "id": "slides-8",
+   "text": "[slides-8] Slide 8: Types of wall: what holds each one up\nBlock A · talk 1 · 2 minutes Types of wall: what holds each one up Gravity: its own weight; low walls. Cantilever: the soil on its heel; to about 8 m. Counterfort, buttress: braced stems for high walls. SEAA 4333 · Unit 13 · Retaining Walls I Notes §1 · Workbook 13.2"
+  },
+  {
+   "id": "slides-9",
+   "text": "[slides-9] Slide 9: The parts of a cantilever wall, and a first trial\nBlock A · talk 1 · 3 minutes The parts of a cantilever wall, and a first trial B = 0.6H to 0.7H stem root: 80 mm per m of backfill base = stem root; toe ≈ 2 × that A first trial only: the three checks decide the base. SEAA 4333 · Unit 13 · Retaining Walls I Notes §1 · Workbook 13.2"
+  },
+  {
+   "id": "slides-10",
+   "text": "[slides-10] Slide 10: Active pressure: a triangle and a rectangle\nBlock A · talk 2 · 6 minutes Active pressure: a triangle and a rectangle K_a = (1 − sin φ)/(1 + sin φ) p = K_a(γz + w) P_s = ½K_a·γH² at H/3 P_q = K_a·wH at H/2 H runs to the underside of the base, on the virtual back. SEAA 4333 · Unit 13 · Retaining Walls I Notes §2 · Workbook 13.2"
+  },
+  {
+   "id": "slides-11",
+   "text": "[slides-11] Slide 11: The two thrusts on the notes’ wall\nActivity 13A · pairs · 7 minutes The two thrusts on the notes’ wall The notes’ wall: stem 4.5 m on a base 0.4 m thick sand: γ = 19 kN/m³, φ = 35° surcharge w = 10 kN/m² level backfill, drained 1 K_a, and the pressure at the surface and at the bottom of the diagram 2 the two thrusts per metre, and where each acts 3 their moments about the toe Work in Workbook 13.2. Then type both thrusts in Lab tab 1 and reveal. SEAA"
+  },
+  {
+   "id": "slides-12",
+   "text": "[slides-12] Slide 12: H = 4.9 m: the diagram runs to the underside of the base\nActivity 13A · reveal H = 4.9 m: the diagram runs to the underside of the base soil · permanent P_s = 61.8 kN at 1.63 m ½ × 0.271 × 19 × 4.9²; moment about the toe 101.0 kN m. surcharge · variable P_q = 13.3 kN at 2.45 m 0.271 × 10 × 4.9; moment about the toe 32.5 kN m. the slip 52.1 and 12.2 kN with the stem height, 4.5 m: 16 % too little soil thrust, on the unsafe side. For stability the wall and the soil on its he"
+  },
+  {
+   "id": "slides-13",
+   "text": "[slides-13] Slide 13: The notes’ wall: the table, then the three checks\nWorked Example 13.1 · I do The notes’ wall: the table, then the three checks Calculation Output stem 9.0 + 27.0; base 32.0 68.0 kN of concrete soil on heel 19 × 4.5 × 2.0 171.0 kN at 2.2 m ΣV_{k,G}; ΣM_{r,G} about A 239.0 kN; 464.7 kN m surcharge on heel 10 × 2.0 20.0 kN; 44.0 kN m EQU: 1.1 × 101.0 + 1.5 × 32.5 159.9 ≤ 418.2 ✓ slide: 1.35 × 61.8 + 1.5 × 13.3 103.4 ≤ 119.5 ✓ EC7 C2: (61.8 + 1.3 × 13.3) × 1.267 100.2 >"
+  },
+  {
+   "id": "slides-14",
+   "text": "[slides-14] Slide 14: Every load, every check: does it help or harm?\nBlock B · talk 3 · 7 minutes Every load, every check: does it help or harm? Check Weights Soil thrust Surcharge thrust Surcharge on heel Overturning (EQU) 0.9 1.1 1.5 0 Sliding, combination 1 1.0 1.35 1.5 0 Sliding, EC7 Combination 2 1.0 1.0 × K_{a,d}/K_a 1.3 × K_{a,d}/K_a 0 EC7 Combination 2 φ_d = tan⁻¹(tan φ/1.25) a weaker soil pushes harder (K_{a,d}) and grips less (μ/1.25) The surcharge appears twice its thrust h"
+  },
+  {
+   "id": "slides-15",
+   "text": "[slides-15] Slide 15: Sliding, combination 1. The surcharge’s thrust and its weight on the heel take the factors\nConcept check 2 · think 60 seconds, then vote Sliding, combination 1. The surcharge’s thrust and its weight on the heel take the factors A 1.5 and 1.5 B 1.5 and 0 C 1.35 and 1.0 D 0 and 0 Vote · convince your neighbour · vote again Workbook 13.3"
+  },
+  {
+   "id": "slides-16",
+   "text": "[slides-16] Slide 16: The notes’ wall slides: 100.2 against 95.6 kN. Which change stops it?\nActivity 13B · pairs · 5 minutes The notes’ wall slides: 100.2 against 95.6 kN. Which change stops it? A the base 100 mm thicker B the toe 0.2 m longer C the heel 0.2 m longer D none of these stops it One change only, for the least concrete. Choose, then reveal in Lab tab 2 and try each change. SEAA 4333 · Unit 13 · Retaining Walls I Lab tab 2 · Workbook 13.3"
+  },
+  {
+   "id": "slides-17",
+   "text": "[slides-17] Slide 17: C: the heel holds the wall, with soil, not concrete\nActivity 13B · reveal C: the heel holds the wall, with soil, not concrete A · base + 100 mm 103.9 > 98.8 ✗ H grows to 5.0 m: the thrust grows as fast as the weight. + 0.32 m² of concrete. B · toe + 0.2 m 100.2 > 96.4 ✗ only 2 kN of slab is added. + 0.08 m². C · heel + 0.2 m 100.2 ≤ 103.2 ✓ 17.1 kN of sand on 2 kN of slab. The same + 0.08 m². A metre of heel carries 85.5 kN of soil on 10 kN of concrete. Concept check"
+  },
+  {
+   "id": "slides-18",
+   "text": "[slides-18] Slide 18: Where the resultant lands: the middle third\nBlock C · talk 4 · 6 minutes Where the resultant lands: the middle third N_k = ΣV_{k,G} + V_{k,Q} x = ΔM_k/N_k from the toe e = B/2 − x ≤ B/6 q = N_k/B ± 6N_k·e/B² ≤ q_a Service loads, every one of them: here the surcharge on the heel is counted. SEAA 4333 · Unit 13 · Retaining Walls I Notes §5 · Workbook 13.4"
+  },
+  {
+   "id": "slides-19",
+   "text": "[slides-19] Slide 19: A wall on weaker ground: q a = 120 kN/m²\nFaded Example 13.2 · pairs · 18 minutes A wall on weaker ground: q_a = 120 kN/m² Given: steps 1–2 K_a = 0.2948; P_s = 51.37, P_q = 12.97 kN M_{o,G} = 75.34, M_{o,Q} = 28.54 kN m Your turn: steps 3–8 the table, overturning, sliding twice, the bearing pressure; then revise the base and check again Then check in the Lab, tab 2: enter this wall and its soil. SEAA 4333 · Unit 13 · Retaining Walls I Workbook 13.4"
+  },
+  {
+   "id": "slides-20",
+   "text": "[slides-20] Slide 20: Bearing fails first; a longer toe cures it\nFaded Example 13.2 · check Bearing fails first; a longer toe cures it ΣV_{k,G}; ΣM_{r,G} 204.5 kN; 319.0 kN m overturning 125.7 ≤ 287.1 ✓ sliding 88.8 ≤ 112.5; 85.4 ≤ 90.0 ✓ bearing e 0.281: 128.5 > 120 ✗ revise toe 0.9 m, B = 3.3 m again e 0.061: 77.3 ≤ 120 ✓ With the toe at 0.9 m: overturning 125.7 ≤ 380.3 kN m; sliding 88.8 ≤ 115.2 and 85.4 ≤ 92.2 kN; pressures 77.3 and 61.8 kN/m². The app’s toe pressure at the UL"
+  },
+  {
+   "id": "slides-21",
+   "text": "[slides-21] Slide 21: FE 13.2 fails bearing: 128.5 against 120 kN/m². With 0.5 m more base, the toe pressure is lowest if it is added\nConcept check 3 · think 60 seconds, then vote FE 13.2 fails bearing: 128.5 against 120 kN/m². With 0.5 m more base, the toe pressure is lowest if it is added A at the heel B at the toe C at either end: the same B, the same pressure D at neither: thicken the base Vote · convince your neighbour · vote again Workbook 13.4"
+  },
+  {
+   "id": "slides-22",
+   "text": "[slides-22] Slide 22: Sizing the base: the heel holds, the toe spreads\nBlock C · talk 5 · 4 minutes Sizing the base: the heel holds, the toe spreads Heel 85.5 kN of soil per metre on 10 kN of slab: friction and restoring moment Toe almost no weight; it centres the resultant and lowers the toe pressure On a fixed base the two trade: look for the window where both pass. SEAA 4333 · Unit 13 · Retaining Walls I Notes §6 · Workbook 13.4"
+  },
+  {
+   "id": "slides-23",
+   "text": "[slides-23] Slide 23: Retaining Wall S13: four slips in a stability check\nSpot the error · teams · 12 minutes Retaining Wall S13: four slips in a stability check Lab tab 3, or Workbook 13.5. Stem 5.0 m, 500 mm at the root and 300 mm at the top; base 3.5 × 0.5 m: toe 1.0 m, heel 2.0 m; γ = 18 kN/m³, φ = 30°, w = 10 kN/m², μ = 0.5, q_a = 200 kN/m². Reader reads each line aloud; calculator rechecks; checker asks of each load: does it help or harm this check? Reporter writes the line number an"
+  },
+  {
+   "id": "slides-24",
+   "text": "[slides-24] Slide 24: D13: the stability of a cantilever wall (20 marks)\nBlock D · alone · 25 minutes D13: the stability of a cantilever wall (20 marks) (a) K_a, the pressures, the two thrusts and where they act [4] (b) The table of loads and moments about A [6] (c) Overturning; sliding in combination 1 and in EC7 Combination 2 [6] (d) The resultant, the middle third, the bearing pressure; a remedy for any check that fails [4] Ref | Calculations | Output. No app, no notes. Self-mark with"
+  },
+  {
+   "id": "slides-25",
+   "text": "[slides-25] Slide 25: Your report, checked before it is assembled\nProject studio · 12 minutes Your report, checked before it is assembled Swap Hand one finished calculation, your column or your footing, to a member of another group. Check As in S13: each load and its factor, each unit, and the Output column against the drawing. Fix The author corrects and initials; the checker signs the sheet. Log The corrections in the minutes, and what is left before the Week 15 submission. SEAA"
+  },
+  {
+   "id": "slides-26",
+   "text": "[slides-26] Slide 26: Ask of every load: does it help or harm this check?\nProfessional Habit 13 Ask of every load: does it help or harm this check? The weight of the soil 0.9 against overturning, 1.0 against sliding: it helps The thrust 1.1, 1.35 or 1.5: it harms, in every check The surcharge 1.5 on its thrust, 0 on its weight on the heel: one load, two effects The soil’s strength factor it too: a weaker soil pushes harder and grips less SEAA 4333 · Unit 13 · Retaining Walls I Workbook 13."
+  },
+  {
+   "id": "slides-27",
+   "text": "[slides-27] Slide 27: Before Unit 14\nAfter class Before Unit 14 Notes §1–§6 43 min Exercises, all 14 45 min Explorer, 6 tasks with the design challenge and S13 30 min Self-mark D13 on eLearning 15 min Mosley §10.8, RDF §17 reading Unit 14: the stem, the toe and the heel as cantilevers; the key, a sloping backfill and water behind the wall. SEAA 4333 · Unit 13 · Retaining Walls I Workbook 13.8"
+  },
+  {
+   "id": "slides-28",
+   "text": "[slides-28] Slide 28: Before you leave\nExit ticket · 5 minutes · Workbook 13.8 Before you leave 1 A wall has thrusts of 60 kN (soil) and 12 kN (surcharge), weights of 240 kN and μ = 0.5. Check sliding in combination 1. 2 The resultant of 260 kN meets a 3.2 m base 1.45 m from the toe. Find e and the largest pressure. 3 What is still unclear? Tear off the slip and hand it in at the door. SEAA 4333 · Unit 13 · Retaining Walls I"
+  },
+  {
+   "id": "examples-x1",
+   "text": "[examples-x1] Example 1 · Worked Example 13.1: the stability of a cantilever wall\nExam type stability of a retaining wall Workbook 13.3 Time ≈ 35 min\nQuestion A cantilever wall retains 4.0 m of well-drained sand above the ground in front and is founded 0.5 m below it: stem 4.5 m high, 400 mm thick at its root and 240 mm at the top; base 3.2 m wide and 400 mm thick, with a toe of 0.8 m and a heel of 2.0 m. Sand: γ = 19 kN/m³, φ = 35°, c = 0; surcharge 10 kN/m² on the backfill; μ = 0.5; allowable bearing pressure 200 kN/m²; concrete 25 kN/m³. Check the stability of the wall for overturning, sliding and bearing; revise the base if a check fails. In the app: cases RW1 (the course notes’ Example 1; RetaningWall.xlsx Ex 12.1) and RW1R (the heel lengthened) of the RC Design Worked Solutions app.\n[Figure: Worked Example 13.1: the notes’ wall slides in EC7 Combination 2; with the heel 0.2 m longer every check passes.]\nPhysical picture. The sand pushes the wall forward with about 75 kN on every metre of its length. What holds the wall is mostly not concrete: it is the 171 kN of sand standing on the heel, which presses the base onto the ground and gives it friction. The question is whether that weight is enough, once the push is factored up and the grip is factored down.\nPlan. Pressures and thrusts over H; the table of loads and moments about the toe; overturning; sliding in combination 1 and in EC7 Combination 2; revise the heel; then the resultant, the middle third and the bearing pressure.\n## Step 1 Dimensions and active pressure\nRef Calculations Output\n§1 h_3 = 4.0 + 0.5 = 4.5 m; H = 4.5 + 0.4 = 4.9 m; B = 0.8 + 0.4 + 2.0 = 3.2 m (0.65H) H = 4.9 m\n(13.1) K_a = (1 − sin 35°)/(1 + sin 35°) = 0.4264/1.5736 K_a = 0.271\n(13.2) At the surface: 0.271 × 10 = 2.71 kN/m²; at the underside of the base: 0.271 × (19 × 4.9 + 10) 2.71; 27.94 kN/m²\n## Step 2 The two thrusts\nRef Calculations Output\n(13.3) Soil (permanent): P_s = ½ × 0.271 × 19 × 4.9² = 61.81 kN at 4.9/3 = 1.633 m: M = 61.81 × 1.633 61.8 kN; 101.0 kN m\n(13.3) Surcharge (variable): P_q = 0.271 × 10 × 4.9 = 13.28 kN at 4.9/2 = 2.45 m: M = 13.28 × 2.45 13.3 kN; 32.5 kN m\n## Step 3 Weights and moments about the toe A\nRef Calculations Output\n§3 Stem, tapered part: W_1 = ½ × 0.16 × 4.5 × 25 = 9.0 kN at 0.8 + ⅔ × 0.16 = 0.907 m 8.16 kN m\n§3 Stem, rectangle: W_2 = 0.24 × 4.5 × 25 = 27.0 kN at 0.8 + 0.16 + 0.12 = 1.08 m 29.16 kN m\n§3 Base: W_3 = 0.4 × 3.2 × 25 = 32.0 kN at 1.6 m 51.2 kN m\n§3 Soil on the heel: W_4 = 19 × 4.5 × 2.0 = 171.0 kN at 0.8 + 0.4 + 1.0 = 2.2 m 376.2 kN m\n§3 Permanent: ΣV_{k,G} = 9.0 + 27.0 + 32.0 + 171.0; ΣM_{r,G} = 8.16 + 29.16 + 51.2 + 376.2 239.0 kN; 464.72 kN m\n§3 Surcharge on the heel (variable): W_q = 10 × 2.0 = 20.0 kN at 2.2 m 44.0 kN m\n## Step 4 Overturning (EQU)\nRef Calculations Output\n(13.4) Overturning: 1.1 × 101.0 + 1.5 × 32.5 159.9 kN m\n(13.4) Restoring: 0.9 × 464.72 (the surcharge on the heel takes 0) 418.2 kN m ✓\n## Step 5 Sliding, combination 1\nRef Calculations Output\n(13.5) Sliding force: 1.35 × 61.81 + 1.5 × 13.28 103.4 kN\n(13.5) Friction: 0.5 × (1.0 × 239.0 + 0 × 20.0) 119.5 kN ✓ (16 % spare)\nnotes The notes’ slide multiplies by 0.45 and shows 108 kN; the data give μ = 0.5. The check passes either way.\n## Step 6 Sliding, EC7 Combination 2\nRef Calculations Output\n(13.6) φ_d = tan⁻¹(tan 35°/1.25) = tan⁻¹(0.5602) 29.26°\n(13.6) K_{a,d} = (1 − sin 29.26°)/(1 + sin 29.26°) = 0.3434; K_{a,d}/K_a = 0.3434/0.2710 1.267\n(13.7) Sliding force: (1.0 × 61.81 + 1.3 × 13.28) × 1.267 100.2 kN\n(13.7) Friction: (0.5/1.25) × 239.0 95.6 kN ✗ (short by 5 %)\n## Step 7 Revise: a longer heel\nRef Calculations Output\n§6 Friction needed: 100.2/0.4 = 250.5 kN of weight, 11.5 kN more. A metre of heel adds 19 × 4.5 + 0.4 × 25 = 95.5 kN: 0.12 m is needed; take 0.2 m heel 2.2 m, B = 3.4 m\n§3 W_3 = 0.4 × 3.4 × 25 = 34.0 kN at 1.7 m (57.8 kN m); W_4 = 19 × 4.5 × 2.2 = 188.1 kN at 2.3 m (432.63 kN m); the stem and the thrusts as before ΣV_{k,G} = 258.1 kN; ΣM_{r,G} = 527.75 kN m\n(13.4) Overturning: 159.9 ≤ 0.9 × 527.75 475.0 kN m ✓\n(13.5) Sliding, combination 1: 103.4 ≤ 0.5 × 258.1 129.1 kN ✓\n(13.7) Sliding, EC7 Combination 2: 100.2 ≤ 0.4 × 258.1 103.2 kN ✓\n## Step 8 The resultant and the bearing pressure\nRef Calculations Output\n§5 Service loads, all of them: W_q = 10 × 2.2 = 22.0 kN at 2.3 m (50.6 kN m); N_k = 258.1 + 22.0 280.1 kN\n(13.8) ΔM_k = 527.75 + 50.6 − 100.96 − 32.53 = 444.86 kN m; x = 444.86/280.1 1.5882 m\n(13.8) e = 3.4/2 − 1.5882 = 0.1118 m ≤ B/6 = 0.567 m middle third ✓\n(13.9) q = 280.1/3.4 ± 6 × 280.1 × 0.1118/3.4² = 82.38 ± 16.25 98.6; 66.1 ≤ 200 kN/m² ✓\n## Step 9 The toe pressure at the ULS (as the app reports it)\nRef Calculations Output\n§5 box Combination 1: the wall’s own weight (70.0 kN, centroid 1.36 m from A, within 2B/3 = 2.27 m) × 1.35; the soil on the heel (2.3 m, beyond it) × 1.0; the surcharge on the heel 0: N = 1.35 × 70.0 + 188.1 = 282.6 kN\n§5 box M = 1.35 × 95.12 + 432.63 − 1.35 × 100.96 − 1.5 × 32.53 = 375.95 kN m; x = 1.3303 m; e = 0.3697 m ≤ 0.567 m; q = 282.6/3.4 + 6 × 282.6 × 0.3697/3.4² 137.3 ≤ 200 kN/m² ✓\napp Combination 2: 104.1 kN/m²; EC7 Combination 2: 124.0 kN/m². What remains is the concrete: the stem, the toe and the heel, in Unit 14 ✓\nAnswer. Base 3.4 m wide and 0.4 m thick: toe 0.8 m, stem 0.4 m, heel 2.2 m. Overturning 159.9 ≤ 475.0 kN m; sliding 103.4 ≤ 129.1 kN (combination 1) and 100.2 ≤ 103.2 kN (EC7 Combination 2); e = 0.112 ≤ 0.567 m; bearing 98.6 and 66.1 ≤ 200 kN/m². The course notes’ 3.2 m base satisfies the notes’ three checks but slides in EC7 Combination 2 (100.2 > 95.6 kN).\nWhat the numbers say Overturning has a reserve of 2.6 and the bearing pressure is half of q_a; sliding has 16 % to spare in combination 1 and is 5 % short in Combination 2. That is the usual pattern for a cantilever wall on good ground: sliding decides the base. The remedy is cheap because it is soil, not concrete: 0.2 m of heel carries 17.1 kN of sand on 2.0 kN of slab, 3 % more concrete in the section. A 0.6 m toe with a 2.2 m heel on the same 3.2 m base passes as well (Notes §6); a key under the base is the third way (Unit 14)."
+  },
+  {
+   "id": "examples-x2",
+   "text": "[examples-x2] Example 2 · Faded Example 13.2: a wall on weaker ground\nExam type stability of a retaining wall Workbook 13.4 Time ≈ 25 min\nQuestion A cantilever wall retains 3.5 m of drained granular fill and is founded 0.5 m below the ground in front: stem 4.0 m high, 400 mm thick at its root and 250 mm at the top; base 400 mm thick. Fill: γ = 18 kN/m³, φ = 33°; surcharge 10 kN/m²; μ = 0.55; allowable bearing pressure 120 kN/m²; concrete 25 kN/m³. First trial: toe 0.4 m, heel 2.0 m. Check the stability and revise the base until every check passes. In the workbook steps 1 and 2 are given; complete steps 3 to 8. In the app: open the Retaining wall module, case RW1, and enter these dimensions and soil data (h_1 = 3.5 m).\n[Figure: Faded Example 13.2: the first trial, B = 2.8 m = 0.64H.]\n## Step 1 Dimensions and active pressure (given)\nRef Calculations Output\n§1 h_3 = 3.5 + 0.5 = 4.0 m; H = 4.0 + 0.4 = 4.4 m; B = 0.4 + 0.4 + 2.0 = 2.8 m H = 4.4 m\n(13.1), (13.2) K_a = (1 − sin 33°)/(1 + sin 33°) = 0.2948; at the surface 0.2948 × 10; at the underside 0.2948 × (18 × 4.4 + 10) 2.95; 26.30 kN/m²\n## Step 2 The two thrusts (given)\nRef Calculations Output\n(13.3) P_s = ½ × 0.2948 × 18 × 4.4² = 51.37 kN at 4.4/3 = 1.467 m; P_q = 0.2948 × 10 × 4.4 = 12.97 kN at 2.2 m M_{o,G} = 75.34; M_{o,Q} = 28.54 kN m\n## Step 3 Weights and moments about the toe A\nRef Calculations Output\n§3 W_1 = ½ × 0.15 × 4.0 × 25 = 7.5 kN at 0.4 + ⅔ × 0.15 = 0.5 m (3.75); W_2 = 0.25 × 4.0 × 25 = 25.0 kN at 0.4 + 0.15 + 0.125 = 0.675 m (16.88)\n§3 W_3 = 0.4 × 2.8 × 25 = 28.0 kN at 1.4 m (39.2); W_4 = 18 × 4.0 × 2.0 = 144.0 kN at 0.4 + 0.4 + 1.0 = 1.8 m (259.2) ΣV_{k,G} = 204.5 kN; ΣM_{r,G} = 319.03 kN m\n§3 Surcharge on the heel: W_q = 10 × 2.0 = 20.0 kN at 1.8 m 36.0 kN m\n## Step 4 Overturning (EQU)\nRef Calculations Output\n(13.4) 1.1 × 75.34 + 1.5 × 28.54 = 125.7 kN m ≤ 0.9 × 319.03 287.1 kN m ✓\n## Step 5 Sliding, both combinations\nRef Calculations Output\n(13.5) Combination 1: 1.35 × 51.37 + 1.5 × 12.97 = 88.8 kN ≤ 0.55 × 204.5 112.5 kN ✓\n(13.6) φ_d = tan⁻¹(tan 33°/1.25) = 27.45°; K_{a,d} = 0.3689; K_{a,d}/K_a = 0.3689/0.2948 1.2514\n(13.7) EC7 Combination 2: (51.37 + 1.3 × 12.97) × 1.2514 = 85.4 kN ≤ (0.55/1.25) × 204.5 90.0 kN ✓\n## Step 6 The resultant and the bearing pressure\nRef Calculations Output\n(13.8) N_k = 204.5 + 20.0 = 224.5 kN; ΔM_k = 319.03 + 36.0 − 75.34 − 28.54 = 251.15 kN m; x = 251.15/224.5 = 1.1187 m\n(13.8) e = 2.8/2 − 1.1187 = 0.2813 m ≤ B/6 = 0.467 m middle third ✓\n(13.9) q = 224.5/2.8 ± 6 × 224.5 × 0.2813/2.8² = 80.18 ± 48.33 128.5; 31.9 kN/m²: 128.5 > 120 ✗\n## Step 7 Revise: a longer toe\nRef Calculations Output\n§6 The pressure fails, not the sliding: lengthen the toe. Try 0.9 m (B = 3.3 m = 0.75H). Every arm grows by 0.5 m; only the base gains weight toe 0.9 m, B = 3.3 m\n§3 W_1 7.5 at 1.0 m (7.5); W_2 25.0 at 1.175 m (29.38); W_3 = 0.4 × 3.3 × 25 = 33.0 at 1.65 m (54.45); W_4 144.0 at 2.3 m (331.2); W_q 20.0 at 2.3 m (46.0) ΣV_{k,G} = 209.5 kN; ΣM_{r,G} = 422.53 kN m\n(13.4), (13.5), (13.7) Overturning 125.7 ≤ 0.9 × 422.53 = 380.3 kN m; sliding 88.8 ≤ 0.55 × 209.5 = 115.2 kN and 85.4 ≤ 0.44 × 209.5 = 92.2 kN ✓ ✓ ✓\n## Step 8 The bearing pressure again\nRef Calculations Output\n(13.8) N_k = 209.5 + 20.0 = 229.5 kN; ΔM_k = 422.53 + 46.0 − 75.34 − 28.54 = 364.65 kN m; x = 364.65/229.5 = 1.5889 m; e = 1.65 − 1.5889 = 0.0611 m ≤ 0.55 m middle third ✓\n(13.9) q = 229.5/3.3 ± 6 × 229.5 × 0.0611/3.3² = 69.55 ± 7.73 77.3; 61.8 ≤ 120 kN/m² ✓\napp Toe pressure at the ULS: 110.9 (combination 1), 83.1 and 98.7 kN/m² ≤ 120 ✓\nAnswer. Base 3.3 m wide and 0.4 m thick: toe 0.9 m, stem 0.4 m, heel 2.0 m. Overturning 125.7 ≤ 380.3 kN m; sliding 88.8 ≤ 115.2 kN and 85.4 ≤ 92.2 kN; e = 0.061 ≤ 0.55 m; bearing 77.3 and 61.8 ≤ 120 kN/m². The first trial (toe 0.4 m) passes overturning and sliding but its toe pressure is 128.5 > 120 kN/m².\nWhat the numbers say On this ground the bearing pressure decides, and the toe is the answer: 0.5 m more toe adds 5 kN and brings the resultant from 0.281 m to 0.061 m off the centre, so the pressure becomes almost uniform (77.3 and 61.8). The same 0.5 m on the heel would add 46 kN and still leave 112.2 kN/m² at the toe. A toe of 0.6 m is enough for the service check (104.5 kN/m²), but the app’s ULS row would then read 143.9 > 120; 0.9 m satisfies both. The sliding checks were never close: μ = 0.55 on this fill."
+  },
+  {
+   "id": "examples-x3",
+   "text": "[examples-x3] Example 3 · Explain-type questions\nExam type short written answers Time ≈ 3 min each\nQuestions\n- For the stability checks, why is the thrust taken over H = 4.9 m and not over the 4.5 m of the stem?\n- In a column design the permanent load takes 1.35. Why does the weight of the wall and of the soil take 0.9 against overturning and 1.0 against sliding?\n- How can the same wall pass sliding in combination 1 and fail it in EC7 Combination 2?\n- A wall passes sliding, but its toe pressure exceeds q_a. Which end of the base would you lengthen, and why?\nWrite your four answers first, then open the model answers one by one.\n## Answer 1 The virtual back\nFor stability the wall and the block of soil on its heel act as one body, and the back of that body is the vertical plane through the end of the heel: the virtual back. The thrust acts on that plane over its whole height, from the surface to the underside of the base, 4.9 m; the base slab is part of the body being pushed. Taking 4.5 m gives a soil thrust of 52.1 kN instead of 61.8 kN, 16 % too small and on the unsafe side. The 4.5 m is the right height for a different question, the bending of the stem itself (Unit 14).\n## Answer 2 Favourable and unfavourable\nA partial factor is put where it makes the check harder to pass. In a column the load is what must be resisted, so it takes 1.35. In a stability check the weight is what resists: overstating it would be unsafe, so it takes 0.9 against overturning (EQU) and 1.0 against sliding, while the thrust, which harms, takes 1.1 or 1.35. The surcharge shows the rule most clearly: its thrust takes 1.5 and its weight on the heel takes 0. With 1.35 on the weights the friction of the notes’ wall would read 161.3 kN instead of 119.5 kN.\n## Answer 3 The strength of the soil is factored\nCombination 1 factors the actions and keeps the soil at its characteristic strength. Combination 2 keeps the actions near their characteristic values (1.0 and 1.3) and divides tan φ and μ by 1.25. For φ = 35°, K_a rises from 0.271 to 0.343: a factor of 1.267 on every thrust, nearly the 1.35 it replaces, so the sliding force hardly changes (103.4 against 100.2 kN). The friction, though, falls by a fifth, from 119.5 to 95.6 kN. For sliding on a frictional base, Combination 2 is close to combination 1 with a fifth of the friction removed, so it governs.\n## Answer 4 The toe\nThe toe. In Faded Example 13.2 the first trial passes sliding (85.4 ≤ 90.0 kN) but its toe pressure is 128.5 > 120 kN/m². Adding 0.5 m to the toe moves the edge A forward: the resultant meets the base 0.061 m from the centre instead of 0.281 m, and the toe pressure falls to 77.3 kN/m² for only 5 kN more load. The same 0.5 m added to the heel brings 46 kN more load, and the toe pressure only falls to 112.2 kN/m². The heel buys friction; the toe buys an even pressure."
+  },
+  {
+   "id": "exercises-b1",
+   "text": "[exercises-b1] Exercise B1 · The active pressure\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-b2",
+   "text": "[exercises-b2] Exercise B2 · The two thrusts and the overturning moment\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-b3",
+   "text": "[exercises-b3] Exercise B3 · The weights and the restoring moment\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-b4",
+   "text": "[exercises-b4] Exercise B4 · Overturning and sliding, combination 1\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-b5",
+   "text": "[exercises-b5] Exercise B5 · Sliding in EC7 Combination 2\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-b6",
+   "text": "[exercises-b6] Exercise B6 · The resultant and the bearing pressure\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-quick",
+   "text": "[exercises-quick] Exercises: quick concept questions\n- A cantilever retaining wall resists sliding mainly through\n- For the stability checks, the height H of the pressure diagram runs\n- A uniform surcharge w on a level backfill gives a thrust on the wall of\n- In the overturning (EQU) check, the partial factors on the permanent overturning moment, the variable overturning moment and the permanent restoring moment are\n- In the sliding check, the weight of the surcharge standing on the heel is\n- A wall passes overturning and both sliding checks, and its resultant lies inside the middle third, but the toe pressure is 10 % above q_a . The most effective change is\n- A wall 4.4 m high to the underside of its base retains fill with γ = 18 kN/m³ and K_a = 0.2948 under a surcharge of 10 kN/m². One line contains the slip. Which one?\n- A wall on a base 3.6 m wide: under service loads the vertical load is 300 kN, the restoring moments about the toe sum to 660 kN m and the overturning moments to 180 kN m. One line contains the slip. Which one?"
+  },
+  {
+   "id": "lab-thrust",
+   "text": "[lab-thrust] Explorer task 1 · Tab 1, Activity 13A: work out the two thrusts on the course notes’ wall by hand (Workbook 13.2), type both values, then reveal.\nTicks itself: when both values are entered and revealed · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-heel",
+   "text": "[lab-heel] Explorer task 2 · Tab 2, Activity 13B: the notes’ wall slides in EC7 Combination 2. Predict which single change stops the sliding for the least concrete, then reveal.\nTicks itself: when your prediction is revealed · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-pass",
+   "text": "[lab-pass] Explorer task 3 · Tab 2: with the soil and the loads of the notes’ wall, change the toe, the heel or the base until every check passes. Which check was the last to pass?\nTicks itself: when the notes’ wall passes every check after you change a dimension · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-light",
+   "text": "[lab-light] Explorer task 4 · Tab 2, the design challenge: make the wall pass every check with no more concrete than the notes’ wall, 2.72 m² of section per metre.\nTicks itself: when every check passes with a section of 2.72 m² or less · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-third",
+   "text": "[lab-third] Explorer task 5 · Tab 2: shorten the toe and the heel until the resultant leaves the middle third. What happens to the pressure diagram, and to the heel end of the base?\nTicks itself: when the resultant is outside the middle third · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-s13",
+   "text": "[lab-s13] Explorer task 6 · Tab 3: Retaining Wall S13, find all four slips, tap their lines and press “Check”.\nTicks itself: when all four slips of S13 are found, before Show · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "glossary-active-pressure",
+   "text": "[glossary-active-pressure] Glossary: active pressure\nactive pressure: The smallest sideways pressure of a soil, reached when the wall yields a little away from it: p = K_a (γz + w)."
+  },
+  {
+   "id": "glossary-allowable-bearing-pressure-q-a",
+   "text": "[glossary-allowable-bearing-pressure-q-a] Glossary: allowable bearing pressure, q_a\nallowable bearing pressure, q_a: The pressure the ground may carry under service loads; the largest pressure under the base, at the toe, is compared with it."
+  },
+  {
+   "id": "glossary-angle-of-shearing-resistance",
+   "text": "[glossary-angle-of-shearing-resistance] Glossary: angle of shearing resistance, φ\nangle of shearing resistance, φ: The friction angle of the soil; with c = 0 it alone fixes K_a . EC7 Combination 2 uses φ_d = tan⁻¹(tan φ/1.25)."
+  },
+  {
+   "id": "glossary-backfill",
+   "text": "[glossary-backfill] Glossary: backfill\nbackfill: The soil placed behind the wall after it is built; granular and drained in this course."
+  },
+  {
+   "id": "glossary-base",
+   "text": "[glossary-base] Glossary: base\nbase: The slab under a cantilever wall: the toe in front of the stem and the heel behind it; width B, thickness h."
+  },
+  {
+   "id": "glossary-bearing-pressure",
+   "text": "[glossary-bearing-pressure] Glossary: bearing pressure\nbearing pressure: The pressure between the base and the ground: q = N/B ± 6Ne/B² with service loads, largest at the toe."
+  },
+  {
+   "id": "glossary-buttress-wall",
+   "text": "[glossary-buttress-wall] Glossary: buttress wall\nbuttress wall: A wall whose stem is braced by walls in front of it, in compression."
+  },
+  {
+   "id": "glossary-cantilever-wall",
+   "text": "[glossary-cantilever-wall] Glossary: cantilever wall\ncantilever wall: A stem fixed to a base slab; it stands mainly by the weight of the backfill on its heel. Economical to about 8 m."
+  },
+  {
+   "id": "glossary-coefficient-of-friction",
+   "text": "[glossary-coefficient-of-friction] Glossary: coefficient of friction, μ\ncoefficient of friction, μ: μ = tan δ between the base and the ground; the sliding resistance is μ times the vertical load. Divided by 1.25 in EC7 Combination 2."
+  },
+  {
+   "id": "glossary-combination-1",
+   "text": "[glossary-combination-1] Glossary: combination 1\ncombination 1: The load-factor combination of the stability checks: thrusts × 1.35 and 1.5, weights × 1.0, soil at its characteristic strength."
+  },
+  {
+   "id": "glossary-combination-2-ec7-da1",
+   "text": "[glossary-combination-2-ec7-da1] Glossary: Combination 2 (EC7 DA1)\nCombination 2 (EC7 DA1): The second combination of MS EN 1997-1 Design Approach 1: actions × 1.0 and 1.3, tan φ and μ divided by 1.25. It often governs sliding."
+  },
+  {
+   "id": "glossary-counterfort-wall",
+   "text": "[glossary-counterfort-wall] Glossary: counterfort wall\ncounterfort wall: A wall whose stem and base are tied together by bracing walls behind the stem, in tension; for heights above 6 to 7 m."
+  },
+  {
+   "id": "glossary-eccentricity-e",
+   "text": "[glossary-eccentricity-e] Glossary: eccentricity, e\neccentricity, e: The distance of the resultant from the centre of the base: e = B/2 − x , with x measured from the toe."
+  },
+  {
+   "id": "glossary-equ",
+   "text": "[glossary-equ] Glossary: EQU\nEQU: The limit state of static equilibrium, used for overturning: 1.1 and 1.5 on what overturns, 0.9 on what restores."
+  },
+  {
+   "id": "glossary-favourable-action",
+   "text": "[glossary-favourable-action] Glossary: favourable action\nfavourable action: A load that helps the check being made. A favourable permanent action takes 0.9 or 1.0; a favourable variable action counts as zero."
+  },
+  {
+   "id": "glossary-gravity-wall",
+   "text": "[glossary-gravity-wall] Glossary: gravity wall\ngravity wall: A wall of plain concrete or masonry that stands by its own weight, with the thrust line kept in the middle third; for low walls."
+  },
+  {
+   "id": "glossary-heel",
+   "text": "[glossary-heel] Glossary: heel\nheel: The part of the base behind the stem. The backfill stands on it: its weight gives the friction and most of the restoring moment."
+  },
+  {
+   "id": "glossary-k-a",
+   "text": "[glossary-k-a] Glossary: K_a\nK_a: Rankine’s coefficient of active pressure for a level granular backfill: (1 − sin φ)/(1 + sin φ); 0.271 for φ = 35°."
+  },
+  {
+   "id": "glossary-lever-arm",
+   "text": "[glossary-lever-arm] Glossary: lever arm\nlever arm: The distance of a load from the toe A: horizontal for a weight, vertical (H/3 or H/2 above the underside) for a thrust."
+  },
+  {
+   "id": "glossary-middle-third",
+   "text": "[glossary-middle-third] Glossary: middle third\nmiddle third: The central third of the base. With the resultant inside it (e ≤ B/6) the whole base stays in contact with the ground."
+  },
+  {
+   "id": "glossary-overturning",
+   "text": "[glossary-overturning] Glossary: overturning\noverturning: Rotation of the wall about its toe; checked with moments about A: 1.1M_{o,G} + 1.5M_{o,Q} ≤ 0.9M_{r,G} ."
+  },
+  {
+   "id": "glossary-passive-resistance",
+   "text": "[glossary-passive-resistance] Glossary: passive resistance\npassive resistance: The resistance of the soil in front of the base when the wall pushes into it. Ignored in the course checks; used for a key under the base in Unit 14."
+  },
+  {
+   "id": "glossary-restoring-moment",
+   "text": "[glossary-restoring-moment] Glossary: restoring moment\nrestoring moment: The moment of a weight about the toe, which turns the wall back onto its heel."
+  },
+  {
+   "id": "glossary-resultant",
+   "text": "[glossary-resultant] Glossary: resultant\nresultant: The single force equal to all the loads on the wall; it meets the base at x = ΔM/N from the toe."
+  },
+  {
+   "id": "glossary-sliding",
+   "text": "[glossary-sliding] Glossary: sliding\nsliding: Movement of the wall forward on its base; resisted by friction, μ times the permanent vertical load."
+  },
+  {
+   "id": "glossary-stem",
+   "text": "[glossary-stem] Glossary: stem\nstem: The vertical cantilever that holds the soil; about 80 mm thick at its root for every metre of backfill."
+  },
+  {
+   "id": "glossary-surcharge-w",
+   "text": "[glossary-surcharge-w] Glossary: surcharge, w\nsurcharge, w: A uniform load on the backfill. It acts twice: a thrust K_a wH at mid-height (unfavourable) and a weight on the heel (favourable, taken as zero in the stability checks)."
+  },
+  {
+   "id": "glossary-thrust",
+   "text": "[glossary-thrust] Glossary: thrust\nthrust: The resultant of the active pressure per metre of wall: P_s = ½K_a γH² at H/3 from the soil, P_q = K_a wH at H/2 from the surcharge."
+  },
+  {
+   "id": "glossary-toe",
+   "text": "[glossary-toe] Glossary: toe\ntoe: The part of the base in front of the stem. A longer toe centres the resultant and lowers the toe pressure. Its end, A, is the point the wall would turn about."
+  },
+  {
+   "id": "glossary-virtual-back",
+   "text": "[glossary-virtual-back] Glossary: virtual back\nvirtual back: The vertical plane through the end of the heel, from the surface to the underside of the base (height H); the thrust for stability acts on it."
+  },
+  {
+   "id": "glossary-weep-hole",
+   "text": "[glossary-weep-hole] Glossary: weep hole\nweep hole: A drain through the stem that keeps water from building up behind the wall."
+  }
+ ]
+}

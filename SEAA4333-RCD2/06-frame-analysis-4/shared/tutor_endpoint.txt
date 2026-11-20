@@ -1,0 +1,3 @@
+# Address of the rz-tutor Worker for this page, e.g. https://rz-tutor.<subdomain>.workers.dev/v1/chat
+# Empty (as now) = offline mode: Dr RJ points to matching sections of the page and nothing leaves the browser.
+# Before an address goes here, app "seaa4333" must be registered and switched on in rz-tutor-worker.

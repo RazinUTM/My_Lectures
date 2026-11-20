@@ -1,0 +1,1743 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Foundation Lab · SEAA 4333</title>
+<meta name="description" content="SEAA 4333 Units 10 to 12, Foundations I to III: the bearing pressure under a rigid base when the load moves off-centre, the critical sections of a pad footing with the punching scan inside 2d of EC2 6.4.4(2), the strap footing of a boundary column (the reactions by statics and the strap’s shear and moment), the pile group (number, cap and pile loads under moments), the pile cap by the truss analogy and beam theory with the shear enhancement and its EC2 limit, and three spot-the-error sheets.">
+<meta name="claude:viewport-fit-sides" content="cover">
+<script>(function(){try{var r=document.documentElement,p=JSON.parse(localStorage.getItem("seaa4333-prefs")||"null")||{};if(p.lang==="ms"){r.lang="ms";r.setAttribute("data-lang","ms")}if(p.theme==="light"||p.theme==="dark")r.setAttribute("data-theme",p.theme);if(+p.font)r.style.fontSize=(+p.font*100)+"%"}catch(e){}})();</script>
+<!-- Foundation Lab (SEAA 4333 Units 10-12). SPDX-License-Identifier: MIT (code). Text and figures: CC BY-NC-SA 4.0.
+     Copyright (c) 2026 Ahmad Razin Zainal Abidin and Universiti Teknologi Malaysia. See ../LICENSE.md. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Foundation Lab. Layout: the calculation pad of the Staircase and Column Labs, laid on concrete. Controls stay monochrome ink;
+   colour is kept for the two bracing cases (braced blue, unbraced rust, validated for colour-vision
+   deficiency in both themes) and for pass/fail verdicts. The tabs follow the order of the Unit 10 to 12 sessions. */
+:root{
+  --bg:#E6E4DF; --surface:#F7F6F2; --surface-2:#EEECE6;
+  --ink:#1D1C19; --ink-2:#47443D; --ink-3:#686459;
+  --rule:#CAC6BD; --grid:#E1DED6; --concrete:#D9D6CE; --concrete-edge:#9C978C;
+  --flight:#2463c4; --braced:#2463c4; --unbraced:#b8481a;
+  --ok:#0f6b37; --bad:#ad2a1f;
+  --wash-ok:rgba(15,107,55,.12); --wash-bad:rgba(173,42,31,.12); --wash-flag:rgba(36,99,196,.14);
+  --focus:#2463c4; --shadow:rgba(29,28,25,.14);
+  --f-display:"Archivo","Arial Narrow",Arial,system-ui,sans-serif;
+  --f-body:"Atkinson Hyperlegible","Segoe UI",Roboto,system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#131311; --surface:#1C1B19; --surface-2:#252420;
+    --ink:#ECE9E1; --ink-2:#BDB8AD; --ink-3:#958F84;
+    --rule:#37352F; --grid:#2A2925; --concrete:#3A3833; --concrete-edge:#77726A;
+    --flight:#5d9bf0; --braced:#4f8ee8; --unbraced:#df6a33;
+    --ok:#52c98a; --bad:#f2837a;
+    --wash-ok:rgba(82,201,138,.16); --wash-bad:rgba(242,131,122,.16); --wash-flag:rgba(93,155,240,.2);
+    --focus:#6aa6f0; --shadow:rgba(0,0,0,.5); color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#131311; --surface:#1C1B19; --surface-2:#252420;
+  --ink:#ECE9E1; --ink-2:#BDB8AD; --ink-3:#958F84;
+  --rule:#37352F; --grid:#2A2925; --concrete:#3A3833; --concrete-edge:#77726A;
+  --flight:#5d9bf0; --braced:#4f8ee8; --unbraced:#df6a33;
+  --ok:#52c98a; --bad:#f2837a;
+  --wash-ok:rgba(82,201,138,.16); --wash-bad:rgba(242,131,122,.16); --wash-flag:rgba(93,155,240,.2);
+  --focus:#6aa6f0; --shadow:rgba(0,0,0,.5); color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1rem;line-height:1.5}
+h1,h2,h3{font-family:var(--f-display);font-stretch:85%;line-height:1.15;text-wrap:balance;margin:0}
+p{margin:0}
+.wrap{max-width:1220px;margin-inline:auto;padding-inline:clamp(16px,3vw,32px);padding-left:max(clamp(16px,3vw,32px),env(safe-area-inset-left,0px));padding-right:max(clamp(16px,3vw,32px),env(safe-area-inset-right,0px))}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* top bar */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--bg);border-bottom:1px solid var(--rule)}
+.topbar .wrap{display:flex;align-items:center;gap:10px 20px;flex-wrap:wrap;padding-block:10px}
+.brand{display:flex;align-items:baseline;gap:6px 12px;flex-wrap:wrap;min-width:0}
+.brand h1{font-size:clamp(1.35rem,2.6vw,1.8rem);font-weight:800;letter-spacing:.01em}
+.unit{font:600 .74rem/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.timer{margin-left:auto;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.timer-display{font:600 1.3rem/1 var(--f-mono);font-variant-numeric:tabular-nums;padding:7px 12px;border:1.5px solid var(--ink);border-radius:8px;background:var(--surface);color:var(--ink);cursor:pointer;min-width:5.4ch;text-align:center}
+.timer-display.running{background:var(--ink);color:var(--surface)}
+.timer-display.done{background:var(--ink);color:var(--surface);animation:blink 1s steps(2) 6}
+@keyframes blink{50%{background:var(--surface);color:var(--ink)}}
+.btn{font:700 .86rem/1 var(--f-body);color:var(--ink);background:var(--surface);border:1.5px solid var(--ink);border-radius:999px;padding:8px 13px;cursor:pointer;min-height:36px}
+.btn:hover{background:var(--surface-2)}
+.btn.primary{background:var(--ink);color:var(--surface)}
+.btn.primary:hover{opacity:.9}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.sm{padding:6px 10px;font-size:.8rem;min-height:32px}
+
+/* tabs */
+.tabs{display:flex;gap:4px;overflow-x:auto;padding-top:14px;scrollbar-width:thin}
+.tab{flex:0 0 auto;display:flex;gap:8px;align-items:baseline;font:700 .95rem/1.2 var(--f-body);color:var(--ink-2);background:transparent;border:1px solid transparent;border-bottom:0;border-radius:10px 10px 0 0;padding:10px 14px 11px;cursor:pointer}
+.tab .n{font:600 .78rem var(--f-mono);color:var(--ink-3)}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected="true"]{background:var(--surface);color:var(--ink);border-color:var(--rule);position:relative;top:1px}
+.sheet{background:var(--surface);border:1px solid var(--rule);border-radius:0 var(--r) var(--r) var(--r);padding:clamp(14px,2.4vw,26px)}
+main{padding-bottom:40px}
+
+/* panels */
+.panel{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:920px){.panel{grid-template-columns:minmax(0,1fr)}}
+.col{display:flex;flex-direction:column;gap:18px;min-width:0}
+.head h2{font-size:clamp(1.4rem,2.6vw,1.9rem);font-weight:800}
+.lede{color:var(--ink-2);max-width:62ch;margin-top:6px}
+.group{display:flex;flex-direction:column;gap:8px}
+.label{font:700 .72rem/1.2 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.seg{display:inline-flex;flex-wrap:wrap;border:1.5px solid var(--ink);border-radius:12px;overflow:hidden;width:max-content;max-width:100%}
+.seg button{font:700 .86rem/1.15 var(--f-body);background:transparent;color:var(--ink);border:0;padding:9px 12px;cursor:pointer;min-height:38px}
+.seg button+button{border-left:1.5px solid var(--ink)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--surface)}
+.seg.vert{display:flex;flex-direction:column;width:100%}
+.seg.cells{display:grid;grid-template-columns:repeat(auto-fit,minmax(6.2rem,1fr));gap:1.5px;background:var(--ink);width:100%}
+.seg.cells button{background:var(--surface)}
+.task .seg.cells button{background:var(--bg)}
+.seg.cells button+button{border-left:0}
+.seg.cells button[aria-pressed="true"]{background:var(--ink)}
+.seg.vert button{text-align:left}
+.seg.vert button+button{border-left:0;border-top:1.5px solid var(--ink)}
+.fields{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:8px 10px;align-items:center}
+.fields label{font-size:.92rem}
+.fields .u{font:500 .8rem var(--f-mono);color:var(--ink-3)}
+.fields input,.fields select,select.full{width:100%;min-width:0;font:500 .95rem var(--f-mono);padding:7px 8px;border:1px solid var(--rule);border-radius:6px;background:var(--bg);color:var(--ink)}
+select.full{font-family:var(--f-body)}
+.task{border:1.5px solid var(--ink);border-radius:var(--r);padding:14px 16px;background:var(--bg)}
+.task .tag{display:inline-block;font:700 .7rem/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;background:var(--ink);color:var(--surface);padding:5px 8px;border-radius:4px}
+.task p{margin-top:8px}
+.note{font-size:.92rem;color:var(--ink-2);border-top:1px solid var(--rule);padding-top:10px}
+
+/* figures and the chart */
+.plotcard{border:1px solid var(--rule);border-radius:var(--r);background:var(--surface);padding:10px 10px 6px;min-width:0}
+.plothead{display:flex;justify-content:space-between;align-items:baseline;gap:6px 16px;flex-wrap:wrap;padding:2px 6px 4px}
+.plothead h3{font-size:1.06rem;font-weight:700}
+.legend{display:flex;gap:6px 14px;flex-wrap:wrap;font-size:.85rem;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.key{display:inline-block;width:18px;border-top:3px solid}
+.figbox{overflow-x:auto}
+svg.fig{display:block;width:100%;height:auto;min-width:460px}
+svg.fig text{font-family:var(--f-mono);font-size:12px;fill:var(--ink-2);paint-order:stroke;stroke:var(--surface);stroke-width:3px;stroke-linejoin:round}
+svg.fig .small{font-size:11px;fill:var(--ink-3)}
+svg.chart{display:block;width:100%;height:auto;touch-action:pan-y}
+svg.chart text{font-family:var(--f-mono);font-size:12px;fill:var(--ink-3)}
+svg.chart .axt{fill:var(--ink-2);font-family:var(--f-body);font-size:13px}
+.ctip{position:absolute;top:8px;left:0;z-index:5;pointer-events:none;display:flex;flex-direction:column;gap:3px;min-width:150px;padding:8px 10px;border:1px solid var(--rule);border-radius:8px;background:var(--surface);box-shadow:0 4px 14px var(--shadow);font:500 .8rem/1.3 var(--f-mono);font-variant-numeric:tabular-nums;color:var(--ink)}
+.ctip span{display:flex;align-items:center;gap:6px;color:var(--ink-2)}
+.ctip .key{width:14px}
+details.tview{margin:4px 6px 6px;font-size:.9rem}
+details.tview summary{cursor:pointer;font-weight:700;color:var(--ink-2);padding:4px 0;width:max-content;max-width:100%}
+details.tview .tbl{min-width:420px}
+
+/* tables */
+.scroll{overflow-x:auto}
+.tbl{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:.92rem}
+.tbl th,.tbl td{padding:7px 10px;border-bottom:1px solid var(--rule);text-align:left;vertical-align:top}
+.tbl th{font:700 .74rem/1.2 var(--f-mono);letter-spacing:.03em;color:var(--ink-3);text-transform:uppercase}
+.tbl th.out{text-align:right}
+.tbl td.m,.tbl .m{font-family:var(--f-mono);font-size:.86rem}
+.tbl td.out{font-family:var(--f-mono);font-weight:600;white-space:nowrap;text-align:right}
+.tbl td.ref{font-size:.8rem;color:var(--ink-3);width:7.5rem}
+.tbl tr.em td{background:var(--surface-2)}
+#lTable{min-width:520px;table-layout:fixed}
+#lTable col.cref{width:6.8rem}
+#lTable td.ax .c{font:.82rem/1.45 var(--f-mono);color:var(--ink-2);overflow-wrap:anywhere}
+#lTable td.ax .o{font:600 .92rem/1.4 var(--f-mono);font-variant-numeric:tabular-nums;color:var(--ink);margin-top:3px}
+#lTable td.ax span.o{margin-left:6px}
+#lTable tr.em td{vertical-align:middle}
+
+/* verdict pills and key values */
+.pill{display:inline-block;font:700 .72rem/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;padding:6px 8px;border-radius:999px;border:1.5px solid currentColor;min-width:4.6ch;text-align:center}
+.pill.ok{color:var(--ok);background:var(--wash-ok)}
+.pill.bad{color:var(--bad);background:var(--wash-bad)}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:8px}
+.kv div{background:var(--surface-2);border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:2px}
+.kv span{font:700 .7rem/1.2 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+.kv span.pill.ok{color:var(--ok)}.kv span.pill.bad{color:var(--bad)}
+.kv b{font:600 1.15rem/1.2 var(--f-mono);font-variant-numeric:tabular-nums}
+.verdict{font-size:.92rem;padding:8px 10px;border-radius:6px;margin-top:10px}
+.verdict.ok{background:var(--wash-ok);color:var(--ink)}
+.verdict.bad{background:var(--wash-bad);color:var(--ink)}
+.verdict b{color:inherit}
+
+/* the race */
+.racegrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,330px),1fr));gap:12px}
+.racecard{border:1px solid var(--rule);border-radius:var(--r);background:var(--surface);padding:12px 14px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.racecard .rhead{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:start}
+.racecard .rn{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--ink);color:var(--surface);font:700 .9rem/1 var(--f-mono)}
+.racecard .rhead p{font-size:.93rem}
+.racecard .verdict{margin-top:0}
+
+/* spot the error */
+.s1top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:920px){.s1top{grid-template-columns:minmax(0,1fr)}}
+.given{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;font-size:.92rem;background:var(--surface-2);border-radius:8px;padding:12px 14px;margin:0}
+.given dt{font:700 .78rem var(--f-mono);color:var(--ink-3);padding-top:2px}
+.given dd{margin:0}
+.sheetcalc{border-collapse:collapse;width:100%;font-size:.9rem;min-width:640px}
+.sheetcalc th{font:700 .72rem/1.2 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);text-align:left;padding:8px 10px;border-bottom:1.5px solid var(--ink)}
+.sheetcalc td{padding:9px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+.sheetcalc td.no{font:700 .9rem var(--f-mono);width:3.2rem}
+.sheetcalc td.ref{font-size:.8rem;color:var(--ink-3);width:8.5rem}
+.sheetcalc td.calc{font-family:var(--f-mono);font-size:.84rem}
+.sheetcalc td.out{font-family:var(--f-mono);font-size:.84rem;font-weight:600;width:10rem}
+.sheetcalc tbody tr{cursor:pointer}
+.sheetcalc tbody tr:hover td{background:var(--surface-2)}
+.sheetcalc tr.flag td{background:var(--wash-flag)}
+.sheetcalc tr.flag td.no::after{content:" ⚑";color:var(--flight)}
+.sheetcalc tr.hit td{background:var(--wash-ok)}
+.sheetcalc tr.miss td{background:var(--wash-bad)}
+.sheetcalc tr.false td{background:var(--surface-2);text-decoration:line-through;text-decoration-color:var(--ink-3)}
+.sheetcalc tr .fix{display:block;margin-top:6px;font-family:var(--f-body);font-size:.88rem;color:var(--ink);background:var(--surface);border-left:3px solid var(--ok);padding:6px 10px;border-radius:0 6px 6px 0;text-decoration:none}
+.sheetcalc tr.miss .fix{border-left-color:var(--bad)}
+.score{font:700 1.05rem var(--f-display);min-height:1.4em}
+.steps{display:flex;gap:8px;flex-wrap:wrap}
+.summary{border:1.5px solid var(--bad);border-radius:var(--r);padding:12px 14px;background:var(--wash-bad);font-size:.95rem}
+
+/* big timer */
+.bigtimer{position:fixed;inset:0;z-index:50;background:var(--ink);color:var(--surface);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:24px;cursor:pointer}
+.bigtimer .digits{font:600 clamp(5rem,22vw,16rem)/1 var(--f-mono);font-variant-numeric:tabular-nums}
+.bigtimer .hint{font:500 1rem var(--f-mono);opacity:.75}
+footer{color:var(--ink-3);font-size:.85rem;padding-block:18px 32px;max-width:90ch}
+@media (max-width:640px){
+  .topbar{position:static}
+  .timer{margin-left:0}
+  .tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding-bottom:10px}
+  .tab{border:1px solid var(--rule);border-radius:8px;padding:9px 10px}
+  .tab[aria-selected="true"]{top:0;background:var(--ink);color:var(--surface);border-color:var(--ink)}
+  .tab[aria-selected="true"] .n{color:var(--surface)}
+  .sheet{border-radius:var(--r)}
+}
+@media (prefers-reduced-motion:reduce){.timer-display.done{animation:none}}
+
+/* SEAA 4333 site bar: shown when the Lab is opened on its own, hidden inside the Unit page (the page has the settings) */
+.sitebar{background:var(--surface-2);border-bottom:1px solid var(--rule);font-size:.86rem}
+.sitebar .wrap{display:flex;align-items:center;justify-content:space-between;gap:8px 16px;flex-wrap:wrap;padding-block:6px}
+.sitebar .crumbs{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center;color:var(--ink-3)}
+.sitebar .crumbs a{color:var(--ink-2);text-decoration:none;font-weight:700}
+.sitebar .crumbs a:hover{text-decoration:underline}
+.sitebar .crumbs [aria-current]{color:var(--ink);font-weight:700}
+.sitebar .prefs{display:flex;gap:4px;flex-wrap:nowrap}
+.sitebar .prefs button{display:inline-grid;place-items:center;width:30px;height:30px;padding:0;border:1px solid var(--rule);border-radius:8px;background:var(--surface);color:var(--ink);cursor:pointer;font:700 .75rem/1 var(--f-body)}
+.sitebar .prefs button:hover{border-color:var(--ink)}
+.sitebar .prefs svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.sitebar .fontbtn{display:inline-flex!important;flex-direction:column;gap:2px}
+.sitebar .fontbtn .aa{font-size:.8rem;line-height:1}.sitebar .fontbtn .aa small{font-size:.55rem}
+.sitebar .fontbtn .lvl{display:flex;gap:2px}.sitebar .fontbtn .lvl i{width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.25}.sitebar .fontbtn .lvl i.on{opacity:1}
+:root.framed .sitebar{display:none}
+footer .lic{display:block;margin-top:6px}
+
+/* Unit 8: N–M interaction, design and detail */
+input[type=range].xs{width:100%;accent-color:var(--flight);margin:6px 0 2px}
+.xread{display:flex;flex-wrap:wrap;gap:6px 14px;font-family:var(--f-mono);font-size:.86rem;color:var(--ink-2)}
+.xread b{color:var(--ink)}
+.jig{display:grid;grid-template-columns:auto 1fr 1fr auto;gap:6px 10px;align-items:center;margin-top:10px}
+.jig .h{font-size:.8rem;color:var(--ink-3);font-weight:600}
+.jig input{width:100%;min-width:0;font:inherit;font-family:var(--f-mono);padding:5px 7px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink)}
+.jig .lab{font-weight:700;font-family:var(--f-mono)}
+.jig .st{font-weight:700;min-width:1.2em;text-align:center}
+.jig .st.ok{color:var(--ok)} .jig .st.bad{color:var(--bad)}
+.barpick{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.barpick select{font:inherit;padding:5px 8px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink)}
+.lk{display:grid;grid-template-columns:auto auto auto;gap:6px 10px;align-items:center;margin-top:8px}
+.lk input,.lk select{font:inherit;font-family:var(--f-mono);width:6.5em;padding:5px 7px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink)}
+.lk .st{font-size:.9rem}
+/* Foundation Lab */
+.kv span:has(sub){text-transform:none;letter-spacing:.02em}
+.tbl th:has(sub){text-transform:none;letter-spacing:.02em}
+.tbl td.out span.ok{color:var(--ok);font-weight:700}.tbl td.out span.bad{color:var(--bad);font-weight:700}
+#sTable td.m{white-space:normal}
+.arow{display:grid;grid-template-columns:5.2rem minmax(0,1fr);gap:8px 12px;align-items:center;margin-top:12px}
+.arow .alab{font:700 .95rem var(--f-mono);margin:0}
+.arow .steps,.arow .verdict{grid-column:2}
+.arow .verdict{margin-top:2px}
+.arow .seg.cells{grid-template-columns:repeat(2,minmax(0,1fr))}
+.arow .seg.cells button{font-size:.8rem;padding:7px 8px;min-height:34px}
+.veil{position:absolute;inset:0;display:grid;place-items:center;background:color-mix(in srgb,var(--surface) 82%,transparent);border-radius:8px}
+.veil p{font:700 1rem var(--f-display);color:var(--ink-2);background:var(--surface);border:1.5px dashed var(--ink-3);border-radius:10px;padding:12px 16px;margin:0}
+@media (max-width:640px){.arow{grid-template-columns:minmax(0,1fr)}.arow .steps,.arow .verdict{grid-column:1}}
+</style>
+</head>
+<body>
+<div class="sitebar" id="sitebar"><div class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb" data-ms-aria="Laluan"><a href="https://razinutm.github.io/My_Lectures/">My Lectures</a><span aria-hidden="true">›</span><a href="../index.html">SEAA 4333</a><span aria-hidden="true">›</span><a href="../10-foundations-1/index.html#lab">Unit 10</a><span aria-hidden="true">·</span><a href="../11-foundations-2/index.html#lab">Unit 11</a><span aria-hidden="true">·</span><a href="../12-foundations-3/index.html#lab">Unit 12</a><span aria-hidden="true">›</span><span aria-current="page">Foundation Lab</span></nav>
+  <div class="prefs"><button type="button" id="btn-lang" title="Bahasa">BM</button><button type="button" id="btn-theme" title="Theme"></button><button type="button" id="btn-font" class="fontbtn" title="Text size"><span class="aa" aria-hidden="true">A<small>A</small></span><span class="lvl" aria-hidden="true"><i></i><i></i><i></i><i></i></span></button></div>
+</div></div>
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand">
+      <h1>Foundation Lab</h1>
+      <span class="unit">SEAA 4333 · Units 10–12 · Foundations I–III</span>
+    </div>
+    <div class="timer" aria-label="Activity timer" data-ms-aria="Pemasa aktiviti">
+      <button class="timer-display" id="tDisplay" type="button" title="Show the timer full screen" data-ms-title="Tunjuk pemasa pada skrin penuh">5:00</button>
+      <div class="seg" role="group" aria-label="Timer length" data-ms-aria="Tempoh pemasa" id="tLen">
+        <button type="button" data-min="3">3</button>
+        <button type="button" data-min="5" aria-pressed="true">5</button>
+        <button type="button" data-min="10">10</button>
+        <button type="button" data-min="15">15</button>
+        <button type="button" data-min="20">20</button>
+      </div>
+      <button class="btn sm primary" id="tStart" type="button">Start</button>
+      <button class="btn sm" id="tReset" type="button" data-ms="Set semula">Reset</button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <nav class="tabs" role="tablist" aria-label="Lab sections" data-ms-aria="Bahagian Lab">
+    <button class="tab" role="tab" id="tab-pressure" aria-controls="panel-pressure" data-tab="pressure"><span class="n">1</span><span data-ms="Bearing pressure">Bearing pressure</span></button>
+    <button class="tab" role="tab" id="tab-sections" aria-controls="panel-sections" data-tab="sections"><span class="n">2</span><span data-ms="Section kritikal">Critical sections</span></button>
+    <button class="tab" role="tab" id="tab-error" aria-controls="panel-error" data-tab="error"><span class="n">3</span><span data-ms="Cari kesilapan">Spot the error</span></button>
+    <button class="tab" role="tab" id="tab-strap" aria-controls="panel-strap" data-tab="strap"><span class="n">4</span><span data-ms="Strap footing">Strap footing</span></button>
+    <button class="tab" role="tab" id="tab-piles" aria-controls="panel-piles" data-tab="piles"><span class="n">5</span><span data-ms="Kumpulan pile">Pile group</span></button>
+    <button class="tab" role="tab" id="tab-cap" aria-controls="panel-cap" data-tab="cap"><span class="n">6</span><span data-ms="Pile cap">Pile cap</span></button>
+  </nav>
+
+  <main class="sheet">
+    <!-- ===================== 1 BEARING PRESSURE ===================== -->
+    <section id="panel-pressure" role="tabpanel" aria-labelledby="tab-pressure">
+      <div class="panel">
+        <div class="col">
+          <div class="head">
+            <h2 data-ms="Bearing pressure di bawah tapak tegar">Bearing pressure under a rigid base</h2>
+            <p class="lede" data-ms="Tetapkan tapak, load dan moment. Lab mencari eccentricity, menunjukkan sama ada seluruh tapak bersentuhan, dan melukis tekanan: N/A ± M/Z di dalam kern, segi tiga sepanjang L&lt;sub&gt;c&lt;/sub&gt; = 3(L/2 − e) apabila sebahagian tapak terangkat (Mosley Eq. 10.4).">Set the base, the load and the moments. The Lab finds the eccentricity, tells you whether the whole base stays in contact, and draws the pressure: N/A ± M/Z inside the kern, a triangle over L<sub>c</sub> = 3(L/2 − e) once part of the base lifts off (Mosley Eq. 10.4).</p>
+          </div>
+          <div class="group">
+            <label class="label" for="pCase" data-ms="Kes">Case</label>
+            <select id="pCase" class="full"></select>
+            <p class="note" id="pCaseNote" style="border:0;padding:0"></p>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Tapak">Base</span>
+            <div class="fields">
+              <label for="pL" data-ms="Panjang L (arah moment M)">Length L (direction of M)</label><input id="pL" type="number" min="0.8" max="8" step="0.1"><span class="u">m</span>
+              <label for="pB" data-ms="Lebar B">Width B</label><input id="pB" type="number" min="0.8" max="8" step="0.1"><span class="u">m</span>
+            </div>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Load pada tapak">Load on the base</span>
+            <div class="fields">
+              <label for="pN">N</label><input id="pN" type="number" min="10" max="20000" step="10"><span class="u">kN</span>
+              <label for="pM" data-ms="M (condong sepanjang L)">M (tilts along L)</label><input id="pM" type="number" min="0" max="20000" step="5"><span class="u">kN m</span>
+              <label for="pM2" data-ms="M (condong sepanjang B)">M (tilts along B)</label><input id="pM2" type="number" min="0" max="20000" step="5"><span class="u">kN m</span>
+            </div>
+            <label class="label" for="pE" style="margin-top:10px" data-ms="Eccentricity sepanjang L, e = M/N">Eccentricity along L, e = M/N</label>
+            <input id="pE" type="range" min="0" max="0.45" step="0.005" style="width:100%;accent-color:var(--flight)" aria-describedby="pEout">
+            <p class="note" id="pEout" style="border:0;padding:0"></p>
+          </div>
+          <p class="note" data-ms="Bagi semakan tanah, N termasuk berat tapak; bagi bending dan shear tapak, N ialah load column sahaja (Nota §2).">For the soil check N includes the weight of the base; for bending and shear in the base N is the column load alone (Notes §2).</p>
+        </div>
+        <div class="col">
+          <div class="task" id="act10a">
+            <span class="tag" data-ms="Aktiviti 10A · berpasangan · 12 min">Activity 10A · pairs · 12 min</span>
+            <p data-ms="Tapak 2.4 × 2.0 m membawa N = 600 kN. Bagi setiap eccentricity, pilih bentuk tekanan di bawahnya dan lakarkannya dalam Workbook 10.3. Kemudian dedahkan setiap satu.">A 2.4 × 2.0 m base carries N = 600 kN. For each eccentricity, choose the shape of the pressure under it and sketch it in Workbook 10.3. Then reveal each one.</p>
+            <div id="aRows"></div>
+          </div>
+          <div class="kv" id="pKV" aria-live="polite"></div>
+          <div class="plotcard">
+            <div class="plothead"><h3 data-ms="Tekanan sepanjang L">Pressure along L</h3><span class="legend"><span><i class="key" style="border-color:var(--flight)"></i><span data-ms="tekanan tanah">soil pressure</span></span></span></div>
+            <div class="figbox"><svg class="chart" id="pChart" viewBox="0 0 640 360" role="img" aria-label="Elevation of the base with the load and the soil pressure under it"></svg></div>
+          </div>
+          <div class="plotcard">
+            <div class="plothead"><h3 data-ms="Pelan: kern dan paduan">Plan: the kern and the resultant</h3><span class="legend" id="pPlanLeg"></span></div>
+            <div class="figbox"><svg class="chart" id="pPlan" viewBox="0 0 640 380" role="img" aria-label="Plan of the base with the kern rhombus, the resultant and the corner pressures"></svg></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 2 CRITICAL SECTIONS ===================== -->
+    <section id="panel-sections" role="tabpanel" aria-labelledby="tab-sections" hidden>
+      <div class="panel">
+        <div class="col">
+          <div class="head">
+            <h2 data-ms="Section kritikal pad footing">Critical sections of a pad footing</h2>
+            <p class="lede" data-ms="Pad segi empat sama di bawah column segi empat sama dan axial load. Lab menyemak bending di muka column, vertical shear pada d, punching pada 2d dan pada setiap perimeter a ≤ 2d (EC2 6.4.4(2)), dan muka column, mengikut kaedah kursus.">A square pad under a square column and an axial load. The Lab checks bending at the column face, vertical shear at d, punching at 2d and at every perimeter a ≤ 2d (EC2 6.4.4(2)), and the column face, by the course method.</p>
+          </div>
+          <div class="group">
+            <label class="label" for="sCase" data-ms="Kes">Case</label>
+            <select id="sCase" class="full"></select>
+            <p class="note" id="sCaseNote" style="border:0;padding:0"></p>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Tapak dan column">Base and column</span>
+            <div class="fields">
+              <label for="sL" data-ms="Sisi tapak L">Side of the base L</label><input id="sL" type="number" min="1" max="8" step="0.1"><span class="u">m</span>
+              <label for="sh" data-ms="Ketebalan h">Thickness h</label><input id="sh" type="number" min="250" max="2000" step="25"><span class="u">mm</span>
+              <label for="sc" data-ms="Sisi column c">Side of the column c</label><input id="sc" type="number" min="200" max="1000" step="25"><span class="u">mm</span>
+              <label for="sN">N<sub>Ed</sub></label><input id="sN" type="number" min="50" max="20000" step="10"><span class="u">kN</span>
+            </div>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Bahan dan bar">Materials and bars</span>
+            <div class="fields">
+              <label for="sfck">f<sub>ck</sub></label><select id="sfck"><option>25</option><option>30</option><option>35</option><option>40</option></select><span class="u">N/mm²</span>
+              <label for="scn">c<sub>nom</sub></label><input id="scn" type="number" min="25" max="100" step="5"><span class="u">mm</span>
+              <label for="sphi" data-ms="Bar φ">Bar φ</label><select id="sphi"><option>10</option><option>12</option><option>16</option><option>20</option><option>25</option></select><span class="u">mm</span>
+              <label for="snb" data-ms="Bilangan bar setiap arah">Bars each way</label><input id="snb" type="number" min="4" max="80" step="1"><span class="u">–</span>
+            </div>
+          </div>
+          <p class="note" data-ms="d lapisan dalam = h − c − 1.5φ bagi kedua-dua arah; d purata = h − c − φ bagi punching. Bar dikira dalam ρ&lt;sub&gt;l&lt;/sub&gt; hanya jika ia menjangkau l&lt;sub&gt;bd&lt;/sub&gt; + d melepasi section.">Inner layer d = h − c − 1.5φ for both directions; mean d = h − c − φ for punching. The bars count in ρ<sub>l</sub> only if they run l<sub>bd</sub> + d beyond the section.</p>
+        </div>
+        <div class="col">
+          <div class="task" id="act10b">
+            <span class="tag" data-ms="Aktiviti 10B · berpasangan · 6 min">Activity 10B · pairs · 6 min</span>
+            <p data-ms="Kes F1, pad nota kursus dengan h = 450 mm. Di manakah punching perimeter yang paling teruk? Pilih, kemudian dedahkan imbasan.">Case F1, the course notes’ pad with h = 450 mm. Where is the worst punching perimeter? Choose, then reveal the scan.</p>
+            <div class="seg cells" role="group" aria-label="Your prediction" data-ms-aria="Ramalan anda" id="bPred" style="margin-top:10px">
+              <button type="button" data-v="A" data-ms="A · di muka column">A · at the column face</button>
+              <button type="button" data-v="B" data-ms="B · berhampiran a = d">B · near a = d</button>
+              <button type="button" data-v="C" data-ms="C · pada 2d">C · at 2d</button>
+              <button type="button" data-v="D" data-ms="D · melepasi 2d">D · beyond 2d</button>
+            </div>
+            <div class="steps" style="margin-top:10px"><button class="btn primary" id="bReveal" type="button" data-ms="Dedahkan">Reveal</button></div>
+            <p class="verdict" id="bOut" hidden></p>
+          </div>
+          <div class="kv" id="sKV" aria-live="polite"></div>
+          <div class="plotcard">
+            <div class="plothead"><h3 data-ms="Imbasan punching di dalam 2d">The punching scan inside 2d</h3><span class="legend"><span><i class="key" style="border-color:var(--unbraced)"></i>v<sub>Ed</sub>/v<sub>Rd</sub></span></span></div>
+            <div class="figbox" style="position:relative"><svg class="chart" id="sChart" viewBox="0 0 640 330" role="img" aria-label="Ratio of punching stress to resistance against the distance of the perimeter from the column face"></svg>
+              <div class="veil" id="sVeil"><p data-ms="Ramal dahulu (Aktiviti 10B), kemudian dedahkan.">Predict first (Activity 10B), then reveal.</p></div></div>
+          </div>
+          <div class="plotcard">
+            <div class="plothead"><h3 data-ms="Pelan: section dan perimeter terburuk">Plan: the sections and the worst perimeter</h3></div>
+            <div class="figbox"><svg class="chart" id="sPlan" viewBox="0 0 640 400" role="img" aria-label="Plan of the pad with the column face, the shear section at d, the 2d perimeter and the worst perimeter"></svg></div>
+          </div>
+          <div class="plotcard">
+            <div class="plothead"><h3 data-ms="Semakan, satu demi satu">The checks, one by one</h3></div>
+            <div class="scroll"><table class="tbl" id="sTable"></table></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 3 SPOT THE ERROR ===================== -->
+    <section id="panel-error" role="tabpanel" aria-labelledby="tab-error" hidden>
+      <div class="col">
+        <div class="s1top">
+          <div class="col">
+            <div class="head">
+              <div class="seg" role="group" aria-label="Sheet" data-ms-aria="Helaian" id="eWhich" style="margin-bottom:10px">
+                <button type="button" data-v="s10" aria-pressed="false">Foundation S10 · Unit 10</button><button type="button" data-v="s11" aria-pressed="false">Foundation S11 · Unit 11</button><button type="button" data-v="s12" aria-pressed="true">Foundation S12 · Unit 12</button>
+              </div>
+              <h2 id="eTitle">Spot the error</h2>
+              <p class="lede" id="eLede"></p>
+            </div>
+            <dl class="given" id="eGiven" aria-label="Given data" data-ms-aria="Data yang diberi"></dl>
+          </div>
+          <div class="col">
+            <div class="plotcard"><div class="figbox" id="eFig"></div></div>
+            <div class="task">
+              <span class="tag" id="eTag">After class · Explorer task 6</span>
+              <p data-ms="Tulis nombor baris yang anda syaki, setiap satu dengan sebab dalam satu baris. Kemudian ketik baris itu di sini dan tekan &lt;i&gt;Semak&lt;/i&gt;.">Write down the line numbers you suspect, each with a one-line reason. Then tap those lines here and press <i>Check</i>.</p>
+            </div>
+            <div class="steps">
+              <button class="btn primary" id="eCheck" type="button" data-ms="Semak">Check</button>
+              <button class="btn" id="eFix" type="button" data-ms="Tunjuk nilai yang dibetulkan">Show the corrected values</button>
+              <button class="btn" id="eReset" type="button" data-ms="Set semula">Reset</button>
+            </div>
+            <p class="score" id="eScore" aria-live="polite"></p>
+          </div>
+        </div>
+        <div class="scroll"><table class="sheetcalc" id="eSheet" aria-label="Calculation sheet"></table></div>
+        <div class="summary" id="eSummary" hidden></div>
+      </div>
+    </section>
+    <!-- ===================== 4 STRAP FOOTING ===================== -->
+    <section id="panel-strap" role="tabpanel" aria-labelledby="tab-strap" hidden>
+      <div class="panel">
+        <div class="col">
+          <div class="head">
+            <h2 data-ms="Strap footing: jongkang-jongket">The strap footing: a seesaw</h2>
+            <p class="lede" data-ms="Column A berdiri di sempadan tapak dan diikat oleh strap kepada column B. Lab mengambil moment pada column B bagi reaction service dan saiz footing, menyemak tekanan dengan berat sebenar, kemudian mencari reaction ultimate bersih dan melukis shear serta moment strap mengikut kaedah kursus (Nota §2–§3).">Column A stands on the site boundary and is tied by a strap to column B. The Lab takes moments about column B for the service reactions and the footing sizes, checks the pressures with the real weights, then finds the net ultimate reactions and draws the shear and moment of the strap by the course method (Notes §2–§3).</p>
+          </div>
+          <div class="group">
+            <label class="label" for="tCase" data-ms="Kes">Case</label>
+            <select id="tCase" class="full"></select>
+            <p class="note" id="tCaseNote" style="border:0;padding:0"></p>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Column (characteristic load)">Columns (characteristic loads)</span>
+            <div class="fields">
+              <label for="tGA">A: G<sub>k</sub></label><input id="tGA" type="number" min="0" max="20000" step="25"><span class="u">kN</span>
+              <label for="tQA">A: Q<sub>k</sub></label><input id="tQA" type="number" min="0" max="20000" step="25"><span class="u">kN</span>
+              <label for="tcA" data-ms="A: sisi c&lt;sub&gt;A&lt;/sub&gt;">A: side c<sub>A</sub></label><input id="tcA" type="number" min="200" max="1000" step="25"><span class="u">mm</span>
+              <label for="tGB">B: G<sub>k</sub></label><input id="tGB" type="number" min="0" max="20000" step="25"><span class="u">kN</span>
+              <label for="tQB">B: Q<sub>k</sub></label><input id="tQB" type="number" min="0" max="20000" step="25"><span class="u">kN</span>
+              <label for="tcB" data-ms="B: sisi c&lt;sub&gt;B&lt;/sub&gt;">B: side c<sub>B</sub></label><input id="tcB" type="number" min="200" max="1000" step="25"><span class="u">mm</span>
+            </div>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Susun atur dan tanah">Layout and soil</span>
+            <div class="fields">
+              <label for="tL" data-ms="Jarak L, pusat ke pusat">Spacing L, centres</label><input id="tL" type="number" min="2" max="12" step="0.25"><span class="u">m</span>
+              <label for="tLA" data-ms="Footing A: panjang L&lt;sub&gt;A&lt;/sub&gt;">Footing A: length L<sub>A</sub></label><input id="tLA" type="number" min="0.6" max="5" step="0.1"><span class="u">m</span>
+              <label for="tq">q<sub>all</sub></label><input id="tq" type="number" min="50" max="1000" step="5"><span class="u">kN/m²</span>
+              <label for="th" data-ms="Ketebalan footing h">Footing thickness h</label><input id="th" type="number" min="300" max="2000" step="25"><span class="u">mm</span>
+              <label for="tBA" data-ms="Footing A: lebar B&lt;sub&gt;A&lt;/sub&gt;">Footing A: width B<sub>A</sub></label><input id="tBA" type="number" min="0.6" max="8" step="0.05"><span class="u">m</span>
+              <label for="tSB" data-ms="Footing B: sisi S&lt;sub&gt;B&lt;/sub&gt;">Footing B: side S<sub>B</sub></label><input id="tSB" type="number" min="0.6" max="8" step="0.05"><span class="u">m</span>
+            </div>
+            <div class="steps" style="margin-top:8px"><button class="btn sm" id="tSize" type="button" data-ms="Saiz daripada statik">Size from the statics</button></div>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Strap">Strap</span>
+            <div class="fields">
+              <label for="tbs" data-ms="Lebar b">Width b</label><input id="tbs" type="number" min="200" max="1000" step="25"><span class="u">mm</span>
+              <label for="ths" data-ms="Kedalaman h&lt;sub&gt;s&lt;/sub&gt;">Depth h<sub>s</sub></label><input id="ths" type="number" min="300" max="2000" step="25"><span class="u">mm</span>
+              <label for="td" data-ms="Kedalaman berkesan d">Effective depth d</label><input id="td" type="number" min="200" max="1900" step="1"><span class="u">mm</span>
+              <label for="tfck">f<sub>ck</sub></label><select id="tfck"><option>25</option><option>30</option><option>35</option><option>40</option></select><span class="u">N/mm²</span>
+            </div>
+          </div>
+          <p class="note" data-ms="Penentuan saiz menggunakan berat footing 10 % daripada load column; tekanan menggunakan berat sebenar, 25 kN/m³. Pada ultimate limit state berat footing tidak dimasukkan dan 1.35W&lt;sub&gt;R&lt;/sub&gt; dikekalkan. Strap tidak boleh menumpu pada tanah.">Sizing uses footing weights of 10 % of the column loads; the pressures use the real weights, 25 kN/m³. At the ultimate limit state the footing weights are left out and 1.35W<sub>R</sub> is kept. The strap must not bear on the soil.</p>
+        </div>
+        <div class="col">
+          <div class="task" id="act11a">
+            <span class="tag" data-ms="Aktiviti 11A · berpasangan · 12 min">Activity 11A · pairs · 12 min</span>
+            <p data-ms="Kes F7 (Worked Example 11.1). Kira R&lt;sub&gt;A&lt;/sub&gt; dan R&lt;sub&gt;B&lt;/sub&gt; pada service dengan tangan, dengan W&lt;sub&gt;A&lt;/sub&gt; dan W&lt;sub&gt;B&lt;/sub&gt; 10 % daripada load column (Workbook 11.2). Taip dua nilai anda, kemudian dedahkan statiknya.">Case F7 (Worked Example 11.1). Work out R<sub>A</sub> and R<sub>B</sub> at service by hand, with W<sub>A</sub> and W<sub>B</sub> at 10 % of the column loads (Workbook 11.2). Type your two values, then reveal the statics.</p>
+            <div class="fields" style="margin-top:10px">
+              <label for="aRA" data-ms="R&lt;sub&gt;A&lt;/sub&gt; anda">Your R<sub>A</sub></label><input id="aRA" type="number" min="0" step="0.1"><span class="u">kN</span>
+              <label for="aRB" data-ms="R&lt;sub&gt;B&lt;/sub&gt; anda">Your R<sub>B</sub></label><input id="aRB" type="number" min="0" step="0.1"><span class="u">kN</span>
+            </div>
+            <div class="steps" style="margin-top:10px"><button class="btn primary" id="aReveal" type="button" data-ms="Dedahkan">Reveal</button></div>
+            <p class="verdict" id="aOut" hidden></p>
+          </div>
+          <div class="kv" id="tKV" aria-live="polite"></div>
+          <div class="plotcard">
+            <div class="plothead"><h3 data-ms="Jongkang-jongket: load dan reaction service">The seesaw: service loads and reactions</h3></div>
+            <div class="figbox" style="position:relative"><svg class="chart" id="tSee" viewBox="0 0 640 470" role="img" aria-label="Plan and elevation of the strap footing with the service loads and the reactions"></svg>
+              <div class="veil" id="tVeil"><p data-ms="Kira dahulu (Aktiviti 11A), kemudian dedahkan.">Work it out first (Activity 11A), then reveal.</p></div></div>
+          </div>
+          <div class="plotcard">
+            <div class="plothead"><h3 data-ms="Strap pada ultimate limit state">The strap at the ultimate limit state</h3>
+              <div class="seg" role="group" aria-label="Diagram" data-ms-aria="Diagram" id="tDia"><button type="button" data-v="M" aria-pressed="true" data-ms="Moment">Moment</button><button type="button" data-v="V" aria-pressed="false" data-ms="Shear">Shear</button></div></div>
+            <div class="figbox"><svg class="chart" id="tStrap" viewBox="0 0 640 380" role="img" aria-label="Loads on the strap and its bending moment or shear force diagram"></svg></div>
+          </div>
+          <div class="plotcard">
+            <div class="plothead"><h3 data-ms="Semakan, satu demi satu">The checks, one by one</h3></div>
+            <div class="scroll"><table class="tbl" id="tTable"></table></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ===================== 5 PILE GROUP ===================== -->
+    <section id="panel-piles" role="tabpanel" aria-labelledby="tab-piles" hidden>
+      <div class="panel">
+        <div class="col">
+          <div class="head">
+            <h2 data-ms="Kumpulan pile: bilangan, pile cap dan load pile">The pile group: number, cap and pile loads</h2>
+            <p class="lede" data-ms="Pilih susun atur dan load. Lab mencari bilangan pile yang diperlukan, menentukan saiz pile cap mengikut peraturan kursus, dan membahagikan N serta moment kepada pile: P = (N + W)/n ± M&lt;sub&gt;y&lt;/sub&gt;x/Σx² ± M&lt;sub&gt;x&lt;/sub&gt;y/Σy² (Nota §5–§6).">Choose the layout and the loads. The Lab finds how many piles the load needs, sizes the cap by the course rule, and shares N and the moments among the piles: P = (N + W)/n ± M<sub>y</sub>x/Σx² ± M<sub>x</sub>y/Σy² (Notes §5–§6).</p>
+          </div>
+          <div class="group">
+            <label class="label" for="gCase" data-ms="Kes">Case</label>
+            <select id="gCase" class="full"></select>
+            <p class="note" id="gCaseNote" style="border:0;padding:0"></p>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Load design (ultimate)">Design loads (ultimate)</span>
+            <div class="fields">
+              <label for="gN">N<sub>Ed</sub></label><input id="gN" type="number" min="0" max="50000" step="50"><span class="u">kN</span>
+              <label for="gMy" data-ms="M&lt;sub&gt;Ed&lt;/sub&gt; pada paksi y">M<sub>Ed</sub> about y</label><input id="gMy" type="number" min="-5000" max="5000" step="5"><span class="u">kN m</span>
+              <label for="gMx" data-ms="M&lt;sub&gt;Ed&lt;/sub&gt; pada paksi x">M<sub>Ed</sub> about x</label><input id="gMx" type="number" min="-5000" max="5000" step="5"><span class="u">kN m</span>
+              <label for="gF" data-ms="service = design ÷">service = design ÷</label><input id="gF" type="number" min="1.0" max="2.0" step="0.05"><span class="u">–</span>
+            </div>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Pile dan pile cap">Piles and cap</span>
+            <div class="fields">
+              <label for="gph" data-ms="Saiz pile φ">Pile size φ</label><input id="gph" type="number" min="150" max="1500" step="25"><span class="u">mm</span>
+              <label for="gFp" data-ms="Working load F&lt;sub&gt;p&lt;/sub&gt;">Working load F<sub>p</sub></label><input id="gFp" type="number" min="50" max="10000" step="25"><span class="u">kN</span>
+              <label for="gk" data-ms="Jarak s = kφ, k">Spacing s = kφ, k</label><input id="gk" type="number" min="2" max="6" step="0.5"><span class="u">–</span>
+              <label for="gh" data-ms="Kedalaman pile cap h">Cap depth h</label><input id="gh" type="number" min="300" max="3000" step="50"><span class="u">mm</span>
+            </div>
+            <span class="label" style="margin-top:10px" data-ms="Susun atur (n&lt;sub&gt;x&lt;/sub&gt; × n&lt;sub&gt;y&lt;/sub&gt;)">Layout (n<sub>x</sub> × n<sub>y</sub>)</span>
+            <div class="seg cells" role="group" aria-label="Layout" data-ms-aria="Susun atur" id="gLay" style="margin-top:6px"><button type="button" data-v="2x2">2 × 2</button><button type="button" data-v="3x2">3 × 2</button><button type="button" data-v="2x3">2 × 3</button><button type="button" data-v="4x2">4 × 2</button><button type="button" data-v="3x3">3 × 3</button><button type="button" data-v="4x3">4 × 3</button></div>
+          </div>
+          <p class="note" data-ms="Working load ialah kuantiti service: ia dibandingkan dengan (N + W)/n ± Mx/Σx², termasuk berat pile cap. Ultimate load, tanpa berat pile cap, digunakan untuk design pile cap (Unit 12).">The working load is a service quantity: it is compared with (N + W)/n ± Mx/Σx², the cap weight included. The ultimate loads, without the cap weight, design the cap (Unit 12).</p>
+        </div>
+        <div class="col">
+          <div class="task" id="act11b">
+            <span class="tag" data-ms="Aktiviti 11B · berpasangan · 6 min">Activity 11B · pairs · 6 min</span>
+            <p data-ms="Faded Example 11.2: M = 53.6 kN m dalam service berpusing pada paksi y, sepanjang sisi 2.4 m. Pusingkannya 90° supaya ia bertindak merentasi sisi 1.5 m. Load pile terburuk…">Faded Example 11.2: M = 53.6 kN m in service turns about y, along the 2.4 m side. Turn it through 90°, so that it acts across the 1.5 m side. The worst pile load…</p>
+            <div class="seg cells" role="group" aria-label="Your prediction" data-ms-aria="Ramalan anda" id="gPred" style="margin-top:10px">
+              <button type="button" data-v="A" data-ms="A · naik">A · rises</button>
+              <button type="button" data-v="B" data-ms="B · turun: lever separuh">B · falls: half the lever</button>
+              <button type="button" data-v="C" data-ms="C · kekal sama">C · stays the same</button>
+              <button type="button" data-v="D" data-ms="D · bergantung pada N">D · depends on N</button>
+            </div>
+            <div class="steps" style="margin-top:10px"><button class="btn primary" id="gReveal" type="button" data-ms="Dedahkan">Reveal</button></div>
+            <p class="verdict" id="gOut" hidden></p>
+          </div>
+          <div class="kv" id="gKV" aria-live="polite"></div>
+          <div class="plotcard">
+            <div class="plothead"><h3 data-ms="Pelan: pile cap dan load setiap pile">Plan: the cap and the load on each pile</h3></div>
+            <div class="figbox"><svg class="chart" id="gPlan" viewBox="0 0 640 410" role="img" aria-label="Plan of the pile cap with the piles numbered and the service load on each"></svg></div>
+          </div>
+          <div class="plotcard">
+            <div class="plothead"><h3 data-ms="Semakan, satu demi satu">The checks, one by one</h3></div>
+            <div class="scroll"><table class="tbl" id="gTable"></table></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ===================== 6 PILE CAP ===================== -->
+    <section id="panel-cap" role="tabpanel" aria-labelledby="tab-cap" hidden>
+      <div class="panel">
+        <div class="col">
+          <div class="head">
+            <h2 data-ms="Pile cap: truss atau beam, dan shear-nya">The pile cap: truss or beam, and its shear</h2>
+            <p class="lede" data-ms="Dua dan empat pile melalui truss analogy (T = Ns/4d, Ns/8d setiap truss), enam pile melalui beam theory di muka column. Kemudian shear pada section φ/5 ke dalam dari muka pile dengan β = max(a&lt;sub&gt;v&lt;/sub&gt;, 0.5d)/2d, muka column dan cracking, mengikut kaedah kursus (Nota §2–§6).">Two and four piles by the truss analogy (T = Ns/4d, Ns/8d per truss), six piles by beam theory at the column faces. Then the shear at the section φ/5 inside the pile face with β = max(a<sub>v</sub>, 0.5d)/2d, the column face and the cracks, by the course method (Notes §2–§6).</p>
+          </div>
+          <div class="group">
+            <label class="label" for="cCase" data-ms="Kes">Case</label>
+            <select id="cCase" class="full"></select>
+            <p class="note" id="cCaseNote" style="border:0;padding:0"></p>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Susun atur">Layout</span>
+            <div class="seg cells" role="group" aria-label="Layout" data-ms-aria="Susun atur" id="cLay" style="margin-top:6px"><button type="button" data-v="2" data-ms="2 pile · truss">2 piles · truss</button><button type="button" data-v="4" data-ms="4 pile · truss">4 piles · truss</button><button type="button" data-v="6" data-ms="6 pile · beam">6 piles · beam</button></div>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Characteristic load">Characteristic loads</span>
+            <div class="fields">
+              <label for="cG">G<sub>k</sub></label><input id="cG" type="number" min="0" max="30000" step="50"><span class="u">kN</span>
+              <label for="cQ">Q<sub>k</sub></label><input id="cQ" type="number" min="0" max="30000" step="50"><span class="u">kN</span>
+            </div>
+            <div class="fields" id="cMrow">
+              <label for="cM" data-ms="M&lt;sub&gt;Ed&lt;/sub&gt; merentas baris">M<sub>Ed</sub> across the rows</label><input id="cM" type="number" min="-3000" max="3000" step="5"><span class="u">kN m</span>
+            </div>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Pile, column dan pile cap">Piles, column and cap</span>
+            <div class="fields">
+              <label for="cph" data-ms="Saiz pile φ">Pile size φ</label><input id="cph" type="number" min="200" max="1200" step="25"><span class="u">mm</span>
+              <label for="ck" data-ms="Jarak s = kφ, k">Spacing s = kφ, k</label><input id="ck" type="number" min="2" max="6" step="0.5"><span class="u">–</span>
+              <label for="cFp" data-ms="Working load F&lt;sub&gt;p&lt;/sub&gt;">Working load F<sub>p</sub></label><input id="cFp" type="number" min="50" max="10000" step="25"><span class="u">kN</span>
+              <label for="cc" data-ms="Sisi column c">Column side c</label><input id="cc" type="number" min="200" max="1200" step="25"><span class="u">mm</span>
+              <label for="ch" data-ms="Kedalaman pile cap h">Cap depth h</label><input id="ch" type="number" min="400" max="3000" step="50"><span class="u">mm</span>
+            </div>
+            <div class="seg" role="group" aria-label="Pile shape" data-ms-aria="Bentuk pile" id="cShape" style="margin-top:8px"><button type="button" data-v="circ" data-ms="Bulat">Round</button><button type="button" data-v="sq" data-ms="Segi empat sama">Square</button></div>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Bar (cover 75 mm, C30/37, B500)">Bars (cover 75 mm, C30/37, B500)</span>
+            <div class="fields">
+              <label for="cphi" data-ms="Saiz bar φ">Bar size φ</label><input id="cphi" type="number" min="10" max="40" step="1"><span class="u">mm</span>
+              <label for="cnb" data-ms="Bilangan (tie, atau setiap arah, atau sepanjang)">Number (ties, or each way, or along)</label><input id="cnb" type="number" min="2" max="60" step="1"><span class="u">–</span>
+            </div>
+            <div class="fields" id="cnb2row">
+              <label for="cnb2" data-ms="Bilangan merentas">Number across</label><input id="cnb2" type="number" min="2" max="60" step="1"><span class="u">–</span>
+            </div>
+          </div>
+          <p class="note" data-ms="Kaedah kursus mengikut EC2 6.2.2(6): a&lt;sub&gt;v&lt;/sub&gt; tidak diambil kurang daripada 0.5d, jadi β ≥ 0.25. Nota kursus dan Mosley tidak memasukkan lantai ini. Muka column berbanding 0.4νf&lt;sub&gt;cd&lt;/sub&gt; (nota: 0.5νf&lt;sub&gt;cd&lt;/sub&gt;).">The course method follows EC2 6.2.2(6): a<sub>v</sub> is not taken less than 0.5d, so β ≥ 0.25. The course notes and Mosley leave this floor out. The column face against 0.4νf<sub>cd</sub> (notes: 0.5νf<sub>cd</sub>).</p>
+        </div>
+        <div class="col">
+          <div class="task" id="act12a">
+            <span class="tag" data-ms="Aktiviti 12A · berpasangan · 10 min">Activity 12A · pairs · 10 min</span>
+            <p data-ms="Kes F12: empat pile 500 mm pada s = 1500 mm, N&lt;sub&gt;Ed&lt;/sub&gt; = 8475 kN, cover 75 mm, H25 dalam dua lapisan. Kira daya dalam setiap truss pada h = 1100 mm dan h = 1700 mm.">Case F12: four 500 mm piles at s = 1500 mm, N<sub>Ed</sub> = 8475 kN, cover 75 mm, H25 in two layers. Work out the force in each truss at h = 1100 mm and at h = 1700 mm.</p>
+            <div class="arow"><p class="alab">h 1100</p><div class="fields" style="grid-column:2"><label for="aT1" data-ms="T, setiap truss">T, each truss</label><input id="aT1" type="number" min="0" max="10000" step="0.1"><span class="u">kN</span></div></div>
+            <div class="arow"><p class="alab">h 1700</p><div class="fields" style="grid-column:2"><label for="aT2" data-ms="T, setiap truss">T, each truss</label><input id="aT2" type="number" min="0" max="10000" step="0.1"><span class="u">kN</span></div></div>
+            <div class="steps" style="margin-top:10px"><button class="btn primary" id="aTReveal" type="button" data-ms="Dedahkan">Reveal</button></div>
+            <p class="verdict" id="aTOut" hidden></p>
+          </div>
+          <div class="task" id="act12b">
+            <span class="tag" data-ms="Aktiviti 12B · berpasangan · 5 min">Activity 12B · pairs · 5 min</span>
+            <p data-ms="Kes F12 gagal shear pada h = 1100 mm: V&lt;sub&gt;Ed,red&lt;/sub&gt; = 1059.4 &gt; 760.3 kN. Dalamkan kepada 1700 mm; a&lt;sub&gt;v&lt;/sub&gt; = 350 mm kekal. V&lt;sub&gt;Ed,red&lt;/sub&gt;…">Case F12 fails in shear at h = 1100 mm: V<sub>Ed,red</sub> = 1059.4 &gt; 760.3 kN. Deepen it to 1700 mm; a<sub>v</sub> = 350 mm stays. V<sub>Ed,red</sub>…</p>
+            <div class="seg cells" role="group" aria-label="Your prediction" data-ms-aria="Ramalan anda" id="cPred" style="margin-top:10px">
+              <button type="button" data-v="A" data-ms="A · turun kepada ≈ 470 kN">A · falls to ≈ 470 kN</button>
+              <button type="button" data-v="B" data-ms="B · kekal 1059.4 kN">B · stays at 1059.4 kN</button>
+              <button type="button" data-v="C" data-ms="C · naik dengan kedalaman">C · rises with the depth</button>
+              <button type="button" data-v="D" data-ms="D · bergantung pada bar">D · depends on the bars</button>
+            </div>
+            <div class="steps" style="margin-top:10px"><button class="btn primary" id="cReveal" type="button" data-ms="Dedahkan">Reveal</button></div>
+            <p class="verdict" id="cOut" hidden></p>
+          </div>
+          <div class="kv" id="cKV" aria-live="polite"></div>
+          <div class="plotcard">
+            <div class="plothead"><h3 data-ms="Pelan dan elevation: tie, strut dan shear section">Plan and elevation: ties, struts and the shear section</h3></div>
+            <div class="figbox"><svg class="chart" id="cDraw" viewBox="0 0 640 500" role="img" aria-label="Plan and elevation of the pile cap with the ties, the struts, the shear section and a v"></svg></div>
+          </div>
+          <div class="plotcard">
+            <div class="plothead"><h3 data-ms="Semakan, satu demi satu">The checks, one by one</h3></div>
+            <div class="scroll"><table class="tbl" id="cTable"></table></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer><span data-ms="Kaedah kursus SEAA 4333 (nota kursus; Mosley, Bungey &amp;amp; Hulse §10.1–10.4, §10.6–10.7; MS EN 1992-1-1): pelan daripada service load, A = (G&lt;sub&gt;k&lt;/sub&gt; + Q&lt;sub&gt;k&lt;/sub&gt; + W)/q&lt;sub&gt;all&lt;/sub&gt;; ultimate pressure p&lt;sub&gt;Ed&lt;/sub&gt; = N&lt;sub&gt;Ed&lt;/sub&gt;/A tanpa self-weight; e ≤ L/6: p = (N/A)(1 ± 6e/L); e &amp;gt; L/6: L&lt;sub&gt;c&lt;/sub&gt; = 3(L/2 − e), p&lt;sub&gt;max&lt;/sub&gt; = 2N/(BL&lt;sub&gt;c&lt;/sub&gt;); bending di muka column; vertical shear pada d, dengan ρ&lt;sub&gt;l&lt;/sub&gt; hanya bagi bar yang di-anchor l&lt;sub&gt;bd&lt;/sub&gt; + d melepasi section (EC2 6.2.2, Fig. 6.3); punching pada 2d dan pada setiap a ≤ 2d dengan V&lt;sub&gt;Ed,red&lt;/sub&gt; = N&lt;sub&gt;Ed&lt;/sub&gt; − p&lt;sub&gt;Ed&lt;/sub&gt;A(a) dan v&lt;sub&gt;Rd&lt;/sub&gt; = v&lt;sub&gt;Rd,c&lt;/sub&gt;·2d/a (EC2 6.4.4(2)); muka column berbanding 0.4νf&lt;sub&gt;cd&lt;/sub&gt; (EC2 6.4.5(3), pindaan 2014). Strap footing (Mosley §10.3): moment pada column B, R&lt;sub&gt;A&lt;/sub&gt; = W&lt;sub&gt;A&lt;/sub&gt; + (N&lt;sub&gt;A&lt;/sub&gt;L + W&lt;sub&gt;R&lt;/sub&gt;x&lt;sub&gt;R&lt;/sub&gt;)/(L − e); reaction ultimate tanpa berat footing. Pile (Mosley §10.6): n = (N + W)/F&lt;sub&gt;p&lt;/sub&gt;, s = 3φ, P = (N + W)/n ± M&lt;sub&gt;y&lt;/sub&gt;x/Σx² ± M&lt;sub&gt;x&lt;/sub&gt;y/Σy². Pile cap (Mosley §10.7): T = Ns/4d (dua pile), Ns/8d setiap truss (empat), M di muka column (enam); shear φ/5 ke dalam dari muka pile dengan β = max(a&lt;sub&gt;v&lt;/sub&gt;, 0.5d)/2d (EC2 6.2.2(6)). Unit: mm, kN, m. Design penuh setiap footing, langkah demi langkah, ada dalam app &lt;a href=&quot;https://claude.ai/artifact/M5DFYjHubZFnbHVk8JDsAS&quot; style=&quot;color:inherit&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;RC Design Worked Solutions&lt;/a&gt; (Worked Example 10.1 ialah kes F1R, Faded Example 10.2 kes F2R, Worked Example 11.1 kes F7, Faded Example 11.2 kes F13, Worked Example 12.1 kes F12 dan F12R, Faded Example 12.2 kes F13), yang boleh dibuka setelah pensyarah anda berkongsi pautannya.">Course method of SEAA 4333 (course notes; Mosley, Bungey &amp; Hulse §10.1–10.4, §10.6–10.7; MS EN 1992-1-1): the plan from the service loads, A = (G<sub>k</sub> + Q<sub>k</sub> + W)/q<sub>all</sub>; the ultimate pressure p<sub>Ed</sub> = N<sub>Ed</sub>/A without the self-weight; e ≤ L/6: p = (N/A)(1 ± 6e/L); e &gt; L/6: L<sub>c</sub> = 3(L/2 − e), p<sub>max</sub> = 2N/(BL<sub>c</sub>); bending at the column face; vertical shear at d, with ρ<sub>l</sub> only for bars anchored l<sub>bd</sub> + d beyond the section (EC2 6.2.2, Fig. 6.3); punching at 2d and at every a ≤ 2d with V<sub>Ed,red</sub> = N<sub>Ed</sub> − p<sub>Ed</sub>A(a) and v<sub>Rd</sub> = v<sub>Rd,c</sub>·2d/a (EC2 6.4.4(2)); the column face against 0.4νf<sub>cd</sub> (EC2 6.4.5(3), 2014 amendment). Strap footing (Mosley §10.3): moments about column B, R<sub>A</sub> = W<sub>A</sub> + (N<sub>A</sub>L + W<sub>R</sub>x<sub>R</sub>)/(L − e); ultimate reactions without the footing weights. Piles (Mosley §10.6): n = (N + W)/F<sub>p</sub>, s = 3φ, P = (N + W)/n ± M<sub>y</sub>x/Σx² ± M<sub>x</sub>y/Σy². Pile caps (Mosley §10.7): T = Ns/4d (two piles), Ns/8d per truss (four), M at the column faces (six); shear φ/5 inside the piles with β = max(a<sub>v</sub>, 0.5d)/2d (EC2 6.2.2(6)). Units: mm, kN, m. The full design of each footing, step by step, is in the <a href="https://claude.ai/artifact/M5DFYjHubZFnbHVk8JDsAS" style="color:inherit" target="_blank" rel="noopener">RC Design Worked Solutions</a> app (Worked Example 10.1 is case F1R, Faded Example 10.2 case F2R, Worked Example 11.1 case F7, Faded Example 11.2 case F13, Worked Example 12.1 cases F12 and F12R, Faded Example 12.2 case F13), which opens once your lecturer has shared it.</span>
+  <span class="lic" data-ms="© 2026 Ahmad Razin Zainal Abidin dan Universiti Teknologi Malaysia (Fakulti Kejuruteraan Awam). Teks dan rajah: CC BY-NC-SA 4.0; kod: MIT. Lihat &lt;a href=&quot;https://github.com/RazinUTM/My_Lectures/blob/main/SEAA4333-RCD2/LICENSE.md&quot; style=&quot;color:inherit&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;lesen&lt;/a&gt;. Kemajuan disimpan dalam pelayar ini sahaja.">© 2026 Ahmad Razin Zainal Abidin and Universiti Teknologi Malaysia (Faculty of Civil Engineering). Text and figures: CC BY-NC-SA 4.0; code: MIT. See the <a href="https://github.com/RazinUTM/My_Lectures/blob/main/SEAA4333-RCD2/LICENSE.md" style="color:inherit" target="_blank" rel="noopener">licence</a>. Progress is stored in this browser only.</span></footer>
+</div>
+
+<div class="bigtimer" id="bigTimer" hidden>
+  <div class="digits" id="bigDigits">5:00</div>
+  <div class="hint" data-ms="Ketik di mana-mana untuk menutup">Tap anywhere to close</div>
+</div>
+
+<script>
+'use strict';
+const INF = Infinity;
+/* ---------- helpers ---------- */
+const NS = 'http://www.w3.org/2000/svg';
+function S(tag, attrs, parent){ const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+function T(parent, x, y, text, attrs){ const t = S('text', Object.assign({x, y}, attrs || {}), parent); t.textContent = text; return t; }
+const minus = s => String(s).replace(/^-/, '−');
+function f(v, d){ if (v === INF) return '∞'; if (!isFinite(v)) return '–'; const s = (Math.abs(v) < 1e-12 ? 0 : v).toFixed(d); return minus(s); }
+function sg(v, n){ if (!isFinite(v) || v === 0) return f(v, 0); return f(v, Math.max(0, n - 1 - Math.floor(Math.log10(Math.abs(v))))); }
+function el(id){ return document.getElementById(id); }
+function segGroup(node, onChange){ node.addEventListener('click', e => { const b = e.target.closest('button'); if (!b || !node.contains(b)) return; node.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); onChange(b.dataset.v); }); }
+function setSeg(node, v){ node.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.v === String(v)))); }
+function segVal(node){ const b = node.querySelector('button[aria-pressed="true"]'); return b ? b.dataset.v : null; }
+function store(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+function recall(k, dflt){ try { const s = localStorage.getItem(k); return s ? JSON.parse(s) : dflt; } catch (e) { return dflt; } }
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c])); }
+
+/* ---------- SEAA 4333: language, shared preferences, milestones ---------- */
+const root = document.documentElement;
+const PKEY = 'seaa4333-prefs', MKEY = 'seaa4333-lab-foundation', FONT_STEPS = [0.9, 1, 1.15, 1.3];
+let LANG = 'en';
+function Lg(en, ms){ return LANG === 'ms' ? ms : en; }
+function readPrefs(){ const p = recall(PKEY, {}) || {}; return {lang: p.lang === 'ms' ? 'ms' : 'en', theme: p.theme === 'light' || p.theme === 'dark' ? p.theme : '', font: +p.font || 1}; }
+function writePrefs(ch){ const p = recall(PKEY, {}) || {}; Object.assign(p, ch); store(PKEY, p); }
+let PR = readPrefs();
+const FRAMED = (() => { try { return window.self !== window.top; } catch (e) { return true; } })();
+if (FRAMED) root.classList.add('framed');
+function applyStatic(){
+  document.querySelectorAll('[data-ms]').forEach(e => { if (!e.hasAttribute('data-en')) e.setAttribute('data-en', e.innerHTML); e.innerHTML = LANG === 'ms' ? e.getAttribute('data-ms') : e.getAttribute('data-en'); });
+  [['aria', 'aria-label'], ['title', 'title'], ['ph', 'placeholder']].forEach(([k, a]) => document.querySelectorAll('[data-ms-' + k + ']').forEach(e => {
+    if (!e.hasAttribute('data-en-' + k)) e.setAttribute('data-en-' + k, e.getAttribute(a) || ''); e.setAttribute(a, LANG === 'ms' ? e.getAttribute('data-ms-' + k) : e.getAttribute('data-en-' + k)); }));
+}
+const SUN = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></svg>';
+const MOON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>';
+const mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+function effTheme(){ return PR.theme || (mq && mq.matches ? 'dark' : 'light'); }
+function paintPrefButtons(){
+  const lb = el('btn-lang'), tb = el('btn-theme'), fb = el('btn-font'); if (!lb) return;
+  lb.textContent = LANG === 'ms' ? 'EN' : 'BM'; lb.title = LANG === 'ms' ? 'Language' : 'Bahasa'; lb.setAttribute('aria-label', LANG === 'ms' ? 'Language: English' : 'Bahasa: Melayu');
+  const dk = effTheme() === 'dark', tt = dk ? Lg('Light theme', 'Tema cerah') : Lg('Dark theme', 'Tema gelap'); tb.innerHTML = dk ? SUN : MOON; tb.title = tt; tb.setAttribute('aria-label', tt);
+  let k = 0; FONT_STEPS.forEach((v, i) => { if (Math.abs(v - PR.font) < Math.abs(FONT_STEPS[k] - PR.font)) k = i; });
+  fb.querySelectorAll('.lvl i').forEach((d, i) => d.classList.toggle('on', i <= k)); const ft = Lg('Text size ', 'Saiz teks ') + Math.round(PR.font * 100) + '%'; fb.title = ft; fb.setAttribute('aria-label', ft);
+}
+function applyPrefs(redraw){
+  LANG = PR.lang; root.lang = LANG; root.setAttribute('data-lang', LANG);
+  if (PR.theme) root.setAttribute('data-theme', PR.theme); else root.removeAttribute('data-theme');
+  root.style.fontSize = (PR.font * 100) + '%';
+  applyStatic(); paintPrefButtons();
+  if (redraw){ fillAllCases(); tPaint(); redrawAll(); }
+}
+function milestone(id){
+  const rec = recall(MKEY, {}) || {}; if (!rec[id]){ rec[id] = Date.now(); store(MKEY, rec); }
+  try { if (window.parent && window.parent !== window) window.parent.postMessage({type: 'seaa4333-lab', lab: 'foundation', id}, '*'); } catch (e) {}
+}
+window.addEventListener('storage', e => { if (e.key === PKEY){ PR = readPrefs(); applyPrefs(true); } });
+if (mq){ const fm = () => { if (!PR.theme){ paintPrefButtons(); redrawAll(); } }; if (mq.addEventListener) mq.addEventListener('change', fm); else if (mq.addListener) mq.addListener(fm); }
+LANG = PR.lang;
+el('btn-lang').addEventListener('click', () => { PR.lang = LANG === 'ms' ? 'en' : 'ms'; writePrefs({lang: PR.lang}); applyPrefs(true); });
+el('btn-theme').addEventListener('click', () => { PR.theme = effTheme() === 'dark' ? 'light' : 'dark'; writePrefs({theme: PR.theme}); applyPrefs(true); });
+el('btn-font').addEventListener('click', () => { let k = FONT_STEPS.findIndex(v => Math.abs(v - PR.font) < 0.01); k = (k + 1) % FONT_STEPS.length; PR.font = FONT_STEPS[k]; writePrefs({font: PR.font}); applyPrefs(true); });
+
+/* ---------- timer ---------- */
+const timer = {len: 300, left: 300, running: false, id: null};
+const tDisplay = el('tDisplay'), bigTimer = el('bigTimer'), bigDigits = el('bigDigits'), tStart = el('tStart');
+function tfmt(s){ const m = Math.floor(s / 60), r = s % 60; return `${m}:${String(r).padStart(2, '0')}`; }
+function tPaint(){ tDisplay.textContent = tfmt(timer.left); bigDigits.textContent = tfmt(timer.left); tDisplay.classList.toggle('running', timer.running); tStart.textContent = timer.running ? Lg('Pause', 'Jeda') : Lg('Start', 'Mula'); }
+function tTick(){ timer.left = Math.max(0, timer.left - 1); if (timer.left === 0){ clearInterval(timer.id); timer.running = false; tDisplay.classList.add('done'); } tPaint(); }
+tStart.addEventListener('click', () => { if (timer.running){ clearInterval(timer.id); timer.running = false; } else { if (timer.left === 0) timer.left = timer.len; tDisplay.classList.remove('done'); timer.id = setInterval(tTick, 1000); timer.running = true; } tPaint(); });
+el('tReset').addEventListener('click', () => { clearInterval(timer.id); timer.running = false; timer.left = timer.len; tDisplay.classList.remove('done'); tPaint(); });
+segGroup(el('tLen'), () => {});
+el('tLen').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; timer.len = +b.dataset.min * 60; clearInterval(timer.id); timer.running = false; timer.left = timer.len; tDisplay.classList.remove('done'); tPaint(); });
+tDisplay.addEventListener('click', () => { bigTimer.hidden = false; });
+bigTimer.addEventListener('click', () => { bigTimer.hidden = true; });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') bigTimer.hidden = true; });
+
+/* ---------- tabs ---------- */
+const tabs = [...document.querySelectorAll('.tab')];
+const drawers = {};
+function showTab(id){
+  if (!tabs.some(t => t.dataset.tab === id)) id = 'pressure';
+  tabs.forEach(t => { const on = t.dataset.tab === id; t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1; el('panel-' + t.dataset.tab).hidden = !on; });
+  if (location.hash !== '#' + id) try { history.replaceState(null, '', '#' + id); } catch (e) {}
+  if (drawers[id]) drawers[id]();
+}
+tabs.forEach((t, i) => {
+  t.addEventListener('click', () => showTab(t.dataset.tab));
+  t.addEventListener('keydown', e => { if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return; const n = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length]; n.focus(); showTab(n.dataset.tab); });
+});
+
+
+/* ===================== FOUNDATION LAB · course method (RC Design app, foundation module) =====================
+   Pressure under a rigid base: e = M/N; e <= L/6: p = (N/A)(1 +/- 6e/L); e > L/6: L_c = 3(L/2 - e), p_max = 2N/(B L_c);
+   two moments: corners N/A +/- M/Z_x +/- M2/Z_y, all in contact while 6e/L + 6e_y/B <= 1.
+   Pad under an axial load: p_Ed = N_Ed/L^2; M = p L l^2/2 at the face; z <= 0.95d; A_s,min = max(0.26 f_ctm/f_yk, 0.0013) b d;
+   V at d with rho_l only for bars that run l_bd + d beyond the section; punching at every a <= 2d:
+   V_Ed,red = N - p A(a), v_Rd = v_Rd,c 2d/a (EC2 6.4.4(2)); column face v = N/(u0 d) <= 0.4 nu f_ck/1.5.
+   Units: kN, m for loads and plans; mm and N/mm2 for sections. */
+const FYD = 435;
+function fctm(f){ return 0.3 * Math.pow(f, 2 / 3); }
+function lbdOf(phi, f){ return (phi / 4) * FYD / (2.25 * 0.7 * fctm(f) / 1.5); }
+function vminOf(d, f){ const k = Math.min(1 + Math.sqrt(200 / d), 2); return {k, v: 0.035 * Math.pow(k, 1.5) * Math.sqrt(f)}; }
+function closedP(a, c){ return {u: 4 * c + 2 * Math.PI * a, A: (c * c + 4 * a * c + Math.PI * a * a) / 1e6}; }
+const barA = d => Math.PI * d * d / 4;
+/* text with subscripts: parts = [['p'], ['max', 1], [' = 286']] */
+function TS(parent, x, y, parts, attrs){
+  const t = S('text', Object.assign({x, y}, attrs || {}), parent);
+  parts.forEach(p => { const s = S('tspan', p[1] ? {'baseline-shift': 'sub', 'font-size': '0.75em'} : {}, t); s.textContent = p[0]; });
+  return t;
+}
+function arrow(svg, x1, y1, x2, y2, col, w){
+  S('line', {x1, y1, x2, y2, stroke: col, 'stroke-width': w || 2}, svg);
+  const a = Math.atan2(y2 - y1, x2 - x1), h = 8;
+  S('path', {d: `M${x2},${y2} L${x2 - h * Math.cos(a) + h * 0.45 * Math.sin(a)},${y2 - h * Math.sin(a) - h * 0.45 * Math.cos(a)} L${x2 - h * Math.cos(a) - h * 0.45 * Math.sin(a)},${y2 - h * Math.sin(a) + h * 0.45 * Math.cos(a)} Z`, fill: col}, svg);
+}
+function kvHtml(items){ return items.map(([k, v, cls]) => `<div><span${cls ? ` class="pill ${cls}"` : ''}>${k}</span><b>${v}</b></div>`).join(''); }
+
+/* ===================== 1 BEARING PRESSURE ===================== */
+const PCASES = {
+  act: {label: ['Activity 10A · 2.4 × 2.0 m base, N = 600 kN', 'Aktiviti 10A · tapak 2.4 × 2.0 m, N = 600 kN'], v: {L: 2.4, B: 2.0, N: 600, M: 120, M2: 0},
+        note: ['The base of Activity 10A. Move e with the slider: watch the pressure tilt, become a triangle at L/6 = 0.40 m, then leave a gap.', 'Tapak Aktiviti 10A. Gerakkan e dengan slider: lihat tekanan condong, menjadi segi tiga pada L/6 = 0.40 m, kemudian meninggalkan ruang.']},
+  f3: {label: ['F3 · a base that lifts off (ultimate)', 'F3 · tapak yang terangkat (ultimate)'], v: {L: 2.4, B: 2.0, N: 600, M: 300, M2: 0},
+       note: ['App case F3 at the ultimate limit state: e = 0.50 m &gt; L/6. Under service loads with the base weight, e = 0.43 m and p<sub>max</sub> = 216 kN/m² (Notes §3).', 'Kes app F3 pada ultimate limit state: e = 0.50 m &gt; L/6. Di bawah service load dengan berat tapak, e = 0.43 m dan p<sub>max</sub> = 216 kN/m² (Nota §3).']},
+  f2r: {label: ['F2R · a pad with a moment (ultimate)', 'F2R · pad dengan moment (ultimate)'], v: {L: 3.5, B: 2.8, N: 1500, M: 50, M2: 0},
+        note: ['Faded Example 10.2 (app case F2R) at the ultimate limit state: e = 0.033 m, far inside the kern.', 'Faded Example 10.2 (kes app F2R) pada ultimate limit state: e = 0.033 m, jauh di dalam kern.']},
+  f4: {label: ['F4 · a pad with two moments (ultimate)', 'F4 · pad dengan dua moment (ultimate)'], v: {L: 2.5, B: 2.5, N: 900, M: 120, M2: 80},
+       note: ['App case F4 with the column load alone: corners 220.8 and 67.2 kN/m². The app checks contact with the weight of the base added, which gives 0.47 instead of 0.53.', 'Kes app F4 dengan load column sahaja: bucu 220.8 dan 67.2 kN/m². App menyemak sentuhan dengan berat tapak ditambah, yang memberi 0.47 dan bukannya 0.53.']},
+  own: {label: ['Your own base', 'Tapak anda sendiri'], v: null, note: ['Type your own numbers.', 'Taip nombor anda sendiri.']}
+};
+const PF = {pL: 'L', pB: 'B', pN: 'N', pM: 'M', pM2: 'M2'};
+const pin = Object.assign({}, PCASES.act.v); let pCaseK = 'act', pLast = null;
+const pSeen = {past: false, inside: false};
+function fillPCases(){ const s = el('pCase'); s.innerHTML = ''; Object.keys(PCASES).forEach(k => { const o = document.createElement('option'); o.value = k; o.textContent = Lg(PCASES[k].label[0], PCASES[k].label[1]); s.appendChild(o); }); s.value = pCaseK; el('pCaseNote').innerHTML = Lg(PCASES[pCaseK].note[0], PCASES[pCaseK].note[1]); }
+function syncP(){ Object.keys(PF).forEach(id => { el(id).value = +(+pin[PF[id]]).toFixed(3); }); const e = pin.N > 0 ? pin.M / pin.N : 0; el('pE').max = (pin.L / 2).toFixed(3); el('pE').value = Math.min(e, pin.L / 2).toFixed(3); }
+function pCalc(P){
+  const A = P.L * P.B, e = P.N > 0 ? P.M / P.N : 0, ey = P.N > 0 ? P.M2 / P.N : 0;
+  const r = {A, e, ey, L6: P.L / 6, B6: P.B / 6, k: 6 * e / P.L + 6 * ey / P.B, p0: P.N / A};
+  if (e >= P.L / 2 - 1e-9 || ey >= P.B / 2 - 1e-9){ r.over = true; return r; }
+  if (P.M2 > 0){
+    const Zx = P.B * P.L * P.L / 6, Zy = P.L * P.B * P.B / 6;
+    r.biax = true; r.sg = P.M / Zx; r.sg2 = P.M2 / Zy;
+    r.corners = {pp: r.p0 + r.sg + r.sg2, pm: r.p0 + r.sg - r.sg2, mp: r.p0 - r.sg + r.sg2, mm: r.p0 - r.sg - r.sg2};
+    r.contact = r.k <= 1 + 1e-9;
+  }
+  const tol = 0.004 * P.L;
+  if (e < 1e-9) { r.mode = 'uniform'; r.Lc = P.L; r.pmax = r.p0; r.pmin = r.p0; }
+  else if (Math.abs(e - P.L / 6) <= tol){ r.mode = 'tri'; r.Lc = P.L; r.pmax = 2 * r.p0; r.pmin = 0; }
+  else if (e < P.L / 6){ r.mode = 'trap'; r.Lc = P.L; r.pmax = r.p0 * (1 + 6 * e / P.L); r.pmin = r.p0 * (1 - 6 * e / P.L); }
+  else { r.mode = 'part'; r.Lc = 3 * (P.L / 2 - e); r.pmax = 2 * P.N / (P.B * r.Lc); r.pmin = 0; r.beyondL3 = e > P.L / 3; }
+  return r;
+}
+function redrawPressure(userEdit){
+  const P = pin, r = pCalc(P); pLast = r;
+  el('pEout').innerHTML = Lg(`e = ${f(r.e, 3)} m; L/6 = ${f(r.L6, 3)} m`, `e = ${f(r.e, 3)} m; L/6 = ${f(r.L6, 3)} m`);
+  let items;
+  if (r.over) items = [['e', `${f(r.e, 3)} m`], [Lg('verdict', 'keputusan'), Lg('outside the base', 'di luar tapak'), 'bad']];
+  else {
+    const modeTxt = {uniform: Lg('uniform', 'seragam'), trap: Lg('trapezoid', 'trapezium'), tri: Lg('triangle, full length', 'segi tiga, panjang penuh'), part: Lg('part lifts off', 'sebahagian terangkat')}[r.mode];
+    if (r.biax) items = [['e = M/N', `${f(r.e, 3)} m`], ['e<sub>y</sub> = M<sub>B</sub>/N', `${f(r.ey, 3)} m`], ['6e/L + 6e<sub>y</sub>/B', f(r.k, 3), r.contact ? 'ok' : 'bad'],
+             [Lg('largest corner', 'bucu terbesar'), r.contact ? `${f(r.corners.pp, 1)} kN/m²` : '–'], [Lg('smallest corner', 'bucu terkecil'), r.contact ? `${f(r.corners.mm, 1)} kN/m²` : '–'],
+             [Lg('contact', 'sentuhan'), r.contact ? Lg('every corner', 'setiap bucu') : Lg('a corner lifts off', 'satu bucu terangkat'), r.contact ? 'ok' : 'bad']];
+    else items = [['e = M/N', `${f(r.e, 3)} m`], ['L/6', `${f(r.L6, 3)} m`], [Lg('in contact', 'bersentuhan'), r.mode === 'part' ? `${f(r.Lc, 3)} m` : Lg('whole length', 'seluruh panjang')],
+             ['p<sub>max</sub>', `${f(r.pmax, 1)} kN/m²`], ['p<sub>min</sub>', `${f(r.pmin, 1)} kN/m²`], [Lg('shape', 'bentuk'), modeTxt, r.mode === 'part' ? 'bad' : 'ok']];
+    if (r.beyondL3) items.push(['e &gt; L/3', Lg('special precautions (EC7 6.5.4)', 'langkah berjaga-jaga khas (EC7 6.5.4)'), 'bad']);
+  }
+  el('pKV').innerHTML = kvHtml(items);
+  drawPChart(r); drawPPlan(r);
+  if (userEdit && !r.over && !(P.M2 > 0)){ if (r.e > r.L6 * 1.004) pSeen.past = true; else pSeen.inside = true; if (pSeen.past && pSeen.inside) milestone('lift'); }
+  if (userEdit && r.biax && !r.over && Math.abs(r.k - 1) <= 0.02) milestone('corner');
+}
+function drawPChart(r){
+  const svg = el('pChart'); svg.innerHTML = '';
+  const P = pin, x0 = 90, x1 = 550, W = x1 - x0, X = x => x0 + (x / P.L + 0.5) * W;   // x from the centre, m
+  const yb = 170, hb = 34;
+  S('rect', {x: x0, y: yb - hb, width: W, height: hb, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
+  const cw = Math.max(18, Math.min(60, 0.16 * W));
+  S('rect', {x: X(0) - cw / 2, y: 40, width: cw, height: yb - hb - 40, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
+  if (r.over){
+    T(svg, 320, 250, Lg('The resultant lies outside the base: it would overturn.', 'Paduan terletak di luar tapak: ia akan terbalik.'), {'text-anchor': 'middle', style: 'fill:var(--bad);font-size:14px'});
+    return;
+  }
+  const xe = X(r.e);
+  arrow(svg, xe, 8, xe, yb - hb - 2, 'var(--ink)', 2.2);
+  TS(svg, xe + 8, 22, [['N = ' + f(P.N, 0) + ' kN']], {});
+  if (r.e > 0){
+    S('line', {x1: X(0), x2: X(0), y1: yb - hb - 4, y2: yb + 4, stroke: 'var(--ink-3)', 'stroke-dasharray': '3 3'}, svg);
+    S('line', {x1: X(0), x2: xe, y1: 120, y2: 120, stroke: 'var(--unbraced)', 'stroke-width': 1.5}, svg);
+    T(svg, (X(0) + xe) / 2, 114, 'e', {'text-anchor': 'middle', style: 'fill:var(--unbraced)'});
+  }
+  // kern edges
+  [-1, 1].forEach(s => S('line', {x1: X(s * P.L / 6), x2: X(s * P.L / 6), y1: yb - hb, y2: yb, stroke: 'var(--unbraced)', 'stroke-dasharray': '4 3'}, svg));
+  T(svg, X(P.L / 6), yb - hb - 6, 'L/6', {'text-anchor': 'middle', class: 'small'});
+  // pressure
+  const yp = yb + 26, sc = 120 / Math.max(r.pmax, 1);
+  S('line', {x1: x0, x2: x1, y1: yp, y2: yp, stroke: 'var(--ink-2)'}, svg);
+  let d;
+  if (r.mode === 'part'){ const xs = X(P.L / 2 - r.Lc); d = `M${xs},${yp} L${x1},${yp + r.pmax * sc} L${x1},${yp} Z`;
+    S('line', {x1: x0, x2: xs, y1: yp - 10, y2: yp - 10, stroke: 'var(--bad)', 'stroke-width': 1.5}, svg);
+    T(svg, (x0 + xs) / 2, yp - 16, Lg('lifts off', 'terangkat'), {'text-anchor': 'middle', style: 'fill:var(--bad)'});
+    S('line', {x1: xs, x2: x1, y1: yp + r.pmax * sc + 22, y2: yp + r.pmax * sc + 22, stroke: 'var(--flight)'}, svg);
+    TS(svg, (xs + x1) / 2, yp + r.pmax * sc + 38, [['L'], ['c', 1], [' = ' + f(r.Lc, 3) + ' m']], {'text-anchor': 'middle', style: 'fill:var(--flight)'});
+  } else d = `M${x0},${yp} L${x0},${yp + r.pmin * sc} L${x1},${yp + r.pmax * sc} L${x1},${yp} Z`;
+  S('path', {d, fill: 'var(--wash-flag)', stroke: 'var(--flight)', 'stroke-width': 1.8}, svg);
+  TS(svg, x1 + 6, yp + r.pmax * sc + 4, [[f(r.pmax, 1)]], {style: 'fill:var(--flight)'});
+  if (r.mode !== 'part') TS(svg, x0 - 6, yp + r.pmin * sc + 4, [[f(r.pmin, 1)]], {'text-anchor': 'end', style: 'fill:var(--flight)'});
+  T(svg, 320, 352, P.M2 > 0 ? Lg('kN/m², the mean across B; the corners are on the plan below', 'kN/m², purata merentasi B; bucu ditunjukkan pada pelan di bawah') : Lg('kN/m²; the dashed lines on the base mark the kern, L/6 each side of the centre', 'kN/m²; garis putus pada tapak menandakan kern, L/6 pada setiap sisi tengah'), {'text-anchor': 'middle', class: 'small'});
+}
+function drawPPlan(r){
+  const svg = el('pPlan'); svg.innerHTML = '';
+  const P = pin, s = Math.min(380 / P.L, 250 / P.B), w = P.L * s, h = P.B * s, cx = 300, cy = 190;
+  S('rect', {x: cx - w / 2, y: cy - h / 2, width: w, height: h, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
+  S('line', {x1: cx - w / 2 - 14, x2: cx + w / 2 + 14, y1: cy, y2: cy, stroke: 'var(--ink-3)', 'stroke-dasharray': '4 4'}, svg);
+  S('line', {x1: cx, x2: cx, y1: cy - h / 2 - 14, y2: cy + h / 2 + 14, stroke: 'var(--ink-3)', 'stroke-dasharray': '4 4'}, svg);
+  const kx = w / 6, ky = h / 6;
+  S('path', {d: `M${cx - kx},${cy} L${cx},${cy - ky} L${cx + kx},${cy} L${cx},${cy + ky} Z`, fill: 'var(--wash-bad)', stroke: 'var(--unbraced)', 'stroke-width': 1.8}, svg);
+  T(svg, cx + w / 2 + 18, cy + 4, 'L', {}); T(svg, cx + 6, cy - h / 2 - 18, 'B', {});
+  const ex = Math.min(r.e, P.L / 2) * s, ey = Math.min(r.ey, P.B / 2) * s;
+  S('circle', {cx: cx + ex, cy: cy - ey, r: 6, fill: r.over || (r.biax && !r.contact) || r.mode === 'part' ? 'var(--bad)' : 'var(--ink)'}, svg);
+  T(svg, cx + ex + 10, cy - ey - 8, Lg('resultant', 'paduan'), {});
+  if (r.biax && !r.over){
+    const C = r.corners, pos = [['pp', 1, 1], ['pm', 1, -1], ['mp', -1, 1], ['mm', -1, -1]];
+    pos.forEach(([k, sx, sy]) => { const x = cx + sx * (w / 2 + 6), y = cy - sy * (h / 2 + 6) + (sy > 0 ? -4 : 14);
+      T(svg, x, y, r.contact ? f(C[k], 1) : (C[k] < 0 ? Lg('lifts', 'terangkat') : f(C[k], 1)), {'text-anchor': sx > 0 ? 'start' : 'end', style: C[k] < 0 ? 'fill:var(--bad)' : ''}); });
+  }
+  el('pPlanLeg').innerHTML = `<span><i class="key" style="border-color:var(--unbraced)"></i>${Lg('kern', 'kern')}</span>` + (r.biax ? `<span>${Lg('corner pressures, kN/m²', 'tekanan bucu, kN/m²')}</span>` : '');
+  T(svg, 300, 372, r.biax ? (r.contact ? Lg('inside the kern: every corner presses on the soil', 'di dalam kern: setiap bucu menekan tanah') : Lg('outside the kern: a corner lifts off and the linear formula no longer applies', 'di luar kern: satu bucu terangkat dan formula linear tidak lagi terpakai'))
+                        : (r.mode === 'part' ? Lg('outside the kern: part of the base lifts off', 'di luar kern: sebahagian tapak terangkat') : Lg('inside the kern: the whole base presses on the soil', 'di dalam kern: seluruh tapak menekan tanah')), {'text-anchor': 'middle', class: 'small'});
+}
+function pToOwn(){ if (pCaseK !== 'own'){ pCaseK = 'own'; fillPCases(); } }
+Object.keys(PF).forEach(id => el(id).addEventListener('input', () => { const v = parseFloat(el(id).value); if (!isFinite(v)) return; pin[PF[id]] = v; if (pCaseK !== 'act' || id !== 'pM') pToOwn(); if (pin.N <= 0) return; el('pE').max = (pin.L / 2).toFixed(3); el('pE').value = Math.min(pin.M / pin.N, pin.L / 2).toFixed(3); redrawPressure(true); }));
+el('pE').addEventListener('input', () => { const e = parseFloat(el('pE').value); pin.M = Math.round(pin.N * e * 10) / 10; el('pM').value = pin.M; if (pCaseK !== 'act' && pCaseK !== 'f3') pToOwn(); redrawPressure(true); });
+el('pCase').addEventListener('change', () => { pCaseK = el('pCase').value; if (PCASES[pCaseK].v) Object.assign(pin, PCASES[pCaseK].v); fillPCases(); syncP(); redrawPressure(false); });
+
+/* Activity 10A: three eccentricities, predict the shape, then reveal */
+const AKEY = 'seaa4333-lab-foundation-10a';
+const ACT = [0.2, 0.4, 0.5];
+let aSt = recall(AKEY, {}) || {};
+const ASHAPES = [['A', 'trapezoid', 'trapezium', 'trap'], ['B', 'triangle, whole base', 'segi tiga, seluruh tapak', 'tri'], ['C', 'triangle, part lifts off', 'segi tiga, sebahagian terangkat', 'part'], ['D', 'uniform', 'seragam', 'uniform']];
+function drawAct(){
+  const box = el('aRows'); box.innerHTML = '';
+  ACT.forEach(e => {
+    const st = aSt[e] || {}, row = document.createElement('div'); row.className = 'arow';
+    const r = pCalc({L: 2.4, B: 2.0, N: 600, M: 600 * e, M2: 0});
+    row.innerHTML = `<p class="alab">e = ${f(e, 1)} m</p><div class="seg cells" role="group" aria-label="${Lg('Shape for e = ', 'Bentuk bagi e = ')}${e} m">` +
+      ASHAPES.map(([k, en, ms, code]) => `<button type="button" data-v="${code}" aria-pressed="${st.pred === code}">${k} · ${Lg(en, ms)}</button>`).join('') +
+      `</div><div class="steps"><button class="btn sm primary" type="button" ${st.pred ? '' : 'disabled'}>${Lg('Reveal', 'Dedahkan')}</button></div>` +
+      (st.shown ? `<p class="verdict ${st.pred === r.mode ? 'ok' : 'bad'}">${aVerdict(e, r, st.pred)}</p>` : '');
+    row.querySelectorAll('.seg button').forEach(b => b.addEventListener('click', () => { aSt[e] = Object.assign({}, aSt[e], {pred: b.dataset.v, shown: false}); store(AKEY, aSt); drawAct(); }));
+    row.querySelector('.steps button').addEventListener('click', () => {
+      if (!(aSt[e] || {}).pred) return;
+      aSt[e].shown = true; store(AKEY, aSt);
+      pCaseK = 'act'; Object.assign(pin, PCASES.act.v, {M: 600 * e}); fillPCases(); syncP(); redrawPressure(false); drawAct();
+      if (ACT.every(x => (aSt[x] || {}).shown)) milestone('kern');
+    });
+    box.appendChild(row);
+  });
+}
+function aVerdict(e, r, pred){
+  const right = pred === r.mode ? Lg('Right. ', 'Betul. ') : Lg('Not this time. ', 'Belum tepat. ');
+  if (r.mode === 'trap') return right + Lg(`A trapezoid: e = ${f(e, 1)} &lt; L/6 = 0.40 m, so p = 125 × (1 ± 6 × ${f(e, 1)}/2.4) = ${f(r.pmax, 1)} and ${f(r.pmin, 1)} kN/m².`, `Trapezium: e = ${f(e, 1)} &lt; L/6 = 0.40 m, jadi p = 125 × (1 ± 6 × ${f(e, 1)}/2.4) = ${f(r.pmax, 1)} dan ${f(r.pmin, 1)} kN/m².`);
+  if (r.mode === 'tri') return right + Lg(`A triangle over the whole base: e = L/6, so p = 2N/A = ${f(r.pmax, 1)} kN/m² at one edge and 0 at the other.`, `Segi tiga sepanjang seluruh tapak: e = L/6, jadi p = 2N/A = ${f(r.pmax, 1)} kN/m² di satu tepi dan 0 di tepi yang lain.`);
+  return right + Lg(`Part of the base lifts off: e &gt; L/6, so L<sub>c</sub> = 3(1.2 − ${f(e, 1)}) = ${f(r.Lc, 2)} m and p<sub>max</sub> = 2 × 600/(2.0 × ${f(r.Lc, 2)}) = ${f(r.pmax, 1)} kN/m². N/A ± M/Z would ask the soil to pull.`, `Sebahagian tapak terangkat: e &gt; L/6, jadi L<sub>c</sub> = 3(1.2 − ${f(e, 1)}) = ${f(r.Lc, 2)} m dan p<sub>max</sub> = 2 × 600/(2.0 × ${f(r.Lc, 2)}) = ${f(r.pmax, 1)} kN/m². N/A ± M/Z akan meminta tanah menarik.`);
+}
+
+/* ===================== 2 CRITICAL SECTIONS ===================== */
+const SCASES = {
+  f1: {label: ['F1 · the course notes’ pad, h = 450 mm', 'F1 · pad nota kursus, h = 450 mm'], v: {L: 3.0, h: 450, c: 300, N: 1410, fck: 25, cn: 35, phi: 12, nb: 24},
+       note: ['App case F1 (course notes Example 1): G<sub>k</sub> 600 + Q<sub>k</sub> 400 kN, N<sub>Ed</sub> = 1410 kN, C25/30, 24H12 each way.', 'Kes app F1 (Contoh 1 nota kursus): G<sub>k</sub> 600 + Q<sub>k</sub> 400 kN, N<sub>Ed</sub> = 1410 kN, C25/30, 24H12 setiap arah.']},
+  f1r: {label: ['F1R · Worked Example 10.1, h = 500 mm', 'F1R · Worked Example 10.1, h = 500 mm'], v: {L: 3.0, h: 500, c: 300, N: 1410, fck: 25, cn: 40, phi: 12, nb: 24},
+        note: ['App case F1R: the same pad with c<sub>nom</sub> = 40 mm on blinding and 50 mm deeper.', 'Kes app F1R: pad yang sama dengan c<sub>nom</sub> = 40 mm di atas blinding dan 50 mm lebih dalam.']},
+  own: {label: ['Your own pad', 'Pad anda sendiri'], v: null, note: ['Type your own numbers. The scan covers the closed perimeters inside the base.', 'Taip nombor anda sendiri. Imbasan meliputi perimeter tertutup di dalam tapak.']}
+};
+const SF = {sL: 'L', sh: 'h', sc: 'c', sN: 'N', sfck: 'fck', scn: 'cn', sphi: 'phi', snb: 'nb'};
+const sin = Object.assign({}, SCASES.f1.v); let sCaseK = 'f1', sLast = null;
+const BKEY = 'seaa4333-lab-foundation-10b';
+let bSt = recall(BKEY, {}) || {};
+function fillSCases(){ const s = el('sCase'); s.innerHTML = ''; Object.keys(SCASES).forEach(k => { const o = document.createElement('option'); o.value = k; o.textContent = Lg(SCASES[k].label[0], SCASES[k].label[1]); s.appendChild(o); }); s.value = sCaseK; el('sCaseNote').innerHTML = Lg(SCASES[sCaseK].note[0], SCASES[sCaseK].note[1]); }
+function syncS(){ Object.keys(SF).forEach(id => { el(id).value = sin[SF[id]]; }); }
+function sCalc(P){
+  const b = P.L * 1000, d = P.h - P.cn - 1.5 * P.phi, dav = P.h - P.cn - P.phi, p = P.N / (P.L * P.L), l = (P.L - P.c / 1000) / 2;
+  const R = {b, d, dav, p, l, ok: d > 50 && l * 1000 > 50};
+  if (!R.ok) return R;
+  R.M = p * P.L * l * l / 2; R.K = R.M * 1e6 / (P.fck * b * d * d);
+  R.z0 = d * (0.5 + Math.sqrt(Math.max(0.25 - R.K / 1.134, 0))); R.z = Math.min(R.z0, 0.95 * d);
+  R.As = R.M * 1e6 / (FYD * R.z); R.rmin = Math.max(0.26 * fctm(P.fck) / 500, 0.0013); R.Asmin = R.rmin * b * d; R.Asp = P.nb * barA(P.phi);
+  R.lb = lbdOf(P.phi, P.fck);
+  R.lv = l * 1000 - d; R.V = R.lv > 0 ? p * P.L * R.lv / 1000 : 0; R.ex = R.lv - P.cn; R.cnt = R.ex >= R.lb + d;
+  const sv = vminOf(d, P.fck); R.k = sv.k; R.rho = R.cnt ? Math.min(R.Asp / (b * d), 0.02) : 0;
+  R.vR = Math.max(0.12 * sv.k * Math.pow(100 * R.rho * P.fck, 1 / 3), sv.v); R.VR = R.vR * b * d / 1000;
+  R.a2 = 2 * dav; const sp = vminOf(dav, P.fck); R.ep = l * 1000 - R.a2 - P.cn; R.cntP = R.ep >= R.lb + dav;
+  R.rhoP = R.cntP ? Math.min(R.Asp / (b * d), 0.02) : 0; R.vRc = Math.max(0.12 * sp.k * Math.pow(100 * R.rhoP * P.fck, 1 / 3), sp.v);
+  R.amax = Math.min(R.a2, l * 1000);
+  R.pts = []; R.worst = null;
+  for (let i = 1; i <= 400; i++){ const a = R.a2 * i / 400; if (a > R.amax + 1e-9) break; const g = closedP(a, P.c), Vr = P.N - p * g.A, vEd = Vr * 1e3 / (g.u * dav), vRd = R.vRc * 2 * dav / a, r = vEd / vRd;
+    R.pts.push([a / dav, r]); if (!R.worst || r > R.worst.r) R.worst = {a, r, u: g.u, A: g.A, V: Vr, vEd, vRd}; }
+  if (R.amax >= R.a2 - 1e-9){ const g = closedP(R.a2, P.c), V2 = P.N - p * g.A, v2 = V2 * 1e3 / (g.u * dav); R.at2d = {u: g.u, A: g.A, V: V2, vEd: v2, r: v2 / R.vRc}; }
+  if (R.amax >= dav){ const g = closedP(dav, P.c), Vd = P.N - p * g.A, vd = Vd * 1e3 / (g.u * dav); R.atd = {u: g.u, A: g.A, V: Vd, vEd: vd, vRd: 2 * R.vRc, r: vd / (2 * R.vRc)}; }
+  R.u0 = 4 * P.c; R.nu = 0.6 * (1 - P.fck / 250); R.vmax = 0.4 * R.nu * P.fck / 1.5; R.v0 = P.N * 1e3 / (R.u0 * dav);
+  return R;
+}
+const pill = (ok) => ok ? `<span class="ok">✓</span>` : `<span class="bad">✗</span>`;
+function redrawSections(userEdit){
+  const P = sin, R = sCalc(P); sLast = R;
+  const shown = !!bSt.shown;
+  if (!R.ok){ el('sKV').innerHTML = kvHtml([[Lg('check the inputs', 'semak input'), Lg('the base is too small or too thin', 'tapak terlalu kecil atau terlalu nipis'), 'bad']]); el('sTable').innerHTML = ''; el('sChart').innerHTML = ''; el('sPlan').innerHTML = ''; return; }
+  const items = [['p<sub>Ed</sub>', `${f(R.p, 1)} kN/m²`], ['M<sub>Ed</sub>', `${f(R.M, 1)} kN m`], ['A<sub>s</sub> / A<sub>s,prov</sub>', `${f(Math.max(R.As, R.Asmin), 0)} / ${f(R.Asp, 0)} mm²`, R.Asp >= Math.max(R.As, R.Asmin) ? 'ok' : 'bad'],
+                 ['V<sub>Ed</sub>/V<sub>Rd,c</sub>', f(R.V / R.VR, 2), R.V <= R.VR ? 'ok' : 'bad'], [Lg('punching at 2d', 'punching pada 2d'), R.at2d ? f(R.at2d.r, 2) : '–', R.at2d ? (R.at2d.r <= 1 ? 'ok' : 'bad') : '']];
+  items.push([Lg('worst inside 2d', 'terburuk di dalam 2d'), shown ? `${f(R.worst.r, 2)} · a = ${f(R.worst.a / R.dav, 2)}d` : Lg('reveal first', 'dedahkan dahulu'), shown ? (R.worst.r <= 1 ? 'ok' : 'bad') : '']);
+  items.push([Lg('column face', 'muka column'), f(R.v0 / R.vmax, 2), R.v0 <= R.vmax ? 'ok' : 'bad']);
+  el('sKV').innerHTML = kvHtml(items);
+  const rows = [
+    ['(10.2)', `p<sub>Ed</sub> = ${f(P.N, 0)}/${f(P.L, 1)}² = ${f(R.p, 1)} kN/m²`, ''],
+    ['(10.7)', `l = (${f(P.L, 1)} − ${f(P.c / 1000, 2)})/2 = ${f(R.l, 3)} m; M<sub>Ed</sub> = ${f(R.p, 1)} × ${f(P.L, 1)} × ${f(R.l, 3)}²/2 = ${f(R.M, 1)} kN m`, ''],
+    ['RCD I', `d = ${f(R.d, 0)} mm; K = ${f(R.K, 4)}; z = ${f(R.z, 1)} mm; A<sub>s</sub> = ${f(R.As, 0)}, A<sub>s,min</sub> = ${f(R.Asmin, 0)} mm²; ${P.nb}H${P.phi} = ${f(R.Asp, 0)} mm²`, pill(R.Asp >= Math.max(R.As, R.Asmin))],
+    ['(10.8)', `V<sub>Ed</sub> = ${f(R.p, 1)} × ${f(P.L, 1)} × ${f(R.lv / 1000, 3)} = ${f(R.V, 1)} kN; ` + (R.cnt ? Lg(`bars count (${f(R.ex, 0)} ≥ ${f(R.lb + R.d, 0)} mm)`, `bar dikira (${f(R.ex, 0)} ≥ ${f(R.lb + R.d, 0)} mm)`) : Lg(`bars do not count (${f(R.ex, 0)} &lt; ${f(R.lb + R.d, 0)} mm)`, `bar tidak dikira (${f(R.ex, 0)} &lt; ${f(R.lb + R.d, 0)} mm)`)) + `; V<sub>Rd,c</sub> = ${f(R.VR, 1)} kN`, pill(R.V <= R.VR)],
+    ['(10.9)', R.at2d ? `2d = ${f(R.a2, 0)} mm: u<sub>1</sub> = ${f(R.at2d.u, 0)} mm, A<sub>1</sub> = ${f(R.at2d.A, 3)} m²; V<sub>Ed,red</sub> = ${f(R.at2d.V, 1)} kN; v<sub>Ed</sub> = ${f(R.at2d.vEd, 3)} ≤ v<sub>Rd,c</sub> = ${f(R.vRc, 3)} N/mm²?` : Lg('The 2d perimeter leaves the base: only the perimeters inside it are checked here (the app follows the edges, EC2 Fig. 6.15).', 'Perimeter 2d keluar dari tapak: hanya perimeter di dalamnya disemak di sini (app mengikut tepi, EC2 Fig. 6.15).'), R.at2d ? pill(R.at2d.r <= 1) : ''],
+    ['(10.10)', !shown ? Lg('The perimeter at a = d: predict first in Activity 10B.', 'Perimeter pada a = d: ramal dahulu dalam Aktiviti 10B.') : R.atd ? `a = d: u = ${f(R.atd.u, 0)} mm, A = ${f(R.atd.A, 3)} m²; V = ${f(R.atd.V, 1)} kN; v<sub>Ed</sub> = ${f(R.atd.vEd, 3)} ≤ 2v<sub>Rd,c</sub> = ${f(R.atd.vRd, 3)} N/mm²?` : '–', shown && R.atd ? pill(R.atd.r <= 1) : ''],
+    ['(10.10)', shown ? Lg(`Scan of ${R.pts.length} perimeters: worst ${f(R.worst.r, 3)} at a = ${f(R.worst.a, 0)} mm = ${f(R.worst.a / R.dav, 2)}d`, `Imbasan ${R.pts.length} perimeter: terburuk ${f(R.worst.r, 3)} pada a = ${f(R.worst.a, 0)} mm = ${f(R.worst.a / R.dav, 2)}d`) : Lg('The scan: predict first in Activity 10B.', 'Imbasan: ramal dahulu dalam Aktiviti 10B.'), shown ? pill(R.worst.r <= 1) : ''],
+    ['(10.11)', `v<sub>Ed,0</sub> = ${f(P.N, 0)} × 10³/(${f(R.u0, 0)} × ${f(R.dav, 0)}) = ${f(R.v0, 2)} ≤ v<sub>Rd,max</sub> = ${f(R.vmax, 2)} N/mm²?`, pill(R.v0 <= R.vmax)]];
+  el('sTable').innerHTML = `<thead><tr><th>Ref</th><th>${Lg('Check', 'Semakan')}</th><th class="out">OK</th></tr></thead><tbody>` + rows.map(r => `<tr><td class="ref">${r[0]}</td><td class="m">${r[1]}</td><td class="out">${r[2]}</td></tr>`).join('') + '</tbody>';
+  el('sVeil').hidden = shown;
+  drawSChart(R, shown); drawSPlan(R, shown);
+  // task 5: F1 made deeper passes the whole scan
+  const F1 = SCASES.f1.v, sameF1 = ['L', 'c', 'N', 'fck', 'phi', 'nb'].every(k => +P[k] === +F1[k]) && (P.cn === 35 || P.cn === 40);
+  if (userEdit && sameF1 && P.h > 450 && R.worst && R.worst.r <= 1) milestone('revise');
+}
+function drawSChart(R, shown){
+  const svg = el('sChart'); svg.innerHTML = '';
+  const X0 = 60, X1 = 610, Y0 = 290, Y1 = 20, rmin = 0, rmax = Math.max(1.2, ...(R.pts.map(p => p[1]))) * 1.02;
+  const X = t => X0 + t / 2 * (X1 - X0), Y = r => Y0 - (r - rmin) / (rmax - rmin) * (Y0 - Y1);
+  for (let t = 0; t <= 2.0001; t += 0.25){ S('line', {x1: X(t), x2: X(t), y1: Y0, y2: Y1, stroke: 'var(--grid)'}, svg); T(svg, X(t), Y0 + 16, f(t, 2).replace(/\.?0+$/, ''), {'text-anchor': 'middle'}); }
+  const st = rmax > 2 ? 0.5 : 0.2;
+  for (let r = 0; r <= rmax + 1e-9; r += st){ S('line', {x1: X0, x2: X1, y1: Y(r), y2: Y(r), stroke: 'var(--grid)'}, svg); T(svg, X0 - 6, Y(r) + 4, f(r, 1), {'text-anchor': 'end'}); }
+  S('line', {x1: X0, x2: X1, y1: Y(1), y2: Y(1), stroke: 'var(--bad)', 'stroke-dasharray': '6 4', 'stroke-width': 1.5}, svg);
+  T(svg, (X0 + X1) / 2, Y0 + 34, Lg('a/d: distance of the perimeter from the column face', 'a/d: jarak perimeter dari muka column'), {'text-anchor': 'middle', class: 'axt'});
+  if (!shown) return;
+  const pts = R.pts.filter(p => p[1] >= rmin).map(p => `${X(p[0]).toFixed(1)},${Y(Math.min(p[1], rmax)).toFixed(1)}`);
+  S('path', {d: 'M' + pts.join(' L'), fill: 'none', stroke: 'var(--unbraced)', 'stroke-width': 2.4}, svg);
+  const w = R.worst; S('circle', {cx: X(w.a / R.dav), cy: Y(w.r), r: 5, fill: 'var(--unbraced)'}, svg);
+  T(svg, X(w.a / R.dav) + 8, Y(w.r) - 8, Lg(`worst ${f(w.r, 2)} at ${f(w.a / R.dav, 2)}d`, `terburuk ${f(w.r, 2)} pada ${f(w.a / R.dav, 2)}d`), {style: 'fill:var(--ink)'});
+  if (R.at2d){ S('circle', {cx: X(2), cy: Y(R.at2d.r), r: 5, fill: 'var(--surface)', stroke: 'var(--unbraced)', 'stroke-width': 2}, svg); T(svg, X(2) - 8, Y(R.at2d.r) + 18, Lg(`at 2d: ${f(R.at2d.r, 2)}`, `pada 2d: ${f(R.at2d.r, 2)}`), {'text-anchor': 'end'}); }
+}
+function drawSPlan(R, shown){
+  const svg = el('sPlan'); svg.innerHTML = '';
+  const P = sin, sc = 300 / (P.L * 1000), cx = 190, cy = 200, Lp = P.L * 1000 * sc, c = P.c * sc;
+  S('rect', {x: cx - Lp / 2, y: cy - Lp / 2, width: Lp, height: Lp, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
+  S('rect', {x: cx - c / 2, y: cy - c / 2, width: c, height: c, fill: 'var(--surface-2)', stroke: 'var(--ink-2)'}, svg);
+  function rr(a, col, dash, w){ const x0 = cx - c / 2, x1 = cx + c / 2, y0 = cy - c / 2, y1 = cy + c / 2; a = a * sc;
+    S('path', {d: `M${x0},${y0 - a} L${x1},${y0 - a} A${a},${a} 0 0 1 ${x1 + a},${y0} L${x1 + a},${y1} A${a},${a} 0 0 1 ${x1},${y1 + a} L${x0},${y1 + a} A${a},${a} 0 0 1 ${x0 - a},${y1} L${x0 - a},${y0} A${a},${a} 0 0 1 ${x0},${y0 - a} Z`, fill: 'none', stroke: col, 'stroke-dasharray': dash || '', 'stroke-width': w || 1.6}, svg); }
+  if (R.amax >= R.a2 - 1e-9) rr(R.a2, 'var(--ink-2)', '', 1.6);
+  if (shown && R.worst) rr(R.worst.a, 'var(--unbraced)', '6 4', 2.4);
+  S('line', {x1: cx + c / 2, x2: cx + c / 2, y1: cy - Lp / 2 - 10, y2: cy + Lp / 2 + 10, stroke: 'var(--unbraced)', 'stroke-width': 2}, svg);
+  S('line', {x1: cx + c / 2 + R.d * sc, x2: cx + c / 2 + R.d * sc, y1: cy - Lp / 2 - 10, y2: cy + Lp / 2 + 10, stroke: 'var(--flight)', 'stroke-dasharray': '6 4', 'stroke-width': 2}, svg);
+  const lx = cx + Lp / 2 + 26;
+  [[Lg('bending: column face', 'bending: muka column'), 'var(--unbraced)', ''], [Lg('shear: d from the face', 'shear: d dari muka'), 'var(--flight)', '6 4'], [Lg('basic perimeter at 2d', 'basic perimeter pada 2d'), 'var(--ink-2)', ''], [shown ? Lg('worst perimeter', 'perimeter terburuk') : Lg('worst perimeter (reveal)', 'perimeter terburuk (dedah)'), 'var(--unbraced)', '6 4']]
+    .forEach(([t, col, dash], i) => { const y = 120 + i * 34; S('line', {x1: lx, x2: lx + 28, y1: y, y2: y, stroke: col, 'stroke-dasharray': dash, 'stroke-width': 2}, svg); T(svg, lx + 36, y + 4, t, {style: 'fill:var(--ink-2)'}); });
+}
+function sToOwn(){ if (sCaseK !== 'own'){ sCaseK = 'own'; fillSCases(); } }
+Object.keys(SF).forEach(id => el(id).addEventListener('input', () => { const v = parseFloat(el(id).value); if (!isFinite(v)) return; sin[SF[id]] = v; sToOwn(); redrawSections(true); }));
+el('sCase').addEventListener('change', () => { sCaseK = el('sCase').value; if (SCASES[sCaseK].v) Object.assign(sin, SCASES[sCaseK].v); fillSCases(); syncS(); redrawSections(false); });
+segGroup(el('bPred'), v => { bSt = Object.assign({}, bSt, {pred: v}); store(BKEY, bSt); });
+el('bReveal').addEventListener('click', () => {
+  if (!bSt.pred){ el('bOut').hidden = false; el('bOut').className = 'verdict bad'; el('bOut').innerHTML = Lg('Choose A, B, C or D first.', 'Pilih A, B, C atau D dahulu.'); return; }
+  bSt.shown = true; store(BKEY, bSt); paintB(); milestone('scan');
+  sCaseK = 'f1'; Object.assign(sin, SCASES.f1.v); fillSCases(); syncS(); redrawSections(false);
+});
+function paintB(){
+  setSeg(el('bPred'), bSt.pred || '');
+  if (!bSt.shown){ el('bOut').hidden = true; return; }
+  const R = sCalc(SCASES.f1.v);
+  el('bOut').hidden = false; el('bOut').className = 'verdict ' + (bSt.pred === 'B' ? 'ok' : 'bad');
+  el('bOut').innerHTML = (bSt.pred === 'B' ? Lg('Right. ', 'Betul. ') : Lg('The answer is B. ', 'Jawapannya B. ')) +
+    Lg(`The worst perimeter is at a = ${f(R.worst.a / R.dav, 2)}d, where v<sub>Ed</sub>/v<sub>Rd</sub> = ${f(R.worst.r, 2)}: the base fails there, although at 2d the ratio is only ${f(R.at2d.r, 2)}. The column face is checked against v<sub>Rd,max</sub>, a different limit; beyond 2d EC2 asks for nothing.`,
+       `Perimeter terburuk berada pada a = ${f(R.worst.a / R.dav, 2)}d, tempat v<sub>Ed</sub>/v<sub>Rd</sub> = ${f(R.worst.r, 2)}: tapak gagal di situ, walaupun pada 2d nisbahnya hanya ${f(R.at2d.r, 2)}. Muka column disemak berbanding v<sub>Rd,max</sub>, had yang berbeza; melepasi 2d EC2 tidak meminta apa-apa.`);
+}
+
+/* ===================== 3 SPOT THE ERROR: FOUNDATION S10 ===================== */
+const S10 = [
+  {ref: 'EC2 4.4.1', calc: ['c<sub>min,dur</sub> = 25 mm (XC2, S4); c<sub>nom</sub> = 25 + Δc<sub>dev</sub> = 25 + 10', 'c<sub>min,dur</sub> = 25 mm (XC2, S4); c<sub>nom</sub> = 25 + Δc<sub>dev</sub> = 25 + 10'], out: 'c<sub>nom</sub> = 35 mm', slip: true,
+   fix: ['Cast on blinding: c<sub>nom</sub> ≥ 40 mm (EC2 4.4.1.3(4)). With 40 mm, d = 436 mm and the mean d = 444 mm.', 'Dituang di atas blinding: c<sub>nom</sub> ≥ 40 mm (EC2 4.4.1.3(4)). Dengan 40 mm, d = 436 mm dan d purata = 444 mm.']},
+  {ref: '(10.1)', calc: ['A<sub>req</sub> = (700 + 450 + 115)/175 = 7.23 m²; try 2.7 × 2.7 m', 'A<sub>req</sub> = (700 + 450 + 115)/175 = 7.23 m²; cuba 2.7 × 2.7 m'], out: 'A = 7.29 m²', slip: false,
+   fix: ['Right: service loads with 10% for the base.', 'Betul: service load dengan 10% bagi tapak.']},
+  {ref: '(10.1)', calc: ['W = 25 × 7.29 × 0.50 = 91.1 kN; p = (1150 + 91.1)/7.29', 'W = 25 × 7.29 × 0.50 = 91.1 kN; p = (1150 + 91.1)/7.29'], out: '170.3 ≤ 175 kN/m² ✓', slip: false,
+   fix: ['Right.', 'Betul.']},
+  {ref: '(10.7)', calc: ['l = (2.7 − 0.35)/2 = 1.175 m; M<sub>Ed</sub> = 170.3 × 2.7 × 1.175²/2', 'l = (2.7 − 0.35)/2 = 1.175 m; M<sub>Ed</sub> = 170.3 × 2.7 × 1.175²/2'], out: '317.3 kN m', slip: true,
+   fix: ['170.3 kN/m² is the service pressure with the weight of the base. Bending uses p<sub>Ed</sub> = 1620/7.29 = 222.2 kN/m², without the self-weight: M<sub>Ed</sub> = 414.2 kN m.', '170.3 kN/m² ialah service pressure dengan berat tapak. Bending menggunakan p<sub>Ed</sub> = 1620/7.29 = 222.2 kN/m², tanpa self-weight: M<sub>Ed</sub> = 414.2 kN m.']},
+  {ref: 'RCD I', calc: ['d = 500 − 35 − 1.5 × 16 = 441 mm; A<sub>s</sub> = 317.3 × 10⁶/(435 × 0.95 × 441)', 'd = 500 − 35 − 1.5 × 16 = 441 mm; A<sub>s</sub> = 317.3 × 10⁶/(435 × 0.95 × 441)'], out: '1741 mm² → 9H16', slip: false,
+   fix: ['Follows from lines 1 and 4: d = 436 mm, A<sub>s</sub> = 414.2 × 10⁶/(435 × 414.2) = 2299 mm² → 12H16 (2413 mm²). 9H16 (1810 mm²) is 21% short.', 'Akibat baris 1 dan 4: d = 436 mm, A<sub>s</sub> = 414.2 × 10⁶/(435 × 414.2) = 2299 mm² → 12H16 (2413 mm²). 9H16 (1810 mm²) kurang 21%.']},
+  {ref: '(10.8)', calc: ['V<sub>Ed</sub> = 222.2 × 2.7 × (1.175 − 0.441) = 440.4 kN; V<sub>Rd,c</sub> = 0.415 × 2700 × 441', 'V<sub>Ed</sub> = 222.2 × 2.7 × (1.175 − 0.441) = 440.4 kN; V<sub>Rd,c</sub> = 0.415 × 2700 × 441'], out: '494 ≥ 440 kN ✓', slip: false,
+   fix: ['Right method; with d = 436 mm, V<sub>Ed</sub> = 443.4 ≤ V<sub>Rd,c</sub> = 490.2 kN ✓.', 'Kaedah betul; dengan d = 436 mm, V<sub>Ed</sub> = 443.4 ≤ V<sub>Rd,c</sub> = 490.2 kN ✓.']},
+  {ref: '(10.9)', calc: ['d = 500 − 35 − 16 = 449 mm; 2d = 898 mm; u<sub>1</sub> = 4 × 350 + 8 × 898', 'd = 500 − 35 − 16 = 449 mm; 2d = 898 mm; u<sub>1</sub> = 4 × 350 + 8 × 898'], out: '8584 mm', slip: true,
+   fix: ['The basic perimeter has rounded corners: u<sub>1</sub> = 4 × 350 + 2π × 898 = 7042 mm. The square perimeter is 22% too long, so v<sub>Ed</sub> comes out 18% too low. (With c<sub>nom</sub> = 40 mm: d = 444, u<sub>1</sub> = 6980 mm.)', 'Basic perimeter mempunyai bucu yang dibundarkan: u<sub>1</sub> = 4 × 350 + 2π × 898 = 7042 mm. Perimeter segi empat sama 22% terlalu panjang, jadi v<sub>Ed</sub> 18% terlalu rendah. (Dengan c<sub>nom</sub> = 40 mm: d = 444, u<sub>1</sub> = 6980 mm.)']},
+  {ref: 'EC2 6.48', calc: ['A<sub>1</sub> = 0.123 + 4 × 0.35 × 0.898 + π × 0.898² = 3.913 m²; V<sub>Ed,red</sub> = 1620 − 222.2 × 3.913 = 750.5 kN; v<sub>Ed</sub> = 750.5 × 10³/(8584 × 449)', 'A<sub>1</sub> = 0.123 + 4 × 0.35 × 0.898 + π × 0.898² = 3.913 m²; V<sub>Ed,red</sub> = 1620 − 222.2 × 3.913 = 750.5 kN; v<sub>Ed</sub> = 750.5 × 10³/(8584 × 449)'], out: '0.195 ≤ 0.413 N/mm² ✓', slip: false,
+   fix: ['Follows from line 7: v<sub>Ed</sub> = 750.5 × 10³/(7042 × 449) = 0.237 N/mm², still within 0.413 (with c<sub>nom</sub> = 40 mm: 0.247 ≤ 0.414).', 'Akibat baris 7: v<sub>Ed</sub> = 750.5 × 10³/(7042 × 449) = 0.237 N/mm², masih dalam 0.413 (dengan c<sub>nom</sub> = 40 mm: 0.247 ≤ 0.414).']},
+  {ref: 'EC2 6.4.4(2)', calc: ['a = d = 449: u = 1400 + 2π × 449 = 4221 mm; A = 1.384 m²; V = 1620 − 222.2 × 1.384 = 1312.4 kN; v<sub>Ed</sub> = 1312.4 × 10³/(4221 × 449)', 'a = d = 449: u = 1400 + 2π × 449 = 4221 mm; A = 1.384 m²; V = 1620 − 222.2 × 1.384 = 1312.4 kN; v<sub>Ed</sub> = 1312.4 × 10³/(4221 × 449)'], out: '0.693 N/mm²', slip: false,
+   fix: ['Right.', 'Betul.']},
+  {ref: 'EC2 6.50', calc: ['v<sub>Rd</sub> = v<sub>Rd,c</sub> = 0.413 N/mm² &lt; 0.693: punching fails at a = d; deepen the base to 650 mm', 'v<sub>Rd</sub> = v<sub>Rd,c</sub> = 0.413 N/mm² &lt; 0.693: punching gagal pada a = d; dalamkan tapak kepada 650 mm'], out: 'h = 650 mm', slip: true,
+   fix: ['Inside 2d, v<sub>Rd</sub> = v<sub>Rd,c</sub> · 2d/a = 0.413 × 2 = 0.826 N/mm² ≥ 0.693: the base passes (0.84; 0.86 with c<sub>nom</sub> = 40 mm). The extra 150 mm buys nothing.', 'Di dalam 2d, v<sub>Rd</sub> = v<sub>Rd,c</sub> · 2d/a = 0.413 × 2 = 0.826 N/mm² ≥ 0.693: tapak lulus (0.84; 0.86 dengan c<sub>nom</sub> = 40 mm). Tambahan 150 mm tidak memberi apa-apa.']}
+];
+const SHEETS = {s10: {rows: S10, key: 'seaa4333-lab-foundation-s10', ms: 's10',
+  title: ['Foundation S10: spot the error', 'Foundation S10: cari kesilapan'],
+  lede: ['A submitted design of a pad footing under an axial load. It contains four slips. Find them all before you look at the answer.', 'Design pad footing di bawah axial load yang dihantar. Ia mengandungi empat kesilapan. Cari kesemuanya sebelum melihat jawapan.'],
+  tag: ['After class · Unit 10 · Explorer task 6', 'Selepas kelas · Unit 10 · Explorer tugasan 6'],
+  given: [['Column', 'Column', '350 × 350 mm; G<sub>k</sub> = 700 kN, Q<sub>k</sub> = 450 kN; N<sub>Ed</sub> = 1.35 × 700 + 1.5 × 450 = 1620 kN', '350 × 350 mm; G<sub>k</sub> = 700 kN, Q<sub>k</sub> = 450 kN; N<sub>Ed</sub> = 1.35 × 700 + 1.5 × 450 = 1620 kN'],
+          ['Soil', 'Tanah', 'q<sub>all</sub> = 175 kN/m²', 'q<sub>all</sub> = 175 kN/m²'],
+          ['Base', 'Tapak', 'square, h = 500 mm, cast on blinding; C30/37, XC2, B500; H16 bars both ways', 'segi empat sama, h = 500 mm, dituang di atas blinding; C30/37, XC2, B500; bar H16 kedua-dua arah']],
+  summary: ['<b>Four slips: two unsafe, one hidden by the margin, one wasteful.</b> Line 1 leaves the bars 5 mm short of the cover needed on blinding. Line 4 designs the bars with the service pressure, so 9H16 is given where 12H16 is needed (2299 mm²). Line 7’s square perimeter makes v<sub>Ed</sub> 18% too low, harmless here only because the margin at 2d is large. Line 10 forgets 2d/a and deepens the base by 150 mm for nothing. Correct design: c<sub>nom</sub> = 40 mm, h = 500 mm, 12H16 each way; shear 0.90, punching 0.60 at 2d and 0.86 at the worst perimeter inside it, column face 0.62.',
+            '<b>Empat kesilapan: dua tidak selamat, satu tersembunyi oleh margin, satu membazir.</b> Baris 1 menyebabkan bar kurang 5 mm daripada cover yang diperlukan di atas blinding. Baris 4 membuat design bar dengan service pressure, jadi 9H16 diberi sedangkan 12H16 diperlukan (2299 mm²). Perimeter segi empat sama baris 7 menjadikan v<sub>Ed</sub> 18% terlalu rendah, tidak berbahaya di sini hanya kerana margin pada 2d besar. Baris 10 terlupa 2d/a dan mendalamkan tapak sebanyak 150 mm tanpa sebab. Design yang betul: c<sub>nom</sub> = 40 mm, h = 500 mm, 12H16 setiap arah; shear 0.90, punching 0.60 pada 2d dan 0.86 pada perimeter terburuk di dalamnya, muka column 0.62.']}};
+const FROM_U10 = (() => { try { return /10-foundations-1/.test(window.parent.location.pathname) || /10-foundations-1/.test(document.referrer); } catch (e) { return /10-foundations-1/.test(document.referrer || ''); } })();
+const FROM_U11 = (() => { try { return /11-foundations-2/.test(window.parent.location.pathname) || /11-foundations-2/.test(document.referrer); } catch (e) { return /11-foundations-2/.test(document.referrer || ''); } })();
+let eWhich = FROM_U10 ? 's10' : FROM_U11 ? 's11' : 's12';
+const eState = {s10: {flag: new Set(recall(SHEETS.s10.key, [])), checked: false, fixed: false}};
+/* ===================== 3 SPOT THE ERROR: FOUNDATION S11 (Unit 11) ===================== */
+const S11 = [
+  {ref: 'EC2 4.4.1.3(4)', calc: ['Cast on blinding: c<sub>nom</sub> ≥ 40 mm; XC2, C30/37: c<sub>min,dur</sub> = 25 mm, 25 + 10 = 35 &lt; 40', 'Dituang di atas blinding: c<sub>nom</sub> ≥ 40 mm; XC2, C30/37: c<sub>min,dur</sub> = 25 mm, 25 + 10 = 35 &lt; 40'], out: 'c<sub>nom</sub> = 40 mm', slip: false,
+   fix: ['Right.', 'Betul.']},
+  {ref: '(11.1)', calc: ['N<sub>A</sub> = 850, N<sub>B</sub> = 1350 kN; W<sub>A</sub> = 85, W<sub>B</sub> = 135 kN (10 %); W<sub>R</sub> = 25 × 0.4 × 0.8 × 4.675 = 37.4 kN at x<sub>R</sub> = 2.513 m; e = 0.9 − 0.15 = 0.75 m; R<sub>A</sub> = 85 + (850 × 5.0 + 37.4 × 2.513)/4.25', 'N<sub>A</sub> = 850, N<sub>B</sub> = 1350 kN; W<sub>A</sub> = 85, W<sub>B</sub> = 135 kN (10 %); W<sub>R</sub> = 25 × 0.4 × 0.8 × 4.675 = 37.4 kN pada x<sub>R</sub> = 2.513 m; e = 0.9 − 0.15 = 0.75 m; R<sub>A</sub> = 85 + (850 × 5.0 + 37.4 × 2.513)/4.25'], out: '1107.1 kN', slip: false,
+   fix: ['Right: moments about column B, with the lever L − e = 4.25 m.', 'Betul: moment pada column B, dengan tuil L − e = 4.25 m.']},
+  {ref: '(11.3)', calc: ['B<sub>A</sub> = 1107.1/(175 × 1.8) = 3.515 m; 3.55 m gives p<sub>A</sub> = 176.2 &gt; 175 kN/m² with the real weight, so 3.60 m: W<sub>A</sub> = 105.3 kN, p<sub>A</sub> = 1127.4/6.48', 'B<sub>A</sub> = 1107.1/(175 × 1.8) = 3.515 m; 3.55 m memberi p<sub>A</sub> = 176.2 &gt; 175 kN/m² dengan berat sebenar, jadi 3.60 m: W<sub>A</sub> = 105.3 kN, p<sub>A</sub> = 1127.4/6.48'], out: '3.60 m; 174.0 ✓', slip: false,
+   fix: ['Right: the 10 % weight was too low, so the next size is checked.', 'Betul: berat 10 % terlalu rendah, jadi saiz berikutnya disemak.']},
+  {ref: '(11.3)', calc: ['S<sub>B</sub> = √(1.1 × 1350/175) = √8.486 = 2.913 m', 'S<sub>B</sub> = √(1.1 × 1350/175) = √8.486 = 2.913 m'], out: 'S<sub>B</sub> = 2.95 m', slip: true,
+   fix: ['Footing B carries R<sub>B</sub>, not N<sub>B</sub> + W<sub>B</sub>: the strap takes N<sub>A</sub>e/(L − e) = 150 kN off it. R<sub>B</sub> = 850 + 1350 + 85 + 135 + 37.4 − 1107.1 = 1350.3 kN, so S<sub>B</sub> = 2.778 → 2.80 m (p<sub>B</sub> = 171.3 ✓). 2.95 m is 11 % more area than needed.', 'Footing B memikul R<sub>B</sub>, bukan N<sub>B</sub> + W<sub>B</sub>: strap mengambil N<sub>A</sub>e/(L − e) = 150 kN daripadanya. R<sub>B</sub> = 850 + 1350 + 85 + 135 + 37.4 − 1107.1 = 1350.3 kN, jadi S<sub>B</sub> = 2.778 → 2.80 m (p<sub>B</sub> = 171.3 ✓). 2.95 m ialah 11 % lebih luas daripada yang diperlukan.']},
+  {ref: '(11.4)', calc: ['N<sub>A,Ed</sub> = 1.35 × 600 + 1.5 × 250 = 1185 kN; 1.35W<sub>R</sub> = 50.5 kN; R<sub>A,Ed</sub> = (1185 × 5.0 + 50.5 × 2.513)/4.25 = 1424.0 kN; p<sub>A</sub> = 1424.0/(1.8 × 3.6)', 'N<sub>A,Ed</sub> = 1.35 × 600 + 1.5 × 250 = 1185 kN; 1.35W<sub>R</sub> = 50.5 kN; R<sub>A,Ed</sub> = (1185 × 5.0 + 50.5 × 2.513)/4.25 = 1424.0 kN; p<sub>A</sub> = 1424.0/(1.8 × 3.6)'], out: '219.7 kN/m²', slip: false,
+   fix: ['Right: no footing weights at the ultimate limit state.', 'Betul: tiada berat footing pada ultimate limit state.']},
+  {ref: '(11.5)', calc: ['w<sub>A</sub> = 219.7 × 3.6 = 791.1 kN/m; w<sub>r</sub> = 50.5/4.675 = 10.8 kN/m; x<sub>0</sub> = (1185 − 10.8 × 0.3)/(791.1 − 10.8)', 'w<sub>A</sub> = 219.7 × 3.6 = 791.1 kN/m; w<sub>r</sub> = 50.5/4.675 = 10.8 kN/m; x<sub>0</sub> = (1185 − 10.8 × 0.3)/(791.1 − 10.8)'], out: '1.515 m', slip: false,
+   fix: ['Right: zero shear over footing A, measured from the boundary.', 'Betul: shear sifar di atas footing A, diukur dari sempadan.']},
+  {ref: '(11.5)', calc: ['M<sub>max</sub> at the inner edge of footing A, x = 1.8 m: 791.1 × 1.8²/2 − 1185 × 1.65 − 10.8 × 1.5²/2', 'M<sub>max</sub> di tepi dalam footing A, x = 1.8 m: 791.1 × 1.8²/2 − 1185 × 1.65 − 10.8 × 1.5²/2'], out: '−685.8 kN m', slip: true,
+   fix: ['The largest moment is at zero shear, x<sub>0</sub> = 1.515 m: M = −717.6 kN m, 4.6 % more. A<sub>s</sub> = 2501 mm² instead of 2376; 6H25 (2945 mm²) covers both, so the margin hides the slip.', 'Moment terbesar berada pada shear sifar, x<sub>0</sub> = 1.515 m: M = −717.6 kN m, 4.6 % lebih. A<sub>s</sub> = 2501 mm² dan bukannya 2376; 6H25 (2945 mm²) mencukupi bagi kedua-duanya, jadi margin menyembunyikan kesilapan ini.']},
+  {ref: 'RCD I', calc: ['d = 800 − 40 − 8 − 12.5 = 739.5 mm; K = 0.105; z = 0.897d; A<sub>s</sub> = 2376 mm² → 6H25 (2945) at the bottom of the strap, where it sags between the footings; 2H16 at the top', 'd = 800 − 40 − 8 − 12.5 = 739.5 mm; K = 0.105; z = 0.897d; A<sub>s</sub> = 2376 mm² → 6H25 (2945) di bawah strap, tempat ia melendut di antara footing; 2H16 di atas'], out: '6H25 bottom', slip: true,
+   fix: ['The strap hogs from column A almost to column B: its top is in tension. 6H25 belong at the top, with 2H16 at the bottom for differential settlement; as written the tension face has 2H16 only. Unsafe.', 'Strap mengalami hogging dari column A hampir ke column B: bahagian atasnya tegang. 6H25 sepatutnya di atas, dengan 2H16 di bawah bagi differential settlement; seperti yang ditulis, tension face hanya mempunyai 2H16. Tidak selamat.']},
+  {ref: 'EC2 6.2.3', calc: ['V between the footings = 791.1 × 1.8 − 1185 − 10.8 × 1.5 = 222.8 kN &gt; V<sub>Rd,c</sub> = 167.4 kN; A<sub>sw</sub>/s = 222.8 × 10³/(0.78 × 500 × 739.5 × 2.475) = 0.312 &lt; min 0.351 → H8 @ 250 (0.402) throughout', 'V di antara footing = 791.1 × 1.8 − 1185 − 10.8 × 1.5 = 222.8 kN &gt; V<sub>Rd,c</sub> = 167.4 kN; A<sub>sw</sub>/s = 222.8 × 10³/(0.78 × 500 × 739.5 × 2.475) = 0.312 &lt; min 0.351 → H8 @ 250 (0.402) di seluruhnya'], out: 'H8 @ 250', slip: true,
+   fix: ['Over footing A the shear is larger: at d from the face of column A, V = 791.1 × 1.040 − 1185 − 10.8 × 0.740 = −370.6 kN, so A<sub>sw</sub>/s = 0.519 → H8 @ 175 (0.574) there; H8 @ 250 is right beyond footing A. Unsafe as written.', 'Di atas footing A shear lebih besar: pada d dari muka column A, V = 791.1 × 1.040 − 1185 − 10.8 × 0.740 = −370.6 kN, jadi A<sub>sw</sub>/s = 0.519 → H8 @ 175 (0.574) di situ; H8 @ 250 betul di luar footing A. Tidak selamat seperti yang ditulis.']},
+  {ref: '(11.6)', calc: ['l<sub>A</sub> = (3.6 − 0.4)/2 = 1.6 m; M<sub>A</sub> = 219.7 × 1.8 × 1.6²/2 = 506.3 kN m; d = 602 mm; A<sub>s</sub> = 506.3 × 10⁶/(435 × 571.9) = 2035 mm² → 11H16 (2212); V<sub>Ed</sub> = 219.7 × 1.8 × 0.998 = 394.8 ≤ 411.1 kN', 'l<sub>A</sub> = (3.6 − 0.4)/2 = 1.6 m; M<sub>A</sub> = 219.7 × 1.8 × 1.6²/2 = 506.3 kN m; d = 602 mm; A<sub>s</sub> = 506.3 × 10⁶/(435 × 571.9) = 2035 mm² → 11H16 (2212); V<sub>Ed</sub> = 219.7 × 1.8 × 0.998 = 394.8 ≤ 411.1 kN'], out: '11H16 ✓', slip: false,
+   fix: ['Right: footing A is a cantilever from the face of the strap.', 'Betul: footing A ialah cantilever dari muka strap.']}
+];
+SHEETS.s11 = {rows: S11, key: 'seaa4333-lab-foundation-s11', ms: 's11',
+  title: ['Foundation S11: spot the error', 'Foundation S11: cari kesilapan'],
+  lede: ['A submitted design of a strap footing for a boundary column. It contains four slips. Find them all before you look at the answer.', 'Design strap footing bagi column sempadan yang dihantar. Ia mengandungi empat kesilapan. Cari kesemuanya sebelum melihat jawapan.'],
+  tag: ['After class · Unit 11 · Explorer task 6', 'Selepas kelas · Unit 11 · Explorer tugasan 6'],
+  given: [['Column A', 'Column A', '300 × 300 mm on the site boundary; G<sub>k</sub> = 600 kN, Q<sub>k</sub> = 250 kN', '300 × 300 mm di sempadan tapak; G<sub>k</sub> = 600 kN, Q<sub>k</sub> = 250 kN'],
+          ['Column B', 'Column B', '350 × 350 mm, 5.0 m away (centres); G<sub>k</sub> = 900 kN, Q<sub>k</sub> = 450 kN', '350 × 350 mm, 5.0 m darinya (pusat); G<sub>k</sub> = 900 kN, Q<sub>k</sub> = 450 kN'],
+          ['Soil', 'Tanah', 'q<sub>all</sub> = 175 kN/m²', 'q<sub>all</sub> = 175 kN/m²'],
+          ['Footings', 'Footing', 'A 1.8 m long from the boundary, B square; h = 650 mm, cast on blinding; C30/37, XC2, B500; H16', 'A sepanjang 1.8 m dari sempadan, B segi empat sama; h = 650 mm, dituang di atas blinding; C30/37, XC2, B500; H16'],
+          ['Strap', 'Strap', '400 × 800 mm between the column faces; H25 main bars, H8 links', '400 × 800 mm di antara muka column; bar utama H25, link H8']],
+  summary: ['<b>Four slips: two unsafe, one hidden by the margin, one wasteful.</b> Line 4 sizes footing B for column B alone, forgetting the 150 kN the strap takes off it: 2.95 m where 2.80 m is enough, 11 % more area. Line 7 takes the moment at the inner edge of footing A instead of at zero shear: −685.8 instead of −717.6 kN m, hidden because 6H25 covers both. Line 8 puts the main bars at the bottom of a strap that hogs. Line 9 designs the links for the shear between the footings; over footing A the shear at d is 370.6 kN and needs H8 @ 175.',
+            '<b>Empat kesilapan: dua tidak selamat, satu tersembunyi oleh margin, satu membazir.</b> Baris 4 menentukan saiz footing B bagi column B sahaja, terlupa 150 kN yang diambil strap daripadanya: 2.95 m sedangkan 2.80 m mencukupi, 11 % lebih luas. Baris 7 mengambil moment di tepi dalam footing A dan bukannya pada shear sifar: −685.8 dan bukannya −717.6 kN m, tersembunyi kerana 6H25 mencukupi bagi kedua-duanya. Baris 8 meletakkan bar utama di bawah strap yang mengalami hogging. Baris 9 membuat design link bagi shear di antara footing; di atas footing A shear pada d ialah 370.6 kN dan memerlukan H8 @ 175.']};
+function drawS11Fig(){
+  const box = el('eFig'); box.innerHTML = '';
+  const svg = S('svg', {class: 'fig', viewBox: '0 0 520 280', role: 'img', 'aria-label': Lg('Foundation S11: column A on the site boundary on footing A, 1.8 m long; a 400 by 800 strap to column B 5.0 m away on a square footing B; both footings 650 mm thick; the allowable bearing pressure is 175 kN per square metre.', 'Foundation S11: column A di sempadan tapak di atas footing A sepanjang 1.8 m; strap 400 kali 800 ke column B 5.0 m darinya di atas footing B segi empat sama; kedua-dua footing setebal 650 mm; allowable bearing pressure 175 kN per meter persegi.')}, box);
+  svg.style.minWidth = '320px';
+  const sc = 64, x0 = 40, X = x => x0 + x * sc, yg = 210, hf = 26, hs = 20;
+  S('line', {x1: x0, x2: x0, y1: 20, y2: 262, stroke: 'var(--bad)', 'stroke-dasharray': '6 4', 'stroke-width': 1.5}, svg);
+  T(svg, x0 + 6, 30, Lg('boundary', 'sempadan'), {class: 'small', style: 'fill:var(--bad)'});
+  S('line', {x1: 20, x2: 505, y1: yg, y2: yg, stroke: 'var(--ink-2)'}, svg);
+  S('rect', {x: X(0), y: yg - hf, width: 1.8 * sc, height: hf, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
+  S('rect', {x: X(5.15 - 1.4), y: yg - hf, width: 2.8 * sc, height: hf, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)', 'stroke-dasharray': '5 3'}, svg);
+  S('rect', {x: X(0.3), y: yg - hf - hs, width: (4.975 - 0.3) * sc, height: hs, fill: 'var(--surface-2)', stroke: 'var(--ink-3)'}, svg);
+  S('rect', {x: X(0), y: 80, width: 0.3 * sc, height: yg - hf - hs - 80, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
+  S('rect', {x: X(5.15) - 0.175 * sc, y: 80, width: 0.35 * sc, height: yg - hf - hs - 80, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
+  arrow(svg, X(0.15), 40, X(0.15), 78, 'var(--ink)', 2); TS(svg, X(0.15) + 16, 54, [['G'], ['k', 1], [' 600 + Q'], ['k', 1], [' 250']], {});
+  arrow(svg, X(5.15), 40, X(5.15), 78, 'var(--ink)', 2); TS(svg, X(5.15) - 10, 54, [['G'], ['k', 1], [' 900 + Q'], ['k', 1], [' 450']], {'text-anchor': 'end'});
+  T(svg, X(2.6), yg - hf - hs - 8, Lg('strap 400 × 800', 'strap 400 × 800'), {'text-anchor': 'middle', class: 'small'});
+  S('line', {x1: X(0.15), x2: X(5.15), y1: 238, y2: 238, stroke: 'var(--ink-3)'}, svg); T(svg, X(2.65), 254, Lg('5.0 m between column centres', '5.0 m di antara pusat column'), {'text-anchor': 'middle', class: 'small'});
+  T(svg, X(0.9), yg - 8, '1.8 m', {'text-anchor': 'middle', class: 'small'}); TS(svg, X(5.15), yg - 8, [['S'], ['B', 1], ['?']], {'text-anchor': 'middle', class: 'small', style: 'fill:var(--flight)'});
+  T(svg, 505, 274, 'h = 650', {'text-anchor': 'end', class: 'small'});
+}
+eState.s11 = {flag: new Set(recall(SHEETS.s11.key, [])), checked: false, fixed: false};
+/* ===================== 3 SPOT THE ERROR: FOUNDATION S12 (Unit 12) ===================== */
+const S12 = [
+  {ref: 'Unit 11', calc: ['N = 2200 + 1500 = 3700 kN; cap weight assumed 150 kN; n = (3700 + 150)/1100 = 3.5', 'N = 2200 + 1500 = 3700 kN; berat pile cap diandaikan 150 kN; n = (3700 + 150)/1100 = 3.5'], out: '4 piles', slip: false,
+   fix: ['Right.', 'Betul.']},
+  {ref: '§1', calc: ['s = 3 × 450 = 1350 mm; B = (3 + 1) × 450 + 300 = 2100 mm; h = 2 × 450 + 100 = 1000 mm; W = 25 × 2.1² × 1.0 = 110.3 ≤ 150 kN; pile (3700 + 110.3)/4 = 952.6 ≤ 1100 kN', 's = 3 × 450 = 1350 mm; B = (3 + 1) × 450 + 300 = 2100 mm; h = 2 × 450 + 100 = 1000 mm; W = 25 × 2.1² × 1.0 = 110.3 ≤ 150 kN; pile (3700 + 110.3)/4 = 952.6 ≤ 1100 kN'], out: '2100 × 2100 × 1000', slip: false,
+   fix: ['Right: the plan and the guide depth.', 'Betul: pelan dan kedalaman panduan.']},
+  {ref: 'EN 1990 6.10', calc: ['N<sub>Ed</sub> = 1.35 × 2200 + 1.5 × 1500 = 5220 kN; upper layer d = 1000 − 75 − 1.5 × 20', 'N<sub>Ed</sub> = 1.35 × 2200 + 1.5 × 1500 = 5220 kN; lapisan atas d = 1000 − 75 − 1.5 × 20'], out: 'd = 895 mm', slip: false,
+   fix: ['Right.', 'Betul.']},
+  {ref: '(12.3), (12.4)', calc: ['T = 5220 × 1350/(8 × 895) = 984.2 kN; A<sub>s</sub> each way = 984.2 × 10³/435', 'T = 5220 × 1350/(8 × 895) = 984.2 kN; A<sub>s</sub> setiap arah = 984.2 × 10³/435'], out: '2263 mm²', slip: true,
+   fix: ['T = Ns/8d is the force in one truss; two parallel trusses run each way, so the bars each way carry 2T: A<sub>s</sub> = 4525 mm², 15H20 (4712). With the slip, A<sub>s,min</sub> takes over at line 5 and only 10H20 are chosen. Unsafe.', 'T = Ns/8d ialah daya dalam satu truss; dua truss selari bagi setiap arah, jadi bar setiap arah membawa 2T: A<sub>s</sub> = 4525 mm², 15H20 (4712). Dengan kesilapan ini, A<sub>s,min</sub> mengambil alih di baris 5 dan hanya 10H20 dipilih. Tidak selamat.']},
+  {ref: '(12.4)', calc: ['A<sub>s,min</sub> = 0.001506 × 2100 × 895 = 2831 mm² &gt; 2263: the minimum governs; spacing (2100 − 150 − 20)/9 = 214 mm', 'A<sub>s,min</sub> = 0.001506 × 2100 × 895 = 2831 mm² &gt; 2263: nilai minimum menentukan; jarak (2100 − 150 − 20)/9 = 214 mm'], out: '10H20 each way (3142)', slip: false,
+   fix: ['This follows from line 4: with the right 4525 mm² the minimum does not govern.', 'Ini akibat baris 4: dengan 4525 mm² yang betul, nilai minimum tidak menentukan.']},
+  {ref: '§4', calc: ['Section φ/5 = 90 mm inside the pile face; one pile beyond it: V<sub>Ed</sub> = 5220/4', 'Section φ/5 = 90 mm ke dalam dari muka pile; satu pile di luarnya: V<sub>Ed</sub> = 5220/4'], out: '1305 kN', slip: true,
+   fix: ['The section runs across the whole 2100 mm width, so two piles stand beyond it: V<sub>Ed</sub> = 2 × 1305 = 2610 kN. Counting one pile, as in a two-dimensional sketch, halves the shear. Unsafe.', 'Section merentas seluruh lebar 2100 mm, jadi dua pile berada di luarnya: V<sub>Ed</sub> = 2 × 1305 = 2610 kN. Mengira satu pile, seperti dalam lakaran dua dimensi, menjadikan shear separuh. Tidak selamat.']},
+  {ref: '(12.6), (12.7)', calc: ['a<sub>v</sub> = 1350/2 − 400/2 − 0.3 × 450 = 340 mm; β = 340/(2 × 895) = 0.190; V<sub>Ed,red</sub> = 0.190 × 1305', 'a<sub>v</sub> = 1350/2 − 400/2 − 0.3 × 450 = 340 mm; β = 340/(2 × 895) = 0.190; V<sub>Ed,red</sub> = 0.190 × 1305'], out: '247.9 kN', slip: true,
+   fix: ['a<sub>v</sub> = 340 mm is less than 0.5d = 447.5 mm, so EC2 6.2.2(6) takes a<sub>v</sub> = 0.5d and β = 0.25. With V<sub>Ed</sub> = 2610 kN, V<sub>Ed,red</sub> = 652.5 kN. Unsafe.', 'a<sub>v</sub> = 340 mm kurang daripada 0.5d = 447.5 mm, jadi EC2 6.2.2(6) mengambil a<sub>v</sub> = 0.5d dan β = 0.25. Dengan V<sub>Ed</sub> = 2610 kN, V<sub>Ed,red</sub> = 652.5 kN. Tidak selamat.']},
+  {ref: '(12.9), §6', calc: ['Bars bent up: (375 − 75) + (895 − 75) = 1120 ≥ l<sub>bd</sub> = 715 mm, so β applies; they run 1255 &lt; l<sub>bd</sub> + d = 1610 mm past the section, so ρ<sub>l</sub> = 0: V<sub>Rd,c</sub> = 0.343 × 2100 × 895 = 643.9 kN ≥ 247.9', 'Bar dibengkokkan ke atas: (375 − 75) + (895 − 75) = 1120 ≥ l<sub>bd</sub> = 715 mm, jadi β terpakai; ia melepasi section 1255 &lt; l<sub>bd</sub> + d = 1610 mm, jadi ρ<sub>l</sub> = 0: V<sub>Rd,c</sub> = 0.343 × 2100 × 895 = 643.9 kN ≥ 247.9'], out: 'OK', slip: false,
+   fix: ['Right: the resistance is correct. Against the right V<sub>Ed,red</sub> = 652.5 kN it is 1.3 % short: the cap fails at 1000 mm.', 'Betul: rintangan itu betul. Berbanding V<sub>Ed,red</sub> yang betul = 652.5 kN, ia kurang 1.3 %: pile cap gagal pada 1000 mm.']},
+  {ref: '(12.10)', calc: ['Column face: v<sub>Ed,0</sub> = 3700 × 10³/(4 × 400 × 905) = 2.56 ≤ 0.4νf<sub>cd</sub> = 4.22 N/mm²', 'Muka column: v<sub>Ed,0</sub> = 3700 × 10³/(4 × 400 × 905) = 2.56 ≤ 0.4νf<sub>cd</sub> = 4.22 N/mm²'], out: 'OK', slip: true,
+   fix: ['The column face is an ultimate check: N<sub>Ed</sub> = 5220 kN gives 3.60 N/mm². It still passes, so this slip changes nothing here, but at a heavier column it would.', 'Muka column ialah semakan ultimate: N<sub>Ed</sub> = 5220 kN memberi 3.60 N/mm². Ia masih lulus, jadi kesilapan ini tidak mengubah apa-apa di sini, tetapi pada column yang lebih berat ia akan mengubahnya.']},
+  {ref: 'Table 7.3N', calc: ['σ<sub>s</sub> = (2200 + 0.3 × 1500)/5220 × 434.8 × 2263/3142 = 159.0 N/mm² → s<sub>max</sub> = 300 mm ≥ 214 mm', 'σ<sub>s</sub> = (2200 + 0.3 × 1500)/5220 × 434.8 × 2263/3142 = 159.0 N/mm² → s<sub>max</sub> = 300 mm ≥ 214 mm'], out: 'OK', slip: false,
+   fix: ['Right for the bars as written.', 'Betul bagi bar seperti yang ditulis.']}
+];
+SHEETS.s12 = {rows: S12, key: 'seaa4333-lab-foundation-s12', ms: 's12',
+  title: ['Foundation S12: spot the error', 'Foundation S12: cari kesilapan'],
+  lede: ['A submitted design of a four-pile cap by the truss analogy. It contains four slips. Find them all before you look at the answer.', 'Design pile cap empat pile melalui truss analogy yang dihantar. Ia mengandungi empat kesilapan. Cari kesemuanya sebelum melihat jawapan.'],
+  tag: ['After class · Unit 12 · Explorer task 6', 'Selepas kelas · Unit 12 · Explorer tugasan 6'],
+  given: [['Column', 'Column', '400 × 400 mm; G<sub>k</sub> = 2200 kN, Q<sub>k</sub> = 1500 kN', '400 × 400 mm; G<sub>k</sub> = 2200 kN, Q<sub>k</sub> = 1500 kN'],
+          ['Piles', 'Pile', 'four bored piles of 450 mm diameter at 3φ; safe working load 1100 kN each', 'empat bored pile berdiameter 450 mm pada 3φ; safe working load 1100 kN setiap satu'],
+          ['Cap', 'Pile cap', 'square, edges 150 mm past the piles; depth from the guide 2φ + 100', 'segi empat sama, tepi 150 mm melepasi pile; kedalaman daripada panduan 2φ + 100'],
+          ['Materials', 'Bahan', 'C30/37, B500; H20 bars in two layers; cover 75 mm', 'C30/37, B500; bar H20 dalam dua lapisan; cover 75 mm']],
+  summary: ['<b>Four slips: three unsafe, and together they hide a failure; one changes nothing here.</b> Line 4 takes the steel each way from one truss: 2263 mm² where two trusses need 4525 mm² (15H20). Line 6 counts one pile beyond the shear section; the section crosses the full width, so V<sub>Ed</sub> = 2610 kN. Line 7 drops the floor of β: a<sub>v</sub> &lt; 0.5d, so β = 0.25. With them the shear looks 2.6 times safe; without them V<sub>Ed,red</sub> = 652.5 &gt; 643.9 kN and the cap fails at 1000 mm: 1050 mm with 14H20 each way passes (671.2 kN). Line 9 checks the column face with the service load; with N<sub>Ed</sub> it is 3.60 ≤ 4.22 N/mm², a pass either way.',
+            '<b>Empat kesilapan: tiga tidak selamat, dan bersama-sama ia menyembunyikan kegagalan; satu tidak mengubah apa-apa di sini.</b> Baris 4 mengambil steel setiap arah daripada satu truss: 2263 mm² sedangkan dua truss memerlukan 4525 mm² (15H20). Baris 6 mengira satu pile di luar shear section; section merentas seluruh lebar, jadi V<sub>Ed</sub> = 2610 kN. Baris 7 mengabaikan lantai β: a<sub>v</sub> &lt; 0.5d, jadi β = 0.25. Dengan kesilapan itu shear kelihatan 2.6 kali selamat; tanpanya V<sub>Ed,red</sub> = 652.5 &gt; 643.9 kN dan pile cap gagal pada 1000 mm: 1050 mm dengan 14H20 setiap arah lulus (671.2 kN). Baris 9 menyemak muka column dengan service load; dengan N<sub>Ed</sub> ia 3.60 ≤ 4.22 N/mm², lulus dalam kedua-dua keadaan.']};
+function drawS12Fig(){
+  const box = el('eFig'); box.innerHTML = '';
+  const svg = S('svg', {class: 'fig', viewBox: '0 0 520 280', role: 'img', 'aria-label': Lg('Foundation S12: a 400 mm column on a square cap 2100 mm wide over four 450 mm piles 1350 mm apart; the cap is 1000 mm deep with H20 bars bent up at the ends.', 'Foundation S12: column 400 mm di atas pile cap segi empat sama selebar 2100 mm di atas empat pile 450 mm berjarak 1350 mm; pile cap sedalam 1000 mm dengan bar H20 dibengkokkan ke atas di hujung.')}, box);
+  svg.style.minWidth = '320px';
+  // plan (left)
+  const sc = 0.085, cx = 120, cy = 140;
+  S('rect', {x: cx - 1050 * sc, y: cy - 1050 * sc, width: 2100 * sc, height: 2100 * sc, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
+  [[-1, -1], [1, -1], [1, 1], [-1, 1]].forEach(([a, b]) => S('circle', {cx: cx + a * 675 * sc, cy: cy + b * 675 * sc, r: 225 * sc, fill: 'var(--ink-3)'}, svg));
+  S('rect', {x: cx - 200 * sc, y: cy - 200 * sc, width: 400 * sc, height: 400 * sc, fill: 'var(--surface-2)', stroke: 'var(--ink)'}, svg);
+  T(svg, cx, cy + 1050 * sc + 18, '2100 × 2100', {'text-anchor': 'middle', class: 'small'});
+  T(svg, cx, cy - 1050 * sc - 10, Lg('plan', 'pelan'), {'text-anchor': 'middle', class: 'small'});
+  // elevation (right)
+  const s2 = 0.13, ex = 370, ey = 80;
+  S('rect', {x: ex - 1050 * s2, y: ey, width: 2100 * s2, height: 1000 * s2, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
+  S('rect', {x: ex - 200 * s2, y: ey - 40, width: 400 * s2, height: 40, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
+  [-675, 675].forEach(x => S('rect', {x: ex + (x - 225) * s2, y: ey + 925 * s2, width: 450 * s2, height: 45, fill: 'var(--ink-3)'}, svg));
+  S('path', {d: `M${ex - 975 * s2},${ey + 75 * s2} L${ex - 975 * s2},${ey + 905 * s2} L${ex + 975 * s2},${ey + 905 * s2} L${ex + 975 * s2},${ey + 75 * s2}`, fill: 'none', stroke: 'var(--bad)', 'stroke-width': 2.4}, svg);
+  arrow(svg, ex, 14, ex, ey - 42, 'var(--ink)', 2); TS(svg, ex + 10, 28, [['G'], ['k', 1], [' 2200 + Q'], ['k', 1], [' 1500']], {class: 'small'});
+  T(svg, ex + 1050 * s2 + 8, ey + 500 * s2, 'h = 1000', {class: 'small'});
+  T(svg, ex, ey + 1000 * s2 + 64, Lg('four 450 mm piles at 1350 mm', 'empat pile 450 mm pada 1350 mm'), {'text-anchor': 'middle', class: 'small'});
+}
+eState.s12 = {flag: new Set(recall(SHEETS.s12.key, [])), checked: false, fixed: false};
+function drawS10Fig(){
+  const box = el('eFig'); box.innerHTML = '';
+  const svg = S('svg', {class: 'fig', viewBox: '0 0 520 280', role: 'img', 'aria-label': Lg('Foundation S10: a 350 mm square column on a square pad 500 mm thick on blinding; the side of the base is to be found from the allowable bearing pressure of 175 kN per square metre.', 'Foundation S10: column segi empat sama 350 mm di atas pad segi empat sama setebal 500 mm di atas blinding; sisi tapak dicari daripada allowable bearing pressure 175 kN per meter persegi.')}, box);
+  svg.style.minWidth = '320px';
+  const x0 = 70, x1 = 450, yb = 200, hb = 60, cxm = (x0 + x1) / 2, cw = 50;
+  S('rect', {x: x0 - 12, y: yb, width: x1 - x0 + 24, height: 12, fill: 'var(--surface-2)', stroke: 'var(--concrete-edge)'}, svg);
+  S('rect', {x: x0, y: yb - hb, width: x1 - x0, height: hb, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
+  S('rect', {x: cxm - cw / 2, y: 50, width: cw, height: yb - hb - 50, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
+  arrow(svg, cxm, 12, cxm, 48, 'var(--ink)', 2);
+  TS(svg, cxm + 10, 26, [['G'], ['k', 1], [' 700 + Q'], ['k', 1], [' 450 kN']], {});
+  S('line', {x1: x0, x2: x1, y1: yb + 34, y2: yb + 34, stroke: 'var(--flight)'}, svg);
+  TS(svg, cxm, yb + 52, [[Lg('L × L, from q', 'L × L, daripada q')], ['all', 1], [' = 175 kN/m²']], {'text-anchor': 'middle', style: 'fill:var(--flight)'});
+  S('line', {x1: x0 - 24, x2: x0 - 24, y1: yb - hb, y2: yb, stroke: 'var(--ink-3)'}, svg);
+  T(svg, x0 - 30, yb - hb / 2 + 4, '500', {'text-anchor': 'end'});
+  T(svg, x1 + 18, yb + 10, Lg('blinding', 'blinding'), {class: 'small'});
+  T(svg, cxm + cw / 2 + 8, 100, '350 × 350', {class: 'small'});
+}
+function drawSheet(){
+  const Sh = SHEETS[eWhich], st = eState[eWhich], rows = Sh.rows;
+  setSeg(el('eWhich'), eWhich);
+  el('eTitle').innerHTML = Lg(Sh.title[0], Sh.title[1]); el('eLede').innerHTML = Lg(Sh.lede[0], Sh.lede[1]); el('eTag').innerHTML = Lg(Sh.tag[0], Sh.tag[1]);
+  el('eGiven').innerHTML = Sh.given.map(g => `<dt>${Lg(g[0], g[1])}</dt><dd>${Lg(g[2], g[3])}</dd>`).join('');
+  el('eSheet').setAttribute('aria-label', Lg(`Foundation ${eWhich.toUpperCase()} calculation sheet`, `Helaian pengiraan Foundation ${eWhich.toUpperCase()}`));
+  ({s10: drawS10Fig, s11: drawS11Fig, s12: drawS12Fig}[eWhich])();
+  const t = el('eSheet');
+  let html = `<thead><tr><th>${Lg('Line', 'Baris')}</th><th>Ref</th><th>${Lg('Calculation', 'Pengiraan')}</th><th>Output</th></tr></thead><tbody>`;
+  rows.forEach((r, i) => {
+    const n = i + 1, fl = st.flag.has(n);
+    let cls = fl ? 'flag' : '';
+    if (st.checked || st.fixed){ if (r.slip && fl) cls = 'hit'; else if (r.slip && st.fixed) cls = 'miss'; else if (!r.slip && fl) cls = 'false'; }
+    const fix = (st.fixed || (st.checked && fl && r.slip)) ? `<span class="fix">${Lg(r.fix[0], r.fix[1])}</span>` : '';
+    html += `<tr class="${cls}" data-n="${n}" tabindex="0"><td class="no">${n}</td><td class="ref">${r.ref}</td><td class="calc">${Lg(r.calc[0], r.calc[1])}${fix}</td><td class="out">${r.out}</td></tr>`;
+  });
+  t.innerHTML = html + '</tbody>';
+  t.querySelectorAll('tbody tr').forEach(tr => {
+    const tog = () => { const n = +tr.dataset.n; if (st.flag.has(n)) st.flag.delete(n); else st.flag.add(n); store(Sh.key, [...st.flag]); st.checked = false; drawSheet(); };
+    tr.addEventListener('click', tog); tr.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); tog(); } });
+  });
+  const hits = rows.filter((r, i) => r.slip && st.flag.has(i + 1)).length, fls = rows.filter((r, i) => !r.slip && st.flag.has(i + 1)).length;
+  el('eScore').textContent = st.checked ? Lg(`${hits} of 4 slips found` + (fls ? `; ${fls} line${fls > 1 ? 's' : ''} flagged that ${fls > 1 ? 'are' : 'is'} right` : ''), `${hits} daripada 4 kesilapan dijumpai` + (fls ? `; ${fls} baris yang betul turut ditanda` : '')) : Lg(`Lines flagged: ${st.flag.size}`, `Baris ditanda: ${st.flag.size}`);
+  const sum = el('eSummary');
+  if (st.fixed || (st.checked && hits === 4)){ sum.hidden = false; sum.innerHTML = Lg(Sh.summary[0], Sh.summary[1]); }
+  else sum.hidden = true;
+}
+segGroup(el('eWhich'), v => { eWhich = v; drawSheet(); });
+el('eCheck').addEventListener('click', () => { const st = eState[eWhich], rows = SHEETS[eWhich].rows; st.checked = true; const hits = rows.filter((r, i) => r.slip && st.flag.has(i + 1)).length; if (hits === 4 && !st.fixed) milestone(SHEETS[eWhich].ms); drawSheet(); });
+el('eFix').addEventListener('click', () => { eState[eWhich].fixed = true; drawSheet(); });
+el('eReset').addEventListener('click', () => { const st = eState[eWhich]; st.flag = new Set(); store(SHEETS[eWhich].key, []); st.checked = false; st.fixed = false; drawSheet(); });
+
+/* ===================== 4 STRAP FOOTING (Unit 11) =====================
+   Service, moments about column B: R_A = W_A + (N_A L + W_R x_R)/(L - e), e = L_A/2 - c_A/2, W_R = 25 b h_s (L - c_A/2 - c_B/2)
+   at x_R = (L - c_A/2 - c_B/2)/2 + c_B/2 from B; R_B = N_A + N_B + W_A + W_B + W_R - R_A; 10 % weights to size, real weights to check.
+   Ultimate: no footing weights, 1.35 W_R kept; w_A = R_A,Ed/L_A over footing A, w_B = R_B,Ed/S_B under footing B, w_r between the faces;
+   x from the boundary; V = sum of the forces to the left (upward +), M = their moment (sagging +). */
+const TCASES = {
+  f7: {label: ['F7 · Worked Example 11.1', 'F7 · Worked Example 11.1'], v: {GA: 800, QA: 275, cA: 300, GB: 1000, QB: 725, cB: 300, L: 6.0, LA: 2.0, q: 200, h: 700, BA: 3.5, SB: 2.95, bs: 300, hs: 900, d: 810, fck: 30},
+       note: ['App case F7 (Foundation3.xlsx Ex 11.4), the strap footing of Worked Example 11.1; d = 810 mm with 5H32 in two layers.', 'Kes app F7 (Foundation3.xlsx Ex 11.4), strap footing Worked Example 11.1; d = 810 mm dengan 5H32 dalam dua lapisan.']},
+  ex4: {label: ['F7 with Q_k,B = 525 kN · course notes Example 4', 'F7 dengan Q_k,B = 525 kN · Contoh 4 nota kursus'], v: {GA: 800, QA: 275, cA: 300, GB: 1000, QB: 525, cB: 300, L: 6.0, LA: 2.0, q: 200, h: 700, BA: 3.5, SB: 2.75, bs: 300, hs: 900, d: 810, fck: 30},
+        note: ['The course notes’ Example 4: a lighter column B. Footing A is unchanged, because N<sub>B</sub> does not enter R<sub>A</sub>; footing B shrinks to 2.75 m.', 'Contoh 4 nota kursus: column B yang lebih ringan. Footing A tidak berubah, kerana N<sub>B</sub> tidak masuk ke dalam R<sub>A</sub>; footing B mengecil kepada 2.75 m.']},
+  own: {label: ['Your own strap footing', 'Strap footing anda sendiri'], v: null, note: ['Type your own numbers, then press “Size from the statics”.', 'Taip nombor anda sendiri, kemudian tekan “Saiz daripada statik”.']}
+};
+const TF = {tGA: 'GA', tQA: 'QA', tcA: 'cA', tGB: 'GB', tQB: 'QB', tcB: 'cB', tL: 'L', tLA: 'LA', tq: 'q', th: 'h', tBA: 'BA', tSB: 'SB', tbs: 'bs', ths: 'hs', td: 'd', tfck: 'fck'};
+const tin = Object.assign({}, TCASES.f7.v); let tCaseK = 'f7', tDia = 'M';
+const AAKEY = 'seaa4333-lab-foundation-11a';
+let aaSt = recall(AAKEY, {}) || {};
+function fillTCases(){ const s = el('tCase'); s.innerHTML = ''; Object.keys(TCASES).forEach(k => { const o = document.createElement('option'); o.value = k; o.textContent = Lg(TCASES[k].label[0], TCASES[k].label[1]).replace('Q_k,B', 'Qk,B'); s.appendChild(o); }); s.value = tCaseK; el('tCaseNote').innerHTML = Lg(TCASES[tCaseK].note[0], TCASES[tCaseK].note[1]); }
+function syncT(){ Object.keys(TF).forEach(id => { el(id).value = tin[TF[id]]; }); }
+function uniM(x, a, b){ if (x <= a) return 0; if (x <= b) return (x - a) * (x - a) / 2; return (b - a) * (x - (a + b) / 2); }
+function uniV(x, a, b){ return Math.max(0, Math.min(x, b) - a); }
+function tCalc(P){
+  const R = {}, cA = P.cA / 1000, cB = P.cB / 1000;
+  R.NA = P.GA + P.QA; R.NB = P.GB + P.QB; R.WA10 = 0.1 * R.NA; R.WB10 = 0.1 * R.NB;
+  R.Ls = P.L - cA / 2 - cB / 2; R.e = P.LA / 2 - cA / 2; R.lev = P.L - R.e;
+  R.ok = R.Ls > 0.2 && R.lev > 0.2 && R.e >= 0 && P.BA > 0 && P.SB > 0 && P.LA > cA && P.d > 50 && P.d < P.hs;
+  if (!R.ok) return R;
+  R.WR = 25 * P.bs / 1000 * P.hs / 1000 * R.Ls; R.xR = R.Ls / 2 + cB / 2;
+  R.Mm = (R.NA * P.L + R.WR * R.xR) / R.lev;
+  R.RA10 = R.WA10 + R.Mm; R.RB10 = R.NA + R.NB + R.WA10 + R.WB10 + R.WR - R.RA10;
+  R.BAreq = R.RA10 / (P.q * P.LA); R.SBreq = Math.sqrt(Math.max(R.RB10, 0) / P.q);
+  R.WA = 25 * P.LA * P.BA * P.h / 1000; R.WB = 25 * P.SB * P.SB * P.h / 1000;
+  R.RA = R.WA + R.Mm; R.RB = R.NA + R.NB + R.WA + R.WB + R.WR - R.RA;
+  R.pA = R.RA / (P.LA * P.BA); R.pB = R.RB / (P.SB * P.SB);
+  R.NAu = 1.35 * P.GA + 1.5 * P.QA; R.NBu = 1.35 * P.GB + 1.5 * P.QB; R.WRu = 1.35 * R.WR;
+  R.RAu = (R.NAu * P.L + R.WRu * R.xR) / R.lev; R.RBu = R.NAu + R.NBu + R.WRu - R.RAu;
+  R.pAu = R.RAu / (P.LA * P.BA); R.pBu = R.RBu / (P.SB * P.SB);
+  R.wA = R.RAu / P.LA; R.wB = R.RBu / P.SB; R.wr = R.WRu / R.Ls;
+  R.xa = cA / 2; R.fa = cA; R.xb = cA / 2 + P.L; R.fb = R.xb - cB / 2; R.b0 = R.xb - P.SB / 2; R.b1 = R.xb + P.SB / 2;
+  R.overlap = R.b0 < P.LA;
+  const V = x => R.wA * uniV(x, 0, P.LA) + R.wB * uniV(x, R.b0, R.b1) - R.wr * uniV(x, R.fa, R.fb) - (x > R.xa ? R.NAu : 0) - (x > R.xb ? R.NBu : 0);
+  const M = x => R.wA * uniM(x, 0, P.LA) + R.wB * uniM(x, R.b0, R.b1) - R.wr * uniM(x, R.fa, R.fb) - R.NAu * Math.max(0, x - R.xa) - R.NBu * Math.max(0, x - R.xb);
+  R.V = V; R.M = M;
+  R.x0 = (R.NAu - R.wr * R.fa) / (R.wA - R.wr); R.x0ok = R.x0 > R.fa && R.x0 < P.LA;
+  R.Mmax = R.x0ok ? M(R.x0) : NaN;
+  R.xd = R.fa + P.d / 1000; R.VE1 = Math.abs(V(R.xd)); R.VE2 = Math.abs(V(Math.min(P.LA, R.b0)));
+  R.K = Math.abs(R.Mmax) * 1e6 / (P.fck * P.bs * P.d * P.d);
+  const cot = 2.475, tan = 1 / cot, nu1 = 0.6 * (1 - P.fck / 250);
+  R.VR22 = 0.9 * P.d * P.bs * nu1 * P.fck / 1.5 / (cot + tan) / 1000;
+  R.Asw1 = R.VE1 * 1e3 / (0.78 * 500 * P.d * cot); R.Asw2 = R.VE2 * 1e3 / (0.78 * 500 * P.d * cot); R.Aswmin = 0.08 * Math.sqrt(P.fck) / 500 * P.bs;
+  R.Vend = V(R.b1 + 1e-9); R.Mend = M(R.b1);
+  return R;
+}
+function redrawStrap(userEdit){
+  const P = tin, R = tCalc(P), shown = !!aaSt.shown;
+  if (!R.ok){ el('tKV').innerHTML = kvHtml([[Lg('check the inputs', 'semak input'), Lg('the geometry does not close', 'geometri tidak lengkap'), 'bad']]); el('tTable').innerHTML = ''; el('tSee').innerHTML = ''; el('tStrap').innerHTML = ''; return; }
+  const hid = Lg('reveal first (11A)', 'dedahkan dahulu (11A)');
+  el('tKV').innerHTML = kvHtml([
+    ['R<sub>A</sub> · service', shown ? `${f(R.RA10, 1)} kN` : hid], ['R<sub>B</sub> · service', shown ? `${f(R.RB10, 1)} kN` : hid],
+    [Lg('B<sub>A</sub> · S<sub>B</sub> needed', 'B<sub>A</sub> · S<sub>B</sub> diperlukan'), shown ? `${f(R.BAreq, 3)} · ${f(R.SBreq, 3)} m` : hid],
+    ['p<sub>A</sub> · p<sub>B</sub>', shown ? `${f(R.pA, 1)} · ${f(R.pB, 1)} kN/m²` : hid, shown ? (Math.max(R.pA, R.pB) <= P.q + 1e-9 ? 'ok' : 'bad') : ''],
+    ['R<sub>A,Ed</sub> · R<sub>B,Ed</sub>', `${f(R.RAu, 1)} · ${f(R.RBu, 1)} kN`],
+    ['x<sub>0</sub> · M<sub>max</sub>', R.x0ok ? `${f(R.x0, 3)} m · ${f(R.Mmax, 1)} kN m` : Lg('V = 0 not over footing A', 'V = 0 bukan di atas footing A'), R.x0ok ? '' : 'bad'],
+    [Lg('V at d from A · between', 'V pada d dari A · di antara'), `${f(R.VE1, 1)} · ${f(R.VE2, 1)} kN`, R.VE1 <= R.VR22 ? 'ok' : 'bad']]);
+  const pl = ok => ok ? '<span class="ok">✓</span>' : '<span class="bad">✗</span>';
+  const rows = [
+    ['(11.1)', shown ? `e = ${f(P.LA, 2)}/2 − ${f(P.cA / 1000, 3)}/2 = ${f(R.e, 3)} m; W<sub>R</sub> = 25 × ${f(P.bs / 1000, 3)} × ${f(P.hs / 1000, 3)} × ${f(R.Ls, 3)} = ${f(R.WR, 1)} kN ${Lg('at', 'pada')} x<sub>R</sub> = ${f(R.xR, 3)} m; R<sub>A</sub> = ${f(R.WA10, 1)} + (${f(R.NA, 0)} × ${f(P.L, 2)} + ${f(R.WR, 1)} × ${f(R.xR, 3)})/${f(R.lev, 3)} = ${f(R.RA10, 1)} kN` : Lg('Moments about column B: work it out first (Activity 11A).', 'Moment pada column B: kira dahulu (Aktiviti 11A).'), ''],
+    ['(11.2), (11.3)', shown ? `R<sub>B</sub> = ${f(R.NA, 0)} + ${f(R.NB, 0)} + ${f(R.WA10, 1)} + ${f(R.WB10, 1)} + ${f(R.WR, 1)} − ${f(R.RA10, 1)} = ${f(R.RB10, 1)} kN; B<sub>A</sub> = ${f(R.BAreq, 3)} m, S<sub>B</sub> = ${f(R.SBreq, 3)} m` : Lg('Vertical equilibrium and the sizes: after Activity 11A.', 'Keseimbangan menegak dan saiz: selepas Aktiviti 11A.'), ''],
+    [Lg('real weights', 'berat sebenar'), shown ? `W<sub>A</sub> = ${f(R.WA, 1)}, W<sub>B</sub> = ${f(R.WB, 1)} kN; p<sub>A</sub> = ${f(R.RA, 1)}/(${f(P.LA, 2)} × ${f(P.BA, 2)}) = ${f(R.pA, 1)}; p<sub>B</sub> = ${f(R.RB, 1)}/${f(P.SB, 2)}² = ${f(R.pB, 1)} ≤ ${f(P.q, 0)} kN/m²?` : '–', shown ? pl(Math.max(R.pA, R.pB) <= P.q + 1e-9) : ''],
+    ['(11.4)', `N<sub>A,Ed</sub> = ${f(R.NAu, 1)}, N<sub>B,Ed</sub> = ${f(R.NBu, 1)}, 1.35W<sub>R</sub> = ${f(R.WRu, 1)} kN; R<sub>A,Ed</sub> = ${f(R.RAu, 1)}, R<sub>B,Ed</sub> = ${f(R.RBu, 1)} kN; p<sub>A</sub> = ${f(R.pAu, 1)}, p<sub>B</sub> = ${f(R.pBu, 1)} kN/m²`, ''],
+    ['(11.5)', R.x0ok ? `w<sub>A</sub> = ${f(R.wA, 1)}, w<sub>r</sub> = ${f(R.wr, 2)} kN/m; x<sub>0</sub> = ${f(R.x0, 3)} m ${Lg('from the boundary', 'dari sempadan')}; M<sub>max</sub> = ${f(R.Mmax, 1)} kN m; K = ${f(R.K, 3)}` + (R.K > 0.167 ? Lg(' &gt; 0.167: compression bars', ' &gt; 0.167: compression bar') : '') : Lg('Zero shear does not fall over footing A: lengthen footing A or check the inputs.', 'Shear sifar tidak jatuh di atas footing A: panjangkan footing A atau semak input.'), R.x0ok ? '' : pl(false)],
+    ['EC2 6.2', `V ${Lg('at d from column A', 'pada d dari column A')} = ${f(R.VE1, 1)} kN; ${Lg('between the footings', 'di antara footing')} ${f(R.VE2, 1)} kN; V<sub>Rd,max</sub> (θ = 22°) = ${f(R.VR22, 1)} kN; A<sub>sw</sub>/s = ${f(R.Asw1, 3)} ${Lg('and', 'dan')} ${f(R.Asw2, 3)} mm²/mm (min ${f(R.Aswmin, 3)})`, pl(R.VE1 <= R.VR22)],
+    ['ΣM = 0', Lg(`At the far end of footing B: V = ${f(R.Vend, 2)} kN, M = ${f(R.Mend, 2)} kN m (both should be 0)`, `Di hujung jauh footing B: V = ${f(R.Vend, 2)} kN, M = ${f(R.Mend, 2)} kN m (kedua-duanya sepatutnya 0)`), pl(Math.abs(R.Vend) < 0.5 && Math.abs(R.Mend) < 0.5)]];
+  if (R.overlap) rows.push(['!', Lg('The footings overlap: footing B starts before footing A ends.', 'Footing bertindih: footing B bermula sebelum footing A berakhir.'), pl(false)]);
+  el('tTable').innerHTML = `<thead><tr><th>Ref</th><th>${Lg('Check', 'Semakan')}</th><th class="out">OK</th></tr></thead><tbody>` + rows.map(r => `<tr><td class="ref">${r[0]}</td><td class="m">${r[1]}</td><td class="out">${r[2]}</td></tr>`).join('') + '</tbody>';
+  el('tVeil').hidden = shown;
+  drawTSee(R, shown); drawTStrap(R);
+  if (userEdit && P.L <= 4.5 + 1e-9) milestone('lever');
+}
+function drawTSee(R, shown){
+  const svg = el('tSee'); svg.innerHTML = '';
+  const P = tin, Lt = R.b1, x0 = 46, sc = Math.min(560 / Lt, 190 / Math.max(P.BA, P.SB)), X = x => x0 + x * sc;
+  // plan
+  const yc = 120;
+  S('line', {x1: x0, x2: x0, y1: 14, y2: 454, stroke: 'var(--bad)', 'stroke-dasharray': '6 4', 'stroke-width': 1.5}, svg);
+  T(svg, x0 + 6, 14, Lg('site boundary', 'sempadan tapak'), {class: 'small', style: 'fill:var(--bad)'});
+  S('rect', {x: X(0), y: yc - P.BA * sc / 2, width: P.LA * sc, height: P.BA * sc, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
+  S('rect', {x: X(R.b0), y: yc - P.SB * sc / 2, width: P.SB * sc, height: P.SB * sc, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
+  const bw = Math.max(5, P.bs / 1000 * sc);
+  S('rect', {x: X(R.fa), y: yc - bw / 2, width: (R.fb - R.fa) * sc, height: bw, fill: 'var(--surface-2)', stroke: 'var(--ink-3)'}, svg);
+  [[R.xa, P.cA], [R.xb, P.cB]].forEach(([x, c]) => S('rect', {x: X(x) - c / 2000 * sc, y: yc - c / 2000 * sc, width: c / 1000 * sc, height: c / 1000 * sc, fill: 'var(--ink-3)'}, svg));
+  T(svg, X(P.LA / 2), yc + P.BA * sc / 2 + 16, `${f(P.LA, 2)} × ${f(P.BA, 2)} m`, {'text-anchor': 'middle', class: 'small'});
+  T(svg, X(R.xb), yc + P.SB * sc / 2 + 16, `${f(P.SB, 2)} × ${f(P.SB, 2)} m`, {'text-anchor': 'middle', class: 'small'});
+  T(svg, X((R.fa + R.fb) / 2), yc - bw / 2 - 6, `strap ${f(P.bs, 0)} × ${f(P.hs, 0)}`, {'text-anchor': 'middle', class: 'small'});
+  // elevation
+  const yg = 380, hf = 18, hs = 14;
+  S('line', {x1: x0 - 20, x2: 620, y1: yg, y2: yg, stroke: 'var(--ink-2)'}, svg);
+  S('rect', {x: X(0), y: yg - hf, width: P.LA * sc, height: hf, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
+  S('rect', {x: X(R.b0), y: yg - hf, width: P.SB * sc, height: hf, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
+  S('rect', {x: X(R.fa), y: yg - hf - hs, width: (R.fb - R.fa) * sc, height: hs, fill: 'var(--surface-2)', stroke: 'var(--ink-3)'}, svg);
+  [[R.xa, P.cA], [R.xb, P.cB]].forEach(([x, c]) => S('rect', {x: X(x) - c / 2000 * sc, y: 290, width: c / 1000 * sc, height: yg - hf - hs - 290, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg));
+  arrow(svg, X(R.xa), 248, X(R.xa), 288, 'var(--ink)', 2.2); TS(svg, X(R.xa) + 8, 262, [['N'], ['A', 1], [' = ' + f(R.NA, 0) + ' kN']], {});
+  arrow(svg, X(R.xb), 248, X(R.xb), 288, 'var(--ink)', 2.2); TS(svg, X(R.xb) - 8, 262, [['N'], ['B', 1], [' = ' + f(R.NB, 0) + ' kN']], {'text-anchor': 'end'});
+  const xA = X(P.LA / 2);
+  arrow(svg, xA, yg + 52, xA, yg + 4, 'var(--flight)', 2.4); TS(svg, xA + 8, yg + 40, [['R'], ['A', 1], [' = ' + (shown ? f(R.RA10, 1) + ' kN' : '?')]], {style: 'fill:var(--flight)'});
+  arrow(svg, X(R.xb), yg + 52, X(R.xb), yg + 4, 'var(--flight)', 2.4); TS(svg, X(R.xb) - 8, yg + 40, [['R'], ['B', 1], [' = ' + (shown ? f(R.RB10, 1) + ' kN' : '?')]], {'text-anchor': 'end', style: 'fill:var(--flight)'});
+  const yd = 452;
+  [[X(R.xa), xA, 'e = ' + f(R.e, 2)], [xA, X(R.xb), 'L − e = ' + f(R.lev, 2) + ' m']].forEach(([a, b, t]) => {
+    S('line', {x1: a, x2: b, y1: yd - 8, y2: yd - 8, stroke: 'var(--unbraced)'}, svg);
+    [a, b].forEach(x => S('line', {x1: x, x2: x, y1: yd - 13, y2: yd - 3, stroke: 'var(--unbraced)'}, svg));
+    T(svg, (a + b) / 2, yd + 8, t, {'text-anchor': 'middle', class: 'small', style: 'fill:var(--unbraced)'}); });
+}
+function drawTStrap(R){
+  const svg = el('tStrap'); svg.innerHTML = '';
+  const P = tin, x0 = 46, x1 = 610, sc = (x1 - x0) / R.b1, X = x => x0 + x * sc;
+  S('line', {x1: x0, x2: x0, y1: 10, y2: 372, stroke: 'var(--bad)', 'stroke-dasharray': '6 4', 'stroke-width': 1.5}, svg);
+  // loads strip
+  const ys = 56;
+  S('rect', {x: X(R.fa), y: ys - 6, width: (R.fb - R.fa) * sc, height: 12, fill: 'var(--surface-2)', stroke: 'var(--ink-3)'}, svg);
+  S('rect', {x: X(0), y: ys + 6, width: P.LA * sc, height: 14, fill: 'var(--wash-flag)', stroke: 'var(--flight)'}, svg);
+  S('rect', {x: X(R.b0), y: ys + 6, width: P.SB * sc, height: 14, fill: 'var(--wash-flag)', stroke: 'var(--flight)'}, svg);
+  TS(svg, X(P.LA / 2), ys + 34, [['w'], ['A', 1], [' = ' + f(R.wA, 1) + ' kN/m']], {'text-anchor': 'middle', class: 'small', style: 'fill:var(--flight)'});
+  TS(svg, X(R.xb), ys + 34, [['w'], ['B', 1], [' = ' + f(R.wB, 1) + ' kN/m']], {'text-anchor': 'middle', class: 'small', style: 'fill:var(--flight)'});
+  arrow(svg, X(R.xa), 12, X(R.xa), ys - 8, 'var(--ink)', 2); TS(svg, X(R.xa) + 6, 22, [['N'], ['A,Ed', 1], [' = ' + f(R.NAu, 1)]], {class: 'small'});
+  arrow(svg, X(R.xb), 12, X(R.xb), ys - 8, 'var(--ink)', 2); TS(svg, X(R.xb) - 6, 22, [['N'], ['B,Ed', 1], [' = ' + f(R.NBu, 1)]], {'text-anchor': 'end', class: 'small'});
+  // diagram
+  const n = 480, xs = [], vs = [];
+  for (let i = 0; i <= n; i++){ const x = R.b1 * i / n; xs.push(x); vs.push(tDia === 'V' ? R.V(x + (i === 0 ? 1e-9 : 0)) : R.M(x)); }
+  [R.xa, R.xb].forEach(xc => { xs.push(xc - 1e-6, xc + 1e-6); vs.push(tDia === 'V' ? R.V(xc - 1e-6) : R.M(xc), tDia === 'V' ? R.V(xc + 1e-6) : R.M(xc)); });
+  const ord = xs.map((x, i) => [x, vs[i]]).sort((a, b) => a[0] - b[0]);
+  const vmax = Math.max(1, ...ord.map(p => Math.abs(p[1])));
+  const y0 = 240, H = 120, Y = v => y0 - (tDia === 'M' ? -v : v) / vmax * H;   // M: hogging (negative) drawn up, on the tension side
+  S('line', {x1: x0, x2: x1, y1: y0, y2: y0, stroke: 'var(--ink-2)'}, svg);
+  const d = 'M' + ord.map(p => `${X(p[0]).toFixed(1)},${Y(p[1]).toFixed(1)}`).join(' L') + ` L${X(R.b1).toFixed(1)},${y0} L${X(0)},${y0} Z`;
+  S('path', {d, fill: tDia === 'V' ? 'var(--wash-flag)' : 'var(--wash-bad)', stroke: tDia === 'V' ? 'var(--flight)' : 'var(--unbraced)', 'stroke-width': 1.8}, svg);
+  if (R.x0ok){
+    S('circle', {cx: X(R.x0), cy: Y(tDia === 'V' ? 0 : R.Mmax), r: 5, fill: 'var(--bad)'}, svg);
+    if (tDia === 'M') TS(svg, X(R.x0) + 8, Y(R.Mmax) - 8, [['M'], ['max', 1], [` = ${f(R.Mmax, 1)} kN m ${Lg('at', 'pada')} x`], ['0', 1], [` = ${f(R.x0, 2)} m`]], {style: 'fill:var(--ink)'});
+    else TS(svg, X(R.x0) + 8, y0 + 18, [['V = 0 ' + Lg('at', 'pada') + ' x'], ['0', 1], [` = ${f(R.x0, 2)} m`]], {style: 'fill:var(--bad)'});
+  }
+  if (tDia === 'V'){
+    const v1 = R.V(R.xd), v2 = R.V(Math.min(P.LA, R.b0));
+    S('circle', {cx: X(R.xd), cy: Y(v1), r: 4.5, fill: 'var(--unbraced)'}, svg);
+    T(svg, X(R.xd) + 8, Y(v1) + 16, Lg(`${f(Math.abs(v1), 1)} at d from A`, `${f(Math.abs(v1), 1)} pada d dari A`), {class: 'small', style: 'fill:var(--unbraced)'});
+    S('circle', {cx: X(Math.min(P.LA, R.b0)), cy: Y(v2), r: 4.5, fill: 'var(--flight)'}, svg);
+    T(svg, X(Math.min(P.LA, R.b0)) + 8, Y(v2) - 8, Lg(`${f(Math.abs(v2), 1)} between the footings`, `${f(Math.abs(v2), 1)} di antara footing`), {class: 'small', style: 'fill:var(--flight)'});
+  }
+  T(svg, 320, 372, tDia === 'V' ? Lg('Shear force, kN: the links follow it, closest over footing A', 'Shear force, kN: link mengikutnya, paling rapat di atas footing A')
+                                : Lg('Bending moment, kN m, drawn on the tension side: the strap hogs, so its main bars are at the top', 'Bending moment, kN m, dilukis pada tension side: strap mengalami hogging, jadi bar utamanya di atas'), {'text-anchor': 'middle', class: 'small'});
+}
+function tToOwn(){ if (tCaseK !== 'own'){ tCaseK = 'own'; fillTCases(); } }
+Object.keys(TF).forEach(id => el(id).addEventListener('input', () => { const v = parseFloat(el(id).value); if (!isFinite(v)) return; tin[TF[id]] = v; tToOwn(); redrawStrap(true); }));
+el('tCase').addEventListener('change', () => { tCaseK = el('tCase').value; if (TCASES[tCaseK].v) Object.assign(tin, TCASES[tCaseK].v); fillTCases(); syncT(); redrawStrap(false); if (tDia === 'V' && tCaseK === 'f7') milestone('strapv'); });
+segGroup(el('tDia'), v => { tDia = v; redrawStrap(false); if (v === 'V' && tCaseK === 'f7') milestone('strapv'); });
+el('tSize').addEventListener('click', () => {
+  const R = tCalc(tin); if (!R.ok) return;
+  let BA = Math.ceil(R.BAreq / 0.05 - 1e-9) * 0.05, SB = Math.ceil(R.SBreq / 0.05 - 1e-9) * 0.05;
+  for (let i = 0; i < 60; i++){ const Q = tCalc(Object.assign({}, tin, {BA, SB})); let moved = false;
+    if (Q.pA > tin.q + 1e-9){ BA += 0.05; moved = true; } if (Q.pB > tin.q + 1e-9){ SB += 0.05; moved = true; } if (!moved) break; }
+  tin.BA = +BA.toFixed(2); tin.SB = +SB.toFixed(2); tToOwn(); syncT(); redrawStrap(true);
+});
+/* Activity 11A: R_A and R_B of F7 by hand, then reveal */
+function paintAA(){
+  el('aRA').value = aaSt.ra != null ? aaSt.ra : ''; el('aRB').value = aaSt.rb != null ? aaSt.rb : '';
+  const out = el('aOut');
+  if (!aaSt.shown){ out.hidden = true; return; }
+  const R = tCalc(TCASES.f7.v), ea = Math.abs(aaSt.ra - R.RA10) / R.RA10, eb = Math.abs(aaSt.rb - R.RB10) / R.RB10, ok = ea <= 0.01 && eb <= 0.01;
+  let why = '';
+  if (ea > 0.01 && Math.abs(aaSt.ra - (R.WA10 + (R.NA * 6.0 + R.WR * R.xR) / 6.0)) < 3) why = Lg(' Your R<sub>A</sub> divides by L: R<sub>A</sub> acts at the centre of footing A, L − e = 5.15 m from column B.', ' R<sub>A</sub> anda dibahagi dengan L: R<sub>A</sub> bertindak di pusat footing A, L − e = 5.15 m dari column B.');
+  else if (eb > 0.01 && Math.abs(aaSt.rb - 1.1 * R.NB) < 3) why = Lg(' Your R<sub>B</sub> is N<sub>B</sub> + W<sub>B</sub>: the strap takes N<sub>A</sub>e/(L − e) off footing B.', ' R<sub>B</sub> anda ialah N<sub>B</sub> + W<sub>B</sub>: strap mengambil N<sub>A</sub>e/(L − e) daripada footing B.');
+  out.hidden = false; out.className = 'verdict ' + (ok ? 'ok' : 'bad');
+  out.innerHTML = (ok ? Lg('Right. ', 'Betul. ') : Lg('Compare. ', 'Bandingkan. ')) + Lg(`R<sub>A</sub> = ${f(R.WA10, 1)} + (1075 × 6.0 + ${f(R.WR, 1)} × ${f(R.xR, 1)})/5.15 = ${f(R.RA10, 1)} kN (yours ${f(aaSt.ra, 1)}); R<sub>B</sub> = 3118.5 − ${f(R.RA10, 1)} = ${f(R.RB10, 1)} kN (yours ${f(aaSt.rb, 1)}). Footing A carries more than its 1075 kN column, footing B less than its 1725 kN.`,
+    `R<sub>A</sub> = ${f(R.WA10, 1)} + (1075 × 6.0 + ${f(R.WR, 1)} × ${f(R.xR, 1)})/5.15 = ${f(R.RA10, 1)} kN (anda ${f(aaSt.ra, 1)}); R<sub>B</sub> = 3118.5 − ${f(R.RA10, 1)} = ${f(R.RB10, 1)} kN (anda ${f(aaSt.rb, 1)}). Footing A memikul lebih daripada column 1075 kN, footing B kurang daripada column 1725 kN.`) + why;
+}
+['aRA', 'aRB'].forEach(id => el(id).addEventListener('input', () => { const v = parseFloat(el(id).value); aaSt[id === 'aRA' ? 'ra' : 'rb'] = isFinite(v) ? v : null; store(AAKEY, aaSt); }));
+el('aReveal').addEventListener('click', () => {
+  if (!(aaSt.ra > 0 && aaSt.rb > 0)){ const o = el('aOut'); o.hidden = false; o.className = 'verdict bad'; o.innerHTML = Lg('Type both values first.', 'Taip kedua-dua nilai dahulu.'); return; }
+  aaSt.shown = true; store(AAKEY, aaSt); milestone('seesaw');
+  tCaseK = 'f7'; Object.assign(tin, TCASES.f7.v); fillTCases(); syncT(); paintAA(); redrawStrap(false);
+});
+
+/* ===================== 5 PILE GROUP (Unit 11) =====================
+   n = (N + W)/F_p with the cap's own weight; s = k phi; cap side ((n_i - 1)k + 1)phi + 300 mm;
+   P = (N + W)/n + M_y x/sum(x^2) + M_x y/sum(y^2) in service (N, M = design values/gamma_F); ultimate N_Ed/n + ..., no cap weight. */
+const GLAY = {'2x2': [2, 2], '3x2': [3, 2], '2x3': [2, 3], '4x2': [4, 2], '3x3': [3, 3], '4x3': [4, 3]};
+const GCASES = {
+  f13: {label: ['F13 · Faded Example 11.2', 'F13 · Faded Example 11.2'], v: {N: 4200, My: 75, Mx: 0, gF: 1.4, ph: 300, Fp: 600, k: 3, h: 1100, lay: '3x2'},
+        note: ['App case F13 (the course notes’ Example 5): six 300 mm piles under N<sub>Ed</sub> = 4200 kN and M<sub>Ed</sub> = 75 kN m about y; service = design/1.4.', 'Kes app F13 (Contoh 5 nota kursus): enam pile 300 mm di bawah N<sub>Ed</sub> = 4200 kN dan M<sub>Ed</sub> = 75 kN m pada paksi y; service = design/1.4.']},
+  f13t: {label: ['F13 turned · the moment about x', 'F13 dipusingkan · moment pada paksi x'], v: {N: 4200, My: 0, Mx: 75, gF: 1.4, ph: 300, Fp: 600, k: 3, h: 1100, lay: '3x2'},
+         note: ['The same group with the moment turned through 90°: it now acts across the 1.5 m side (Activity 11B).', 'Kumpulan yang sama dengan moment dipusingkan 90°: kini ia bertindak merentasi sisi 1.5 m (Aktiviti 11B).']},
+  own: {label: ['Your own pile group', 'Kumpulan pile anda sendiri'], v: null, note: ['Type your own numbers and choose a layout.', 'Taip nombor anda sendiri dan pilih susun atur.']}
+};
+const GF = {gN: 'N', gMy: 'My', gMx: 'Mx', gF: 'gF', gph: 'ph', gFp: 'Fp', gk: 'k', gh: 'h'};
+const gin = Object.assign({}, GCASES.f13.v); let gCaseK = 'f13';
+const GBKEY = 'seaa4333-lab-foundation-11b';
+let gbSt = recall(GBKEY, {}) || {};
+function fillGCases(){ const s = el('gCase'); s.innerHTML = ''; Object.keys(GCASES).forEach(k => { const o = document.createElement('option'); o.value = k; o.textContent = Lg(GCASES[k].label[0], GCASES[k].label[1]); s.appendChild(o); }); s.value = gCaseK; el('gCaseNote').innerHTML = Lg(GCASES[gCaseK].note[0], GCASES[gCaseK].note[1]); }
+function syncG(){ Object.keys(GF).forEach(id => { el(id).value = gin[GF[id]]; }); setSeg(el('gLay'), gin.lay); }
+function gCalc(P){
+  const [nx, ny] = GLAY[P.lay] || [3, 2], R = {nx, ny, n: nx * ny};
+  R.ok = P.gF > 0 && P.ph > 0 && P.k > 0 && P.Fp > 0 && P.h > 0; if (!R.ok) return R;
+  R.s = P.k * P.ph / 1000; R.Bc = ((ny - 1) * P.k + 1) * P.ph + 300; R.Lc = ((nx - 1) * P.k + 1) * P.ph + 300;
+  R.W = 25 * R.Bc / 1000 * R.Lc / 1000 * P.h / 1000;
+  R.Ns = P.N / P.gF; R.Mys = P.My / P.gF; R.Mxs = P.Mx / P.gF;
+  R.nreq = (R.Ns + R.W) / P.Fp;
+  R.xs = []; for (let i = 0; i < nx; i++) R.xs.push((i - (nx - 1) / 2) * R.s);
+  R.ys = []; for (let j = 0; j < ny; j++) R.ys.push(((ny - 1) / 2 - j) * R.s);
+  R.Sx2 = ny * R.xs.reduce((a, x) => a + x * x, 0); R.Sy2 = nx * R.ys.reduce((a, y) => a + y * y, 0);
+  R.piles = []; let k = 0;
+  R.ys.forEach(y => R.xs.forEach(x => { k++; R.piles.push({k, x, y, Ps: (R.Ns + R.W) / R.n + (R.Sx2 > 0 ? R.Mys * x / R.Sx2 : 0) + (R.Sy2 > 0 ? R.Mxs * y / R.Sy2 : 0),
+                                           Pu: P.N / R.n + (R.Sx2 > 0 ? P.My * x / R.Sx2 : 0) + (R.Sy2 > 0 ? P.Mx * y / R.Sy2 : 0)}); }));
+  R.Pmax = Math.max(...R.piles.map(p => p.Ps)); R.Pmin = Math.min(...R.piles.map(p => p.Ps)); R.Pumax = Math.max(...R.piles.map(p => p.Pu));
+  return R;
+}
+function redrawGroup(userEdit){
+  const P = gin, R = gCalc(P);
+  if (!R.ok){ el('gKV').innerHTML = kvHtml([[Lg('check the inputs', 'semak input'), '–', 'bad']]); el('gTable').innerHTML = ''; el('gPlan').innerHTML = ''; return; }
+  const enough = R.n >= R.nreq - 1e-9, okF = R.Pmax <= P.Fp + 1e-9, okT = R.Pmin >= 0;
+  el('gKV').innerHTML = kvHtml([
+    [Lg('piles needed · used', 'pile diperlukan · digunakan'), `${f(R.nreq, 2)} · ${R.n}`, enough ? 'ok' : 'bad'],
+    [Lg('cap B × L × h', 'pile cap B × L × h'), `${f(R.Bc, 0)} × ${f(R.Lc, 0)} × ${f(P.h, 0)}`], ['W', `${f(R.W, 1)} kN`],
+    ['Σx² · Σy²', `${f(R.Sx2, 3)} · ${f(R.Sy2, 3)} m²`],
+    [Lg('largest pile, service', 'pile terbesar, service'), `${f(R.Pmax, 1)} kN`, okF ? 'ok' : 'bad'],
+    [Lg('smallest pile, service', 'pile terkecil, service'), `${f(R.Pmin, 1)} kN`, okT ? 'ok' : 'bad'],
+    [Lg('largest pile, ultimate', 'pile terbesar, ultimate'), `${f(R.Pumax, 1)} kN`]]);
+  const pl = ok => ok ? '<span class="ok">✓</span>' : '<span class="bad">✗</span>';
+  const xm = Math.max(...R.xs), ym = Math.max(...R.ys);
+  const rows = [
+    ['(11.8)', `N = ${f(P.N, 0)}/${f(P.gF, 2)} = ${f(R.Ns, 1)} kN; n = (${f(R.Ns, 1)} + ${f(R.W, 1)})/${f(P.Fp, 0)} = ${f(R.nreq, 2)}: ${R.nx} × ${R.ny} = ${R.n} ${Lg('piles', 'pile')}`, pl(enough)],
+    ['(11.9)', `s = ${f(P.k, 1)} × ${f(P.ph, 0)} = ${f(R.s * 1000, 0)} mm; B = ${f(R.Bc, 0)}, L = ${f(R.Lc, 0)} mm; W = 25 × ${f(R.Bc / 1000, 2)} × ${f(R.Lc / 1000, 2)} × ${f(P.h / 1000, 2)} = ${f(R.W, 1)} kN`, ''],
+    ['(11.10)', `Σx² = ${R.ny} × Σx<sub>i</sub>² = ${f(R.Sx2, 3)} m²; Σy² = ${R.nx} × Σy<sub>j</sub>² = ${f(R.Sy2, 3)} m²`, ''],
+    [Lg('service', 'service'), `(N + W)/n = ${f((R.Ns + R.W) / R.n, 1)}; M<sub>y</sub>x/Σx² = ${f(R.Mys * xm / (R.Sx2 || 1), 1)}; M<sub>x</sub>y/Σy² = ${f(R.Mxs * ym / (R.Sy2 || 1), 1)} kN: P<sub>max</sub> = ${f(R.Pmax, 1)} ≤ ${f(P.Fp, 0)}, P<sub>min</sub> = ${f(R.Pmin, 1)} ≥ 0?`, pl(okF && okT)],
+    [Lg('ultimate, for the cap', 'ultimate, bagi pile cap'), `N<sub>Ed</sub>/n = ${f(P.N / R.n, 1)} kN; P<sub>max</sub> = ${f(R.Pumax, 1)} kN ${Lg('(no cap weight; Unit 12 designs the cap with it)', '(tanpa berat pile cap; Unit 12 membuat design pile cap dengannya)')}`, '']];
+  el('gTable').innerHTML = `<thead><tr><th>Ref</th><th>${Lg('Check', 'Semakan')}</th><th class="out">OK</th></tr></thead><tbody>` + rows.map(r => `<tr><td class="ref">${r[0]}</td><td class="m">${r[1]}</td><td class="out">${r[2]}</td></tr>`).join('') + '</tbody>';
+  drawGPlan(R);
+  if (userEdit && R.Pmin <= 0) milestone('tension');
+}
+function drawGPlan(R){
+  const svg = el('gPlan'); svg.innerHTML = '';
+  const P = gin, Lm = R.Lc / 1000, Bm = R.Bc / 1000, sc = Math.min(430 / Lm, 270 / Bm), cx = 280, cy = 205, X = x => cx + x * sc, Y = y => cy - y * sc;
+  S('rect', {x: X(-Lm / 2), y: Y(Bm / 2), width: Lm * sc, height: Bm * sc, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
+  S('line', {x1: X(-Lm / 2) - 16, x2: X(Lm / 2) + 16, y1: cy, y2: cy, stroke: 'var(--ink-3)', 'stroke-dasharray': '4 4'}, svg); T(svg, X(Lm / 2) + 20, cy + 4, 'x', {});
+  S('line', {x1: cx, x2: cx, y1: Y(Bm / 2) - 16, y2: Y(-Bm / 2) + 16, stroke: 'var(--ink-3)', 'stroke-dasharray': '4 4'}, svg); T(svg, cx + 6, Y(Bm / 2) - 18, 'y', {});
+  const pw = Math.max(10, P.ph / 1000 * sc);
+  R.piles.forEach(p => {
+    const bad = p.Ps > P.Fp + 1e-9 || p.Ps < 0;
+    S('rect', {x: X(p.x) - pw / 2, y: Y(p.y) - pw / 2, width: pw, height: pw, fill: bad ? 'var(--wash-bad)' : 'var(--surface-2)', stroke: bad ? 'var(--bad)' : 'var(--ink-3)', 'stroke-width': bad ? 2 : 1}, svg);
+    T(svg, X(p.x), Y(p.y) + pw / 2 + 14, f(p.Ps, 1), {'text-anchor': 'middle', style: bad ? 'fill:var(--bad);font-weight:700' : 'fill:var(--ink)'});
+    T(svg, X(p.x), Y(p.y) + 4, String(p.k), {'text-anchor': 'middle', class: 'small'});
+  });
+  const cw = 0.4 * sc; S('rect', {x: cx - cw / 2, y: cy - cw / 2, width: cw, height: cw, fill: 'none', stroke: 'var(--ink)', 'stroke-dasharray': '3 2'}, svg);
+  if (Math.abs(P.My) > 1e-9){ const y = Y(Bm / 2) - 30; S('path', {d: `M${cx - 70},${y + 8} Q${cx},${y - 22} ${cx + 70},${y + 8}`, fill: 'none', stroke: 'var(--unbraced)', 'stroke-width': 2}, svg);
+    arrow(svg, cx + 60, y + 2, cx + 70, y + 8, 'var(--unbraced)', 2); TS(svg, cx + 80, y + 10, [['M'], ['y', 1], [' = ' + f(P.My, 0) + ' kN m']], {style: 'fill:var(--unbraced)'}); }
+  if (Math.abs(P.Mx) > 1e-9){ const x = X(Lm / 2) + 34; S('path', {d: `M${x - 8},${cy + 60} Q${x + 22},${cy} ${x - 8},${cy - 60}`, fill: 'none', stroke: 'var(--unbraced)', 'stroke-width': 2}, svg);
+    arrow(svg, x - 2, cy - 52, x - 8, cy - 60, 'var(--unbraced)', 2); TS(svg, x + 2, cy - 68, [['M'], ['x', 1], [' = ' + f(P.Mx, 0) + ' kN m']], {style: 'fill:var(--unbraced)'}); }
+  T(svg, cx, 396, Lg(`Service pile loads, kN (F<sub>p</sub> = ${f(P.Fp, 0)} kN); the cap is ${f(R.Bc, 0)} × ${f(R.Lc, 0)} mm`, `Load pile service, kN (F<sub>p</sub> = ${f(P.Fp, 0)} kN); pile cap ${f(R.Bc, 0)} × ${f(R.Lc, 0)} mm`).replace(/<\/?sub>/g, ''), {'text-anchor': 'middle', class: 'small'});
+}
+function gToOwn(){ if (gCaseK !== 'own'){ gCaseK = 'own'; fillGCases(); } }
+Object.keys(GF).forEach(id => el(id).addEventListener('input', () => { const v = parseFloat(el(id).value); if (!isFinite(v)) return; gin[GF[id]] = v; gToOwn(); redrawGroup(true); }));
+segGroup(el('gLay'), v => { gin.lay = v; gToOwn(); redrawGroup(true); });
+el('gCase').addEventListener('change', () => { gCaseK = el('gCase').value; if (GCASES[gCaseK].v) Object.assign(gin, GCASES[gCaseK].v); fillGCases(); syncG(); redrawGroup(false); });
+/* Activity 11B: the moment of FE 11.2 turned through 90 degrees */
+segGroup(el('gPred'), v => { gbSt = Object.assign({}, gbSt, {pred: v}); store(GBKEY, gbSt); });
+el('gReveal').addEventListener('click', () => {
+  if (!gbSt.pred){ const o = el('gOut'); o.hidden = false; o.className = 'verdict bad'; o.innerHTML = Lg('Choose A, B, C or D first.', 'Pilih A, B, C atau D dahulu.'); return; }
+  gbSt.shown = true; store(GBKEY, gbSt); paintGB(); milestone('piles');
+  gCaseK = 'f13t'; Object.assign(gin, GCASES.f13t.v); fillGCases(); syncG(); redrawGroup(false);
+});
+function paintGB(){
+  setSeg(el('gPred'), gbSt.pred || '');
+  const o = el('gOut'); if (!gbSt.shown){ o.hidden = true; return; }
+  const a = gCalc(GCASES.f13.v), b = gCalc(GCASES.f13t.v), m = (a.Ns + a.W) / a.n;
+  o.hidden = false; o.className = 'verdict ' + (gbSt.pred === 'A' ? 'ok' : 'bad');
+  o.innerHTML = (gbSt.pred === 'A' ? Lg('Right. ', 'Betul. ') : Lg('The answer is A. ', 'Jawapannya A. ')) +
+    Lg(`About y, along the 2.4 m side: Σx² = ${f(a.Sx2, 2)} m², P<sub>max</sub> = ${f(m, 1)} + 53.6 × 0.9/${f(a.Sx2, 2)} = ${f(a.Pmax, 1)} kN. About x, across the 1.5 m side: Σy² = ${f(b.Sy2, 3)} m², P<sub>max</sub> = ${f(m, 1)} + 53.6 × 0.45/${f(b.Sy2, 3)} = ${f(b.Pmax, 1)} kN. The lever halves, but Σy² falls to three-eighths of Σx², so the worst pile takes more. N only sets the mean, ${f(m, 1)} kN.`,
+       `Pada paksi y, sepanjang sisi 2.4 m: Σx² = ${f(a.Sx2, 2)} m², P<sub>max</sub> = ${f(m, 1)} + 53.6 × 0.9/${f(a.Sx2, 2)} = ${f(a.Pmax, 1)} kN. Pada paksi x, merentasi sisi 1.5 m: Σy² = ${f(b.Sy2, 3)} m², P<sub>max</sub> = ${f(m, 1)} + 53.6 × 0.45/${f(b.Sy2, 3)} = ${f(b.Pmax, 1)} kN. Lever arm menjadi separuh, tetapi Σy² turun kepada tiga perlapan Σx², jadi pile terburuk memikul lebih. N hanya menentukan purata, ${f(m, 1)} kN.`);
+}
+
+/* ===================== 6 PILE CAP (Unit 12) =====================
+   Course method (the RC Design app's pile-cap model): N_Ed = 1.35G_k + 1.5Q_k, service G_k + Q_k; cover 75 mm, C30/37, B500.
+   Two piles: T = N s/(4d), d = h - c - phi/2. Four piles: T = N s/(8d) per truss, two trusses each way, d = h - c - 1.5phi.
+   Six piles (2 x 3, beam theory): F_max = N/6 + M x/(4x^2); M_xx = 2F_max(x - c/2), M_yy = 3(N/6)(s/2 - c/2); d_x = h - c - phi/2, d_y = h - c - 1.5phi.
+   Shear at phi/5 inside the pile face: a_v from the column face, beta = max(a_v, 0.5d)/2d (EC2 6.2.2(6)) when the bars are anchored
+   l_bd beyond the pile centre line ((edge - c) + (d - c)); rho_l only if the bars run l_bd + d past the section; whole width when s <= 3phi,
+   strips 3phi wide otherwise. Column face: beta N/(u0 d) <= 0.4 nu f_cd, d = h - c - phi. Cracks: sigma_s from the quasi-permanent load. */
+const CCV = 75, CFCK = 30, CNU = 0.6 * (1 - CFCK / 250), CFCTM = 0.3 * Math.pow(CFCK, 2 / 3), CFBD = 2.25 * 0.7 * CFCTM / 1.5;
+const CRMIN = Math.max(0.26 * CFCTM / 500, 0.0013), CVRMAX = 0.4 * CNU * CFCK / 1.5;
+const T105 = [[300, 700], [350, 800], [400, 900], [450, 1000], [500, 1100], [550, 1200], [600, 1400], [750, 1800]];
+const T73 = [[160, 300], [200, 250], [240, 200], [280, 150], [320, 100], [360, 50]];
+function cInterp(tab, x){ if (x <= tab[0][0]) return tab[0][1]; if (x >= tab[tab.length - 1][0]) return tab[tab.length - 1][1]; let i = 0; while (x > tab[i + 1][0]) i++; return tab[i][1] + (x - tab[i][0]) * (tab[i + 1][1] - tab[i][1]) / (tab[i + 1][0] - tab[i][0]); }
+function cLbd(phi){ return phi / 4 * 435 / CFBD; }
+function cVrdc(b, d, Asl){ const k = Math.min(1 + Math.sqrt(200 / d), 2), rho = Math.min(Asl / (b * d), 0.02), v1 = 0.12 * k * Math.pow(100 * rho * CFCK, 1 / 3), vm = 0.035 * Math.pow(k, 1.5) * Math.sqrt(CFCK); return {k, rho, vmin: vm, v: Math.max(v1, vm), VRc: Math.max(v1, vm) * b * d / 1000}; }
+function cFlex(M, b, d){ const K = M * 1e6 / (CFCK * b * d * d), z = Math.min(d * (0.5 + Math.sqrt(Math.max(0.25 - K / 1.134, 0))), 0.95 * d); return {K, z, As: M * 1e6 / (435 * z), Asmin: CRMIN * b * d}; }
+const CCASES = {
+  f12: {label: ['F12 · Worked Example 12.1, the notes’ 1100 mm cap', 'F12 · Worked Example 12.1, pile cap 1100 mm dalam nota'], v: {lay: '4', G: 3500, Q: 2500, M: 0, ph: 500, shape: 'circ', k: 3, Fp: 1800, c: 500, h: 1100, phi: 25, nb: 16, nb2: 16, rq: null},
+        note: ['App case F12, the course notes’ Example 5 (truss theory): four 500 mm spun piles at 1500 mm. It fails the course shear check.', 'Kes app F12, Contoh 5 nota kursus (truss theory): empat spun pile 500 mm pada 1500 mm. Ia gagal semakan shear kursus.']},
+  f12r: {label: ['F12R · Worked Example 12.1, revised to 1700 mm', 'F12R · Worked Example 12.1, diubah kepada 1700 mm'], v: {lay: '4', G: 3500, Q: 2500, M: 0, ph: 500, shape: 'circ', k: 3, Fp: 1800, c: 500, h: 1700, phi: 25, nb: 12, nb2: 12, rq: null},
+         note: ['App case F12R: the same cap 1700 mm deep with 12H25 each way (A<sub>s,min</sub> governs). The shear and the column face pass.', 'Kes app F12R: pile cap yang sama sedalam 1700 mm dengan 12H25 setiap arah (A<sub>s,min</sub> menentukan). Shear dan muka column lulus.']},
+  f10: {label: ['F10 · a two-pile cap (Notes §2)', 'F10 · pile cap dua pile (Nota §2)'], v: {lay: '2', G: 700, Q: 400, M: 0, ph: 450, shape: 'circ', k: 3, Fp: 650, c: 400, h: 1000, phi: 20, nb: 5, nb2: 15, rq: null},
+        note: ['App case F10: two 450 mm piles at 1350 mm, T = Ns/4d = 569.9 kN, 5H20 bent up.', 'Kes app F10: dua pile 450 mm pada 1350 mm, T = Ns/4d = 569.9 kN, 5H20 dibengkokkan ke atas.']},
+  f13: {label: ['F13 · Faded Example 12.2, six piles by beam theory', 'F13 · Faded Example 12.2, enam pile melalui beam theory'], v: {lay: '6', G: 2000, Q: 1000, M: 75, ph: 300, shape: 'sq', k: 3, Fp: 600, c: 400, h: 1100, phi: 16, nb: 12, nb2: 18, rq: 0.55},
+        note: ['App case F13, the course notes’ Example 5 (beam theory). The notes give N<sub>Ed</sub> = 4200 kN with service = design/1.4; G<sub>k</sub> 2000 + Q<sub>k</sub> 1000 kN give the same two loads, and σ<sub>s</sub> uses the notes’ ratio 0.55.', 'Kes app F13, Contoh 5 nota kursus (beam theory). Nota memberi N<sub>Ed</sub> = 4200 kN dengan service = design/1.4; G<sub>k</sub> 2000 + Q<sub>k</sub> 1000 kN memberi dua load yang sama, dan σ<sub>s</sub> menggunakan nisbah nota 0.55.']},
+  own: {label: ['Your own pile cap', 'Pile cap anda sendiri'], v: null, note: ['Type your own numbers and choose a layout.', 'Taip nombor anda sendiri dan pilih susun atur.']}
+};
+const CF = {cG: 'G', cQ: 'Q', cM: 'M', cph: 'ph', ck: 'k', cFp: 'Fp', cc: 'c', ch: 'h', cphi: 'phi', cnb: 'nb', cnb2: 'nb2'};
+const cin = Object.assign({}, CCASES.f12.v); let cCaseK = 'f12';
+const CAKEY = 'seaa4333-lab-foundation-12a', CBKEY = 'seaa4333-lab-foundation-12b';
+let caSt = recall(CAKEY, {}) || {}, cbSt = recall(CBKEY, {}) || {};
+function fillCCases(){ const s = el('cCase'); s.innerHTML = ''; Object.keys(CCASES).forEach(k => { const o = document.createElement('option'); o.value = k; o.textContent = Lg(CCASES[k].label[0], CCASES[k].label[1]); s.appendChild(o); }); s.value = cCaseK; el('cCaseNote').innerHTML = Lg(CCASES[cCaseK].note[0], CCASES[cCaseK].note[1]); }
+function syncC(){ Object.keys(CF).forEach(id => { el(id).value = cin[CF[id]]; }); setSeg(el('cLay'), cin.lay); setSeg(el('cShape'), cin.shape); el('cMrow').hidden = cin.lay !== '6'; el('cnb2row').hidden = cin.lay !== '6'; }
+function shearSec(R, tag, VEs, av, d, bw, edgeSec, edgePile, Asp, phi){
+  const S = {VEs, av, d, bw};
+  S.avu = Math.max(av, 0.5 * d); S.beta = Math.min(S.avu / (2 * d), 1); S.floor = av < 0.5 * d;
+  S.lanc = (edgePile - CCV) + (d - CCV); S.lbd = cLbd(phi); S.anch = S.lbd <= S.lanc;
+  S.VE = (S.anch ? S.beta : 1) * VEs; S.VRx2 = 0.5 * bw * d * CNU * CFCK / 1.5 / 1000;
+  S.ex = (edgeSec - CCV) + (d - CCV); S.lr = S.lbd + d; S.Asl = S.ex >= S.lr ? Asp : 0;
+  const v = cVrdc(bw, d, S.Asl); S.k = v.k; S.vmin = v.vmin; S.VRc = v.VRc; S.ok = S.VE <= S.VRc + 1e-9 && VEs <= S.VRx2;
+  S.betaM = av / (2 * d);
+  R[tag] = S; return S;
+}
+function cCalc(P){
+  const R = {}, n = P.lay === '2' ? 2 : P.lay === '4' ? 4 : 6; R.n = n;
+  R.ok = P.ph > 0 && P.k >= 2 && P.Fp > 0 && P.c > 0 && P.h > 300 && P.phi > 0 && P.nb >= 2 && (n !== 6 || P.nb2 >= 2) && (P.G + P.Q) > 0;
+  if (!R.ok) return R;
+  R.Ns = P.G + P.Q; R.N = 1.35 * P.G + 1.5 * P.Q; R.rq = P.rq != null ? P.rq : (P.G + 0.3 * P.Q) / R.N;
+  R.s = P.k * P.ph; R.wide = P.k > 3 + 1e-9;
+  if (n === 2){ R.L = (P.k + 1) * P.ph + 300; R.B = P.ph + 300; } else if (n === 4){ R.L = R.B = (P.k + 1) * P.ph + 300; } else { R.B = (P.k + 1) * P.ph + 300; R.L = (2 * P.k + 1) * P.ph + 300; }
+  R.hg = cInterp(T105, P.ph); R.W = 25 * R.B / 1000 * R.L / 1000 * P.h / 1000; R.nreq = (R.Ns + R.W) / P.Fp;
+  R.geomOK = R.s / 2 - P.ph / 2 + P.ph / 5 > P.c / 2 + 10;
+  const Ab = Math.PI * P.phi * P.phi / 4; R.Asp = P.nb * Ab; R.Asp2 = (P.nb2 || 0) * Ab;
+  R.dav = P.h - CCV - P.phi; R.up = P.shape === 'sq' ? 4 * P.ph : Math.PI * P.ph;
+  if (n === 6){
+    const x = R.s / 1000; R.Ix = 4 * x * x; R.Mser = P.M * R.Ns / R.N;
+    R.Fser = (R.Ns + R.W) / 6 + R.Mser * x / R.Ix; R.Fm = R.N / 6; R.Fu = R.N / 6 + P.M * x / R.Ix; R.Fmin = (R.Ns + R.W) / 6 - R.Mser * x / R.Ix;
+    R.Mx = 2 * R.Fu * (x - P.c / 2000); R.My = 3 * R.Fm * (x / 2 - P.c / 2000);
+    R.dx = P.h - CCV - P.phi / 2; R.dy = P.h - CCV - 1.5 * P.phi;
+    R.fx = cFlex(R.Mx, R.B, R.dx); R.fy = cFlex(R.My, R.L, R.dy);
+    const bwx = R.wide ? Math.min(R.B, 2 * 3 * P.ph) : R.B, bwy = R.wide ? Math.min(R.L, 3 * 3 * P.ph) : R.L;
+    const xsec = R.s - P.ph / 2 + P.ph / 5, ysec = R.s / 2 - P.ph / 2 + P.ph / 5;
+    shearSec(R, 'sx', 2 * R.Fu, xsec - P.c / 2, R.dx, bwx, R.L / 2 - xsec, R.L / 2 - R.s, R.Asp, P.phi);
+    shearSec(R, 'sy', 3 * R.Fm, ysec - P.c / 2, R.dy, bwy, R.B / 2 - ysec, R.B / 2 - R.s / 2, R.Asp2, P.phi);
+    R.bt0 = 1 + 0.6 * (P.M * 1e3 / R.N) * (4 * P.c / (1.5 * P.c * P.c));
+    R.Fmax = R.Fu; R.sgs = R.rq * 434.78 * R.fx.As / R.Asp; R.sgs2 = R.rq * 434.78 * R.fy.As / R.Asp2;
+    R.spr = (R.B - 2 * CCV - P.phi) / (P.nb - 1); R.spr2 = (R.L - 2 * CCV - P.phi) / (P.nb2 - 1);
+    R.smx = cInterp(T73, R.sgs); R.smx2 = cInterp(T73, R.sgs2);
+    R.steelOK = R.Asp >= Math.max(R.fx.As, R.fx.Asmin) - 1e-6 && R.Asp2 >= Math.max(R.fy.As, R.fy.Asmin) - 1e-6;
+    R.crackOK = R.spr <= R.smx + 1e-9 && R.spr2 <= R.smx2 + 1e-9;
+    R.shearOK = R.sx.ok && R.sy.ok;
+  } else {
+    R.Fser = (R.Ns + R.W) / n; R.Fm = R.N / n; R.Fmax = R.Fm; R.Fmin = R.Fser;
+    R.d = P.h - CCV - (n === 2 ? 0.5 : 1.5) * P.phi;
+    R.T = R.N * R.s / ((n === 2 ? 4 : 8) * R.d); R.As = (n === 2 ? 1 : 2) * R.T * 1e3 / 435;
+    R.Asmin = CRMIN * R.B * R.d;
+    R.fracBand = R.wide && n === 4 ? Math.min(1, 2 * 3 * P.ph / (R.B - 2 * CCV)) : 1; R.Aspe = R.Asp * R.fracBand;
+    const bw = R.wide && n === 4 ? Math.min(R.B, 2 * 3 * P.ph) : R.B;
+    const xsec = R.s / 2 - P.ph / 2 + P.ph / 5;
+    shearSec(R, 'sx', (n / 2) * R.Fm, xsec - P.c / 2, R.d, bw, R.L / 2 - xsec, R.L / 2 - R.s / 2, R.Aspe, P.phi);
+    R.bt0 = 1;
+    if (n === 2){ R.d2 = P.h - CCV - P.phi - 16 / 2; R.Asmin2 = CRMIN * R.L * R.d2; }
+    R.sgs = R.rq * 434.78 * R.As / R.Asp; R.smx = cInterp(T73, R.sgs); R.spr = (R.B - 2 * CCV - P.phi) / (P.nb - 1);
+    R.steelOK = R.Aspe >= Math.max(R.As, R.Asmin) - 1e-6; R.crackOK = R.spr <= R.smx + 1e-9; R.shearOK = R.sx.ok;
+  }
+  R.vE0 = R.bt0 * R.N * 1e3 / (4 * P.c * R.dav); R.faceOK = R.vE0 <= CVRMAX + 1e-9; R.vEp = R.Fmax * 1e3 / (R.up * R.dav);
+  R.pileOK = R.Fser <= P.Fp + 1e-9 && R.Fmin >= 0; R.enough = n >= R.nreq - 1e-9;
+  return R;
+}
+function redrawCap(userEdit){
+  const P = cin, R = cCalc(P), pl = ok => ok ? '<span class="ok">✓</span>' : '<span class="bad">✗</span>';
+  if (!R.ok){ el('cKV').innerHTML = kvHtml([[Lg('check the inputs', 'semak input'), '–', 'bad']]); el('cTable').innerHTML = ''; el('cDraw').innerHTML = ''; return; }
+  const six = R.n === 6, S = R.sx;
+  const kv = [[Lg('piles needed · used', 'pile diperlukan · digunakan'), `${f(R.nreq, 2)} · ${R.n}`, R.enough ? 'ok' : 'bad'],
+              [Lg('cap B × L × h', 'pile cap B × L × h'), `${f(R.B, 0)} × ${f(R.L, 0)} × ${f(P.h, 0)}`],
+              six ? ['M<sub>xx</sub> · M<sub>yy</sub>', `${f(R.Mx, 1)} · ${f(R.My, 1)} kN m`] : [Lg(R.n === 2 ? 'tie force T' : 'T, each truss', R.n === 2 ? 'daya tie T' : 'T, setiap truss'), `${f(R.T, 1)} kN`],
+              six ? [Lg('A<sub>s</sub> needed · given, along', 'A<sub>s</sub> perlu · diberi, sepanjang'), `${f(Math.max(R.fx.As, R.fx.Asmin), 0)} · ${f(R.Asp, 0)} mm²`, R.Asp >= Math.max(R.fx.As, R.fx.Asmin) - 1e-6 ? 'ok' : 'bad']
+                  : [Lg('A<sub>s</sub> needed · counted', 'A<sub>s</sub> perlu · dikira'), `${f(Math.max(R.As, R.Asmin), 0)} · ${f(R.Aspe, 0)} mm²`, R.steelOK ? 'ok' : 'bad'],
+              ['β · a<sub>v</sub>/d', `${f(S.beta, 3)} · ${f(S.av / S.d, 2)}` + (S.floor ? Lg(' (floor)', ' (lantai)') : '')],
+              ['V<sub>Ed,red</sub> · V<sub>Rd,c</sub>', `${f(S.VE, 1)} · ${f(S.VRc, 1)} kN`, S.ok ? 'ok' : 'bad']];
+  if (six) kv.push([Lg('across: V<sub>Ed,red</sub> · V<sub>Rd,c</sub>', 'merentas: V<sub>Ed,red</sub> · V<sub>Rd,c</sub>'), `${f(R.sy.VE, 1)} · ${f(R.sy.VRc, 1)} kN`, R.sy.ok ? 'ok' : 'bad']);
+  kv.push([Lg('column face v · limit', 'muka column v · had'), `${f(R.vE0, 2)} · ${f(CVRMAX, 2)} N/mm²`, R.faceOK ? 'ok' : 'bad']);
+  el('cKV').innerHTML = kvHtml(kv);
+  const row = (ref, txt, ok) => [ref, txt, ok == null ? '' : pl(ok)];
+  const rows = [row('Unit 11', `N = ${f(R.Ns, 0)} kN; W = 25 × ${f(R.B / 1000, 2)} × ${f(R.L / 1000, 2)} × ${f(P.h / 1000, 2)} = ${f(R.W, 1)} kN; n = (${f(R.Ns, 0)} + ${f(R.W, 1)})/${f(P.Fp, 0)} = ${f(R.nreq, 2)} ≤ ${R.n}; ${Lg('largest service pile load', 'service load pile terbesar')} ${f(R.Fser, 1)} ≤ ${f(P.Fp, 0)} kN`, R.enough && R.pileOK),
+                row('§1', `s = ${f(P.k, 1)} × ${f(P.ph, 0)} = ${f(R.s, 0)} mm; ${Lg('depth guide', 'panduan kedalaman')} ${f(R.hg, 0)} mm (h = ${f(P.h, 0)}); N<sub>Ed</sub> = ${f(R.N, 1)} kN`, null)];
+  if (six){
+    rows.push(row('(12.5)', `F<sub>max</sub> = ${f(R.Fm, 1)} + ${f(P.M, 0)} × ${f(R.s / 1000, 2)}/${f(R.Ix, 3)} = ${f(R.Fu, 1)} kN; M<sub>xx</sub> = 2 × ${f(R.Fu, 1)} × ${f(R.s / 1000 - P.c / 2000, 3)} = ${f(R.Mx, 1)}; M<sub>yy</sub> = 3 × ${f(R.Fm, 1)} × ${f(R.s / 2000 - P.c / 2000, 3)} = ${f(R.My, 1)} kN m`, null));
+    rows.push(row('RCD I', `d<sub>x</sub> = ${f(R.dx, 1)}: A<sub>s</sub> = ${f(R.fx.As, 0)}, A<sub>s,min</sub> = ${f(R.fx.Asmin, 0)}, ${P.nb}H${P.phi} = ${f(R.Asp, 0)}; d<sub>y</sub> = ${f(R.dy, 1)}: A<sub>s</sub> = ${f(R.fy.As, 0)}, A<sub>s,min</sub> = ${f(R.fy.Asmin, 0)}, ${P.nb2}H${P.phi} = ${f(R.Asp2, 0)} mm²`, R.steelOK));
+  } else {
+    rows.push(row(R.n === 2 ? '(12.1)' : '(12.3)', `d = ${f(R.d, 1)} mm; T = ${f(R.N, 1)} × ${f(R.s, 0)}/(${R.n === 2 ? 4 : 8} × ${f(R.d, 1)}) = ${f(R.T, 1)} kN` + (R.n === 4 ? Lg(' per truss', ' setiap truss') : ''), null));
+    rows.push(row('(12.4)', `A<sub>s</sub> = ${R.n === 4 ? '2 × ' : ''}${f(R.T, 1)} × 10³/435 = ${f(R.As, 0)}; A<sub>s,min</sub> = ${f(R.Asmin, 0)}; ${P.nb}H${P.phi} = ${f(R.Asp, 0)} mm²` + (R.fracBand < 1 ? Lg(`, of which ${f(R.Aspe, 0)} within 1.5φ of the piles`, `, daripadanya ${f(R.Aspe, 0)} dalam lingkungan 1.5φ dari pile`) : '') + (R.n === 2 ? Lg(`; across: A<sub>s,min</sub> = ${f(R.Asmin2, 0)} mm²`, `; merentas: A<sub>s,min</sub> = ${f(R.Asmin2, 0)} mm²`) : ''), R.steelOK));
+  }
+  const shearRow = (Sx, lab) => row('(12.6)–(12.9)', `${lab}V<sub>Ed</sub> = ${f(Sx.VEs, 1)} kN; a<sub>v</sub> = ${f(Sx.av, 0)} ${Sx.floor ? '&lt;' : '≥'} 0.5d = ${f(0.5 * Sx.d, 0)} mm: β = ${f(Sx.beta, 3)}` + (Sx.anch ? Lg(` (anchored: ${f(Sx.lanc, 0)} ≥ l<sub>bd</sub> ${f(Sx.lbd, 0)})`, ` (di-anchor: ${f(Sx.lanc, 0)} ≥ l<sub>bd</sub> ${f(Sx.lbd, 0)})`) : Lg(` but not anchored (${f(Sx.lanc, 0)} &lt; ${f(Sx.lbd, 0)}): β = 1`, ` tetapi tidak di-anchor (${f(Sx.lanc, 0)} &lt; ${f(Sx.lbd, 0)}): β = 1`))
+    + `; V<sub>Ed,red</sub> = ${f(Sx.VE, 1)} kN; ρ<sub>l</sub> ${Sx.Asl > 0 ? Lg('counted', 'dikira') : Lg(`= 0 (${f(Sx.ex, 0)} &lt; l<sub>bd</sub> + d = ${f(Sx.lr, 0)})`, `= 0 (${f(Sx.ex, 0)} &lt; l<sub>bd</sub> + d = ${f(Sx.lr, 0)})`)}; b = ${f(Sx.bw, 0)}: V<sub>Rd,c</sub> = ${f(Sx.VRc, 1)} kN`, Sx.ok);
+  rows.push(shearRow(S, six ? Lg('Section across the width: ', 'Section merentas lebar: ') : ''));
+  if (six) rows.push(shearRow(R.sy, Lg('Section along the length: ', 'Section sepanjang panjang: ')));
+  rows.push(row('(12.10)', `${R.bt0 > 1 ? 'β = ' + f(R.bt0, 3) + '; ' : ''}d = ${f(R.dav, 0)} mm: v<sub>Ed,0</sub> = ${f(R.vE0, 2)} ≤ 0.4νf<sub>cd</sub> = ${f(CVRMAX, 2)} N/mm²? ${Lg('(0.5νf<sub>cd</sub> = ' + f(1.25 * CVRMAX, 2) + ' in the notes); pile', '(0.5νf<sub>cd</sub> = ' + f(1.25 * CVRMAX, 2) + ' dalam nota); pile')} ${f(R.vEp, 2)} N/mm²`, R.faceOK && R.vEp <= CVRMAX));
+  rows.push(row('Table 7.3N', six ? `σ<sub>s</sub> = ${f(R.sgs, 1)} → ${f(R.smx, 0)} ≥ ${f(R.spr, 0)} mm; ${Lg('across', 'merentas')} ${f(R.sgs2, 1)} → ${f(R.smx2, 0)} ≥ ${f(R.spr2, 0)} mm` : `σ<sub>s</sub> = ${f(R.rq, 3)} × 434.8 × ${f(R.As, 0)}/${f(R.Asp, 0)} = ${f(R.sgs, 1)} N/mm² → s<sub>max</sub> = ${f(R.smx, 0)} ≥ ${f(R.spr, 0)} mm?`, R.crackOK));
+  if (R.wide) rows.push(row('§2, §5', Lg('s &gt; 3φ: only the bars within 1.5φ of a pile centre count, the enhancement applies to strips 3φ wide, and the piles stand outside 2d: check punching as for a slab (Unit 10), not done here.', 's &gt; 3φ: hanya bar dalam lingkungan 1.5φ dari pusat pile dikira, enhancement digunakan pada jalur selebar 3φ, dan pile berada di luar 2d: semak punching seperti slab (Unit 10), tidak dibuat di sini.'), false));
+  if (!R.geomOK) rows.push(row('!', Lg('The column face reaches the shear section: widen the spacing or check the inputs.', 'Muka column mencapai shear section: besarkan jarak atau semak input.'), false));
+  el('cTable').innerHTML = `<thead><tr><th>Ref</th><th>${Lg('Check', 'Semakan')}</th><th class="out">OK</th></tr></thead><tbody>` + rows.map(r => `<tr><td class="ref">${r[0]}</td><td class="m">${r[1]}</td><td class="out">${r[2]}</td></tr>`).join('') + '</tbody>';
+  drawCap(R);
+  if (userEdit && R.n === 4 && P.G === 3500 && P.Q === 2500 && P.h > 1100 && R.shearOK) milestone('deepen');
+  if (userEdit && R.wide) milestone('wide');
+}
+function drawCap(R){
+  const svg = el('cDraw'); svg.innerHTML = ''; const P = cin;
+  const sc = Math.min(520 / R.L, 180 / R.B), cx = 320, cy = 114, X = x => cx + x * sc, Y = y => cy + y * sc;
+  // plan
+  S('rect', {x: X(-R.L / 2), y: Y(-R.B / 2), width: R.L * sc, height: R.B * sc, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
+  const piles = [];
+  if (R.n === 2) piles.push([-R.s / 2, 0], [R.s / 2, 0]);
+  else if (R.n === 4) [[-1, -1], [1, -1], [1, 1], [-1, 1]].forEach(([a, b]) => piles.push([a * R.s / 2, b * R.s / 2]));
+  else [-1, 0, 1].forEach(i => [-0.5, 0.5].forEach(j => piles.push([i * R.s, j * R.s])));
+  if (R.wide && R.n !== 6){ const ys = R.n === 2 ? [0] : [-R.s / 2, R.s / 2]; ys.forEach(y => { const y0 = Math.max(y - 1.5 * P.ph, -R.B / 2), y1 = Math.min(y + 1.5 * P.ph, R.B / 2); S('rect', {x: X(-R.L / 2), y: Y(y0), width: R.L * sc, height: (y1 - y0) * sc, fill: 'var(--wash-flag)', stroke: 'none'}, svg); }); }
+  if (R.n !== 6){ const lines = R.n === 2 ? [[0, 1]] : [[0, 1], [3, 2], [0, 3], [1, 2]]; lines.forEach(([a, b], k) => S('line', {x1: X(piles[a][0]), y1: Y(piles[a][1]), x2: X(piles[b][0]), y2: Y(piles[b][1]), stroke: k < 2 ? 'var(--bad)' : 'var(--ok)', 'stroke-width': 3.5}, svg)); }
+  const pr = Math.max(5, P.ph / 2 * sc);
+  piles.forEach(([x, y], i) => { if (P.shape === 'sq') S('rect', {x: X(x) - pr, y: Y(y) - pr, width: 2 * pr, height: 2 * pr, fill: 'var(--ink-3)'}, svg); else S('circle', {cx: X(x), cy: Y(y), r: pr, fill: 'var(--ink-3)'}, svg); });
+  const cw = P.c * sc; S('rect', {x: cx - cw / 2, y: cy - cw / 2, width: cw, height: cw, fill: 'var(--surface-2)', stroke: 'var(--ink)'}, svg);
+  // shear section(s)
+  const xsec = R.n === 6 ? R.s - P.ph / 2 + P.ph / 5 : R.s / 2 - P.ph / 2 + P.ph / 5;
+  S('line', {x1: X(xsec), x2: X(xsec), y1: Y(-R.B / 2) - 10, y2: Y(R.B / 2) + 10, stroke: 'var(--unbraced)', 'stroke-width': 2.4, 'stroke-dasharray': '7 5'}, svg);
+  if (R.n === 6){ const ysec = R.s / 2 - P.ph / 2 + P.ph / 5; S('line', {x1: X(-R.L / 2) - 10, x2: X(R.L / 2) + 10, y1: Y(-ysec), y2: Y(-ysec), stroke: 'var(--flight)', 'stroke-width': 2.4, 'stroke-dasharray': '7 5'}, svg);
+    S('line', {x1: cx + cw / 2, x2: cx + cw / 2, y1: Y(-R.B / 2), y2: Y(R.B / 2), stroke: 'var(--ink-3)', 'stroke-width': 1.2, 'stroke-dasharray': '3 3'}, svg); }
+  T(svg, X(xsec) + 6, Y(-R.B / 2) - 14, Lg('shear section', 'shear section'), {class: 'small', style: 'fill:var(--unbraced)'});
+  T(svg, cx, Y(R.B / 2) + 18, `${f(R.B, 0)} × ${f(R.L, 0)} mm` + (R.n === 6 ? '' : Lg(R.n === 2 ? ' · tie in rust' : ' · ties: rust along x, green along y', R.n === 2 ? ' · tie warna karat' : ' · tie: karat sepanjang x, hijau sepanjang y')), {'text-anchor': 'middle', class: 'small'});
+  // elevation
+  const sc2 = Math.min(520 / R.L, 140 / P.h), yt = 272, E = x => cx + x * sc2, H = y => yt + y * sc2;
+  S('rect', {x: E(-R.L / 2), y: H(0), width: R.L * sc2, height: P.h * sc2, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
+  S('rect', {x: cx - P.c * sc2 / 2, y: H(0) - 28, width: P.c * sc2, height: 28, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
+  const ex = R.n === 2 ? [-R.s / 2, R.s / 2] : R.n === 4 ? [-R.s / 2, R.s / 2] : [-R.s, 0, R.s];
+  ex.forEach(x => S('rect', {x: E(x - P.ph / 2), y: H(P.h - 75), width: P.ph * sc2, height: 75 * sc2 + 30, fill: 'var(--ink-3)'}, svg));
+  const dd = R.n === 6 ? R.dx : R.d, ytie = H(dd);
+  S('path', {d: `M${E(-R.L / 2 + 75)},${H(75)} L${E(-R.L / 2 + 75)},${ytie} L${E(R.L / 2 - 75)},${ytie} L${E(R.L / 2 - 75)},${H(75)}`, fill: 'none', stroke: 'var(--bad)', 'stroke-width': 3}, svg);
+  if (R.n !== 6){ [-R.s / 2, R.s / 2].forEach(x => S('line', {x1: cx, y1: H(0) + 6, x2: E(x), y2: ytie, stroke: 'var(--flight)', 'stroke-width': 4, 'stroke-linecap': 'round'}, svg)); }
+  S('line', {x1: E(xsec), x2: E(xsec), y1: H(0) - 12, y2: H(P.h) + 12, stroke: 'var(--unbraced)', 'stroke-width': 2.2, 'stroke-dasharray': '7 5'}, svg);
+  const yd = H(P.h) + 44, S0 = R.sx;
+  S('line', {x1: cx + P.c * sc2 / 2, x2: E(xsec), y1: yd, y2: yd, stroke: 'var(--unbraced)', 'stroke-width': 2}, svg);
+  TS(svg, (cx + P.c * sc2 / 2 + E(xsec)) / 2, yd + 18, [['a'], ['v', 1], [' = ' + f(S0.av, 0)]], {'text-anchor': 'middle', class: 'small', style: 'fill:var(--unbraced)'});
+  const half = cx + P.c * sc2 / 2 + 0.5 * S0.d * sc2;
+  S('line', {x1: cx + P.c * sc2 / 2, x2: half, y1: yd + 30, y2: yd + 30, stroke: 'var(--ink-3)', 'stroke-width': 1.6, 'stroke-dasharray': '4 3'}, svg);
+  T(svg, half + 6, yd + 34, '0.5d = ' + f(0.5 * S0.d, 0), {class: 'small', style: 'fill:var(--ink-2)'});
+  T(svg, E(R.L / 2) + 8, H(P.h / 2), `h ${f(P.h, 0)}`, {class: 'small'});
+}
+function cToOwn(){ if (cCaseK !== 'own'){ cCaseK = 'own'; fillCCases(); } }
+Object.keys(CF).forEach(id => el(id).addEventListener('input', () => { const v = parseFloat(el(id).value); if (!isFinite(v)) return; cin[CF[id]] = v; if (CF[id] === 'G' || CF[id] === 'Q') cin.rq = null; cToOwn(); redrawCap(true); }));
+segGroup(el('cLay'), v => { cin.lay = v; if (v === '6' && !(cin.nb2 >= 2)) cin.nb2 = cin.nb; cToOwn(); syncC(); redrawCap(true); });
+segGroup(el('cShape'), v => { cin.shape = v; cToOwn(); redrawCap(true); });
+el('cCase').addEventListener('change', () => { cCaseK = el('cCase').value; if (CCASES[cCaseK].v) Object.assign(cin, CCASES[cCaseK].v); fillCCases(); syncC(); redrawCap(false); if (cCaseK === 'f13') milestone('beam'); });
+/* Activity 12A: the tie force of F12 at 1100 and 1700 mm */
+function paintCA(){
+  el('aT1').value = caSt.t1 != null ? caSt.t1 : ''; el('aT2').value = caSt.t2 != null ? caSt.t2 : '';
+  const o = el('aTOut'); if (!caSt.shown){ o.hidden = true; return; }
+  const a = cCalc(CCASES.f12.v), b = cCalc(CCASES.f12r.v), e1 = Math.abs(caSt.t1 - a.T) / a.T, e2 = Math.abs(caSt.t2 - b.T) / b.T, ok = e1 <= 0.01 && e2 <= 0.01;
+  let why = '';
+  if (Math.abs(caSt.t1 - 2 * a.T) / a.T < 0.01) why = Lg(' Your first value is 2T: that is what the bars in one direction carry, for both trusses together. Each truss carries T = Ns/8d.', ' Nilai pertama anda ialah 2T: itulah yang dibawa oleh bar dalam satu arah, bagi kedua-dua truss bersama. Setiap truss membawa T = Ns/8d.');
+  else if (Math.abs(caSt.t1 - 8475 * 1500 / (8 * 1100)) < 3) why = Lg(' Your first value uses h = 1100 mm for d: the tie sits at d = h − c − 1.5φ = 987.5 mm.', ' Nilai pertama anda menggunakan h = 1100 mm sebagai d: tie berada pada d = h − c − 1.5φ = 987.5 mm.');
+  o.hidden = false; o.className = 'verdict ' + (ok ? 'ok' : 'bad');
+  o.innerHTML = (ok ? Lg('Right. ', 'Betul. ') : Lg('Compare. ', 'Bandingkan. ')) + Lg(`h = 1100: d = 987.5, T = 8475 × 1500/(8 × 987.5) = ${f(a.T, 1)} kN (yours ${f(caSt.t1, 1)}); steel each way 2T/0.435 = ${f(a.As, 0)} mm². h = 1700: d = 1587.5, T = ${f(b.T, 1)} kN (yours ${f(caSt.t2, 1)}); ${f(b.As, 0)} mm² each way, but A<sub>s,min</sub> = ${f(b.Asmin, 0)} governs. T falls as 1/d; the minimum rises with d.`,
+    `h = 1100: d = 987.5, T = 8475 × 1500/(8 × 987.5) = ${f(a.T, 1)} kN (anda ${f(caSt.t1, 1)}); steel setiap arah 2T/0.435 = ${f(a.As, 0)} mm². h = 1700: d = 1587.5, T = ${f(b.T, 1)} kN (anda ${f(caSt.t2, 1)}); ${f(b.As, 0)} mm² setiap arah, tetapi A<sub>s,min</sub> = ${f(b.Asmin, 0)} menentukan. T menurun mengikut 1/d; nilai minimum meningkat dengan d.`) + why;
+}
+['aT1', 'aT2'].forEach(id => el(id).addEventListener('input', () => { const v = parseFloat(el(id).value); caSt[id === 'aT1' ? 't1' : 't2'] = isFinite(v) ? v : null; store(CAKEY, caSt); }));
+el('aTReveal').addEventListener('click', () => {
+  if (!(caSt.t1 > 0 && caSt.t2 > 0)){ const o = el('aTOut'); o.hidden = false; o.className = 'verdict bad'; o.innerHTML = Lg('Type both values first.', 'Taip kedua-dua nilai dahulu.'); return; }
+  caSt.shown = true; store(CAKEY, caSt); milestone('truss');
+  cCaseK = 'f12'; Object.assign(cin, CCASES.f12.v); fillCCases(); syncC(); paintCA(); redrawCap(false);
+});
+/* Activity 12B: does a deeper cap lower V_Ed,red? */
+segGroup(el('cPred'), v => { cbSt = Object.assign({}, cbSt, {pred: v}); store(CBKEY, cbSt); });
+el('cReveal').addEventListener('click', () => {
+  if (!cbSt.pred){ const o = el('cOut'); o.hidden = false; o.className = 'verdict bad'; o.innerHTML = Lg('Choose A, B, C or D first.', 'Pilih A, B, C atau D dahulu.'); return; }
+  cbSt.shown = true; store(CBKEY, cbSt); paintCB(); milestone('floor');
+  cCaseK = 'f12r'; Object.assign(cin, CCASES.f12r.v); fillCCases(); syncC(); redrawCap(false);
+});
+function paintCB(){
+  setSeg(el('cPred'), cbSt.pred || '');
+  const o = el('cOut'); if (!cbSt.shown){ o.hidden = true; return; }
+  const a = cCalc(CCASES.f12.v), b = cCalc(CCASES.f12r.v);
+  o.hidden = false; o.className = 'verdict ' + (cbSt.pred === 'B' ? 'ok' : 'bad');
+  o.innerHTML = (cbSt.pred === 'B' ? Lg('Right. ', 'Betul. ') : Lg('The answer is B. ', 'Jawapannya B. ')) +
+    Lg(`a<sub>v</sub> = 350 mm in both. At 1100 mm, 0.5d = 494 mm; at 1700 mm, 794 mm: a<sub>v</sub> stays below 0.5d, β stays 0.25 and V<sub>Ed,red</sub> = ${f(a.sx.VE, 1)} kN in both. What grows is V<sub>Rd,c</sub>: ${f(a.sx.VRc, 1)} → ${f(b.sx.VRc, 1)} kN. Answer A is β = 350/3175 = 0.110, ${f(b.sx.betaM * 4237.5, 0)} kN: the reasoning the floor rules out.`,
+       `a<sub>v</sub> = 350 mm dalam kedua-duanya. Pada 1100 mm, 0.5d = 494 mm; pada 1700 mm, 794 mm: a<sub>v</sub> kekal di bawah 0.5d, β kekal 0.25 dan V<sub>Ed,red</sub> = ${f(a.sx.VE, 1)} kN dalam kedua-duanya. Yang bertambah ialah V<sub>Rd,c</sub>: ${f(a.sx.VRc, 1)} → ${f(b.sx.VRc, 1)} kN. Jawapan A ialah β = 350/3175 = 0.110, ${f(b.sx.betaM * 4237.5, 0)} kN: penaakulan yang ditolak oleh lantai itu.`);
+}
+
+/* ---------- start ---------- */
+function fillAllCases(){ fillPCases(); fillSCases(); fillTCases(); fillGCases(); fillCCases(); }
+function redrawAll(){ drawAct(); redrawPressure(false); paintB(); redrawSections(false); drawSheet(); paintAA(); redrawStrap(false); paintGB(); redrawGroup(false); paintCA(); paintCB(); redrawCap(false); }
+applyPrefs(false);
+fillAllCases(); syncP(); syncS(); syncT(); syncG(); syncC(); setSeg(el('tDia'), tDia); tPaint(); redrawAll();
+showTab((location.hash || '').slice(1) || 'pressure');
+window.addEventListener('hashchange', () => showTab((location.hash || '').slice(1)));
+
+</script>
+</body>
+</html>

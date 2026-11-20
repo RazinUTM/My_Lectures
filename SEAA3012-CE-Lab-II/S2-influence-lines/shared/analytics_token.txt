@@ -1,0 +1,2 @@
+# Cloudflare Web Analytics site token for razinutm.github.io (cookie-free visit counts; see README "Feedback and visits").
+# Paste the token on the first line below this comment and commit; leave it empty for no beacon.

@@ -1,0 +1,641 @@
+{
+ "app": "seaa4333",
+ "part": "u1",
+ "title": "Unit 1 Staircases I",
+ "folder": "01-staircases-1",
+ "course_meta": {
+  "key": "seaa4333-u1-v1",
+  "notes": [
+   "n1",
+   "n2",
+   "n3",
+   "n4",
+   "n5",
+   "n6"
+  ],
+  "slides": 34,
+  "examples": [
+   "x1",
+   "x2",
+   "x3"
+  ],
+  "cando": 5,
+  "targetMin": 45
+ },
+ "sections": [
+  {
+   "id": "start-outcomes",
+   "view": "start",
+   "anchor": null,
+   "selector": "ol.lo",
+   "title_en": "After this part you should be able to",
+   "title_ms": "Selepas bahagian ini, anda sepatutnya boleh"
+  },
+  {
+   "id": "notes-n1",
+   "view": "notes",
+   "anchor": "n1",
+   "title_en": "1. A stair is a slab that climbs",
+   "title_ms": "1. Tangga ialah slab yang mendaki",
+   "minutes": 5
+  },
+  {
+   "id": "notes-n2",
+   "view": "notes",
+   "anchor": "n2",
+   "title_en": "2. Geometry and the by-laws",
+   "title_ms": "2. Geometri dan by-law",
+   "minutes": 6
+  },
+  {
+   "id": "notes-n3",
+   "view": "notes",
+   "anchor": "n3",
+   "title_en": "3. Average thickness and load on plan",
+   "title_ms": "3. Average thickness dan load on plan",
+   "minutes": 7
+  },
+  {
+   "id": "notes-n4",
+   "view": "notes",
+   "anchor": "n4",
+   "title_en": "4. The stair as a beam on plan",
+   "title_ms": "4. Tangga sebagai beam on plan",
+   "minutes": 7
+  },
+  {
+   "id": "notes-n5",
+   "view": "notes",
+   "anchor": "n5",
+   "title_en": "5. Designing the waist",
+   "title_ms": "5. Design waist",
+   "minutes": 8
+  },
+  {
+   "id": "notes-n6",
+   "view": "notes",
+   "anchor": "n6",
+   "title_en": "6. Detailing, and the kink",
+   "title_ms": "6. Detailing, dan kink",
+   "minutes": 6
+  },
+  {
+   "id": "slides-1",
+   "view": "slides",
+   "anchor": "1",
+   "title_en": "Slide 1: Staircases I",
+   "title_ms": "Slide 1: Staircases I"
+  },
+  {
+   "id": "slides-2",
+   "view": "slides",
+   "anchor": "2",
+   "title_en": "Slide 2: Four tools, one routine every week",
+   "title_ms": "Slide 2: Four tools, one routine every week"
+  },
+  {
+   "id": "slides-3",
+   "view": "slides",
+   "anchor": "3",
+   "title_en": "Slide 3: Five topics, fourteen Units",
+   "title_ms": "Slide 3: Five topics, fourteen Units"
+  },
+  {
+   "id": "slides-4",
+   "view": "slides",
+   "anchor": "4",
+   "title_en": "Slide 4: How the next three hours run",
+   "title_ms": "Slide 4: How the next three hours run"
+  },
+  {
+   "id": "slides-5",
+   "view": "slides",
+   "anchor": "5",
+   "title_en": "Slide 5: Five questions on slab design, no notes",
+   "title_ms": "Slide 5: Five questions on slab design, no notes"
+  },
+  {
+   "id": "slides-6",
+   "view": "slides",
+   "anchor": "6",
+   "title_en": "Slide 6: Two more",
+   "title_ms": "Slide 6: Two more"
+  },
+  {
+   "id": "slides-7",
+   "view": "slides",
+   "anchor": "7",
+   "title_en": "Slide 7: B, A, B, A, B, and what each means for a stair",
+   "title_ms": "Slide 7: B, A, B, A, B, and what each means for a stair"
+  },
+  {
+   "id": "slides-8",
+   "view": "slides",
+   "anchor": "8",
+   "title_en": "Slide 8: Which of these stairs is legal?",
+   "title_ms": "Slide 8: Which of these stairs is legal?"
+  },
+  {
+   "id": "slides-9",
+   "view": "slides",
+   "anchor": "9",
+   "title_en": "Slide 9: A stair is a slab that climbs",
+   "title_ms": "Slide 9: A stair is a slab that climbs"
+  },
+  {
+   "id": "slides-10",
+   "view": "slides",
+   "anchor": "10",
+   "title_en": "Slide 10: The parts of a stair",
+   "title_ms": "Slide 10: The parts of a stair"
+  },
+  {
+   "id": "slides-11",
+   "view": "slides",
+   "anchor": "11",
+   "title_en": "Slide 11: Four numbers fix the geometry",
+   "title_ms": "Slide 11: Four numbers fix the geometry"
+  },
+  {
+   "id": "slides-12",
+   "view": "slides",
+   "anchor": "12",
+   "title_en": "Slide 12: Our school has a 3.5 m storey. What is the least number of risers, and in how many flights?",
+   "title_ms": "Slide 12: Our school has a 3.5 m storey. What is the least number of risers, and in how many flights?"
+  },
+  {
+   "id": "slides-13",
+   "view": "slides",
+   "anchor": "13",
+   "title_en": "Slide 13: B: 20 risers of 175 mm, in two flights of 10",
+   "title_ms": "Slide 13: B: 20 risers of 175 mm, in two flights of 10"
+  },
+  {
+   "id": "slides-14",
+   "view": "slides",
+   "anchor": "14",
+   "title_en": "Slide 14: Stair Audit: is our stair legal?",
+   "title_ms": "Slide 14: Stair Audit: is our stair legal?"
+  },
+  {
+   "id": "slides-15",
+   "view": "slides",
+   "anchor": "15",
+   "title_en": "Slide 15: From waist to load on plan",
+   "title_ms": "Slide 15: From waist to load on plan"
+  },
+  {
+   "id": "slides-16",
+   "view": "slides",
+   "anchor": "16",
+   "title_en": "Slide 16: Same waist (150 mm) and going (260 mm). R rises from 150 to 180 mm. How much does the self-weight on plan rise?",
+   "title_ms": "Slide 16: Same waist (150 mm) and going (260 mm). R rises from 150 to 180 mm. How much does the self-weight on plan rise?"
+  },
+  {
+   "id": "slides-17",
+   "view": "slides",
+   "anchor": "17",
+   "title_en": "Slide 17: B: about 10%, from 6.20 to 6.81 kN/m²",
+   "title_ms": "Slide 17: B: about 10%, from 6.20 to 6.81 kN/m²"
+  },
+  {
+   "id": "slides-18",
+   "view": "slides",
+   "anchor": "18",
+   "title_en": "Slide 18: Model the stair as a beam on plan",
+   "title_ms": "Slide 18: Model the stair as a beam on plan"
+  },
+  {
+   "id": "slides-19",
+   "view": "slides",
+   "anchor": "19",
+   "title_en": "Slide 19: Flight 1 of our 3.5 m storey, between two beams",
+   "title_ms": "Slide 19: Flight 1 of our 3.5 m storey, between two beams"
+  },
+  {
+   "id": "slides-20",
+   "view": "slides",
+   "anchor": "20",
+   "title_en": "Slide 20: Eleven steps; three are new",
+   "title_ms": "Slide 20: Eleven steps; three are new"
+  },
+  {
+   "id": "slides-21",
+   "view": "slides",
+   "anchor": "21",
+   "title_en": "Slide 21: Faded Example 1.2",
+   "title_ms": "Slide 21: Faded Example 1.2"
+  },
+  {
+   "id": "slides-22",
+   "view": "slides",
+   "anchor": "22",
+   "title_en": "Slide 22: Check: L = 4325 mm, M = 30.2 kNm",
+   "title_ms": "Slide 22: Check: L = 4325 mm, M = 30.2 kNm"
+  },
+  {
+   "id": "slides-23",
+   "view": "slides",
+   "anchor": "23",
+   "title_en": "Slide 23: Break",
+   "title_ms": "Slide 23: Break"
+  },
+  {
+   "id": "slides-24",
+   "view": "slides",
+   "anchor": "24",
+   "title_en": "Slide 24: What a stair adds to the slab checks",
+   "title_ms": "Slide 24: What a stair adds to the slab checks"
+  },
+  {
+   "id": "slides-25",
+   "view": "slides",
+   "anchor": "25",
+   "title_en": "Slide 25: A flight with its landing spans from a monolithic beam (A) to a brick wall (B). Which pair is right?",
+   "title_ms": "Slide 25: A flight with its landing spans from a monolithic beam (A) to a brick wall (B). Which pair is right?"
+  },
+  {
+   "id": "slides-26",
+   "view": "slides",
+   "anchor": "26",
+   "title_en": "Slide 26: The flight meets its top landing. Which bottom-bar detail is right at the kink?",
+   "title_ms": "Slide 26: The flight meets its top landing. Which bottom-bar detail is right at the kink?"
+  },
+  {
+   "id": "slides-27",
+   "view": "slides",
+   "anchor": "27",
+   "title_en": "Slide 27: B and B",
+   "title_ms": "Slide 27: B and B"
+  },
+  {
+   "id": "slides-28",
+   "view": "slides",
+   "anchor": "28",
+   "title_en": "Slide 28: Stair S1 has four slips. Find them.",
+   "title_ms": "Slide 28: Stair S1 has four slips. Find them."
+  },
+  {
+   "id": "slides-29",
+   "view": "slides",
+   "anchor": "29",
+   "title_en": "Slide 29: Four small slips, one unsafe stair",
+   "title_ms": "Slide 29: Four small slips, one unsafe stair"
+  },
+  {
+   "id": "slides-30",
+   "view": "slides",
+   "anchor": "30",
+   "title_en": "Slide 30: D1: a flight with a bottom landing",
+   "title_ms": "Slide 30: D1: a flight with a bottom landing"
+  },
+  {
+   "id": "slides-31",
+   "view": "slides",
+   "anchor": "31",
+   "title_en": "Slide 31: Propose the stairs for your building",
+   "title_ms": "Slide 31: Propose the stairs for your building"
+  },
+  {
+   "id": "slides-32",
+   "view": "slides",
+   "anchor": "32",
+   "title_en": "Slide 32: Sanity-check the load before you design",
+   "title_ms": "Slide 32: Sanity-check the load before you design"
+  },
+  {
+   "id": "slides-33",
+   "view": "slides",
+   "anchor": "33",
+   "title_en": "Slide 33: Before Week 2",
+   "title_ms": "Slide 33: Before Week 2"
+  },
+  {
+   "id": "slides-34",
+   "view": "slides",
+   "anchor": "34",
+   "title_en": "Slide 34: Before you leave",
+   "title_ms": "Slide 34: Before you leave"
+  },
+  {
+   "id": "examples-x1",
+   "view": "examples",
+   "anchor": "x1",
+   "title_en": "Example 1 · Worked Example 1.1: a flight between two beams",
+   "title_ms": "Contoh 1 · Worked Example 1.1: flight di antara dua beam"
+  },
+  {
+   "id": "examples-x2",
+   "view": "examples",
+   "anchor": "x2",
+   "title_en": "Example 2 · Faded Example 1.2: a flight with its top landing",
+   "title_ms": "Contoh 2 · Faded Example 1.2: flight dengan landing atas"
+  },
+  {
+   "id": "examples-x3",
+   "view": "examples",
+   "anchor": "x3",
+   "title_en": "Example 3 · Explain-type questions",
+   "title_ms": "Contoh 3 · Soalan jenis terangkan"
+  },
+  {
+   "id": "exercises-b1",
+   "view": "exercises",
+   "anchor": "b1",
+   "title_en": "Exercise B1 · Risers and flights for a storey",
+   "title_ms": "Latihan B1 · Riser dan flight bagi satu tingkat"
+  },
+  {
+   "id": "exercises-b2",
+   "view": "exercises",
+   "anchor": "b2",
+   "title_en": "Exercise B2 · Average thickness and design loads on plan",
+   "title_ms": "Latihan B2 · Average thickness dan design load on plan"
+  },
+  {
+   "id": "exercises-b3",
+   "view": "exercises",
+   "anchor": "b3",
+   "title_en": "Exercise B3 · Span, total load and design moment",
+   "title_ms": "Latihan B3 · Span, total load dan design moment"
+  },
+  {
+   "id": "exercises-b4",
+   "view": "exercises",
+   "anchor": "b4",
+   "title_en": "Exercise B4 · Reactions of a flight with its landing",
+   "title_ms": "Latihan B4 · Reaction bagi flight dengan landing-nya"
+  },
+  {
+   "id": "exercises-b5",
+   "view": "exercises",
+   "anchor": "b5",
+   "title_en": "Exercise B5 · Flexure of the waist",
+   "title_ms": "Latihan B5 · Flexure bagi waist"
+  },
+  {
+   "id": "exercises-b6",
+   "view": "exercises",
+   "anchor": "b6",
+   "title_en": "Exercise B6 · Deflection check with the right K",
+   "title_ms": "Latihan B6 · Semakan deflection dengan K yang betul"
+  },
+  {
+   "id": "exercises-quick",
+   "view": "exercises",
+   "anchor": null,
+   "selector": "#v-exercises div.q",
+   "title_en": "Exercises: quick concept questions",
+   "title_ms": "Latihan: soalan konsep pantas"
+  },
+  {
+   "id": "lab-audit",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"audit\"]",
+   "title_en": "Explorer task 1: Tab 1, “Check a measured stair”: enter a stair, yours from the…",
+   "title_ms": "Tugasan Explorer 1: Tab 1, “Semak tangga yang diukur”: masukkan satu tangga, sama a…"
+  },
+  {
+   "id": "lab-act1b",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"act1b\"]",
+   "title_en": "Explorer task 2: Tab 2: set R = 150, G = 260 and h = 150, then drag R to 180",
+   "title_ms": "Tugasan Explorer 2: Tab 2: tetapkan R = 150, G = 260 dan h = 150, kemudian seret R…"
+  },
+  {
+   "id": "lab-fe12",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"fe12\"]",
+   "title_en": "Explorer task 3: Tab 3: pick the example “FE 1.2” and compare L, F, M and the tw…",
+   "title_ms": "Tugasan Explorer 3: Tab 3: pilih contoh “FE 1.2” dan bandingkan L, F, M dan dua rea…"
+  },
+  {
+   "id": "lab-ends",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"ends\"]",
+   "title_en": "Explorer task 4: Tab 3: make both ends simply supported",
+   "title_ms": "Tugasan Explorer 4: Tab 3: jadikan kedua-dua hujung simply supported"
+  },
+  {
+   "id": "lab-kink",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"kink\"]",
+   "title_en": "Explorer task 5: Tab 4: decide which kink detail is right, A or B, then press “R…",
+   "title_ms": "Tugasan Explorer 5: Tab 4: tentukan detail kink yang betul, A atau B, kemudian teka…"
+  },
+  {
+   "id": "lab-s1",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"s1\"]",
+   "title_en": "Explorer task 6: Tab 5: find all four slips in Stair S1, tap their lines and pre…",
+   "title_ms": "Tugasan Explorer 6: Tab 5: cari keempat-empat kesilapan dalam Tangga S1, ketik bari…"
+  },
+  {
+   "id": "glossary-flight",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: flight",
+   "title_ms": "Glosari: flight"
+  },
+  {
+   "id": "glossary-landing",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: landing",
+   "title_ms": "Glosari: landing"
+  },
+  {
+   "id": "glossary-waist-h",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: waist h",
+   "title_ms": "Glosari: waist h"
+  },
+  {
+   "id": "glossary-rise-r-riser",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: rise R · riser",
+   "title_ms": "Glosari: rise R · riser"
+  },
+  {
+   "id": "glossary-going-g-tread",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: going G · tread",
+   "title_ms": "Glosari: going G · tread"
+  },
+  {
+   "id": "glossary-nosing",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: nosing",
+   "title_ms": "Glosari: nosing"
+  },
+  {
+   "id": "glossary-soffit",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: soffit",
+   "title_ms": "Glosari: soffit"
+  },
+  {
+   "id": "glossary-pitch",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: pitch θ",
+   "title_ms": "Glosari: pitch θ"
+  },
+  {
+   "id": "glossary-vertical-waist-thickness-y",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: vertical waist thickness y",
+   "title_ms": "Glosari: vertical waist thickness y"
+  },
+  {
+   "id": "glossary-average-thickness-t",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: average thickness t",
+   "title_ms": "Glosari: average thickness t"
+  },
+  {
+   "id": "glossary-load-on-plan",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: load on plan",
+   "title_ms": "Glosari: load on plan"
+  },
+  {
+   "id": "glossary-design-load-n-d",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: design load n_d",
+   "title_ms": "Glosari: design load n_d"
+  },
+  {
+   "id": "glossary-partial-factors-g-q",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: partial factors γ_G , γ_Q",
+   "title_ms": "Glosari: partial factors γ_G , γ_Q"
+  },
+  {
+   "id": "glossary-effective-span-l",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: effective span L",
+   "title_ms": "Glosari: effective span L"
+  },
+  {
+   "id": "glossary-one-way-slab-1-m-strip",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: one-way slab · 1 m strip",
+   "title_ms": "Glosari: one-way slab · 1 m strip"
+  },
+  {
+   "id": "glossary-continuous-end",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: continuous end",
+   "title_ms": "Glosari: continuous end"
+  },
+  {
+   "id": "glossary-simply-supported-end",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: simply supported end",
+   "title_ms": "Glosari: simply supported end"
+  },
+  {
+   "id": "glossary-hogging-moment",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: hogging moment",
+   "title_ms": "Glosari: hogging moment"
+  },
+  {
+   "id": "glossary-k-two-meanings",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: K, two meanings",
+   "title_ms": "Glosari: K, two meanings"
+  },
+  {
+   "id": "glossary-distribution-bars",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: distribution bars",
+   "title_ms": "Glosari: distribution bars"
+  },
+  {
+   "id": "glossary-top-bars",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: top bars",
+   "title_ms": "Glosari: top bars"
+  },
+  {
+   "id": "glossary-kink",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: kink",
+   "title_ms": "Glosari: kink"
+  },
+  {
+   "id": "glossary-ubbl",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: UBBL",
+   "title_ms": "Glosari: UBBL"
+  },
+  {
+   "id": "glossary-comfort-rule-2r-g",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: comfort rule 2R + G",
+   "title_ms": "Glosari: comfort rule 2R + G"
+  },
+  {
+   "id": "glossary-professional-habit-1",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: Professional Habit 1",
+   "title_ms": "Glosari: Professional Habit 1"
+  }
+ ],
+ "equations_missing": 0
+}

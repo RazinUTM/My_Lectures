@@ -1,0 +1,7 @@
+# What's new on the Lab S2 page: shown on the Feedback tab, newest first (web/add_tutor.py reads this file).
+# One line per change:  YYYY-MM-DD | English | Bahasa Melayu
+# Edit it on GitHub (pencil icon), commit, and the next build shows it. Lines starting with # are ignored.
+2026-11-11 | New Feedback tab: rate this part, tell the lecturer your muddiest point, report a mistake | Tab Maklum balas baharu: nilai bahagian ini, beritahu pensyarah perkara paling mengelirukan, lapor kesilapan
+2026-11-10 | New header: search, short notes, language, theme, text size and a screen guide | Header baharu: carian, nota ringkas, bahasa, tema, saiz teks dan panduan skrin
+2026-11-10 | Dr RJ now answers questions from the course notes and points you to the right section | Dr RJ kini menjawab soalan berdasarkan nota kursus dan menunjukkan bahagian yang sesuai
+2026-11-08 | Dr RJ, the lecturer's guide, joins the page | Dr RJ, pemandu pensyarah, kini ada di halaman ini

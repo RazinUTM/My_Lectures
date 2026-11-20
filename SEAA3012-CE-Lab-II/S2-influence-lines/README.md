@@ -6,9 +6,16 @@ uses the geometry, halts, notation η_R(x) and sign convention of the revised la
 
 ## Course page
 
-`index.html` is a single self-contained page with six tabs: Start, Notes, Slides, Explorer,
-Exercises and Lab. It works in any modern browser, on phones as well as projectors. Tabs open
-directly with `#notes`, `#slides`, `#explorer`, `#exercises` or `#lab` after the address.
+`index.html` is a single self-contained page with seven tabs: Start, Notes, Slides, Explorer,
+Exercises, Lab and Glossary. It works in any modern browser, on phones as well as projectors. Tabs open
+directly with `#notes`, `#slides`, `#explorer`, `#exercises`, `#lab` or `#glossary` after the address, and
+a place inside a tab with `#view-anchor`: `#notes-n3`, `#slides-15`, `#exercises-q4`, `#explorer-tk2`.
+
+The header follows the T&L app template (10 Nov 2026): breadcrumb back to For My Students, My Lectures and
+SEAA 3012; contact line; kicker, title and a description that folds; a search box over this page only;
+Short notes; and the standard settings buttons BM/EN · theme · AA · ⓘ shared by the lecturer's apps
+(`web/src/header.css`, the preferences block in `web/src/app.js`). ⓘ opens a screen guide that names
+each area of the page and offers a short tour.
 
 Published with GitHub Pages at
 <https://razinutm.github.io/My_Lectures/SEAA3012-CE-Lab-II/S2-influence-lines/>
@@ -22,19 +29,26 @@ one per tab (`qr_s2_explorer.png`, `qr_s2_notes.png`, …).
 | Exercise timer (suggested 60 min), first-attempt score, confidence rating, hint count | self-monitoring during practice |
 | Learning record (Start) | summary the student can copy into the report |
 | Short notes drawer | formula sheet available from every tab |
-| BM / EN switch | Malay explanations, technical terms kept in English |
-| Theme switch (automatic, light, dark) | display preference |
+| Settings buttons: language (BM / EN), theme (moon / sun), text size (AA: 90, 100, 115, 130 %), screen guide (ⓘ) | Malay explanations with English technical terms; display and reading preferences; what each area does |
+| Search box (header; press `/`) | finds notes sections, slides, Explorer tasks, exercises, lab steps and glossary terms on this page |
 | Explorer: influence lines R_A to R_F, each switched on or off (all off shows the structure only) | compare lines, or study the structure alone |
 | Explorer: group of three loads with chosen values and spacings, with quick fill for a unit load, 2.5 kg and the Test 2 pair | any vehicle or load train |
 | Explorer: hover or tap a reaction for its step-by-step calculation (kgf and N) | links each number to the free-body diagrams |
 | Lab: example readings for Test 1 and Test 2 | shows what a comparison with theory looks like |
+| Feedback tab (last tab): rating 1–5 with "what helped / what would help", muddiest point, report a mistake, like, What's new | tells the lecturer what to improve; anonymous, not for marks or research |
 
-Everything a student enters in the tabs is stored only in that student's browser (`localStorage`).
-The one exception is a question typed to Dr RJ once his AI is switched on: it goes through the course's
-rz-tutor Worker to the Claude API (Anthropic) to be answered. The Worker keeps counts, never the text, and
-the panel asks students not to type names, matric numbers or other personal details. While
-`shared/tutor_endpoint.txt` holds no address, or the Worker's switch `AI_SEAA3012` is off, nothing leaves the
-browser.
+Everything a student enters in the tabs is stored only in that student's browser (`localStorage`):
+answers and progress under `s2-il-v3`, and the preferences (language, theme, text size, folded description)
+under `seaa3012-prefs`, one key for every SEAA 3012 page.
+Two things leave the browser. A question typed to Dr RJ once his AI is switched on goes through the course's
+rz-tutor Worker to the Claude API (Anthropic) to be answered; the Worker keeps counts (questions, the sections
+he points to), never the text, and the panel asks students not to type names, matric numbers or other personal
+details. What a student sends on the Feedback tab goes, anonymously, to the same Worker for the lecturer's
+report: free text is cleaned of e-mail addresses, phone, IC and matric-like numbers, the browser is kept only as
+a salted hash, and rows are deleted after about 18 months. While `shared/tutor_endpoint.txt` holds no address,
+nothing leaves the browser (the Feedback forms stay disabled); the AI switch `AI_SEAA3012` affects only Dr RJ.
+If `shared/analytics_token.txt` holds a Cloudflare Web Analytics token, the page also loads Cloudflare's
+cookie-free visit counter.
 
 ## Dr RJ, the guide panel and AI tutor
 
@@ -48,10 +62,24 @@ Dr RJ button brings it back into view.
 
 The answers come from the rz-tutor Worker (Cloudflare), which holds the API key and reads the files in
 `tutor/` and `../tutor/` from this website. Those files and the panel are written by `web/add_tutor.py`
-on every build; exercise answers, hints and worked solutions are left out of them. While
+on every build; exercise answers, hints and worked solutions are left out of them. The tutor files come in
+two languages: `tutor/blocks-s2.json` is the page as it reads in English, `tutor/blocks-s2.ms.json` as it reads
+in BM (the reviewed Malay text, with the technical terms in English), and a question in Malay is answered from the
+Malay one, so Dr RJ quotes the page's own Malay instead of pasting its English (rz-tutor-worker 0.4.0). While
 `shared/tutor_endpoint.txt` holds no Worker address, or the Worker's switch `AI_SEAA3012` is off (the page asks
 the Worker first), Dr RJ is in offline mode: he points to the sections
 whose titles match the question, and no request is made.
+
+## Feedback and visits
+
+The last tab, Feedback, asks for a 1–5 rating with "what helped" and "what would help", the muddiest point,
+mistakes (tied to a section) and a like, and shows the lecturer's "What's new" list from
+`shared/whats_new.txt` (one line per change: `YYYY-MM-DD | English | Bahasa Melayu`; edit it on GitHub and
+rebuild). Likes and the mean rating appear on the page only once at least 10 students have given them. The
+lecturer reads everything at `https://rz-tutor.arazin.workers.dev/report` (with the report token), with CSV
+downloads; it also shows which sections Dr RJ sends students to and his 👍/👎. Visit counts come from
+Cloudflare Web Analytics once its token is in `shared/analytics_token.txt`. Details: rz-tutor-worker README,
+"Feedback, visits and the owner's report".
 
 Earlier versions of the page are kept in [`archive/`](archive/), each with a banner that points here.
 
@@ -99,6 +127,17 @@ badge in the header, the footer and every slide footer.
 `pdf/s2_slides_online_EN.pdf` and `_BM.pdf` are vector prints of the 21 slides of the page, linked from the slide toolbar.
 Regenerate them after changing the slides with `node web/make_slide_pdfs.js <dir>`, where `<dir>/node_modules` contains
 `mathjax` 3.2.2 and `@ibm/plex-sans`, `@ibm/plex-serif`, `@ibm/plex-mono` (npm), and poppler's `pdfunite` is installed.
+The script prints `index.html` as it stands, so run it after `web/build_web.py` and before `web/add_tutor.py`;
+run after the panel is added, it prints Dr RJ's panel beside every slide.
+
+## Bahasa Melayu check
+
+`web/termbase-bm.csv` records the page's language decisions: the technical and app terms that stay in English
+(tier 2: *load*, *beam*, *influence line*, *halt*, *Explorer*, …) and the Malay words chosen for the rest (tier 1:
+*jisim*, *jambatan*, *halaman*, *skrin penuh*, *pelayar*, *Sebelumnya*, …), with a PRPM link where the word has
+been checked. The workflow `.github/workflows/bm-lint-s2.yml` runs bm-l10n on the four page sources in every pull
+request that touches them; the report is on the run's Summary page, and a FIX finding fails the check. Edit the
+termbase in the browser when a decision changes.
 
 ## Copyright
 

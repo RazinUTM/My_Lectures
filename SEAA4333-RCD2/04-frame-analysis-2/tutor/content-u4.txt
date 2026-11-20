@@ -1,0 +1,470 @@
+# Unit 4 Frame Analysis II
+SEAA 4333 Reinforced Concrete Design II, Week 4. Unit 3 cut the frame into a continuous beam on knife edges and a small sub-frame at each column. This Unit keeps more of the frame in each analysis. The one-level sub-frame takes the beams of a floor with the columns above and below; the two-free-joint sub-frame takes one beam at a time, with the columns at its ends and its neighbours at half stiffness. Both are solved by moment distribution with the columns in the joints, and both give the beam moments and the column moments together. How much do we lose by cutting the frame into pieces? Notes, slides, model answers, exercises with new numbers on every attempt, and the Frame Lab.
+
+[start-outcomes] After this part you should be able to
+1. set up the one-level sub-frame of a floor and the two-free-joint sub-frame of a beam: the members, their stiffnesses (full K or ½K) and the fixed far ends;
+2. run a moment distribution with the columns in the joints, and find the column moments and the moments at their far ends;
+3. choose the load cases each sub-frame needs, and build the envelope of the beam moments, the shears and the column moments;
+4. compare the continuous beam, the two-free-joint and the one-level sub-frames, and explain which moments each one overestimates or underestimates;
+5. choose the values that go into the design of the beams and the columns.
+
+[notes-n1] Notes 1. Why cut the frame, and what each cut keeps
+Unit 3 analysed the floor in two pieces: a continuous beam on knife edges for the beams, and a small sub-frame at each joint for the columns. Both pieces are cuts of the same frame. This Unit uses the two other sub-frames of RDF §11.0, which keep more of the frame in one analysis, and asks what each cut gains and what it loses.
+The frame of the course notes has seven storeys and three bays on each grid line: 28 joints that can turn. By hand that is too many unknowns, so the frame is cut into sub-frames small enough for moment distribution. Every cut replaces the rest of the frame by an assumption at the cut: a fixed end, a pin, or a member at reduced stiffness. RDF §11.0 (from BS 8110 3.2.1.2) gives three sub-frames for a braced frame under vertical load:
+Sub-frame (RDF §11.0) Members kept Beam stiffness Far ends Gives
+One-level (Unit 4) the beams of one floor, the columns above and below full K columns fixed beam and column moments in one analysis per load case
+Two-free-joint (Unit 4) one beam, the columns at its two ends, the beams either side the beam full K; its neighbours ½K all fixed the moments and shears of that beam, and its columns; one sub-frame per beam
+Continuous beam + one-free-joint (Unit 3) the beams on knife edges; then each joint with its columns ¾K end spans; ½K in the column sub-frame pins; then fixed beam moments, then column moments separately
+Why fix the far ends of the columns? The floors above and below are loaded too, so the far ends of the columns turn much less than the joints of the floor being analysed. RDF §11.0 takes them as fixed, unless a pin is clearly more reasonable, for example at a foundation that cannot resist moment.
+Why half the stiffness of the beams beyond? A beam fixed at its far end is stiffer than the same beam in the frame, where the far joint can turn. Taking ½K for it allows for that flexibility, for the same reason as the ½K beams of the one-free-joint sub-frame in Unit 3.
+[Figure: Three ways to the hogging moment of beam AB at the end support A: 0, 104.8 and 120.1 kN m for the same floor and the same loads. The rest of this Unit explains the three numbers.]
+Quick check (not graded): Which sub-frame gives the moments of all the beams of a floor and of its columns in one moment distribution per load case?
+Options: The two-free-joint sub-frame | The continuous beam | The one-level sub-frame | The one-free-joint sub-frame
+Explanation shown after answering: The one-level sub-frame keeps the whole floor with its columns. The two-free-joint sub-frame solves one beam at a time; the continuous beam gives no column moments, and the one-free-joint sub-frame gives one joint’s columns only.
+Key points:
+- Every sub-frame is a cut of the same frame; the cut replaces the rest by fixed ends, pins or ½K members.
+- One-level: the floor with its columns, full K. Two-free-joint: one beam, its columns, its neighbours at ½K.
+- Far ends fixed unless a pin is clearly more reasonable (RDF §11.0).
+
+[notes-n2] Notes 2. The one-level sub-frame
+The members. The beams of the floor, each at its full stiffness K = I/L; the columns just above and just below the floor, each with K_c = I_c/h for its own storey height, their far ends fixed. Every joint of the floor is free to turn, the end joints included. The ¾K of the continuous beam does not apply: A and D are no longer pins but joints held by their columns.
+Distribution factors. At each joint, every member that meets there takes its share of an out-of-balance moment, the columns included:
+EQUATION (4.1): F = \frac{K}{\Sigma K},\qquad \Sigma K = K_{b,L} + K_{b,R} + K_{c,u} + K_{c,l}\qquad (K_b = I_b/L,\ \ K_c = I_c/h)
+The course notes’ frame (Example 2): K_b = 10 × 4.5/6 = 7.50 for every beam; K_{c,u} = 10 × 1.6/3.5 = 4.57 (the storey above) and K_{c,l} = 10 × 1.6/4.0 = 4.00 (the storey below). At the end joint A, ΣK = 7.50 + 4.57 + 4.00 = 16.07: F_{AB} = 0.467, F_{c,u} = 0.284, F_{c,l} = 0.249. At B, ΣK = 23.57: F_{BA} = F_{BC} = 0.318, F_{c,u} = 0.194, F_{c,l} = 0.170. The factors at each joint add up to 1, columns included. The notes round K_{c,u} to 4.6 and print 0.47, 0.28 and 0.25 at A.
+[Figure: The one-level sub-frame: every beam at its full stiffness, every joint with a column above and below whose far ends are fixed. A column takes a share of every balance at its joint, and keeps it.]
+Balance and carry over. At each joint add the beam end moments there (the out-of-balance moment U) and give every member −F × U: the beam ends get their share, and so do the columns. Then carry half of each beam’s balancing moment to the far end of that beam, at A and D too, since they are free joints now. Nothing is carried from a column back into the floor: the half that reaches its fixed far end stays there.
+Column moments. Each balance at a joint gives the two columns shares in the ratio K_{c,u} : K_{c,l}, and nothing else enters the columns, so the column moments keep that ratio. With the joint in equilibrium they follow from the final beam moments alone, and the far end of each column takes half, with the same sign:
+EQUATION (4.2): M_{c,u} = -(M_{L} + M_{R})\,\frac{K_{c,u}}{K_{c,u} + K_{c,l}},\qquad M_{c,l} = -(M_{L} + M_{R})\,\frac{K_{c,l}}{K_{c,u} + K_{c,l}}
+EQUATION (4.3): M_{c,\text{far}} = \tfrac12\,M_{c}\qquad \text{(far end fixed: the carry-over factor)}
+Here M_L and M_R are the final end moments of the beams on the left and on the right of the joint, clockwise positive as in the table. The table of Worked Example 4.1 tracks the columns row by row anyway, and (4.2) checks them.
+Why four cycles, against five for the continuous beam? Each balance now leaves part of the out-of-balance moment in the columns, where it stays. The carried moments shrink faster, and after four cycles the notes’ frame is within 0.5 kN m of convergence (§3).
+Quick check (not graded): At the end joint A of a one-level sub-frame, K_{AB} = 6.0, K_{c,u} = 4.0 and K_{c,l} = 3.0. What is F_{AB}?
+Options: 1.00 | 0.46 | 0.39 | 0.60
+Explanation shown after answering: F_{AB} = 6.0/(6.0 + 4.0 + 3.0) = 0.46. 1.00 belongs to a pinned end of the continuous beam; 0.39 uses ¾K, which does not apply here; 0.60 leaves out the lower column.
+Quick check (not graded): At an interior joint the final beam moments are M_{BA} = +150 and M_{BC} = −120 kN m, and the two columns are equally stiff. What are the column moments at the joint?
+Options: −15 kN m each | −30 kN m each | +15 kN m each | 0: the beams balance each other
+Explanation shown after answering: By (4.2): M_{c,u} + M_{c,l} = −(150 − 120) = −30 kN m, shared equally: −15 each. Their far ends take −7.5 each by (4.3).
+Key points:
+- Full K for every beam; K_c = I_c/h for each column; every joint free, far ends of the columns fixed.
+- F = K/ΣK with the columns in ΣK; carry half along the beams only.
+- M_c = −(M_L + M_R) K_c/(K_{c,u} + K_{c,l}); the far end takes ½M_c.
+
+[notes-n3] Notes 3. A worked case and the envelope
+Case 1 of the notes’ frame (Example 2): AB and BC at w_{max}, CD at w_{min}, with the loads of Unit 3: 57.53 and 54.42 kN/m on AB and BC, 30.66 kN/m on CD. The fixed-end moments are those of the continuous beam (wL²/12): 172.58, 163.27 and 91.99 kN m. What changes is the table: every joint is balanced in every row, A and D included, and the columns take their shares.
+AB BA BC CB CD DC
+DF 0.467 0.318 0.318 0.318 0.318 0.467
+FEM −172.58 172.58 −163.27 163.27 −91.99 91.99
+Dist. 1 80.54 −2.96 −2.96 −22.68 −22.68 −42.93
+C.O. 1 −1.48 40.27 −11.34 −1.48 −21.46 −11.34
+Dist. 2 0.69 −9.20 −9.20 7.30 7.30 5.29
+C.O. 2 −4.60 0.35 3.65 −4.60 2.65 3.65
+Dist. 3 2.15 −1.27 −1.27 0.62 0.62 −1.70
+C.O. 3 −0.64 1.07 0.31 −0.64 −0.85 0.31
+Dist. 4 0.30 −0.44 −0.44 0.47 0.47 −0.15
+Σ −95.63 200.39 −184.52 142.26 −125.94 45.12
+The columns’ shares come from the balancing rows only; carry-over rows give them nothing:
+upper A upper B upper C upper D lower A lower B lower C lower D
+DF 0.284 0.194 0.194 0.284 0.249 0.170 0.170 0.249
+Dist. 1 49.09 −1.81 −13.82 −26.16 42.95 −1.58 −12.10 −22.89
+Dist. 2 0.42 −5.61 4.45 3.23 0.37 −4.91 3.89 2.82
+Dist. 3 1.31 −0.78 0.38 −1.04 1.15 −0.68 0.33 −0.91
+Dist. 4 0.18 −0.27 0.29 −0.09 0.16 −0.24 0.25 −0.08
+Σ 51.00 −8.46 −8.71 −24.07 44.63 −7.40 −7.62 −21.06
+Check the joints. At B the beam moments add up to 200.39 − 184.52 = 15.87 kN m and the columns hold −8.46 + (−7.40) = −15.86: the joint is in equilibrium, to rounding. (4.2) gives M_{c,u} = −15.87 × 4.57/8.57 = −8.46 kN m. At A the beam carries 95.63 kN m of hogging and the columns 51.00 + 44.63 = 95.63: an end support is no longer a pin.
+Shears and span moments follow from the end moments as in Unit 3 (3.6), now with hogging at both ends of every span. AB: V_{AB} = 57.53 × 3 + (95.63 − 200.39)/6 = 155.12 kN, x₀ = 2.70 m, M = 155.12²/(2 × 57.53) − 95.63 = 113.51 kN m. BC: 170.31 kN and 81.96 kN m; CD: 105.45 kN and 55.41 kN m. The far ends of the columns at A take half by (4.3): 25.50 at the top of the upper column and 22.31 at the foot of the lower one.
+EQUATION (4.4): V_L = \frac{wL}{2} + \frac{M_L - M_R}{L},\quad V_R = wL - V_L,\quad x_0 = \frac{V_L}{w},\quad M_{span} = \frac{V_L^{2}}{2w} - M_L\qquad (M_L,\ M_R \text{ hogging magnitudes})
+The envelope. The four cases of Load Set 1 are run the same way; case 2 is the mirror of case 1. The envelope keeps, for each section, the worst of the four:
+Effect (kN m) Four cycles Case Converged
+Hogging at A (beam AB) 104.84 3 105.29
+Hogging at B, beam AB 200.39 1 200.44
+Hogging at B, beam BC 184.52 1 184.38
+Sagging in AB 123.04 3 122.72
+Sagging in BC 91.46 4 91.49
+Least span moment in BC 18.44 3 18.82
+Columns at A, upper / lower 55.91 / 48.92 3 56.16 / 49.14
+Columns at B, upper / lower 30.00 / 26.25 3 30.29 / 26.50
+[Figure: The four cases and their envelope. The largest hogging at an end support comes with the end span loaded and the next span light (case 3), the same pattern that gives the largest sagging in the end span.]
+Four cycles against convergence: 104.84 against 105.29 at A, 200.39 against 200.44 at B, 123.04 against 122.72 in AB: within 0.5 kN m, as the notes’ four cycles assume. With Load Set 2 of the Malaysian National Annex (all spans; alternate spans) the hogging at B is 195.43 and 173.35 kN m, 2 % and 6 % less than with Load Set 1; on the unequal spans of the workbook’s frame Load Set 2 misses 20 % of the hogging of beam BC at B (98.93 against 123.81 kN m). The examples use Load Set 1, as the notes and the workbook (Unit 3, Notes §2).
+Quick check (not graded): In the one-level sub-frame of the notes’ frame, which case gives the largest hogging at the end support A?
+Options: Case 1: AB and BC loaded | Case 3: AB and CD loaded | Case 4: BC loaded | All spans loaded
+Explanation shown after answering: Case 3 (104.84 kN m, against 95.63 in case 1). With BC light, joint B turns towards BC; the balancing moment at BA is larger, and half of it, carried to A, adds to the hogging there.
+Key points:
+- FEMs as before; every joint, A and D included, is balanced in every row; the columns take shares and keep them.
+- Check: ΣM = 0 at every joint, beams and columns together.
+- M_{span} = V_L²/2w − M_L, with hogging at both ends.
+- Envelope over the four cases; four cycles were within 0.5 kN m of convergence here.
+
+[notes-n4] Notes 4. The two-free-joint sub-frame
+The one-level sub-frame balances every joint of the floor in every row. RDF §11.0 also allows a smaller sub-frame for the moments of one beam: the beam, the columns at its two ends, and the beams on either side. Only the beam’s two end joints are free, hence the name.
+The members. The beam considered at its full K; at each of its two end joints the columns above and below, their far ends fixed; the beam on either side, if there is one, at ½K with its far end fixed. An end beam has one neighbour and an interior beam two. Each beam of the floor gets its own sub-frame.
+EQUATION (4.5): F_{BA} = \frac{K_{AB}}{K_{AB} + \tfrac12 K_{BC} + K_{c,u} + K_{c,l}}\qquad \text{(at B, in the sub-frame of beam AB)}
+[Figure: The sub-frames of beams AB and BC. The beam of interest at full K; its neighbours at ½K, fixed at their far ends; its two end joints free with their columns.]
+Beam AB of the notes’ frame (Example 3). At A, ΣK = 7.50 + 4.57 + 4.00 = 16.07 and F_{AB} = 0.467, as in the one-level sub-frame. At B, ΣK = 7.50 + 3.75 + 4.57 + 4.00 = 19.82: F_{BA} = 0.378, F_{BC} = 0.189, F_{c,u} = 0.231, F_{c,l} = 0.202. C is fixed: it is not balanced, and nothing is carried to it, because its moment is not wanted. Only A and B are balanced in each row.
+The load cases. Only the spans inside the sub-frame matter. For beam AB the notes run two: AB and BC both loaded, for the hogging at B; AB loaded and BC light, for the sagging in AB and the column moments. The third distinct loading, AB light and BC loaded, gives the least span moment of AB, and the app and the Frame Lab run it too. For the interior beam BC, the four Load Set 1 cases are all distinct on AB, BC and CD.
+What is kept. From each sub-frame keep only its own beam: its end moments, its shears and its span moment, and the moments of the columns at its ends. In the notes’ frame, beam AB with AB and BC loaded gives M_{AB} = −97.09, M_{BA} = 195.45 kN m; with BC light, −105.09 and 168.80 kN m and a span moment of 122.91 kN m. Beam BC with AB and BC loaded gives M_{BC} = −175.27 kN m; with BC alone, 146.56 kN m of hogging at each end and 98.33 kN m in the span. A column belongs to two sub-frames (B to those of AB and BC): design it for the larger, 30.23 kN m above B from the sub-frame of AB, against 24.22 from that of BC.
+Each beam is solved with its own guess for the rest of the frame, so the two sides of a joint need not agree: at B, the sub-frame of AB gives 195.45 kN m and that of BC 175.27. That is not a mistake. Each beam is designed with its own value; the difference is the moment the columns at B take.
+Quick check (not graded): In the two-free-joint sub-frame of beam BC of a three-span floor ABCD, which members are taken at half stiffness?
+Options: AB and CD | BC | The columns at B and C | None: all at full K
+Explanation shown after answering: The beams on either side of the beam considered, AB and CD, at ½K with their far ends A and D fixed. BC itself and the columns keep their full stiffness.
+Quick check (not graded): In the sub-frame of beam AB, K_{AB} = 8.0, K_{BC} = 6.0, K_{c,u} = 4.0 and K_{c,l} = 3.0. What is F_{BA} at B?
+Options: 0.381 | 0.444 | 0.571 | 0.727
+Explanation shown after answering: F_{BA} = 8.0/(8.0 + ½ × 6.0 + 4.0 + 3.0) = 8.0/18.0 = 0.444 by (4.5). 0.381 takes BC at full K; 0.571 and 0.727 leave out the columns.
+Key points:
+- One beam at full K, the columns at its two ends, its neighbours at ½K; all far ends fixed.
+- Only the two end joints are balanced; nothing is carried to the fixed ends.
+- Cases: the distinct loadings of the spans in the sub-frame (three for an end beam, four for an interior one in Load Set 1).
+- Keep only the beam’s own results; a column takes the larger of its two sub-frames.
+
+[notes-n5] Notes 5. How much do we lose?
+The three methods of the course, on the same frame with the same loads (the notes’ frame, Load Set 1; the continuous beam with five cycles, the sub-frames with four):
+Effect (kN m) Continuous beam + one-free-joint (Unit 3) Two-free-joint One-level
+Hogging at A (beam AB) 0 (120.06 from the columns) 105.09 104.84
+Hogging at B, beam AB 217.87 195.45 200.39
+Hogging at B, beam BC 217.87 175.27 184.52
+Sagging in AB 186.58 122.91 123.04
+Sagging in BC 91.65 98.33 91.46
+Upper column at A 64.03 56.05 55.91
+Upper column at B 24.25 30.23 30.00
+[Figure: The same table as bars. The continuous beam stands out at the end support (zero) and in the end span (+52 % on the one-level value); the two sub-frames agree within 8 % on every beam moment.]
+The end support. The knife edge gives no moment at A; the sub-frames give 105.09 and 104.84 kN m of hogging. The continuous-beam method finds it only through the columns: 120.06 kN m by the one-free-joint sub-frame (Unit 3, Notes §6), +15 % on the one-level value.
+The end span. The continuous beam lets A turn freely, so AB sags 186.58 kN m against 123.04: +52 %. That is on the safe side for the bottom bars, but it comes with zero at the top of A.
+The interior support. On knife edges the moment at B is the same on both sides (217.87 kN m). In the frame the columns take the difference, so the two beams carry different moments: 200.39 and 184.52 kN m (one-level), 195.45 and 175.27 (two-free-joint). The continuous beam is +9 % and +18 % high here.
+The middle span. 91.65, 98.33 and 91.46 kN m: close. The two-free-joint sub-frame is the highest: ½K is a rough allowance, and here the real neighbours AB and CD, whose far joints are held by columns, restrain B and C more than ½K fixed at A and D does.
+The columns. The one-free-joint sub-frame of Unit 3 gives 64.03 kN m above A against 55.91 (+15 %), but 24.25 above B against 30.00 (−19 %). At an interior joint it balances one ΔFEM with all far ends fixed and does not see the carry-over from the spans beyond, which the one-level sub-frame does.
+Which is right? None is exact: each is a cut of a frame whose other floors and far spans are guessed. The one-level sub-frame keeps the most of the floor; the two-free-joint sub-frame stays within 8 % of it for every beam moment here; the continuous beam is the coarsest. The gaps grow with unequal spans: in the workbook’s frame (Faded Example 4.2) the continuous beam gives 363.83 kN m of sagging in the 8 m span CD against 236.60 kN m from the one-level sub-frame, +54 %.
+Quick check (not graded): Against the one-level sub-frame, the continuous beam with one-free-joint columns
+Options: overestimates the sagging in an end span and the moment of an end column, and underestimates the moment of an interior column | underestimates every moment | is exact when the spans are equal | overestimates every column moment
+Explanation shown after answering: In the notes’ frame: sagging in AB +52 %, column above A +15 %, column above B −19 %. Equal spans do not make it exact: the notes’ spans are all 6 m.
+Key points:
+- Continuous beam: zero at an end support, high sagging in the end spans, one moment at each interior support.
+- One-free-joint columns: high at an end column, low at an interior one.
+- Two-free-joint against one-level: within 8 % on the beam moments of the notes’ frame.
+- Unequal spans widen every gap.
+
+[notes-n6] Notes 6. Which values go into the design
+Beams. From the envelope of the method used: the hogging at each support, on each face of an interior support (200.39 kN m for AB and 184.52 for BC at B, one-level); the largest sagging in each span; the least span moment, which calls for top bars along a span if it is negative; and the largest shears at each end.
+End supports. With a sub-frame, the hogging at an end support is part of the envelope (104.84 kN m at A, one-level). With the continuous beam, the course keeps the knife-edge envelope and designs the top bars at an end support for M_{c,u} + M_{c,l} of the one-free-joint sub-frame (120.06 kN m), as in Unit 3. In both cases the top steel is not less than the minimum of EC2 9.2.1.2(1), 0.15M_{span}, which is meant for a support assumed simple.
+Columns. The moment at the floor from the sub-frame, and half of it at a fixed far end such as a foundation (4.3). For a column between two floors, each end takes its moment from the sub-frame of its own floor. Where both the one-free-joint and the one-level values are known, the course designs for the larger (30.29 against 24.25 kN m above B, converged against Unit 3). Check each moment with the largest and with the smallest axial force that can come with it: the largest column moment comes with one span loaded and the next light, not with every span loaded (Mosley §3.4.1).
+Professional Habit 4: know which model you are in. Most slips in this Unit come from a rule carried from one model into another. Before the first row, write the model at the top of the sheet and check its rules:
+Model Beam stiffness Far ends Balanced in each row
+Continuous beam (Unit 3) ¾K for an end span with a pinned far end; K otherwise pins, released once the interior supports
+One-free-joint (columns, Unit 3) ½K for both beams all fixed one joint, one balance
+One-level full K columns fixed every joint of the floor
+Two-free-joint full K for the beam; ½K for its neighbours all fixed; nothing carried to them the two ends of the beam
+Whatever the model, M_{span} = V_L²/2w − M_L whenever the left end hogs, and ΣM = 0 at every free joint, columns included.
+Quick check (not graded): You analysed the notes’ floor with the one-level sub-frame. For what hogging moment do you design the top bars of AB at the end support A?
+Options: 0: the end support is simple | 0.15 × 123.04 = 18.46 kN m | 104.84 kN m | 120.06 kN m
+Explanation shown after answering: The envelope value of the model you used: 104.84 kN m. 120.06 belongs to the continuous-beam method (M_{c,u} + M_{c,l} of the one-free-joint sub-frame); 0.15M_{span} is only the minimum for a support assumed simple.
+Key points:
+- Beams: the envelope of the method used, both faces of every interior support.
+- End support: the sub-frame’s envelope value; with the continuous beam, M_{c,u} + M_{c,l}; never less than 0.15M_{span}.
+- Columns: the larger of the one-free-joint and one-level values; ½ at a fixed far end; check with the largest and the smallest axial force.
+- Professional Habit 4: write the model at the top of the sheet.
+
+[slides-1] Slide 1: Frame Analysis II
+SEAA 4333 Reinforced Concrete Design II · Week 4 Frame Analysis II The one-level and the two-free-joint sub-frames, and how much we lose by cutting the frame Workbook ch. 4 ABCD card Calculator RDF Ruler Phone or laptop Frame Lab Scan for this page’s Explorer tab: sub-frames row by row, the comparison, Frame S4.
+
+[slides-2] Slide 2: How the next three hours run
+Today · 180 minutes How the next three hours run 0:00 Warm-up Unit 3 in three votes 0:10 Hook Three engineers, three answers 0:17 The one-level sub-frame Why cut; columns in the joints 0:27 WE 4.1 Case 1, four cycles: I do 0:35 Activity 4A The relay: one table, four hands 0:53 Envelope · two-free-joint Four cases; one beam at a time 1:09 FE 4.2 Beam CD, pairs 1:30 Break 10 minutes 1:40 Activity 4B Predict, then compa
+
+[slides-3] Slide 3: Three questions from last week
+Warm-up · no notes · cards up Three questions from last week W1 · Unit 3 For the largest hogging moment at B of a three-span beam ABCD (Load Set 1), which spans carry w_{max}? A AB and BC B All three C AB and CD D BC alone W2 · Unit 3 In the continuous beam, an end span pinned at its far end is given a stiffness of A K B ¾K C ½K D 2K W3 · Unit 3 The one-free-joint sub-frame gives the columns at an end support 64.0 kN
+
+[slides-4] Slide 4: A, B, B, and what each means today
+Warm-up · answers A, B, B, and what each means today W1 A: AB and BC The same arrangements today, now with the columns inside the analysis. W2 B: ¾K Today there are no pins: the end joints keep their columns, so the beams keep their full K, or ½K beyond a two-free-joint sub-frame. W3 B: 120.0 kN m Today the sub-frames give the end moment directly: 104.8 kN m for the same floor. SEAA 4333 · Unit 4 · Frame Analysis II
+
+[slides-5] Slide 5: Three engineers, one floor, three answers
+Hook · 5 minutes Three engineers, one floor, three answers SEAA 4333 · Unit 4 · Frame Analysis II Workbook 4.2
+
+[slides-6] Slide 6: Against a model with the columns, which moment does the continuous beam on knife edges get most wrong?
+Concept check 1 · the big question · vote now, again after Activity 4B Against a model with the columns, which moment does the continuous beam on knife edges get most wrong? A The hogging at B B The sagging in BC C The hogging at the end support A D The sagging in AB Vote · convince your neighbour · vote again Workbook 4.2
+
+[slides-7] Slide 7: Every sub-frame is a cut: what does each keep?
+Block A · talk 1 · 4 minutes Every sub-frame is a cut: what does each keep? One-level the beams of one floor + the columns above and below full K; every joint free beams and columns together Two-free-joint one beam + its two columns + its neighbours the beam full K; neighbours ½K, fixed one beam at a time Continuous beam + one-free-joint the beams on knife edges; then each joint ¾K end spans; ½K in the column sub-fra
+
+[slides-8] Slide 8: The one-level sub-frame: the columns join every balance
+Block A · talk 2 · 6 minutes The one-level sub-frame: the columns join every balance F = K/ΣK ΣK = K_{b,L} + K_{b,R} + K_{c,u} + K_{c,l} full K for every beam; no ¾ M_c = −(M_L + M_R) K_c/(K_{c,u} + K_{c,l}) M_{far} = ½ M_c SEAA 4333 · Unit 4 · Frame Analysis II Notes §2 · Workbook 4.3
+
+[slides-9] Slide 9: Case 1: AB and BC at w max , four cycles, every joint
+Worked Example 4.1 · I do · 8 minutes Case 1: AB and BC at w_{max}, four cycles, every joint AB BA BC CB CD DC DF 0.467 0.318 0.318 0.318 0.318 0.467 FEM −172.58 172.58 −163.27 163.27 −91.99 91.99 Dist. 1 80.54 −2.96 −2.96 −22.68 −22.68 −42.93 C.O. 1 −1.48 40.27 −11.34 −1.48 −21.46 −11.34 Dist. 2 0.69 −9.20 −9.20 7.30 7.30 5.29 C.O. 2 −4.60 0.35 3.65 −4.60 2.65 3.65 Dist. 3 2.15 −1.27 −1.27 0.62 0.62 −1.70 C.O. 3 −0.
+
+[slides-10] Slide 10: The relay: one table, four hands
+Activity 4A · teams of four · 15 minutes The relay: one table, four hands Case 4: BC alone at w_{max} = 54.42; AB and CD at 30.66 kN/m. Student 1: DF row, FEM, Dist. 1 with the columns. Pass on. Students 2–4: check the row before yours, then add two rows. Student 4: Σ, the column moments and ΣM = 0 at B. Then Lab tab 4, case 4: compare row by row. SEAA 4333 · Unit 4 · Frame Analysis II Lab tab 4 · Workbook 4.3
+
+[slides-11] Slide 11: A symmetric table, and the columns hold the difference
+Activity 4A · check A symmetric table, and the columns hold the difference Dist. 1 AB 42.93 · BA 22.68 columns at A 26.16 / 22.89 After four cycles M_{AB} −43.78 M_{BA} 130.90 · M_{BC} −153.44 Columns A 23.35 / 20.43 B 12.02 / 10.52 Check at B 130.90 − 153.44 = −22.54; the columns 12.02 + 10.52: ΣM = 0 Span BC sags 91.46 kN m: the largest of the four cases, as Unit 3’s rule says. SEAA 4333 · Unit 4 · Frame Analysis I
+
+[slides-12] Slide 12: At the end joint A of the notes’ one-level sub-frame, K AB = 7.5, K c,u = 4.57 and K c,l = 4.00. What is F AB ?
+Concept check 2 · think 60 seconds, then vote At the end joint A of the notes’ one-level sub-frame, K_{AB} = 7.5, K_{c,u} = 4.57 and K_{c,l} = 4.00. What is F_{AB}? A 0.47 B 1.00 C 0.62 D 0.50 Vote · convince your neighbour · vote again Workbook 4.3
+
+[slides-13] Slide 13: Four cases and the envelope
+Block B · talk 3 · 5 minutes Four cases and the envelope M_{span} = V_L²/2w − M_L End support largest with the end span loaded, the next light: 104.84 kN m (case 3) Four cycles: within 0.5 kN m of convergence (105.29 at A). SEAA 4333 · Unit 4 · Frame Analysis II Notes §3 · Workbook 4.4
+
+[slides-14] Slide 14: The two-free-joint sub-frame: one beam at a time
+Block B · talk 4 · 6 minutes The two-free-joint sub-frame: one beam at a time Balance only the beam’s two joints; carry nothing to the fixed ends. Cases: the distinct loadings of its own spans: 3 for an end beam, 4 for an interior one. Keep only the beam’s own results; a column takes the larger of its two sub-frames. SEAA 4333 · Unit 4 · Frame Analysis II Notes §4 · Workbook 4.4
+
+[slides-15] Slide 15: In the two-free-joint sub-frame of beam AB, the stiffness taken for the next beam BC is
+Concept check 3 · vote In the two-free-joint sub-frame of beam AB, the stiffness taken for the next beam BC is A ¾K_{BC}, as an end span B K_{BC}, as in the one-level sub-frame C zero: BC is outside the sub-frame D ½K_{BC}, fixed at C Vote · convince your neighbour · vote again Workbook 4.4
+
+[slides-16] Slide 16: Beam CD of the workbook’s frame, two free joints
+Faded Example 4.2 · pairs · 18 minutes Beam CD of the workbook’s frame, two free joints Steps 1 and 4 are given. Stiffnesses: CD full, BC at ½K. Factors at C and D, with the columns. Four cycles; columns at C and D. Span CD; compare with the other methods. SEAA 4333 · Unit 4 · Frame Analysis II Workbook 4.4 · app FA4, β from Table 3.15
+
+[slides-17] Slide 17: The sub-frames agree; the knife edge does not
+Faded Example 4.2 · check The sub-frames agree; the knife edge does not Factors C 0.241 · 0.301 columns 0.245 / 0.214; D 0.396 Four cycles M_{CD} −311.35 M_{DC} 240.71 Span CD M 239.87 V 266.48 / 248.82; x₀ 4.14 m One-level, converged 236.60 kN m: the two-free-joint value is +1 %. Continuous beam (FE 3.2) 363.83 kN m, +52 %, and nothing at D, where the sub-frame has 240.71. SEAA 4333 · Unit 4 · Frame Analysis II Note
+
+[slides-18] Slide 18: Predict the winner, effect by effect
+Activity 4B · teams · 10 minutes Predict the winner, effect by effect Hogging at A Hogging at B, beam AB Hogging at B, beam BC Sagging in AB Sagging in BC Column above A Column above B For each: continuous beam, two-free-joint or one-level? Record your seven picks in Workbook 4.5 with one reason each, then reveal them one by one in Lab tab 5. The notes’ frame, Load Set 1. The continuous beam with one-free-joint colum
+
+[slides-19] Slide 19: Where the cuts cost you
+Activity 4B · reveal Where the cuts cost you Continuous beam 0 at A; AB +52 %; one moment at B One-free-joint columns A +15 %; B −19 % Two sub-frames within 8 % on every beam moment SEAA 4333 · Unit 4 · Frame Analysis II Notes §5 · Workbook 4.5
+
+[slides-20] Slide 20: Which values go into the design
+Block C · talk 5 · 5 minutes Which values go into the design Beams The envelope of the method you used: both faces of every interior support, the sagging, the least span moment, the shears. End support A sub-frame: its envelope value (104.84 at A). The continuous beam: M_{c,u} + M_{c,l} (120.06). Never below 0.15M_{span}. Columns The larger of the one-free-joint and one-level values (30.29 against 24.25 above B); ½ a
+
+[slides-21] Slide 21: Frame S4: four slips in a two-free-joint sub-frame
+Spot the error · teams · 12 minutes Frame S4: four slips in a two-free-joint sub-frame Lab tab 3 (Frame S4), or Workbook 4.6. Beams 300 × 600; columns 300 × 450; four cycles. Reader reads each line aloud; calculator rechecks; checker writes the model at the top; reporter logs line and reason. Which slip would Professional Habit 4 catch before the first row? SEAA 4333 · Unit 4 · Frame Analysis II Lab tab 3 · Workbook
+
+[slides-22] Slide 22: D4: the two-free-joint sub-frame (20 marks)
+Block D · alone · 30 minutes D4: the two-free-joint sub-frame (20 marks) The D3 frame. BC at w_{max} 55.22; AB at w_{min} 29.00; CD at w_{min} 32.26 kN/m. (a) The sub-frame of BC: stiffnesses and the factors at B and C [4] (b) The fixed-end moments; why this loading [2] (c) Three cycles: M_{BA}, M_{BC}, M_{CB}, M_{CD} [6] (d) The column moments at B and C [4] (e) Span BC: V_{BC}, V_{CB}, the span moment [4] Ref | Cal
+
+[slides-23] Slide 23: Your group’s frame line through a sub-frame
+Project studio · 12 minutes Your group’s frame line through a sub-frame Choose One-level for the whole floor, or two-free-joint for the beam your group designs. Write the model at the top. Set up Your w_{max} and w_{min} from Unit 3; K for beams and columns; the factors at every free joint. Run The case for the largest sagging in your beam; check it in Lab tab 4 with your own frame. Log One line: model, case, M_{span
+
+[slides-24] Slide 24: Know which model you are in
+Professional Habit 4 Know which model you are in Continuous beam ¾K only for an end span with a pinned far end; M = 0 at the pin. One-free-joint ½K for both beams; one joint, one balance; the columns only. One-level Full K; every joint balanced every row; the columns in ΣK. Two-free-joint Full K for the beam, ½K for its neighbours; nothing carried to the fixed ends. In every model: M_{span} = V_L²/2w − M_L whenever t
+
+[slides-25] Slide 25: Before Unit 5
+After class Before Unit 5 Notes §1–§6 47 min Exercises, all 14 45 min Explorer, 4 tasks: the relay, a two-free-joint sub-frame, the comparison, Frame S4 30 min Self-mark D4 on eLearning 15 min The notes, Frame Analysis, Examples 2 and 3; Mosley §3.4.1 reading Your frame line through one sub-frame, checked studio SEAA 4333 · Unit 4 · Frame Analysis II Workbook 4.8
+
+[slides-26] Slide 26: Before you leave
+Exit ticket · 5 minutes · Workbook 4.8 Before you leave 1 An interior joint of a one-level sub-frame: K_{BA} = K_{BC} = 7.5, K_{c,u} = 4.6, K_{c,l} = 4.0. Find F_{BA}. 2 In the two-free-joint sub-frame of beam BC of a floor ABCD, which members are taken at ½K? 3 What is still unclear? Tear off the slip and hand it in at the door. SEAA 4333 · Unit 4 · Frame Analysis II
+
+[examples-x1] Example 1 · Worked Example 4.1: the course notes’ frame as a one-level sub-frame
+Exam type frame analysis of a braced frame by the one-level sub-frame Workbook 4.3 Time ≈ 35 min
+Question The braced frame of the course notes (Example 2): the first-floor beams ABCD, three spans of 6 m, with the loads of Worked Example 3.1: AB and CD 57.53/30.66 kN/m, BC 54.42/29.11 kN/m (w_{max}/w_{min}). Beams 250 × 600 mm; columns 300 × 400 mm, 3.5 m high above the floor and 4.0 m below, fixed at their far ends. Analyse the one-level sub-frame for case 1 of Load Set 1 (AB and BC at w_{max}, CD at w_{min}) with four balancing cycles: (a) the distribution factors; (b) the end moments of the beams and the column moments; (c) the shears and the span moments. In the app: case FA3 of the RC Design Worked Solutions app, as it stands (one-level sub-frame, Load Set 1, four cycles).
+[Figure: Worked Example 4.1: the floor with its columns, loaded for case 1. Every joint is free, the end joints included.]
+Physical picture. The floor turns at every joint under its load, and the columns resist the turning. At A and D the beam has a column above and a column below and nothing else, so the end joints turn more than B and C, but much less than a pin. The out-of-balance moments now leak into the columns at every balance, which is why the table settles in four cycles.
+Plan. Stiffnesses with full K; distribution factors with the columns; fixed-end moments; the distribution, every joint in every row; the column moments and the joint checks; shears and span moments.
+## Step 1 Stiffnesses
+Ref Calculations Output
+(3.4) I_b = 250 × 600³/12 = 4.5 × 10⁹ mm⁴; K_b = 10 × 4.5/6, full for every span: A and D are joints held by columns, not pins 7.50
+(3.4) I_c = 300 × 400³/12 = 1.6 × 10⁹ mm⁴; K_{c,u} = 10 × 1.6/3.5; K_{c,l} = 10 × 1.6/4.0 4.571; 4.000
+## Step 2 Distribution factors
+Ref Calculations Output
+(4.1) A: ΣK = 7.50 + 4.571 + 4.000 = 16.071; F_{AB}, F_{c,u}, F_{c,l} = K/ΣK 0.467; 0.284; 0.249
+(4.1) B: ΣK = 2 × 7.50 + 4.571 + 4.000 = 23.571; F_{BA} = F_{BC}, F_{c,u}, F_{c,l}; C and D mirror B and A 0.318; 0.194; 0.170
+check A: 0.467 + 0.284 + 0.249 = 1; B: 2 × 0.318 + 0.194 + 0.170 = 1 ✓
+## Step 3 Fixed-end moments
+Ref Calculations Output
+(3.5) FEM = wL²/12: AB 57.53 × 36/12; BC 54.42 × 36/12; CD 30.66 × 36/12 172.58; 163.27; 91.99 kN m
+## Step 4 Moment distribution, four cycles
+Ref Calculations Output
+(4.1) Row 1 balances all four joints, the columns included: at A, U = −172.58 and the beam end gets −F_{AB}U; then carry half of each beam’s balancing moment to the far end of that beam, A and D included; balance all four joints again M_A = −95.63; M_B = 200.39 | −184.52; M_C = 142.26 | −125.94; M_D = 45.12 kN m
+AB BA BC CB CD DC
+DF 0.467 0.318 0.318 0.318 0.318 0.467
+FEM −172.58 172.58 −163.27 163.27 −91.99 91.99
+Dist. 1 80.54 −2.96 −2.96 −22.68 −22.68 −42.93
+C.O. 1 −1.48 40.27 −11.34 −1.48 −21.46 −11.34
+Dist. 2 0.69 −9.20 −9.20 7.30 7.30 5.29
+C.O. 2 −4.60 0.35 3.65 −4.60 2.65 3.65
+Dist. 3 2.15 −1.27 −1.27 0.62 0.62 −1.70
+C.O. 3 −0.64 1.07 0.31 −0.64 −0.85 0.31
+Dist. 4 0.30 −0.44 −0.44 0.47 0.47 −0.15
+Σ −95.63 200.39 −184.52 142.26 −125.94 45.12
+upper A upper B upper C upper D lower A lower B lower C lower D
+DF 0.284 0.194 0.194 0.284 0.249 0.170 0.170 0.249
+Dist. 1 49.09 −1.81 −13.82 −26.16 42.95 −1.58 −12.10 −22.89
+Dist. 2 0.42 −5.61 4.45 3.23 0.37 −4.91 3.89 2.82
+Dist. 3 1.31 −0.78 0.38 −1.04 1.15 −0.68 0.33 −0.91
+Dist. 4 0.18 −0.27 0.29 −0.09 0.16 −0.24 0.25 −0.08
+Σ 51.00 −8.46 −8.71 −24.07 44.63 −7.40 −7.62 −21.06
+## Step 5 Column moments and the joint checks
+Ref Calculations Output
+(4.2) B: M_{BA} + M_{BC} = 200.39 − 184.52 = 15.87; M_{c,u} = −15.87 × 4.571/8.571; M_{c,l} = −15.87 × 4.000/8.571 −8.46; −7.41 kN m
+check The table’s columns at B: −8.46 and −7.40; at A, beam −95.63 and columns 51.00 + 44.63 = 95.63: ΣM = 0 ✓
+(4.3) Far ends at A: ½ × 51.00 at the top of the upper column, ½ × 44.63 at the foot of the lower column 25.50; 22.31 kN m
+## Step 6 Shears and span moments
+Ref Calculations Output
+(4.4) AB: V_{AB} = 57.53 × 3 + (95.63 − 200.39)/6; V_{BA} = 345.16 − V_{AB}; x₀ = V_{AB}/57.53; M = V_{AB}²/(2 × 57.53) − 95.63 155.12; 190.04 kN; 113.51 kN m at 2.70 m
+(4.4) BC: V_{BC} = 54.42 × 3 + (184.52 − 142.26)/6; M = V_{BC}²/(2 × 54.42) − 184.52 170.31; 156.22 kN; 81.96 kN m
+(4.4) CD: V_{CD} = 30.66 × 3 + (125.94 − 45.12)/6; M = V_{CD}²/(2 × 30.66) − 125.94 105.45; 78.52 kN; 55.41 kN m
+check V_L + V_R = wL in each span: 155.12 + 190.04 = 345.16 = 57.53 × 6 ✓
+Answer. F at A 0.467/0.284/0.249, at B 0.318/0.318/0.194/0.170. Case 1, four cycles: M_{AB} = −95.63, M_{BA} = 200.39, M_{BC} = −184.52, M_{CB} = 142.26, M_{CD} = −125.94, M_{DC} = 45.12 kN m; columns above A, B, C, D 51.00, −8.46, −8.71, −24.07, below 44.63, −7.40, −7.62, −21.06 kN m. Span moments 113.51, 81.96 and 55.41 kN m.
+What the numbers say The notes print the same table to 0.1 kN m with K_{c,u} rounded to 4.6. Against the continuous beam’s case 1 (Worked Example 3.1), the single 217.87 kN m at B splits into 200.39 and 184.52, the difference going into the columns; A carries 95.63 kN m of hogging instead of zero; and AB sags 113.51 kN m instead of 161.39. The envelope of the four cases (Notes §3) puts the largest hogging at A at 104.84 kN m, in case 3.
+
+[examples-x2] Example 2 · Faded Example 4.2: beam CD of the workbook’s frame as a two-free-joint sub-frame
+Exam type the two-free-joint sub-frame of one beam Workbook 4.4 Time ≈ 25 min
+Question The workbook’s frame of Faded Example 3.2 (spans AB = 6, BC = 5 and CD = 8 m; beams 250 × 600, columns 300 × 400, 3.5 m above and 4.0 m below), with the loads read from Table 3.15: BC 47.67/25.73 kN/m and CD 64.41/34.10 kN/m. Find the largest sagging moment in CD by the two-free-joint sub-frame of beam CD, with four balancing cycles: CD at w_{max}, BC at w_{min}. Steps 1 and 4 are given; complete the others in the workbook, then open them here. In the app: case FA4 (two-free-joint sub-frames, four cycles), with Shear coefficients β_v set to Read from Table 3.15 ; beam CD is the third sub-frame, and this is its case with BC at w_{min} and CD at w_{max}.
+[Figure: Faded Example 4.2: the sub-frame of beam CD, loaded for the largest sagging in CD. B is a fixed far end: it is never balanced, and nothing is carried to it.]
+## Step 1 The sub-frame and its loads (given)
+Ref Calculations Output
+RDF §11.0 Beam CD at full K; joints C and D free with their columns; BC at ½K, fixed at B. Largest sagging in CD: CD at w_{max}, BC at w_{min} 64.41; 25.73 kN/m
+## Step 2 Stiffnesses
+Ref Calculations Output
+(3.4) K_{CD} = 10 × 4.5/8 (full); K_{BC} = 10 × 4.5/5 = 9.0, taken at ½K 5.625; 4.50
+(3.4) K_{c,u} = 10 × 1.6/3.5; K_{c,l} = 10 × 1.6/4.0 4.571; 4.000
+## Step 3 Distribution factors
+Ref Calculations Output
+(4.5) C: ΣK = 4.50 + 5.625 + 4.571 + 4.000 = 18.696; F_{CB}, F_{CD}, F_{c,u}, F_{c,l} 0.241; 0.301; 0.245; 0.214
+(4.1) D: ΣK = 5.625 + 4.571 + 4.000 = 14.196; F_{DC}, F_{c,u}, F_{c,l} 0.396; 0.322; 0.282
+## Step 4 Fixed-end moments (given)
+Ref Calculations Output
+(3.5) BC: 25.73 × 5²/12; CD: 64.41 × 8²/12 53.61; 343.53 kN m
+## Step 5 Moment distribution, four cycles
+Ref Calculations Output
+(4.1) Balance C and D in every row, the columns included; carry half along CD both ways; B is fixed, so nothing is carried to it M_{CB} = 142.34; M_{CD} = −311.35; M_{DC} = 240.71 kN m
+BC CB CD DC
+DF — 0.241 0.301 0.396
+FEM −53.61 53.61 −343.53 343.53
+Dist. 1 69.78 87.22 −136.12
+C.O. 1 −68.06 43.61
+Dist. 2 16.38 20.48 −17.28
+C.O. 2 −8.64 10.24
+Dist. 3 2.08 2.60 −4.06
+C.O. 3 −2.03 1.30
+Dist. 4 0.49 0.61 −0.51
+Σ −53.61 142.34 −311.35 240.71
+upper C upper D lower C lower D
+DF 0.245 0.322 0.214 0.282
+Dist. 1 70.89 −110.62 62.03 −96.79
+Dist. 2 16.64 −14.04 14.56 −12.29
+Dist. 3 2.11 −3.30 1.85 −2.88
+Dist. 4 0.50 −0.42 0.43 −0.37
+Σ 90.14 −128.38 78.87 −112.33
+## Step 6 Column moments
+Ref Calculations Output
+(4.2) C: M_{CB} + M_{CD} = 142.34 − 311.35 = −169.01; shared 4.571 : 4.000 90.14; 78.87 kN m
+(4.2) D: M_{DC} = 240.71; the columns take −240.71 in the same ratio −128.38; −112.33 kN m
+## Step 7 Span CD, and the other methods
+Ref Calculations Output
+(4.4) V_{CD} = 64.41 × 4 + (311.35 − 240.71)/8; V_{DC} = 515.28 − V_{CD}; x₀ = V_{CD}/64.41; M = V_{CD}²/(2 × 64.41) − 311.35 266.48; 248.82 kN; 239.87 kN m at 4.14 m
+compare One-level sub-frame, converged: 236.60 kN m; continuous beam (Faded Example 3.2’s envelope): 363.83 kN m with no moment at D +1 %; +52 %
+Answer. K_{CD} = 5.625, ½K_{BC} = 4.50; F at C 0.241/0.301/0.245/0.214, at D 0.396/0.322/0.282. M_{CB} = 142.34, M_{CD} = −311.35, M_{DC} = 240.71 kN m; columns at C 90.14/78.87, at D −128.38/−112.33 kN m. CD: V = 266.48/248.82 kN, x₀ = 4.14 m, M = 239.87 kN m.
+What the numbers say The two-free-joint value is within 1 % of the one-level sub-frame. The continuous beam of Faded Example 3.2 gave 363.83 kN m, +52 %: on an 8 m end span next to a 5 m span, letting D turn freely costs a great deal. The sub-frame also puts 240.71 kN m of hogging at D, where the continuous beam had none (Unit 3 found 258.66 kN m there only through the columns).
+
+[examples-x3] Example 3 · Explain-type questions
+Exam type short written answers Time ≈ 3 min each
+Questions
+- Why is the end span AB not given ¾ of its stiffness in the one-level sub-frame, as it was in the continuous beam?
+- In a one-level analysis the beams carry different moments on the two sides of joint B (for example 200.4 and 184.5 kN m). Is that a mistake?
+- Why does the two-free-joint sub-frame of an end beam need only three load cases, and what does it give up for that?
+- The continuous beam gave 186.6 kN m of sagging in AB and the one-level sub-frame 123.0 kN m. A classmate designs the bottom bars for 123.0 and the top bars at A for 0.15M_{span}. What is wrong?
+Write your four answers first, then open the model answers one by one.
+## Answer 1 A is a joint, not a pin
+¾K models a far end that is free to turn with no moment, a pin. In the one-level sub-frame A carries a column above and a column below, so it turns only as much as the columns let it and carries a moment. It is a free joint that is balanced in every row and receives carry-over like any other; the beam keeps its full K and the columns enter ΣK.
+## Answer 2 No: the columns take the difference
+Joint B is in equilibrium with four members: M_{BA} + M_{BC} + M_{c,u} + M_{c,l} = 0. In case 1, 200.39 − 184.52 = 15.87 kN m is held by the columns (−8.46 and −7.40, to rounding). Only on knife edges, with no columns, are the two moments equal. Each beam is designed with its own value at the face of B.
+## Answer 3 Only its own spans matter
+The sub-frame of AB contains only AB and BC, and Load Set 1 loads two spans in three different ways (both, AB alone, BC alone); the load on CD is outside it. It gives up the effect of the spans beyond its neighbours and the agreement between the beams at a joint, since each beam is solved with its own ½K guess for the rest of the frame. In the notes’ frame the price is small: within 8 % of the one-level sub-frame on every beam moment.
+## Answer 4 Two models mixed
+The 123.0 kN m is low because the one-level sub-frame puts 104.84 kN m of hogging at A; the top bars at A must take that, not 0.15 × 123.0 = 18.46. Taking the smaller span moment from one model and the smaller support moment from another is unsafe. Use one model throughout: the one-level envelope (123.0 bottom, 104.84 top at A), or the continuous beam (186.6 bottom, and M_{c,u} + M_{c,l} = 120.06 kN m at the top of A).
+
+[exercises-b1] Exercise B1 · Distribution factors at a joint with columns
+Statement: generated in the app at run time (numbers change per attempt)
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-b2] Exercise B2 · The first balance at an end joint
+Statement: generated in the app at run time (numbers change per attempt)
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-b3] Exercise B3 · Half stiffness in a two-free-joint sub-frame
+Statement: generated in the app at run time (numbers change per attempt)
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-b4] Exercise B4 · Column moments from the beam moments
+Statement: generated in the app at run time (numbers change per attempt)
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-b5] Exercise B5 · Shears and the span moment, both ends hogging
+Statement: generated in the app at run time (numbers change per attempt)
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-b6] Exercise B6 · The first row of a two-free-joint sub-frame
+Statement: generated in the app at run time (numbers change per attempt)
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-quick] Exercises: quick concept questions
+- In the one-level sub-frame, an end span AB whose end A has a column above and a column below is taken at
+- In the two-free-joint sub-frame of beam CD of a four-span floor ABCDE, which members are taken at half stiffness?
+- At a joint with K_{c,u} = K_{c,l} = 4.0, the final beam moments are M_{BA} = +180 and M_{BC} = −150 kN m. What is the moment in the upper column at the joint?
+- With Load Set 1, how many distinct load cases does the two-free-joint sub-frame of the end beam AB of a three-span floor need?
+- A column of a one-level sub-frame carries +40 kN m at the floor (clockwise positive); its far end, at the foundation, is fixed. What moment does the far end take?
+- Against the one-level sub-frame, in an end span the continuous beam gives
+- One-level sub-frame, interior joint B: AB = 6.0 m and BC = 7.0 m, beams 300 × 600 (I_b = 5.4 × 10⁹ mm⁴); columns 300 × 450 (I_c = 2.28 × 10⁹ mm⁴), 3.5 m above the floor and 4.0 m below. In this case AB carries 55.0 and BC 58.0 kN/m. Which line is wrong?
+- One-level sub-frame after four cycles, joint B: M_{BA} = +188.40 and M_{BC} = −161.20 kN m; K_{AB} = K_{BC} = 7.50, K_{c,u} = 4.57 and K_{c,l} = 4.00. Which line is wrong?
+
+[lab-relay] Explorer task 1 · Tab 4, Activity 4A: in the one-level sub-frame of the course notes’ frame, case 4 (BC alone), predict three balancing moments in a row before each row is shown.
+Ticks itself: when three predictions in a row are right · not ticked? mark done
+(The task's answer fields are checked in the app; they are not included here.)
+
+[lab-twoj] Explorer task 2 · Tab 4: switch to a two-free-joint sub-frame (start with beam AB of the workbook’s frame), work out the distribution factors at B with ½K for the neighbour, type them and check.
+Ticks itself: when the factors at B are right · not ticked? mark done
+(The task's answer fields are checked in the app; they are not included here.)
+
+[lab-cmp] Explorer task 3 · Tab 5, Activity 4B: for each of the seven effects, pick the method you expect to give the largest value, then reveal the three methods side by side.
+Ticks itself: when all seven effects have been revealed after a pick · not ticked? mark done
+(The task's answer fields are checked in the app; they are not included here.)
+
+[lab-s4] Explorer task 4 · Tab 3: switch to Frame S4, find all four slips, tap their lines and press “Check”.
+Ticks itself: when all four slips are found, before Show · not ticked? mark done
+(The task's answer fields are checked in the app; they are not included here.)
+
+[glossary-sub-frame] Glossary: sub-frame
+sub-frame: A part cut from the frame for hand analysis; the cut replaces the rest of the frame by fixed ends, pins or members at reduced stiffness (RDF §11.0, from BS 8110).
+
+[glossary-one-level-sub-frame] Glossary: one-level sub-frame
+one-level sub-frame: The beams of one floor at full K with the columns just above and below, their far ends fixed; every joint free. It gives the beam and the column moments in one analysis per load case.
+
+[glossary-two-free-joint-sub-frame] Glossary: two-free-joint sub-frame
+two-free-joint sub-frame: One beam at full K, the columns at its two ends and the beams either side at ½K, all far ends fixed; only the beam’s two end joints are balanced.
+
+[glossary-one-free-joint-sub-frame] Glossary: one-free-joint sub-frame
+one-free-joint sub-frame: One joint with its columns and the beams either side at ½K, far ends fixed: the column moments of the continuous-beam method (Unit 3).
+
+[glossary-continuous-beam-knife-edge-supports] Glossary: continuous beam (knife-edge supports)
+continuous beam (knife-edge supports): The beams of one floor on supports that do not restrain rotation; end spans at ¾K. It shows no moment at an end support (Unit 3).
+
+[glossary-free-joint] Glossary: free joint
+free joint: A joint that turns until it is in equilibrium; it is balanced in every row of the distribution and receives carry-over.
+
+[glossary-fixed-far-end] Glossary: fixed far end
+fixed far end: The end of a column or of a ½K neighbour that the sub-frame holds still. It is never balanced; in the two-free-joint sub-frame nothing is carried to it.
+
+[glossary-full-k-k-k] Glossary: full K · ¾K · ½K
+full K · ¾K · ½K: The beam stiffness each model uses: full I/L in the one-level sub-frame and for the beam of a two-free-joint sub-frame; ¾K for a pinned end span of the continuous beam; ½K for the neighbours fixed at their far ends.
+
+[glossary-k-c-i-c-h] Glossary: K_c = I_c /h
+K_c = I_c /h: The stiffness of a column, with h the height of its own storey: K_{c,u} for the storey above the floor, K_{c,l} for the storey below.
+
+[glossary-distribution-factor-with-columns] Glossary: distribution factor with columns
+distribution factor with columns: F = K/ΣK at a joint, ΣK = K_{b,L} + K_{b,R} + K_{c,u} + K_{c,l} ; the factors at a joint, columns included, add up to 1.
+
+[glossary-column-moment] Glossary: column moment
+column moment: The sum of a column’s balancing shares at its joint; from the final beam moments, M_c = −(M_L + M_R ) K_c /(K_{c,u} + K_{c,l} ).
+
+[glossary-far-end-moment] Glossary: far-end moment
+far-end moment: Half of a column’s moment at the floor, with the same sign, at its fixed far end: the carry-over factor ½. At a fixed foundation it is the moment at the base.
+
+[glossary-local-load-cases] Glossary: local load cases
+local load cases: The distinct loadings of the spans inside a two-free-joint sub-frame: three for an end beam and four for an interior beam with Load Set 1.
+
+[glossary-two-moments-at-an-interior-support] Glossary: two moments at an interior support
+two moments at an interior support: In a frame the beams on the two sides of a joint carry different moments; the columns take the difference. Each beam is designed for its own face value.
+
+[glossary-end-support-moment] Glossary: end-support moment
+end-support moment: The hogging of a beam at an end column. A sub-frame gives it in its envelope; with the continuous beam the course takes M_{c,u} + M_{c,l} of the one-free-joint sub-frame. Never less than 0.15M_{span} (EC2 9.2.1.2(1)).
+
+[glossary-envelope] Glossary: envelope
+envelope: The worst value of every effect over the load cases: hogging at each end, sagging, least span moment, shears and column moments.
+
+[glossary-four-cycles] Glossary: four cycles
+four cycles: The number of balancing cycles the notes use for the sub-frames; the columns absorb part of every balance, so the table settles faster than the continuous beam’s five.
+
+[glossary-load-set-1-load-set-2] Glossary: Load Set 1 · Load Set 2
+Load Set 1 · Load Set 2: EC2’s alternate and adjacent spans (the examples), against the Malaysian National Annex’s all and alternate spans, which can miss part of a support moment (up to 20 % at B in the workbook’s frame, one-level).
+
+[glossary-design-column-moment] Glossary: design column moment
+design column moment: In this course, the larger of the one-free-joint and the one-level values at each column; checked with the largest and with the smallest axial force that can come with it.
+
+[glossary-professional-habit-4] Glossary: Professional Habit 4
+Professional Habit 4: Know which model you are in: write it at the top of the sheet, with its stiffnesses, its far ends and the joints it balances, before the first row.

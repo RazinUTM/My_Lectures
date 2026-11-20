@@ -1,0 +1,529 @@
+{
+ "app": "seaa4333",
+ "part": "u4",
+ "title": "Unit 4 Frame Analysis II",
+ "folder": "04-frame-analysis-2",
+ "course_meta": {
+  "key": "seaa4333-u4-v1",
+  "notes": [
+   "n1",
+   "n2",
+   "n3",
+   "n4",
+   "n5",
+   "n6"
+  ],
+  "slides": 26,
+  "examples": [
+   "x1",
+   "x2",
+   "x3"
+  ],
+  "cando": 5,
+  "targetMin": 45
+ },
+ "sections": [
+  {
+   "id": "start-outcomes",
+   "view": "start",
+   "anchor": null,
+   "selector": "ol.lo",
+   "title_en": "After this part you should be able to",
+   "title_ms": "Selepas bahagian ini, anda sepatutnya boleh"
+  },
+  {
+   "id": "notes-n1",
+   "view": "notes",
+   "anchor": "n1",
+   "title_en": "1. Why cut the frame, and what each cut keeps",
+   "title_ms": "1. Mengapa frame dipotong, dan apa yang dikekalkan setiap potongan",
+   "minutes": 7
+  },
+  {
+   "id": "notes-n2",
+   "view": "notes",
+   "anchor": "n2",
+   "title_en": "2. The one-level sub-frame",
+   "title_ms": "2. One-level sub-frame",
+   "minutes": 9
+  },
+  {
+   "id": "notes-n3",
+   "view": "notes",
+   "anchor": "n3",
+   "title_en": "3. A worked case and the envelope",
+   "title_ms": "3. Satu kes contoh dan envelope",
+   "minutes": 9
+  },
+  {
+   "id": "notes-n4",
+   "view": "notes",
+   "anchor": "n4",
+   "title_en": "4. The two-free-joint sub-frame",
+   "title_ms": "4. Two-free-joint sub-frame",
+   "minutes": 8
+  },
+  {
+   "id": "notes-n5",
+   "view": "notes",
+   "anchor": "n5",
+   "title_en": "5. How much do we lose?",
+   "title_ms": "5. Berapa banyak yang hilang?",
+   "minutes": 8
+  },
+  {
+   "id": "notes-n6",
+   "view": "notes",
+   "anchor": "n6",
+   "title_en": "6. Which values go into the design",
+   "title_ms": "6. Nilai yang digunakan dalam design",
+   "minutes": 6
+  },
+  {
+   "id": "slides-1",
+   "view": "slides",
+   "anchor": "1",
+   "title_en": "Slide 1: Frame Analysis II",
+   "title_ms": "Slide 1: Frame Analysis II"
+  },
+  {
+   "id": "slides-2",
+   "view": "slides",
+   "anchor": "2",
+   "title_en": "Slide 2: How the next three hours run",
+   "title_ms": "Slide 2: How the next three hours run"
+  },
+  {
+   "id": "slides-3",
+   "view": "slides",
+   "anchor": "3",
+   "title_en": "Slide 3: Three questions from last week",
+   "title_ms": "Slide 3: Three questions from last week"
+  },
+  {
+   "id": "slides-4",
+   "view": "slides",
+   "anchor": "4",
+   "title_en": "Slide 4: A, B, B, and what each means today",
+   "title_ms": "Slide 4: A, B, B, and what each means today"
+  },
+  {
+   "id": "slides-5",
+   "view": "slides",
+   "anchor": "5",
+   "title_en": "Slide 5: Three engineers, one floor, three answers",
+   "title_ms": "Slide 5: Three engineers, one floor, three answers"
+  },
+  {
+   "id": "slides-6",
+   "view": "slides",
+   "anchor": "6",
+   "title_en": "Slide 6: Against a model with the columns, which moment does the continuous beam on knife edges get most wrong?",
+   "title_ms": "Slide 6: Against a model with the columns, which moment does the continuous beam on knife edges get most wrong?"
+  },
+  {
+   "id": "slides-7",
+   "view": "slides",
+   "anchor": "7",
+   "title_en": "Slide 7: Every sub-frame is a cut: what does each keep?",
+   "title_ms": "Slide 7: Every sub-frame is a cut: what does each keep?"
+  },
+  {
+   "id": "slides-8",
+   "view": "slides",
+   "anchor": "8",
+   "title_en": "Slide 8: The one-level sub-frame: the columns join every balance",
+   "title_ms": "Slide 8: The one-level sub-frame: the columns join every balance"
+  },
+  {
+   "id": "slides-9",
+   "view": "slides",
+   "anchor": "9",
+   "title_en": "Slide 9: Case 1: AB and BC at w max , four cycles, every joint",
+   "title_ms": "Slide 9: Case 1: AB and BC at w max , four cycles, every joint"
+  },
+  {
+   "id": "slides-10",
+   "view": "slides",
+   "anchor": "10",
+   "title_en": "Slide 10: The relay: one table, four hands",
+   "title_ms": "Slide 10: The relay: one table, four hands"
+  },
+  {
+   "id": "slides-11",
+   "view": "slides",
+   "anchor": "11",
+   "title_en": "Slide 11: A symmetric table, and the columns hold the difference",
+   "title_ms": "Slide 11: A symmetric table, and the columns hold the difference"
+  },
+  {
+   "id": "slides-12",
+   "view": "slides",
+   "anchor": "12",
+   "title_en": "Slide 12: At the end joint A of the notes’ one-level sub-frame, K AB = 7.5, K c,u = 4.57 and K c,l = 4.00. What is F AB ?",
+   "title_ms": "Slide 12: At the end joint A of the notes’ one-level sub-frame, K AB = 7.5, K c,u = 4.57 and K c,l = 4.00. What is F AB ?"
+  },
+  {
+   "id": "slides-13",
+   "view": "slides",
+   "anchor": "13",
+   "title_en": "Slide 13: Four cases and the envelope",
+   "title_ms": "Slide 13: Four cases and the envelope"
+  },
+  {
+   "id": "slides-14",
+   "view": "slides",
+   "anchor": "14",
+   "title_en": "Slide 14: The two-free-joint sub-frame: one beam at a time",
+   "title_ms": "Slide 14: The two-free-joint sub-frame: one beam at a time"
+  },
+  {
+   "id": "slides-15",
+   "view": "slides",
+   "anchor": "15",
+   "title_en": "Slide 15: In the two-free-joint sub-frame of beam AB, the stiffness taken for the next beam BC is",
+   "title_ms": "Slide 15: In the two-free-joint sub-frame of beam AB, the stiffness taken for the next beam BC is"
+  },
+  {
+   "id": "slides-16",
+   "view": "slides",
+   "anchor": "16",
+   "title_en": "Slide 16: Beam CD of the workbook’s frame, two free joints",
+   "title_ms": "Slide 16: Beam CD of the workbook’s frame, two free joints"
+  },
+  {
+   "id": "slides-17",
+   "view": "slides",
+   "anchor": "17",
+   "title_en": "Slide 17: The sub-frames agree; the knife edge does not",
+   "title_ms": "Slide 17: The sub-frames agree; the knife edge does not"
+  },
+  {
+   "id": "slides-18",
+   "view": "slides",
+   "anchor": "18",
+   "title_en": "Slide 18: Predict the winner, effect by effect",
+   "title_ms": "Slide 18: Predict the winner, effect by effect"
+  },
+  {
+   "id": "slides-19",
+   "view": "slides",
+   "anchor": "19",
+   "title_en": "Slide 19: Where the cuts cost you",
+   "title_ms": "Slide 19: Where the cuts cost you"
+  },
+  {
+   "id": "slides-20",
+   "view": "slides",
+   "anchor": "20",
+   "title_en": "Slide 20: Which values go into the design",
+   "title_ms": "Slide 20: Which values go into the design"
+  },
+  {
+   "id": "slides-21",
+   "view": "slides",
+   "anchor": "21",
+   "title_en": "Slide 21: Frame S4: four slips in a two-free-joint sub-frame",
+   "title_ms": "Slide 21: Frame S4: four slips in a two-free-joint sub-frame"
+  },
+  {
+   "id": "slides-22",
+   "view": "slides",
+   "anchor": "22",
+   "title_en": "Slide 22: D4: the two-free-joint sub-frame (20 marks)",
+   "title_ms": "Slide 22: D4: the two-free-joint sub-frame (20 marks)"
+  },
+  {
+   "id": "slides-23",
+   "view": "slides",
+   "anchor": "23",
+   "title_en": "Slide 23: Your group’s frame line through a sub-frame",
+   "title_ms": "Slide 23: Your group’s frame line through a sub-frame"
+  },
+  {
+   "id": "slides-24",
+   "view": "slides",
+   "anchor": "24",
+   "title_en": "Slide 24: Know which model you are in",
+   "title_ms": "Slide 24: Know which model you are in"
+  },
+  {
+   "id": "slides-25",
+   "view": "slides",
+   "anchor": "25",
+   "title_en": "Slide 25: Before Unit 5",
+   "title_ms": "Slide 25: Before Unit 5"
+  },
+  {
+   "id": "slides-26",
+   "view": "slides",
+   "anchor": "26",
+   "title_en": "Slide 26: Before you leave",
+   "title_ms": "Slide 26: Before you leave"
+  },
+  {
+   "id": "examples-x1",
+   "view": "examples",
+   "anchor": "x1",
+   "title_en": "Example 1 · Worked Example 4.1: the course notes’ frame as a one-level sub-frame",
+   "title_ms": "Contoh 1 · Worked Example 4.1: frame nota kursus sebagai one-level sub-frame"
+  },
+  {
+   "id": "examples-x2",
+   "view": "examples",
+   "anchor": "x2",
+   "title_en": "Example 2 · Faded Example 4.2: beam CD of the workbook’s frame as a two-free-joint sub-frame",
+   "title_ms": "Contoh 2 · Faded Example 4.2: beam CD frame workbook sebagai two-free-joint sub-frame"
+  },
+  {
+   "id": "examples-x3",
+   "view": "examples",
+   "anchor": "x3",
+   "title_en": "Example 3 · Explain-type questions",
+   "title_ms": "Contoh 3 · Soalan jenis terangkan"
+  },
+  {
+   "id": "exercises-b1",
+   "view": "exercises",
+   "anchor": "b1",
+   "title_en": "Exercise B1 · Distribution factors at a joint with columns",
+   "title_ms": "Latihan B1 · Distribution factor di joint dengan column"
+  },
+  {
+   "id": "exercises-b2",
+   "view": "exercises",
+   "anchor": "b2",
+   "title_en": "Exercise B2 · The first balance at an end joint",
+   "title_ms": "Latihan B2 · Imbangan pertama di joint hujung"
+  },
+  {
+   "id": "exercises-b3",
+   "view": "exercises",
+   "anchor": "b3",
+   "title_en": "Exercise B3 · Half stiffness in a two-free-joint sub-frame",
+   "title_ms": "Latihan B3 · Separuh stiffness dalam two-free-joint sub-frame"
+  },
+  {
+   "id": "exercises-b4",
+   "view": "exercises",
+   "anchor": "b4",
+   "title_en": "Exercise B4 · Column moments from the beam moments",
+   "title_ms": "Latihan B4 · Moment column daripada moment beam"
+  },
+  {
+   "id": "exercises-b5",
+   "view": "exercises",
+   "anchor": "b5",
+   "title_en": "Exercise B5 · Shears and the span moment, both ends hogging",
+   "title_ms": "Latihan B5 · Shear dan moment span, kedua-dua hujung hogging"
+  },
+  {
+   "id": "exercises-b6",
+   "view": "exercises",
+   "anchor": "b6",
+   "title_en": "Exercise B6 · The first row of a two-free-joint sub-frame",
+   "title_ms": "Latihan B6 · Baris pertama two-free-joint sub-frame"
+  },
+  {
+   "id": "exercises-quick",
+   "view": "exercises",
+   "anchor": null,
+   "selector": "#v-exercises div.q",
+   "title_en": "Exercises: quick concept questions",
+   "title_ms": "Latihan: soalan konsep pantas"
+  },
+  {
+   "id": "lab-relay",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"relay\"]",
+   "title_en": "Explorer task 1: Tab 4, Activity 4A: in the one-level sub-frame of the course no…",
+   "title_ms": "Tugasan Explorer 1: Tab 4, Aktiviti 4A: dalam one-level sub-frame frame nota kursus…"
+  },
+  {
+   "id": "lab-twoj",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"twoj\"]",
+   "title_en": "Explorer task 2: Tab 4: switch to a two-free-joint sub-frame (start with beam AB…",
+   "title_ms": "Tugasan Explorer 2: Tab 4: tukar kepada two-free-joint sub-frame (mulakan dengan be…"
+  },
+  {
+   "id": "lab-cmp",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"cmp\"]",
+   "title_en": "Explorer task 3: Tab 5, Activity 4B: for each of the seven effects, pick the met…",
+   "title_ms": "Tugasan Explorer 3: Tab 5, Aktiviti 4B: bagi setiap tujuh kesan, pilih kaedah yang…"
+  },
+  {
+   "id": "lab-s4",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"s4\"]",
+   "title_en": "Explorer task 4: Tab 3: switch to Frame S4, find all four slips, tap their lines…",
+   "title_ms": "Tugasan Explorer 4: Tab 3: tukar kepada Frame S4, cari keempat-empat kesilapan, ket…"
+  },
+  {
+   "id": "glossary-sub-frame",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: sub-frame",
+   "title_ms": "Glosari: sub-frame"
+  },
+  {
+   "id": "glossary-one-level-sub-frame",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: one-level sub-frame",
+   "title_ms": "Glosari: one-level sub-frame"
+  },
+  {
+   "id": "glossary-two-free-joint-sub-frame",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: two-free-joint sub-frame",
+   "title_ms": "Glosari: two-free-joint sub-frame"
+  },
+  {
+   "id": "glossary-one-free-joint-sub-frame",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: one-free-joint sub-frame",
+   "title_ms": "Glosari: one-free-joint sub-frame"
+  },
+  {
+   "id": "glossary-continuous-beam-knife-edge-supports",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: continuous beam (knife-edge supports)",
+   "title_ms": "Glosari: continuous beam (knife-edge supports)"
+  },
+  {
+   "id": "glossary-free-joint",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: free joint",
+   "title_ms": "Glosari: free joint"
+  },
+  {
+   "id": "glossary-fixed-far-end",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: fixed far end",
+   "title_ms": "Glosari: fixed far end"
+  },
+  {
+   "id": "glossary-full-k-k-k",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: full K · ¾K · ½K",
+   "title_ms": "Glosari: full K · ¾K · ½K"
+  },
+  {
+   "id": "glossary-k-c-i-c-h",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: K_c = I_c /h",
+   "title_ms": "Glosari: K_c = I_c /h"
+  },
+  {
+   "id": "glossary-distribution-factor-with-columns",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: distribution factor with columns",
+   "title_ms": "Glosari: distribution factor with columns"
+  },
+  {
+   "id": "glossary-column-moment",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: column moment",
+   "title_ms": "Glosari: column moment"
+  },
+  {
+   "id": "glossary-far-end-moment",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: far-end moment",
+   "title_ms": "Glosari: far-end moment"
+  },
+  {
+   "id": "glossary-local-load-cases",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: local load cases",
+   "title_ms": "Glosari: local load cases"
+  },
+  {
+   "id": "glossary-two-moments-at-an-interior-support",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: two moments at an interior support",
+   "title_ms": "Glosari: two moments at an interior support"
+  },
+  {
+   "id": "glossary-end-support-moment",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: end-support moment",
+   "title_ms": "Glosari: end-support moment"
+  },
+  {
+   "id": "glossary-envelope",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: envelope",
+   "title_ms": "Glosari: envelope"
+  },
+  {
+   "id": "glossary-four-cycles",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: four cycles",
+   "title_ms": "Glosari: four cycles"
+  },
+  {
+   "id": "glossary-load-set-1-load-set-2",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: Load Set 1 · Load Set 2",
+   "title_ms": "Glosari: Load Set 1 · Load Set 2"
+  },
+  {
+   "id": "glossary-design-column-moment",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: design column moment",
+   "title_ms": "Glosari: design column moment"
+  },
+  {
+   "id": "glossary-professional-habit-4",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: Professional Habit 4",
+   "title_ms": "Glosari: Professional Habit 4"
+  }
+ ],
+ "equations_missing": 0
+}

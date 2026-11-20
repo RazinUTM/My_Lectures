@@ -1,0 +1,1941 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Frame Lab · SEAA 4333</title>
+<meta name="description" content="SEAA 4333 Units 3 and 4, Frame Analysis I and II: load-pattern cards for the arrangement of the variable load (EC2 Load Set 1 and Load Set 2 of the Malaysian National Annex); the moment distribution of the beams of one floor with the one-free-joint sub-frame for the columns; the one-level and two-free-joint sub-frames row by row with the columns in the joints; the three methods compared; and two spot-the-error sheets.">
+<meta name="claude:viewport-fit-sides" content="cover">
+<script>(function(){try{var r=document.documentElement,p=JSON.parse(localStorage.getItem("seaa4333-prefs")||"null")||{};if(p.lang==="ms"){r.lang="ms";r.setAttribute("data-lang","ms")}if(p.theme==="light"||p.theme==="dark")r.setAttribute("data-theme",p.theme);if(+p.font)r.style.fontSize=(+p.font*100)+"%"}catch(e){}})();</script>
+<!-- Frame Lab (SEAA 4333 Units 3 and 4). SPDX-License-Identifier: MIT (code). Text and figures: CC BY-NC-SA 4.0.
+     Copyright (c) 2026 Ahmad Razin Zainal Abidin and Universiti Teknologi Malaysia. See ../LICENSE.md. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Frame Lab. Layout: the calculation pad of the Staircase, Column, Foundation and Retaining Wall Labs, laid on concrete. Controls stay monochrome ink;
+   colour is kept for the two bracing cases (braced blue, unbraced rust, validated for colour-vision
+   deficiency in both themes) and for pass/fail verdicts. The tabs follow the order of the Unit 3 and Unit 4 sessions. */
+:root{
+  --bg:#E6E4DF; --surface:#F7F6F2; --surface-2:#EEECE6;
+  --ink:#1D1C19; --ink-2:#47443D; --ink-3:#686459;
+  --rule:#CAC6BD; --grid:#E1DED6; --concrete:#D9D6CE; --concrete-edge:#9C978C;
+  --flight:#2463c4; --braced:#2463c4; --unbraced:#b8481a;
+  --ok:#0f6b37; --bad:#ad2a1f;
+  --wash-ok:rgba(15,107,55,.12); --wash-bad:rgba(173,42,31,.12); --wash-flag:rgba(36,99,196,.14);
+  --focus:#2463c4; --shadow:rgba(29,28,25,.14);
+  --f-display:"Archivo","Arial Narrow",Arial,system-ui,sans-serif;
+  --f-body:"Atkinson Hyperlegible","Segoe UI",Roboto,system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#131311; --surface:#1C1B19; --surface-2:#252420;
+    --ink:#ECE9E1; --ink-2:#BDB8AD; --ink-3:#958F84;
+    --rule:#37352F; --grid:#2A2925; --concrete:#3A3833; --concrete-edge:#77726A;
+    --flight:#5d9bf0; --braced:#4f8ee8; --unbraced:#df6a33;
+    --ok:#52c98a; --bad:#f2837a;
+    --wash-ok:rgba(82,201,138,.16); --wash-bad:rgba(242,131,122,.16); --wash-flag:rgba(93,155,240,.2);
+    --focus:#6aa6f0; --shadow:rgba(0,0,0,.5); color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#131311; --surface:#1C1B19; --surface-2:#252420;
+  --ink:#ECE9E1; --ink-2:#BDB8AD; --ink-3:#958F84;
+  --rule:#37352F; --grid:#2A2925; --concrete:#3A3833; --concrete-edge:#77726A;
+  --flight:#5d9bf0; --braced:#4f8ee8; --unbraced:#df6a33;
+  --ok:#52c98a; --bad:#f2837a;
+  --wash-ok:rgba(82,201,138,.16); --wash-bad:rgba(242,131,122,.16); --wash-flag:rgba(93,155,240,.2);
+  --focus:#6aa6f0; --shadow:rgba(0,0,0,.5); color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1rem;line-height:1.5}
+h1,h2,h3{font-family:var(--f-display);font-stretch:85%;line-height:1.15;text-wrap:balance;margin:0}
+p{margin:0}
+.wrap{max-width:1220px;margin-inline:auto;padding-inline:clamp(16px,3vw,32px);padding-left:max(clamp(16px,3vw,32px),env(safe-area-inset-left,0px));padding-right:max(clamp(16px,3vw,32px),env(safe-area-inset-right,0px))}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* top bar */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--bg);border-bottom:1px solid var(--rule)}
+.topbar .wrap{display:flex;align-items:center;gap:10px 20px;flex-wrap:wrap;padding-block:10px}
+.brand{display:flex;align-items:baseline;gap:6px 12px;flex-wrap:wrap;min-width:0}
+.brand h1{font-size:clamp(1.35rem,2.6vw,1.8rem);font-weight:800;letter-spacing:.01em}
+.unit{font:600 .74rem/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.timer{margin-left:auto;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.timer-display{font:600 1.3rem/1 var(--f-mono);font-variant-numeric:tabular-nums;padding:7px 12px;border:1.5px solid var(--ink);border-radius:8px;background:var(--surface);color:var(--ink);cursor:pointer;min-width:5.4ch;text-align:center}
+.timer-display.running{background:var(--ink);color:var(--surface)}
+.timer-display.done{background:var(--ink);color:var(--surface);animation:blink 1s steps(2) 6}
+@keyframes blink{50%{background:var(--surface);color:var(--ink)}}
+.btn{font:700 .86rem/1 var(--f-body);color:var(--ink);background:var(--surface);border:1.5px solid var(--ink);border-radius:999px;padding:8px 13px;cursor:pointer;min-height:36px}
+.btn:hover{background:var(--surface-2)}
+.btn.primary{background:var(--ink);color:var(--surface)}
+.btn.primary:hover{opacity:.9}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.sm{padding:6px 10px;font-size:.8rem;min-height:32px}
+
+/* tabs */
+.tabs{display:flex;gap:4px;overflow-x:auto;padding-top:14px;scrollbar-width:thin}
+.tab{flex:0 0 auto;display:flex;gap:8px;align-items:baseline;font:700 .95rem/1.2 var(--f-body);color:var(--ink-2);background:transparent;border:1px solid transparent;border-bottom:0;border-radius:10px 10px 0 0;padding:10px 14px 11px;cursor:pointer}
+.tab .n{font:600 .78rem var(--f-mono);color:var(--ink-3)}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected="true"]{background:var(--surface);color:var(--ink);border-color:var(--rule);position:relative;top:1px}
+.sheet{background:var(--surface);border:1px solid var(--rule);border-radius:0 var(--r) var(--r) var(--r);padding:clamp(14px,2.4vw,26px)}
+main{padding-bottom:40px}
+
+/* panels */
+.panel{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:920px){.panel{grid-template-columns:minmax(0,1fr)}}
+.col{display:flex;flex-direction:column;gap:18px;min-width:0}
+.head h2{font-size:clamp(1.4rem,2.6vw,1.9rem);font-weight:800}
+.lede{color:var(--ink-2);max-width:62ch;margin-top:6px}
+.group{display:flex;flex-direction:column;gap:8px}
+.label{font:700 .72rem/1.2 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.seg{display:inline-flex;flex-wrap:wrap;border:1.5px solid var(--ink);border-radius:12px;overflow:hidden;width:max-content;max-width:100%}
+.seg button{font:700 .86rem/1.15 var(--f-body);background:transparent;color:var(--ink);border:0;padding:9px 12px;cursor:pointer;min-height:38px}
+.seg button+button{border-left:1.5px solid var(--ink)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--surface)}
+.seg.vert{display:flex;flex-direction:column;width:100%}
+.seg.cells{display:grid;grid-template-columns:repeat(auto-fit,minmax(6.2rem,1fr));gap:1.5px;background:var(--ink);width:100%}
+.seg.cells button{background:var(--surface)}
+.task .seg.cells button{background:var(--bg)}
+.seg.cells button+button{border-left:0}
+.seg.cells button[aria-pressed="true"]{background:var(--ink)}
+.seg.vert button{text-align:left}
+.seg.vert button+button{border-left:0;border-top:1.5px solid var(--ink)}
+.fields{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:8px 10px;align-items:center}
+.fields label{font-size:.92rem}
+.fields .u{font:500 .8rem var(--f-mono);color:var(--ink-3)}
+.fields input,.fields select,select.full{width:100%;min-width:0;font:500 .95rem var(--f-mono);padding:7px 8px;border:1px solid var(--rule);border-radius:6px;background:var(--bg);color:var(--ink)}
+select.full{font-family:var(--f-body)}
+.task{border:1.5px solid var(--ink);border-radius:var(--r);padding:14px 16px;background:var(--bg)}
+.task .tag{display:inline-block;font:700 .7rem/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;background:var(--ink);color:var(--surface);padding:5px 8px;border-radius:4px}
+.task p{margin-top:8px}
+.note{font-size:.92rem;color:var(--ink-2);border-top:1px solid var(--rule);padding-top:10px}
+
+/* figures and the chart */
+.plotcard{border:1px solid var(--rule);border-radius:var(--r);background:var(--surface);padding:10px 10px 6px;min-width:0}
+.plothead{display:flex;justify-content:space-between;align-items:baseline;gap:6px 16px;flex-wrap:wrap;padding:2px 6px 4px}
+.plothead h3{font-size:1.06rem;font-weight:700}
+.legend{display:flex;gap:6px 14px;flex-wrap:wrap;font-size:.85rem;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.key{display:inline-block;width:18px;border-top:3px solid}
+.figbox{overflow-x:auto}
+svg.fig{display:block;width:100%;height:auto;min-width:460px}
+svg.fig text{font-family:var(--f-mono);font-size:12px;fill:var(--ink-2);paint-order:stroke;stroke:var(--surface);stroke-width:3px;stroke-linejoin:round}
+svg.fig .small{font-size:11px;fill:var(--ink-3)}
+svg.chart{display:block;width:100%;height:auto;touch-action:pan-y}
+svg.chart text{font-family:var(--f-mono);font-size:12px;fill:var(--ink-3)}
+svg.chart .axt{fill:var(--ink-2);font-family:var(--f-body);font-size:13px}
+.ctip{position:absolute;top:8px;left:0;z-index:5;pointer-events:none;display:flex;flex-direction:column;gap:3px;min-width:150px;padding:8px 10px;border:1px solid var(--rule);border-radius:8px;background:var(--surface);box-shadow:0 4px 14px var(--shadow);font:500 .8rem/1.3 var(--f-mono);font-variant-numeric:tabular-nums;color:var(--ink)}
+.ctip span{display:flex;align-items:center;gap:6px;color:var(--ink-2)}
+.ctip .key{width:14px}
+details.tview{margin:4px 6px 6px;font-size:.9rem}
+details.tview summary{cursor:pointer;font-weight:700;color:var(--ink-2);padding:4px 0;width:max-content;max-width:100%}
+details.tview .tbl{min-width:420px}
+
+/* tables */
+.scroll{overflow-x:auto}
+.tbl{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:.92rem}
+.tbl th,.tbl td{padding:7px 10px;border-bottom:1px solid var(--rule);text-align:left;vertical-align:top}
+.tbl th{font:700 .74rem/1.2 var(--f-mono);letter-spacing:.03em;color:var(--ink-3);text-transform:uppercase}
+.tbl th.out{text-align:right}
+.tbl td.m,.tbl .m{font-family:var(--f-mono);font-size:.86rem}
+.tbl td.out{font-family:var(--f-mono);font-weight:600;white-space:nowrap;text-align:right}
+.tbl td.ref{font-size:.8rem;color:var(--ink-3);width:7.5rem}
+.tbl tr.em td{background:var(--surface-2)}
+#lTable{min-width:520px;table-layout:fixed}
+#lTable col.cref{width:6.8rem}
+#lTable td.ax .c{font:.82rem/1.45 var(--f-mono);color:var(--ink-2);overflow-wrap:anywhere}
+#lTable td.ax .o{font:600 .92rem/1.4 var(--f-mono);font-variant-numeric:tabular-nums;color:var(--ink);margin-top:3px}
+#lTable td.ax span.o{margin-left:6px}
+#lTable tr.em td{vertical-align:middle}
+
+/* verdict pills and key values */
+.pill{display:inline-block;font:700 .72rem/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;padding:6px 8px;border-radius:999px;border:1.5px solid currentColor;min-width:4.6ch;text-align:center}
+.pill.ok{color:var(--ok);background:var(--wash-ok)}
+.pill.bad{color:var(--bad);background:var(--wash-bad)}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:8px}
+.kv div{background:var(--surface-2);border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:2px}
+.kv span{font:700 .7rem/1.2 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+.kv span.pill.ok{color:var(--ok)}.kv span.pill.bad{color:var(--bad)}
+.kv b{font:600 1.15rem/1.2 var(--f-mono);font-variant-numeric:tabular-nums}
+.verdict{font-size:.92rem;padding:8px 10px;border-radius:6px;margin-top:10px}
+.verdict.ok{background:var(--wash-ok);color:var(--ink)}
+.verdict.bad{background:var(--wash-bad);color:var(--ink)}
+.verdict b{color:inherit}
+
+/* the race */
+.racegrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,330px),1fr));gap:12px}
+.racecard{border:1px solid var(--rule);border-radius:var(--r);background:var(--surface);padding:12px 14px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.racecard .rhead{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:start}
+.racecard .rn{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--ink);color:var(--surface);font:700 .9rem/1 var(--f-mono)}
+.racecard .rhead p{font-size:.93rem}
+.racecard .verdict{margin-top:0}
+
+/* spot the error */
+.s1top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:920px){.s1top{grid-template-columns:minmax(0,1fr)}}
+.given{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;font-size:.92rem;background:var(--surface-2);border-radius:8px;padding:12px 14px;margin:0}
+.given dt{font:700 .78rem var(--f-mono);color:var(--ink-3);padding-top:2px}
+.given dd{margin:0}
+.sheetcalc{border-collapse:collapse;width:100%;font-size:.9rem;min-width:640px}
+.sheetcalc th{font:700 .72rem/1.2 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);text-align:left;padding:8px 10px;border-bottom:1.5px solid var(--ink)}
+.sheetcalc td{padding:9px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+.sheetcalc td.no{font:700 .9rem var(--f-mono);width:3.2rem}
+.sheetcalc td.ref{font-size:.8rem;color:var(--ink-3);width:8.5rem}
+.sheetcalc td.calc{font-family:var(--f-mono);font-size:.84rem}
+.sheetcalc td.out{font-family:var(--f-mono);font-size:.84rem;font-weight:600;width:10rem}
+.sheetcalc tbody tr{cursor:pointer}
+.sheetcalc tbody tr:hover td{background:var(--surface-2)}
+.sheetcalc tr.flag td{background:var(--wash-flag)}
+.sheetcalc tr.flag td.no::after{content:" ⚑";color:var(--flight)}
+.sheetcalc tr.hit td{background:var(--wash-ok)}
+.sheetcalc tr.miss td{background:var(--wash-bad)}
+.sheetcalc tr.false td{background:var(--surface-2);text-decoration:line-through;text-decoration-color:var(--ink-3)}
+.sheetcalc tr .fix{display:block;margin-top:6px;font-family:var(--f-body);font-size:.88rem;color:var(--ink);background:var(--surface);border-left:3px solid var(--ok);padding:6px 10px;border-radius:0 6px 6px 0;text-decoration:none}
+.sheetcalc tr.miss .fix{border-left-color:var(--bad)}
+.score{font:700 1.05rem var(--f-display);min-height:1.4em}
+.steps{display:flex;gap:8px;flex-wrap:wrap}
+.summary{border:1.5px solid var(--bad);border-radius:var(--r);padding:12px 14px;background:var(--wash-bad);font-size:.95rem}
+
+/* big timer */
+.bigtimer{position:fixed;inset:0;z-index:50;background:var(--ink);color:var(--surface);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:24px;cursor:pointer}
+.bigtimer .digits{font:600 clamp(5rem,22vw,16rem)/1 var(--f-mono);font-variant-numeric:tabular-nums}
+.bigtimer .hint{font:500 1rem var(--f-mono);opacity:.75}
+footer{color:var(--ink-3);font-size:.85rem;padding-block:18px 32px;max-width:90ch}
+@media (max-width:640px){
+  .topbar{position:static}
+  .timer{margin-left:0}
+  .tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding-bottom:10px}
+  .tab{border:1px solid var(--rule);border-radius:8px;padding:9px 10px}
+  .tab[aria-selected="true"]{top:0;background:var(--ink);color:var(--surface);border-color:var(--ink)}
+  .tab[aria-selected="true"] .n{color:var(--surface)}
+  .sheet{border-radius:var(--r)}
+}
+@media (prefers-reduced-motion:reduce){.timer-display.done{animation:none}}
+
+/* SEAA 4333 site bar: shown when the Lab is opened on its own, hidden inside the Unit page (the page has the settings) */
+.sitebar{background:var(--surface-2);border-bottom:1px solid var(--rule);font-size:.86rem}
+.sitebar .wrap{display:flex;align-items:center;justify-content:space-between;gap:8px 16px;flex-wrap:wrap;padding-block:6px}
+.sitebar .crumbs{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center;color:var(--ink-3)}
+.sitebar .crumbs a{color:var(--ink-2);text-decoration:none;font-weight:700}
+.sitebar .crumbs a:hover{text-decoration:underline}
+.sitebar .crumbs [aria-current]{color:var(--ink);font-weight:700}
+.sitebar .prefs{display:flex;gap:4px;flex-wrap:nowrap}
+.sitebar .prefs button{display:inline-grid;place-items:center;width:30px;height:30px;padding:0;border:1px solid var(--rule);border-radius:8px;background:var(--surface);color:var(--ink);cursor:pointer;font:700 .75rem/1 var(--f-body)}
+.sitebar .prefs button:hover{border-color:var(--ink)}
+.sitebar .prefs svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.sitebar .fontbtn{display:inline-flex!important;flex-direction:column;gap:2px}
+.sitebar .fontbtn .aa{font-size:.8rem;line-height:1}.sitebar .fontbtn .aa small{font-size:.55rem}
+.sitebar .fontbtn .lvl{display:flex;gap:2px}.sitebar .fontbtn .lvl i{width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.25}.sitebar .fontbtn .lvl i.on{opacity:1}
+:root.framed .sitebar{display:none}
+footer .lic{display:block;margin-top:6px}
+
+/* Unit 8: N–M interaction, design and detail */
+input[type=range].xs{width:100%;accent-color:var(--flight);margin:6px 0 2px}
+.xread{display:flex;flex-wrap:wrap;gap:6px 14px;font-family:var(--f-mono);font-size:.86rem;color:var(--ink-2)}
+.xread b{color:var(--ink)}
+.jig{display:grid;grid-template-columns:auto 1fr 1fr auto;gap:6px 10px;align-items:center;margin-top:10px}
+.jig .h{font-size:.8rem;color:var(--ink-3);font-weight:600}
+.jig input{width:100%;min-width:0;font:inherit;font-family:var(--f-mono);padding:5px 7px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink)}
+.jig .lab{font-weight:700;font-family:var(--f-mono)}
+.jig .st{font-weight:700;min-width:1.2em;text-align:center}
+.jig .st.ok{color:var(--ok)} .jig .st.bad{color:var(--bad)}
+.barpick{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.barpick select{font:inherit;padding:5px 8px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink)}
+.lk{display:grid;grid-template-columns:auto auto auto;gap:6px 10px;align-items:center;margin-top:8px}
+.lk input,.lk select{font:inherit;font-family:var(--f-mono);width:6.5em;padding:5px 7px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink)}
+.lk .st{font-size:.9rem}
+/* Frame Lab */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:8px}
+.cards .card{display:flex;flex-direction:column;align-items:stretch;gap:4px;padding:8px 8px 10px;border:1.5px solid var(--rule);border-radius:10px;background:var(--surface);color:var(--ink);cursor:pointer;font:600 .85rem/1.2 var(--f-body);text-align:center;min-width:0}
+.cards .card svg{width:100%;height:auto;display:block}
+.cards .card:hover{border-color:var(--ink-3)}
+.cards .card.picked{border-color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)}
+.cards .card.best{background:var(--wash-ok);border-color:var(--ok)}
+.cards .card .nm{font:600 .78rem/1.2 var(--f-mono)}
+.cards .card .val{font:700 1rem/1.2 var(--f-mono);font-variant-numeric:tabular-nums}
+.cards .card .val.veiled{color:var(--ink-3)}
+.cards .card .tags{display:flex;gap:4px;justify-content:center;min-height:16px}
+.cards .card .tags i{font:700 .64rem/1 var(--f-mono);font-style:normal;padding:3px 5px;border-radius:4px;border:1px solid var(--ink-3);color:var(--ink-2)}
+.owntbl td{padding:4px 6px}
+.owntbl input{width:5.4em;font:500 .9rem var(--f-mono);padding:5px 6px;border:1px solid var(--rule);border-radius:6px;background:var(--bg);color:var(--ink)}
+.tbl th:has(sub){text-transform:none;letter-spacing:.02em}
+.kv span:has(sub){text-transform:none;letter-spacing:.02em}
+.mdtbl td,.mdtbl th{text-align:right;white-space:nowrap}
+.mdtbl td:first-child,.mdtbl th:first-child{text-align:left}
+.mdtbl tr.cur td{background:var(--wash-flag)}
+.mdtbl tr.dfrow td{color:var(--ink-3)}
+.mdtbl tr.sum td{border-top:2px solid var(--ink)}
+.mdtbl tr.co td{color:var(--ink-2)}
+#mPred:disabled{opacity:.5}
+#aChart,#mChart{min-width:520px}
+#act3c .seg button{min-width:2.6rem}
+#mSpans th,#mKV span,#aKV span{text-transform:none;letter-spacing:.02em}
+@media (max-width:640px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+:root{--s1:#2463c4;--s2:#b8481a;--s3:#167a55}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--s1:#4f8ee8;--s2:#df6a33;--s3:#3fa877}}
+:root[data-theme="dark"]{--s1:#4f8ee8;--s2:#df6a33;--s3:#3fa877}
+#xChart{min-width:520px}
+#sTable th.colh{color:var(--ink-2)}
+#sKV span,#xTable th,#sSpans th,#sTable th{text-transform:none;letter-spacing:.02em}
+#xPick button,#sMeth button{text-align:left}
+[hidden]{display:none !important}
+</style>
+</head>
+<body>
+<div class="sitebar" id="sitebar"><div class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb" data-ms-aria="Laluan"><a href="https://razinutm.github.io/My_Lectures/">My Lectures</a><span aria-hidden="true">›</span><a href="../index.html">SEAA 4333</a><span aria-hidden="true">›</span><a href="../03-frame-analysis-1/index.html#lab">Unit 3</a><span aria-hidden="true">·</span><a href="../04-frame-analysis-2/index.html#lab">Unit 4</a><span aria-hidden="true">›</span><span aria-current="page">Frame Lab</span></nav>
+  <div class="prefs"><button type="button" id="btn-lang" title="Bahasa">BM</button><button type="button" id="btn-theme" title="Theme"></button><button type="button" id="btn-font" class="fontbtn" title="Text size"><span class="aa" aria-hidden="true">A<small>A</small></span><span class="lvl" aria-hidden="true"><i></i><i></i><i></i><i></i></span></button></div>
+</div></div>
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand">
+      <h1>Frame Lab</h1>
+      <span class="unit">SEAA 4333 · Units 3–4 · Frame Analysis I–II</span>
+    </div>
+    <div class="timer" aria-label="Activity timer" data-ms-aria="Pemasa aktiviti">
+      <button class="timer-display" id="tDisplay" type="button" title="Show the timer full screen" data-ms-title="Tunjuk pemasa pada skrin penuh">5:00</button>
+      <div class="seg" role="group" aria-label="Timer length" data-ms-aria="Tempoh pemasa" id="tLen">
+        <button type="button" data-min="3">3</button>
+        <button type="button" data-min="5" aria-pressed="true">5</button>
+        <button type="button" data-min="10">10</button>
+        <button type="button" data-min="15">15</button>
+        <button type="button" data-min="20">20</button>
+      </div>
+      <button class="btn sm primary" id="tStart" type="button">Start</button>
+      <button class="btn sm" id="tReset" type="button" data-ms="Set semula">Reset</button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <nav class="tabs" role="tablist" aria-label="Lab sections" data-ms-aria="Bahagian Lab">
+    <button class="tab" role="tab" id="tab-arr" aria-controls="panel-arr" data-tab="arr"><span class="n">1</span><span data-ms="Load arrangement">Load arrangements</span></button>
+    <button class="tab" role="tab" id="tab-md" aria-controls="panel-md" data-tab="md"><span class="n">2</span><span data-ms="Moment distribution">Moment distribution</span></button>
+    <button class="tab" role="tab" id="tab-error" aria-controls="panel-error" data-tab="error"><span class="n">3</span><span data-ms="Cari kesilapan">Spot the error</span></button>
+    <button class="tab" role="tab" id="tab-sub" aria-controls="panel-sub" data-tab="sub"><span class="n">4</span><span data-ms="Sub-frame">Sub-frames</span></button>
+    <button class="tab" role="tab" id="tab-cmp" aria-controls="panel-cmp" data-tab="cmp"><span class="n">5</span><span data-ms="Bandingkan">Compare</span></button>
+  </nav>
+
+  <main class="sheet">
+    <!-- ===================== 1 LOAD ARRANGEMENTS ===================== -->
+    <section id="panel-arr" role="tabpanel" aria-labelledby="tab-arr">
+      <div class="panel">
+        <div class="col">
+          <div class="head">
+            <h2 data-ms="Kad load arrangement">Load-pattern cards</h2>
+            <p class="lede" data-ms="Pilih frame dan kesan. Setiap kad meletakkan load berubah pada sebahagian span: gelap pada w&lt;sub&gt;max&lt;/sub&gt;, cerah pada w&lt;sub&gt;min&lt;/sub&gt;. Pilih kad yang anda jangka memberi nilai paling teruk, kemudian dedahkan nilai setiap kad.">Choose a frame and an effect. Each card puts the variable load on some spans: dark at w<sub>max</sub>, light at w<sub>min</sub>. Pick the card you expect to give the worst value, then reveal the value of every card.</p>
+          </div>
+          <div class="group">
+            <label class="label" for="aCase" data-ms="Frame">Frame</label>
+            <select id="aCase" class="full"></select>
+            <p class="note" id="aCaseNote" style="border:0;padding:0"></p>
+          </div>
+          <div class="group" id="aOwn" hidden>
+            <span class="label" data-ms="Span dan load anda (kN/m)">Your spans and loads (kN/m)</span>
+            <div class="seg" role="group" aria-label="Number of spans" data-ms-aria="Bilangan span" id="aN">
+              <button type="button" data-v="2" data-ms="2 span">2 spans</button>
+              <button type="button" data-v="3" aria-pressed="true" data-ms="3 span">3 spans</button>
+              <button type="button" data-v="4" data-ms="4 span">4 spans</button>
+            </div>
+            <div class="scroll"><table class="tbl owntbl" id="aOwnTbl"></table></div>
+            <p class="note" style="border:0;padding:0" data-ms="Beam yang sama dalam setiap span (250 × 600), jadi K berkadar dengan 1/L. w&lt;sub&gt;max&lt;/sub&gt; = 1.35G&lt;sub&gt;k&lt;/sub&gt; + 1.5Q&lt;sub&gt;k&lt;/sub&gt;, w&lt;sub&gt;min&lt;/sub&gt; = 1.35G&lt;sub&gt;k&lt;/sub&gt;.">The same beam in every span (250 × 600), so K is proportional to 1/L. w<sub>max</sub> = 1.35G<sub>k</sub> + 1.5Q<sub>k</sub>, w<sub>min</sub> = 1.35G<sub>k</sub>.</p>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Kesan">Effect</span>
+            <div class="seg vert" role="group" aria-label="Effect" data-ms-aria="Kesan" id="aEff"></div>
+          </div>
+          <p class="note" data-ms="Continuous beam di atas knife-edge support, span hujung pada ¾K, diagihkan hingga converge: moment elastik yang tepat. Bilangan cycle tetap dalam kursus memberi nilai yang hampir sama (tab 2).">Continuous beam on knife-edge supports, end spans at ¾K, distributed to convergence: the exact elastic moments. The fixed number of cycles of the course gives nearly the same (tab 2).</p>
+        </div>
+        <div class="col">
+          <div class="task" id="act3a">
+            <span class="tag" data-ms="Aktiviti 3A · pasukan berempat · 10 min">Activity 3A · teams of four · 10 min</span>
+            <p data-ms="Bagi setiap kesan secara bergilir (sagging dalam AB, hogging di B, sagging dalam BC, moment terkecil dalam BC), setuju dalam pasukan kad manakah yang memberi nilai paling teruk dan ketik kad itu; kemudian tekan &lt;i&gt;Dedahkan&lt;/i&gt;. Rekod kad yang menang dalam Workbook 3.2. Kad manakah yang membentuk Load Set 1, dan yang mana Load Set 2?">For each effect in turn (sagging in AB, hogging at B, sagging in BC, the least moment in BC), agree in your team which card gives the worst value and tap it; then press <i>Reveal</i>. Record the winning card in Workbook 3.2. Which cards make up Load Set 1, and which Load Set 2?</p>
+          </div>
+          <div class="cards" id="aCards" role="group" aria-label="Load-pattern cards" data-ms-aria="Kad load arrangement"></div>
+          <div class="steps">
+            <button class="btn primary" id="aReveal" type="button" data-ms="Dedahkan">Reveal</button>
+            <button class="btn" id="aNext" type="button" data-ms="Kesan seterusnya">Next effect</button>
+          </div>
+          <p class="verdict" id="aOut" hidden aria-live="polite"></p>
+          <div class="plotcard">
+            <div class="plothead"><h3 id="aPlotTitle" data-ms="Beam dan load-nya">The beam and its loads</h3><span class="legend" id="aLegend"></span></div>
+            <div class="figbox"><svg class="chart" id="aChart" viewBox="0 0 680 330" role="img" aria-label="Continuous beam with the chosen arrangement of the variable load"></svg></div>
+          </div>
+          <div class="kv" id="aKV" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 2 MOMENT DISTRIBUTION ===================== -->
+    <section id="panel-md" role="tabpanel" aria-labelledby="tab-md" hidden>
+      <div class="panel">
+        <div class="col">
+          <div class="head">
+            <h2 data-ms="Moment distribution, baris demi baris">Moment distribution, row by row</h2>
+            <p class="lede" data-ms="Jalankan jadual satu baris pada satu masa: imbangi setiap joint bebas, kemudian carry over separuh ke hujung jauh. Ramal balancing moment seterusnya di B sebelum anda melihatnya.">Run the table one row at a time: balance each free joint, then carry half over to the far end. Predict the next balancing moment at B before you see it.</p>
+          </div>
+          <div class="group">
+            <label class="label" for="mCase" data-ms="Frame">Frame</label>
+            <select id="mCase" class="full"></select>
+          </div>
+          <div class="group">
+            <label class="label" for="mPat" data-ms="Susunan load berubah">Arrangement of the variable load</label>
+            <select id="mPat" class="full"></select>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Support hujung">End supports</span>
+            <div class="seg vert" role="group" aria-label="End supports" data-ms-aria="Support hujung" id="mEnd">
+              <button type="button" data-v="q" aria-pressed="true" data-ms="¾K, lepaskan pin sekali (kaedah kursus)">¾K, release the pin once (course method)</button>
+              <button type="button" data-v="f" data-ms="K penuh, imbangi pin setiap cycle">Full K, balance the pin every cycle</button>
+            </div>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Bilangan cycle">Number of cycles</span>
+            <div class="seg" role="group" aria-label="Number of cycles" data-ms-aria="Bilangan cycle" id="mCyc">
+              <button type="button" data-v="4">4</button>
+              <button type="button" data-v="5" aria-pressed="true">5</button>
+              <button type="button" data-v="7">7</button>
+              <button type="button" data-v="0" data-ms="hingga converge">to convergence</button>
+            </div>
+          </div>
+          <div class="kv" id="mKV"></div>
+          <p class="note" data-ms="Moment hujung positif mengikut arah jam pada hujung member, seperti dalam nota: −wL²/12 di hujung kiri span, +wL²/12 di hujung kanan.">End moments are clockwise positive on the member end, as in the notes: −wL²/12 at the left end of a span, +wL²/12 at the right end.</p>
+        </div>
+        <div class="col">
+          <div class="task" id="act3b">
+            <span class="tag" data-ms="Aktiviti 3B · berpasangan · 8 min">Activity 3B · pairs · 8 min</span>
+            <p data-ms="Kes 1 Worked Example 3.1 (Workbook 3.3). Sebelum setiap baris imbangan, taip balancing moment di B bagi member BA, kemudian tekan &lt;i&gt;Baris seterusnya&lt;/i&gt;. Tiga betul berturut-turut melengkapkan aktiviti ini.">Case 1 of Worked Example 3.1 (Workbook 3.3). Before each balancing row, type the balancing moment at B in member BA, then press <i>Next row</i>. Three right in a row complete the activity.</p>
+            <div class="fields" style="margin-top:10px"><label for="mPred" data-ms="Imbangan seterusnya di BA">Next balance at BA</label><input id="mPred" type="number" step="0.01"><span class="u">kN m</span></div>
+          </div>
+          <div class="steps">
+            <button class="btn primary" id="mNext" type="button" data-ms="Baris seterusnya">Next row</button>
+            <button class="btn" id="mAll" type="button" data-ms="Tunjuk semua">Show all</button>
+            <button class="btn" id="mReset" type="button" data-ms="Set semula">Reset</button>
+          </div>
+          <p class="verdict" id="mOut" hidden aria-live="polite"></p>
+          <p class="note" id="mWhy" style="border:0;padding:0" aria-live="polite"></p>
+          <div class="plotcard">
+            <div class="plothead"><h3 data-ms="Jadual distribution">The distribution table</h3></div>
+            <div class="scroll"><table class="tbl mdtbl" id="mTable"></table></div>
+          </div>
+          <div id="mRes" hidden>
+            <div class="plotcard">
+              <div class="plothead"><h3 data-ms="Shear dan moment kes ini">Shear and moment of this case</h3><span class="legend"><span><i class="key" style="border-color:var(--flight)"></i><span data-ms="bending moment (hogging ke atas)">bending moment (hogging up)</span></span><span><i class="key" style="border-color:var(--unbraced)"></i><span data-ms="shear">shear</span></span></span></div>
+              <div class="figbox"><svg class="chart" id="mChart" viewBox="0 0 680 384" role="img" aria-label="Shear force and bending moment diagrams of the case"></svg></div>
+            </div>
+            <div class="scroll"><table class="tbl" id="mSpans"></table></div>
+          </div>
+          <div class="task" id="act3c">
+            <span class="tag" data-ms="Column · one-free-joint sub-frame">Columns · one-free-joint sub-frame</span>
+            <p data-ms="Pilih joint. Kira moment column atas dan bawah dengan tangan (Nota §6), taip kedua-duanya, kemudian dedahkan. Mulakan dengan joint B frame nota.">Choose a joint. Work out the upper and lower column moments by hand (Notes §6), type both, then reveal. Start with joint B of the notes’ frame.</p>
+            <div class="seg" role="group" aria-label="Joint" data-ms-aria="Joint" id="cJoint" style="margin-top:10px"></div>
+            <div class="fields" style="margin-top:10px">
+              <label for="cU">M<sub>c,u</sub></label><input id="cU" type="number" step="0.01"><span class="u">kN m</span>
+              <label for="cL">M<sub>c,l</sub></label><input id="cL" type="number" step="0.01"><span class="u">kN m</span>
+            </div>
+            <div class="steps" style="margin-top:10px"><button class="btn primary" id="cReveal" type="button" data-ms="Dedahkan">Reveal</button></div>
+            <p class="verdict" id="cOut" hidden aria-live="polite"></p>
+            <div class="figbox" id="cFigBox" hidden><svg class="fig" id="cFig" viewBox="0 0 560 300" role="img" aria-label="One-free-joint sub-frame at the chosen joint"></svg></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 3 SPOT THE ERROR ===================== -->
+    <section id="panel-error" role="tabpanel" aria-labelledby="tab-error" hidden>
+      <div class="col">
+        <div class="s1top">
+          <div class="col">
+            <div class="head">
+              <div class="seg" role="group" aria-label="Sheet" data-ms-aria="Helaian" id="eWhich" style="margin-bottom:10px">
+                <button type="button" data-v="s3" aria-pressed="true">Frame S3 · Unit 3</button>
+                <button type="button" data-v="s4">Frame S4 · Unit 4</button>
+              </div>
+              <h2 id="eTitle">Spot the error</h2>
+              <p class="lede" id="eLede"></p>
+            </div>
+            <dl class="given" id="eGiven" aria-label="Given data" data-ms-aria="Data yang diberi"></dl>
+          </div>
+          <div class="col">
+            <div class="plotcard"><div class="figbox" id="eFig"></div></div>
+            <div class="task">
+              <span class="tag" id="eTag">Block C · Workbook 3.5</span>
+              <p data-ms="Tulis nombor baris yang anda syaki dalam Workbook 3.5, setiap satu dengan sebab dalam satu baris. Kemudian ketik baris itu di sini dan tekan &lt;i&gt;Semak&lt;/i&gt;.">Write the line numbers you suspect in Workbook 3.5, each with a one-line reason. Then tap those lines here and press <i>Check</i>.</p>
+            </div>
+            <div class="steps">
+              <button class="btn primary" id="eCheck" type="button" data-ms="Semak">Check</button>
+              <button class="btn" id="eFix" type="button" data-ms="Tunjuk nilai yang dibetulkan">Show the corrected values</button>
+              <button class="btn" id="eReset" type="button" data-ms="Set semula">Reset</button>
+            </div>
+            <p class="score" id="eScore" aria-live="polite"></p>
+          </div>
+        </div>
+        <div class="scroll"><table class="sheetcalc" id="eSheet" aria-label="Calculation sheet"></table></div>
+        <div class="summary" id="eSummary" hidden></div>
+      </div>
+    </section>
+
+    <!-- ===================== 4 SUB-FRAMES (Unit 4) ===================== -->
+    <section id="panel-sub" role="tabpanel" aria-labelledby="tab-sub" hidden>
+      <div class="panel">
+        <div class="col">
+          <div class="head">
+            <h2 data-ms="Sub-frame, baris demi baris">Sub-frames, row by row</h2>
+            <p class="lede" data-ms="One-level sub-frame mengimbangi setiap joint satu lantai bersama column-nya; two-free-joint sub-frame mengambil satu beam bersama column di hujungnya dan jirannya pada ½K. Jalankan jadual satu baris pada satu masa dan ramal imbangan seterusnya.">The one-level sub-frame balances every joint of a floor with its columns; the two-free-joint sub-frame takes one beam with the columns at its ends and its neighbours at ½K. Run the table one row at a time and predict the next balance.</p>
+          </div>
+          <div class="group">
+            <label class="label" for="sCase" data-ms="Frame">Frame</label>
+            <select id="sCase" class="full"></select>
+            <p class="note" id="sCaseNote" style="border:0;padding:0"></p>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Sub-frame">Sub-frame</span>
+            <div class="seg vert" role="group" aria-label="Sub-frame" data-ms-aria="Sub-frame" id="sMeth">
+              <button type="button" data-v="o" aria-pressed="true" data-ms="One-level: lantai dan column-nya, K penuh">One-level: the floor and its columns, full K</button>
+              <button type="button" data-v="t" data-ms="Two-free-joint: satu beam, jiran pada ½K">Two-free-joint: one beam, neighbours at ½K</button>
+            </div>
+          </div>
+          <div class="group" id="sBeamG" hidden>
+            <span class="label" data-ms="Beam">Beam</span>
+            <div class="seg" role="group" aria-label="Beam" data-ms-aria="Beam" id="sBeam"></div>
+          </div>
+          <div class="group">
+            <label class="label" for="sPat" data-ms="Kes load">Load case</label>
+            <select id="sPat" class="full"></select>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Bilangan cycle">Number of cycles</span>
+            <div class="seg" role="group" aria-label="Number of cycles" data-ms-aria="Bilangan cycle" id="sCyc">
+              <button type="button" data-v="3">3</button>
+              <button type="button" data-v="4" aria-pressed="true">4</button>
+              <button type="button" data-v="7">7</button>
+              <button type="button" data-v="0" data-ms="hingga converge">to convergence</button>
+            </div>
+          </div>
+          <div class="kv" id="sKV"></div>
+          <p class="note" data-ms="Column: K&lt;sub&gt;c&lt;/sub&gt; = I&lt;sub&gt;c&lt;/sub&gt;/h dengan ketinggian tingkatnya sendiri; hujung jauh fixed. Column mengambil −F × ΣM di joint-nya dalam setiap baris imbangan dan menyimpannya; tiada apa-apa dibawa dari column ke lantai. ↑ column atas, ↓ column bawah. Continuous beam ada dalam tab 2.">Columns: K<sub>c</sub> = I<sub>c</sub>/h for their own storey heights; far ends fixed. A column takes −F × ΣM at its joint in every balancing row and keeps it; nothing is carried from a column into the floor. ↑ upper column, ↓ lower column. The continuous beam is in tab 2.</p>
+        </div>
+        <div class="col">
+          <div class="task" id="act4a">
+            <span class="tag" data-ms="Aktiviti 4A · relay · pasukan berempat">Activity 4A · the relay · teams of four</span>
+            <p data-ms="One-level sub-frame frame nota, kes 4 (BC sahaja), seperti dalam Workbook 4.3. Semak jadual pasukan anda baris demi baris: sebelum setiap baris imbangan, taip balancing moment di BA, kemudian tekan &lt;i&gt;Baris seterusnya&lt;/i&gt;. Tiga betul berturut-turut melengkapkan semakan.">One-level sub-frame of the notes’ frame, case 4 (BC alone), as in Workbook 4.3. Check your team’s table row by row: before each balancing row, type the balancing moment at BA, then press <i>Next row</i>. Three right in a row completes the check.</p>
+            <div class="fields" style="margin-top:10px"><label for="sPred" id="sPredL">Next balance at BA</label><input id="sPred" type="number" step="0.01"><span class="u">kN m</span></div>
+          </div>
+          <div class="steps">
+            <button class="btn primary" id="sNext" type="button" data-ms="Baris seterusnya">Next row</button>
+            <button class="btn" id="sAll" type="button" data-ms="Tunjuk semua">Show all</button>
+            <button class="btn" id="sReset" type="button" data-ms="Set semula">Reset</button>
+          </div>
+          <p class="verdict" id="sOut" hidden aria-live="polite"></p>
+          <p class="note" id="sWhy" style="border:0;padding:0" aria-live="polite"></p>
+          <div class="plotcard">
+            <div class="plothead"><h3 data-ms="Jadual distribution, dengan column">The distribution table, with the columns</h3></div>
+            <div class="scroll"><table class="tbl mdtbl" id="sTable"></table></div>
+          </div>
+          <div id="sRes" hidden>
+            <div class="scroll"><table class="tbl" id="sSpans"></table></div>
+            <p class="note" id="sCheck" style="border:0;padding:0"></p>
+          </div>
+          <div class="task" id="act4t">
+            <span class="tag" data-ms="Two-free-joint · distribution factor">Two-free-joint · distribution factors</span>
+            <p data-ms="Pilih Two-free-joint dan satu beam. Kira distribution factor di joint yang dinamakan di bawah, dengan ½K bagi jiran, taip dan semak. Mulakan dengan beam AB frame workbook.">Choose Two-free-joint and a beam. Work out the distribution factors at the joint named below, with ½K for the neighbour, type them and check. Start with beam AB of the workbook’s frame.</p>
+            <p class="note" id="tJointQ" style="border:0;padding:0"></p>
+            <div class="fields" style="margin-top:10px">
+              <label for="tF1" id="tF1L">F</label><input id="tF1" type="number" step="0.001"><span class="u"></span>
+              <label for="tF2" id="tF2L">F</label><input id="tF2" type="number" step="0.001"><span class="u"></span>
+            </div>
+            <div class="steps" style="margin-top:10px"><button class="btn primary" id="tCheck" type="button" data-ms="Semak">Check</button></div>
+            <p class="verdict" id="tOut" hidden aria-live="polite"></p>
+            <div class="figbox" id="tFigBox" hidden><svg class="fig" id="tFig" viewBox="0 0 560 260" role="img" aria-label="Two-free-joint sub-frame of the chosen beam" data-ms-aria="Two-free-joint sub-frame bagi beam yang dipilih"></svg></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 5 COMPARE (Unit 4) ===================== -->
+    <section id="panel-cmp" role="tabpanel" aria-labelledby="tab-cmp" hidden>
+      <div class="panel">
+        <div class="col">
+          <div class="head">
+            <h2 data-ms="Berapa banyak yang hilang?">How much do we lose?</h2>
+            <p class="lede" data-ms="Tiga kaedah pada frame yang sama dan load yang sama (Load Set 1): continuous beam dengan column one-free-joint (Unit 3, lima cycle), two-free-joint sub-frame dan one-level sub-frame (empat cycle setiap satu).">Three methods on the same frame and the same loads (Load Set 1): the continuous beam with one-free-joint columns (Unit 3, five cycles), the two-free-joint sub-frames and the one-level sub-frame (four cycles each).</p>
+          </div>
+          <div class="group">
+            <label class="label" for="xCase" data-ms="Frame">Frame</label>
+            <select id="xCase" class="full"></select>
+          </div>
+          <div class="group">
+            <span class="label" data-ms="Kesan">Effect</span>
+            <div class="seg vert" role="group" aria-label="Effect" data-ms-aria="Kesan" id="xEff"></div>
+          </div>
+          <p class="note" id="xDone" style="border:0;padding:0" aria-live="polite"></p>
+          <p class="note" data-ms="Nilai kesan ialah envelope kes Load Set 1. Hogging di B mempunyai dua nilai dalam frame, satu bagi setiap beam; column mengambil perbezaannya. Bagi frame anda sendiri, tetapkan span dan load-nya dalam tab 1.">The values are the envelopes of the Load Set 1 cases. The hogging at B has two values in a frame, one for each beam; the columns take the difference. For your own frame, set its spans and loads in tab 1.</p>
+        </div>
+        <div class="col">
+          <div class="task" id="act4b">
+            <span class="tag" data-ms="Aktiviti 4B · pasukan · 10 min">Activity 4B · teams · 10 min</span>
+            <p data-ms="Bagi setiap kesan, pilih kaedah yang anda jangka memberi nilai terbesar, kemudian tekan &lt;i&gt;Dedahkan&lt;/i&gt;. Rekod pilihan anda bersama satu sebab dalam Workbook 4.5.">For each effect, pick the method you expect to give the largest value, then press <i>Reveal</i>. Record your picks with one reason each in Workbook 4.5.</p>
+            <p id="xCur" style="margin-top:8px"></p>
+            <div class="seg vert" role="group" aria-label="Method" data-ms-aria="Kaedah" id="xPick" style="margin-top:8px"></div>
+          </div>
+          <div class="steps">
+            <button class="btn primary" id="xReveal" type="button" data-ms="Dedahkan">Reveal</button>
+            <button class="btn" id="xNext" type="button" data-ms="Kesan seterusnya">Next effect</button>
+          </div>
+          <p class="verdict" id="xOut" hidden aria-live="polite"></p>
+          <div class="plotcard">
+            <div class="plothead"><h3 data-ms="Kesan yang telah didedahkan">The effects revealed so far</h3><span class="legend" id="xLegend"></span></div>
+            <div class="figbox"><svg class="chart" id="xChart" viewBox="0 0 680 420" role="img" aria-label="Grouped bars of the seven effects by the three methods" data-ms-aria="Bar berkumpulan bagi tujuh kesan mengikut tiga kaedah"></svg></div>
+          </div>
+          <div class="scroll"><table class="tbl" id="xTable"></table></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer><span data-ms="Kaedah kursus SEAA 4333 (nota kursus, &lt;i&gt;Frame Analysis&lt;/i&gt;; RDF §11.0 dan Table 3.15; Mosley, Bungey &amp;amp; Hulse §3.4; MS EN 1992-1-1, 5.1.3, dengan Malaysian National Annex): susunan Load Set 1 dan Load Set 2 dengan w&lt;sub&gt;max&lt;/sub&gt; = 1.35G&lt;sub&gt;k&lt;/sub&gt; + 1.5Q&lt;sub&gt;k&lt;/sub&gt; dan w&lt;sub&gt;min&lt;/sub&gt; = 1.35G&lt;sub&gt;k&lt;/sub&gt;; beam satu lantai sebagai continuous beam di atas knife-edge support, melalui moment distribution dengan span hujung pada ¾K dan pin dilepaskan sekali; shear dan moment span melalui statik; moment column melalui one-free-joint sub-frame (hujung jauh fixed, beam pada separuh stiffness, w&lt;sub&gt;max&lt;/sub&gt; pada satu sisi dan w&lt;sub&gt;min&lt;/sub&gt; pada sisi lain); one-level sub-frame (lantai bersama column di atas dan di bawah, K penuh, hujung jauh fixed) dan two-free-joint sub-frame (satu beam bersama column-nya, jiran pada ½K, tiada carry-over ke hujung fixed), empat balancing cycle seperti nota. Unit: m, kN. Analisis penuh setiap frame, langkah demi langkah, ada dalam app &lt;a href=&quot;https://claude.ai/artifact/M5DFYjHubZFnbHVk8JDsAS&quot; style=&quot;color:inherit&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;RC Design Worked Solutions&lt;/a&gt; (Worked Example 3.1 dan 4.1 ialah kes FA3; Faded Example 3.2 ialah kes FA5 dan Faded Example 4.2 kes FA4, dengan pekali dibaca daripada Table 3.15), yang boleh dibuka setelah pensyarah anda berkongsi pautannya.">Course method of SEAA 4333 (course notes, <i>Frame Analysis</i>; RDF §11.0 and Table 3.15; Mosley, Bungey &amp; Hulse §3.4; MS EN 1992-1-1, 5.1.3, with the Malaysian National Annex): the arrangements of Load Set 1 and Load Set 2 with w<sub>max</sub> = 1.35G<sub>k</sub> + 1.5Q<sub>k</sub> and w<sub>min</sub> = 1.35G<sub>k</sub>; the beams of one floor as a continuous beam on knife-edge supports, by moment distribution with the end spans at ¾K and the pins released once; shears and span moments by statics; the column moments by the one-free-joint sub-frame (far ends fixed, beams at half stiffness, w<sub>max</sub> on one side and w<sub>min</sub> on the other); the one-level sub-frame (the floor with the columns above and below, full K, far ends fixed) and the two-free-joint sub-frames (one beam with its columns, the neighbours at ½K, nothing carried to the fixed ends), four balancing cycles as the notes. Units: m, kN. The full analysis of each frame, step by step, is in the <a href="https://claude.ai/artifact/M5DFYjHubZFnbHVk8JDsAS" style="color:inherit" target="_blank" rel="noopener">RC Design Worked Solutions</a> app (Worked Examples 3.1 and 4.1 are case FA3; Faded Example 3.2 is case FA5 and Faded Example 4.2 case FA4, with the coefficients read from Table 3.15), which opens once your lecturer has shared it.</span>
+  <span class="lic" data-ms="© 2026 Ahmad Razin Zainal Abidin dan Universiti Teknologi Malaysia (Fakulti Kejuruteraan Awam). Teks dan rajah: CC BY-NC-SA 4.0; kod: MIT. Lihat &lt;a href=&quot;https://github.com/RazinUTM/My_Lectures/blob/main/SEAA4333-RCD2/LICENSE.md&quot; style=&quot;color:inherit&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;lesen&lt;/a&gt;. Kemajuan disimpan dalam pelayar ini sahaja.">© 2026 Ahmad Razin Zainal Abidin and Universiti Teknologi Malaysia (Faculty of Civil Engineering). Text and figures: CC BY-NC-SA 4.0; code: MIT. See the <a href="https://github.com/RazinUTM/My_Lectures/blob/main/SEAA4333-RCD2/LICENSE.md" style="color:inherit" target="_blank" rel="noopener">licence</a>. Progress is stored in this browser only.</span></footer>
+</div>
+
+<div class="bigtimer" id="bigTimer" hidden>
+  <div class="digits" id="bigDigits">5:00</div>
+  <div class="hint" data-ms="Ketik di mana-mana untuk menutup">Tap anywhere to close</div>
+</div>
+
+<script>
+'use strict';
+const INF = Infinity;
+/* ---------- helpers ---------- */
+const NS = 'http://www.w3.org/2000/svg';
+function S(tag, attrs, parent){ const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+function T(parent, x, y, text, attrs){ const t = S('text', Object.assign({x, y}, attrs || {}), parent); t.textContent = text; return t; }
+const minus = s => String(s).replace(/^-/, '−');
+function f(v, d){ if (v === INF) return '∞'; if (!isFinite(v)) return '–'; const s = (Math.abs(v) < 1e-12 ? 0 : v).toFixed(d); return minus(s); }
+function sg(v, n){ if (!isFinite(v) || v === 0) return f(v, 0); return f(v, Math.max(0, n - 1 - Math.floor(Math.log10(Math.abs(v))))); }
+function el(id){ return document.getElementById(id); }
+function segGroup(node, onChange){ node.addEventListener('click', e => { const b = e.target.closest('button'); if (!b || !node.contains(b)) return; node.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); onChange(b.dataset.v); }); }
+function setSeg(node, v){ node.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.v === String(v)))); }
+function segVal(node){ const b = node.querySelector('button[aria-pressed="true"]'); return b ? b.dataset.v : null; }
+function store(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+function recall(k, dflt){ try { const s = localStorage.getItem(k); return s ? JSON.parse(s) : dflt; } catch (e) { return dflt; } }
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c])); }
+
+/* ---------- SEAA 4333: language, shared preferences, milestones ---------- */
+const root = document.documentElement;
+const PKEY = 'seaa4333-prefs', MKEY = 'seaa4333-lab-frame', FONT_STEPS = [0.9, 1, 1.15, 1.3];
+let LANG = 'en';
+function Lg(en, ms){ return LANG === 'ms' ? ms : en; }
+function readPrefs(){ const p = recall(PKEY, {}) || {}; return {lang: p.lang === 'ms' ? 'ms' : 'en', theme: p.theme === 'light' || p.theme === 'dark' ? p.theme : '', font: +p.font || 1}; }
+function writePrefs(ch){ const p = recall(PKEY, {}) || {}; Object.assign(p, ch); store(PKEY, p); }
+let PR = readPrefs();
+const FRAMED = (() => { try { return window.self !== window.top; } catch (e) { return true; } })();
+if (FRAMED) root.classList.add('framed');
+function applyStatic(){
+  document.querySelectorAll('[data-ms]').forEach(e => { if (!e.hasAttribute('data-en')) e.setAttribute('data-en', e.innerHTML); e.innerHTML = LANG === 'ms' ? e.getAttribute('data-ms') : e.getAttribute('data-en'); });
+  [['aria', 'aria-label'], ['title', 'title'], ['ph', 'placeholder']].forEach(([k, a]) => document.querySelectorAll('[data-ms-' + k + ']').forEach(e => {
+    if (!e.hasAttribute('data-en-' + k)) e.setAttribute('data-en-' + k, e.getAttribute(a) || ''); e.setAttribute(a, LANG === 'ms' ? e.getAttribute('data-ms-' + k) : e.getAttribute('data-en-' + k)); }));
+}
+const SUN = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></svg>';
+const MOON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>';
+const mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+function effTheme(){ return PR.theme || (mq && mq.matches ? 'dark' : 'light'); }
+function paintPrefButtons(){
+  const lb = el('btn-lang'), tb = el('btn-theme'), fb = el('btn-font'); if (!lb) return;
+  lb.textContent = LANG === 'ms' ? 'EN' : 'BM'; lb.title = LANG === 'ms' ? 'Language' : 'Bahasa'; lb.setAttribute('aria-label', LANG === 'ms' ? 'Language: English' : 'Bahasa: Melayu');
+  const dk = effTheme() === 'dark', tt = dk ? Lg('Light theme', 'Tema cerah') : Lg('Dark theme', 'Tema gelap'); tb.innerHTML = dk ? SUN : MOON; tb.title = tt; tb.setAttribute('aria-label', tt);
+  let k = 0; FONT_STEPS.forEach((v, i) => { if (Math.abs(v - PR.font) < Math.abs(FONT_STEPS[k] - PR.font)) k = i; });
+  fb.querySelectorAll('.lvl i').forEach((d, i) => d.classList.toggle('on', i <= k)); const ft = Lg('Text size ', 'Saiz teks ') + Math.round(PR.font * 100) + '%'; fb.title = ft; fb.setAttribute('aria-label', ft);
+}
+function applyPrefs(redraw){
+  LANG = PR.lang; root.lang = LANG; root.setAttribute('data-lang', LANG);
+  if (PR.theme) root.setAttribute('data-theme', PR.theme); else root.removeAttribute('data-theme');
+  root.style.fontSize = (PR.font * 100) + '%';
+  applyStatic(); paintPrefButtons();
+  if (redraw){ fillAllCases(); tPaint(); redrawAll(); }
+}
+function milestone(id){
+  const rec = recall(MKEY, {}) || {}; if (!rec[id]){ rec[id] = Date.now(); store(MKEY, rec); }
+  try { if (window.parent && window.parent !== window) window.parent.postMessage({type: 'seaa4333-lab', lab: 'frame', id}, '*'); } catch (e) {}
+}
+window.addEventListener('storage', e => { if (e.key === PKEY){ PR = readPrefs(); applyPrefs(true); } });
+if (mq){ const fm = () => { if (!PR.theme){ paintPrefButtons(); redrawAll(); } }; if (mq.addEventListener) mq.addEventListener('change', fm); else if (mq.addListener) mq.addListener(fm); }
+LANG = PR.lang;
+el('btn-lang').addEventListener('click', () => { PR.lang = LANG === 'ms' ? 'en' : 'ms'; writePrefs({lang: PR.lang}); applyPrefs(true); });
+el('btn-theme').addEventListener('click', () => { PR.theme = effTheme() === 'dark' ? 'light' : 'dark'; writePrefs({theme: PR.theme}); applyPrefs(true); });
+el('btn-font').addEventListener('click', () => { let k = FONT_STEPS.findIndex(v => Math.abs(v - PR.font) < 0.01); k = (k + 1) % FONT_STEPS.length; PR.font = FONT_STEPS[k]; writePrefs({font: PR.font}); applyPrefs(true); });
+
+/* ---------- timer ---------- */
+const timer = {len: 300, left: 300, running: false, id: null};
+const tDisplay = el('tDisplay'), bigTimer = el('bigTimer'), bigDigits = el('bigDigits'), tStart = el('tStart');
+function tfmt(s){ const m = Math.floor(s / 60), r = s % 60; return `${m}:${String(r).padStart(2, '0')}`; }
+function tPaint(){ tDisplay.textContent = tfmt(timer.left); bigDigits.textContent = tfmt(timer.left); tDisplay.classList.toggle('running', timer.running); tStart.textContent = timer.running ? Lg('Pause', 'Jeda') : Lg('Start', 'Mula'); }
+function tTick(){ timer.left = Math.max(0, timer.left - 1); if (timer.left === 0){ clearInterval(timer.id); timer.running = false; tDisplay.classList.add('done'); } tPaint(); }
+tStart.addEventListener('click', () => { if (timer.running){ clearInterval(timer.id); timer.running = false; } else { if (timer.left === 0) timer.left = timer.len; tDisplay.classList.remove('done'); timer.id = setInterval(tTick, 1000); timer.running = true; } tPaint(); });
+el('tReset').addEventListener('click', () => { clearInterval(timer.id); timer.running = false; timer.left = timer.len; tDisplay.classList.remove('done'); tPaint(); });
+segGroup(el('tLen'), () => {});
+el('tLen').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; timer.len = +b.dataset.min * 60; clearInterval(timer.id); timer.running = false; timer.left = timer.len; tDisplay.classList.remove('done'); tPaint(); });
+tDisplay.addEventListener('click', () => { bigTimer.hidden = false; });
+bigTimer.addEventListener('click', () => { bigTimer.hidden = true; });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') bigTimer.hidden = true; });
+
+/* ---------- tabs ---------- */
+const tabs = [...document.querySelectorAll('.tab')];
+const drawers = {};
+function showTab(id){
+  if (!tabs.some(t => t.dataset.tab === id)) id = 'arr';
+  tabs.forEach(t => { const on = t.dataset.tab === id; t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1; el('panel-' + t.dataset.tab).hidden = !on; });
+  if (location.hash !== '#' + id) try { history.replaceState(null, '', '#' + id); } catch (e) {}
+  if (drawers[id]) drawers[id]();
+}
+tabs.forEach((t, i) => {
+  t.addEventListener('click', () => showTab(t.dataset.tab));
+  t.addEventListener('keydown', e => { if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return; const n = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length]; n.focus(); showTab(n.dataset.tab); });
+});
+
+
+/* ===================== the course method (a port of the RC Design app's frame model, verified against it) ===================== */
+const FRM = (() => {
+  const J = ['A', 'B', 'C', 'D', 'E'];
+  const spanName = i => J[i] + J[i + 1];
+  /* Hardy Cross moment distribution, clockwise-positive end moments (FRAME.mdist of the app).
+     jt per joint: 'free' (balanced every row), 'pin' (released in row 1, nothing carried back), 'fixed' (never balanced).
+     ncyc > 0: that many balancing rows; 0: to convergence (largest carry-over below 1e-4, at most 60 rows). */
+  function mdist(o){
+    const n = o.n, L = o.L, kb = o.kb, kcu = o.kcu || new Array(n + 1).fill(0), kcl = o.kcl || new Array(n + 1).fill(0);
+    const jt = o.jt || new Array(n + 1).fill('free'), ne = 2 * n;
+    const df = new Array(ne).fill(0), dfu = new Array(n + 1).fill(0), dfl = new Array(n + 1).fill(0), sumK = new Array(n + 1).fill(0);
+    for (let j = 0; j <= n; j++){
+      const kl = j > 0 ? kb[j - 1] : 0, kr = j < n ? kb[j] : 0, s = kl + kr + kcu[j] + kcl[j]; sumK[j] = s;
+      if (jt[j] === 'fixed' || s === 0) continue;
+      if (j > 0) df[2 * j - 1] = kl / s; if (j < n) df[2 * j] = kr / s; dfu[j] = kcu[j] / s; dfl[j] = kcl[j] / s;
+    }
+    const fem = o.fem || L.map((Li, i) => [-(o.w[i] * Li * Li) / 12, (o.w[i] * Li * Li) / 12]);
+    const femRow = fem.flat();
+    const zeros = () => new Array(n + 1).fill(0);
+    const rows = [{lab: 'FEM', kind: 'fem', v: femRow.slice(), cu: zeros(), cl: zeros()}];
+    const released = new Array(n + 1).fill(false);
+    const balance = (from, first) => {
+      const b = new Array(ne).fill(0), cu = zeros(), cl = zeros(), U = zeros();
+      for (let j = 0; j <= n; j++){
+        if (jt[j] === 'fixed') continue; if (jt[j] === 'pin' && !first) continue;
+        let u = 0; if (j > 0) u += from[2 * j - 1]; if (j < n) u += from[2 * j]; U[j] = u;
+        if (j > 0) b[2 * j - 1] = -u * df[2 * j - 1]; if (j < n) b[2 * j] = -u * df[2 * j]; cu[j] = -u * dfu[j]; cl[j] = -u * dfl[j];
+        if (jt[j] === 'pin') released[j] = true;
+      }
+      return {b, cu, cl, U};
+    };
+    const carry = b => {
+      const co = new Array(ne).fill(0);
+      for (let i = 0; i < n; i++){
+        const jl = i, jr = i + 1;
+        if (!(jt[jl] === 'pin' && released[jl]) && jt[jl] !== 'fixed') co[2 * i] = b[2 * i + 1] / 2;
+        if (!(jt[jr] === 'pin' && released[jr]) && jt[jr] !== 'fixed') co[2 * i + 1] = b[2 * i] / 2;
+      }
+      return co;
+    };
+    let r = balance(femRow, true);
+    rows.push({lab: 'Dist. 1', kind: 'bal', cyc: 1, v: r.b, cu: r.cu, cl: r.cl, U: r.U, first: true});
+    const maxC = o.ncyc > 0 ? o.ncyc : 60; let cyc = 1, converged = false;
+    while (cyc < maxC){
+      const co = carry(r.b), mco = Math.max(...co.map(Math.abs));
+      if (o.ncyc <= 0 && mco < 1e-4){ converged = true; break; }
+      rows.push({lab: `C.O. ${cyc}`, kind: 'co', cyc, v: co, cu: zeros(), cl: zeros()});
+      r = balance(co, false); cyc++;
+      rows.push({lab: `Dist. ${cyc}`, kind: 'bal', cyc, v: r.b, cu: r.cu, cl: r.cl, U: r.U});
+    }
+    const final = new Array(ne).fill(0), Mcu = zeros(), Mcl = zeros();
+    for (const row of rows){ row.v.forEach((x, e) => { final[e] += x; }); row.cu.forEach((x, j) => { Mcu[j] += x; }); row.cl.forEach((x, j) => { Mcl[j] += x; }); }
+    for (let j = 0; j <= n; j++) if (jt[j] === 'pin'){ if (j > 0) final[2 * j - 1] = 0; if (j < n) final[2 * j] = 0; }
+    return {df, dfu, dfl, sumK, fem, rows, final, Mcu, Mcl, cycles: cyc, converged, jt};
+  }
+  /* statics of a span with signed end moments (clockwise +): V_L = wL/2 − (M_L + M_R)/L; bending moment sagging-positive */
+  function spanStat(w, L, ML, MR){
+    const VL = (w * L) / 2 - (ML + MR) / L, VR = w * L - VL, x0 = w > 0 ? VL / w : L / 2, xm = Math.min(L, Math.max(0, x0));
+    return {VL, VR, x0, xm, Mmax: ML + VL * xm - (w * xm * xm) / 2, M: x => ML + VL * x - (w * x * x) / 2, V: x => VL - w * x, ML, MR, w, L};
+  }
+  /* every arrangement of the variable load: singles, then pairs, ..., then all spans */
+  function allPats(n){
+    const out = [];
+    for (let k = 1; k <= n; k++){
+      const rec = (start, pick) => { if (pick.length === k){ out.push([...Array(n).keys()].map(i => pick.includes(i))); return; } for (let i = start; i < n; i++) rec(i + 1, pick.concat([i])); };
+      rec(0, []);
+    }
+    return out;
+  }
+  const odd = n => [...Array(n).keys()].map(i => i % 2 === 0), even = n => [...Array(n).keys()].map(i => i % 2 === 1);
+  const same = (a, b) => a.length === b.length && a.every((x, i) => x === b[i]);
+  function inLS1(p){ const n = p.length; if (same(p, odd(n)) || same(p, even(n))) return true; const on = p.map((b, i) => b ? i : -1).filter(i => i >= 0); return on.length === 2 && on[1] === on[0] + 1; }
+  function inLS2(p){ const n = p.length; return same(p, odd(n)) || same(p, even(n)) || p.every(Boolean); }
+  const patName = p => p.map((b, i) => b ? spanName(i) : null).filter(Boolean).join(' + ');
+  /* the continuous beam of a frame under one arrangement: ¾K end spans, pins released once (the course method) */
+  function contBeam(fr, p, ncyc, end){
+    const n = fr.L.length, K = fr.L.map(L => 10 * fr.Ib / L), full = end === 'f';
+    const kb = K.map((k, i) => (!full && (i === 0 || i === n - 1)) ? 0.75 * k : k);
+    const jt = [...Array(n + 1)].map((_, j) => (j === 0 || j === n) ? (full ? 'free' : 'pin') : 'free');
+    const w = fr.L.map((_, i) => p[i] ? fr.wmax[i] : fr.wmin[i]);
+    const r = mdist({n, L: fr.L, w, kb, jt, ncyc: ncyc || 0});
+    r.w = w; r.K = K; r.kb = kb; r.spans = fr.L.map((L, i) => spanStat(w[i], L, r.final[2 * i], r.final[2 * i + 1]));
+    return r;
+  }
+  /* the effects a card can be judged on, in the order along the beam */
+  function effects(n){
+    const out = [];
+    for (let i = 0; i < n; i++){
+      out.push({id: 'sag' + i, kind: 'max', en: `Largest sagging in ${spanName(i)}`, ms: `Sagging terbesar dalam ${spanName(i)}`, fn: r => r.spans[i].Mmax});
+      if (i > 0 && i < n - 1) out.push({id: 'least' + i, kind: 'min', en: `Least moment in ${spanName(i)}`, ms: `Moment terkecil dalam ${spanName(i)}`, fn: r => r.spans[i].Mmax});
+      if (i < n - 1) out.push({id: 'hog' + (i + 1), kind: 'max', en: `Largest hogging at ${J[i + 1]}`, ms: `Hogging terbesar di ${J[i + 1]}`, fn: r => r.final[2 * i + 1]});
+    }
+    return out;
+  }
+  /* the one-free-joint sub-frame at joint j: far ends fixed, beams at ½K (full I/L), w_max one side and w_min the other */
+  function colSub(fr, j){
+    const n = fr.L.length, K = fr.L.map(L => 10 * fr.Ib / L), Kcu = 10 * fr.Ic / fr.hu, Kcl = 10 * fr.Ic / fr.hl;
+    const fmx = fr.L.map((L, i) => fr.wmax[i] * L * L / 12), fmn = fr.L.map((L, i) => fr.wmin[i] * L * L / 12);
+    const hasL = j > 0, hasR = j < n; let dfem, side;
+    if (hasL && hasR){ const a = fmx[j - 1] - fmn[j], b = fmx[j] - fmn[j - 1]; dfem = Math.max(a, b); side = a >= b ? 'L' : 'R'; }
+    else { dfem = hasL ? fmx[j - 1] : fmx[j]; side = hasL ? 'L' : 'R'; }
+    const kbl = hasL ? K[j - 1] : 0, kbr = hasR ? K[j] : 0, s = Kcu + Kcl + 0.5 * kbl + 0.5 * kbr;
+    return {j, hasL, hasR, dfem, side, Kcu, Kcl, kbl, kbr, s, Mcu: dfem * Kcu / s, Mcl: dfem * Kcl / s, fmx, fmn};
+  }
+  return {J, spanName, mdist, spanStat, allPats, inLS1, inLS2, patName, contBeam, effects, colSub};
+})();
+
+/* ===================== Unit 4: the one-level and two-free-joint sub-frames (a port of the RC Design app, verified against it) ===================== */
+const FRM4 = (() => {
+  const {mdist, spanStat, spanName, J} = FRM;
+  /* Load Set 1 in the app's order: the adjacent pairs from the left, then the alternate spans */
+  function ls1(n){
+    const out = [], idx = [...Array(n).keys()];
+    const push = on => { const l = idx.map(i => on.includes(i)); if (!out.some(o => o.every((x, k) => x === l[k]))) out.push(l); };
+    for (let i = 0; i < n - 1; i++) push([i, i + 1]);
+    push(idx.filter(i => i % 2 === 0)); push(idx.filter(i => i % 2 === 1));
+    return out;
+  }
+  function stiff(fr){ return {Kb: fr.L.map(L => 10 * fr.Ib / L), Kcu: 10 * fr.Ic / fr.hu, Kcl: 10 * fr.Ic / fr.hl}; }
+  /* the cases of one sub-frame: sIdx the global spans, kb/jt/cols per local member and joint; main = the local span kept (two-free-joint) */
+  function runCases(fr, sIdx, kb, jt, cols, lpats, ncyc, main){
+    const {Kcu, Kcl} = stiff(fr), nl = sIdx.length, off = sIdx[0], Ls = sIdx.map(i => fr.L[i]);
+    const cases = lpats.map(pat => {
+      const w = sIdx.map((i, q) => pat[q] ? fr.wmax[i] : fr.wmin[i]);
+      const r = mdist({n: nl, L: Ls, w, kb, kcu: cols.map(c => c ? Kcu : 0), kcl: cols.map(c => c ? Kcl : 0), jt, ncyc});
+      const st = {};
+      (main === undefined ? [...Array(nl).keys()] : [main]).forEach(q => { st[q] = spanStat(w[q], Ls[q], r.final[2 * q], r.final[2 * q + 1]); });
+      return {pat, w, r, st};
+    });
+    const env = {spans: {}, cols: {}};
+    (main === undefined ? [...Array(nl).keys()] : [main]).forEach(q => {
+      env.spans[sIdx[q]] = {hL: Math.max(...cases.map(c => -c.r.final[2 * q])), hR: Math.max(...cases.map(c => c.r.final[2 * q + 1])),
+                            sg: Math.max(...cases.map(c => c.st[q].Mmax)), sgmin: Math.min(...cases.map(c => c.st[q].Mmax)),
+                            vl: Math.max(...cases.map(c => c.st[q].VL)), vr: Math.max(...cases.map(c => c.st[q].VR))};
+    });
+    jt.forEach((t, q) => { if (cols[q]) env.cols[off + q] = [Math.max(...cases.map(c => Math.abs(c.r.Mcu[q]))), Math.max(...cases.map(c => Math.abs(c.r.Mcl[q])))]; });
+    return {cases, env, off, sIdx, kb, jt, cols};
+  }
+  /* one-level sub-frame: the beams of the floor at full K, the columns above and below at every joint, far ends fixed */
+  function sub1(fr, ncyc){
+    const n = fr.L.length, {Kb} = stiff(fr);
+    const res = runCases(fr, [...Array(n).keys()], Kb.slice(), new Array(n + 1).fill('free'), new Array(n + 1).fill(true), ls1(n), ncyc);
+    res.pats = ls1(n); return res;
+  }
+  /* two-free-joint sub-frame of beam b: its two end joints free with their columns, the neighbours at ½K with their far ends fixed;
+     the cases are the distinct Load Set 1 loadings of the spans inside the sub-frame */
+  function sub2beam(fr, b, ncyc){
+    const n = fr.L.length, {Kb} = stiff(fr);
+    const sIdx = (b > 0 ? [b - 1] : []).concat([b], b < n - 1 ? [b + 1] : []), main = sIdx.indexOf(b), off = sIdx[0];
+    const kb = sIdx.map(i => i === b ? Kb[i] : 0.5 * Kb[i]);
+    const jt = [], cols = [];
+    for (let q = 0; q <= sIdx.length; q++){ const gj = off + q, free = gj === b || gj === b + 1; jt.push(free ? 'free' : 'fixed'); cols.push(free); }
+    const lp = [];
+    ls1(n).forEach(p => { const l = sIdx.map(i => p[i]); if (!lp.some(o => o.every((x, k) => x === l[k]))) lp.push(l); });
+    const res = runCases(fr, sIdx, kb, jt, cols, lp, ncyc, main);
+    res.b = b; res.main = main; res.lpats = lp; return res;
+  }
+  function sub2(fr, ncyc){
+    const beams = fr.L.map((_, b) => sub2beam(fr, b, ncyc)), cu = {}, cl = {};
+    beams.forEach(B => Object.entries(B.env.cols).forEach(([gj, [a, c]]) => { cu[gj] = Math.max(cu[gj] || 0, a); cl[gj] = Math.max(cl[gj] || 0, c); }));
+    return {beams, cu, cl};
+  }
+  /* Unit 3's method: the continuous beam over Load Set 1 (¾K, pins released once), the one-free-joint sub-frames for the columns */
+  function cont(fr, ncyc){
+    const n = fr.L.length, cases = ls1(n).map(p => FRM.contBeam(fr, p, ncyc, 'q'));
+    const hL = fr.L.map((_, i) => Math.max(...cases.map(c => -c.final[2 * i]))), hR = fr.L.map((_, i) => Math.max(...cases.map(c => c.final[2 * i + 1])));
+    const sg = fr.L.map((_, i) => Math.max(...cases.map(c => c.spans[i].Mmax)));
+    const cols = [...Array(n + 1).keys()].map(j => FRM.colSub(fr, j));
+    return {cases, hL, hR, sg, cols};
+  }
+  /* the seven effects of Activity 4B: [continuous beam (5 cycles) + one-free-joint, two-free-joint (4), one-level (4)] */
+  function compare(fr){
+    const C = cont(fr, 5), T = sub2(fr, 4), O = sub1(fr, 4);
+    const tA = T.beams[0].env.spans[0], tB = T.beams[1].env.spans[1];
+    return [
+      {id: 'hA', en: 'Hogging at A (beam AB)', ms: 'Hogging di A (beam AB)', v: [0, tA.hL, O.env.spans[0].hL], endA: C.cols[0].Mcu + C.cols[0].Mcl},
+      {id: 'hBab', en: 'Hogging at B, beam AB', ms: 'Hogging di B, beam AB', v: [C.hR[0], tA.hR, O.env.spans[0].hR]},
+      {id: 'hBbc', en: 'Hogging at B, beam BC', ms: 'Hogging di B, beam BC', v: [C.hL[1], tB.hL, O.env.spans[1].hL]},
+      {id: 'sAB', en: 'Sagging in AB', ms: 'Sagging dalam AB', v: [C.sg[0], tA.sg, O.env.spans[0].sg]},
+      {id: 'sBC', en: 'Sagging in BC', ms: 'Sagging dalam BC', v: [C.sg[1], tB.sg, O.env.spans[1].sg]},
+      {id: 'cA', en: 'Upper column at A', ms: 'Column atas di A', v: [C.cols[0].Mcu, T.cu[0], O.env.cols[0][0]]},
+      {id: 'cB', en: 'Upper column at B', ms: 'Column atas di B', v: [C.cols[1].Mcu, T.cu[1], O.env.cols[1][0]]}
+    ];
+  }
+  return {ls1, stiff, sub1, sub2beam, sub2, cont, compare};
+})();
+
+/* ===================== frames ===================== */
+const J = FRM.J;
+const near = (a, b, tol) => Math.abs(a - b) <= tol;
+const FR_CASES = {
+  fa3: {label: ['FA3 · the course notes’ frame (spans 6, 6, 6 m)', 'FA3 · frame nota kursus (span 6, 6, 6 m)'],
+        note: ['Course notes Examples 1 and 4: panels 4 and 5 m wide, β from Table 3.15 (end bays case 2, middle bay case 1). Worked Example 3.1.', 'Contoh 1 dan 4 nota kursus: panel selebar 4 dan 5 m, β daripada Table 3.15 (bay hujung kes 2, bay tengah kes 1). Worked Example 3.1.'],
+        L: [6, 6, 6], Gk: [22.7125, 21.5625, 22.7125], Qk: [17.91, 16.875, 17.91]},
+  fa1: {label: ['FA1 · the course workbook’s frame (spans 6, 5, 8 m)', 'FA1 · frame workbook kursus (span 6, 5, 8 m)'],
+        note: ['FrameAnalysis_3.xlsx Ex 9.1 with β read from Table 3.15 for every panel (BC 0.40 and 0.33, CD 0.52 and 0.48). Faded Example 3.2.', 'FrameAnalysis_3.xlsx Ex 9.1 dengan β dibaca daripada Table 3.15 bagi setiap panel (BC 0.40 dan 0.33, CD 0.52 dan 0.48). Faded Example 3.2.'],
+        L: [6, 5, 8], Gk: [22.7125, 19.0625, 25.2625], Qk: [17.91, 14.625, 20.205]},
+  own: {label: ['Your own frame', 'Frame anda sendiri'], note: ['Type the spans and the characteristic loads per metre of beam (Table 3.15 gives them, Notes §3).', 'Taip span dan load cirian per meter beam (Table 3.15 memberinya, Nota §3).'],
+        L: [6, 5, 7], Gk: [22, 19, 24], Qk: [17, 14, 18]}
+};
+const OWN_MAX = 4;
+let ownN = 3;
+const ownL = [6, 5, 7, 6], ownG = [22, 19, 24, 22], ownQ = [17, 14, 18, 17];
+function frameOf(k){
+  const c = FR_CASES[k];
+  const L = k === 'own' ? ownL.slice(0, ownN) : c.L, Gk = k === 'own' ? ownG.slice(0, ownN) : c.Gk, Qk = k === 'own' ? ownQ.slice(0, ownN) : c.Qk;
+  return {key: k, L, Gk, Qk, wmax: Gk.map((g, i) => 1.35 * g + 1.5 * Qk[i]), wmin: Gk.map(g => 1.35 * g), Ib: 4.5, Ic: 1.6, hu: 3.5, hl: 4.0};
+}
+function fillCaseSelect(id, key){ const s = el(id); s.innerHTML = ''; Object.keys(FR_CASES).forEach(k => { const o = document.createElement('option'); o.value = k; o.textContent = Lg(FR_CASES[k].label[0], FR_CASES[k].label[1]); s.appendChild(o); }); s.value = key; }
+function kvHtml(items){ return items.map(([k, v]) => `<div><span>${k}</span><b>${v}</b></div>`).join(''); }
+const kNm = v => f(v, 1);
+
+/* ---------- drawing helpers ---------- */
+function clear(svg){ while (svg.firstChild) svg.removeChild(svg.firstChild); }
+function beamGeom(L, x0, x1){ const tot = L.reduce((a, b) => a + b, 0), sc = (x1 - x0) / tot; const xs = [x0]; L.forEach(l => xs.push(xs[xs.length - 1] + l * sc)); return {xs, sc}; }
+function supports(svg, xs, y){
+  xs.forEach((x, j) => {
+    S('path', {d: `M${x},${y} l-9,15 h18 z`, fill: 'var(--surface)', stroke: 'var(--ink-2)', 'stroke-width': 1.6}, svg);
+    S('line', {x1: x - 13, x2: x + 13, y1: y + 18, y2: y + 18, stroke: 'var(--ink-2)', 'stroke-width': 1.6}, svg);
+    T(svg, x, y + 34, J[j], {'text-anchor': 'middle', style: 'font-weight:700;fill:var(--ink)'});
+  });
+}
+function loadsRow(svg, xs, yb, w, p, wref){
+  w.forEach((wi, i) => {
+    const h = Math.max(10, 52 * wi / wref), on = p[i];
+    S('rect', {x: xs[i] + 3, y: yb - h, width: xs[i + 1] - xs[i] - 6, height: h, fill: on ? 'var(--ink)' : 'var(--concrete)', stroke: on ? 'var(--ink)' : 'var(--concrete-edge)', 'stroke-width': 1, rx: 2}, svg);
+    T(svg, (xs[i] + xs[i + 1]) / 2, yb - h - 6, f(wi, 2), {'text-anchor': 'middle', style: 'fill:var(--ink-2)'});
+  });
+}
+/* bending moment diagram (sagging-positive M, drawn with hogging up) of one or more analyses on one axis */
+function bmdPath(r, xs, sc, axis, ksc){
+  let d = '';
+  r.spans.forEach((s, i) => { for (let k = 0; k <= 40; k++){ const x = s.L * k / 40, X = xs[i] + x * sc, Y = axis + s.M(x) * ksc; d += (d ? ' L' : 'M') + X.toFixed(1) + ',' + Y.toFixed(1); } });
+  return d;
+}
+
+/* ===================== 1 LOAD ARRANGEMENTS ===================== */
+const AKEY = 'seaa4333-lab-frame-3a';
+let aSt = recall(AKEY, null) || {};
+aSt.picks = aSt.picks || {}; aSt.shown = aSt.shown || {}; aSt.done = aSt.done || {};
+let aCaseK = 'fa3', aEffK = 'sag0';
+function aKey(){ return aCaseK + (aCaseK === 'own' ? ownN : '') + '|' + aEffK; }
+function aSave(){ store(AKEY, aSt); }
+function aFrame(){ return frameOf(aCaseK); }
+function paintOwnTable(){
+  const t = el('aOwnTbl');
+  let h = `<thead><tr><th>${Lg('Span', 'Span')}</th><th>L (m)</th><th>G<sub>k</sub></th><th>Q<sub>k</sub></th></tr></thead><tbody>`;
+  for (let i = 0; i < ownN; i++) h += `<tr><td>${FRM.spanName(i)}</td><td><input type="number" min="2" max="12" step="0.5" data-o="L" data-i="${i}" value="${ownL[i]}"></td><td><input type="number" min="1" max="80" step="0.5" data-o="G" data-i="${i}" value="${ownG[i]}"></td><td><input type="number" min="0" max="80" step="0.5" data-o="Q" data-i="${i}" value="${ownQ[i]}"></td></tr>`;
+  t.innerHTML = h + '</tbody>';
+  t.querySelectorAll('input').forEach(inp => inp.addEventListener('input', () => {
+    const v = parseFloat(inp.value), i = +inp.dataset.i, lo = +inp.min, hi = +inp.max; if (!isFinite(v) || v < lo || v > hi) return;
+    ({L: ownL, G: ownG, Q: ownQ})[inp.dataset.o][i] = v; aSt.shown[aKey()] = false; drawArr();
+  }));
+}
+function paintEffects(){
+  const n = aFrame().L.length, box = el('aEff'), effs = FRM.effects(n);
+  if (!effs.some(e => e.id === aEffK)) aEffK = effs[0].id;
+  box.innerHTML = effs.map(e => `<button type="button" data-v="${e.id}" aria-pressed="${e.id === aEffK}">${Lg(e.en, e.ms)}</button>`).join('');
+}
+function aResults(){
+  const fr = aFrame(), pats = FRM.allPats(fr.L.length), eff = FRM.effects(fr.L.length).find(e => e.id === aEffK);
+  const res = pats.map(p => { const r = FRM.contBeam(fr, p, 0, 'q'); return {p, r, v: eff.fn(r), ls1: FRM.inLS1(p), ls2: FRM.inLS2(p)}; });
+  let best = 0; res.forEach((x, k) => { if (eff.kind === 'max' ? x.v > res[best].v + 1e-9 : x.v < res[best].v - 1e-9) best = k; });
+  return {fr, pats, eff, res, best};
+}
+function cardSvg(p){
+  const n = p.length, w = 120, x0 = 8, x1 = w - 8, step = (x1 - x0) / n;
+  let s = `<svg viewBox="0 0 ${w} 40" aria-hidden="true">`;
+  p.forEach((on, i) => { const h = on ? 18 : 8; s += `<rect x="${(x0 + i * step + 2).toFixed(1)}" y="${28 - h}" width="${(step - 4).toFixed(1)}" height="${h}" rx="1.5" fill="${on ? 'var(--ink)' : 'var(--concrete)'}" stroke="${on ? 'var(--ink)' : 'var(--concrete-edge)'}"/>`; });
+  s += `<line x1="${x0}" x2="${x1}" y1="29" y2="29" stroke="var(--ink-2)" stroke-width="1.6"/>`;
+  for (let j = 0; j <= n; j++){ const x = x0 + j * step; s += `<path d="M${x.toFixed(1)},29 l-4,7 h8 z" fill="var(--surface)" stroke="var(--ink-2)" stroke-width="1.1"/>`; }
+  return s + '</svg>';
+}
+function drawArr(){
+  const A = aResults(), key = aKey(), shown = !!aSt.shown[key], pick = aSt.picks[key];
+  el('aOwn').hidden = aCaseK !== 'own';
+  el('aCaseNote').innerHTML = Lg(FR_CASES[aCaseK].note[0], FR_CASES[aCaseK].note[1]);
+  const box = el('aCards');
+  box.innerHTML = A.res.map((x, k) => {
+    let cls = 'card'; if (pick === k) cls += ' picked'; if (shown && k === A.best) cls += ' best';
+    const tags = shown ? `<span class="tags">${x.ls1 ? '<i class="t1">LS1</i>' : ''}${x.ls2 ? '<i class="t2">LS2</i>' : ''}</span>` : '';
+    const val = shown ? `<b class="val">${kNm(x.v)}</b>` : '<b class="val veiled">?</b>';
+    return `<button type="button" class="${cls}" data-k="${k}" aria-pressed="${pick === k}">${cardSvg(x.p)}<span class="nm">${FRM.patName(x.p)}</span>${val}${tags}</button>`;
+  }).join('');
+  box.querySelectorAll('button.card').forEach(b => b.addEventListener('click', () => { aSt.picks[key] = +b.dataset.k; aSave(); drawArr(); }));
+  const out = el('aOut');
+  if (shown){
+    const B = A.res[A.best], worstWord = A.eff.kind === 'max' ? Lg('largest', 'terbesar') : Lg('least', 'terkecil');
+    const best1 = A.res.filter(x => x.ls1).reduce((a, x) => (A.eff.kind === 'max' ? x.v > a.v : x.v < a.v) ? x : a);
+    const best2 = A.res.filter(x => x.ls2).reduce((a, x) => (A.eff.kind === 'max' ? x.v > a.v : x.v < a.v) ? x : a);
+    const gap = x => Math.abs(B.v) > 1e-6 ? Math.abs(1 - x.v / B.v) * 100 : 0;
+    const ls = (x, nm) => near(x.v, B.v, 1e-6) ? Lg(`${nm} contains it ✓`, `${nm} mengandunginya ✓`) : Lg(`${nm} misses it: its worst card gives ${kNm(x.v)} kN m (${f(gap(x), 0)} % ${A.eff.kind === 'max' ? 'less' : 'off'})`, `${nm} terlepas: kad paling teruknya memberi ${kNm(x.v)} kN m (${f(gap(x), 0)} % ${A.eff.kind === 'max' ? 'kurang' : 'berbeza'})`);
+    let head;
+    if (pick === undefined) head = Lg(`No card picked. `, `Tiada kad dipilih. `);
+    else if (near(A.res[pick].v, B.v, 1e-6)) head = Lg('Right. ', 'Betul. ');
+    else head = Lg(`Your card, ${FRM.patName(A.res[pick].p)}, gives ${kNm(A.res[pick].v)} kN m. `, `Kad anda, ${FRM.patName(A.res[pick].p)}, memberi ${kNm(A.res[pick].v)} kN m. `);
+    out.hidden = false; out.className = 'verdict ' + (pick !== undefined && near(A.res[pick].v, B.v, 1e-6) ? 'ok' : 'bad');
+    out.innerHTML = head + Lg(`The ${worstWord} value, ${kNm(B.v)} kN m, comes from ${FRM.patName(B.p)} at w<sub>max</sub>. ${ls(best1, 'Load Set 1')}; ${ls(best2, 'Load Set 2')}.`,
+                              `Nilai ${worstWord}, ${kNm(B.v)} kN m, datang daripada ${FRM.patName(B.p)} pada w<sub>max</sub>. ${ls(best1, 'Load Set 1')}; ${ls(best2, 'Load Set 2')}.`);
+  } else { out.hidden = true; }
+  drawArrChart(A, shown, pick);
+  const fr = A.fr;
+  el('aKV').innerHTML = kvHtml(fr.L.map((L, i) => [`${FRM.spanName(i)}: w<sub>max</sub> / w<sub>min</sub>`, `${f(fr.wmax[i], 2)} / ${f(fr.wmin[i], 2)}`]));
+}
+function drawArrChart(A, shown, pick){
+  const svg = el('aChart'); clear(svg);
+  const fr = A.fr, {xs, sc} = beamGeom(fr.L, 50, 640), yb = 108;
+  const p = pick !== undefined ? A.res[pick].p : (shown ? A.res[A.best].p : fr.L.map(() => false));
+  loadsRow(svg, xs, yb - 4, fr.L.map((_, i) => p[i] ? fr.wmax[i] : fr.wmin[i]), p, Math.max(...fr.wmax));
+  S('line', {x1: xs[0], x2: xs[xs.length - 1], y1: yb, y2: yb, stroke: 'var(--ink)', 'stroke-width': 3}, svg);
+  supports(svg, xs, yb);
+  fr.L.forEach((L, i) => T(svg, (xs[i] + xs[i + 1]) / 2, yb + 34, `${f(L, 1)} m`, {'text-anchor': 'middle', class: 'small'}));
+  const leg = el('aLegend');
+  if (!shown){
+    el('aPlotTitle').innerHTML = Lg('The beam and its loads', 'Beam dan load-nya');
+    T(svg, 345, 230, pick !== undefined ? Lg('Bending moments appear after the reveal.', 'Bending moment dipaparkan selepas pendedahan.') : Lg('Tap a card to load the beam.', 'Ketik kad untuk membebani beam.'), {'text-anchor': 'middle', class: 'axt'});
+    leg.innerHTML = ''; return;
+  }
+  el('aPlotTitle').innerHTML = Lg('Bending moment (hogging up)', 'Bending moment (hogging ke atas)');
+  const shownR = [A.res[A.best]]; if (pick !== undefined && pick !== A.best) shownR.unshift(A.res[pick]);
+  let mx = 1; shownR.forEach(x => x.r.spans.forEach(s => { for (let k = 0; k <= 40; k++) mx = Math.max(mx, Math.abs(s.M(s.L * k / 40))); }));
+  const axis = 238, ksc = 78 / mx;
+  S('line', {x1: xs[0], x2: xs[xs.length - 1], y1: axis, y2: axis, stroke: 'var(--ink-3)', 'stroke-width': 1}, svg);
+  shownR.forEach((x, q) => {
+    const isBest = x === A.res[A.best];
+    S('path', {d: bmdPath(x.r, xs, sc, axis, ksc), fill: 'none', stroke: isBest ? 'var(--flight)' : 'var(--unbraced)', 'stroke-width': isBest ? 2.6 : 2, 'stroke-dasharray': isBest ? '' : '6 4'}, svg);
+  });
+  const Bx = A.res[A.best].r;
+  for (let j = 1; j < fr.L.length; j++){ const M = Bx.final[2 * j - 1]; T(svg, xs[j], axis - M * ksc - 8, kNm(M), {'text-anchor': 'middle', style: 'fill:var(--flight)'}); }
+  Bx.spans.forEach((s, i) => { const X = xs[i] + s.xm * sc, Y = axis + s.Mmax * ksc; S('circle', {cx: X, cy: Y, r: 3, fill: 'var(--flight)'}, svg); T(svg, X, Y + (s.Mmax >= 0 ? 16 : -8), kNm(s.Mmax), {'text-anchor': 'middle', style: 'fill:var(--flight)'}); });
+  leg.innerHTML = `<span><i class="key" style="border-color:var(--flight)"></i>${Lg('worst card', 'kad paling teruk')}</span>` + (shownR.length > 1 ? `<span><i class="key" style="border-color:var(--unbraced);border-top-style:dashed"></i>${Lg('your card', 'kad anda')}</span>` : '');
+}
+el('aCase').addEventListener('change', () => { aCaseK = el('aCase').value; paintEffects(); drawArr(); });
+segGroup(el('aN'), v => { ownN = +v; paintOwnTable(); paintEffects(); drawArr(); });
+el('aEff').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; aEffK = b.dataset.v; paintEffects(); drawArr(); });
+el('aReveal').addEventListener('click', () => {
+  const key = aKey(); aSt.shown[key] = true;
+  if (aSt.picks[key] !== undefined){ aSt.done[aEffK] = true; }
+  aSave();
+  if (Object.keys(aSt.done).length >= 4) milestone('arr');
+  if (aCaseK === 'fa1' && aEffK === 'hog1') milestone('ls');
+  drawArr();
+});
+el('aNext').addEventListener('click', () => { const effs = FRM.effects(aFrame().L.length); const k = effs.findIndex(e => e.id === aEffK); aEffK = effs[(k + 1) % effs.length].id; paintEffects(); drawArr(); });
+
+/* ===================== 2 MOMENT DISTRIBUTION ===================== */
+let mCaseK = 'fa3', mPatK = 3, mEnd = 'q', mCyc = 5, mShown = 2, mStreak = 0;
+const MKEY3B = 'seaa4333-lab-frame-3b';
+function mFrame(){ return frameOf(mCaseK); }
+function mPats(){ return FRM.allPats(mFrame().L.length); }
+function fillPatSelect(){
+  const s = el('mPat'), pats = mPats(); s.innerHTML = '';
+  pats.forEach((p, k) => { const o = document.createElement('option'); o.value = k; const sets = [FRM.inLS1(p) ? 'LS1' : '', FRM.inLS2(p) ? 'LS2' : ''].filter(Boolean).join(', '); o.textContent = `${FRM.patName(p)} ${Lg('at w_max', 'pada w_max')}${sets ? ` (${sets})` : ''}`; s.appendChild(o); });
+  if (mPatK >= pats.length) mPatK = pats.findIndex(p => p.filter(Boolean).length === 2 && p[0] && p[1]); if (mPatK < 0) mPatK = 0;
+  s.value = mPatK;
+}
+function mRun(){ const fr = mFrame(), p = mPats()[mPatK]; return {fr, p, r: FRM.contBeam(fr, p, mCyc, mEnd), rc: FRM.contBeam(fr, p, 0, 'q')}; }
+const f2 = v => f(Math.abs(v) < 0.005 ? 0 : v, 2);
+function rowLab(r){ return r.kind === 'fem' ? 'FEM' : r.kind === 'bal' ? Lg(`Bal. ${r.cyc}`, `Imb. ${r.cyc}`) : `C.O. ${r.cyc}`; }
+function drawMd(){
+  const {fr, p, r, rc} = mRun(), n = fr.L.length, total = r.rows.length + 1;   // +1 for the DF row (shown from the start)
+  mShown = Math.max(2, Math.min(mShown, total));
+  const done = mShown >= total;
+  el('mKV').innerHTML = kvHtml([[Lg('K (10⁵ mm³)', 'K (10⁵ mm³)'), r.K.map(k => f(k, 2)).join(' · ')], [Lg('K used', 'K digunakan'), r.kb.map(k => f(k, 2)).join(' · ')], ['w (kN/m)', r.w.map(w => f(w, 2)).join(' · ')], ['FEM (kN m)', r.fem.map(x => f(x[1], 2)).join(' · ')]]);
+  const head = ['']; for (let i = 0; i < n; i++){ head.push(J[i] + J[i + 1], J[i + 1] + J[i]); }
+  let h = `<thead><tr>${head.map(x => `<th>${x}</th>`).join('')}</tr></thead><tbody>`;
+  h += `<tr class="dfrow"><td>DF</td>${r.df.map((d, e) => { const j = e % 2 === 0 ? e / 2 : (e + 1) / 2; return `<td>${(r.jt[j] === 'pin' || (mEnd === 'f' && (j === 0 || j === n))) ? '1.00' : f(d, 3)}</td>`; }).join('')}</tr>`;
+  const vis = r.rows.slice(0, mShown - 1);
+  vis.forEach((row, q) => { const last = q === vis.length - 1 && !done; h += `<tr class="${row.kind}${last ? ' cur' : ''}"><td>${rowLab(row)}</td>${row.v.map(v => `<td>${row.kind === 'co' && Math.abs(v) < 1e-9 ? '' : f2(v)}</td>`).join('')}</tr>`; });
+  if (done) h += `<tr class="sum"><td>Σ</td>${r.final.map(v => `<td><b>${f2(v)}</b></td>`).join('')}</tr>`;
+  el('mTable').innerHTML = h + '</tbody>';
+  const nextRow = r.rows[mShown - 1];
+  const pred = el('mPred');
+  pred.disabled = done || !nextRow || nextRow.kind !== 'bal' || n < 2;
+  pred.placeholder = done ? '' : (nextRow && nextRow.kind === 'bal' ? Lg('balance at BA', 'imbangan di BA') : Lg('carry-over row: just press Next', 'baris carry-over: tekan sahaja Seterusnya'));
+  el('mNext').disabled = done;
+  // explanation of the last row shown
+  const lastRow = vis[vis.length - 1];
+  el('mWhy').innerHTML = done ? Lg(`Σ: add each column. M<sub>B</sub> = ${f2(r.final[1])} kN m after ${r.cycles} balancing row${r.cycles > 1 ? 's' : ''}; carried to convergence ${f2(rc.final[1])} kN m${mCyc > 0 ? ` (${f(Math.abs(r.final[1] - rc.final[1]), 2)} apart)` : ''}.`,
+                                    `Σ: jumlahkan setiap lajur. M<sub>B</sub> = ${f2(r.final[1])} kN m selepas ${r.cycles} baris imbangan; apabila diteruskan hingga converge ${f2(rc.final[1])} kN m${mCyc > 0 ? ` (berbeza ${f(Math.abs(r.final[1] - rc.final[1]), 2)})` : ''}.`) : whyRow(lastRow, r, n);
+  el('mRes').hidden = !done;
+  if (done) drawMdResult(fr, r);
+}
+function whyRow(row, r, n){
+  if (!row) return '';
+  if (row.kind === 'fem') return Lg('Fixed-end moments: −wL²/12 at the left end of each span, +wL²/12 at the right end. Every joint is locked.', 'Fixed-end moment: −wL²/12 di hujung kiri setiap span, +wL²/12 di hujung kanan. Setiap joint dikunci.');
+  if (row.kind === 'co') return Lg('Carry over: half of each balancing moment goes to the far end of its span' + (mEnd === 'q' ? ', but nothing to a released pin.' : '.'), 'Carry over: separuh setiap balancing moment pergi ke hujung jauh span-nya' + (mEnd === 'q' ? ', tetapi tiada apa-apa ke pin yang telah dilepaskan.' : '.'));
+  const parts = [];
+  for (let j = 0; j <= n; j++){
+    if (!row.U || Math.abs(row.U[j]) < 1e-9) continue;
+    const isEnd = j === 0 || j === n;
+    if (isEnd && mEnd === 'q') parts.push(Lg(`release ${J[j]}: ${f2(-row.U[j])}`, `lepaskan ${J[j]}: ${f2(-row.U[j])}`));
+    else if (isEnd) parts.push(Lg(`balance ${J[j]}: ${f2(-row.U[j])}`, `imbangi ${J[j]}: ${f2(-row.U[j])}`));
+    else parts.push(Lg(`at ${J[j]} ΣM = ${f2(row.U[j])}, so ${J[j]}${J[j - 1]} ${f2(row.v[2 * j - 1])} and ${J[j]}${J[j + 1]} ${f2(row.v[2 * j])}`, `di ${J[j]} ΣM = ${f2(row.U[j])}, jadi ${J[j]}${J[j - 1]} ${f2(row.v[2 * j - 1])} dan ${J[j]}${J[j + 1]} ${f2(row.v[2 * j])}`));
+  }
+  return Lg('Balance: ', 'Imbangi: ') + parts.join('; ') + '.';
+}
+function drawMdResult(fr, r){
+  const n = fr.L.length;
+  let h = `<thead><tr><th>${Lg('Span', 'Span')}</th><th>w (kN/m)</th><th>M<sub>L</sub> ${Lg('hog', 'hog')}</th><th>M<sub>R</sub> ${Lg('hog', 'hog')}</th><th>V<sub>L</sub> (kN)</th><th>V<sub>R</sub> (kN)</th><th>x₀ (m)</th><th>M<sub>span</sub> (kN m)</th></tr></thead><tbody>`;
+  r.spans.forEach((s, i) => { h += `<tr><td>${FRM.spanName(i)}</td><td>${f(s.w, 2)}</td><td>${f2(-r.final[2 * i])}</td><td>${f2(r.final[2 * i + 1])}</td><td>${f2(s.VL)}</td><td>${f2(s.VR)}</td><td>${f(s.xm, 2)}</td><td><b>${f2(s.Mmax)}</b></td></tr>`; });
+  el('mSpans').innerHTML = h + '</tbody>';
+  const svg = el('mChart'); clear(svg);
+  const {xs, sc} = beamGeom(fr.L, 50, 640);
+  let mx = 1, vx = 1; r.spans.forEach(s => { for (let k = 0; k <= 40; k++){ mx = Math.max(mx, Math.abs(s.M(s.L * k / 40))); } vx = Math.max(vx, Math.abs(s.VL), Math.abs(s.VR)); });
+  const a1 = 110, k1 = 80 / mx, a2 = 278, k2 = 60 / vx;
+  [a1, a2].forEach(a => S('line', {x1: xs[0], x2: xs[n], y1: a, y2: a, stroke: 'var(--ink-3)', 'stroke-width': 1}, svg));
+  xs.forEach((x, j) => { S('line', {x1: x, x2: x, y1: 20, y2: 362, stroke: 'var(--grid)', 'stroke-width': 1}, svg); T(svg, x, 378, J[j], {'text-anchor': 'middle', style: 'font-weight:700;fill:var(--ink)'}); });
+  S('path', {d: bmdPath(r, xs, sc, a1, k1), fill: 'none', stroke: 'var(--flight)', 'stroke-width': 2.4}, svg);
+  let d = ''; r.spans.forEach((s, i) => { const X0 = xs[i], X1 = xs[i + 1]; d += `M${X0},${a2} L${X0},${(a2 - s.VL * k2).toFixed(1)} L${X1},${(a2 - (s.VL - s.w * s.L) * k2).toFixed(1)} L${X1},${a2} `; });
+  S('path', {d, fill: 'none', stroke: 'var(--unbraced)', 'stroke-width': 2}, svg);
+  for (let j = 1; j < n; j++){ const M = r.final[2 * j - 1]; T(svg, xs[j], a1 - M * k1 - 8, kNm(M), {'text-anchor': 'middle', style: 'fill:var(--flight)'}); }
+  r.spans.forEach((s, i) => {
+    const X = xs[i] + s.xm * sc, Y = a1 + s.Mmax * k1; T(svg, X, Y + (s.Mmax >= 0 ? 16 : -8), kNm(s.Mmax), {'text-anchor': 'middle', style: 'fill:var(--flight)'});
+    T(svg, xs[i] + 6, a2 - s.VL * k2 + (s.VL >= 0 ? -6 : 14), kNm(s.VL), {style: 'fill:var(--unbraced)'});
+    T(svg, xs[i + 1] - 6, a2 - (s.VL - s.w * s.L) * k2 + 14, kNm(s.VL - s.w * s.L), {'text-anchor': 'end', style: 'fill:var(--unbraced)'});
+  });
+  T(svg, xs[0] - 8, a1 - 70, 'M', {'text-anchor': 'end', class: 'axt'}); T(svg, xs[0] - 8, a2 - 50, 'V', {'text-anchor': 'end', class: 'axt'});
+}
+function mResetTable(){ mShown = 2; mStreak = 0; el('mOut').hidden = true; el('mPred').value = ''; drawMd(); }
+el('mCase').addEventListener('change', () => { mCaseK = el('mCase').value; fillPatSelect(); mResetTable(); paintJoints(); });
+el('mPat').addEventListener('change', () => { mPatK = +el('mPat').value; mResetTable(); });
+segGroup(el('mEnd'), v => { mEnd = v; mResetTable(); });
+segGroup(el('mCyc'), v => { mCyc = +v; mResetTable(); });
+el('mNext').addEventListener('click', () => {
+  const {r} = mRun(), row = r.rows[mShown - 1], out = el('mOut');
+  if (row && row.kind === 'bal' && mFrame().L.length >= 2){
+    const raw = el('mPred').value.trim(), v = parseFloat(raw), act = row.v[1];
+    if (raw === '' || !isFinite(v)){ mStreak = 0; out.hidden = true; }
+    else {
+      const ok = Math.abs(v - act) <= Math.max(0.05, 0.01 * Math.abs(act));
+      mStreak = ok ? mStreak + 1 : 0; out.hidden = false; out.className = 'verdict ' + (ok ? 'ok' : 'bad');
+      out.innerHTML = ok ? Lg(`Right: ${f2(act)} kN m. ${mStreak} in a row.`, `Betul: ${f2(act)} kN m. ${mStreak} berturut-turut.`)
+                         : Lg(`Not this time: ${f2(act)} kN m. At B, ΣM = ${f2(row.U[1])} kN m; BA takes −ΣM × F<sub>BA</sub> = −(${f2(row.U[1])}) × ${f(r.df[1], 3)}.`, `Belum tepat: ${f2(act)} kN m. Di B, ΣM = ${f2(row.U[1])} kN m; BA mengambil −ΣM × F<sub>BA</sub> = −(${f2(row.U[1])}) × ${f(r.df[1], 3)}.`);
+      if (mStreak >= 3){ milestone('md'); store(MKEY3B, {done: true}); }
+    }
+  } else out.hidden = true;
+  el('mPred').value = ''; mShown++; drawMd();
+});
+el('mAll').addEventListener('click', () => { mShown = 999; mStreak = 0; el('mOut').hidden = true; drawMd(); });
+el('mReset').addEventListener('click', mResetTable);
+
+/* ---------- columns: the one-free-joint sub-frame ---------- */
+let cJ = 1;
+function paintJoints(){ const n = mFrame().L.length; if (cJ > n) cJ = 1; el('cJoint').innerHTML = [...Array(n + 1).keys()].map(j => `<button type="button" data-v="${j}" aria-pressed="${j === cJ}">${J[j]}</button>`).join(''); el('cOut').hidden = true; el('cFigBox').hidden = true; }
+el('cJoint').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; cJ = +b.dataset.v; paintJoints(); });
+el('cReveal').addEventListener('click', () => {
+  const fr = mFrame(), c = FRM.colSub(fr, cJ), out = el('cOut');
+  const u = parseFloat(el('cU').value), l = parseFloat(el('cL').value);
+  const okU = isFinite(u) && Math.abs(u - c.Mcu) <= Math.max(0.1, 0.01 * c.Mcu), okL = isFinite(l) && Math.abs(l - c.Mcl) <= Math.max(0.1, 0.01 * c.Mcl);
+  const both = okU && okL;
+  const nm = J[cJ];
+  let steps;
+  if (c.hasL && c.hasR){
+    const a = c.fmx[cJ - 1] - c.fmn[cJ], b = c.fmx[cJ] - c.fmn[cJ - 1];
+    steps = Lg(`ΔFEM = max(${f2(c.fmx[cJ - 1])} − ${f2(c.fmn[cJ])}, ${f2(c.fmx[cJ])} − ${f2(c.fmn[cJ - 1])}) = max(${f2(a)}, ${f2(b)}) = ${f2(c.dfem)} kN m; ΣK = ${f(c.Kcu, 2)} + ${f(c.Kcl, 2)} + ½ × ${f(c.kbl, 2)} + ½ × ${f(c.kbr, 2)} = ${f(c.s, 2)}`,
+               `ΔFEM = max(${f2(c.fmx[cJ - 1])} − ${f2(c.fmn[cJ])}, ${f2(c.fmx[cJ])} − ${f2(c.fmn[cJ - 1])}) = max(${f2(a)}, ${f2(b)}) = ${f2(c.dfem)} kN m; ΣK = ${f(c.Kcu, 2)} + ${f(c.Kcl, 2)} + ½ × ${f(c.kbl, 2)} + ½ × ${f(c.kbr, 2)} = ${f(c.s, 2)}`);
+  } else {
+    steps = Lg(`End column: ΔFEM = w<sub>max</sub>L²/12 = ${f2(c.dfem)} kN m; ΣK = ${f(c.Kcu, 2)} + ${f(c.Kcl, 2)} + ½ × ${f(c.kbl + c.kbr, 2)} = ${f(c.s, 2)}`,
+               `Column hujung: ΔFEM = w<sub>max</sub>L²/12 = ${f2(c.dfem)} kN m; ΣK = ${f(c.Kcu, 2)} + ${f(c.Kcl, 2)} + ½ × ${f(c.kbl + c.kbr, 2)} = ${f(c.s, 2)}`);
+  }
+  const res = Lg(`M<sub>c,u</sub> = ${f2(c.dfem)} × ${f(c.Kcu, 2)}/${f(c.s, 2)} = <b>${f2(c.Mcu)}</b> and M<sub>c,l</sub> = ${f2(c.dfem)} × ${f(c.Kcl, 2)}/${f(c.s, 2)} = <b>${f2(c.Mcl)}</b> kN m.`,
+                 `M<sub>c,u</sub> = ${f2(c.dfem)} × ${f(c.Kcu, 2)}/${f(c.s, 2)} = <b>${f2(c.Mcu)}</b> dan M<sub>c,l</sub> = ${f2(c.dfem)} × ${f(c.Kcl, 2)}/${f(c.s, 2)} = <b>${f2(c.Mcl)}</b> kN m.`);
+  const endNote = (!c.hasL || !c.hasR) ? Lg(` At this end support the beam carries M<sub>c,u</sub> + M<sub>c,l</sub> = ${f2(c.Mcu + c.Mcl)} kN m of hogging.`, ` Di support hujung ini, beam memikul hogging M<sub>c,u</sub> + M<sub>c,l</sub> = ${f2(c.Mcu + c.Mcl)} kN m.`) : '';
+  out.hidden = false; out.className = 'verdict ' + (both ? 'ok' : 'bad');
+  out.innerHTML = (both ? Lg('Right. ', 'Betul. ') : (isFinite(u) || isFinite(l)) ? Lg('Not yet. ', 'Belum tepat. ') : '') + Lg(`Joint ${nm}: `, `Joint ${nm}: `) + steps + '. ' + res + endNote;
+  if (both && c.hasL && c.hasR) milestone('col');
+  drawColFig(fr, c); el('cFigBox').hidden = false;
+});
+function drawColFig(fr, c){
+  const svg = el('cFig'); clear(svg);
+  const cx = 280, cy = 150, bw = 190, ch = 110;
+  S('line', {x1: cx, x2: cx, y1: cy - ch, y2: cy + ch, stroke: 'var(--ink)', 'stroke-width': 4}, svg);
+  [[cx, cy - ch], [cx, cy + ch]].forEach(([x, y]) => { S('rect', {x: x - 22, y: y < cy ? y - 10 : y, width: 44, height: 10, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg); });
+  const beam = (dir, k, wv, on) => {
+    const x2 = cx + dir * bw;
+    S('line', {x1: cx, x2, y1: cy, y2: cy, stroke: 'var(--ink)', 'stroke-width': 4}, svg);
+    S('rect', {x: dir > 0 ? x2 : x2 - 10, y: cy - 22, width: 10, height: 44, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
+    const x0 = Math.min(cx, x2) + 8, x1 = Math.max(cx, x2) - 8, h = on ? 22 : 10;
+    S('rect', {x: x0, y: cy - 6 - h, width: x1 - x0, height: h, fill: on ? 'var(--ink)' : 'var(--concrete)', stroke: on ? 'var(--ink)' : 'var(--concrete-edge)', rx: 2}, svg);
+    T(svg, (x0 + x1) / 2, cy - 12 - h, `${f(wv, 2)} kN/m`, {'text-anchor': 'middle'});
+    T(svg, (x0 + x1) / 2, cy + 22, `½K = ${f(0.5 * k, 2)}`, {'text-anchor': 'middle', class: 'small'});
+  };
+  const j = c.j, loadL = c.side === 'L';
+  if (c.hasL) beam(-1, c.kbl, loadL ? fr.wmax[j - 1] : fr.wmin[j - 1], loadL);
+  if (c.hasR) beam(1, c.kbr, loadL ? fr.wmin[j] : fr.wmax[j], !loadL);
+  T(svg, cx + 10, cy - ch + 24, `K = ${f(c.Kcu, 2)} (h ${f(fr.hu, 1)} m)`, {});
+  T(svg, cx + 10, cy + ch - 14, `K = ${f(c.Kcl, 2)} (h ${f(fr.hl, 1)} m)`, {});
+  T(svg, cx - 10, cy - 54, `M = ${f2(c.Mcu)}`, {'text-anchor': 'end', style: 'fill:var(--flight);font-weight:700'});
+  T(svg, cx - 10, cy + 64, `M = ${f2(c.Mcl)}`, {'text-anchor': 'end', style: 'fill:var(--flight);font-weight:700'});
+  T(svg, cx, cy + ch + 30, `${Lg('joint', 'joint')} ${J[j]}: ΔFEM = ${f2(c.dfem)} kN m`, {'text-anchor': 'middle', style: 'fill:var(--ink)'});
+}
+drawers.md = () => {};
+
+/* ===================== 4 SUB-FRAMES (Unit 4) ===================== */
+const SUB_NOTE = {
+  fa3: ['The course notes’ frame: Worked Example 4.1 is the one-level sub-frame, case 1; Activity 4A is case 4 (BC alone). The two-free-joint sub-frames are the notes’ Example 3.', 'Frame nota kursus: Worked Example 4.1 ialah one-level sub-frame, kes 1; Aktiviti 4A ialah kes 4 (BC sahaja). Two-free-joint sub-frame ialah Contoh 3 nota.'],
+  fa1: ['The course workbook’s frame with β read from Table 3.15: Faded Example 4.2 is the two-free-joint sub-frame of beam CD, BC light and CD loaded.', 'Frame workbook kursus dengan β dibaca daripada Table 3.15: Faded Example 4.2 ialah two-free-joint sub-frame beam CD, BC ringan dan CD dibebani.'],
+  own: ['Your own frame: set its spans and loads in tab 1. Beams 250 × 600 (I<sub>b</sub> 4.5), columns 300 × 400 (I<sub>c</sub> 1.6), 3.5 m above and 4.0 m below.', 'Frame anda sendiri: tetapkan span dan load-nya dalam tab 1. Beam 250 × 600 (I<sub>b</sub> 4.5), column 300 × 400 (I<sub>c</sub> 1.6), 3.5 m di atas dan 4.0 m di bawah.']
+};
+let sCaseK = 'fa3', sMeth = 'o', sBeam = 0, sPatK = 3, sCyc = 4, sShown = 2, sStreak = 0;
+function sFrame(){ return frameOf(sCaseK); }
+function sRun(){
+  const fr = sFrame(), n = fr.L.length;
+  let R, Rc;
+  if (sMeth === 'o'){ R = FRM4.sub1(fr, sCyc); Rc = FRM4.sub1(fr, 0); }
+  else { sBeam = Math.min(sBeam, n - 1); R = FRM4.sub2beam(fr, sBeam, sCyc); Rc = FRM4.sub2beam(fr, sBeam, 0); }
+  const k = Math.max(0, Math.min(sPatK, R.cases.length - 1));
+  return {fr, n, R, k, c: R.cases[k], cc: Rc.cases[k]};
+}
+function sPatLabel(sIdx, pat){
+  const on = sIdx.filter((i, q) => pat[q]).map(FRM.spanName), off = sIdx.filter((i, q) => !pat[q]).map(FRM.spanName);
+  return Lg(`${on.join(' + ')} at w_max`, `${on.join(' + ')} pada w_max`) + (off.length ? Lg(`, ${off.join(' + ')} at w_min`, `, ${off.join(' + ')} pada w_min`) : '');
+}
+function fillSubSelects(){
+  const s = el('sPat'), {R} = sRun(); s.innerHTML = '';
+  const pats = sMeth === 'o' ? R.pats : R.lpats;
+  pats.forEach((p, k) => { const o = document.createElement('option'); o.value = k; o.textContent = Lg(`Case ${k + 1}: `, `Kes ${k + 1}: `) + sPatLabel(R.sIdx, p); s.appendChild(o); });
+  if (sPatK >= pats.length) sPatK = 0;
+  s.value = sPatK;
+  const n = sFrame().L.length;
+  el('sBeamG').hidden = sMeth !== 'o' ? false : true;
+  el('sBeam').innerHTML = [...Array(n).keys()].map(b => `<button type="button" data-v="${b}" aria-pressed="${b === sBeam}">${FRM.spanName(b)}</button>`).join('');
+  setSeg(el('sMeth'), sMeth); setSeg(el('sCyc'), sCyc);
+}
+/* the member ends and the columns of the table, with their global names */
+function sCols(R){
+  const ends = [], cols = [];
+  R.sIdx.forEach(i => { ends.push(J[i] + J[i + 1], J[i + 1] + J[i]); });
+  R.jt.forEach((t, q) => { if (R.cols[q]){ cols.push({q, nm: J[R.off + q] + '↑', up: true}, {q, nm: J[R.off + q] + '↓', up: false}); } });
+  return {ends, cols};
+}
+function sPredEnd(R){ return sMeth === 'o' ? 1 : 2 * R.main; }      // BA in the one-level sub-frame; the beam's own left end otherwise
+function sPredName(R){ const e = sPredEnd(R), i = R.sIdx[Math.floor(e / 2)]; return e % 2 === 0 ? J[i] + J[i + 1] : J[i + 1] + J[i]; }
+function drawSub(){
+  const {fr, n, R, c, cc} = sRun(), r = c.r, {ends, cols} = sCols(R), total = r.rows.length + 1;
+  sShown = Math.max(2, Math.min(sShown, total));
+  const done = sShown >= total;
+  el('sCaseNote').innerHTML = Lg(SUB_NOTE[sCaseK][0], SUB_NOTE[sCaseK][1]);
+  const {Kcu, Kcl} = FRM4.stiff(fr);
+  el('sKV').innerHTML = kvHtml([[Lg('K used, beams', 'K digunakan, beam'), R.sIdx.map((i, q) => `${FRM.spanName(i)} ${f(R.kb[q], 3)}`).join(' · ')], [Lg('K, columns', 'K, column'), `${f(Kcu, 3)} ↑ · ${f(Kcl, 3)} ↓`],
+                                ['w (kN/m)', R.sIdx.map((i, q) => `${FRM.spanName(i)} ${f(c.w[q], 2)}`).join(' · ')], [Lg('Joints balanced', 'Joint diimbangi'), R.jt.map((t, q) => t === 'free' ? J[R.off + q] : null).filter(Boolean).join(', ')]]);
+  let h = `<thead><tr><th></th>${ends.map(x => `<th>${x}</th>`).join('')}${cols.map(x => `<th class="colh">${x.nm}</th>`).join('')}</tr></thead><tbody>`;
+  const dfCell = e => { const j = e % 2 === 0 ? e / 2 : (e + 1) / 2; return R.jt[j] === 'fixed' ? '—' : f(r.df[e], 3); };
+  h += `<tr class="dfrow"><td>DF</td>${r.df.map((d, e) => `<td>${dfCell(e)}</td>`).join('')}${cols.map(x => `<td>${f(x.up ? r.dfu[x.q] : r.dfl[x.q], 3)}</td>`).join('')}</tr>`;
+  const vis = r.rows.slice(0, sShown - 1);
+  vis.forEach((row, q) => {
+    const last = q === vis.length - 1 && !done;
+    const cv = cols.map(x => row.kind === 'bal' ? f2(x.up ? row.cu[x.q] : row.cl[x.q]) : '');
+    h += `<tr class="${row.kind}${last ? ' cur' : ''}"><td>${rowLab(row)}</td>${row.v.map(v => `<td>${row.kind === 'co' && Math.abs(v) < 1e-9 ? '' : f2(v)}</td>`).join('')}${cv.map(v => `<td>${v}</td>`).join('')}</tr>`;
+  });
+  if (done) h += `<tr class="sum"><td>Σ</td>${r.final.map(v => `<td><b>${f2(v)}</b></td>`).join('')}${cols.map(x => `<td><b>${f2(x.up ? r.Mcu[x.q] : r.Mcl[x.q])}</b></td>`).join('')}</tr>`;
+  el('sTable').innerHTML = h + '</tbody>';
+  const nextRow = r.rows[sShown - 1], pred = el('sPred');
+  el('sPredL').innerHTML = Lg(`Next balance at ${sPredName(R)}`, `Imbangan seterusnya di ${sPredName(R)}`);
+  pred.disabled = done || !nextRow || nextRow.kind !== 'bal';
+  pred.placeholder = done ? '' : (nextRow && nextRow.kind === 'bal' ? Lg(`balance at ${sPredName(R)}`, `imbangan di ${sPredName(R)}`) : Lg('carry-over row: just press Next', 'baris carry-over: tekan sahaja Seterusnya'));
+  el('sNext').disabled = done;
+  const lastRow = vis[vis.length - 1];
+  el('sWhy').innerHTML = done ? sDoneText(fr, R, r, cc.r) : sWhyRow(lastRow, R);
+  el('sRes').hidden = !done;
+  if (done) drawSubResult(fr, R, c);
+  sPaintTj();
+}
+function sWhyRow(row, R){
+  if (!row) return '';
+  if (row.kind === 'fem') return Lg('Fixed-end moments, −wL²/12 and +wL²/12; every joint locked. The columns carry nothing yet.', 'Fixed-end moment, −wL²/12 dan +wL²/12; setiap joint dikunci. Column belum memikul apa-apa.');
+  if (row.kind === 'co') return Lg('Carry over: half of each beam’s balancing moment goes to the far end of that beam' + (R.jt.includes('fixed') ? ', but nothing to the fixed far ends.' : ', A and D included.') + ' The columns get nothing in this row.',
+                                   'Carry over: separuh balancing moment setiap beam pergi ke hujung jauh beam itu' + (R.jt.includes('fixed') ? ', tetapi tiada apa-apa ke hujung jauh yang fixed.' : ', termasuk A dan D.') + ' Column tidak mendapat apa-apa dalam baris ini.');
+  const parts = [];
+  R.jt.forEach((t, q) => {
+    if (t !== 'free' || !row.U || Math.abs(row.U[q]) < 1e-9) return;
+    const beams = []; if (q > 0) beams.push(`${J[R.off + q]}${J[R.off + q - 1]} ${f2(row.v[2 * q - 1])}`); if (q < R.sIdx.length) beams.push(`${J[R.off + q]}${J[R.off + q + 1]} ${f2(row.v[2 * q])}`);
+    parts.push(Lg(`at ${J[R.off + q]} ΣM = ${f2(row.U[q])}: ${beams.join(', ')}; columns ${f2(row.cu[q])} ↑ and ${f2(row.cl[q])} ↓`, `di ${J[R.off + q]} ΣM = ${f2(row.U[q])}: ${beams.join(', ')}; column ${f2(row.cu[q])} ↑ dan ${f2(row.cl[q])} ↓`));
+  });
+  return Lg('Balance, −F × ΣM for every member: ', 'Imbangi, −F × ΣM bagi setiap member: ') + parts.join('; ') + '.';
+}
+function sDoneText(fr, R, r, rc){
+  const e = sPredEnd(R), d = Math.abs(r.final[e] - rc.final[e]);
+  return Lg(`Σ: add each column of the table. The columns hold what the beams leave at each joint. After ${r.cycles} balancing row${r.cycles > 1 ? 's' : ''}, ${sPredName(R)} is ${f2(r.final[e])} kN m; to convergence ${f2(rc.final[e])} (${f(d, 2)} apart).`,
+            `Σ: jumlahkan setiap lajur jadual. Column memegang apa yang ditinggalkan beam di setiap joint. Selepas ${r.cycles} baris imbangan, ${sPredName(R)} ialah ${f2(r.final[e])} kN m; hingga converge ${f2(rc.final[e])} (berbeza ${f(d, 2)}).`);
+}
+function drawSubResult(fr, R, c){
+  const r = c.r, keep = sMeth === 'o' ? R.sIdx.map((_, q) => q) : [R.main];
+  let h = `<thead><tr><th>${Lg('Span', 'Span')}</th><th>w (kN/m)</th><th>M<sub>L</sub> ${Lg('hog', 'hog')}</th><th>M<sub>R</sub> ${Lg('hog', 'hog')}</th><th>V<sub>L</sub> (kN)</th><th>V<sub>R</sub> (kN)</th><th>x₀ (m)</th><th>M<sub>span</sub> (kN m)</th></tr></thead><tbody>`;
+  keep.forEach(q => { const s = c.st[q]; h += `<tr><td>${FRM.spanName(R.sIdx[q])}</td><td>${f(s.w, 2)}</td><td>${f2(-r.final[2 * q])}</td><td>${f2(r.final[2 * q + 1])}</td><td>${f2(s.VL)}</td><td>${f2(s.VR)}</td><td>${f(s.xm, 2)}</td><td><b>${f2(s.Mmax)}</b></td></tr>`; });
+  el('sSpans').innerHTML = h + '</tbody>';
+  const chk = [];
+  R.jt.forEach((t, q) => {
+    if (t !== 'free') return;
+    let sb = 0; if (q > 0) sb += r.final[2 * q - 1]; if (q < R.sIdx.length) sb += r.final[2 * q];
+    const par = v => v < 0 ? `(${f2(v)})` : f2(v);
+    chk.push(Lg(`${J[R.off + q]}: beams ${f2(sb)}, columns ${f2(r.Mcu[q])} + ${par(r.Mcl[q])} = ${f2(r.Mcu[q] + r.Mcl[q])}; far ends ${f2(r.Mcu[q] / 2)} and ${f2(r.Mcl[q] / 2)}`,
+                `${J[R.off + q]}: beam ${f2(sb)}, column ${f2(r.Mcu[q])} + ${par(r.Mcl[q])} = ${f2(r.Mcu[q] + r.Mcl[q])}; hujung jauh ${f2(r.Mcu[q] / 2)} dan ${f2(r.Mcl[q] / 2)}`));
+  });
+  el('sCheck').innerHTML = Lg('<b>Check ΣM = 0 at every free joint</b>, beams and columns together, and the far ends of the columns (½): ', '<b>Semak ΣM = 0 di setiap joint bebas</b>, beam dan column bersama, dan hujung jauh column (½): ') + chk.join('; ') + '.' +
+    (sMeth === 't' ? Lg(' Keep only this beam’s results; a column takes the larger of its two sub-frames.', ' Kekalkan hasil beam ini sahaja; column mengambil yang lebih besar daripada dua sub-frame-nya.') : '');
+}
+function sReset(){ sShown = 2; sStreak = 0; el('sOut').hidden = true; el('sPred').value = ''; drawSub(); }
+el('sCase').addEventListener('change', () => { sCaseK = el('sCase').value; sBeam = Math.min(sBeam, sFrame().L.length - 1); fillSubSelects(); sReset(); });
+segGroup(el('sMeth'), v => { sMeth = v; sPatK = (sMeth === 'o' && sCaseK === 'fa3') ? 3 : 0; fillSubSelects(); sReset(); });
+el('sBeam').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; sBeam = +b.dataset.v; sPatK = Math.min(sPatK, 1); fillSubSelects(); sReset(); });
+el('sPat').addEventListener('change', () => { sPatK = +el('sPat').value; sReset(); });
+segGroup(el('sCyc'), v => { sCyc = +v; sReset(); });
+el('sNext').addEventListener('click', () => {
+  const {R, c} = sRun(), r = c.r, row = r.rows[sShown - 1], out = el('sOut');
+  if (row && row.kind === 'bal'){
+    const raw = el('sPred').value.trim(), v = parseFloat(raw), e = sPredEnd(R), act = row.v[e];
+    if (raw === '' || !isFinite(v)){ sStreak = 0; out.hidden = true; }
+    else {
+      const ok = Math.abs(v - act) <= Math.max(0.05, 0.01 * Math.abs(act)), j = e % 2 === 0 ? e / 2 : (e + 1) / 2;
+      sStreak = ok ? sStreak + 1 : 0; out.hidden = false; out.className = 'verdict ' + (ok ? 'ok' : 'bad');
+      out.innerHTML = ok ? Lg(`Right: ${f2(act)} kN m. ${sStreak} in a row.`, `Betul: ${f2(act)} kN m. ${sStreak} berturut-turut.`)
+                         : Lg(`Not this time: ${f2(act)} kN m. At ${J[R.off + j]}, ΣM = ${f2(row.U[j])} kN m; ${sPredName(R)} takes −ΣM × F = −(${f2(row.U[j])}) × ${f(r.df[e], 3)}, with the columns in ΣK.`,
+                                `Belum tepat: ${f2(act)} kN m. Di ${J[R.off + j]}, ΣM = ${f2(row.U[j])} kN m; ${sPredName(R)} mengambil −ΣM × F = −(${f2(row.U[j])}) × ${f(r.df[e], 3)}, dengan column dalam ΣK.`);
+      if (sStreak >= 3 && sMeth === 'o') milestone('relay');
+    }
+  } else out.hidden = true;
+  el('sPred').value = ''; sShown++; drawSub();
+});
+el('sAll').addEventListener('click', () => { sShown = 999; sStreak = 0; el('sOut').hidden = true; drawSub(); });
+el('sReset').addEventListener('click', sReset);
+
+/* ---------- the distribution factors of a two-free-joint sub-frame ---------- */
+function sTjJoint(n, b){ return b < n - 1 ? {j: b + 1, beam: [b + 1, b], nb: [b + 1, b + 2]} : {j: b, beam: [b, b + 1], nb: [b, b - 1]}; }
+let tKeyLast = '';
+function sPaintTj(){
+  const fr = sFrame(), n = fr.L.length, q = el('tJointQ');
+  const tKey = [sCaseK, sMeth, sBeam, fr.L.join(',')].join('|');
+  if (tKey !== tKeyLast){ tKeyLast = tKey; el('tOut').hidden = true; el('tFigBox').hidden = true; el('tF1').value = ''; el('tF2').value = ''; }
+  if (sMeth !== 't'){ q.innerHTML = Lg('Choose <i>Two-free-joint</i> above and a beam.', 'Pilih <i>Two-free-joint</i> di atas dan satu beam.'); el('tF1L').innerHTML = 'F'; el('tF2L').innerHTML = 'F'; return; }
+  const T = sTjJoint(n, Math.min(sBeam, n - 1));
+  q.innerHTML = Lg(`Beam ${FRM.spanName(Math.min(sBeam, n - 1))}: the factors at joint ${J[T.j]}.`, `Beam ${FRM.spanName(Math.min(sBeam, n - 1))}: faktor di joint ${J[T.j]}.`);
+  el('tF1L').innerHTML = `F<sub>${J[T.beam[0]]}${J[T.beam[1]]}</sub>`; el('tF2L').innerHTML = `F<sub>${J[T.nb[0]]}${J[T.nb[1]]}</sub>`;
+}
+el('tCheck').addEventListener('click', () => {
+  const out = el('tOut');
+  if (sMeth !== 't'){ out.hidden = false; out.className = 'verdict bad'; out.innerHTML = Lg('Choose <i>Two-free-joint</i> and a beam first.', 'Pilih <i>Two-free-joint</i> dan satu beam dahulu.'); return; }
+  const fr = sFrame(), n = fr.L.length, b = Math.min(sBeam, n - 1), R = FRM4.sub2beam(fr, b, 4), r = R.cases[0].r, T = sTjJoint(n, b);
+  const q = T.j - R.off, eBeam = T.j === b + 1 ? 2 * R.main + 1 : 2 * R.main, eNb = T.j === b + 1 ? 2 * (R.main + 1) : 2 * (R.main - 1) + 1;
+  const Fb = r.df[eBeam], Fn = r.df[eNb], {Kb, Kcu, Kcl} = FRM4.stiff(fr), Kn = Kb[T.j === b + 1 ? b + 1 : b - 1];
+  const v1 = parseFloat(el('tF1').value), v2 = parseFloat(el('tF2').value);
+  const ok1 = isFinite(v1) && Math.abs(v1 - Fb) <= 0.005, ok2 = isFinite(v2) && Math.abs(v2 - Fn) <= 0.005, both = ok1 && ok2;
+  out.hidden = false; out.className = 'verdict ' + (both ? 'ok' : 'bad');
+  const nm = J[T.j];
+  out.innerHTML = (both ? Lg('Right. ', 'Betul. ') : (isFinite(v1) || isFinite(v2)) ? Lg('Not yet. ', 'Belum tepat. ') : '') +
+    Lg(`At ${nm}: the beam at full K = ${f(Kb[b], 3)}, the neighbour at ½K = ½ × ${f(Kn, 3)} = ${f(Kn / 2, 3)}, the columns ${f(Kcu, 3)} and ${f(Kcl, 3)}; ΣK = ${f(r.sumK[q], 3)}. F<sub>beam</sub> = ${f(Fb, 3)}, F<sub>neighbour</sub> = ${f(Fn, 3)}.` + (Math.abs(v1 - Kb[b] / (r.sumK[q] + Kn / 2)) < 0.005 ? ' Your first value takes the neighbour at full K.' : ''),
+       `Di ${nm}: beam pada K penuh = ${f(Kb[b], 3)}, jiran pada ½K = ½ × ${f(Kn, 3)} = ${f(Kn / 2, 3)}, column ${f(Kcu, 3)} dan ${f(Kcl, 3)}; ΣK = ${f(r.sumK[q], 3)}. F<sub>beam</sub> = ${f(Fb, 3)}, F<sub>jiran</sub> = ${f(Fn, 3)}.` + (Math.abs(v1 - Kb[b] / (r.sumK[q] + Kn / 2)) < 0.005 ? ' Nilai pertama anda mengambil jiran pada K penuh.' : ''));
+  if (both) milestone('twoj');
+  drawTjFig(fr, R); el('tFigBox').hidden = false;
+});
+function drawTjFig(fr, R){
+  const svg = el('tFig'); clear(svg);
+  const {xs} = beamGeom(R.sIdx.map(i => fr.L[i]), 40, 520), yb = 130, {Kcu, Kcl} = FRM4.stiff(fr);
+  R.sIdx.forEach((i, q) => {
+    const main = q === R.main;
+    S('line', {x1: xs[q], x2: xs[q + 1], y1: yb, y2: yb, stroke: main ? 'var(--ink)' : 'var(--ink-3)', 'stroke-width': main ? 4 : 3, 'stroke-dasharray': main ? '' : '8 5'}, svg);
+    T(svg, (xs[q] + xs[q + 1]) / 2, yb - 12, `${FRM.spanName(i)}: ${main ? 'K' : '½K'} = ${f(R.kb[q], 2)}`, {'text-anchor': 'middle', style: `fill:${main ? 'var(--ink)' : 'var(--ink-2)'}`});
+  });
+  R.jt.forEach((t, q) => {
+    const x = xs[q];
+    if (t === 'fixed'){ S('rect', {x: q === 0 ? x - 10 : x, y: yb - 20, width: 10, height: 40, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg); }
+    else {
+      S('line', {x1: x, x2: x, y1: yb - 90, y2: yb + 100, stroke: 'var(--ink)', 'stroke-width': 3}, svg);
+      [[yb - 90, -1], [yb + 100, 1]].forEach(([y, d]) => S('rect', {x: x - 18, y: d < 0 ? y - 8 : y, width: 36, height: 8, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg));
+    }
+    T(svg, x + 6, yb + 22, J[R.off + q], {style: 'font-weight:700;fill:var(--ink)'});
+  });
+  T(svg, 280, 252, Lg(`columns: K = ${f(Kcu, 2)} above, ${f(Kcl, 2)} below; far ends fixed; nothing carried to a fixed end`, `column: K = ${f(Kcu, 2)} di atas, ${f(Kcl, 2)} di bawah; hujung jauh fixed; tiada carry-over ke hujung fixed`), {'text-anchor': 'middle', class: 'small'});
+}
+drawers.sub = () => {};
+
+/* ===================== 5 COMPARE (Activity 4B) ===================== */
+const XKEY = 'seaa4333-lab-frame-4b';
+let xSt = recall(XKEY, null) || {};
+xSt.picks = xSt.picks || {}; xSt.shown = xSt.shown || {};
+let xCaseK = 'fa3', xEffK = 'hA';
+const XMETH = [['Continuous beam + one-free-joint (Unit 3)', 'Continuous beam + one-free-joint (Unit 3)'], ['Two-free-joint sub-frames', 'Two-free-joint sub-frame'], ['One-level sub-frame', 'One-level sub-frame']];
+const XCOL = ['var(--s1)', 'var(--s2)', 'var(--s3)'];
+function xFrameKey(){ return xCaseK + (xCaseK === 'own' ? ownN + ':' + ownL.slice(0, ownN).join(',') + ':' + ownG.slice(0, ownN).join(',') + ':' + ownQ.slice(0, ownN).join(',') : ''); }
+function xKey(id){ return xFrameKey() + '|' + (id || xEffK); }
+function xSave(){ store(XKEY, xSt); }
+function drawCmp(){
+  const fr = frameOf(xCaseK), E = FRM4.compare(fr);
+  if (!E.some(e => e.id === xEffK)) xEffK = E[0].id;
+  el('xEff').innerHTML = E.map(e => `<button type="button" data-v="${e.id}" aria-pressed="${e.id === xEffK}">${Lg(e.en, e.ms)}${xSt.shown[xKey(e.id)] ? ' ✓' : ''}</button>`).join('');
+  const key = xKey(), pick = xSt.picks[key], shown = !!xSt.shown[key], cur = E.find(e => e.id === xEffK);
+  el('xPick').innerHTML = XMETH.map((m, k) => `<button type="button" data-v="${k}" aria-pressed="${pick === k}">${Lg(m[0], m[1])}</button>`).join('');
+  el('xCur').innerHTML = Lg(`Effect: <b>${cur.en}</b>. Which method gives the largest value?`, `Kesan: <b>${cur.ms}</b>. Kaedah manakah yang memberi nilai terbesar?`);
+  const out = el('xOut');
+  if (shown){
+    const best = cur.v.indexOf(Math.max(...cur.v)), right = pick === best;
+    out.hidden = false; out.className = 'verdict ' + (right ? 'ok' : 'bad');
+    const vals = cur.v.map((v, k) => `${Lg(XMETH[k][0], XMETH[k][1])} ${f2(v)}`).join('; ');
+    let extra = '';
+    if (cur.id === 'hA') extra = Lg(` The knife edge shows 0, yet Unit 3’s column check puts ${f2(cur.endA)} kN m on the beam at A.`, ` Knife edge menunjukkan 0, namun semakan column Unit 3 meletakkan ${f2(cur.endA)} kN m pada beam di A.`);
+    if (cur.id === 'cB' || cur.id === 'cA') extra = Lg(' The course designs each column for the larger of the one-free-joint and one-level values.', ' Kursus mereka bentuk setiap column bagi yang lebih besar antara nilai one-free-joint dan one-level.');
+    out.innerHTML = (pick === undefined ? Lg('No method picked. ', 'Tiada kaedah dipilih. ') : right ? Lg('Right. ', 'Betul. ') : Lg('Not this time. ', 'Belum tepat. ')) +
+      Lg(`Largest: ${XMETH[best][0]}. ${vals} kN m.`, `Terbesar: ${XMETH[best][1]}. ${vals} kN m.`) + extra;
+  } else out.hidden = true;
+  el('xDone').textContent = Lg(`${E.filter(e => xSt.shown[xKey(e.id)]).length} of 7 effects revealed`, `${E.filter(e => xSt.shown[xKey(e.id)]).length} daripada 7 kesan didedahkan`);
+  drawCmpChart(E);
+  let h = `<thead><tr><th>${Lg('Effect (kN m)', 'Kesan (kN m)')}</th>${XMETH.map(m => `<th>${Lg(m[0], m[1])}</th>`).join('')}</tr></thead><tbody>`;
+  E.forEach(e => { const sh = !!xSt.shown[xKey(e.id)]; h += `<tr><td>${Lg(e.en, e.ms)}</td>${e.v.map(v => `<td>${sh ? f2(v) : '?'}</td>`).join('')}</tr>`; });
+  el('xTable').innerHTML = h + '</tbody>';
+  el('xLegend').innerHTML = XMETH.map((m, k) => `<span><i class="key" style="border-color:${XCOL[k]};border-top-width:6px"></i>${Lg(m[0], m[1])}</span>`).join('');
+}
+function drawCmpChart(E){
+  const svg = el('xChart'); clear(svg);
+  const x0 = 200, x1 = 640, top = 16, gh = 52, bh = 12;
+  const mx = Math.max(1, ...E.flatMap(e => e.v)) * 1.08, sc = (x1 - x0) / mx;
+  for (let t = 0; t <= mx; t += mx > 300 ? 100 : 50){ const X = x0 + t * sc; S('line', {x1: X, x2: X, y1: top, y2: top + 7 * gh, stroke: 'var(--grid)', 'stroke-width': 1}, svg); T(svg, X, top + 7 * gh + 14, f(t, 0), {'text-anchor': 'middle', class: 'small'}); }
+  E.forEach((e, g) => {
+    const y = top + g * gh, sh = !!xSt.shown[xKey(e.id)];
+    T(svg, x0 - 8, y + 26, Lg(e.en, e.ms), {'text-anchor': 'end', class: 'small', style: 'fill:var(--ink)'});
+    e.v.forEach((v, k) => {
+      const yy = y + 6 + k * (bh + 2);
+      if (!sh){ S('rect', {x: x0, y: yy, width: 30, height: bh, fill: 'var(--surface-2)', stroke: 'var(--rule)', rx: 2}, svg); if (k === 1) T(svg, x0 + 38, yy + 10, '?', {class: 'small', style: 'fill:var(--ink-3)'}); return; }
+      const w = Math.max(v * sc, 3);
+      S('rect', {x: x0, y: yy, width: w, height: bh, fill: XCOL[k], rx: 2}, svg);
+      T(svg, x0 + w + 5, yy + 10, f(v, 1), {class: 'small', style: 'fill:var(--ink-2)'});
+    });
+  });
+  T(svg, x1, top + 7 * gh + 30, Lg('kN m, envelope of the Load Set 1 cases', 'kN m, envelope kes Load Set 1'), {'text-anchor': 'end', class: 'small'});
+}
+el('xCase').addEventListener('change', () => { xCaseK = el('xCase').value; drawCmp(); });
+el('xEff').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; xEffK = b.dataset.v; drawCmp(); });
+el('xPick').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; xSt.picks[xKey()] = +b.dataset.v; xSave(); drawCmp(); });
+el('xReveal').addEventListener('click', () => {
+  const key = xKey(); if (xSt.picks[key] === undefined){ const out = el('xOut'); out.hidden = false; out.className = 'verdict bad'; out.innerHTML = Lg('Pick a method first, then reveal.', 'Pilih satu kaedah dahulu, kemudian dedahkan.'); return; }
+  xSt.shown[key] = true; xSave();
+  const E = FRM4.compare(frameOf(xCaseK));
+  if (E.every(e => xSt.shown[xKey(e.id)] && xSt.picks[xKey(e.id)] !== undefined)) milestone('cmp');
+  drawCmp();
+});
+el('xNext').addEventListener('click', () => { const E = FRM4.compare(frameOf(xCaseK)); const k = E.findIndex(e => e.id === xEffK); xEffK = E[(k + 1) % E.length].id; drawCmp(); });
+drawers.cmp = () => { drawCmp(); };
+
+/* Frame S3: rows written by gen_s3.py from u3s3 (as submitted) and u3core (corrected). */
+const S3SHEET = {
+ "rows": [
+  {
+   "ref": "(3.3)",
+   "calc": [
+    "Slab: g<sub>k</sub> = 25 × 0.15 + 1.5 = 5.25 kN/m², q<sub>k</sub> = 3.0 + 1.0 = 4.00 kN/m²; beam rib 0.30 × (0.60 − 0.15) × 25 = 3.38 kN/m",
+    "Slab: g<sub>k</sub> = 25 × 0.15 + 1.5 = 5.25 kN/m², q<sub>k</sub> = 3.0 + 1.0 = 4.00 kN/m²; rib beam 0.30 × (0.60 − 0.15) × 25 = 3.38 kN/m"
+   ],
+   "out": "5.25; 4.00 kN/m²; 3.38 kN/m",
+   "slip": false,
+   "fix": [
+    "Right.",
+    "Betul."
+   ]
+  },
+  {
+   "ref": "RDF T3.15",
+   "calc": [
+    "AB (end bay, case 2): 4.0 × 7.0 panel, l<sub>y</sub>/l<sub>x</sub> = 1.75, β<sub>vx</sub> = 0.50; 4.5 × 7.0 panel, 1.56, β<sub>vx</sub> = 0.477. G<sub>k</sub> = 0.50 × 5.25 × 4.0 + 0.477 × 5.25 × 4.5 + 3.38; Q<sub>k</sub> = 0.50 × 4.0 × 4.0 + 0.477 × 4.0 × 4.5",
+    "AB (bay hujung, kes 2): panel 4.0 × 7.0, l<sub>y</sub>/l<sub>x</sub> = 1.75, β<sub>vx</sub> = 0.50; panel 4.5 × 7.0, 1.56, β<sub>vx</sub> = 0.477. G<sub>k</sub> = 0.50 × 5.25 × 4.0 + 0.477 × 5.25 × 4.5 + 3.38; Q<sub>k</sub> = 0.50 × 4.0 × 4.0 + 0.477 × 4.0 × 4.5"
+   ],
+   "out": "G<sub>k</sub> 25.14, Q<sub>k</sub> 16.58; w<sub>max</sub> 58.80, w<sub>min</sub> 33.93 kN/m",
+   "slip": false,
+   "fix": [
+    "Right.",
+    "Betul."
+   ]
+  },
+  {
+   "ref": "RDF T3.15",
+   "calc": [
+    "BC (interior bay, case 1), a short 5.0 m beam, so both panels load it as a short side: β<sub>vy</sub> = 0.33. G<sub>k</sub> = 0.33 × 5.25 × (4.0 + 4.5) + 3.38; Q<sub>k</sub> = 0.33 × 4.0 × (4.0 + 4.5)",
+    "BC (bay dalaman, kes 1), beam pendek 5.0 m, jadi kedua-dua panel membebaninya sebagai sisi pendek: β<sub>vy</sub> = 0.33. G<sub>k</sub> = 0.33 × 5.25 × (4.0 + 4.5) + 3.38; Q<sub>k</sub> = 0.33 × 4.0 × (4.0 + 4.5)"
+   ],
+   "out": "G<sub>k</sub> 18.10, Q<sub>k</sub> 11.22; w<sub>max</sub> 41.27, w<sub>min</sub> 24.44 kN/m",
+   "slip": true,
+   "fix": [
+    "A beam takes β<sub>vy</sub> only where it runs along a short side of the panel. The 5.0 m beam runs along the long side of both panels (4.0 × 5.0 and 4.5 × 5.0 m): β<sub>vx</sub> = 0.400 at 1.25 and 0.363 at 1.11. G<sub>k</sub> = 20.36, Q<sub>k</sub> = 12.94, w<sub>max</sub> = 46.89 and w<sub>min</sub> = 27.48 kN/m: the sheet’s BC is 12 % light.",
+    "Beam mengambil β<sub>vy</sub> hanya apabila ia berjalan di sepanjang sisi pendek panel. Beam 5.0 m berjalan di sepanjang sisi panjang kedua-dua panel (4.0 × 5.0 dan 4.5 × 5.0 m): β<sub>vx</sub> = 0.400 pada 1.25 dan 0.363 pada 1.11. G<sub>k</sub> = 20.36, Q<sub>k</sub> = 12.94, w<sub>max</sub> = 46.89 dan w<sub>min</sub> = 27.48 kN/m: BC dalam helaian 12 % terlalu ringan."
+   ]
+  },
+  {
+   "ref": "RDF T3.15",
+   "calc": [
+    "CD (end bay, case 2): 4.0 × 6.0 panel, 1.50, β<sub>vx</sub> = 0.47; 4.5 × 6.0 panel, 1.33, β<sub>vx</sub> = 0.443",
+    "CD (bay hujung, kes 2): panel 4.0 × 6.0, 1.50, β<sub>vx</sub> = 0.47; panel 4.5 × 6.0, 1.33, β<sub>vx</sub> = 0.443"
+   ],
+   "out": "G<sub>k</sub> 23.72, Q<sub>k</sub> 15.50; w<sub>max</sub> 55.27, w<sub>min</sub> 32.02 kN/m",
+   "slip": false,
+   "fix": [
+    "Right.",
+    "Betul."
+   ]
+  },
+  {
+   "ref": "(3.4)",
+   "calc": [
+    "I<sub>b</sub> = 300 × 600³/12 = 5.4 × 10⁹ mm⁴; K = 10I/L: AB 7.71, BC 10.80, CD 9.00; end spans ¾K: 5.79 and 6.75. F<sub>BA</sub> = 5.79/16.59; F<sub>CD</sub> = 6.75/17.55",
+    "I<sub>b</sub> = 300 × 600³/12 = 5.4 × 10⁹ mm⁴; K = 10I/L: AB 7.71, BC 10.80, CD 9.00; span hujung ¾K: 5.79 dan 6.75. F<sub>BA</sub> = 5.79/16.59; F<sub>CD</sub> = 6.75/17.55"
+   ],
+   "out": "B: 0.35, 0.65; C: 0.62, 0.38",
+   "slip": false,
+   "fix": [
+    "Right.",
+    "Betul."
+   ]
+  },
+  {
+   "ref": "EC2 5.1.3",
+   "calc": [
+    "Largest hogging at B, Load Set 1: all three spans at w<sub>max</sub>",
+    "Hogging terbesar di B, Load Set 1: ketiga-tiga span pada w<sub>max</sub>"
+   ],
+   "out": "AB, BC, CD <i>w</i><sub>max</sub>",
+   "slip": true,
+   "fix": [
+    "Load Set 1 loads the two spans either side of B: AB and BC at w<sub>max</sub>, CD at w<sub>min</sub>. The load on CD lifts BC and relieves B: with the corrected loads, all three spans give M<sub>B</sub> = 242.50 kN m against 254.48 with AB and BC loaded.",
+    "Load Set 1 membebani dua span di kiri dan kanan B: AB dan BC pada w<sub>max</sub>, CD pada w<sub>min</sub>. Load pada CD mengangkat BC dan melegakan B: dengan load yang dibetulkan, ketiga-tiga span memberi M<sub>B</sub> = 242.50 kN m berbanding 254.48 apabila AB dan BC dibebani."
+   ]
+  },
+  {
+   "ref": "(3.5)",
+   "calc": [
+    "FEM = wL²/12: AB 58.80 × 7.0²/12, BC 41.27 × 5.0²/12, CD 55.27 × 6.0²/12",
+    "FEM = wL²/12: AB 58.80 × 7.0²/12, BC 41.27 × 5.0²/12, CD 55.27 × 6.0²/12"
+   ],
+   "out": "240.12; 85.97; 165.81 kN m",
+   "slip": false,
+   "fix": [
+    "Right method, on the loads of lines 3 and 6. Corrected: AB 240.12, BC 46.89 × 25/12 = 97.70, CD 32.02 × 36/12 = 96.06 kN m.",
+    "Kaedah betul, pada load baris 3 dan 6. Dibetulkan: AB 240.12, BC 46.89 × 25/12 = 97.70, CD 32.02 × 36/12 = 96.06 kN m."
+   ]
+  },
+  {
+   "ref": "(3.5)",
+   "calc": [
+    "Moment distribution, four cycles: A and D released in the first row; then half of every balancing moment carried to the far end of its span",
+    "Moment distribution, empat cycle: A dan D dilepaskan dalam baris pertama; kemudian separuh setiap balancing moment dibawa ke hujung jauh span-nya"
+   ],
+   "out": "M<sub>AB</sub> −59.25, M<sub>BA</sub> 236.61, M<sub>CB</sub> 143.58, M<sub>DC</sub> 50.00 kN m",
+   "slip": true,
+   "fix": [
+    "Once A and D are released, nothing is carried back to them: the moment at a pinned end is zero, and the ¾K already allows for the pin. Carried that way, with lines 3 and 6 corrected, four cycles give M<sub>B</sub> = 254.48 and M<sub>C</sub> = 89.80 kN m, with M<sub>A</sub> = M<sub>D</sub> = 0.",
+    "Setelah A dan D dilepaskan, tiada apa yang dibawa kembali kepadanya: moment di hujung pin ialah sifar, dan ¾K sudah mengambil kira pin. Dengan cara itu, dan baris 3 serta 6 dibetulkan, empat cycle memberi M<sub>B</sub> = 254.48 dan M<sub>C</sub> = 89.80 kN m, dengan M<sub>A</sub> = M<sub>D</sub> = 0."
+   ]
+  },
+  {
+   "ref": "(3.6)",
+   "calc": [
+    "Span AB: V<sub>AB</sub> = 58.80 × 7.0/2 + (59.25 − 236.61)/7.0; V<sub>BA</sub> = 58.80 × 7.0 − V<sub>AB</sub>; x₀ = V<sub>AB</sub>/w; M<sub>span</sub> = V<sub>AB</sub>²/2w − 59.25",
+    "Span AB: V<sub>AB</sub> = 58.80 × 7.0/2 + (59.25 − 236.61)/7.0; V<sub>BA</sub> = 58.80 × 7.0 − V<sub>AB</sub>; x₀ = V<sub>AB</sub>/w; M<sub>span</sub> = V<sub>AB</sub>²/2w − 59.25"
+   ],
+   "out": "V 180.48, 231.15 kN; x₀ 3.07 m; M<sub>span</sub> 217.70 kN m",
+   "slip": false,
+   "fix": [
+    "Right method, on the moments of line 8. Corrected (M<sub>AB</sub> = 0, M<sub>BA</sub> = 254.48): V<sub>AB</sub> = 169.46, V<sub>BA</sub> = 242.17 kN, M<sub>span</sub> = 244.17 kN m at 2.88 m.",
+    "Kaedah betul, pada moment baris 8. Dibetulkan (M<sub>AB</sub> = 0, M<sub>BA</sub> = 254.48): V<sub>AB</sub> = 169.46, V<sub>BA</sub> = 242.17 kN, M<sub>span</sub> = 244.17 kN m pada 2.88 m."
+   ]
+  },
+  {
+   "ref": "(3.7)",
+   "calc": [
+    "Column B: ΔFEM = 240.12 − 24.44 × 5.0²/12 = 189.21 kN m; I<sub>c</sub> = 300 × 450³/12 = 2.28 × 10⁹ mm⁴; K<sub>c,u</sub> = 10 × 2.28/4.0 = 5.70, K<sub>c,l</sub> = 10 × 2.28/3.5 = 6.51; ΣK = 5.70 + 6.51 + ½(7.71 + 10.80) = 21.46",
+    "Column B: ΔFEM = 240.12 − 24.44 × 5.0²/12 = 189.21 kN m; I<sub>c</sub> = 300 × 450³/12 = 2.28 × 10⁹ mm⁴; K<sub>c,u</sub> = 10 × 2.28/4.0 = 5.70, K<sub>c,l</sub> = 10 × 2.28/3.5 = 6.51; ΣK = 5.70 + 6.51 + ½(7.71 + 10.80) = 21.46"
+   ],
+   "out": "M<sub>c,u</sub> 50.21, M<sub>c,l</sub> 57.38 kN m",
+   "slip": true,
+   "fix": [
+    "The upper column is the 3.5 m storey above the first floor and the lower one the 4.0 m ground storey: K<sub>c,u</sub> = 6.51, K<sub>c,l</sub> = 5.70. With line 3 corrected, ΔFEM = 240.12 − 57.26 = 182.86 kN m, so M<sub>c,u</sub> = 55.46 and M<sub>c,l</sub> = 48.53 kN m. The sheet gives the upper column 9 % too little.",
+    "Column atas ialah tingkat 3.5 m di atas tingkat satu dan column bawah ialah tingkat bawah 4.0 m: K<sub>c,u</sub> = 6.51, K<sub>c,l</sub> = 5.70. Dengan baris 3 dibetulkan, ΔFEM = 240.12 − 57.26 = 182.86 kN m, jadi M<sub>c,u</sub> = 55.46 dan M<sub>c,l</sub> = 48.53 kN m. Helaian memberi column atas 9 % terlalu sedikit."
+   ]
+  },
+  {
+   "ref": "(3.7)",
+   "calc": [
+    "Column A: ΔFEM = 240.12 kN m; ΣK = 6.51 + 5.70 + ½ × 7.71 = 16.06; M<sub>c,u</sub> = 240.12 × 6.51/16.06, M<sub>c,l</sub> = 240.12 × 5.70/16.06",
+    "Column A: ΔFEM = 240.12 kN m; ΣK = 6.51 + 5.70 + ½ × 7.71 = 16.06; M<sub>c,u</sub> = 240.12 × 6.51/16.06, M<sub>c,l</sub> = 240.12 × 5.70/16.06"
+   ],
+   "out": "97.31; 85.14 kN m",
+   "slip": false,
+   "fix": [
+    "Right.",
+    "Betul."
+   ]
+  },
+  {
+   "ref": "Statics",
+   "calc": [
+    "Beam at the end support A, by equilibrium of the joint: M<sub>c,u</sub> + M<sub>c,l</sub> = 97.31 + 85.14; compare 0.15 × 217.70 = 32.65 kN m (EC2 9.2.1.2(1))",
+    "Beam di support hujung A, melalui keseimbangan joint: M<sub>c,u</sub> + M<sub>c,l</sub> = 97.31 + 85.14; bandingkan 0.15 × 217.70 = 32.65 kN m (EC2 9.2.1.2(1))"
+   ],
+   "out": "182.45 kN m hogging",
+   "slip": false,
+   "fix": [
+    "Right: the top bars of AB at A must take 182.45 kN m, not the 15 % minimum (36.63 kN m once line 9 is corrected).",
+    "Betul: bar atas AB di A mesti memikul 182.45 kN m, bukan had minimum 15 % (36.63 kN m setelah baris 9 dibetulkan)."
+   ]
+  }
+ ],
+ "key": "seaa4333-lab-frame-s3",
+ "ms": "s3",
+ "title": [
+  "Frame S3: spot the error",
+  "Frame S3: cari kesilapan"
+ ],
+ "lede": [
+  "A submitted analysis of the first-floor beams of an interior frame by the continuous-beam method, for the largest hogging at B, with the column moments at A and B. The numbers look reasonable, yet the sheet contains four slips. Find them all as a team before anyone looks at the answer.",
+  "Analisis yang dihantar bagi beam tingkat satu sebuah frame dalaman melalui kaedah continuous beam, bagi hogging terbesar di B, dengan moment column di A dan B. Nombornya nampak munasabah, namun helaian ini mengandungi empat kesilapan. Cari kesemuanya sebagai satu pasukan sebelum sesiapa melihat jawapan."
+ ],
+ "tag": [
+  "Block C · teams of four · 12 min · Workbook 3.5",
+  "Blok C · pasukan berempat · 12 min · Workbook 3.5"
+ ],
+ "given": [
+  [
+   "Frame",
+   "Frame",
+   "three spans, AB 7.0, BC 5.0 and CD 6.0 m, on an interior grid line; slab panels 4.0 m wide on one side and 4.5 m on the other; AB and CD in end bays (case 2), BC in an interior bay (case 1)",
+   "tiga span, AB 7.0, BC 5.0 dan CD 6.0 m, pada grid line dalaman; panel slab selebar 4.0 m pada satu sisi dan 4.5 m pada sisi yang lain; AB dan CD dalam bay hujung (kes 2), BC dalam bay dalaman (kes 1)"
+  ],
+  [
+   "Sections",
+   "Section",
+   "slab 150 mm; beams 300 × 600; columns 300 × 450, 450 in the plane of the frame; at the first floor the storey below is 4.0 m and the storey above 3.5 m",
+   "slab 150 mm; beam 300 × 600; column 300 × 450, 450 dalam satah frame; di tingkat satu, tingkat di bawah 4.0 m dan tingkat di atas 3.5 m"
+  ],
+  [
+   "Actions",
+   "Action",
+   "finishes 1.5 kN/m²; imposed 3.0 and partitions 1.0 kN/m²; concrete 25 kN/m³; w<sub>max</sub> = 1.35G<sub>k</sub> + 1.5Q<sub>k</sub>, w<sub>min</sub> = 1.35G<sub>k</sub>",
+   "kemasan 1.5 kN/m²; imposed 3.0 dan partition 1.0 kN/m²; konkrit 25 kN/m³; w<sub>max</sub> = 1.35G<sub>k</sub> + 1.5Q<sub>k</sub>, w<sub>min</sub> = 1.35G<sub>k</sub>"
+  ],
+  [
+   "Method",
+   "Kaedah",
+   "Load Set 1; continuous beam with ¾K in the end spans, four cycles; one-free-joint sub-frames for the columns (Notes §2–§6)",
+   "Load Set 1; continuous beam dengan ¾K dalam span hujung, empat cycle; one-free-joint sub-frame bagi column (Nota §2–§6)"
+  ]
+ ],
+ "summary": [
+  "<b>Four slips, each on the unsafe side somewhere.</b> Line 3 loads BC as a short side (β<sub>vy</sub>), though it runs along the long sides of its panels: its load is 12 % too small. Line 6 loads all three spans for the largest hogging at B; Load Set 1 loads AB and BC only. Line 8 carries moments into A and D after their release: a pin carries no moment. Line 10 swaps the column heights, and the upper column gets 9 % too little. Corrected: M<sub>B</sub> = 254.48 kN m (the sheet 236.61, 7 % less), the span moment of AB 244.17 kN m (217.70), and the columns at B 55.46 and 48.53 kN m. Professional Habit 3 catches line 8 at a glance: the moments at the pinned ends must be zero.",
+  "<b>Empat kesilapan, setiap satu di pihak yang tidak selamat di suatu tempat.</b> Baris 3 membebani BC sebagai sisi pendek (β<sub>vy</sub>), walhal ia berjalan di sepanjang sisi panjang panelnya: load-nya 12 % terlalu kecil. Baris 6 membebani ketiga-tiga span bagi hogging terbesar di B; Load Set 1 membebani AB dan BC sahaja. Baris 8 membawa moment ke A dan D selepas dilepaskan: pin tidak memikul moment. Baris 10 menukar ketinggian column, dan column atas mendapat 9 % terlalu sedikit. Setelah dibetulkan: M<sub>B</sub> = 254.48 kN m (helaian 236.61, 7 % kurang), moment span AB 244.17 kN m (217.70), dan column di B 55.46 dan 48.53 kN m. Professional Habit 3 menangkap baris 8 sekali pandang: moment di hujung pin mesti sifar."
+ ]
+};
+
+/* Frame S4: rows written by gen_s4.py from u4s4 (as submitted and corrected). */
+const S4SHEET = {
+ "rows": [
+  {
+   "ref": "given",
+   "calc": [
+    "Loads per metre of beam (from Table 3.15): AB w<sub>max</sub> 52.40, w<sub>min</sub> 30.15; BC w<sub>max</sub> 48.60, w<sub>min</sub> 27.90 kN/m",
+    "Load per meter beam (daripada Table 3.15): AB w<sub>max</sub> 52.40, w<sub>min</sub> 30.15; BC w<sub>max</sub> 48.60, w<sub>min</sub> 27.90 kN/m"
+   ],
+   "out": "—",
+   "slip": false,
+   "fix": [
+    "Right.",
+    "Betul."
+   ]
+  },
+  {
+   "ref": "(3.4)",
+   "calc": [
+    "I<sub>b</sub> = 300 × 600³/12 = 5.40 × 10⁹ mm⁴; I<sub>c</sub> = 300 × 450³/12 = 2.28 × 10⁹ mm⁴; K<sub>c,u</sub> = 10 × 2.28/3.5; K<sub>c,l</sub> = 10 × 2.28/4.0",
+    "I<sub>b</sub> = 300 × 600³/12 = 5.40 × 10⁹ mm⁴; I<sub>c</sub> = 300 × 450³/12 = 2.28 × 10⁹ mm⁴; K<sub>c,u</sub> = 10 × 2.28/3.5; K<sub>c,l</sub> = 10 × 2.28/4.0"
+   ],
+   "out": "K<sub>c,u</sub> 6.51; K<sub>c,l</sub> 5.70",
+   "slip": false,
+   "fix": [
+    "Right.",
+    "Betul."
+   ]
+  },
+  {
+   "ref": "(3.4)",
+   "calc": [
+    "AB is an end span: K<sub>AB</sub> = ¾ × 10 × 5.40/7.0",
+    "AB ialah span hujung: K<sub>AB</sub> = ¾ × 10 × 5.40/7.0"
+   ],
+   "out": "5.79",
+   "slip": true,
+   "fix": [
+    "A has a column above and a column below: it is a joint, not a pin, and AB keeps its full stiffness, K<sub>AB</sub> = 10 × 5.40/7.0 = 7.71. ¾K belongs to an end span of the continuous beam (Unit 3).",
+    "A mempunyai column di atas dan di bawah: ia ialah joint, bukan pin, dan AB mengekalkan stiffness penuhnya, K<sub>AB</sub> = 10 × 5.40/7.0 = 7.71. ¾K adalah bagi span hujung continuous beam (Unit 3)."
+   ]
+  },
+  {
+   "ref": "(3.4)",
+   "calc": [
+    "K<sub>BC</sub> = 10 × 5.40/5.5",
+    "K<sub>BC</sub> = 10 × 5.40/5.5"
+   ],
+   "out": "9.82",
+   "slip": true,
+   "fix": [
+    "In the sub-frame of AB, BC is a neighbour fixed at its far end C, and RDF §11.0 takes it at half its stiffness: ½K<sub>BC</sub> = 4.91. Full K makes B too stiff on the BC side.",
+    "Dalam sub-frame AB, BC ialah jiran yang fixed di hujung jauhnya C, dan RDF §11.0 mengambilnya pada separuh stiffness: ½K<sub>BC</sub> = 4.91. K penuh menjadikan B terlalu kaku pada sisi BC."
+   ]
+  },
+  {
+   "ref": "(4.1)",
+   "calc": [
+    "A: ΣK = 5.79 + 6.51 + 5.70 = 17.99; B: ΣK = 5.79 + 9.82 + 6.51 + 5.70 = 27.81; F = K/ΣK",
+    "A: ΣK = 5.79 + 6.51 + 5.70 = 17.99; B: ΣK = 5.79 + 9.82 + 6.51 + 5.70 = 27.81; F = K/ΣK"
+   ],
+   "out": "A 0.322/0.362/0.317; B 0.208/0.353/0.234/0.205",
+   "slip": false,
+   "fix": [
+    "The method is right; the numbers follow lines 3 and 4. With K<sub>AB</sub> = 7.71 and ½K<sub>BC</sub> = 4.91: A 0.387/0.327/0.286 (ΣK 19.92); B 0.311/0.198/0.262/0.229 (ΣK 24.83).",
+    "Kaedahnya betul; nombornya mengikut baris 3 dan 4. Dengan K<sub>AB</sub> = 7.71 dan ½K<sub>BC</sub> = 4.91: A 0.387/0.327/0.286 (ΣK 19.92); B 0.311/0.198/0.262/0.229 (ΣK 24.83)."
+   ]
+  },
+  {
+   "ref": "EC2 5.1.3",
+   "calc": [
+    "Largest sagging in AB: AB and BC both at w<sub>max</sub>, the heaviest case of the sub-frame",
+    "Sagging terbesar dalam AB: AB dan BC kedua-duanya pada w<sub>max</sub>, kes paling berat bagi sub-frame"
+   ],
+   "out": "52.40; 48.60 kN/m",
+   "slip": true,
+   "fix": [
+    "For the largest sagging in AB, load AB and leave its neighbour light: BC at w<sub>min</sub> = 27.90 kN/m. A load on BC turns B against AB and relieves the span (Unit 3, Notes §2).",
+    "Bagi sagging terbesar dalam AB, bebani AB dan biarkan jirannya ringan: BC pada w<sub>min</sub> = 27.90 kN/m. Load pada BC memutarkan B menentang AB dan melegakan span itu (Unit 3, Nota §2)."
+   ]
+  },
+  {
+   "ref": "(3.5)",
+   "calc": [
+    "FEM = wL²/12: AB 52.40 × 7.0²/12; BC 48.60 × 5.5²/12",
+    "FEM = wL²/12: AB 52.40 × 7.0²/12; BC 48.60 × 5.5²/12"
+   ],
+   "out": "213.97; 122.51 kN m",
+   "slip": false,
+   "fix": [
+    "Follows line 6: with BC at 27.90 kN/m its FEM is 70.33 kN m; AB stays 213.97.",
+    "Mengikut baris 6: dengan BC pada 27.90 kN/m, FEM-nya 70.33 kN m; AB kekal 213.97."
+   ]
+  },
+  {
+   "ref": "(4.1)",
+   "calc": [
+    "Four cycles; A and B balanced in every row, the columns included; nothing carried to C",
+    "Empat cycle; A dan B diimbangi dalam setiap baris, termasuk column; tiada apa-apa dibawa ke C"
+   ],
+   "out": "M<sub>AB</sub> −154.14; M<sub>BA</sub> 223.85; M<sub>BC</sub> −167.69 kN m",
+   "slip": false,
+   "fix": [
+    "The method is right; the moments follow lines 3 to 7. Corrected: M<sub>AB</sub> = −149.13, M<sub>BA</sub> = 201.73, M<sub>BC</sub> = −108.03 kN m.",
+    "Kaedahnya betul; moment mengikut baris 3 hingga 7. Dibetulkan: M<sub>AB</sub> = −149.13, M<sub>BA</sub> = 201.73, M<sub>BC</sub> = −108.03 kN m."
+   ]
+  },
+  {
+   "ref": "(4.2)",
+   "calc": [
+    "Column moments: the sum of each column’s shares in the balancing rows",
+    "Moment column: jumlah bahagian setiap column dalam baris imbangan"
+   ],
+   "out": "A 82.21 / 71.93; B −29.95 / −26.21 kN m",
+   "slip": false,
+   "fix": [
+    "Follows. Corrected: at A 79.53 above and 69.59 below; at B −49.98 and −43.73 kN m. The sheet’s column at B is 40 % low.",
+    "Mengikut. Dibetulkan: di A 79.53 di atas dan 69.59 di bawah; di B −49.98 dan −43.73 kN m. Column di B dalam helaian 40 % terlalu rendah."
+   ]
+  },
+  {
+   "ref": "(4.4)",
+   "calc": [
+    "V<sub>AB</sub> = 52.40 × 3.5 + (154.14 − 223.85)/7.0; V<sub>BA</sub> = 366.80 − V<sub>AB</sub>",
+    "V<sub>AB</sub> = 52.40 × 3.5 + (154.14 − 223.85)/7.0; V<sub>BA</sub> = 366.80 − V<sub>AB</sub>"
+   ],
+   "out": "173.44; 193.36 kN",
+   "slip": false,
+   "fix": [
+    "The method is right. Corrected: V<sub>AB</sub> = 175.88, V<sub>BA</sub> = 190.92 kN.",
+    "Kaedahnya betul. Dibetulkan: V<sub>AB</sub> = 175.88, V<sub>BA</sub> = 190.92 kN."
+   ]
+  },
+  {
+   "ref": "(4.4)",
+   "calc": [
+    "x₀ = 173.44/52.40; M<sub>span</sub> = V<sub>AB</sub>²/2w = 173.44²/(2 × 52.40)",
+    "x₀ = 173.44/52.40; M<sub>span</sub> = V<sub>AB</sub>²/2w = 173.44²/(2 × 52.40)"
+   ],
+   "out": "3.31 m; 287.04 kN m",
+   "slip": true,
+   "fix": [
+    "M<sub>span</sub> = V<sub>AB</sub>²/2w − M<sub>AB</sub>: A hogs, so its moment comes off the free span moment. With the sheet’s own numbers, 287.04 − 154.14 = 132.90 kN m; corrected, 146.06 kN m at 3.36 m.",
+    "M<sub>span</sub> = V<sub>AB</sub>²/2w − M<sub>AB</sub>: A hogging, jadi moment-nya ditolak daripada free span moment. Dengan nombor helaian sendiri, 287.04 − 154.14 = 132.90 kN m; dibetulkan, 146.06 kN m pada 3.36 m."
+   ]
+  },
+  {
+   "ref": "(4.3)",
+   "calc": [
+    "Far ends of the columns at A: ½ × 82.21 at the top of the upper column, ½ × 71.93 at the foot of the lower one",
+    "Hujung jauh column di A: ½ × 82.21 di atas column atas, ½ × 71.93 di kaki column bawah"
+   ],
+   "out": "41.10; 35.97 kN m",
+   "slip": false,
+   "fix": [
+    "The method is right. Corrected: 39.77 and 34.80 kN m.",
+    "Kaedahnya betul. Dibetulkan: 39.77 dan 34.80 kN m."
+   ]
+  }
+ ],
+ "key": "seaa4333-lab-frame-s4",
+ "ms": "s4",
+ "title": [
+  "Frame S4: spot the error",
+  "Frame S4: cari kesilapan"
+ ],
+ "lede": [
+  "A submitted two-free-joint sub-frame for beam AB of an interior frame, for the largest sagging moment in AB, with the column moments at A. The numbers look reasonable, yet the sheet contains four slips. Find them all as a team before anyone looks at the answer.",
+  "Two-free-joint sub-frame yang dihantar bagi beam AB sebuah frame dalaman, bagi sagging moment terbesar dalam AB, dengan moment column di A. Nombornya nampak munasabah, namun helaian ini mengandungi empat kesilapan. Cari kesemuanya sebagai satu pasukan sebelum sesiapa melihat jawapan."
+ ],
+ "tag": [
+  "Block C · teams of four · 12 min · Workbook 4.6",
+  "Blok C · pasukan berempat · 12 min · Workbook 4.6"
+ ],
+ "given": [
+  [
+   "Sub-frame",
+   "Sub-frame",
+   "beam AB of an interior frame line: AB = 7.0 m, the next span BC = 5.5 m, fixed at its far end C; joints A and B free with their columns",
+   "beam AB sebuah frame line dalaman: AB = 7.0 m, span seterusnya BC = 5.5 m, fixed di hujung jauhnya C; joint A dan B bebas bersama column-nya"
+  ],
+  [
+   "Sections",
+   "Section",
+   "beams 300 × 600; columns 300 × 450, 450 in the plane of the frame; the storey above the floor 3.5 m, below 4.0 m",
+   "beam 300 × 600; column 300 × 450, 450 dalam satah frame; tingkat di atas lantai 3.5 m, di bawah 4.0 m"
+  ],
+  [
+   "Loads",
+   "Load",
+   "AB: w<sub>max</sub> 52.40, w<sub>min</sub> 30.15 kN/m; BC: w<sub>max</sub> 48.60, w<sub>min</sub> 27.90 kN/m",
+   "AB: w<sub>max</sub> 52.40, w<sub>min</sub> 30.15 kN/m; BC: w<sub>max</sub> 48.60, w<sub>min</sub> 27.90 kN/m"
+  ],
+  [
+   "Method",
+   "Kaedah",
+   "RDF §11.0, two-free-joint sub-frame; four balancing cycles",
+   "RDF §11.0, two-free-joint sub-frame; empat balancing cycle"
+  ]
+ ],
+ "summary": [
+  "<b>Four slips, each a rule carried in from another model.</b> Line 3 uses the continuous beam’s ¾K at a joint with columns; line 4 forgets the ½K of a neighbour fixed at its far end; line 6 loads BC for a sagging case of AB; line 11 drops M<sub>AB</sub> from the span moment, as if A were a pin. Corrected: M<sub>AB</sub> = −149.13, M<sub>BA</sub> = 201.73 kN m; the columns at A 79.53 and 69.59, at B −49.98 and −43.73 kN m; the largest sagging in AB 146.06 kN m at 3.36 m, against the sheet’s 287.04. Professional Habit 4: write the model at the top of the sheet first (two-free-joint: AB full K, BC ½K, A and B balanced, nothing carried to C).",
+  "<b>Empat kesilapan, setiap satu peraturan yang dibawa dari model lain.</b> Baris 3 menggunakan ¾K continuous beam di joint yang mempunyai column; baris 4 terlupa ½K bagi jiran yang fixed di hujung jauhnya; baris 6 membebani BC bagi kes sagging AB; baris 11 meninggalkan M<sub>AB</sub> daripada moment span, seolah-olah A ialah pin. Dibetulkan: M<sub>AB</sub> = −149.13, M<sub>BA</sub> = 201.73 kN m; column di A 79.53 dan 69.59, di B −49.98 dan −43.73 kN m; sagging terbesar dalam AB 146.06 kN m pada 3.36 m, berbanding 287.04 dalam helaian. Professional Habit 4: tulis model di bahagian atas helaian dahulu (two-free-joint: AB K penuh, BC ½K, A dan B diimbangi, tiada apa-apa dibawa ke C)."
+ ]
+};
+
+/* ===================== 3 SPOT THE ERROR: FRAME S3 (Unit 3) AND FRAME S4 (Unit 4) ===================== */
+const SHEETS = {s3: S3SHEET, s4: S4SHEET};
+let eWhich = 's3';
+const eState = {s3: {flag: new Set(recall(S3SHEET.key, [])), checked: false, fixed: false}, s4: {flag: new Set(recall(S4SHEET.key, [])), checked: false, fixed: false}};
+function drawS3Fig(){
+  const box = el('eFig'); box.innerHTML = '';
+  const svg = S('svg', {class: 'fig', viewBox: '0 0 620 300', role: 'img', 'aria-label': Lg('Frame S3 on plan: an interior grid line with spans AB 7.0, BC 5.0 and CD 6.0 m, slab panels 4.0 m wide above it and 4.5 m below; and in elevation the first floor with a 3.5 m storey above and a 4.0 m storey below.', 'Frame S3 pada pelan: grid line dalaman dengan span AB 7.0, BC 5.0 dan CD 6.0 m, panel slab selebar 4.0 m di atasnya dan 4.5 m di bawahnya; dan pada elevation, tingkat satu dengan tingkat 3.5 m di atas dan 4.0 m di bawah.')}, box);
+  svg.style.minWidth = '320px';
+  const L = [7, 5, 6], sc = 20, x0 = 30, yF = 130, w1 = 4.0, w2 = 4.5;
+  const xs = [x0]; L.forEach(l => xs.push(xs[xs.length - 1] + l * sc));
+  const yT = yF - w1 * sc, yB = yF + w2 * sc;
+  S('rect', {x: xs[0], y: yT, width: xs[3] - xs[0], height: yB - yT, fill: 'var(--surface-2)', stroke: 'var(--rule)'}, svg);
+  xs.forEach(x => S('line', {x1: x, x2: x, y1: yT, y2: yB, stroke: 'var(--ink-3)', 'stroke-width': 1.4}, svg));
+  [yT, yB].forEach(y => S('line', {x1: xs[0], x2: xs[3], y1: y, y2: y, stroke: 'var(--ink-3)', 'stroke-width': 1.4}, svg));
+  S('line', {x1: xs[0], x2: xs[3], y1: yF, y2: yF, stroke: 'var(--flight)', 'stroke-width': 4}, svg);
+  xs.forEach((x, j) => { S('rect', {x: x - 5, y: yF - 6, width: 10, height: 12, fill: 'var(--ink)'}, svg); T(svg, x, yF + 22, J[j], {'text-anchor': 'middle', style: 'font-weight:700;fill:var(--ink)'}); });
+  L.forEach((l, i) => T(svg, (xs[i] + xs[i + 1]) / 2, yT - 8, `${f(l, 1)} m`, {'text-anchor': 'middle'}));
+  T(svg, xs[3] + 8, (yT + yF) / 2 + 4, '4.0 m', {}); T(svg, xs[3] + 8, (yF + yB) / 2 + 4, '4.5 m', {});
+  T(svg, (xs[0] + xs[1]) / 2, yT + 30, Lg('case 2', 'kes 2'), {'text-anchor': 'middle', class: 'small'});
+  T(svg, (xs[1] + xs[2]) / 2, yT + 30, Lg('case 1', 'kes 1'), {'text-anchor': 'middle', class: 'small'});
+  T(svg, (xs[2] + xs[3]) / 2, yT + 30, Lg('case 2', 'kes 2'), {'text-anchor': 'middle', class: 'small'});
+  // elevation of one column line
+  const ex = 530, eb = 282, s2 = 26;
+  S('line', {x1: ex, x2: ex, y1: eb, y2: eb - 7.5 * s2, stroke: 'var(--ink)', 'stroke-width': 3}, svg);
+  S('line', {x1: ex - 40, x2: ex + 40, y1: eb - 4.0 * s2, y2: eb - 4.0 * s2, stroke: 'var(--flight)', 'stroke-width': 4}, svg);
+  S('line', {x1: ex - 40, x2: ex + 40, y1: eb - 7.5 * s2, y2: eb - 7.5 * s2, stroke: 'var(--ink-3)', 'stroke-width': 2}, svg);
+  S('rect', {x: ex - 22, y: eb, width: 44, height: 8, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
+  T(svg, ex + 46, eb - 2.0 * s2, '4.0 m', {}); T(svg, ex + 46, eb - 5.75 * s2, '3.5 m', {});
+  T(svg, ex, eb - 7.5 * s2 - 10, Lg('elevation', 'elevation'), {'text-anchor': 'middle', class: 'small'});
+  T(svg, ex + 46, eb - 4.0 * s2 + 4, Lg('first floor', 'tingkat 1'), {class: 'small'});
+}
+function drawSheet(){
+  const Sh = SHEETS[eWhich], st = eState[eWhich], rows = Sh.rows;
+  setSeg(el('eWhich'), eWhich);
+  el('eTitle').innerHTML = Lg(Sh.title[0], Sh.title[1]); el('eLede').innerHTML = Lg(Sh.lede[0], Sh.lede[1]); el('eTag').innerHTML = Lg(Sh.tag[0], Sh.tag[1]);
+  el('eGiven').innerHTML = Sh.given.map(g => `<dt>${Lg(g[0], g[1])}</dt><dd>${Lg(g[2], g[3])}</dd>`).join('');
+  el('eSheet').setAttribute('aria-label', eWhich === 's3' ? Lg('Frame S3 calculation sheet', 'Helaian pengiraan Frame S3') : Lg('Frame S4 calculation sheet', 'Helaian pengiraan Frame S4'));
+  if (eWhich === 's3') drawS3Fig(); else drawS4Fig();
+  const t = el('eSheet');
+  let html = `<thead><tr><th>${Lg('Line', 'Baris')}</th><th>Ref</th><th>${Lg('Calculation', 'Pengiraan')}</th><th>Output</th></tr></thead><tbody>`;
+  rows.forEach((r, i) => {
+    const n = i + 1, fl = st.flag.has(n);
+    let cls = fl ? 'flag' : '';
+    if (st.checked || st.fixed){ if (r.slip && fl) cls = 'hit'; else if (r.slip && st.fixed) cls = 'miss'; else if (!r.slip && fl) cls = 'false'; }
+    const fix = (st.fixed || (st.checked && fl && r.slip)) ? `<span class="fix">${Lg(r.fix[0], r.fix[1])}</span>` : '';
+    html += `<tr class="${cls}" data-n="${n}" tabindex="0"><td class="no">${n}</td><td class="ref">${r.ref}</td><td class="calc">${Lg(r.calc[0], r.calc[1])}${fix}</td><td class="out">${r.out}</td></tr>`;
+  });
+  t.innerHTML = html + '</tbody>';
+  t.querySelectorAll('tbody tr').forEach(tr => {
+    const tog = () => { const n = +tr.dataset.n; if (st.flag.has(n)) st.flag.delete(n); else st.flag.add(n); store(Sh.key, [...st.flag]); st.checked = false; drawSheet(); };
+    tr.addEventListener('click', tog); tr.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); tog(); } });
+  });
+  const hits = rows.filter((r, i) => r.slip && st.flag.has(i + 1)).length, fls = rows.filter((r, i) => !r.slip && st.flag.has(i + 1)).length;
+  el('eScore').textContent = st.checked ? Lg(`${hits} of 4 slips found` + (fls ? `; ${fls} line${fls > 1 ? 's' : ''} flagged that ${fls > 1 ? 'are' : 'is'} right` : ''), `${hits} daripada 4 kesilapan dijumpai` + (fls ? `; ${fls} baris yang betul turut ditanda` : '')) : Lg(`Lines flagged: ${st.flag.size}`, `Baris ditanda: ${st.flag.size}`);
+  const sum = el('eSummary');
+  if (st.fixed || (st.checked && hits === 4)){ sum.hidden = false; sum.innerHTML = Lg(Sh.summary[0], Sh.summary[1]); }
+  else sum.hidden = true;
+}
+function drawS4Fig(){
+  const box = el('eFig'); box.innerHTML = '';
+  const svg = S('svg', {class: 'fig', viewBox: '0 0 620 300', role: 'img', 'aria-label': Lg('Frame S4: the two-free-joint sub-frame of beam AB, 7.0 m, with the next span BC, 5.5 m, fixed at its far end C; columns at A and B, 3.5 m above the floor and 4.0 m below, fixed at their far ends.', 'Frame S4: two-free-joint sub-frame beam AB, 7.0 m, dengan span seterusnya BC, 5.5 m, fixed di hujung jauhnya C; column di A dan B, 3.5 m di atas lantai dan 4.0 m di bawah, fixed di hujung jauhnya.')}, box);
+  svg.style.minWidth = '320px';
+  const xA = 40, xB = 330, xC = 558, yb = 140;
+  [[xA, xB], [xB, xC]].forEach(([a, b]) => S('line', {x1: a, x2: b, y1: yb, y2: yb, stroke: 'var(--ink)', 'stroke-width': 4}, svg));
+  S('rect', {x: xC, y: yb - 20, width: 10, height: 40, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg);
+  [xA, xB].forEach(x => {
+    S('line', {x1: x, x2: x, y1: yb - 84, y2: yb + 96, stroke: 'var(--ink)', 'stroke-width': 3}, svg);
+    [[yb - 84, -1], [yb + 96, 1]].forEach(([y, d]) => S('rect', {x: x - 18, y: d < 0 ? y - 8 : y, width: 36, height: 8, fill: 'var(--concrete)', stroke: 'var(--concrete-edge)'}, svg));
+  });
+  [[xA, 'A'], [xB, 'B'], [xC, 'C']].forEach(([x, nm]) => T(svg, x + 6, yb + 22, nm, {style: 'font-weight:700;fill:var(--ink)'}));
+  const wlab = (x, a, b) => { const t = S('text', {x, y: yb - 26, 'text-anchor': 'middle', class: 'small'}, svg);
+    [['w', 0], ['max', 1], [` ${a} · w`, 0], ['min', 1], [` ${b} kN/m`, 0]].forEach(([s, sub]) => { const ts = S('tspan', sub ? {'baseline-shift': 'sub', 'font-size': '75%'} : {}, t); ts.textContent = s; }); };
+  wlab((xA + xB) / 2, '52.40', '30.15'); wlab((xB + xC) / 2, '48.60', '27.90');
+  T(svg, (xA + xB) / 2, yb + 120, '7.0 m', {'text-anchor': 'middle'}); T(svg, (xB + xC) / 2, yb + 120, '5.5 m', {'text-anchor': 'middle'});
+  T(svg, xA + 10, yb - 60, '3.5 m', {class: 'small'}); T(svg, xA + 10, yb + 70, '4.0 m', {class: 'small'});
+}
+segGroup(el('eWhich'), v => { eWhich = v; drawSheet(); });
+el('eCheck').addEventListener('click', () => { const st = eState[eWhich], rows = SHEETS[eWhich].rows; st.checked = true; const hits = rows.filter((r, i) => r.slip && st.flag.has(i + 1)).length; if (hits === 4 && !st.fixed) milestone(SHEETS[eWhich].ms); drawSheet(); });
+el('eFix').addEventListener('click', () => { eState[eWhich].fixed = true; drawSheet(); });
+el('eReset').addEventListener('click', () => { const st = eState[eWhich]; st.flag = new Set(); store(SHEETS[eWhich].key, []); st.checked = false; st.fixed = false; drawSheet(); });
+
+/* ---------- start ---------- */
+function fillAllCases(){ fillCaseSelect('aCase', aCaseK); fillCaseSelect('mCase', mCaseK); fillPatSelect(); fillCaseSelect('sCase', sCaseK); fillCaseSelect('xCase', xCaseK); fillSubSelects(); }
+function redrawAll(){ paintOwnTable(); paintEffects(); drawArr(); drawMd(); paintJoints(); drawSheet(); drawSub(); drawCmp(); }
+applyPrefs(false);
+fillAllCases(); tPaint(); redrawAll();
+function fromHash(){ const h = (location.hash || '').slice(1); if (h === 's4' || h === 's3'){ eWhich = h; drawSheet(); showTab('error'); } else showTab(h || 'arr'); }
+fromHash();
+window.addEventListener('hashchange', fromHash);
+
+</script>
+</body>
+</html>

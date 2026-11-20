@@ -1,0 +1,445 @@
+# Unit 9 Columns III
+SEAA 4333 Reinforced Concrete Design II, Week 10. Design a slender column: the second-order moment by nominal curvature in six steps, with creep and the K_r iteration; the design moments of braced and unbraced columns; then both axes together, with the screening of EC2 5.8.9 and the interaction check of Eq. 5.39. Why does the moment in a slender column grow by itself? Notes, slides, model answers, exercises with new numbers on every attempt, and the Column Lab.
+
+[start-outcomes] After this part you should be able to
+1. explain why the moment in a slender column grows by itself, and find the second-order moment M_2 by nominal curvature in six steps, with creep (K_φ ) and the axial-load factor K_r ;
+2. find the design moment of a braced slender column from its four candidates, or of an unbraced one from M_{02} + M_2 , and iterate K_r with the steel;
+3. decide with the screening of EC2 5.8.9(3) whether a column needs a biaxial check, and carry it out with the enhanced moment and Eq. 5.39, taking the imperfection in one direction at a time;
+4. complete the design of a column about both axes, and find the slips in someone else’s nominal-curvature calculation.
+
+[notes-n1] Notes 1. The second-order moment
+Unit 7 sorted the columns with λ_{lim}; Unit 8 designed the short ones, for the first-order moments and the imperfection. This Unit designs the slender ones. Nothing from Unit 8 is thrown away: the cover, the charts, the direct check, the bars and the links all stay. Two things are new: the second-order moment, and the second axis.
+Second-order effect (EC2 5.8.1) The additional moment caused by the deformation of the structure. In an isolated column, the axial load N_{Ed} acts on the deflected shape, so at the critical section it has a lever arm e_2, the deflection, on top of the first-order eccentricity e_1 (the analysed moment and the imperfection, divided by N_{Ed}).
+EQUATION (9.1): M = N_{Ed}\,(e_1 + e_2)
+[Figure: The hook: the bow of a slender strip adds to the offset of the load, so the moment grows faster than the load.]
+Why “by itself”: the extra moment N_{Ed}e_2 bends the column further, which increases e_2, which increases the moment again. In a column that is strong enough the sequence settles at a larger, finite deflection; near the buckling load it never settles. For a short column the extra moment is small, under about 10% of the first-order moment, and EC2 lets you ignore it: that is what λ ≤ λ_{lim} means (EC2 5.8.2(6), 5.8.3.1).
+Three methods (EC2 5.8.5) The general method (5.8.6) follows the non-linear behaviour step by step. Two simplified methods follow: nominal stiffness (5.8.7) reduces the stiffness and magnifies the moment; nominal curvature (5.8.8) assumes a curvature at the critical section and turns it into a deflection. This course uses nominal curvature, as the RDF, the course notes and the RC Design app do. It suits an isolated column with a constant axial force and a known l_0.
+Quick check (not graded): A slender column deflects 30 mm at mid-height. N_{Ed} = 1000 kN and the first-order moment there is 50 kN m. The moment at mid-height is about
+Options: 50 kN m | 80 kN m | 30 kN m | 1050 kN m
+Explanation shown after answering: 50 + 1000 × 0.030 = 80 kN m: the deflection adds 60% here. 50 ignores the second-order moment; 30 is N_{Ed}e_2 alone; 1050 adds a force to a moment.
+Key points:
+- A slender column carries M = N_{Ed}(e_1 + e_2): the deflection e_2 adds a second-order moment M_2 = N_{Ed}e_2.
+- λ ≤ λ_{lim}: M_2 may be ignored (Unit 8). λ > λ_{lim}: add it (this Unit).
+- The course method is nominal curvature, EC2 5.8.8.
+
+[notes-n2] Notes 2. Nominal curvature
+Nominal curvature does not compute the deflection from a stiffness. It assumes the critical section is close to failure, with both layers of bars about to yield, which fixes a curvature; it corrects that curvature for a high axial load (K_r) and for creep (K_φ); and a sine-shaped deflected shape turns the curvature into a deflection.
+[Figure: Nominal curvature: both layers at yield give the basic curvature 1/r_0; a sine-shaped deflection over l_0 gives e_2.]
+EQUATION (9.2): \frac{1}{r_0} = \frac{\varepsilon_{yd}}{0.45\,d},\qquad \varepsilon_{yd} = \frac{f_{yd}}{E_s} = \frac{435}{200\,000} = 0.00217
+d is the effective depth in the plane of bending: d = h − d_2 for bars on two opposite faces (EC2 5.8.8.3(2)). The strain changes by 2ε_{yd} over about 0.9d, hence 0.45d.
+EQUATION (9.3): K_r = \frac{n_u - n}{n_u - n_{bal}} \le 1,\qquad n = \frac{N_{Ed}}{A_c f_{cd}},\quad n_u = 1 + \omega,\quad \omega = \frac{A_s f_{yd}}{A_c f_{cd}},\quad n_{bal} = 0.4
+K_r: the axial-load correction (EC2 5.8.8.3(3)) A heavily loaded column crushes before its tension bars yield, so its curvature at failure is smaller: K_r falls as n rises. ω here is A_sf_{yd}/(A_cf_{cd}), not the chart’s A_sf_{yk}/(bhf_{ck}). K_r needs the steel, which needs K_r: start with K_r = 1 and iterate (§4).
+EQUATION (9.4): K_\varphi = 1 + \beta\,\varphi_{ef} \ge 1,\qquad \beta = 0.35 + \frac{f_{ck}}{200} - \frac{\lambda}{150},\qquad \varphi_{ef} = \varphi(\infty,t_0)\,\frac{M_{0Eqp}}{M_{0Ed}}
+K_φ: creep (EC2 5.8.8.3(4), 5.8.4) Creep lets the column keep deflecting under the long-term part of its load. φ(∞,t_0) comes from EC2 Figure 3.1 or Annex B; the course and the app use Annex B with RH 80% (outside), t_0 = 30 days, cement class R and h_0 = 2A_c/u. M_{0Eqp}/M_{0Ed} is the quasi-permanent share of the first-order moment: 0.67 unless the analysis gives it. φ_{ef} may be taken as 0 if φ(∞,t_0) ≤ 2, λ ≤ 75 and M_{0Ed}/N_{Ed} ≥ h (EC2 5.8.4(4)).
+EQUATION (9.5): \frac{1}{r} = K_r K_\varphi\,\frac{1}{r_0},\qquad e_2 = \frac{1}{r}\,\frac{l_0^2}{c},\ c = 10\ (\approx\pi^2),\qquad M_2 = N_{Ed}\,e_2
+Worked Example 9.1, about z: 300 × 300, d = 254 mm, l_0 = 5.0 m, λ = 57.7, N_{Ed} = 1000 kN, C30/37. 1/r_0 = 0.002175/(0.45 × 254) = 1.903 × 10⁻⁵ per mm. Annex B with h_0 = 2 × 90 000/1200 = 150 mm gives φ(∞,t_0) = 1.71, so φ_{ef} = 1.71 × 0.67 = 1.143; β = 0.35 + 0.15 − 57.7/150 = 0.115 and K_φ = 1.132. With K_r = 1: e_2 = 1.132 × 1.903 × 10⁻⁵ × 5000²/10 = 53.8 mm and M_2 = 53.8 kN m. The iteration of §4 settles at K_r = 0.724: e_2 = 39.0 mm, M_2 = 39.0 kN m.
+Quick check (not graded): A column bent about its minor axis has d = 204 mm and B500 bars. Its basic curvature 1/r_0 is
+Options: 1.90 × 10⁻⁵ /mm | 2.37 × 10⁻⁵ /mm | 4.74 × 10⁻⁵ /mm | 1.07 × 10⁻⁵ /mm
+Explanation shown after answering: 0.002175/(0.45 × 204) = 2.37 × 10⁻⁵ per mm. A shallower section bends more for the same bar strains. 1.90 × 10⁻⁵ is for d = 254 mm; 4.74 × 10⁻⁵ doubles it; 1.07 × 10⁻⁵ uses 0.002175/d.
+Key points:
+- 1/r_0 = ε_{yd}/(0.45d); 1/r = K_rK_φ/r_0; e_2 = (1/r)l_0²/10; M_2 = N_{Ed}e_2.
+- K_r ≤ 1 falls with axial load and needs the steel; K_φ ≥ 1 grows with creep.
+- ω in K_r is A_sf_{yd}/(A_cf_{cd}), not the chart’s ω.
+
+[notes-n3] Notes 3. Design moments: braced and unbraced
+The imperfection is part of the first-order moment, as in Unit 8. For the four candidates the course takes it as the RC Design app does (its decision D16): at the ends it is added to both magnitudes; in the equivalent moment it is added once, in the direction of M_{02}.
+EQUATION (9.6): M_{02} = |M|_{max} + N_{Ed}e_i,\quad M_{01} = |M|_{min} + N_{Ed}e_i,\qquad M_{0e} = 0.6|M|_{max} \pm 0.4|M|_{min} + N_{Ed}e_i \ \ge\ 0.4M_{02}
+The minus sign is for double curvature, where the end moments have opposite signs. RDF §14 and Column3.xlsx add e_i to both magnitudes inside M_{0e} too, which in double curvature lowers M_{0e}; the app takes the larger reading. In this Unit’s examples the governing candidate is the same either way.
+EQUATION (9.7): \text{braced:}\quad M_{Ed} = \max\left(M_{02},\; M_{0e} + M_2,\; M_{01} + 0.5M_2,\; N_{Ed}e_0\right)
+EQUATION (9.8): \text{unbraced:}\quad M_{Ed} = \max\left(M_{02} + M_2,\; N_{Ed}e_0\right)
+[Figure: Where the moments add. A braced end does not move, so M_2 is zero there and peaks near mid-height, where the first-order moment is smaller. In an unbraced column the end itself moves, and M_2 adds at the end.]
+M_{0e} + M_2 checks the section near mid-height. M_{02} checks the end. M_{01} + 0.5M_2 comes from BS 8110 (3.8.3.2) through the RDF and can govern in double curvature when M_2 is large. Activity 9A found all four branches; the table gives the results (kN m).
+Card Column M_2 M_{02} M_{0e} + M_2 M_{01} + 0.5M_2 N_{Ed}e_0 Governs
+A braced, double curvature, l_0 4.2 m (C5) 17.0 47.6 40.6 46.1 24.0 M_{02}
+B braced, double curvature, l_0 4.13 m (C7) 23.1 47.4 46.5 48.9 24.0 M_{01} + 0.5M_2
+C braced, single curvature, l_0 5.0 m (C8) 39.0 52.5 91.5 72.0 20.0 M_{0e} + M_2
+D unbraced, l_0 4.13 m (C9) 32.0 79.4 (M_{02} + M_2) – – 24.0 M_{02} + M_2
+Quick check (not graded): A braced column has equal end moments in single curvature: M_{02} = M_{01} = 52.5 kN m with the imperfection, M_2 = 39.0 kN m, N_{Ed}e_0 = 20 kN m. M_{Ed} is
+Options: 52.5 kN m | 72.0 kN m | 91.5 kN m | 130.5 kN m
+Explanation shown after answering: Equal moments give M_{0e} = M_{02} = 52.5, so M_{0e} + M_2 = 91.5 kN m governs (Worked Example 9.1). 72.0 is M_{01} + 0.5M_2; 52.5 forgets M_2; 130.5 adds M_2 twice.
+Key points:
+- Braced: M_{Ed} = max(M_{02}, M_{0e} + M_2, M_{01} + 0.5M_2, N_{Ed}e_0); unbraced: max(M_{02} + M_2, N_{Ed}e_0).
+- M_{0e} = 0.6|M|_{max} ± 0.4|M|_{min} + N_{Ed}e_i ≥ 0.4M_{02}, minus in double curvature.
+- Single curvature with a large M_2: mid-height governs. Double curvature with a small M_2: the end governs.
+
+[notes-n4] Notes 4. The K_r loop and the bars
+K_r depends on the steel, and the steel on the design moment, which depends on K_r. The loop: take K_r = 1, find M_2 and M_{Ed}, design A_s (chart or Lab), compute ω and a new K_r, and repeat until K_r stops changing. Two to four passes are enough; K_r = 1 alone is safe but wasteful. Worked Example 9.1 about z (n = 0.654):
+Pass K_r M_2 (kN m) M_{Ed} (kN m) A_{s,req} (mm²) ω = A_sf_{yd}/(A_cf_{cd}) new K_r
+1 1.000 53.8 106.3 1512 0.430 0.754
+2 0.754 40.6 93.1 1166 0.331 0.728
+3 0.728 39.2 91.7 1128 0.321 0.725
+4 0.724 39.0 91.5 1123 0.319 0.724
+The area for each pass comes from the chart of Unit 8 (ν = N_{Ed}/(bhf_{ck}), μ = M_{Ed}/(bh²f_{ck}), the chart rule for d_2/h) or from Lab tab 5. Then come the bars provided, and a final check: with more steel than required, K_r rises a little, so M_2 is recomputed with the bars provided (K′_r, M′_{Ed}) and checked against M_{Rd}. For Worked Example 9.1, 4H20 = 1257 mm²: ω = 1257 × 435/(90 000 × 17.0) = 0.357, K′_r = (1.357 − 0.654)/(1.357 − 0.4) = 0.735, M′_2 = 39.6 and M′_{Ed} = 92.1 kN m ≤ M_{Rd} = 96.5 kN m.
+[Figure: The design chart for d_2/h = 0.15 (Unit 8, Notes §4). The charts for 0.10 and 0.20 are on the Unit 8 page and in the workbook.]
+Quick check (not graded): The loop settled at K_r = 0.72 for A_{s,req} = 1123 mm², and you provide 1257 mm². What next?
+Options: nothing: more steel only helps | K_r rises a little: recompute M_2 and check M′_{Ed} ≤ M_{Rd} | take K_r = 1 for the bars provided | the column becomes short
+Explanation shown after answering: More steel raises n_u = 1 + ω and so K_r (0.735 here), and M_2 with it. The section gains more than M_2 does, so the bars still work, but the check must use M′_{Ed}: 92.1 against 96.5 kN m.
+Key points:
+- Iterate: K_r = 1 → M_{Ed} → A_s → ω → K_r, until K_r settles (two to four passes).
+- With the bars provided, recompute K′_r, M′_2, M′_{Ed} and check M′_{Ed} ≤ M_{Rd}.
+- The charts and the chart rule are those of Unit 8.
+
+[notes-n5] Notes 5. Both axes: the screening
+A column has two axes, and Unit 7 classified both. About an axis with no analysed moment only the imperfection acts, so r_m = 1, C = 0.7 and λ_{lim} is low, about 10 to 15: that axis is usually slender. Worked Example 8.1 is non-slender about z (λ_{lim} = 38.8) but slender about y (λ_{lim} = 11.5 < 15.6).
+Imperfection in one direction (EC2 5.8.9(2)) Design each direction separately as a first step. The imperfection need only be taken in the direction where it is most unfavourable. The course applies this as the app does: two cases, the imperfection (and the floor N_{Ed}e_0) about z with y at its moment without them, then the reverse; the worse case governs. Without its imperfection a slender axis still carries M_2, because nominal curvature does not depend on the first-order moment.
+EQUATION (9.9): \frac{\lambda_y}{\lambda_z} \le 2 \ \text{and}\ \frac{\lambda_z}{\lambda_y} \le 2,\qquad \frac{e_y/h}{e_z/b} \le 0.2\ \ \text{or}\ \ \frac{e_z/b}{e_y/h} \le 0.2,\qquad e_y = \frac{M_{Ed,z}}{N_{Ed}},\ e_z = \frac{M_{Ed,y}}{N_{Ed}}
+If both conditions hold, one axis dominates and the separate designs are enough (EC2 5.8.9(3)); M_{Ed,z} and M_{Ed,y} include the second-order moments, and for a rectangle h_{eq} = h and b_{eq} = b. If not, the two axes are checked together (§6). Column3.xlsx tests whether the larger ratio exceeds 0.2, which is always true because the two ratios are reciprocals (audit C-15): the test is that one of them is at most 0.2.
+[Figure: The screening: near either axis one moment dominates and the axes may be designed separately. C12 of the app passes; Worked Example 9.1 and Faded Example 9.2 do not.]
+Quick check (not graded): A 250 × 600 column has λ_y/λ_z = 2.4, and one relative eccentricity is 0.1 times the other. Is a biaxial check needed?
+Options: no: 0.1 ≤ 0.2 | yes: λ_y/λ_z > 2 | no: only slender columns need it | only if N_{Ed}/N_{Rd} > 0.1
+Explanation shown after answering: Both conditions must hold for separate designs; the slenderness ratios fail (2.4 > 2), so Eq. 5.39 is needed whatever the eccentricities. N_{Ed}/N_{Rd} only sets the exponent a.
+Key points:
+- An axis with no analysed moment usually is slender (C = 0.7): check it.
+- Imperfection in one direction at a time; N_{Ed}e_0 goes with it; M_2 stays on a slender axis.
+- Separate designs only if λ_y/λ_z and λ_z/λ_y ≤ 2 and one relative eccentricity ratio ≤ 0.2.
+
+[notes-n6] Notes 6. Biaxial design: estimate and check
+When the screening fails, the course works in two moves: an estimate of the bars with the enhanced moment of RDF §14 (the BS 8110 method), then the EC2 check, Eq. 5.39, with the bars provided.
+EQUATION (9.10): \frac{M_{Ed,z}}{h'} \ge \frac{M_{Ed,y}}{b'}:\quad M'_z = M_{Ed,z} + \beta\,\frac{h'}{b'}\,M_{Ed,y},\qquad \beta = 1 - \frac{N_{Ed}}{b\,h\,f_{ck}} \ \ge 0.3
+h′ and b′ are the effective depths for bending about z and y; if M_{Ed,y}/b′ is the larger, swap the roles. The section is designed about one axis for M′, with the chart or Lab tab 5.
+EQUATION (9.11): \left(\frac{M_{Ed,z}}{M_{Rd,z}}\right)^{a} + \left(\frac{M_{Ed,y}}{M_{Rd,y}}\right)^{a} \le 1,\qquad N_{Rd} = A_c f_{cd} + A_s f_{yd}
+N_{Ed}/N_{Rd} ≤ 0.1 0.7 ≥ 1.0
+a 1.0 1.5 2.0
+M_{Rd,z} and M_{Rd,y} are the moment resistances of the bars provided about each axis at N_{Ed}: read μ from the chart at ν and the ω of the bars, or use Lab tab 5. a is interpolated linearly between the values in the table (EC2 5.8.9(4)). Both imperfection cases of §5 are checked; the larger sum governs.
+Worked Example 9.1 about both axes (Examples, Step 7–9). About y the column has no analysed moment, yet it is as slender as about z and carries the same M_2:
+Quantity z y
+λ; λ_{lim} 57.7; 13.3 57.7; 13.3
+K_r (biaxial loop); M_2 0.788; 42.4 0.788; 42.4
+M_{Ed} 52.5 + 42.4 = 94.9 12.5 + 42.4 = 54.9
+screening (94.9/300)/(54.9/300) = 1.73 and 0.58: check
+estimate β = 0.630; M′_z = 94.9 + 0.630 × 54.9 = 129.5 → A_s ≈ 2093 mm²
+8H20 (2513 mm²): K′_r 0.807 M′_{Ed} 95.9; M_{Rd} 125.7 M′_{Ed} 55.9; M_{Rd} 125.7
+Eq. 5.39, a = 1.23 imperfection about z: 95.9 and 43.5 → 0.99 imperfection about y: 83.5 and 56.0 → 0.97
+[Figure: Each curve is the sum = 1 for one set of bars. The two design points of Worked Example 9.1 lie inside the 8H20 curve: one axis needed 4H20, both axes need 8H20.]
+Faded Example 9.2 completes Worked Example 8.1 the same way: about y it is slender with only the imperfection, M_{Ed,y} = N_{Ed}e_0 = 48.0 kN m, the screening fails, the estimate asks for about 1100 mm² and Eq. 5.39 gives 1.02 with 4H16: the bars become 4H20 (0.74). The links follow Unit 8; with 8H20 in a 300 × 300 column the mid-face bars are 104 mm (centre to centre) from the corner bars, within the 150 mm of EC2 9.5.3(6), so the corner links hold them.
+Quick check (not graded): M_{Ed,z} = 90 and M_{Rd,z} = 120 kN m; M_{Ed,y} = 40 and M_{Rd,y} = 100 kN m; a = 1.5. The interaction sum is
+Options: 0.90 | 1.15 | 0.72 | 1.05
+Explanation shown after answering: 0.75^{1.5} + 0.40^{1.5} = 0.650 + 0.253 = 0.90 ≤ 1. 1.15 adds the plain ratios (a = 1, the most severe case); 0.72 squares them (a = 2).
+Key points:
+- Estimate: M′ = M_{Ed,z} + β(h′/b′)M_{Ed,y}, β = 1 − N_{Ed}/(bhf_{ck}) ≥ 0.3 (RDF §14).
+- Check: (M_{Ed,z}/M_{Rd,z})^a + (M_{Ed,y}/M_{Rd,y})^a ≤ 1, a from N_{Ed}/N_{Rd}, both imperfection cases.
+- The second axis can double the steel: Worked Example 9.1, 4H20 → 8H20; Worked Example 8.1, 4H16 → 4H20.
+
+[slides-1] Slide 1: Columns III
+SEAA 4333 Reinforced Concrete Design II · Week 10 Columns III Slender columns: the second-order moment, and bending about both axes Workbook ch. 9 ABCD card Calculator Phone or laptop Column Lab Scan for this page’s Explorer tab. Tab 6 is today’s.
+
+[slides-2] Slide 2: How the next three hours run
+Today · 180 minutes How the next three hours run 0:00 Warm-up Units 7–8 in three votes 0:10 Hook A strip that bows 0:18 Why M₂ Nominal curvature 0:28 Six steps Four candidates 0:36 Six steps, four columns Activity 9A, pairs 1:01 WE 9.1, part A Kr and the bars 1:17 Break 10 minutes 1:27 Both axes? Activity 9B, teams 1:43 Eq. 5.39, WE 9.1 B I do 1:55 Faded example FE 9.2, pairs 2:13 Exam-size problem Alone, 25 minutes
+
+[slides-3] Slide 3: Three questions before the slender column
+Warm-up · no notes · cards up Three questions before the slender column W1 · Unit 7 A braced column has equal end moments in single curvature. Its rm and C are A rm = 1, C = 0.7 B rm = −1, C = 2.7 C rm = 0, C = 1.7 D rm = 0.5, C = 1.2 W2 · Unit 8 A non-slender column has M₀₂ = 40 kN m and NEd·e₀ = 30 kN m. MEd is A 70 kN m B 40 kN m C 30 kN m D 10 kN m W3 · Unit 8 Both bar layers yield, one in tension and one in comp
+
+[slides-4] Slide 4: A, B, B, and what each means today
+Warm-up · answers A, B, B, and what each means today W1 A: rm = 1, C = 0.7 Equal moments, same face in tension. λlim is then low: about 13 for WE 9.1. W2 B: 40 kN m The larger of M₀₂ and NEd·e₀, never their sum. Today adds M₂ to a slender column. W3 B: 2εyd over ≈ 0.9d That is a curvature: 1/r₀ = εyd/(0.45d). Today’s first formula. SEAA 4333 · Unit 9 · Columns III Workbook 9.1
+
+[slides-5] Slide 5: Push on a strip a little off-centre
+Hook · 5 minutes Push on a strip a little off-centre In pairs: press a ruler down on the desk with your palm a little off its centre line. Press harder. What happens to the bow, and to the moment N × offset? A slender column does the same: M = N(e₁ + e₂). SEAA 4333 · Unit 9 · Columns III Workbook 9.1
+
+[slides-6] Slide 6: Why does the moment in a slender column grow by itself?
+Concept check 1 · the big question · vote now, again after Activity 9A Why does the moment in a slender column grow by itself? A creep makes the concrete weaker B the column deflects, so N acts at a larger eccentricity C the beams push harder on a slender column D the bars yield first in a slender column Vote · convince your neighbour · vote again Workbook 9.1
+
+[slides-7] Slide 7: Today designs the columns Unit 7 called slender
+Block A · where this sits Today designs the columns Unit 7 called slender Unit 7 · week 7 Classify Braced or unbraced; l₀; λ against λlim about each axis. Unit 8 · week 9 Short columns MEd = max(M₀₂, NEd·e₀); N–M interaction; charts; bars and links. Unit 9 · today Slender, biaxial Add M₂ by nominal curvature; then check both axes together. Everything from Unit 8 stays: cover, charts, the direct check, bars and links.
+
+[slides-8] Slide 8: The second-order moment: N times the deflection
+Block A · talk 1 · 10 minutes The second-order moment: N times the deflection M = N (e₁ + e₂) e₁ : first-order eccentricity, from the analysis and eᵢ. e₂ : the deflection the load itself causes. λ > λlim → add M₂ Below λlim the extra moment is under 10%, so EC2 lets you ignore it (5.8.2(6)). nominal curvature (EC2 5.8.8) Assume the critical section reaches a curvature 1/r; e₂ follows from the deflected shape. The cou
+
+[slides-9] Slide 9: Nominal curvature in six steps
+Block A · talk 2 · 8 minutes Nominal curvature in six steps 1 First-order moments eᵢ = l₀/400 · M₀₂ · M₀₁ · M₀e = 0.6M₀₂ + 0.4M₀₁ ≥ 0.4M₀₂ 2 Creep φef = φ(∞,t₀)·M₀Eqp/M₀Ed · β = 0.35 + fck/200 − λ/150 · Kφ = 1 + βφef ≥ 1 3 Basic curvature 1/r₀ = εyd/(0.45d), εyd = 435/200 000 = 0.00217 4 Curvature 1/r = Kr Kφ (1/r₀) · Kr = (nu − n)/(nu − 0.4) ≤ 1, nu = 1 + ω 5 Deflection, moment e₂ = (1/r) l₀²/10 · M₂ = NEd e₂ 6 Desi
+
+[slides-10] Slide 10: Four candidates for a braced column; one for an unbraced
+Block A · talk 2 · where the moments add Four candidates for a braced column; one for an unbraced M₀₂ the end: a braced end does not move, so no M₂ there M₀e + M₂ near mid-height, with the equivalent moment M₀e M₀₁ + 0.5M₂ from BS 8110 and the RDF; can govern in double curvature unbraced: M₀₂ + M₂ the end itself moves: M₂ adds at the end SEAA 4333 · Unit 9 · Columns III Workbook 9.2
+
+[slides-11] Slide 11: Six steps, four columns: which candidate wins?
+Activity 9A · pairs · 25 minutes Six steps, four columns: which candidate wins? A braced · 250 × 300 about z · l₀ 4.2 m · NEd 1200 · M 35/25 double · C25/30 d 254 · φef 1.278 · Kr 0.354 B braced · 250 × 300 about y · l₀ 4.13 m · NEd 1200 · M 35/25 double · C25/30 d 204 · φef 1.278 · Kr 0.425 C braced · 300 × 300 about z · l₀ 5.0 m · NEd 1000 · M 40/40 single · C30/37 d 254 · φef 1.143 · Kr 0.724 D unbraced · 250 × 30
+
+[slides-12] Slide 12: Four columns, four branches of EC2 5.8.8.2
+Activity 9A · reveal Four columns, four branches of EC2 5.8.8.2 A M₀₂ = 47.6 B M₀₁ + 0.5M₂ = 48.9 C M₀e + M₂ = 91.5 D M₀₂ + M₂ = 79.4 Big M₂ with single curvature: mid-height wins. Small M₂: the end wins. SEAA 4333 · Unit 9 · Columns III Workbook 9.3
+
+[slides-13] Slide 13: A tall braced column: 300 × 300, l₀ = 5.0 m
+Worked Example 9.1 · I do · part A A tall braced column: 300 × 300, l₀ = 5.0 m Calculation Output λ = 5000/86.6 = 57.7; λlim = 13.3 (C = 0.7) slender M₀₂ = M₀₁ = M₀e = 40 + 12.5 52.5 Kφ = 1 + 0.115 × 1.143 1.132 1/r₀ = 0.002175/(0.45 × 254) 1.903e-5 M₂ = 53.8 Kr; Kr: 1 → 0.754 → 0.728 → 0.724 39.0 MEd = M₀e + M₂ (M₀₁ + 0.5M₂ = 72.0) 91.5 ν 0.370, μ 0.113 → ω ≈ 0.21 (exact 1123) As ≈ 1130 4H20: K′r 0.735, M′Ed 92.1; M
+
+[slides-14] Slide 14: You add bars to a slender column. What happens to Kr and M₂?
+Concept check 2 · think 60 seconds, then vote You add bars to a slender column. What happens to Kr and M₂? A Kr falls, so M₂ falls B Kr rises, so M₂ rises a little C nothing: Kr depends on N only D Kr becomes 1 Vote · convince your neighbour · vote again Workbook 9.5
+
+[slides-15] Slide 15: A column has two axes: check both
+Block C · talk 3 · 8 minutes A column has two axes: check both the unloaded axis is slender too With only the imperfection, rm = 1 and C = 0.7: λlim is about 10 to 15. WE 9.1 about y: λ 57.7 > 13.3, so M₂ ≈ 42 kN m there too. EC2 5.8.9 Design each axis on its own first. Then screen: if one axis dominates, stop; if not, check both together with Eq. 5.39. Imperfection: in one direction at a time, the more unfavourable
+
+[slides-16] Slide 16: Is a biaxial check needed? EC2 5.8.9(3)
+Block C · talk 3 · the screening Is a biaxial check needed? EC2 5.8.9(3) λy/λz ≤ 2 and λz/λy ≤ 2 and (ey/h)/(ez/b) ≤ 0.2 or ≥ 5 ey = MEd,z/NEd, ez = MEd,y/NEd, with M₂ Both true: design each axis alone. Otherwise: Eq. 5.39. SEAA 4333 · Unit 9 · Columns III Workbook 9.6
+
+[slides-17] Slide 17: Which columns need a biaxial check?
+Activity 9B · teams · 8 minutes Which columns need a biaxial check? 1 300 × 500 · λz 20.8, λy 34.6 · MEd,z 229.0, MEd,y 24.0 · NEd 1200 2 250 × 600 · λz 17.3, λy 41.6 · MEd,z 161.3, MEd,y 42.3 · NEd 1500 3 300 × 350 · λz 36.6, λy 34.6 · MEd,z 94.0, MEd,y 63.4 · NEd 1800 4 400 × 400 · λz = λy = 15.6 · MEd,z 100.8, MEd,y 48.0 · NEd 2400 For each: the two λ ratios, ey/h and ez/b, the decision; if a check is needed, whic
+
+[slides-18] Slide 18: Only card 1 may be designed axis by axis
+Activity 9B · answers Only card 1 may be designed axis by axis Calculation Output 1 · 1.67 ≤ 2; (0.067)/(0.382) = 0.175 ≤ 0.2 no check 2 · λy/λz = 41.6/17.3 = 2.40 > 2 check, z 3 · 1.06 ≤ 2; ratio 1.27 (0.79) check, z 4 · 1.00; (42.0/400)/(20.0/400) = 2.10 (0.48) check, z SEAA 4333 · Unit 9 · Columns III Workbook 9.6
+
+[slides-19] Slide 19: Biaxial design: estimate the bars, then check
+Block C · talk 4 · 6 minutes Biaxial design: estimate the bars, then check 1 · estimate (RDF §14, BS 8110) M′z = MEd,z + β(h′/b′)MEd,y when MEd,z/h′ ≥ MEd,y/b′; β = 1 − NEd/(bhfck) ≥ 0.3. Design about z for M′z. 2 · check (EC2 Eq. 5.39) (MEd,z/MRd,z)ᵃ + (MEd,y/MRd,y)ᵃ ≤ 1 a = 1.0 / 1.5 / 2.0 at NEd/NRd = 0.1 / 0.7 / 1.0; NRd = Ac fcd + As fyd. Two cases: imperfection (and e₀) about z with y at its moment without them
+
+[slides-20] Slide 20: Both axes: 4H20 was not enough
+Worked Example 9.1 · I do · part B Both axes: 4H20 was not enough Calculation Output y: λ 57.7 > 13.3; M₀₂,y = 12.5 slender Kr (both axes) → 0.788; M₂ = 42.4 both axes MEd,z = 52.5 + 42.4; MEd,y = 12.5 + 42.4 94.9; 54.9 screening: (94.9/300)/(54.9/300) = 1.73 check β = 1 − 1000/2700 = 0.630; M′z = 94.9 + 0.630 × 54.9 129.5 μ 0.160, ν 0.370 → ω ≈ 0.39 As ≈ 2093 8H20 = 2513: MRd 125.7 each way; a = 1.23 sums 0.99 and 0
+
+[slides-21] Slide 21: Worked Example 8.1, seen about both axes
+Faded Example 9.2 · pairs · 15 minutes Worked Example 8.1, seen about both axes Given: λ = 15.6 both ways; MEd,z = 100.8 (Unit 8). 1 · About y: λlim with C = 0.7? 2 · M₂,y with φef 1.12, Kr 0.38, d 356 3 · MEd,y: is it M₀e + M₂ or NEd·e₀? 4 · screening 5 · M′z and As: is 4H16 enough? 6 · 4H20: Eq. 5.39, both cases SEAA 4333 · Unit 9 · Columns III Workbook 9.7
+
+[slides-22] Slide 22: 4H16 fails about both axes; 4H20 passes
+Faded Example 9.2 · check 4H16 fails about both axes; 4H20 passes Calculation Output λlim,y = 20 × 0.7 × 1.1 × 0.7/√0.882 11.5 < 15.6 e₂ = 0.38 × 1.442 × 1.358e-5 × 1806²/10 2.43 mm M₂,y = 2400 × 0.00243 5.8 MEd,y = max(10.8; 16.6; 13.7; 48.0) 48.0 (42.0/400)/(20.0/400) = 2.10 check M′z = 100.8 + 0.50 × 48.0 = 124.8 → As ≈ 1100 > 804 4H16, imperfection about y: 0.748 + 0.268 1.02 ✗ 4H20: (90.0/133.5)^1.56 + (48.0/133
+
+[slides-23] Slide 23: 300 × 500 column: λy/λz = 1.67, ey/h = 0.38, ez/b = 0.067. What next?
+Concept check 3 · think 60 seconds, then vote 300 × 500 column: λy/λz = 1.67, ey/h = 0.38, ez/b = 0.067. What next? A Eq. 5.39 with both moments B separate designs about each axis are enough C the enhanced moment M′z D add M₂ about z Vote · convince your neighbour · vote again Workbook 9.8
+
+[slides-24] Slide 24: D9: a past-paper question (15 marks)
+Block D · alone · 25 minutes D9: a past-paper question (15 marks) The D7 column, part (b): non-slender about both axes; C30/37; cnom 30; H6; H20 bars; 4H20 proposed. (a) MEd,z, MEd,y [3] (b) biaxial check needed? [3] (c) M′ and As: is 4H20 enough? [4] (d) MRd,z, MRd,y of 4H20 [2] (e) Eq. 5.39 and verdict [3] Ref | Calculations | Output. Charts allowed; app and Lab closed. Self-mark after class. SEAA 4333 · Unit 9 · C
+
+[slides-25] Slide 25: A draft design of your column
+Project studio · 14 minutes A draft design of your column 1 Take your worst storey. About each axis: slender or not (Unit 7)? If slender, the six steps. 2 Screening. If a check is needed: M′, bars, then Eq. 5.39 in Lab tab 6. 3 Links, a section sketch with bar marks, and the same bars up the building or a change? Log it in Workbook 9.10. The draft column goes into the group report. SEAA 4333 · Unit 9 · Columns III Wo
+
+[slides-26] Slide 26: A column has two axes: check both, every time
+Professional Habit 9 A column has two axes: check both, every time C = 0.7 no moment about an axis: λlim ≈ 10–15, so that axis is often slender e₂ ≈ 4.8×10⁻⁴ l₀²/d a quick estimate with Kr = Kφ = 1 (B500): l₀ 5 m, d 254 → 48 mm 4H20 → 8H20 WE 9.1: one axis 1123 mm², both axes 2093 mm² Before the bars, list λ and λlim about both axes. Unit 8 left one axis open; today closed it. SEAA 4333 · Unit 9 · Columns III Workboo
+
+[slides-27] Slide 27: Before Unit 10
+After class Before Unit 10 Notes §1–§6 and the exercises on the Unit 9 page (45 min) Column S9 in Lab tab 3: four slips to find Self-mark D9 with the answer scheme on UTM eLearning Finish the draft design of your column SEAA 4333 · Unit 9 · Columns III Workbook 9.10
+
+[slides-28] Slide 28: Before you leave
+Exit ticket · 5 minutes · Workbook 9.11 Before you leave 1 Braced 300 × 300, d = 254, l₀ = 5.0 m, NEd = 1000 kN, Kr = 0.72, Kφ = 1.13. What is M₂? Show 1/r₀, e₂. 2 Why does a braced column not add M₂ to M₀₂? 3 What is still unclear for you today? Tear off the slip and hand it in at the door. Next week: foundations. SEAA 4333 · Unit 9 · Columns III
+
+[examples-x1] Example 1 · Worked Example 9.1: a tall braced column, one axis and then both
+Exam type design a slender column about one and two axes Workbook 9.4 Time ≈ 30 min
+Question A braced column 300 × 300 has l_0 = 5.0 m about both axes. N_{Ed} = 1000 kN; the first-order moments about z are 40 kN m at both ends, giving tension on the same face; about y the analysis gives no moment. C30/37, B500, XC1, R60; links H6, bars assumed H20; creep from EC2 Annex B (RH 80%, t_0 = 30 days, cement class R) with M_{0Eqp}/M_{0Ed} = 0.67. (A) Design the bars for bending about z. (B) Check the column about both axes and revise the bars if needed. In the app: part A is case C8 of the RC Design Worked Solutions app; for part B choose “About both axes” with l_{0,y} = 5.0 m and 8H20 (one extra H20 on each face).
+[Figure: Worked Example 9.1: a tall square column, the same l_0 about both axes, moments about z only.]
+Physical picture. A tall, slim column: λ = 57.7 is more than four times its λ_{lim}. Equal end moments bend it into one curve, so the deflection adds to the moment at mid-height, where the first-order moment is as large as at the ends. Expect M_2 to be a large share of the design moment, and expect the unloaded axis to matter, because the column is just as slender about y.
+Plan. Slenderness both ways; cover; the first-order moments with e_i; creep and curvature; part A, the K_r loop and the bars about z; part B, the y axis, the screening, the enhanced moment, the bars and Eq. 5.39; links.
+## Step 1 Slender about both axes (Unit 7)
+Ref Calculations Output
+(7.5) λ = 5000/(300/√12) = 5000/86.6 (both axes) λ = 57.7
+(7.7)–(7.9) n = 1000 × 10³/(90 000 × 17.0) = 0.654; z: r_m = +40/40 = 1; y: no moment, r_m = 1; C = 0.7; λ_{lim} = 20 × 0.7 × 1.1 × 0.7/√0.654 λ_{lim} = 13.3 < 57.7: slender about both
+## Step 2 Cover for bond, durability and fire
+Ref Calculations Output
+EC2 4.4.1.2 Bond at the link: max(6; 20 − 6) = 14 mm; durability, XC1 with C30/37 (S3): 10 mm; Δc_{dev} = 10 c_{nom} ≥ 24 mm
+EN 1992-1-2 Table 5.2a R60, μ_{fi} = 0.7, b = 300 (250 ≤ b < 350): a ≥ 46 mm, so c_{nom} ≥ 46 − 6 − 10 = 30 mm c_{nom} = 30; d_2 = 46; d = 254 mm
+## Step 3 First-order moments with the imperfection
+Ref Calculations Output
+(8.1) e_i = 5000/400 = 12.5 mm; N_{Ed}e_i = 1000 × 0.0125 12.5 kN m
+(9.6) z: M_{02} = M_{01} = 40 + 12.5; M_{0e} = 0.6 × 40 + 0.4 × 40 + 12.5 52.5 kN m
+(9.6) y: imperfection only, M_{02} = M_{0e} = 0 + 12.5; N_{Ed}e_0 = 1000 × 0.020 = 20.0 kN m both ways 12.5 kN m
+## Step 4 Creep and curvature
+Ref Calculations Output
+Annex B h_0 = 2 × 90 000/1200 = 150 mm, RH 80%, t_0 = 30 days, class R: φ(∞,t_0) = 1.71; φ_{ef} = 1.71 × 0.67 φ_{ef} = 1.143
+(9.4) β = 0.35 + 30/200 − 57.7/150 = 0.115; K_φ = 1 + 0.115 × 1.143 K_φ = 1.132
+(9.2) 1/r_0 = 0.002175/(0.45 × 254) 1.903 × 10⁻⁵ /mm
+(9.5) M_2 = 1000 × K_r × 1.132 × 1.903 × 10⁻⁵ × 5000²/10 × 10⁻³ (same about z and y) M_2 = 53.8K_r kN m
+## Step 5 Part A: the K_r loop and the bars about z
+Ref Calculations Output
+(9.3) K_r = 1 → M_{Ed} 106.3 → A_s 1512 → ω 0.430 → K_r 0.754 → 0.728 → 0.725 → 0.724 (Notes §4) K_r = 0.724; M_2 = 39.0
+(9.7) M_{Ed} = max(52.5; 52.5 + 39.0; 52.5 + 19.5; 20.0) 91.5 kN m (M_{0e} + M_2)
+Chart 0.15 d_2/h = 46/300 = 0.153 → 0.15; ν = 1000 × 10³/(300 × 300 × 30) = 0.370; μ = 91.5 × 10⁶/(300 × 300² × 30) = 0.113; ω ≈ 0.21 A_s ≈ 1130 mm² (1123 exact)
+§4 4H20 = 1257 mm²: ω = 1257 × 435/(90 000 × 17.0) = 0.357; K′_r = (1.357 − 0.654)/0.957 = 0.735; M′_{Ed} = 52.5 + 53.8 × 0.735 M′_{Ed} = 92.1 ≤ M_{Rd} = 96.5 kN m ✓
+## Step 6 Part B: the y axis and the screening
+Ref Calculations Output
+(9.7) y is slender too (Step 1): M_{Ed,y} = M_{0e,y} + M_2; the loop now runs on the biaxial area (Step 7) and settles at K_r = 0.788: M_2 = 42.4 about both axes M_{Ed,z} = 94.9; M_{Ed,y} = 54.9 kN m
+(9.9) λ_y/λ_z = 1.0; e_y = 94.9 mm, e_z = 54.9 mm; (94.9/300)/(54.9/300) = 1.73 and 0.58: neither ≤ 0.2 biaxial check needed
+## Step 7 Estimate: the enhanced moment
+Ref Calculations Output
+(9.10) M_{Ed,z}/h′ = 94.9 × 10³/254 = 374 > M_{Ed,y}/b′ = 216; β = 1 − 1000 × 10³/(300 × 300 × 30) = 0.630 design about z
+(9.10) M′_z = 94.9 + 0.630 × (254/254) × 54.9 M′_z = 129.5 kN m
+Chart 0.15 ν = 0.370; μ = 129.5 × 10⁶/(300 × 300² × 30) = 0.160; ω ≈ 0.39 A_s ≈ 2093 mm² > 1257: 4H20 not enough; 8H20 = 2513
+## Step 8 Check: Eq. 5.39 with 8H20
+Ref Calculations Output
+§4 ω = 2513 × 435/(90 000 × 17.0) = 0.714; K′_r = (1.714 − 0.654)/1.314 = 0.807; M′_2 = 53.8 × 0.807 = 43.4 (43.45) M′_{Ed,z} = 95.9; M′_{Ed,y} = 55.9
+Lab tab 5 8H20 at N_{Ed} = 1000 kN, either axis (square section) M_{Rd} = 125.7 kN m
+(9.11) N_{Rd} = 0.567 × 30 × 90 000 + 435 × 2513 = 2624 kN; N_{Ed}/N_{Rd} = 0.381 a = 1.234
+(9.11) imperfection about z: (95.9/125.7)^{1.234} + (43.5/125.7)^{1.234} = 0.716 + 0.269; about y: (83.5/125.7)^{1.234} + (55.9/125.7)^{1.234} = 0.603 + 0.368 0.99 ≤ 1 ✓; 0.97 ≤ 1 ✓
+## Step 9 Limits and links
+Ref Calculations Output
+EC2 9.5.2 A_{s,min} = max(0.10 × 1000 × 10³/435; 0.002 × 90 000) = max(230; 180); A_{s,max} = 0.04 × 90 000 230 ≤ 2513 ≤ 3600 mm² ✓
+EC2 9.5.3 φ_{link} ≥ max(6; 20/4) = 6; s_{cl,max} = min(20 × 20; 300; 400) = 300; 0.6 × 300 = 180; mid-face bars 104 mm (centre to centre) from a corner bar ≤ 150 mm H6-300; H6-175 within 300 mm of each floor and at the laps
+Answer. (A) About z alone: M_{Ed} = 91.5 kN m (M_{0e} + M_2), 4H20, M′_{Ed} = 92.1 ≤ M_{Rd} = 96.5 kN m. (B) About both axes: the screening fails, M′_z = 129.5 kN m needs about 2093 mm²; 8H20 (2513 mm²) passes Eq. 5.39 with 0.99 and 0.97. Links H6-300, H6-175 near the floors and at the laps.
+What the numbers say M_2 is 43% of the design moment about z, and the whole of it about y beyond the 12.5 kN m of the imperfection. The y axis has no analysed moment, yet it carries 55.9 kN m, because nominal curvature does not ask where the curvature came from. That doubled the steel: 4H20 for one axis, 8H20 for both. With 4H20 the sums are 1.25 and 1.22. The candidate M_{01} + 0.5M_2 never governs with equal end moments; M_{0e} + M_2 does, as for card C of Activity 9A.
+
+[examples-x2] Example 2 · Faded Example 9.2: Worked Example 8.1 about both axes
+Exam type check a column about both axes Workbook 9.7 Time ≈ 20 min
+Question Worked Example 8.1 designed a braced 400 × 400 column for bending about z: l_0 = 1806 mm about both axes (beams 300 × 600 at 6.0 m on all four sides, fixed base), N_{Ed} = 2400 kN, end moments about z 90 and 60 kN m in double curvature, no analysed moment about y, C30/37, c_{nom} = 30 mm, H6 links: M_{Ed,z} = 100.8 kN m and 4H16. Check the column about both axes (creep from Annex B, M_{0Eqp}/M_{0Ed} = 0.67) and revise the bars if needed. In the app: case C4 with “About both axes”, M_y = 0, and corner bars H16 or H20.
+[Figure: Faded Example 9.2: last week’s column, now about both axes.]
+Physical picture. Last week’s squat, heavily loaded column. About z nothing changes. About y it is only just slender (15.6 against 11.5) and M_2 will be tiny, but the floor N_{Ed}e_0 = 48 kN m applies about y while 90 to 100 kN m act about z. Is 4H16 still enough when both act together?
+Plan. λ_{lim} about y; the imperfection and M_2 about y; M_{Ed,y}; the screening; the enhanced moment and the area; Eq. 5.39 for 4H16, then 4H20; links.
+## Step 1 About y: slender with only the imperfection
+Ref Calculations Output
+(7.7)–(7.9) λ = 1806/115.5 = 15.6; n = 0.882; no analysed moment: r_m = 1, C = 0.7; λ_{lim} = 20 × 0.7 × 1.1 × 0.7/√0.882 λ_{lim} = 11.5 < 15.6: slender about y
+## Step 2 The second-order moment about y
+Ref Calculations Output
+(8.1), (9.6) e_i = 1806/400 = 4.5 mm; M_{02,y} = M_{0e,y} = 0 + 2400 × 0.0045 10.8 kN m
+Annex B, (9.4) h_0 = 200 mm: φ(∞,t_0) = 1.67, φ_{ef} = 1.12; β = 0.35 + 0.15 − 15.6/150 = 0.396; K_φ = 1 + 0.396 × 1.12 K_φ = 1.442
+(9.2), (9.5) 1/r_0 = 0.002175/(0.45 × 356) = 1.358 × 10⁻⁵; K_r = 0.38 from the loop; e_2 = 0.38 × 1.442 × 1.358 × 10⁻⁵ × 1806²/10 = 2.43 mm M_{2,y} = 5.8 kN m
+(9.7) M_{Ed,y} = max(10.8; 10.8 + 5.8; 10.8 + 2.9; 2400 × 0.020) 48.0 kN m: the floor governs
+## Step 3 The screening
+Ref Calculations Output
+(9.9) λ_y/λ_z = 1.0; e_y = 100.8/2400 = 42.0 mm; e_z = 48.0/2400 = 20.0 mm; (42.0/400)/(20.0/400) = 2.10 and 0.48 check needed
+## Step 4 Estimate: is 4H16 enough?
+Ref Calculations Output
+(9.10) 283 > 135 (kN): about z; β = 1 − 2400 × 10³/(400 × 400 × 30) = 0.50; M′_z = 100.8 + 0.50 × 48.0 M′_z = 124.8 kN m
+Chart 0.15 ν = 0.50; μ = 124.8 × 10⁶/(400 × 400² × 30) = 0.065; ω ≈ 0.11 A_s ≈ 1100 mm² > 804: 4H16 short
+## Step 5 Eq. 5.39 for 4H16, to see by how much
+Ref Calculations Output
+(9.11) M_{Rd} = 107.5 each way; N_{Rd} = 2721.6 + 349.8 = 3071 kN, ratio 0.781, a = 1.636; imperfection about y: z at 90.0 (no e_i), y at 48.0: 0.748 + 0.268 1.02 > 1 ✗
+## Step 6 Eq. 5.39 for 4H20
+Ref Calculations Output
+Lab tab 5 4H20, d = 354 mm, at 2400 kN M_{Rd} = 133.5 kN m
+(9.11) N_{Rd} = 2721.6 + 435 × 1257 × 10⁻³ = 3268 kN; 2400/3268 = 0.734 a = 1.557
+(9.11) imperfection about z: (100.8/133.5)^a + (6.1/133.5)^a = 0.646 + 0.008; about y: (90.0/133.5)^a + (48.0/133.5)^a = 0.541 + 0.203 0.65 ✓; 0.74 ✓
+EC2 9.5.3 φ_{link} ≥ max(6; 20/4) = 6; s_{cl,max} = min(400; 400; 400); 0.6 × 400 = 240 H6-400; H6-225 within 400 mm of each floor and at the laps
+Answer. Slender about y (λ_{lim} = 11.5); M_{Ed,y} = N_{Ed}e_0 = 48.0 kN m; biaxial check needed; 4H16 fails (about 1100 mm² needed, Eq. 5.39 = 1.02); 4H20 passes (0.74). Links H6-400, H6-225 near the floors and at the laps.
+What the numbers say M_2 about y is only 5.8 kN m: the column is barely slender. What governs is the minimum eccentricity, which travels with the imperfection: in the case with the imperfection about y, y carries 48.0 kN m while z keeps its 90 kN m end moment. That combination is 2% too much for 4H16. Worked Example 8.1 stopped at the z axis on purpose; the complete design of that column is 4H20.
+
+[examples-x3] Example 3 · Explain-type questions
+Exam type short written answers Time ≈ 3 min each
+Questions
+- A slender column’s moment grows by itself. Explain why, and why EC2 lets a short column ignore it.
+- Why is M_2 not added to M_{02} in a braced column, when it is in an unbraced one?
+- More bars raise the design moment of a slender column. Why, and is adding bars still worth it?
+- A column has no analysed moment about y. Why must it still be checked about y, and why can the biaxial check govern?
+Write your four answers first, then open the model answers one by one.
+## Answer 1 The deflection adds a lever arm
+The axial load acts on the deflected column, so at the critical section its eccentricity is e_1 + e_2. The extra moment N_{Ed}e_2 bends the column further, which increases e_2 and the moment again; a strong enough column settles at a larger deflection, a column near its buckling load does not. In a short column e_2 is small and the extra moment stays below about 10% of the first-order moment; EC2 sets λ_{lim} so that columns below it may ignore it (5.8.2(6), 5.8.3.1).
+## Answer 2 Where the deflection is
+In a braced column the ends cannot move sideways, so the deflection, and M_2, is zero at the ends, where the largest first-order moment M_{02} acts; M_2 peaks near mid-height, where the first-order moment is the smaller M_{0e}. Hence the candidates M_{02}, M_{0e} + M_2 and M_{01} + 0.5M_2. In an unbraced column the end itself sways, so the deflection and M_{02} act at the same section: M_{02} + M_2.
+## Answer 3 More steel, more curvature
+K_r = (n_u − n)/(n_u − 0.4) with n_u = 1 + ω: more steel raises n_u and so K_r, the nominal curvature and M_2. Physically, a more heavily reinforced section can bend further before it fails. It is still worth it, because M_{Rd} grows faster than M_2: in Worked Example 9.1 the bars provided raise M_{Ed} from 91.5 to 92.1 kN m while M_{Rd} is 96.5 kN m. It is why the final check uses K′_r with the bars provided.
+## Answer 4 The unloaded axis
+About y the imperfection still acts, and the section must carry at least N_{Ed}e_0. With no end moments r_m = 1 and C = 0.7, so λ_{lim} is low and the column is often slender about y; nominal curvature then adds M_2 whatever the first-order moment. These moments act at the same time as the moment about z. The screening asks whether one axis dominates; when it does not, the combination can need more steel than either axis alone: 4H16 to 4H20 in Faded Example 9.2, 4H20 to 8H20 in Worked Example 9.1.
+
+[exercises-b1] Exercise B1 · First-order moments with the imperfection
+Statement: generated in the app at run time (numbers change per attempt)
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-b2] Exercise B2 · Creep and K_φ
+Statement: generated in the app at run time (numbers change per attempt)
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-b3] Exercise B3 · Curvature and M_2
+Statement: generated in the app at run time (numbers change per attempt)
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-b4] Exercise B4 · The design moment of a braced column
+Statement: generated in the app at run time (numbers change per attempt)
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-b5] Exercise B5 · K_r from the steel
+Statement: generated in the app at run time (numbers change per attempt)
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-b6] Exercise B6 · The biaxial interaction
+Statement: generated in the app at run time (numbers change per attempt)
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-quick] Exercises: quick concept questions
+- When may the second-order moment of an isolated column be ignored?
+- The basic curvature 1/r_0 of the nominal curvature method assumes that
+- A very heavily loaded column has n close to n_u . Its K_r is
+- A braced slender column has equal end moments in single curvature. Which candidate usually governs its design moment?
+- For an unbraced slender column, the design moment is
+- In EC2 Eq. 5.39 the exponent a is 1.0 when
+- A braced column 250 × 300 is bent about y with l_0 = 4.13 m and N_{Ed} = 1200 kN; its end moments are 35 and 25 kN m on opposite faces, and M_2 = 23.1 kN m. One line contains the slip. Which one?
+- Worked Example 8.1 (400 × 400, N_{Ed} = 2400 kN, 4H16) is checked about both axes in the case with the imperfection about y. One line contains the slip. Which one?
+
+[lab-six] Explorer task 1 · Tab 6: enter M_2 and M_{Ed} for your Activity 9A card (A, B, C or D), then for the other three. Which candidate governs each card, and why?
+Ticks itself: when all four cards are within 2% of the Lab’s values · not ticked? mark done
+(The task's answer fields are checked in the app; they are not included here.)
+
+[lab-branch] Explorer task 2 · Tab 6: with the sliders, make each of the three candidates of a braced column govern in turn: M_{02} , M_{0e} + M_2 and M_{01} + 0.5M_2 . What moves the answer from one branch to the next?
+Ticks itself: when all three braced candidates have governed · not ticked? mark done
+(The task's answer fields are checked in the app; they are not included here.)
+
+[lab-sway9] Explorer task 3 · Tab 6: switch card B to unbraced. How much does M_{Ed} grow, and where along the height does M_2 now act?
+Ticks itself: when a braced card is switched to unbraced · not ticked? mark done
+(The task's answer fields are checked in the app; they are not included here.)
+
+[lab-screen] Explorer task 4 · Tab 6, Activity 9B: decide for the four screening cards whether a biaxial check is needed.
+Ticks itself: when all four decisions are right · not ticked? mark done
+(The task's answer fields are checked in the app; they are not included here.)
+
+[lab-we81y] Explorer task 5 · Tab 6: load Worked Example 8.1 about both axes. 4H16 fails Eq. 5.39: find bars that pass. 6H16 has 4% less steel than 4H20; why does the page still choose 4H20?
+Ticks itself: when you choose bars for Worked Example 8.1 that pass the area check and Eq. 5.39 · not ticked? mark done
+(The task's answer fields are checked in the app; they are not included here.)
+
+[lab-s9] Explorer task 6 · Tab 3: pick Column S9, find all four slips, tap their lines and press “Check”.
+Ticks itself: when all four slips of S9 are found, before Show · not ticked? mark done
+(The task's answer fields are checked in the app; they are not included here.)
+
+[glossary-axial-load-ratio-n] Glossary: axial load ratio n
+axial load ratio n: N_{Ed} /(A_c f_{cd} ) with f_{cd} = 0.85f_{ck} /1.5: the n of λ_{lim} and of K_r . Not the ν of the charts.
+
+[glossary-basic-curvature-1-r-0] Glossary: basic curvature 1/r_0
+basic curvature 1/r_0: ε_{yd} /(0.45d): the curvature with both layers of bars at yield (EC2 5.8.8.3(1)).
+
+[glossary-biaxial-rdf-14] Glossary: β (biaxial, RDF §14)
+β (biaxial, RDF §14): 1 − N_{Ed} /(bhf_{ck} ), not less than 0.3: the coefficient of the enhanced moment.
+
+[glossary-creep-ec2-5-8-8-3-4] Glossary: β (creep, EC2 5.8.8.3(4))
+β (creep, EC2 5.8.8.3(4)): 0.35 + f_{ck} /200 − λ/150: how much creep raises the curvature of a column of slenderness λ.
+
+[glossary-biaxial-bending] Glossary: biaxial bending
+biaxial bending: Moments about both axes at once. Design each axis first; check together with Eq. 5.39 unless the screening says one axis dominates (EC2 5.8.9).
+
+[glossary-creep-coefficient-t-0] Glossary: creep coefficient φ(∞,t_0 )
+creep coefficient φ(∞,t_0 ): The final creep strain over the elastic strain, from EC2 Figure 3.1 or Annex B (RH, t_0 , h_0 , cement class).
+
+[glossary-curvature-1-r] Glossary: curvature 1/r
+curvature 1/r: K_r K_φ (1/r_0 ): the nominal curvature of the critical section.
+
+[glossary-deflection-e-2] Glossary: deflection e_2
+deflection e_2: (1/r)l_0 ²/c with c = 10: the second-order eccentricity at the critical section.
+
+[glossary-effective-creep-ratio-ef] Glossary: effective creep ratio φ_{ef}
+effective creep ratio φ_{ef}: φ(∞,t_0 ) × M_{0Eqp} /M_{0Ed} ; may be 0 if φ(∞,t_0 ) ≤ 2, λ ≤ 75 and M_{0Ed} /N_{Ed} ≥ h (EC2 5.8.4).
+
+[glossary-enhanced-moment-m] Glossary: enhanced moment M′
+enhanced moment M′: M_{Ed,z} + β(h′/b′)M_{Ed,y} (or the reverse): one moment about one axis that stands for both, used to estimate the bars (RDF §14, BS 8110).
+
+[glossary-equivalent-first-order-moment-m-0e] Glossary: equivalent first-order moment M_{0e}
+equivalent first-order moment M_{0e}: 0.6M_{02} + 0.4M_{01} ≥ 0.4M_{02} , opposite signs in double curvature: the first-order moment that goes with M_2 near mid-height (EC2 5.8.8.2(2)).
+
+[glossary-exponent-a] Glossary: exponent a
+exponent a: 1.0 / 1.5 / 2.0 at N_{Ed} /N_{Rd} = 0.1 / 0.7 / 1.0, interpolated: the power in Eq. 5.39.
+
+[glossary-first-order-eccentricity-e-1] Glossary: first-order eccentricity e_1
+first-order eccentricity e_1: The eccentricity of N_{Ed} before the column deflects: the analysed moment plus the imperfection, over N_{Ed} .
+
+[glossary-imperfection-e-i] Glossary: imperfection e_i
+imperfection e_i: l_0 /400 for a braced column; in biaxial bending taken about one axis at a time, the more unfavourable (EC2 5.2, 5.8.9(2)).
+
+[glossary-interaction-check-eq-5-39] Glossary: interaction check, Eq. 5.39
+interaction check, Eq. 5.39: (M_{Ed,z} /M_{Rd,z} )^a + (M_{Ed,y} /M_{Rd,y} )^a ≤ 1 for the bars provided (EC2 5.8.9(4)).
+
+[glossary-k-r] Glossary: K_r
+K_r: (n_u − n)/(n_u − n_{bal} ) ≤ 1: lowers the curvature of a heavily loaded column; iterated with the steel.
+
+[glossary-k] Glossary: K_φ
+K_φ: 1 + βφ_{ef} ≥ 1: raises the curvature for creep.
+
+[glossary-minimum-eccentricity-e-0] Glossary: minimum eccentricity e_0
+minimum eccentricity e_0: max(h/30, 20 mm): a floor on the design moment; in biaxial bending it goes with the imperfection.
+
+[glossary-n-bal-n-u] Glossary: n_{bal} , n_u
+n_{bal} , n_u: n_{bal} = 0.4, the axial load ratio at maximum moment resistance; n_u = 1 + ω, with ω = A_s f_{yd} /(A_c f_{cd} ).
+
+[glossary-n-rd] Glossary: N_{Rd}
+N_{Rd}: A_c f_{cd} + A_s f_{yd} : the axial resistance used for the exponent a.
+
+[glossary-nominal-curvature-method] Glossary: nominal curvature method
+nominal curvature method: EC2 5.8.8: M_2 from an assumed curvature at the critical section; the course method.
+
+[glossary-nominal-stiffness-method] Glossary: nominal stiffness method
+nominal stiffness method: EC2 5.8.7: the other simplified method, which reduces the stiffness and magnifies the first-order moment. Not used in this course.
+
+[glossary-quasi-permanent-ratio-m-0eqp-m-0ed] Glossary: quasi-permanent ratio M_{0Eqp} /M_{0Ed}
+quasi-permanent ratio M_{0Eqp} /M_{0Ed}: The share of the first-order moment that acts for a long time; 0.67 in the course unless the analysis gives it.
+
+[glossary-relative-eccentricity] Glossary: relative eccentricity
+relative eccentricity: e_y /h and e_z /b (h_{eq} , b_{eq} for other shapes): compared in the screening.
+
+[glossary-screening-ec2-5-8-9-3] Glossary: screening (EC2 5.8.9(3))
+screening (EC2 5.8.9(3)): Separate designs suffice if λ_y /λ_z and λ_z /λ_y ≤ 2 and one relative eccentricity ratio ≤ 0.2.
+
+[glossary-second-order-moment-m-2] Glossary: second-order moment M_2
+second-order moment M_2: N_{Ed} e_2 : the moment added by the deflection of a slender column.

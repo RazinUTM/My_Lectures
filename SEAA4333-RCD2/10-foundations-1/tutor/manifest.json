@@ -1,0 +1,601 @@
+{
+ "app": "seaa4333",
+ "part": "u10",
+ "title": "Unit 10 Foundations I",
+ "folder": "10-foundations-1",
+ "course_meta": {
+  "key": "seaa4333-u10-v1",
+  "notes": [
+   "n1",
+   "n2",
+   "n3",
+   "n4",
+   "n5",
+   "n6"
+  ],
+  "slides": 26,
+  "examples": [
+   "x1",
+   "x2",
+   "x3"
+  ],
+  "cando": 5,
+  "targetMin": 45
+ },
+ "sections": [
+  {
+   "id": "start-outcomes",
+   "view": "start",
+   "anchor": null,
+   "selector": "ol.lo",
+   "title_en": "After this part you should be able to",
+   "title_ms": "Selepas bahagian ini, anda sepatutnya boleh"
+  },
+  {
+   "id": "notes-n1",
+   "view": "notes",
+   "anchor": "n1",
+   "title_en": "1. Foundations: types and requirements",
+   "title_ms": "1. Foundation: jenis dan keperluan",
+   "minutes": 7
+  },
+  {
+   "id": "notes-n2",
+   "view": "notes",
+   "anchor": "n2",
+   "title_en": "2. Sizing the base",
+   "title_ms": "2. Menentukan saiz tapak",
+   "minutes": 7
+  },
+  {
+   "id": "notes-n3",
+   "view": "notes",
+   "anchor": "n3",
+   "title_en": "3. The pressure when the load is off-centre",
+   "title_ms": "3. Tekanan apabila load di luar tengah",
+   "minutes": 9
+  },
+  {
+   "id": "notes-n4",
+   "view": "notes",
+   "anchor": "n4",
+   "title_en": "4. Critical sections: bending, shear, punching",
+   "title_ms": "4. Section kritikal: bending, shear, punching",
+   "minutes": 10
+  },
+  {
+   "id": "notes-n5",
+   "view": "notes",
+   "anchor": "n5",
+   "title_en": "5. Combined footings",
+   "title_ms": "5. Combined footing",
+   "minutes": 7
+  },
+  {
+   "id": "notes-n6",
+   "view": "notes",
+   "anchor": "n6",
+   "title_en": "6. Strip footings and detailing",
+   "title_ms": "6. Strip footing dan detailing",
+   "minutes": 6
+  },
+  {
+   "id": "slides-1",
+   "view": "slides",
+   "anchor": "1",
+   "title_en": "Slide 1: Foundations I",
+   "title_ms": "Slide 1: Foundations I"
+  },
+  {
+   "id": "slides-2",
+   "view": "slides",
+   "anchor": "2",
+   "title_en": "Slide 2: How the next three hours run",
+   "title_ms": "Slide 2: How the next three hours run"
+  },
+  {
+   "id": "slides-3",
+   "view": "slides",
+   "anchor": "3",
+   "title_en": "Slide 3: Three questions before the column reaches the ground",
+   "title_ms": "Slide 3: Three questions before the column reaches the ground"
+  },
+  {
+   "id": "slides-4",
+   "view": "slides",
+   "anchor": "4",
+   "title_en": "Slide 4: B, B, A, and what each means today",
+   "title_ms": "Slide 4: B, B, A, and what each means today"
+  },
+  {
+   "id": "slides-5",
+   "view": "slides",
+   "anchor": "5",
+   "title_en": "Slide 5: Press a stiff plate on foam, off-centre",
+   "title_ms": "Slide 5: Press a stiff plate on foam, off-centre"
+  },
+  {
+   "id": "slides-6",
+   "view": "slides",
+   "anchor": "6",
+   "title_en": "Slide 6: A 2.4 m base carries N = 600 kN at e = 0.5 m. The pressure under it is",
+   "title_ms": "Slide 6: A 2.4 m base carries N = 600 kN at e = 0.5 m. The pressure under it is"
+  },
+  {
+   "id": "slides-7",
+   "view": "slides",
+   "anchor": "7",
+   "title_en": "Slide 7: What a foundation must do, and which type",
+   "title_ms": "Slide 7: What a foundation must do, and which type"
+  },
+  {
+   "id": "slides-8",
+   "view": "slides",
+   "anchor": "8",
+   "title_en": "Slide 8: The pressure when the load moves off-centre",
+   "title_ms": "Slide 8: The pressure when the load moves off-centre"
+  },
+  {
+   "id": "slides-9",
+   "view": "slides",
+   "anchor": "9",
+   "title_en": "Slide 9: Predict the pressure under a 2.4 × 2.0 m base, N = 600 kN",
+   "title_ms": "Slide 9: Predict the pressure under a 2.4 × 2.0 m base, N = 600 kN"
+  },
+  {
+   "id": "slides-10",
+   "view": "slides",
+   "anchor": "10",
+   "title_en": "Slide 10: Trapezoid, triangle, then part of the base lifts off",
+   "title_ms": "Slide 10: Trapezoid, triangle, then part of the base lifts off"
+  },
+  {
+   "id": "slides-11",
+   "view": "slides",
+   "anchor": "11",
+   "title_en": "Slide 11: A pad under 600 + 400 kN: size, moment, bars, shear",
+   "title_ms": "Slide 11: A pad under 600 + 400 kN: size, moment, bars, shear"
+  },
+  {
+   "id": "slides-12",
+   "view": "slides",
+   "anchor": "12",
+   "title_en": "Slide 12: Punching under a column base: every perimeter inside 2d",
+   "title_ms": "Slide 12: Punching under a column base: every perimeter inside 2d"
+  },
+  {
+   "id": "slides-13",
+   "view": "slides",
+   "anchor": "13",
+   "title_en": "Slide 13: The course notes’ pad, h = 450 mm: where is the worst perimeter?",
+   "title_ms": "Slide 13: The course notes’ pad, h = 450 mm: where is the worst perimeter?"
+  },
+  {
+   "id": "slides-14",
+   "view": "slides",
+   "anchor": "14",
+   "title_en": "Slide 14: Passes at 2d, fails at 1.2d: 50 mm deeper",
+   "title_ms": "Slide 14: Passes at 2d, fails at 1.2d: 50 mm deeper"
+  },
+  {
+   "id": "slides-15",
+   "view": "slides",
+   "anchor": "15",
+   "title_en": "Slide 15: WE 10.1 at a = d: v Ed = 0.674 N/mm², v Rd,c = 0.377 N/mm². The verdict:",
+   "title_ms": "Slide 15: WE 10.1 at a = d: v Ed = 0.674 N/mm², v Rd,c = 0.377 N/mm². The verdict:"
+  },
+  {
+   "id": "slides-16",
+   "view": "slides",
+   "anchor": "16",
+   "title_en": "Slide 16: A pad with a moment: N Ed = 1500 kN, M Ed = 50 kN m",
+   "title_ms": "Slide 16: A pad with a moment: N Ed = 1500 kN, M Ed = 50 kN m"
+  },
+  {
+   "id": "slides-17",
+   "view": "slides",
+   "anchor": "17",
+   "title_en": "Slide 17: The minimum steel governs both ways",
+   "title_ms": "Slide 17: The minimum steel governs both ways"
+  },
+  {
+   "id": "slides-18",
+   "view": "slides",
+   "anchor": "18",
+   "title_en": "Slide 18: Two columns, one base: centre it on the resultant",
+   "title_ms": "Slide 18: Two columns, one base: centre it on the resultant"
+  },
+  {
+   "id": "slides-19",
+   "view": "slides",
+   "anchor": "19",
+   "title_en": "Slide 19: A rectangular combined footing carries two columns. Where must its top face be reinforced?",
+   "title_ms": "Slide 19: A rectangular combined footing carries two columns. Where must its top face be reinforced?"
+  },
+  {
+   "id": "slides-20",
+   "view": "slides",
+   "anchor": "20",
+   "title_en": "Slide 20: Foundation S10: four slips in a pad design",
+   "title_ms": "Slide 20: Foundation S10: four slips in a pad design"
+  },
+  {
+   "id": "slides-21",
+   "view": "slides",
+   "anchor": "21",
+   "title_en": "Slide 21: Detailing, and the strip footing under a wall",
+   "title_ms": "Slide 21: Detailing, and the strip footing under a wall"
+  },
+  {
+   "id": "slides-22",
+   "view": "slides",
+   "anchor": "22",
+   "title_en": "Slide 22: D10: a pad footing for a 400 mm column (20 marks)",
+   "title_ms": "Slide 22: D10: a pad footing for a 400 mm column (20 marks)"
+  },
+  {
+   "id": "slides-23",
+   "view": "slides",
+   "anchor": "23",
+   "title_en": "Slide 23: The foundation type for your site",
+   "title_ms": "Slide 23: The foundation type for your site"
+  },
+  {
+   "id": "slides-24",
+   "view": "slides",
+   "anchor": "24",
+   "title_en": "Slide 24: Soil with service loads, concrete with ultimate loads: say which",
+   "title_ms": "Slide 24: Soil with service loads, concrete with ultimate loads: say which"
+  },
+  {
+   "id": "slides-25",
+   "view": "slides",
+   "anchor": "25",
+   "title_en": "Slide 25: Before Unit 11",
+   "title_ms": "Slide 25: Before Unit 11"
+  },
+  {
+   "id": "slides-26",
+   "view": "slides",
+   "anchor": "26",
+   "title_en": "Slide 26: Before you leave",
+   "title_ms": "Slide 26: Before you leave"
+  },
+  {
+   "id": "examples-x1",
+   "view": "examples",
+   "anchor": "x1",
+   "title_en": "Example 1 · Worked Example 10.1: a pad footing under an axial load",
+   "title_ms": "Contoh 1 · Worked Example 10.1: pad footing di bawah axial load"
+  },
+  {
+   "id": "examples-x2",
+   "view": "examples",
+   "anchor": "x2",
+   "title_en": "Example 2 · Faded Example 10.2: a pad footing with a moment",
+   "title_ms": "Contoh 2 · Faded Example 10.2: pad footing dengan moment"
+  },
+  {
+   "id": "examples-x3",
+   "view": "examples",
+   "anchor": "x3",
+   "title_en": "Example 3 · Explain-type questions",
+   "title_ms": "Contoh 3 · Soalan jenis terangkan"
+  },
+  {
+   "id": "exercises-b1",
+   "view": "exercises",
+   "anchor": "b1",
+   "title_en": "Exercise B1 · The plan size",
+   "title_ms": "Latihan B1 · Saiz pelan"
+  },
+  {
+   "id": "exercises-b2",
+   "view": "exercises",
+   "anchor": "b2",
+   "title_en": "Exercise B2 · The pressure under an eccentric load",
+   "title_ms": "Latihan B2 · Tekanan di bawah load eksentrik"
+  },
+  {
+   "id": "exercises-b3",
+   "view": "exercises",
+   "anchor": "b3",
+   "title_en": "Exercise B3 · The moment at the face and the bars",
+   "title_ms": "Latihan B3 · Moment di muka dan bar"
+  },
+  {
+   "id": "exercises-b4",
+   "view": "exercises",
+   "anchor": "b4",
+   "title_en": "Exercise B4 · Vertical shear at d",
+   "title_ms": "Latihan B4 · Vertical shear pada d"
+  },
+  {
+   "id": "exercises-b5",
+   "view": "exercises",
+   "anchor": "b5",
+   "title_en": "Exercise B5 · Punching inside 2d",
+   "title_ms": "Latihan B5 · Punching di dalam 2d"
+  },
+  {
+   "id": "exercises-b6",
+   "view": "exercises",
+   "anchor": "b6",
+   "title_en": "Exercise B6 · A combined footing",
+   "title_ms": "Latihan B6 · Combined footing"
+  },
+  {
+   "id": "exercises-quick",
+   "view": "exercises",
+   "anchor": null,
+   "selector": "#v-exercises div.q",
+   "title_en": "Exercises: quick concept questions",
+   "title_ms": "Latihan: soalan konsep pantas"
+  },
+  {
+   "id": "lab-kern",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"kern\"]",
+   "title_en": "Explorer task 1: Tab 1, Activity 10A: predict the pressure under the base for e…",
+   "title_ms": "Tugasan Explorer 1: Tab 1, Aktiviti 10A: ramal tekanan di bawah tapak bagi e di baw…"
+  },
+  {
+   "id": "lab-lift",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"lift\"]",
+   "title_en": "Explorer task 2: Tab 1: load case F3 and change the moment",
+   "title_ms": "Tugasan Explorer 2: Tab 1: muatkan kes F3 dan ubah moment"
+  },
+  {
+   "id": "lab-corner",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"corner\"]",
+   "title_en": "Explorer task 3: Tab 1, two moments: load case F4 and raise the moment about x u…",
+   "title_ms": "Tugasan Explorer 3: Tab 1, dua moment: muatkan kes F4 dan naikkan moment pada paksi…"
+  },
+  {
+   "id": "lab-scan",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"scan\"]",
+   "title_en": "Explorer task 4: Tab 2, Activity 10B: for case F1, predict where the worst punch…",
+   "title_ms": "Tugasan Explorer 4: Tab 2, Aktiviti 10B: bagi kes F1, ramal di mana punching perime…"
+  },
+  {
+   "id": "lab-revise",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"revise\"]",
+   "title_en": "Explorer task 5: Tab 2: case F1 fails inside 2d",
+   "title_ms": "Tugasan Explorer 5: Tab 2: kes F1 gagal di dalam 2d"
+  },
+  {
+   "id": "lab-s10",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"s10\"]",
+   "title_en": "Explorer task 6: Tab 3: Foundation S10, find all four slips, tap their lines and…",
+   "title_ms": "Tugasan Explorer 6: Tab 3: Foundation S10, cari keempat-empat kesilapan, ketik bari…"
+  },
+  {
+   "id": "glossary-allowable-bearing-pressure-q-all",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: allowable bearing pressure q_{all}",
+   "title_ms": "Glosari: allowable bearing pressure q_{all}"
+  },
+  {
+   "id": "glossary-basic-control-perimeter-u-1",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: basic control perimeter u_1",
+   "title_ms": "Glosari: basic control perimeter u_1"
+  },
+  {
+   "id": "glossary-bearing-pressure",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: bearing pressure",
+   "title_ms": "Glosari: bearing pressure"
+  },
+  {
+   "id": "glossary-blinding",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: blinding",
+   "title_ms": "Glosari: blinding"
+  },
+  {
+   "id": "glossary-column-base-punching",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: column base (punching)",
+   "title_ms": "Glosari: column base (punching)"
+  },
+  {
+   "id": "glossary-combined-footing",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: combined footing",
+   "title_ms": "Glosari: combined footing"
+  },
+  {
+   "id": "glossary-contact-length-l-c",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: contact length L_c",
+   "title_ms": "Glosari: contact length L_c"
+  },
+  {
+   "id": "glossary-critical-section",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: critical section",
+   "title_ms": "Glosari: critical section"
+  },
+  {
+   "id": "glossary-differential-settlement",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: differential settlement",
+   "title_ms": "Glosari: differential settlement"
+  },
+  {
+   "id": "glossary-eccentricity-e",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: eccentricity e",
+   "title_ms": "Glosari: eccentricity e"
+  },
+  {
+   "id": "glossary-kern-middle-third",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: kern (middle third)",
+   "title_ms": "Glosari: kern (middle third)"
+  },
+  {
+   "id": "glossary-kicker",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: kicker",
+   "title_ms": "Glosari: kicker"
+  },
+  {
+   "id": "glossary-pad-footing",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: pad footing",
+   "title_ms": "Glosari: pad footing"
+  },
+  {
+   "id": "glossary-partial-contact-lift-off",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: partial contact (lift-off)",
+   "title_ms": "Glosari: partial contact (lift-off)"
+  },
+  {
+   "id": "glossary-pile-foundation",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: pile foundation",
+   "title_ms": "Glosari: pile foundation"
+  },
+  {
+   "id": "glossary-punching-shear",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: punching shear",
+   "title_ms": "Glosari: punching shear"
+  },
+  {
+   "id": "glossary-raft-foundation",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: raft foundation",
+   "title_ms": "Glosari: raft foundation"
+  },
+  {
+   "id": "glossary-reduced-punching-force-v-ed-red",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: reduced punching force V_{Ed,red}",
+   "title_ms": "Glosari: reduced punching force V_{Ed,red}"
+  },
+  {
+   "id": "glossary-self-weight-w",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: self-weight W",
+   "title_ms": "Glosari: self-weight W"
+  },
+  {
+   "id": "glossary-service-and-ultimate-loads",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: service and ultimate loads",
+   "title_ms": "Glosari: service and ultimate loads"
+  },
+  {
+   "id": "glossary-settlement",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: settlement",
+   "title_ms": "Glosari: settlement"
+  },
+  {
+   "id": "glossary-starter-bars",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: starter bars",
+   "title_ms": "Glosari: starter bars"
+  },
+  {
+   "id": "glossary-strap-footing",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: strap footing",
+   "title_ms": "Glosari: strap footing"
+  },
+  {
+   "id": "glossary-strip-footing",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: strip footing",
+   "title_ms": "Glosari: strip footing"
+  },
+  {
+   "id": "glossary-v-min",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: v_{min}",
+   "title_ms": "Glosari: v_{min}"
+  },
+  {
+   "id": "glossary-v-rd-max",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: v_{Rd,max}",
+   "title_ms": "Glosari: v_{Rd,max}"
+  },
+  {
+   "id": "glossary-punching",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: β (punching)",
+   "title_ms": "Glosari: β (punching)"
+  }
+ ],
+ "equations_missing": 0
+}

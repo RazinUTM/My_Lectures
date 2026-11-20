@@ -1,0 +1,5424 @@
+{
+ "app": "seaa4333",
+ "course": "SEAA4333-RCD2",
+ "parts": [
+  {
+   "part": "u1",
+   "folder": "01-staircases-1",
+   "title": "Unit 1 Staircases I",
+   "sections": [
+    {
+     "id": "start-outcomes",
+     "title_en": "After this part you should be able to",
+     "title_ms": "Selepas bahagian ini, anda sepatutnya boleh"
+    },
+    {
+     "id": "notes-n1",
+     "title_en": "1. A stair is a slab that climbs",
+     "title_ms": "1. Tangga ialah slab yang mendaki"
+    },
+    {
+     "id": "notes-n2",
+     "title_en": "2. Geometry and the by-laws",
+     "title_ms": "2. Geometri dan by-law"
+    },
+    {
+     "id": "notes-n3",
+     "title_en": "3. Average thickness and load on plan",
+     "title_ms": "3. Average thickness dan load on plan"
+    },
+    {
+     "id": "notes-n4",
+     "title_en": "4. The stair as a beam on plan",
+     "title_ms": "4. Tangga sebagai beam on plan"
+    },
+    {
+     "id": "notes-n5",
+     "title_en": "5. Designing the waist",
+     "title_ms": "5. Design waist"
+    },
+    {
+     "id": "notes-n6",
+     "title_en": "6. Detailing, and the kink",
+     "title_ms": "6. Detailing, dan kink"
+    },
+    {
+     "id": "slides-1",
+     "title_en": "Slide 1: Staircases I",
+     "title_ms": "Slide 1: Staircases I"
+    },
+    {
+     "id": "slides-2",
+     "title_en": "Slide 2: Four tools, one routine every week",
+     "title_ms": "Slide 2: Four tools, one routine every week"
+    },
+    {
+     "id": "slides-3",
+     "title_en": "Slide 3: Five topics, fourteen Units",
+     "title_ms": "Slide 3: Five topics, fourteen Units"
+    },
+    {
+     "id": "slides-4",
+     "title_en": "Slide 4: How the next three hours run",
+     "title_ms": "Slide 4: How the next three hours run"
+    },
+    {
+     "id": "slides-5",
+     "title_en": "Slide 5: Five questions on slab design, no notes",
+     "title_ms": "Slide 5: Five questions on slab design, no notes"
+    },
+    {
+     "id": "slides-6",
+     "title_en": "Slide 6: Two more",
+     "title_ms": "Slide 6: Two more"
+    },
+    {
+     "id": "slides-7",
+     "title_en": "Slide 7: B, A, B, A, B, and what each means for a stair",
+     "title_ms": "Slide 7: B, A, B, A, B, and what each means for a stair"
+    },
+    {
+     "id": "slides-8",
+     "title_en": "Slide 8: Which of these stairs is legal?",
+     "title_ms": "Slide 8: Which of these stairs is legal?"
+    },
+    {
+     "id": "slides-9",
+     "title_en": "Slide 9: A stair is a slab that climbs",
+     "title_ms": "Slide 9: A stair is a slab that climbs"
+    },
+    {
+     "id": "slides-10",
+     "title_en": "Slide 10: The parts of a stair",
+     "title_ms": "Slide 10: The parts of a stair"
+    },
+    {
+     "id": "slides-11",
+     "title_en": "Slide 11: Four numbers fix the geometry",
+     "title_ms": "Slide 11: Four numbers fix the geometry"
+    },
+    {
+     "id": "slides-12",
+     "title_en": "Slide 12: Our school has a 3.5 m storey. What is the least number of risers, and in how many flights?",
+     "title_ms": "Slide 12: Our school has a 3.5 m storey. What is the least number of risers, and in how many flights?"
+    },
+    {
+     "id": "slides-13",
+     "title_en": "Slide 13: B: 20 risers of 175 mm, in two flights of 10",
+     "title_ms": "Slide 13: B: 20 risers of 175 mm, in two flights of 10"
+    },
+    {
+     "id": "slides-14",
+     "title_en": "Slide 14: Stair Audit: is our stair legal?",
+     "title_ms": "Slide 14: Stair Audit: is our stair legal?"
+    },
+    {
+     "id": "slides-15",
+     "title_en": "Slide 15: From waist to load on plan",
+     "title_ms": "Slide 15: From waist to load on plan"
+    },
+    {
+     "id": "slides-16",
+     "title_en": "Slide 16: Same waist (150 mm) and going (260 mm). R rises from 150 to 180 mm. How much does the self-weight on plan rise?",
+     "title_ms": "Slide 16: Same waist (150 mm) and going (260 mm). R rises from 150 to 180 mm. How much does the self-weight on plan rise?"
+    },
+    {
+     "id": "slides-17",
+     "title_en": "Slide 17: B: about 10%, from 6.20 to 6.81 kN/m²",
+     "title_ms": "Slide 17: B: about 10%, from 6.20 to 6.81 kN/m²"
+    },
+    {
+     "id": "slides-18",
+     "title_en": "Slide 18: Model the stair as a beam on plan",
+     "title_ms": "Slide 18: Model the stair as a beam on plan"
+    },
+    {
+     "id": "slides-19",
+     "title_en": "Slide 19: Flight 1 of our 3.5 m storey, between two beams",
+     "title_ms": "Slide 19: Flight 1 of our 3.5 m storey, between two beams"
+    },
+    {
+     "id": "slides-20",
+     "title_en": "Slide 20: Eleven steps; three are new",
+     "title_ms": "Slide 20: Eleven steps; three are new"
+    },
+    {
+     "id": "slides-21",
+     "title_en": "Slide 21: Faded Example 1.2",
+     "title_ms": "Slide 21: Faded Example 1.2"
+    },
+    {
+     "id": "slides-22",
+     "title_en": "Slide 22: Check: L = 4325 mm, M = 30.2 kNm",
+     "title_ms": "Slide 22: Check: L = 4325 mm, M = 30.2 kNm"
+    },
+    {
+     "id": "slides-23",
+     "title_en": "Slide 23: Break",
+     "title_ms": "Slide 23: Break"
+    },
+    {
+     "id": "slides-24",
+     "title_en": "Slide 24: What a stair adds to the slab checks",
+     "title_ms": "Slide 24: What a stair adds to the slab checks"
+    },
+    {
+     "id": "slides-25",
+     "title_en": "Slide 25: A flight with its landing spans from a monolithic beam (A) to a brick wall (B). Which pair is right?",
+     "title_ms": "Slide 25: A flight with its landing spans from a monolithic beam (A) to a brick wall (B). Which pair is right?"
+    },
+    {
+     "id": "slides-26",
+     "title_en": "Slide 26: The flight meets its top landing. Which bottom-bar detail is right at the kink?",
+     "title_ms": "Slide 26: The flight meets its top landing. Which bottom-bar detail is right at the kink?"
+    },
+    {
+     "id": "slides-27",
+     "title_en": "Slide 27: B and B",
+     "title_ms": "Slide 27: B and B"
+    },
+    {
+     "id": "slides-28",
+     "title_en": "Slide 28: Stair S1 has four slips. Find them.",
+     "title_ms": "Slide 28: Stair S1 has four slips. Find them."
+    },
+    {
+     "id": "slides-29",
+     "title_en": "Slide 29: Four small slips, one unsafe stair",
+     "title_ms": "Slide 29: Four small slips, one unsafe stair"
+    },
+    {
+     "id": "slides-30",
+     "title_en": "Slide 30: D1: a flight with a bottom landing",
+     "title_ms": "Slide 30: D1: a flight with a bottom landing"
+    },
+    {
+     "id": "slides-31",
+     "title_en": "Slide 31: Propose the stairs for your building",
+     "title_ms": "Slide 31: Propose the stairs for your building"
+    },
+    {
+     "id": "slides-32",
+     "title_en": "Slide 32: Sanity-check the load before you design",
+     "title_ms": "Slide 32: Sanity-check the load before you design"
+    },
+    {
+     "id": "slides-33",
+     "title_en": "Slide 33: Before Week 2",
+     "title_ms": "Slide 33: Before Week 2"
+    },
+    {
+     "id": "slides-34",
+     "title_en": "Slide 34: Before you leave",
+     "title_ms": "Slide 34: Before you leave"
+    },
+    {
+     "id": "examples-x1",
+     "title_en": "Example 1 · Worked Example 1.1: a flight between two beams",
+     "title_ms": "Contoh 1 · Worked Example 1.1: flight di antara dua beam"
+    },
+    {
+     "id": "examples-x2",
+     "title_en": "Example 2 · Faded Example 1.2: a flight with its top landing",
+     "title_ms": "Contoh 2 · Faded Example 1.2: flight dengan landing atas"
+    },
+    {
+     "id": "examples-x3",
+     "title_en": "Example 3 · Explain-type questions",
+     "title_ms": "Contoh 3 · Soalan jenis terangkan"
+    },
+    {
+     "id": "exercises-b1",
+     "title_en": "Exercise B1 · Risers and flights for a storey",
+     "title_ms": "Latihan B1 · Riser dan flight bagi satu tingkat"
+    },
+    {
+     "id": "exercises-b2",
+     "title_en": "Exercise B2 · Average thickness and design loads on plan",
+     "title_ms": "Latihan B2 · Average thickness dan design load on plan"
+    },
+    {
+     "id": "exercises-b3",
+     "title_en": "Exercise B3 · Span, total load and design moment",
+     "title_ms": "Latihan B3 · Span, total load dan design moment"
+    },
+    {
+     "id": "exercises-b4",
+     "title_en": "Exercise B4 · Reactions of a flight with its landing",
+     "title_ms": "Latihan B4 · Reaction bagi flight dengan landing-nya"
+    },
+    {
+     "id": "exercises-b5",
+     "title_en": "Exercise B5 · Flexure of the waist",
+     "title_ms": "Latihan B5 · Flexure bagi waist"
+    },
+    {
+     "id": "exercises-b6",
+     "title_en": "Exercise B6 · Deflection check with the right K",
+     "title_ms": "Latihan B6 · Semakan deflection dengan K yang betul"
+    },
+    {
+     "id": "exercises-quick",
+     "title_en": "Exercises: quick concept questions",
+     "title_ms": "Latihan: soalan konsep pantas"
+    },
+    {
+     "id": "lab-audit",
+     "title_en": "Explorer task 1: Tab 1, “Check a measured stair”: enter a stair, yours from the…",
+     "title_ms": "Tugasan Explorer 1: Tab 1, “Semak tangga yang diukur”: masukkan satu tangga, sama a…"
+    },
+    {
+     "id": "lab-act1b",
+     "title_en": "Explorer task 2: Tab 2: set R = 150, G = 260 and h = 150, then drag R to 180",
+     "title_ms": "Tugasan Explorer 2: Tab 2: tetapkan R = 150, G = 260 dan h = 150, kemudian seret R…"
+    },
+    {
+     "id": "lab-fe12",
+     "title_en": "Explorer task 3: Tab 3: pick the example “FE 1.2” and compare L, F, M and the tw…",
+     "title_ms": "Tugasan Explorer 3: Tab 3: pilih contoh “FE 1.2” dan bandingkan L, F, M dan dua rea…"
+    },
+    {
+     "id": "lab-ends",
+     "title_en": "Explorer task 4: Tab 3: make both ends simply supported",
+     "title_ms": "Tugasan Explorer 4: Tab 3: jadikan kedua-dua hujung simply supported"
+    },
+    {
+     "id": "lab-kink",
+     "title_en": "Explorer task 5: Tab 4: decide which kink detail is right, A or B, then press “R…",
+     "title_ms": "Tugasan Explorer 5: Tab 4: tentukan detail kink yang betul, A atau B, kemudian teka…"
+    },
+    {
+     "id": "lab-s1",
+     "title_en": "Explorer task 6: Tab 5: find all four slips in Stair S1, tap their lines and pre…",
+     "title_ms": "Tugasan Explorer 6: Tab 5: cari keempat-empat kesilapan dalam Tangga S1, ketik bari…"
+    },
+    {
+     "id": "glossary-flight",
+     "title_en": "Glossary: flight",
+     "title_ms": "Glosari: flight"
+    },
+    {
+     "id": "glossary-landing",
+     "title_en": "Glossary: landing",
+     "title_ms": "Glosari: landing"
+    },
+    {
+     "id": "glossary-waist-h",
+     "title_en": "Glossary: waist h",
+     "title_ms": "Glosari: waist h"
+    },
+    {
+     "id": "glossary-rise-r-riser",
+     "title_en": "Glossary: rise R · riser",
+     "title_ms": "Glosari: rise R · riser"
+    },
+    {
+     "id": "glossary-going-g-tread",
+     "title_en": "Glossary: going G · tread",
+     "title_ms": "Glosari: going G · tread"
+    },
+    {
+     "id": "glossary-nosing",
+     "title_en": "Glossary: nosing",
+     "title_ms": "Glosari: nosing"
+    },
+    {
+     "id": "glossary-soffit",
+     "title_en": "Glossary: soffit",
+     "title_ms": "Glosari: soffit"
+    },
+    {
+     "id": "glossary-pitch",
+     "title_en": "Glossary: pitch θ",
+     "title_ms": "Glosari: pitch θ"
+    },
+    {
+     "id": "glossary-vertical-waist-thickness-y",
+     "title_en": "Glossary: vertical waist thickness y",
+     "title_ms": "Glosari: vertical waist thickness y"
+    },
+    {
+     "id": "glossary-average-thickness-t",
+     "title_en": "Glossary: average thickness t",
+     "title_ms": "Glosari: average thickness t"
+    },
+    {
+     "id": "glossary-load-on-plan",
+     "title_en": "Glossary: load on plan",
+     "title_ms": "Glosari: load on plan"
+    },
+    {
+     "id": "glossary-design-load-n-d",
+     "title_en": "Glossary: design load n_d",
+     "title_ms": "Glosari: design load n_d"
+    },
+    {
+     "id": "glossary-partial-factors-g-q",
+     "title_en": "Glossary: partial factors γ_G , γ_Q",
+     "title_ms": "Glosari: partial factors γ_G , γ_Q"
+    },
+    {
+     "id": "glossary-effective-span-l",
+     "title_en": "Glossary: effective span L",
+     "title_ms": "Glosari: effective span L"
+    },
+    {
+     "id": "glossary-one-way-slab-1-m-strip",
+     "title_en": "Glossary: one-way slab · 1 m strip",
+     "title_ms": "Glosari: one-way slab · 1 m strip"
+    },
+    {
+     "id": "glossary-continuous-end",
+     "title_en": "Glossary: continuous end",
+     "title_ms": "Glosari: continuous end"
+    },
+    {
+     "id": "glossary-simply-supported-end",
+     "title_en": "Glossary: simply supported end",
+     "title_ms": "Glosari: simply supported end"
+    },
+    {
+     "id": "glossary-hogging-moment",
+     "title_en": "Glossary: hogging moment",
+     "title_ms": "Glosari: hogging moment"
+    },
+    {
+     "id": "glossary-k-two-meanings",
+     "title_en": "Glossary: K, two meanings",
+     "title_ms": "Glosari: K, two meanings"
+    },
+    {
+     "id": "glossary-distribution-bars",
+     "title_en": "Glossary: distribution bars",
+     "title_ms": "Glosari: distribution bars"
+    },
+    {
+     "id": "glossary-top-bars",
+     "title_en": "Glossary: top bars",
+     "title_ms": "Glosari: top bars"
+    },
+    {
+     "id": "glossary-kink",
+     "title_en": "Glossary: kink",
+     "title_ms": "Glosari: kink"
+    },
+    {
+     "id": "glossary-ubbl",
+     "title_en": "Glossary: UBBL",
+     "title_ms": "Glosari: UBBL"
+    },
+    {
+     "id": "glossary-comfort-rule-2r-g",
+     "title_en": "Glossary: comfort rule 2R + G",
+     "title_ms": "Glosari: comfort rule 2R + G"
+    },
+    {
+     "id": "glossary-professional-habit-1",
+     "title_en": "Glossary: Professional Habit 1",
+     "title_ms": "Glosari: Professional Habit 1"
+    }
+   ]
+  },
+  {
+   "part": "u2",
+   "folder": "02-staircases-2",
+   "title": "Unit 2 Staircases II",
+   "sections": [
+    {
+     "id": "start-outcomes",
+     "title_en": "After this part you should be able to",
+     "title_ms": "Selepas bahagian ini, anda sepatutnya boleh"
+    },
+    {
+     "id": "notes-n1",
+     "title_en": "1. Where a flight’s load goes",
+     "title_ms": "1. Ke mana load flight pergi"
+    },
+    {
+     "id": "notes-n2",
+     "title_en": "2. Reading a stair plan",
+     "title_ms": "2. Membaca pelan tangga"
+    },
+    {
+     "id": "notes-n3",
+     "title_en": "3. A flight on a landing: the effective span and its load",
+     "title_ms": "3. Flight pada landing: effective span dan load-nya"
+    },
+    {
+     "id": "notes-n4",
+     "title_en": "4. The landing: a slab between walls",
+     "title_ms": "4. Landing: slab di antara dinding"
+    },
+    {
+     "id": "notes-n5",
+     "title_en": "5. Two flights at right angles",
+     "title_ms": "5. Dua flight bersudut tepat"
+    },
+    {
+     "id": "notes-n6",
+     "title_en": "6. Flights built into walls",
+     "title_ms": "6. Flight yang dibina ke dalam dinding"
+    },
+    {
+     "id": "slides-1",
+     "title_en": "Slide 1: Staircases II",
+     "title_ms": "Slide 1: Staircases II"
+    },
+    {
+     "id": "slides-2",
+     "title_en": "Slide 2: How the next three hours run",
+     "title_ms": "Slide 2: How the next three hours run"
+    },
+    {
+     "id": "slides-3",
+     "title_en": "Slide 3: Three questions from last week",
+     "title_ms": "Slide 3: Three questions from last week"
+    },
+    {
+     "id": "slides-4",
+     "title_en": "Slide 4: B, C, B, and what each means today",
+     "title_ms": "Slide 4: B, C, B, and what each means today"
+    },
+    {
+     "id": "slides-5",
+     "title_en": "Slide 5: A span that ends inside the landing",
+     "title_ms": "Slide 5: A span that ends inside the landing"
+    },
+    {
+     "id": "slides-6",
+     "title_en": "Slide 6: A flight rests at its head on a landing that spans between two walls. Where does the flight’s load go?",
+     "title_ms": "Slide 6: A flight rests at its head on a landing that spans between two walls. Where does the flight’s load go?"
+    },
+    {
+     "id": "slides-7",
+     "title_en": "Slide 7: Four ways to carry a flight",
+     "title_ms": "Slide 7: Four ways to carry a flight"
+    },
+    {
+     "id": "slides-8",
+     "title_en": "Slide 8: Read the plan before you calculate it",
+     "title_ms": "Slide 8: Read the plan before you calculate it"
+    },
+    {
+     "id": "slides-9",
+     "title_en": "Slide 9: The effective span on a landing",
+     "title_ms": "Slide 9: The effective span on a landing"
+    },
+    {
+     "id": "slides-10",
+     "title_en": "Slide 10: Which loads lie on the span?",
+     "title_ms": "Slide 10: Which loads lie on the span?"
+    },
+    {
+     "id": "slides-11",
+     "title_en": "Slide 11: C: the landing strip inside the span carries the landing load",
+     "title_ms": "Slide 11: C: the landing strip inside the span carries the landing load"
+    },
+    {
+     "id": "slides-12",
+     "title_en": "Slide 12: The flight: the notes’ bars fail",
+     "title_ms": "Slide 12: The flight: the notes’ bars fail"
+    },
+    {
+     "id": "slides-13",
+     "title_en": "Slide 13: The open-well landing of Worked Example 2.1 carries the flights. As a slab, it spans",
+     "title_ms": "Slide 13: The open-well landing of Worked Example 2.1 carries the flights. As a slab, it spans"
+    },
+    {
+     "id": "slides-14",
+     "title_en": "Slide 14: The landing: a slab between the walls",
+     "title_ms": "Slide 14: The landing: a slab between the walls"
+    },
+    {
+     "id": "slides-15",
+     "title_en": "Slide 15: The notes’ landing, 17H10, with the corrected load: which check fails?",
+     "title_ms": "Slide 15: The notes’ landing, 17H10, with the corrected load: which check fails?"
+    },
+    {
+     "id": "slides-16",
+     "title_en": "Slide 16: D: deflection fails, and bars cannot cure it",
+     "title_ms": "Slide 16: D: deflection fails, and bars cannot cure it"
+    },
+    {
+     "id": "slides-17",
+     "title_en": "Slide 17: Two flights at right angles round a well share a quarter landing. In each flight’s span, the landing’s load per m² is taken as",
+     "title_ms": "Slide 17: Two flights at right angles round a well share a quarter landing. In each flight’s span, the landing’s load per m² is taken as"
+    },
+    {
+     "id": "slides-18",
+     "title_en": "Slide 18: Two flights at right angles: one landing, two spans",
+     "title_ms": "Slide 18: Two flights at right angles: one landing, two spans"
+    },
+    {
+     "id": "slides-19",
+     "title_en": "Slide 19: Flights built into walls: the walls take a strip",
+     "title_ms": "Slide 19: Flights built into walls: the walls take a strip"
+    },
+    {
+     "id": "slides-20",
+     "title_en": "Slide 20: The notes’ Example 4: check H10-175",
+     "title_ms": "Slide 20: The notes’ Example 4: check H10-175"
+    },
+    {
+     "id": "slides-21",
+     "title_en": "Slide 21: H10-175 passes, because the landing is halved",
+     "title_ms": "Slide 21: H10-175 passes, because the landing is halved"
+    },
+    {
+     "id": "slides-22",
+     "title_en": "Slide 22: Staircase S2: four slips in an open-well stair",
+     "title_ms": "Slide 22: Staircase S2: four slips in an open-well stair"
+    },
+    {
+     "id": "slides-23",
+     "title_en": "Slide 23: D2: an open-well stair (20 marks)",
+     "title_ms": "Slide 23: D2: an open-well stair (20 marks)"
+    },
+    {
+     "id": "slides-24",
+     "title_en": "Slide 24: Three plans in a row, without a slip",
+     "title_ms": "Slide 24: Three plans in a row, without a slip"
+    },
+    {
+     "id": "slides-25",
+     "title_en": "Slide 25: Your group’s stair, steps 1 to 6",
+     "title_ms": "Slide 25: Your group’s stair, steps 1 to 6"
+    },
+    {
+     "id": "slides-26",
+     "title_en": "Slide 26: Draw the span, then load all of it",
+     "title_ms": "Slide 26: Draw the span, then load all of it"
+    },
+    {
+     "id": "slides-27",
+     "title_en": "Slide 27: Before Unit 3",
+     "title_ms": "Slide 27: Before Unit 3"
+    },
+    {
+     "id": "slides-28",
+     "title_en": "Slide 28: Before you leave",
+     "title_ms": "Slide 28: Before you leave"
+    },
+    {
+     "id": "examples-x1",
+     "title_en": "Example 1 · Worked Example 2.1: an open-well stair on its landing",
+     "title_ms": "Contoh 1 · Worked Example 2.1: tangga open-well pada landing-nya"
+    },
+    {
+     "id": "examples-x2",
+     "title_en": "Example 2 · Faded Example 2.2: two flights at right angles",
+     "title_ms": "Contoh 2 · Faded Example 2.2: dua flight bersudut tepat"
+    },
+    {
+     "id": "examples-x3",
+     "title_en": "Example 3 · Explain-type questions",
+     "title_ms": "Contoh 3 · Soalan jenis terangkan"
+    },
+    {
+     "id": "exercises-b1",
+     "title_en": "Exercise B1 · Reading a stair plan",
+     "title_ms": "Latihan B1 · Membaca pelan tangga"
+    },
+    {
+     "id": "exercises-b2",
+     "title_en": "Exercise B2 · The effective span on a landing",
+     "title_ms": "Latihan B2 · Effective span pada landing"
+    },
+    {
+     "id": "exercises-b3",
+     "title_en": "Exercise B3 · Load, moment and reaction",
+     "title_ms": "Latihan B3 · Load, moment dan reaction"
+    },
+    {
+     "id": "exercises-b4",
+     "title_en": "Exercise B4 · The landing between walls",
+     "title_ms": "Latihan B4 · Landing di antara dinding"
+    },
+    {
+     "id": "exercises-b5",
+     "title_en": "Exercise B5 · Two flights at right angles",
+     "title_ms": "Latihan B5 · Dua flight bersudut tepat"
+    },
+    {
+     "id": "exercises-b6",
+     "title_en": "Exercise B6 · A flight built into walls",
+     "title_ms": "Latihan B6 · Flight yang dibina ke dalam dinding"
+    },
+    {
+     "id": "exercises-quick",
+     "title_en": "Exercises: quick concept questions",
+     "title_ms": "Latihan: soalan konsep pantas"
+    },
+    {
+     "id": "lab-span",
+     "title_en": "Explorer task 1: Tab 6, Activity 2A: on the open-well stair of the course notes,…",
+     "title_ms": "Tugasan Explorer 1: Tab 6, Aktiviti 2A: pada tangga open-well dalam nota kursus, pi…"
+    },
+    {
+     "id": "lab-bars",
+     "title_en": "Explorer task 2: Tab 6, Open well, with the notes’ flight bars H10-250: the flig…",
+     "title_ms": "Tugasan Explorer 2: Tab 6, Open well, dengan bar flight H10-250 dalam nota: flight…"
+    },
+    {
+     "id": "lab-landing",
+     "title_en": "Explorer task 3: Tab 6, Activity 2B: predict which check the notes’ landing fail…",
+     "title_ms": "Tugasan Explorer 3: Tab 6, Aktiviti 2B: ramal semakan manakah yang gagal bagi landi…"
+    },
+    {
+     "id": "lab-share",
+     "title_en": "Explorer task 4: Tab 6, Right angles: switch the landing between shared and not…",
+     "title_ms": "Tugasan Explorer 4: Tab 6, Sudut tepat: tukar landing antara dikongsi dan tidak dik…"
+    },
+    {
+     "id": "lab-plan",
+     "title_en": "Explorer task 5: Tab 7, Plan reader: read three plans in a row without a slip: t…",
+     "title_ms": "Tugasan Explorer 5: Tab 7, Plan reader: baca tiga pelan berturut-turut tanpa kesila…"
+    },
+    {
+     "id": "lab-s2",
+     "title_en": "Explorer task 6: Tab 5: choose Staircase S2, find all four slips, tap their line…",
+     "title_ms": "Tugasan Explorer 6: Tab 5: pilih Staircase S2, cari keempat-empat kesilapan, ketik…"
+    },
+    {
+     "id": "glossary-open-well-stair",
+     "title_en": "Glossary: open-well stair",
+     "title_ms": "Glosari: open-well stair"
+    },
+    {
+     "id": "glossary-well",
+     "title_en": "Glossary: well",
+     "title_ms": "Glosari: well"
+    },
+    {
+     "id": "glossary-dog-leg-stair",
+     "title_en": "Glossary: dog-leg stair",
+     "title_ms": "Glosari: dog-leg stair"
+    },
+    {
+     "id": "glossary-half-landing-quarter-landing",
+     "title_en": "Glossary: half landing · quarter landing",
+     "title_ms": "Glosari: half landing · quarter landing"
+    },
+    {
+     "id": "glossary-landing-as-a-support",
+     "title_en": "Glossary: landing as a support",
+     "title_ms": "Glosari: landing as a support"
+    },
+    {
+     "id": "glossary-effective-span-on-a-landing",
+     "title_en": "Glossary: effective span on a landing",
+     "title_ms": "Glosari: effective span on a landing"
+    },
+    {
+     "id": "glossary-l-a",
+     "title_en": "Glossary: L_a",
+     "title_ms": "Glosari: L_a"
+    },
+    {
+     "id": "glossary-landing-strip-l-l",
+     "title_en": "Glossary: landing strip, l_L",
+     "title_ms": "Glosari: landing strip, l_L"
+    },
+    {
+     "id": "glossary-reaction-on-the-landing-v-a",
+     "title_en": "Glossary: reaction on the landing, V_A",
+     "title_ms": "Glosari: reaction on the landing, V_A"
+    },
+    {
+     "id": "glossary-w-l",
+     "title_en": "Glossary: w_L",
+     "title_ms": "Glosari: w_L"
+    },
+    {
+     "id": "glossary-inner-layer-outer-layer",
+     "title_en": "Glossary: inner layer · outer layer",
+     "title_ms": "Glosari: inner layer · outer layer"
+    },
+    {
+     "id": "glossary-shared-landing",
+     "title_en": "Glossary: shared landing",
+     "title_ms": "Glosari: shared landing"
+    },
+    {
+     "id": "glossary-built-into-walls",
+     "title_en": "Glossary: built into walls",
+     "title_ms": "Glosari: built into walls"
+    },
+    {
+     "id": "glossary-b-ld-b-eff-w",
+     "title_en": "Glossary: b_{ld} , b_{eff} , κ_w",
+     "title_ms": "Glosari: b_{ld} , b_{eff} , κ_w"
+    },
+    {
+     "id": "glossary-chase",
+     "title_en": "Glossary: chase",
+     "title_ms": "Glosari: chase"
+    },
+    {
+     "id": "glossary-stair-plan",
+     "title_en": "Glossary: stair plan",
+     "title_ms": "Glosari: stair plan"
+    },
+    {
+     "id": "glossary-up-dn",
+     "title_en": "Glossary: UP · DN",
+     "title_ms": "Glosari: UP · DN"
+    },
+    {
+     "id": "glossary-break-line",
+     "title_en": "Glossary: break line",
+     "title_ms": "Glosari: break line"
+    },
+    {
+     "id": "glossary-risers-and-treads-n-r-n-g",
+     "title_en": "Glossary: risers and treads, n_R , n_G",
+     "title_ms": "Glosari: risers and treads, n_R , n_G"
+    },
+    {
+     "id": "glossary-ubbl-by-laws-106-and-108",
+     "title_en": "Glossary: UBBL By-laws 106 and 108",
+     "title_ms": "Glosari: UBBL By-laws 106 and 108"
+    },
+    {
+     "id": "glossary-0-and-eq-7-16b",
+     "title_en": "Glossary: ρ_0 and Eq. 7.16b",
+     "title_ms": "Glosari: ρ_0 and Eq. 7.16b"
+    },
+    {
+     "id": "glossary-bs-8110-1-3-10",
+     "title_en": "Glossary: BS 8110-1, 3.10",
+     "title_ms": "Glosari: BS 8110-1, 3.10"
+    },
+    {
+     "id": "glossary-steps-spanning-across",
+     "title_en": "Glossary: steps spanning across",
+     "title_ms": "Glosari: steps spanning across"
+    },
+    {
+     "id": "glossary-professional-habit-2",
+     "title_en": "Glossary: Professional Habit 2",
+     "title_ms": "Glosari: Professional Habit 2"
+    }
+   ]
+  },
+  {
+   "part": "u3",
+   "folder": "03-frame-analysis-1",
+   "title": "Unit 3 Frame Analysis I",
+   "sections": [
+    {
+     "id": "start-outcomes",
+     "title_en": "After this part you should be able to",
+     "title_ms": "Selepas bahagian ini, anda sepatutnya boleh"
+    },
+    {
+     "id": "notes-n1",
+     "title_en": "1. Frames and sub-frames",
+     "title_ms": "1. Frame dan sub-frame"
+    },
+    {
+     "id": "notes-n2",
+     "title_en": "2. Load arrangements: which spans carry the variable load",
+     "title_ms": "2. Load arrangement: span mana yang memikul load berubah"
+    },
+    {
+     "id": "notes-n3",
+     "title_en": "3. Loads on the beams from two-way slabs",
+     "title_ms": "3. Load pada beam daripada slab two-way"
+    },
+    {
+     "id": "notes-n4",
+     "title_en": "4. The continuous beam by moment distribution",
+     "title_ms": "4. Continuous beam melalui moment distribution"
+    },
+    {
+     "id": "notes-n5",
+     "title_en": "5. Shears, span moments and the envelope",
+     "title_ms": "5. Shear, moment span dan envelope"
+    },
+    {
+     "id": "notes-n6",
+     "title_en": "6. Column moments: the one-free-joint sub-frame",
+     "title_ms": "6. Moment column: one-free-joint sub-frame"
+    },
+    {
+     "id": "slides-1",
+     "title_en": "Slide 1: Frame Analysis I",
+     "title_ms": "Slide 1: Frame Analysis I"
+    },
+    {
+     "id": "slides-2",
+     "title_en": "Slide 2: How the next three hours run",
+     "title_ms": "Slide 2: How the next three hours run"
+    },
+    {
+     "id": "slides-3",
+     "title_en": "Slide 3: Three questions from the last two weeks",
+     "title_ms": "Slide 3: Three questions from the last two weeks"
+    },
+    {
+     "id": "slides-4",
+     "title_en": "Slide 4: B, B, A, and what each means today",
+     "title_ms": "Slide 4: B, B, A, and what each means today"
+    },
+    {
+     "id": "slides-5",
+     "title_en": "Slide 5: Does the heaviest load give the largest moment?",
+     "title_ms": "Slide 5: Does the heaviest load give the largest moment?"
+    },
+    {
+     "id": "slides-6",
+     "title_en": "Slide 6: A three-span beam ABCD carries its permanent load on every span. Where should the variable load go for the largest hogging moment at B?",
+     "title_ms": "Slide 6: A three-span beam ABCD carries its permanent load on every span. Where should the variable load go for the largest hogging moment at B?"
+    },
+    {
+     "id": "slides-7",
+     "title_en": "Slide 7: One plane frame per grid line: braced or unbraced?",
+     "title_ms": "Slide 7: One plane frame per grid line: braced or unbraced?"
+    },
+    {
+     "id": "slides-8",
+     "title_en": "Slide 8: Three sub-frames (RDF §11.0, from BS 8110)",
+     "title_ms": "Slide 8: Three sub-frames (RDF §11.0, from BS 8110)"
+    },
+    {
+     "id": "slides-9",
+     "title_en": "Slide 9: Which spans carry the variable load?",
+     "title_ms": "Slide 9: Which spans carry the variable load?"
+    },
+    {
+     "id": "slides-10",
+     "title_en": "Slide 10: Load-pattern cards",
+     "title_ms": "Slide 10: Load-pattern cards"
+    },
+    {
+     "id": "slides-11",
+     "title_en": "Slide 11: Every section has its own worst card",
+     "title_ms": "Slide 11: Every section has its own worst card"
+    },
+    {
+     "id": "slides-12",
+     "title_en": "Slide 12: The load on a frame beam from the slabs: Table 3.15",
+     "title_ms": "Slide 12: The load on a frame beam from the slabs: Table 3.15"
+    },
+    {
+     "id": "slides-13",
+     "title_en": "Slide 13: The continuous beam by moment distribution",
+     "title_ms": "Slide 13: The continuous beam by moment distribution"
+    },
+    {
+     "id": "slides-14",
+     "title_en": "Slide 14: Case 1: AB and BC at w max , five cycles",
+     "title_ms": "Slide 14: Case 1: AB and BC at w max , five cycles"
+    },
+    {
+     "id": "slides-15",
+     "title_en": "Slide 15: Predict the next balance, row by row",
+     "title_ms": "Slide 15: Predict the next balance, row by row"
+    },
+    {
+     "id": "slides-16",
+     "title_en": "Slide 16: At joint C of the workbook’s frame, BC (5 m) and the end span CD (8 m, pinned at D) have the same section. What is the distribution factor F CB ?",
+     "title_ms": "Slide 16: At joint C of the workbook’s frame, BC (5 m) and the end span CD (8 m, pinned at D) have the same section. What is the distribution factor F CB ?"
+    },
+    {
+     "id": "slides-17",
+     "title_en": "Slide 17: The workbook’s frame, read from Table 3.15",
+     "title_ms": "Slide 17: The workbook’s frame, read from Table 3.15"
+    },
+    {
+     "id": "slides-18",
+     "title_en": "Slide 18: Read the table and the long span gets its load",
+     "title_ms": "Slide 18: Read the table and the long span gets its load"
+    },
+    {
+     "id": "slides-19",
+     "title_en": "Slide 19: Shears, span moments and the envelope",
+     "title_ms": "Slide 19: Shears, span moments and the envelope"
+    },
+    {
+     "id": "slides-20",
+     "title_en": "Slide 20: For the largest moment in the interior column B, how should the spans either side of B carry the variable load?",
+     "title_ms": "Slide 20: For the largest moment in the interior column B, how should the spans either side of B carry the variable load?"
+    },
+    {
+     "id": "slides-21",
+     "title_en": "Slide 21: Column moments: the one-free-joint sub-frame",
+     "title_ms": "Slide 21: Column moments: the one-free-joint sub-frame"
+    },
+    {
+     "id": "slides-22",
+     "title_en": "Slide 22: Frame S3: four slips in a continuous-beam analysis",
+     "title_ms": "Slide 22: Frame S3: four slips in a continuous-beam analysis"
+    },
+    {
+     "id": "slides-23",
+     "title_en": "Slide 23: D3: the continuous-beam method (20 marks)",
+     "title_ms": "Slide 23: D3: the continuous-beam method (20 marks)"
+    },
+    {
+     "id": "slides-24",
+     "title_en": "Slide 24: Beam loads on your group’s frame line",
+     "title_ms": "Slide 24: Beam loads on your group’s frame line"
+    },
+    {
+     "id": "slides-25",
+     "title_en": "Slide 25: Check the table before you use it",
+     "title_ms": "Slide 25: Check the table before you use it"
+    },
+    {
+     "id": "slides-26",
+     "title_en": "Slide 26: Before Unit 4",
+     "title_ms": "Slide 26: Before Unit 4"
+    },
+    {
+     "id": "slides-27",
+     "title_en": "Slide 27: Before you leave",
+     "title_ms": "Slide 27: Before you leave"
+    },
+    {
+     "id": "examples-x1",
+     "title_en": "Example 1 · Worked Example 3.1: the course notes’ frame",
+     "title_ms": "Contoh 1 · Worked Example 3.1: frame nota kursus"
+    },
+    {
+     "id": "examples-x2",
+     "title_en": "Example 2 · Faded Example 3.2: the workbook’s frame, read from Table 3.15",
+     "title_ms": "Contoh 2 · Faded Example 3.2: frame workbook, dibaca daripada Table 3.15"
+    },
+    {
+     "id": "examples-x3",
+     "title_en": "Example 3 · Explain-type questions",
+     "title_ms": "Contoh 3 · Soalan jenis terangkan"
+    },
+    {
+     "id": "exercises-b1",
+     "title_en": "Exercise B1 · The load on a beam from two panels",
+     "title_ms": "Latihan B1 · Load pada beam daripada dua panel"
+    },
+    {
+     "id": "exercises-b2",
+     "title_en": "Exercise B2 · Distribution factors and the first balance",
+     "title_ms": "Latihan B2 · Distribution factor dan imbangan pertama"
+    },
+    {
+     "id": "exercises-b3",
+     "title_en": "Exercise B3 · Two spans: the support moment",
+     "title_ms": "Latihan B3 · Dua span: moment support"
+    },
+    {
+     "id": "exercises-b4",
+     "title_en": "Exercise B4 · Shears and the span moment",
+     "title_ms": "Latihan B4 · Shear dan moment span"
+    },
+    {
+     "id": "exercises-b5",
+     "title_en": "Exercise B5 · An interior column",
+     "title_ms": "Latihan B5 · Column dalaman"
+    },
+    {
+     "id": "exercises-b6",
+     "title_en": "Exercise B6 · An end column and the beam at the end",
+     "title_ms": "Latihan B6 · Column hujung dan beam di hujung"
+    },
+    {
+     "id": "exercises-quick",
+     "title_en": "Exercises: quick concept questions",
+     "title_ms": "Latihan: soalan konsep pantas"
+    },
+    {
+     "id": "lab-arr",
+     "title_en": "Explorer task 1: Tab 1, Activity 3A: for the four effects of the course notes’ f…",
+     "title_ms": "Tugasan Explorer 1: Tab 1, Aktiviti 3A: bagi empat kesan frame nota kursus (sagging…"
+    },
+    {
+     "id": "lab-ls",
+     "title_en": "Explorer task 2: Tab 1: switch to the workbook’s frame (spans 6, 5 and 8 m) and…",
+     "title_ms": "Tugasan Explorer 2: Tab 1: tukar kepada frame workbook (span 6, 5 dan 8 m) dan deda…"
+    },
+    {
+     "id": "lab-md",
+     "title_en": "Explorer task 3: Tab 2, Activity 3B: in case 1 of Worked Example 3.1, predict th…",
+     "title_ms": "Tugasan Explorer 3: Tab 2, Aktiviti 3B: dalam kes 1 Worked Example 3.1, ramal tiga…"
+    },
+    {
+     "id": "lab-col",
+     "title_en": "Explorer task 4: Tab 2, columns: work out the upper and lower column moments at…",
+     "title_ms": "Tugasan Explorer 4: Tab 2, column: kira moment column atas dan bawah di joint dalam…"
+    },
+    {
+     "id": "lab-s3",
+     "title_en": "Explorer task 5: Tab 3: find all four slips of Frame S3, tap their lines and pre…",
+     "title_ms": "Tugasan Explorer 5: Tab 3: cari keempat-empat kesilapan Frame S3, ketik barisnya da…"
+    },
+    {
+     "id": "glossary-frame-plane-frame",
+     "title_en": "Glossary: frame · plane frame",
+     "title_ms": "Glosari: frame · plane frame"
+    },
+    {
+     "id": "glossary-braced-frame",
+     "title_en": "Glossary: braced frame",
+     "title_ms": "Glosari: braced frame"
+    },
+    {
+     "id": "glossary-unbraced-frame",
+     "title_en": "Glossary: unbraced frame",
+     "title_ms": "Glosari: unbraced frame"
+    },
+    {
+     "id": "glossary-sub-frame",
+     "title_en": "Glossary: sub-frame",
+     "title_ms": "Glosari: sub-frame"
+    },
+    {
+     "id": "glossary-one-level-sub-frame",
+     "title_en": "Glossary: one-level sub-frame",
+     "title_ms": "Glosari: one-level sub-frame"
+    },
+    {
+     "id": "glossary-two-free-joint-sub-frame",
+     "title_en": "Glossary: two-free-joint sub-frame",
+     "title_ms": "Glosari: two-free-joint sub-frame"
+    },
+    {
+     "id": "glossary-continuous-beam-knife-edge-supports",
+     "title_en": "Glossary: continuous beam (knife-edge supports)",
+     "title_ms": "Glosari: continuous beam (knife-edge supports)"
+    },
+    {
+     "id": "glossary-one-free-joint-sub-frame",
+     "title_en": "Glossary: one-free-joint sub-frame",
+     "title_ms": "Glosari: one-free-joint sub-frame"
+    },
+    {
+     "id": "glossary-load-arrangement-pattern-loading",
+     "title_en": "Glossary: load arrangement · pattern loading",
+     "title_ms": "Glosari: load arrangement · pattern loading"
+    },
+    {
+     "id": "glossary-w-max-w-min",
+     "title_en": "Glossary: w_{max} , w_{min}",
+     "title_ms": "Glosari: w_{max} , w_{min}"
+    },
+    {
+     "id": "glossary-load-set-1",
+     "title_en": "Glossary: Load Set 1",
+     "title_ms": "Glosari: Load Set 1"
+    },
+    {
+     "id": "glossary-load-set-2",
+     "title_en": "Glossary: Load Set 2",
+     "title_ms": "Glosari: Load Set 2"
+    },
+    {
+     "id": "glossary-shear-coefficient-v-table-3-15",
+     "title_en": "Glossary: shear coefficient β_v (Table 3.15)",
+     "title_ms": "Glosari: shear coefficient β_v (Table 3.15)"
+    },
+    {
+     "id": "glossary-vx-vy",
+     "title_en": "Glossary: β_{vx} · β_{vy}",
+     "title_ms": "Glosari: β_{vx} · β_{vy}"
+    },
+    {
+     "id": "glossary-l-x-l-y",
+     "title_en": "Glossary: l_x , l_y",
+     "title_ms": "Glosari: l_x , l_y"
+    },
+    {
+     "id": "glossary-panel-case",
+     "title_en": "Glossary: panel case",
+     "title_ms": "Glosari: panel case"
+    },
+    {
+     "id": "glossary-stiffness-k",
+     "title_en": "Glossary: stiffness K",
+     "title_ms": "Glosari: stiffness K"
+    },
+    {
+     "id": "glossary-k",
+     "title_en": "Glossary: ¾K",
+     "title_ms": "Glosari: ¾K"
+    },
+    {
+     "id": "glossary-distribution-factor-f",
+     "title_en": "Glossary: distribution factor F",
+     "title_ms": "Glosari: distribution factor F"
+    },
+    {
+     "id": "glossary-fixed-end-moment-fem",
+     "title_en": "Glossary: fixed-end moment (FEM)",
+     "title_ms": "Glosari: fixed-end moment (FEM)"
+    },
+    {
+     "id": "glossary-balance-carry-over",
+     "title_en": "Glossary: balance · carry-over",
+     "title_ms": "Glosari: balance · carry-over"
+    },
+    {
+     "id": "glossary-cycle-convergence",
+     "title_en": "Glossary: cycle · convergence",
+     "title_ms": "Glosari: cycle · convergence"
+    },
+    {
+     "id": "glossary-envelope",
+     "title_en": "Glossary: envelope",
+     "title_ms": "Glosari: envelope"
+    },
+    {
+     "id": "glossary-least-span-moment",
+     "title_en": "Glossary: least span moment",
+     "title_ms": "Glosari: least span moment"
+    },
+    {
+     "id": "glossary-fem",
+     "title_en": "Glossary: ΔFEM",
+     "title_ms": "Glosari: ΔFEM"
+    },
+    {
+     "id": "glossary-beam-moment-at-an-end-support",
+     "title_en": "Glossary: beam moment at an end support",
+     "title_ms": "Glosari: beam moment at an end support"
+    },
+    {
+     "id": "glossary-professional-habit-3",
+     "title_en": "Glossary: Professional Habit 3",
+     "title_ms": "Glosari: Professional Habit 3"
+    }
+   ]
+  },
+  {
+   "part": "u4",
+   "folder": "04-frame-analysis-2",
+   "title": "Unit 4 Frame Analysis II",
+   "sections": [
+    {
+     "id": "start-outcomes",
+     "title_en": "After this part you should be able to",
+     "title_ms": "Selepas bahagian ini, anda sepatutnya boleh"
+    },
+    {
+     "id": "notes-n1",
+     "title_en": "1. Why cut the frame, and what each cut keeps",
+     "title_ms": "1. Mengapa frame dipotong, dan apa yang dikekalkan setiap potongan"
+    },
+    {
+     "id": "notes-n2",
+     "title_en": "2. The one-level sub-frame",
+     "title_ms": "2. One-level sub-frame"
+    },
+    {
+     "id": "notes-n3",
+     "title_en": "3. A worked case and the envelope",
+     "title_ms": "3. Satu kes contoh dan envelope"
+    },
+    {
+     "id": "notes-n4",
+     "title_en": "4. The two-free-joint sub-frame",
+     "title_ms": "4. Two-free-joint sub-frame"
+    },
+    {
+     "id": "notes-n5",
+     "title_en": "5. How much do we lose?",
+     "title_ms": "5. Berapa banyak yang hilang?"
+    },
+    {
+     "id": "notes-n6",
+     "title_en": "6. Which values go into the design",
+     "title_ms": "6. Nilai yang digunakan dalam design"
+    },
+    {
+     "id": "slides-1",
+     "title_en": "Slide 1: Frame Analysis II",
+     "title_ms": "Slide 1: Frame Analysis II"
+    },
+    {
+     "id": "slides-2",
+     "title_en": "Slide 2: How the next three hours run",
+     "title_ms": "Slide 2: How the next three hours run"
+    },
+    {
+     "id": "slides-3",
+     "title_en": "Slide 3: Three questions from last week",
+     "title_ms": "Slide 3: Three questions from last week"
+    },
+    {
+     "id": "slides-4",
+     "title_en": "Slide 4: A, B, B, and what each means today",
+     "title_ms": "Slide 4: A, B, B, and what each means today"
+    },
+    {
+     "id": "slides-5",
+     "title_en": "Slide 5: Three engineers, one floor, three answers",
+     "title_ms": "Slide 5: Three engineers, one floor, three answers"
+    },
+    {
+     "id": "slides-6",
+     "title_en": "Slide 6: Against a model with the columns, which moment does the continuous beam on knife edges get most wrong?",
+     "title_ms": "Slide 6: Against a model with the columns, which moment does the continuous beam on knife edges get most wrong?"
+    },
+    {
+     "id": "slides-7",
+     "title_en": "Slide 7: Every sub-frame is a cut: what does each keep?",
+     "title_ms": "Slide 7: Every sub-frame is a cut: what does each keep?"
+    },
+    {
+     "id": "slides-8",
+     "title_en": "Slide 8: The one-level sub-frame: the columns join every balance",
+     "title_ms": "Slide 8: The one-level sub-frame: the columns join every balance"
+    },
+    {
+     "id": "slides-9",
+     "title_en": "Slide 9: Case 1: AB and BC at w max , four cycles, every joint",
+     "title_ms": "Slide 9: Case 1: AB and BC at w max , four cycles, every joint"
+    },
+    {
+     "id": "slides-10",
+     "title_en": "Slide 10: The relay: one table, four hands",
+     "title_ms": "Slide 10: The relay: one table, four hands"
+    },
+    {
+     "id": "slides-11",
+     "title_en": "Slide 11: A symmetric table, and the columns hold the difference",
+     "title_ms": "Slide 11: A symmetric table, and the columns hold the difference"
+    },
+    {
+     "id": "slides-12",
+     "title_en": "Slide 12: At the end joint A of the notes’ one-level sub-frame, K AB = 7.5, K c,u = 4.57 and K c,l = 4.00. What is F AB ?",
+     "title_ms": "Slide 12: At the end joint A of the notes’ one-level sub-frame, K AB = 7.5, K c,u = 4.57 and K c,l = 4.00. What is F AB ?"
+    },
+    {
+     "id": "slides-13",
+     "title_en": "Slide 13: Four cases and the envelope",
+     "title_ms": "Slide 13: Four cases and the envelope"
+    },
+    {
+     "id": "slides-14",
+     "title_en": "Slide 14: The two-free-joint sub-frame: one beam at a time",
+     "title_ms": "Slide 14: The two-free-joint sub-frame: one beam at a time"
+    },
+    {
+     "id": "slides-15",
+     "title_en": "Slide 15: In the two-free-joint sub-frame of beam AB, the stiffness taken for the next beam BC is",
+     "title_ms": "Slide 15: In the two-free-joint sub-frame of beam AB, the stiffness taken for the next beam BC is"
+    },
+    {
+     "id": "slides-16",
+     "title_en": "Slide 16: Beam CD of the workbook’s frame, two free joints",
+     "title_ms": "Slide 16: Beam CD of the workbook’s frame, two free joints"
+    },
+    {
+     "id": "slides-17",
+     "title_en": "Slide 17: The sub-frames agree; the knife edge does not",
+     "title_ms": "Slide 17: The sub-frames agree; the knife edge does not"
+    },
+    {
+     "id": "slides-18",
+     "title_en": "Slide 18: Predict the winner, effect by effect",
+     "title_ms": "Slide 18: Predict the winner, effect by effect"
+    },
+    {
+     "id": "slides-19",
+     "title_en": "Slide 19: Where the cuts cost you",
+     "title_ms": "Slide 19: Where the cuts cost you"
+    },
+    {
+     "id": "slides-20",
+     "title_en": "Slide 20: Which values go into the design",
+     "title_ms": "Slide 20: Which values go into the design"
+    },
+    {
+     "id": "slides-21",
+     "title_en": "Slide 21: Frame S4: four slips in a two-free-joint sub-frame",
+     "title_ms": "Slide 21: Frame S4: four slips in a two-free-joint sub-frame"
+    },
+    {
+     "id": "slides-22",
+     "title_en": "Slide 22: D4: the two-free-joint sub-frame (20 marks)",
+     "title_ms": "Slide 22: D4: the two-free-joint sub-frame (20 marks)"
+    },
+    {
+     "id": "slides-23",
+     "title_en": "Slide 23: Your group’s frame line through a sub-frame",
+     "title_ms": "Slide 23: Your group’s frame line through a sub-frame"
+    },
+    {
+     "id": "slides-24",
+     "title_en": "Slide 24: Know which model you are in",
+     "title_ms": "Slide 24: Know which model you are in"
+    },
+    {
+     "id": "slides-25",
+     "title_en": "Slide 25: Before Unit 5",
+     "title_ms": "Slide 25: Before Unit 5"
+    },
+    {
+     "id": "slides-26",
+     "title_en": "Slide 26: Before you leave",
+     "title_ms": "Slide 26: Before you leave"
+    },
+    {
+     "id": "examples-x1",
+     "title_en": "Example 1 · Worked Example 4.1: the course notes’ frame as a one-level sub-frame",
+     "title_ms": "Contoh 1 · Worked Example 4.1: frame nota kursus sebagai one-level sub-frame"
+    },
+    {
+     "id": "examples-x2",
+     "title_en": "Example 2 · Faded Example 4.2: beam CD of the workbook’s frame as a two-free-joint sub-frame",
+     "title_ms": "Contoh 2 · Faded Example 4.2: beam CD frame workbook sebagai two-free-joint sub-frame"
+    },
+    {
+     "id": "examples-x3",
+     "title_en": "Example 3 · Explain-type questions",
+     "title_ms": "Contoh 3 · Soalan jenis terangkan"
+    },
+    {
+     "id": "exercises-b1",
+     "title_en": "Exercise B1 · Distribution factors at a joint with columns",
+     "title_ms": "Latihan B1 · Distribution factor di joint dengan column"
+    },
+    {
+     "id": "exercises-b2",
+     "title_en": "Exercise B2 · The first balance at an end joint",
+     "title_ms": "Latihan B2 · Imbangan pertama di joint hujung"
+    },
+    {
+     "id": "exercises-b3",
+     "title_en": "Exercise B3 · Half stiffness in a two-free-joint sub-frame",
+     "title_ms": "Latihan B3 · Separuh stiffness dalam two-free-joint sub-frame"
+    },
+    {
+     "id": "exercises-b4",
+     "title_en": "Exercise B4 · Column moments from the beam moments",
+     "title_ms": "Latihan B4 · Moment column daripada moment beam"
+    },
+    {
+     "id": "exercises-b5",
+     "title_en": "Exercise B5 · Shears and the span moment, both ends hogging",
+     "title_ms": "Latihan B5 · Shear dan moment span, kedua-dua hujung hogging"
+    },
+    {
+     "id": "exercises-b6",
+     "title_en": "Exercise B6 · The first row of a two-free-joint sub-frame",
+     "title_ms": "Latihan B6 · Baris pertama two-free-joint sub-frame"
+    },
+    {
+     "id": "exercises-quick",
+     "title_en": "Exercises: quick concept questions",
+     "title_ms": "Latihan: soalan konsep pantas"
+    },
+    {
+     "id": "lab-relay",
+     "title_en": "Explorer task 1: Tab 4, Activity 4A: in the one-level sub-frame of the course no…",
+     "title_ms": "Tugasan Explorer 1: Tab 4, Aktiviti 4A: dalam one-level sub-frame frame nota kursus…"
+    },
+    {
+     "id": "lab-twoj",
+     "title_en": "Explorer task 2: Tab 4: switch to a two-free-joint sub-frame (start with beam AB…",
+     "title_ms": "Tugasan Explorer 2: Tab 4: tukar kepada two-free-joint sub-frame (mulakan dengan be…"
+    },
+    {
+     "id": "lab-cmp",
+     "title_en": "Explorer task 3: Tab 5, Activity 4B: for each of the seven effects, pick the met…",
+     "title_ms": "Tugasan Explorer 3: Tab 5, Aktiviti 4B: bagi setiap tujuh kesan, pilih kaedah yang…"
+    },
+    {
+     "id": "lab-s4",
+     "title_en": "Explorer task 4: Tab 3: switch to Frame S4, find all four slips, tap their lines…",
+     "title_ms": "Tugasan Explorer 4: Tab 3: tukar kepada Frame S4, cari keempat-empat kesilapan, ket…"
+    },
+    {
+     "id": "glossary-sub-frame",
+     "title_en": "Glossary: sub-frame",
+     "title_ms": "Glosari: sub-frame"
+    },
+    {
+     "id": "glossary-one-level-sub-frame",
+     "title_en": "Glossary: one-level sub-frame",
+     "title_ms": "Glosari: one-level sub-frame"
+    },
+    {
+     "id": "glossary-two-free-joint-sub-frame",
+     "title_en": "Glossary: two-free-joint sub-frame",
+     "title_ms": "Glosari: two-free-joint sub-frame"
+    },
+    {
+     "id": "glossary-one-free-joint-sub-frame",
+     "title_en": "Glossary: one-free-joint sub-frame",
+     "title_ms": "Glosari: one-free-joint sub-frame"
+    },
+    {
+     "id": "glossary-continuous-beam-knife-edge-supports",
+     "title_en": "Glossary: continuous beam (knife-edge supports)",
+     "title_ms": "Glosari: continuous beam (knife-edge supports)"
+    },
+    {
+     "id": "glossary-free-joint",
+     "title_en": "Glossary: free joint",
+     "title_ms": "Glosari: free joint"
+    },
+    {
+     "id": "glossary-fixed-far-end",
+     "title_en": "Glossary: fixed far end",
+     "title_ms": "Glosari: fixed far end"
+    },
+    {
+     "id": "glossary-full-k-k-k",
+     "title_en": "Glossary: full K · ¾K · ½K",
+     "title_ms": "Glosari: full K · ¾K · ½K"
+    },
+    {
+     "id": "glossary-k-c-i-c-h",
+     "title_en": "Glossary: K_c = I_c /h",
+     "title_ms": "Glosari: K_c = I_c /h"
+    },
+    {
+     "id": "glossary-distribution-factor-with-columns",
+     "title_en": "Glossary: distribution factor with columns",
+     "title_ms": "Glosari: distribution factor with columns"
+    },
+    {
+     "id": "glossary-column-moment",
+     "title_en": "Glossary: column moment",
+     "title_ms": "Glosari: column moment"
+    },
+    {
+     "id": "glossary-far-end-moment",
+     "title_en": "Glossary: far-end moment",
+     "title_ms": "Glosari: far-end moment"
+    },
+    {
+     "id": "glossary-local-load-cases",
+     "title_en": "Glossary: local load cases",
+     "title_ms": "Glosari: local load cases"
+    },
+    {
+     "id": "glossary-two-moments-at-an-interior-support",
+     "title_en": "Glossary: two moments at an interior support",
+     "title_ms": "Glosari: two moments at an interior support"
+    },
+    {
+     "id": "glossary-end-support-moment",
+     "title_en": "Glossary: end-support moment",
+     "title_ms": "Glosari: end-support moment"
+    },
+    {
+     "id": "glossary-envelope",
+     "title_en": "Glossary: envelope",
+     "title_ms": "Glosari: envelope"
+    },
+    {
+     "id": "glossary-four-cycles",
+     "title_en": "Glossary: four cycles",
+     "title_ms": "Glosari: four cycles"
+    },
+    {
+     "id": "glossary-load-set-1-load-set-2",
+     "title_en": "Glossary: Load Set 1 · Load Set 2",
+     "title_ms": "Glosari: Load Set 1 · Load Set 2"
+    },
+    {
+     "id": "glossary-design-column-moment",
+     "title_en": "Glossary: design column moment",
+     "title_ms": "Glosari: design column moment"
+    },
+    {
+     "id": "glossary-professional-habit-4",
+     "title_en": "Glossary: Professional Habit 4",
+     "title_ms": "Glosari: Professional Habit 4"
+    }
+   ]
+  },
+  {
+   "part": "u5",
+   "folder": "05-frame-analysis-3",
+   "title": "Unit 5 Frame Analysis III",
+   "sections": [
+    {
+     "id": "start-outcomes",
+     "title_en": "After this part you should be able to",
+     "title_ms": "Selepas bahagian ini, anda sepatutnya boleh"
+    },
+    {
+     "id": "notes-n1",
+     "title_en": "1. Unbraced frames and the lateral load",
+     "title_ms": "1. Unbraced frame dan lateral load"
+    },
+    {
+     "id": "notes-n2",
+     "title_en": "2. Wind on a building, and the procedures of MS 1553",
+     "title_ms": "2. Angin pada bangunan, dan prosedur MS 1553"
+    },
+    {
+     "id": "notes-n3",
+     "title_en": "3. The design wind speed",
+     "title_ms": "3. Design wind speed"
+    },
+    {
+     "id": "notes-n4",
+     "title_en": "4. From speed to pressure",
+     "title_ms": "4. Daripada laju kepada tekanan"
+    },
+    {
+     "id": "notes-n5",
+     "title_en": "5. From pressure to the forces on one frame",
+     "title_ms": "5. Daripada tekanan kepada daya pada satu frame"
+    },
+    {
+     "id": "notes-n6",
+     "title_en": "6. Low-rise buildings, and the second lateral load",
+     "title_ms": "6. Bangunan rendah, dan lateral load kedua"
+    },
+    {
+     "id": "slides-1",
+     "title_en": "Slide 1: Frame Analysis III",
+     "title_ms": "Slide 1: Frame Analysis III"
+    },
+    {
+     "id": "slides-2",
+     "title_en": "Slide 2: How the next three hours run",
+     "title_ms": "Slide 2: How the next three hours run"
+    },
+    {
+     "id": "slides-3",
+     "title_en": "Slide 3: Three questions from last week",
+     "title_ms": "Slide 3: Three questions from last week"
+    },
+    {
+     "id": "slides-4",
+     "title_en": "Slide 4: B, C, C, and what each means today",
+     "title_ms": "Slide 4: B, C, C, and what each means today"
+    },
+    {
+     "id": "slides-5",
+     "title_en": "Slide 5: One building, one frame, two answers",
+     "title_ms": "Slide 5: One building, one frame, two answers"
+    },
+    {
+     "id": "slides-6",
+     "title_en": "Slide 6: Frame ABCD spans the 18 m width of the building. Which wind does it carry?",
+     "title_ms": "Slide 6: Frame ABCD spans the 18 m width of the building. Which wind does it carry?"
+    },
+    {
+     "id": "slides-7",
+     "title_en": "Slide 7: Unbraced frames: the frame carries the wind itself",
+     "title_ms": "Slide 7: Unbraced frames: the frame carries the wind itself"
+    },
+    {
+     "id": "slides-8",
+     "title_en": "Slide 8: The design wind speed, level by level",
+     "title_ms": "Slide 8: The design wind speed, level by level"
+    },
+    {
+     "id": "slides-9",
+     "title_en": "Slide 9: Which frames carry which wind?",
+     "title_ms": "Slide 9: Which frames carry which wind?"
+    },
+    {
+     "id": "slides-10",
+     "title_en": "Slide 10: Each wind has its own b, d and frames",
+     "title_ms": "Slide 10: Each wind has its own b, d and frames"
+    },
+    {
+     "id": "slides-11",
+     "title_en": "Slide 11: The notes’ building: the wind on frame ABCD",
+     "title_ms": "Slide 11: The notes’ building: the wind on frame ABCD"
+    },
+    {
+     "id": "slides-12",
+     "title_en": "Slide 12: Level 1 of the notes’ building is at z = 4 m. Which speed gives the leeward suction there?",
+     "title_ms": "Slide 12: Level 1 of the notes’ building is at z = 4 m. Which speed gives the leeward suction there?"
+    },
+    {
+     "id": "slides-13",
+     "title_en": "Slide 13: From speed to pressure",
+     "title_ms": "Slide 13: From speed to pressure"
+    },
+    {
+     "id": "slides-14",
+     "title_en": "Slide 14: From pressure to one force per floor",
+     "title_ms": "Slide 14: From pressure to one force per floor"
+    },
+    {
+     "id": "slides-15",
+     "title_en": "Slide 15: Over the height of a low frame the net pressure averages 0.58 kN/m². What happens to the level forces?",
+     "title_ms": "Slide 15: Over the height of a low frame the net pressure averages 0.58 kN/m². What happens to the level forces?"
+    },
+    {
+     "id": "slides-16",
+     "title_en": "Slide 16: A low-rise building by Appendix A",
+     "title_ms": "Slide 16: A low-rise building by Appendix A"
+    },
+    {
+     "id": "slides-17",
+     "title_en": "Slide 17: The minimum decides the wind",
+     "title_ms": "Slide 17: The minimum decides the wind"
+    },
+    {
+     "id": "slides-18",
+     "title_en": "Slide 18: What matters most?",
+     "title_ms": "Slide 18: What matters most?"
+    },
+    {
+     "id": "slides-19",
+     "title_en": "Slide 19: The terrain and the building matter more than the zone",
+     "title_ms": "Slide 19: The terrain and the building matter more than the zone"
+    },
+    {
+     "id": "slides-20",
+     "title_en": "Slide 20: The second lateral load, and the design value",
+     "title_ms": "Slide 20: The second lateral load, and the design value"
+    },
+    {
+     "id": "slides-21",
+     "title_en": "Slide 21: Wind S5: four slips in a wind calculation",
+     "title_ms": "Slide 21: Wind S5: four slips in a wind calculation"
+    },
+    {
+     "id": "slides-22",
+     "title_en": "Slide 22: D5: the wind on a frame (20 marks)",
+     "title_ms": "Slide 22: D5: the wind on a frame (20 marks)"
+    },
+    {
+     "id": "slides-23",
+     "title_en": "Slide 23: The wind on your group’s frame line",
+     "title_ms": "Slide 23: The wind on your group’s frame line"
+    },
+    {
+     "id": "slides-24",
+     "title_en": "Slide 24: Draw the plan and the wind arrow before any number",
+     "title_ms": "Slide 24: Draw the plan and the wind arrow before any number"
+    },
+    {
+     "id": "slides-25",
+     "title_en": "Slide 25: Before Unit 6",
+     "title_ms": "Slide 25: Before Unit 6"
+    },
+    {
+     "id": "slides-26",
+     "title_en": "Slide 26: Before you leave",
+     "title_ms": "Slide 26: Before you leave"
+    },
+    {
+     "id": "examples-x1",
+     "title_en": "Example 1 · Worked Example 5.1: the notes’ building, the wind on frame ABCD",
+     "title_ms": "Contoh 1 · Worked Example 5.1: bangunan nota, angin pada frame ABCD"
+    },
+    {
+     "id": "examples-x2",
+     "title_en": "Example 2 · Faded Example 5.2: a low-rise building by Appendix A",
+     "title_ms": "Contoh 2 · Faded Example 5.2: bangunan rendah mengikut Appendix A"
+    },
+    {
+     "id": "examples-x3",
+     "title_en": "Example 3 · Explain-type questions",
+     "title_ms": "Contoh 3 · Soalan jenis terangkan"
+    },
+    {
+     "id": "exercises-b1",
+     "title_en": "Exercise B1 · The design wind speed at the roof and at a level",
+     "title_ms": "Latihan B1 · Design wind speed di bumbung dan pada satu aras"
+    },
+    {
+     "id": "exercises-b2",
+     "title_en": "Exercise B2 · The leeward suction: which face, d/b and p_L",
+     "title_ms": "Latihan B2 · Suction leeward: muka yang mana, d/b dan p_L"
+    },
+    {
+     "id": "exercises-b3",
+     "title_en": "Exercise B3 · The net pressure at a level",
+     "title_ms": "Latihan B3 · Net pressure pada satu aras"
+    },
+    {
+     "id": "exercises-b4",
+     "title_en": "Exercise B4 · The force on the frame at one level",
+     "title_ms": "Latihan B4 · Daya pada frame pada satu aras"
+    },
+    {
+     "id": "exercises-b5",
+     "title_en": "Exercise B5 · The minimum design wind load",
+     "title_ms": "Latihan B5 · Minimum design wind load"
+    },
+    {
+     "id": "exercises-b6",
+     "title_en": "Exercise B6 · The EC2 geometric imperfections",
+     "title_ms": "Latihan B6 · Geometric imperfection EC2"
+    },
+    {
+     "id": "exercises-quick",
+     "title_en": "Exercises: quick concept questions",
+     "title_ms": "Latihan: soalan konsep pantas"
+    },
+    {
+     "id": "lab-face",
+     "title_en": "Explorer task 1: Tab 1, Activity 5A: for each of the two wind directions on the…",
+     "title_ms": "Tugasan Explorer 1: Tab 1, Aktiviti 5A: bagi setiap dua arah angin pada bangunan ku…"
+    },
+    {
+     "id": "lab-press",
+     "title_en": "Explorer task 2: Tab 2: work out the net pressure at three levels in a row befor…",
+     "title_ms": "Tugasan Explorer 2: Tab 2: kira net pressure pada tiga aras berturut-turut sebelum…"
+    },
+    {
+     "id": "lab-sens",
+     "title_en": "Explorer task 3: Tab 3, Activity 5B: rank the five changes by their effect on ΣW…",
+     "title_ms": "Tugasan Explorer 3: Tab 3, Aktiviti 5B: susun lima perubahan mengikut kesannya pada…"
+    },
+    {
+     "id": "lab-s5",
+     "title_en": "Explorer task 4: Tab 4: find all four slips in Wind S5, tap their lines and pres…",
+     "title_ms": "Tugasan Explorer 4: Tab 4: cari keempat-empat kesilapan dalam Wind S5, ketik barisn…"
+    },
+    {
+     "id": "glossary-unbraced-frame",
+     "title_en": "Glossary: unbraced frame",
+     "title_ms": "Glosari: unbraced frame"
+    },
+    {
+     "id": "glossary-braced-frame",
+     "title_en": "Glossary: braced frame",
+     "title_ms": "Glosari: braced frame"
+    },
+    {
+     "id": "glossary-basic-wind-speed-v-s",
+     "title_en": "Glossary: basic wind speed V_s",
+     "title_ms": "Glosari: basic wind speed V_s"
+    },
+    {
+     "id": "glossary-site-wind-speed-v-sit",
+     "title_en": "Glossary: site wind speed V_{sit}",
+     "title_ms": "Glosari: site wind speed V_{sit}"
+    },
+    {
+     "id": "glossary-design-wind-speed-v-des",
+     "title_en": "Glossary: design wind speed V_{des}",
+     "title_ms": "Glosari: design wind speed V_{des}"
+    },
+    {
+     "id": "glossary-terrain-category",
+     "title_en": "Glossary: terrain category",
+     "title_ms": "Glosari: terrain category"
+    },
+    {
+     "id": "glossary-m-z-cat",
+     "title_en": "Glossary: M_{z,cat}",
+     "title_ms": "Glosari: M_{z,cat}"
+    },
+    {
+     "id": "glossary-importance-factor-i",
+     "title_en": "Glossary: importance factor I",
+     "title_ms": "Glosari: importance factor I"
+    },
+    {
+     "id": "glossary-windward-leeward",
+     "title_en": "Glossary: windward, leeward",
+     "title_ms": "Glosari: windward, leeward"
+    },
+    {
+     "id": "glossary-b-d",
+     "title_en": "Glossary: b, d",
+     "title_ms": "Glosari: b, d"
+    },
+    {
+     "id": "glossary-c-p-e",
+     "title_en": "Glossary: C_{p,e}",
+     "title_ms": "Glosari: C_{p,e}"
+    },
+    {
+     "id": "glossary-c-fig",
+     "title_en": "Glossary: C_{fig}",
+     "title_ms": "Glosari: C_{fig}"
+    },
+    {
+     "id": "glossary-c-dyn",
+     "title_en": "Glossary: C_{dyn}",
+     "title_ms": "Glosari: C_{dyn}"
+    },
+    {
+     "id": "glossary-n-a",
+     "title_en": "Glossary: n_a",
+     "title_ms": "Glosari: n_a"
+    },
+    {
+     "id": "glossary-net-pressure",
+     "title_en": "Glossary: net pressure",
+     "title_ms": "Glosari: net pressure"
+    },
+    {
+     "id": "glossary-b-w-h-trib",
+     "title_en": "Glossary: B_w , h_{trib}",
+     "title_ms": "Glosari: B_w , h_{trib}"
+    },
+    {
+     "id": "glossary-minimum-design-wind-load",
+     "title_en": "Glossary: minimum design wind load",
+     "title_ms": "Glosari: minimum design wind load"
+    },
+    {
+     "id": "glossary-c-p-i",
+     "title_en": "Glossary: C_{p,i}",
+     "title_ms": "Glosari: C_{p,i}"
+    },
+    {
+     "id": "glossary-geometric-imperfection",
+     "title_en": "Glossary: geometric imperfection",
+     "title_ms": "Glosari: geometric imperfection"
+    },
+    {
+     "id": "glossary-professional-habit-5",
+     "title_en": "Glossary: Professional Habit 5",
+     "title_ms": "Glosari: Professional Habit 5"
+    }
+   ]
+  },
+  {
+   "part": "u6",
+   "folder": "06-frame-analysis-4",
+   "title": "Unit 6 Frame Analysis IV",
+   "sections": [
+    {
+     "id": "start-outcomes",
+     "title_en": "After this part you should be able to",
+     "title_ms": "Selepas bahagian ini, anda sepatutnya boleh"
+    },
+    {
+     "id": "notes-n1",
+     "title_en": "1. The frame under lateral load",
+     "title_ms": "1. Frame di bawah lateral load"
+    },
+    {
+     "id": "notes-n2",
+     "title_en": "2. The cantilever method",
+     "title_ms": "2. Cantilever method"
+    },
+    {
+     "id": "notes-n3",
+     "title_en": "3. Storey by storey: the course frame",
+     "title_ms": "3. Tingkat demi tingkat: frame kursus"
+    },
+    {
+     "id": "notes-n4",
+     "title_en": "4. The portal method",
+     "title_ms": "4. Portal method"
+    },
+    {
+     "id": "notes-n5",
+     "title_en": "5. Adding the wind to the vertical load",
+     "title_ms": "5. Menambah angin kepada load menegak"
+    },
+    {
+     "id": "notes-n6",
+     "title_en": "6. The EN 1990 route, and which method when",
+     "title_ms": "6. Laluan EN 1990, dan kaedah mana bila"
+    },
+    {
+     "id": "slides-1",
+     "title_en": "Slide 1: Frame Analysis IV",
+     "title_ms": "Slide 1: Frame Analysis IV"
+    },
+    {
+     "id": "slides-2",
+     "title_en": "Slide 2: How the next three hours run",
+     "title_ms": "Slide 2: How the next three hours run"
+    },
+    {
+     "id": "slides-3",
+     "title_en": "Slide 3: Three questions from last week",
+     "title_ms": "Slide 3: Three questions from last week"
+    },
+    {
+     "id": "slides-4",
+     "title_en": "Slide 4: A, B, B, and what each means today",
+     "title_ms": "Slide 4: A, B, B, and what each means today"
+    },
+    {
+     "id": "slides-5",
+     "title_en": "Slide 5: The column the vertical load hardly bends",
+     "title_ms": "Slide 5: The column the vertical load hardly bends"
+    },
+    {
+     "id": "slides-6",
+     "title_en": "Slide 6: The wind multiplies the moment in the lower column at B by 14. Which other member of level 1 changes as much?",
+     "title_ms": "Slide 6: The wind multiplies the moment in the lower column at B by 14. Which other member of level 1 changes as much?"
+    },
+    {
+     "id": "slides-7",
+     "title_en": "Slide 7: Where the moment is zero",
+     "title_ms": "Slide 7: Where the moment is zero"
+    },
+    {
+     "id": "slides-8",
+     "title_en": "Slide 8: Two assumptions, two methods",
+     "title_ms": "Slide 8: Two assumptions, two methods"
+    },
+    {
+     "id": "slides-9",
+     "title_en": "Slide 9: The same storey by two assumptions",
+     "title_ms": "Slide 9: The same storey by two assumptions"
+    },
+    {
+     "id": "slides-10",
+     "title_en": "Slide 10: Close for the columns, further apart for the beams",
+     "title_ms": "Slide 10: Close for the columns, further apart for the beams"
+    },
+    {
+     "id": "slides-11",
+     "title_en": "Slide 11: Frame ABCD by the cantilever method",
+     "title_ms": "Slide 11: Frame ABCD by the cantilever method"
+    },
+    {
+     "id": "slides-12",
+     "title_en": "Slide 12: Storey 2 of frame ABCD: N A = 6.04 kN in tension; in storey 1 it was 1.22 kN. The shear in beam AB at level 6 is",
+     "title_ms": "Slide 12: Storey 2 of frame ABCD: N A = 6.04 kN in tension; in storey 1 it was 1.22 kN. The shear in beam AB at level 6 is"
+    },
+    {
+     "id": "slides-13",
+     "title_en": "Slide 13: The portal method, joint by joint",
+     "title_ms": "Slide 13: The portal method, joint by joint"
+    },
+    {
+     "id": "slides-14",
+     "title_en": "Slide 14: In Faded Example 6.2 the spans are 6, 5 and 8 m. By the portal method, which beam of a level carries the largest shear?",
+     "title_ms": "Slide 14: In Faded Example 6.2 the spans are 6, 5 and 8 m. By the portal method, which beam of a level carries the largest shear?"
+    },
+    {
+     "id": "slides-15",
+     "title_en": "Slide 15: A low-rise frame by the portal method",
+     "title_ms": "Slide 15: A low-rise frame by the portal method"
+    },
+    {
+     "id": "slides-16",
+     "title_en": "Slide 16: Equal beam shears, axial force at the ends only",
+     "title_ms": "Slide 16: Equal beam shears, axial force at the ends only"
+    },
+    {
+     "id": "slides-17",
+     "title_en": "Slide 17: Adding the wind to the vertical load",
+     "title_ms": "Slide 17: Adding the wind to the vertical load"
+    },
+    {
+     "id": "slides-18",
+     "title_en": "Slide 18: Predict, then combine at level 1",
+     "title_ms": "Slide 18: Predict, then combine at level 1"
+    },
+    {
+     "id": "slides-19",
+     "title_en": "Slide 19: The interior columns change most; end A reverses a little",
+     "title_ms": "Slide 19: The interior columns change most; end A reverses a little"
+    },
+    {
+     "id": "slides-20",
+     "title_en": "Slide 20: The EN 1990 route, and how far to trust a hand method",
+     "title_ms": "Slide 20: The EN 1990 route, and how far to trust a hand method"
+    },
+    {
+     "id": "slides-21",
+     "title_en": "Slide 21: Frame S6: four slips in a portal analysis",
+     "title_ms": "Slide 21: Frame S6: four slips in a portal analysis"
+    },
+    {
+     "id": "slides-22",
+     "title_en": "Slide 22: D6: a two-bay frame under the wind (20 marks)",
+     "title_ms": "Slide 22: D6: a two-bay frame under the wind (20 marks)"
+    },
+    {
+     "id": "slides-23",
+     "title_en": "Slide 23: The wind moments on your group’s frame line",
+     "title_ms": "Slide 23: The wind moments on your group’s frame line"
+    },
+    {
+     "id": "slides-24",
+     "title_en": "Slide 24: Check every storey’s equilibrium before using its moments",
+     "title_ms": "Slide 24: Check every storey’s equilibrium before using its moments"
+    },
+    {
+     "id": "slides-25",
+     "title_en": "Slide 25: Before Unit 7",
+     "title_ms": "Slide 25: Before Unit 7"
+    },
+    {
+     "id": "slides-26",
+     "title_en": "Slide 26: Before you leave",
+     "title_ms": "Slide 26: Before you leave"
+    },
+    {
+     "id": "examples-x1",
+     "title_en": "Example 1 · Worked Example 6.1: frame ABCD by the cantilever method",
+     "title_ms": "Contoh 1 · Worked Example 6.1: frame ABCD dengan cantilever method"
+    },
+    {
+     "id": "examples-x2",
+     "title_en": "Example 2 · Faded Example 6.2: a low-rise frame by the portal method",
+     "title_ms": "Contoh 2 · Faded Example 6.2: frame rendah dengan portal method"
+    },
+    {
+     "id": "examples-x3",
+     "title_en": "Example 3 · Explain-type questions",
+     "title_ms": "Contoh 3 · Soalan jenis terangkan"
+    },
+    {
+     "id": "exercises-b1",
+     "title_en": "Exercise B1 · Portal method: the column shears",
+     "title_ms": "Latihan B1 · Portal method: shear column"
+    },
+    {
+     "id": "exercises-b2",
+     "title_en": "Exercise B2 · Portal method: the beam moments at a level",
+     "title_ms": "Latihan B2 · Portal method: moment beam pada satu aras"
+    },
+    {
+     "id": "exercises-b3",
+     "title_en": "Exercise B3 · Cantilever method: the axial force in a column",
+     "title_ms": "Latihan B3 · Cantilever method: axial force dalam column"
+    },
+    {
+     "id": "exercises-b4",
+     "title_en": "Exercise B4 · Cantilever method: a beam shear and a column shear",
+     "title_ms": "Latihan B4 · Cantilever method: shear beam dan shear column"
+    },
+    {
+     "id": "exercises-b5",
+     "title_en": "Exercise B5 · Wind plus gravity at a beam",
+     "title_ms": "Latihan B5 · Angin dan graviti pada beam"
+    },
+    {
+     "id": "exercises-b6",
+     "title_en": "Exercise B6 · The storey shear and the overturning moment",
+     "title_ms": "Latihan B6 · Storey shear dan overturning moment"
+    },
+    {
+     "id": "exercises-quick",
+     "title_en": "Exercises: quick concept questions",
+     "title_ms": "Latihan: soalan konsep pantas"
+    },
+    {
+     "id": "lab-cant",
+     "title_en": "Explorer task 1: Tab 5: work one storey of a frame by the cantilever method",
+     "title_ms": "Tugasan Explorer 1: Tab 5: kira satu tingkat frame dengan cantilever method"
+    },
+    {
+     "id": "lab-port",
+     "title_en": "Explorer task 2: Tab 5: work one storey by the portal method",
+     "title_ms": "Tugasan Explorer 2: Tab 5: kira satu tingkat dengan portal method"
+    },
+    {
+     "id": "lab-comb",
+     "title_en": "Explorer task 3: Tab 6, Activity 6B: predict which member the wind changes most,…",
+     "title_ms": "Tugasan Explorer 3: Tab 6, Aktiviti 6B: ramal member yang paling banyak diubah oleh…"
+    },
+    {
+     "id": "lab-s6",
+     "title_en": "Explorer task 4: Tab 4: switch the sheet to Frame S6, find all four slips, tap t…",
+     "title_ms": "Tugasan Explorer 4: Tab 4: tukar helaian kepada Frame S6, cari keempat-empat kesila…"
+    },
+    {
+     "id": "glossary-lateral-load",
+     "title_en": "Glossary: lateral load",
+     "title_ms": "Glosari: lateral load"
+    },
+    {
+     "id": "glossary-sway",
+     "title_en": "Glossary: sway",
+     "title_ms": "Glosari: sway"
+    },
+    {
+     "id": "glossary-double-curvature",
+     "title_en": "Glossary: double curvature",
+     "title_ms": "Glosari: double curvature"
+    },
+    {
+     "id": "glossary-point-of-contraflexure",
+     "title_en": "Glossary: point of contraflexure",
+     "title_ms": "Glosari: point of contraflexure"
+    },
+    {
+     "id": "glossary-storey-shear-v",
+     "title_en": "Glossary: storey shear V",
+     "title_ms": "Glosari: storey shear V"
+    },
+    {
+     "id": "glossary-overturning-moment-m-o",
+     "title_en": "Glossary: overturning moment M_o",
+     "title_ms": "Glosari: overturning moment M_o"
+    },
+    {
+     "id": "glossary-cantilever-method",
+     "title_en": "Glossary: cantilever method",
+     "title_ms": "Glosari: cantilever method"
+    },
+    {
+     "id": "glossary-portal-method",
+     "title_en": "Glossary: portal method",
+     "title_ms": "Glosari: portal method"
+    },
+    {
+     "id": "glossary-centroid-x",
+     "title_en": "Glossary: centroid x",
+     "title_ms": "Glosari: centroid x"
+    },
+    {
+     "id": "glossary-r-i-p",
+     "title_en": "Glossary: r_i , P",
+     "title_ms": "Glosari: r_i , P"
+    },
+    {
+     "id": "glossary-column-shear-h",
+     "title_en": "Glossary: column shear H",
+     "title_ms": "Glosari: column shear H"
+    },
+    {
+     "id": "glossary-beam-shear-f",
+     "title_en": "Glossary: beam shear F",
+     "title_ms": "Glosari: beam shear F"
+    },
+    {
+     "id": "glossary-k-i",
+     "title_en": "Glossary: k_i",
+     "title_ms": "Glosari: k_i"
+    },
+    {
+     "id": "glossary-joint-balance",
+     "title_en": "Glossary: joint balance",
+     "title_ms": "Glosari: joint balance"
+    },
+    {
+     "id": "glossary-bs-8110-load-combination-3",
+     "title_en": "Glossary: BS 8110 load combination 3",
+     "title_ms": "Glosari: BS 8110 load combination 3"
+    },
+    {
+     "id": "glossary-moment-reversal",
+     "title_en": "Glossary: moment reversal",
+     "title_ms": "Glosari: moment reversal"
+    },
+    {
+     "id": "glossary-en-1990-eq-6-10",
+     "title_en": "Glossary: EN 1990 Eq. 6.10",
+     "title_ms": "Glosari: EN 1990 Eq. 6.10"
+    },
+    {
+     "id": "glossary-0",
+     "title_en": "Glossary: ψ_0",
+     "title_ms": "Glosari: ψ_0"
+    },
+    {
+     "id": "glossary-stiffness-analysis",
+     "title_en": "Glossary: stiffness analysis",
+     "title_ms": "Glosari: stiffness analysis"
+    },
+    {
+     "id": "glossary-professional-habit-6",
+     "title_en": "Glossary: Professional Habit 6",
+     "title_ms": "Glosari: Professional Habit 6"
+    }
+   ]
+  },
+  {
+   "part": "u7",
+   "folder": "07-columns-1",
+   "title": "Unit 7 Columns I",
+   "sections": [
+    {
+     "id": "start-outcomes",
+     "title_en": "After this part you should be able to",
+     "title_ms": "Selepas bahagian ini, anda sepatutnya boleh"
+    },
+    {
+     "id": "notes-n1",
+     "title_en": "1. Columns in a frame",
+     "title_ms": "1. Column dalam frame"
+    },
+    {
+     "id": "notes-n2",
+     "title_en": "2. Braced or unbraced, short or slender",
+     "title_ms": "2. Braced atau unbraced, short atau slender"
+    },
+    {
+     "id": "notes-n3",
+     "title_en": "3. Effective length",
+     "title_ms": "3. Effective length"
+    },
+    {
+     "id": "notes-n4",
+     "title_en": "4. Effective length from the beams",
+     "title_ms": "4. Effective length daripada beam"
+    },
+    {
+     "id": "notes-n5",
+     "title_en": "5. The slenderness ratio",
+     "title_ms": "5. Slenderness ratio"
+    },
+    {
+     "id": "notes-n6",
+     "title_en": "6. The slenderness limit",
+     "title_ms": "6. Slenderness limit"
+    },
+    {
+     "id": "slides-1",
+     "title_en": "Slide 1: Columns I",
+     "title_ms": "Slide 1: Columns I"
+    },
+    {
+     "id": "slides-2",
+     "title_en": "Slide 2: How the next three hours run",
+     "title_ms": "Slide 2: How the next three hours run"
+    },
+    {
+     "id": "slides-3",
+     "title_en": "Slide 3: Three questions from the frame analysis",
+     "title_ms": "Slide 3: Three questions from the frame analysis"
+    },
+    {
+     "id": "slides-4",
+     "title_en": "Slide 4: B, C, A, and what each means for a column",
+     "title_ms": "Slide 4: B, C, A, and what each means for a column"
+    },
+    {
+     "id": "slides-5",
+     "title_en": "Slide 5: Why does a long ruler buckle when a short one does not?",
+     "title_ms": "Slide 5: Why does a long ruler buckle when a short one does not?"
+    },
+    {
+     "id": "slides-6",
+     "title_en": "Slide 6: Three weeks of columns; today is step 6 of 9",
+     "title_ms": "Slide 6: Three weeks of columns; today is step 6 of 9"
+    },
+    {
+     "id": "slides-7",
+     "title_en": "Slide 7: Short columns crush; slender ones bend first",
+     "title_ms": "Slide 7: Short columns crush; slender ones bend first"
+    },
+    {
+     "id": "slides-8",
+     "title_en": "Slide 8: Braced or unbraced? Ask who carries the wind",
+     "title_ms": "Slide 8: Braced or unbraced? Ask who carries the wind"
+    },
+    {
+     "id": "slides-9",
+     "title_en": "Slide 9: Effective length: the pin-ended column that buckles at the same load",
+     "title_ms": "Slide 9: Effective length: the pin-ended column that buckles at the same load"
+    },
+    {
+     "id": "slides-10",
+     "title_en": "Slide 10: Four columns, same section and clear height l. Which has the lowest buckling load?",
+     "title_ms": "Slide 10: Four columns, same section and clear height l. Which has the lowest buckling load?"
+    },
+    {
+     "id": "slides-11",
+     "title_en": "Slide 11: B: the free top sways, so l₀ = 2l",
+     "title_ms": "Slide 11: B: the free top sways, so l₀ = 2l"
+    },
+    {
+     "id": "slides-12",
+     "title_en": "Slide 12: In a frame, the beams set k at each end",
+     "title_ms": "Slide 12: In a frame, the beams set k at each end"
+    },
+    {
+     "id": "slides-13",
+     "title_en": "Slide 13: A braced column between stiff beams (k = 0.1 at both ends) has l₀ = 0.59l. The walls are taken away and the same column is now unbraced. Predict l₀.",
+     "title_ms": "Slide 13: A braced column between stiff beams (k = 0.1 at both ends) has l₀ = 0.59l. The walls are taken away and the same column is now unbraced. Predict l₀."
+    },
+    {
+     "id": "slides-14",
+     "title_en": "Slide 14: C: 1.22l, about twice as long, and λlim falls too",
+     "title_ms": "Slide 14: C: 1.22l, about twice as long, and λlim falls too"
+    },
+    {
+     "id": "slides-15",
+     "title_en": "Slide 15: Slenderness: λ = l₀/i, about each axis",
+     "title_ms": "Slide 15: Slenderness: λ = l₀/i, about each axis"
+    },
+    {
+     "id": "slides-16",
+     "title_en": "Slide 16: The limit: λlim = 20ABC/√n",
+     "title_ms": "Slide 16: The limit: λlim = 20ABC/√n"
+    },
+    {
+     "id": "slides-17",
+     "title_en": "Slide 17: A braced column between stiff beams",
+     "title_ms": "Slide 17: A braced column between stiff beams"
+    },
+    {
+     "id": "slides-18",
+     "title_en": "Slide 18: The slenderness check in eight lines",
+     "title_ms": "Slide 18: The slenderness check in eight lines"
+    },
+    {
+     "id": "slides-19",
+     "title_en": "Slide 19: Faded Example 7.2: an unbraced column on a fixed base",
+     "title_ms": "Slide 19: Faded Example 7.2: an unbraced column on a fixed base"
+    },
+    {
+     "id": "slides-20",
+     "title_en": "Slide 20: Slender about both axes; braced, it would not be",
+     "title_ms": "Slide 20: Slender about both axes; braced, it would not be"
+    },
+    {
+     "id": "slides-21",
+     "title_en": "Slide 21: Break",
+     "title_ms": "Slide 21: Break"
+    },
+    {
+     "id": "slides-22",
+     "title_en": "Slide 22: A braced 250 × 500 column has l₀ = 3.0 m about both axes. Which is right?",
+     "title_ms": "Slide 22: A braced 250 × 500 column has l₀ = 3.0 m about both axes. Which is right?"
+    },
+    {
+     "id": "slides-23",
+     "title_en": "Slide 23: Braced column: end moments 60 kN m (top) and 35 kN m (bottom), tension on opposite faces. NEd l₀/400 = 9.6 kN m. What is C?",
+     "title_ms": "Slide 23: Braced column: end moments 60 kN m (top) and 35 kN m (bottom), tension on opposite faces. NEd l₀/400 = 9.6 kN m. What is C?"
+    },
+    {
+     "id": "slides-24",
+     "title_en": "Slide 24: B and B",
+     "title_ms": "Slide 24: B and B"
+    },
+    {
+     "id": "slides-25",
+     "title_en": "Slide 25: The race: classify eight columns",
+     "title_ms": "Slide 25: The race: classify eight columns"
+    },
+    {
+     "id": "slides-26",
+     "title_en": "Slide 26: Five slender, three short",
+     "title_ms": "Slide 26: Five slender, three short"
+    },
+    {
+     "id": "slides-27",
+     "title_en": "Slide 27: D7: a past-paper question (15 marks)",
+     "title_ms": "Slide 27: D7: a past-paper question (15 marks)"
+    },
+    {
+     "id": "slides-28",
+     "title_en": "Slide 28: Is your column short or slender?",
+     "title_ms": "Slide 28: Is your column short or slender?"
+    },
+    {
+     "id": "slides-29",
+     "title_en": "Slide 29: Estimate λ before you calculate it",
+     "title_ms": "Slide 29: Estimate λ before you calculate it"
+    },
+    {
+     "id": "slides-30",
+     "title_en": "Slide 30: Before Unit 8",
+     "title_ms": "Slide 30: Before Unit 8"
+    },
+    {
+     "id": "slides-31",
+     "title_en": "Slide 31: Before you leave",
+     "title_ms": "Slide 31: Before you leave"
+    },
+    {
+     "id": "examples-x1",
+     "title_en": "Example 1 · Worked Example 7.1: a braced column between stiff beams",
+     "title_ms": "Contoh 1 · Worked Example 7.1: column braced di antara beam yang kaku"
+    },
+    {
+     "id": "examples-x2",
+     "title_en": "Example 2 · Faded Example 7.2: an unbraced column on a fixed base",
+     "title_ms": "Contoh 2 · Faded Example 7.2: column unbraced pada fixed base"
+    },
+    {
+     "id": "examples-x3",
+     "title_en": "Example 3 · Explain-type questions",
+     "title_ms": "Contoh 3 · Soalan jenis terangkan"
+    },
+    {
+     "id": "exercises-b1",
+     "title_en": "Exercise B1 · Stiffnesses and the relative flexibility k",
+     "title_ms": "Latihan B1 · Stiffness dan relative flexibility k"
+    },
+    {
+     "id": "exercises-b2",
+     "title_en": "Exercise B2 · Effective length of a braced column",
+     "title_ms": "Latihan B2 · Effective length bagi column braced"
+    },
+    {
+     "id": "exercises-b3",
+     "title_en": "Exercise B3 · Effective length of an unbraced column",
+     "title_ms": "Latihan B3 · Effective length bagi column unbraced"
+    },
+    {
+     "id": "exercises-b4",
+     "title_en": "Exercise B4 · Slenderness ratios about both axes",
+     "title_ms": "Latihan B4 · Slenderness ratio pada kedua-dua paksi"
+    },
+    {
+     "id": "exercises-b5",
+     "title_en": "Exercise B5 · The slenderness limit",
+     "title_ms": "Latihan B5 · Slenderness limit"
+    },
+    {
+     "id": "exercises-b6",
+     "title_en": "Exercise B6 · Classify a column",
+     "title_ms": "Latihan B6 · Klasifikasi column"
+    },
+    {
+     "id": "exercises-quick",
+     "title_en": "Exercises: quick concept questions",
+     "title_ms": "Latihan: soalan konsep pantas"
+    },
+    {
+     "id": "lab-we71",
+     "title_en": "Explorer task 1: Tab 1: pick the case “WE 7.1” and compare k, l_0 , λ and λ_{lim…",
+     "title_ms": "Tugasan Explorer 1: Tab 1: pilih kes “WE 7.1” dan bandingkan k, l_0 , λ dan λ_{lim}…"
+    },
+    {
+     "id": "lab-floor",
+     "title_en": "Explorer task 2: Tab 1: make the beams deeper until k stops changing",
+     "title_ms": "Tugasan Explorer 2: Tab 1: jadikan beam lebih dalam sehingga k berhenti berubah"
+    },
+    {
+     "id": "lab-sway",
+     "title_en": "Explorer task 3: Tab 1: switch the column from braced to unbraced",
+     "title_ms": "Tugasan Explorer 3: Tab 1: tukar column daripada braced kepada unbraced"
+    },
+    {
+     "id": "lab-curv",
+     "title_en": "Explorer task 4: Tab 1: with the column braced, flip the moments about z from do…",
+     "title_ms": "Tugasan Explorer 4: Tab 1: dengan column braced, tukar moment pada paksi z daripada…"
+    },
+    {
+     "id": "lab-race",
+     "title_en": "Explorer task 5: Tab 2: classify all eight columns of the race and press “Check”",
+     "title_ms": "Tugasan Explorer 5: Tab 2: klasifikasikan kesemua lapan column dalam perlumbaan dan…"
+    },
+    {
+     "id": "lab-s7",
+     "title_en": "Explorer task 6: Tab 3: find all four slips in Column S7, tap their lines and pr…",
+     "title_ms": "Tugasan Explorer 6: Tab 3: cari keempat-empat kesilapan dalam Column S7, ketik bari…"
+    },
+    {
+     "id": "glossary-column",
+     "title_en": "Glossary: column",
+     "title_ms": "Glosari: column"
+    },
+    {
+     "id": "glossary-braced-member",
+     "title_en": "Glossary: braced member",
+     "title_ms": "Glosari: braced member"
+    },
+    {
+     "id": "glossary-bracing-member-bracing-system",
+     "title_en": "Glossary: bracing member · bracing system",
+     "title_ms": "Glosari: bracing member · bracing system"
+    },
+    {
+     "id": "glossary-unbraced-member-sway",
+     "title_en": "Glossary: unbraced member · sway",
+     "title_ms": "Glosari: unbraced member · sway"
+    },
+    {
+     "id": "glossary-non-slender-short-column",
+     "title_en": "Glossary: non-slender (short) column",
+     "title_ms": "Glosari: non-slender (short) column"
+    },
+    {
+     "id": "glossary-slender-column",
+     "title_en": "Glossary: slender column",
+     "title_ms": "Glosari: slender column"
+    },
+    {
+     "id": "glossary-first-order-effects",
+     "title_en": "Glossary: first-order effects",
+     "title_ms": "Glosari: first-order effects"
+    },
+    {
+     "id": "glossary-second-order-effects-p",
+     "title_en": "Glossary: second-order effects · P–Δ",
+     "title_ms": "Glosari: second-order effects · P–Δ"
+    },
+    {
+     "id": "glossary-buckling-euler-load-n-cr",
+     "title_en": "Glossary: buckling · Euler load N_{cr}",
+     "title_ms": "Glosari: buckling · Euler load N_{cr}"
+    },
+    {
+     "id": "glossary-effective-length-l-0",
+     "title_en": "Glossary: effective length l_0",
+     "title_ms": "Glosari: effective length l_0"
+    },
+    {
+     "id": "glossary-clear-height-l",
+     "title_en": "Glossary: clear height l",
+     "title_ms": "Glosari: clear height l"
+    },
+    {
+     "id": "glossary-point-of-contraflexure",
+     "title_en": "Glossary: point of contraflexure",
+     "title_ms": "Glosari: point of contraflexure"
+    },
+    {
+     "id": "glossary-end-restraint",
+     "title_en": "Glossary: end restraint",
+     "title_ms": "Glosari: end restraint"
+    },
+    {
+     "id": "glossary-relative-flexibility-k",
+     "title_en": "Glossary: relative flexibility k",
+     "title_ms": "Glosari: relative flexibility k"
+    },
+    {
+     "id": "glossary-stiffness-k-i-l",
+     "title_en": "Glossary: stiffness K = I/l",
+     "title_ms": "Glosari: stiffness K = I/l"
+    },
+    {
+     "id": "glossary-fixed-base-pinned-end",
+     "title_en": "Glossary: fixed base · pinned end",
+     "title_ms": "Glosari: fixed base · pinned end"
+    },
+    {
+     "id": "glossary-radius-of-gyration-i",
+     "title_en": "Glossary: radius of gyration i",
+     "title_ms": "Glosari: radius of gyration i"
+    },
+    {
+     "id": "glossary-slenderness-ratio",
+     "title_en": "Glossary: slenderness ratio λ",
+     "title_ms": "Glosari: slenderness ratio λ"
+    },
+    {
+     "id": "glossary-slenderness-limit-lim",
+     "title_en": "Glossary: slenderness limit λ_{lim}",
+     "title_ms": "Glosari: slenderness limit λ_{lim}"
+    },
+    {
+     "id": "glossary-relative-axial-force-n",
+     "title_en": "Glossary: relative axial force n",
+     "title_ms": "Glosari: relative axial force n"
+    },
+    {
+     "id": "glossary-moment-ratio-r-m",
+     "title_en": "Glossary: moment ratio r_m",
+     "title_ms": "Glosari: moment ratio r_m"
+    },
+    {
+     "id": "glossary-single-curvature-double-curvature",
+     "title_en": "Glossary: single curvature · double curvature",
+     "title_ms": "Glosari: single curvature · double curvature"
+    },
+    {
+     "id": "glossary-geometric-imperfection-e-i",
+     "title_en": "Glossary: geometric imperfection e_i",
+     "title_ms": "Glosari: geometric imperfection e_i"
+    },
+    {
+     "id": "glossary-minimum-eccentricity-e-0",
+     "title_en": "Glossary: minimum eccentricity e_0",
+     "title_ms": "Glosari: minimum eccentricity e_0"
+    },
+    {
+     "id": "glossary-effective-creep-ratio-ef",
+     "title_en": "Glossary: effective creep ratio φ_{ef}",
+     "title_ms": "Glosari: effective creep ratio φ_{ef}"
+    },
+    {
+     "id": "glossary-mechanical-reinforcement-ratio",
+     "title_en": "Glossary: mechanical reinforcement ratio ω",
+     "title_ms": "Glosari: mechanical reinforcement ratio ω"
+    },
+    {
+     "id": "glossary-major-axis-minor-axis",
+     "title_en": "Glossary: major axis · minor axis",
+     "title_ms": "Glosari: major axis · minor axis"
+    },
+    {
+     "id": "glossary-nominal-curvature-method",
+     "title_en": "Glossary: nominal curvature method",
+     "title_ms": "Glosari: nominal curvature method"
+    }
+   ]
+  },
+  {
+   "part": "u8",
+   "folder": "08-columns-2",
+   "title": "Unit 8 Columns II",
+   "sections": [
+    {
+     "id": "start-outcomes",
+     "title_en": "After this part you should be able to",
+     "title_ms": "Selepas bahagian ini, anda sepatutnya boleh"
+    },
+    {
+     "id": "notes-n1",
+     "title_en": "1. The design moment",
+     "title_ms": "1. Design moment"
+    },
+    {
+     "id": "notes-n2",
+     "title_en": "2. The section under N and M",
+     "title_ms": "2. Section di bawah N dan M"
+    },
+    {
+     "id": "notes-n3",
+     "title_en": "3. The N–M interaction diagram",
+     "title_ms": "3. N–M interaction diagram"
+    },
+    {
+     "id": "notes-n4",
+     "title_en": "4. Design charts and the direct check",
+     "title_ms": "4. Design chart dan semakan terus"
+    },
+    {
+     "id": "notes-n5",
+     "title_en": "5. Bars, cover and fire",
+     "title_ms": "5. Bar, cover dan fire"
+    },
+    {
+     "id": "notes-n6",
+     "title_en": "6. Links and detailing",
+     "title_ms": "6. Link dan detailing"
+    },
+    {
+     "id": "slides-1",
+     "title_en": "Slide 1: Columns II",
+     "title_ms": "Slide 1: Columns II"
+    },
+    {
+     "id": "slides-2",
+     "title_en": "Slide 2: How the next three hours run",
+     "title_ms": "Slide 2: How the next three hours run"
+    },
+    {
+     "id": "slides-3",
+     "title_en": "Slide 3: Three questions to start the design",
+     "title_ms": "Slide 3: Three questions to start the design"
+    },
+    {
+     "id": "slides-4",
+     "title_en": "Slide 4: B, B, A, and what each means today",
+     "title_ms": "Slide 4: B, B, A, and what each means today"
+    },
+    {
+     "id": "slides-5",
+     "title_en": "Slide 5: Can a row of loose books carry its own weight?",
+     "title_ms": "Slide 5: Can a row of loose books carry its own weight?"
+    },
+    {
+     "id": "slides-6",
+     "title_en": "Slide 6: A column section carries a moment. If its axial load grows, its moment capacity",
+     "title_ms": "Slide 6: A column section carries a moment. If its axial load grows, its moment capacity"
+    },
+    {
+     "id": "slides-7",
+     "title_en": "Slide 7: Today designs the columns Unit 7 called short",
+     "title_ms": "Slide 7: Today designs the columns Unit 7 called short"
+    },
+    {
+     "id": "slides-8",
+     "title_en": "Slide 8: The design moment: the analysis, plus two allowances",
+     "title_ms": "Slide 8: The design moment: the analysis, plus two allowances"
+    },
+    {
+     "id": "slides-9",
+     "title_en": "Slide 9: Strain compatibility: one neutral axis, one point (N, M)",
+     "title_ms": "Slide 9: Strain compatibility: one neutral axis, one point (N, M)"
+    },
+    {
+     "id": "slides-10",
+     "title_en": "Slide 10: Four strain profiles, four points of one curve",
+     "title_ms": "Slide 10: Four strain profiles, four points of one curve"
+    },
+    {
+     "id": "slides-11",
+     "title_en": "Slide 11: Four teams build one interaction curve",
+     "title_ms": "Slide 11: Four teams build one interaction curve"
+    },
+    {
+     "id": "slides-12",
+     "title_en": "Slide 12: C: the capacity rises, then falls. The turn is the balance point",
+     "title_ms": "Slide 12: C: the capacity rises, then falls. The turn is the balance point"
+    },
+    {
+     "id": "slides-13",
+     "title_en": "Slide 13: Why more axial load can mean more moment",
+     "title_ms": "Slide 13: Why more axial load can mean more moment"
+    },
+    {
+     "id": "slides-14",
+     "title_en": "Slide 14: A 300 × 300 roof column needs bars for MEd = 92.3 kN m. If NEd rises from 350 to 700 kN, the steel needed",
+     "title_ms": "Slide 14: A 300 × 300 roof column needs bars for MEd = 92.3 kN m. If NEd rises from 350 to 700 kN, the steel needed"
+    },
+    {
+     "id": "slides-15",
+     "title_en": "Slide 15: B: it falls, from 1169 to 847 mm², then rises again",
+     "title_ms": "Slide 15: B: it falls, from 1169 to 847 mm², then rises again"
+    },
+    {
+     "id": "slides-16",
+     "title_en": "Slide 16: Break",
+     "title_ms": "Slide 16: Break"
+    },
+    {
+     "id": "slides-17",
+     "title_en": "Slide 17: Design charts: every section on one page",
+     "title_ms": "Slide 17: Design charts: every section on one page"
+    },
+    {
+     "id": "slides-18",
+     "title_en": "Slide 18: A heavily loaded interior column",
+     "title_ms": "Slide 18: A heavily loaded interior column"
+    },
+    {
+     "id": "slides-19",
+     "title_en": "Slide 19: Check the bars you chose, not the chart you read",
+     "title_ms": "Slide 19: Check the bars you chose, not the chart you read"
+    },
+    {
+     "id": "slides-20",
+     "title_en": "Slide 20: A braced, non-slender 300 × 300 column: l₀ = 3.2 m, NEd = 1500 kN, larger end moment 40 kN m. MEd is",
+     "title_ms": "Slide 20: A braced, non-slender 300 × 300 column: l₀ = 3.2 m, NEd = 1500 kN, larger end moment 40 kN m. MEd is"
+    },
+    {
+     "id": "slides-21",
+     "title_en": "Slide 21: Faded Example 8.2: a roof-level edge column",
+     "title_ms": "Slide 21: Faded Example 8.2: a roof-level edge column"
+    },
+    {
+     "id": "slides-22",
+     "title_en": "Slide 22: 4H20; tension controls, so check the light load case",
+     "title_ms": "Slide 22: 4H20; tension controls, so check the light load case"
+    },
+    {
+     "id": "slides-23",
+     "title_en": "Slide 23: Bars, cover and links",
+     "title_ms": "Slide 23: Bars, cover and links"
+    },
+    {
+     "id": "slides-24",
+     "title_en": "Slide 24: 400 × 400 column, 4H25 at the corners and 4H16 at mid-faces. The largest link spacing away from the beams is",
+     "title_ms": "Slide 24: 400 × 400 column, 4H25 at the corners and 4H16 at mid-faces. The largest link spacing away from the beams is"
+    },
+    {
+     "id": "slides-25",
+     "title_en": "Slide 25: B and B",
+     "title_ms": "Slide 25: B and B"
+    },
+    {
+     "id": "slides-26",
+     "title_en": "Slide 26: D8: a past-paper question (15 marks)",
+     "title_ms": "Slide 26: D8: a past-paper question (15 marks)"
+    },
+    {
+     "id": "slides-27",
+     "title_en": "Slide 27: Design your column, one storey at a time",
+     "title_ms": "Slide 27: Design your column, one storey at a time"
+    },
+    {
+     "id": "slides-28",
+     "title_en": "Slide 28: Know which side of balance you are on",
+     "title_ms": "Slide 28: Know which side of balance you are on"
+    },
+    {
+     "id": "slides-29",
+     "title_en": "Slide 29: Before Unit 9",
+     "title_ms": "Slide 29: Before Unit 9"
+    },
+    {
+     "id": "slides-30",
+     "title_en": "Slide 30: Before you leave",
+     "title_ms": "Slide 30: Before you leave"
+    },
+    {
+     "id": "examples-x1",
+     "title_en": "Example 1 · Worked Example 8.1: a heavily loaded interior column",
+     "title_ms": "Contoh 1 · Worked Example 8.1: column dalaman yang dibebankan berat"
+    },
+    {
+     "id": "examples-x2",
+     "title_en": "Example 2 · Faded Example 8.2: a roof-level edge column",
+     "title_ms": "Contoh 2 · Faded Example 8.2: edge column di aras bumbung"
+    },
+    {
+     "id": "examples-x3",
+     "title_en": "Example 3 · Explain-type questions",
+     "title_ms": "Contoh 3 · Soalan jenis terangkan"
+    },
+    {
+     "id": "exercises-b1",
+     "title_en": "Exercise B1 · The design moment",
+     "title_ms": "Latihan B1 · Design moment"
+    },
+    {
+     "id": "exercises-b2",
+     "title_en": "Exercise B2 · Chart parameters and steel",
+     "title_ms": "Latihan B2 · Parameter chart dan steel"
+    },
+    {
+     "id": "exercises-b3",
+     "title_en": "Exercise B3 · Steel limits",
+     "title_ms": "Latihan B3 · Had steel"
+    },
+    {
+     "id": "exercises-b4",
+     "title_en": "Exercise B4 · Squash load and balance point",
+     "title_ms": "Latihan B4 · Squash load dan balance point"
+    },
+    {
+     "id": "exercises-b5",
+     "title_en": "Exercise B5 · The point x = h",
+     "title_ms": "Latihan B5 · Titik x = h"
+    },
+    {
+     "id": "exercises-b6",
+     "title_en": "Exercise B6 · Link size and spacing",
+     "title_ms": "Latihan B6 · Saiz dan jarak link"
+    },
+    {
+     "id": "exercises-quick",
+     "title_en": "Exercises: quick concept questions",
+     "title_ms": "Latihan: soalan konsep pantas"
+    },
+    {
+     "id": "lab-jig",
+     "title_en": "Explorer task 1: Tab 4: enter your team’s point of Activity 8A (A, B, C or D) fo…",
+     "title_ms": "Tugasan Explorer 1: Tab 4: masukkan titik pasukan anda dalam Aktiviti 8A (A, B, C a…"
+    },
+    {
+     "id": "lab-bal",
+     "title_en": "Explorer task 2: Tab 4: drag the neutral axis to the balance point, where the te…",
+     "title_ms": "Tugasan Explorer 2: Tab 4: seret neutral axis ke balance point, tempat tension bar…"
+    },
+    {
+     "id": "lab-b8",
+     "title_en": "Explorer task 3: Tab 4, Activity 8B: predict whether raising N_{Ed} from 350 to…",
+     "title_ms": "Tugasan Explorer 3: Tab 4, Aktiviti 8B: ramal sama ada menaikkan N_{Ed} daripada 35…"
+    },
+    {
+     "id": "lab-we81",
+     "title_en": "Explorer task 4: Tab 5: load Worked Example 8.1, choose 4H16 and confirm M_{Rd}…",
+     "title_ms": "Tugasan Explorer 4: Tab 5: muatkan Worked Example 8.1, pilih 4H16 dan sahkan M_{Rd}…"
+    },
+    {
+     "id": "lab-link",
+     "title_en": "Explorer task 5: Tab 5: enter the link diameter, the spacing and the closer spac…",
+     "title_ms": "Tugasan Explorer 5: Tab 5: masukkan diameter link, jarak dan jarak rapat bagi bar y…"
+    },
+    {
+     "id": "lab-s8",
+     "title_en": "Explorer task 6: Tab 3: pick Column S8, find all four slips, tap their lines and…",
+     "title_ms": "Tugasan Explorer 6: Tab 3: pilih Column S8, cari keempat-empat kesilapan, ketik bar…"
+    },
+    {
+     "id": "glossary-axial-load-ratio",
+     "title_en": "Glossary: axial load ratio ν",
+     "title_ms": "Glosari: axial load ratio ν"
+    },
+    {
+     "id": "glossary-axis-distance-a",
+     "title_en": "Glossary: axis distance a",
+     "title_ms": "Glosari: axis distance a"
+    },
+    {
+     "id": "glossary-balance-point",
+     "title_en": "Glossary: balance point",
+     "title_ms": "Glosari: balance point"
+    },
+    {
+     "id": "glossary-compression-controls",
+     "title_en": "Glossary: compression controls",
+     "title_ms": "Glosari: compression controls"
+    },
+    {
+     "id": "glossary-d-2",
+     "title_en": "Glossary: d_2",
+     "title_ms": "Glosari: d_2"
+    },
+    {
+     "id": "glossary-design-chart",
+     "title_en": "Glossary: design chart",
+     "title_ms": "Glosari: design chart"
+    },
+    {
+     "id": "glossary-design-moment-m-ed",
+     "title_en": "Glossary: design moment M_{Ed}",
+     "title_ms": "Glosari: design moment M_{Ed}"
+    },
+    {
+     "id": "glossary-design-yield-strain-yd",
+     "title_en": "Glossary: design yield strain ε_{yd}",
+     "title_ms": "Glosari: design yield strain ε_{yd}"
+    },
+    {
+     "id": "glossary-direct-check",
+     "title_en": "Glossary: direct check",
+     "title_ms": "Glosari: direct check"
+    },
+    {
+     "id": "glossary-imperfection-eccentricity-e-i",
+     "title_en": "Glossary: imperfection eccentricity e_i",
+     "title_ms": "Glosari: imperfection eccentricity e_i"
+    },
+    {
+     "id": "glossary-lap",
+     "title_en": "Glossary: lap",
+     "title_ms": "Glosari: lap"
+    },
+    {
+     "id": "glossary-link",
+     "title_en": "Glossary: link",
+     "title_ms": "Glosari: link"
+    },
+    {
+     "id": "glossary-load-cases-for-a-column",
+     "title_en": "Glossary: load cases for a column",
+     "title_ms": "Glosari: load cases for a column"
+    },
+    {
+     "id": "glossary-m-02",
+     "title_en": "Glossary: M_{02}",
+     "title_ms": "Glosari: M_{02}"
+    },
+    {
+     "id": "glossary-maximum-steel-a-s-max",
+     "title_en": "Glossary: maximum steel A_{s,max}",
+     "title_ms": "Glosari: maximum steel A_{s,max}"
+    },
+    {
+     "id": "glossary-mechanical-steel-ratio",
+     "title_en": "Glossary: mechanical steel ratio ω",
+     "title_ms": "Glosari: mechanical steel ratio ω"
+    },
+    {
+     "id": "glossary-minimum-eccentricity-e-0",
+     "title_en": "Glossary: minimum eccentricity e_0",
+     "title_ms": "Glosari: minimum eccentricity e_0"
+    },
+    {
+     "id": "glossary-minimum-steel-a-s-min",
+     "title_en": "Glossary: minimum steel A_{s,min}",
+     "title_ms": "Glosari: minimum steel A_{s,min}"
+    },
+    {
+     "id": "glossary-moment-ratio",
+     "title_en": "Glossary: moment ratio μ",
+     "title_ms": "Glosari: moment ratio μ"
+    },
+    {
+     "id": "glossary-fi",
+     "title_en": "Glossary: μ_{fi}",
+     "title_ms": "Glosari: μ_{fi}"
+    },
+    {
+     "id": "glossary-n-m-interaction-diagram",
+     "title_en": "Glossary: N–M interaction diagram",
+     "title_ms": "Glosari: N–M interaction diagram"
+    },
+    {
+     "id": "glossary-pivot",
+     "title_en": "Glossary: pivot",
+     "title_ms": "Glosari: pivot"
+    },
+    {
+     "id": "glossary-s-cl-max",
+     "title_en": "Glossary: s_{cl,max}",
+     "title_ms": "Glosari: s_{cl,max}"
+    },
+    {
+     "id": "glossary-squash-load-n-0",
+     "title_en": "Glossary: squash load N_0",
+     "title_ms": "Glosari: squash load N_0"
+    },
+    {
+     "id": "glossary-strain-compatibility",
+     "title_en": "Glossary: strain compatibility",
+     "title_ms": "Glosari: strain compatibility"
+    },
+    {
+     "id": "glossary-tension-controls",
+     "title_en": "Glossary: tension controls",
+     "title_ms": "Glosari: tension controls"
+    }
+   ]
+  },
+  {
+   "part": "u9",
+   "folder": "09-columns-3",
+   "title": "Unit 9 Columns III",
+   "sections": [
+    {
+     "id": "start-outcomes",
+     "title_en": "After this part you should be able to",
+     "title_ms": "Selepas bahagian ini, anda sepatutnya boleh"
+    },
+    {
+     "id": "notes-n1",
+     "title_en": "1. The second-order moment",
+     "title_ms": "1. Second-order moment"
+    },
+    {
+     "id": "notes-n2",
+     "title_en": "2. Nominal curvature",
+     "title_ms": "2. Nominal curvature"
+    },
+    {
+     "id": "notes-n3",
+     "title_en": "3. Design moments: braced and unbraced",
+     "title_ms": "3. Design moment: braced dan unbraced"
+    },
+    {
+     "id": "notes-n4",
+     "title_en": "4. The K_r loop and the bars",
+     "title_ms": "4. Gelung K_r dan bar"
+    },
+    {
+     "id": "notes-n5",
+     "title_en": "5. Both axes: the screening",
+     "title_ms": "5. Kedua-dua paksi: saringan"
+    },
+    {
+     "id": "notes-n6",
+     "title_en": "6. Biaxial design: estimate and check",
+     "title_ms": "6. Biaxial design: anggaran dan semakan"
+    },
+    {
+     "id": "slides-1",
+     "title_en": "Slide 1: Columns III",
+     "title_ms": "Slide 1: Columns III"
+    },
+    {
+     "id": "slides-2",
+     "title_en": "Slide 2: How the next three hours run",
+     "title_ms": "Slide 2: How the next three hours run"
+    },
+    {
+     "id": "slides-3",
+     "title_en": "Slide 3: Three questions before the slender column",
+     "title_ms": "Slide 3: Three questions before the slender column"
+    },
+    {
+     "id": "slides-4",
+     "title_en": "Slide 4: A, B, B, and what each means today",
+     "title_ms": "Slide 4: A, B, B, and what each means today"
+    },
+    {
+     "id": "slides-5",
+     "title_en": "Slide 5: Push on a strip a little off-centre",
+     "title_ms": "Slide 5: Push on a strip a little off-centre"
+    },
+    {
+     "id": "slides-6",
+     "title_en": "Slide 6: Why does the moment in a slender column grow by itself?",
+     "title_ms": "Slide 6: Why does the moment in a slender column grow by itself?"
+    },
+    {
+     "id": "slides-7",
+     "title_en": "Slide 7: Today designs the columns Unit 7 called slender",
+     "title_ms": "Slide 7: Today designs the columns Unit 7 called slender"
+    },
+    {
+     "id": "slides-8",
+     "title_en": "Slide 8: The second-order moment: N times the deflection",
+     "title_ms": "Slide 8: The second-order moment: N times the deflection"
+    },
+    {
+     "id": "slides-9",
+     "title_en": "Slide 9: Nominal curvature in six steps",
+     "title_ms": "Slide 9: Nominal curvature in six steps"
+    },
+    {
+     "id": "slides-10",
+     "title_en": "Slide 10: Four candidates for a braced column; one for an unbraced",
+     "title_ms": "Slide 10: Four candidates for a braced column; one for an unbraced"
+    },
+    {
+     "id": "slides-11",
+     "title_en": "Slide 11: Six steps, four columns: which candidate wins?",
+     "title_ms": "Slide 11: Six steps, four columns: which candidate wins?"
+    },
+    {
+     "id": "slides-12",
+     "title_en": "Slide 12: Four columns, four branches of EC2 5.8.8.2",
+     "title_ms": "Slide 12: Four columns, four branches of EC2 5.8.8.2"
+    },
+    {
+     "id": "slides-13",
+     "title_en": "Slide 13: A tall braced column: 300 × 300, l₀ = 5.0 m",
+     "title_ms": "Slide 13: A tall braced column: 300 × 300, l₀ = 5.0 m"
+    },
+    {
+     "id": "slides-14",
+     "title_en": "Slide 14: You add bars to a slender column. What happens to Kr and M₂?",
+     "title_ms": "Slide 14: You add bars to a slender column. What happens to Kr and M₂?"
+    },
+    {
+     "id": "slides-15",
+     "title_en": "Slide 15: A column has two axes: check both",
+     "title_ms": "Slide 15: A column has two axes: check both"
+    },
+    {
+     "id": "slides-16",
+     "title_en": "Slide 16: Is a biaxial check needed? EC2 5.8.9(3)",
+     "title_ms": "Slide 16: Is a biaxial check needed? EC2 5.8.9(3)"
+    },
+    {
+     "id": "slides-17",
+     "title_en": "Slide 17: Which columns need a biaxial check?",
+     "title_ms": "Slide 17: Which columns need a biaxial check?"
+    },
+    {
+     "id": "slides-18",
+     "title_en": "Slide 18: Only card 1 may be designed axis by axis",
+     "title_ms": "Slide 18: Only card 1 may be designed axis by axis"
+    },
+    {
+     "id": "slides-19",
+     "title_en": "Slide 19: Biaxial design: estimate the bars, then check",
+     "title_ms": "Slide 19: Biaxial design: estimate the bars, then check"
+    },
+    {
+     "id": "slides-20",
+     "title_en": "Slide 20: Both axes: 4H20 was not enough",
+     "title_ms": "Slide 20: Both axes: 4H20 was not enough"
+    },
+    {
+     "id": "slides-21",
+     "title_en": "Slide 21: Worked Example 8.1, seen about both axes",
+     "title_ms": "Slide 21: Worked Example 8.1, seen about both axes"
+    },
+    {
+     "id": "slides-22",
+     "title_en": "Slide 22: 4H16 fails about both axes; 4H20 passes",
+     "title_ms": "Slide 22: 4H16 fails about both axes; 4H20 passes"
+    },
+    {
+     "id": "slides-23",
+     "title_en": "Slide 23: 300 × 500 column: λy/λz = 1.67, ey/h = 0.38, ez/b = 0.067. What next?",
+     "title_ms": "Slide 23: 300 × 500 column: λy/λz = 1.67, ey/h = 0.38, ez/b = 0.067. What next?"
+    },
+    {
+     "id": "slides-24",
+     "title_en": "Slide 24: D9: a past-paper question (15 marks)",
+     "title_ms": "Slide 24: D9: a past-paper question (15 marks)"
+    },
+    {
+     "id": "slides-25",
+     "title_en": "Slide 25: A draft design of your column",
+     "title_ms": "Slide 25: A draft design of your column"
+    },
+    {
+     "id": "slides-26",
+     "title_en": "Slide 26: A column has two axes: check both, every time",
+     "title_ms": "Slide 26: A column has two axes: check both, every time"
+    },
+    {
+     "id": "slides-27",
+     "title_en": "Slide 27: Before Unit 10",
+     "title_ms": "Slide 27: Before Unit 10"
+    },
+    {
+     "id": "slides-28",
+     "title_en": "Slide 28: Before you leave",
+     "title_ms": "Slide 28: Before you leave"
+    },
+    {
+     "id": "examples-x1",
+     "title_en": "Example 1 · Worked Example 9.1: a tall braced column, one axis and then both",
+     "title_ms": "Contoh 1 · Worked Example 9.1: column braced yang tinggi, satu paksi dan kemudian kedua-duanya"
+    },
+    {
+     "id": "examples-x2",
+     "title_en": "Example 2 · Faded Example 9.2: Worked Example 8.1 about both axes",
+     "title_ms": "Contoh 2 · Faded Example 9.2: Worked Example 8.1 pada kedua-dua paksi"
+    },
+    {
+     "id": "examples-x3",
+     "title_en": "Example 3 · Explain-type questions",
+     "title_ms": "Contoh 3 · Soalan jenis terangkan"
+    },
+    {
+     "id": "exercises-b1",
+     "title_en": "Exercise B1 · First-order moments with the imperfection",
+     "title_ms": "Latihan B1 · First-order moment dengan imperfection"
+    },
+    {
+     "id": "exercises-b2",
+     "title_en": "Exercise B2 · Creep and K_φ",
+     "title_ms": "Latihan B2 · Creep dan K_φ"
+    },
+    {
+     "id": "exercises-b3",
+     "title_en": "Exercise B3 · Curvature and M_2",
+     "title_ms": "Latihan B3 · Curvature dan M_2"
+    },
+    {
+     "id": "exercises-b4",
+     "title_en": "Exercise B4 · The design moment of a braced column",
+     "title_ms": "Latihan B4 · Design moment column braced"
+    },
+    {
+     "id": "exercises-b5",
+     "title_en": "Exercise B5 · K_r from the steel",
+     "title_ms": "Latihan B5 · K_r daripada steel"
+    },
+    {
+     "id": "exercises-b6",
+     "title_en": "Exercise B6 · The biaxial interaction",
+     "title_ms": "Latihan B6 · Biaxial interaction"
+    },
+    {
+     "id": "exercises-quick",
+     "title_en": "Exercises: quick concept questions",
+     "title_ms": "Latihan: soalan konsep pantas"
+    },
+    {
+     "id": "lab-six",
+     "title_en": "Explorer task 1: Tab 6: enter M_2 and M_{Ed} for your Activity 9A card (A, B, C…",
+     "title_ms": "Tugasan Explorer 1: Tab 6: masukkan M_2 dan M_{Ed} bagi kad Aktiviti 9A anda (A, B,…"
+    },
+    {
+     "id": "lab-branch",
+     "title_en": "Explorer task 2: Tab 6: with the sliders, make each of the three candidates of a…",
+     "title_ms": "Tugasan Explorer 2: Tab 6: dengan slider, jadikan setiap tiga calon column braced m…"
+    },
+    {
+     "id": "lab-sway9",
+     "title_en": "Explorer task 3: Tab 6: switch card B to unbraced",
+     "title_ms": "Tugasan Explorer 3: Tab 6: tukar kad B kepada unbraced"
+    },
+    {
+     "id": "lab-screen",
+     "title_en": "Explorer task 4: Tab 6, Activity 9B: decide for the four screening cards whether…",
+     "title_ms": "Tugasan Explorer 4: Tab 6, Aktiviti 9B: putuskan bagi empat kad saringan sama ada b…"
+    },
+    {
+     "id": "lab-we81y",
+     "title_en": "Explorer task 5: Tab 6: load Worked Example 8.1 about both axes",
+     "title_ms": "Tugasan Explorer 5: Tab 6: muatkan Worked Example 8.1 pada kedua-dua paksi"
+    },
+    {
+     "id": "lab-s9",
+     "title_en": "Explorer task 6: Tab 3: pick Column S9, find all four slips, tap their lines and…",
+     "title_ms": "Tugasan Explorer 6: Tab 3: pilih Column S9, cari keempat-empat kesilapan, ketik bar…"
+    },
+    {
+     "id": "glossary-axial-load-ratio-n",
+     "title_en": "Glossary: axial load ratio n",
+     "title_ms": "Glosari: axial load ratio n"
+    },
+    {
+     "id": "glossary-basic-curvature-1-r-0",
+     "title_en": "Glossary: basic curvature 1/r_0",
+     "title_ms": "Glosari: basic curvature 1/r_0"
+    },
+    {
+     "id": "glossary-biaxial-rdf-14",
+     "title_en": "Glossary: β (biaxial, RDF §14)",
+     "title_ms": "Glosari: β (biaxial, RDF §14)"
+    },
+    {
+     "id": "glossary-creep-ec2-5-8-8-3-4",
+     "title_en": "Glossary: β (creep, EC2 5.8.8.3(4))",
+     "title_ms": "Glosari: β (creep, EC2 5.8.8.3(4))"
+    },
+    {
+     "id": "glossary-biaxial-bending",
+     "title_en": "Glossary: biaxial bending",
+     "title_ms": "Glosari: biaxial bending"
+    },
+    {
+     "id": "glossary-creep-coefficient-t-0",
+     "title_en": "Glossary: creep coefficient φ(∞,t_0 )",
+     "title_ms": "Glosari: creep coefficient φ(∞,t_0 )"
+    },
+    {
+     "id": "glossary-curvature-1-r",
+     "title_en": "Glossary: curvature 1/r",
+     "title_ms": "Glosari: curvature 1/r"
+    },
+    {
+     "id": "glossary-deflection-e-2",
+     "title_en": "Glossary: deflection e_2",
+     "title_ms": "Glosari: deflection e_2"
+    },
+    {
+     "id": "glossary-effective-creep-ratio-ef",
+     "title_en": "Glossary: effective creep ratio φ_{ef}",
+     "title_ms": "Glosari: effective creep ratio φ_{ef}"
+    },
+    {
+     "id": "glossary-enhanced-moment-m",
+     "title_en": "Glossary: enhanced moment M′",
+     "title_ms": "Glosari: enhanced moment M′"
+    },
+    {
+     "id": "glossary-equivalent-first-order-moment-m-0e",
+     "title_en": "Glossary: equivalent first-order moment M_{0e}",
+     "title_ms": "Glosari: equivalent first-order moment M_{0e}"
+    },
+    {
+     "id": "glossary-exponent-a",
+     "title_en": "Glossary: exponent a",
+     "title_ms": "Glosari: exponent a"
+    },
+    {
+     "id": "glossary-first-order-eccentricity-e-1",
+     "title_en": "Glossary: first-order eccentricity e_1",
+     "title_ms": "Glosari: first-order eccentricity e_1"
+    },
+    {
+     "id": "glossary-imperfection-e-i",
+     "title_en": "Glossary: imperfection e_i",
+     "title_ms": "Glosari: imperfection e_i"
+    },
+    {
+     "id": "glossary-interaction-check-eq-5-39",
+     "title_en": "Glossary: interaction check, Eq. 5.39",
+     "title_ms": "Glosari: interaction check, Eq. 5.39"
+    },
+    {
+     "id": "glossary-k-r",
+     "title_en": "Glossary: K_r",
+     "title_ms": "Glosari: K_r"
+    },
+    {
+     "id": "glossary-k",
+     "title_en": "Glossary: K_φ",
+     "title_ms": "Glosari: K_φ"
+    },
+    {
+     "id": "glossary-minimum-eccentricity-e-0",
+     "title_en": "Glossary: minimum eccentricity e_0",
+     "title_ms": "Glosari: minimum eccentricity e_0"
+    },
+    {
+     "id": "glossary-n-bal-n-u",
+     "title_en": "Glossary: n_{bal} , n_u",
+     "title_ms": "Glosari: n_{bal} , n_u"
+    },
+    {
+     "id": "glossary-n-rd",
+     "title_en": "Glossary: N_{Rd}",
+     "title_ms": "Glosari: N_{Rd}"
+    },
+    {
+     "id": "glossary-nominal-curvature-method",
+     "title_en": "Glossary: nominal curvature method",
+     "title_ms": "Glosari: nominal curvature method"
+    },
+    {
+     "id": "glossary-nominal-stiffness-method",
+     "title_en": "Glossary: nominal stiffness method",
+     "title_ms": "Glosari: nominal stiffness method"
+    },
+    {
+     "id": "glossary-quasi-permanent-ratio-m-0eqp-m-0ed",
+     "title_en": "Glossary: quasi-permanent ratio M_{0Eqp} /M_{0Ed}",
+     "title_ms": "Glosari: quasi-permanent ratio M_{0Eqp} /M_{0Ed}"
+    },
+    {
+     "id": "glossary-relative-eccentricity",
+     "title_en": "Glossary: relative eccentricity",
+     "title_ms": "Glosari: relative eccentricity"
+    },
+    {
+     "id": "glossary-screening-ec2-5-8-9-3",
+     "title_en": "Glossary: screening (EC2 5.8.9(3))",
+     "title_ms": "Glosari: screening (EC2 5.8.9(3))"
+    },
+    {
+     "id": "glossary-second-order-moment-m-2",
+     "title_en": "Glossary: second-order moment M_2",
+     "title_ms": "Glosari: second-order moment M_2"
+    }
+   ]
+  },
+  {
+   "part": "u10",
+   "folder": "10-foundations-1",
+   "title": "Unit 10 Foundations I",
+   "sections": [
+    {
+     "id": "start-outcomes",
+     "title_en": "After this part you should be able to",
+     "title_ms": "Selepas bahagian ini, anda sepatutnya boleh"
+    },
+    {
+     "id": "notes-n1",
+     "title_en": "1. Foundations: types and requirements",
+     "title_ms": "1. Foundation: jenis dan keperluan"
+    },
+    {
+     "id": "notes-n2",
+     "title_en": "2. Sizing the base",
+     "title_ms": "2. Menentukan saiz tapak"
+    },
+    {
+     "id": "notes-n3",
+     "title_en": "3. The pressure when the load is off-centre",
+     "title_ms": "3. Tekanan apabila load di luar tengah"
+    },
+    {
+     "id": "notes-n4",
+     "title_en": "4. Critical sections: bending, shear, punching",
+     "title_ms": "4. Section kritikal: bending, shear, punching"
+    },
+    {
+     "id": "notes-n5",
+     "title_en": "5. Combined footings",
+     "title_ms": "5. Combined footing"
+    },
+    {
+     "id": "notes-n6",
+     "title_en": "6. Strip footings and detailing",
+     "title_ms": "6. Strip footing dan detailing"
+    },
+    {
+     "id": "slides-1",
+     "title_en": "Slide 1: Foundations I",
+     "title_ms": "Slide 1: Foundations I"
+    },
+    {
+     "id": "slides-2",
+     "title_en": "Slide 2: How the next three hours run",
+     "title_ms": "Slide 2: How the next three hours run"
+    },
+    {
+     "id": "slides-3",
+     "title_en": "Slide 3: Three questions before the column reaches the ground",
+     "title_ms": "Slide 3: Three questions before the column reaches the ground"
+    },
+    {
+     "id": "slides-4",
+     "title_en": "Slide 4: B, B, A, and what each means today",
+     "title_ms": "Slide 4: B, B, A, and what each means today"
+    },
+    {
+     "id": "slides-5",
+     "title_en": "Slide 5: Press a stiff plate on foam, off-centre",
+     "title_ms": "Slide 5: Press a stiff plate on foam, off-centre"
+    },
+    {
+     "id": "slides-6",
+     "title_en": "Slide 6: A 2.4 m base carries N = 600 kN at e = 0.5 m. The pressure under it is",
+     "title_ms": "Slide 6: A 2.4 m base carries N = 600 kN at e = 0.5 m. The pressure under it is"
+    },
+    {
+     "id": "slides-7",
+     "title_en": "Slide 7: What a foundation must do, and which type",
+     "title_ms": "Slide 7: What a foundation must do, and which type"
+    },
+    {
+     "id": "slides-8",
+     "title_en": "Slide 8: The pressure when the load moves off-centre",
+     "title_ms": "Slide 8: The pressure when the load moves off-centre"
+    },
+    {
+     "id": "slides-9",
+     "title_en": "Slide 9: Predict the pressure under a 2.4 × 2.0 m base, N = 600 kN",
+     "title_ms": "Slide 9: Predict the pressure under a 2.4 × 2.0 m base, N = 600 kN"
+    },
+    {
+     "id": "slides-10",
+     "title_en": "Slide 10: Trapezoid, triangle, then part of the base lifts off",
+     "title_ms": "Slide 10: Trapezoid, triangle, then part of the base lifts off"
+    },
+    {
+     "id": "slides-11",
+     "title_en": "Slide 11: A pad under 600 + 400 kN: size, moment, bars, shear",
+     "title_ms": "Slide 11: A pad under 600 + 400 kN: size, moment, bars, shear"
+    },
+    {
+     "id": "slides-12",
+     "title_en": "Slide 12: Punching under a column base: every perimeter inside 2d",
+     "title_ms": "Slide 12: Punching under a column base: every perimeter inside 2d"
+    },
+    {
+     "id": "slides-13",
+     "title_en": "Slide 13: The course notes’ pad, h = 450 mm: where is the worst perimeter?",
+     "title_ms": "Slide 13: The course notes’ pad, h = 450 mm: where is the worst perimeter?"
+    },
+    {
+     "id": "slides-14",
+     "title_en": "Slide 14: Passes at 2d, fails at 1.2d: 50 mm deeper",
+     "title_ms": "Slide 14: Passes at 2d, fails at 1.2d: 50 mm deeper"
+    },
+    {
+     "id": "slides-15",
+     "title_en": "Slide 15: WE 10.1 at a = d: v Ed = 0.674 N/mm², v Rd,c = 0.377 N/mm². The verdict:",
+     "title_ms": "Slide 15: WE 10.1 at a = d: v Ed = 0.674 N/mm², v Rd,c = 0.377 N/mm². The verdict:"
+    },
+    {
+     "id": "slides-16",
+     "title_en": "Slide 16: A pad with a moment: N Ed = 1500 kN, M Ed = 50 kN m",
+     "title_ms": "Slide 16: A pad with a moment: N Ed = 1500 kN, M Ed = 50 kN m"
+    },
+    {
+     "id": "slides-17",
+     "title_en": "Slide 17: The minimum steel governs both ways",
+     "title_ms": "Slide 17: The minimum steel governs both ways"
+    },
+    {
+     "id": "slides-18",
+     "title_en": "Slide 18: Two columns, one base: centre it on the resultant",
+     "title_ms": "Slide 18: Two columns, one base: centre it on the resultant"
+    },
+    {
+     "id": "slides-19",
+     "title_en": "Slide 19: A rectangular combined footing carries two columns. Where must its top face be reinforced?",
+     "title_ms": "Slide 19: A rectangular combined footing carries two columns. Where must its top face be reinforced?"
+    },
+    {
+     "id": "slides-20",
+     "title_en": "Slide 20: Foundation S10: four slips in a pad design",
+     "title_ms": "Slide 20: Foundation S10: four slips in a pad design"
+    },
+    {
+     "id": "slides-21",
+     "title_en": "Slide 21: Detailing, and the strip footing under a wall",
+     "title_ms": "Slide 21: Detailing, and the strip footing under a wall"
+    },
+    {
+     "id": "slides-22",
+     "title_en": "Slide 22: D10: a pad footing for a 400 mm column (20 marks)",
+     "title_ms": "Slide 22: D10: a pad footing for a 400 mm column (20 marks)"
+    },
+    {
+     "id": "slides-23",
+     "title_en": "Slide 23: The foundation type for your site",
+     "title_ms": "Slide 23: The foundation type for your site"
+    },
+    {
+     "id": "slides-24",
+     "title_en": "Slide 24: Soil with service loads, concrete with ultimate loads: say which",
+     "title_ms": "Slide 24: Soil with service loads, concrete with ultimate loads: say which"
+    },
+    {
+     "id": "slides-25",
+     "title_en": "Slide 25: Before Unit 11",
+     "title_ms": "Slide 25: Before Unit 11"
+    },
+    {
+     "id": "slides-26",
+     "title_en": "Slide 26: Before you leave",
+     "title_ms": "Slide 26: Before you leave"
+    },
+    {
+     "id": "examples-x1",
+     "title_en": "Example 1 · Worked Example 10.1: a pad footing under an axial load",
+     "title_ms": "Contoh 1 · Worked Example 10.1: pad footing di bawah axial load"
+    },
+    {
+     "id": "examples-x2",
+     "title_en": "Example 2 · Faded Example 10.2: a pad footing with a moment",
+     "title_ms": "Contoh 2 · Faded Example 10.2: pad footing dengan moment"
+    },
+    {
+     "id": "examples-x3",
+     "title_en": "Example 3 · Explain-type questions",
+     "title_ms": "Contoh 3 · Soalan jenis terangkan"
+    },
+    {
+     "id": "exercises-b1",
+     "title_en": "Exercise B1 · The plan size",
+     "title_ms": "Latihan B1 · Saiz pelan"
+    },
+    {
+     "id": "exercises-b2",
+     "title_en": "Exercise B2 · The pressure under an eccentric load",
+     "title_ms": "Latihan B2 · Tekanan di bawah load eksentrik"
+    },
+    {
+     "id": "exercises-b3",
+     "title_en": "Exercise B3 · The moment at the face and the bars",
+     "title_ms": "Latihan B3 · Moment di muka dan bar"
+    },
+    {
+     "id": "exercises-b4",
+     "title_en": "Exercise B4 · Vertical shear at d",
+     "title_ms": "Latihan B4 · Vertical shear pada d"
+    },
+    {
+     "id": "exercises-b5",
+     "title_en": "Exercise B5 · Punching inside 2d",
+     "title_ms": "Latihan B5 · Punching di dalam 2d"
+    },
+    {
+     "id": "exercises-b6",
+     "title_en": "Exercise B6 · A combined footing",
+     "title_ms": "Latihan B6 · Combined footing"
+    },
+    {
+     "id": "exercises-quick",
+     "title_en": "Exercises: quick concept questions",
+     "title_ms": "Latihan: soalan konsep pantas"
+    },
+    {
+     "id": "lab-kern",
+     "title_en": "Explorer task 1: Tab 1, Activity 10A: predict the pressure under the base for e…",
+     "title_ms": "Tugasan Explorer 1: Tab 1, Aktiviti 10A: ramal tekanan di bawah tapak bagi e di baw…"
+    },
+    {
+     "id": "lab-lift",
+     "title_en": "Explorer task 2: Tab 1: load case F3 and change the moment",
+     "title_ms": "Tugasan Explorer 2: Tab 1: muatkan kes F3 dan ubah moment"
+    },
+    {
+     "id": "lab-corner",
+     "title_en": "Explorer task 3: Tab 1, two moments: load case F4 and raise the moment about x u…",
+     "title_ms": "Tugasan Explorer 3: Tab 1, dua moment: muatkan kes F4 dan naikkan moment pada paksi…"
+    },
+    {
+     "id": "lab-scan",
+     "title_en": "Explorer task 4: Tab 2, Activity 10B: for case F1, predict where the worst punch…",
+     "title_ms": "Tugasan Explorer 4: Tab 2, Aktiviti 10B: bagi kes F1, ramal di mana punching perime…"
+    },
+    {
+     "id": "lab-revise",
+     "title_en": "Explorer task 5: Tab 2: case F1 fails inside 2d",
+     "title_ms": "Tugasan Explorer 5: Tab 2: kes F1 gagal di dalam 2d"
+    },
+    {
+     "id": "lab-s10",
+     "title_en": "Explorer task 6: Tab 3: Foundation S10, find all four slips, tap their lines and…",
+     "title_ms": "Tugasan Explorer 6: Tab 3: Foundation S10, cari keempat-empat kesilapan, ketik bari…"
+    },
+    {
+     "id": "glossary-allowable-bearing-pressure-q-all",
+     "title_en": "Glossary: allowable bearing pressure q_{all}",
+     "title_ms": "Glosari: allowable bearing pressure q_{all}"
+    },
+    {
+     "id": "glossary-basic-control-perimeter-u-1",
+     "title_en": "Glossary: basic control perimeter u_1",
+     "title_ms": "Glosari: basic control perimeter u_1"
+    },
+    {
+     "id": "glossary-bearing-pressure",
+     "title_en": "Glossary: bearing pressure",
+     "title_ms": "Glosari: bearing pressure"
+    },
+    {
+     "id": "glossary-blinding",
+     "title_en": "Glossary: blinding",
+     "title_ms": "Glosari: blinding"
+    },
+    {
+     "id": "glossary-column-base-punching",
+     "title_en": "Glossary: column base (punching)",
+     "title_ms": "Glosari: column base (punching)"
+    },
+    {
+     "id": "glossary-combined-footing",
+     "title_en": "Glossary: combined footing",
+     "title_ms": "Glosari: combined footing"
+    },
+    {
+     "id": "glossary-contact-length-l-c",
+     "title_en": "Glossary: contact length L_c",
+     "title_ms": "Glosari: contact length L_c"
+    },
+    {
+     "id": "glossary-critical-section",
+     "title_en": "Glossary: critical section",
+     "title_ms": "Glosari: critical section"
+    },
+    {
+     "id": "glossary-differential-settlement",
+     "title_en": "Glossary: differential settlement",
+     "title_ms": "Glosari: differential settlement"
+    },
+    {
+     "id": "glossary-eccentricity-e",
+     "title_en": "Glossary: eccentricity e",
+     "title_ms": "Glosari: eccentricity e"
+    },
+    {
+     "id": "glossary-kern-middle-third",
+     "title_en": "Glossary: kern (middle third)",
+     "title_ms": "Glosari: kern (middle third)"
+    },
+    {
+     "id": "glossary-kicker",
+     "title_en": "Glossary: kicker",
+     "title_ms": "Glosari: kicker"
+    },
+    {
+     "id": "glossary-pad-footing",
+     "title_en": "Glossary: pad footing",
+     "title_ms": "Glosari: pad footing"
+    },
+    {
+     "id": "glossary-partial-contact-lift-off",
+     "title_en": "Glossary: partial contact (lift-off)",
+     "title_ms": "Glosari: partial contact (lift-off)"
+    },
+    {
+     "id": "glossary-pile-foundation",
+     "title_en": "Glossary: pile foundation",
+     "title_ms": "Glosari: pile foundation"
+    },
+    {
+     "id": "glossary-punching-shear",
+     "title_en": "Glossary: punching shear",
+     "title_ms": "Glosari: punching shear"
+    },
+    {
+     "id": "glossary-raft-foundation",
+     "title_en": "Glossary: raft foundation",
+     "title_ms": "Glosari: raft foundation"
+    },
+    {
+     "id": "glossary-reduced-punching-force-v-ed-red",
+     "title_en": "Glossary: reduced punching force V_{Ed,red}",
+     "title_ms": "Glosari: reduced punching force V_{Ed,red}"
+    },
+    {
+     "id": "glossary-self-weight-w",
+     "title_en": "Glossary: self-weight W",
+     "title_ms": "Glosari: self-weight W"
+    },
+    {
+     "id": "glossary-service-and-ultimate-loads",
+     "title_en": "Glossary: service and ultimate loads",
+     "title_ms": "Glosari: service and ultimate loads"
+    },
+    {
+     "id": "glossary-settlement",
+     "title_en": "Glossary: settlement",
+     "title_ms": "Glosari: settlement"
+    },
+    {
+     "id": "glossary-starter-bars",
+     "title_en": "Glossary: starter bars",
+     "title_ms": "Glosari: starter bars"
+    },
+    {
+     "id": "glossary-strap-footing",
+     "title_en": "Glossary: strap footing",
+     "title_ms": "Glosari: strap footing"
+    },
+    {
+     "id": "glossary-strip-footing",
+     "title_en": "Glossary: strip footing",
+     "title_ms": "Glosari: strip footing"
+    },
+    {
+     "id": "glossary-v-min",
+     "title_en": "Glossary: v_{min}",
+     "title_ms": "Glosari: v_{min}"
+    },
+    {
+     "id": "glossary-v-rd-max",
+     "title_en": "Glossary: v_{Rd,max}",
+     "title_ms": "Glosari: v_{Rd,max}"
+    },
+    {
+     "id": "glossary-punching",
+     "title_en": "Glossary: β (punching)",
+     "title_ms": "Glosari: β (punching)"
+    }
+   ]
+  },
+  {
+   "part": "u11",
+   "folder": "11-foundations-2",
+   "title": "Unit 11 Foundations II",
+   "sections": [
+    {
+     "id": "start-outcomes",
+     "title_en": "After this part you should be able to",
+     "title_ms": "Selepas bahagian ini, anda sepatutnya boleh"
+    },
+    {
+     "id": "notes-n1",
+     "title_en": "1. Columns on the site boundary",
+     "title_ms": "1. Column di sempadan tapak"
+    },
+    {
+     "id": "notes-n2",
+     "title_en": "2. The strap footing: statics",
+     "title_ms": "2. Strap footing: statik"
+    },
+    {
+     "id": "notes-n3",
+     "title_en": "3. Designing a strap footing",
+     "title_ms": "3. Design strap footing"
+    },
+    {
+     "id": "notes-n4",
+     "title_en": "4. The trapezoidal combined footing",
+     "title_ms": "4. Trapezoidal combined footing"
+    },
+    {
+     "id": "notes-n5",
+     "title_en": "5. Piles: when, which and how many",
+     "title_ms": "5. Pile: bila, jenis yang mana dan berapa banyak"
+    },
+    {
+     "id": "notes-n6",
+     "title_en": "6. Pile loads under a moment",
+     "title_ms": "6. Load pile di bawah moment"
+    },
+    {
+     "id": "slides-1",
+     "title_en": "Slide 1: Foundations II",
+     "title_ms": "Slide 1: Foundations II"
+    },
+    {
+     "id": "slides-2",
+     "title_en": "Slide 2: How the next three hours run",
+     "title_ms": "Slide 2: How the next three hours run"
+    },
+    {
+     "id": "slides-3",
+     "title_en": "Slide 3: Three questions from last week’s footings",
+     "title_ms": "Slide 3: Three questions from last week’s footings"
+    },
+    {
+     "id": "slides-4",
+     "title_en": "Slide 4: B, C, A, and what each means today",
+     "title_ms": "Slide 4: B, C, A, and what each means today"
+    },
+    {
+     "id": "slides-5",
+     "title_en": "Slide 5: A column on the boundary: why does its footing not tip?",
+     "title_ms": "Slide 5: A column on the boundary: why does its footing not tip?"
+    },
+    {
+     "id": "slides-6",
+     "title_en": "Slide 6: Column A (N A = 1075 kN) stands on the boundary, 0.85 m from the centre of its footing, tied by a strap to column B 6.0 m away. Leaving the weights out, footing A carries",
+     "title_ms": "Slide 6: Column A (N A = 1075 kN) stands on the boundary, 0.85 m from the centre of its footing, tied by a strap to column B 6.0 m away. Leaving the weights out, footing A carries"
+    },
+    {
+     "id": "slides-7",
+     "title_en": "Slide 7: A column on the boundary: three ways to found it",
+     "title_ms": "Slide 7: A column on the boundary: three ways to found it"
+    },
+    {
+     "id": "slides-8",
+     "title_en": "Slide 8: The strap is a lever: moments about column B",
+     "title_ms": "Slide 8: The strap is a lever: moments about column B"
+    },
+    {
+     "id": "slides-9",
+     "title_en": "Slide 9: The seesaw by hand: R A and R B for case F7",
+     "title_ms": "Slide 9: The seesaw by hand: R A and R B for case F7"
+    },
+    {
+     "id": "slides-10",
+     "title_en": "Slide 10: Footing A carries more than its column; footing B less",
+     "title_ms": "Slide 10: Footing A carries more than its column; footing B less"
+    },
+    {
+     "id": "slides-11",
+     "title_en": "Slide 11: A strap footing: statics, sizes and the strap moment",
+     "title_ms": "Slide 11: A strap footing: statics, sizes and the strap moment"
+    },
+    {
+     "id": "slides-12",
+     "title_en": "Slide 12: Inside the strap: it hogs, and its shear peaks over footing A",
+     "title_ms": "Slide 12: Inside the strap: it hogs, and its shear peaks over footing A"
+    },
+    {
+     "id": "slides-13",
+     "title_en": "Slide 13: Where do the main bars of the strap go, and where must its links be closest?",
+     "title_ms": "Slide 13: Where do the main bars of the strap go, and where must its links be closest?"
+    },
+    {
+     "id": "slides-14",
+     "title_en": "Slide 14: Foundation S11: four slips in a strap footing",
+     "title_ms": "Slide 14: Foundation S11: four slips in a strap footing"
+    },
+    {
+     "id": "slides-15",
+     "title_en": "Slide 15: Piles: down through weak soil to firm ground",
+     "title_ms": "Slide 15: Piles: down through weak soil to firm ground"
+    },
+    {
+     "id": "slides-16",
+     "title_en": "Slide 16: The group: how many piles, the cap, and the load on each",
+     "title_ms": "Slide 16: The group: how many piles, the cap, and the load on each"
+    },
+    {
+     "id": "slides-17",
+     "title_en": "Slide 17: Turn FE 11.2’s moment through 90°: the worst pile load…",
+     "title_ms": "Slide 17: Turn FE 11.2’s moment through 90°: the worst pile load…"
+    },
+    {
+     "id": "slides-18",
+     "title_en": "Slide 18: It rises: Σy² = 1.215 m² against Σx² = 3.24 m²",
+     "title_ms": "Slide 18: It rises: Σy² = 1.215 m² against Σx² = 3.24 m²"
+    },
+    {
+     "id": "slides-19",
+     "title_en": "Slide 19: Six piles under N Ed = 4200 kN and M Ed = 75 kN m",
+     "title_ms": "Slide 19: Six piles under N Ed = 4200 kN and M Ed = 75 kN m"
+    },
+    {
+     "id": "slides-20",
+     "title_en": "Slide 20: Six piles, the worst at 89 % of its working load",
+     "title_ms": "Slide 20: Six piles, the worst at 89 % of its working load"
+    },
+    {
+     "id": "slides-21",
+     "title_en": "Slide 21: In Faded Example 11.2, which pile load is compared with the 600 kN working load?",
+     "title_ms": "Slide 21: In Faded Example 11.2, which pile load is compared with the 600 kN working load?"
+    },
+    {
+     "id": "slides-22",
+     "title_en": "Slide 22: D11: a strap footing for a boundary column (20 marks)",
+     "title_ms": "Slide 22: D11: a strap footing for a boundary column (20 marks)"
+    },
+    {
+     "id": "slides-23",
+     "title_en": "Slide 23: The footing size for your individual column",
+     "title_ms": "Slide 23: The footing size for your individual column"
+    },
+    {
+     "id": "slides-24",
+     "title_en": "Slide 24: Close the statics before you design anything",
+     "title_ms": "Slide 24: Close the statics before you design anything"
+    },
+    {
+     "id": "slides-25",
+     "title_en": "Slide 25: Before Unit 12",
+     "title_ms": "Slide 25: Before Unit 12"
+    },
+    {
+     "id": "slides-26",
+     "title_en": "Slide 26: Before you leave",
+     "title_ms": "Slide 26: Before you leave"
+    },
+    {
+     "id": "examples-x1",
+     "title_en": "Example 1 · Worked Example 11.1: a strap footing",
+     "title_ms": "Contoh 1 · Worked Example 11.1: strap footing"
+    },
+    {
+     "id": "examples-x2",
+     "title_en": "Example 2 · Faded Example 11.2: a six-pile group",
+     "title_ms": "Contoh 2 · Faded Example 11.2: kumpulan enam pile"
+    },
+    {
+     "id": "examples-x3",
+     "title_en": "Example 3 · Explain-type questions",
+     "title_ms": "Contoh 3 · Soalan jenis terangkan"
+    },
+    {
+     "id": "exercises-b1",
+     "title_en": "Exercise B1 · Strap footing: the service reactions and sizes",
+     "title_ms": "Latihan B1 · Strap footing: reaction service dan saiz"
+    },
+    {
+     "id": "exercises-b2",
+     "title_en": "Exercise B2 · Strap: zero shear and the largest moment",
+     "title_ms": "Latihan B2 · Strap: shear sifar dan moment terbesar"
+    },
+    {
+     "id": "exercises-b3",
+     "title_en": "Exercise B3 · A trapezoidal combined footing",
+     "title_ms": "Latihan B3 · Combined footing trapezium"
+    },
+    {
+     "id": "exercises-b4",
+     "title_en": "Exercise B4 · Number of piles and the cap",
+     "title_ms": "Latihan B4 · Bilangan pile dan pile cap"
+    },
+    {
+     "id": "exercises-b5",
+     "title_en": "Exercise B5 · Pile loads under a moment",
+     "title_ms": "Latihan B5 · Load pile di bawah moment"
+    },
+    {
+     "id": "exercises-b6",
+     "title_en": "Exercise B6 · Two moments: the corner pile",
+     "title_ms": "Latihan B6 · Dua moment: pile di bucu"
+    },
+    {
+     "id": "exercises-quick",
+     "title_en": "Exercises: quick concept questions",
+     "title_ms": "Latihan: soalan konsep pantas"
+    },
+    {
+     "id": "lab-seesaw",
+     "title_en": "Explorer task 1: Tab 4, Activity 11A: work out R_A and R_B for case F7 by hand (…",
+     "title_ms": "Tugasan Explorer 1: Tab 4, Aktiviti 11A: kira R_A dan R_B bagi kes F7 dengan tangan…"
+    },
+    {
+     "id": "lab-lever",
+     "title_en": "Explorer task 2: Tab 4: shorten the spacing L from 6.0 m to 4.5 m or less and wa…",
+     "title_ms": "Tugasan Explorer 2: Tab 4: pendekkan jarak L dari 6.0 m kepada 4.5 m atau kurang da…"
+    },
+    {
+     "id": "lab-strapv",
+     "title_en": "Explorer task 3: Tab 4: switch the diagram to shear for case F7",
+     "title_ms": "Tugasan Explorer 3: Tab 4: tukar diagram kepada shear bagi kes F7"
+    },
+    {
+     "id": "lab-piles",
+     "title_en": "Explorer task 4: Tab 5, Activity 11B: predict what happens to the worst pile loa…",
+     "title_ms": "Tugasan Explorer 4: Tab 5, Aktiviti 11B: ramal apa yang berlaku kepada load pile te…"
+    },
+    {
+     "id": "lab-tension",
+     "title_en": "Explorer task 5: Tab 5: raise M_y until the lightest pile reaches zero load",
+     "title_ms": "Tugasan Explorer 5: Tab 5: naikkan M_y sehingga pile paling ringan mencapai load si…"
+    },
+    {
+     "id": "lab-s11",
+     "title_en": "Explorer task 6: Tab 3: Foundation S11, find all four slips, tap their lines and…",
+     "title_ms": "Tugasan Explorer 6: Tab 3: Foundation S11, cari keempat-empat kesilapan, ketik bari…"
+    },
+    {
+     "id": "glossary-allowable-bearing-pressure-q-all",
+     "title_en": "Glossary: allowable bearing pressure q_{all}",
+     "title_ms": "Glosari: allowable bearing pressure q_{all}"
+    },
+    {
+     "id": "glossary-bakau-pile",
+     "title_en": "Glossary: bakau pile",
+     "title_ms": "Glosari: bakau pile"
+    },
+    {
+     "id": "glossary-blinding",
+     "title_en": "Glossary: blinding",
+     "title_ms": "Glosari: blinding"
+    },
+    {
+     "id": "glossary-bored-pile",
+     "title_en": "Glossary: bored pile",
+     "title_ms": "Glosari: bored pile"
+    },
+    {
+     "id": "glossary-boundary-column",
+     "title_en": "Glossary: boundary column",
+     "title_ms": "Glosari: boundary column"
+    },
+    {
+     "id": "glossary-bulb-of-pressure",
+     "title_en": "Glossary: bulb of pressure",
+     "title_ms": "Glosari: bulb of pressure"
+    },
+    {
+     "id": "glossary-eccentricity-of-footing-a-e",
+     "title_en": "Glossary: eccentricity of footing A, e",
+     "title_ms": "Glosari: eccentricity of footing A, e"
+    },
+    {
+     "id": "glossary-end-bearing-pile",
+     "title_en": "Glossary: end-bearing pile",
+     "title_ms": "Glosari: end-bearing pile"
+    },
+    {
+     "id": "glossary-friction-pile",
+     "title_en": "Glossary: friction pile",
+     "title_ms": "Glosari: friction pile"
+    },
+    {
+     "id": "glossary-lever-of-the-strap-l-e",
+     "title_en": "Glossary: lever of the strap, L − e",
+     "title_ms": "Glosari: lever of the strap, L − e"
+    },
+    {
+     "id": "glossary-net-design-reaction",
+     "title_en": "Glossary: net design reaction",
+     "title_ms": "Glosari: net design reaction"
+    },
+    {
+     "id": "glossary-pile-cap",
+     "title_en": "Glossary: pile cap",
+     "title_ms": "Glosari: pile cap"
+    },
+    {
+     "id": "glossary-pile-foundation",
+     "title_en": "Glossary: pile foundation",
+     "title_ms": "Glosari: pile foundation"
+    },
+    {
+     "id": "glossary-pile-spacing",
+     "title_en": "Glossary: pile spacing",
+     "title_ms": "Glosari: pile spacing"
+    },
+    {
+     "id": "glossary-precast-pile",
+     "title_en": "Glossary: precast pile",
+     "title_ms": "Glosari: precast pile"
+    },
+    {
+     "id": "glossary-punching-shear",
+     "title_en": "Glossary: punching shear",
+     "title_ms": "Glosari: punching shear"
+    },
+    {
+     "id": "glossary-safe-working-load-of-a-pile-f-p",
+     "title_en": "Glossary: safe (working) load of a pile, F_p",
+     "title_ms": "Glosari: safe (working) load of a pile, F_p"
+    },
+    {
+     "id": "glossary-service-and-ultimate-loads",
+     "title_en": "Glossary: service and ultimate loads",
+     "title_ms": "Glosari: service and ultimate loads"
+    },
+    {
+     "id": "glossary-strap-beam",
+     "title_en": "Glossary: strap beam",
+     "title_ms": "Glosari: strap beam"
+    },
+    {
+     "id": "glossary-strap-footing",
+     "title_en": "Glossary: strap footing",
+     "title_ms": "Glosari: strap footing"
+    },
+    {
+     "id": "glossary-x-of-a-pile-group",
+     "title_en": "Glossary: Σx² of a pile group",
+     "title_ms": "Glosari: Σx² of a pile group"
+    },
+    {
+     "id": "glossary-tension-pile",
+     "title_en": "Glossary: tension pile",
+     "title_ms": "Glosari: tension pile"
+    },
+    {
+     "id": "glossary-tie-beam",
+     "title_en": "Glossary: tie beam",
+     "title_ms": "Glosari: tie beam"
+    },
+    {
+     "id": "glossary-trapezoidal-combined-footing",
+     "title_en": "Glossary: trapezoidal combined footing",
+     "title_ms": "Glosari: trapezoidal combined footing"
+    },
+    {
+     "id": "glossary-zero-shear-x-0",
+     "title_en": "Glossary: zero shear x_0",
+     "title_ms": "Glosari: zero shear x_0"
+    }
+   ]
+  },
+  {
+   "part": "u12",
+   "folder": "12-foundations-3",
+   "title": "Unit 12 Foundations III",
+   "sections": [
+    {
+     "id": "start-outcomes",
+     "title_en": "After this part you should be able to",
+     "title_ms": "Selepas bahagian ini, anda sepatutnya boleh"
+    },
+    {
+     "id": "notes-n1",
+     "title_en": "1. The pile cap: its job, plan and depth",
+     "title_ms": "1. Pile cap: tugasnya, pelan dan kedalaman"
+    },
+    {
+     "id": "notes-n2",
+     "title_en": "2. The truss analogy",
+     "title_ms": "2. Truss analogy"
+    },
+    {
+     "id": "notes-n3",
+     "title_en": "3. Beam theory",
+     "title_ms": "3. Beam theory"
+    },
+    {
+     "id": "notes-n4",
+     "title_en": "4. Shear: the section at φ/5 and the enhancement",
+     "title_ms": "4. Shear: section pada φ/5 dan enhancement"
+    },
+    {
+     "id": "notes-n5",
+     "title_en": "5. Punching and the column face",
+     "title_ms": "5. Punching dan muka column"
+    },
+    {
+     "id": "notes-n6",
+     "title_en": "6. Crack control and detailing",
+     "title_ms": "6. Crack control dan detailing"
+    },
+    {
+     "id": "slides-1",
+     "title_en": "Slide 1: Foundations III",
+     "title_ms": "Slide 1: Foundations III"
+    },
+    {
+     "id": "slides-2",
+     "title_en": "Slide 2: How the next three hours run",
+     "title_ms": "Slide 2: How the next three hours run"
+    },
+    {
+     "id": "slides-3",
+     "title_en": "Slide 3: Three questions from last week’s piles",
+     "title_ms": "Slide 3: Three questions from last week’s piles"
+    },
+    {
+     "id": "slides-4",
+     "title_en": "Slide 4: C, A, B, and what each means today",
+     "title_ms": "Slide 4: C, A, B, and what each means today"
+    },
+    {
+     "id": "slides-5",
+     "title_en": "Slide 5: The notes’ four-pile cap: one shear check, two answers",
+     "title_ms": "Slide 5: The notes’ four-pile cap: one shear check, two answers"
+    },
+    {
+     "id": "slides-6",
+     "title_en": "Slide 6: Why does the course notes’ cap pass by 1 % in the notes and fail under EC2?",
+     "title_ms": "Slide 6: Why does the course notes’ cap pass by 1 % in the notes and fail under EC2?"
+    },
+    {
+     "id": "slides-7",
+     "title_en": "Slide 7: A pile cap: plan, depth, and two models",
+     "title_ms": "Slide 7: A pile cap: plan, depth, and two models"
+    },
+    {
+     "id": "slides-8",
+     "title_en": "Slide 8: The truss: concrete struts, a steel tie",
+     "title_ms": "Slide 8: The truss: concrete struts, a steel tie"
+    },
+    {
+     "id": "slides-9",
+     "title_en": "Slide 9: The tie force of the notes’ cap at two depths",
+     "title_ms": "Slide 9: The tie force of the notes’ cap at two depths"
+    },
+    {
+     "id": "slides-10",
+     "title_en": "Slide 10: A deeper cap needs less tie, but more minimum steel",
+     "title_ms": "Slide 10: A deeper cap needs less tie, but more minimum steel"
+    },
+    {
+     "id": "slides-11",
+     "title_en": "Slide 11: A four-pile cap: the notes’ 1100 mm, and why it fails",
+     "title_ms": "Slide 11: A four-pile cap: the notes’ 1100 mm, and why it fails"
+    },
+    {
+     "id": "slides-12",
+     "title_en": "Slide 12: Shear at φ/5: the enhancement, and its floor",
+     "title_ms": "Slide 12: Shear at φ/5: the enhancement, and its floor"
+    },
+    {
+     "id": "slides-13",
+     "title_en": "Slide 13: The notes’ cap: a v = 350 mm, d = 987.5 mm, the bars bent up and anchored beyond the piles. By EC2, β is",
+     "title_ms": "Slide 13: The notes’ cap: a v = 350 mm, d = 987.5 mm, the bars bent up and anchored beyond the piles. By EC2, β is"
+    },
+    {
+     "id": "slides-14",
+     "title_en": "Slide 14: Deepen the notes’ cap from 1100 to 1700 mm. V Ed,red …",
+     "title_ms": "Slide 14: Deepen the notes’ cap from 1100 to 1700 mm. V Ed,red …"
+    },
+    {
+     "id": "slides-15",
+     "title_en": "Slide 15: It stays: β is on its floor; V Rd,c is what grows",
+     "title_ms": "Slide 15: It stays: β is on its floor; V Rd,c is what grows"
+    },
+    {
+     "id": "slides-16",
+     "title_en": "Slide 16: Punching and the column face",
+     "title_ms": "Slide 16: Punching and the column face"
+    },
+    {
+     "id": "slides-17",
+     "title_en": "Slide 17: Detailing: anchor the tie where the struts meet it",
+     "title_ms": "Slide 17: Detailing: anchor the tie where the struts meet it"
+    },
+    {
+     "id": "slides-18",
+     "title_en": "Slide 18: Beam theory: six piles under a moment",
+     "title_ms": "Slide 18: Beam theory: six piles under a moment"
+    },
+    {
+     "id": "slides-19",
+     "title_en": "Slide 19: The six-pile cap of FE 11.2, by beam theory",
+     "title_ms": "Slide 19: The six-pile cap of FE 11.2, by beam theory"
+    },
+    {
+     "id": "slides-20",
+     "title_en": "Slide 20: 12H16 along, 18H16 across; shear passes both ways",
+     "title_ms": "Slide 20: 12H16 along, 18H16 across; shear passes both ways"
+    },
+    {
+     "id": "slides-21",
+     "title_en": "Slide 21: In Faded Example 12.2, where does β sit on its floor of 0.25?",
+     "title_ms": "Slide 21: In Faded Example 12.2, where does β sit on its floor of 0.25?"
+    },
+    {
+     "id": "slides-22",
+     "title_en": "Slide 22: Foundation S12: four slips in a four-pile cap",
+     "title_ms": "Slide 22: Foundation S12: four slips in a four-pile cap"
+    },
+    {
+     "id": "slides-23",
+     "title_en": "Slide 23: D12: a two-pile cap by the truss analogy (20 marks)",
+     "title_ms": "Slide 23: D12: a two-pile cap by the truss analogy (20 marks)"
+    },
+    {
+     "id": "slides-24",
+     "title_en": "Slide 24: The pile cap of your individual column",
+     "title_ms": "Slide 24: The pile cap of your individual column"
+    },
+    {
+     "id": "slides-25",
+     "title_en": "Slide 25: Take a reduction only with its limit",
+     "title_ms": "Slide 25: Take a reduction only with its limit"
+    },
+    {
+     "id": "slides-26",
+     "title_en": "Slide 26: Before Unit 13",
+     "title_ms": "Slide 26: Before Unit 13"
+    },
+    {
+     "id": "slides-27",
+     "title_en": "Slide 27: Before you leave",
+     "title_ms": "Slide 27: Before you leave"
+    },
+    {
+     "id": "examples-x1",
+     "title_en": "Example 1 · Worked Example 12.1: a four-pile cap by the truss analogy",
+     "title_ms": "Contoh 1 · Worked Example 12.1: pile cap empat pile melalui truss analogy"
+    },
+    {
+     "id": "examples-x2",
+     "title_en": "Example 2 · Faded Example 12.2: a six-pile cap by beam theory",
+     "title_ms": "Contoh 2 · Faded Example 12.2: pile cap enam pile melalui beam theory"
+    },
+    {
+     "id": "examples-x3",
+     "title_en": "Example 3 · Explain-type questions",
+     "title_ms": "Contoh 3 · Soalan jenis terangkan"
+    },
+    {
+     "id": "exercises-b1",
+     "title_en": "Exercise B1 · Two-pile cap: the tie",
+     "title_ms": "Latihan B1 · Pile cap dua pile: tie"
+    },
+    {
+     "id": "exercises-b2",
+     "title_en": "Exercise B2 · Four-pile cap: the ties each way",
+     "title_ms": "Latihan B2 · Pile cap empat pile: tie setiap arah"
+    },
+    {
+     "id": "exercises-b3",
+     "title_en": "Exercise B3 · Three-pile cap: the ties",
+     "title_ms": "Latihan B3 · Pile cap tiga pile: tie"
+    },
+    {
+     "id": "exercises-b4",
+     "title_en": "Exercise B4 · Six-pile cap: beam theory",
+     "title_ms": "Latihan B4 · Pile cap enam pile: beam theory"
+    },
+    {
+     "id": "exercises-b5",
+     "title_en": "Exercise B5 · Shear at the φ/5 section",
+     "title_ms": "Latihan B5 · Shear pada section φ/5"
+    },
+    {
+     "id": "exercises-b6",
+     "title_en": "Exercise B6 · The column face with a moment",
+     "title_ms": "Latihan B6 · Muka column dengan moment"
+    },
+    {
+     "id": "exercises-quick",
+     "title_en": "Exercises: quick concept questions",
+     "title_ms": "Latihan: soalan konsep pantas"
+    },
+    {
+     "id": "lab-truss",
+     "title_en": "Explorer task 1: Tab 6, Activity 12A: work out the tie force in each truss of ca…",
+     "title_ms": "Tugasan Explorer 1: Tab 6, Aktiviti 12A: kira daya tie dalam setiap truss kes F12 b…"
+    },
+    {
+     "id": "lab-floor",
+     "title_en": "Explorer task 2: Tab 6, Activity 12B: predict what happens to the reduced shear…",
+     "title_ms": "Tugasan Explorer 2: Tab 6, Aktiviti 12B: ramal apa yang berlaku kepada shear terkur…"
+    },
+    {
+     "id": "lab-deepen",
+     "title_en": "Explorer task 3: Tab 6: with the loads of case F12, raise h in 50 mm steps until…",
+     "title_ms": "Tugasan Explorer 3: Tab 6: dengan load kes F12, naikkan h dalam langkah 50 mm sehin…"
+    },
+    {
+     "id": "lab-wide",
+     "title_en": "Explorer task 4: Tab 6: set the spacing factor k above 3 (piles wider apart than…",
+     "title_ms": "Tugasan Explorer 4: Tab 6: tetapkan faktor jarak k melebihi 3 (pile lebih jauh dari…"
+    },
+    {
+     "id": "lab-beam",
+     "title_en": "Explorer task 5: Tab 6: choose case F13, the six-pile cap of Faded Example 12.2",
+     "title_ms": "Tugasan Explorer 5: Tab 6: pilih kes F13, pile cap enam pile Faded Example 12.2"
+    },
+    {
+     "id": "lab-s12",
+     "title_en": "Explorer task 6: Tab 3: Foundation S12, find all four slips, tap their lines and…",
+     "title_ms": "Tugasan Explorer 6: Tab 3: Foundation S12, cari keempat-empat kesilapan, ketik bari…"
+    },
+    {
+     "id": "glossary-a-v-shear-span-of-a-cap",
+     "title_en": "Glossary: a_v (shear span of a cap)",
+     "title_ms": "Glosari: a_v (shear span of a cap)"
+    },
+    {
+     "id": "glossary-anchorage-beyond-the-pile-centre-line",
+     "title_en": "Glossary: anchorage beyond the pile centre line",
+     "title_ms": "Glosari: anchorage beyond the pile centre line"
+    },
+    {
+     "id": "glossary-beam-theory",
+     "title_en": "Glossary: beam theory",
+     "title_ms": "Glosari: beam theory"
+    },
+    {
+     "id": "glossary-bent-up-bar",
+     "title_en": "Glossary: bent-up bar",
+     "title_ms": "Glosari: bent-up bar"
+    },
+    {
+     "id": "glossary-shear-enhancement-factor",
+     "title_en": "Glossary: β, shear enhancement factor",
+     "title_ms": "Glosari: β, shear enhancement factor"
+    },
+    {
+     "id": "glossary-column-face-check",
+     "title_en": "Glossary: column face check",
+     "title_ms": "Glosari: column face check"
+    },
+    {
+     "id": "glossary-critical-shear-section",
+     "title_en": "Glossary: critical shear section",
+     "title_ms": "Glosari: critical shear section"
+    },
+    {
+     "id": "glossary-depth-guide",
+     "title_en": "Glossary: depth guide",
+     "title_ms": "Glosari: depth guide"
+    },
+    {
+     "id": "glossary-effective-depth-by-layers",
+     "title_en": "Glossary: effective depth by layers",
+     "title_ms": "Glosari: effective depth by layers"
+    },
+    {
+     "id": "glossary-floor-of",
+     "title_en": "Glossary: floor of β",
+     "title_ms": "Glosari: floor of β"
+    },
+    {
+     "id": "glossary-horizontal-links",
+     "title_en": "Glossary: horizontal links",
+     "title_ms": "Glosari: horizontal links"
+    },
+    {
+     "id": "glossary-node",
+     "title_en": "Glossary: node",
+     "title_ms": "Glosari: node"
+    },
+    {
+     "id": "glossary-strength-reduction-factor",
+     "title_en": "Glossary: ν, strength reduction factor",
+     "title_ms": "Glosari: ν, strength reduction factor"
+    },
+    {
+     "id": "glossary-pile-cap",
+     "title_en": "Glossary: pile cap",
+     "title_ms": "Glosari: pile cap"
+    },
+    {
+     "id": "glossary-pile-cut-off-level",
+     "title_en": "Glossary: pile cut-off level",
+     "title_ms": "Glosari: pile cut-off level"
+    },
+    {
+     "id": "glossary-pile-perimeter-check",
+     "title_en": "Glossary: pile perimeter check",
+     "title_ms": "Glosari: pile perimeter check"
+    },
+    {
+     "id": "glossary-punching-in-a-pile-cap",
+     "title_en": "Glossary: punching in a pile cap",
+     "title_ms": "Glosari: punching in a pile cap"
+    },
+    {
+     "id": "glossary-l-in-a-pile-cap",
+     "title_en": "Glossary: ρ_l in a pile cap",
+     "title_ms": "Glosari: ρ_l in a pile cap"
+    },
+    {
+     "id": "glossary-spacing-factor-k",
+     "title_en": "Glossary: spacing factor k",
+     "title_ms": "Glosari: spacing factor k"
+    },
+    {
+     "id": "glossary-starter-bars",
+     "title_en": "Glossary: starter bars",
+     "title_ms": "Glosari: starter bars"
+    },
+    {
+     "id": "glossary-strut",
+     "title_en": "Glossary: strut",
+     "title_ms": "Glosari: strut"
+    },
+    {
+     "id": "glossary-tie",
+     "title_en": "Glossary: tie",
+     "title_ms": "Glosari: tie"
+    },
+    {
+     "id": "glossary-tie-force-t",
+     "title_en": "Glossary: tie force T",
+     "title_ms": "Glosari: tie force T"
+    },
+    {
+     "id": "glossary-truss-analogy",
+     "title_en": "Glossary: truss analogy",
+     "title_ms": "Glosari: truss analogy"
+    },
+    {
+     "id": "glossary-v-rd-max",
+     "title_en": "Glossary: v_{Rd,max}",
+     "title_ms": "Glosari: v_{Rd,max}"
+    },
+    {
+     "id": "glossary-whole-width-enhancement",
+     "title_en": "Glossary: whole-width enhancement",
+     "title_ms": "Glosari: whole-width enhancement"
+    }
+   ]
+  },
+  {
+   "part": "u13",
+   "folder": "13-retaining-walls-1",
+   "title": "Unit 13 Retaining Walls I",
+   "sections": [
+    {
+     "id": "start-outcomes",
+     "title_en": "After this part you should be able to",
+     "title_ms": "Selepas bahagian ini, anda sepatutnya boleh"
+    },
+    {
+     "id": "notes-n1",
+     "title_en": "1. Retaining walls: what they do and how they fail",
+     "title_ms": "1. Retaining wall: apa yang dilakukannya dan bagaimana ia gagal"
+    },
+    {
+     "id": "notes-n2",
+     "title_en": "2. Active pressure and the two thrusts",
+     "title_ms": "2. Active pressure dan dua thrust"
+    },
+    {
+     "id": "notes-n3",
+     "title_en": "3. The table of loads and moments about the toe",
+     "title_ms": "3. Jadual load dan moment pada toe"
+    },
+    {
+     "id": "notes-n4",
+     "title_en": "4. Overturning and sliding",
+     "title_ms": "4. Overturning dan sliding"
+    },
+    {
+     "id": "notes-n5",
+     "title_en": "5. The resultant, the middle third and the bearing pressure",
+     "title_ms": "5. Resultant, middle third dan bearing pressure"
+    },
+    {
+     "id": "notes-n6",
+     "title_en": "6. Sizing the base: the heel holds, the toe spreads",
+     "title_ms": "6. Menentukan saiz base: heel menahan, toe menyebarkan"
+    },
+    {
+     "id": "slides-1",
+     "title_en": "Slide 1: Retaining Walls I",
+     "title_ms": "Slide 1: Retaining Walls I"
+    },
+    {
+     "id": "slides-2",
+     "title_en": "Slide 2: How the next three hours run",
+     "title_ms": "Slide 2: How the next three hours run"
+    },
+    {
+     "id": "slides-3",
+     "title_en": "Slide 3: Three questions from the foundations",
+     "title_ms": "Slide 3: Three questions from the foundations"
+    },
+    {
+     "id": "slides-4",
+     "title_en": "Slide 4: C, A, B, and what each means today",
+     "title_ms": "Slide 4: C, A, B, and what each means today"
+    },
+    {
+     "id": "slides-5",
+     "title_en": "Slide 5: The notes’ wall: one sliding check passes, one fails",
+     "title_ms": "Slide 5: The notes’ wall: one sliding check passes, one fails"
+    },
+    {
+     "id": "slides-6",
+     "title_en": "Slide 6: Why does the notes’ wall pass sliding in combination 1 and fail in EC7 Combination 2?",
+     "title_ms": "Slide 6: Why does the notes’ wall pass sliding in combination 1 and fail in EC7 Combination 2?"
+    },
+    {
+     "id": "slides-7",
+     "title_en": "Slide 7: Three ways a wall fails the ground",
+     "title_ms": "Slide 7: Three ways a wall fails the ground"
+    },
+    {
+     "id": "slides-8",
+     "title_en": "Slide 8: Types of wall: what holds each one up",
+     "title_ms": "Slide 8: Types of wall: what holds each one up"
+    },
+    {
+     "id": "slides-9",
+     "title_en": "Slide 9: The parts of a cantilever wall, and a first trial",
+     "title_ms": "Slide 9: The parts of a cantilever wall, and a first trial"
+    },
+    {
+     "id": "slides-10",
+     "title_en": "Slide 10: Active pressure: a triangle and a rectangle",
+     "title_ms": "Slide 10: Active pressure: a triangle and a rectangle"
+    },
+    {
+     "id": "slides-11",
+     "title_en": "Slide 11: The two thrusts on the notes’ wall",
+     "title_ms": "Slide 11: The two thrusts on the notes’ wall"
+    },
+    {
+     "id": "slides-12",
+     "title_en": "Slide 12: H = 4.9 m: the diagram runs to the underside of the base",
+     "title_ms": "Slide 12: H = 4.9 m: the diagram runs to the underside of the base"
+    },
+    {
+     "id": "slides-13",
+     "title_en": "Slide 13: The notes’ wall: the table, then the three checks",
+     "title_ms": "Slide 13: The notes’ wall: the table, then the three checks"
+    },
+    {
+     "id": "slides-14",
+     "title_en": "Slide 14: Every load, every check: does it help or harm?",
+     "title_ms": "Slide 14: Every load, every check: does it help or harm?"
+    },
+    {
+     "id": "slides-15",
+     "title_en": "Slide 15: Sliding, combination 1. The surcharge’s thrust and its weight on the heel take the factors",
+     "title_ms": "Slide 15: Sliding, combination 1. The surcharge’s thrust and its weight on the heel take the factors"
+    },
+    {
+     "id": "slides-16",
+     "title_en": "Slide 16: The notes’ wall slides: 100.2 against 95.6 kN. Which change stops it?",
+     "title_ms": "Slide 16: The notes’ wall slides: 100.2 against 95.6 kN. Which change stops it?"
+    },
+    {
+     "id": "slides-17",
+     "title_en": "Slide 17: C: the heel holds the wall, with soil, not concrete",
+     "title_ms": "Slide 17: C: the heel holds the wall, with soil, not concrete"
+    },
+    {
+     "id": "slides-18",
+     "title_en": "Slide 18: Where the resultant lands: the middle third",
+     "title_ms": "Slide 18: Where the resultant lands: the middle third"
+    },
+    {
+     "id": "slides-19",
+     "title_en": "Slide 19: A wall on weaker ground: q a = 120 kN/m²",
+     "title_ms": "Slide 19: A wall on weaker ground: q a = 120 kN/m²"
+    },
+    {
+     "id": "slides-20",
+     "title_en": "Slide 20: Bearing fails first; a longer toe cures it",
+     "title_ms": "Slide 20: Bearing fails first; a longer toe cures it"
+    },
+    {
+     "id": "slides-21",
+     "title_en": "Slide 21: FE 13.2 fails bearing: 128.5 against 120 kN/m². With 0.5 m more base, the toe pressure is lowest if it is added",
+     "title_ms": "Slide 21: FE 13.2 fails bearing: 128.5 against 120 kN/m². With 0.5 m more base, the toe pressure is lowest if it is added"
+    },
+    {
+     "id": "slides-22",
+     "title_en": "Slide 22: Sizing the base: the heel holds, the toe spreads",
+     "title_ms": "Slide 22: Sizing the base: the heel holds, the toe spreads"
+    },
+    {
+     "id": "slides-23",
+     "title_en": "Slide 23: Retaining Wall S13: four slips in a stability check",
+     "title_ms": "Slide 23: Retaining Wall S13: four slips in a stability check"
+    },
+    {
+     "id": "slides-24",
+     "title_en": "Slide 24: D13: the stability of a cantilever wall (20 marks)",
+     "title_ms": "Slide 24: D13: the stability of a cantilever wall (20 marks)"
+    },
+    {
+     "id": "slides-25",
+     "title_en": "Slide 25: Your report, checked before it is assembled",
+     "title_ms": "Slide 25: Your report, checked before it is assembled"
+    },
+    {
+     "id": "slides-26",
+     "title_en": "Slide 26: Ask of every load: does it help or harm this check?",
+     "title_ms": "Slide 26: Ask of every load: does it help or harm this check?"
+    },
+    {
+     "id": "slides-27",
+     "title_en": "Slide 27: Before Unit 14",
+     "title_ms": "Slide 27: Before Unit 14"
+    },
+    {
+     "id": "slides-28",
+     "title_en": "Slide 28: Before you leave",
+     "title_ms": "Slide 28: Before you leave"
+    },
+    {
+     "id": "examples-x1",
+     "title_en": "Example 1 · Worked Example 13.1: the stability of a cantilever wall",
+     "title_ms": "Contoh 1 · Worked Example 13.1: kestabilan cantilever wall"
+    },
+    {
+     "id": "examples-x2",
+     "title_en": "Example 2 · Faded Example 13.2: a wall on weaker ground",
+     "title_ms": "Contoh 2 · Faded Example 13.2: wall di atas tanah yang lebih lemah"
+    },
+    {
+     "id": "examples-x3",
+     "title_en": "Example 3 · Explain-type questions",
+     "title_ms": "Contoh 3 · Soalan jenis terangkan"
+    },
+    {
+     "id": "exercises-b1",
+     "title_en": "Exercise B1 · The active pressure",
+     "title_ms": "Latihan B1 · Active pressure"
+    },
+    {
+     "id": "exercises-b2",
+     "title_en": "Exercise B2 · The two thrusts and the overturning moment",
+     "title_ms": "Latihan B2 · Dua thrust dan overturning moment"
+    },
+    {
+     "id": "exercises-b3",
+     "title_en": "Exercise B3 · The weights and the restoring moment",
+     "title_ms": "Latihan B3 · Berat dan restoring moment"
+    },
+    {
+     "id": "exercises-b4",
+     "title_en": "Exercise B4 · Overturning and sliding, combination 1",
+     "title_ms": "Latihan B4 · Overturning dan sliding, combination 1"
+    },
+    {
+     "id": "exercises-b5",
+     "title_en": "Exercise B5 · Sliding in EC7 Combination 2",
+     "title_ms": "Latihan B5 · Sliding dalam EC7 Combination 2"
+    },
+    {
+     "id": "exercises-b6",
+     "title_en": "Exercise B6 · The resultant and the bearing pressure",
+     "title_ms": "Latihan B6 · Resultant dan bearing pressure"
+    },
+    {
+     "id": "exercises-quick",
+     "title_en": "Exercises: quick concept questions",
+     "title_ms": "Latihan: soalan konsep pantas"
+    },
+    {
+     "id": "lab-thrust",
+     "title_en": "Explorer task 1: Tab 1, Activity 13A: work out the two thrusts on the course not…",
+     "title_ms": "Tugasan Explorer 1: Tab 1, Aktiviti 13A: kira dua thrust pada wall dalam nota kursu…"
+    },
+    {
+     "id": "lab-heel",
+     "title_en": "Explorer task 2: Tab 2, Activity 13B: the notes’ wall slides in EC7 Combination 2",
+     "title_ms": "Tugasan Explorer 2: Tab 2, Aktiviti 13B: wall dalam nota menggelongsor dalam EC7 Co…"
+    },
+    {
+     "id": "lab-pass",
+     "title_en": "Explorer task 3: Tab 2: with the soil and the loads of the notes’ wall, change t…",
+     "title_ms": "Tugasan Explorer 3: Tab 2: dengan tanah dan load wall dalam nota, ubah toe, heel at…"
+    },
+    {
+     "id": "lab-light",
+     "title_en": "Explorer task 4: Tab 2, the design challenge: make the wall pass every check wit…",
+     "title_ms": "Tugasan Explorer 4: Tab 2, cabaran design: jadikan wall lulus setiap semakan tanpa…"
+    },
+    {
+     "id": "lab-third",
+     "title_en": "Explorer task 5: Tab 2: shorten the toe and the heel until the resultant leaves…",
+     "title_ms": "Tugasan Explorer 5: Tab 2: pendekkan toe dan heel sehingga resultant keluar dari mi…"
+    },
+    {
+     "id": "lab-s13",
+     "title_en": "Explorer task 6: Tab 3: Retaining Wall S13, find all four slips, tap their lines…",
+     "title_ms": "Tugasan Explorer 6: Tab 3: Retaining Wall S13, cari keempat-empat kesilapan, ketik…"
+    },
+    {
+     "id": "glossary-active-pressure",
+     "title_en": "Glossary: active pressure",
+     "title_ms": "Glosari: active pressure"
+    },
+    {
+     "id": "glossary-allowable-bearing-pressure-q-a",
+     "title_en": "Glossary: allowable bearing pressure, q_a",
+     "title_ms": "Glosari: allowable bearing pressure, q_a"
+    },
+    {
+     "id": "glossary-angle-of-shearing-resistance",
+     "title_en": "Glossary: angle of shearing resistance, φ",
+     "title_ms": "Glosari: angle of shearing resistance, φ"
+    },
+    {
+     "id": "glossary-backfill",
+     "title_en": "Glossary: backfill",
+     "title_ms": "Glosari: backfill"
+    },
+    {
+     "id": "glossary-base",
+     "title_en": "Glossary: base",
+     "title_ms": "Glosari: base"
+    },
+    {
+     "id": "glossary-bearing-pressure",
+     "title_en": "Glossary: bearing pressure",
+     "title_ms": "Glosari: bearing pressure"
+    },
+    {
+     "id": "glossary-buttress-wall",
+     "title_en": "Glossary: buttress wall",
+     "title_ms": "Glosari: buttress wall"
+    },
+    {
+     "id": "glossary-cantilever-wall",
+     "title_en": "Glossary: cantilever wall",
+     "title_ms": "Glosari: cantilever wall"
+    },
+    {
+     "id": "glossary-coefficient-of-friction",
+     "title_en": "Glossary: coefficient of friction, μ",
+     "title_ms": "Glosari: coefficient of friction, μ"
+    },
+    {
+     "id": "glossary-combination-1",
+     "title_en": "Glossary: combination 1",
+     "title_ms": "Glosari: combination 1"
+    },
+    {
+     "id": "glossary-combination-2-ec7-da1",
+     "title_en": "Glossary: Combination 2 (EC7 DA1)",
+     "title_ms": "Glosari: Combination 2 (EC7 DA1)"
+    },
+    {
+     "id": "glossary-counterfort-wall",
+     "title_en": "Glossary: counterfort wall",
+     "title_ms": "Glosari: counterfort wall"
+    },
+    {
+     "id": "glossary-eccentricity-e",
+     "title_en": "Glossary: eccentricity, e",
+     "title_ms": "Glosari: eccentricity, e"
+    },
+    {
+     "id": "glossary-equ",
+     "title_en": "Glossary: EQU",
+     "title_ms": "Glosari: EQU"
+    },
+    {
+     "id": "glossary-favourable-action",
+     "title_en": "Glossary: favourable action",
+     "title_ms": "Glosari: favourable action"
+    },
+    {
+     "id": "glossary-gravity-wall",
+     "title_en": "Glossary: gravity wall",
+     "title_ms": "Glosari: gravity wall"
+    },
+    {
+     "id": "glossary-heel",
+     "title_en": "Glossary: heel",
+     "title_ms": "Glosari: heel"
+    },
+    {
+     "id": "glossary-k-a",
+     "title_en": "Glossary: K_a",
+     "title_ms": "Glosari: K_a"
+    },
+    {
+     "id": "glossary-lever-arm",
+     "title_en": "Glossary: lever arm",
+     "title_ms": "Glosari: lever arm"
+    },
+    {
+     "id": "glossary-middle-third",
+     "title_en": "Glossary: middle third",
+     "title_ms": "Glosari: middle third"
+    },
+    {
+     "id": "glossary-overturning",
+     "title_en": "Glossary: overturning",
+     "title_ms": "Glosari: overturning"
+    },
+    {
+     "id": "glossary-passive-resistance",
+     "title_en": "Glossary: passive resistance",
+     "title_ms": "Glosari: passive resistance"
+    },
+    {
+     "id": "glossary-restoring-moment",
+     "title_en": "Glossary: restoring moment",
+     "title_ms": "Glosari: restoring moment"
+    },
+    {
+     "id": "glossary-resultant",
+     "title_en": "Glossary: resultant",
+     "title_ms": "Glosari: resultant"
+    },
+    {
+     "id": "glossary-sliding",
+     "title_en": "Glossary: sliding",
+     "title_ms": "Glosari: sliding"
+    },
+    {
+     "id": "glossary-stem",
+     "title_en": "Glossary: stem",
+     "title_ms": "Glosari: stem"
+    },
+    {
+     "id": "glossary-surcharge-w",
+     "title_en": "Glossary: surcharge, w",
+     "title_ms": "Glosari: surcharge, w"
+    },
+    {
+     "id": "glossary-thrust",
+     "title_en": "Glossary: thrust",
+     "title_ms": "Glosari: thrust"
+    },
+    {
+     "id": "glossary-toe",
+     "title_en": "Glossary: toe",
+     "title_ms": "Glosari: toe"
+    },
+    {
+     "id": "glossary-virtual-back",
+     "title_en": "Glossary: virtual back",
+     "title_ms": "Glosari: virtual back"
+    },
+    {
+     "id": "glossary-weep-hole",
+     "title_en": "Glossary: weep hole",
+     "title_ms": "Glosari: weep hole"
+    }
+   ]
+  },
+  {
+   "part": "u14",
+   "folder": "14-retaining-walls-2",
+   "title": "Unit 14 Retaining Walls II",
+   "sections": [
+    {
+     "id": "start-outcomes",
+     "title_en": "After this part you should be able to",
+     "title_ms": "Selepas bahagian ini, anda sepatutnya boleh"
+    },
+    {
+     "id": "notes-n1",
+     "title_en": "1. Three cantilevers: which face is in tension?",
+     "title_ms": "1. Tiga cantilever: muka manakah dalam tension?"
+    },
+    {
+     "id": "notes-n2",
+     "title_en": "2. Design loads: the pressures under the base and the net loads",
+     "title_ms": "2. Design load: tekanan di bawah base dan net load"
+    },
+    {
+     "id": "notes-n3",
+     "title_en": "3. The stem",
+     "title_ms": "3. Stem"
+    },
+    {
+     "id": "notes-n4",
+     "title_en": "4. The toe and the heel",
+     "title_ms": "4. Toe dan heel"
+    },
+    {
+     "id": "notes-n5",
+     "title_en": "5. Crack control and detailing",
+     "title_ms": "5. Crack control dan detailing"
+    },
+    {
+     "id": "notes-n6",
+     "title_en": "6. A sloping backfill, the key and water",
+     "title_ms": "6. Backfill bercerun, key dan air"
+    },
+    {
+     "id": "slides-1",
+     "title_en": "Slide 1: Retaining Walls II",
+     "title_ms": "Slide 1: Retaining Walls II"
+    },
+    {
+     "id": "slides-2",
+     "title_en": "Slide 2: How the next three hours run",
+     "title_ms": "Slide 2: How the next three hours run"
+    },
+    {
+     "id": "slides-3",
+     "title_en": "Slide 3: Three questions from last week and from statics",
+     "title_ms": "Slide 3: Three questions from last week and from statics"
+    },
+    {
+     "id": "slides-4",
+     "title_en": "Slide 4: B, C, A, and what each means today",
+     "title_ms": "Slide 4: B, C, A, and what each means today"
+    },
+    {
+     "id": "slides-5",
+     "title_en": "Slide 5: A drawing comes back with one red circle",
+     "title_ms": "Slide 5: A drawing comes back with one red circle"
+    },
+    {
+     "id": "slides-6",
+     "title_en": "Slide 6: The ground pushes the whole base up. On which face do the main bars of the heel go?",
+     "title_ms": "Slide 6: The ground pushes the whole base up. On which face do the main bars of the heel go?"
+    },
+    {
+     "id": "slides-7",
+     "title_en": "Slide 7: Three cantilevers: fix it, load it, let it bend",
+     "title_ms": "Slide 7: Three cantilevers: fix it, load it, let it bend"
+    },
+    {
+     "id": "slides-8",
+     "title_en": "Slide 8: Design loads: STR, and what acts on the base",
+     "title_ms": "Slide 8: Design loads: STR, and what acts on the base"
+    },
+    {
+     "id": "slides-9",
+     "title_en": "Slide 9: Sketch first: how does each part bend?",
+     "title_ms": "Slide 9: Sketch first: how does each part bend?"
+    },
+    {
+     "id": "slides-10",
+     "title_en": "Slide 10: Stem: earth face. Toe: bottom. Heel: top.",
+     "title_ms": "Slide 10: Stem: earth face. Toe: bottom. Heel: top."
+    },
+    {
+     "id": "slides-11",
+     "title_en": "Slide 11: The stem: one metre of a vertical slab",
+     "title_ms": "Slide 11: The stem: one metre of a vertical slab"
+    },
+    {
+     "id": "slides-12",
+     "title_en": "Slide 12: The toe and the heel: two trapeziums of net load",
+     "title_ms": "Slide 12: The toe and the heel: two trapeziums of net load"
+    },
+    {
+     "id": "slides-13",
+     "title_en": "Slide 13: Crack control and detailing: finishing the drawing",
+     "title_ms": "Slide 13: Crack control and detailing: finishing the drawing"
+    },
+    {
+     "id": "slides-14",
+     "title_en": "Slide 14: In Unit 13 the weight of the surcharge on the heel took the factor 0. In the design of the heel it takes",
+     "title_ms": "Slide 14: In Unit 13 the weight of the surcharge on the heel took the factor 0. In the design of the heel it takes"
+    },
+    {
+     "id": "slides-15",
+     "title_en": "Slide 15: The drains block. Water rises to 1.5 m below the top. The soil thrust of 61.8 kN…",
+     "title_ms": "Slide 15: The drains block. Water rises to 1.5 m below the top. The soil thrust of 61.8 kN…"
+    },
+    {
+     "id": "slides-16",
+     "title_en": "Slide 16: D: 61.8 becomes 104.7 kN, and the wall slides",
+     "title_ms": "Slide 16: D: 61.8 becomes 104.7 kN, and the wall slides"
+    },
+    {
+     "id": "slides-17",
+     "title_en": "Slide 17: A sloping backfill: the thrust tilts",
+     "title_ms": "Slide 17: A sloping backfill: the thrust tilts"
+    },
+    {
+     "id": "slides-18",
+     "title_en": "Slide 18: A key: passive resistance when friction is not enough",
+     "title_ms": "Slide 18: A key: passive resistance when friction is not enough"
+    },
+    {
+     "id": "slides-19",
+     "title_en": "Slide 19: The notes’ wall with a 15° backfill: design the heel",
+     "title_ms": "Slide 19: The notes’ wall with a 15° backfill: design the heel"
+    },
+    {
+     "id": "slides-20",
+     "title_en": "Slide 20: The heel needs H16 at 125, not H12 at 150",
+     "title_ms": "Slide 20: The heel needs H16 at 125, not H12 at 150"
+    },
+    {
+     "id": "slides-21",
+     "title_en": "Slide 21: A backfill slopes at 15°. The vertical component P v of its thrust",
+     "title_ms": "Slide 21: A backfill slopes at 15°. The vertical component P v of its thrust"
+    },
+    {
+     "id": "slides-22",
+     "title_en": "Slide 22: Retaining Wall S14: four slips in the design of the members",
+     "title_ms": "Slide 22: Retaining Wall S14: four slips in the design of the members"
+    },
+    {
+     "id": "slides-23",
+     "title_en": "Slide 23: D14: the stem and the heel of a cantilever wall (20 marks)",
+     "title_ms": "Slide 23: D14: the stem and the heel of a cantilever wall (20 marks)"
+    },
+    {
+     "id": "slides-24",
+     "title_en": "Slide 24: Fourteen Units in six questions",
+     "title_ms": "Slide 24: Fourteen Units in six questions"
+    },
+    {
+     "id": "slides-25",
+     "title_en": "Slide 25: The report goes in: the last log",
+     "title_ms": "Slide 25: The report goes in: the last log"
+    },
+    {
+     "id": "slides-26",
+     "title_en": "Slide 26: Sketch how it bends before you place a bar",
+     "title_ms": "Slide 26: Sketch how it bends before you place a bar"
+    },
+    {
+     "id": "slides-27",
+     "title_en": "Slide 27: Before the final examination",
+     "title_ms": "Slide 27: Before the final examination"
+    },
+    {
+     "id": "slides-28",
+     "title_en": "Slide 28: Before you leave",
+     "title_ms": "Slide 28: Before you leave"
+    },
+    {
+     "id": "examples-x1",
+     "title_en": "Example 1 · Worked Example 14.1: the stem, the toe and the heel",
+     "title_ms": "Contoh 1 · Worked Example 14.1: stem, toe dan heel"
+    },
+    {
+     "id": "examples-x2",
+     "title_en": "Example 2 · Faded Example 14.2: a sloping backfill",
+     "title_ms": "Contoh 2 · Faded Example 14.2: backfill bercerun"
+    },
+    {
+     "id": "examples-x3",
+     "title_en": "Example 3 · Explain-type questions",
+     "title_ms": "Contoh 3 · Soalan jenis terangkan"
+    },
+    {
+     "id": "exercises-b1",
+     "title_en": "Exercise B1 · The stem: thrust, moment and shear",
+     "title_ms": "Latihan B1 · Stem: thrust, moment dan shear"
+    },
+    {
+     "id": "exercises-b2",
+     "title_en": "Exercise B2 · The design pressures under the base",
+     "title_ms": "Latihan B2 · Design pressure di bawah base"
+    },
+    {
+     "id": "exercises-b3",
+     "title_en": "Exercise B3 · The toe",
+     "title_ms": "Latihan B3 · Toe"
+    },
+    {
+     "id": "exercises-b4",
+     "title_en": "Exercise B4 · The heel",
+     "title_ms": "Latihan B4 · Heel"
+    },
+    {
+     "id": "exercises-b5",
+     "title_en": "Exercise B5 · Steel and crack control",
+     "title_ms": "Latihan B5 · Steel dan crack control"
+    },
+    {
+     "id": "exercises-b6",
+     "title_en": "Exercise B6 · A sloping backfill and the heel tip",
+     "title_ms": "Latihan B6 · Backfill bercerun dan hujung heel"
+    },
+    {
+     "id": "exercises-quick",
+     "title_en": "Exercises: quick concept questions",
+     "title_ms": "Latihan: soalan konsep pantas"
+    },
+    {
+     "id": "lab-faces",
+     "title_en": "Explorer task 1: Tab 4, Activity 14A: sketch how the stem, the toe and the heel…",
+     "title_ms": "Tugasan Explorer 1: Tab 4, Aktiviti 14A: lakar cara stem, toe dan heel melentur (Wo…"
+    },
+    {
+     "id": "lab-bars",
+     "title_en": "Explorer task 2: Tab 4, case WE 14.1 with the notes’ bars: the heel fails",
+     "title_ms": "Tugasan Explorer 2: Tab 4, kes WE 14.1 dengan bar dalam nota: heel gagal"
+    },
+    {
+     "id": "lab-slope",
+     "title_en": "Explorer task 3: Tab 4, case FE 14.2: the notes’ wall with its backfill at 15°",
+     "title_ms": "Tugasan Explorer 3: Tab 4, kes FE 14.2: wall dalam nota dengan backfill pada 15°"
+    },
+    {
+     "id": "lab-water",
+     "title_en": "Explorer task 4: Tab 5, Activity 14B: the drains block",
+     "title_ms": "Tugasan Explorer 4: Tab 5, Aktiviti 14B: saliran tersumbat"
+    },
+    {
+     "id": "lab-key",
+     "title_en": "Explorer task 5: Tab 5: give the notes’ wall, which slides in Combination 2, a k…",
+     "title_ms": "Tugasan Explorer 5: Tab 5: beri wall dalam nota, yang menggelongsor dalam Combinati…"
+    },
+    {
+     "id": "lab-s14",
+     "title_en": "Explorer task 6: Tab 3: Retaining Wall S14, find all four slips, tap their lines…",
+     "title_ms": "Tugasan Explorer 6: Tab 3: Retaining Wall S14, cari keempat-empat kesilapan, ketik…"
+    },
+    {
+     "id": "glossary-anchorage-length",
+     "title_en": "Glossary: anchorage length",
+     "title_ms": "Glosari: anchorage length"
+    },
+    {
+     "id": "glossary-a-s-min",
+     "title_en": "Glossary: A_{s,min}",
+     "title_ms": "Glosari: A_{s,min}"
+    },
+    {
+     "id": "glossary-cover",
+     "title_en": "Glossary: cover",
+     "title_ms": "Glosari: cover"
+    },
+    {
+     "id": "glossary-crack-control",
+     "title_en": "Glossary: crack control",
+     "title_ms": "Glosari: crack control"
+    },
+    {
+     "id": "glossary-critical-section",
+     "title_en": "Glossary: critical section",
+     "title_ms": "Glosari: critical section"
+    },
+    {
+     "id": "glossary-curtailment",
+     "title_en": "Glossary: curtailment",
+     "title_ms": "Glosari: curtailment"
+    },
+    {
+     "id": "glossary-deflected-shape",
+     "title_en": "Glossary: deflected shape",
+     "title_ms": "Glosari: deflected shape"
+    },
+    {
+     "id": "glossary-design-pressure-q-d",
+     "title_en": "Glossary: design pressure, q_d",
+     "title_ms": "Glosari: design pressure, q_d"
+    },
+    {
+     "id": "glossary-distribution-steel",
+     "title_en": "Glossary: distribution steel",
+     "title_ms": "Glosari: distribution steel"
+    },
+    {
+     "id": "glossary-drainage",
+     "title_en": "Glossary: drainage",
+     "title_ms": "Glosari: drainage"
+    },
+    {
+     "id": "glossary-effective-depth-d",
+     "title_en": "Glossary: effective depth, d",
+     "title_ms": "Glosari: effective depth, d"
+    },
+    {
+     "id": "glossary-heel-beam",
+     "title_en": "Glossary: heel beam",
+     "title_ms": "Glosari: heel beam"
+    },
+    {
+     "id": "glossary-k",
+     "title_en": "Glossary: K",
+     "title_ms": "Glosari: K"
+    },
+    {
+     "id": "glossary-key",
+     "title_en": "Glossary: key",
+     "title_ms": "Glosari: key"
+    },
+    {
+     "id": "glossary-k-p",
+     "title_en": "Glossary: K_p",
+     "title_ms": "Glosari: K_p"
+    },
+    {
+     "id": "glossary-lap-length-l-0",
+     "title_en": "Glossary: lap length, l_0",
+     "title_ms": "Glosari: lap length, l_0"
+    },
+    {
+     "id": "glossary-lever-arm-z",
+     "title_en": "Glossary: lever arm, z",
+     "title_ms": "Glosari: lever arm, z"
+    },
+    {
+     "id": "glossary-net-load",
+     "title_en": "Glossary: net load",
+     "title_ms": "Glosari: net load"
+    },
+    {
+     "id": "glossary-passive-pressure",
+     "title_en": "Glossary: passive pressure",
+     "title_ms": "Glosari: passive pressure"
+    },
+    {
+     "id": "glossary-p-h-p-v",
+     "title_en": "Glossary: P_h , P_v",
+     "title_ms": "Glosari: P_h , P_v"
+    },
+    {
+     "id": "glossary-quasi-permanent-load",
+     "title_en": "Glossary: quasi-permanent load",
+     "title_ms": "Glosari: quasi-permanent load"
+    },
+    {
+     "id": "glossary-secondary-steel",
+     "title_en": "Glossary: secondary steel",
+     "title_ms": "Glosari: secondary steel"
+    },
+    {
+     "id": "glossary-sloping-backfill",
+     "title_en": "Glossary: sloping backfill",
+     "title_ms": "Glosari: sloping backfill"
+    },
+    {
+     "id": "glossary-starter-bars",
+     "title_en": "Glossary: starter bars",
+     "title_ms": "Glosari: starter bars"
+    },
+    {
+     "id": "glossary-str",
+     "title_en": "Glossary: STR",
+     "title_ms": "Glosari: STR"
+    },
+    {
+     "id": "glossary-submerged-unit-weight",
+     "title_en": "Glossary: submerged unit weight, γ′",
+     "title_ms": "Glosari: submerged unit weight, γ′"
+    },
+    {
+     "id": "glossary-table-7-3n",
+     "title_en": "Glossary: Table 7.3N",
+     "title_ms": "Glosari: Table 7.3N"
+    },
+    {
+     "id": "glossary-tension-face",
+     "title_en": "Glossary: tension face",
+     "title_ms": "Glosari: tension face"
+    },
+    {
+     "id": "glossary-tip-load-p-v-d",
+     "title_en": "Glossary: tip load, P_{v,d}",
+     "title_ms": "Glosari: tip load, P_{v,d}"
+    },
+    {
+     "id": "glossary-uplift",
+     "title_en": "Glossary: uplift",
+     "title_ms": "Glosari: uplift"
+    },
+    {
+     "id": "glossary-water-table",
+     "title_en": "Glossary: water table",
+     "title_ms": "Glosari: water table"
+    },
+    {
+     "id": "glossary-wedge",
+     "title_en": "Glossary: wedge",
+     "title_ms": "Glosari: wedge"
+    },
+    {
+     "id": "glossary-weep-hole",
+     "title_en": "Glossary: weep hole",
+     "title_ms": "Glosari: weep hole"
+    }
+   ]
+  }
+ ]
+}

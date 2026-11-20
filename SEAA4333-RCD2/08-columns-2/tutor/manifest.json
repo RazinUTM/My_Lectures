@@ -1,0 +1,621 @@
+{
+ "app": "seaa4333",
+ "part": "u8",
+ "title": "Unit 8 Columns II",
+ "folder": "08-columns-2",
+ "course_meta": {
+  "key": "seaa4333-u8-v1",
+  "notes": [
+   "n1",
+   "n2",
+   "n3",
+   "n4",
+   "n5",
+   "n6"
+  ],
+  "slides": 30,
+  "examples": [
+   "x1",
+   "x2",
+   "x3"
+  ],
+  "cando": 5,
+  "targetMin": 45
+ },
+ "sections": [
+  {
+   "id": "start-outcomes",
+   "view": "start",
+   "anchor": null,
+   "selector": "ol.lo",
+   "title_en": "After this part you should be able to",
+   "title_ms": "Selepas bahagian ini, anda sepatutnya boleh"
+  },
+  {
+   "id": "notes-n1",
+   "view": "notes",
+   "anchor": "n1",
+   "title_en": "1. The design moment",
+   "title_ms": "1. Design moment",
+   "minutes": 7
+  },
+  {
+   "id": "notes-n2",
+   "view": "notes",
+   "anchor": "n2",
+   "title_en": "2. The section under N and M",
+   "title_ms": "2. Section di bawah N dan M",
+   "minutes": 8
+  },
+  {
+   "id": "notes-n3",
+   "view": "notes",
+   "anchor": "n3",
+   "title_en": "3. The N–M interaction diagram",
+   "title_ms": "3. N–M interaction diagram",
+   "minutes": 8
+  },
+  {
+   "id": "notes-n4",
+   "view": "notes",
+   "anchor": "n4",
+   "title_en": "4. Design charts and the direct check",
+   "title_ms": "4. Design chart dan semakan terus",
+   "minutes": 8
+  },
+  {
+   "id": "notes-n5",
+   "view": "notes",
+   "anchor": "n5",
+   "title_en": "5. Bars, cover and fire",
+   "title_ms": "5. Bar, cover dan fire",
+   "minutes": 7
+  },
+  {
+   "id": "notes-n6",
+   "view": "notes",
+   "anchor": "n6",
+   "title_en": "6. Links and detailing",
+   "title_ms": "6. Link dan detailing",
+   "minutes": 7
+  },
+  {
+   "id": "slides-1",
+   "view": "slides",
+   "anchor": "1",
+   "title_en": "Slide 1: Columns II",
+   "title_ms": "Slide 1: Columns II"
+  },
+  {
+   "id": "slides-2",
+   "view": "slides",
+   "anchor": "2",
+   "title_en": "Slide 2: How the next three hours run",
+   "title_ms": "Slide 2: How the next three hours run"
+  },
+  {
+   "id": "slides-3",
+   "view": "slides",
+   "anchor": "3",
+   "title_en": "Slide 3: Three questions to start the design",
+   "title_ms": "Slide 3: Three questions to start the design"
+  },
+  {
+   "id": "slides-4",
+   "view": "slides",
+   "anchor": "4",
+   "title_en": "Slide 4: B, B, A, and what each means today",
+   "title_ms": "Slide 4: B, B, A, and what each means today"
+  },
+  {
+   "id": "slides-5",
+   "view": "slides",
+   "anchor": "5",
+   "title_en": "Slide 5: Can a row of loose books carry its own weight?",
+   "title_ms": "Slide 5: Can a row of loose books carry its own weight?"
+  },
+  {
+   "id": "slides-6",
+   "view": "slides",
+   "anchor": "6",
+   "title_en": "Slide 6: A column section carries a moment. If its axial load grows, its moment capacity",
+   "title_ms": "Slide 6: A column section carries a moment. If its axial load grows, its moment capacity"
+  },
+  {
+   "id": "slides-7",
+   "view": "slides",
+   "anchor": "7",
+   "title_en": "Slide 7: Today designs the columns Unit 7 called short",
+   "title_ms": "Slide 7: Today designs the columns Unit 7 called short"
+  },
+  {
+   "id": "slides-8",
+   "view": "slides",
+   "anchor": "8",
+   "title_en": "Slide 8: The design moment: the analysis, plus two allowances",
+   "title_ms": "Slide 8: The design moment: the analysis, plus two allowances"
+  },
+  {
+   "id": "slides-9",
+   "view": "slides",
+   "anchor": "9",
+   "title_en": "Slide 9: Strain compatibility: one neutral axis, one point (N, M)",
+   "title_ms": "Slide 9: Strain compatibility: one neutral axis, one point (N, M)"
+  },
+  {
+   "id": "slides-10",
+   "view": "slides",
+   "anchor": "10",
+   "title_en": "Slide 10: Four strain profiles, four points of one curve",
+   "title_ms": "Slide 10: Four strain profiles, four points of one curve"
+  },
+  {
+   "id": "slides-11",
+   "view": "slides",
+   "anchor": "11",
+   "title_en": "Slide 11: Four teams build one interaction curve",
+   "title_ms": "Slide 11: Four teams build one interaction curve"
+  },
+  {
+   "id": "slides-12",
+   "view": "slides",
+   "anchor": "12",
+   "title_en": "Slide 12: C: the capacity rises, then falls. The turn is the balance point",
+   "title_ms": "Slide 12: C: the capacity rises, then falls. The turn is the balance point"
+  },
+  {
+   "id": "slides-13",
+   "view": "slides",
+   "anchor": "13",
+   "title_en": "Slide 13: Why more axial load can mean more moment",
+   "title_ms": "Slide 13: Why more axial load can mean more moment"
+  },
+  {
+   "id": "slides-14",
+   "view": "slides",
+   "anchor": "14",
+   "title_en": "Slide 14: A 300 × 300 roof column needs bars for MEd = 92.3 kN m. If NEd rises from 350 to 700 kN, the steel needed",
+   "title_ms": "Slide 14: A 300 × 300 roof column needs bars for MEd = 92.3 kN m. If NEd rises from 350 to 700 kN, the steel needed"
+  },
+  {
+   "id": "slides-15",
+   "view": "slides",
+   "anchor": "15",
+   "title_en": "Slide 15: B: it falls, from 1169 to 847 mm², then rises again",
+   "title_ms": "Slide 15: B: it falls, from 1169 to 847 mm², then rises again"
+  },
+  {
+   "id": "slides-16",
+   "view": "slides",
+   "anchor": "16",
+   "title_en": "Slide 16: Break",
+   "title_ms": "Slide 16: Break"
+  },
+  {
+   "id": "slides-17",
+   "view": "slides",
+   "anchor": "17",
+   "title_en": "Slide 17: Design charts: every section on one page",
+   "title_ms": "Slide 17: Design charts: every section on one page"
+  },
+  {
+   "id": "slides-18",
+   "view": "slides",
+   "anchor": "18",
+   "title_en": "Slide 18: A heavily loaded interior column",
+   "title_ms": "Slide 18: A heavily loaded interior column"
+  },
+  {
+   "id": "slides-19",
+   "view": "slides",
+   "anchor": "19",
+   "title_en": "Slide 19: Check the bars you chose, not the chart you read",
+   "title_ms": "Slide 19: Check the bars you chose, not the chart you read"
+  },
+  {
+   "id": "slides-20",
+   "view": "slides",
+   "anchor": "20",
+   "title_en": "Slide 20: A braced, non-slender 300 × 300 column: l₀ = 3.2 m, NEd = 1500 kN, larger end moment 40 kN m. MEd is",
+   "title_ms": "Slide 20: A braced, non-slender 300 × 300 column: l₀ = 3.2 m, NEd = 1500 kN, larger end moment 40 kN m. MEd is"
+  },
+  {
+   "id": "slides-21",
+   "view": "slides",
+   "anchor": "21",
+   "title_en": "Slide 21: Faded Example 8.2: a roof-level edge column",
+   "title_ms": "Slide 21: Faded Example 8.2: a roof-level edge column"
+  },
+  {
+   "id": "slides-22",
+   "view": "slides",
+   "anchor": "22",
+   "title_en": "Slide 22: 4H20; tension controls, so check the light load case",
+   "title_ms": "Slide 22: 4H20; tension controls, so check the light load case"
+  },
+  {
+   "id": "slides-23",
+   "view": "slides",
+   "anchor": "23",
+   "title_en": "Slide 23: Bars, cover and links",
+   "title_ms": "Slide 23: Bars, cover and links"
+  },
+  {
+   "id": "slides-24",
+   "view": "slides",
+   "anchor": "24",
+   "title_en": "Slide 24: 400 × 400 column, 4H25 at the corners and 4H16 at mid-faces. The largest link spacing away from the beams is",
+   "title_ms": "Slide 24: 400 × 400 column, 4H25 at the corners and 4H16 at mid-faces. The largest link spacing away from the beams is"
+  },
+  {
+   "id": "slides-25",
+   "view": "slides",
+   "anchor": "25",
+   "title_en": "Slide 25: B and B",
+   "title_ms": "Slide 25: B and B"
+  },
+  {
+   "id": "slides-26",
+   "view": "slides",
+   "anchor": "26",
+   "title_en": "Slide 26: D8: a past-paper question (15 marks)",
+   "title_ms": "Slide 26: D8: a past-paper question (15 marks)"
+  },
+  {
+   "id": "slides-27",
+   "view": "slides",
+   "anchor": "27",
+   "title_en": "Slide 27: Design your column, one storey at a time",
+   "title_ms": "Slide 27: Design your column, one storey at a time"
+  },
+  {
+   "id": "slides-28",
+   "view": "slides",
+   "anchor": "28",
+   "title_en": "Slide 28: Know which side of balance you are on",
+   "title_ms": "Slide 28: Know which side of balance you are on"
+  },
+  {
+   "id": "slides-29",
+   "view": "slides",
+   "anchor": "29",
+   "title_en": "Slide 29: Before Unit 9",
+   "title_ms": "Slide 29: Before Unit 9"
+  },
+  {
+   "id": "slides-30",
+   "view": "slides",
+   "anchor": "30",
+   "title_en": "Slide 30: Before you leave",
+   "title_ms": "Slide 30: Before you leave"
+  },
+  {
+   "id": "examples-x1",
+   "view": "examples",
+   "anchor": "x1",
+   "title_en": "Example 1 · Worked Example 8.1: a heavily loaded interior column",
+   "title_ms": "Contoh 1 · Worked Example 8.1: column dalaman yang dibebankan berat"
+  },
+  {
+   "id": "examples-x2",
+   "view": "examples",
+   "anchor": "x2",
+   "title_en": "Example 2 · Faded Example 8.2: a roof-level edge column",
+   "title_ms": "Contoh 2 · Faded Example 8.2: edge column di aras bumbung"
+  },
+  {
+   "id": "examples-x3",
+   "view": "examples",
+   "anchor": "x3",
+   "title_en": "Example 3 · Explain-type questions",
+   "title_ms": "Contoh 3 · Soalan jenis terangkan"
+  },
+  {
+   "id": "exercises-b1",
+   "view": "exercises",
+   "anchor": "b1",
+   "title_en": "Exercise B1 · The design moment",
+   "title_ms": "Latihan B1 · Design moment"
+  },
+  {
+   "id": "exercises-b2",
+   "view": "exercises",
+   "anchor": "b2",
+   "title_en": "Exercise B2 · Chart parameters and steel",
+   "title_ms": "Latihan B2 · Parameter chart dan steel"
+  },
+  {
+   "id": "exercises-b3",
+   "view": "exercises",
+   "anchor": "b3",
+   "title_en": "Exercise B3 · Steel limits",
+   "title_ms": "Latihan B3 · Had steel"
+  },
+  {
+   "id": "exercises-b4",
+   "view": "exercises",
+   "anchor": "b4",
+   "title_en": "Exercise B4 · Squash load and balance point",
+   "title_ms": "Latihan B4 · Squash load dan balance point"
+  },
+  {
+   "id": "exercises-b5",
+   "view": "exercises",
+   "anchor": "b5",
+   "title_en": "Exercise B5 · The point x = h",
+   "title_ms": "Latihan B5 · Titik x = h"
+  },
+  {
+   "id": "exercises-b6",
+   "view": "exercises",
+   "anchor": "b6",
+   "title_en": "Exercise B6 · Link size and spacing",
+   "title_ms": "Latihan B6 · Saiz dan jarak link"
+  },
+  {
+   "id": "exercises-quick",
+   "view": "exercises",
+   "anchor": null,
+   "selector": "#v-exercises div.q",
+   "title_en": "Exercises: quick concept questions",
+   "title_ms": "Latihan: soalan konsep pantas"
+  },
+  {
+   "id": "lab-jig",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"jig\"]",
+   "title_en": "Explorer task 1: Tab 4: enter your team’s point of Activity 8A (A, B, C or D) fo…",
+   "title_ms": "Tugasan Explorer 1: Tab 4: masukkan titik pasukan anda dalam Aktiviti 8A (A, B, C a…"
+  },
+  {
+   "id": "lab-bal",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"bal\"]",
+   "title_en": "Explorer task 2: Tab 4: drag the neutral axis to the balance point, where the te…",
+   "title_ms": "Tugasan Explorer 2: Tab 4: seret neutral axis ke balance point, tempat tension bar…"
+  },
+  {
+   "id": "lab-b8",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"b8\"]",
+   "title_en": "Explorer task 3: Tab 4, Activity 8B: predict whether raising N_{Ed} from 350 to…",
+   "title_ms": "Tugasan Explorer 3: Tab 4, Aktiviti 8B: ramal sama ada menaikkan N_{Ed} daripada 35…"
+  },
+  {
+   "id": "lab-we81",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"we81\"]",
+   "title_en": "Explorer task 4: Tab 5: load Worked Example 8.1, choose 4H16 and confirm M_{Rd}…",
+   "title_ms": "Tugasan Explorer 4: Tab 5: muatkan Worked Example 8.1, pilih 4H16 dan sahkan M_{Rd}…"
+  },
+  {
+   "id": "lab-link",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"link\"]",
+   "title_en": "Explorer task 5: Tab 5: enter the link diameter, the spacing and the closer spac…",
+   "title_ms": "Tugasan Explorer 5: Tab 5: masukkan diameter link, jarak dan jarak rapat bagi bar y…"
+  },
+  {
+   "id": "lab-s8",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"s8\"]",
+   "title_en": "Explorer task 6: Tab 3: pick Column S8, find all four slips, tap their lines and…",
+   "title_ms": "Tugasan Explorer 6: Tab 3: pilih Column S8, cari keempat-empat kesilapan, ketik bar…"
+  },
+  {
+   "id": "glossary-axial-load-ratio",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: axial load ratio ν",
+   "title_ms": "Glosari: axial load ratio ν"
+  },
+  {
+   "id": "glossary-axis-distance-a",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: axis distance a",
+   "title_ms": "Glosari: axis distance a"
+  },
+  {
+   "id": "glossary-balance-point",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: balance point",
+   "title_ms": "Glosari: balance point"
+  },
+  {
+   "id": "glossary-compression-controls",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: compression controls",
+   "title_ms": "Glosari: compression controls"
+  },
+  {
+   "id": "glossary-d-2",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: d_2",
+   "title_ms": "Glosari: d_2"
+  },
+  {
+   "id": "glossary-design-chart",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: design chart",
+   "title_ms": "Glosari: design chart"
+  },
+  {
+   "id": "glossary-design-moment-m-ed",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: design moment M_{Ed}",
+   "title_ms": "Glosari: design moment M_{Ed}"
+  },
+  {
+   "id": "glossary-design-yield-strain-yd",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: design yield strain ε_{yd}",
+   "title_ms": "Glosari: design yield strain ε_{yd}"
+  },
+  {
+   "id": "glossary-direct-check",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: direct check",
+   "title_ms": "Glosari: direct check"
+  },
+  {
+   "id": "glossary-imperfection-eccentricity-e-i",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: imperfection eccentricity e_i",
+   "title_ms": "Glosari: imperfection eccentricity e_i"
+  },
+  {
+   "id": "glossary-lap",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: lap",
+   "title_ms": "Glosari: lap"
+  },
+  {
+   "id": "glossary-link",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: link",
+   "title_ms": "Glosari: link"
+  },
+  {
+   "id": "glossary-load-cases-for-a-column",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: load cases for a column",
+   "title_ms": "Glosari: load cases for a column"
+  },
+  {
+   "id": "glossary-m-02",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: M_{02}",
+   "title_ms": "Glosari: M_{02}"
+  },
+  {
+   "id": "glossary-maximum-steel-a-s-max",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: maximum steel A_{s,max}",
+   "title_ms": "Glosari: maximum steel A_{s,max}"
+  },
+  {
+   "id": "glossary-mechanical-steel-ratio",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: mechanical steel ratio ω",
+   "title_ms": "Glosari: mechanical steel ratio ω"
+  },
+  {
+   "id": "glossary-minimum-eccentricity-e-0",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: minimum eccentricity e_0",
+   "title_ms": "Glosari: minimum eccentricity e_0"
+  },
+  {
+   "id": "glossary-minimum-steel-a-s-min",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: minimum steel A_{s,min}",
+   "title_ms": "Glosari: minimum steel A_{s,min}"
+  },
+  {
+   "id": "glossary-moment-ratio",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: moment ratio μ",
+   "title_ms": "Glosari: moment ratio μ"
+  },
+  {
+   "id": "glossary-fi",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: μ_{fi}",
+   "title_ms": "Glosari: μ_{fi}"
+  },
+  {
+   "id": "glossary-n-m-interaction-diagram",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: N–M interaction diagram",
+   "title_ms": "Glosari: N–M interaction diagram"
+  },
+  {
+   "id": "glossary-pivot",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: pivot",
+   "title_ms": "Glosari: pivot"
+  },
+  {
+   "id": "glossary-s-cl-max",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: s_{cl,max}",
+   "title_ms": "Glosari: s_{cl,max}"
+  },
+  {
+   "id": "glossary-squash-load-n-0",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: squash load N_0",
+   "title_ms": "Glosari: squash load N_0"
+  },
+  {
+   "id": "glossary-strain-compatibility",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: strain compatibility",
+   "title_ms": "Glosari: strain compatibility"
+  },
+  {
+   "id": "glossary-tension-controls",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: tension controls",
+   "title_ms": "Glosari: tension controls"
+  }
+ ],
+ "equations_missing": 0
+}

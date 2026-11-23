@@ -1,0 +1,509 @@
+# Plane Stress — Part 1
+Two unknowns at every point: equilibrium, Hooke’s law and strain–displacement give [∂][E][∂]ᵀ{u}ᵀ = −{f}; then the boundary conditions and the element’s 2 × 8 shape-function matrix [N].
+
+[start-outcomes] After this part you should be able to
+1. Derive the plane-stress equilibrium equations from a differential element and write them as [∂]{σ}ᵀ = −{f}.
+2. State the plane-stress constitutive law {σ}ᵀ = [E]{ε}ᵀ and the strain–displacement relation {ε}ᵀ = [∂]ᵀ{u}ᵀ, contrast plane stress with plane strain, and combine them into [∂][E][∂]ᵀ{u}ᵀ = −{f}.
+3. Classify traction (natural) and displacement (essential) boundary conditions in each direction and write them for a rectangular domain.
+4. Write the 2 × 8 shape-function matrix [N] of the four-node element, number its degrees of freedom, and interpolate u and v at any point.
+
+[notes-n1] Notes 1. Why plane stress: two unknowns at every point
+Heat transfer gave a scalar field: one temperature at every point and one unknown at every node. Plane stress gives a vector field: every point of a plate moves by a displacement with two components, u(x, y) along x and v(x, y) along y. From the displacements we get strains, and from the strains stresses. The finite element method solves for u and v at the nodes; strains and stresses come afterwards, by differentiation.
+[Figure: Left: heat transfer, one number per node. Right: plane stress, two numbers per node, u and v.]
+Plane stress and plane strain Plane stress: the body is thin (thickness t small) and loaded only in its own plane, so its faces are free: σ_{zz} = σ_{xz} = σ_{yz} = 0, while the plate may thin or thicken (ε_{zz} ≠ 0). Plane strain: the body is long in z and every section is loaded alike, so each slice is held by its neighbours: ε_{zz} = 0, and a stress σ_{zz} = ν(σ_{xx} + σ_{yy}) develops to keep it so.
+[Figure: Plane stress (thin plate, free faces) and plane strain (long body, every slice alike).]
+## Where civil engineers use each
+Plane stress Plane strain
+shear walls, deep beams gravity dams, long embankments
+gusset and connection plates tunnel linings, pipes, culverts
+webs of plate girders retaining walls, per metre run
+slabs loaded in their own plane strip footings
+A slab carrying a floor load is neither: the load acts normal to its plane, so it bends as a plate, a different problem. The test for plane stress is always the same two questions: is the body thin compared with its in-plane size, and do the loads act in its plane?
+[Figure: A corner bracket meshed in 2D, “because the bracket is thin compared to its x and y dimensions, and the load acts only in the x–y plane”: the two plane-stress questions, answered.]
+[Figure: Its von Mises stress, highest next to the held pin hole. Part 3 explains how such a plot is computed and read. Images: PyMAPDL documentation, “Static analysis of a corner bracket” (adapted from the classic Ansys APDL tutorial), © ANSYS, Inc., MIT licence.]
+## What the finite element model solves for
+Heat transfer Plane stress
+primary field T (scalar) u, v (vector)
+derived field flux q_x, q_y strains ε, stresses σ
+material law Fourier: q = −k∇T Hooke: {σ} = [E]{ε}
+dofs per node 1 2
+4-node [k] 4 × 4 8 × 8
+Displacement-based FEM We solve for u and v and differentiate them to get strains and stresses. Each differentiation costs accuracy, so stresses are always less accurate than displacements, and they jump between elements. Part 3 is about exactly that.
+Key points:
+- Plane stress: thin, loaded in plane, σ_{zz} = 0. Plane strain: long, uniform section, ε_{zz} = 0.
+- Two unknowns per node, u and v; a 4-node element has 8 dofs and an 8 × 8 [k].
+- Strains and stresses come from derivatives of the displacements: less accurate.
+Quick check (not graded): A concrete gravity dam 300 m long carries water pressure that is the same at every section. Which idealisation, and which quantity is zero?
+Options: Plane stress; σ_{zz} = 0 | Plane strain; ε_{zz} = 0 | Neither: it is a plate in bending
+Explanation shown after answering: The dam is long and every section is loaded alike, so each slice is held by its neighbours and cannot strain along the axis: ε_{zz} = 0. A stress σ_{zz} develops instead.
+
+[notes-n2] Notes 2. Equilibrium of a differential element
+Take a small rectangle dx by dy of unit thickness inside the plate. On its faces act the normal stresses σ_{xx} and σ_{yy} and the shear stresses σ_{xy} and σ_{yx} (N m^{−2}); inside acts a body force f_x, f_y per unit volume (N m^{−3}), for example self-weight f_y = −ρg. The method is the one used for the heat flux in Heat Transfer Part 1: the stress on a far face is the near-face stress plus its first-order change.
+[Figure: The differential element: normal and shear stresses on the faces, body force inside (text Fig. 3.1).]
+Sign convention A stress component is positive when it acts in the positive coordinate direction on a face whose outward normal points in a positive direction, and in the negative direction on a face whose outward normal is negative.
+## Force balance in x
+Static equilibrium requires the forces in x and in y to sum to zero. Forces are stresses times face areas: σ_{xx} acts on the faces of area dy, σ_{yx} on the faces of area dx (each times the unit thickness):
+EQUATION (3.1), (3.2): [equation p_sumF: source not available in the page]
+EQUATION (3.3): [equation p_eqx_full: source not available in the page]
+The near-face terms cancel against the first part of the far-face terms, every remaining term carries dx dy, and dividing by it leaves the first equilibrium equation:
+EQUATION (3.4): [equation p_eqx: source not available in the page]
+Unit check A stress gradient is (N m^{−2})/m = N m^{−3}, a force per unit volume, the same as the body force.
+## Force balance in y (Activity 2)
+In y, σ_{yy} acts on the faces of area dx and σ_{xy} on the faces of area dy. The same expansion gives
+EQUATION (3.5): [equation p_eqy_full: source not available in the page]
+EQUATION (3.6): [equation p_eqy: source not available in the page]
+Why σ_{yx} = σ_{xy} Take moments about the centre of the element: the pair σ_{xy} dy on the x-faces and the pair σ_{yx} dx on the y-faces each make a couple with arm dx or dy. Equilibrium of moments makes the two couples equal, σ_{xy} dy dx = σ_{yx} dx dy, so the shear stresses are equal. Only three stress components remain.
+## The matrix form
+Collect the two equations with a 2 × 3 matrix of derivative operators acting on the stress vector {σ_{xx} σ_{yy} σ_{xy}}ᵀ. This is the plane-stress version of {∂}{q} in heat transfer: there a 1 × 2 row acted on a 2 × 1 flux; here a 2 × 3 matrix acts on a 3 × 1 stress.
+EQUATION (3.8): [equation p_matrix: source not available in the page]
+EQUATION (3.9): [equation p_compact: source not available in the page]
+EQUATION : [equation p_dop: source not available in the page]
+## Worked step · Activity 2 in words
+Forces in y: σ_{yy} on the bottom face (area dx) acts downward, σ_{yy} + ∂σ_{yy}/∂y dy on the top face acts upward; σ_{xy} on the left face (area dy) acts downward, σ_{xy} + ∂σ_{xy}/∂x dx on the right face acts upward; f_y dx dy acts on the volume. Sum, cancel, divide by dx dy: ∂σ_{xy}/∂x + ∂σ_{yy}/∂y + f_y = 0. Row 2 of [∂] is therefore [0 ∂/∂y ∂/∂x].
+Key points:
+- Force balance in x and y on dx × dy gives (3.4) and (3.6); moment balance gives σ_{yx} = σ_{xy}.
+- Matrix form [∂]{σ}ᵀ = −{f} with the 2 × 3 operator [∂].
+- Every term is a force per unit volume, N m^{−3}.
+Quick check (not graded): What is the size of the operator matrix [∂] in [∂]{σ}ᵀ = −{f}?
+Options: 2 × 3: two equations, three stress components | 3 × 2: three stresses, two displacements | 1 × 2, as in heat transfer
+Explanation shown after answering: Two equilibrium equations (x and y) act on the three stress components σ_{xx}, σ_{yy}, σ_{xy}. Its transpose, 3 × 2, appears in the strain–displacement relation (§4).
+
+[notes-n3] Notes 3. Hooke’s law: plane stress and plane strain
+Equilibrium gives two equations in three unknown stresses. Hooke’s law, the analogue of Fourier’s law, relates the stresses to the strains through the material. For plane stress (σ_{zz} = 0) it reads
+EQUATION (3.10): [equation p_hooke: source not available in the page]
+or, with the 3 × 3 constitutive matrix [E],
+EQUATION (3.11), (3.12): [equation p_E: source not available in the page]
+Engineering shear strain The text’s ε_{xy} is the engineering shear strain, ε_{xy} = ∂u/∂y + ∂v/∂x (written γ_{xy} in most solid-mechanics books), not the tensor strain, which is half of it. The (3,3) entry of [E] is built for it: (E/(1 − ν²))·(1 − ν)/2 = E/(2(1 + ν)) = G, the shear modulus.
+## The cantilever’s material (Activity 3)
+For the text’s cantilever, E = 200 × 10⁶ N m^{−2} and ν = 0.33. Keep four significant figures: Part 2 builds [k] from these numbers.
+EQUATION : [equation p_act3: source not available in the page]
+EQUATION : [equation p_act3_E: source not available in the page]
+Check G = E/(2(1 + ν)) = 200 × 10⁶/2.66 = 75.19 × 10⁶ N m^{−2}, equal to the (3,3) entry. If your (3,3) entry is twice this, you used (1 − ν) instead of (1 − ν)/2.
+## Plane strain changes only [E]
+Setting ε_{zz} = 0 instead of σ_{zz} = 0 in three-dimensional Hooke’s law gives a matrix with the same shape and different constants:
+EQUATION : [equation p_Estrain: source not available in the page]
+The shear entry is G in both. The normal entries are larger in plane strain, because a slice that cannot thin resists in-plane stretching more. For ν = 0.33 the bending stiffness of the cantilever rises by the factor 1/(1 − ν²) = 1.12, so its tip deflection falls to about 0.89 of the plane-stress value; the Explorer shows 0.90 on a fine mesh. As ν approaches 0.5 (rubber, undrained clay) the plane-strain constants grow without bound: the material becomes incompressible, a topic for later courses.
+In this course We formulate and calculate by hand in plane stress (text Chapter 3). Plane strain is the same [k] with the other [E]: one line in the code, one option in ANSYS.
+Key points:
+- {σ}ᵀ = [E]{ε}ᵀ; plane stress [E] = E/(1 − ν²)·[1 ν 0; ν 1 0; 0 0 (1 − ν)/2].
+- ε_{xy} is the engineering shear strain; the (3,3) entry equals G.
+- Plane strain: only [E] changes; stiffer in the normal entries, same G.
+Quick check (not graded): For E = 200 × 10⁶ N m^{−2} and ν = 0.33, which value is the (3,3) entry of the plane-stress [E]?
+Options: 150.4 × 10⁶ N m^{−2} | 75.19 × 10⁶ N m^{−2} | 74.07 × 10⁶ N m^{−2}
+Explanation shown after answering: (1 − ν)/2 × E/(1 − ν²) = 0.335 × 224.44 × 10⁶ = 75.19 × 10⁶ = G. Option (a) forgets the half; (c) is the (1,2) entry, ν E/(1 − ν²).
+
+[notes-n4] Notes 4. Strain–displacement, and the PDE in u and v
+Heat transfer had no step like this one, because T was itself the unknown. Here the unknowns are displacements, and the strains are their derivatives: ε_{xx} measures stretching along x, ε_{yy} along y, and ε_{xy} the change of a right angle.
+[Figure: The three strains: stretching along x and along y, and the shear that closes a right angle by ∂u/∂y + ∂v/∂x.]
+EQUATION (3.13): [equation p_strain: source not available in the page]
+In matrix form the 3 × 2 operator is exactly the transpose of the equilibrium operator [∂]. That is not a coincidence: equilibrium and compatibility are dual, and it is why the final matrix [k] comes out symmetric.
+EQUATION (3.14), (3.15): [equation p_strain_matrix: source not available in the page]
+The factor that loses marks ε_{xy} = ∂u/∂y + ∂v/∂x, the sum of the two slopes. Halving it, or using the tensor shear strain with the text’s [E], halves the shear stress.
+## Assemble the PDE
+Substitute the strains into Hooke’s law and Hooke’s law into equilibrium. The result is two PDEs in the two displacements, written once with the three matrices:
+EQUATION (3.16): [equation p_sigma_u: source not available in the page]
+EQUATION (3.17): [equation p_pde: source not available in the page]
+Read (3.17) from the inside out: [∂]ᵀ{u}ᵀ turns displacements into strains (3 × 1); [E] turns strains into stresses (3 × 1); [∂] turns stresses into the two equilibrium equations, balanced by the body force. Compare it with the heat PDE:
+EQUATION : [equation p_compare: source not available in the page]
+Same pattern, bigger matrices Part 2 does with (3.17) exactly what Heat Transfer Part 2 did with (2.13): substitute {u}ᵀ = [N]{û}ᵀ, weight with [N]ᵀ (Galerkin), integrate by parts. The boundary term that appears is the traction of §5.
+Key points:
+- {ε}ᵀ = [∂]ᵀ{u}ᵀ: ε_{xx} = ∂u/∂x, ε_{yy} = ∂v/∂y, ε_{xy} = ∂u/∂y + ∂v/∂x.
+- The strain operator is the transpose of the equilibrium operator.
+- [∂][E][∂]ᵀ{u}ᵀ = −{f}: two PDEs in u and v, the analogue of {∂}[E]{∂}ᵀT = −q_h.
+Quick check (not graded): A displacement field is u = 0.002y, v = 0. Which strains does it produce?
+Options: ε_{xx} = 0.002, the others zero | ε_{xy} = 0.002, the others zero | ε_{xy} = 0.001, the others zero
+Explanation shown after answering: ε_{xx} = ∂u/∂x = 0, ε_{yy} = ∂v/∂y = 0, ε_{xy} = ∂u/∂y + ∂v/∂x = 0.002 + 0. This is simple shear; 0.001 would be the tensor strain, which the text’s [E] does not use.
+
+[notes-n5] Notes 5. Boundary conditions: traction and displacement
+Every point of the boundary needs one condition in x and one in y. In each direction either the force on the boundary is known or the displacement is: never both, never neither.
+Traction · natural The traction {b_x, b_y} is the force per unit area acting on the boundary (per unit thickness: force per unit length). With the outward normal (n_x, n_y) it is related to the stresses by (3.18)–(3.19). A free edge has b_x = b_y = 0.
+EQUATION (3.18a), (3.19a): [equation p_bx: source not available in the page]
+On a rectangle the normals are (±1, 0) on the vertical edges and (0, ±1) on the horizontal ones, so only two stresses act as tractions on each edge:
+EQUATION (3.20): [equation p_rect_v: source not available in the page]
+EQUATION (3.21): [equation p_rect_h: source not available in the page]
+Displacement · essential A known displacement: a fixed support ū = v̄ = 0, a roller one of them, a settlement a non-zero value.
+EQUATION (3.22), (3.23): [equation p_dirichlet: source not available in the page]
+## What FEM does with each kind
+Condition Known In the FEM Heat analogue
+displacement · essential ū, v̄ imposed on the assembled system (row–column elimination) T̄
+traction · natural b_x, b_y equivalent nodal loads {b} from the boundary integral flux load
+free edge · natural, b = 0 nothing acts nothing to do insulated edge
+body force f_x, f_y equivalent nodal loads {q}, e.g. self-weight heat generation
+Count per direction, not per edge A roller edge is essential in one direction and natural in the other. A free edge is not a support and not a load: it is the do-nothing condition, exactly like an insulated edge. Adding a support where none exists is the commonest wrong model in ANSYS.
+## The cantilever (Activity 4)
+[Figure: The text’s cantilever: 4 m × 2 m, t = 0.01 m, fixed on the left, 5 kN m^{−1} downward on the right.]
+Edge x y FEM action
+left, x = 0 ū = 0, essential v̄ = 0, essential impose U_1, U_2, U_7, U_8, U_{13}, U_{14} = 0
+right, x = 4 b_x = σ_{xx} = 0 b_y = σ_{xy}, downward nodal loads from the traction
+top, bottom b_x = 0 b_y = 0 nothing
+[Figure: The 2 × 2 mesh: node n owns dofs U_{2n−1} (x) and U_{2n} (y); 18 dofs, 6 known, 12 unknown.]
+## Why the supports must stop every rigid motion
+A plate can translate in x, translate in y and rotate in its plane without straining at all: for a small rotation θ, u = −θy and v = θx give ε_{xx} = ε_{yy} = 0 and ε_{xy} = −θ + θ = 0. Such a motion needs no force, so [K] is singular until the supports remove all three. Holding v alone along the left edge stops the y-translation but not the x-translation, nor a rotation about a point of that edge (its points move in x, not in y); the Explorer’s “vertical only” support shows the solver refusing. Holding u alone along the edge stops x-translation and rotation but leaves the plate free to slide in y.
+Key points:
+- Traction known → natural → load (or nothing on a free edge). Displacement known → essential → imposed.
+- One condition per direction at every boundary point.
+- Supports must remove two translations and one rotation, or [K] is singular.
+Quick check (not graded): The top edge of the cantilever carries nothing. What does the finite element model do there?
+Options: Fix v = 0, because nothing acts | Nothing: b_x = b_y = 0 is a natural condition | Add a small spring to keep it stable
+Explanation shown after answering: A free edge is a natural condition with zero traction; its boundary term is zero, so it needs no action, exactly like an insulated edge. Fixing v there would add a support the structure does not have.
+
+[notes-n6] Notes 6. Degrees of freedom and the shape-function matrix [N]
+The element is the four-node rectangle of heat transfer, with the same shape functions N_1…N_4 of (2.21). What is new is that each node carries two degrees of freedom, so both u and v are interpolated, with the same functions:
+[Figure: The plane-stress element: eight dofs, u along x and v along y at each node (text Fig. 3.2).]
+EQUATION (3.24), (3.25): [equation p_interp: source not available in the page]
+## The 2 × 8 shape-function matrix
+Both interpolations are one matrix product. Row 1 picks the u-dofs and row 2 the v-dofs; the zeros say that u does not depend on any v. The 8-node element gives a 2 × 16 matrix of the same pattern (3.29).
+EQUATION (3.28): [equation p_N: source not available in the page]
+EQUATION (3.30): [equation p_general: source not available in the page]
+One ordering, everywhere Node by node, u before v: {û} = {u_1 v_1 u_2 v_2 … u_4 v_4}. In the mesh, node n owns global dofs U_{2n−1} (x) and U_{2n} (y). Keep it in [N], in [B], in [k] and in the connectivity; mixing it with “all u then all v” is the classic assembly error.
+## Activity 5: u and v at (3.5, 1.3) m
+[Figure: Element 4 of the solved cantilever (nodes 5, 6, 9, 8) and the point (3.5, 1.3).]
+The point lies in element 4, whose local node 1 is global node 5 at (2, 1). Its local coordinates are (1.5, 0.3): the Activity 4 point of Heat Transfer Part 1, with the same shape functions. The nodal displacements come from the text’s solution (3.49), in local order 5, 6, 9, 8:
+EQUATION : [equation p_act5_N: source not available in the page]
+EQUATION : [equation p_act5_u: source not available in the page]
+Node 6, the free-end node of the element, carries half the weight and the largest v. The plate sags by 0.11 m and hardly moves along x: bending, as expected of a cantilever (the text chose a very soft E so that the displacements are visible). At the centroid every N_i = 1/4:
+EQUATION : [equation p_cent: source not available in the page]
+## What comes next
+Differentiating u and v gives the strains. Packed into a matrix, the derivatives of [N] become [B] = [∂]ᵀ[N], a 3 × 8 matrix, and Galerkin turns (3.17) into the element stiffness matrix:
+EQUATION : [equation p_B_preview: source not available in the page]
+EQUATION : [equation p_k_preview: source not available in the page]
+Step Heat transfer Plane stress
+PDE {∂}[E]{∂}ᵀT = −q_h [∂][E][∂]ᵀ{u}ᵀ = −{f}
+operator {∂}: 1 × 2 [∂]: 2 × 3
+material [E]: 2 × 2 [E]: 3 × 3
+shape functions {N}: 1 × 4 [N]: 2 × 8
+gradient / strain {∂}ᵀ{N}: 2 × 4 [B] = [∂]ᵀ[N]: 3 × 8
+element matrix [k]: 4 × 4 [k] = t∫[B]ᵀ[E][B] dA: 8 × 8
+natural BC flux → {b} traction → {b}
+essential BC T̄ ū, v̄
+Key points:
+- Same N_i as heat transfer, for u and for v: {u}ᵀ = [N]{û}ᵀ with [N] 2 × 8.
+- Dofs node by node, u before v; node n owns U_{2n−1}, U_{2n}.
+- At (3.5, 1.3) in element 4: u = 0.0118 m, v = −0.1087 m.
+Quick check (not graded): In the 2 × 2 cantilever mesh, which global dofs belong to node 5?
+Options: U_5 and U_6 | U_9 and U_{10} | U_{10} and U_{11}
+Explanation shown after answering: Node n owns U_{2n−1} (x) and U_{2n} (y): for n = 5, U_9 and U_{10}. Option (a) takes the node number for a dof number, the commonest numbering slip.
+
+[slides-1] Slide 1: Plane Stress Part 1 of 3
+SEAA 4243 Finite Element Method · 2L + 1T Plane Stress Part 1 of 3 Two unknowns per node: equilibrium, Hooke’s law and strain–displacement give [∂][E][∂]ᵀ{u}ᵀ = −{f}; then the boundary conditions and the element’s [N] Assoc. Prof. Ts. Dr. Ahmad Razin Zainal Abidin · Dr. Yip Bao Fang Faculty of Civil Engineering, Universiti Teknologi Malaysia Text: Mohd Yassin et al., Two-Dimensional Finite Element Formulations for He
+
+[slides-2] Slide 2: Three questions from heat transfer — on paper, no notes
+5 MIN Activity 0 · individual · retrieval warm-up Three questions from heat transfer — on paper, no notes Write down The three steps that turn the PDE into [k]{T̂}ᵀ = {q} + {b} (name them). What a row of [k] must sum to, and why. The matrix form of the heat PDE: {∂}[E]{∂}ᵀT = −q_h. What are the sizes of {∂} and [E]? Why Keep question 3 in view: today the same pattern appears with a 2 × 3 operator and a 3 × 3 [E]. 5 m
+
+[slides-3] Slide 3: By the end of this session you should be able to
+Learning outcomes · today By the end of this session you should be able to 1 Derive the plane-stress equilibrium equations from a differential element and write them as [∂]{σ}ᵀ = −{f}. 2 State the plane-stress constitutive law {σ}ᵀ = [E]{ε}ᵀ and the strain–displacement relation {ε}ᵀ = [∂]ᵀ{u}ᵀ, and combine them into [∂][E][∂]ᵀ{u}ᵀ = −{f}. 3 Classify traction (natural) and displacement (essential) boundary conditions
+
+[slides-4] Slide 4: Six blocks, seven short activities, one break
+Session map · 180 minutes Six blocks, seven short activities, one break 0:00 Why plane stress? 25 min A1 · 5 min 0:25 Equilibrium → PDE 35 min A2 · 8 min 1:00 Hooke + strain 25 min A3 + QR 1:25 Break 10 min no activity 1:35 Boundary conditions 30 min A4 · 6 min 2:05 DOFs and [N] 30 min A5 · 8 min 2:35 What changes 25 min Exit ticket Revise from solid mechanics Stress components σ_{xx}, σ_{yy}, σ_{xy} and the sign con
+
+[slides-5] Slide 5: Why plane stress?
+1 Block 1 · 0:00 – 0:25 Why plane stress? Thin bodies loaded in their own plane: shear walls, deep beams, gusset plates, the web of a girder. Two unknowns at every point, u and v. SEAA 4243 · Plane Stress — Part 1 5
+
+[slides-6] Slide 6: Thin and loaded in-plane: plane stress. Long with a constant section: plane strain
+Block 1 · the modelling assumption · text §3.1 Thin and loaded in-plane: plane stress. Long with a constant section: plane strain Plane stress: the thickness t is small and nothing acts on the faces, so σ_{zz} = σ_{xz} = σ_{yz} = 0. The body may thin or thicken freely (ε_{zz} ≠ 0). Plane strain: the body is long and every section is loaded the same way, so ε_{zz} = 0 and a stress σ_{zz} = ν(σ_{xx} + σ_{yy}) develops
+
+[slides-7] Slide 7: A corner bracket in ANSYS, modelled as plane stress
+Block 1 · plane stress in practice A corner bracket in ANSYS, modelled as plane stress Why “Because the bracket is thin in the z direction (½-inch thickness) compared to its x and y dimensions, and because the pressure load acts only in the x–y plane, assume plane stress.” — the tutorial’s own justification, word for word the test of this slide. Images and quotation: PyMAPDL documentation, “Static analysis of a corne
+
+[slides-8] Slide 8: The same physics in 3D and in 2D
+Block 1 · when is 2D enough? The same physics in 3D and in 2D 3D: a clamped beam sagging under its own weight (FEniCS). H. P. Langtangen and A. Logg, Solving PDEs in Python (Springer, 2016), CC BY 4.0. 2D: a spanner in plane stress, displacement and von Mises stress. SolidsPy (J. Gómez and N. Guarín-Zapata), MIT licence. Why 3D: three displacements u, v, w and six stresses at every point. Check 2D plane stress: u and
+
+[slides-9] Slide 9: Displacements u(x, y), v(x, y); from them strains, then stresses
+Block 1 · the unknowns Displacements u(x, y), v(x, y); from them strains, then stresses Heat transfer carried one unknown per node. Plane stress carries two: the nodal displacements u_i and v_i. A 4-node element has 8 degrees of freedom and an 8 × 8 stiffness matrix. Quantity Heat transfer Plane stress primary field T (scalar) u, v (vector) derived field flux q_x, q_y strains ε, stresses σ material law Fourier: q = −
+
+[slides-10] Slide 10: Plane stress, plane strain, or neither? Decide and give the reason
+5 MIN Activity 1 · pairs · no calculation Plane stress, plane strain, or neither? Decide and give the reason Six structures Steel gusset plate at a truss joint, 12 mm thick Concrete gravity dam, 300 m long Reinforced-concrete shear wall, 200 mm thick, 6 m high Circular tunnel lining, 2 km long Square slab carrying a lateral floor load (bending) Strip footing of a long wall For each Plane stress / plane strain / neith
+
+[slides-11] Slide 11: Equilibrium of a differential element
+2 Block 2 · 0:25 – 1:00 Equilibrium of a differential element Sum forces in x and in y; two PDEs in the stresses; write them with the 2 × 3 operator matrix [∂]. Text §3.1.1. SEAA 4243 · Plane Stress — Part 1 11
+
+[slides-12] Slide 12: Normal stresses, shear stresses and body forces on a rectangle dx by dy
+Block 2 · the differential element · text Fig. 3.1 Normal stresses, shear stresses and body forces on a rectangle dx by dy Dependent variables: σ_{xx}, σ_{yy} (normal) and σ_{xy}, σ_{yx} (shear). Body forces f_x, f_y per unit volume (self-weight: f_y = −ρg). Far faces carry the near-face stress plus its first-order change — the same Taylor expansion as for the heat flux. (3.1), (3.2) Why Sign convention: a stress com
+
+[slides-13] Slide 13: Forces are stresses times face areas; divide by dx dy
+Block 2 · force balance in x · text (3.3)–(3.4) Forces are stresses times face areas; divide by dx dy (3.3) (3.4) Why σ_{xx} acts on faces of area dy (times unit thickness); σ_{yx} on faces of area dx. Expand, cancel the equal and opposite near-face terms, divide by dx dy. SEAA 4243 · Plane Stress — Part 1 13
+
+[slides-14] Slide 14: Your turn: force balance in y, then the matrix form
+8 MIN Activity 2 · pairs · derivation Your turn: force balance in y, then the matrix form Do Write ΣF_y = 0 for the element (which stresses act in y? on which faces?). Expand and cancel to get the second PDE. Put the two PDEs in matrix form: a 2 × 3 operator matrix times {σ_{xx} σ_{yy} σ_{xy}}ᵀ, using σ_{yx} = σ_{xy}. (3.4) — given Why Why σ_{yx} = σ_{xy}? Moment equilibrium about the element centre. 8 minutes. Revea
+
+[slides-15] Slide 15: Two equilibrium equations, one operator matrix
+Activity 2 · solution · text (3.5)–(3.9) Two equilibrium equations, one operator matrix (3.5) (3.6) (3.8) (3.9) Why [∂] is 2 × 3: two equations, three stress components. Its transpose will turn up in the strain–displacement relation. SEAA 4243 · Plane Stress — Part 1 15
+
+[slides-16] Slide 16: Hooke’s law and strain–displacement
+3 Block 3 · 1:00 – 1:25 Hooke’s law and strain–displacement Three stresses in terms of three strains; three strains in terms of two displacements. Put together: a PDE in u and v. Text (3.10)–(3.17). SEAA 4243 · Plane Stress — Part 1 16
+
+[slides-17] Slide 17: Three stresses from three strains through the 3 × 3 matrix [E]
+Block 3 · plane-stress Hooke’s law · text (3.10)–(3.12) Three stresses from three strains through the 3 × 3 matrix [E] (3.10) (3.11), (3.12) Why E: Young’s modulus; ν: Poisson’s ratio. The (1 − ν)/2 entry is G/(E/(1 − ν²)): the shear term uses the engineering shear strain ε_{xy} = γ_{xy}. Check Plane strain changes only [E] (next slide). Everything else today is identical. SEAA 4243 · Plane Stress — Part 1 17
+
+[slides-18] Slide 18: Same shape, different constants — and ε₍zz₎ = 0 instead of σ₍zz₎ = 0
+Block 3 · the plane-strain matrix, for contrast Same shape, different constants — and ε₍zz₎ = 0 instead of σ₍zz₎ = 0 from 3D Hooke’s law with ε_zz = 0 Why it matters Choosing plane stress for a dam (or plane strain for a thin plate) changes the stiffness by a factor of order 1/(1 − ν²): several percent for steel, more for rubber-like materials. ANSYS asks you which one; the FEM machinery does not care. In this course
+
+[slides-19] Slide 19: Two displacements, three strains, the transpose of [∂]
+Block 3 · strain–displacement · text (3.13)–(3.15) Two displacements, three strains, the transpose of [∂] (3.13) (3.14), (3.15) Why The 3 × 2 matrix in (3.14) is [∂]ᵀ, the transpose of the equilibrium operator: equilibrium and compatibility are dual. Watch out ε_{xy} is the engineering shear strain (sum of the two slopes), not the tensor strain (half of it). The text’s [E] is built for it. SEAA 4243 · Plane Stress —
+
+[slides-20] Slide 20: Substitute strain into Hooke, Hooke into equilibrium: a PDE in u and v
+Block 3 · assemble the PDE · text (3.16)–(3.17) Substitute strain into Hooke, Hooke into equilibrium: a PDE in u and v (3.16) (3.17) heat transfer (2.13) ↔ plane stress (3.17) Read (3.17) from the inside out [∂]ᵀ{u}ᵀ: displacements → strains (3 × 1). [E][∂]ᵀ{u}ᵀ: strains → stresses (3 × 1). [∂][E][∂]ᵀ{u}ᵀ: stresses → equilibrium (2 × 1), balanced by the body force. What we will do with it Exactly what we did with (2.
+
+[slides-21] Slide 21: Evaluate [E] for the cantilever’s material
+6 MIN Activity 3 · pairs · calculation Evaluate [E] for the cantilever’s material Given (text Fig. 3.4) E = 200 × 10⁶ N m⁻², ν = 0.33. Plane stress. Find E/(1 − ν²) and the three distinct entries of [E]. Then: G = E/(2(1 + ν)). Does it equal the (3,3) entry? Check Keep four significant figures; the stiffness matrix the next session is built from these numbers. 6 minutes. Reveal follows. SEAA 4243 · Plane Stress — Par
+
+[slides-22] Slide 22: The constitutive matrix of the cantilever, in N m⁻²
+Activity 3 · solution The constitutive matrix of the cantilever, in N m⁻² Check G = E/(2(1 + ν)) = 200 × 10⁶ / 2.66 = 75.19 × 10⁶ N m⁻² — equal to the (3,3) entry, which confirms that ε_{xy} is the engineering shear strain. SEAA 4243 · Plane Stress — Part 1 22
+
+[slides-23] Slide 23: Plane stress or plane strain? Predict, then check
+5 MIN QR Explorer · pairs, one phone Plane stress or plane strain? Predict, then check Scan, then do 1 From the two [E] matrices, predict whether the plate is stiffer in plane strain, and by roughly how much. 2 In the Cantilever Explorer choose 8-node, 8 × 4. Read the tip deflection in plane stress, then in plane strain. 3 Which idealisation suits our 10 mm plate, and which would suit a long dam? Cantilever Explorer
+
+[slides-24] Slide 24: Break
+1:25 – 1:35 Break Back in 10 minutes. Second half: boundary conditions, degrees of freedom and the shape-function matrix. SEAA 4243 · Plane Stress — Part 1 24
+
+[slides-25] Slide 25: Boundary conditions
+4 Block 4 · 1:35 – 2:05 Boundary conditions Traction (natural) where forces are applied or absent; displacement (essential) where the structure is held. Text §3.1.2. SEAA 4243 · Plane Stress — Part 1 25
+
+[slides-26] Slide 26: On every boundary point, each direction has either a known traction or a known displacemen
+Block 4 · two kinds of condition · text (3.18)–(3.23) On every boundary point, each direction has either a known traction or a known displacement Neumann · natural · traction specified (3.18a), (3.19a) b_x, b_y: force per unit area on the boundary (per unit thickness: force per unit length). A free edge has b_x = b_y = 0. Dirichlet · essential · displacement specified (3.22), (3.23) A fixed support: ū = v̄ = 0. A rol
+
+[slides-27] Slide 27: Same table as heat transfer, with forces in place of fluxes
+Block 4 · what FEM does with each kind Same table as heat transfer, with forces in place of fluxes Condition What is known Where it enters the FEM Heat-transfer analogue Displacement · essential ū, v̄ at nodes imposed on the assembled system by row–column elimination T̄ imposed Traction · natural b_x, b_y on an edge equivalent nodal loads in {b} from the boundary integral flux load {b} Free edge · natural, b = 0 noth
+
+[slides-28] Slide 28: Label the cantilever: each edge, each direction
+6 MIN Activity 4 · pairs · classification Label the cantilever: each edge, each direction For the four edges write Essential or natural, in x and in y. The equation (ū, v̄ or b_x, b_y with the outward normal). FEM action: impose / load / nothing. Then: how many of the 18 dofs of the 2 × 2 mesh are known? 6 minutes. Reveal follows. SEAA 4243 · Plane Stress — Part 1 28
+
+[slides-29] Slide 29: Six fixed dofs on the left edge, one loaded edge, two free edges
+Activity 4 · solution Six fixed dofs on the left edge, one loaded edge, two free edges Edge x-direction y-direction FEM action left (x = 0) ū = 0, essential v̄ = 0, essential impose U_1, U_2, U_7, U_8, U_{13}, U_{14} = 0 right (x = 4) b_x = σ_{xx} = 0, natural b_y = σ_{xy} = −q_y, natural nodal loads from the 5 kN m⁻¹ traction top (y = 2) b_x = σ_{yx} = 0 b_y = σ_{yy} = 0 nothing bottom (y = 0) b_x = 0 b_y = 0 nothin
+
+[slides-30] Slide 30: Degrees of freedom and the shape-function matrix
+5 Block 5 · 2:05 – 2:35 Degrees of freedom and the shape-function matrix The same N₁…N₄ as heat transfer, arranged in a 2 × 8 matrix so that both u and v are interpolated at once. Text §3.2.1. SEAA 4243 · Plane Stress — Part 1 30
+
+[slides-31] Slide 31: Each node carries u (along x) and v (along y); the dof vector interleaves them
+Block 5 · eight degrees of freedom · text Fig. 3.2 Each node carries u (along x) and v (along y); the dof vector interleaves them (3.24), (3.25) Ordering convention {û} = {u_1 v_1 u_2 v_2 u_3 v_3 u_4 v_4}: node by node, u before v. Global: node n has dofs U_{2n−1} (x) and U_{2n} (y). The same N_i(x, y) as (2.21) interpolate both u and v. Watch out Keep this ordering everywhere: in [N], in [B], in [k] and in the conne
+
+[slides-32] Slide 32: A 2 × 8 matrix: row 1 interpolates u, row 2 interpolates v
+Block 5 · the shape-function matrix · text (3.28)–(3.30) A 2 × 8 matrix: row 1 interpolates u, row 2 interpolates v (3.28) (3.30) SEAA 4243 · Plane Stress — Part 1 32
+
+[slides-33] Slide 33: Interpolate u and v at a point of element 4 of the solved cantilever
+8 MIN Activity 5 · pairs · calculation Interpolate u and v at a point of element 4 of the solved cantilever Given (text (3.49), element 4 = nodes 5, 6, 9, 8) (u, v) at node 5: (0, −0.043); node 6: (0, −0.130); node 9: (0.042, −0.131); node 8: (0.031, −0.046) m. Element 4: a = 2 m, b = 1 m, its node 1 at global (2, 1). Find Local coordinates of the point (3.5, 1.3) m. N_1…N_4 there (you met these numbers in Heat Trans
+
+[slides-34] Slide 34: The heat-transfer shape functions, applied to two fields at once
+Activity 5 · solution The heat-transfer shape functions, applied to two fields at once Why Node 2 of the element (global node 6, the free end) dominates: half the weight, and the largest v. Check Plane Stress Part 3: differentiate the same interpolation with [B] to get ε and σ at this point. SEAA 4243 · Plane Stress — Part 1 34
+
+[slides-35] Slide 35: The pipeline for plane stress — what changes
+6 Block 6 · 2:35 – 3:00 The pipeline for plane stress — what changes Every step repeats; only the sizes grow. Preview of [B] and [k], then the exit ticket. SEAA 4243 · Plane Stress — Part 1 35
+
+[slides-36] Slide 36: Same seven steps; the objects change size
+Block 6 · heat transfer and plane stress, side by side Same seven steps; the objects change size Step Heat transfer (Parts 1–2) Plane stress (Parts 1–3) PDE {∂}[E]{∂}ᵀT = −q_h [∂][E][∂]ᵀ{u}ᵀ = −{f} operator {∂}: 1 × 2 [∂]: 2 × 3 material [E] = diag(k_x, k_y): 2 × 2 [E]: 3 × 3 (plane stress) shape functions {N}: 1 × 4 [N]: 2 × 8 gradient / strain {∂}ᵀ{N}: 2 × 4 [B] = [∂]ᵀ[N]: 3 × 8 element matrix [k] = ∫{N}ᵀ{∂}[E]{∂}ᵀ
+
+[slides-37] Slide 37: Three questions before you leave
+5 MIN Activity 6 · individual · exit ticket Three questions before you leave Questions A 10 m long culvert loaded uniformly along its length: plane stress or plane strain, and which quantity is zero? Write the strain–displacement relation in matrix form and name the matrix. For a square element (a = b), what are u and v at the centroid in terms of the nodal values? hint for Q3 Five minutes. Name and matric number; fo
+
+[slides-38] Slide 38: Next session: [B], the 8 × 8 [k] and the cantilever solved by hand
+Wrap-up · what to take away and what to prepare Next session: [B], the 8 × 8 [k] and the cantilever solved by hand Today in four lines Equilibrium of the element: [∂]{σ}ᵀ = −{f} with the 2 × 3 operator [∂]. Hooke: {σ}ᵀ = [E]{ε}ᵀ (3 × 3, plane stress); strain–displacement: {ε}ᵀ = [∂]ᵀ{u}ᵀ. Together: [∂][E][∂]ᵀ{u}ᵀ = −{f}. Traction = natural (load or nothing); displacement = essential (imposed). Count per direction. {u
+
+[examples-x1] Example 1 · Displacements, strains and stresses at a point
+Exam type given {d} of an element, find u, v, ε and σ at a point Units kN, m Source FEM by Hand, Example 9.1 20 marks Question An element 0.6 m by 0.4 m, with E = 200 × 10⁶ kN/m² and ν = 0.3 (plane stress), has the nodal displacements {d} = {u_1, v_1, …, u_4, v_4}ᵀ = {1, 0.1, 2, 0.1, 2, 0, 1, 0}ᵀ × 10^{−5} m. (a) Explain how the displacements and stresses at a point (x_1, y_1) of the element are obtained. (b) Calculate the stresses at the centre. (c) With u_3 = 3 × 10^{−5} m instead, find u, v and the stresses at (0.15, 0.3) m.
+[Figure: The element of Example 1, its eight dofs, the centre and the point (0.15, 0.3).]
+Physical picture. Nodes 2 and 3 move 1 × 10^{−5} m further right than nodes 1 and 4, so the element is stretched along x by 10^{−5}/0.6 = 1.67 × 10^{−5}. The top moves down by 10^{−6} relative to the bottom: a contraction in y. Nothing shears it. Expect σ_{xx} near Eε_{xx} ≈ 3.3 × 10³ kN/m², a little more because the element contracts in y less than a free bar would.
+Plan. (a) local coordinates → N_i → u, v → derivatives → {ε} → {σ}; (b) the centre; (c) the point (0.15, 0.3), then the centre as a check.
+## Step 1 (a) The procedure [4]
+EQUATION : [equation u1_proc: source not available in the page]
+Only the nodal displacements of the element that contains the point are used. In Part 2 the derivatives of step (3) are packed into the matrix [B], so that {ε}ᵀ = [B]{d}.
+## Step 2 The derivatives of u and v [2]
+Differentiating u = Σ N_iu_i with the N_i of (2.21) gives, at any local point (x, y),
+EQUATION : [equation u1_deriv: source not available in the page]
+## Step 3 (b) Strains at the centre [3]
+At (a/2, b/2) each derivative becomes the average of two side differences:
+EQUATION : [equation u1_epsc: source not available in the page]
+## Step 4 (b) Stresses at the centre [3]
+EQUATION : [equation u1_sigc: source not available in the page]
+Answer. (b) σ_{xx} = 3.50 × 10³ kN/m² (3.50 MPa), σ_{yy} = 549 kN/m², σ_{xy} = 0. Check. σ_{xx} is a little above Eε_{xx} = 3333 kN/m², as the physical picture predicted.
+## Step 5 (c) Displacements at (0.15, 0.3) [3]
+EQUATION : [equation u1_Np: source not available in the page]
+EQUATION : [equation u1_uvp: source not available in the page]
+## Step 6 (c) Strains and stresses at (0.15, 0.3) [5]
+EQUATION : [equation u1_epsp: source not available in the page]
+EQUATION : [equation u1_sigp: source not available in the page]
+Answer. (c) u = 1.44 × 10^{−5} m, v = 2.5 × 10^{−7} m; σ = {6245, 1374, 481} kN/m² at (0.15, 0.3). At the centre the same steps give
+EQUATION : [equation u1_centre_c: source not available in the page]
+Interpretation In (b) the displacements are a uniform stretch, so the strains, and the stresses, are the same at every point of the element: the centre is not special there. In (c) the extra movement of node 3 alone makes ε_{xx} grow with y and adds a shear strain that grows with x, so the stresses vary inside the element. The element next to it, computed from its own nodes, will give different stresses on the shared side; that is why finite element stresses are usually reported at element centres or averaged at the nodes (Part 3). Marking scheme (suggested) · 20 What earns the marks Marks
+Procedure in the right order, element and local coordinates first 4
+Derivatives of u and v 2
+Strains at the centre 3
+Ē, [E] and the stresses at the centre 3
+N_i with the sum check, u and v 3
+Strains with the engineering shear, stresses 5
+Total 20
+
+[examples-x2] Example 2 · Plane stress or plane strain: [E] and what it does
+Exam type constitutive matrices; stresses for a given strain; the out-of-plane quantity Units kN, m Source FEM by Hand, Practice Problem 9.1 (worked in full and extended) 15 marks Question For concrete with E = 30 × 10⁶ kN/m² and ν = 0.2: (a) calculate [E] for plane stress and for plane strain and compare their entries. (b) A strain state ε_{xx} = 2 × 10^{−4}, ε_{yy} = ε_{xy} = 0 is imposed. Find σ_{xx} and σ_{yy} in each idealisation, and (c) the out-of-plane stress or strain that each one implies. (d) Which idealisation suits a 200 mm shear wall, and which a long retaining wall? Physical picture. Plane stress leaves the faces free, so the material may contract through the thickness; plane strain forbids that, and the slice must be squeezed by a stress σ_{zz}. A material that is held in z resists in-plane stretching more, so expect larger normal entries in plane strain. Shear does not change the volume, so the shear entry should be G in both.
+Plan. (a) the two factors → the entries → G as a check; (b) {σ} = [E]{ε}; (c) σ_{zz} = 0 with ε_{zz} from 3D Hooke, or ε_{zz} = 0 with σ_{zz} = ν(σ_{xx} + σ_{yy}); (d) geometry.
+## Step 1 (a) Plane stress [3]
+EQUATION : [equation u2_ps: source not available in the page]
+## Step 2 (a) Plane strain [3]
+EQUATION : [equation u2_pe: source not available in the page]
+EQUATION : [equation u2_G: source not available in the page]
+Answer. (a) Plane stress: 31.25, 6.25, 12.5 × 10⁶; plane strain: 33.33, 8.33, 12.5 × 10⁶ kN/m². Plane strain is stiffer in the normal entries; the shear entry G is the same.
+## Step 3 (b) Stresses for the imposed strain [3]
+EQUATION : [equation u2_sig: source not available in the page]
+## Step 4 (c) The out-of-plane quantity [4]
+EQUATION : [equation u2_zz: source not available in the page]
+Answer. (c) Plane stress: σ_{zz} = 0 and the plate thins, ε_{zz} = −5.0 × 10^{−5}. Plane strain: ε_{zz} = 0 and σ_{zz} = 1667 kN/m² holds the slice at its thickness. Check. Plane-stress ε_{zz} equals −ν/(1 − ν)(ε_{xx} + ε_{yy}) = −0.25 × 2 × 10^{−4} = −5.0 × 10^{−5}, the same number by a second route.
+## Step 5 (d) Choosing the idealisation [2]
+The shear wall is thin and loaded in its own plane: plane stress. The retaining wall is long with the same section and the same soil pressure along it: plane strain, per metre run.
+Interpretation The two matrices differ only where the thickness direction matters. A strain along x alone makes the plane-strain material push back harder (6667 against 6250 kN/m²), and it also produces a larger lateral stress σ_{yy}, because the slice can relieve its Poisson effect neither through the thickness nor sideways. For ν = 0.2 the difference is about 7%; for ν = 0.33 it is 12% in bending, and as ν approaches 0.5 the plane-strain entries grow without bound. Choosing the wrong idealisation is therefore a modelling error of known size, not a numerical one: no mesh refinement removes it. Marking scheme (suggested) · 15 What earns the marks Marks
+Plane-stress factor and entries 3
+Plane-strain factor, entries, G check 3
+Stresses in both idealisations 3
+ε_{zz} and σ_{zz} with the second-route check 4
+Idealisation with its reason 2
+Total 15
+
+[examples-x3] Example 3 · Numbering, supports and loads of a plate with a hole
+Exam type node, element and dof numbers; connectivity; known dofs; nodal loads; rigid motions Units symbolic Source FEM by Hand, Example 9.5 (a), extended 15 marks Question The plate of the figure, fixed on its left side and pulled by a uniform traction q (force per unit length, thickness included) on its right side, has a rectangular hole and is modelled by eight four-node elements in three rows of equal height h. (a) Number the nodes, elements and dofs, and give the connectivity of all elements. (b) Which dofs are known, and how many unknowns remain? (c) Write the non-zero entries of the load vector. (d) Show that a small rigid rotation produces no strain, and explain what this requires of the supports.
+[Figure: The plate of Example 3, with the numbering of the answer.]
+Physical picture. The numbering is a choice, but a good one keeps the nodes of each element close in number, so that [K] stays narrow: rows of four nodes from the bottom left do that. The hole only means that some nodes belong to fewer elements and that no element spans it. The left side is held in both directions; the right side is a natural boundary loaded in x; top, bottom and the edges of the hole are free.
+Plan. Nodes row by row → elements row by row, skipping the hole → connectivity anticlockwise from the lower left → dofs 2i − 1, 2i → supports → edge loads → rigid motions.
+## Step 1 (a) Nodes, elements and dofs [3]
+Nodes 1–4 along the bottom, then 5–8, 9–12 and 13–16 above them. Elements 1–3 form the bottom row, 4 and 5 lie beside the hole, 6–8 form the top row.
+EQUATION : [equation u3_dofs: source not available in the page]
+## Step 2 (a) Connectivity [4]
+element 1 2 3 4 5 6 7 8
+local 1 1 2 3 5 7 9 10 11
+local 2 2 3 4 6 8 10 11 12
+local 3 6 7 8 10 12 14 15 16
+local 4 5 6 7 9 11 13 14 15
+Check. Every element lists four distinct nodes anticlockwise from its lower left; nodes 6, 7, 10 and 11 at the corners of the hole each belong to three elements, not four, because the hole takes the fourth place.
+## Step 3 (b) Known dofs [3]
+EQUATION : [equation u3_known: source not available in the page]
+Answer. (b) Dofs 1, 2, 9, 10, 17, 18, 25 and 26 are zero; 24 unknowns remain.
+## Step 4 (c) Nodal loads from the traction [3]
+Each right-hand edge of height h carries qh, shared equally by its two end nodes in the x-direction; nodes 8 and 12 collect a share from two edges:
+EQUATION : [equation u3_loads: source not available in the page]
+Answer. (c) r_7 = r_{31} = qh/2, r_{15} = r_{23} = qh, all in x; nothing in y and nothing elsewhere.
+## Step 5 (d) Rigid rotation and the supports [2]
+EQUATION : [equation u3_rigid: source not available in the page]
+A rigid motion needs no force, so [K] is singular unless the supports prevent both translations and the rotation. Here the fixed left side prevents all three; a support of v alone along it would leave the x-translation and a rotation about the edge free.
+Interpretation The hole changes nothing in the procedure: its corner nodes simply belong to fewer elements, no element contributes across it, and its edges are free. With rows of four, the node numbers inside any element differ by at most 5, so in [K] (32 × 32) every non-zero entry K_{IJ} has |I − J| ≤ 2 × 5 + 1 = 11: a half-bandwidth of 12 instead of 32. Numbering column by column instead (four columns of four) would give the same here, but on a long plate the rule is to number across the short direction. Marking scheme (suggested) · 15 What earns the marks Marks
+Node, element and dof numbering 3
+Connectivity table 4
+Known dofs and the count 3
+Load shares with the total 3
+Rigid rotation and what it requires 2
+Total 15
+
+[exercises-b1] Exercise B1 · The constitutive matrix [E], plane stress or plane strain
+Statement: generated in the app at run time (numbers change per attempt)
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-b2] Exercise B2 · Displacements at a point of an element
+Statement: generated in the app at run time (numbers change per attempt)
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-b3] Exercise B3 · Strains from a displacement field, then stresses
+Statement: generated in the app at run time (numbers change per attempt)
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-quick] Exercises: quick concept questions
+- Which structure is best modelled in plane stress?
+- The (3,3) entry of the plane-stress [E] equals
+- Compared with plane stress, the plane-strain [E] for the same E and ν is
+- u = 0.001x and v = −0.0003y everywhere in a plate. What is ε_{xy} ?
+- A plate is held only by v = 0 along its left edge and loaded on the right. Why does the solver fail?
+- What is the size of [N] for the four-node plane-stress element?
+- A student builds the plane-stress [E] for E = 200 × 10⁶ kN m^{−2} and ν = 0.25, and uses it for a shear strain ε_{xy} = 1 × 10^{−5} . One line contains the slip. Which one?
+
+[lab-pstrain] Explorer task 1 · Choose a mesh (in class: 8-node, 8 × 4), read the tip deflection in plane stress, then switch to plane strain. By how much does it change, and why?
+Ticks itself: detected when the same mesh has been solved in plane stress and in plane strain with the text’s data · not ticked? mark done
+(The task's answer fields are checked in the app; they are not included here.)
+
+[lab-vonly] Explorer task 2 · Change the support on the left edge to “Vertical only: v = 0”. What does the Explorer report, and which rigid motions are left free?
+Ticks itself: detected when the vertical-only support leaves the model unsolvable · not ticked? mark done
+(The task's answer fields are checked in the app; they are not included here.)
+
+[lab-thick] Explorer task 3 · Open “Model data” and change the thickness t (for example to 0.02 m). How does the tip deflection change, and where does t enter the equations?
+Ticks itself: detected when t differs from 0.01 m with the text’s data otherwise · not ticked? mark done
+(The task's answer fields are checked in the app; they are not included here.)
+
+[lab-nu0] Explorer task 4 · Set ν = 0 in “Model data” and compare plane stress with plane strain on the same mesh. Why are they now identical?
+Ticks itself: detected when ν = 0 has been solved in both idealisations on the same mesh · not ticked? mark done
+(The task's answer fields are checked in the app; they are not included here.)
+
+[lab-code] Lab · Python code for assignments and projects
+Python code for assignments and projects The same steps and notation as the notes, written out in plain Python. Use it to check every matrix and number of a hand calculation, and to run what is impractical by hand: mesh studies, contour plots, your own geometry and loads. ⤓ Download fe_plane_stress.py (.zip, 18 kB) ⤓ All course code (.zip, 41 kB) Unzip, then install Python 3.8 or newer and run pip install numpy matplotlib (matplotlib only for the plots). Run python fe_plane_stress.py . It reproduces the course example; README.txt lists the output you should see. Read the docstring at the top of the file for the notation, numbering and units, and how to call it for your own problem. A hand calculation is still a hand calculation: in a test or an assignment that asks for the steps, show them yourself. Show the code · fe_plane_stress.py · 323 lines Copy """
+SEAA 4243 Finite Element Method - plane stress with 4-node and 8-node elements
+==============================================================================
+Companion code for the Cantilever and Stress Recovery Explorers (Plane Stress).
+It follows the course's steps in the text's notation (Mohd Yassin et al.,
+MSNM 2020, Chapter 3):
+[E] 3 x 3 material matrix, plane stress or plane strain text (3.10)
+[B] strains from nodal displacements, {eps} = [d]^T[N]{u} weak form (3.31)-(3.38)
+[k] = t * integral [B]^T [E] [B] dA closed form (3.42);
+here by Gauss quadrature (2 x 2 points for the 4-node
+element, 3 x 3 for the 8-node), which
+
+[lab-run] Lab · Run the code in your browser
+Run the code in your browser trial Edit a short script and run it here, with no installation. Python runs on your own device; nothing is sent anywhere. The first run downloads Python, about 9 MB (about 20 MB once a script plots), and takes 10–30 s; later runs take a second or two. [E]: stress or strain Strains, then stresses Course example ▶ Run ■ Stop Reset script Ctrl+Enter (⌘+Enter) runs. Your edits are kept in this browser; Reset script brings back the original. For an assignment or a project, download the code above and run it on your computer.
+
+[glossary-plane-stress] Glossary: plane stress
+plane stress: A thin body loaded in its own plane: σ_{zz} = σ_{xz} = σ_{yz} = 0, while ε_{zz} may be non-zero.
+
+[glossary-plane-strain] Glossary: plane strain
+plane strain: A long body with every section loaded alike: ε_{zz} = 0, and σ_{zz} = ν(σ_{xx} + σ_{yy} ) develops.
+
+[glossary-displacement-u-v] Glossary: displacement u, v
+displacement u, v: The movement of a point along x and along y; the primary unknowns of plane stress.
+
+[glossary-normal-stress-shear-stress] Glossary: normal stress · shear stress
+normal stress · shear stress: σ_{xx} , σ_{yy} act normal to a face; σ_{xy} = σ_{yx} act along it (N m^{−2} ).
+
+[glossary-body-force-f] Glossary: body force f
+body force f: Force per unit volume acting inside the body, N m^{−3} ; self-weight f_y = −ρg.
+
+[glossary-differential-element] Glossary: differential element
+differential element: A small rectangle dx × dy on which equilibrium is written before the size goes to zero.
+
+[glossary-equilibrium-equations] Glossary: equilibrium equations
+equilibrium equations: (3.4) and (3.6): the stress gradients balance the body force in x and in y.
+
+[glossary-operator-matrix] Glossary: operator matrix [∂]
+operator matrix [∂]: The 2 × 3 matrix of derivatives in [∂]{σ}ᵀ = −{f}; its transpose gives the strains.
+
+[glossary-constitutive-matrix-e] Glossary: constitutive matrix [E]
+constitutive matrix [E]: The 3 × 3 matrix of Hooke’s law, {σ}ᵀ = [E]{ε}ᵀ; different for plane stress and plane strain.
+
+[glossary-young-s-modulus-e-poisson-s-ratio] Glossary: Young’s modulus E · Poisson’s ratio ν
+Young’s modulus E · Poisson’s ratio ν: Stiffness in uniaxial tension; lateral contraction per unit axial strain.
+
+[glossary-shear-modulus-g] Glossary: shear modulus G
+shear modulus G: G = E/(2(1 + ν)); the (3,3) entry of [E] in both idealisations.
+
+[glossary-engineering-shear-strain-xy] Glossary: engineering shear strain ε_{xy}
+engineering shear strain ε_{xy}: ∂u/∂y + ∂v/∂x, the change of a right angle (γ_{xy} in many books); twice the tensor shear strain.
+
+[glossary-strain-displacement-relation] Glossary: strain–displacement relation
+strain–displacement relation: {ε}ᵀ = [∂]ᵀ{u}ᵀ: three strains from two displacements.
+
+[glossary-traction-b] Glossary: traction b
+traction b: Force per unit area on the boundary, b_x = σ_{xx} n_x + σ_{xy} n_y , b_y = σ_{xy} n_x + σ_{yy} n_y .
+
+[glossary-natural-essential] Glossary: natural · essential
+natural · essential: Natural: a known traction, entered as a load. Essential: a known displacement, imposed on the assembled system.
+
+[glossary-free-edge] Glossary: free edge
+free edge: A natural condition with zero traction; the finite element model does nothing there.
+
+[glossary-rigid-body-motion] Glossary: rigid-body motion
+rigid-body motion: Translation or rotation without strain; supports must remove all three in 2D or [K] is singular.
+
+[glossary-reaction] Glossary: reaction
+reaction: Force at a support, recovered after solving from the struck rows of the system.
+
+[glossary-degree-of-freedom-dof] Glossary: degree of freedom (dof)
+degree of freedom (dof): One nodal unknown; node n owns U_{2n−1} (x) and U_{2n} (y).
+
+[glossary-shape-function-matrix-n] Glossary: shape-function matrix [N]
+shape-function matrix [N]: The 2 × 8 matrix with {u v}ᵀ = [N]{û}ᵀ; the same N_i for u and for v.
+
+[glossary-strain-displacement-matrix-b] Glossary: strain-displacement matrix [B]
+strain-displacement matrix [B]: [B] = [∂]ᵀ[N], 3 × 8, so that {ε}ᵀ = [B]{û}ᵀ; built in Part 2.
+
+[glossary-stiffness-matrix-k] Glossary: stiffness matrix [k]
+stiffness matrix [k]: [k] = t∫[B]ᵀ[E][B] dA, 8 × 8 for the four-node element; the analogue of the conductance matrix.

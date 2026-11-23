@@ -1,0 +1,8 @@
+rz-tutor-worker 0.4.3, copied 23 Nov 2026 from main at commit 2c5a34a: panel/, widget/, tools/add_panel.py,
+tools/build_manifest.py (MIT, see LICENSE). A pinned copy used by tools/add_tutor.py. These files are
+byte-identical to 0.4.0 (commit 54c6d31), the copy the SEAA 4333 Units carry. To update: copy the same files
+from a newer rz-tutor-worker release over this folder, run tools/add_tutor.py on the pages without the panel,
+and check them in a browser.
+
+Not copied: feedback/ (these pages have no Feedback tab; the Worker has "feedback": false for app "seaa4243").
+No local patch.

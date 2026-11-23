@@ -1,0 +1,646 @@
+{
+ "app": "seaa4243",
+ "part": "p5",
+ "title": "Plane Stress — Part 3",
+ "folder": "05-plane-stress-3",
+ "course_meta": {
+  "key": "seaa4243-p5-v1",
+  "notes": [
+   "n1",
+   "n2",
+   "n3",
+   "n4",
+   "n5",
+   "n6"
+  ],
+  "slides": 39,
+  "examples": [
+   "z1",
+   "z2",
+   "z3"
+  ],
+  "cando": 5,
+  "targetMin": 37
+ },
+ "sections": [
+  {
+   "id": "start-outcomes",
+   "view": "start",
+   "anchor": null,
+   "selector": "ol.lo",
+   "title_en": "After this part you should be able to",
+   "title_ms": "Selepas bahagian ini, anda sepatutnya boleh"
+  },
+  {
+   "id": "notes-n1",
+   "view": "notes",
+   "anchor": "n1",
+   "title_en": "1. Stresses from the nodal displacements",
+   "title_ms": "1. Stress daripada nodal displacement",
+   "minutes": 10
+  },
+  {
+   "id": "notes-n2",
+   "view": "notes",
+   "anchor": "n2",
+   "title_en": "2. Principal and von Mises stresses",
+   "title_ms": "2. Principal stress dan von Mises stress",
+   "minutes": 6
+  },
+  {
+   "id": "notes-n3",
+   "view": "notes",
+   "anchor": "n3",
+   "title_en": "3. How far can a computed stress be trusted?",
+   "title_ms": "3. Sejauh mana stress yang dikira boleh dipercayai?",
+   "minutes": 9
+  },
+  {
+   "id": "notes-n4",
+   "view": "notes",
+   "anchor": "n4",
+   "title_en": "4. Display options, singularities and concentrations",
+   "title_ms": "4. Pilihan paparan, singularity dan concentration",
+   "minutes": 9
+  },
+  {
+   "id": "notes-n5",
+   "view": "notes",
+   "anchor": "n5",
+   "title_en": "5. The 8-node element",
+   "title_ms": "5. 8-node element",
+   "minutes": 8
+  },
+  {
+   "id": "notes-n6",
+   "view": "notes",
+   "anchor": "n6",
+   "title_en": "6. Reporting an FE result, and the project",
+   "title_ms": "6. Melaporkan keputusan FE, dan projek",
+   "minutes": 8
+  },
+  {
+   "id": "slides-1",
+   "view": "slides",
+   "anchor": "1",
+   "title_en": "Slide 1: Plane Stress Part 3 of 3",
+   "title_ms": "Slide 1: Plane Stress Part 3 of 3"
+  },
+  {
+   "id": "slides-2",
+   "view": "slides",
+   "anchor": "2",
+   "title_en": "Slide 2: Three questions from the last session — on paper",
+   "title_ms": "Slide 2: Three questions from the last session — on paper"
+  },
+  {
+   "id": "slides-3",
+   "view": "slides",
+   "anchor": "3",
+   "title_en": "Slide 3: By the end of this session you should be able to",
+   "title_ms": "Slide 3: By the end of this session you should be able to"
+  },
+  {
+   "id": "slides-4",
+   "view": "slides",
+   "anchor": "4",
+   "title_en": "Slide 4: Six blocks, six activities, one break, the project briefing",
+   "title_ms": "Slide 4: Six blocks, six activities, one break, the project briefing"
+  },
+  {
+   "id": "slides-5",
+   "view": "slides",
+   "anchor": "5",
+   "title_en": "Slide 5: Stresses from displacements",
+   "title_ms": "Slide 5: Stresses from displacements"
+  },
+  {
+   "id": "slides-6",
+   "view": "slides",
+   "anchor": "6",
+   "title_en": "Slide 6: Two matrix products: [B] gives strains, [E] gives stresses",
+   "title_ms": "Slide 6: Two matrix products: [B] gives strains, [E] gives stresses"
+  },
+  {
+   "id": "slides-7",
+   "view": "slides",
+   "anchor": "7",
+   "title_en": "Slide 7: Local (1.5, 0.3): the [B] of Plane Stress Part 2 and the nodal displacements of Plane Stre",
+   "title_ms": "Slide 7: Local (1.5, 0.3): the [B] of Plane Stress Part 2 and the nodal displacements of Plane Stre"
+  },
+  {
+   "id": "slides-8",
+   "view": "slides",
+   "anchor": "8",
+   "title_en": "Slide 8: Strains and stresses at (3.5, 1.3) m",
+   "title_ms": "Slide 8: Strains and stresses at (3.5, 1.3) m"
+  },
+  {
+   "id": "slides-9",
+   "view": "slides",
+   "anchor": "9",
+   "title_en": "Slide 9: Tension above the neutral axis; σ yy small, as beam theory assumes",
+   "title_ms": "Slide 9: Tension above the neutral axis; σ yy small, as beam theory assumes"
+  },
+  {
+   "id": "slides-10",
+   "view": "slides",
+   "anchor": "10",
+   "title_en": "Slide 10: From three components to the two numbers a design check uses",
+   "title_ms": "Slide 10: From three components to the two numbers a design check uses"
+  },
+  {
+   "id": "slides-11",
+   "view": "slides",
+   "anchor": "11",
+   "title_en": "Slide 11: How far can a stress be trusted?",
+   "title_ms": "Slide 11: How far can a stress be trusted?"
+  },
+  {
+   "id": "slides-12",
+   "view": "slides",
+   "anchor": "12",
+   "title_en": "Slide 12: Beam theory is a valid check only away from the ends",
+   "title_ms": "Slide 12: Beam theory is a valid check only away from the ends"
+  },
+  {
+   "id": "slides-13",
+   "view": "slides",
+   "anchor": "13",
+   "title_en": "Slide 13: At element centroids, away from the support, a 32 × 16 mesh matches beam theory",
+   "title_ms": "Slide 13: At element centroids, away from the support, a 32 × 16 mesh matches beam theory"
+  },
+  {
+   "id": "slides-14",
+   "view": "slides",
+   "anchor": "14",
+   "title_en": "Slide 14: A re-entrant corner of a fully fixed edge is a stress singularity in the elastic model",
+   "title_ms": "Slide 14: A re-entrant corner of a fully fixed edge is a stress singularity in the elastic model"
+  },
+  {
+   "id": "slides-15",
+   "view": "slides",
+   "anchor": "15",
+   "title_en": "Slide 15: A hole concentrates stress, and the peak converges",
+   "title_ms": "Slide 15: A hole concentrates stress, and the peak converges"
+  },
+  {
+   "id": "slides-16",
+   "view": "slides",
+   "anchor": "16",
+   "title_en": "Slide 16: Which of these stresses would you put in a design report?",
+   "title_ms": "Slide 16: Which of these stresses would you put in a design report?"
+  },
+  {
+   "id": "slides-17",
+   "view": "slides",
+   "anchor": "17",
+   "title_en": "Slide 17: Trust converged centroid values away from singularities; distribute point loads; never rep",
+   "title_ms": "Slide 17: Trust converged centroid values away from singularities; distribute point loads; never rep"
+  },
+  {
+   "id": "slides-18",
+   "view": "slides",
+   "anchor": "18",
+   "title_en": "Slide 18: Probe the lecture point, then refine",
+   "title_ms": "Slide 18: Probe the lecture point, then refine"
+  },
+  {
+   "id": "slides-19",
+   "view": "slides",
+   "anchor": "19",
+   "title_en": "Slide 19: The 8-node element",
+   "title_ms": "Slide 19: The 8-node element"
+  },
+  {
+   "id": "slides-20",
+   "view": "slides",
+   "anchor": "20",
+   "title_en": "Slide 20: Two elements, 13 nodes, 26 dofs for the whole cantilever",
+   "title_ms": "Slide 20: Two elements, 13 nodes, 26 dofs for the whole cantilever"
+  },
+  {
+   "id": "slides-21",
+   "view": "slides",
+   "anchor": "21",
+   "title_en": "Slide 21: One sixth to each corner, two thirds to the mid-side node",
+   "title_ms": "Slide 21: One sixth to each corner, two thirds to the mid-side node"
+  },
+  {
+   "id": "slides-22",
+   "view": "slides",
+   "anchor": "22",
+   "title_en": "Slide 22: Which mesh for the money? Compare Q4 and Q8 on the cantilever",
+   "title_ms": "Slide 22: Which mesh for the money? Compare Q4 and Q8 on the cantilever"
+  },
+  {
+   "id": "slides-23",
+   "view": "slides",
+   "anchor": "23",
+   "title_en": "Slide 23: Two 8-node elements beat four 4-node elements; sixteen match 256",
+   "title_ms": "Slide 23: Two 8-node elements beat four 4-node elements; sixteen match 256"
+  },
+  {
+   "id": "slides-24",
+   "view": "slides",
+   "anchor": "24",
+   "title_en": "Slide 24: Break",
+   "title_ms": "Slide 24: Break"
+  },
+  {
+   "id": "slides-25",
+   "view": "slides",
+   "anchor": "25",
+   "title_en": "Slide 25: Reporting an FE result",
+   "title_ms": "Slide 25: Reporting an FE result"
+  },
+  {
+   "id": "slides-26",
+   "view": "slides",
+   "anchor": "26",
+   "title_en": "Slide 26: Idealisation, convergence, an independent check, quantified conclusions",
+   "title_ms": "Slide 26: Idealisation, convergence, an independent check, quantified conclusions"
+  },
+  {
+   "id": "slides-27",
+   "view": "slides",
+   "anchor": "27",
+   "title_en": "Slide 27: A model paragraph for the project report",
+   "title_ms": "Slide 27: A model paragraph for the project report"
+  },
+  {
+   "id": "slides-28",
+   "view": "slides",
+   "anchor": "28",
+   "title_en": "Slide 28: Write the heat-transfer plate up in three sentences",
+   "title_ms": "Slide 28: Write the heat-transfer plate up in three sentences"
+  },
+  {
+   "id": "slides-29",
+   "view": "slides",
+   "anchor": "29",
+   "title_en": "Slide 29: Project briefing",
+   "title_ms": "Slide 29: Project briefing"
+  },
+  {
+   "id": "slides-30",
+   "view": "slides",
+   "anchor": "30",
+   "title_en": "Slide 30: One real structure, one FE model, one verified answer, one report, one presentation",
+   "title_ms": "Slide 30: One real structure, one FE model, one verified answer, one report, one presentation"
+  },
+  {
+   "id": "slides-31",
+   "view": "slides",
+   "anchor": "31",
+   "title_en": "Slide 31: Four families that fit the course; propose your own if it is 2D and checkable",
+   "title_ms": "Slide 31: Four families that fit the course; propose your own if it is 2D and checkable"
+  },
+  {
+   "id": "slides-32",
+   "view": "slides",
+   "anchor": "32",
+   "title_en": "Slide 32: Proposed rubric — lecturer to confirm weights",
+   "title_ms": "Slide 32: Proposed rubric — lecturer to confirm weights"
+  },
+  {
+   "id": "slides-33",
+   "view": "slides",
+   "anchor": "33",
+   "title_en": "Slide 33: Eight steps; the project report follows the same order",
+   "title_ms": "Slide 33: Eight steps; the project report follows the same order"
+  },
+  {
+   "id": "slides-34",
+   "view": "slides",
+   "anchor": "34",
+   "title_en": "Slide 34: Use symmetry, and do not read stresses under a point load",
+   "title_ms": "Slide 34: Use symmetry, and do not read stresses under a point load"
+  },
+  {
+   "id": "slides-35",
+   "view": "slides",
+   "anchor": "35",
+   "title_en": "Slide 35: Draft your model plan on one page",
+   "title_ms": "Slide 35: Draft your model plan on one page"
+  },
+  {
+   "id": "slides-36",
+   "view": "slides",
+   "anchor": "36",
+   "title_en": "Slide 36: Wrap-up",
+   "title_ms": "Slide 36: Wrap-up"
+  },
+  {
+   "id": "slides-37",
+   "view": "slides",
+   "anchor": "37",
+   "title_en": "Slide 37: From equilibrium to a verified stress",
+   "title_ms": "Slide 37: From equilibrium to a verified stress"
+  },
+  {
+   "id": "slides-38",
+   "view": "slides",
+   "anchor": "38",
+   "title_en": "Slide 38: Three questions before you leave",
+   "title_ms": "Slide 38: Three questions before you leave"
+  },
+  {
+   "id": "slides-39",
+   "view": "slides",
+   "anchor": "39",
+   "title_en": "Slide 39: Bring the model plan, the two textbook examples and a laptop with ANSYS access",
+   "title_ms": "Slide 39: Bring the model plan, the two textbook examples and a laptop with ANSYS access"
+  },
+  {
+   "id": "examples-z1",
+   "view": "examples",
+   "anchor": "z1",
+   "title_en": "Example 1 · The text’s cantilever: stresses at the element centres, reactions and accuracy",
+   "title_ms": "Contoh 1 · Cantilever dalam teks: stress pada pusat element, reaction dan ketepatan"
+  },
+  {
+   "id": "examples-z2",
+   "view": "examples",
+   "anchor": "z2",
+   "title_en": "Example 2 · How far is the finest mesh from the answer? An error estimate from three meshes",
+   "title_ms": "Contoh 2 · Sejauh mana mesh paling halus dari jawapan? Anggaran ralat daripada tiga mesh"
+  },
+  {
+   "id": "examples-z3",
+   "view": "examples",
+   "anchor": "z3",
+   "title_en": "Example 3 · Why a Q4 element is too stiff in bending, and which refinement helps",
+   "title_ms": "Contoh 3 · Mengapa Q4 element terlalu kaku dalam bending, dan refine mana yang membantu"
+  },
+  {
+   "id": "exercises-b1",
+   "view": "exercises",
+   "anchor": "b1",
+   "title_en": "Exercise B1 · Stresses at a point from the nodal displacements",
+   "title_ms": "Latihan B1 · Stress pada satu titik daripada nodal displacement"
+  },
+  {
+   "id": "exercises-b2",
+   "view": "exercises",
+   "anchor": "b2",
+   "title_en": "Exercise B2 · Principal stresses, their direction and von Mises",
+   "title_ms": "Latihan B2 · Principal stress, arahnya dan von Mises"
+  },
+  {
+   "id": "exercises-b3",
+   "view": "exercises",
+   "anchor": "b3",
+   "title_en": "Exercise B3 · Rate, converged value and error from three meshes",
+   "title_ms": "Latihan B3 · Kadar, nilai converge dan ralat daripada tiga mesh"
+  },
+  {
+   "id": "exercises-b4",
+   "view": "exercises",
+   "anchor": "b4",
+   "title_en": "Exercise B4 · Edge loads on an 8-node side and on two 4-node sides",
+   "title_ms": "Latihan B4 · Edge load pada sisi 8-node dan pada dua sisi 4-node"
+  },
+  {
+   "id": "exercises-quick",
+   "view": "exercises",
+   "anchor": null,
+   "selector": "#v-exercises div.q",
+   "title_en": "Exercises: quick concept questions",
+   "title_ms": "Latihan: soalan konsep pantas"
+  },
+  {
+   "id": "lab-p13",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"p13\"]",
+   "title_en": "Explorer task 1: 4-node, 2 × 2 mesh: press “lecture point (3.5, 1.3)” and read σ…",
+   "title_ms": "Tugasan Explorer 1: 4-node, mesh 2 × 2: tekan “lecture point (3.5, 1.3)” dan baca σ…"
+  },
+  {
+   "id": "lab-refine",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"refine\"]",
+   "title_en": "Explorer task 2: Keep the point and refine: 8-node 16 × 8, then 32 × 16",
+   "title_ms": "Tugasan Explorer 2: Kekalkan titik itu dan refine: 8-node 16 × 8, kemudian 32 × 16"
+  },
+  {
+   "id": "lab-corner",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"corner\"]",
+   "title_en": "Explorer task 3: Run the corner study",
+   "title_ms": "Tugasan Explorer 3: Jalankan corner study"
+  },
+  {
+   "id": "lab-disp3",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"disp3\"]",
+   "title_en": "Explorer task 4: On the 4-node 4 × 2 mesh compare Elemental mean, Unaveraged and…",
+   "title_ms": "Tugasan Explorer 4: Pada mesh 4-node 4 × 2, bandingkan Elemental mean, Unaveraged d…"
+  },
+  {
+   "id": "lab-code",
+   "view": "lab",
+   "anchor": "code",
+   "selector": null,
+   "title_en": "Lab: Python code for assignments and projects",
+   "title_ms": "Lab: Kod Python untuk assignment dan projek"
+  },
+  {
+   "id": "lab-run",
+   "view": "lab",
+   "anchor": "run",
+   "selector": null,
+   "title_en": "Lab: Run the code in your browser",
+   "title_ms": "Lab: Jalankan kod dalam browser"
+  },
+  {
+   "id": "glossary-stress-recovery-post-processing",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: stress recovery · post-processing",
+   "title_ms": "Glosari: stress recovery · post-processing"
+  },
+  {
+   "id": "glossary-strain-displacement-matrix-b",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: strain–displacement matrix [B]",
+   "title_ms": "Glosari: strain–displacement matrix [B]"
+  },
+  {
+   "id": "glossary-primary-derived-result",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: primary · derived result",
+   "title_ms": "Glosari: primary · derived result"
+  },
+  {
+   "id": "glossary-principal-stresses-1-2",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: principal stresses σ_1 , σ_2",
+   "title_ms": "Glosari: principal stresses σ_1 , σ_2"
+  },
+  {
+   "id": "glossary-principal-direction-p",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: principal direction θ_p",
+   "title_ms": "Glosari: principal direction θ_p"
+  },
+  {
+   "id": "glossary-mohr-s-circle",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: Mohr’s circle",
+   "title_ms": "Glosari: Mohr’s circle"
+  },
+  {
+   "id": "glossary-von-mises-stress",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: von Mises stress",
+   "title_ms": "Glosari: von Mises stress"
+  },
+  {
+   "id": "glossary-elemental-mean",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: Elemental mean",
+   "title_ms": "Glosari: Elemental mean"
+  },
+  {
+   "id": "glossary-unaveraged",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: Unaveraged",
+   "title_ms": "Glosari: Unaveraged"
+  },
+  {
+   "id": "glossary-averaged-nodal-averaging",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: Averaged · nodal averaging",
+   "title_ms": "Glosari: Averaged · nodal averaging"
+  },
+  {
+   "id": "glossary-stress-jump",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: stress jump",
+   "title_ms": "Glosari: stress jump"
+  },
+  {
+   "id": "glossary-st-venant-s-principle",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: St-Venant’s principle",
+   "title_ms": "Glosari: St-Venant’s principle"
+  },
+  {
+   "id": "glossary-singularity",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: singularity",
+   "title_ms": "Glosari: singularity"
+  },
+  {
+   "id": "glossary-stress-concentration-k-t",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: stress concentration · K_t",
+   "title_ms": "Glosari: stress concentration · K_t"
+  },
+  {
+   "id": "glossary-8-node-serendipity-element-q8",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: 8-node (serendipity) element · Q8",
+   "title_ms": "Glosari: 8-node (serendipity) element · Q8"
+  },
+  {
+   "id": "glossary-consistent-edge-loads",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: consistent edge loads",
+   "title_ms": "Glosari: consistent edge loads"
+  },
+  {
+   "id": "glossary-shear-locking-parasitic-shear",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: shear locking · parasitic shear",
+   "title_ms": "Glosari: shear locking · parasitic shear"
+  },
+  {
+   "id": "glossary-rate-of-convergence-p",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: rate of convergence p",
+   "title_ms": "Glosari: rate of convergence p"
+  },
+  {
+   "id": "glossary-richardson-extrapolation",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: Richardson extrapolation",
+   "title_ms": "Glosari: Richardson extrapolation"
+  },
+  {
+   "id": "glossary-convergence-table",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: convergence table",
+   "title_ms": "Glosari: convergence table"
+  },
+  {
+   "id": "glossary-independent-check",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: independent check",
+   "title_ms": "Glosari: independent check"
+  },
+  {
+   "id": "glossary-idealisation",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: idealisation",
+   "title_ms": "Glosari: idealisation"
+  },
+  {
+   "id": "glossary-symmetry-model",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: symmetry model",
+   "title_ms": "Glosari: symmetry model"
+  }
+ ],
+ "equations_missing": 34
+}

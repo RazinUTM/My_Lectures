@@ -1,0 +1,592 @@
+# Plane Stress — Part 2
+[B] = [∂]ᵀ[N], stiffness matrix 8 × 8 [k] = t∫[B]ᵀ[E][B] dA dan dua belas nilai closed-form-nya, nodal load daripada traction dan self-weight, assembly dengan dua dof setiap node, dan cantilever dalam teks diselesaikan secara tangan dan disemak dengan beam theory serta mesh yang di-refine.
+
+[start-outcomes] Selepas bahagian ini, anda sepatutnya boleh
+1. Menggunakan Galerkin dan integration by parts pada PDE plane stress, mengenal pasti [k], {q} dan {b}, dan menulis [B] = [∂]ᵀ[N] serta [k] = t∫[B]ᵀ[E][B] dA.
+2. Menilai stiffness matrix 8 × 8 bagi four-node rectangular element daripada entri closed-form s_1 …s_{12} , dan menyemaknya.
+3. Menukar traction tepi dan body force kepada nodal load yang setara, meng-assemble sistem global dengan dua dof setiap node dan mengenakan displacement condition.
+4. Menyelesaikan cantilever 2 × 2, menyemak reaction-nya, membandingkannya dengan beam theory dan mesh yang di-refine, dan menerangkan mengapa mesh kasar terlalu stiff.
+
+[notes-n1] Nota 1. Galerkin dan integration by parts, dua unknown setiap node
+Plane Stress Part 1 berakhir dengan dua hasil: PDE [∂][E][∂]ᵀ{u}ᵀ = −{f} dan interpolation {u}ᵀ = [N]{û}ᵀ dengan matrix 2 × 8 [N]. Gantikan yang kedua ke dalam yang pertama dan, seperti dalam Heat Transfer Part 2, ia tidak seimbang: displacement field bilinear tidak mampu memenuhi dua persamaan peringkat kedua pada setiap titik.
+PERSAMAAN (3.31): [equation r_subst: source not available in the page]
+Galerkin, versi vector Weight residual itu dengan [N]ᵀ, iaitu transpose matrix interpolation, dan minta supaya setiap purata ber-weight itu sifar. [N]ᵀ ialah 8 × 2, jadi satu element memberi lapan persamaan, satu setiap degree of freedom: u_1, v_1, …, u_4, v_4.
+PERSAMAAN (3.32): [equation r_weighted: source not available in the page]
+## Integration by parts, kemudian namakan term
+Sama seperti haba, satu [∂] berpindah daripada displacement kepada weight [N]ᵀ (teorem Green, digunakan pada setiap baris). Peringkat derivative turun kepada satu, jadi field bilinear boleh diterima, dan satu integral sempadan muncul yang membawa traction, iaitu natural condition dalam Plane Stress Part 1.
+PERSAMAAN (3.34)–(3.38): [equation r_rearr: source not available in the page]
+PERSAMAAN (3.38): [equation r_sys: source not available in the page]
+Term Nama Apa yang dikandunginya Analog haba
+[k] stiffness matrix bahan, geometri dan ketebalan element; simetri; 8 × 8 conductance matrix, 4 × 4
+{q} body-force vector daya per unit isi padu di dalam element (self-weight), dikongsi antara node-nya source vector
+{b} traction vector daya pada tepi dengan traction diketahui; sifar pada tepi bebas; dibuang bersama persamaan pada tepi fixed boundary-flux vector
+Tepi cantilever mana yang menyumbang kepada {b}? Hanya hujung bebas, x = 4 m, dengan traction ke bawah. Tepi atas dan bawah bebas (b_x = b_y = 0), jadi boundary term-nya lenyap. Pada tepi fixed traction tidak diketahui, tetapi ia mendarab shape function bagi node yang persamaannya dibuang apabila u = v = 0 dikenakan; ia kembali kemudian sebagai support reaction, sama seperti aliran haba pada temperature yang ditetapkan.
+Isi penting:
+- Weight residual dengan [N]ᵀ: lapan persamaan setiap four-node element.
+- Integration by parts merendahkan peringkat derivative dan mendedahkan traction sebagai natural condition.
+- [k]{û}ᵀ = {q} + {b} = {r}: stiffness, body force, traction; struktur yang sama seperti haba dengan dua unknown setiap node.
+Semakan pantas (tidak dimarkah): Weight residual plane stress dengan [N]ᵀ memberi, bagi satu four-node element,
+Pilihan: empat persamaan, satu setiap node | lapan persamaan, satu setiap degree of freedom | dua persamaan, satu setiap arah
+Penjelasan yang dipaparkan selepas menjawab: [N]ᵀ ialah 8 × 2 dan residual ialah 2 × 1, jadi weighted residual ialah vector 8 × 1: satu persamaan bagi setiap u_1, v_1, …, u_4, v_4. Heat transfer memberi empat, satu setiap node, kerana ia ada satu unknown setiap node.
+
+[notes-n2] Nota 2. Strain–displacement matrix [B] dan stiffness matrix
+Dalam heat transfer, matrix 2 × 4 {∂}ᵀ{N} menukar nodal temperature kepada gradient. Padanannya dalam plane stress menukar lapan nodal displacement kepada tiga strain, dan ia ada nama sendiri: strain–displacement matrix [B].
+PERSAMAAN : [equation r_B_def: source not available in the page]
+PERSAMAAN : [equation r_B: source not available in the page]
+- Baris 1 (ε_{xx} = ∂u/∂x): ∂N_i/∂x di bawah setiap u_i, sifar di bawah setiap v_i.
+- Baris 2 (ε_{yy} = ∂v/∂y): ∂N_i/∂y di bawah setiap v_i, sifar di bawah setiap u_i.
+- Baris 3 (ε_{xy} = ∂u/∂y + ∂v/∂x, engineering shear strain): ∂N_i/∂y di bawah u_i dan ∂N_i/∂x di bawah v_i.
+Tiada yang baharu dikira Setiap entri [B] ialah derivative shape function daripada Heat Transfer Part 1: ∂N_1/∂x = −(b − y)/(ab) = (y − b)/(ab), dan seterusnya. [B] hanya menyusunnya supaya u dan v dibezakan serentak.
+## Langkah bekerja · [B] pada (1.5, 0.3) bagi element 2 m × 1 m (Aktiviti 1)
+Derivative-nya ialah derivative titik Heat Transfer Part 1: ∂N_i/∂x = {−0.35, 0.35, 0.15, −0.15} dan ∂N_i/∂y = {−0.25, −0.75, 0.75, 0.25} m^{−1}. Letakkannya dalam tiga baris:
+PERSAMAAN : [equation v0_Bnum: source not available in the page]
+Setiap baris berjumlah sifar, dan dalam baris 3 entri u dan entri v masing-masing berjumlah sifar. Sebabnya fizikal: translation tegar (semua u_i sama, semua v_i sama) tidak menghasilkan strain. Simpan [B] ini; Plane Stress Part 3 mendarabnya dengan nodal displacement untuk mendapatkan stress.
+## Element stiffness matrix dalam bentuk [B]
+Integration by parts meninggalkan hasil darab [N]ᵀ[∂] di kiri dan [∂]ᵀ[N] di kanan [E]. Kedua-duanya ialah [B] (yang kiri di-transpose), jadi stiffness matrix ialah [B] yang sama dua kali dengan bahan di antaranya:
+PERSAMAAN : [equation r_kB: source not available in the page]
+- Ketebalan. Integral itu per unit ketebalan; element mempunyai ketebalan t, jadi setiap entri [k] dan setiap load didarab dengan t.
+- Simetri. [B]ᵀ[E][B] simetri apabila [E] simetri, dan integration mengekalkannya: paling banyak 36 entri berbeza, dan bagi segi empat tepat hanya dua belas (§3).
+- Maksud. k_{ij} ialah daya pada dof i yang diperlukan untuk memberi dof j satu unit displacement dengan setiap dof lain ditahan: stiffness influence coefficient dalam analisis struktur.
+## Bagaimana perisian meng-integrate [k]
+[Rajah: Perisian menilai t[B]ᵀ[E][B] × det J pada empat Gauss point, ξ, η = ±1/√3, dan menjumlahkannya. Bagi segi empat tepat integrand-nya quadratic dalam setiap arah dan jumlah empat titik itu sama dengan closed form §3 secara tepat; bagi element yang herot seperti ini, numerical integration ialah satu-satunya cara. Image: PyMAPDL documentation, “Build a finite element model”, © ANSYS, Inc., MIT licence.]
+Isi penting:
+- [B] = [∂]ᵀ[N], 3 × 8: strain daripada nodal displacement; setiap baris berjumlah sifar.
+- [k] = t∫[B]ᵀ[E][B] dA, 8 × 8, simetri; k_{ij} = daya pada i per unit displacement pada j.
+- Perisian meng-integrate pada 2 × 2 Gauss point; bagi segi empat tepat ia tepat.
+Semakan pantas (tidak dimarkah): Mengapa setiap baris [B] mesti berjumlah sifar?
+Pilihan: Kerana [B] simetri | Kerana setiap shape function bernilai 1 pada node sendiri | Translation tegar element tidak menghasilkan strain
+Penjelasan yang dipaparkan selepas menjawab: Memberi setiap node u yang sama (atau v yang sama) menggerakkan element tanpa mengubah bentuknya, jadi [B]{û}ᵀ mesti sifar; itu ialah jumlah entri u (atau entri v) bagi setiap baris. [B] ialah 3 × 8 dan tidak boleh simetri; sifat Kronecker itu benar tetapi bukan sebabnya.
+
+[notes-n3] Nota 3. Stiffness matrix 8 × 8 dan dua belas nilainya
+Satu entri secara penuh sudah cukup untuk melihat bagaimana semuanya dibina. Ambil k_{34}: baris 3 milik u_2 dan lajur 4 milik v_2, jadi ia menggandingkan displacement mendatar dan menegak bagi node yang sama.
+## k₃₄ dalam tiga langkah (teks (3.39)–(3.41))
+PERSAMAAN (3.39): [equation r_s1: source not available in the page]
+PERSAMAAN (3.40): [equation r_s2: source not available in the page]
+PERSAMAAN (3.41): [equation r_s3: source not available in the page]
+PERSAMAAN : [equation r_s3b: source not available in the page]
+Integral −x(b − y)/(a²b²) atas segi empat tepat ialah −1/4, jadi k_{34} tidak bergantung pada a atau b: gandingan antara u dan v pada satu node adalah sama bagi setiap segi empat tepat. Teks menulis hasilnya sebagai Et/(8(ν − 1)).
+## Dua belas nilai, satu pola
+Mengulang integration untuk entri lain hanya memberi dua belas nilai berbeza, disusun mengikut simetri segi empat tepat. Baris 1, 3, 5, 7 milik u_1…u_4 dan baris 2, 4, 6, 8 milik v_1…v_4; k_{34} ialah s_6. Anda tidak perlu menghafal pola ini: anda membacanya dengan betul daripada teks.
+PERSAMAAN (3.42): [equation r_kfull: source not available in the page]
+PERSAMAAN : [equation r_svals_a: source not available in the page]
+PERSAMAAN : [equation r_svals_b: source not available in the page]
+Cara membaca dua belas nilai itu s_1, s_3, s_5, s_7 menggandingkan u dengan u: ia nilai conductance haba dengan k_x = Et/(1 − ν²) dan k_y = Gt (regangan sepanjang x, shear sepanjang y). s_9…s_{12} menggandingkan v dengan v, sama tetapi a dan b ditukar. s_2, s_4, s_6, s_8 menggandingkan u dengan v dan tidak mengandungi a atau b.
+## Contoh bekerja · element cantilever (Aktiviti 2, teks (3.44))
+a = 2 m, b = 1 m, t = 0.01 m, E = 200 × 10⁶ N m^{−2}, ν = 0.33, jadi 1 − ν² = 0.8911:
+PERSAMAAN : [equation r_act2: source not available in the page]
+1 · u_1 2 · v_1 3 · u_2 4 · v_2 5 · u_3 6 · v_3 7 · u_4 8 · v_4
+1 · u_1 0.875 0.373 −0.123 −0.003 −0.438 −0.373 −0.314 0.003
+2 · v_1 0.373 1.622 0.003 0.623 −0.373 −0.811 −0.003 −1.434
+3 · u_2 −0.123 0.003 0.875 −0.373 −0.314 −0.003 −0.438 0.373
+4 · v_2 −0.003 0.623 −0.373 1.622 0.003 −1.434 0.373 −0.811
+5 · u_3 −0.438 −0.373 −0.314 0.003 0.875 0.373 −0.123 −0.003
+6 · v_3 −0.373 −0.811 −0.003 −1.434 0.373 1.622 0.003 0.623
+7 · u_4 −0.314 −0.003 −0.438 0.373 −0.123 0.003 0.875 −0.373
+8 · v_4 0.003 −1.434 0.373 −0.811 −0.003 0.623 −0.373 1.622
+[k] element cantilever × 10⁶ N m^{−1}, teks (3.44); baris dan lajur mengikut susunan dof u_1, v_1, …, u_4, v_4.
+Keempat-empat element mesh 2 × 2 mempunyai a, b dan bahan yang sama, jadi satu matrix ini mencukupi untuk seluruh mesh. Entri ±0.003 (s_4, s_8) kecil kerana 1 − 3ν = 0.01 bagi ν = 0.33.
+Semakan pada mana-mana [k] yang anda kira Simetri. Dalam setiap baris entri u berjumlah sifar dan begitu juga entri v: translation tegar dalam x atau y tidak memerlukan daya. Rotation tegar juga memberi [k]{d} = {0}. Tiga zero-energy mode ini menjadikan [k], dan [K] tanpa support, singular sehingga support menghalangnya.
+PERSAMAAN : [equation r_rowsum: source not available in the page]
+Perangkap biasa [E] plane strain digunakan apabila plane stress diminta (atau sebaliknya); a dan b tertukar antara s_1 dan s_9; tanda hilang dalam s_4 = −s_8 atau s_6 = −s_2. Semakan jumlah baris hanya menangkap tanda yang hilang: dua yang lain memberi matrix yang salah tetapi masih seimbang, jadi tetapkan Ē = E/(1 − ν²) dan sisi mana a sebelum mengira apa-apa.
+Isi penting:
+- Dua belas nilai s_1…s_{12} dalam pola (3.42); gandingan u–v tidak bergantung pada a atau b.
+- Element cantilever: k_{11} = s_1 = 0.875 × 10⁶, s_2 = 0.373 × 10⁶, s_9 = 1.622 × 10⁶ N m^{−1}.
+- Entri u dan entri v setiap baris berjumlah sifar; tiga zero-energy mode.
+Semakan pantas (tidak dimarkah): Bagi ν = 1/3, entri s_4 dan s_8 bagi segi empat tepat ialah
+Pilihan: sifar | sama dengan s_2 | entri terbesar dalam [k]
+Penjelasan yang dipaparkan selepas menjawab: s_8 = −s_4 = Et(1 − 3ν)/(8(1 − ν²)), dan 1 − 3ν = 0 pada ν = 1/3. Sebab itulah element cantilever (ν = 0.33) hanya menunjukkan ±0.003 × 10⁶ di situ.
+
+[notes-n4] Nota 4. Load: traction tepi dan body force
+Load vector mengikut peraturan yang sama seperti heat transfer, kini dalam susunan dof plane stress: di sepanjang satu tepi hanya shape function dua node-nya yang bukan sifar, dan di sepanjang tepi itu ia fungsi linear bar. Load yang seragam oleh itu dikongsi sama rata oleh dua node, dalam arah ia bertindak dan tidak di tempat lain.
+[Rajah: Traction seragam ke bawah pada tepi 2–3 membebankan v_2 dan v_3 secara sama rata.]
+PERSAMAAN : [equation r_bedge: source not available in the page]
+PERSAMAAN (3.45): [equation r_r2: source not available in the page]
+Per panjang atau per luas? Teks memberi q_y = −5 kN m^{−1}: load per unit panjang tepi untuk seluruh ketebalan. Traction dalam kN m^{−2} mesti didarab dengan t dahulu. Dalam (3.45), t daripada integral membatalkan 1/t daripada q_y/t, sebab itulah ketebalan hilang daripada hasilnya.
+## Edge load yang berubah secara linear
+Jika load per unit panjang berubah daripada p_i pada satu node kepada p_j pada node yang lain, node di hujung yang lebih berat menerima lebih. Bahagiannya sama seperti bar element, dan jumlahnya serta momennya terhadap mana-mana node ialah dua semakan:
+PERSAMAAN : [equation v0_lin: source not available in the page]
+## Body force: self-weight
+Body force yang seragam dikongsi oleh keempat-empat node, satu perempat setiap satu, kerana setiap N_i ber-integral kepada ab/4. Self-weight, f_y = −ρg = −γ (berat unit γ), bertindak dalam −y, jadi ia hanya membebankan dof v:
+PERSAMAAN : [equation r_body: source not available in the page]
+## Contoh bekerja · global load vector cantilever (Aktiviti 3, teks (3.47))
+[Rajah: Mesh 2 × 2: node n membawa U_{2n−1} (x) dan U_{2n} (y).]
+Element 2 (node 2, 3, 6, 5) dan 4 (node 5, 6, 9, 8) mempunyai sisi 2–3 pada hujung bebas. Setiap satu meletakkan −2500 N pada v_2 dan v_3 local-nya, iaitu U_6, U_{12} global bagi element 2 dan U_{12}, U_{18} bagi element 4. Node 6 dikongsi, jadi U_{12} mengumpul −5000 N: keseluruhan 5 kN m^{−1} × 1 m tepi di sekelilingnya.
+PERSAMAAN (3.47): [equation r_R: source not available in the page]
+Enam entri B_i pada dof fixed 1, 2, 7, 8, 13 dan 14 ialah support reaction yang tidak diketahui. Jumlah load yang dikenakan ialah −10 000 N, yang mesti diimbangi oleh reaction.
+Isi penting:
+- Edge load seragam: p ℓ/2 pada setiap satu daripada dua node tepi, hanya pada dof arahnya.
+- Berubah secara linear: ℓ(2p_i + p_j)/6 dan ℓ(p_i + 2p_j)/6; self-weight: γtab/4 pada setiap dof v.
+- Cantilever: R_6 = R_{18} = −2500 N, R_{12} = −5000 N; enam reaction yang tidak diketahui.
+Semakan pantas (tidak dimarkah): Self-weight bagi element a × b dengan ketebalan t dan berat unit γ dikongsi sebagai
+Pilihan: −γtab/2 pada dua node bawah | −γtab/4 pada setiap satu daripada empat dof v | −γtab/8 pada kesemua lapan dof
+Penjelasan yang dipaparkan selepas menjawab: Setiap shape function ber-integral kepada ab/4, jadi setiap node membawa satu perempat berat γtab, dan berat itu bertindak dalam −y: hanya v_1…v_4 dibebankan. Meletakkan semuanya pada node bawah, atau pada dof u, mengubah load yang dirasai element.
+
+[notes-n5] Nota 5. Assembly dengan dua dof setiap node, support dan penyelesaian
+Assembly ialah scatter-add heat transfer dengan satu langkah tambahan: nombor node menjadi nombor dof. Node n memiliki U_{2n−1} (x) dan U_{2n} (y), jadi empat node setiap element memberi lapan dof global, mengikut susunan local.
+PERSAMAAN : [equation r_dofmap: source not available in the page]
+Element Node (1)(2)(3)(4) Dof mengikut susunan local 1…8
+1 1, 2, 5, 4 1 2 · 3 4 · 9 10 · 7 8
+2 2, 3, 6, 5 3 4 · 5 6 · 11 12 · 9 10
+3 4, 5, 8, 7 7 8 · 9 10 · 15 16 · 13 14
+4 5, 6, 9, 8 9 10 · 11 12 · 17 18 · 15 16
+PERSAMAAN : [equation r_scatter: source not available in the page]
+[Rajah: Element mana yang mengisi setiap entri [K] 18 × 18. Baris node 5 (U_9, U_{10}) dikongsi oleh keempat-empat element; node 1 dan node 9 tidak pernah bertemu, jadi entrinya kekal sifar.]
+## Langkah bekerja · entri [K] yang di-assemble (Aktiviti 4)
+k_{11} local bagi element 2 (node local 1-nya ialah node global 2) pergi ke K_{3,3}; k_{34} local = s_6 = −0.373 × 10⁶ pergi ke K_{5,6}, gandingan u–v bagi node 3. Pepenjuru mengumpul s_1 sekali bagi setiap element pada node itu:
+PERSAMAAN : [equation v0_Kdiag: source not available in the page]
+PERSAMAAN : [equation v0_K910: source not available in the page]
+K_{9,10} sifar: pada node dalaman mesh yang seragam, gandingan u–v empat element saling membatalkan secara berpasangan. K_{3,3} = 1.751 dan K_{9,9} = 3.501 (× 10⁶) kelihatan dalam (3.46) teks: semakan pantas untuk dof map anda.
+## Support: buang dof yang fixed
+Tiga node pada tepi kiri fixed dalam kedua-dua arah: enam displacement yang diketahui, semuanya sifar. Seperti temperature yang ditetapkan, baris dan lajurnya dibuang; tiada yang berpindah ke sebelah kanan kerana nilai yang diketahui ialah sifar. Dua belas persamaan tinggal, teks (3.48), yang diselesaikan oleh MATLAB.
+PERSAMAAN : [equation r_fixed: source not available in the page]
+Node u (m) v (m) Di mana
+1, 4, 7 0 0 tepi fixed
+2 −0.030966 −0.045520 bawah, tengah rentang
+5 0 −0.043013 pusat
+8 +0.030966 −0.045520 atas, tengah rentang
+3 −0.041967 −0.130578 hujung bebas, bawah
+6 0 −0.130421 hujung bebas, tengah ketinggian
+9 +0.041967 −0.130578 hujung bebas, atas
+## Baca penyelesaian seperti jurutera struktur (Aktiviti 5)
+- Gentian bawah memendek (u_2, u_3 < 0) dan gentian atas memanjang (u_8, u_9 > 0) dengan jumlah yang sama: lenturan antisimetri tentang tengah ketinggian, sifat tepat mesh dan load yang simetri ini.
+- u = 0 pada node 5 dan 6: garis tengah ketinggian ialah neutral axis.
+- v hampir sama merentasi kedalaman setiap keratan (−0.1306, −0.1304, −0.1306 m di hujung bebas): kedalaman hampir tidak berubah, andaian biasa beam.
+## Reaction: semakan pertama bagi mana-mana penyelesaian
+Nilaikan baris yang dibuang, [K]{U} − {R}, pada enam dof fixed. Jumlahnya mesti mengimbangi load yang dikenakan dan momennya mesti mengimbangi momen load itu terhadap tepi fixed. Mesh 2 × 2 memberi nilai ini dengan tepat, seperti yang mesti diberi oleh setiap model yang betul, tanpa mengira mesh-nya:
+PERSAMAAN : [equation v0_react: source not available in the page]
+Isi penting:
+- Dof map: node n → 2n − 1, 2n; scatter-add blok 8 × 8; K_{ii} mengumpul s_1 (atau s_9) sekali bagi setiap element pada node itu.
+- Enam dof fixed dibuang → 12 × 12; v hujung = −0.1306 m.
+- Reaction: ΣR_y = +10 kN, momen 40 kN·m terhadap tepi fixed.
+Semakan pantas (tidak dimarkah): Dalam cantilever 2 × 2, mengapa u = 0 pada node 5 dan 6?
+Pilihan: Ia ditahan oleh support | Barisnya telah dibuang daripada [K] | Ia terletak pada neutral axis plat yang melentur
+Penjelasan yang dipaparkan selepas menjawab: Di bawah lenturan, gentian di atas tengah ketinggian meregang dan yang di bawah memendek dengan jumlah yang sama, jadi garis tengah ketinggian tidak meregang mahupun memendek. Hanya node 1, 4 dan 7 yang ditahan, dan hanya barisnya yang dibuang.
+
+[notes-n6] Nota 6. Adakah jawapan betul? Beam theory, refinement dan shear locking
+Komputer akan sentiasa memulangkan nombor. Sama ada nombor itu betul ialah soalan jurutera, dan ia ada dua jawapan yang bebas: bandingkan dengan teori yang lebih mudah, dan refine mesh sehingga jawapan berhenti berubah.
+## Semakan tangan: Timoshenko beam theory
+Plat ini ialah cantilever dalam (L/H = 2) yang membawa P = q_yH = 10 kN di hujungnya. Lenturan asas memberi PL³/(3EI); kerana beam ini dalam, shear deformation menambah PL/(κGA) dengan κ = 5/6:
+PERSAMAAN : [equation r_beam: source not available in the page]
+PERSAMAAN : [equation r_beam_num: source not available in the page]
+PERSAMAAN : [equation v0_err: source not available in the page]
+Kekalkan empat angka apabila perbezaannya kecil Dibundarkan kepada tiga tempat perpuluhan, 0.189 berbanding 0.192, ralat 16 × 16 akan kelihatan seperti −1.6%; dengan empat angka, seperti pada slide Aktiviti 6, ia −1.4%. Perbezaan peratus dua nombor yang hampir hanya setepat digit yang anda simpan.
+[Rajah: Mesh tangan melentur kira-kira dua pertiga sahaja berbanding mesh yang converge. Setiap element bilinear mengekalkan tepi lurus, jadi ia tidak boleh melengkung; di bawah lenturan ia menghasilkan shear strain palsu dan menentang dengan shear stiffness yang tidak sepatutnya ada. Inilah shear locking.]
+## Refine sehingga jawapan berhenti berubah
+Mesh dofs v hujung (m) berbanding beam theory
+Q4 2 × 2 ( tangan ) 18 −0.1306 −32%
+Q4 4 × 2 30 −0.1643 −14%
+Q4 8 × 4 90 −0.1824 −5.0%
+Q4 16 × 8 306 −0.1886 −1.7%
+Q4 16 × 16 578 −0.1893 −1.4%
+Q4 32 × 16 1122 −0.1906 −0.7%
+Q4 80 × 80 13 122 −0.1915 −0.2%
+Timoshenko beam — −0.1919 —
+[Rajah: Kiri: tip deflection meningkat ke arah garis beam theory apabila mesh di-refine. Kanan: ralat jatuh bersama saiz element.]
+Bentuk lebih penting daripada bilangan Lapan element dalam tiga susunan: 4 × 2 memberi −0.164 m, 8 × 1 memberi −0.166 m, tetapi 2 × 4 hanya memberi −0.133 m. Element yang panjang dalam arah lenturan (a/b = 4 dalam mesh 2 × 4) paling teruk locking. Refine sepanjang panjangnya dahulu. Peraturan projek Tiga mesh, satu jadual, satu semakan bebas (beam theory, reaction, atau penyelesaian buku teks). Kemudian, dan hanya kemudian, satu kesimpulan. Jangan sekali-kali melaporkan jawapan daripada satu mesh sahaja.
+## Skrip, sebagai perbezaan daripada Heat Transfer Part 2
+% ---- changes from the heat script ----
+Lx = 4; Ly = 2; % plate 4 m x 2 m
+E = 200e6; nu = 0.33; t = 0.01;
+Nx = 2; Ny = 2; ndof = 18; % 2 dofs per node
+a = Lx/Nx; b = Ly/Ny;
+% 12 closed-form values, text (3.42)
+s1 = E*t*((1-nu)*a^2 + 2*b^2)/(6*(1-nu^2)*a*b);
+s2 = E*t*((1-nu) + 2*nu)/(8*(1-nu^2));
+% ... s3 to s12 likewise ...
+k = [s1 s2 s3 s4 s5 s6 s7 s8; ...]; % 8 x 8 pattern of (3.42)
+% assembly with the dof map (node n -> 2n-1, 2n)
+K = zeros(ndof); F = zeros(ndof,1);
+d1 = [1 2 3 4 9 10 7 8]; K(d1,d1) = K(d1,d1) + k;
+d2 = [3 4 5 6 11 12 9 10]; K(d2,d2) = K(d2,d2) + k;
+d3 = [7 8 9 10 15 16 13 14]; K(d3,d3) = K(d3,d3) + k;
+d4 = [9 10 11 12 17 18 15 16]; K(d4,d4) = K(d4,d4) + k;
+F([6 12 18]) = [-2500 -5000 -2500]; % edge traction, (3.47)
+fixed = [1 2 7 8 13 14]; free = setdiff(1:ndof, fixed);
+U = zeros(ndof,1); U(free) = K(free,free) \ F(free); % (3.49)
+- Dua dof setiap node: ndof = 2 × node, dan senarai dof setiap element menggantikan senarai node-nya.
+- Pola conductance 4 × 4 menjadi pola 8 × 8 daripada (3.42).
+- Load pada dof v tepi yang dibebankan; enam dof fixed menggantikan temperature tetap. Baris penyelesaian tidak berubah.
+Versi Python, fe_plane_stress.py, ada dalam tab Explorer; ia membina [k] melalui Gauss quadrature, menghasilkan semula (3.49) dan menjalankan kajian convergence di atas.
+Isi penting:
+- Dua semakan bebas: beam theory (0.192 m) dan mesh refinement; serta reaction.
+- Mesh Q4 2 × 2 terlalu stiff sebanyak 32%: element bertepi lurus mengalami locking dalam lenturan.
+- Kira-kira 32 element sepanjang panjangnya untuk 1%; element yang panjang dalam arah lenturan paling teruk locking.
+Semakan pantas (tidak dimarkah): Lapan element Q4 yang sama sebagai mesh 4 × 2 atau sebagai mesh 2 × 4. Yang mana lebih stiff?
+Pilihan: 2 × 4: element-nya empat kali lebih panjang daripada dalam dan mengalami locking dalam lenturan | 4 × 2: ia ada lebih banyak element sepanjang panjangnya | Tiada: bilangan element yang sama memberi stiffness yang sama
+Penjelasan yang dipaparkan selepas menjawab: 2 × 4 memberi −0.133 m berbanding −0.164 m bagi 4 × 2: element 2 m × 0.5 m tidak boleh melengkung sepanjang panjangnya, jadi ia menghasilkan shear palsu paling banyak. Bilangan element sama; bentuknya tidak.
+
+[slides-1] Slide 1: Plane Stress Part 2 of 3
+SEAA 4243 Finite Element Method · 2L + 1T Plane Stress Part 2 of 3 [B] = [∂]ᵀ[N], the 8 × 8 stiffness matrix [k] = t∫[B]ᵀ[E][B] dA, nodal loads, assembly with two dofs per node, and the cantilever solved by hand Assoc. Prof. Ts. Dr. Ahmad Razin Zainal Abidin · Dr. Yip Bao Fang Faculty of Civil Engineering, Universiti Teknologi Malaysia Text: Mohd Yassin et al., Two-Dimensional Finite Element Formulations for Heat, Solids and Fluids (with Matlab) , MSNM 2020 — §3.2.2 – §3.4
+
+[slides-2] Slide 2: Three questions from the last session — on paper
+5 MIN Activity 0 · individual · retrieval warm-up Three questions from the last session — on paper Write down The plane-stress PDE in matrix form and the sizes of [∂] and [E]. The three strain components in terms of u and v. The dof numbers of global node 5 in the 2 × 2 cantilever mesh, and the dof list of element 1. Why Question 3 is the bookkeeping that today’s assembly runs on. 5 minutes. Then the outcomes. SEAA 4243 · Plane Stress — Part 2 2
+
+[slides-3] Slide 3: By the end of this session you should be able to
+Learning outcomes · today By the end of this session you should be able to 1 Apply Galerkin and integration by parts to the plane-stress PDE and identify [k], {q} and {b}; write [B] = [∂]ᵀ[N] and [k] = t∫[B]ᵀ[E][B] dA. 2 Evaluate the 8 × 8 stiffness matrix of a four-node rectangular element from the closed-form entries s₁…s₁₂. 3 Convert an edge traction into equivalent nodal loads, assemble the global system with two dofs per node and impose displacement conditions. 4 Solve the 2 × 2 cantilever, compare with a refined m
+
+[slides-4] Slide 4: Six blocks, seven short activities, one break
+Session map · 180 minutes Six blocks, seven short activities, one break 0:00 Weak form and [B] 30 min A1 · 8 min 0:30 The 8 × 8 [k] 35 min A2 · 8 min 1:05 Load vectors 20 min A3 · 6 min 1:25 Break 10 min no activity 1:35 Assembly & supports 40 min A4 + A5 2:15 Solution & checks 25 min A6 + QR 2:40 MATLAB & wrap-up 20 min Exit ticket Bring forward Plane Stress Part 1 Activity 3: [E] = 224.44, 74.07, 75.19 (× 10⁶ N m⁻²). Plane Stress Part 1 Activity 4: which dofs are fixed (U_1, U_2, U_7, U_8, U_{13}, U_{14}). The Heat Tr
+
+[slides-5] Slide 5: Weak form and the matrix [B]
+1 Block 1 · 0:00 – 0:30 Weak form and the matrix [B] Substitute {u}ᵀ = [N]{û}ᵀ, weight with [N]ᵀ, integrate by parts. The strain–displacement matrix [B] appears twice in [k]. Text §3.2.2 – §3.3. SEAA 4243 · Plane Stress — Part 2 5
+
+[slides-6] Slide 6: Eight unknowns per element, eight weighted equations, one boundary term
+Block 1 · Galerkin and IBP, vector version · text (3.31)–(3.38) Eight unknowns per element, eight weighted equations, one boundary term (3.31) (3.32) (3.34)–(3.38) (3.38) Why [N]ᵀ is 8 × 2, so weighting gives 8 equations. Integration by parts moves one [∂] onto [N]ᵀ (left to right rule) and produces the traction boundary term {b}. SEAA 4243 · Plane Stress — Part 2 6
+
+[slides-7] Slide 7: [B] = [∂]ᵀ[N]: strains from the nodal displacements
+Block 1 · the strain–displacement matrix [B] · text §3.3 [B] = [∂]ᵀ[N]: strains from the nodal displacements Why Row 1: ∂N_i/∂x under each u_i. Row 2: ∂N_i/∂y under each v_i. Row 3: ∂N_i/∂y under u_i, ∂N_i/∂x under v_i. Check Each entry is a Heat Transfer Part 1 derivative: ∂N_1/∂x = −(b − y)/ab = (y − b)/ab, and so on. Nothing new is computed. SEAA 4243 · Plane Stress — Part 2 7
+
+[slides-8] Slide 8: The same [B] twice, with [E] between them, integrated over the element and multiplied by t
+Block 1 · the stiffness matrix in [B] form The same [B] twice, with [E] between them, integrated over the element and multiplied by the thickness Why the thickness appears The integrals of (3.35) are per unit thickness; the physical element has thickness t, so every entry of [k] and every load is multiplied by t. The text keeps t inside s_1…s_{12}. Why it is symmetric [B]ᵀ[E][B] is symmetric whenever [E] is. Integration preserves symmetry. The 8 × 8 matrix therefore has at most 36 distinct entries — and by the rectangle
+
+[slides-9] Slide 9: Build [B] at a point and check it
+8 MIN Activity 1 · pairs · derivation Build [B] at a point and check it Do a = 2 m, b = 1 m, point (1.5, 0.3) — the Heat Transfer Part 1 point. Write ∂N_i/∂x and ∂N_i/∂y for i = 1…4 (you have them: −0.35, 0.35, 0.15, −0.15 and −0.25, −0.75, 0.75, 0.25). Fill the 3 × 8 matrix [B] with these numbers. Check: the sum of each row is zero. Why must it be? Check Row sums zero: a rigid translation (all u_i equal, all v_i equal) produces no strain. 8 minutes. Keep the sheet: Plane Stress Part 3 multiplies this [B] by the nodal d
+
+[slides-10] Slide 10: The 8 × 8 stiffness matrix
+2 Block 2 · 0:30 – 1:05 The 8 × 8 stiffness matrix k₃₄ in three steps, then the pattern of twelve closed-form values, then the numbers for the cantilever element. Text (3.39)–(3.44). SEAA 4243 · Plane Stress — Part 2 10
+
+[slides-11] Slide 11: Row 3 of [N]ᵀ[∂] (dof u₂) times [E]
+Block 2 · k₃₄, step 1 · text (3.39) Row 3 of [N]ᵀ[∂] (dof u₂) times [E] (3.39) Why Row 3 of the 8 × 3 matrix [N]ᵀ[∂] belongs to u_2: the derivatives of N_2 sit in columns 1 and 3 (ε_{xx} and ε_{xy}). Multiplying by [E] attaches a material constant to each. SEAA 4243 · Plane Stress — Part 2 11
+
+[slides-12] Slide 12: Times column 4 of [∂]ᵀ[N] (dof v₂): two products survive
+Block 2 · k₃₄, step 2 · text (3.40) Times column 4 of [∂]ᵀ[N] (dof v₂): two products survive (3.40) Why Column 4 belongs to v_2: ∂N_2/∂y in row 2 and ∂N_2/∂x in row 3, zero in row 1. The first product vanishes; the ν-term and the shear term remain. SEAA 4243 · Plane Stress — Part 2 12
+
+[slides-13] Slide 13: Integrate over the rectangle and multiply by t
+Block 2 · k₃₄, step 3 · text (3.41) Integrate over the rectangle and multiply by t (3.41) Check Independent of a and b: the coupling between u and v at a node does not depend on the element’s proportions. Entries on the diagonal do (next slide). SEAA 4243 · Plane Stress — Part 2 13
+
+[slides-14] Slide 14: Twelve distinct values arranged by the symmetry of the rectangle
+Block 2 · the whole matrix · text (3.42) Twelve distinct values arranged by the symmetry of the rectangle (3.42) Read the pattern Rows 1, 3, 5, 7 belong to u_1…u_4; rows 2, 4, 6, 8 to v_1…v_4. k_{34} = s_6: the entry just derived. Symmetric: s_2 at (1,2) and (2,1), and so on. Each s pairs the x- and y-derivatives of two shape functions through one entry of [E]. Why You do not memorise this; you read it correctly from the text. The twelve formulas follow. SEAA 4243 · Plane Stress — Part 2 14
+
+[slides-15] Slide 15: s₁ … s₆: diagonal and nearest-neighbour entries
+Block 2 · the first six values · text (3.42) s₁ … s₆: diagonal and nearest-neighbour entries Check k_{34} = s_6 = −E t(1 + ν)/(8(1 − ν²)) — compare with step 3. Why s_1 depends on a/b: a long, thin element is stiffer against u-displacement along its length than across it. SEAA 4243 · Plane Stress — Part 2 15
+
+[slides-16] Slide 16: s₇ … s₁₂, and the row-sum check
+Block 2 · the remaining six values · text (3.42) s₇ … s₁₂, and the row-sum check Check Rigid translation in x (all u_i = 1, all v_i = 0) gives zero force, so the u-entries of every row sum to zero: s_1 + s_3 + s_5 + s_7 = 0. Watch out [k] has three zero-energy modes (two translations, one rotation): singular until the supports prevent them. SEAA 4243 · Plane Stress — Part 2 16
+
+[slides-17] Slide 17: Software adds [B]ᵀ[E][B] at four Gauss points
+Block 2 · how software integrates [k] Software adds [B]ᵀ[E][B] at four Gauss points Image: PyMAPDL documentation, “Build a finite element model” (how a finite element works), © ANSYS, Inc., MIT licence. What the program does Evaluate [B] at ξ, η = ±1/√3 (the orange points). Form t [B]ᵀ[E][B] × det J at each point; weights are 1. Add the four: that is [k], 8 × 8. Check For our rectangle the four-point sum equals the closed form (3.42) to machine precision: we checked it for the cantilever element. Why For a distorted ele
+
+[slides-18] Slide 18: Evaluate s₁, s₂, s₃ for the cantilever element and check against the text
+8 MIN Activity 2 · pairs · calculation Evaluate s₁, s₂, s₃ for the cantilever element and check against the text Given a = 2 m, b = 1 m, t = 0.01 m, E = 200 × 10⁶ N m⁻², ν = 0.33 (so 1 − ν² = 0.8911). s_1, s_2, s_3 from the formulas on the previous slides. Find E t/(1 − ν²), then s_1, s_2, s_3 in N m⁻¹. Compare with row 1 of the text’s (3.44): 0.875, 0.373, −0.123 (× 10⁶). If time: s_5 and s_7, and check s_1 + s_3 + s_5 + s_7 = 0. Check Units: N m⁻² × m = N m⁻¹ (force per unit displacement). 8 minutes. Reveal follows. S
+
+[slides-19] Slide 19: The element stiffness matrix of the cantilever, × 10⁶ N m⁻¹
+Activity 2 · solution · text (3.44) The element stiffness matrix of the cantilever, × 10⁶ N m⁻¹ (3.44) SEAA 4243 · Plane Stress — Part 2 19
+
+[slides-20] Slide 20: Load vectors
+3 Block 3 · 1:05 – 1:25 Load vectors A distributed traction on an edge becomes two nodal forces; a body force becomes four. Text (3.36)–(3.37), (3.45)–(3.47). SEAA 4243 · Plane Stress — Part 2 20
+
+[slides-21] Slide 21: A uniform traction on edge 2–3 loads v₂ and v₃ equally
+Block 3 · edge traction → nodal loads · text (3.37), (3.45) A uniform traction on edge 2–3 loads v₂ and v₃ equally Why Q_y = −5000 N m⁻¹ (downward), b = 1 m: −2500 N at v_2 (dof 4) and v_3 (dof 6) of elements 2 and 4. Only elements with an edge on the loaded boundary get a {b}. (3.45) Body force, e.g. self-weight: a quarter of the element weight at each node, in the v-dofs. SEAA 4243 · Plane Stress — Part 2 21
+
+[slides-22] Slide 22: Assemble the global load vector of the cantilever
+6 MIN Activity 3 · pairs · bookkeeping Assemble the global load vector of the cantilever Do Which elements carry the edge traction? Which of their local dofs? Map those local dofs to global dofs with the node numbering (node n → U_{2n−1}, U_{2n}). Write the 18 × 1 global load vector {R}. Which entries are unknown reactions? 6 minutes. Reveal follows, then the break. SEAA 4243 · Plane Stress — Part 2 22
+
+[slides-23] Slide 23: Three loaded dofs, six reactions, nine zeros
+Activity 3 · solution · text (3.47) Three loaded dofs, six reactions, nine zeros (3.47) Element Local loaded dofs Global nodes Global dofs Load (N) 2 v_2, v_3 (local 4, 6) 3, 6 U_6, U_{12} −2500 each 4 v_2, v_3 (local 4, 6) 6, 9 U_{12}, U_{18} −2500 each Why Node 6 is shared by both loaded elements, so U_{12} receives −5000: the full 5 kN m⁻¹ × 1 m of edge around it. SEAA 4243 · Plane Stress — Part 2 23
+
+[slides-24] Slide 24: Break
+1:25 – 1:35 Break Back in 10 minutes. Second half: assembly with two dofs per node, supports, the solution and its checks. SEAA 4243 · Plane Stress — Part 2 24
+
+[slides-25] Slide 25: Assembly and supports
+4 Block 4 · 1:35 – 2:15 Assembly and supports Scatter-add 8 × 8 blocks with the dof map, then delete the six fixed dofs. Text (3.46)–(3.48). SEAA 4243 · Plane Stress — Part 2 25
+
+[slides-26] Slide 26: Connectivity in node numbers becomes connectivity in dof numbers
+Block 4 · the dof map Connectivity in node numbers becomes connectivity in dof numbers Element Nodes (1)(2)(3)(4) Dofs, in local order 1…8 1 1, 2, 5, 4 1 2 · 3 4 · 9 10 · 7 8 2 2, 3, 6, 5 3 4 · 5 6 · 11 12 · 9 10 3 4, 5, 8, 7 7 8 · 9 10 · 15 16 · 13 14 4 5, 6, 9, 8 9 10 · 11 12 · 17 18 · 15 16 Why MATLAB: K([1 2 3 4 9 10 7 8],[1 2 3 4 9 10 7 8]) += k — the text’s §3.4.1 lines. SEAA 4243 · Plane Stress — Part 2 26
+
+[slides-27] Slide 27: Each entry is filled by the elements that share both its dofs
+Block 4 · the assembled [K], 18 × 18 · text (3.46) Each entry is filled by the elements that share both its dofs Read the map Diagonal blocks of node 5 (U_9, U_{10}) are shared by all four elements: the number 4. Edge nodes are shared by two elements; corner nodes by one. Zero where the two dofs belong to nodes that no element has in common: node 1 and node 9 never meet. Why Bandwidth: the non-zeros stay close to the diagonal because neighbouring nodes have nearby numbers. Numbering across the short side first keeps the
+
+[slides-28] Slide 28: Place two entries of element 2 into [K], then find the fixed dofs
+8 MIN Activity 4 · pairs · assembly Place two entries of element 2 into [K], then find the fixed dofs Do Element 2 has nodes 2, 3, 6, 5. Write its dof list in local order 1…8. Its local k_{11} = 0.875 × 10⁶ and local k_{34} = −0.373 × 10⁶. To which global entries K_{IJ} do they go? Which global diagonal entries receive s_1 = 0.875 × 10⁶ from more than one element? Give K_{9,9}. List the six fixed dofs and the size of the reduced system. 8 minutes. Reveal follows. SEAA 4243 · Plane Stress — Part 2 28
+
+[slides-29] Slide 29: Six fixed dofs; twelve equations remain
+Activity 4 · solution · text (3.48) Six fixed dofs; twelve equations remain Local entry of element 2 Global entry Value (× 10⁶) k_{11} (u_2–u_2) K_{3,3} +0.875 (plus element 1’s k_{33} = 0.875 → 1.751) k_{34} (u_2–v_2 coupling) K_{5,6} −0.373 k_{77} (u_4–u_4, node 5) K_{9,9} +0.875 (× 4 elements → 3.500) Check K_{3,3} = 1.751 and K_{9,9} = 3.500 are visible in the text’s (3.46) and (3.48): a good place to check your dof map. SEAA 4243 · Plane Stress — Part 2 29
+
+[slides-30] Slide 30: Nodal displacements of the 2 × 2 mesh, in metres
+Block 4 · the solution · text (3.49) Nodal displacements of the 2 × 2 mesh, in metres Node x-dof u (m) y-dof v (m) 1 (fixed) U_1 0 U_2 0 2 U_3 −0.031 U_4 −0.046 3 (free end, bottom) U_5 −0.042 U_6 −0.131 4 (fixed) U_7 0 U_8 0 5 (centre) U_9 0.000 U_{10} −0.043 6 (free end, mid) U_{11} 0.000 U_{12} −0.130 7 (fixed) U_{13} 0 U_{14} 0 8 U_{15} 0.031 U_{16} −0.046 9 (free end, top) U_{17} 0.042 U_{18} −0.131 Why Bending signature: the bottom fibre shortens (u_3, u_5 < 0), the top lengthens (u_{15}, u_{17} > 0), and mid-heig
+
+[slides-31] Slide 31: Read the solution like a structural engineer
+6 MIN Activity 5 · pairs · interpretation Read the solution like a structural engineer From the table Why is U_5 = −U_{17} and U_6 = U_{18} exactly? Why is U_9 = U_{11} = 0? The free end moves down 0.131 m. Estimate the tip deflection of the same cantilever with elementary beam theory, δ = PL³/(3EI), with P = 10 kN, L = 4 m, I = t h³/12. Compare. 6 minutes. Reveal follows. SEAA 4243 · Plane Stress — Part 2 31
+
+[slides-32] Slide 32: Antisymmetric bending, a neutral axis, and a mesh that is too stiff
+Activity 5 · solution Antisymmetric bending, a neutral axis, and a mesh that is too stiff Timoshenko beam: bending + shear Watch out Shear adds 0.032 m to the 0.160 m of bending: 17% for a beam this deep (L/h = 2). The 2 × 2 FE answer, 0.131 m, is 32% below the beam estimate. Check Both symmetries are exact properties of the discrete system, not approximations: the mesh, the loads and the supports are symmetric about y = 1 m. SEAA 4243 · Plane Stress — Part 2 32
+
+[slides-33] Slide 33: Is the answer right? Refinement and a hand check
+5 Block 5 · 2:15 – 2:40 Is the answer right? Refinement and a hand check Refine the mesh until the deflection stops moving, and compare with beam theory. Text Table 3.1, Fig. 3.7. SEAA 4243 · Plane Stress — Part 2 33
+
+[slides-34] Slide 34: The hand mesh deflects two thirds as much as the converged mesh
+Block 5 · deflected shapes The hand mesh deflects two thirds as much as the converged mesh What the picture shows Both meshes bend; the coarse one bends less. The bilinear element cannot curve: each element’s edges stay straight, so bending is represented by a kink pattern. Straight edges force spurious shear strain under bending — the element resists with shear stiffness it should not have: shear locking . Why More elements → smaller kinks → less spurious shear. The 8-node element (Plane Stress Part 3) curves instead.
+
+[slides-35] Slide 35: Refine until the tip deflection stops moving; the limit agrees with beam theory
+Block 5 · mesh convergence · text Table 3.1 Refine until the tip deflection stops moving; the limit agrees with beam theory Mesh U₆ (m) U₁₈ (m) Q4 2 × 2 −0.131 −0.131 Q4 16 × 16 −0.1893 −0.1893 Q4 80 × 80 −0.192 −0.192 Software (text) −0.192 −0.192 Beam theory — −0.192 SEAA 4243 · Plane Stress — Part 2 35
+
+[slides-36] Slide 36: Error falls with element size, then levels off near 0.7%
+Block 5 · the same experiment in another code Error falls with element size, then levels off near 0.7% Images: SolidsPy (J. Gómez and N. Guarín-Zapata), “Convergence analysis for a cantilever beam”, MIT licence, github.com/nicoguaro/SolidsPy. Check Coarse meshes: each halving of h cuts the error about three times. Same lesson as our Table 3.1. Why Fine meshes: the error stops near 0.7%. The FE end load is spread uniformly; the exact elasticity solution assumes a parabolic end shear. That is a modelling difference, not a
+
+[slides-37] Slide 37: Quantify the coarse-mesh error and decide on a mesh
+8 MIN Activity 6 · pairs · calculation Quantify the coarse-mesh error and decide on a mesh Do Percentage error of the 2 × 2 and the 16 × 16 tip deflections relative to the converged 0.192 m. If the error roughly halves when the element size halves, how many elements along the length are needed for 1%? A project team reports a shear-wall deflection from a single 4 × 6 mesh. What do you ask them to add? Check Use the table and the plot; no new theory needed. 8 minutes. Reveal follows. SEAA 4243 · Plane Stress — Part 2 37
+
+[slides-38] Slide 38: Report the error, refine until it is below the tolerance, and check one number by hand
+Activity 6 · solution Report the error, refine until it is below the tolerance, and check one number by hand Errors 2 × 2: (0.131 − 0.192)/0.192 = −32% 16 × 16: (0.1893 − 0.192)/0.192 = −1.4% 32 × 16: (0.191 − 0.192)/0.192 = −0.7% Mesh for 1% About 32 elements along the length (element size 0.125 m). Finer than that costs time and buys nothing a designer can use. The project rule Three meshes, one table, one independent check (beam theory, equilibrium of reactions, or a textbook solution). Then — and only then — a concl
+
+[slides-39] Slide 39: Your hand mesh, then better meshes, on your phone
+8 MIN QR Explorer · pairs, one phone Your hand mesh, then better meshes, on your phone Scan, then do 1 4-node, 2 × 2: does the Explorer give the text’s −0.131 m? How far is it from beam theory? 2 Same eight elements, two layouts: 4 × 2 and 8 × 1, then 2 × 4. Which is stiffest, and why? 3 Find the coarsest mesh within 2% of −0.192 m with 4-node and with 8-node elements. Compare their dofs. Cantilever Explorer razinutm.github.io/ My_Lectures/SEAA4243-FEM/ labs/cant.html 8 minutes, optional in class: if the block is runnin
+
+[slides-40] Slide 40: The MATLAB script and what comes next
+6 Block 6 · 2:40 – 3:00 The MATLAB script and what comes next Four changes turn the heat-transfer script into the plane-stress script. Then the exit ticket. SEAA 4243 · Plane Stress — Part 2 40
+
+[slides-41] Slide 41: Four changes turn the heat-transfer script into the plane-stress script
+Block 6 · the script, as a diff against Heat Transfer Part 2 Four changes turn the heat-transfer script into the plane-stress script % ---- changes from the heat script ---- E = 200e6; nu = 0.33; t = 0.01; qy = 5000; Nx = 2; Ny = 2; ndof = 18; % 2 dofs per node a = Lx/Nx; b = Ly/Ny; % 12 closed-form values, text (3.42) s1 = (E*t*((1-nu)*a^2 + 2*b^2))/(6*(1-nu^2)*a*b); s2 = (E*t*((1-nu) + 2*nu))/(8*(1-nu^2)); s3 = (E*t*((1-nu)*a^2 - 4*b^2))/(12*(1-nu^2)*a*b); % ... s4 to s12 likewise ... k = [s1 s2 s3 s4 s5 s6 s7 s8; ...
+
+[slides-42] Slide 42: Three questions before you leave
+5 MIN Activity 7 · individual · exit ticket Three questions before you leave Questions What are the sizes of [B], [E] and [k] for the 4-node plane-stress element, and what does t multiply? An edge of length b carries a uniform traction q. What does each of its two nodes receive? Your 2 × 2 model gives 0.131 m and the converged answer is 0.192 m. Is the coarse model too stiff or too flexible, and why? Five minutes. Name and matric number; for feedback, not marks. SEAA 4243 · Plane Stress — Part 2 42
+
+[slides-43] Slide 43: Next session: stresses from displacements, the 8-node element, and the project briefing
+Wrap-up · what to take away and what to prepare Next session: stresses from displacements, the 8-node element, and the project briefing Today in four lines [B] = [∂]ᵀ[N] (3 × 8); [k] = t∫[B]ᵀ[E][B] dA (8 × 8), symmetric, three zero-energy modes. Twelve closed-form values s_1…s_{12}; for the cantilever element k_{11} = 0.875 × 10⁶ N m⁻¹. Edge traction → qb/2 at each edge node (dofs v); assembly by the dof map; six fixed dofs → 12 × 12. 2 × 2 mesh: tip deflection 0.131 m, 32% too stiff; converged 0.192 m = beam theory wit
+
+[examples-v1] Contoh 1 · Stiffness matrix bagi element segi empat sama
+Jenis soalan entries of [k] by integration and by pattern Unit kN, m Sumber FEM by Hand, Example 9.2 (textbook Exercise 3.1) 20 markah Soalan Satu element plane stress segi empat sama bersisi 0.5 m dan tebal 0.05 m mempunyai E = 2.05 × 10⁸ kN m^{−2} dan ν = 0.3. (a) Dapatkan k_{11} dan k_{12} melalui integration, (b) tulis [k], dan (c) semak.
+[Rajah: Element bagi Contoh 1 dan 2.]
+Gambaran fizikal. k_{11} ialah daya dalam x pada node 1 yang menggerakkan node 1 satu unit dalam x dengan setiap dof lain ditahan. Pergerakan itu memendekkan sisi 1–2, ditentang oleh Ē = E/(1 − ν²), dan men-shear element, kerana node 1 bergerak manakala node 4 di atasnya tidak, ditentang oleh G. k_{12}, daya dalam y yang menyertainya, timbul daripada kesan Poisson dan daripada shear yang sama.
+Plan. Columns 1 and 2 of [B] → integrate k_{11} and k_{12} → s_1 to s_{12} → [k] by the pattern (3.42) → row sums and a rigid rotation.
+## Step 1 (a) Lajur 1 dan 2 [B] [2]
+PERSAMAAN : [equation v1_Bcols: source not available in the page]
+dengan Ē = E/(1 − ν²) dan G = Ē(1 − ν)/2 dalam [E].
+## Step 2 (a) k₁₁ melalui integration [4]
+PERSAMAAN : [equation v1_k11: source not available in the page]
+## Step 3 (a) k₁₂ melalui integration [4]
+PERSAMAAN : [equation v1_k12: source not available in the page]
+Integral (a − x)(b − y) atas element ialah a²b²/4, jadi k_{12} tidak mengandungi a mahupun b.
+## Step 4 (b) Dua belas nilai dan [k] [4]
+PERSAMAAN : [equation v1_nums: source not available in the page]
+PERSAMAAN : [equation v1_sq: source not available in the page]
+1 · u_1 2 · v_1 3 · u_2 4 · v_2 5 · u_3 6 · v_3 7 · u_4 8 · v_4
+1 · u_1 5.069 1.830 −3.098 −0.141 −2.534 −1.830 0.563 0.141
+2 · v_1 1.830 5.069 0.141 0.563 −1.830 −2.534 −0.141 −3.098
+3 · u_2 −3.098 0.141 5.069 −1.830 0.563 −0.141 −2.534 1.830
+4 · v_2 −0.141 0.563 −1.830 5.069 0.141 −3.098 1.830 −2.534
+5 · u_3 −2.534 −1.830 0.563 0.141 5.069 1.830 −3.098 −0.141
+6 · v_3 −1.830 −2.534 −0.141 −3.098 1.830 5.069 0.141 0.563
+7 · u_4 0.563 −0.141 −2.534 1.830 −3.098 0.141 5.069 −1.830
+8 · v_4 0.141 −3.098 1.830 −2.534 −0.141 0.563 −1.830 5.069
+[k] × 10⁶ kN m^{−1}, dalam pola (3.42); susunan dof u_1, v_1, …, u_4, v_4.
+Answer. (b) s_1 = 5.069, s_2 = 1.830, s_3 = −3.098, s_5 = −2.534, s_7 = 0.563, s_8 = 0.141 (× 10⁶ kN m^{−1}); [k] as tabulated.
+## Step 5 (c) Semakan [6]
+PERSAMAAN : [equation v1_rows: source not available in the page]
+PERSAMAAN : [equation v1_rot: source not available in the page]
+Check. Symmetric; u- and v-entries of row 1 each sum to zero; a rigid rotation gives zero force. The other rows check in the same way.
+Answer. (c) [k] passes the three rigid-body checks. Tafsiran Entri u–u ialah entri element haba dengan k_x = Et/(1 − ν²) dan k_y = Gt: menggerakkan u sepanjang x meregangkan bahan, menggerakkannya sepanjang y men-shear bahan. Seperti element haba segi empat sama, stiffness tidak bergantung pada sisinya: menggandakan a dan b tidak mengubah [k], jadi hanya E, ν dan t yang penting. Term gandingan s_2 dan s_8 tidak bergantung pada saiz dan bentuk element; dengan ν = 1/3, s_8 akan lenyap. Skema pemarkahan (cadangan) · 20 Apa yang diberi markah Markah
+Lajur [B] dengan Ē dan G dikenal pasti 2
+k_{11}: integrand dan integration 4
+k_{12}: integrand dan integration 4
+Enam nilai berbeza dan kesamaan segi empat sama 4
+Jumlah baris dan rotation tegar 6
+Jumlah 20
+
+[examples-v2] Contoh 2 · Nodal load, dan entri global daripada matrix element yang diberi
+Jenis soalan edge load and body force; K_{IJ} from [k] and the connectivity Unit kN, m Sumber FEM by Hand, Examples 9.3 (textbook Exercise 3.2) and 9.4 20 markah Soalan Bagi element Contoh 1, tentukan nodal load untuk (a) load −25 kN m^{−1} dalam y pada sisi kanannya, (b) self-weight keluli, γ = 78.5 kN m^{−3}, dan (c) load dalam y yang berubah secara linear sepanjang sisi kanan daripada 0 pada node 2 kepada −25 kN m^{−1} pada node 3. (d) Struktur dalam rajah di bawah dimodelkan dengan empat element serupa yang matrix-nya, dalam susunan dof local Contoh 1, diberi. Tentukan K_{9,11}, K_{16,16}, K_{8,7} dan K_{13,20}. Gambaran fizikal. Load yang seragam dikongsi sama rata oleh dua node sisinya, dan body force yang seragam oleh empat node element. Load yang membesar ke arah node 3 mesti meletakkan lebih pada node 3, dengan paduannya pada dua pertiga sisi dari node 2. Dalam (d), setiap entri global mengumpul stiffness yang disumbangkan setiap element antara dua dof-nya; hanya element yang mengandungi kedua-dua node menyumbang.
+Plan. (a) pℓ/2 → (b) γtab/4 → (c) ℓ(2p_i + p_j)/6 with total and moment checks → (d) dof → node → elements containing both → local positions → sum.
+## Step 1 (a) Edge load seragam [3]
+Sisi kanan berjalan dari node 2 ke node 3, ℓ = 0.5 m; load dalam y, jadi ia masuk ke v_2 dan v_3 (dof local 4 dan 6).
+PERSAMAAN : [equation v2_edge: source not available in the page]
+## Step 2 (b) Self-weight [3]
+PERSAMAAN : [equation v2_self: source not available in the page]
+## Step 3 (c) Load yang berubah secara linear [4]
+Dengan p_2 = 0 dan p_3 = −25 kN m^{−1}:
+PERSAMAAN : [equation v2_lin: source not available in the page]
+PERSAMAAN : [equation v2_linchk: source not available in the page]
+Answer. (a) −6.25 kN at v_2 and v_3. (b) −0.245 kN at every v_i. (c) −2.08 kN at v_2, −4.17 kN at v_3.
+## Step 4 (d) Dof dan connectivity [3]
+[Rajah: Struktur (d): empat element serupa, node 1–10.]
+1 · u_1 2 · v_1 3 · u_2 4 · v_2 5 · u_3 6 · v_3 7 · u_4 8 · v_4
+1 · u_1 2.44 0.83 −1.44 −0.17 −1.22 −0.83 0.22 0.17
+2 · v_1 0.83 2.44 0.17 0.22 −0.83 −1.22 −0.17 −1.44
+3 · u_2 −1.44 0.17 2.44 −0.83 0.22 −0.17 −1.22 0.83
+4 · v_2 −0.17 0.22 −0.83 2.44 0.17 −1.44 0.83 −1.22
+5 · u_3 −1.22 −0.83 0.22 0.17 2.44 0.83 −1.44 −0.17
+6 · v_3 −0.83 −1.22 −0.17 −1.44 0.83 2.44 0.17 0.22
+7 · u_4 0.22 −0.17 −1.22 0.83 −1.44 0.17 2.44 −0.83
+8 · v_4 0.17 −1.44 0.83 −1.22 −0.17 0.22 −0.83 2.44
+Matrix element yang diberi (susunan dof local yang sama seperti Contoh 1), dalam unit soalan.
+Element local 1 local 2 local 3 local 4
+1 1 2 5 4
+2 3 4 8 7
+3 4 5 9 8
+4 5 6 10 9
+[K] ialah 20 × 20. Dof global 2i − 1 ialah U_i dan 2i ialah V_i; dof local 2m − 1 ialah u bagi node local m dan 2m ialah v-nya.
+## Step 5 (d) Empat entri [7]
+- K_{9,11}: U_5 dan U_6. Hanya element 4 mengandungi node 5 dan 6, sebagai node local 1 dan 2: dof local 1 dan 3.
+- K_{16,16}: V_8. Node 8 ialah node local 3 bagi element 2 (dof 6) dan node local 4 bagi element 3 (dof 8).
+- K_{8,7}: V_4 dan U_4. Node 4 ialah local 4 bagi element 1, local 2 bagi element 2 dan local 1 bagi element 3.
+- K_{13,20}: U_7 dan V_{10}. Node 7 dan 10 tidak berkongsi element.
+PERSAMAAN : [equation v2_K: source not available in the page]
+Answer. (d) K_{9,11} = −1.44, K_{16,16} = 4.88, K_{8,7} = −0.83, K_{13,20} = 0. Tafsiran Load hanya pergi ke dof dalam arah load itu; edge load dalam y tidak memberi apa-apa kepada dof u. Bahagian itu ialah consistent load bar element, kerana di sepanjang sisi shape function Q4 ialah fungsi linear bar; jumlah dan momen ialah dua semakan yang menangkap bahagian yang salah. Dalam (d), matrix yang diberi mempunyai pola (3.42) bagi segi empat sama, dengan ν = 0.25 dan Et = 5 dalam unit soalan, yang menghasilkan semula setiap entri:
+PERSAMAAN : [equation v2_nu: source not available in the page]
+K_{8,7} menunjukkan gandingan u–v pada satu node bertukar tanda dari satu element ke element seterusnya, jadi sumbangan element di sisi berlainan sesuatu node sebahagiannya terbatal; pada node dalaman mesh yang seragam ia terbatal sepenuhnya. Skema pemarkahan (cadangan) · 20 Apa yang diberi markah Markah
+(a) Bahagian dan dof yang menerimanya 3
+(b) Berat dan bahagian satu perempat 3
+(c) Bahagian linear dengan semakan jumlah dan momen 4
+(d) Penomboran dof dan connectivity table 3
+(d) Empat entri dengan kedudukan local dinamakan 7
+Jumlah 20
+
+[examples-v3] Contoh 3 · Satu element dalam tegangan: roller dan tepi clamped
+Jenis soalan supports, symmetry, comparison with the exact field Unit kN, m Sumber FEM by Hand, Example 9.6 20 markah Soalan Satu plat segi empat sama 1 m × 1 m dan tebal 0.01 m (E = 200 × 10⁶ kN m^{−2}, ν = 0.3) ditarik oleh stress seragam σ = 1000 kN m^{−2} pada sisi kanannya dan dimodelkan dengan satu element. Cari nodal displacement (a) dengan roller, u_1 = u_4 = 0 dan v_1 = v_2 = 0, dan (b) dengan sisi kiri clamped, u_1 = v_1 = u_4 = v_4 = 0.
+[Rajah: Plat bagi Contoh 3: (a) di atas roller; (b) clamped di kiri.]
+Gambaran fizikal. Di atas roller, plat bebas mengecut ke sisi, jadi stress-nya seragam: ia meregang sebanyak σ/E = 5 × 10^{−6} dan mengecut sebanyak νσ/E = 1.5 × 10^{−6} per meter. Field itu linear, dan Q4 mengandungi field linear, jadi (a) sepatutnya tepat. Apabila clamped, sisi kiri tidak dapat mengecut, yang menjadikan plat lebih stiff berhampiran support: jangkakan regangan yang sedikit lebih kecil dalam (b), dan bucu kanan bergerak ke arah garis tengah.
+Plan. s_1 to s_{12} → loads σtℓ/2 → (a) substitute the exact field into the reduced equations → (b) symmetry u_3 = u_2, v_3 = −v_2 → a 2 × 2 system → reactions.
+## Step 1 Matrix element dan load [4]
+PERSAMAAN : [equation v3_s: source not available in the page]
+Bagi segi empat sama unit s_9 = s_1, s_{10} = s_7, s_{11} = s_5, s_{12} = s_3, s_6 = −s_2, s_8 = −s_4.
+PERSAMAAN : [equation v3_load: source not available in the page]
+## Step 2 (a) Roller: field tepat memenuhi persamaan [6]
+Unknown-nya ialah u_2, u_3, v_3, v_4. Cuba field tepat:
+PERSAMAAN : [equation v3_exact: source not available in the page]
+Dalam baris u_2 (baris 3 [k]) hanya empat term tinggal (s_i dalam 10⁶ kN m^{−1}, displacement dalam 10^{−6} m):
+PERSAMAAN : [equation v3_row3: source not available in the page]
+Baris u_3, v_3 dan v_4 memberi 5, 0 dan 0 dengan cara yang sama, jadi field tepat itulah penyelesaiannya.
+Answer. (a) u_2 = u_3 = 5.0 × 10^{−6} m, v_3 = v_4 = −1.5 × 10^{−6} m, exact.
+## Step 3 (b) Clamped: simetri memberi sistem 2 × 2 [6]
+Unknown-nya ialah u_2, v_2, u_3, v_3. Plat dan load simetri tentang tengah ketinggian, jadi u_3 = u_2 dan v_3 = −v_2; baris u_2 dan v_2 (baris 3 dan 4 [k]) menjadi
+PERSAMAAN : [equation v3_sym: source not available in the page]
+PERSAMAAN : [equation v3_solve: source not available in the page]
+Answer. (b) u_2 = u_3 = 4.85 × 10^{−6} m (3.0% less than on rollers), v_2 = −v_3 = 1.00 × 10^{−6} m.
+## Step 4 Reaction sebagai semakan [4]
+Daripada baris 1, 2, 7 dan 8 bagi [k]{d} − {r}:
+PERSAMAAN : [equation v3_react: source not available in the page]
+Check. The horizontal reactions balance the 10 kN pull; the vertical ones are equal and opposite, so they have no resultant.
+Tafsiran (a) ialah patch test: stress yang seragam dihasilkan semula dengan tepat oleh satu element, dan oleh itu oleh mana-mana mesh element sedemikian; element yang gagal ujian ini tidak boleh converge. (b) menunjukkan kesan support yang menghalang pengecutan Poisson: sisi clamped membawa reaction menegak, −0.99 kN pada node 1 dan +0.99 kN pada node 4, yang menahan bucunya daripada mendekat, dan tegangan dalam y yang terhasil mengurangkan regangan dalam x sebanyak 3.0%. Mesh halus memberi regangan purata sisi yang dibebankan 1.2% di bawah nilai bebas, jadi satu element melebih-lebihkan kekangan itu, kerana ia menyebarkan kesan sisi clamped ke seluruh plat. Skema pemarkahan (cadangan) · 20 Apa yang diberi markah Markah
+Nilai element dan dua nodal load 4
+(a) Field tepat ditunjukkan memenuhi persamaan terkurang 6
+(b) Simetri, sistem 2 × 2 dan penyelesaiannya 6
+Reaction dan semakan keseimbangan 4
+Jumlah 20
+
+[exercises-b1] Latihan B1 · Empat nilai stiffness matrix 8 × 8
+Soalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-b2] Latihan B2 · Nodal load daripada edge load yang berubah dan self-weight
+Soalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-b3] Latihan B3 · Entri global mesh cantilever 2 × 2
+Soalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-b4] Latihan B4 · Semakan beam theory bagi dinding cantilever
+Soalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-quick] Latihan: soalan konsep pantas
+- Strain–displacement matrix [B] bagi four-node plane-stress element ialah
+- Entri [k] segi empat tepat yang mana tidak bergantung pada sisi element a dan b?
+- Traction seragam bertindak dalam −y pada sisi 2–3 sesuatu element. Nodal load-nya pergi ke dof local
+- Dalam mesh cantilever 2 × 2, entri pepenjuru K_{9,9} (u bagi node pusat 5) ialah
+- Mesh Q4 2 × 2 memberi tip deflection 0.131 m; beam theory dengan shear memberi 0.192 m. Mesh kasar itu
+- Selepas menyelesaikan cantilever dalam teks, enam reaction pada tepi fixed mesti
+- Satu element dengan a = 2 m, b = 1 m dan t = 0.01 m membawa traction ke bawah 500 kN m^{−2} (daya per unit luas) pada sisi kanannya, 2–3. Seorang pelajar mencari nodal load. Satu baris mengandungi kesilapan. Yang mana?
+
+[lab-book22] Tugasan Explorer 1 · Tekan “Text example” (4-node, 2 × 2, data teks) dan baca tip deflection. Adakah ia sepadan dengan −0.1306 m dalam teks, dan sejauh mana ia daripada beam theory?
+Ditanda sendiri: dikesan apabila mesh 4-node 2 × 2 diselesaikan dengan data teks · tidak ditanda? tanda selesai
+(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)
+
+[lab-layouts] Tugasan Explorer 2 · Lapan element yang sama, tiga susunan: 4-node 4 × 2, 8 × 1 dan 2 × 4. Yang mana paling stiff, dan mengapa?
+Ditanda sendiri: dikesan apabila mesh 4-node 4 × 2, 8 × 1 dan 2 × 4 semuanya telah diselesaikan dengan data teks · tidak ditanda? tanda selesai
+(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)
+
+[lab-study] Tugasan Explorer 3 · Jalankan kajian mesh. Cari mesh 4-node dan 8-node paling kasar dalam 2% daripada beam theory dan bandingkan dof-nya.
+Ditanda sendiri: dikesan apabila kajian mesh dijalankan dengan data teks · tidak ditanda? tanda selesai
+(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)
+
+[lab-point] Tugasan Explorer 4 · Gantikan traction tepi dengan point force pada bucu atas (jumlah yang sama). Apa yang berlaku pada node yang dibebankan, dan di tengah rentang?
+Ditanda sendiri: dikesan apabila point force pada bucu atas diselesaikan dengan data teks yang lain · tidak ditanda? tanda selesai
+(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)
+
+[lab-code] Lab · Kod Python untuk assignment dan projek
+Kod Python untuk assignment dan projek Langkah dan notasi yang sama seperti nota, ditulis dalam Python biasa. Guna untuk menyemak setiap matrix dan nombor dalam pengiraan tangan, dan untuk menjalankan apa yang tidak praktikal dibuat dengan tangan: kajian mesh, contour plot, geometri dan beban anda sendiri. ⤓ Muat turun fe_plane_stress.py (.zip, 18 kB) ⤓ Semua kod kursus (.zip, 41 kB) Unzip, kemudian pasang Python 3.8 atau lebih baharu dan jalankan pip install numpy matplotlib (matplotlib hanya untuk plot). Jalankan python fe_plane_stress.py . Ia menghasilkan semula contoh kursus; README.txt menyenaraikan output yang sepatutnya keluar. Baca docstring di bahagian atas fail untuk notasi, penomboran dan unit, dan cara memanggilnya untuk masalah anda sendiri. Pengiraan tangan tetap pengiraan tangan: dalam ujian atau assignment yang meminta langkah, tunjukkan sendiri. Tunjuk kod · fe_plane_stress.py · 323 baris Salin """
+SEAA 4243 Finite Element Method - plane stress with 4-node and 8-node elements
+==============================================================================
+Companion code for the Cantilever and Stress Recovery Explorers (Plane Stress).
+It follows the course's steps in the text's notation (Mohd Yassin et al.,
+MSNM 2020, Chapter 3):
+[E] 3 x 3 material matrix, plane stress or plane strain text (3.10)
+[B] strains from nodal displacements, {eps} = [d]^T[N]{u} weak form (3.31)-(3.38)
+[k] = t * integral [B]^T [E] [B] dA closed form (3.42);
+here by Gauss quadrature (2 x 2 points for the 4-node
+element, 3 x 3 for the 8-node), which reproduces (3.42)
+loads a uniform traction on the free end becomes consistent nodal
+loads: q b/2 to each node (4-node, (3.45)); q b/6, 2q b/3,
+q b/6 (8-node, (3.51))
+solve assemble (3.46), strike the fixed edge's rows and columns
+(3.48), solve (3.49); reactions from the struck rows;
+stresses {sigma} = [E][B]{u}
+
+[lab-run] Lab · Jalankan kod dalam browser
+Jalankan kod dalam browser percubaan Ubah skrip pendek dan jalankan di sini, tanpa pemasangan. Python berjalan pada peranti anda sendiri; tiada apa yang dihantar ke mana-mana. Larian pertama memuat turun Python, lebih kurang 9 MB (lebih kurang 20 MB apabila skrip membuat plot), dan mengambil 10–30 s; larian seterusnya sesaat dua. [k] element Kajian mesh cantilever Contoh kursus ▶ Jalankan ■ Henti Set semula skrip Ctrl+Enter (⌘+Enter) menjalankan skrip. Suntingan anda disimpan dalam browser ini; Set semula skrip memulihkan yang asal. Untuk assignment atau projek, muat turun kod di atas dan jalankan di komputer anda.
+
+[glossary-galerkin-vector-version] Glosari: Galerkin, vector version
+Galerkin, vector version: Weighted residual dengan [N]ᵀ sebagai weight: lapan persamaan setiap four-node element, satu setiap dof.
+
+[glossary-strain-displacement-matrix-b] Glosari: strain–displacement matrix [B]
+strain–displacement matrix [B]: [B] = [∂]ᵀ[N], 3 × 8: strain {ε} = [B]{û} pada mana-mana titik element; setiap baris berjumlah sifar.
+
+[glossary-stiffness-matrix-k] Glosari: stiffness matrix [k]
+stiffness matrix [k]: t∫[B]ᵀ[E][B] dA, 8 × 8, simetri; unit daya per panjang (N m^{−1} atau kN m^{−1} ).
+
+[glossary-stiffness-influence-coefficient-k-ij] Glosari: stiffness influence coefficient k_{ij}
+stiffness influence coefficient k_{ij}: Daya pada dof i yang diperlukan untuk memberi dof j satu unit displacement dengan setiap dof lain ditahan.
+
+[glossary-s-1-s-12] Glosari: s_1 …s_{12}
+s_1 …s_{12}: Dua belas entri berbeza [k] segi empat tepat, teks (3.42); s_2 , s_4 , s_6 , s_8 (gandingan u–v) tidak bergantung pada a, b.
+
+[glossary-e-1] Glosari: Ē = E/(1 − ν²)
+Ē = E/(1 − ν²): Modulus plane stress yang mendarab term normal dalam [E]; G = Ē(1 − ν)/2 ialah shear modulus.
+
+[glossary-zero-energy-rigid-body-modes] Glosari: zero-energy (rigid-body) modes
+zero-energy (rigid-body) modes: Dua translation dan satu rotation yang tidak menyebabkan strain; [k]{d} = 0 bagi setiap satu, jadi [k] singular sehingga ditahan.
+
+[glossary-row-sum-check] Glosari: row-sum check
+row-sum check: Dalam setiap baris [k], entri u dan entri v masing-masing berjumlah sifar.
+
+[glossary-gauss-quadrature] Glosari: Gauss quadrature
+Gauss quadrature: Numerical integration pada titik terpilih; 2 × 2 titik meng-integrate [k] Q4 segi empat tepat dengan tepat.
+
+[glossary-consistent-equivalent-nodal-loads] Glosari: consistent (equivalent) nodal loads
+consistent (equivalent) nodal loads: Daya nod yang melakukan kerja yang sama seperti load teragih; edge load seragam memberi pℓ/2 kepada setiap node tepi.
+
+[glossary-traction-line-load] Glosari: traction · line load
+traction · line load: Traction ialah daya per unit luas tepi (kN m^{−2} ); line load ialah per unit panjang untuk seluruh ketebalan (kN m^{−1} ) = traction × t.
+
+[glossary-body-force-self-weight] Glosari: body force · self-weight
+body force · self-weight: Daya per unit isi padu; self-weight γ memberi −γtab/4 pada setiap dof v element Q4.
+
+[glossary-dof-map] Glosari: dof map
+dof map: Node n → dof 2n − 1 (u) dan 2n (v); lapan dof global sesuatu element mengikut susunan local.
+
+[glossary-scatter-add] Glosari: scatter-add
+scatter-add: K_{IJ} += k_{ij} dengan I, J daripada dof map; sama untuk {R}.
+
+[glossary-bandwidth] Glosari: bandwidth
+bandwidth: Sejauh mana entri bukan sifar [K] tersebar dari pepenjuru; node yang dinomborkan berdekatan memastikannya sempit.
+
+[glossary-fixed-dofs-reduced-system] Glosari: fixed dofs · reduced system
+fixed dofs · reduced system: Displacement yang diketahui dibuang melalui row–column elimination; 18 − 6 = 12 persamaan bagi cantilever 2 × 2.
+
+[glossary-reactions] Glosari: reactions
+reactions: Baris yang dibuang [K]{U} − {R} pada support; ia mesti mengimbangi load yang dikenakan dan momennya.
+
+[glossary-neutral-axis] Glosari: neutral axis
+neutral axis: Garis yang tidak meregang mahupun memendek dalam lenturan; tengah ketinggian cantilever (u = 0 pada node 5 dan 6).
+
+[glossary-timoshenko-beam] Glosari: Timoshenko beam
+Timoshenko beam: Beam theory dengan shear deformation: δ = PL³/(3EI) + PL/(κGA), κ = 5/6 bagi segi empat tepat; 0.192 m bagi cantilever dalam teks.
+
+[glossary-shear-locking] Glosari: shear locking
+shear locking: Element bilinear bertepi lurus tidak boleh melengkung, menghasilkan shear palsu dalam lenturan dan terlalu stiff; paling teruk apabila panjang dalam arah lenturan.
+
+[glossary-convergence-study] Glosari: convergence study
+convergence study: Model yang sama pada sekurang-kurangnya tiga mesh, dijadualkan, sehingga hasilnya berhenti berubah.
+
+[glossary-patch-test] Glosari: patch test
+patch test: Element mesti menghasilkan semula keadaan stress seragam dengan tepat; satu Q4 dalam tegangan seragam di atas roller melakukannya.

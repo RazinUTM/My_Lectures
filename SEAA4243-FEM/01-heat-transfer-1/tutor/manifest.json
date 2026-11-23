@@ -1,0 +1,717 @@
+{
+ "app": "seaa4243",
+ "part": "p1",
+ "title": "2D Heat Transfer — Part 1",
+ "folder": "01-heat-transfer-1",
+ "course_meta": {
+  "key": "seaa4243-p1-v1",
+  "notes": [
+   "n1",
+   "n2",
+   "n3",
+   "n4",
+   "n5",
+   "n6"
+  ],
+  "slides": 49,
+  "examples": [
+   "x1",
+   "x2",
+   "x3"
+  ],
+  "cando": 4,
+  "targetMin": 30
+ },
+ "sections": [
+  {
+   "id": "start-outcomes",
+   "view": "start",
+   "anchor": null,
+   "selector": "ol.lo",
+   "title_en": "After this part you should be able to",
+   "title_ms": "Selepas bahagian ini, anda sepatutnya boleh"
+  },
+  {
+   "id": "notes-n1",
+   "view": "notes",
+   "anchor": "n1",
+   "title_en": "1. Why a 2D field problem, and what FEM delivers",
+   "title_ms": "1. Mengapa 2D field problem, dan apa yang FEM beri",
+   "minutes": 6
+  },
+  {
+   "id": "notes-n2",
+   "view": "notes",
+   "anchor": "n2",
+   "title_en": "2. From the energy balance to the PDE",
+   "title_ms": "2. Daripada energy balance kepada PDE",
+   "minutes": 10
+  },
+  {
+   "id": "notes-n3",
+   "view": "notes",
+   "anchor": "n3",
+   "title_en": "3. Boundary conditions: essential and natural",
+   "title_ms": "3. Boundary condition: essential dan natural",
+   "minutes": 7
+  },
+  {
+   "id": "notes-n4",
+   "view": "notes",
+   "anchor": "n4",
+   "title_en": "4. The four-node element and its shape functions",
+   "title_ms": "4. Four-node element dan shape function-nya",
+   "minutes": 12
+  },
+  {
+   "id": "notes-n5",
+   "view": "notes",
+   "anchor": "n5",
+   "title_en": "5. Gradient and flux inside an element",
+   "title_ms": "5. Gradient dan flux di dalam element",
+   "minutes": 7
+  },
+  {
+   "id": "notes-n6",
+   "view": "notes",
+   "anchor": "n6",
+   "title_en": "6. The pipeline: seven steps from PDE to answer",
+   "title_ms": "6. Pipeline: tujuh langkah daripada PDE kepada jawapan",
+   "minutes": 5
+  },
+  {
+   "id": "slides-1",
+   "view": "slides",
+   "anchor": "1",
+   "title_en": "Slide 1: 2D Heat Transfer Part 1 of 2",
+   "title_ms": "Slide 1: 2D Heat Transfer Part 1 of 2"
+  },
+  {
+   "id": "slides-2",
+   "view": "slides",
+   "anchor": "2",
+   "title_en": "Slide 2: Two topics in five sessions, then one session with ANSYS",
+   "title_ms": "Slide 2: Two topics in five sessions, then one session with ANSYS"
+  },
+  {
+   "id": "slides-3",
+   "view": "slides",
+   "anchor": "3",
+   "title_en": "Slide 3: By the end of this session you should be able to",
+   "title_ms": "Slide 3: By the end of this session you should be able to"
+  },
+  {
+   "id": "slides-4",
+   "view": "slides",
+   "anchor": "4",
+   "title_en": "Slide 4: Six blocks, six short activities, one break",
+   "title_ms": "Slide 4: Six blocks, six short activities, one break"
+  },
+  {
+   "id": "slides-5",
+   "view": "slides",
+   "anchor": "5",
+   "title_en": "Slide 5: Why two dimensions?",
+   "title_ms": "Slide 5: Why two dimensions?"
+  },
+  {
+   "id": "slides-6",
+   "view": "slides",
+   "anchor": "6",
+   "title_en": "Slide 6: FEM is “nothing”: a tool that solves a differential equation",
+   "title_ms": "Slide 6: FEM is “nothing”: a tool that solves a differential equation"
+  },
+  {
+   "id": "slides-7",
+   "view": "slides",
+   "anchor": "7",
+   "title_en": "Slide 7: Heat transfer has one unknown per node; plane stress has two",
+   "title_ms": "Slide 7: Heat transfer has one unknown per node; plane stress has two"
+  },
+  {
+   "id": "slides-8",
+   "view": "slides",
+   "anchor": "8",
+   "title_en": "Slide 8: The same PDE appears across civil engineering",
+   "title_ms": "Slide 8: The same PDE appears across civil engineering"
+  },
+  {
+   "id": "slides-9",
+   "view": "slides",
+   "anchor": "9",
+   "title_en": "Slide 9: A heated plate under a channel flow",
+   "title_ms": "Slide 9: A heated plate under a channel flow"
+  },
+  {
+   "id": "slides-10",
+   "view": "slides",
+   "anchor": "10",
+   "title_en": "Slide 10: Scalar or vector? Classify each field and count the unknowns per node",
+   "title_ms": "Slide 10: Scalar or vector? Classify each field and count the unknowns per node"
+  },
+  {
+   "id": "slides-11",
+   "view": "slides",
+   "anchor": "11",
+   "title_en": "Slide 11: The governing PDE",
+   "title_ms": "Slide 11: The governing PDE"
+  },
+  {
+   "id": "slides-12",
+   "view": "slides",
+   "anchor": "12",
+   "title_en": "Slide 12: Heat enters and leaves a small rectangle dx by dy",
+   "title_ms": "Slide 12: Heat enters and leaves a small rectangle dx by dy"
+  },
+  {
+   "id": "slides-13",
+   "view": "slides",
+   "anchor": "13",
+   "title_en": "Slide 13: Rate of change of stored energy = net conduction in + heat generated",
+   "title_ms": "Slide 13: Rate of change of stored energy = net conduction in + heat generated"
+  },
+  {
+   "id": "slides-14",
+   "view": "slides",
+   "anchor": "14",
+   "title_en": "Slide 14: Your turn: the y-direction balance, then cancel dx dy",
+   "title_ms": "Slide 14: Your turn: the y-direction balance, then cancel dx dy"
+  },
+  {
+   "id": "slides-15",
+   "view": "slides",
+   "anchor": "15",
+   "title_en": "Slide 15: The energy balance with dx dy cancelled",
+   "title_ms": "Slide 15: The energy balance with dx dy cancelled"
+  },
+  {
+   "id": "slides-16",
+   "view": "slides",
+   "anchor": "16",
+   "title_en": "Slide 16: Heat flows down the temperature gradient",
+   "title_ms": "Slide 16: Heat flows down the temperature gradient"
+  },
+  {
+   "id": "slides-17",
+   "view": "slides",
+   "anchor": "17",
+   "title_en": "Slide 17: Drop the time derivative: the PDE we discretise",
+   "title_ms": "Slide 17: Drop the time derivative: the PDE we discretise"
+  },
+  {
+   "id": "slides-18",
+   "view": "slides",
+   "anchor": "18",
+   "title_en": "Slide 18: Write the operator as a row vector times [E] times a column vector",
+   "title_ms": "Slide 18: Write the operator as a row vector times [E] times a column vector"
+  },
+  {
+   "id": "slides-19",
+   "view": "slides",
+   "anchor": "19",
+   "title_en": "Slide 19: Boundary conditions",
+   "title_ms": "Slide 19: Boundary conditions"
+  },
+  {
+   "id": "slides-20",
+   "view": "slides",
+   "anchor": "20",
+   "title_en": "Slide 20: Either T or the normal flux is known at every boundary point",
+   "title_ms": "Slide 20: Either T or the normal flux is known at every boundary point"
+  },
+  {
+   "id": "slides-21",
+   "view": "slides",
+   "anchor": "21",
+   "title_en": "Slide 21: On a rectangle the normal is a coordinate axis, so (2.15) collapses to one term",
+   "title_ms": "Slide 21: On a rectangle the normal is a coordinate axis, so (2.15) collapses to one term"
+  },
+  {
+   "id": "slides-22",
+   "view": "slides",
+   "anchor": "22",
+   "title_en": "Slide 22: Essential conditions are imposed; natural conditions appear by themselves",
+   "title_ms": "Slide 22: Essential conditions are imposed; natural conditions appear by themselves"
+  },
+  {
+   "id": "slides-23",
+   "view": "slides",
+   "anchor": "23",
+   "title_en": "Slide 23: Label the plate: for each edge, type, equation and what FEM does",
+   "title_ms": "Slide 23: Label the plate: for each edge, type, equation and what FEM does"
+  },
+  {
+   "id": "slides-24",
+   "view": "slides",
+   "anchor": "24",
+   "title_en": "Slide 24: Two essential edges, one flux load, one edge that needs nothing",
+   "title_ms": "Slide 24: Two essential edges, one flux load, one edge that needs nothing"
+  },
+  {
+   "id": "slides-25",
+   "view": "slides",
+   "anchor": "25",
+   "title_en": "Slide 25: Break",
+   "title_ms": "Slide 25: Break"
+  },
+  {
+   "id": "slides-26",
+   "view": "slides",
+   "anchor": "26",
+   "title_en": "Slide 26: The four-node scalar element",
+   "title_ms": "Slide 26: The four-node scalar element"
+  },
+  {
+   "id": "slides-27",
+   "view": "slides",
+   "anchor": "27",
+   "title_en": "Slide 27: A rectangle a × b, nodes numbered anticlockwise",
+   "title_ms": "Slide 27: A rectangle a × b, nodes numbered anticlockwise"
+  },
+  {
+   "id": "slides-28",
+   "view": "slides",
+   "anchor": "28",
+   "title_en": "Slide 28: Four nodes, four coefficients: 1, x, y and xy",
+   "title_ms": "Slide 28: Four nodes, four coefficients: 1, x, y and xy"
+  },
+  {
+   "id": "slides-29",
+   "view": "slides",
+   "anchor": "29",
+   "title_en": "Slide 29: Each nodal value gives one equation in the coefficients",
+   "title_ms": "Slide 29: Each nodal value gives one equation in the coefficients"
+  },
+  {
+   "id": "slides-30",
+   "view": "slides",
+   "anchor": "30",
+   "title_en": "Slide 30: Four coefficients in terms of the four nodal temperatures",
+   "title_ms": "Slide 30: Four coefficients in terms of the four nodal temperatures"
+  },
+  {
+   "id": "slides-31",
+   "view": "slides",
+   "anchor": "31",
+   "title_en": "Slide 31: The multiplier of each T̂ᵢ is its shape function Nᵢ",
+   "title_ms": "Slide 31: The multiplier of each T̂ᵢ is its shape function Nᵢ"
+  },
+  {
+   "id": "slides-32",
+   "view": "slides",
+   "anchor": "32",
+   "title_en": "Slide 32: A tent: 1 at its own node, 0 at the other three, straight along every edge",
+   "title_ms": "Slide 32: A tent: 1 at its own node, 0 at the other three, straight along every edge"
+  },
+  {
+   "id": "slides-33",
+   "view": "slides",
+   "anchor": "33",
+   "title_en": "Slide 33: ANSYS’s four-node element uses these N₁ … N₄",
+   "title_ms": "Slide 33: ANSYS’s four-node element uses these N₁ … N₄"
+  },
+  {
+   "id": "slides-34",
+   "view": "slides",
+   "anchor": "34",
+   "title_en": "Slide 34: Kronecker delta, partition of unity, linear edges",
+   "title_ms": "Slide 34: Kronecker delta, partition of unity, linear edges"
+  },
+  {
+   "id": "slides-35",
+   "view": "slides",
+   "anchor": "35",
+   "title_en": "Slide 35: One nodal value lifts one tent",
+   "title_ms": "Slide 35: One nodal value lifts one tent"
+  },
+  {
+   "id": "slides-36",
+   "view": "slides",
+   "anchor": "36",
+   "title_en": "Slide 36: Evaluate the shape functions at a point and interpolate the temperature",
+   "title_ms": "Slide 36: Evaluate the shape functions at a point and interpolate the temperature"
+  },
+  {
+   "id": "slides-37",
+   "view": "slides",
+   "anchor": "37",
+   "title_en": "Slide 37: Node 2 carries half the weight; the four weights sum to one",
+   "title_ms": "Slide 37: Node 2 carries half the weight; the four weights sum to one"
+  },
+  {
+   "id": "slides-38",
+   "view": "slides",
+   "anchor": "38",
+   "title_en": "Slide 38: Check Activity 4 on your phone, then explore",
+   "title_ms": "Slide 38: Check Activity 4 on your phone, then explore"
+  },
+  {
+   "id": "slides-39",
+   "view": "slides",
+   "anchor": "39",
+   "title_en": "Slide 39: Gradient, flux and a look ahead",
+   "title_ms": "Slide 39: Gradient, flux and a look ahead"
+  },
+  {
+   "id": "slides-40",
+   "view": "slides",
+   "anchor": "40",
+   "title_en": "Slide 40: Gradient = derivative matrix × nodal temperatures",
+   "title_ms": "Slide 40: Gradient = derivative matrix × nodal temperatures"
+  },
+  {
+   "id": "slides-41",
+   "view": "slides",
+   "anchor": "41",
+   "title_en": "Slide 41: Fourier’s law in matrix form is the post-processing formula",
+   "title_ms": "Slide 41: Fourier’s law in matrix form is the post-processing formula"
+  },
+  {
+   "id": "slides-42",
+   "view": "slides",
+   "anchor": "42",
+   "title_en": "Slide 42: Heat flux at the same point: evaluate the derivatives, then apply Fourier",
+   "title_ms": "Slide 42: Heat flux at the same point: evaluate the derivatives, then apply Fourier"
+  },
+  {
+   "id": "slides-43",
+   "view": "slides",
+   "anchor": "43",
+   "title_en": "Slide 43: Heat flows from the hot side (nodes 2, 3) towards the cold side",
+   "title_ms": "Slide 43: Heat flows from the hot side (nodes 2, 3) towards the cold side"
+  },
+  {
+   "id": "slides-44",
+   "view": "slides",
+   "anchor": "44",
+   "title_en": "Slide 44: Mid-side nodes, eight monomials, quadratic along each edge",
+   "title_ms": "Slide 44: Mid-side nodes, eight monomials, quadratic along each edge"
+  },
+  {
+   "id": "slides-45",
+   "view": "slides",
+   "anchor": "45",
+   "title_en": "Slide 45: The pipeline — where today fits",
+   "title_ms": "Slide 45: The pipeline — where today fits"
+  },
+  {
+   "id": "slides-46",
+   "view": "slides",
+   "anchor": "46",
+   "title_en": "Slide 46: Today: steps 1 and 2. Next session: steps 3 to 7 on the text’s worked example",
+   "title_ms": "Slide 46: Today: steps 1 and 2. Next session: steps 3 to 7 on the text’s worked example"
+  },
+  {
+   "id": "slides-47",
+   "view": "slides",
+   "anchor": "47",
+   "title_en": "Slide 47: Thirty lines: local matrix, assembly, boundary conditions, solve",
+   "title_ms": "Slide 47: Thirty lines: local matrix, assembly, boundary conditions, solve"
+  },
+  {
+   "id": "slides-48",
+   "view": "slides",
+   "anchor": "48",
+   "title_en": "Slide 48: Three questions before you leave — on paper, hand in at the door",
+   "title_ms": "Slide 48: Three questions before you leave — on paper, hand in at the door"
+  },
+  {
+   "id": "slides-49",
+   "view": "slides",
+   "anchor": "49",
+   "title_en": "Slide 49: Next session: Galerkin, integration by parts, [k], assembly and the worked example",
+   "title_ms": "Slide 49: Next session: Galerkin, integration by parts, [k], assembly and the worked example"
+  },
+  {
+   "id": "examples-x1",
+   "view": "examples",
+   "anchor": "x1",
+   "title_en": "Example 1 · Shape functions and conductance matrix of a triangle",
+   "title_ms": "Contoh 1 · Shape function dan conductance matrix bagi segi tiga"
+  },
+  {
+   "id": "examples-x2",
+   "view": "examples",
+   "anchor": "x2",
+   "title_en": "Example 2 · Temperature and flux at a point of a four-node element",
+   "title_ms": "Contoh 2 · Temperature dan flux pada satu titik four-node element"
+  },
+  {
+   "id": "examples-x3",
+   "view": "examples",
+   "anchor": "x3",
+   "title_en": "Example 3 · Explain-type questions: model answers",
+   "title_ms": "Contoh 3 · Soalan jenis terangkan: jawapan model"
+  },
+  {
+   "id": "exercises-b1",
+   "view": "exercises",
+   "anchor": "b1",
+   "title_en": "Exercise B1 · Shape functions at a point, and the interpolated temperature",
+   "title_ms": "Latihan B1 · Shape function pada satu titik, dan temperature yang di-interpolate"
+  },
+  {
+   "id": "exercises-b2",
+   "view": "exercises",
+   "anchor": "b2",
+   "title_en": "Exercise B2 · Gradient and flux at the point",
+   "title_ms": "Latihan B2 · Gradient dan flux pada titik itu"
+  },
+  {
+   "id": "exercises-b3",
+   "view": "exercises",
+   "anchor": "b3",
+   "title_en": "Exercise B3 · The polynomial coefficients from the nodal values",
+   "title_ms": "Latihan B3 · Coefficient polynomial daripada nilai node"
+  },
+  {
+   "id": "exercises-quick",
+   "view": "exercises",
+   "anchor": null,
+   "selector": "#v-exercises div.q",
+   "title_en": "Exercises: quick concept questions",
+   "title_ms": "Latihan: soalan konsep pantas"
+  },
+  {
+   "id": "lab-node3",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"node3\"]",
+   "title_en": "Explorer task 1: Drag P onto node 3 (or press “P on node 3”)",
+   "title_ms": "Tugasan Explorer 1: Seret P ke node 3 (atau tekan “P on node 3”)"
+  },
+  {
+   "id": "lab-act4",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"act4\"]",
+   "title_en": "Explorer task 2: Press “Activity 4 point”: P = (1.5, 0.3)",
+   "title_ms": "Tugasan Explorer 2: Tekan “Activity 4 point”: P = (1.5, 0.3)"
+  },
+  {
+   "id": "lab-diag",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"diag\"]",
+   "title_en": "Explorer task 3: Find three points where N_1 = N_3 ",
+   "title_ms": "Tugasan Explorer 3: Cari tiga titik di mana N_1 = N_3 "
+  },
+  {
+   "id": "lab-q8n1",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"q8n1\"]",
+   "title_en": "Explorer task 4: Switch to the 8-node element and show N_1 ",
+   "title_ms": "Tugasan Explorer 4: Tukar kepada 8-node element dan paparkan N_1 "
+  },
+  {
+   "id": "lab-code",
+   "view": "lab",
+   "anchor": "code",
+   "selector": null,
+   "title_en": "Lab: Python code for assignments and projects",
+   "title_ms": "Lab: Kod Python untuk assignment dan projek"
+  },
+  {
+   "id": "lab-run",
+   "view": "lab",
+   "anchor": "run",
+   "selector": null,
+   "title_en": "Lab: Run the code in your browser",
+   "title_ms": "Lab: Jalankan kod dalam browser"
+  },
+  {
+   "id": "glossary-field-problem",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: field problem",
+   "title_ms": "Glosari: field problem"
+  },
+  {
+   "id": "glossary-scalar-field-vector-field",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: scalar field · vector field",
+   "title_ms": "Glosari: scalar field · vector field"
+  },
+  {
+   "id": "glossary-heat-flux-q",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: heat flux q",
+   "title_ms": "Glosari: heat flux q"
+  },
+  {
+   "id": "glossary-fourier-s-law",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: Fourier’s law",
+   "title_ms": "Glosari: Fourier’s law"
+  },
+  {
+   "id": "glossary-conductivity-k",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: conductivity k",
+   "title_ms": "Glosari: conductivity k"
+  },
+  {
+   "id": "glossary-heat-generation-q-h",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: heat generation q_h",
+   "title_ms": "Glosari: heat generation q_h"
+  },
+  {
+   "id": "glossary-steady-state",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: steady state",
+   "title_ms": "Glosari: steady state"
+  },
+  {
+   "id": "glossary-poisson-laplace",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: Poisson · Laplace",
+   "title_ms": "Glosari: Poisson · Laplace"
+  },
+  {
+   "id": "glossary-boundary-condition",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: boundary condition",
+   "title_ms": "Glosari: boundary condition"
+  },
+  {
+   "id": "glossary-dirichlet-essential",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: Dirichlet · essential",
+   "title_ms": "Glosari: Dirichlet · essential"
+  },
+  {
+   "id": "glossary-neumann-natural",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: Neumann · natural",
+   "title_ms": "Glosari: Neumann · natural"
+  },
+  {
+   "id": "glossary-outward-normal-n",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: outward normal n",
+   "title_ms": "Glosari: outward normal n"
+  },
+  {
+   "id": "glossary-insulated-edge",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: insulated edge",
+   "title_ms": "Glosari: insulated edge"
+  },
+  {
+   "id": "glossary-well-posed",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: well-posed",
+   "title_ms": "Glosari: well-posed"
+  },
+  {
+   "id": "glossary-element-node",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: element · node",
+   "title_ms": "Glosari: element · node"
+  },
+  {
+   "id": "glossary-degree-of-freedom",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: degree of freedom",
+   "title_ms": "Glosari: degree of freedom"
+  },
+  {
+   "id": "glossary-shape-function-n-i",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: shape function N_i",
+   "title_ms": "Glosari: shape function N_i"
+  },
+  {
+   "id": "glossary-bilinear",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: bilinear",
+   "title_ms": "Glosari: bilinear"
+  },
+  {
+   "id": "glossary-kronecker-delta",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: Kronecker delta",
+   "title_ms": "Glosari: Kronecker delta"
+  },
+  {
+   "id": "glossary-partition-of-unity",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: partition of unity",
+   "title_ms": "Glosari: partition of unity"
+  },
+  {
+   "id": "glossary-c-0-continuity",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: C^0 continuity",
+   "title_ms": "Glosari: C^0 continuity"
+  },
+  {
+   "id": "glossary-gradient-matrix-n",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: gradient matrix {∂}ᵀ{N}",
+   "title_ms": "Glosari: gradient matrix {∂}ᵀ{N}"
+  },
+  {
+   "id": "glossary-conductance-matrix-k",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: conductance matrix [k]",
+   "title_ms": "Glosari: conductance matrix [k]"
+  },
+  {
+   "id": "glossary-assembly-connectivity",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: assembly · connectivity",
+   "title_ms": "Glosari: assembly · connectivity"
+  }
+ ],
+ "equations_missing": 58
+}

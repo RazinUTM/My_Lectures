@@ -1,0 +1,379 @@
+{
+ "part": "p1",
+ "title": "2D Heat Transfer — Part 1",
+ "lang": "ms",
+ "blocks": [
+  {
+   "id": "start-outcomes",
+   "text": "[start-outcomes] Selepas bahagian ini, anda sepatutnya boleh\n1. Menerbitkan steady 2D heat-conduction PDE daripada energy balance dan Fourier’s law, dan menulisnya sebagai {∂}[E]{∂}ᵀT = −q_h .\n2. Mengelaskan boundary condition sebagai Dirichlet (essential) atau Neumann (natural) dan menulisnya untuk rectangular domain.\n3. Menerbitkan bilinear shape function N_1 …N_4 bagi four-node element dan menggunakannya untuk interpolate T(x, y).\n4. Membezakan approximation tersebut untuk mendapatkan temperature gradient dan heat flux pada mana-mana titik dalam element."
+  },
+  {
+   "id": "notes-n1",
+   "text": "[notes-n1] Nota 1. Mengapa 2D field problem, dan apa yang FEM beri\nSemua yang kita buat pada separuh pertama kursus ini bersifat satu dimensi: bar, beam, truss, frame. Unknown terletak pada satu garis. Mulai sekarang unknown ialah satu field : temperature T(x, y) yang wujud pada setiap titik plat. Kita tidak mampu menyelesaikan nilai yang tak terhingga banyaknya, jadi kita selesaikan nilai pada node sahaja dan biarkan element membuat interpolation di antaranya. Itulah keseluruhan idea kaedah ini.\nFEM itu “tiada apa-apa”, dan FEM itu “segala-galanya” Tiada apa-apa: FEM tidak menambah fizik baharu. Ia hanya cara menukar differential equation kepada simultaneous algebraic equation dalam bentuk matrix. Segala-galanya: jentera yang sama menyelesaikan heat, seepage, stress, vibration dan fluid flow. Pelajari sekali pada field problem yang paling mudah, kemudian guna semula.\n## Scalar field dahulu, vector field kemudian\nHeat conduction ialah scalar field problem: satu unknown setiap node, iaitu temperature T̂_i. Plane stress, kemudian dalam kursus ini, ialah vector field problem: dua unknown setiap node, iaitu displacement u_i dan v_i. Setiap idea dalam bahagian ini — shape function, boundary condition, assembly — muncul dalam kedua-duanya; plane stress cuma ada matrix yang lebih besar.\n[Rajah: Kiri: scalar field, satu nombor pada setiap node. Kanan: vector field, dua nombor pada setiap node.]\n## Di mana jurutera awam bertemu conduction\n- Mass concrete. Heat of hydration dalam empangan, raft dan pile cap: kenaikan temperature dan gradient antara teras dan permukaan menyebabkan early-age cracking.\n- Fire engineering. Kenaikan temperature dalam keratan keluli dan tunnel lining menentukan bila kekuatan hilang; inputnya ialah model conduction 2D bagi keratan itu.\n- Pavement dan deck. Thermal gradient harian merentasi bridge deck atau pavement slab menghasilkan stress yang design code mewajibkan kita semak.\n- Tanah dan geothermal. Ground freezing, energy pile dan paip tertanam ialah masalah conduction dalam tanah — dan seepage menggunakan persamaan yang sama.\n[Rajah: Plat panas di bawah channel flow. Plat pepejal mematuhi conduction PDE bahagian ini; pada interface dengan bendalir ia menerima temperature dan memulangkan heat flux — satu Dirichlet dan satu Neumann condition (§3). Image: preCICE tutorials, “Flow over a heated plate”, LGPL-3.0, github.com/precice/tutorials.]\nIsi penting:\n- Unknown ialah field T(x, y); FEM menyelesaikan nilai pada node dan interpolate di antaranya.\n- FEM tidak menambah fizik; ia menukar PDE kepada [K]{T̂} = {r}.\n- Scalar field: satu unknown setiap node. Plane stress akan ada dua.\nSemakan pantas (tidak dimarkah): Apa yang finite element method tambah kepada fizik heat conduction?\nPilihan: Fourier’s law | Tiada apa-apa — ia hanya discretise PDE | Satu term heat generation\nPenjelasan yang dipaparkan selepas menjawab: Tiada apa-apa. Fiziknya ialah energy balance dan Fourier’s law; FEM ialah kaedah berangka yang menukar PDE itu kepada algebraic equation."
+  },
+  {
+   "id": "notes-n2",
+   "text": "[notes-n2] Nota 2. Daripada energy balance kepada PDE\nAmbil satu segi empat kecil dx × dy di dalam plat, dengan ketebalan unit. Dependent variable ialah heat flux q_x dan q_y (W m^{−2}): tenaga per unit masa per unit luas yang melintasi satu muka. Haba masuk melalui muka dekat dan keluar melalui muka jauh.\n[Rajah: Differential element: flux masuk dan keluar, generation q_h di dalam (teks Rajah 2.1).]\nFlux pada muka jauh ialah flux muka dekat ditambah perubahannya merentasi element, iaitu first-order Taylor expansion. Jadi net inflow dalam arah x ialah\nPERSAMAAN (2.2): [equation e_Qx: source not available in the page]\ndan dengan hujah yang sama dalam arah y\nPERSAMAAN (2.3): [equation e_Qy: source not available in the page]\nDi dalam, haba dijana pada kadar q_h per unit isi padu (W m^{−3}), contohnya hydration simen, dan element menyimpan tenaga apabila temperature-nya naik:\nPERSAMAAN (2.5): [equation e_Qh: source not available in the page]\n## Conservation of energy\nKadar perubahan tenaga tersimpan = net conduction masuk + haba dijana. Setiap term membawa faktor dx dy, iaitu isi padu element per unit ketebalan, jadi ia terbatal:\nPERSAMAAN (2.6): [equation e_balance: source not available in the page]\nPERSAMAAN : [equation e_balance2: source not available in the page]\nPer unit ketebalan Setiap kuantiti didarab dengan ketebalan t yang sama, yang terbatal, jadi kita ambil t = 1. Tiada yang berubah untuk plat setebal mana pun selagi mukanya insulated.\n## Fourier’s law melengkapkan sistem\nBalance ini ada tiga unknown (T, q_x, q_y) dan satu persamaan. Fourier’s law membekalkan dua lagi: haba mengalir menuruni temperature gradient, berkadar dengan conductivity k (W m^{−1} K^{−1}). Tanda negatif itulah fiziknya: flux menghala dari panas ke sejuk.\nPERSAMAAN (2.7): [equation e_fourier: source not available in the page]\n[Rajah: Flux menghala menuruni gradient: dari sisi panas ke sisi sejuk.]\nMenggantikan (2.7) ke dalam balance memberi satu persamaan dalam T sahaja:\nPERSAMAAN (2.10): [equation e_pde_t: source not available in the page]\n## Steady state: PDE yang kita discretise\nGugurkan time derivative. Inilah persamaan yang anda mesti boleh tulis tanpa melihat nota: divergence bagi flux sama dengan source.\nPERSAMAAN (2.11): [equation e_pde: source not available in the page]\nDua kes khas yang anda pernah temui: dengan k yang constant dan isotropic ia menjadi Poisson’s equation, dan tanpa source ia menjadi Laplace’s equation — persamaan yang sama dengan potential flow dalam mekanik bendalir dan seepage dalam mekanik tanah.\nPERSAMAAN : [equation e_poisson: source not available in the page]\nSemakan unit Setiap term dalam (2.11) ialah W m^{−3}: (W m^{−1} K^{−1})(K m^{−2}). Source q_h berada di kanan dengan tanda negatif kerana kita pindahkannya; source positif menjadikan field itu concave, seperti bukit.\n## Bentuk matrix yang akan kita guna semula\nTulis operator sebagai satu baris derivative, satu material matrix dan satu lajur derivative. Inilah bentuk yang membuahkan hasil dalam plane stress, apabila pola yang sama muncul dengan [E] 3 × 3 dan operator 2 × 3.\nPERSAMAAN (2.12): [equation e_matrix: source not available in the page]\nPERSAMAAN (2.13): [equation e_compact: source not available in the page]\nPERSAMAAN (2.14): [equation e_defs: source not available in the page]\nSusunan penting {∂} ialah satu baris operator, bukan nombor: ia bertindak ke atas apa sahaja di sebelah kanannya. Anda tidak boleh menukar susunannya melepasi sesuatu fungsi.\n## Langkah bekerja · balance arah y (Aktiviti 2)\nMasuk melalui y = 0: q_y dx. Keluar melalui y = dy: (q_y + ∂q_y/∂y dy) dx. Net inflow Q_y = −∂q_y/∂y dx dy, persamaan (2.3). Tambah Q_x, Q_y dan Q_h, samakan hasil tambahnya dengan kadar tenaga tersimpan Q_E, batalkan dx dy, dan (2.6) terhasil.\nIsi penting:\n- Energy balance pada dx × dy, kemudian Fourier’s law, memberi (2.11): divergence flux = source.\n- Setiap term dalam (2.11) ialah W m^{−3}.\n- Bentuk matrix {∂}[E]{∂}ᵀT = −q_h; [E] = diag(k_x, k_y).\nSemakan pantas (tidak dimarkah): Apakah unit bagi term heat generation q_h dalam (2.11)?\nPilihan: W m^{−2} | W m^{−3} | W m^{−1} K^{−1}\nPenjelasan yang dipaparkan selepas menjawab: q_h ialah haba dijana per unit isi padu, W m^{−3}, sama dengan k ∂²T/∂x². Flux (W m^{−2}) ialah per unit luas; conductivity ialah W m^{−1} K^{−1}."
+  },
+  {
+   "id": "notes-n3",
+   "text": "[notes-n3] Nota 3. Boundary condition: essential dan natural\nPDE sahaja bukan satu masalah. Pada setiap bahagian sempadan kita mesti tetapkan sama ada temperature atau flux. Hanya ada dua jenis condition, dan keseluruhan rawatan finite element bergantung pada kebolehan membezakannya.\nPERSAMAAN (2.16): [equation e_dirichlet: source not available in the page]\nDirichlet, atau essential Temperature T̄ diketahui pada tepi itu. FEM mesti mengenakannya pada unknown: baris dan lajur yang sepadan dalam assembled system diubah suai.\nNeumann, atau natural Boundary flux q_b diketahui, positif ke dalam, dan masuk melalui outward unit normal n = (n_x, n_y). FEM tidak mengenakannya: ia muncul dengan sendirinya sebagai load, daripada integration by parts dalam Part 2.\n[Rajah: Outward unit normal pada setiap tepi rectangular domain.]\n## Rectangular domain\nPada segi empat tepat, normal ialah salah satu daripada (±1, 0) atau (0, ±1), jadi (2.15) kehilangan satu term pada setiap tepi:\nPERSAMAAN : [equation e_rect_v: source not available in the page]\nPERSAMAAN : [equation e_rect_h: source not available in the page]\nPERSAMAAN : [equation e_insul: source not available in the page]\n## Apa yang FEM buat dengan setiap jenis\nCondition Apa yang diketahui Di mana ia masuk dalam FEM Tindakan dalam Part 2\nDirichlet · essential T̄ pada tepi dikenakan pada assembled system dengan mengubah baris dan lajur [K] row–column elimination\nNeumann · natural q_b pada tepi muncul dalam boundary vector {b} hasil integration by parts {b} = ∫{N}ᵀq_n ds\nInsulated · natural, q_b = 0 tiada flux tiada sumbangan: boundary integral sifar tiada tindakan\nKesilapan paling lazim Cuba “mengenakan” tepi insulated. Ia tidak memerlukan apa-apa tindakan. Nama-namanya datang daripada integration by parts: natural condition ialah term yang terhasil daripadanya; essential condition mesti dikuatkuasakan pada unknown.\n## Contoh bekerja · label plat (Aktiviti 3, teks Latihan 2.5)\n[Rajah: Plat 0.15 m × 0.05 m, k = 450 W m^{−1} K^{−1}, q_h = 1 × 10^7 W m^{−3}, ketebalan unit.]\nTepi Jenis Persamaan Tindakan FEM\natas Dirichlet T = 300 K kenakan pada sistem\nkiri Dirichlet T = 400 K kenakan pada sistem\nkanan Neumann n = (1, 0): k ∂T/∂x = q_b = +1 × 10^6 W m^{−2} load dalam {b}\nbawah Neumann, q_b = 0 ∂T/∂y = 0 tiada\nWell-posed: setiap tepi ada condition dan T ditetapkan pada dua tepi, jadi paras temperature terikat. Flux ke dalam pada tepi kanan ialah q_b positif; komponen flux-vector q_x di situ menghala sepanjang −n dan negatif, q_x = −10^6 W m^{−2}.\nIsi penting:\n- Dirichlet = essential = dikenakan. Neumann = natural = muncul daripada integration by parts. Insulated = tiada tindakan.\n- q_b positif ke dalam; pada segi empat tepat hanya satu derivative kekal pada setiap tepi.\n- Masalah itu well-posed apabila setiap tepi ada condition dan T terikat di suatu tempat.\nSemakan pantas (tidak dimarkah): Satu tepi plat adalah insulated. Dalam model finite element, apa yang anda perlu buat?\nPilihan: Kenakan ∂T/∂y = 0 pada node tepi itu | Tiada apa-apa: boundary integral-nya sifar | Tetapkan T = 0 pada node itu\nPenjelasan yang dipaparkan selepas menjawab: Tepi insulated ialah natural condition dengan q_b = 0, jadi boundary term {b} yang bakal dihasilkannya ialah sifar. Tiada tindakan diperlukan."
+  },
+  {
+   "id": "notes-n4",
+   "text": "[notes-n4] Nota 4. Four-node element dan shape function-nya\nFour-node rectangular element mempunyai satu degree of freedom pada setiap bucu, iaitu temperature T̂_i, dinomborkan lawan jam dari bucu kiri bawah. Kita perlukan satu peraturan bagi T pada mana-mana titik di dalam element dalam sebutan empat nombor ini. Peraturannya ialah satu polynomial dengan empat coefficient.\n[Rajah: Element a × b, node 1 hingga 4 lawan jam dari origin (teks Rajah 2.2).]\n## Langkah 1 · andaikan satu polynomial (2.17)\nPERSAMAAN (2.17): [equation e_poly: source not available in the page]\nEmpat unknown memerlukan empat coefficient. Term xy, bukannya x² atau y², mengekalkan fungsi itu linear di sepanjang setiap tepi, dan itulah yang membuat element berjiran bersetuju.\n## Langkah 2 · nilaikan pada node (2.18)\nPERSAMAAN (2.18): [equation e_nodes: source not available in the page]\nPERSAMAAN : [equation e_nodes_matrix: source not available in the page]\n## Langkah 3 · selesaikan coefficient (2.19)\nPERSAMAAN (2.19): [equation e_coeffs: source not available in the page]\nSemak: jika keempat-empat nilai node sama dengan T_0, maka a_1 = T_0 dan a_2 = a_3 = a_4 = 0, jadi T = T_0 di mana-mana. Field yang seragam dihasilkan semula dengan tepat.\n## Langkah 4 · kumpulkan mengikut nilai node (2.20)–(2.22)\nPERSAMAAN (2.20): [equation e_collect: source not available in the page]\nPERSAMAAN (2.21): [equation e_shape: source not available in the page]\nPERSAMAAN (2.22): [equation e_T_N: source not available in the page]\nSetiap nilai node didarab dengan fungsi kedudukannya sendiri: shape function N_i(x, y). Baris {N} dan lajur {T̂}ᵀ ialah dua objek yang menjadi asas keseluruhan kursus ini.\n## Rupa sebuah shape function\n[Rajah: N_3 sebagai permukaan (kiri) dan N_1…N_4 sebagai peta warna (kanan): setiap satu bernilai 1 pada node sendiri, 0 pada tiga node lain, dan melengkung di dalam kerana term xy.]\n[Rajah: Empat fungsi yang sama di dalam perisian komersial. Image: PyMAPDL documentation, “Build a finite element model”, © ANSYS, Inc., MIT licence.]\n## Tiga sifat yang boleh disemak dalam 30 saat\nPERSAMAAN : [equation e_kron: source not available in the page]\nKronecker delta. Jadi T pada node j sama dengan T̂_j: nodal unknown memang temperature pada node. Semak N_2 pada node 3: N_2(a, b) = a(b − b)/(ab) = 0.\nPERSAMAAN : [equation e_pou: source not available in the page]\nPartition of unity. Temperature yang seragam dihasilkan semula dengan tepat, ujian yang kita buat pada coefficient tadi.\nPERSAMAAN : [equation e_edge: source not available in the page]\nLinear di sepanjang setiap tepi. Pada y = 0 hanya node 1 dan 2 yang penting, dan T berubah secara linear antara keduanya. Element berjiran berkongsi dua node itu dan garis lurus yang sama, jadi T adalah continuous merentasi sempadan element (C^0).\n## Daripada satu element kepada mesh\n[Rajah: Satu nilai node mengangkat satu khemah. Dalam 1D, basis function bagi node i ialah topi (hat) merentasi dua element yang berkongsinya; dalam 2D ia khemah merentasi setiap element di sekeliling node. Sebab itulah node i hanya berkait dengan jirannya dan global matrix itu sparse (Part 2). Images: Langtangen and Mardal, Introduction to Numerical Methods for Variational Problems (Springer, 2019), github.com/hplgit/fem-book, MIT licence.]\n## Contoh bekerja · nilaikan dan interpolate (Aktiviti 4)\na = 2 m, b = 1 m, titik (x, y) = (1.5, 0.3) m, nodal temperature T̂ = {100, 140, 160, 120} K.\n[Rajah: Titik (1.5, 0.3) dalam element 2 m × 1 m.]\nPERSAMAAN : [equation e_act4_N: source not available in the page]\nPERSAMAAN : [equation e_act4_sum: source not available in the page]\nPERSAMAAN : [equation e_act4_T: source not available in the page]\nNode 2 membawa separuh daripada weight kerana titik itu paling hampir dengannya. Hasil tambah empat weight ialah 1, sebagaimana sepatutnya.\nIsi penting:\n- T = {N}{T̂}ᵀ dengan N_i bilinear daripada (2.21).\n- Kronecker delta, partition of unity, tepi linear: tiga semakan yang menangkap kebanyakan kesilapan.\n- Pada (1.5, 0.3): N = 0.175, 0.525, 0.225, 0.075 dan T = 136.0 K.\nSemakan pantas (tidak dimarkah): Pada pusat element (a/2, b/2), apakah nilai setiap shape function?\nPilihan: 1 | 1/2 | 1/4\nPenjelasan yang dipaparkan selepas menjawab: N_i(a/2, b/2) = (a/2)(b/2)/(ab) = 1/4 bagi setiap i, dan empat nilai itu berjumlah 1."
+  },
+  {
+   "id": "notes-n5",
+   "text": "[notes-n5] Nota 5. Gradient dan flux di dalam element\nBezakan approximation T = {N}{T̂}ᵀ dan derivative itu jatuh pada shape function, kerana nilai node ialah pemalar. Gradient pada mana-mana titik ialah matrix 2 × 4 bagi derivative shape function didarab dengan nodal vector:\nPERSAMAAN (2.33): [equation e_grad: source not available in the page]\nPERSAMAAN : [equation e_dN: source not available in the page]\nBaca matrix itu: ∂N_i/∂x bergantung pada y sahaja dan ∂N_i/∂y pada x sahaja. Merentasi tepi element, gradient dan seterusnya flux biasanya melompat — approximation itu continuous tetapi derivative-nya tidak.\n## Daripada gradient kepada flux\nPERSAMAAN : [equation e_flux_vec: source not available in the page]\nFourier’s law dalam bentuk matrix: flux = −[E] × gradient. Matrix 2 × 4 yang sama, {∂}ᵀ{N}, akan digunakan dua kali: untuk flux sekarang, dan untuk conductance matrix dalam Part 2:\nPERSAMAAN : [equation e_k_preview: source not available in the page]\n## Contoh bekerja · gradient dan flux pada (1.5, 0.3) (Aktiviti 5)\nElement dan data yang sama dengan Aktiviti 4, dengan k_x = k_y = 2 W m^{−1} K^{−1}.\nPERSAMAAN : [equation e_act5_dN: source not available in the page]\nPERSAMAAN : [equation e_act5_grad: source not available in the page]\nPERSAMAAN : [equation e_act5_q: source not available in the page]\nPERSAMAAN : [equation e_act5_qy: source not available in the page]\nKedua-dua komponen flux negatif: haba mengalir ke arah x dan y yang menyusut, menjauhi node 3 yang paling panas di (a, b).\n## Eight-node element dalam satu perenggan\n[Rajah: Empat node bucu dan empat node tengah sisi (teks Rajah 2.3).]\nTambah satu node di tengah setiap tepi dan polynomial itu mendapat empat term lagi, (2.31). Shape function-nya quadratic di sepanjang setiap tepi, jadi ia mengikut profil temperature yang melengkung dengan element yang lebih sedikit. Prosedurnya serupa: nilaikan pada lapan node, inverse, kumpulkan mengikut nilai node. Fungsi bucu kini jatuh di bawah sifar antara dua jiran tengah sisinya, dan lapan fungsi itu tetap berjumlah satu.\nPERSAMAAN (2.31): [equation e_poly8: source not available in the page]\nPERSAMAAN : [equation e_N8: source not available in the page]\nIsi penting:\n- Gradient = {∂}ᵀ{N}{T̂}ᵀ, matrix 2 × 4 didarab nodal vector; flux = −[E] × gradient.\n- Pada (1.5, 0.3) dengan k = 2: ∂T/∂x = ∂T/∂y = 20 K m^{−1}, q_x = q_y = −40 W m^{−2}.\n- Eight-node element ialah prosedur yang sama dengan tepi quadratic.\nSemakan pantas (tidak dimarkah): Pada satu titik, temperature meningkat dalam arah +x. Komponen flux q_x di situ ialah\nPilihan: positif | negatif | sifar\nPenjelasan yang dipaparkan selepas menjawab: q_x = −k ∂T/∂x. Gradient positif memberi flux negatif: haba mengalir dari panas ke sejuk, ke arah −x."
+  },
+  {
+   "id": "notes-n6",
+   "text": "[notes-n6] Nota 6. Pipeline: tujuh langkah daripada PDE kepada jawapan\nKaedah ini ialah satu pipeline tujuh langkah. Bahagian ini merangkumi dua langkah pertama; Part 2 membuat lima lagi pada contoh bekerja dalam teks dan menjalankan skrip MATLAB.\n- PDE pentadbir dan boundary condition · bahagian ini\n- Element dan shape function · bahagian ini\n- Galerkin weighted residual\n- Integration by parts\n- Matrix element [k], {q}, {b}\n- Assembly, kemudian kenakan T̄\n- Selesaikan dan post-process\n## Contoh bekerja Part 2 (teks §2.3)\n[Rajah: Plat segi empat sama 1 m dengan heat generation, dua tepi sejuk dan dua tepi insulated, di-mesh dengan empat element.]\nPlat segi empat sama 1 m × 1 m, q_h = 600 W m^{−3}, k_x = k_y = 300 W m^{−1} K^{−1}; tepi atas dan kiri pada 0 °C, tepi kanan dan bawah insulated. Empat 4-node element secara tangan, kemudian 64 element dalam MATLAB, kemudian perisian.\nSebelum Part 2 Kelaskan empat tepinya seperti dalam §3 dan ramalkan di mana titik paling panas. Tulis ramalan itu; Part 2 menyemaknya.\n## Rangka MATLAB mengikut pipeline\n% Local conductance matrix (text §2.3.1)\na = L/Nx; b = H/Ny;\ns1 = b*kx/(3*a) + a*ky/(3*b);\ns2 = -b*kx/(3*a) + a*ky/(6*b);\ns3 = -b*kx/(6*a) - a*ky/(6*b);\ns4 = b*kx/(6*a) - a*ky/(3*b);\nk = [s1 s2 s3 s4; s2 s1 s4 s3; s3 s4 s1 s2; s4 s3 s2 s1];\nfQ = a*b*Q/4*[1; 1; 1; 1]; % heat generation\n% Assembly by connectivity, element 1 = nodes [1 2 5 4]\ne1 = [1 2 5 4]; K(e1,e1) = K(e1,e1) + k; F(e1) = F(e1) + fQ;\n% Essential conditions: rows and columns of known nodes removed\nfree = setdiff(1:n, fixed); T = zeros(n,1); T(fixed) = Tbar;\nT(free) = K(free,free) \\ (F(free) - K(free,fixed)*T(fixed));\n- Baris 2–8: langkah 5, matrix element dan load daripada closed-form integral (s_1…s_4 diterbitkan dalam Part 2).\n- Baris 10: langkah 6, assembly — senarai connectivity [1 2 5 4] ialah nombor node global bagi element itu.\n- Baris 12–13: langkah 6, essential condition dengan membuang baris dan lajur node yang diketahui; langkah 7, selesaikan dengan operator backslash.\n## Persediaan\n- Baca teks §2.2.2 dan §2.3 (contoh bekerja), kira-kira 12 muka surat.\n- Ulang Aktiviti 4 dan 5 untuk titik (0.5, 0.8) m — atau guna tab Latihan, yang memberi nombor baharu setiap kali.\n- Kelaskan tepi plat §2.3 dan ramalkan titik paling panas.\n- Bawa MATLAB ke sesi seterusnya.\nIsi penting:\n- Tujuh langkah: PDE + BC, element, Galerkin, integration by parts, matrix element, assembly + kenakan, selesaikan.\n- Part 2: langkah 3–7 pada plat 1 m, secara tangan dengan empat element dan dalam MATLAB dengan 64.\nSemakan pantas (tidak dimarkah): Bagi plat §2.3 (tepi atas dan kiri sejuk, tepi kanan dan bawah insulated, heat generation seragam), di manakah titik paling panas?\nPilihan: Pusat plat | Bucu kanan bawah | Bucu kiri atas\nPenjelasan yang dipaparkan selepas menjawab: Haba hanya boleh keluar melalui dua tepi sejuk. Titik yang paling jauh daripada kedua-duanya, tempat dua tepi insulated bertemu, ialah bucu kanan bawah."
+  },
+  {
+   "id": "slides-1",
+   "text": "[slides-1] Slide 1: 2D Heat Transfer Part 1 of 2\nSEAA 4243 Finite Element Method · 2L + 1T 2D Heat Transfer Part 1 of 2 From the energy balance to the shape functions of the four-node scalar element Assoc. Prof. Ts. Dr. Ahmad Razin Zainal Abidin · Dr. Yip Bao Fang Faculty of Civil Engineering, Universiti Teknologi Malaysia Text: Mohd Yassin et al., Two-Dimensional Finite Element Formulations for Heat, Solids and Fluids (with Matlab) , MSNM 2020 — Chapter 2"
+  },
+  {
+   "id": "slides-2",
+   "text": "[slides-2] Slide 2: Two topics in five sessions, then one session with ANSYS\nCourse map · after the mid-semester break Two topics in five sessions, then one session with ANSYS 1 Heat transfer 1 PDE · BCs · shape functions 2 Heat transfer 2 [k] · assembly · solve · Asg 4 3 Plane stress 1 PDE · [E] · [N] 4 Plane stress 2 [k] = ∫[B]ᵀ[E][B] · loads 5 Plane stress 3 stress recovery · Q8 · Project brief 6 ANSYS demo hand calc vs software 7 Practical FEM convergence · interpretation CLO3 · the heat-transfer and plane-stress sessions Formulate 2D finite element problems and solve by hand calculation and"
+  },
+  {
+   "id": "slides-3",
+   "text": "[slides-3] Slide 3: By the end of this session you should be able to\nLearning outcomes · today By the end of this session you should be able to 1 Derive the steady 2D heat conduction PDE from an energy balance and Fourier’s law, and write it as {∂}[E]{∂}ᵀT = −q_h. 2 Classify boundary conditions as Dirichlet (essential) or Neumann (natural) and write them for a rectangular domain. 3 Derive the bilinear shape functions N_1…N_4 of the four-node element and use them to interpolate T(x, y). 4 Differentiate the approximation to obtain the temperature gradient and the heat flux at any point of"
+  },
+  {
+   "id": "slides-4",
+   "text": "[slides-4] Slide 4: Six blocks, six short activities, one break\nSession map · 180 minutes Six blocks, six short activities, one break 0:00 Why 2D? 25 min A1 · 5 min 0:25 Governing PDE 35 min A2 · 8 min 1:00 Boundary conditions 25 min A3 · 6 min 1:25 Break 10 min no activity 1:35 Shape functions 35 min A4 + QR 2:10 Gradient & flux 25 min A5 · 8 min 2:35 Pipeline & wrap-up 25 min Exit ticket How the activities work Amber slide = your turn. Work in pairs on paper, 5–8 minutes. A timer badge shows the time; the answer slide follows. Keep the answers — Activities 4 and 5 are the pattern"
+  },
+  {
+   "id": "slides-5",
+   "text": "[slides-5] Slide 5: Why two dimensions?\n1 Block 1 · 0:00 – 0:25 Why two dimensions? FEM is a tool for solving a differential equation — so every topic starts from the PDE. Today’s PDE has one unknown: temperature. SEAA 4243 · 2D Heat Transfer — Part 1 5"
+  },
+  {
+   "id": "slides-6",
+   "text": "[slides-6] Slide 6: FEM is “nothing”: a tool that solves a differential equation\nBlock 1 · the idea that organises the course FEM is “nothing”: a tool that solves a differential equation 1 · Get the DE Energy balance + Fourier’s law → a PDE in T(x, y) 2 · Discretise with FEM Shape functions + Galerkin → [k]{T̂}ᵀ = {r} 3 · Solve Assemble, impose T̄, solve, post-process FEM can be “everything” Heat, seepage, stress, vibration, fluid flow — the same machinery solves all of them. That is why it is worth learning well. …and FEM can be “nothing” It is only a way to turn a continuous PDE into simultaneous"
+  },
+  {
+   "id": "slides-7",
+   "text": "[slides-7] Slide 7: Heat transfer has one unknown per node; plane stress has two\nBlock 1 · scalar versus vector fields Heat transfer has one unknown per node; plane stress has two Scalar element: each node carries one degree of freedom, the temperature T̂_i. Vector element (Plane Stress Part 1): two, the displacements u_i and v_i. Problems governed by the same scalar PDE Field T Property k Flux q temperature conductivity heat flux hydraulic head permeability seepage velocity electric potential conductivity current density Prandtl stress function 1/G shear stress Why Learn the scalar element once and"
+  },
+  {
+   "id": "slides-8",
+   "text": "[slides-8] Slide 8: The same PDE appears across civil engineering\nBlock 1 · where civil engineers meet conduction The same PDE appears across civil engineering Mass concrete Heat of hydration in dams, rafts and pile caps: the temperature rise and the gradient between core and surface drive early-age cracking. Fire engineering Temperature rise in steel sections and tunnel linings decides when strength is lost; the input is a 2D conduction model of the section. Pavements and decks Daily thermal gradients through a bridge deck or a pavement slab produce stresses that codes make us check."
+  },
+  {
+   "id": "slides-9",
+   "text": "[slides-9] Slide 9: A heated plate under a channel flow\nBlock 1 · the same PDE in a real simulation A heated plate under a channel flow Why The solid plate obeys today’s conduction PDE (with ∂T/∂t kept; at steady state it is exactly {∂}[E]{∂}ᵀT = −q_h), with T fixed on its heated bottom face. Check At the interface the solid receives a temperature from the fluid code and returns a heat flux: one Dirichlet and one Neumann condition, as in Block 3. Image: preCICE tutorials, “Flow over a heated plate”, t = 10 s; solid by FEniCS, Nutils or CalculiX (FE). LGPL-3.0, github.com/pre"
+  },
+  {
+   "id": "slides-10",
+   "text": "[slides-10] Slide 10: Scalar or vector? Classify each field and count the unknowns per node\n5 MIN Activity 1 · pairs · no calculation Scalar or vector? Classify each field and count the unknowns per node Six fields — decide: scalar (1 dof) or vector (2 dof in 2D)? Temperature in a concrete slab Pore-water pressure in an embankment Displacement of a shear wall Velocity of water in a pipe network Electric potential in a grounding grid Settlement of a strip footing (2D section) Then answer How many unknowns does a 4-node element have in each case? Which of the six could be solved with today’s element? Compare wit"
+  },
+  {
+   "id": "slides-11",
+   "text": "[slides-11] Slide 11: The governing PDE\n2 Block 2 · 0:25 – 1:00 The governing PDE Energy balance on a differential element, then Fourier’s law to close it in terms of temperature. Text §2.1.1 – §2.1.2. SEAA 4243 · 2D Heat Transfer — Part 1 11"
+  },
+  {
+   "id": "slides-12",
+   "text": "[slides-12] Slide 12: Heat enters and leaves a small rectangle dx by dy\nBlock 2 · the differential element · text Fig. 2.1 Heat enters and leaves a small rectangle dx by dy Dependent variables: the heat fluxes q_x and q_y (W m^{−2}), i.e. energy per unit time per unit area crossing a face. The flux on the far face is the near-face flux plus its change across the element — a first-order Taylor expansion: (2.2) Inside, heat is generated at a rate q_h per unit volume (W m^{−3}), e.g. hydration of cement. Why Per unit thickness: t multiplies every term and cancels, so we take t = 1. SEAA 4243 ·"
+  },
+  {
+   "id": "slides-13",
+   "text": "[slides-13] Slide 13: Rate of change of stored energy = net conduction in + heat generated\nBlock 2 · conservation of energy Rate of change of stored energy = net conduction in + heat generated Stored (internal) energy (2.1) ρ density, C specific heat, T temperature Net conduction in Q_x + Q_y, the x- and y-direction net inflows (2.2)–(2.4) Generated (2.5) (2.6) Every term carries the factor dx dy — the volume of the element per unit thickness — so it cancels (next slide). SEAA 4243 · 2D Heat Transfer — Part 1 13"
+  },
+  {
+   "id": "slides-14",
+   "text": "[slides-14] Slide 14: Your turn: the y-direction balance, then cancel dx dy\n8 MIN Activity 2 · pairs · derivation Your turn: the y-direction balance, then cancel dx dy Do Write Q_y by the same argument as Q_x (in through y = 0, out through y = dy). Put Q_E = Q_x + Q_y + Q_h and cancel the common factor dx dy. Check the units of every term in the result. (2.2) — given (2.1) — given Check Target: an equation with ∂T/∂t on the left and three terms on the right, none containing dx or dy. Reveal follows. If you finish early: what changes if q_h depends on T? SEAA 4243 · 2D Heat Transfer — Part 1 14"
+  },
+  {
+   "id": "slides-15",
+   "text": "[slides-15] Slide 15: The energy balance with dx dy cancelled\nActivity 2 · solution The energy balance with dx dy cancelled (2.3) (2.6) (2.7) Check Units of every term: W m^{−3}. If one term disagrees, the derivation has a mistake. Why (2.7) still has three unknowns q_x, q_y, T. We need a law relating flux to temperature. SEAA 4243 · 2D Heat Transfer — Part 1 15"
+  },
+  {
+   "id": "slides-16",
+   "text": "[slides-16] Slide 16: Heat flows down the temperature gradient\nBlock 2 · Fourier’s law closes the system Heat flows down the temperature gradient (2.8), (2.9) k_x, k_y: thermal conductivity in W m^{−1} K^{−1}. Isotropic material: k_x = k_y = k (concrete ≈ 1.5–2.5, steel ≈ 45–50). Substituting (2.8)–(2.9) into (2.7) gives the general (unsteady) conduction equation: (2.10) Why The minus sign: where T falls with x (∂T/∂x < 0) the flux is positive, i.e. towards +x. Heat goes from hot to cold. SEAA 4243 · 2D Heat Transfer — Part 1 16"
+  },
+  {
+   "id": "slides-17",
+   "text": "[slides-17] Slide 17: Drop the time derivative: the PDE we discretise\nBlock 2 · steady state · text §2.1.2 Drop the time derivative: the PDE we discretise (2.11) Special cases you already know Why q_h sits on the right with a minus sign because we moved it across; a source (q_h > 0) makes the field concave — a hill. Check Unit check of each term of (2.11): W m^{−3}. The equation says: divergence of the flux = source. SEAA 4243 · 2D Heat Transfer — Part 1 17"
+  },
+  {
+   "id": "slides-18",
+   "text": "[slides-18] Slide 18: Write the operator as a row vector times [E] times a column vector\nBlock 2 · the matrix form we will reuse · text (2.12)–(2.14) Write the operator as a row vector times [E] times a column vector (2.12) (2.13) (2.14) Why Why bother? In Plane Stress Part 1 plane stress will read [∂][E][∂]ᵀ{u}ᵀ = −{f}: the same shape with a 3 × 3 [E] and a 2 × 3 operator. Learn the pattern once. Watch out {∂} is a row of operators, not numbers: it acts on whatever stands to its right. Order of multiplication matters. SEAA 4243 · 2D Heat Transfer — Part 1 18"
+  },
+  {
+   "id": "slides-19",
+   "text": "[slides-19] Slide 19: Boundary conditions\n3 Block 3 · 1:00 – 1:25 Boundary conditions A PDE alone is not a problem. Specify either the temperature or the flux on every part of the boundary. Text §2.1.3. SEAA 4243 · 2D Heat Transfer — Part 1 19"
+  },
+  {
+   "id": "slides-20",
+   "text": "[slides-20] Slide 20: Either T or the normal flux is known at every boundary point\nBlock 3 · two kinds of condition · text (2.15)–(2.16) Either T or the normal flux is known at every boundary point Dirichlet · essential · temperature specified (2.16) e.g. a face held at a fixed temperature by a fluid bath or the ground. Neumann · natural · normal flux specified (2.15) q_b known flux; (n_x, n_y) outward unit normal. Convection and radiation are Neumann-type too (not treated here). Watch out Well-posed: the whole boundary is covered, and at least one point has T specified — otherwise T is only known up"
+  },
+  {
+   "id": "slides-21",
+   "text": "[slides-21] Slide 21: On a rectangle the normal is a coordinate axis, so (2.15) collapses to one term\nBlock 3 · rectangular domains On a rectangle the normal is a coordinate axis, so (2.15) collapses to one term vertical edges horizontal edges insulated Watch out Sign: q_b = k ∂T/∂n is positive when heat enters . On the right edge n = (+1, 0): an inward flux makes ∂T/∂x > 0 there, so q_b > 0 — while the flux vector component q_x = −k ∂T/∂x is negative. Two different symbols; keep them apart. Why Insulated = adiabatic = zero normal flux. It is a Neumann condition with q_b = 0, not a Dirichlet condition. SEAA 4243 · 2D He"
+  },
+  {
+   "id": "slides-22",
+   "text": "[slides-22] Slide 22: Essential conditions are imposed; natural conditions appear by themselves\nBlock 3 · what FEM does with each kind Essential conditions are imposed; natural conditions appear by themselves Condition What is known Where it enters the FEM Next session Dirichlet · essential T̄ on the edge imposed on the assembled system by modifying rows and columns of [K] row–column elimination Neumann · natural q_b on the edge appears in the boundary vector {b} produced by integration by parts {b} = ∫{N}ᵀq_n ds Insulated · natural, q_b = 0 no flux contributes nothing: the boundary integral is zero do nothing Wat"
+  },
+  {
+   "id": "slides-23",
+   "text": "[slides-23] Slide 23: Label the plate: for each edge, type, equation and what FEM does\n6 MIN Activity 3 · pairs · classification Label the plate: for each edge, type, equation and what FEM does Text Exercise 2.5 geometry: k = 450 W m^{−1} K^{−1}, q_h = 1 × 10^7 W m^{−3}, unit thickness. For each of the four edges write Dirichlet or Neumann? The equation, with the outward normal and the correct sign. Imposed, becomes a load, or do nothing? Then: is the problem well-posed? Why? Reveal follows — then a 10-minute break. SEAA 4243 · 2D Heat Transfer — Part 1 23"
+  },
+  {
+   "id": "slides-24",
+   "text": "[slides-24] Slide 24: Two essential edges, one flux load, one edge that needs nothing\nActivity 3 · solution Two essential edges, one flux load, one edge that needs nothing Edge Type Equation FEM action top Dirichlet T = 300 K impose on the system left Dirichlet T = 400 K impose on the system right Neumann n = (1, 0): k ∂T/∂x = q_b = +1 × 10^6 W m^{−2} (inward, so q_x = −10^6) load in {b} bottom Neumann, q_b = 0 ∂T/∂y = 0 nothing Check Well-posed: every edge has a condition and T is fixed on two edges, so the temperature level is pinned. Why q_b is the boundary flux of (2.15), positive inward; the flux-ve"
+  },
+  {
+   "id": "slides-25",
+   "text": "[slides-25] Slide 25: Break\n1:25 – 1:35 Break Back in 10 minutes. Second half: shape functions, gradients, and the pipeline for the next session. SEAA 4243 · 2D Heat Transfer — Part 1 25"
+  },
+  {
+   "id": "slides-26",
+   "text": "[slides-26] Slide 26: The four-node scalar element\n4 Block 4 · 1:35 – 2:10 The four-node scalar element One unknown per node, a bilinear polynomial in between. Derive N₁…N₄ and learn the three properties you can always check. Text §2.2.1. SEAA 4243 · 2D Heat Transfer — Part 1 26"
+  },
+  {
+   "id": "slides-27",
+   "text": "[slides-27] Slide 27: A rectangle a × b, nodes numbered anticlockwise\nBlock 4 · degrees of freedom · text Fig. 2.2 A rectangle a × b, nodes numbered anticlockwise Notation T̂_i (hat): the nodal temperature at node i — a number, the unknown we solve for. T(x, y): the temperature field inside the element — a function. N_i(x, y): the shape function that carries the influence of node i into the field. Local coordinates: origin at node 1, x along the bottom edge, y along the left edge. Watch out Numbering is anticlockwise. Reverse it and the matrix entries the next session come out in the wron"
+  },
+  {
+   "id": "slides-28",
+   "text": "[slides-28] Slide 28: Four nodes, four coefficients: 1, x, y and xy\nBlock 4 · assume a polynomial · text (2.17) Four nodes, four coefficients: 1, x, y and xy (2.17) Why these four monomials? Four nodal values can fix exactly four coefficients. 1, x, y give a plane; xy is the lowest-order term that is symmetric in x and y. x² without y² would favour one direction — the choice is geometrically balanced. Along any edge (x = const or y = const) the polynomial is linear in the other variable. Pascal triangle · text Fig. 2.4 1 x y x² xy y² x³ x²y xy² y³ 4-node element: the four maroon terms."
+  },
+  {
+   "id": "slides-29",
+   "text": "[slides-29] Slide 29: Each nodal value gives one equation in the coefficients\nBlock 4 · evaluate at the nodes · text (2.18) Each nodal value gives one equation in the coefficients (2.18) matrix form Why Lower-triangular after reordering, so it solves by forward substitution: a_1 first, then a_2, a_3, finally a_4. SEAA 4243 · 2D Heat Transfer — Part 1 29"
+  },
+  {
+   "id": "slides-30",
+   "text": "[slides-30] Slide 30: Four coefficients in terms of the four nodal temperatures\nBlock 4 · solve for the coefficients · text (2.19) Four coefficients in terms of the four nodal temperatures (2.19) Read them physically a_1: the value at the origin (node 1). a_2: the slope along the bottom edge, (T̂_2 − T̂_1)/a. a_3: the slope along the left edge, (T̂_4 − T̂_1)/b. a_4: the “twist” — how the x-slope changes with y. Check with a uniform field Put T̂_1 = T̂_2 = T̂_3 = T̂_4 = T_0: then a_1 = T_0 and a_2 = a_3 = a_4 = 0, so T = T_0 everywhere. The element reproduces a constant exactly. SEAA 4243 · 2D Heat"
+  },
+  {
+   "id": "slides-31",
+   "text": "[slides-31] Slide 31: The multiplier of each T̂ᵢ is its shape function Nᵢ\nBlock 4 · collect by nodal value · text (2.20)–(2.22) The multiplier of each T̂ᵢ is its shape function Nᵢ (2.20) (2.21) (2.22) Why {N} is a 1 × 4 row; {T̂}ᵀ is a 4 × 1 column. Their product is the scalar T(x, y). SEAA 4243 · 2D Heat Transfer — Part 1 31"
+  },
+  {
+   "id": "slides-32",
+   "text": "[slides-32] Slide 32: A tent: 1 at its own node, 0 at the other three, straight along every edge\nBlock 4 · what a shape function looks like A tent: 1 at its own node, 0 at the other three, straight along every edge Left: N_3 as a surface. Right: all four as colour maps (dark = 1). Each N_i is the temperature field you get when node i is at 1 and the others at 0. Why Along an edge only the two nodes on that edge matter — the straight line of the bar element. That is what lets two neighbouring elements agree along their common edge. SEAA 4243 · 2D Heat Transfer — Part 1 32"
+  },
+  {
+   "id": "slides-33",
+   "text": "[slides-33] Slide 33: ANSYS’s four-node element uses these N₁ … N₄\nBlock 4 · the same functions inside commercial code ANSYS’s four-node element uses these N₁ … N₄ Same functions, new coordinates ξ = 2x/a − 1 and η = 2y/b − 1 map 0 ≤ x ≤ a, 0 ≤ y ≤ b onto −1 ≤ ξ, η ≤ 1, and N₁ = ¼(1 − ξ)(1 − η) = (a − x)(b − y)/ab which is the text’s (2.21). The other three follow by changing signs. Check Each surface is 1 at its own corner, 0 at the other three and straight along every edge: the three checks on the next slide. Why Plane Stress Part 2: the square lets one formula serve any four-sided e"
+  },
+  {
+   "id": "slides-34",
+   "text": "[slides-34] Slide 34: Kronecker delta, partition of unity, linear edges\nBlock 4 · three properties you can check in 30 seconds Kronecker delta, partition of unity, linear edges 1 · Kronecker delta So T at node j equals T̂_j: the nodal unknowns really are nodal temperatures. 2 · Partition of unity A uniform temperature is reproduced exactly — the test we did on the coefficients. 3 · Linear along each edge C⁰ continuity follows: the neighbouring element shares this edge’s two nodes and its straight line. SEAA 4243 · 2D Heat Transfer — Part 1 34"
+  },
+  {
+   "id": "slides-35",
+   "text": "[slides-35] Slide 35: One nodal value lifts one tent\nBlock 4 · from one element to the mesh One nodal value lifts one tent 1D: φᵢ is a hat over the two elements that share node i. 2D: a tent over every element sharing the node. Why Each element that touches node i adds one face of its tent. That is why T is continuous across element edges, and why node i couples only to its neighbours: the global matrix is sparse (Heat Transfer Part 2). Images: Langtangen and Mardal, Introduction to Numerical Methods for Variational Problems (Springer, 2019), github.com/hplgit/fem-book, M"
+  },
+  {
+   "id": "slides-36",
+   "text": "[slides-36] Slide 36: Evaluate the shape functions at a point and interpolate the temperature\n8 MIN Activity 4 · pairs · calculation Evaluate the shape functions at a point and interpolate the temperature Given a = 2 m, b = 1 m; point (x, y) = (1.5, 0.3) m. Nodal temperatures T̂ = {100, 140, 160, 120} K. Find N_1, N_2, N_3, N_4 at the point — and their sum. T(1.5, 0.3). Check Keep the sheet: Activity 5 uses the same element and data. 8 minutes. Early finishers: which node has the most influence at this point, and why? SEAA 4243 · 2D Heat Transfer — Part 1 36"
+  },
+  {
+   "id": "slides-37",
+   "text": "[slides-37] Slide 37: Node 2 carries half the weight; the four weights sum to one\nActivity 4 · solution Node 2 carries half the weight; the four weights sum to one (2.21) at (1.5, 0.3) partition of unity (2.22) Assignment-type question: “after solving, T̂_2 and T̂_6 are 150 K … interpolate T at (1.4, 2.2)” — the same method, after converting the global point to local element coordinates. SEAA 4243 · 2D Heat Transfer — Part 1 37"
+  },
+  {
+   "id": "slides-38",
+   "text": "[slides-38] Slide 38: Check Activity 4 on your phone, then explore\n6 MIN QR Explorer · pairs, one phone Check Activity 4 on your phone, then explore Scan, then do 1 Press “Activity 4 point”. Do N₁ … N₄, their sum and T = 136.0 K match your sheet? 2 Drag P onto node 3 and read the four weights. Which property is this? 3 Find three points where N₁ = N₃. What line joins them? Shape Function Explorer razinutm.github.io/ My_Lectures/SEAA4243-FEM/ labs/shape.html 6 minutes, optional in class: if the block is running late, set it as homework. Answers are inside the Explorer under “Check answe"
+  },
+  {
+   "id": "slides-39",
+   "text": "[slides-39] Slide 39: Gradient, flux and a look ahead\n5 Block 5 · 2:10 – 2:35 Gradient, flux and a look ahead Differentiate the approximation: the 2 × 4 matrix {∂}ᵀ{N} gives the gradient, Fourier gives the flux — and the next session it builds [k]. SEAA 4243 · 2D Heat Transfer — Part 1 39"
+  },
+  {
+   "id": "slides-40",
+   "text": "[slides-40] Slide 40: Gradient = derivative matrix × nodal temperatures\nBlock 5 · differentiate the approximation Gradient = derivative matrix × nodal temperatures from (2.21) Why ∂N_i/∂x depends on y only and ∂N_i/∂y on x only — the gradient varies inside the element, though each component is constant along one direction. Check Each row of {∂}ᵀ{N} sums to zero. A uniform T̂ therefore gives zero gradient, as it must. SEAA 4243 · 2D Heat Transfer — Part 1 40"
+  },
+  {
+   "id": "slides-41",
+   "text": "[slides-41] Slide 41: Fourier’s law in matrix form is the post-processing formula\nBlock 5 · from gradient to flux Fourier’s law in matrix form is the post-processing formula Once the nodal temperatures are known, this gives the heat flux at any point (x, y) of the element — the quantity a designer usually wants (heat loss through a wall, flow under a dam). Next session: text (2.38) and (2.42). Why The same {∂}ᵀ{N} appears twice in [k], once transposed: [k] is symmetric, and its row sums are zero for the same reason the gradient of a uniform field is zero. SEAA 4243 · 2D Heat Transfer — Part 1 41"
+  },
+  {
+   "id": "slides-42",
+   "text": "[slides-42] Slide 42: Heat flux at the same point: evaluate the derivatives, then apply Fourier\n8 MIN Activity 5 · pairs · calculation Heat flux at the same point: evaluate the derivatives, then apply Fourier Given (as Activity 4) a = 2 m, b = 1 m, point (1.5, 0.3) m, T̂ = {100, 140, 160, 120} K. k_x = k_y = 2 W m^{−1} K^{−1}. Find ∂N_i/∂x for i = 1…4, then ∂T/∂x. q_x from Fourier’s law — sign and direction? If time: ∂T/∂y and q_y. Check Check: the four derivatives must sum to zero. 8 minutes. Reveal follows. SEAA 4243 · 2D Heat Transfer — Part 1 42"
+  },
+  {
+   "id": "slides-43",
+   "text": "[slides-43] Slide 43: Heat flows from the hot side (nodes 2, 3) towards the cold side\nActivity 5 · solution Heat flows from the hot side (nodes 2, 3) towards the cold side SEAA 4243 · 2D Heat Transfer — Part 1 43"
+  },
+  {
+   "id": "slides-44",
+   "text": "[slides-44] Slide 44: Mid-side nodes, eight monomials, quadratic along each edge\nBlock 5 · the eight-node element in one slide · text §2.2.1, Fig. 2.3 Mid-side nodes, eight monomials, quadratic along each edge (2.23) (2.30), (2.31e) Same recipe: evaluate at 8 nodes, invert the 8 × 8 matrix, collect — the text gives N_1…N_8 in (2.31). Three nodes per edge, so T is quadratic along an edge: fewer elements for curved fields. Hand calculations here use the 4-node element; the 8-node one lives in the MATLAB code and in ANSYS (PLANE183-type). SEAA 4243 · 2D Heat Transfer — Part 1 44"
+  },
+  {
+   "id": "slides-45",
+   "text": "[slides-45] Slide 45: The pipeline — where today fits\n6 Block 6 · 2:35 – 3:00 The pipeline — where today fits Seven steps from PDE to answer. Today covered the first two; the next session we do the other five and run the MATLAB code. SEAA 4243 · 2D Heat Transfer — Part 1 45"
+  },
+  {
+   "id": "slides-46",
+   "text": "[slides-46] Slide 46: Today: steps 1 and 2. Next session: steps 3 to 7 on the text’s worked example\nBlock 6 · seven steps from PDE to answer Today: steps 1 and 2. Next session: steps 3 to 7 on the text’s worked example 1 PDE + boundary conditions today 2 Shape functions {N} today 3 Galerkin weighted residual Heat Transfer Part 2 4 Integration by parts Heat Transfer Part 2 5 Element matrices [k], {q}, {b} Heat Transfer Part 2 6 Assembly + impose T̄ Heat Transfer Part 2 7 Solve, then post-process Heat Transfer Part 2 The next session’s worked example · text §2.3 Square plate 1 m × 1 m, q_h = 600 W m^{−3}, k_x = k_y = 30"
+  },
+  {
+   "id": "slides-47",
+   "text": "[slides-47] Slide 47: Thirty lines: local matrix, assembly, boundary conditions, solve\nBlock 6 · the MATLAB skeleton follows the pipeline Thirty lines: local matrix, assembly, boundary conditions, solve % Local conductance matrix (text §2.3.1) a = L/Nx; b = H/Ny; s1 = b*kx/(3*a) + a*ky/(3*b); s2 = -b*kx/(3*a) + a*ky/(6*b); s3 = -b*kx/(6*a) - a*ky/(6*b); s4 = b*kx/(6*a) - a*ky/(3*b); k = [s1 s2 s3 s4; s2 s1 s4 s3; s3 s4 s1 s2; s4 s3 s2 s1]; fQ = a*b*Q/4*[1; 1; 1; 1]; % heat generation % Assembly by connectivity, element 1 = nodes [1 2 5 4] K([1 2 5 4],[1 2 5 4]) = K([1 2 5 4],[1 2 5 4]) + k; F([1 2 5 4]) ="
+  },
+  {
+   "id": "slides-48",
+   "text": "[slides-48] Slide 48: Three questions before you leave — on paper, hand in at the door\n6 MIN Activity 6 · individual · exit ticket Three questions before you leave — on paper, hand in at the door Questions Which boundary condition needs no action at all in the FEM, and why? For a square element (a = b), what is each N_i at the centroid? What is their sum? Write {∂}[E]{∂}ᵀT = −q_h out in full for k_x = k_y = k. Which classical equation is it? hint for Q2 Q3 Six minutes. Name and matric number on the sheet; this is for feedback, not marks. SEAA 4243 · 2D Heat Transfer — Part 1 48"
+  },
+  {
+   "id": "slides-49",
+   "text": "[slides-49] Slide 49: Next session: Galerkin, integration by parts, [k], assembly and the worked example\nWrap-up · what to take away and what to prepare Next session: Galerkin, integration by parts, [k], assembly and the worked example Today in four lines Energy balance + Fourier → (2.11): divergence of flux = source, written as {∂}[E]{∂}ᵀT = −q_h. Dirichlet = essential = imposed; Neumann = natural = appears from integration by parts; insulated = do nothing. Four-node element: T = {N}{T̂}ᵀ with bilinear N_i; Kronecker delta, partition of unity, linear edges. {∂}ᵀ{N} (2 × 4) gives the gradient and, with −[E], the flux — and"
+  },
+  {
+   "id": "examples-x1",
+   "text": "[examples-x1] Contoh 1 · Shape function dan conductance matrix bagi segi tiga\nJenis soalan derive N_1, N_2, N_3 from T = a_1 + a_2x + a_3y, then [k] Unit symbolic Sumber FEM by Hand, Example 8.1 20 markah Soalan A three-node heat element has its nodes at (0, 0), (L, 0) and (L/2, L). With the interpolation T(x, y) = a_1 + a_2x + a_3y, (a) derive the shape functions by writing T = N_1T_1 + N_2T_2 + N_3T_3, (b) check them, and (c) find the conductance matrix for k_x = k_y = k and thickness t.\n[Rajah: Segi tiga bagi Contoh 1.]\nGambaran fizikal. Satah di atas segi tiga ditentukan oleh tiga nilai bucunya, jadi tiga nodal temperature menentukan a_1, a_2 dan a_3. Setiap shape function ialah field yang diperoleh dengan node sendiri bernilai 1 dan dua node lain 0: satah yang bernilai 1 pada node itu dan 0 di sepanjang sisi bertentangan. Sisi 1–2 terletak pada y = 0, jadi N_3 mesti bergantung pada y sahaja.\nPlan. Three nodal conditions → a_1, a_2, a_3 → collect T_1, T_2, T_3 → checks → derivatives → [k].\n## Step 1 Nodal condition [3]\nPERSAMAAN : [equation x1_cond: source not available in the page]\n## Step 2 (a) Coefficient [3]\nDaripada dua yang pertama, a_1 = T_1 dan a_2 = (T_2 − T_1)/L. Yang ketiga kemudian memberi\nPERSAMAAN : [equation x1_coef: source not available in the page]\n## Step 3 Mengumpul nodal temperature [2]\nPERSAMAAN : [equation x1_collect: source not available in the page]\nAnswer. (a)\nPERSAMAAN : [equation x1_N: source not available in the page]\n## Step 4 (b) Semakan [3]\nPERSAMAAN : [equation x1_checks: source not available in the page]\nNode 1 dan 2 disemak dengan cara yang sama. Pada centroid (L/2, L/3) setiap fungsi bernilai 1/3.\nAnswer. (b) N_i = 1 at node i and 0 at the others; ΣN_i = 1 everywhere.\n## Step 5 (c) Derivative dan [k] [9]\nPERSAMAAN : [equation x1_dN: source not available in the page]\nDerivative itu pemalar, jadi integral k_{ij} = t∫(k_x N_{i,x}N_{j,x} + k_y N_{i,y}N_{j,y}) dA ialah luas didarab integrand (conductance matrix dalam Part 2):\nPERSAMAAN : [equation x1_kij: source not available in the page]\nAnswer. (c)\nPERSAMAAN : [equation x1_k: source not available in the page]\neach row adds up to zero. Check. Row 1: 5 − 3 − 2 = 0; row 3: −2 − 2 + 4 = 0. [k] is symmetric.\nTafsiran [k] tidak mengandungi L. Setiap entri ialah ketebalan didarab luas, yang membesar sebagai L², didarab hasil darab dua gradient yang masing-masing menyusut sebagai 1/L; dua kesan itu saling membatalkan, jadi segi tiga dengan bentuk yang sama mengalirkan haba yang sama per kelvin tanpa mengira saiznya. Setiap baris berjumlah sifar kerana temperature seragam, T_1 = T_2 = T_3, tidak menghasilkan aliran haba. Temperature di dalam element ialah satah, jadi gradient-nya, dan seterusnya heat flux, adalah pemalar dalam setiap element dan melompat dari satu element ke element seterusnya; temperature itu sendiri kekal continuous, kerana di sepanjang sisi yang dikongsi ia berubah secara linear antara dua nilai node yang sama. Skema pemarkahan (cadangan) · 20 Apa yang diberi markah Markah\nTiga nodal condition ditulis dengan betul 3\na_1, a_2, a_3 3\nMengumpul mengikut nilai node → N_1, N_2, N_3 2\nSemakan Kronecker dan partition of unity 3\nVektor derivative dan luas 3\nTiga entri melalui integration, matrix melalui simetri, semakan jumlah baris 6\nJumlah 20"
+  },
+  {
+   "id": "examples-x2",
+   "text": "[examples-x2] Contoh 2 · Temperature dan flux pada satu titik four-node element\nJenis soalan T(x, y), ∂T/∂x, ∂T/∂y and q from nodal temperatures Unit m, °C, W Sumber FEM by Hand, Practice Problem 8.3 (worked in full here) 20 markah Soalan A four-node element 0.4 m by 0.3 m has nodal temperatures 20, 40, 60 and 30 °C at nodes 1 to 4 (anticlockwise from the origin), and k = 15 W m^{−1} K^{−1}. Find T, q_x and q_y (a) at the centre and (b) at the local point (0.1, 0.2) m.\n[Rajah: Element bagi Contoh 2 dengan nodal temperature dan dua titiknya.]\nGambaran fizikal. Nilai node meningkat dari node 1 ke node 3, jadi temperature bertambah dalam arah +x dan +y; Fourier’s law kemudian menjadikan kedua-dua komponen flux negatif, menghala kembali ke node 1. Gradient bagi field bilinear tidak malar: ∂T/∂x berubah dengan y dan ∂T/∂y dengan x, jadi dua titik itu akan memberi flux yang berbeza.\nPlan. N_i at the point → T = ΣN_iT_i → ∂N_i/∂x, ∂N_i/∂y from (2.33) → gradient → q = −k∇T. ab = 0.4 × 0.3 = 0.12 m² throughout.\n## Step 1 (a) Shape function dan T pada pusat [4]\nPERSAMAAN : [equation x2_Nc: source not available in the page]\n## Step 2 (a) Derivative pada pusat (y = 0.15, x = 0.2) [3]\nPERSAMAAN : [equation x2_dNc: source not available in the page]\nPERSAMAAN : [equation x2_dNcy: source not available in the page]\n## Step 3 (a) Gradient dan flux pada pusat [3]\nPERSAMAAN : [equation x2_gradc: source not available in the page]\nAnswer. (a) T = 37.5 °C; q_x = −938 W m^{−2}, q_y = −750 W m^{−2}. Check. ΣN_i = 1. Both fluxes negative, as the physical picture predicted.\n## Step 4 (b) Shape function dan T pada (0.1, 0.2) [5]\nDengan a − x = 0.3 dan b − y = 0.1:\nPERSAMAAN : [equation x2_Np: source not available in the page]\n## Step 5 (b) Gradient dan flux pada (0.1, 0.2) [5]\nPERSAMAAN : [equation x2_gradp: source not available in the page]\nAnswer. (b) T = 33.3 °C; q_x = −1000 W m^{−2}, q_y = −625 W m^{−2}. Tafsiran Gradient berubah antara dua titik itu kerana T_1 − T_2 + T_3 − T_4 = 20 − 40 + 60 − 30 = 10 ≠ 0: gabungan itu ialah coefficient a_4 bagi term xy, dan itulah satu-satunya sebab field itu bukan satah. Dengan empat nilai yang berjumlah sifar dalam pola itu, flux akan sama di seluruh element. Nombor-nombor itu juga menunjukkan tanda yang digunakan: flux negatif apabila temperature meningkat dalam arah itu. Skema pemarkahan (cadangan) · 20 Apa yang diberi markah Markah\nN_i = 1/4 pada pusat dan T 4\nBaris derivative pada pusat 3\nGradient, kemudian q = −k∇T dengan tanda 3\nN_i pada (0.1, 0.2), semakan jumlah, T 5\nGradient dan flux pada titik itu 5\nJumlah 20"
+  },
+  {
+   "id": "examples-x3",
+   "text": "[examples-x3] Contoh 3 · Soalan jenis terangkan: jawapan model\nJenis soalan explain, three sentences each: claim, reason, consequence Sumber FEM by Hand, §8.4 4 × 3 = 12 markah Soalan Jawab setiap satu dalam dua atau tiga ayat. Nyatakan dakwaan, beri sebab, dan nyatakan apa yang terhasil daripadanya.\n## Step 1 Mengapa tiada apa-apa dibuat pada tepi insulated? [3]\nTepi insulated ialah natural condition dengan q_n = 0, jadi boundary term-nya t∫{N}q_n ds ialah sifar. Formulasi Galerkin memenuhinya secara anggaran tanpa sebarang tindakan. Flux bukan sifar pula akan masuk ke {r} pada node tepi itu.\n## Step 2 Apakah perbezaan antara essential dan natural boundary condition, dan bagaimana setiap satu dikenakan? [3]\nEssential condition menetapkan primary variable, iaitu temperature T = T̄; natural condition menetapkan secondary variable, iaitu flux q_n. Essential condition dikenakan pada assembled equation dengan membuang baris dan lajur node yang diketahui, dan baris yang dibuang itu kemudian memberi aliran haba di situ. Natural condition tidak pernah dikenakan: ia muncul dengan sendirinya sebagai load melalui boundary term daripada integration by parts.\n## Step 3 Mengapa setiap baris [k] berjumlah sifar, dan bagaimana ia digunakan? [3]\nOleh kerana ΣN_i = 1, temperature seragam menjadikan setiap gradient sifar dan tidak mengalirkan haba, jadi [k]{1, 1, …}ᵀ = {0}. Akibatnya [k], dan [K] yang tidak dikekang, adalah singular; sebab itulah sekurang-kurangnya satu temperature mesti ditetapkan. Setiap baris matrix yang dikira boleh disemak dalam beberapa saat dengan menjumlahkannya.\nPERSAMAAN : [equation x3_rowsum: source not available in the page]\n## Step 4 Bagaimana three-node dan four-node element berbeza? [3]\nField T3 ialah satah, jadi gradient dan flux-nya malar dalam setiap element. Field Q4 mengandungi xy, jadi ∂T/∂x berubah dengan y dan ∂T/∂y dengan x. Kedua-dua field berubah secara linear di sepanjang setiap sisi, jadi temperature continuous antara element manakala flux melompat; pada node yang sama Q4 biasanya lebih tepat, tetapi dalam kursus ini ia terhad kepada segi empat tepat, manakala segi tiga sesuai untuk apa jua bentuk.\nTafsiran Pemeriksa mencari tiga bahagian mengikut urutan. “Insulated bermaksud tiada tindakan” sahaja ialah dakwaan tanpa sebab dan mendapat satu daripada tiga markah; menamakan boundary term dan nilainya mendapat dua markah lagi. Skema pemarkahan (cadangan) · 12 Apa yang diberi markah Markah\nDakwaan dinyatakan dengan betul 1 each\nSebab: term, sifat atau persamaan di sebaliknya 1 each\nAkibat kepada pengiraan 1 each\nJumlah 12"
+  },
+  {
+   "id": "exercises-b1",
+   "text": "[exercises-b1] Latihan B1 · Shape function pada satu titik, dan temperature yang di-interpolate\nSoalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)\nPetunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya."
+  },
+  {
+   "id": "exercises-b2",
+   "text": "[exercises-b2] Latihan B2 · Gradient dan flux pada titik itu\nSoalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)\nPetunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya."
+  },
+  {
+   "id": "exercises-b3",
+   "text": "[exercises-b3] Latihan B3 · Coefficient polynomial daripada nilai node\nSoalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)\nPetunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya."
+  },
+  {
+   "id": "exercises-quick",
+   "text": "[exercises-quick] Latihan: soalan konsep pantas\n- Dalam persamaan steady conduction (2.11), gabungan manakah yang mempunyai unit q_h ?\n- Boundary condition manakah yang mesti dikenakan pada assembled equation dan bukannya muncul dengan sendiri?\n- Pada tepi kanan plat, n = (1, 0), flux ke dalam q_b = +500 W m^{−2} dikenakan. Komponen flux-vector q_x pada tepi itu ialah\n- Mengapa term keempat polynomial (2.17) dipilih sebagai xy dan bukannya x²?\n- Keempat-empat nodal temperature sebuah element ialah 250 K. Pada satu titik di dalam element, T ialah\n- Di dalam four-node element, ∂T/∂x bagi field yang di-interpolate\n- Seorang pelajar menilai shape function pada (x, y) = (0.5, 0.8) m dalam element 2 m × 1 m dan interpolate T daripada T̂ = {100, 140, 160, 120} K. Satu baris mengandungi kesilapan. Yang mana?"
+  },
+  {
+   "id": "lab-node3",
+   "text": "[lab-node3] Tugasan Explorer 1 · Seret P ke node 3 (atau tekan “P on node 3”). Baca N_1 …N_4 : sifat Kronecker.\nDitanda sendiri: dikesan apabila P sampai ke node 3 pada 4-node element · tidak ditanda? tanda selesai\n(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)"
+  },
+  {
+   "id": "lab-act4",
+   "text": "[lab-act4] Tugasan Explorer 2 · Tekan “Activity 4 point”: P = (1.5, 0.3). Bandingkan dengan jawapan tangan anda daripada Aktiviti 4 dan 5.\nDitanda sendiri: dikesan apabila P = (1.5, 0.3) dalam element 2 × 1 · tidak ditanda? tanda selesai\n(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)"
+  },
+  {
+   "id": "lab-diag",
+   "text": "[lab-diag] Tugasan Explorer 3 · Cari tiga titik di mana N_1 = N_3 . Garis apakah yang menghubungkannya?\nDitanda sendiri: dikesan selepas tiga titik berbeza dengan |N_1 − N_3| < 0.01 · tidak ditanda? tanda selesai\n(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)"
+  },
+  {
+   "id": "lab-q8n1",
+   "text": "[lab-q8n1] Tugasan Explorer 4 · Tukar kepada 8-node element dan paparkan N_1 . Di mana ia negatif, dan bagaimana N_i masih berjumlah 1?\nDitanda sendiri: dikesan apabila 8-node element memaparkan N_1 · tidak ditanda? tanda selesai\n(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)"
+  },
+  {
+   "id": "lab-code",
+   "text": "[lab-code] Lab · Kod Python untuk assignment dan projek\nKod Python untuk assignment dan projek Langkah dan notasi yang sama seperti nota, ditulis dalam Python biasa. Guna untuk menyemak setiap matrix dan nombor dalam pengiraan tangan, dan untuk menjalankan apa yang tidak praktikal dibuat dengan tangan: kajian mesh, contour plot, geometri dan beban anda sendiri. ⤓ Muat turun fe_shape_functions.py (.zip, 10 kB) ⤓ Semua kod kursus (.zip, 41 kB) Unzip, kemudian pasang Python 3.8 atau lebih baharu dan jalankan pip install numpy matplotlib (matplotlib hanya untuk plot). Jalankan python fe_shape_functions.py . Ia menghasilkan semula contoh kursus; README.txt menyenaraikan output yang sepatutnya keluar. Baca docstring di bahagian atas fail untuk notasi, penomboran dan unit, dan cara memanggilnya untuk masalah anda sendiri. Pengiraan tangan tetap pengiraan tangan: dalam ujian atau assignment yang meminta langkah, tunjukkan sendiri. Tunjuk kod · fe_shape_functions.py · 188 baris Salin \"\"\"\nSEAA 4243 Finite Element Method - shape functions of the rectangular elements\n==============================================================================\nCompanion code for the Shape Function Explorer (2D Heat Transfer, Part 1).\nWhat it does\nEvaluates the shape functions N_i of the 4-node (Q4) and 8-node (Q8)\nrectangular elements at a point, checks them, interpolates a nodal field,\nand computes the gradient and the heat flux at that point.\nNotation (text: Mohd Yassin et al., MSNM 2020, Sec. 2.2)\nElement a x b. Local nodes 1-4 anticlockwise from the bottom-left corner;\nthe Q8 adds mid-side nodes 5-8 on the bottom, right, top and left sides.\nLocal coordinates x in [0, a], y in [0, b].\nQ4: N1 = (a-x)(b-y)/ab, N2 = x(b-y)/ab, N3 = xy/ab, N4 = y(a-x)/ab (2.21)\nT(x, y) = sum N_i T_i = {N}{T}^T (2.22)\ngradient = {d}^T{N}{T}^T, flux q = -[E] gradient (2.33)\nRun\npython fe_shape_functions.py\nprints Activities 4 and 5 (a = 2, b = 1"
+  },
+  {
+   "id": "lab-run",
+   "text": "[lab-run] Lab · Jalankan kod dalam browser\nJalankan kod dalam browser percubaan Ubah skrip pendek dan jalankan di sini, tanpa pemasangan. Python berjalan pada peranti anda sendiri; tiada apa yang dihantar ke mana-mana. Larian pertama memuat turun Python, lebih kurang 9 MB (lebih kurang 20 MB apabila skrip membuat plot), dan mengambil 10–30 s; larian seterusnya sesaat dua. N pada satu titik Peta N1…N8 Contoh kursus ▶ Jalankan ■ Henti Set semula skrip Ctrl+Enter (⌘+Enter) menjalankan skrip. Suntingan anda disimpan dalam browser ini; Set semula skrip memulihkan yang asal. Untuk assignment atau projek, muat turun kod di atas dan jalankan di komputer anda."
+  },
+  {
+   "id": "glossary-field-problem",
+   "text": "[glossary-field-problem] Glosari: field problem\nfield problem: Unknown yang wujud pada setiap titik dalam satu kawasan, seperti T(x, y), bukannya pada beberapa lokasi diskret sahaja."
+  },
+  {
+   "id": "glossary-scalar-field-vector-field",
+   "text": "[glossary-scalar-field-vector-field] Glosari: scalar field · vector field\nscalar field · vector field: Satu nombor setiap titik (temperature) berbanding dua atau lebih setiap titik (displacement u, v)."
+  },
+  {
+   "id": "glossary-heat-flux-q",
+   "text": "[glossary-heat-flux-q] Glosari: heat flux q\nheat flux q: Tenaga yang melintasi unit luas per unit masa, W m^{−2} ; satu vector dengan komponen q_x , q_y ."
+  },
+  {
+   "id": "glossary-fourier-s-law",
+   "text": "[glossary-fourier-s-law] Glosari: Fourier’s law\nFourier’s law: q = −k ∇T: flux berkadar dengan temperature gradient dan menghala dari panas ke sejuk."
+  },
+  {
+   "id": "glossary-conductivity-k",
+   "text": "[glossary-conductivity-k] Glosari: conductivity k\nconductivity k: Sifat bahan, W m^{−1} K^{−1} ; [E] = diag(k_x , k_y ) bagi bahan orthotropic."
+  },
+  {
+   "id": "glossary-heat-generation-q-h",
+   "text": "[glossary-heat-generation-q-h] Glosari: heat generation q_h\nheat generation q_h: Haba dihasilkan per unit isi padu, W m^{−3} , contohnya oleh hydration simen."
+  },
+  {
+   "id": "glossary-steady-state",
+   "text": "[glossary-steady-state] Glosari: steady state\nsteady state: Tiada yang berubah dengan masa: ∂T/∂t = 0, jadi term tenaga tersimpan hilang."
+  },
+  {
+   "id": "glossary-poisson-laplace",
+   "text": "[glossary-poisson-laplace] Glosari: Poisson · Laplace\nPoisson · Laplace: Kes khas (2.11): k constant dan isotropic memberi Poisson’s equation; tanpa source memberi Laplace’s equation."
+  },
+  {
+   "id": "glossary-boundary-condition",
+   "text": "[glossary-boundary-condition] Glosari: boundary condition\nboundary condition: Apa yang ditetapkan pada tepi domain: temperature atau flux. Diperlukan pada setiap bahagian sempadan."
+  },
+  {
+   "id": "glossary-dirichlet-essential",
+   "text": "[glossary-dirichlet-essential] Glosari: Dirichlet · essential\nDirichlet · essential: Nilai yang diketahui bagi field pada tepi, T = T̄. Dikenakan pada assembled equation."
+  },
+  {
+   "id": "glossary-neumann-natural",
+   "text": "[glossary-neumann-natural] Glosari: Neumann · natural\nNeumann · natural: Flux yang diketahui pada tepi, q_b , positif ke dalam. Muncul dengan sendiri melalui integration by parts."
+  },
+  {
+   "id": "glossary-outward-normal-n",
+   "text": "[glossary-outward-normal-n] Glosari: outward normal n\noutward normal n: Unit vector yang menghala keluar dari domain pada satu tepi; pada segi empat tepat (±1, 0) atau (0, ±1)."
+  },
+  {
+   "id": "glossary-insulated-edge",
+   "text": "[glossary-insulated-edge] Glosari: insulated edge\ninsulated edge: Natural condition dengan q_b = 0. Tidak memerlukan apa-apa tindakan dalam model finite element."
+  },
+  {
+   "id": "glossary-well-posed",
+   "text": "[glossary-well-posed] Glosari: well-posed\nwell-posed: Setiap tepi ada condition dan paras temperature ditetapkan di suatu tempat, jadi penyelesaiannya unik."
+  },
+  {
+   "id": "glossary-element-node",
+   "text": "[glossary-element-node] Glosari: element · node\nelement · node: Kawasan kecil (di sini segi empat tepat a × b) dan titik-titik padanya tempat unknown berada."
+  },
+  {
+   "id": "glossary-degree-of-freedom",
+   "text": "[glossary-degree-of-freedom] Glosari: degree of freedom\ndegree of freedom: Satu unknown dalam sistem diskret; satu temperature setiap node bagi conduction."
+  },
+  {
+   "id": "glossary-shape-function-n-i",
+   "text": "[glossary-shape-function-n-i] Glosari: shape function N_i\nshape function N_i: Fungsi kedudukan yang mendarab nilai node i dalam interpolation T = Σ N_i T̂_i ."
+  },
+  {
+   "id": "glossary-bilinear",
+   "text": "[glossary-bilinear] Glosari: bilinear\nbilinear: Linear dalam x dan dalam y secara berasingan, dengan term xy: polynomial four-node element (2.17)."
+  },
+  {
+   "id": "glossary-kronecker-delta",
+   "text": "[glossary-kronecker-delta] Glosari: Kronecker delta\nKronecker delta: N_i = 1 pada node sendiri dan 0 pada node lain; jadi nodal unknown ialah temperature pada node."
+  },
+  {
+   "id": "glossary-partition-of-unity",
+   "text": "[glossary-partition-of-unity] Glosari: partition of unity\npartition of unity: Σ N_i = 1 pada setiap titik; field yang seragam dihasilkan semula dengan tepat."
+  },
+  {
+   "id": "glossary-c-0-continuity",
+   "text": "[glossary-c-0-continuity] Glosari: C^0 continuity\nC^0 continuity: T continuous merentasi tepi element tetapi derivative-nya biasanya melompat."
+  },
+  {
+   "id": "glossary-gradient-matrix-n",
+   "text": "[glossary-gradient-matrix-n] Glosari: gradient matrix {∂}ᵀ{N}\ngradient matrix {∂}ᵀ{N}: Matrix 2 × 4 bagi derivative shape function; gradient = {∂}ᵀ{N}{T̂}ᵀ."
+  },
+  {
+   "id": "glossary-conductance-matrix-k",
+   "text": "[glossary-conductance-matrix-k] Glosari: conductance matrix [k]\nconductance matrix [k]: Matrix element dalam Part 2, [k] = ∫∫{N}ᵀ{∂}[E]{∂}ᵀ{N} dy dx; analog haba bagi stiffness."
+  },
+  {
+   "id": "glossary-assembly-connectivity",
+   "text": "[glossary-assembly-connectivity] Glosari: assembly · connectivity\nassembly · connectivity: Menambah matrix element ke dalam sistem global menggunakan senarai nombor node global setiap element."
+  }
+ ]
+}

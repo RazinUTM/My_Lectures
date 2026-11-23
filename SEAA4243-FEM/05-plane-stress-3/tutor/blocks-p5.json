@@ -1,0 +1,338 @@
+{
+ "part": "p5",
+ "title": "Plane Stress — Part 3",
+ "blocks": [
+  {
+   "id": "start-outcomes",
+   "text": "[start-outcomes] After this part you should be able to\n1. Recover strains and stresses at a point of an element from its nodal displacements, {ε} = [B]{û} and {σ} = [E][B]{û}, and compute the principal and von Mises stresses.\n2. Explain where computed stresses are accurate (element centroids, away from supports and loads) and where they are not (element edges, re-entrant corners, point loads).\n3. Describe the 8-node element, convert an edge load into its 1/6 – 2/3 – 1/6 nodal loads, and explain why it needs far fewer elements than the 4-node element in bending.\n4. Report an FE study to the project standard: idealisation, a convergence table with an error estimate, one independent check, and quantified conclusions."
+  },
+  {
+   "id": "notes-n1",
+   "text": "[notes-n1] Notes 1. Stresses from the nodal displacements\nPlane Stress Part 2 ended with the nodal displacements of the cantilever. They are the primary result: the method solved for them. Everything a designer reads afterwards — strains, stresses, principal stresses, von Mises — is derived from them by differentiating the interpolation inside each element. The tool for that is the matrix [B] that already built [k].\nEQUATION : [equation wn_recover: source not available in the page]\n## Three steps\n- Locate. Find the element that contains the point, take its local coordinates x, y from its local node 1 (the rule from Heat Transfer Part 2), and list its eight nodal displacements in local order, u before v at each node.\n- Strains. Evaluate [B] (3 × 8) at the point and multiply by {û} (8 × 1).\n- Stresses. Multiply by [E] (3 × 3). Then, if the design needs them, the principal and von Mises stresses (§2). Column by column, [B] holds the derivatives of the four shape functions of Heat Transfer Part 1, each used twice: once for u and once for v. Written out, its three rows are the three strains:\nEQUATION : [equation wn_B: source not available in the page]\nEQUATION : [equation wn_rows: source not available in the page]\nThe usual trap Global coordinates in [B]. The point (3.5, 1.3) of the cantilever lies in element 4, whose node 1 is at (2, 1): [B] is evaluated at x = 1.5, y = 0.3. With the global values the shape-function derivatives are wrong, and nothing in the arithmetic warns you.\n## Worked point · the cantilever at (3.5, 1.3) m (Activity 1)\nEQUATION : [equation wn_pt: source not available in the page]\nThe nodal displacements of element 4 in local order (global nodes 5, 6, 9, 8), from the course solution of the text’s (3.49) to six decimals:\nlocal node 1 (5) 2 (6) 3 (9) 4 (8)\nu (m) 0 0 0.041967 0.030966\nv (m) −0.043013 −0.130421 −0.130578 −0.045520\nWith b − y = 0.7, y = 0.3, a − x = 0.5 and x = 1.5:\nEQUATION : [equation wn_eps: source not available in the page]\nEQUATION : [equation wn_E: source not available in the page]\nEQUATION : [equation wn_sig: source not available in the page]\nσ_{xx} is tension, as it should be above the neutral axis of a cantilever loaded downwards; σ_{xy} carries the end shear and is as large as σ_{xx} here; σ_{yy} is small, as beam theory assumes.\nKeep the decimals Strains are differences of nodal displacements, so rounding is amplified. v_6 = −0.130421 and v_9 = −0.130578 differ only in the fourth decimal; with the three decimals the text prints, ε_{yy} doubles and σ_{yy} becomes −214 instead of −45:\nEQUATION : [equation wn_round: source not available in the page]\nSoftware does exactly this at the Gauss points of every element, and then averages to the nodes for the contour plot (§4). A hand calculation lets you see what is being averaged.\nKey points:\n- {ε} = [B]{û}, {σ} = [E][B]{û}, from the nodal displacements of the element that contains the point, at its local coordinates.\n- Cantilever at (3.5, 1.3): ε = {0.00165, −0.000745, −0.00413}; σ = {315.2, −44.9, −310.9} kN m^{−2}.\n- Keep five or six decimals in the displacements: strains are their differences.\nQuick check (not graded): To find the stress at a point of a solved mesh you need\nOptions: the nodal displacements of the element that contains the point, and [B] at its local coordinates | the whole global displacement vector multiplied by [K] | the nodal forces of the element divided by its area\nExplanation shown after answering: Only that element’s eight displacements enter, through [B] evaluated at the point’s local coordinates and then [E]. [K]{U} gives nodal forces (reactions), not stresses."
+  },
+  {
+   "id": "notes-n2",
+   "text": "[notes-n2] Notes 2. Principal and von Mises stresses\nThree stress components describe the state at a point, but a design check needs one or two numbers that do not depend on the x and y axes you happened to choose. Rotating the axes until the shear vanishes gives the principal stresses; combining the components into an equivalent uniaxial stress gives von Mises.\n## Principal stresses and their direction\nEQUATION : [equation wn_principal: source not available in the page]\nθ_p is measured from the x-axis to the direction of σ_1; −30° means 30° clockwise. On Mohr’s circle the centre is at (σ_{xx} + σ_{yy})/2 = 135.1 and the radius is 359.3 kN m^{−2}; the Stress Recovery Explorer draws it for every probe.\n## Von Mises\nEQUATION : [equation wn_vm: source not available in the page]\nIn plane stress the third principal stress, σ_{zz}, is zero, which is why von Mises can be written with σ_1 and σ_2 alone. In plane strain σ_{zz} = ν(σ_{xx} + σ_{yy}) and the formula changes.\n- Concrete cracks in tension: σ_1 and its direction decide where cracks open and how the reinforcement should run in a wall or a deep beam.\n- Steel yields when σ_{vM} reaches f_y. ANSYS plots von Mises by default; know what it is before you read the colours. Invariant check σ_1 + σ_2 = σ_{xx} + σ_{yy} for any rotation: 494.4 − 224.1 = 270.3 = 315.2 − 44.9. A slip in the square root fails this check at once.\nKey points:\n- σ_{1,2} = centre ± radius of Mohr’s circle; θ_p = ½ tan^{−1}[2σ_{xy}/(σ_{xx} − σ_{yy})].\n- Cantilever at (3.5, 1.3): σ_1 = 494.4, σ_2 = −224.1 at −30.0°; σ_{vM} = 636.8 kN m^{−2}.\n- Concrete: σ_1 and its direction. Steel: σ_{vM} against f_y.\nQuick check (not graded): A point carries pure shear: σ_{xx} = σ_{yy} = 0, σ_{xy} = 100 kN m^{−2}. Its principal stresses are\nOptions: +100 and −100 kN m^{−2}, at 45° to the axes | 100 and 0 kN m^{−2}, along the axes | +141 and −141 kN m^{−2}, at 45°\nExplanation shown after answering: The centre of Mohr’s circle is 0 and its radius is √(0 + 100²) = 100, so σ_{1,2} = ±100; tan 2θ_p is infinite, so θ_p = 45°. Von Mises is √3 × 100 = 173 kN m^{−2}."
+  },
+  {
+   "id": "notes-n3",
+   "text": "[notes-n3] Notes 3. How far can a computed stress be trusted?\nThe method solves for displacements; stresses come one differentiation later. A bilinear displacement field has strains that are only linear at best, and each element computes them from its own nodes, so stresses are one order less accurate than displacements and they jump from one element to the next. On the 2 × 2 cantilever the tip deflection is 32% low; some of the stresses are worse.\n## Beam theory as the check\nEQUATION : [equation wn_beam: source not available in the page]\nEQUATION : [equation wn_beam_pt: source not available in the page]\nPoint (m) 2 × 2 Q4 converged beam theory\n(1.0, 1.5) centroid of element 3 1645 2265 2250\n(2.0, 1.3) mid-span, on the side shared by elements 3 | 4 857 | 185 900 900\n(3.0, 1.5) centroid of element 4 519 730 750\n(3.5, 1.3) the Activity 1 point, 0.5 m from the loaded end 315 153 225\nσ_{xx} in kN m^{−2}; converged = 8-node 64 × 32 mesh of the course solver. Two different errors are mixed in this table.\n- The mesh error (first column against the second): up to 30% at the centroids of the 2 × 2 mesh, and two different values, 857 and 185, at one point on a shared side.\n- The error of the check itself (second column against the third): 0.03% at mid-span but 32% at x = 3.5 m. Near the loaded end the model applies a uniform traction, not the parabolic shear that beam theory assumes; by St-Venant’s principle the difference fades within about one depth of the end.\n[Figure: σ_{xx} at the element centroids of a 32 × 16 Q4 mesh. Right: through the depth at x ≈ 2 m the centroid values sit on the beam-theory line, within 0.25% at every depth.]\nWhere to read a stress At element centroids, on a mesh that has converged, at least one depth away from supports and concentrated loads. Use beam theory there as the check, and quote the difference with its sign.\nKey points:\n- Stresses are derivatives of the displacements: less accurate, and discontinuous between elements.\n- 2 × 2 centroids: 73% of the converged bending stress; 32 × 16 centroids at mid-span: within 0.25% of beam theory.\n- Beam theory is a valid check only away from the ends (St-Venant).\nQuick check (not graded): On the converged mesh σ_{xx} at (3.5, 1.3) is 153 kN m^{−2}, while beam theory gives 225. The best explanation is\nOptions: the mesh is still too coarse | near the loaded end the uniform traction is not the parabolic shear beam theory assumes (St-Venant) | plane stress is the wrong idealisation\nExplanation shown after answering: The FE value has converged (64 × 32 Q8), and at mid-span the same model matches beam theory to 0.03%. The 0.5 m point is inside the end zone where the way the load is applied still matters; it is the check that is wrong there, not the model."
+  },
+  {
+   "id": "notes-n4",
+   "text": "[notes-n4] Notes 4. Display options, singularities and concentrations\nEach element produces its own stress field. A contour plot has to decide what to show where two or more elements meet, and ANSYS offers the same three choices as the Stress Recovery Explorer.\nDisplay option What is shown Use it for\nElemental mean one value per element, at its centroid the most reliable value per element; checks against beam theory\nUnaveraged each element’s own values at its nodes: jumps visible at shared sides seeing where the mesh is too coarse: large jumps, large local error\nAveraged the mean of all elements at each node: a smooth picture reporting, once the unaveraged jumps are small\nA smooth plot is not an accurate plot Averaging hides the jumps; it does not remove the error. Look at the unaveraged plot first: the size of the jump between neighbours is a free estimate of the local error.\n## The fixed corner never converges\n4-node mesh centroid of the top-left element (m) FE σ_{xx} beam theory there FE / beam\n8 × 4 (0.25, 1.75) 4134 4219 0.98\n16 × 8 (0.125, 1.875) 5372 5086 1.06\n32 × 16 (0.0625, 1.9375) 6400 5537 1.16\n64 × 32 (0.031, 1.969) 7467 5767 1.30\nEvery halving of the elements raises the peak, and it passes beam theory, which itself tends to 6000 kN m^{−2} at the corner. The elastic solution at the re-entrant corner of a fully fixed edge is infinite: refining chases infinity. A point load produces the same kind of singularity under it.\nSingularity or concentration? A singularity (a fully fixed corner, a point load, a sharp re-entrant corner) has no finite peak: the peak grows with every refinement and must not be reported. A stress concentration (a smooth hole, a fillet) has a finite peak: it converges, and once checked it is the number the design needs.\n[Figure: A concentration that converges: a steel plate 0.4 m × 0.1 m in tension with a hole of d/W = 0.3, PLANE183. Far field 10.0 MPa, peak von Mises 33.4 MPa at the edge of the hole, K_t = 2.34 on the net section against Peterson’s 2.35. Image: PyMAPDL documentation, “MAPDL 2D plane stress concentration analysis”, © ANSYS, Inc., MIT licence.]\nEQUATION : [equation wn_peterson: source not available in the page]\nThe net-section check: the nominal stress across the remaining width is 10.0/(1 − 0.3) = 14.3 MPa, and 33.4/14.3 = 2.34. That is the kind of independent check the project asks for.\nKey points:\n- Elemental mean = centroids; Unaveraged shows the jumps; Averaged is smooth but not more accurate.\n- Fixed corner: 4134 → 5372 → 6400 → 7467 kN m^{−2}, no limit. Never report a peak at a singularity.\n- A smooth hole converges: K_t = 2.34 against Peterson’s 2.35.\nQuick check (not graded): Your model shows its highest von Mises stress right at a fully fixed corner, and the value grows when you refine. You\nOptions: report the finest-mesh value as the design stress | treat it as a singularity: report stresses a short distance away, or model the support realistically | switch to plane strain\nExplanation shown after answering: A peak that grows without limit is a singularity of the idealised support, not a property of the structure. Show the divergence in the mesh study, then report values outside the corner zone, or model the real support (a bearing, a flexible wall) so the peak becomes finite."
+  },
+  {
+   "id": "notes-n5",
+   "text": "[notes-n5] Notes 5. The 8-node element\nThe 8-node (serendipity) element adds a node at the middle of each side. Its displacement field is quadratic along every side, so the sides can curve, and that is its whole advantage in bending: a bent beam has curved fibres, and an element whose sides must stay straight can only imitate them by shearing (Example 3).\nEQUATION : [equation t_q8_sizes: source not available in the page]\nEQUATION : [equation t_q8_N: source not available in the page]\n[Figure: The text’s 2 × 1 mesh of 8-node elements: 13 nodes, 26 dofs (text Fig. 3.6).]\nThe recipe is unchanged: [B] = [∂]ᵀ[N] and [k] = t∫[B]ᵀ[E][B] dA, now 16 × 16 with 3 × 3 Gauss points. Nobody computes it by hand; the text lists it in its MATLAB code (§3.4.2).\n## Edge loads on a three-node side\nAlong a side the quadratic shape functions integrate to ℓ/6, 2ℓ/3 and ℓ/6, so a uniform edge load is no longer shared half and half: the mid-side node takes two thirds.\nEQUATION (3.51): [equation wn_q8load: source not available in the page]\n[Figure: The same uniform load q on a side of length ℓ: one 8-node side (left) against two 4-node sides (right). The totals are equal; the shares are not.]\n## What it buys\nMesh dofs tip deflection (m) against 0.1915\nQ4 2 × 2 18 0.1306 −31.8%\nQ8 2 × 1 26 0.1780 −7.1%\nQ8 4 × 2 74 0.1885 −1.6%\nQ4 16 × 8 306 0.1886 −1.5%\nQ8 4 × 4 130 0.1896 −1.0%\nQ4 16 × 16 578 0.1893 −1.1%\nQ8 8 × 4 242 0.1906 −0.5%\nQ4 32 × 16 1122 0.1906 −0.5%\nReference: the converged plane-stress value, 0.1915 m (Q4 128 × 64). Timoshenko beam theory gives 0.1919 m, a different model 0.2% stiffer in shear. Text Table 3.2 lists the same comparison to three decimals.\nCost is degrees of freedom, not elements For the same 0.5% error the Q8 8 × 4 mesh needs 242 dofs and the Q4 32 × 16 mesh 1122. In ANSYS, PLANE183 is the 8-node element and PLANE182 the 4-node one; Workbench meshes 2D solids with the quadratic element by default — now you know why.\nKey points:\n- Q8: 16 dofs, quadratic sides that can curve; no parasitic shear in bending.\n- Uniform edge load: qℓ/6, 2qℓ/3, qℓ/6. Cantilever 2 × 1: −1667, −6667, −1667 N.\n- Two Q8 elements: −7%; four Q4: −32%. Compare meshes by dofs.\nQuick check (not graded): A uniform edge load q acts on the side of length ℓ of an 8-node element. The mid-side node receives\nOptions: qℓ/2 | 2qℓ/3 | qℓ/3\nExplanation shown after answering: The quadratic edge shape functions integrate to ℓ/6, 2ℓ/3 and ℓ/6, so the mid-side node takes two thirds and each corner one sixth; the total is qℓ. qℓ/2 is the share of the middle node of two 4-node sides."
+  },
+  {
+   "id": "notes-n6",
+   "text": "[notes-n6] Notes 6. Reporting an FE result, and the project\nA number without a mesh study and a check is an opinion. The project is marked on whether your numbers can be defended, and so is any FE result you will sign in practice.\n## Four things every results section needs\n- Idealisation stated. Plane stress or plane strain and why; thickness; E and ν with units; supports and loads with a sketch; what was left out (self-weight, openings, reinforcement).\n- A convergence table. At least three meshes, the quantity of interest for each, the change between the last two in per cent, and which mesh the results come from. Three meshes also give an error estimate (Example 2).\n- One independent check. Beam theory away from the ends, equilibrium of the reactions against the loads, a textbook stress-concentration factor, or a hand calculation on a coarse mesh. Quote the difference with its sign.\n- Quantified conclusions. “The tip deflection is 0.191 m, within 0.7% of beam theory”, not “the results agree well”. Say where the maximum is, what it means for the design, and what the model cannot tell you.\n## Model paragraph · the cantilever in five sentences\nThe cantilever (4 m × 2 m, t = 0.01 m, E = 200 × 10⁶ N m^{−2}, ν = 0.33) was idealised as plane stress with the left edge fully fixed and the 5 kN m^{−1} end load applied as an edge traction. Four-node meshes of 2 × 2, 8 × 4, 16 × 8 and 32 × 16 elements gave tip deflections of 0.131, 0.182, 0.189 and 0.191 m; the change between the last two meshes is 1.0%, so the 32 × 16 results are reported. Timoshenko beam theory gives 0.192 m (0.160 m bending, 0.032 m shear), 0.7% above the FE value. The bending stress at element centroids at mid-span agrees with M(y − 1)/I to within 0.25%; the stress at the fixed corner increases without bound under refinement and is not reported. The reactions sum to 10.0 kN upward and 40.0 kN m, equal to the applied load and its moment.\nEvery sentence carries a number, a comparison or a decision. No adjectives.\n## The group project\nCLO4: investigate a 2D structural problem with FEM, in a group, with software, and defend the numbers. Items in square brackets are for the lecturer to confirm.\nItem Brief\nTask Choose a 2D structural problem, idealise it, model it in ANSYS (plane stress or plane strain), verify the model, interpret the results for design.\nTeam and weight Groups of [4–5]; 15% of the course; report [70%], presentation [30%].\nDeliverables Report of [10–15] pages; a [10]-minute presentation on [date]; model files and the hand-check sheet.\nCandidates Shear wall with openings (text Exercise 3.4) · deep beam or transfer girder · gusset or connection plate · dam or retaining-wall section (plane strain).\nMarking (proposed) Idealisation and modelling 30% · verification 30% · interpretation 20% · report and presentation 20%.\nWhere the marks are lost Fixing edges that are free; a single point load at a node; one mesh only; “results agree well” with no number; quoting the corner peak as the design stress. Sixty per cent of the marks are for modelling decisions and verification, not for the colour plots.\n## Two habits that save marks\n[Figure: Indirect tensile (Brazilian) test of a 150 mm disk, plane strain: two lines of symmetry, so one quarter is modelled with rollers on the cut edges. The loads are point forces: read the stresses away from them. Images: SfePy documentation, Primer, BSD-3-Clause licence.]\n- Use symmetry. A quarter model is four times smaller; the cut edges get rollers (no displacement normal to them).\n- Spread concentrated loads. A point force is a singularity; apply it over the real contact width, or read the stresses away from it.\nKey points:\n- Idealisation · convergence table · one check · quantified conclusions.\n- Every sentence of a results section carries a number.\n- Project: 2D, ANSYS, verified; 60% of the marks for modelling and verification.\nQuick check (not graded): Which sentence meets the reporting standard?\nOptions: “The FE results agree well with beam theory.” | “The 32 × 16 tip deflection, 0.191 m, is 0.7% below Timoshenko beam theory; the last refinement changed it by 1.0%.” | “The maximum bending stress is 7467 kN m^{−2}, at the fixed corner.”\nExplanation shown after answering: (b) gives the number, the comparison with its sign and the convergence. (a) has no number. (c) quotes a singular peak: 7467 kN m^{−2} is σ_{xx} at the corner centroid of the 64 × 32 mesh, and it would rise again on the next mesh."
+  },
+  {
+   "id": "slides-1",
+   "text": "[slides-1] Slide 1: Plane Stress Part 3 of 3\nSEAA 4243 Finite Element Method · 2L + 1T Plane Stress Part 3 of 3 Stresses from displacements, how far to trust them, the 8-node element, how to report FE results — and the project briefing Assoc. Prof. Ts. Dr. Ahmad Razin Zainal Abidin · Dr. Yip Bao Fang Faculty of Civil Engineering, Universiti Teknologi Malaysia Text: Mohd Yassin et al., Two-Dimensional Finite Element Formulations for Heat, Solids and Fluids (with"
+  },
+  {
+   "id": "slides-2",
+   "text": "[slides-2] Slide 2: Three questions from the last session — on paper\n5 MIN Activity 0 · individual · retrieval warm-up Three questions from the last session — on paper Write down [k] = t∫[B]ᵀ[E][B] dA — the size of each factor. The tip deflection of the 2 × 2 cantilever and of the converged mesh, and the percentage error. Why the coarse bilinear mesh is too stiff in bending (one sentence). Why Today we compute the stresses that go with those displacements, and ask the same question: h"
+  },
+  {
+   "id": "slides-3",
+   "text": "[slides-3] Slide 3: By the end of this session you should be able to\nLearning outcomes · today By the end of this session you should be able to 1 Recover strains and stresses at a point of an element from the nodal displacements, {ε} = [B]{û}, {σ} = [E][B]{û}, and compute principal and von Mises stresses. 2 Explain where stresses are accurate (element centroids, away from supports) and where they are not (element edges, re-entrant corners, point loads). 3 Describe the 8-node element a"
+  },
+  {
+   "id": "slides-4",
+   "text": "[slides-4] Slide 4: Six blocks, six activities, one break, the project briefing\nSession map · 180 minutes Six blocks, six activities, one break, the project briefing 0:00 Stress recovery 35 min A1 · 8 min 0:35 Accuracy of stresses 25 min A2 + QR 1:00 The 8-node element 25 min A3 · 6 min 1:25 Break 10 min no activity 1:35 Reporting results 25 min A4 · 8 min 2:00 Project briefing 40 min A5 · 12 min 2:40 Wrap-up 20 min Exit ticket Bring forward Plane Stress Part 2 Activity 1: [B] at (1.5, 0.3) with"
+  },
+  {
+   "id": "slides-5",
+   "text": "[slides-5] Slide 5: Stresses from displacements\n1 Block 1 · 0:00 – 0:35 Stresses from displacements The same [B] that built [k] now turns the solved nodal displacements into strains and stresses at any point. Text §3.4, Fig. 3.7. SEAA 4243 · Plane Stress — Part 3 · Project 5"
+  },
+  {
+   "id": "slides-6",
+   "text": "[slides-6] Slide 6: Two matrix products: [B] gives strains, [E] gives stresses\nBlock 1 · the post-processing formula Two matrix products: [B] gives strains, [E] gives stresses Step 1 · locate Find the element, convert to local coordinates (the local-coordinate rule from heat transfer), take its eight nodal displacements in local order. Step 2 · strains Evaluate [B] at the point (3 × 8) and multiply by {û}ᵀ (8 × 1): three strains. Step 3 · stresses Multiply by [E] (3 × 3): σ_{xx}, σ_{yy}, σ_{xy}"
+  },
+  {
+   "id": "slides-7",
+   "text": "[slides-7] Slide 7: Local (1.5, 0.3): the [B] of Plane Stress Part 2 and the nodal displacements of Plane Stre\nBlock 1 · the worked point · element 4 at (3.5, 1.3) m Local (1.5, 0.3): the [B] of Plane Stress Part 2 and the nodal displacements of Plane Stress Part 1 Watch out [B] is the Plane Stress Part 2 Activity 1 result. {û⁴} is the course MATLAB solution of the text’s (3.49) to six decimals: the text prints three, which is not enough here. Local order: nodes (1)(2)(3)(4) of element 4 are global 5, 6, 9, 8, each with u the"
+  },
+  {
+   "id": "slides-8",
+   "text": "[slides-8] Slide 8: Strains and stresses at (3.5, 1.3) m\n8 MIN Activity 1 · pairs · calculation Strains and stresses at (3.5, 1.3) m Do Multiply row by row: ε_{xx}, ε_{yy}, ε_{xy} = [B]{û⁴}. Multiply by [E] (224.44, 74.07, 75.19 × 10⁶ N m⁻²) to get σ_{xx}, σ_{yy}, σ_{xy} in kN m⁻². Which stress is largest? Is σ_{xx} tension or compression at this point, and should it be (the point is above the mid-height)? Formula {ε}ᵀ = [B]{û}ᵀ (3 × 8)(8 × 1) {σ}ᵀ = [E]{ε}ᵀ (3 × 3)(3 × 1)"
+  },
+  {
+   "id": "slides-9",
+   "text": "[slides-9] Slide 9: Tension above the neutral axis; σ yy small, as beam theory assumes\nActivity 1 · solution Tension above the neutral axis; σ_{yy} small, as beam theory assumes Why σ_{xx} > 0 above mid-height: top fibre in tension. σ_{xy} carries the end shear; σ_{yy} is small. Watch out Keep six decimals: v_6 and v_9 differ in the fourth. With three decimals ε_{yy} doubles and σ_{yy} becomes −214. SEAA 4243 · Plane Stress — Part 3 · Project 9"
+  },
+  {
+   "id": "slides-10",
+   "text": "[slides-10] Slide 10: From three components to the two numbers a design check uses\nBlock 1 · principal and von Mises stresses From three components to the two numbers a design check uses Principal stresses The largest tension (σ_1) governs cracking in concrete; the direction is at ½·atan(2σ_{xy}/(σ_{xx} − σ_{yy})) from the x-axis. Von Mises The yield check for steel: σ_{vM} against f_y. ANSYS plots it by default — know what it is before you read the colour. SEAA 4243 · Plane Stress — Part 3 · Proje"
+  },
+  {
+   "id": "slides-11",
+   "text": "[slides-11] Slide 11: How far can a stress be trusted?\n2 Block 2 · 0:35 – 1:00 How far can a stress be trusted? Compare with beam theory at the point, at the centroid, across the depth and at the fixed corner. Text Fig. 3.7. SEAA 4243 · Plane Stress — Part 3 · Project 11"
+  },
+  {
+   "id": "slides-12",
+   "text": "[slides-12] Slide 12: Beam theory is a valid check only away from the ends\nBlock 2 · beam theory as a check Beam theory is a valid check only away from the ends Point (m) 2 × 2 FE Converged FE Beam theory (1.0, 1.5) centroid of element 3 1 645 2 265 2 250 (2.0, 1.3) mid-span, on the edge between elements 3 and 4 857 | 185 900 900 (3.0, 1.5) centroid of element 4 519 730 750 (3.5, 1.3) the Activity 1 point, 0.5 m from the loaded end 315 153 225 σ_{xx} in kN m⁻²; converged = 8-node 64 × 32 fr"
+  },
+  {
+   "id": "slides-13",
+   "text": "[slides-13] Slide 13: At element centroids, away from the support, a 32 × 16 mesh matches beam theory\nBlock 2 · stresses on a fine mesh At element centroids, away from the support, a 32 × 16 mesh matches beam theory Reading the plot Linear through the depth; zero at mid-height: beam theory holds away from the ends. Largest at the fixed end, zero at the free end: M = P(L − x). Each element has one centroid value; the contour is piecewise constant. Check Centroid values of a 32 × 16 mesh at x ≈ 2 m: within 0.25% of bea"
+  },
+  {
+   "id": "slides-14",
+   "text": "[slides-14] Slide 14: A re-entrant corner of a fully fixed edge is a stress singularity in the elastic model\nBlock 2 · the fixed corner never converges A re-entrant corner of a fully fixed edge is a stress singularity in the elastic model Mesh Centroid of the top-left element (m) FE σ_{xx} there (kN m⁻²) Beam theory at the same point FE / beam 8 × 4 (0.25, 1.75) 4 134 4 219 0.98 16 × 8 (0.125, 1.875) 5 372 5 086 1.06 32 × 16 (0.0625, 1.9375) 6 400 5 537 1.16 64 × 32 (0.031, 1.969) 7 467 5 767 1.30 Watch out Beam theory at t"
+  },
+  {
+   "id": "slides-15",
+   "text": "[slides-15] Slide 15: A hole concentrates stress, and the peak converges\nBlock 2 · a concentration is not a singularity A hole concentrates stress, and the peak converges Image: PyMAPDL documentation, “MAPDL 2D plane stress concentration analysis” (PLANE183, plane stress with thickness), © ANSYS, Inc., MIT licence. The MAPDL example Steel plate 0.4 m × 0.1 m in tension, hole d/W = 0.3, 50 elements around the hole. Far field 10.0 MPa; peak von Mises 33.4 MPa at the edge of the hole. On the"
+  },
+  {
+   "id": "slides-16",
+   "text": "[slides-16] Slide 16: Which of these stresses would you put in a design report?\n6 MIN Activity 2 · pairs · judgement Which of these stresses would you put in a design report? Six candidates σ_{xx} at the centroid of an element in the middle of a 32 × 16 mesh. Peak von Mises at the fixed corner of the same mesh. σ_{xx} at the top-right node of the 2 × 2 hand mesh. Nodal-averaged σ_{xx} at mid-span from a mesh-converged model. Stress under a single nodal point load. σ_{xy} averaged over the depth"
+  },
+  {
+   "id": "slides-17",
+   "text": "[slides-17] Slide 17: Trust converged centroid values away from singularities; distribute point loads; never rep\nActivity 2 · solution Trust converged centroid values away from singularities; distribute point loads; never report a corner peak Candidate Verdict Reason centroid, fine mesh, mid-span trust converged, interior point, element-level value von Mises at the fixed corner do not report stress singularity: grows without bound with refinement nodal σ_{xx} on the 2 × 2 mesh do not report coarse mesh, extrapolated to a node n"
+  },
+  {
+   "id": "slides-18",
+   "text": "[slides-18] Slide 18: Probe the lecture point, then refine\n8 MIN QR Explorer · pairs, one phone Probe the lecture point, then refine Scan, then do 1 4-node 2 × 2, probe (3.5, 1.3). Compare with your Activity 1 numbers. 2 Refine to 8-node 16 × 8 and 32 × 16 at the same point. Does σ_{xx} approach beam theory’s 225? Then probe mid-span (2.0, 1.3). 3 Run the corner study. Does the peak σ_{xx} at the fixed corner converge? Stress Recovery Explorer razinutm.github.io/ My_Lectures"
+  },
+  {
+   "id": "slides-19",
+   "text": "[slides-19] Slide 19: The 8-node element\n3 Block 3 · 1:00 – 1:25 The 8-node element Mid-side nodes, quadratic edges, 16 dofs: fewer elements for the same accuracy in bending. Text Fig. 3.6, (3.50)–(3.53), Table 3.2. SEAA 4243 · Plane Stress — Part 3 · Project 19"
+  },
+  {
+   "id": "slides-20",
+   "text": "[slides-20] Slide 20: Two elements, 13 nodes, 26 dofs for the whole cantilever\nBlock 3 · the element · text Fig. 3.3, Fig. 3.6 Two elements, 13 nodes, 26 dofs for the whole cantilever Shape functions of the text's (2.31): corner nodes and mid-side nodes have different forms. Why Quadratic along each edge: the element can curve, so bending no longer forces spurious shear. That is the whole advantage. SEAA 4243 · Plane Stress — Part 3 · Project 20"
+  },
+  {
+   "id": "slides-21",
+   "text": "[slides-21] Slide 21: One sixth to each corner, two thirds to the mid-side node\nBlock 3 · edge loads on a three-node edge · text (3.51) One sixth to each corner, two thirds to the mid-side node Why Not half-and-half any more: the quadratic edge shape functions integrate to b/6, 2b/3, b/6. The total is still q_yb. Check For the 2 × 1 mesh the loaded edge belongs to element 2 only: U_{10}, U_{16}, U_{26} receive −1667, −6667, −1667 N — the text’s (3.52). SEAA 4243 · Plane Stress — Part 3 · Project"
+  },
+  {
+   "id": "slides-22",
+   "text": "[slides-22] Slide 22: Which mesh for the money? Compare Q4 and Q8 on the cantilever\n6 MIN Activity 3 · pairs · comparison Which mesh for the money? Compare Q4 and Q8 on the cantilever Given · text Tables 3.1 and 3.2 Model Elements Dofs U₁₈ (m) Q4 2 × 2 4 18 −0.131 Q8 2 × 1 2 26 −0.178 Q8 4 × 4 16 — −0.189 Q4 16 × 16 256 578 −0.189 converged — — −0.192 Find The error of each model. Elements needed by Q4 and by Q8 for about 1.6% error. Why Q8 wins per element — one sentence. 6 minutes. Reveal follows,"
+  },
+  {
+   "id": "slides-23",
+   "text": "[slides-23] Slide 23: Two 8-node elements beat four 4-node elements; sixteen match 256\nActivity 3 · solution · text Table 3.2 Two 8-node elements beat four 4-node elements; sixteen match 256 Check ANSYS: PLANE182 ≈ Q4, PLANE183 ≈ Q8. The default for 2D solids is the quadratic one — now you know why. Why Cost is dofs, not elements: Q8 4 × 4 has about 130 dofs; Q4 16 × 16 has 578 for the same error. SEAA 4243 · Plane Stress — Part 3 · Project 23"
+  },
+  {
+   "id": "slides-24",
+   "text": "[slides-24] Slide 24: Break\n1:25 – 1:35 Break Back in 10 minutes. Second half: how to report FE results, and the project briefing. SEAA 4243 · Plane Stress — Part 3 · Project 24"
+  },
+  {
+   "id": "slides-25",
+   "text": "[slides-25] Slide 25: Reporting an FE result\n4 Block 4 · 1:35 – 2:00 Reporting an FE result A number without a mesh study and a check is an opinion. The four things every results section needs. SEAA 4243 · Plane Stress — Part 3 · Project 25"
+  },
+  {
+   "id": "slides-26",
+   "text": "[slides-26] Slide 26: Idealisation, convergence, an independent check, quantified conclusions\nBlock 4 · four things every FE results section needs Idealisation, convergence, an independent check, quantified conclusions 1 · Idealisation stated Plane stress or plane strain and why; thickness; material constants with units; supports and loads with a sketch; what was left out (self-weight? openings? reinforcement?). 2 · Convergence table At least three meshes; the quantity of interest for each; the change between"
+  },
+  {
+   "id": "slides-27",
+   "text": "[slides-27] Slide 27: A model paragraph for the project report\nBlock 4 · the cantilever written up in five sentences A model paragraph for the project report The cantilever (4 m × 2 m, t = 0.01 m, E = 200 × 10⁶ N m⁻², ν = 0.33) was idealised as plane stress with the left edge fully fixed and the 5 kN m⁻¹ end load applied as an edge traction. Four-node meshes of 2 × 2, 8 × 4, 16 × 8 and 32 × 16 elements gave tip deflections of 0.131, 0.182, 0.189 and 0.191 m; the change between t"
+  },
+  {
+   "id": "slides-28",
+   "text": "[slides-28] Slide 28: Write the heat-transfer plate up in three sentences\n8 MIN Activity 4 · pairs · writing Write the heat-transfer plate up in three sentences Data · Heat Transfer Part 2 Mesh T(L, 0) (°C) Q4 2 × 2 0.6214 Q4 16 × 16 0.5898 Software 0.5897 Plate 1 m × 1 m, k = 300 W m⁻¹ K⁻¹, q_h = 600 W m⁻³, two edges at 0 °C, two insulated. Write Sentence 1: the idealisation. Sentence 2: the convergence, with the percentage change. Sentence 3: the check against software, with the signed d"
+  },
+  {
+   "id": "slides-29",
+   "text": "[slides-29] Slide 29: Project briefing\n5 Block 5 · 2:00 – 2:40 Project briefing CLO4: investigate a structural problem with FEM, in a group, with software — and defend the numbers. 15% of the course. SEAA 4243 · Plane Stress — Part 3 · Project 29"
+  },
+  {
+   "id": "slides-30",
+   "text": "[slides-30] Slide 30: One real structure, one FE model, one verified answer, one report, one presentation\nBlock 5 · the brief One real structure, one FE model, one verified answer, one report, one presentation Task Choose a 2D structural problem, idealise it, model it in ANSYS (plane stress or plane strain), verify the model, and interpret the results for design. Team Groups of [4–5]. One submission per group; a one-line statement of who did what. Weight 15% of the course (CLO4). Report [70%] · presentation [30%] — lectu"
+  },
+  {
+   "id": "slides-31",
+   "text": "[slides-31] Slide 31: Four families that fit the course; propose your own if it is 2D and checkable\nBlock 5 · candidate structures Four families that fit the course; propose your own if it is 2D and checkable Shear wall with openings Text Exercise 3.4: 5 m × 6 m, t = 0.2 m, 125 kN m⁻¹ on top, two openings. Plane stress. Check: cantilever beam + stress concentration at opening corners. Deep beam or transfer girder Span-to-depth about 2; point or distributed load; supports on bearing pads. Plane stress. Check: beam t"
+  },
+  {
+   "id": "slides-32",
+   "text": "[slides-32] Slide 32: Proposed rubric — lecturer to confirm weights\nBlock 5 · how it is marked Proposed rubric — lecturer to confirm weights Criterion Weight Full marks look like Common failure Idealisation and modelling 30% plane stress/strain justified; supports and loads realistic; units consistent; sketch of the model fixing edges that are free; point loads at a node; wrong thickness Verification 30% three-mesh convergence table; one independent hand check with a signed differenc"
+  },
+  {
+   "id": "slides-33",
+   "text": "[slides-33] Slide 33: Eight steps; the project report follows the same order\nBlock 5 · the modelling workflow Eight steps; the project report follows the same order 1 Idealise 2D? stress or strain? what is left out 2 Geometry dimensions, thickness, openings 3 Material E, ν, units 4 Mesh element type, size, three levels 5 Supports fixed, roller, symmetry 6 Loads tractions, body force, not point loads 7 Solve & verify reactions, convergence, hand check 8 Interpret where, why, what it means Chec"
+  },
+  {
+   "id": "slides-34",
+   "text": "[slides-34] Slide 34: Use symmetry, and do not read stresses under a point load\nBlock 5 · two modelling tips for the project Use symmetry, and do not read stresses under a point load Indirect tensile (Brazilian) test A 150 mm disk squeezed across its diameter by two loads P; plane strain. Two lines of symmetry → model one quarter: rollers on the cut edges (no displacement normal to them). The load is a point force: the stress under it is singular. Read results away from it, or spread it over the"
+  },
+  {
+   "id": "slides-35",
+   "text": "[slides-35] Slide 35: Draft your model plan on one page\n12 MIN Activity 5 · groups · planning Draft your model plan on one page Write, as a group The structure, with a sketch and dimensions; the source of the geometry and loads. Idealisation: plane stress or plane strain, thickness, material (E, ν, units). Supports and loads, each one justified in a few words. The quantity you will report (deflection? stress where?) and the hand check you will use. Three mesh sizes you wi"
+  },
+  {
+   "id": "slides-36",
+   "text": "[slides-36] Slide 36: Wrap-up\n6 Block 6 · 2:40 – 3:00 Wrap-up Three sessions of plane stress in one page, the exit ticket, and what to bring to the ANSYS session. SEAA 4243 · Plane Stress — Part 3 · Project 36"
+  },
+  {
+   "id": "slides-37",
+   "text": "[slides-37] Slide 37: From equilibrium to a verified stress\nBlock 6 · plane stress in one page From equilibrium to a verified stress Part Step Result 1 equilibrium + Hooke + strain–displacement [∂][E][∂]ᵀ{u}ᵀ = −{f}; traction natural, displacement essential; [N] 2 × 8 2 Galerkin + IBP; [B] = [∂]ᵀ[N] [k] = t∫[B]ᵀ[E][B] dA, s₁…s₁₂; loads qb/2; assembly by dof map; 2 × 2 cantilever 32% too stiff 3 post-processing and judgement {σ} = [E][B]{û}; trust centroids on converged meshes"
+  },
+  {
+   "id": "slides-38",
+   "text": "[slides-38] Slide 38: Three questions before you leave\n5 MIN Activity 6 · individual · exit ticket Three questions before you leave Questions Order the three operations that take nodal displacements to a stress at a point. Your model shows its highest stress at a fixed corner. What do you do? Which element would you choose for a wall in bending with a limited number of elements, Q4 or Q8, and why? Five minutes. Name and matric number; for feedback, not marks. SEAA 4243 ·"
+  },
+  {
+   "id": "slides-39",
+   "text": "[slides-39] Slide 39: Bring the model plan, the two textbook examples and a laptop with ANSYS access\nWrap-up · before the ANSYS session Bring the model plan, the two textbook examples and a laptop with ANSYS access Today in four lines {σ} = [E][B]{û}: two products; use centroid values on converged meshes. Stresses converge slower than displacements; fixed corners and point loads are singular. Q8: quadratic edges, 1/6–2/3–1/6 loads, far fewer elements for the same error. A results section = idealisation + convergence"
+  },
+  {
+   "id": "examples-z1",
+   "text": "[examples-z1] Example 1 · The text’s cantilever: stresses at the element centres, reactions and accuracy\nExam type given {U} from a computer: stresses, reactions, accuracy of Q4 in bending Units N, m Source FEM by Hand, Example 9.7 (text §3.4) 20 marks Question The cantilever of the figure, 4 m long, 2 m deep and 0.01 m thick (E = 200 × 10⁶ N m^{−2}, ν = 0.33), carries q_y = 5 kN m^{−1} downward on its free end. With four equal Q4 elements, (a) give the element constants and the loads, (b) take the computed displacements below, (c) find the stresses at the centres of elements 1 and 3 and compare them with beam theory, (d) check the reactions, and (e) judge the accuracy. node 2 3 5 6 8 9\nU_i (m) −0.03097 −0.04197 0 0 0.03097 0.04197\nV_i (m) −0.04552 −0.13058 −0.04301 −0.13042 −0.04552 −0.13058\nNodes 1, 4 and 7 on the fixed edge have U = V = 0.\n[Figure: The 2 × 2 mesh: nodes 1–3 along the bottom, element 1 = nodes 1, 2, 5, 4 and element 3 = nodes 4, 5, 8, 7; node i carries U_{2i−1} and U_{2i}.]\nPhysical picture. The end load bends the cantilever downward: the top fibres stretch, the bottom ones shorten, and every section carries a 10 kN shear. Element 1 is in the bottom half, so expect σ_{xx} in compression, element 3 the same in tension, and both with the same shear. Beam theory gives the tip deflection PL³/3EI + PL/κGA = 0.160 + 0.032 = 0.192 m; four Q4 elements are a coarse model of bending, so expect less.\nPlan. s_1–s_{12} for a = 2, b = 1 → loads → {d} of elements 1 and 3 → strains at the centres → [E] → beam theory → struck rows for the reactions → finer meshes.\n## Step 1 (a) Element constants and loads [3]\nEQUATION : [equation w1_s: source not available in the page]\nEQUATION : [equation w1_r: source not available in the page]\nCheck. The u entries of row 1 add up to zero: 0.875 − 0.123 − 0.438 − 0.314 = 0.000. The three loads add up to −10 kN.\n## Step 2 (b) Element displacements [2]\nElement 1 has the nodes 1, 2, 5, 4 in local order, so\nEQUATION : [equation w1_d1: source not available in the page]\nand element 3, nodes 4, 5, 8, 7, has the mirror image: {0, 0, 0, −0.04301, 0.03097, −0.04552, 0, 0}ᵀ m.\n## Step 3 (c) Strains at the centre of element 1 [4]\nAt (a/2, b/2) the rows of [B] reduce to averages of the side differences:\nEQUATION : [equation w1_eps: source not available in the page]\nRounding Differences of rounded displacements lose a digit: the unrounded solution gives ε_{yy} = 1.253 × 10^{−3} and ε_{xy} = −6.650 × 10^{−3}, which leaves the stresses below unchanged to three figures.\n## Step 4 (c) Stresses and beam theory [4]\nWith Ē = 224.44 × 10⁶ N m^{−2} (strains in 10^{−3}):\nEQUATION : [equation w1_sig: source not available in the page]\nElement 3, above it, has σ_{xx} = +1645 kN m^{−2} and the same shear. Beam theory at x = 1 m, 0.5 m from the neutral axis:\nEQUATION : [equation w1_beam: source not available in the page]\nAnswer. (c) σ_{xx} = ∓1.65 MPa in elements 1 and 3 (beam theory ∓2.25 MPa); σ_{xy} = −0.50 MPa (average V/tH = 0.50 MPa).\n## Step 5 (d) Reactions [3]\nThe struck rows of [K]{U} − {R} at the fixed nodes (no load acts there) give the reactions (R_x, R_y):\nEQUATION : [equation w1_R: source not available in the page]\nCheck. They balance the 10 kN load and its 40 kN m moment about the support.\n## Step 6 (e) Accuracy [4]\nThe tip deflection, at the corners of the free end, is 0.1306 m. Finer meshes of the course solver:\nmesh 2 × 2 4 × 2 8 × 4 16 × 8 32 × 16 128 × 64 beam\ntip (m) 0.1306 0.1643 0.1824 0.1886 0.1906 0.1915 0.1919\nEQUATION : [equation w1_acc: source not available in the page]\nAnswer. (e) The 2 × 2 mesh gives 68% of the deflection and 73% of the bending stress; about 16 × 8 elements are needed to come within 2%. Interpretation A Q4 element is too stiff in bending. Its sides stay straight, so it can rotate a section only by shearing, and the spurious shear stores energy that resists the bending (Example 3). That is why the 2 × 2 mesh deflects a third less than it should and its centroid stresses are a quarter low; it improves only as the elements become short compared with the depth, or with Q8 elements, whose two-element mesh is 7% low. The reactions, by contrast, are exact in total: the 10 kN and the 40 kN m follow from equilibrium of the whole plate whatever the mesh, although their split among nodes 1, 4 and 7 is not. Marking scheme (suggested) · 20 What earns the marks Marks\nElement constants and the three nodal loads 3\nElement displacements in local order 2\nThree strains at the centre 4\nStresses with [E]; beam theory and V/tH 4\nReactions and the equilibrium check 3\nPercentages and the mesh needed 4\nTotal 20"
+  },
+  {
+   "id": "examples-z2",
+   "text": "[examples-z2] Example 2 · How far is the finest mesh from the answer? An error estimate from three meshes\nExam type interpret computer results without an exact solution Units m Source FEM by Hand, Example 10.5 (method), with the cantilever results of Example 9.7 15 marks Question The cantilever of Example 1, modelled with Q4 meshes of 8 × 4, 16 × 8 and 32 × 16 elements, gives tip deflections of 0.1824, 0.1886 and 0.1906 m. (a) Estimate the rate of convergence. (b) Estimate the converged deflection with the measured rate, and with the rate p = 2 of smooth problems. (c) Estimate the error of the 32 × 16 result. (d) A 128 × 64 mesh gives 0.1915 m and Timoshenko beam theory 0.1919 m. Comment. Physical picture. Each halving of the elements moves the deflection up by a smaller step. If the steps shrink by a fixed factor 2^p, the remaining distance to the converged value is a fixed multiple of the last step, which is what (10.1) uses. For a smooth problem a Q4 nodal value has p = 2; the clamped corner of the cantilever, where the elastic stress is singular, should lower it.\nPlan. Successive changes → 2^p and p → (10.1) with the measured p and with p = 2 → error of the finest mesh → compare with the 128 × 64 result and with beam theory.\nEQUATION (10.1): [equation wn_rich: source not available in the page]\n## Step 1 (a) The rate [4]\nEQUATION : [equation w2_rate: source not available in the page]\nAnswer. (a) The changes shrink by 3.1 per halving: p ≈ 1.6, below the 2 of a smooth problem.\n## Step 2 (b) The converged value [4]\nEQUATION : [equation w2_ext: source not available in the page]\nAnswer. (b) About 0.1916 m with the measured rate; 0.1913 m if p = 2 is assumed.\n## Step 3 (c) Error of the finest mesh [3]\nEQUATION : [equation w2_err: source not available in the page]\nAnswer. (c) The 32 × 16 deflection is about 0.5% below the converged value; assuming p = 2 would understate that error by about a third.\n## Step 4 (d) Comment [4]\nEQUATION : [equation w2_chk: source not available in the page]\nThe extrapolation from three meshes lands within 0.03% of a mesh with sixteen times as many elements as the finest of them, at a fraction of its cost. The assumed p = 2 falls short because the clamped corner slows the convergence; a third mesh is what reveals that. Beam theory is not the reference for the mesh error: it is a different model (a shear coefficient of 5/6 and no restraint of the Poisson contraction at the support), and its 0.2% difference from the converged plane-stress answer is a modelling difference, not a mesh error.\nInterpretation Three meshes turn computer results into an answer with an error estimate, without an exact solution, which is the normal situation in practice and the convergence table the project asks for. The estimate is only as good as the assumption that the error follows h^p: check the rate with the third mesh, and distrust an extrapolation whose steps do not shrink by a steady factor. At the fixed corner itself the stresses do not shrink at all (Notes §4), so no extrapolation is possible there. Marking scheme (suggested) · 15 What earns the marks Marks\nSuccessive changes, 2^p and p 4\nExtrapolated value, both rates 4\nSigned error of the finest mesh 3\nComparison with the fine mesh and with beam theory, with reasons 4\nTotal 15"
+  },
+  {
+   "id": "examples-z3",
+   "text": "[examples-z3] Example 3 · Why a Q4 element is too stiff in bending, and which refinement helps\nExam type explain an inaccurate result; choose a mesh Units N, m Source FEM by Hand, Example 10.6 20 marks Question (a) A Q4 element in plane stress, of length a and depth b, is bent by equal and opposite couples on its two ends, which stay straight. Show where its strain field departs from pure bending, and find the ratio of its end rotation to the exact one. (b) The cantilever of Example 1 gives these tip deflections, as percentages of a 128 × 64 mesh (0.1915 m). Which refinement helps, and why? (c) What does an 8-node element change? mesh (along × through) 2 × 2 2 × 4 2 × 8 4 × 2 8 × 2 8 × 4 16 × 8\n% 68.2 69.6 70.1 85.8 91.9 95.2 98.5\n[Figure: Pure bending of a block: (a) exact; (b) one Q4 element.]\nPhysical picture. In pure bending the top and bottom fibres curve while the ends stay plane and square to them. The sides of a Q4 element stay straight, so its ends can rotate only by shearing the element. That shear stores energy which the real block does not have, and the element resists bending more than it should.\nPlan. Bilinear bending field → its strains → strain energy → moment–rotation → ratio → the cantilever table → Q8.\n## Step 1 (a) The strain field [4]\nLet the element bend to a curvature κ′, with the origin at its centre, so that its ends turn by ±κ′a/2. The bilinear field that does this is\nEQUATION : [equation w3_field: source not available in the page]\nThe exact field has γ_{xy} = 0 and ε_{yy} = −νε_{xx}. The element has a shear strain that grows towards its ends — the parasitic shear — and no lateral strain, because v would need a y² term.\n## Step 2 (a) Strain energy [4]\nWith ε_{yy} = 0, σ_{xx} = Ēε_{xx}, and per unit thickness\nEQUATION : [equation w3_U: source not available in the page]\n## Step 3 (a) Moment and the ratio of rotations [5]\nEQUATION : [equation w3_M: source not available in the page]\nEQUATION : [equation w3_ratio: source not available in the page]\nEQUATION : [equation w3_nums: source not available in the page]\nAnswer. (a) γ_{xy} = −κ′x ≠ 0 and ε_{yy} = 0; θ_{Q4}/θ_{exact} = (1 − ν²)/[1 + (1 − ν)(a/b)²/2], 0.67 for a square element with ν = 0.3. Check. A one-element computation with the course solver, end couples applied as consistent loads, gives 0.837, 0.674, 0.379 and 0.138: the same four ratios.\n## Step 4 (b) The cantilever [4]\nRefining through the depth only, 2 × 2 → 2 × 4 → 2 × 8, moves the deflection from 68.2 to 70.1%. Every layer of elements carries the same parasitic shear, whatever its depth: what governs is the element length over the depth of the member, a/B, which stays 1. Refining along the length, 2 × 2 → 4 × 2 → 8 × 2, raises it to 85.8 and 91.9%, because a/B falls to 0.5 and 0.25. With both, 8 × 4 and 16 × 8 reach 95.2 and 98.5% at a/B = 0.25 and 0.125.\nAnswer. (b) Refine along the length, so that the elements are short compared with the depth of the member; refining through the depth alone gains less than 2 points.\n## Step 5 (c) The 8-node element [3]\nIts sides are quadratic, so they can curve and pure bending needs no shear. Two Q8 elements give 0.1780 m (92.9%) and a 4 × 2 Q8 mesh 0.1885 m (98.4%), against 68.2% for four Q4 elements.\nAnswer. (c) Q8 removes the parasitic shear: two elements are 7% low where four Q4 are 32% low. Interpretation The Q4 fails in bending for a reason that can be seen in one element: its straight sides force a shear strain that pure bending does not have, and relative to the bending energy that shear energy grows with (a/b)². The error therefore depends on how the elements are arranged, not only on how many there are, and an analyst can control it: where a member bends, refine along its length until the elements are short compared with its depth, or use an element whose sides can bend. That is the reason Workbench meshes 2D solids with PLANE183, the 8-node element. Marking scheme (suggested) · 20 What earns the marks Marks\nBilinear field and its three strains 4\nStrain energy with both terms 4\nMoment, exact moment, ratio and its values 5\nWhich refinement helps, with a/B 4\nWhat Q8 changes, with numbers 3\nTotal 20"
+  },
+  {
+   "id": "exercises-b1",
+   "text": "[exercises-b1] Exercise B1 · Stresses at a point from the nodal displacements\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-b2",
+   "text": "[exercises-b2] Exercise B2 · Principal stresses, their direction and von Mises\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-b3",
+   "text": "[exercises-b3] Exercise B3 · Rate, converged value and error from three meshes\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-b4",
+   "text": "[exercises-b4] Exercise B4 · Edge loads on an 8-node side and on two 4-node sides\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-quick",
+   "text": "[exercises-quick] Exercises: quick concept questions\n- Order the operations that take the solved nodal displacements to a stress at a point.\n- In a displacement-based model, why are the stresses less accurate than the displacements?\n- Which display option shows the jumps of stress between neighbouring elements?\n- σ_{xx} next to the fully fixed corner rises 4134 → 5372 → 6400 → 7467 kN m^{−2} as the elements are halved. What do you report?\n- Two meshes of 8-node elements, 2 × 1 and 4 × 2, give tip deflections of 0.1780 and 0.1885 m (converged 0.1915). Four 4-node elements give 0.1306 m. The main reason the Q8 does better per element is that\n- A results section reads: “Four meshes were run and the results agree well with theory.” What is missing?\n- A student recovers the stresses at (3.5, 1.3) m of the 2 × 2 cantilever (E = 200 × 10⁶ N m^{−2} , ν = 0.33, Ē = 224.44 × 10⁶ N m^{−2} ). One line contains the slip. Which one?"
+  },
+  {
+   "id": "lab-p13",
+   "text": "[lab-p13] Explorer task 1 · 4-node, 2 × 2 mesh: press “lecture point (3.5, 1.3)” and read σ_{xx} , σ_{yy} , σ_{xy} , σ_1 , σ_2 and von Mises. Compare with your Activity 1 hand calculation.\nTicks itself: detected when the 4-node 2 × 2 mesh shows the probe at (3.5, 1.3) after you have acted · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-refine",
+   "text": "[lab-refine] Explorer task 2 · Keep the point and refine: 8-node 16 × 8, then 32 × 16. Does σ_{xx} approach beam theory’s 225 kN m^{−2} ? Then probe mid-span, (2.0, 1.3).\nTicks itself: detected when 8-node 16 × 8 and 32 × 16 have both been shown with the probe at (3.5, 1.3) · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-corner",
+   "text": "[lab-corner] Explorer task 3 · Run the corner study. Does the peak σ_{xx} next to the fixed corner converge?\nTicks itself: detected when the corner study runs · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-disp3",
+   "text": "[lab-disp3] Explorer task 4 · On the 4-node 4 × 2 mesh compare Elemental mean, Unaveraged and Averaged. Where do neighbouring elements disagree most?\nTicks itself: detected when the 4-node 4 × 2 mesh has been shown with all three display options · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-code",
+   "text": "[lab-code] Lab · Python code for assignments and projects\nPython code for assignments and projects The same steps and notation as the notes, written out in plain Python. Use it to check every matrix and number of a hand calculation, and to run what is impractical by hand: mesh studies, contour plots, your own geometry and loads. ⤓ Download fe_plane_stress.py (.zip, 18 kB) ⤓ All course code (.zip, 41 kB) Unzip, then install Python 3.8 or newer and run pip install numpy matplotlib (matplotlib only for the plots). Run python fe_plane_stress.py . It reproduces the course example; README.txt lists the output you should see. Read the docstring at the top of the file for the notation, numbering and units, and how to call it for your own problem. A hand calculation is still a hand calculation: in a test or an assignment that asks for the steps, show them yourself. Show the code · fe_plane_stress.py · 323 lines Copy \"\"\"\nSEAA 4243 Finite Element Method - plane stress with 4-node and 8-node elements\n==============================================================================\nCompanion code for the Cantilever and Stress Recovery Explorers (Plane Stress).\nIt follows the course's steps in the text's notation (Mohd Yassin et al.,\nMSNM 2020, Chapter 3):\n[E] 3 x 3 material matrix, plane stress or plane strain text (3.10)\n[B] strains from nodal displacements, {eps} = [d]^T[N]{u} weak form (3.31)-(3.38)\n[k] = t * integral [B]^T [E] [B] dA closed form (3.42);\nhere by Gauss quadrature (2 x 2 points for the 4-node\nelement, 3 x 3 for the 8-node), which"
+  },
+  {
+   "id": "lab-run",
+   "text": "[lab-run] Lab · Run the code in your browser\nRun the code in your browser trial Edit a short script and run it here, with no installation. Python runs on your own device; nothing is sent anywhere. The first run downloads Python, about 9 MB (about 20 MB once a script plots), and takes 10–30 s; later runs take a second or two. Stress at a point von Mises plot Course example ▶ Run ■ Stop Reset script Ctrl+Enter (⌘+Enter) runs. Your edits are kept in this browser; Reset script brings back the original. For an assignment or a project, download the code above and run it on your computer."
+  },
+  {
+   "id": "glossary-stress-recovery-post-processing",
+   "text": "[glossary-stress-recovery-post-processing] Glossary: stress recovery · post-processing\nstress recovery · post-processing: Computing strains and stresses from the solved nodal displacements, {σ} = [E][B]{û}."
+  },
+  {
+   "id": "glossary-strain-displacement-matrix-b",
+   "text": "[glossary-strain-displacement-matrix-b] Glossary: strain–displacement matrix [B]\nstrain–displacement matrix [B]: [∂]ᵀ[N], 3 × 8 for a four-node element: its rows give ε_{xx} , ε_{yy} , ε_{xy} from the eight nodal displacements."
+  },
+  {
+   "id": "glossary-primary-derived-result",
+   "text": "[glossary-primary-derived-result] Glossary: primary · derived result\nprimary · derived result: Displacements are solved for; strains and stresses are derived by differentiation and are less accurate."
+  },
+  {
+   "id": "glossary-principal-stresses-1-2",
+   "text": "[glossary-principal-stresses-1-2] Glossary: principal stresses σ_1 , σ_2\nprincipal stresses σ_1 , σ_2: The normal stresses on the planes where the shear is zero; the largest and smallest normal stress at the point."
+  },
+  {
+   "id": "glossary-principal-direction-p",
+   "text": "[glossary-principal-direction-p] Glossary: principal direction θ_p\nprincipal direction θ_p: Angle from the x-axis to σ_1 : ½ tan^{−1} [2σ_{xy} /(σ_{xx} − σ_{yy} )], taken in the right quadrant."
+  },
+  {
+   "id": "glossary-mohr-s-circle",
+   "text": "[glossary-mohr-s-circle] Glossary: Mohr’s circle\nMohr’s circle: The stress state drawn as a circle: centre (σ_{xx} + σ_{yy} )/2, radius √[((σ_{xx} − σ_{yy} )/2)² + σ_{xy} ²]."
+  },
+  {
+   "id": "glossary-von-mises-stress",
+   "text": "[glossary-von-mises-stress] Glossary: von Mises stress\nvon Mises stress: An equivalent uniaxial stress for yielding of ductile metals: √(σ_1 ² − σ_1 σ_2 + σ_2 ²) in plane stress."
+  },
+  {
+   "id": "glossary-elemental-mean",
+   "text": "[glossary-elemental-mean] Glossary: Elemental mean\nElemental mean: Display option: one value per element, at its centroid."
+  },
+  {
+   "id": "glossary-unaveraged",
+   "text": "[glossary-unaveraged] Glossary: Unaveraged\nUnaveraged: Display option: each element’s own nodal values; the jumps between elements stay visible."
+  },
+  {
+   "id": "glossary-averaged-nodal-averaging",
+   "text": "[glossary-averaged-nodal-averaging] Glossary: Averaged · nodal averaging\nAveraged · nodal averaging: Display option: the mean of all elements at a node; smooth, but no more accurate."
+  },
+  {
+   "id": "glossary-stress-jump",
+   "text": "[glossary-stress-jump] Glossary: stress jump\nstress jump: The difference between neighbouring elements’ stresses at a shared side; a free indicator of the local mesh error."
+  },
+  {
+   "id": "glossary-st-venant-s-principle",
+   "text": "[glossary-st-venant-s-principle] Glossary: St-Venant’s principle\nSt-Venant’s principle: How a load is applied matters only within about one depth of where it acts; beyond that only its resultant counts."
+  },
+  {
+   "id": "glossary-singularity",
+   "text": "[glossary-singularity] Glossary: singularity\nsingularity: A point where the elastic stress is infinite (fully fixed re-entrant corner, point load): the computed peak grows with every refinement."
+  },
+  {
+   "id": "glossary-stress-concentration-k-t",
+   "text": "[glossary-stress-concentration-k-t] Glossary: stress concentration · K_t\nstress concentration · K_t: A finite local rise of stress at a smooth hole or fillet; K_t = peak/nominal; it converges under refinement."
+  },
+  {
+   "id": "glossary-8-node-serendipity-element-q8",
+   "text": "[glossary-8-node-serendipity-element-q8] Glossary: 8-node (serendipity) element · Q8\n8-node (serendipity) element · Q8: Rectangle with corner and mid-side nodes, 16 dofs, quadratic along every side; PLANE183 in ANSYS."
+  },
+  {
+   "id": "glossary-consistent-edge-loads",
+   "text": "[glossary-consistent-edge-loads] Glossary: consistent edge loads\nconsistent edge loads: Nodal shares of an edge load from ∫N_i q ds: ½, ½ on a 4-node side; ⅙, ⅔, ⅙ on an 8-node side."
+  },
+  {
+   "id": "glossary-shear-locking-parasitic-shear",
+   "text": "[glossary-shear-locking-parasitic-shear] Glossary: shear locking · parasitic shear\nshear locking · parasitic shear: A 4-node element bent by a moment shears because its sides stay straight; the spurious shear energy makes it too stiff."
+  },
+  {
+   "id": "glossary-rate-of-convergence-p",
+   "text": "[glossary-rate-of-convergence-p] Glossary: rate of convergence p\nrate of convergence p: The error falls as h^p ; halving h divides it by 2^p . About 2 for Q4 displacements of smooth problems, lower at a clamped corner."
+  },
+  {
+   "id": "glossary-richardson-extrapolation",
+   "text": "[glossary-richardson-extrapolation] Glossary: Richardson extrapolation\nRichardson extrapolation: An estimate of the converged value from two or three meshes: Q ≈ Q_{h/2} + (Q_{h/2} − Q_h )/(2^p − 1)."
+  },
+  {
+   "id": "glossary-convergence-table",
+   "text": "[glossary-convergence-table] Glossary: convergence table\nconvergence table: Three or more meshes, the quantity of interest on each, and the change between the last two in per cent."
+  },
+  {
+   "id": "glossary-independent-check",
+   "text": "[glossary-independent-check] Glossary: independent check\nindependent check: A comparison with something not computed by the same model: beam theory, equilibrium of reactions, a textbook K_t , a hand calculation."
+  },
+  {
+   "id": "glossary-idealisation",
+   "text": "[glossary-idealisation] Glossary: idealisation\nidealisation: The modelling decisions: 2D or not, plane stress or plane strain, thickness, material, supports, loads, what is left out."
+  },
+  {
+   "id": "glossary-symmetry-model",
+   "text": "[glossary-symmetry-model] Glossary: symmetry model\nsymmetry model: Modelling a half or a quarter of a symmetric structure under a symmetric load, with rollers on the cut edges."
+  }
+ ]
+}

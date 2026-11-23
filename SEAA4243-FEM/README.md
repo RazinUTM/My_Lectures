@@ -31,11 +31,29 @@ SEAA4243-FEM/
 │   └── pdf/                  slides as PDF
 ├── labs/                     the Explorers (interactive, also linked by QR codes in the slides)
 ├── code/                     companion Python code and READMEs (the pages zip them on download)
-└── shared/                   course.css and course.js, the engine the pages inline
+├── tutor/                    course.json and extra/ for Dr RJ (each part folder has its own tutor/)
+├── tools/                    add_tutor.py and the pinned rz-tutor panel code
+└── shared/                   course.css and course.js, the engine the pages inline; avatar/; tutor_endpoint.txt
 ```
 
 Progress, language, theme and text size are kept in the student's own browser
-(localStorage). Nothing is sent anywhere; the course home can export and import it.
+(localStorage); the course home can export and import it.
+
+## Dr RJ, the guide panel
+
+Each part page has the guide panel with Dr RJ (Dr Razin Junior), the lecturer's avatar, beside the
+contents. In offline mode he points to the matching sections of the page and nothing typed leaves the
+browser. When the AI tutor is switched on (the secret `AI_SEAA4243` of the rz-tutor Worker, app
+`seaa4243` in [RazinUTM/rz-tutor-worker](https://github.com/RazinUTM/rz-tutor-worker)), his panel shows a
+notice first; the questions then typed to him go through the course server to an AI service (Anthropic,
+model Claude Haiku 5.5) to be answered from this part's material, and the server keeps counts only, not
+the questions. Exercise answers, hints and worked solutions are never sent to the AI.
+
+The tutor files are generated from the pages: `<part>/tutor/` (manifest, blocks and plain text, in
+English and as the page reads in Bahasa Melayu), `tutor/course.json` for the course, and
+`tutor/extra/` (the lecturer's rz-tools heat-conduction text, a supplementary document for Parts 1–2).
+`tools/add_tutor.py` writes them and adds the panel; `tools/rz-tutor/` is the pinned panel code
+(see its VERSION); `shared/tutor_endpoint.txt` holds the Worker address.
 
 ## Python code
 

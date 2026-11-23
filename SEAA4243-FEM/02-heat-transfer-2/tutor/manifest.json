@@ -1,0 +1,680 @@
+{
+ "app": "seaa4243",
+ "part": "p2",
+ "title": "2D Heat Transfer — Part 2",
+ "folder": "02-heat-transfer-2",
+ "course_meta": {
+  "key": "seaa4243-p2-v1",
+  "notes": [
+   "n1",
+   "n2",
+   "n3",
+   "n4",
+   "n5",
+   "n6"
+  ],
+  "slides": 45,
+  "examples": [
+   "y1",
+   "y2",
+   "y3"
+  ],
+  "cando": 4,
+  "targetMin": 35
+ },
+ "sections": [
+  {
+   "id": "start-outcomes",
+   "view": "start",
+   "anchor": null,
+   "selector": "ol.lo",
+   "title_en": "After this part you should be able to",
+   "title_ms": "Selepas bahagian ini, anda sepatutnya boleh"
+  },
+  {
+   "id": "notes-n1",
+   "view": "notes",
+   "anchor": "n1",
+   "title_en": "1. Galerkin and integration by parts",
+   "title_ms": "1. Galerkin dan integration by parts",
+   "minutes": 9
+  },
+  {
+   "id": "notes-n2",
+   "view": "notes",
+   "anchor": "n2",
+   "title_en": "2. The element matrix and the load vectors",
+   "title_ms": "2. Matrix element dan load vector",
+   "minutes": 10
+  },
+  {
+   "id": "notes-n3",
+   "view": "notes",
+   "anchor": "n3",
+   "title_en": "3. The worked example and its connectivity table",
+   "title_ms": "3. Contoh bekerja dan connectivity table-nya",
+   "minutes": 6
+  },
+  {
+   "id": "notes-n4",
+   "view": "notes",
+   "anchor": "n4",
+   "title_en": "4. Assembly and the known temperatures",
+   "title_ms": "4. Assembly dan temperature yang diketahui",
+   "minutes": 11
+  },
+  {
+   "id": "notes-n5",
+   "view": "notes",
+   "anchor": "n5",
+   "title_en": "5. Post-processing and accuracy",
+   "title_ms": "5. Post-processing dan ketepatan",
+   "minutes": 9
+  },
+  {
+   "id": "notes-n6",
+   "view": "notes",
+   "anchor": "n6",
+   "title_en": "6. The script, the assignment and what comes next",
+   "title_ms": "6. Skrip, tugasan dan apa yang seterusnya",
+   "minutes": 5
+  },
+  {
+   "id": "slides-1",
+   "view": "slides",
+   "anchor": "1",
+   "title_en": "Slide 1: 2D Heat Transfer Part 2 of 2",
+   "title_ms": "Slide 1: 2D Heat Transfer Part 2 of 2"
+  },
+  {
+   "id": "slides-2",
+   "view": "slides",
+   "anchor": "2",
+   "title_en": "Slide 2: Three questions from the last session — answer on paper before we start",
+   "title_ms": "Slide 2: Three questions from the last session — answer on paper before we start"
+  },
+  {
+   "id": "slides-3",
+   "view": "slides",
+   "anchor": "3",
+   "title_en": "Slide 3: By the end of this session you should be able to",
+   "title_ms": "Slide 3: By the end of this session you should be able to"
+  },
+  {
+   "id": "slides-4",
+   "view": "slides",
+   "anchor": "4",
+   "title_en": "Slide 4: Six blocks, seven short activities, one break",
+   "title_ms": "Slide 4: Six blocks, seven short activities, one break"
+  },
+  {
+   "id": "slides-5",
+   "view": "slides",
+   "anchor": "5",
+   "title_en": "Slide 5: From residual to weak form",
+   "title_ms": "Slide 5: From residual to weak form"
+  },
+  {
+   "id": "slides-6",
+   "view": "slides",
+   "anchor": "6",
+   "title_en": "Slide 6: Substituting the approximation leaves a residual",
+   "title_ms": "Slide 6: Substituting the approximation leaves a residual"
+  },
+  {
+   "id": "slides-7",
+   "view": "slides",
+   "anchor": "7",
+   "title_en": "Slide 7: Move one derivative from T onto the weight; a boundary term appears",
+   "title_ms": "Slide 7: Move one derivative from T onto the weight; a boundary term appears"
+  },
+  {
+   "id": "slides-8",
+   "view": "slides",
+   "anchor": "8",
+   "title_en": "Slide 8: Green’s theorem turns the area integral of a derivative into a boundary integral",
+   "title_ms": "Slide 8: Green’s theorem turns the area integral of a derivative into a boundary integral"
+  },
+  {
+   "id": "slides-9",
+   "view": "slides",
+   "anchor": "9",
+   "title_en": "Slide 9: Conductance matrix, heat-generation vector, boundary-flux vector",
+   "title_ms": "Slide 9: Conductance matrix, heat-generation vector, boundary-flux vector"
+  },
+  {
+   "id": "slides-10",
+   "view": "slides",
+   "anchor": "10",
+   "title_en": "Slide 10: Which term, which edge? Trace the boundary term around the plate",
+   "title_ms": "Slide 10: Which term, which edge? Trace the boundary term around the plate"
+  },
+  {
+   "id": "slides-11",
+   "view": "slides",
+   "anchor": "11",
+   "title_en": "Slide 11: The element matrices",
+   "title_ms": "Slide 11: The element matrices"
+  },
+  {
+   "id": "slides-12",
+   "view": "slides",
+   "anchor": "12",
+   "title_en": "Slide 12: Row 3 of {N}ᵀ, the operator, [E], the operator, column 4 of {N}",
+   "title_ms": "Slide 12: Row 3 of {N}ᵀ, the operator, [E], the operator, column 4 of {N}"
+  },
+  {
+   "id": "slides-13",
+   "view": "slides",
+   "anchor": "13",
+   "title_en": "Slide 13: Two separable integrals over 0 ≤ x ≤ a, 0 ≤ y ≤ b",
+   "title_ms": "Slide 13: Two separable integrals over 0 ≤ x ≤ a, 0 ≤ y ≤ b"
+  },
+  {
+   "id": "slides-14",
+   "view": "slides",
+   "anchor": "14",
+   "title_en": "Slide 14: Four distinct values; symmetric; every row sums to zero",
+   "title_ms": "Slide 14: Four distinct values; symmetric; every row sums to zero"
+  },
+  {
+   "id": "slides-15",
+   "view": "slides",
+   "anchor": "15",
+   "title_en": "Slide 15: Uniform generation splits equally; a uniform edge flux splits between the two edge nodes",
+   "title_ms": "Slide 15: Uniform generation splits equally; a uniform edge flux splits between the two edge nodes"
+  },
+  {
+   "id": "slides-16",
+   "view": "slides",
+   "anchor": "16",
+   "title_en": "Slide 16: Evaluate [k] and {q} for the text’s element, then check the row sums",
+   "title_ms": "Slide 16: Evaluate [k] and {q} for the text’s element, then check the row sums"
+  },
+  {
+   "id": "slides-17",
+   "view": "slides",
+   "anchor": "17",
+   "title_en": "Slide 17: The same [k] and {r} for all four elements of the mesh",
+   "title_ms": "Slide 17: The same [k] and {r} for all four elements of the mesh"
+  },
+  {
+   "id": "slides-18",
+   "view": "slides",
+   "anchor": "18",
+   "title_en": "Slide 18: Mesh and connectivity",
+   "title_ms": "Slide 18: Mesh and connectivity"
+  },
+  {
+   "id": "slides-19",
+   "view": "slides",
+   "anchor": "19",
+   "title_en": "Slide 19: A 1 m square plate meshed with four elements",
+   "title_ms": "Slide 19: A 1 m square plate meshed with four elements"
+  },
+  {
+   "id": "slides-20",
+   "view": "slides",
+   "anchor": "20",
+   "title_en": "Slide 20: Element e, local node i → global node conn(e, i): always anticlockwise from the bottom-lef",
+   "title_ms": "Slide 20: Element e, local node i → global node conn(e, i): always anticlockwise from the bottom-lef"
+  },
+  {
+   "id": "slides-21",
+   "view": "slides",
+   "anchor": "21",
+   "title_en": "Slide 21: Write the connectivity table for the Assignment 4 strip",
+   "title_ms": "Slide 21: Write the connectivity table for the Assignment 4 strip"
+  },
+  {
+   "id": "slides-22",
+   "view": "slides",
+   "anchor": "22",
+   "title_en": "Slide 22: Three rows, two known nodes, six unknowns",
+   "title_ms": "Slide 22: Three rows, two known nodes, six unknowns"
+  },
+  {
+   "id": "slides-23",
+   "view": "slides",
+   "anchor": "23",
+   "title_en": "Slide 23: Break",
+   "title_ms": "Slide 23: Break"
+  },
+  {
+   "id": "slides-24",
+   "view": "slides",
+   "anchor": "24",
+   "title_en": "Slide 24: Assembly and Dirichlet conditions",
+   "title_ms": "Slide 24: Assembly and Dirichlet conditions"
+  },
+  {
+   "id": "slides-25",
+   "view": "slides",
+   "anchor": "25",
+   "title_en": "Slide 25: Each local entry is added to the global position that the connectivity table names",
+   "title_ms": "Slide 25: Each local entry is added to the global position that the connectivity table names"
+  },
+  {
+   "id": "slides-26",
+   "view": "slides",
+   "anchor": "26",
+   "title_en": "Slide 26: Sixteen entries land in rows and columns 1, 2, 4, 5",
+   "title_ms": "Slide 26: Sixteen entries land in rows and columns 1, 2, 4, 5"
+  },
+  {
+   "id": "slides-27",
+   "view": "slides",
+   "anchor": "27",
+   "title_en": "Slide 27: Add element 2 (nodes [2 3 6 5]) to [K]",
+   "title_ms": "Slide 27: Add element 2 (nodes [2 3 6 5]) to [K]"
+  },
+  {
+   "id": "slides-28",
+   "view": "slides",
+   "anchor": "28",
+   "title_en": "Slide 28: Shared entries are sums; the rest come from one element",
+   "title_ms": "Slide 28: Shared entries are sums; the rest come from one element"
+  },
+  {
+   "id": "slides-29",
+   "view": "slides",
+   "anchor": "29",
+   "title_en": "Slide 29: Nine equations, nine unknowns — but five temperatures are already known",
+   "title_ms": "Slide 29: Nine equations, nine unknowns — but five temperatures are already known"
+  },
+  {
+   "id": "slides-30",
+   "view": "slides",
+   "anchor": "30",
+   "title_en": "Slide 30: Known T: delete the equation, move the value right",
+   "title_ms": "Slide 30: Known T: delete the equation, move the value right"
+  },
+  {
+   "id": "slides-31",
+   "view": "slides",
+   "anchor": "31",
+   "title_en": "Slide 31: Verify the solution and read it physically",
+   "title_ms": "Slide 31: Verify the solution and read it physically"
+  },
+  {
+   "id": "slides-32",
+   "view": "slides",
+   "anchor": "32",
+   "title_en": "Slide 32: Row 1 closes to within rounding; the pattern of the answer matches the physics",
+   "title_ms": "Slide 32: Row 1 closes to within rounding; the pattern of the answer matches the physics"
+  },
+  {
+   "id": "slides-33",
+   "view": "slides",
+   "anchor": "33",
+   "title_en": "Slide 33: Post-processing and validation",
+   "title_ms": "Slide 33: Post-processing and validation"
+  },
+  {
+   "id": "slides-34",
+   "view": "slides",
+   "anchor": "34",
+   "title_en": "Slide 34: Find the element, go local, interpolate with its own nodal values",
+   "title_ms": "Slide 34: Find the element, go local, interpolate with its own nodal values"
+  },
+  {
+   "id": "slides-35",
+   "view": "slides",
+   "anchor": "35",
+   "title_en": "Slide 35: Differentiate the same interpolation; the flux is constant along one direction in each ele",
+   "title_ms": "Slide 35: Differentiate the same interpolation; the flux is constant along one direction in each ele"
+  },
+  {
+   "id": "slides-36",
+   "view": "slides",
+   "anchor": "36",
+   "title_en": "Slide 36: The 2 × 2 mesh is about 5% high; 16 × 16 matches software",
+   "title_ms": "Slide 36: The 2 × 2 mesh is about 5% high; 16 × 16 matches software"
+  },
+  {
+   "id": "slides-37",
+   "view": "slides",
+   "anchor": "37",
+   "title_en": "Slide 37: Same equations, same checks, other codes",
+   "title_ms": "Slide 37: Same equations, same checks, other codes"
+  },
+  {
+   "id": "slides-38",
+   "view": "slides",
+   "anchor": "38",
+   "title_en": "Slide 38: Interpolate the temperature at (0.3, 0.2) m in the solved plate",
+   "title_ms": "Slide 38: Interpolate the temperature at (0.3, 0.2) m in the solved plate"
+  },
+  {
+   "id": "slides-39",
+   "view": "slides",
+   "anchor": "39",
+   "title_en": "Slide 39: Element 1, local coordinates equal to global, T ≈ 0.266 °C",
+   "title_ms": "Slide 39: Element 1, local coordinates equal to global, T ≈ 0.266 °C"
+  },
+  {
+   "id": "slides-40",
+   "view": "slides",
+   "anchor": "40",
+   "title_en": "Slide 40: Run the text’s plate on your phone",
+   "title_ms": "Slide 40: Run the text’s plate on your phone"
+  },
+  {
+   "id": "slides-41",
+   "view": "slides",
+   "anchor": "41",
+   "title_en": "Slide 41: The MATLAB code and Assignment 4",
+   "title_ms": "Slide 41: The MATLAB code and Assignment 4"
+  },
+  {
+   "id": "slides-42",
+   "view": "slides",
+   "anchor": "42",
+   "title_en": "Slide 42: Left: input and [k]. Right: assembly, Dirichlet, solve",
+   "title_ms": "Slide 42: Left: input and [k]. Right: assembly, Dirichlet, solve"
+  },
+  {
+   "id": "slides-43",
+   "view": "slides",
+   "anchor": "43",
+   "title_en": "Slide 43: Three elements, a cold left edge, one heat source",
+   "title_ms": "Slide 43: Three elements, a cold left edge, one heat source"
+  },
+  {
+   "id": "slides-44",
+   "view": "slides",
+   "anchor": "44",
+   "title_en": "Slide 44: Three questions before you leave",
+   "title_ms": "Slide 44: Three questions before you leave"
+  },
+  {
+   "id": "slides-45",
+   "view": "slides",
+   "anchor": "45",
+   "title_en": "Slide 45: Same pipeline, two unknowns per node",
+   "title_ms": "Slide 45: Same pipeline, two unknowns per node"
+  },
+  {
+   "id": "examples-y1",
+   "view": "examples",
+   "anchor": "y1",
+   "title_en": "Example 1 · Conductance matrix and nodal loads of a square element",
+   "title_ms": "Contoh 1 · Conductance matrix dan nodal load bagi element segi empat sama"
+  },
+  {
+   "id": "examples-y2",
+   "view": "examples",
+   "anchor": "y2",
+   "title_en": "Example 2 · Four elements with a prescribed temperature and an inward flux",
+   "title_ms": "Contoh 2 · Empat element dengan temperature ditetapkan dan flux ke dalam"
+  },
+  {
+   "id": "examples-y3",
+   "view": "examples",
+   "anchor": "y3",
+   "title_en": "Example 3 · Plate with a heat source: the textbook’s worked example",
+   "title_ms": "Contoh 3 · Plat dengan heat source: contoh bekerja dalam teks"
+  },
+  {
+   "id": "exercises-b1",
+   "view": "exercises",
+   "anchor": "b1",
+   "title_en": "Exercise B1 · The four values of the conductance matrix",
+   "title_ms": "Latihan B1 · Empat nilai conductance matrix"
+  },
+  {
+   "id": "exercises-b2",
+   "view": "exercises",
+   "anchor": "b2",
+   "title_en": "Exercise B2 · Source and edge-flux loads",
+   "title_ms": "Latihan B2 · Load source dan flux tepi"
+  },
+  {
+   "id": "exercises-b3",
+   "view": "exercises",
+   "anchor": "b3",
+   "title_en": "Exercise B3 · Assembly entries of a two-element strip",
+   "title_ms": "Latihan B3 · Entri assembly bagi jalur dua element"
+  },
+  {
+   "id": "exercises-b4",
+   "view": "exercises",
+   "anchor": "b4",
+   "title_en": "Exercise B4 · Temperature and flux at a point of the solved mesh",
+   "title_ms": "Latihan B4 · Temperature dan flux pada satu titik mesh yang diselesaikan"
+  },
+  {
+   "id": "exercises-quick",
+   "view": "exercises",
+   "anchor": null,
+   "selector": "#v-exercises div.q",
+   "title_en": "Exercises: quick concept questions",
+   "title_ms": "Latihan: soalan konsep pantas"
+  },
+  {
+   "id": "lab-book2",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"book2\"]",
+   "title_en": "Explorer task 1: Keep the text’s example on the 2 × 2 mesh",
+   "title_ms": "Tugasan Explorer 1: Kekalkan contoh teks pada mesh 2 × 2"
+  },
+  {
+   "id": "lab-study",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"study\"]",
+   "title_en": "Explorer task 2: Run the mesh study",
+   "title_ms": "Tugasan Explorer 2: Jalankan kajian mesh"
+  },
+  {
+   "id": "lab-right0",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"right0\"]",
+   "title_en": "Explorer task 3: Set the right edge to 0 °C as well",
+   "title_ms": "Tugasan Explorer 3: Tetapkan tepi kanan kepada 0 °C juga"
+  },
+  {
+   "id": "lab-allins",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"allins\"]",
+   "title_en": "Explorer task 4: Make all four edges insulated",
+   "title_ms": "Tugasan Explorer 4: Jadikan keempat-empat tepi insulated"
+  },
+  {
+   "id": "lab-code",
+   "view": "lab",
+   "anchor": "code",
+   "selector": null,
+   "title_en": "Lab: Python code for assignments and projects",
+   "title_ms": "Lab: Kod Python untuk assignment dan projek"
+  },
+  {
+   "id": "lab-run",
+   "view": "lab",
+   "anchor": "run",
+   "selector": null,
+   "title_en": "Lab: Run the code in your browser",
+   "title_ms": "Lab: Jalankan kod dalam browser"
+  },
+  {
+   "id": "glossary-residual",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: residual",
+   "title_ms": "Glosari: residual"
+  },
+  {
+   "id": "glossary-weighted-residual",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: weighted residual",
+   "title_ms": "Glosari: weighted residual"
+  },
+  {
+   "id": "glossary-galerkin-method",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: Galerkin method",
+   "title_ms": "Glosari: Galerkin method"
+  },
+  {
+   "id": "glossary-integration-by-parts-green-s-theorem",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: integration by parts · Green’s theorem",
+   "title_ms": "Glosari: integration by parts · Green’s theorem"
+  },
+  {
+   "id": "glossary-weak-form",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: weak form",
+   "title_ms": "Glosari: weak form"
+  },
+  {
+   "id": "glossary-conductance-matrix-k",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: conductance matrix [k]",
+   "title_ms": "Glosari: conductance matrix [k]"
+  },
+  {
+   "id": "glossary-s-1-s-4",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: s_1 …s_4",
+   "title_ms": "Glosari: s_1 …s_4"
+  },
+  {
+   "id": "glossary-source-vector-q",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: source vector {q}",
+   "title_ms": "Glosari: source vector {q}"
+  },
+  {
+   "id": "glossary-boundary-vector-b",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: boundary vector {b}",
+   "title_ms": "Glosari: boundary vector {b}"
+  },
+  {
+   "id": "glossary-row-sum-check",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: row-sum check",
+   "title_ms": "Glosari: row-sum check"
+  },
+  {
+   "id": "glossary-connectivity-table",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: connectivity table",
+   "title_ms": "Glosari: connectivity table"
+  },
+  {
+   "id": "glossary-assembly-scatter-add",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: assembly · scatter-add",
+   "title_ms": "Glosari: assembly · scatter-add"
+  },
+  {
+   "id": "glossary-global-system-k-t-r",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: global system [K]{T} = {R}",
+   "title_ms": "Glosari: global system [K]{T} = {R}"
+  },
+  {
+   "id": "glossary-row-column-elimination",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: row–column elimination",
+   "title_ms": "Glosari: row–column elimination"
+  },
+  {
+   "id": "glossary-reduced-system",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: reduced system",
+   "title_ms": "Glosari: reduced system"
+  },
+  {
+   "id": "glossary-struck-rows-energy-balance",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: struck rows · energy balance",
+   "title_ms": "Glosari: struck rows · energy balance"
+  },
+  {
+   "id": "glossary-local-coordinates",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: local coordinates",
+   "title_ms": "Glosari: local coordinates"
+  },
+  {
+   "id": "glossary-post-processing",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: post-processing",
+   "title_ms": "Glosari: post-processing"
+  },
+  {
+   "id": "glossary-mesh-refinement-convergence",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: mesh refinement · convergence",
+   "title_ms": "Glosari: mesh refinement · convergence"
+  },
+  {
+   "id": "glossary-relative-error",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: relative error",
+   "title_ms": "Glosari: relative error"
+  },
+  {
+   "id": "glossary-patch-test",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: patch test",
+   "title_ms": "Glosari: patch test"
+  },
+  {
+   "id": "glossary-symmetry",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: symmetry",
+   "title_ms": "Glosari: symmetry"
+  }
+ ],
+ "equations_missing": 60
+}

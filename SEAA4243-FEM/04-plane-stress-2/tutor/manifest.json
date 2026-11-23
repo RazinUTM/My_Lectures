@@ -1,0 +1,666 @@
+{
+ "app": "seaa4243",
+ "part": "p4",
+ "title": "Plane Stress — Part 2",
+ "folder": "04-plane-stress-2",
+ "course_meta": {
+  "key": "seaa4243-p4-v1",
+  "notes": [
+   "n1",
+   "n2",
+   "n3",
+   "n4",
+   "n5",
+   "n6"
+  ],
+  "slides": 43,
+  "examples": [
+   "v1",
+   "v2",
+   "v3"
+  ],
+  "cando": 4,
+  "targetMin": 35
+ },
+ "sections": [
+  {
+   "id": "start-outcomes",
+   "view": "start",
+   "anchor": null,
+   "selector": "ol.lo",
+   "title_en": "After this part you should be able to",
+   "title_ms": "Selepas bahagian ini, anda sepatutnya boleh"
+  },
+  {
+   "id": "notes-n1",
+   "view": "notes",
+   "anchor": "n1",
+   "title_en": "1. Galerkin and integration by parts, two unknowns per node",
+   "title_ms": "1. Galerkin dan integration by parts, dua unknown setiap node",
+   "minutes": 8
+  },
+  {
+   "id": "notes-n2",
+   "view": "notes",
+   "anchor": "n2",
+   "title_en": "2. The strain–displacement matrix [B] and the stiffness matrix",
+   "title_ms": "2. Strain–displacement matrix [B] dan stiffness matrix",
+   "minutes": 9
+  },
+  {
+   "id": "notes-n3",
+   "view": "notes",
+   "anchor": "n3",
+   "title_en": "3. The 8 × 8 stiffness matrix and its twelve values",
+   "title_ms": "3. Stiffness matrix 8 × 8 dan dua belas nilainya",
+   "minutes": 11
+  },
+  {
+   "id": "notes-n4",
+   "view": "notes",
+   "anchor": "n4",
+   "title_en": "4. Loads: edge tractions and body forces",
+   "title_ms": "4. Load: traction tepi dan body force",
+   "minutes": 7
+  },
+  {
+   "id": "notes-n5",
+   "view": "notes",
+   "anchor": "n5",
+   "title_en": "5. Assembly with two dofs per node, supports and the solution",
+   "title_ms": "5. Assembly dengan dua dof setiap node, support dan penyelesaian",
+   "minutes": 10
+  },
+  {
+   "id": "notes-n6",
+   "view": "notes",
+   "anchor": "n6",
+   "title_en": "6. Is the answer right? Beam theory, refinement and shear locking",
+   "title_ms": "6. Adakah jawapan betul? Beam theory, refinement dan shear locking",
+   "minutes": 10
+  },
+  {
+   "id": "slides-1",
+   "view": "slides",
+   "anchor": "1",
+   "title_en": "Slide 1: Plane Stress Part 2 of 3",
+   "title_ms": "Slide 1: Plane Stress Part 2 of 3"
+  },
+  {
+   "id": "slides-2",
+   "view": "slides",
+   "anchor": "2",
+   "title_en": "Slide 2: Three questions from the last session — on paper",
+   "title_ms": "Slide 2: Three questions from the last session — on paper"
+  },
+  {
+   "id": "slides-3",
+   "view": "slides",
+   "anchor": "3",
+   "title_en": "Slide 3: By the end of this session you should be able to",
+   "title_ms": "Slide 3: By the end of this session you should be able to"
+  },
+  {
+   "id": "slides-4",
+   "view": "slides",
+   "anchor": "4",
+   "title_en": "Slide 4: Six blocks, seven short activities, one break",
+   "title_ms": "Slide 4: Six blocks, seven short activities, one break"
+  },
+  {
+   "id": "slides-5",
+   "view": "slides",
+   "anchor": "5",
+   "title_en": "Slide 5: Weak form and the matrix [B]",
+   "title_ms": "Slide 5: Weak form and the matrix [B]"
+  },
+  {
+   "id": "slides-6",
+   "view": "slides",
+   "anchor": "6",
+   "title_en": "Slide 6: Eight unknowns per element, eight weighted equations, one boundary term",
+   "title_ms": "Slide 6: Eight unknowns per element, eight weighted equations, one boundary term"
+  },
+  {
+   "id": "slides-7",
+   "view": "slides",
+   "anchor": "7",
+   "title_en": "Slide 7: [B] = [∂]ᵀ[N]: strains from the nodal displacements",
+   "title_ms": "Slide 7: [B] = [∂]ᵀ[N]: strains from the nodal displacements"
+  },
+  {
+   "id": "slides-8",
+   "view": "slides",
+   "anchor": "8",
+   "title_en": "Slide 8: The same [B] twice, with [E] between them, integrated over the element and multiplied by t",
+   "title_ms": "Slide 8: The same [B] twice, with [E] between them, integrated over the element and multiplied by t"
+  },
+  {
+   "id": "slides-9",
+   "view": "slides",
+   "anchor": "9",
+   "title_en": "Slide 9: Build [B] at a point and check it",
+   "title_ms": "Slide 9: Build [B] at a point and check it"
+  },
+  {
+   "id": "slides-10",
+   "view": "slides",
+   "anchor": "10",
+   "title_en": "Slide 10: The 8 × 8 stiffness matrix",
+   "title_ms": "Slide 10: The 8 × 8 stiffness matrix"
+  },
+  {
+   "id": "slides-11",
+   "view": "slides",
+   "anchor": "11",
+   "title_en": "Slide 11: Row 3 of [N]ᵀ[∂] (dof u₂) times [E]",
+   "title_ms": "Slide 11: Row 3 of [N]ᵀ[∂] (dof u₂) times [E]"
+  },
+  {
+   "id": "slides-12",
+   "view": "slides",
+   "anchor": "12",
+   "title_en": "Slide 12: Times column 4 of [∂]ᵀ[N] (dof v₂): two products survive",
+   "title_ms": "Slide 12: Times column 4 of [∂]ᵀ[N] (dof v₂): two products survive"
+  },
+  {
+   "id": "slides-13",
+   "view": "slides",
+   "anchor": "13",
+   "title_en": "Slide 13: Integrate over the rectangle and multiply by t",
+   "title_ms": "Slide 13: Integrate over the rectangle and multiply by t"
+  },
+  {
+   "id": "slides-14",
+   "view": "slides",
+   "anchor": "14",
+   "title_en": "Slide 14: Twelve distinct values arranged by the symmetry of the rectangle",
+   "title_ms": "Slide 14: Twelve distinct values arranged by the symmetry of the rectangle"
+  },
+  {
+   "id": "slides-15",
+   "view": "slides",
+   "anchor": "15",
+   "title_en": "Slide 15: s₁ … s₆: diagonal and nearest-neighbour entries",
+   "title_ms": "Slide 15: s₁ … s₆: diagonal and nearest-neighbour entries"
+  },
+  {
+   "id": "slides-16",
+   "view": "slides",
+   "anchor": "16",
+   "title_en": "Slide 16: s₇ … s₁₂, and the row-sum check",
+   "title_ms": "Slide 16: s₇ … s₁₂, and the row-sum check"
+  },
+  {
+   "id": "slides-17",
+   "view": "slides",
+   "anchor": "17",
+   "title_en": "Slide 17: Software adds [B]ᵀ[E][B] at four Gauss points",
+   "title_ms": "Slide 17: Software adds [B]ᵀ[E][B] at four Gauss points"
+  },
+  {
+   "id": "slides-18",
+   "view": "slides",
+   "anchor": "18",
+   "title_en": "Slide 18: Evaluate s₁, s₂, s₃ for the cantilever element and check against the text",
+   "title_ms": "Slide 18: Evaluate s₁, s₂, s₃ for the cantilever element and check against the text"
+  },
+  {
+   "id": "slides-19",
+   "view": "slides",
+   "anchor": "19",
+   "title_en": "Slide 19: The element stiffness matrix of the cantilever, × 10⁶ N m⁻¹",
+   "title_ms": "Slide 19: The element stiffness matrix of the cantilever, × 10⁶ N m⁻¹"
+  },
+  {
+   "id": "slides-20",
+   "view": "slides",
+   "anchor": "20",
+   "title_en": "Slide 20: Load vectors",
+   "title_ms": "Slide 20: Load vectors"
+  },
+  {
+   "id": "slides-21",
+   "view": "slides",
+   "anchor": "21",
+   "title_en": "Slide 21: A uniform traction on edge 2–3 loads v₂ and v₃ equally",
+   "title_ms": "Slide 21: A uniform traction on edge 2–3 loads v₂ and v₃ equally"
+  },
+  {
+   "id": "slides-22",
+   "view": "slides",
+   "anchor": "22",
+   "title_en": "Slide 22: Assemble the global load vector of the cantilever",
+   "title_ms": "Slide 22: Assemble the global load vector of the cantilever"
+  },
+  {
+   "id": "slides-23",
+   "view": "slides",
+   "anchor": "23",
+   "title_en": "Slide 23: Three loaded dofs, six reactions, nine zeros",
+   "title_ms": "Slide 23: Three loaded dofs, six reactions, nine zeros"
+  },
+  {
+   "id": "slides-24",
+   "view": "slides",
+   "anchor": "24",
+   "title_en": "Slide 24: Break",
+   "title_ms": "Slide 24: Break"
+  },
+  {
+   "id": "slides-25",
+   "view": "slides",
+   "anchor": "25",
+   "title_en": "Slide 25: Assembly and supports",
+   "title_ms": "Slide 25: Assembly and supports"
+  },
+  {
+   "id": "slides-26",
+   "view": "slides",
+   "anchor": "26",
+   "title_en": "Slide 26: Connectivity in node numbers becomes connectivity in dof numbers",
+   "title_ms": "Slide 26: Connectivity in node numbers becomes connectivity in dof numbers"
+  },
+  {
+   "id": "slides-27",
+   "view": "slides",
+   "anchor": "27",
+   "title_en": "Slide 27: Each entry is filled by the elements that share both its dofs",
+   "title_ms": "Slide 27: Each entry is filled by the elements that share both its dofs"
+  },
+  {
+   "id": "slides-28",
+   "view": "slides",
+   "anchor": "28",
+   "title_en": "Slide 28: Place two entries of element 2 into [K], then find the fixed dofs",
+   "title_ms": "Slide 28: Place two entries of element 2 into [K], then find the fixed dofs"
+  },
+  {
+   "id": "slides-29",
+   "view": "slides",
+   "anchor": "29",
+   "title_en": "Slide 29: Six fixed dofs; twelve equations remain",
+   "title_ms": "Slide 29: Six fixed dofs; twelve equations remain"
+  },
+  {
+   "id": "slides-30",
+   "view": "slides",
+   "anchor": "30",
+   "title_en": "Slide 30: Nodal displacements of the 2 × 2 mesh, in metres",
+   "title_ms": "Slide 30: Nodal displacements of the 2 × 2 mesh, in metres"
+  },
+  {
+   "id": "slides-31",
+   "view": "slides",
+   "anchor": "31",
+   "title_en": "Slide 31: Read the solution like a structural engineer",
+   "title_ms": "Slide 31: Read the solution like a structural engineer"
+  },
+  {
+   "id": "slides-32",
+   "view": "slides",
+   "anchor": "32",
+   "title_en": "Slide 32: Antisymmetric bending, a neutral axis, and a mesh that is too stiff",
+   "title_ms": "Slide 32: Antisymmetric bending, a neutral axis, and a mesh that is too stiff"
+  },
+  {
+   "id": "slides-33",
+   "view": "slides",
+   "anchor": "33",
+   "title_en": "Slide 33: Is the answer right? Refinement and a hand check",
+   "title_ms": "Slide 33: Is the answer right? Refinement and a hand check"
+  },
+  {
+   "id": "slides-34",
+   "view": "slides",
+   "anchor": "34",
+   "title_en": "Slide 34: The hand mesh deflects two thirds as much as the converged mesh",
+   "title_ms": "Slide 34: The hand mesh deflects two thirds as much as the converged mesh"
+  },
+  {
+   "id": "slides-35",
+   "view": "slides",
+   "anchor": "35",
+   "title_en": "Slide 35: Refine until the tip deflection stops moving; the limit agrees with beam theory",
+   "title_ms": "Slide 35: Refine until the tip deflection stops moving; the limit agrees with beam theory"
+  },
+  {
+   "id": "slides-36",
+   "view": "slides",
+   "anchor": "36",
+   "title_en": "Slide 36: Error falls with element size, then levels off near 0.7%",
+   "title_ms": "Slide 36: Error falls with element size, then levels off near 0.7%"
+  },
+  {
+   "id": "slides-37",
+   "view": "slides",
+   "anchor": "37",
+   "title_en": "Slide 37: Quantify the coarse-mesh error and decide on a mesh",
+   "title_ms": "Slide 37: Quantify the coarse-mesh error and decide on a mesh"
+  },
+  {
+   "id": "slides-38",
+   "view": "slides",
+   "anchor": "38",
+   "title_en": "Slide 38: Report the error, refine until it is below the tolerance, and check one number by hand",
+   "title_ms": "Slide 38: Report the error, refine until it is below the tolerance, and check one number by hand"
+  },
+  {
+   "id": "slides-39",
+   "view": "slides",
+   "anchor": "39",
+   "title_en": "Slide 39: Your hand mesh, then better meshes, on your phone",
+   "title_ms": "Slide 39: Your hand mesh, then better meshes, on your phone"
+  },
+  {
+   "id": "slides-40",
+   "view": "slides",
+   "anchor": "40",
+   "title_en": "Slide 40: The MATLAB script and what comes next",
+   "title_ms": "Slide 40: The MATLAB script and what comes next"
+  },
+  {
+   "id": "slides-41",
+   "view": "slides",
+   "anchor": "41",
+   "title_en": "Slide 41: Four changes turn the heat-transfer script into the plane-stress script",
+   "title_ms": "Slide 41: Four changes turn the heat-transfer script into the plane-stress script"
+  },
+  {
+   "id": "slides-42",
+   "view": "slides",
+   "anchor": "42",
+   "title_en": "Slide 42: Three questions before you leave",
+   "title_ms": "Slide 42: Three questions before you leave"
+  },
+  {
+   "id": "slides-43",
+   "view": "slides",
+   "anchor": "43",
+   "title_en": "Slide 43: Next session: stresses from displacements, the 8-node element, and the project briefing",
+   "title_ms": "Slide 43: Next session: stresses from displacements, the 8-node element, and the project briefing"
+  },
+  {
+   "id": "examples-v1",
+   "view": "examples",
+   "anchor": "v1",
+   "title_en": "Example 1 · Stiffness matrix of a square element",
+   "title_ms": "Contoh 1 · Stiffness matrix bagi element segi empat sama"
+  },
+  {
+   "id": "examples-v2",
+   "view": "examples",
+   "anchor": "v2",
+   "title_en": "Example 2 · Nodal loads, and global entries from a given element matrix",
+   "title_ms": "Contoh 2 · Nodal load, dan entri global daripada matrix element yang diberi"
+  },
+  {
+   "id": "examples-v3",
+   "view": "examples",
+   "anchor": "v3",
+   "title_en": "Example 3 · One element in tension: rollers and a clamped edge",
+   "title_ms": "Contoh 3 · Satu element dalam tegangan: roller dan tepi clamped"
+  },
+  {
+   "id": "exercises-b1",
+   "view": "exercises",
+   "anchor": "b1",
+   "title_en": "Exercise B1 · Four values of the 8 × 8 stiffness matrix",
+   "title_ms": "Latihan B1 · Empat nilai stiffness matrix 8 × 8"
+  },
+  {
+   "id": "exercises-b2",
+   "view": "exercises",
+   "anchor": "b2",
+   "title_en": "Exercise B2 · Nodal loads from a varying edge load and self-weight",
+   "title_ms": "Latihan B2 · Nodal load daripada edge load yang berubah dan self-weight"
+  },
+  {
+   "id": "exercises-b3",
+   "view": "exercises",
+   "anchor": "b3",
+   "title_en": "Exercise B3 · Global entries of the 2 × 2 cantilever mesh",
+   "title_ms": "Latihan B3 · Entri global mesh cantilever 2 × 2"
+  },
+  {
+   "id": "exercises-b4",
+   "view": "exercises",
+   "anchor": "b4",
+   "title_en": "Exercise B4 · The beam-theory check of a cantilever wall",
+   "title_ms": "Latihan B4 · Semakan beam theory bagi dinding cantilever"
+  },
+  {
+   "id": "exercises-quick",
+   "view": "exercises",
+   "anchor": null,
+   "selector": "#v-exercises div.q",
+   "title_en": "Exercises: quick concept questions",
+   "title_ms": "Latihan: soalan konsep pantas"
+  },
+  {
+   "id": "lab-book22",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"book22\"]",
+   "title_en": "Explorer task 1: Press “Text example” (4-node, 2 × 2, the text’s data) and read…",
+   "title_ms": "Tugasan Explorer 1: Tekan “Text example” (4-node, 2 × 2, data teks) dan baca tip de…"
+  },
+  {
+   "id": "lab-layouts",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"layouts\"]",
+   "title_en": "Explorer task 2: Same eight elements, three layouts: 4-node 4 × 2, 8 × 1 and 2 ×…",
+   "title_ms": "Tugasan Explorer 2: Lapan element yang sama, tiga susunan: 4-node 4 × 2, 8 × 1 dan…"
+  },
+  {
+   "id": "lab-study",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"study\"]",
+   "title_en": "Explorer task 3: Run the mesh study",
+   "title_ms": "Tugasan Explorer 3: Jalankan kajian mesh"
+  },
+  {
+   "id": "lab-point",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"point\"]",
+   "title_en": "Explorer task 4: Replace the edge traction by a point force at the top corner (s…",
+   "title_ms": "Tugasan Explorer 4: Gantikan traction tepi dengan point force pada bucu atas (jumla…"
+  },
+  {
+   "id": "lab-code",
+   "view": "lab",
+   "anchor": "code",
+   "selector": null,
+   "title_en": "Lab: Python code for assignments and projects",
+   "title_ms": "Lab: Kod Python untuk assignment dan projek"
+  },
+  {
+   "id": "lab-run",
+   "view": "lab",
+   "anchor": "run",
+   "selector": null,
+   "title_en": "Lab: Run the code in your browser",
+   "title_ms": "Lab: Jalankan kod dalam browser"
+  },
+  {
+   "id": "glossary-galerkin-vector-version",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: Galerkin, vector version",
+   "title_ms": "Glosari: Galerkin, vector version"
+  },
+  {
+   "id": "glossary-strain-displacement-matrix-b",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: strain–displacement matrix [B]",
+   "title_ms": "Glosari: strain–displacement matrix [B]"
+  },
+  {
+   "id": "glossary-stiffness-matrix-k",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: stiffness matrix [k]",
+   "title_ms": "Glosari: stiffness matrix [k]"
+  },
+  {
+   "id": "glossary-stiffness-influence-coefficient-k-ij",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: stiffness influence coefficient k_{ij}",
+   "title_ms": "Glosari: stiffness influence coefficient k_{ij}"
+  },
+  {
+   "id": "glossary-s-1-s-12",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: s_1 …s_{12}",
+   "title_ms": "Glosari: s_1 …s_{12}"
+  },
+  {
+   "id": "glossary-e-1",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: Ē = E/(1 − ν²)",
+   "title_ms": "Glosari: Ē = E/(1 − ν²)"
+  },
+  {
+   "id": "glossary-zero-energy-rigid-body-modes",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: zero-energy (rigid-body) modes",
+   "title_ms": "Glosari: zero-energy (rigid-body) modes"
+  },
+  {
+   "id": "glossary-row-sum-check",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: row-sum check",
+   "title_ms": "Glosari: row-sum check"
+  },
+  {
+   "id": "glossary-gauss-quadrature",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: Gauss quadrature",
+   "title_ms": "Glosari: Gauss quadrature"
+  },
+  {
+   "id": "glossary-consistent-equivalent-nodal-loads",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: consistent (equivalent) nodal loads",
+   "title_ms": "Glosari: consistent (equivalent) nodal loads"
+  },
+  {
+   "id": "glossary-traction-line-load",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: traction · line load",
+   "title_ms": "Glosari: traction · line load"
+  },
+  {
+   "id": "glossary-body-force-self-weight",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: body force · self-weight",
+   "title_ms": "Glosari: body force · self-weight"
+  },
+  {
+   "id": "glossary-dof-map",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: dof map",
+   "title_ms": "Glosari: dof map"
+  },
+  {
+   "id": "glossary-scatter-add",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: scatter-add",
+   "title_ms": "Glosari: scatter-add"
+  },
+  {
+   "id": "glossary-bandwidth",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: bandwidth",
+   "title_ms": "Glosari: bandwidth"
+  },
+  {
+   "id": "glossary-fixed-dofs-reduced-system",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: fixed dofs · reduced system",
+   "title_ms": "Glosari: fixed dofs · reduced system"
+  },
+  {
+   "id": "glossary-reactions",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: reactions",
+   "title_ms": "Glosari: reactions"
+  },
+  {
+   "id": "glossary-neutral-axis",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: neutral axis",
+   "title_ms": "Glosari: neutral axis"
+  },
+  {
+   "id": "glossary-timoshenko-beam",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: Timoshenko beam",
+   "title_ms": "Glosari: Timoshenko beam"
+  },
+  {
+   "id": "glossary-shear-locking",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: shear locking",
+   "title_ms": "Glosari: shear locking"
+  },
+  {
+   "id": "glossary-convergence-study",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: convergence study",
+   "title_ms": "Glosari: convergence study"
+  },
+  {
+   "id": "glossary-patch-test",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: patch test",
+   "title_ms": "Glosari: patch test"
+  }
+ ],
+ "equations_missing": 51
+}

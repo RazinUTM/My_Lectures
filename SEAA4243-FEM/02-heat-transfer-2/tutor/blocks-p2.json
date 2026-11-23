@@ -1,0 +1,358 @@
+{
+ "part": "p2",
+ "title": "2D Heat Transfer — Part 2",
+ "blocks": [
+  {
+   "id": "start-outcomes",
+   "text": "[start-outcomes] After this part you should be able to\n1. Apply the Galerkin weighted residual method and integration by parts to obtain [k]{T̂}ᵀ = {q} + {b} and explain what each term means.\n2. Evaluate the conductance matrix [k] and the load vectors {q} and {b} of a 4-node rectangular element in closed form.\n3. Assemble element matrices into the global system with a connectivity table and impose Dirichlet conditions by row–column elimination.\n4. Solve a small problem by hand, post-process temperature and flux at a point, and judge the result against a refined mesh."
+  },
+  {
+   "id": "notes-n1",
+   "text": "[notes-n1] Notes 1. Galerkin and integration by parts\nSubstitute the approximation T = {N}{T̂}ᵀ of Part 1 into the PDE and it does not balance: a bilinear field cannot satisfy a second-order equation at every point. The residual is what is left over. Four unknowns T̂_1…T̂_4, one equation, and it holds nowhere exactly.\nEQUATION (2.34): [equation w_resid: source not available in the page]\nGalerkin’s idea Ask instead that the residual be zero on average , weighted by each shape function in turn. Four weights, four equations. Galerkin chooses the weights equal to the shape functions, which makes [k] symmetric.\nEQUATION (2.35): [equation w_weighted: source not available in the page]\n## Integration by parts: the 1D case you know\nFor the bar element earlier in the course, one derivative moved from T onto the weight and a boundary term appeared:\nEQUATION : [equation w_ibp1d: source not available in the page]\n- Purpose 1 · relax continuity. After the integration by parts only first derivatives of N and T appear, so a bilinear T is admissible. Its second derivatives would be zero or undefined at element edges.\n- Purpose 2 · expose the natural condition. The boundary term contains k ∂T/∂n, the flux. Where the flux is specified it becomes a load; where it is zero it vanishes; where T is specified the term is removed with the equation.\n## Two dimensions: Green’s theorem\nThe same move in two dimensions is Green’s theorem: the area integral of a derivative becomes a boundary integral minus an area integral with the derivative on the weight.\nEQUATION : [equation w_green: source not available in the page]\nEQUATION (2.36): [equation w_ibp: source not available in the page]\n## Rearrange and name the terms\nEQUATION (2.37): [equation w_rearr: source not available in the page]\nEQUATION : [equation w_qb: source not available in the page]\nEQUATION (2.42): [equation w_sys: source not available in the page]\nTerm Name What it holds\n[k] conductance matrix the material and the geometry of the element; symmetric; 4 × 4\n{q} source vector the heat generated inside the element, shared among its nodes\n{b} boundary vector the heat entering through edges with a known flux; zero on insulated edges; discarded with the equation on Dirichlet edges\nWhich edges contribute to {b}? For the text’s plate (top and left at 0 °C, right and bottom insulated): none. The insulated edges have q_b = 0, and on the two Dirichlet edges the unknown flux multiplies the N_i of nodes whose equations we discard when T is imposed. The flux there can be recovered afterwards, like a support reaction.\nKey points:\n- Galerkin: weighted residual with the shape functions as weights; integration by parts lowers the derivative order and exposes the natural condition.\n- [k]{T̂}ᵀ = {q} + {b} = {r}: conductance matrix, source vector, boundary vector.\n- One 4-node element gives 4 equations; the 2 × 2 mesh gives 9, and 4 remain after T is imposed on 5 nodes.\nQuick check (not graded): In the Galerkin method the weighting functions are\nOptions: the shape functions themselves | the constants 1, x, x² | the nodal temperatures\nExplanation shown after answering: Galerkin takes the weights equal to the trial functions, so the equations come out symmetric. Weights 1, x, x² give a Petrov–Galerkin (basic WRM) system that is not symmetric."
+  },
+  {
+   "id": "notes-n2",
+   "text": "[notes-n2] Notes 2. The element matrix and the load vectors\nThe matrix product inside [k] is best read from the inside out. Take the entry k_{34}: shape function 3 on the left, shape function 4 on the right, and the operator acting on each.\n## k₃₄ in four symbolic steps (text (2.43)–(2.46))\nEQUATION : [equation w_s1: source not available in the page]\nEQUATION : [equation w_s2: source not available in the page]\nEQUATION : [equation w_s3: source not available in the page]\nEQUATION : [equation w_s4: source not available in the page]\nEach operator acts on the shape function to its left (from the integration by parts) or to its right. The result is a sum of two products of derivatives, one weighted by k_x and one by k_y.\n## Step 5: the integrals (text (2.47)–(2.48))\nEQUATION : [equation w_s5: source not available in the page]\nEQUATION : [equation w_s5b: source not available in the page]\nEQUATION (2.48): [equation w_k34: source not available in the page]\n## The whole matrix in four numbers\nRepeat the same integration for the other entries and only four distinct values appear. [k] is symmetric and has the pattern below.\nEQUATION (2.49): [equation w_kfull: source not available in the page]\nEQUATION : [equation w_svals: source not available in the page]\nRow-sum check s_1 + s_2 + s_3 + s_4 = 0 for every a, b, k_x, k_y: a uniform temperature conducts no heat. Add up any row of a matrix you compute; if it is not zero, look for the slip.\nEQUATION : [equation w_rowsum: source not available in the page]\nThe usual trap b/a and a/b swapped. In s_2 and s_4 the k_x term carries b/a (the two nodes of a horizontal side) and the k_y term a/b. For a square the matrix depends only on k, not on the side.\n## The load vectors\nA uniform source is shared equally among the four nodes, because every N_i has the same integral ab/4 over the element. A uniform inward flux on an edge is shared equally by the two nodes of that edge, because along the edge only their shape functions are non-zero and each integrates to half the length.\nEQUATION (2.39): [equation w_qconst: source not available in the page]\nEQUATION (2.40): [equation w_bedge: source not available in the page]\n[Figure: A uniform inward flux on the right edge becomes two equal nodal loads q_bb/2 at nodes 2 and 3.]\n## Worked example · the text’s element (Activity 2)\na = b = 0.5 m, k_x = k_y = 300 W m^{−1} K^{−1}, q_h = 600 W m^{−3}, unit thickness.\nEQUATION : [equation w_act2: source not available in the page]\nEQUATION (2.51): [equation w_k251: source not available in the page]\nEQUATION (2.52): [equation w_r252: source not available in the page]\nAll four elements of the 2 × 2 mesh are identical, so one [k] and one {r} serve the whole mesh. Row check: 200 − 50 − 100 − 50 = 0.\nKey points:\n- [k] = t[s_1 s_2 s_3 s_4; …] with s_1 = bk_x/3a + ak_y/3b and the three others of (2.49); rows sum to zero.\n- {q} = q_hab/4 at each node; an edge flux gives q_bb/2 at each of its two nodes.\n- Text element: s = 200, −50, −100, −50 W K^{−1}; r_i = 37.5 W.\nQuick check (not graded): For a square element with k_x = k_y = k, the coupling between the two nodes of one side, s_2, is\nOptions: −k/6 | −k/3 | +k/6\nExplanation shown after answering: s_2 = −bk/3a + ak/6b = −k/3 + k/6 = −k/6. The diagonal pair is s_3 = −k/3, twice as strong, and s_1 = 2k/3."
+  },
+  {
+   "id": "notes-n3",
+   "text": "[notes-n3] Notes 3. The worked example and its connectivity table\nThe text’s plate: 1 m square, q_h = 600 W m^{−3}, k = 300 W m^{−1} K^{−1}, top and left edges at 0 °C, right and bottom insulated. Four elements, nine global nodes, numbered left to right and bottom to top like the loops of the code. Coarse on purpose: the hand calculation must be traceable.\n[Figure: The plate (text Fig. 2.5).]\n[Figure: Element 1 shaded; its local nodes (1)…(4) sit at global nodes 1, 2, 5, 4.]\n## The connectivity table\nEach element lists its global node numbers in local order, anticlockwise from its bottom-left corner. This table is the whole bookkeeping of the method.\nElement (1) (2) (3) (4)\n1 1 2 5 4\n2 2 3 6 5\n3 4 5 8 7\n4 5 6 9 8\n[Figure: Element 2 shaded: local (1)…(4) at global 2, 3, 6, 5.]\nReading the table Node 5 appears in all four elements, so four element matrices add into row 5 of [K]: K_{55} = 4s_1. Node 2 appears in elements 1 and 2: K_{22} = 2s_1. A corner node appears once: K_{11} = s_1.\n## Counting the equations\nNine nodes give nine equations. The top edge (nodes 7, 8, 9) and the left edge (nodes 1, 4, 7) are at 0 °C: five known temperatures, so four equations remain, for T_2, T_3, T_5, T_6.\nKey points:\n- Connectivity: global node numbers of each element in local anticlockwise order.\n- K_{ii} = s_1 × (number of elements at node i); a shared side adds twice.\n- Text plate: 9 equations, 5 known temperatures, 4 unknowns.\nQuick check (not graded): In the 2 × 2 mesh, how many element matrices contribute to K_{25} (nodes 2 and 5)?\nOptions: one | two | four\nExplanation shown after answering: Nodes 2 and 5 are both in elements 1 and 2 (they share the side 2–5), so two matrices add: K_{25} = k_{23} + k_{14} = 2s_4. Node 5 alone is in four elements, but a coupling counts only the elements that contain both nodes."
+  },
+  {
+   "id": "notes-n4",
+   "text": "[notes-n4] Notes 4. Assembly and the known temperatures\nAssembly is one rule applied many times: every entry of an element matrix is added into the global matrix at the row and column given by the connectivity table. The same scatter-add builds {R} from the element load vectors.\nEQUATION : [equation w_scatter: source not available in the page]\n## After element 1 (nodes 1, 2, 5, 4)\nEQUATION : [equation w_K_e1: source not available in the page]\nSixteen entries land in rows and columns 1, 2, 4, 5. Everything else is still zero.\n## After elements 1 and 2 (Activity 4)\nEQUATION : [equation w_K_e12: source not available in the page]\nElement 2 adds into rows and columns 2, 3, 6, 5. Where the two overlap (nodes 2 and 5, shown in green) the entries add: K_{22} = 400, K_{55} = 400 so far, K_{25} = −100.\n## The complete system (text (2.53))\nEQUATION (2.53): [equation w_K_full: source not available in the page]\nK_{55} = 800 (four elements), the side nodes 400, the corners 200; {R} = 37.5 × (1, 2, 1, 2, 4, 2, 1, 2, 1) W.\n## Impose the known temperatures\nA known T̄_k is not an unknown, so its equation is not needed and its column multiplies a known number. Move that column times T̄_k to the right-hand side, then delete the row and the column. Here all five known values are zero, so nothing moves to the right and the reduced system is simply rows and columns 2, 3, 5, 6.\nEQUATION : [equation w_nonzero: source not available in the page]\nEQUATION (2.54)–(2.55): [equation w_reduced: source not available in the page]\n[Figure: The solved nodal temperatures at the free nodes 2, 3, 5 and 6.]\n## Verify and read the solution (Activity 5)\nEQUATION : [equation w_act5: source not available in the page]\n- T_3 is the largest: the corner farthest from both cold edges, between the two insulated edges, where heat accumulates.\n- T_5 is the smallest of the four: the centre is closer to the cold edges than node 3.\n- T_2 = T_6 exactly: the mesh, loads and boundary conditions are symmetric about the diagonal from node 1 to node 9.\nKey points:\n- Scatter-add: K_{IJ} += k_{ij} with I, J from the connectivity table; same for {R}.\n- Known T: move its column × T̄ to the right, delete row and column; the struck rows later give the heat flows.\n- Text plate: T_2 = T_6 = 0.482, T_3 = 0.621, T_5 = 0.386 °C.\nQuick check (not graded): A node has a prescribed temperature of 100 K. When the system is reduced, the column of that node\nOptions: is deleted and nothing else changes | times 100 is subtracted from the right-hand side of every remaining equation, then deleted | is replaced by zeros and the diagonal set to 1\nExplanation shown after answering: The column multiplies a known value, so its product K_{ik} × 100 is a known number in every remaining equation and moves to the right-hand side. Only when the prescribed value is zero does nothing move. Option (c) is a valid computer trick but is not the hand method of this course."
+  },
+  {
+   "id": "notes-n5",
+   "text": "[notes-n5] Notes 5. Post-processing and accuracy\nThe solution is a list of nodal values. Everything else — the temperature at a point, the flux, the hottest spot — is post-processing with the shape functions of Part 1, done one element at a time in that element’s local coordinates.\n## Temperature at any point: three steps\n- Find the element that contains the point.\n- Convert to local coordinates: subtract the element’s origin (its local node 1).\n- Evaluate N_1…N_4 there and multiply by the element’s nodal temperatures, in local order from the connectivity table.\nEQUATION : [equation w_local: source not available in the page]\nEQUATION : [equation w_interp: source not available in the page]\n[Figure: The point (0.3, 0.2) m lies in element 1.]\n## Worked example · T at (0.3, 0.2) (Activity 6, the assignment pattern)\nEQUATION : [equation w_act6_N: source not available in the page]\nEQUATION : [equation w_act6_T: source not available in the page]\nElement 1 has node 1 at the origin, so local = global here. For the point (0.8, 0.2) the element would be 2, with local (0.3, 0.2) — the same N — but the nodal values {T_2, T_3, T_6, T_5}.\n## Flux at a point\nEQUATION : [equation w_fluxc: source not available in the page]\nAt the centroid of element 2 the flux has equal and opposite components: heat flows towards −x (the cold left edge) and +y (the cold top edge). Evaluate the flux at centroids or Gauss points; it is least accurate at nodes and jumps across element edges.\n## How wrong is a 2 × 2 mesh?\nMesh T(L/2, 0) T(L, 0)\nQ4 2 × 2 ( hand ) 0.4821 0.6214\nQ8 2 × 1 ( hand ) 0.4448 0.5836\nQ4 16 × 16 0.4590 0.5898\nSoftware (text Table 2.1) 0.4589 0.5897\nEQUATION : [equation w_err: source not available in the page]\n[Figure: Left: the 2 × 2 solution is faceted because each element is bilinear. Right: 16 × 16 is smooth and matches the text’s software value to the fourth decimal.]\nThe habit of the course A convergence check is the same problem on a finer mesh; refine until the answer stops moving, and show the table. The error of bilinear elements falls about four times each time the mesh is halved.\nKey points:\n- Post-process per element: locate, convert to local coordinates, interpolate with the nodal values in local order.\n- T(0.3, 0.2) = 0.266 °C; flux at the centroid of element 2 = (−70.7, +70.7) W m^{−2}.\n- The 2 × 2 mesh is about 5% high; 16 × 16 matches software. Refine before you believe a number.\nQuick check (not graded): The point (0.8, 0.2) m in the text’s 2 × 2 mesh (a = b = 0.5 m) lies in element 2. Its local coordinates are\nOptions: (0.8, 0.2) | (0.3, 0.2) | (0.3, 0.7)\nExplanation shown after answering: Element 2 has its local node 1 at global (0.5, 0), so x_{loc} = 0.8 − 0.5 = 0.3 and y_{loc} = 0.2 − 0 = 0.2. Using (0.8, 0.2) in N_i gives negative shape functions, the usual sign that the coordinates were not converted."
+  },
+  {
+   "id": "notes-n6",
+   "text": "[notes-n6] Notes 6. The script, the assignment and what comes next\nThe script is the pipeline in thirty lines. Read it against the seven steps and every block has a name.\n% Local conductance matrix (text §2.3.1)\na = L/Nx; b = H/Ny;\ns1 = b*kx/(3*a) + a*ky/(3*b);\ns2 = -b*kx/(3*a) + a*ky/(6*b);\ns3 = -b*kx/(6*a) - a*ky/(6*b);\ns4 = b*kx/(6*a) - a*ky/(3*b);\nk = [s1 s2 s3 s4; s2 s1 s4 s3; s3 s4 s1 s2; s4 s3 s2 s1];\nfQ = a*b*Q/4*[1; 1; 1; 1]; % heat generation\n% Assembly by connectivity (conn(e,:) = global nodes of element e)\nfor e = 1:Ne, c = conn(e,:); K(c,c) = K(c,c) + k; F(c) = F(c) + fQ; end\n% Essential conditions: known nodes removed, their columns moved to the right\nfree = setdiff(1:n, fixed); T = zeros(n,1); T(fixed) = Tbar;\nT(free) = K(free,free) \\ (F(free) - K(free,fixed)*T(fixed));\n% Post-processing: element, local coordinates, interpolation\ne = find_element(x, y); xl = x - X(conn(e,1)); yl = y - Y(conn(e,1));\nN = [(a-xl)*(b-yl), xl*(b-yl), xl*yl, yl*(a-xl)]/(a*b); Tp = N*T(conn(e,:));\n- Lines 2–8: step 5, the element matrix and load from the closed-form s_1…s_4 of §2.\n- Line 10: step 6, assembly, one scatter-add per element.\n- Lines 12–13: step 6, the known temperatures moved to the right and struck; step 7, the backslash solve.\n- Lines 15–16: §5, interpolation in local coordinates.\nTry it Change the mesh to 4 × 4 and compare T(1, 0) with the table of §5. Then set Q = 0 and T = 5 on the left and 100 on the right edge: every mesh must return a straight line.\n## Assignment 4 · what is asked\n[Figure: Three identical 2 m × 3 m elements, T = 100 K on the left edge, zero flux elsewhere, a heat source on element 1.]\n- (a) The local load vector {r¹} for the heat source Q = 20 W m^{−2} on element 1 (unit thickness).\n- (b) The global [K] in terms of k, with k_x = k_y = k, using the connectivity table of Activity 3.\n- (c) With T_2 = T_6 = 150 K from the solution, interpolate T at (x, y) = (1.4, 2.2) m.\nEQUATION : [equation w_asg_hint: source not available in the page]\nShow the connectivity table, s_1…s_4 with a = 2 m, b = 3 m, and the local coordinates used in (c). Marks are for the method; state the convention you use for the source (per unit area, unit thickness). Individual work.\n## What comes next\nPlane stress repeats every step of this part with two unknowns per node: [E] becomes 3 × 3, {∂} a 2 × 3 operator matrix, and [k] 8 × 8. Before that session, read text §3.1 and revise plane stress versus plane strain, Hooke’s law in 2D and the strain–displacement relations.\nKey points:\n- Seven steps, thirty lines: element matrix, scatter-add assembly, strike the known nodes, backslash, interpolate in local coordinates.\n- Assignment 4: {r¹}, [K] in terms of k, T at (1.4, 2.2) — method marks; show the bookkeeping.\nQuick check (not graded): With no heat source and two opposite edges held at fixed temperatures, a 1 × 1 mesh of one bilinear element gives\nOptions: the exact linear field | an answer about 5% high | a singular matrix\nExplanation shown after answering: The exact field is linear in x, and the bilinear element contains 1, x and y, so it reproduces that field exactly on any mesh. This is the patch-test check of §5; the 5% error belongs to the curved field of the plate with a source."
+  },
+  {
+   "id": "slides-1",
+   "text": "[slides-1] Slide 1: 2D Heat Transfer Part 2 of 2\nSEAA 4243 Finite Element Method · 2L + 1T 2D Heat Transfer Part 2 of 2 From the weak form to the solution: [k], assembly, Dirichlet conditions, post-processing and the MATLAB code Assoc. Prof. Ts. Dr. Ahmad Razin Zainal Abidin · Dr. Yip Bao Fang Faculty of Civil Engineering, Universiti Teknologi Malaysia Text: Mohd Yassin et al., Two-Dimensional Finite Element Formulations for Heat, Solids and Fluids (with Matlab) ,"
+  },
+  {
+   "id": "slides-2",
+   "text": "[slides-2] Slide 2: Three questions from the last session — answer on paper before we start\n5 MIN Activity 0 · individual · retrieval warm-up Three questions from the last session — answer on paper before we start Write down The steady heat conduction PDE in matrix form, and the two matrices it contains. The name of the boundary condition that needs no action in FEM, and why. N_2 of the 4-node element and its value at node 3. Why No notes. Retrieval practice is the point: what you can recall is what you can"
+  },
+  {
+   "id": "slides-3",
+   "text": "[slides-3] Slide 3: By the end of this session you should be able to\nLearning outcomes · today By the end of this session you should be able to 1 Apply the Galerkin weighted residual method and integration by parts to obtain [k]{T̂}ᵀ = {q} + {b} and explain what each term means. 2 Evaluate the conductance matrix [k] and the load vectors {q} and {b} of a 4-node rectangular element in closed form. 3 Assemble element matrices into the global system with a connectivity table and impose Di"
+  },
+  {
+   "id": "slides-4",
+   "text": "[slides-4] Slide 4: Six blocks, seven short activities, one break\nSession map · 180 minutes Six blocks, seven short activities, one break 0:00 Weak form & IBP 30 min A1 · 6 min 0:30 Element matrices 35 min A2 · 8 min 1:05 Mesh & connectivity 20 min A3 · 6 min 1:25 Break 10 min no activity 1:35 Assembly & Dirichlet 40 min A4 + A5 2:15 Post-processing 25 min A6 + QR 2:40 MATLAB & Asg 4 20 min Exit ticket Bring forward from the last session Your Activity 4–5 sheet: the same element, t"
+  },
+  {
+   "id": "slides-5",
+   "text": "[slides-5] Slide 5: From residual to weak form\n1 Block 1 · 0:00 – 0:30 From residual to weak form Substitute T = {N}{T̂}ᵀ into the PDE, weight the residual with {N}ᵀ, integrate by parts. Text §2.2.2. SEAA 4243 · 2D Heat Transfer — Part 2 5"
+  },
+  {
+   "id": "slides-6",
+   "text": "[slides-6] Slide 6: Substituting the approximation leaves a residual\nBlock 1 · substitute the approximation · text (2.34) Substituting the approximation leaves a residual (2.34) Count Four unknowns T̂_1…T̂_4, but only one equation — and it holds nowhere exactly. Idea Make the residual zero on average , weighted by each shape function: four weights, four equations. (2.35) Galerkin: weights = shape functions Why Galerkin: the weights are the shape functions themselves, which makes [k] s"
+  },
+  {
+   "id": "slides-7",
+   "text": "[slides-7] Slide 7: Move one derivative from T onto the weight; a boundary term appears\nBlock 1 · integration by parts: the 1D case you know Move one derivative from T onto the weight; a boundary term appears bar element, earlier in the course Purpose 1 · relax continuity After IBP only first derivatives of N and T appear, so a piecewise-linear (or bilinear) T is admissible. Second derivatives of a bilinear field would be zero or undefined at element edges. Purpose 2 · expose the natural condition The b"
+  },
+  {
+   "id": "slides-8",
+   "text": "[slides-8] Slide 8: Green’s theorem turns the area integral of a derivative into a boundary integral\nBlock 1 · integration by parts in two dimensions · text (2.36) Green’s theorem turns the area integral of a derivative into a boundary integral Green’s theorem, x-direction (same for y) (2.36) Why n_x, n_y are the outward normal components and ds runs around the element boundary. Apply it to each row of {∂}[E]{∂}ᵀ. Watch out q_b = k ∂T/∂n is the boundary flux of (2.15), positive when heat enters . Text (2.41) writes"
+  },
+  {
+   "id": "slides-9",
+   "text": "[slides-9] Slide 9: Conductance matrix, heat-generation vector, boundary-flux vector\nBlock 1 · rearrange and name the terms · text (2.37)–(2.42) Conductance matrix, heat-generation vector, boundary-flux vector (2.37) (2.15) (2.42) Why Read [k]’s integrand left to right: {N}ᵀ{∂} means the derivative acts on the weight {N}ᵀ (moved there by the IBP). {∂}ᵀ{N} is the last session’s 2 × 4 gradient matrix. SEAA 4243 · 2D Heat Transfer — Part 2 9"
+  },
+  {
+   "id": "slides-10",
+   "text": "[slides-10] Slide 10: Which term, which edge? Trace the boundary term around the plate\n6 MIN Activity 1 · pairs · reasoning Which term, which edge? Trace the boundary term around the plate For the text’s plate (top and left at 0 °C, right and bottom insulated) Which edges contribute to {b}? Write the value of q_b on each. On the two Dirichlet edges the flux is unknown — what happens to the boundary term there? How many equations does the weighted residual give for one 4-node element, and for the 2 × 2"
+  },
+  {
+   "id": "slides-11",
+   "text": "[slides-11] Slide 11: The element matrices\n2 Block 2 · 0:30 – 1:05 The element matrices Integrate in closed form over the rectangle: k₃₄ step by step, then the whole [k], then {q} and {b}. Text (2.43)–(2.50). SEAA 4243 · 2D Heat Transfer — Part 2 11"
+  },
+  {
+   "id": "slides-12",
+   "text": "[slides-12] Slide 12: Row 3 of {N}ᵀ, the operator, [E], the operator, column 4 of {N}\nBlock 2 · k₃₄ in four symbolic steps · text (2.43)–(2.46) Row 3 of {N}ᵀ, the operator, [E], the operator, column 4 of {N} Step 1 Step 2 Step 3 Step 4 What happened Step 1→2: the operator acts on N_3 to its left (IBP moved it there). Step 2→3: multiply by [E]; k_x and k_y attach to the two derivatives. Step 3→4: the second operator acts to the right, on N_4. Step 5: integrate over the rectangle (next slide). SEAA 4243"
+  },
+  {
+   "id": "slides-13",
+   "text": "[slides-13] Slide 13: Two separable integrals over 0 ≤ x ≤ a, 0 ≤ y ≤ b\nBlock 2 · k₃₄, step 5: the integrals · text (2.47)–(2.48) Two separable integrals over 0 ≤ x ≤ a, 0 ≤ y ≤ b (2.47) (2.48) SEAA 4243 · 2D Heat Transfer — Part 2 13"
+  },
+  {
+   "id": "slides-14",
+   "text": "[slides-14] Slide 14: Four distinct values; symmetric; every row sums to zero\nBlock 2 · the whole matrix · text (2.49) Four distinct values; symmetric; every row sums to zero (2.49) Check Row sums are zero because a uniform temperature produces no flux: [k]{1} = {0}. Use it as a check on every hand calculation. Watch out [k] is singular on its own (one zero eigenvalue). Only the Dirichlet conditions make the system solvable. SEAA 4243 · 2D Heat Transfer — Part 2 14"
+  },
+  {
+   "id": "slides-15",
+   "text": "[slides-15] Slide 15: Uniform generation splits equally; a uniform edge flux splits between the two edge nodes\nBlock 2 · the load vectors · text (2.39)–(2.40) Uniform generation splits equally; a uniform edge flux splits between the two edge nodes (2.39) (2.40) Why {b} is assembled only on the elements whose edge lies on the flux boundary; interior edges never contribute. Check Dimensions with unit thickness: q_hab/4 is W m⁻³ × m² = W per metre of thickness; q_bb/2 likewise. SEAA 4243 · 2D Heat Transfer — Part 2 15"
+  },
+  {
+   "id": "slides-16",
+   "text": "[slides-16] Slide 16: Evaluate [k] and {q} for the text’s element, then check the row sums\n8 MIN Activity 2 · pairs · calculation Evaluate [k] and {q} for the text’s element, then check the row sums Given (text §2.3) a = b = 0.5 m (2 × 2 mesh of a 1 m × 1 m plate), unit thickness. k_x = k_y = 300 W m⁻¹ K⁻¹, q_h = 600 W m⁻³. Find s_1, s_2, s_3, s_4 and hence [k]. {q} for the element. Verify that each row of [k] sums to zero. Check Units: W K⁻¹ for [k]; W for {q} (per metre of thickness). 8 minutes. Early fi"
+  },
+  {
+   "id": "slides-17",
+   "text": "[slides-17] Slide 17: The same [k] and {r} for all four elements of the mesh\nActivity 2 · solution · text (2.51)–(2.52) The same [k] and {r} for all four elements of the mesh (2.51) Right: (2.52), the heat-generation vector of every element. SEAA 4243 · 2D Heat Transfer — Part 2 17"
+  },
+  {
+   "id": "slides-18",
+   "text": "[slides-18] Slide 18: Mesh and connectivity\n3 Block 3 · 1:05 – 1:25 Mesh and connectivity Number the global nodes, list each element’s nodes in local order, and you have the map from local to global. Text Fig. 2.6. SEAA 4243 · 2D Heat Transfer — Part 2 18"
+  },
+  {
+   "id": "slides-19",
+   "text": "[slides-19] Slide 19: A 1 m square plate meshed with four elements\nBlock 3 · the worked example · text §2.3, Figs. 2.5–2.6 A 1 m square plate meshed with four elements q_h = 600 W m⁻³, k = 300 W m⁻¹ K⁻¹, unit thickness. Four elements, nine global nodes. Element 1 shaded; its local nodes (1)…(4) sit at global nodes 1, 2, 5, 4. Why Heat source, two cold edges, two insulated edges. Coarse on purpose: the hand calculation must be traceable; Block 5 refines it. SEAA 4243 · 2D Heat Transf"
+  },
+  {
+   "id": "slides-20",
+   "text": "[slides-20] Slide 20: Element e, local node i → global node conn(e, i): always anticlockwise from the bottom-lef\nBlock 3 · the connectivity table Element e, local node i → global node conn(e, i): always anticlockwise from the bottom-left Element (1) (2) (3) (4) 1 1 2 5 4 2 2 3 6 5 3 4 5 8 7 4 5 6 9 8 Why The MATLAB line K([1 2 5 4],[1 2 5 4]) = K([1 2 5 4],[1 2 5 4]) + k is this table’s first row. Element 2: local (1)…(4) = global 2, 3, 6, 5. Node 5 is local 4 here, local 3 in element 1: the same unknown T_5. SEAA 4243 · 2D Hea"
+  },
+  {
+   "id": "slides-21",
+   "text": "[slides-21] Slide 21: Write the connectivity table for the Assignment 4 strip\n6 MIN Activity 3 · pairs · bookkeeping Write the connectivity table for the Assignment 4 strip Do List the global nodes of elements 1, 2 and 3 in local order (1)…(4). Mark which global nodes have a known temperature. How many equations remain after imposing them? Keep this table — you will need it for Assignment 4. 6 minutes, then a 10-minute break. SEAA 4243 · 2D Heat Transfer — Part 2 21"
+  },
+  {
+   "id": "slides-22",
+   "text": "[slides-22] Slide 22: Three rows, two known nodes, six unknowns\nActivity 3 · solution Three rows, two known nodes, six unknowns Element (1) (2) (3) (4) 1 1 2 6 5 2 2 3 7 6 3 3 4 8 7 Known and unknown Known: T_1 = T_5 = 100 K (left edge). Unknown: T_2, T_3, T_4, T_6, T_7, T_8 — six equations. Insulated edges: nothing to do. Heat source on element 1 only: {r¹} ≠ 0, {r²} = {r³} = 0. SEAA 4243 · 2D Heat Transfer — Part 2 22"
+  },
+  {
+   "id": "slides-23",
+   "text": "[slides-23] Slide 23: Break\n1:25 – 1:35 Break Back in 10 minutes. Second half: assembly, Dirichlet conditions, solution, post-processing and MATLAB. SEAA 4243 · 2D Heat Transfer — Part 2 23"
+  },
+  {
+   "id": "slides-24",
+   "text": "[slides-24] Slide 24: Assembly and Dirichlet conditions\n4 Block 4 · 1:35 – 2:15 Assembly and Dirichlet conditions Scatter each [kᵉ] into [K] with the connectivity table, then remove the known temperatures. Text (2.53)–(2.55). SEAA 4243 · 2D Heat Transfer — Part 2 24"
+  },
+  {
+   "id": "slides-25",
+   "text": "[slides-25] Slide 25: Each local entry is added to the global position that the connectivity table names\nBlock 4 · the scatter-add rule Each local entry is added to the global position that the connectivity table names In words Start with [K] = 0 (9 × 9) and {R} = 0 (9 × 1). For each element: read its row of the table; add k_{ij} to K_{IJ} and r_i to R_I. Shared nodes receive contributions from every element that touches them. Why ‘add’ Each element’s weighted-residual equations are statements about its own area; the eq"
+  },
+  {
+   "id": "slides-26",
+   "text": "[slides-26] Slide 26: Sixteen entries land in rows and columns 1, 2, 4, 5\nBlock 4 · after element 1 · nodes [1 2 5 4] Sixteen entries land in rows and columns 1, 2, 4, 5 Maroon: element 1. Local (1)…(4) → global 1, 2, 5, 4: local k_{23} = s_4 = −50 goes to K_{25}; local k_{13} = −100 goes to K_{15}. SEAA 4243 · 2D Heat Transfer — Part 2 26"
+  },
+  {
+   "id": "slides-27",
+   "text": "[slides-27] Slide 27: Add element 2 (nodes [2 3 6 5]) to [K]\n8 MIN Activity 4 · pairs · assembly Add element 2 (nodes [2 3 6 5]) to [K] [K] after element 1 (maroon). Do Write the 10 distinct entries that element 2 (nodes 2, 3, 6, 5) adds; its [k] equals element 1’s. Which four entries now have contributions from both elements? Give their totals. Check: row 2 of [K] must still sum to zero. 8 minutes. Reveal follows. SEAA 4243 · 2D Heat Transfer — Part 2 27"
+  },
+  {
+   "id": "slides-28",
+   "text": "[slides-28] Slide 28: Shared entries are sums; the rest come from one element\nActivity 4 · solution · after elements 1 and 2 Shared entries are sums; the rest come from one element Maroon: element 1 · teal: element 2 · green: both elements add. Totals at the shared nodes K_{22} = 200 + 200 = 400 K_{55} = 200 + 200 = 400 K_{25} = K_{52} = −50 − 50 = −100 Check Row 2: −50 + 400 − 50 − 100 − 100 − 100 = 0. SEAA 4243 · 2D Heat Transfer — Part 2 28"
+  },
+  {
+   "id": "slides-29",
+   "text": "[slides-29] Slide 29: Nine equations, nine unknowns — but five temperatures are already known\nBlock 4 · the complete global system · text (2.53) Nine equations, nine unknowns — but five temperatures are already known (2.53) Load vector: 37.5 at corner nodes (one element), 75 at edge nodes (two elements), 150 at the centre node (four elements). SEAA 4243 · 2D Heat Transfer — Part 2 29"
+  },
+  {
+   "id": "slides-30",
+   "text": "[slides-30] Slide 30: Known T: delete the equation, move the value right\nBlock 4 · impose the known temperatures Known T: delete the equation, move the value right Row–column elimination (T̄ = 0) Known: T_1 = T_4 = T_7 = T_8 = T_9 = 0 (top and left edges). Delete rows and columns 1, 4, 7, 8, 9 of [K] and rows of {R}. Keep rows and columns 2, 3, 5, 6: a 4 × 4 system. Non-zero T̄ (e.g. 100 K in Assignment 4) The known column times T̄ is a known heat flow; it moves to the right-hand side bef"
+  },
+  {
+   "id": "slides-31",
+   "text": "[slides-31] Slide 31: Verify the solution and read it physically\n6 MIN Activity 5 · pairs · verification Verify the solution and read it physically Do Substitute T_2 = 0.482, T_3 = 0.621, T_5 = 0.386, T_6 = 0.482 into row 1 of the reduced system (2.54). Does it give 75? Why is T_3 the largest and T_5 the smallest of the four? Why does T_2 equal T_6 exactly? 6 minutes. Reveal follows. SEAA 4243 · 2D Heat Transfer — Part 2 31"
+  },
+  {
+   "id": "slides-32",
+   "text": "[slides-32] Slide 32: Row 1 closes to within rounding; the pattern of the answer matches the physics\nActivity 5 · solution Row 1 closes to within rounding; the pattern of the answer matches the physics Hottest at node 3 Farthest from the two cold edges, enclosed by the two insulated edges: the prediction from Heat Transfer Part 1 is confirmed. T₂ = T₆ Symmetry about the diagonal through nodes 1, 5, 9: swapping x and y maps the problem onto itself, so the solution must be symmetric too. Use symmetry in exams If a pro"
+  },
+  {
+   "id": "slides-33",
+   "text": "[slides-33] Slide 33: Post-processing and validation\n5 Block 5 · 2:15 – 2:40 Post-processing and validation Temperature and flux anywhere in the plate, then the honest question: how wrong is a 2 × 2 mesh? Text Table 2.1, Fig. 2.8. SEAA 4243 · 2D Heat Transfer — Part 2 33"
+  },
+  {
+   "id": "slides-34",
+   "text": "[slides-34] Slide 34: Find the element, go local, interpolate with its own nodal values\nBlock 5 · temperature at any point: three steps Find the element, go local, interpolate with its own nodal values 1 Locate the element that contains the point (from the mesh geometry). 2 Local coordinates: subtract the coordinates of that element’s node 1. 3 Interpolate with the shape functions and the element’s four nodal temperatures, in local order. Watch out Nodal values in the element’s local order (1)…(4) = its"
+  },
+  {
+   "id": "slides-35",
+   "text": "[slides-35] Slide 35: Differentiate the same interpolation; the flux is constant along one direction in each ele\nBlock 5 · flux at a point Differentiate the same interpolation; the flux is constant along one direction in each element Reading the sign At the centroid of element 2 (nodes 2, 3, 6, 5): q_x < 0, heat flows towards −x, from the hot corner at node 3 towards node 2; q_y > 0, towards the cold top edge. Discontinuity The flux jumps across element edges because the gradient of a bilinear field is not continuous. Software"
+  },
+  {
+   "id": "slides-36",
+   "text": "[slides-36] Slide 36: The 2 × 2 mesh is about 5% high; 16 × 16 matches software\nBlock 5 · how wrong is a 2 × 2 mesh? · text Table 2.1, Fig. 2.8 The 2 × 2 mesh is about 5% high; 16 × 16 matches software Mesh T(L/2, 0) T(L, 0) Q4 2 × 2 (hand) 0.4821 0.6214 Q8 2 × 1 (hand) 0.4448 0.5836 Q4 16 × 16 0.4590 0.5898 Software (text) 0.4589 0.5897 Check Convergence check = the same problem on a finer mesh; refine until the answer stops moving. the ANSYS demo’s ANSYS exercise. SEAA 4243 · 2D Heat Transfer"
+  },
+  {
+   "id": "slides-37",
+   "text": "[slides-37] Slide 37: Same equations, same checks, other codes\nBlock 5 · the same steady conduction in other FE codes Same equations, same checks, other codes Code_Aster (open-source FE), solid plate heated from below, shown in Gmsh. preCICE tutorials, “Flow over a heated plate, steady state”, LGPL-3.0. ANSYS MAPDL, plate with two faces at 5 and 100 °C. PyMAPDL documentation, “Basic thermal analysis”, © ANSYS, Inc., MIT licence. Why Left: the field your Heat Transfer Part 2 scri"
+  },
+  {
+   "id": "slides-38",
+   "text": "[slides-38] Slide 38: Interpolate the temperature at (0.3, 0.2) m in the solved plate\n8 MIN Activity 6 · pairs · calculation · Assignment pattern Interpolate the temperature at (0.3, 0.2) m in the solved plate Given Solution: T_2 = 0.482, T_5 = 0.386 °C; T_1 = T_4 = 0 (edge). Mesh: a = b = 0.5 m; element 1 has nodes [1 2 5 4]. Find Which element contains the point; its local coordinates. N_1…N_4 at the point and their sum. T(0.3, 0.2). Watch out Nodal order: {T̂¹} = {T_1, T_2, T_5, T_4}. 8 minutes. Re"
+  },
+  {
+   "id": "slides-39",
+   "text": "[slides-39] Slide 39: Element 1, local coordinates equal to global, T ≈ 0.266 °C\nActivity 6 · solution Element 1, local coordinates equal to global, T ≈ 0.266 °C Same point shifted to (0.8, 0.2): element 2, local (0.3, 0.2), same N_i, nodal values {T_2, T_3, T_6, T_5}. SEAA 4243 · 2D Heat Transfer — Part 2 39"
+  },
+  {
+   "id": "slides-40",
+   "text": "[slides-40] Slide 40: Run the text’s plate on your phone\n6 MIN QR Explorer · pairs, one phone Run the text’s plate on your phone Scan, then do 1 Keep the 2 × 2 mesh: do T at the bottom-right corner and at the bottom middle match (2.55)? 2 Run the mesh study. From which mesh is the change below 1%? Which value would you report? 3 Make all four edges insulated. What does the Explorer say, and what does it mean physically? Heat Conduction Explorer razinutm.github.io/ My_Lectu"
+  },
+  {
+   "id": "slides-41",
+   "text": "[slides-41] Slide 41: The MATLAB code and Assignment 4\n6 Block 6 · 2:40 – 3:00 The MATLAB code and Assignment 4 Every line of the program is one of today’s steps. Then the assignment brief and the exit ticket. SEAA 4243 · 2D Heat Transfer — Part 2 41"
+  },
+  {
+   "id": "slides-42",
+   "text": "[slides-42] Slide 42: Left: input and [k]. Right: assembly, Dirichlet, solve\nBlock 6 · the script, traced against the pipeline Left: input and [k]. Right: assembly, Dirichlet, solve % ---- input (text §2.3.1) ---- L = 1; H = 1; kx = 300; ky = 300; Q = 600; To = 0; % Dirichlet value Nx = 2; Ny = 2; ndof = 9; a = L/Nx; b = H/Ny; % ---- local conductance matrix: (2.49) ---- s1 = b*kx/(3*a) + a*ky/(3*b); s2 = -b*kx/(3*a) + a*ky/(6*b); s3 = -b*kx/(6*a) - a*ky/(6*b); s4 = b*kx/(6*a) - a*ky/(3*b); k"
+  },
+  {
+   "id": "slides-43",
+   "text": "[slides-43] Slide 43: Three elements, a cold left edge, one heat source\nBlock 6 · Assignment 4 · heat transfer · due [date] Three elements, a cold left edge, one heat source Parts (a) Local load vector {r¹} for the heat source Q = 20 W m⁻² on element 1 (unit thickness). (b) Global [K] in terms of k, with k_x = k_y = k, using your Activity 3 connectivity table. (c) With T_2 = T_6 = 150 K from the solution, interpolate T at (x, y) = (1.4, 2.2) m. Check Show the connectivity table, s_1…s_4"
+  },
+  {
+   "id": "slides-44",
+   "text": "[slides-44] Slide 44: Three questions before you leave\n5 MIN Activity 7 · individual · exit ticket Three questions before you leave Questions In [k]{T̂}ᵀ = {q} + {b}, which vector does an insulated edge contribute to, and what is the contribution? Why must every row of [k] sum to zero, and what would a non-zero row sum tell you about your hand calculation? A 9-dof system has 5 Dirichlet nodes. How many equations do you solve, and what happens to the known values if they"
+  },
+  {
+   "id": "slides-45",
+   "text": "[slides-45] Slide 45: Same pipeline, two unknowns per node\nWrap-up · heat transfer is done; plane stress starts the next session Same pipeline, two unknowns per node Today in four lines Galerkin + IBP: [k]{T̂}ᵀ = {q} + {b}; the operator acts on the weight to its left. [k] from four closed-form values s_1…s_4; rows sum to zero; {q} = q_hab/4; edge flux splits q_bb/2. Assembly = scatter-add by connectivity; Dirichlet = move known values right, delete rows and columns. Post-pro"
+  },
+  {
+   "id": "examples-y1",
+   "text": "[examples-y1] Example 1 · Conductance matrix and nodal loads of a square element\nExam type [k] of a Q4 element, two entries by integration, the rest by pattern; {b} for a boundary flux, {q} for a source Units W, m, K Source FEM by Hand, Examples 8.2 and 8.3 (textbook Exercises 2.1–2.3) 20 marks Question A square element of side 0.025 m and thickness 0.005 m has k = 450 W m^{−1} K^{−1}. (a) Show the integration for k_{12} and k_{13} and complete [k] by the pattern of (2.49). (b) Determine the nodal loads for an inward heat flux of 10^6 W m^{−2} on its right side, 2–3, and (c) for an internal heat generation of 10^7 W m^{−3}. (d) In an examination plate of unit thickness, an element 2 m wide and 3 m high carries a heat source Q = 20 W m^{−2}; determine its load vector.\n[Figure: The element of Example 1.]\nPhysical picture. k_{ij} is the heat that must be supplied at node i when node j is held 1 K above the others, all at 0 K. In a square it is negative for i ≠ j, because a hotter node j pushes heat towards node i and the supply at i must take it away. For a square with k_x = k_y the matrix depends only on k and t, not on the side. The heat entering or generated is shared by the nodes in proportion to how much each shape function covers: every N_i integrates to ab/4 over the element, and along a side only its two nodes have non-zero shape functions, each taking half.\nPlan. Derivatives of N_1, N_2, N_3 → integrate k_{12}, k_{13} → s_1 to s_4 → the pattern → row-sum check → (b) {b} on side 2–3 → (c) {q} → (d) the same with Q per unit area → totals as checks.\n## Step 1 Derivatives [2]\nFrom (8.5), the shape functions of Part 1:\nEQUATION : [equation y1_dN: source not available in the page]\n## Step 2 (a) Two entries by integration [5]\nEQUATION : [equation y1_k12: source not available in the page]\nEQUATION : [equation y1_k13: source not available in the page]\n## Step 3 (a) Numbers [3]\nWith a = b and k_x = k_y = 450, multiplied by t = 0.005 m:\nEQUATION : [equation y1_nums: source not available in the page]\n## Step 4 (a) The matrix [2]\nEQUATION : [equation y1_k: source not available in the page]\nCheck. Every row: 1.5 − 0.375 − 0.75 − 0.375 = 0.\nAnswer. (a) [k] as above: s_1 = 1.5, s_2 = s_4 = −0.375, s_3 = −0.75 W K^{−1}.\n## Step 5 (b) Flux on side 2–3 [3]\nOn x = a: N_1 = N_4 = 0, N_2 = (b − y)/b, N_3 = y/b. Each integrates to b/2 along the side:\nEQUATION : [equation y1_b: source not available in the page]\nCheck. Total 125 W = q_n t b = 10^6(0.005)(0.025), the heat crossing the side.\n## Step 6 (c) Heat generation [3]\n∫N_i dA = ab/4 for each node, so\nEQUATION : [equation y1_q: source not available in the page]\nCheck. Total 31.25 W = Q t ab.\n## Step 7 (d) A source given per unit area [2]\nQ = 20 W m^{−2} is heat per unit area of the plate and already contains the thickness, so it is not multiplied by t:\nEQUATION : [equation y1_qc: source not available in the page]\nAnswer. (b) 62.5 W at nodes 2 and 3. (c) 7.81 W at each node. (d) {r}^1 = {30, 30, 30, 30}ᵀ W. Pitfall · W m^{−2} or W m^{−3} A source per unit volume (W m^{−3}) is multiplied by t. A source per unit area of the plate (W m^{−2}), as in part (d), already contains the thickness: do not multiply again. Interpretation The diagonal pair (1–3) is coupled twice as strongly as each side pair, −0.75 against −0.375 W K^{−1}. For a side pair the two directions work against each other: in k_{12} the k_x term is negative and the k_y term positive; for a diagonal pair both are negative. Doubling the side of the square leaves [k] unchanged: the longer conduction path and the wider section cancel. Equal shares are a property of uniform loads; whatever the distribution, the loads must add up to the total heat, and that check catches a forgotten thickness or a misplaced factor of 2. Marking scheme (suggested) · 20 What earns the marks Marks\nDerivatives of the shape functions 2\nk_{12} and k_{13} by integration, with the integrals evaluated 5\nNumerical s_1…s_4 with t 3\nMatrix by the pattern, row-sum check 2\n{b}: half the flux × length × t at each of the two nodes, total check 3\n{q}: tQab/4 at each node, total check 3\nPer-unit-area source not multiplied by t 2\nTotal 20"
+  },
+  {
+   "id": "examples-y2",
+   "text": "[examples-y2] Example 2 · Four elements with a prescribed temperature and an inward flux\nExam type assembly of a 2 × 2 mesh, essential and natural conditions, solution by symmetry, energy balance Units W, m, K Source FEM by Hand, Example 8.6 (textbook Exercise 2.4) 20 marks Question The square plate of the figure, 0.05 m by 0.05 m and 0.005 m thick, is divided into four equal elements. Its top and bottom are insulated, its left side is held at 400 K, and its right side receives an inward heat flux of 10^6 W m^{−2}. With k = 450 W m^{−1} K^{−1}, determine the temperature at node 5.\n[Figure: The plate of Example 2 with the global node numbers.]\nPhysical picture. The heat entering at the right side, 10^6(0.005)(0.05) = 250 W, must all leave through the left side; with the top and bottom insulated it flows straight across, so T depends on x only. With no source the gradient is constant, q_n/k = 2222 K m^{−1}, so expect T = 400 + 2222x: 455.6 K at the middle column and 511.1 K at the right side. A bilinear element contains this linear field, so the finite element solution should reproduce it.\nPlan. [k] of Example 1 → assemble 9 × 9 → flux loads at nodes 3, 6, 9 → strike nodes 1, 4, 7 → solve by columns → check a full row → energy balance.\n## Step 1 Element matrices and assembly [5]\nThe four elements are identical to that of Example 1. With element 1 on nodes 1, 2, 5, 4 (local 1, 2, 3, 4), element 2 on 2, 3, 6, 5, element 3 on 4, 5, 8, 7 and element 4 on 5, 6, 9, 8:\nEQUATION : [equation y2_K: source not available in the page]\nCorner nodes have ts_1 = 1.5, side nodes 2ts_1 = 3, the centre 4ts_1 = 6 W K^{−1}.\n## Step 2 Loads [3]\nThe flux enters through sides 3–6 and 6–9, each giving 62.5 W to each of its nodes (Example 1):\nEQUATION : [equation y2_loads: source not available in the page]\n## Step 3 Boundary conditions [3]\nT_1 = T_4 = T_7 = 400 K: strike rows and columns 1, 4, 7 and subtract K_{i1}(400) + K_{i4}(400) + K_{i7}(400) from the right-hand side. Six unknowns remain.\n## Step 4 Solution by columns [5]\nSince T does not vary with y, the middle column shares one value and the right column another. Adding the three equations of the middle column (rows 2, 5, 8) and the three of the right column (rows 3, 6, 9):\nEQUATION : [equation y2_cols: source not available in the page]\nEQUATION : [equation y2_sol: source not available in the page]\nCheck.\nEQUATION : [equation y2_check: source not available in the page]\nAnswer. T_5 = 455.6 K (and T_2 = T_8 = 455.6, T_3 = T_6 = T_9 = 511.1 K).\n## Step 5 Energy balance [4]\nEQUATION : [equation y2_bal: source not available in the page]\nInterpretation The finite element temperatures equal the exact 400 + q_nx/k at every node, as expected: the exact field is linear, and a bilinear element represents a linear field exactly. Two features of the data make the column shortcut valid, the insulated top and bottom and the uniform conditions on the left and right; with a flux on part of a side only, or a hole, T would vary with y and the six equations would have to be solved together. Doubling the thickness doubles both [K] and {R} and leaves the temperatures unchanged.\nEQUATION : [equation y2_exact: source not available in the page]\nMarking scheme (suggested) · 20 What earns the marks Marks\n[K] assembled with the right multiplicities (1.5, 3, 6 on the diagonal) 5\nFlux loads at nodes 3, 6, 9 3\nRows and columns 1, 4, 7 struck, 400 K moved to the right 3\nColumn equations and T_5; a full-row check 5\nStruck rows give 250 W out = 250 W in 4\nTotal 20"
+  },
+  {
+   "id": "examples-y3",
+   "text": "[examples-y3] Example 3 · Plate with a heat source: the textbook’s worked example\nExam type 2 × 2 mesh, assembly, symmetry, energy balance, accuracy Units W, m, °C Source FEM by Hand, Example 8.7 (textbook §2.3) 20 marks Question The square plate of the figure, 1 m by 1 m and of unit thickness, generates Q = 600 W m^{−3} and has k = 300 W m^{−1} °C^{−1}. Its left and top edges are held at 0 °C; its bottom and right edges are insulated. With four equal Q4 elements, (a) form [k] and {r} of an element, (b) assemble, apply the boundary conditions and solve, and (c) check the energy balance and compare with the exact solution.\n[Figure: The plate (textbook Figs. 2.5 and 2.6).]\n[Figure: The mesh with its global node numbers.]\nPhysical picture. The heat generated everywhere flows to the cold left and top edges, so the hottest point is the corner farthest from both, node 3 at (1, 0). The problem is symmetric about the diagonal through (0, 1) and (1, 0), so T_2 = T_6. The insulated edges are lines of symmetry: the plate is one quarter of a 2 m square with all edges at 0 °C, whose centre temperature is 0.07367 Q(2)²/k = 0.589 °C.\nPlan. s_1 to s_4, Qab/4 → assemble 9 × 9 → strike nodes 1, 4, 7, 8, 9 → T_6 = T_2 → 3 × 3 → heat flows → exact solution and convergence.\n## Step 1 (a) Element matrices [3]\nEQUATION : [equation y3_k: source not available in the page]\n## Step 2 (b) Assembly [4]\nCorner nodes belong to one element, side nodes to two and node 5 to four:\nEQUATION : [equation y3_K: source not available in the page]\nThe complete 9 × 9 is (2.53) of the textbook; its rows for the free nodes, after striking T_1 = T_4 = T_7 = T_8 = T_9 = 0 (nothing moves to the right, since the prescribed temperatures are zero):\nEQUATION : [equation y3_red: source not available in the page]\n## Step 3 (b) Solution with T₆ = T₂ [5]\nRow 6 then repeats row 2, and the other three rows become\nEQUATION : [equation y3_sym: source not available in the page]\nThe second gives T_3 = 0.1875 + 0.5T_2 + 0.5T_5. Substituting into the first and the third:\nEQUATION : [equation y3_solve: source not available in the page]\nEQUATION : [equation y3_T: source not available in the page]\nCheck. Row 1 of the reduced system: 400(0.4821) − 50(0.6214) − 100(0.3857) − 100(0.4821) = 75.0 ✓\nAnswer. (b) T_2 = T_6 = 0.482, T_3 = 0.621, T_5 = 0.386 °C, the textbook’s (2.55).\n## Step 4 (c) Energy balance [4]\nEQUATION : [equation y3_bal: source not available in the page]\nAll the heat generated, Q × area = 600 W, leaves through the cold edges.\n## Step 5 (c) Comparison with the exact solution [4]\nEQUATION : [equation y3_exact: source not available in the page]\nAt nodes 2, 3 and 5 the 2 × 2 mesh is 5.1%, 5.4% and 6.5% high. For the corner temperature:\nmesh 1 × 1 2 × 2 4 × 4 8 × 8 16 × 16 exact\nT_3 (°C) 0.7500 0.6214 0.5968 0.5912 0.5898 0.5894\nerror +27.3% +5.4% +1.26% +0.31% +0.08% –\nAnswer. (c) Energy balance 600 W in and out; the 2 × 2 mesh is 5–7% high at its nodes, and the error falls about four times each time the mesh is halved. Interpretation The error falls as h², the rate of bilinear elements for a smooth field, about four times for each halving of the mesh. Finite element temperatures are not bounds: the 2 × 2 Q4 mesh is above the exact values, while the textbook’s two eight-node elements give 0.4448 and 0.5836 °C, below them. The nodal temperatures are not exact here, as they were in Example 2, because the exact field is curved in both directions. Node 5 shows the averaging property of square meshes: 800T_5 = 100(T_1 + … + T_9 without T_5) + 150, the mean of its eight neighbours plus the effect of the source. Marking scheme (suggested) · 20 What earns the marks Marks\ns_1…s_4 and Qab/4 3\nDiagonal multiplicities and the reduced 4 × 4 4\nSymmetry used, 3 × 3 solved, a row check 5\nHeat flows at the cold nodes summing to −600 W 4\nComparison with the exact values and the h² rate 4\nTotal 20"
+  },
+  {
+   "id": "exercises-b1",
+   "text": "[exercises-b1] Exercise B1 · The four values of the conductance matrix\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-b2",
+   "text": "[exercises-b2] Exercise B2 · Source and edge-flux loads\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-b3",
+   "text": "[exercises-b3] Exercise B3 · Assembly entries of a two-element strip\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-b4",
+   "text": "[exercises-b4] Exercise B4 · Temperature and flux at a point of the solved mesh\nStatement: generated in the app at run time (numbers change per attempt)\nHints and the solution are in the app; the tutor gives the next hint only."
+  },
+  {
+   "id": "exercises-quick",
+   "text": "[exercises-quick] Exercises: quick concept questions\n- Integration by parts is applied to the weighted residual mainly in order to\n- For the text’s plate (top and left edges at 0 °C, right and bottom insulated), the boundary vector {b} of every element is\n- For an element with a = 2 m, b = 1 m and k_x = k_y = k, the entry s_2 is\n- In the 2 × 2 mesh the diagonal entry K_{55} of the centre node equals\n- The struck rows of a node with a prescribed temperature are useful because they give\n- Refining the text’s mesh from 2 × 2 to 4 × 4 changes T(1, 0) from 0.6214 to 0.5968 °C (exact 0.5894). Halving the mesh again should leave an error of about\n- A student interpolates T at (0.8, 0.2) m in the text’s solved 2 × 2 mesh (a = b = 0.5 m; T_2 = 0.482, T_3 = 0.621, T_5 = 0.386, T_6 = 0.482 °C). One line contains the slip. Which one?"
+  },
+  {
+   "id": "lab-book2",
+   "text": "[lab-book2] Explorer task 1 · Keep the text’s example on the 2 × 2 mesh. Read T at the bottom-right corner and at the middle of the bottom edge; tap the plate to probe.\nTicks itself: detected on the first probe with the text’s settings on 2 × 2 · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-study",
+   "text": "[lab-study] Explorer task 2 · Run the mesh study. From which mesh does the maximum temperature change by less than 1%? Which value would you report?\nTicks itself: detected when the mesh study runs with the text’s settings · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-right0",
+   "text": "[lab-right0] Explorer task 3 · Set the right edge to 0 °C as well. Where is the hottest point now, and why there?\nTicks itself: detected when three edges are at the same temperature and the bottom is insulated · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-allins",
+   "text": "[lab-allins] Explorer task 4 · Make all four edges insulated. What does the Explorer report, and what does it mean physically?\nTicks itself: detected when all four edges are insulated · not ticked? mark done\n(The task's answer fields are checked in the app; they are not included here.)"
+  },
+  {
+   "id": "lab-code",
+   "text": "[lab-code] Lab · Python code for assignments and projects\nPython code for assignments and projects The same steps and notation as the notes, written out in plain Python. Use it to check every matrix and number of a hand calculation, and to run what is impractical by hand: mesh studies, contour plots, your own geometry and loads. ⤓ Download fe_heat_q4.py (.zip, 16 kB) ⤓ All course code (.zip, 41 kB) Unzip, then install Python 3.8 or newer and run pip install numpy matplotlib (matplotlib only for the plots). Run python fe_heat_q4.py . It reproduces the course example; README.txt lists the output you should see. Read the docstring at the top of the file for the notation, numbering and units, and how to call it for your own problem. A hand calculation is still a hand calculation: in a test or an assignment that asks for the steps, show them yourself. Show the code · fe_heat_q4.py · 268 lines Copy \"\"\"\nSEAA 4243 Finite Element Method - steady 2D heat conduction with 4-node elements\n================================================================================\nCompanion code for the Heat Conduction Explorer (2D Heat Transfer, Part 2).\nIt follows the seven steps of the course, in the text's notation\n(Mohd Yassin et al., MSNM 2020, Chapter 2):\n1-2 mesh of a rectangular plate, L x H, Nx x Ny four-node elements\n5 element matrix [k] from the closed-form s1...s4 text (2.49)\nsource loads {q} = t Q ab/4 at each node text (2.39)\nedge-flux loads {b} = t q_n l/2 at each edge node text (2.40)\n6 assembly by the connectivity table (scatter-add),\nknown"
+  },
+  {
+   "id": "lab-run",
+   "text": "[lab-run] Lab · Run the code in your browser\nRun the code in your browser trial Edit a short script and run it here, with no installation. Python runs on your own device; nothing is sent anywhere. The first run downloads Python, about 9 MB (about 20 MB once a script plots), and takes 10–30 s; later runs take a second or two. Mesh study [K] and {R}, 2 × 2 mesh Course example ▶ Run ■ Stop Reset script Ctrl+Enter (⌘+Enter) runs. Your edits are kept in this browser; Reset script brings back the original. For an assignment or a project, download the code above and run it on your computer."
+  },
+  {
+   "id": "glossary-residual",
+   "text": "[glossary-residual] Glossary: residual\nresidual: What is left when the approximation is substituted into the PDE; zero only for the exact solution."
+  },
+  {
+   "id": "glossary-weighted-residual",
+   "text": "[glossary-weighted-residual] Glossary: weighted residual\nweighted residual: The residual multiplied by a weight and integrated; set to zero to get one equation per weight."
+  },
+  {
+   "id": "glossary-galerkin-method",
+   "text": "[glossary-galerkin-method] Glossary: Galerkin method\nGalerkin method: Weighted residual with the shape functions as weights; gives a symmetric [k]."
+  },
+  {
+   "id": "glossary-integration-by-parts-green-s-theorem",
+   "text": "[glossary-integration-by-parts-green-s-theorem] Glossary: integration by parts · Green’s theorem\nintegration by parts · Green’s theorem: Moves one derivative from T onto the weight and produces a boundary term; in 2D the area integral trades with a boundary integral."
+  },
+  {
+   "id": "glossary-weak-form",
+   "text": "[glossary-weak-form] Glossary: weak form\nweak form: The integrated, lower-derivative statement that the finite element equations come from."
+  },
+  {
+   "id": "glossary-conductance-matrix-k",
+   "text": "[glossary-conductance-matrix-k] Glossary: conductance matrix [k]\nconductance matrix [k]: 4 × 4, symmetric, from ∫{N}ᵀ{∂}[E]{∂}ᵀ{N} dA; the heat analogue of stiffness. Units W K^{−1} per unit thickness."
+  },
+  {
+   "id": "glossary-s-1-s-4",
+   "text": "[glossary-s-1-s-4] Glossary: s_1 …s_4\ns_1 …s_4: The four distinct entries of [k] for a rectangle, (2.49); s_1 diagonal, s_2 horizontal side, s_4 vertical side, s_3 diagonal pairs."
+  },
+  {
+   "id": "glossary-source-vector-q",
+   "text": "[glossary-source-vector-q] Glossary: source vector {q}\nsource vector {q}: Nodal loads from the heat generated inside the element, q_h ab/4 each for a uniform source."
+  },
+  {
+   "id": "glossary-boundary-vector-b",
+   "text": "[glossary-boundary-vector-b] Glossary: boundary vector {b}\nboundary vector {b}: Nodal loads from a known flux on an edge, q_b ℓ/2 at each of the two nodes of that edge."
+  },
+  {
+   "id": "glossary-row-sum-check",
+   "text": "[glossary-row-sum-check] Glossary: row-sum check\nrow-sum check: Every row of [k] adds to zero because a uniform temperature conducts no heat."
+  },
+  {
+   "id": "glossary-connectivity-table",
+   "text": "[glossary-connectivity-table] Glossary: connectivity table\nconnectivity table: For each element, its global node numbers in local anticlockwise order."
+  },
+  {
+   "id": "glossary-assembly-scatter-add",
+   "text": "[glossary-assembly-scatter-add] Glossary: assembly · scatter-add\nassembly · scatter-add: K_{IJ} += k_{ij} with I, J read from the connectivity table; the same for {R}."
+  },
+  {
+   "id": "glossary-global-system-k-t-r",
+   "text": "[glossary-global-system-k-t-r] Glossary: global system [K]{T} = {R}\nglobal system [K]{T} = {R}: All elements assembled; singular until at least one temperature is prescribed."
+  },
+  {
+   "id": "glossary-row-column-elimination",
+   "text": "[glossary-row-column-elimination] Glossary: row–column elimination\nrow–column elimination: Imposing a known T̄: move its column × T̄ to the right-hand side, delete the row and the column."
+  },
+  {
+   "id": "glossary-reduced-system",
+   "text": "[glossary-reduced-system] Glossary: reduced system\nreduced system: The equations that remain for the unknown temperatures after the known ones are struck."
+  },
+  {
+   "id": "glossary-struck-rows-energy-balance",
+   "text": "[glossary-struck-rows-energy-balance] Glossary: struck rows · energy balance\nstruck rows · energy balance: Rows of the known nodes, evaluated afterwards, give the heat flows there; their sum balances the heat put in."
+  },
+  {
+   "id": "glossary-local-coordinates",
+   "text": "[glossary-local-coordinates] Glossary: local coordinates\nlocal coordinates: Position measured from an element’s local node 1; what N_i must be evaluated with."
+  },
+  {
+   "id": "glossary-post-processing",
+   "text": "[glossary-post-processing] Glossary: post-processing\npost-processing: Everything computed from the nodal solution: T at a point, flux, hottest point, heat flows."
+  },
+  {
+   "id": "glossary-mesh-refinement-convergence",
+   "text": "[glossary-mesh-refinement-convergence] Glossary: mesh refinement · convergence\nmesh refinement · convergence: Repeating the solution on finer meshes until the answer stops changing; bilinear elements converge as h²."
+  },
+  {
+   "id": "glossary-relative-error",
+   "text": "[glossary-relative-error] Glossary: relative error\nrelative error: (T_{mesh} − T_{ref} )/T_{ref} ; about +5% for the 2 × 2 mesh of the text’s plate."
+  },
+  {
+   "id": "glossary-patch-test",
+   "text": "[glossary-patch-test] Glossary: patch test\npatch test: A field the element can represent exactly (here a linear T) must be reproduced exactly on any mesh."
+  },
+  {
+   "id": "glossary-symmetry",
+   "text": "[glossary-symmetry] Glossary: symmetry\nsymmetry: Equal geometry, material, loads and boundary conditions about a line give equal temperatures at mirror nodes; a line of symmetry carries no heat across it."
+  }
+ ]
+}

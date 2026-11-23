@@ -1,0 +1,567 @@
+# 2D Heat Transfer — Part 1
+From the energy balance to the shape functions of the four-node element: the PDE, its boundary conditions, and how temperature is interpolated inside one element.
+
+[start-outcomes] After this part you should be able to
+1. Derive the steady 2D heat-conduction PDE from an energy balance and Fourier’s law, and write it as {∂}[E]{∂}ᵀT = −q_h .
+2. Classify boundary conditions as Dirichlet (essential) or Neumann (natural) and write them for a rectangular domain.
+3. Derive the bilinear shape functions N_1 …N_4 of the four-node element and use them to interpolate T(x, y).
+4. Differentiate the approximation to obtain the temperature gradient and the heat flux at any point of an element.
+
+[notes-n1] Notes 1. Why a 2D field problem, and what FEM delivers
+Everything in the first half of the course was one-dimensional: a bar, a beam, a truss, a frame. The unknowns sat on a line. From here on the unknown is a field : a temperature T(x, y) defined at every point of a plate. We cannot solve for infinitely many values, so we solve for a finite number of them at nodes and let the element interpolate in between. That is the whole idea of the method.
+FEM is “nothing”, and FEM is “everything” Nothing: FEM adds no new physics. It is only a way to turn a differential equation into simultaneous algebraic equations in matrix form. Everything: the same machinery solves heat, seepage, stress, vibration and fluid flow. Learn it once, on the simplest field problem, and reuse it.
+## Scalar field first, vector field later
+Heat conduction is a scalar field problem: one unknown per node, the temperature T̂_i. Plane stress, later in the course, is a vector field problem: two unknowns per node, the displacements u_i and v_i. Every idea of this part — shape functions, boundary conditions, assembly — appears in both; plane stress only has bigger matrices.
+[Figure: Left: a scalar field, one number at each node. Right: a vector field, two numbers at each node.]
+## Where civil engineers meet conduction
+- Mass concrete. Heat of hydration in dams, rafts and pile caps: the temperature rise and the gradient between core and surface drive early-age cracking.
+- Fire engineering. Temperature rise in steel sections and tunnel linings decides when strength is lost; the input is a 2D conduction model of the section.
+- Pavements and decks. Daily thermal gradients through a bridge deck or a pavement slab produce stresses that design codes make us check.
+- Ground and geothermal. Ground freezing, energy piles and buried pipelines are conduction problems in soil — and seepage uses the same equation.
+[Figure: A heated plate under a channel flow. The solid plate obeys this part’s conduction PDE; at its interface with the fluid it receives a temperature and returns a heat flux — one Dirichlet and one Neumann condition (§3). Image: preCICE tutorials, “Flow over a heated plate”, LGPL-3.0, github.com/precice/tutorials.]
+Key points:
+- The unknown is a field T(x, y); FEM solves for nodal values and interpolates between them.
+- FEM adds no physics; it turns a PDE into [K]{T̂} = {r}.
+- Scalar field: one unknown per node. Plane stress will have two.
+Quick check (not graded): What does the finite element method add to the physics of heat conduction?
+Options: Fourier’s law | Nothing — it only discretises the PDE | A heat-generation term
+Explanation shown after answering: Nothing. The physics is the energy balance and Fourier’s law; FEM is a numerical method that turns the resulting PDE into algebraic equations.
+
+[notes-n2] Notes 2. From the energy balance to the PDE
+Take a small rectangle dx by dy inside the plate, of unit thickness. The dependent variables are the heat fluxes q_x and q_y (W m^{−2}): energy per unit time per unit area crossing a face. Heat enters through the near faces and leaves through the far faces.
+[Figure: The differential element: fluxes in and out, generation q_h inside (text Fig. 2.1).]
+The flux on the far face is the near-face flux plus its change across the element, a first-order Taylor expansion. The net inflow in the x-direction is therefore
+EQUATION (2.2): [equation e_Qx: source not available in the page]
+and by the same argument in the y-direction
+EQUATION (2.3): [equation e_Qy: source not available in the page]
+Inside, heat is generated at a rate q_h per unit volume (W m^{−3}), for example the hydration of cement, and the element stores energy as its temperature rises:
+EQUATION (2.5): [equation e_Qh: source not available in the page]
+## Conservation of energy
+Rate of change of stored energy = net conduction in + heat generated. Every term carries the factor dx dy, the volume of the element per unit thickness, so it cancels:
+EQUATION (2.6): [equation e_balance: source not available in the page]
+EQUATION : [equation e_balance2: source not available in the page]
+Per unit thickness Every quantity is multiplied by the same thickness t, which cancels, so we take t = 1. Nothing changes for a plate of any thickness as long as the faces are insulated.
+## Fourier’s law closes the system
+The balance has three unknowns (T, q_x, q_y) and one equation. Fourier’s law supplies the other two: heat flows down the temperature gradient, in proportion to the conductivity k (W m^{−1} K^{−1}). The minus sign is the physics: flux points from hot to cold.
+EQUATION (2.7): [equation e_fourier: source not available in the page]
+[Figure: Flux points down the gradient: from the hot side to the cold side.]
+Substituting (2.7) into the balance gives one equation in T alone:
+EQUATION (2.10): [equation e_pde_t: source not available in the page]
+## Steady state: the PDE we discretise
+Drop the time derivative. This is the equation you must be able to write from memory: the divergence of the flux equals the source.
+EQUATION (2.11): [equation e_pde: source not available in the page]
+Two special cases you have met before: with constant isotropic k it is Poisson’s equation, and with no source it is Laplace’s equation — the same equation as potential flow in fluid mechanics and seepage in soil mechanics.
+EQUATION : [equation e_poisson: source not available in the page]
+Unit check Each term of (2.11) is W m^{−3}: (W m^{−1} K^{−1})(K m^{−2}). The source q_h sits on the right with a minus sign because we moved it across; a positive source makes the field concave, a hill.
+## The matrix form we will reuse
+Write the operator as a row of derivatives, a material matrix and a column of derivatives. This is the slide that pays off in plane stress, where the same pattern appears with a 3 × 3 [E] and a 2 × 3 operator.
+EQUATION (2.12): [equation e_matrix: source not available in the page]
+EQUATION (2.13): [equation e_compact: source not available in the page]
+EQUATION (2.14): [equation e_defs: source not available in the page]
+Order matters {∂} is a row of operators, not numbers: it acts on whatever stands to its right. You cannot commute it past a function.
+## Worked step · the y-direction balance (Activity 2)
+In through y = 0: q_y dx. Out through y = dy: (q_y + ∂q_y/∂y dy) dx. Net inflow Q_y = −∂q_y/∂y dx dy, equation (2.3). Add Q_x, Q_y and Q_h, set the sum equal to the stored-energy rate Q_E, cancel dx dy, and (2.6) follows.
+Key points:
+- Energy balance on dx × dy, then Fourier’s law, gives (2.11): divergence of flux = source.
+- Every term of (2.11) is W m^{−3}.
+- Matrix form {∂}[E]{∂}ᵀT = −q_h; [E] = diag(k_x, k_y).
+Quick check (not graded): What are the units of the heat-generation term q_h in (2.11)?
+Options: W m^{−2} | W m^{−3} | W m^{−1} K^{−1}
+Explanation shown after answering: q_h is heat generated per unit volume, W m^{−3}, the same as k ∂²T/∂x². A flux (W m^{−2}) is per unit area; conductivity is W m^{−1} K^{−1}.
+
+[notes-n3] Notes 3. Boundary conditions: essential and natural
+A PDE alone is not a problem. On every part of the boundary we must specify either the temperature or the flux. There are only two kinds of condition, and the whole of the finite element treatment depends on telling them apart.
+EQUATION (2.16): [equation e_dirichlet: source not available in the page]
+Dirichlet, or essential The temperature T̄ is known on the edge. FEM must impose it on the unknowns: the corresponding rows and columns of the assembled system are modified.
+Neumann, or natural The boundary flux q_b is known, positive inward, and enters through the outward unit normal n = (n_x, n_y). FEM does not impose it: it appears by itself as a load, from the integration by parts in Part 2.
+[Figure: The outward unit normal on each edge of a rectangular domain.]
+## Rectangular domains
+On a rectangle the normal is one of (±1, 0) or (0, ±1), so (2.15) loses one term on every edge:
+EQUATION : [equation e_rect_v: source not available in the page]
+EQUATION : [equation e_rect_h: source not available in the page]
+EQUATION : [equation e_insul: source not available in the page]
+## What FEM does with each kind
+Condition What is known Where it enters the FEM Action in Part 2
+Dirichlet · essential T̄ on the edge imposed on the assembled system by modifying rows and columns of [K] row–column elimination
+Neumann · natural q_b on the edge appears in the boundary vector {b} produced by integration by parts {b} = ∫{N}ᵀq_n ds
+Insulated · natural, q_b = 0 no flux contributes nothing: the boundary integral is zero do nothing
+The most common error Trying to “impose” an insulated edge. It needs no action at all. The names come from the integration by parts: the natural condition is the term that falls out of it; the essential one must be enforced on the unknowns.
+## Worked example · label the plate (Activity 3, text Exercise 2.5)
+[Figure: Plate 0.15 m × 0.05 m, k = 450 W m^{−1} K^{−1}, q_h = 1 × 10^7 W m^{−3}, unit thickness.]
+Edge Type Equation FEM action
+top Dirichlet T = 300 K impose on the system
+left Dirichlet T = 400 K impose on the system
+right Neumann n = (1, 0): k ∂T/∂x = q_b = +1 × 10^6 W m^{−2} load in {b}
+bottom Neumann, q_b = 0 ∂T/∂y = 0 nothing
+Well-posed: every edge has a condition and T is fixed on two edges, so the temperature level is pinned. The inward flux on the right edge is positive q_b; the flux-vector component q_x there points along −n and is negative, q_x = −10^6 W m^{−2}.
+Key points:
+- Dirichlet = essential = imposed. Neumann = natural = appears from the integration by parts. Insulated = do nothing.
+- q_b is positive inward; on a rectangle only one derivative survives per edge.
+- A problem is well-posed when every edge has a condition and T is pinned somewhere.
+Quick check (not graded): An edge of the plate is insulated. In the finite element model, what must you do about it?
+Options: Impose ∂T/∂y = 0 on the nodes of that edge | Nothing: its boundary integral is zero | Set T = 0 on those nodes
+Explanation shown after answering: An insulated edge is a natural condition with q_b = 0, so the boundary term {b} it would produce is zero. No action is needed.
+
+[notes-n4] Notes 4. The four-node element and its shape functions
+The four-node rectangular element has one degree of freedom at each corner, the temperature T̂_i, numbered anticlockwise from the bottom-left corner. We need a rule for T at any point inside the element in terms of these four numbers. The rule is a polynomial with four coefficients.
+[Figure: The element a × b, nodes 1 to 4 anticlockwise from the origin (text Fig. 2.2).]
+## Step 1 · assume a polynomial (2.17)
+EQUATION (2.17): [equation e_poly: source not available in the page]
+Four unknowns need four coefficients. The xy term, rather than x² or y², keeps the function linear along every edge, which is what makes neighbouring elements agree.
+## Step 2 · evaluate at the nodes (2.18)
+EQUATION (2.18): [equation e_nodes: source not available in the page]
+EQUATION : [equation e_nodes_matrix: source not available in the page]
+## Step 3 · solve for the coefficients (2.19)
+EQUATION (2.19): [equation e_coeffs: source not available in the page]
+Check: if all four nodal values are equal to T_0, then a_1 = T_0 and a_2 = a_3 = a_4 = 0, so T = T_0 everywhere. A uniform field is reproduced exactly.
+## Step 4 · collect by nodal value (2.20)–(2.22)
+EQUATION (2.20): [equation e_collect: source not available in the page]
+EQUATION (2.21): [equation e_shape: source not available in the page]
+EQUATION (2.22): [equation e_T_N: source not available in the page]
+Each nodal value is multiplied by its own function of position: its shape function N_i(x, y). The row {N} and the column {T̂}ᵀ are the two objects the rest of the course is built from.
+## What a shape function looks like
+[Figure: N_3 as a surface (left) and N_1…N_4 as colour maps (right): each is 1 at its own node, 0 at the other three, and curved inside because of the xy term.]
+[Figure: The same four functions inside commercial code. Image: PyMAPDL documentation, “Build a finite element model”, © ANSYS, Inc., MIT licence.]
+## Three properties you can check in 30 seconds
+EQUATION : [equation e_kron: source not available in the page]
+Kronecker delta. So T at node j equals T̂_j: the nodal unknowns really are nodal temperatures. Check N_2 at node 3: N_2(a, b) = a(b − b)/(ab) = 0.
+EQUATION : [equation e_pou: source not available in the page]
+Partition of unity. A uniform temperature is reproduced exactly, the test we did on the coefficients.
+EQUATION : [equation e_edge: source not available in the page]
+Linear along each edge. On y = 0 only nodes 1 and 2 matter, and T varies linearly between them. The neighbouring element shares those two nodes and the same straight line, so T is continuous across element boundaries (C^0).
+## From one element to the mesh
+[Figure: One nodal value lifts one tent. In 1D the basis function of node i is a hat over the two elements that share it; in 2D it is a tent over every element around the node. That is why node i couples only to its neighbours and the global matrix is sparse (Part 2). Images: Langtangen and Mardal, Introduction to Numerical Methods for Variational Problems (Springer, 2019), github.com/hplgit/fem-book, MIT licence.]
+## Worked example · evaluate and interpolate (Activity 4)
+a = 2 m, b = 1 m, point (x, y) = (1.5, 0.3) m, nodal temperatures T̂ = {100, 140, 160, 120} K.
+[Figure: The point (1.5, 0.3) in the 2 m × 1 m element.]
+EQUATION : [equation e_act4_N: source not available in the page]
+EQUATION : [equation e_act4_sum: source not available in the page]
+EQUATION : [equation e_act4_T: source not available in the page]
+Node 2 carries half the weight because the point is nearest to it. The sum of the four weights is 1, as it must be.
+Key points:
+- T = {N}{T̂}ᵀ with the bilinear N_i of (2.21).
+- Kronecker delta, partition of unity, linear edges: three checks that catch most errors.
+- At (1.5, 0.3): N = 0.175, 0.525, 0.225, 0.075 and T = 136.0 K.
+Quick check (not graded): At the centre of the element (a/2, b/2), what is the value of each shape function?
+Options: 1 | 1/2 | 1/4
+Explanation shown after answering: N_i(a/2, b/2) = (a/2)(b/2)/(ab) = 1/4 for every i, and the four values sum to 1.
+
+[notes-n5] Notes 5. Gradient and flux inside an element
+Differentiate the approximation T = {N}{T̂}ᵀ and the derivatives land on the shape functions, because the nodal values are constants. The gradient at any point is a 2 × 4 matrix of shape-function derivatives times the nodal vector:
+EQUATION (2.33): [equation e_grad: source not available in the page]
+EQUATION : [equation e_dN: source not available in the page]
+Read the matrix: ∂N_i/∂x depends on y only and ∂N_i/∂y on x only. Across an element edge the gradient, and therefore the flux, generally jumps — the approximation is continuous but its derivative is not.
+## From gradient to flux
+EQUATION : [equation e_flux_vec: source not available in the page]
+Fourier’s law in matrix form: flux = −[E] × gradient. The same 2 × 4 matrix {∂}ᵀ{N} will be used twice: for the flux now, and for the conductance matrix in Part 2:
+EQUATION : [equation e_k_preview: source not available in the page]
+## Worked example · gradient and flux at (1.5, 0.3) (Activity 5)
+Same element and data as Activity 4, with k_x = k_y = 2 W m^{−1} K^{−1}.
+EQUATION : [equation e_act5_dN: source not available in the page]
+EQUATION : [equation e_act5_grad: source not available in the page]
+EQUATION : [equation e_act5_q: source not available in the page]
+EQUATION : [equation e_act5_qy: source not available in the page]
+Both components of the flux are negative: heat flows towards decreasing x and y, away from the hottest node 3 at (a, b).
+## The eight-node element in one paragraph
+[Figure: Four corner nodes and four mid-side nodes (text Fig. 2.3).]
+Add a node at the middle of each edge and the polynomial gains four terms, (2.31). The shape functions are quadratic along each edge, so they follow a curved temperature profile with fewer elements. The procedure is identical: evaluate at the eight nodes, invert, collect by nodal value. A corner function now dips below zero between its two mid-side neighbours, and the eight functions still sum to one.
+EQUATION (2.31): [equation e_poly8: source not available in the page]
+EQUATION : [equation e_N8: source not available in the page]
+Key points:
+- Gradient = {∂}ᵀ{N}{T̂}ᵀ, a 2 × 4 matrix times the nodal vector; flux = −[E] × gradient.
+- At (1.5, 0.3) with k = 2: ∂T/∂x = ∂T/∂y = 20 K m^{−1}, q_x = q_y = −40 W m^{−2}.
+- The eight-node element is the same procedure with quadratic edges.
+Quick check (not graded): At a point the temperature increases in the +x direction. The flux component q_x there is
+Options: positive | negative | zero
+Explanation shown after answering: q_x = −k ∂T/∂x. A positive gradient gives a negative flux: heat flows from hot to cold, towards −x.
+
+[notes-n6] Notes 6. The pipeline: seven steps from PDE to answer
+The method is a pipeline of seven steps. This part covered the first two; Part 2 does the other five on the text’s worked example and runs the MATLAB script.
+- Governing PDE and boundary conditions · this part
+- Element and shape functions · this part
+- Galerkin weighted residual
+- Integration by parts
+- Element matrices [k], {q}, {b}
+- Assembly, then impose T̄
+- Solve and post-process
+## Part 2’s worked example (text §2.3)
+[Figure: A 1 m square plate with heat generation, two cold edges and two insulated edges, meshed with four elements.]
+Square plate 1 m × 1 m, q_h = 600 W m^{−3}, k_x = k_y = 300 W m^{−1} K^{−1}; top and left edges at 0 °C, right and bottom edges insulated. Four 4-node elements by hand, then 64 elements in MATLAB, then software.
+Before Part 2 Classify its four edges as in §3 and predict where the hottest point is. Write the prediction down; Part 2 checks it.
+## The MATLAB skeleton follows the pipeline
+% Local conductance matrix (text §2.3.1)
+a = L/Nx; b = H/Ny;
+s1 = b*kx/(3*a) + a*ky/(3*b);
+s2 = -b*kx/(3*a) + a*ky/(6*b);
+s3 = -b*kx/(6*a) - a*ky/(6*b);
+s4 = b*kx/(6*a) - a*ky/(3*b);
+k = [s1 s2 s3 s4; s2 s1 s4 s3; s3 s4 s1 s2; s4 s3 s2 s1];
+fQ = a*b*Q/4*[1; 1; 1; 1]; % heat generation
+% Assembly by connectivity, element 1 = nodes [1 2 5 4]
+e1 = [1 2 5 4]; K(e1,e1) = K(e1,e1) + k; F(e1) = F(e1) + fQ;
+% Essential conditions: rows and columns of known nodes removed
+free = setdiff(1:n, fixed); T = zeros(n,1); T(fixed) = Tbar;
+T(free) = K(free,free) \ (F(free) - K(free,fixed)*T(fixed));
+- Lines 2–8: step 5, the element matrix and load from closed-form integrals (s_1…s_4 are derived in Part 2).
+- Line 10: step 6, assembly — the connectivity list [1 2 5 4] is the element’s global node numbers.
+- Lines 12–13: step 6, essential conditions by removing the rows and columns of the known nodes; step 7, solve with the backslash operator.
+## To prepare
+- Read text §2.2.2 and §2.3 (the worked example), about 12 pages.
+- Redo Activities 4 and 5 for the point (0.5, 0.8) m — or use the exercises tab, which gives you new numbers each time.
+- Classify the edges of the §2.3 plate and predict the hottest point.
+- Bring MATLAB to the next session.
+Key points:
+- Seven steps: PDE + BCs, element, Galerkin, integration by parts, element matrices, assembly + impose, solve.
+- Part 2: steps 3–7 on the 1 m plate, by hand with four elements and in MATLAB with 64.
+Quick check (not graded): For the §2.3 plate (cold top and left edges, insulated right and bottom edges, uniform heat generation), where is the hottest point?
+Options: The centre of the plate | The bottom-right corner | The top-left corner
+Explanation shown after answering: Heat can only leave through the two cold edges. The point farthest from both, where the two insulated edges meet, is the bottom-right corner.
+
+[slides-1] Slide 1: 2D Heat Transfer Part 1 of 2
+SEAA 4243 Finite Element Method · 2L + 1T 2D Heat Transfer Part 1 of 2 From the energy balance to the shape functions of the four-node scalar element Assoc. Prof. Ts. Dr. Ahmad Razin Zainal Abidin · Dr. Yip Bao Fang Faculty of Civil Engineering, Universiti Teknologi Malaysia Text: Mohd Yassin et al., Two-Dimensional Finite Element Formulations for Heat, Solids and Fluids (with Matlab) , MSNM 2020 — Chapter 2
+
+[slides-2] Slide 2: Two topics in five sessions, then one session with ANSYS
+Course map · after the mid-semester break Two topics in five sessions, then one session with ANSYS 1 Heat transfer 1 PDE · BCs · shape functions 2 Heat transfer 2 [k] · assembly · solve · Asg 4 3 Plane stress 1 PDE · [E] · [N] 4 Plane stress 2 [k] = ∫[B]ᵀ[E][B] · loads 5 Plane stress 3 stress recovery · Q8 · Project brief 6 ANSYS demo hand calc vs software 7 Practical FEM convergence · interpretation CLO3 · the heat-
+
+[slides-3] Slide 3: By the end of this session you should be able to
+Learning outcomes · today By the end of this session you should be able to 1 Derive the steady 2D heat conduction PDE from an energy balance and Fourier’s law, and write it as {∂}[E]{∂}ᵀT = −q_h. 2 Classify boundary conditions as Dirichlet (essential) or Neumann (natural) and write them for a rectangular domain. 3 Derive the bilinear shape functions N_1…N_4 of the four-node element and use them to interpolate T(x, y)
+
+[slides-4] Slide 4: Six blocks, six short activities, one break
+Session map · 180 minutes Six blocks, six short activities, one break 0:00 Why 2D? 25 min A1 · 5 min 0:25 Governing PDE 35 min A2 · 8 min 1:00 Boundary conditions 25 min A3 · 6 min 1:25 Break 10 min no activity 1:35 Shape functions 35 min A4 + QR 2:10 Gradient & flux 25 min A5 · 8 min 2:35 Pipeline & wrap-up 25 min Exit ticket How the activities work Amber slide = your turn. Work in pairs on paper, 5–8 minutes. A tim
+
+[slides-5] Slide 5: Why two dimensions?
+1 Block 1 · 0:00 – 0:25 Why two dimensions? FEM is a tool for solving a differential equation — so every topic starts from the PDE. Today’s PDE has one unknown: temperature. SEAA 4243 · 2D Heat Transfer — Part 1 5
+
+[slides-6] Slide 6: FEM is “nothing”: a tool that solves a differential equation
+Block 1 · the idea that organises the course FEM is “nothing”: a tool that solves a differential equation 1 · Get the DE Energy balance + Fourier’s law → a PDE in T(x, y) 2 · Discretise with FEM Shape functions + Galerkin → [k]{T̂}ᵀ = {r} 3 · Solve Assemble, impose T̄, solve, post-process FEM can be “everything” Heat, seepage, stress, vibration, fluid flow — the same machinery solves all of them. That is why it is wo
+
+[slides-7] Slide 7: Heat transfer has one unknown per node; plane stress has two
+Block 1 · scalar versus vector fields Heat transfer has one unknown per node; plane stress has two Scalar element: each node carries one degree of freedom, the temperature T̂_i. Vector element (Plane Stress Part 1): two, the displacements u_i and v_i. Problems governed by the same scalar PDE Field T Property k Flux q temperature conductivity heat flux hydraulic head permeability seepage velocity electric potential co
+
+[slides-8] Slide 8: The same PDE appears across civil engineering
+Block 1 · where civil engineers meet conduction The same PDE appears across civil engineering Mass concrete Heat of hydration in dams, rafts and pile caps: the temperature rise and the gradient between core and surface drive early-age cracking. Fire engineering Temperature rise in steel sections and tunnel linings decides when strength is lost; the input is a 2D conduction model of the section. Pavements and decks Da
+
+[slides-9] Slide 9: A heated plate under a channel flow
+Block 1 · the same PDE in a real simulation A heated plate under a channel flow Why The solid plate obeys today’s conduction PDE (with ∂T/∂t kept; at steady state it is exactly {∂}[E]{∂}ᵀT = −q_h), with T fixed on its heated bottom face. Check At the interface the solid receives a temperature from the fluid code and returns a heat flux: one Dirichlet and one Neumann condition, as in Block 3. Image: preCICE tutorials,
+
+[slides-10] Slide 10: Scalar or vector? Classify each field and count the unknowns per node
+5 MIN Activity 1 · pairs · no calculation Scalar or vector? Classify each field and count the unknowns per node Six fields — decide: scalar (1 dof) or vector (2 dof in 2D)? Temperature in a concrete slab Pore-water pressure in an embankment Displacement of a shear wall Velocity of water in a pipe network Electric potential in a grounding grid Settlement of a strip footing (2D section) Then answer How many unknowns do
+
+[slides-11] Slide 11: The governing PDE
+2 Block 2 · 0:25 – 1:00 The governing PDE Energy balance on a differential element, then Fourier’s law to close it in terms of temperature. Text §2.1.1 – §2.1.2. SEAA 4243 · 2D Heat Transfer — Part 1 11
+
+[slides-12] Slide 12: Heat enters and leaves a small rectangle dx by dy
+Block 2 · the differential element · text Fig. 2.1 Heat enters and leaves a small rectangle dx by dy Dependent variables: the heat fluxes q_x and q_y (W m^{−2}), i.e. energy per unit time per unit area crossing a face. The flux on the far face is the near-face flux plus its change across the element — a first-order Taylor expansion: (2.2) Inside, heat is generated at a rate q_h per unit volume (W m^{−3}), e.g. hydrat
+
+[slides-13] Slide 13: Rate of change of stored energy = net conduction in + heat generated
+Block 2 · conservation of energy Rate of change of stored energy = net conduction in + heat generated Stored (internal) energy (2.1) ρ density, C specific heat, T temperature Net conduction in Q_x + Q_y, the x- and y-direction net inflows (2.2)–(2.4) Generated (2.5) (2.6) Every term carries the factor dx dy — the volume of the element per unit thickness — so it cancels (next slide). SEAA 4243 · 2D Heat Transfer — Par
+
+[slides-14] Slide 14: Your turn: the y-direction balance, then cancel dx dy
+8 MIN Activity 2 · pairs · derivation Your turn: the y-direction balance, then cancel dx dy Do Write Q_y by the same argument as Q_x (in through y = 0, out through y = dy). Put Q_E = Q_x + Q_y + Q_h and cancel the common factor dx dy. Check the units of every term in the result. (2.2) — given (2.1) — given Check Target: an equation with ∂T/∂t on the left and three terms on the right, none containing dx or dy. Reveal
+
+[slides-15] Slide 15: The energy balance with dx dy cancelled
+Activity 2 · solution The energy balance with dx dy cancelled (2.3) (2.6) (2.7) Check Units of every term: W m^{−3}. If one term disagrees, the derivation has a mistake. Why (2.7) still has three unknowns q_x, q_y, T. We need a law relating flux to temperature. SEAA 4243 · 2D Heat Transfer — Part 1 15
+
+[slides-16] Slide 16: Heat flows down the temperature gradient
+Block 2 · Fourier’s law closes the system Heat flows down the temperature gradient (2.8), (2.9) k_x, k_y: thermal conductivity in W m^{−1} K^{−1}. Isotropic material: k_x = k_y = k (concrete ≈ 1.5–2.5, steel ≈ 45–50). Substituting (2.8)–(2.9) into (2.7) gives the general (unsteady) conduction equation: (2.10) Why The minus sign: where T falls with x (∂T/∂x < 0) the flux is positive, i.e. towards +x. Heat goes from ho
+
+[slides-17] Slide 17: Drop the time derivative: the PDE we discretise
+Block 2 · steady state · text §2.1.2 Drop the time derivative: the PDE we discretise (2.11) Special cases you already know Why q_h sits on the right with a minus sign because we moved it across; a source (q_h > 0) makes the field concave — a hill. Check Unit check of each term of (2.11): W m^{−3}. The equation says: divergence of the flux = source. SEAA 4243 · 2D Heat Transfer — Part 1 17
+
+[slides-18] Slide 18: Write the operator as a row vector times [E] times a column vector
+Block 2 · the matrix form we will reuse · text (2.12)–(2.14) Write the operator as a row vector times [E] times a column vector (2.12) (2.13) (2.14) Why Why bother? In Plane Stress Part 1 plane stress will read [∂][E][∂]ᵀ{u}ᵀ = −{f}: the same shape with a 3 × 3 [E] and a 2 × 3 operator. Learn the pattern once. Watch out {∂} is a row of operators, not numbers: it acts on whatever stands to its right. Order of multipli
+
+[slides-19] Slide 19: Boundary conditions
+3 Block 3 · 1:00 – 1:25 Boundary conditions A PDE alone is not a problem. Specify either the temperature or the flux on every part of the boundary. Text §2.1.3. SEAA 4243 · 2D Heat Transfer — Part 1 19
+
+[slides-20] Slide 20: Either T or the normal flux is known at every boundary point
+Block 3 · two kinds of condition · text (2.15)–(2.16) Either T or the normal flux is known at every boundary point Dirichlet · essential · temperature specified (2.16) e.g. a face held at a fixed temperature by a fluid bath or the ground. Neumann · natural · normal flux specified (2.15) q_b known flux; (n_x, n_y) outward unit normal. Convection and radiation are Neumann-type too (not treated here). Watch out Well-pos
+
+[slides-21] Slide 21: On a rectangle the normal is a coordinate axis, so (2.15) collapses to one term
+Block 3 · rectangular domains On a rectangle the normal is a coordinate axis, so (2.15) collapses to one term vertical edges horizontal edges insulated Watch out Sign: q_b = k ∂T/∂n is positive when heat enters . On the right edge n = (+1, 0): an inward flux makes ∂T/∂x > 0 there, so q_b > 0 — while the flux vector component q_x = −k ∂T/∂x is negative. Two different symbols; keep them apart. Why Insulated = adiabatic
+
+[slides-22] Slide 22: Essential conditions are imposed; natural conditions appear by themselves
+Block 3 · what FEM does with each kind Essential conditions are imposed; natural conditions appear by themselves Condition What is known Where it enters the FEM Next session Dirichlet · essential T̄ on the edge imposed on the assembled system by modifying rows and columns of [K] row–column elimination Neumann · natural q_b on the edge appears in the boundary vector {b} produced by integration by parts {b} = ∫{N}ᵀq_n
+
+[slides-23] Slide 23: Label the plate: for each edge, type, equation and what FEM does
+6 MIN Activity 3 · pairs · classification Label the plate: for each edge, type, equation and what FEM does Text Exercise 2.5 geometry: k = 450 W m^{−1} K^{−1}, q_h = 1 × 10^7 W m^{−3}, unit thickness. For each of the four edges write Dirichlet or Neumann? The equation, with the outward normal and the correct sign. Imposed, becomes a load, or do nothing? Then: is the problem well-posed? Why? Reveal follows — then a 10
+
+[slides-24] Slide 24: Two essential edges, one flux load, one edge that needs nothing
+Activity 3 · solution Two essential edges, one flux load, one edge that needs nothing Edge Type Equation FEM action top Dirichlet T = 300 K impose on the system left Dirichlet T = 400 K impose on the system right Neumann n = (1, 0): k ∂T/∂x = q_b = +1 × 10^6 W m^{−2} (inward, so q_x = −10^6) load in {b} bottom Neumann, q_b = 0 ∂T/∂y = 0 nothing Check Well-posed: every edge has a condition and T is fixed on two edges,
+
+[slides-25] Slide 25: Break
+1:25 – 1:35 Break Back in 10 minutes. Second half: shape functions, gradients, and the pipeline for the next session. SEAA 4243 · 2D Heat Transfer — Part 1 25
+
+[slides-26] Slide 26: The four-node scalar element
+4 Block 4 · 1:35 – 2:10 The four-node scalar element One unknown per node, a bilinear polynomial in between. Derive N₁…N₄ and learn the three properties you can always check. Text §2.2.1. SEAA 4243 · 2D Heat Transfer — Part 1 26
+
+[slides-27] Slide 27: A rectangle a × b, nodes numbered anticlockwise
+Block 4 · degrees of freedom · text Fig. 2.2 A rectangle a × b, nodes numbered anticlockwise Notation T̂_i (hat): the nodal temperature at node i — a number, the unknown we solve for. T(x, y): the temperature field inside the element — a function. N_i(x, y): the shape function that carries the influence of node i into the field. Local coordinates: origin at node 1, x along the bottom edge, y along the left edge. Watc
+
+[slides-28] Slide 28: Four nodes, four coefficients: 1, x, y and xy
+Block 4 · assume a polynomial · text (2.17) Four nodes, four coefficients: 1, x, y and xy (2.17) Why these four monomials? Four nodal values can fix exactly four coefficients. 1, x, y give a plane; xy is the lowest-order term that is symmetric in x and y. x² without y² would favour one direction — the choice is geometrically balanced. Along any edge (x = const or y = const) the polynomial is linear in the other varia
+
+[slides-29] Slide 29: Each nodal value gives one equation in the coefficients
+Block 4 · evaluate at the nodes · text (2.18) Each nodal value gives one equation in the coefficients (2.18) matrix form Why Lower-triangular after reordering, so it solves by forward substitution: a_1 first, then a_2, a_3, finally a_4. SEAA 4243 · 2D Heat Transfer — Part 1 29
+
+[slides-30] Slide 30: Four coefficients in terms of the four nodal temperatures
+Block 4 · solve for the coefficients · text (2.19) Four coefficients in terms of the four nodal temperatures (2.19) Read them physically a_1: the value at the origin (node 1). a_2: the slope along the bottom edge, (T̂_2 − T̂_1)/a. a_3: the slope along the left edge, (T̂_4 − T̂_1)/b. a_4: the “twist” — how the x-slope changes with y. Check with a uniform field Put T̂_1 = T̂_2 = T̂_3 = T̂_4 = T_0: then a_1 = T_0 and a_
+
+[slides-31] Slide 31: The multiplier of each T̂ᵢ is its shape function Nᵢ
+Block 4 · collect by nodal value · text (2.20)–(2.22) The multiplier of each T̂ᵢ is its shape function Nᵢ (2.20) (2.21) (2.22) Why {N} is a 1 × 4 row; {T̂}ᵀ is a 4 × 1 column. Their product is the scalar T(x, y). SEAA 4243 · 2D Heat Transfer — Part 1 31
+
+[slides-32] Slide 32: A tent: 1 at its own node, 0 at the other three, straight along every edge
+Block 4 · what a shape function looks like A tent: 1 at its own node, 0 at the other three, straight along every edge Left: N_3 as a surface. Right: all four as colour maps (dark = 1). Each N_i is the temperature field you get when node i is at 1 and the others at 0. Why Along an edge only the two nodes on that edge matter — the straight line of the bar element. That is what lets two neighbouring elements agree along
+
+[slides-33] Slide 33: ANSYS’s four-node element uses these N₁ … N₄
+Block 4 · the same functions inside commercial code ANSYS’s four-node element uses these N₁ … N₄ Same functions, new coordinates ξ = 2x/a − 1 and η = 2y/b − 1 map 0 ≤ x ≤ a, 0 ≤ y ≤ b onto −1 ≤ ξ, η ≤ 1, and N₁ = ¼(1 − ξ)(1 − η) = (a − x)(b − y)/ab which is the text’s (2.21). The other three follow by changing signs. Check Each surface is 1 at its own corner, 0 at the other three and straight along every edge: the th
+
+[slides-34] Slide 34: Kronecker delta, partition of unity, linear edges
+Block 4 · three properties you can check in 30 seconds Kronecker delta, partition of unity, linear edges 1 · Kronecker delta So T at node j equals T̂_j: the nodal unknowns really are nodal temperatures. 2 · Partition of unity A uniform temperature is reproduced exactly — the test we did on the coefficients. 3 · Linear along each edge C⁰ continuity follows: the neighbouring element shares this edge’s two nodes and its
+
+[slides-35] Slide 35: One nodal value lifts one tent
+Block 4 · from one element to the mesh One nodal value lifts one tent 1D: φᵢ is a hat over the two elements that share node i. 2D: a tent over every element sharing the node. Why Each element that touches node i adds one face of its tent. That is why T is continuous across element edges, and why node i couples only to its neighbours: the global matrix is sparse (Heat Transfer Part 2). Images: Langtangen and Mardal, I
+
+[slides-36] Slide 36: Evaluate the shape functions at a point and interpolate the temperature
+8 MIN Activity 4 · pairs · calculation Evaluate the shape functions at a point and interpolate the temperature Given a = 2 m, b = 1 m; point (x, y) = (1.5, 0.3) m. Nodal temperatures T̂ = {100, 140, 160, 120} K. Find N_1, N_2, N_3, N_4 at the point — and their sum. T(1.5, 0.3). Check Keep the sheet: Activity 5 uses the same element and data. 8 minutes. Early finishers: which node has the most influence at this point,
+
+[slides-37] Slide 37: Node 2 carries half the weight; the four weights sum to one
+Activity 4 · solution Node 2 carries half the weight; the four weights sum to one (2.21) at (1.5, 0.3) partition of unity (2.22) Assignment-type question: “after solving, T̂_2 and T̂_6 are 150 K … interpolate T at (1.4, 2.2)” — the same method, after converting the global point to local element coordinates. SEAA 4243 · 2D Heat Transfer — Part 1 37
+
+[slides-38] Slide 38: Check Activity 4 on your phone, then explore
+6 MIN QR Explorer · pairs, one phone Check Activity 4 on your phone, then explore Scan, then do 1 Press “Activity 4 point”. Do N₁ … N₄, their sum and T = 136.0 K match your sheet? 2 Drag P onto node 3 and read the four weights. Which property is this? 3 Find three points where N₁ = N₃. What line joins them? Shape Function Explorer razinutm.github.io/ My_Lectures/SEAA4243-FEM/ labs/shape.html 6 minutes, optional in cl
+
+[slides-39] Slide 39: Gradient, flux and a look ahead
+5 Block 5 · 2:10 – 2:35 Gradient, flux and a look ahead Differentiate the approximation: the 2 × 4 matrix {∂}ᵀ{N} gives the gradient, Fourier gives the flux — and the next session it builds [k]. SEAA 4243 · 2D Heat Transfer — Part 1 39
+
+[slides-40] Slide 40: Gradient = derivative matrix × nodal temperatures
+Block 5 · differentiate the approximation Gradient = derivative matrix × nodal temperatures from (2.21) Why ∂N_i/∂x depends on y only and ∂N_i/∂y on x only — the gradient varies inside the element, though each component is constant along one direction. Check Each row of {∂}ᵀ{N} sums to zero. A uniform T̂ therefore gives zero gradient, as it must. SEAA 4243 · 2D Heat Transfer — Part 1 40
+
+[slides-41] Slide 41: Fourier’s law in matrix form is the post-processing formula
+Block 5 · from gradient to flux Fourier’s law in matrix form is the post-processing formula Once the nodal temperatures are known, this gives the heat flux at any point (x, y) of the element — the quantity a designer usually wants (heat loss through a wall, flow under a dam). Next session: text (2.38) and (2.42). Why The same {∂}ᵀ{N} appears twice in [k], once transposed: [k] is symmetric, and its row sums are zero f
+
+[slides-42] Slide 42: Heat flux at the same point: evaluate the derivatives, then apply Fourier
+8 MIN Activity 5 · pairs · calculation Heat flux at the same point: evaluate the derivatives, then apply Fourier Given (as Activity 4) a = 2 m, b = 1 m, point (1.5, 0.3) m, T̂ = {100, 140, 160, 120} K. k_x = k_y = 2 W m^{−1} K^{−1}. Find ∂N_i/∂x for i = 1…4, then ∂T/∂x. q_x from Fourier’s law — sign and direction? If time: ∂T/∂y and q_y. Check Check: the four derivatives must sum to zero. 8 minutes. Reveal follows. S
+
+[slides-43] Slide 43: Heat flows from the hot side (nodes 2, 3) towards the cold side
+Activity 5 · solution Heat flows from the hot side (nodes 2, 3) towards the cold side SEAA 4243 · 2D Heat Transfer — Part 1 43
+
+[slides-44] Slide 44: Mid-side nodes, eight monomials, quadratic along each edge
+Block 5 · the eight-node element in one slide · text §2.2.1, Fig. 2.3 Mid-side nodes, eight monomials, quadratic along each edge (2.23) (2.30), (2.31e) Same recipe: evaluate at 8 nodes, invert the 8 × 8 matrix, collect — the text gives N_1…N_8 in (2.31). Three nodes per edge, so T is quadratic along an edge: fewer elements for curved fields. Hand calculations here use the 4-node element; the 8-node one lives in the M
+
+[slides-45] Slide 45: The pipeline — where today fits
+6 Block 6 · 2:35 – 3:00 The pipeline — where today fits Seven steps from PDE to answer. Today covered the first two; the next session we do the other five and run the MATLAB code. SEAA 4243 · 2D Heat Transfer — Part 1 45
+
+[slides-46] Slide 46: Today: steps 1 and 2. Next session: steps 3 to 7 on the text’s worked example
+Block 6 · seven steps from PDE to answer Today: steps 1 and 2. Next session: steps 3 to 7 on the text’s worked example 1 PDE + boundary conditions today 2 Shape functions {N} today 3 Galerkin weighted residual Heat Transfer Part 2 4 Integration by parts Heat Transfer Part 2 5 Element matrices [k], {q}, {b} Heat Transfer Part 2 6 Assembly + impose T̄ Heat Transfer Part 2 7 Solve, then post-process Heat Transfer Part 2
+
+[slides-47] Slide 47: Thirty lines: local matrix, assembly, boundary conditions, solve
+Block 6 · the MATLAB skeleton follows the pipeline Thirty lines: local matrix, assembly, boundary conditions, solve % Local conductance matrix (text §2.3.1) a = L/Nx; b = H/Ny; s1 = b*kx/(3*a) + a*ky/(3*b); s2 = -b*kx/(3*a) + a*ky/(6*b); s3 = -b*kx/(6*a) - a*ky/(6*b); s4 = b*kx/(6*a) - a*ky/(3*b); k = [s1 s2 s3 s4; s2 s1 s4 s3; s3 s4 s1 s2; s4 s3 s2 s1]; fQ = a*b*Q/4*[1; 1; 1; 1]; % heat generation % Assembly by conn
+
+[slides-48] Slide 48: Three questions before you leave — on paper, hand in at the door
+6 MIN Activity 6 · individual · exit ticket Three questions before you leave — on paper, hand in at the door Questions Which boundary condition needs no action at all in the FEM, and why? For a square element (a = b), what is each N_i at the centroid? What is their sum? Write {∂}[E]{∂}ᵀT = −q_h out in full for k_x = k_y = k. Which classical equation is it? hint for Q2 Q3 Six minutes. Name and matric number on the she
+
+[slides-49] Slide 49: Next session: Galerkin, integration by parts, [k], assembly and the worked example
+Wrap-up · what to take away and what to prepare Next session: Galerkin, integration by parts, [k], assembly and the worked example Today in four lines Energy balance + Fourier → (2.11): divergence of flux = source, written as {∂}[E]{∂}ᵀT = −q_h. Dirichlet = essential = imposed; Neumann = natural = appears from integration by parts; insulated = do nothing. Four-node element: T = {N}{T̂}ᵀ with bilinear N_i; Kronecker d
+
+[examples-x1] Example 1 · Shape functions and conductance matrix of a triangle
+Exam type derive N_1, N_2, N_3 from T = a_1 + a_2x + a_3y, then [k] Units symbolic Source FEM by Hand, Example 8.1 20 marks Question A three-node heat element has its nodes at (0, 0), (L, 0) and (L/2, L). With the interpolation T(x, y) = a_1 + a_2x + a_3y, (a) derive the shape functions by writing T = N_1T_1 + N_2T_2 + N_3T_3, (b) check them, and (c) find the conductance matrix for k_x = k_y = k and thickness t.
+[Figure: The triangle of Example 1.]
+Physical picture. A plane over a triangle is fixed by its three corner values, so the three nodal temperatures determine a_1, a_2 and a_3. Each shape function is the field obtained with its own node at 1 and the other two at 0: a plane that is 1 at that node and 0 along the opposite side. Side 1–2 lies on y = 0, so N_3 must depend on y only.
+Plan. Three nodal conditions → a_1, a_2, a_3 → collect T_1, T_2, T_3 → checks → derivatives → [k].
+## Step 1 Nodal conditions [3]
+EQUATION : [equation x1_cond: source not available in the page]
+## Step 2 (a) The coefficients [3]
+From the first two, a_1 = T_1 and a_2 = (T_2 − T_1)/L. The third then gives
+EQUATION : [equation x1_coef: source not available in the page]
+## Step 3 Collecting the nodal temperatures [2]
+EQUATION : [equation x1_collect: source not available in the page]
+Answer. (a)
+EQUATION : [equation x1_N: source not available in the page]
+## Step 4 (b) Checks [3]
+EQUATION : [equation x1_checks: source not available in the page]
+Nodes 1 and 2 check in the same way. At the centroid (L/2, L/3) each function is 1/3.
+Answer. (b) N_i = 1 at node i and 0 at the others; ΣN_i = 1 everywhere.
+## Step 5 (c) Derivatives and [k] [9]
+EQUATION : [equation x1_dN: source not available in the page]
+The derivatives are constant, so the integral k_{ij} = t∫(k_x N_{i,x}N_{j,x} + k_y N_{i,y}N_{j,y}) dA is the area times the integrand (the conductance matrix of Part 2):
+EQUATION : [equation x1_kij: source not available in the page]
+Answer. (c)
+EQUATION : [equation x1_k: source not available in the page]
+each row adds up to zero. Check. Row 1: 5 − 3 − 2 = 0; row 3: −2 − 2 + 4 = 0. [k] is symmetric.
+Interpretation [k] does not contain L. Each entry is the thickness times the area, which grows as L², times a product of two gradients, each of which falls as 1/L; the two effects cancel, so a triangle of the same shape conducts the same heat per kelvin whatever its size. Every row adds up to zero because a uniform temperature, T_1 = T_2 = T_3, produces no heat flow. The temperature inside the element is a plane, so its gradient, and with it the heat flux, is constant in each element and jumps from one element to the next; the temperature itself stays continuous, since along a shared side it varies linearly between the same two nodal values. Marking scheme (suggested) · 20 What earns the marks Marks
+Three nodal conditions written correctly 3
+a_1, a_2, a_3 3
+Collecting by nodal value → N_1, N_2, N_3 2
+Kronecker and partition-of-unity checks 3
+Derivative vectors and the area 3
+Three entries by integration, matrix by symmetry, row-sum check 6
+Total 20
+
+[examples-x2] Example 2 · Temperature and flux at a point of a four-node element
+Exam type T(x, y), ∂T/∂x, ∂T/∂y and q from nodal temperatures Units m, °C, W Source FEM by Hand, Practice Problem 8.3 (worked in full here) 20 marks Question A four-node element 0.4 m by 0.3 m has nodal temperatures 20, 40, 60 and 30 °C at nodes 1 to 4 (anticlockwise from the origin), and k = 15 W m^{−1} K^{−1}. Find T, q_x and q_y (a) at the centre and (b) at the local point (0.1, 0.2) m.
+[Figure: The element of Example 2 with its nodal temperatures and the two points.]
+Physical picture. The nodal values rise from node 1 to node 3, so the temperature increases in both +x and +y; Fourier’s law then makes both flux components negative, pointing back towards node 1. The gradient of a bilinear field is not constant: ∂T/∂x changes with y and ∂T/∂y with x, so the two points will give different fluxes.
+Plan. N_i at the point → T = ΣN_iT_i → ∂N_i/∂x, ∂N_i/∂y from (2.33) → gradient → q = −k∇T. ab = 0.4 × 0.3 = 0.12 m² throughout.
+## Step 1 (a) Shape functions and T at the centre [4]
+EQUATION : [equation x2_Nc: source not available in the page]
+## Step 2 (a) Derivatives at the centre (y = 0.15, x = 0.2) [3]
+EQUATION : [equation x2_dNc: source not available in the page]
+EQUATION : [equation x2_dNcy: source not available in the page]
+## Step 3 (a) Gradient and flux at the centre [3]
+EQUATION : [equation x2_gradc: source not available in the page]
+Answer. (a) T = 37.5 °C; q_x = −938 W m^{−2}, q_y = −750 W m^{−2}. Check. ΣN_i = 1. Both fluxes negative, as the physical picture predicted.
+## Step 4 (b) Shape functions and T at (0.1, 0.2) [5]
+With a − x = 0.3 and b − y = 0.1:
+EQUATION : [equation x2_Np: source not available in the page]
+## Step 5 (b) Gradient and flux at (0.1, 0.2) [5]
+EQUATION : [equation x2_gradp: source not available in the page]
+Answer. (b) T = 33.3 °C; q_x = −1000 W m^{−2}, q_y = −625 W m^{−2}. Interpretation The gradient changes between the two points because T_1 − T_2 + T_3 − T_4 = 20 − 40 + 60 − 30 = 10 ≠ 0: that combination is the coefficient a_4 of the xy term, and it is the only reason the field is not a plane. With four values that sum to zero in that pattern the flux would be the same everywhere in the element. The numbers also show the sign convention at work: a flux is negative when the temperature increases in that direction. Marking scheme (suggested) · 20 What earns the marks Marks
+N_i = 1/4 at the centre and T 4
+Derivative rows at the centre 3
+Gradient, then q = −k∇T with signs 3
+N_i at (0.1, 0.2), sum check, T 5
+Gradient and flux at the point 5
+Total 20
+
+[examples-x3] Example 3 · Explain-type questions: model answers
+Exam type explain, three sentences each: claim, reason, consequence Source FEM by Hand, §8.4 4 × 3 = 12 marks Questions Answer each in two or three sentences. State the claim, give the reason, and say what follows from it.
+## Step 1 Why is nothing done at an insulated edge? [3]
+An insulated edge is a natural condition with q_n = 0, so its boundary term t∫{N}q_n ds is zero. The Galerkin formulation satisfies it approximately without any action. A non-zero flux would instead enter {r} at the nodes of that edge.
+## Step 2 What is the difference between an essential and a natural boundary condition, and how is each imposed? [3]
+An essential condition prescribes the primary variable, the temperature T = T̄; a natural condition prescribes the secondary variable, the flux q_n. The essential condition is imposed on the assembled equations by striking the rows and columns of the known nodes, and the struck rows later give the heat flows there. The natural condition is never imposed: it appears by itself as a load through the boundary term of the integration by parts.
+## Step 3 Why does every row of [k] add up to zero, and how is that used? [3]
+Since ΣN_i = 1, a uniform temperature makes every gradient zero and conducts no heat, so [k]{1, 1, …}ᵀ = {0}. Consequently [k], and an unrestrained [K], are singular, which is why at least one temperature must be prescribed. Every row of a computed matrix can be checked in a few seconds by adding it up.
+EQUATION : [equation x3_rowsum: source not available in the page]
+## Step 4 How do the three-node and the four-node elements differ? [3]
+The T3 field is a plane, so its gradient and flux are constant in each element. The Q4 field contains xy, so ∂T/∂x varies with y and ∂T/∂y with x. Both fields vary linearly along every side, so the temperature is continuous between elements while the flux jumps; on the same nodes the Q4 is usually more accurate, but in this course it is limited to rectangles, whereas triangles fit any shape.
+Interpretation The examiner looks for the three parts in order. “Insulated means do nothing” alone is a claim without a reason and earns one mark of three; naming the boundary term and its value earns the other two. Marking scheme (suggested) · 12 What earns the marks Marks
+Claim stated correctly 1 each
+Reason: the term, the property or the equation behind it 1 each
+Consequence for the calculation 1 each
+Total 12
+
+[exercises-b1] Exercise B1 · Shape functions at a point, and the interpolated temperature
+Statement: generated in the app at run time (numbers change per attempt)
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-b2] Exercise B2 · Gradient and flux at the point
+Statement: generated in the app at run time (numbers change per attempt)
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-b3] Exercise B3 · The polynomial coefficients from the nodal values
+Statement: generated in the app at run time (numbers change per attempt)
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-quick] Exercises: quick concept questions
+- In the steady conduction equation (2.11), which combination has the units of q_h ?
+- Which boundary condition must be imposed on the assembled equations rather than appearing by itself?
+- On the right edge of a plate, n = (1, 0), an inward flux q_b = +500 W m^{−2} is applied. The flux-vector component q_x at that edge is
+- Why is the fourth term of the polynomial (2.17) chosen as xy rather than x²?
+- The four nodal temperatures of an element are all 250 K. At a point inside the element, T is
+- Inside a four-node element, ∂T/∂x of the interpolated field
+- A student evaluates the shape functions at (x, y) = (0.5, 0.8) m in a 2 m × 1 m element and interpolates T from T̂ = {100, 140, 160, 120} K. One line contains the slip. Which one?
+
+[lab-node3] Explorer task 1 · Drag P onto node 3 (or press “P on node 3”). Read N_1 …N_4 : the Kronecker property.
+Ticks itself: detected when P reaches node 3 on the 4-node element · not ticked? mark done
+(The task's answer fields are checked in the app; they are not included here.)
+
+[lab-act4] Explorer task 2 · Press “Activity 4 point”: P = (1.5, 0.3). Compare with your hand answers from Activity 4 and 5.
+Ticks itself: detected when P = (1.5, 0.3) in the 2 × 1 element · not ticked? mark done
+(The task's answer fields are checked in the app; they are not included here.)
+
+[lab-diag] Explorer task 3 · Find three points where N_1 = N_3 . What line joins them?
+Ticks itself: detected after three distinct points with |N_1 − N_3| < 0.01 · not ticked? mark done
+(The task's answer fields are checked in the app; they are not included here.)
+
+[lab-q8n1] Explorer task 4 · Switch to the 8-node element and show N_1 . Where is it negative, and how can the weights still sum to 1?
+Ticks itself: detected when the 8-node element shows N_1 · not ticked? mark done
+(The task's answer fields are checked in the app; they are not included here.)
+
+[lab-code] Lab · Python code for assignments and projects
+Python code for assignments and projects The same steps and notation as the notes, written out in plain Python. Use it to check every matrix and number of a hand calculation, and to run what is impractical by hand: mesh studies, contour plots, your own geometry and loads. ⤓ Download fe_shape_functions.py (.zip, 10 kB) ⤓ All course code (.zip, 41 kB) Unzip, then install Python 3.8 or newer and run pip install numpy matplotlib (matplotlib only for the plots). Run python fe_shape_functions.py . It reproduces the course example; README.txt lists the output you should see. Read the docstring at the top of the file for the notation, numbering and units, and how to call it for your own problem. A hand calculation is still a hand calculation: in a test or an assignment that asks for the steps, show them yourself. Show the code · fe_shape_functions.py · 188 lines Copy """
+SEAA 4243 Finite Element Method - shape functions of the rectangular elements
+==============================================================================
+Companion code for the Shape Function Explorer (2D Heat Transfer, Part 1).
+What it does
+Evaluates the shape functions N_i of the 4-node (Q4) and 8-node (Q8)
+rectangular elements at a point, checks them, interpolates a nodal field,
+and computes the gradient and the heat flux at that point.
+Notation (text: Mohd Yassin et al., MSNM 2020, Sec. 2.2)
+Element a x b. Local nodes 1-4 anticlockwise from the bottom-left corner;
+the Q8 adds mid-side nodes 5-8 on the bottom,
+
+[lab-run] Lab · Run the code in your browser
+Run the code in your browser trial Edit a short script and run it here, with no installation. Python runs on your own device; nothing is sent anywhere. The first run downloads Python, about 9 MB (about 20 MB once a script plots), and takes 10–30 s; later runs take a second or two. N at a point Maps of N1…N8 Course example ▶ Run ■ Stop Reset script Ctrl+Enter (⌘+Enter) runs. Your edits are kept in this browser; Reset script brings back the original. For an assignment or a project, download the code above and run it on your computer.
+
+[glossary-field-problem] Glossary: field problem
+field problem: An unknown defined at every point of a region, such as T(x, y), rather than at a few discrete locations.
+
+[glossary-scalar-field-vector-field] Glossary: scalar field · vector field
+scalar field · vector field: One number per point (temperature) versus two or more per point (displacement u, v).
+
+[glossary-heat-flux-q] Glossary: heat flux q
+heat flux q: Energy crossing a unit area per unit time, W m^{−2} ; a vector with components q_x , q_y .
+
+[glossary-fourier-s-law] Glossary: Fourier’s law
+Fourier’s law: q = −k ∇T: flux is proportional to the temperature gradient and points from hot to cold.
+
+[glossary-conductivity-k] Glossary: conductivity k
+conductivity k: Material property, W m^{−1} K^{−1} ; [E] = diag(k_x , k_y ) for an orthotropic material.
+
+[glossary-heat-generation-q-h] Glossary: heat generation q_h
+heat generation q_h: Heat produced per unit volume, W m^{−3} , for example by cement hydration.
+
+[glossary-steady-state] Glossary: steady state
+steady state: Nothing changes with time: ∂T/∂t = 0, so the stored-energy term disappears.
+
+[glossary-poisson-laplace] Glossary: Poisson · Laplace
+Poisson · Laplace: Special cases of (2.11): constant isotropic k gives Poisson’s equation; no source gives Laplace’s equation.
+
+[glossary-boundary-condition] Glossary: boundary condition
+boundary condition: What is specified on the edge of the domain: the temperature or the flux. Needed on every part of the boundary.
+
+[glossary-dirichlet-essential] Glossary: Dirichlet · essential
+Dirichlet · essential: A known value of the unknown field on the edge, T = T̄. Imposed on the assembled equations.
+
+[glossary-neumann-natural] Glossary: Neumann · natural
+Neumann · natural: A known flux on the edge, q_b , positive inward. Appears by itself through the integration by parts.
+
+[glossary-outward-normal-n] Glossary: outward normal n
+outward normal n: Unit vector pointing out of the domain at an edge; on a rectangle (±1, 0) or (0, ±1).
+
+[glossary-insulated-edge] Glossary: insulated edge
+insulated edge: A natural condition with q_b = 0. Requires no action in the finite element model.
+
+[glossary-well-posed] Glossary: well-posed
+well-posed: Every edge has a condition and the temperature level is fixed somewhere, so the solution is unique.
+
+[glossary-element-node] Glossary: element · node
+element · node: A small region (here a rectangle a × b) and the points on it where the unknowns live.
+
+[glossary-degree-of-freedom] Glossary: degree of freedom
+degree of freedom: One unknown of the discrete system; one temperature per node for conduction.
+
+[glossary-shape-function-n-i] Glossary: shape function N_i
+shape function N_i: The function of position that multiplies nodal value i in the interpolation T = Σ N_i T̂_i .
+
+[glossary-bilinear] Glossary: bilinear
+bilinear: Linear in x and in y separately, with an xy term: the four-node element’s polynomial (2.17).
+
+[glossary-kronecker-delta] Glossary: Kronecker delta
+Kronecker delta: N_i = 1 at its own node and 0 at the others; so the nodal unknowns are nodal temperatures.
+
+[glossary-partition-of-unity] Glossary: partition of unity
+partition of unity: Σ N_i = 1 at every point; a uniform field is reproduced exactly.
+
+[glossary-c-0-continuity] Glossary: C^0 continuity
+C^0 continuity: T is continuous across element edges but its derivative generally jumps.
+
+[glossary-gradient-matrix-n] Glossary: gradient matrix {∂}ᵀ{N}
+gradient matrix {∂}ᵀ{N}: The 2 × 4 matrix of shape-function derivatives; gradient = {∂}ᵀ{N}{T̂}ᵀ.
+
+[glossary-conductance-matrix-k] Glossary: conductance matrix [k]
+conductance matrix [k]: The element matrix of Part 2, [k] = ∫∫{N}ᵀ{∂}[E]{∂}ᵀ{N} dy dx; the heat analogue of stiffness.
+
+[glossary-assembly-connectivity] Glossary: assembly · connectivity
+assembly · connectivity: Adding element matrices into the global system using each element’s list of global node numbers.

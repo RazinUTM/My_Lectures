@@ -1,0 +1,577 @@
+# 2D Heat Transfer — Part 2
+Galerkin dan integration by parts menukar PDE kepada [k]{T̂}ᵀ = {q} + {b}; matrix element dalam closed form, assembly mengikut connectivity, temperature yang diketahui dikenakan, dan plat dalam teks diselesaikan secara tangan dan disemak dengan mesh halus.
+
+[start-outcomes] Selepas bahagian ini, anda sepatutnya boleh
+1. Menggunakan Galerkin weighted residual method dan integration by parts untuk memperoleh [k]{T̂}ᵀ = {q} + {b} dan menerangkan maksud setiap term.
+2. Menilai conductance matrix [k] dan load vector {q} dan {b} bagi 4-node rectangular element dalam closed form.
+3. Meng-assemble matrix element ke dalam sistem global dengan connectivity table dan mengenakan Dirichlet condition melalui row–column elimination.
+4. Menyelesaikan masalah kecil secara tangan, post-process temperature dan flux pada satu titik, dan menilai hasilnya berbanding mesh yang di-refine.
+
+[notes-n1] Nota 1. Galerkin dan integration by parts
+Gantikan approximation T = {N}{T̂}ᵀ dari Part 1 ke dalam PDE dan ia tidak seimbang: field bilinear tidak mampu memenuhi persamaan peringkat kedua pada setiap titik. Residual ialah apa yang tinggal. Empat unknown T̂_1…T̂_4, satu persamaan, dan ia tidak dipenuhi dengan tepat di mana-mana.
+PERSAMAAN (2.34): [equation w_resid: source not available in the page]
+Idea Galerkin Minta pula supaya residual itu sifar secara purata , di-weight oleh setiap shape function bergilir-gilir. Empat weight function, empat persamaan. Galerkin memilih weight function sama dengan shape function, dan itulah yang menjadikan [k] simetri.
+PERSAMAAN (2.35): [equation w_weighted: source not available in the page]
+## Integration by parts: kes 1D yang anda kenal
+Bagi bar element pada awal kursus, satu derivative berpindah dari T kepada weight function dan satu boundary term muncul:
+PERSAMAAN : [equation w_ibp1d: source not available in the page]
+- Tujuan 1 · melonggarkan continuity. Selepas integration by parts hanya derivative pertama N dan T yang muncul, jadi T bilinear boleh diterima. Derivative keduanya akan sifar atau tak tertakrif di tepi element.
+- Tujuan 2 · mendedahkan natural condition. Boundary term mengandungi k ∂T/∂n, iaitu flux. Di mana flux ditetapkan ia menjadi load; di mana ia sifar ia lenyap; di mana T ditetapkan term itu dibuang bersama persamaannya.
+## Dua dimensi: teorem Green
+Langkah yang sama dalam dua dimensi ialah teorem Green: integral luas bagi satu derivative menjadi integral sempadan tolak integral luas dengan derivative pada weight function.
+PERSAMAAN : [equation w_green: source not available in the page]
+PERSAMAAN (2.36): [equation w_ibp: source not available in the page]
+## Susun semula dan namakan term
+PERSAMAAN (2.37): [equation w_rearr: source not available in the page]
+PERSAMAAN : [equation w_qb: source not available in the page]
+PERSAMAAN (2.42): [equation w_sys: source not available in the page]
+Term Nama Apa yang dikandunginya
+[k] conductance matrix bahan dan geometri element; simetri; 4 × 4
+{q} source vector haba yang dijana di dalam element, dikongsi antara node-nya
+{b} boundary vector haba yang masuk melalui tepi dengan flux diketahui; sifar pada tepi insulated; dibuang bersama persamaan pada tepi Dirichlet
+Tepi mana yang menyumbang kepada {b}? Bagi plat dalam teks (atas dan kiri pada 0 °C, kanan dan bawah insulated): tiada. Tepi insulated ada q_b = 0, dan pada dua tepi Dirichlet flux yang tidak diketahui mendarab N_i bagi node yang persamaannya kita buang apabila T dikenakan. Flux di situ boleh diperoleh semula kemudian, seperti support reaction.
+Isi penting:
+- Galerkin: weighted residual dengan shape function sebagai weight function; integration by parts merendahkan peringkat derivative dan mendedahkan natural condition.
+- [k]{T̂}ᵀ = {q} + {b} = {r}: conductance matrix, source vector, boundary vector.
+- Satu 4-node element memberi 4 persamaan; mesh 2 × 2 memberi 9, dan 4 tinggal selepas T dikenakan pada 5 node.
+Semakan pantas (tidak dimarkah): Dalam kaedah Galerkin, weighting function ialah
+Pilihan: shape function itu sendiri | pemalar 1, x, x² | nodal temperature
+Penjelasan yang dipaparkan selepas menjawab: Galerkin mengambil weight function sama dengan trial function, jadi persamaannya simetri. Pemberat 1, x, x² memberi sistem Petrov–Galerkin (WRM asas) yang tidak simetri.
+
+[notes-n2] Nota 2. Matrix element dan load vector
+Hasil darab matrix di dalam [k] paling mudah dibaca dari dalam ke luar. Ambil entri k_{34}: shape function 3 di kiri, shape function 4 di kanan, dan operator bertindak ke atas setiap satu.
+## k₃₄ dalam empat langkah simbolik (teks (2.43)–(2.46))
+PERSAMAAN : [equation w_s1: source not available in the page]
+PERSAMAAN : [equation w_s2: source not available in the page]
+PERSAMAAN : [equation w_s3: source not available in the page]
+PERSAMAAN : [equation w_s4: source not available in the page]
+Setiap operator bertindak ke atas shape function di kirinya (daripada integration by parts) atau di kanannya. Hasilnya ialah hasil tambah dua hasil darab derivative, satu di-weight oleh k_x dan satu lagi oleh k_y.
+## Langkah 5: integral (teks (2.47)–(2.48))
+PERSAMAAN : [equation w_s5: source not available in the page]
+PERSAMAAN : [equation w_s5b: source not available in the page]
+PERSAMAAN (2.48): [equation w_k34: source not available in the page]
+## Keseluruhan matrix dalam empat nombor
+Ulang integration yang sama untuk entri lain dan hanya empat nilai berbeza yang muncul. [k] simetri dan mempunyai pola di bawah.
+PERSAMAAN (2.49): [equation w_kfull: source not available in the page]
+PERSAMAAN : [equation w_svals: source not available in the page]
+Semakan jumlah baris s_1 + s_2 + s_3 + s_4 = 0 bagi setiap a, b, k_x, k_y: temperature seragam tidak mengalirkan haba. Jumlahkan mana-mana baris matrix yang anda kira; jika bukan sifar, cari kesilapannya.
+PERSAMAAN : [equation w_rowsum: source not available in the page]
+Perangkap biasa b/a dan a/b tertukar. Dalam s_2 dan s_4, term k_x membawa b/a (dua node pada sisi mendatar) dan term k_y membawa a/b. Bagi segi empat sama, matrix bergantung pada k sahaja, bukan pada sisinya.
+## Load vector
+Source yang seragam dikongsi sama rata antara empat node, kerana setiap N_i mempunyai integral yang sama ab/4 di atas element. Flux ke dalam yang seragam pada satu tepi dikongsi sama rata oleh dua node tepi itu, kerana di sepanjang tepi hanya shape function mereka yang bukan sifar dan setiap satu ber-integral kepada separuh panjang.
+PERSAMAAN (2.39): [equation w_qconst: source not available in the page]
+PERSAMAAN (2.40): [equation w_bedge: source not available in the page]
+[Rajah: Flux ke dalam yang seragam pada tepi kanan menjadi dua nodal load yang sama q_bb/2 pada node 2 dan 3.]
+## Contoh bekerja · element dalam teks (Aktiviti 2)
+a = b = 0.5 m, k_x = k_y = 300 W m^{−1} K^{−1}, q_h = 600 W m^{−3}, ketebalan unit.
+PERSAMAAN : [equation w_act2: source not available in the page]
+PERSAMAAN (2.51): [equation w_k251: source not available in the page]
+PERSAMAAN (2.52): [equation w_r252: source not available in the page]
+Keempat-empat element mesh 2 × 2 serupa, jadi satu [k] dan satu {r} mencukupi untuk seluruh mesh. Semakan baris: 200 − 50 − 100 − 50 = 0.
+Isi penting:
+- [k] = t[s_1 s_2 s_3 s_4; …] dengan s_1 = bk_x/3a + ak_y/3b dan tiga yang lain daripada (2.49); baris berjumlah sifar.
+- {q} = q_hab/4 pada setiap node; flux tepi memberi q_bb/2 pada setiap satu daripada dua node-nya.
+- Element dalam teks: s = 200, −50, −100, −50 W K^{−1}; r_i = 37.5 W.
+Semakan pantas (tidak dimarkah): Bagi element segi empat sama dengan k_x = k_y = k, gandingan antara dua node satu sisi, s_2, ialah
+Pilihan: −k/6 | −k/3 | +k/6
+Penjelasan yang dipaparkan selepas menjawab: s_2 = −bk/3a + ak/6b = −k/3 + k/6 = −k/6. Pasangan pepenjuru ialah s_3 = −k/3, dua kali lebih kuat, dan s_1 = 2k/3.
+
+[notes-n3] Nota 3. Contoh bekerja dan connectivity table-nya
+Plat dalam teks: segi empat sama 1 m, q_h = 600 W m^{−3}, k = 300 W m^{−1} K^{−1}, tepi atas dan kiri pada 0 °C, kanan dan bawah insulated. Empat element, sembilan node global, dinomborkan dari kiri ke kanan dan bawah ke atas seperti gelung dalam kod. Kasar dengan sengaja: pengiraan tangan mesti boleh dijejak.
+[Rajah: Plat (teks Rajah 2.5).]
+[Rajah: Element 1 berlorek; node local-nya (1)…(4) berada pada node global 1, 2, 5, 4.]
+## Connectivity table
+Setiap element menyenaraikan nombor node global-nya mengikut susunan local, lawan jam dari bucu kiri bawah. Jadual inilah keseluruhan rekod kaedah ini.
+Element (1) (2) (3) (4)
+1 1 2 5 4
+2 2 3 6 5
+3 4 5 8 7
+4 5 6 9 8
+[Rajah: Element 2 berlorek: local (1)…(4) pada global 2, 3, 6, 5.]
+Membaca jadual Node 5 muncul dalam keempat-empat element, jadi empat matrix element ditambah ke dalam baris 5 [K]: K_{55} = 4s_1. Node 2 muncul dalam element 1 dan 2: K_{22} = 2s_1. Node bucu muncul sekali: K_{11} = s_1.
+## Mengira persamaan
+Sembilan node memberi sembilan persamaan. Tepi atas (node 7, 8, 9) dan tepi kiri (node 1, 4, 7) berada pada 0 °C: lima temperature diketahui, jadi empat persamaan tinggal, bagi T_2, T_3, T_5, T_6.
+Isi penting:
+- Connectivity: nombor node global setiap element mengikut susunan local lawan jam.
+- K_{ii} = s_1 × (bilangan element pada node i); sisi yang dikongsi menambah dua kali.
+- Plat teks: 9 persamaan, 5 temperature diketahui, 4 unknown.
+Semakan pantas (tidak dimarkah): Dalam mesh 2 × 2, berapa banyak matrix element yang menyumbang kepada K_{25} (node 2 dan 5)?
+Pilihan: satu | dua | empat
+Penjelasan yang dipaparkan selepas menjawab: Node 2 dan 5 kedua-duanya dalam element 1 dan 2 (berkongsi sisi 2–5), jadi dua matrix ditambah: K_{25} = k_{23} + k_{14} = 2s_4. Node 5 sahaja berada dalam empat element, tetapi gandingan hanya mengira element yang mengandungi kedua-dua node.
+
+[notes-n4] Nota 4. Assembly dan temperature yang diketahui
+Assembly ialah satu peraturan yang digunakan berkali-kali: setiap entri matrix element ditambah ke dalam matrix global pada baris dan lajur yang diberi oleh connectivity table. Scatter-add yang sama membina {R} daripada load vector element.
+PERSAMAAN : [equation w_scatter: source not available in the page]
+## Selepas element 1 (node 1, 2, 5, 4)
+PERSAMAAN : [equation w_K_e1: source not available in the page]
+Enam belas entri mendarat di baris dan lajur 1, 2, 4, 5. Yang lain masih sifar.
+## Selepas element 1 dan 2 (Aktiviti 4)
+PERSAMAAN : [equation w_K_e12: source not available in the page]
+Element 2 ditambah ke dalam baris dan lajur 2, 3, 6, 5. Di mana kedua-duanya bertindih (node 2 dan 5, ditunjukkan hijau) entri bertambah: K_{22} = 400, K_{55} = 400 setakat ini, K_{25} = −100.
+## Sistem lengkap (teks (2.53))
+PERSAMAAN (2.53): [equation w_K_full: source not available in the page]
+K_{55} = 800 (empat element), node sisi 400, bucu 200; {R} = 37.5 × (1, 2, 1, 2, 4, 2, 1, 2, 1) W.
+## Kenakan temperature yang diketahui
+T̄_k yang diketahui bukan unknown, jadi persamaannya tidak diperlukan dan lajurnya mendarab nombor yang diketahui. Pindahkan lajur itu kali T̄_k ke sebelah kanan, kemudian buang baris dan lajur itu. Di sini kelima-lima nilai yang diketahui ialah sifar, jadi tiada yang berpindah ke kanan dan sistem terkurang hanyalah baris dan lajur 2, 3, 5, 6.
+PERSAMAAN : [equation w_nonzero: source not available in the page]
+PERSAMAAN (2.54)–(2.55): [equation w_reduced: source not available in the page]
+[Rajah: Nodal temperature yang diselesaikan pada node bebas 2, 3, 5 dan 6.]
+## Sahkan dan baca penyelesaian (Aktiviti 5)
+PERSAMAAN : [equation w_act5: source not available in the page]
+- T_3 paling besar: bucu paling jauh daripada kedua-dua tepi sejuk, antara dua tepi insulated, tempat haba terkumpul.
+- T_5 paling kecil antara empat: pusat lebih hampir dengan tepi sejuk berbanding node 3.
+- T_2 = T_6 dengan tepat: mesh, load dan boundary condition simetri tentang pepenjuru dari node 1 ke node 9.
+Isi penting:
+- Scatter-add: K_{IJ} += k_{ij} dengan I, J daripada connectivity table; sama untuk {R}.
+- T yang diketahui: pindahkan lajurnya × T̄ ke kanan, buang baris dan lajur; baris yang dibuang kemudian memberi aliran haba.
+- Plat teks: T_2 = T_6 = 0.482, T_3 = 0.621, T_5 = 0.386 °C.
+Semakan pantas (tidak dimarkah): Satu node mempunyai temperature yang ditetapkan 100 K. Apabila sistem dikurangkan, lajur node itu
+Pilihan: dibuang dan tiada yang lain berubah | kali 100 ditolak daripada sebelah kanan setiap persamaan yang tinggal, kemudian dibuang | digantikan dengan sifar dan pepenjuru ditetapkan 1
+Penjelasan yang dipaparkan selepas menjawab: Lajur itu mendarab nilai yang diketahui, jadi hasil darabnya K_{ik} × 100 ialah nombor yang diketahui dalam setiap persamaan yang tinggal dan berpindah ke sebelah kanan. Hanya apabila nilai yang ditetapkan ialah sifar, tiada yang berpindah. Pilihan (c) ialah helah komputer yang sah tetapi bukan kaedah tangan kursus ini.
+
+[notes-n5] Nota 5. Post-processing dan ketepatan
+Penyelesaian ialah senarai nilai node. Segala yang lain — temperature pada satu titik, flux, titik paling panas — ialah post-processing dengan shape function Part 1, dibuat satu element pada satu masa dalam koordinat local element itu.
+## Temperature pada mana-mana titik: tiga langkah
+- Cari element yang mengandungi titik itu.
+- Tukar kepada koordinat local: tolak origin element (node local 1-nya).
+- Nilaikan N_1…N_4 di situ dan darab dengan nodal temperature element itu, mengikut susunan local daripada connectivity table.
+PERSAMAAN : [equation w_local: source not available in the page]
+PERSAMAAN : [equation w_interp: source not available in the page]
+[Rajah: Titik (0.3, 0.2) m terletak dalam element 1.]
+## Contoh bekerja · T pada (0.3, 0.2) (Aktiviti 6, pola tugasan)
+PERSAMAAN : [equation w_act6_N: source not available in the page]
+PERSAMAAN : [equation w_act6_T: source not available in the page]
+Element 1 mempunyai node 1 pada origin, jadi local = global di sini. Bagi titik (0.8, 0.2) element-nya ialah 2, dengan local (0.3, 0.2) — N yang sama — tetapi nilai node {T_2, T_3, T_6, T_5}.
+## Flux pada satu titik
+PERSAMAAN : [equation w_fluxc: source not available in the page]
+Pada centroid element 2, flux mempunyai komponen yang sama dan bertentangan: haba mengalir ke arah −x (tepi kiri sejuk) dan +y (tepi atas sejuk). Nilaikan flux pada centroid atau titik Gauss; ia paling kurang tepat pada node dan melompat merentasi tepi element.
+## Berapa salah mesh 2 × 2?
+Mesh T(L/2, 0) T(L, 0)
+Q4 2 × 2 ( tangan ) 0.4821 0.6214
+Q8 2 × 1 ( tangan ) 0.4448 0.5836
+Q4 16 × 16 0.4590 0.5898
+Perisian (teks Jadual 2.1) 0.4589 0.5897
+PERSAMAAN : [equation w_err: source not available in the page]
+[Rajah: Kiri: penyelesaian 2 × 2 berfaset kerana setiap element bilinear. Kanan: 16 × 16 licin dan sepadan dengan nilai perisian dalam teks hingga tempat perpuluhan keempat.]
+Tabiat kursus ini Semakan convergence ialah masalah yang sama pada mesh yang lebih halus; refine sehingga jawapan berhenti berubah, dan tunjukkan jadualnya. Ralat element bilinear jatuh kira-kira empat kali setiap kali mesh dibahagi dua.
+Isi penting:
+- Post-process setiap element: cari, tukar kepada koordinat local, interpolate dengan nilai node mengikut susunan local.
+- T(0.3, 0.2) = 0.266 °C; flux pada centroid element 2 = (−70.7, +70.7) W m^{−2}.
+- Mesh 2 × 2 kira-kira 5% tinggi; 16 × 16 sepadan dengan perisian. Refine sebelum anda percaya sesuatu nombor.
+Semakan pantas (tidak dimarkah): Titik (0.8, 0.2) m dalam mesh 2 × 2 teks (a = b = 0.5 m) terletak dalam element 2. Koordinat local-nya ialah
+Pilihan: (0.8, 0.2) | (0.3, 0.2) | (0.3, 0.7)
+Penjelasan yang dipaparkan selepas menjawab: Element 2 mempunyai node local 1 pada global (0.5, 0), jadi x_{loc} = 0.8 − 0.5 = 0.3 dan y_{loc} = 0.2 − 0 = 0.2. Menggunakan (0.8, 0.2) dalam N_i memberi shape function negatif, tanda biasa bahawa koordinat tidak ditukar.
+
+[notes-n6] Nota 6. Skrip, tugasan dan apa yang seterusnya
+Skrip ini ialah pipeline dalam tiga puluh baris. Baca ia berpandukan tujuh langkah dan setiap blok ada namanya.
+% Local conductance matrix (text §2.3.1)
+a = L/Nx; b = H/Ny;
+s1 = b*kx/(3*a) + a*ky/(3*b);
+s2 = -b*kx/(3*a) + a*ky/(6*b);
+s3 = -b*kx/(6*a) - a*ky/(6*b);
+s4 = b*kx/(6*a) - a*ky/(3*b);
+k = [s1 s2 s3 s4; s2 s1 s4 s3; s3 s4 s1 s2; s4 s3 s2 s1];
+fQ = a*b*Q/4*[1; 1; 1; 1]; % heat generation
+% Assembly by connectivity (conn(e,:) = global nodes of element e)
+for e = 1:Ne, c = conn(e,:); K(c,c) = K(c,c) + k; F(c) = F(c) + fQ; end
+% Essential conditions: known nodes removed, their columns moved to the right
+free = setdiff(1:n, fixed); T = zeros(n,1); T(fixed) = Tbar;
+T(free) = K(free,free) \ (F(free) - K(free,fixed)*T(fixed));
+% Post-processing: element, local coordinates, interpolation
+e = find_element(x, y); xl = x - X(conn(e,1)); yl = y - Y(conn(e,1));
+N = [(a-xl)*(b-yl), xl*(b-yl), xl*yl, yl*(a-xl)]/(a*b); Tp = N*T(conn(e,:));
+- Baris 2–8: langkah 5, matrix element dan load daripada s_1…s_4 closed-form dalam §2.
+- Baris 10: langkah 6, assembly, satu scatter-add setiap element.
+- Baris 12–13: langkah 6, temperature yang diketahui dipindahkan ke kanan dan dibuang; langkah 7, penyelesaian backslash.
+- Baris 15–16: §5, interpolation dalam koordinat local.
+Cuba Tukar mesh kepada 4 × 4 dan bandingkan T(1, 0) dengan jadual §5. Kemudian tetapkan Q = 0 dan T = 5 di kiri dan 100 di tepi kanan: setiap mesh mesti memulangkan garis lurus.
+## Tugasan 4 · apa yang diminta
+[Rajah: Tiga element 2 m × 3 m yang serupa, T = 100 K pada tepi kiri, flux sifar di tempat lain, satu heat source pada element 1.]
+- (a) Load vector local {r¹} bagi heat source Q = 20 W m^{−2} pada element 1 (ketebalan unit).
+- (b) [K] global dalam sebutan k, dengan k_x = k_y = k, menggunakan connectivity table Aktiviti 3.
+- (c) Dengan T_2 = T_6 = 150 K daripada penyelesaian, interpolate T pada (x, y) = (1.4, 2.2) m.
+PERSAMAAN : [equation w_asg_hint: source not available in the page]
+Tunjukkan connectivity table, s_1…s_4 dengan a = 2 m, b = 3 m, dan koordinat local yang digunakan dalam (c). Markah diberi untuk kaedah; nyatakan konvensyen yang anda guna untuk source (per unit luas, ketebalan unit). Kerja individu.
+## Apa yang seterusnya
+Plane stress mengulang setiap langkah bahagian ini dengan dua unknown setiap node: [E] menjadi 3 × 3, {∂} matrix operator 2 × 3, dan [k] 8 × 8. Sebelum sesi itu, baca teks §3.1 dan ulang kaji plane stress berbanding plane strain, hukum Hooke dalam 2D dan hubungan strain–displacement.
+Isi penting:
+- Tujuh langkah, tiga puluh baris: matrix element, assembly scatter-add, buang node yang diketahui, backslash, interpolate dalam koordinat local.
+- Tugasan 4: {r¹}, [K] dalam sebutan k, T pada (1.4, 2.2) — markah kaedah; tunjukkan rekod.
+Semakan pantas (tidak dimarkah): Tanpa heat source dan dua tepi bertentangan ditetapkan pada temperature tetap, mesh 1 × 1 dengan satu element bilinear memberi
+Pilihan: field linear yang tepat | jawapan kira-kira 5% tinggi | matrix singular
+Penjelasan yang dipaparkan selepas menjawab: Field tepat adalah linear dalam x, dan element bilinear mengandungi 1, x dan y, jadi ia menghasilkan semula field itu dengan tepat pada mana-mana mesh. Inilah semakan patch-test dalam §5; ralat 5% itu milik field melengkung bagi plat dengan source.
+
+[slides-1] Slide 1: 2D Heat Transfer Part 2 of 2
+SEAA 4243 Finite Element Method · 2L + 1T 2D Heat Transfer Part 2 of 2 From the weak form to the solution: [k], assembly, Dirichlet conditions, post-processing and the MATLAB code Assoc. Prof. Ts. Dr. Ahmad Razin Zainal Abidin · Dr. Yip Bao Fang Faculty of Civil Engineering, Universiti Teknologi Malaysia Text: Mohd Yassin et al., Two-Dimensional Finite Element Formulations for Heat, Solids and Fluids (with Matlab) , MSNM 2020 — §2.2.2 – §2.4
+
+[slides-2] Slide 2: Three questions from the last session — answer on paper before we start
+5 MIN Activity 0 · individual · retrieval warm-up Three questions from the last session — answer on paper before we start Write down The steady heat conduction PDE in matrix form, and the two matrices it contains. The name of the boundary condition that needs no action in FEM, and why. N_2 of the 4-node element and its value at node 3. Why No notes. Retrieval practice is the point: what you can recall is what you can use in the exam. 5 minutes. Then we compare with the slides. SEAA 4243 · 2D Heat Transfer — Part 2 2
+
+[slides-3] Slide 3: By the end of this session you should be able to
+Learning outcomes · today By the end of this session you should be able to 1 Apply the Galerkin weighted residual method and integration by parts to obtain [k]{T̂}ᵀ = {q} + {b} and explain what each term means. 2 Evaluate the conductance matrix [k] and the load vectors {q} and {b} of a 4-node rectangular element in closed form. 3 Assemble element matrices into the global system with a connectivity table and impose Dirichlet conditions by row–column elimination. 4 Solve a small problem by hand, post-process temperature a
+
+[slides-4] Slide 4: Six blocks, seven short activities, one break
+Session map · 180 minutes Six blocks, seven short activities, one break 0:00 Weak form & IBP 30 min A1 · 6 min 0:30 Element matrices 35 min A2 · 8 min 1:05 Mesh & connectivity 20 min A3 · 6 min 1:25 Break 10 min no activity 1:35 Assembly & Dirichlet 40 min A4 + A5 2:15 Post-processing 25 min A6 + QR 2:40 MATLAB & Asg 4 20 min Exit ticket Bring forward from the last session Your Activity 4–5 sheet: the same element, the same numbers. The formula sheet: N_1…N_4 and their derivatives. A laptop with MATLAB for the code trac
+
+[slides-5] Slide 5: From residual to weak form
+1 Block 1 · 0:00 – 0:30 From residual to weak form Substitute T = {N}{T̂}ᵀ into the PDE, weight the residual with {N}ᵀ, integrate by parts. Text §2.2.2. SEAA 4243 · 2D Heat Transfer — Part 2 5
+
+[slides-6] Slide 6: Substituting the approximation leaves a residual
+Block 1 · substitute the approximation · text (2.34) Substituting the approximation leaves a residual (2.34) Count Four unknowns T̂_1…T̂_4, but only one equation — and it holds nowhere exactly. Idea Make the residual zero on average , weighted by each shape function: four weights, four equations. (2.35) Galerkin: weights = shape functions Why Galerkin: the weights are the shape functions themselves, which makes [k] symmetric. SEAA 4243 · 2D Heat Transfer — Part 2 6
+
+[slides-7] Slide 7: Move one derivative from T onto the weight; a boundary term appears
+Block 1 · integration by parts: the 1D case you know Move one derivative from T onto the weight; a boundary term appears bar element, earlier in the course Purpose 1 · relax continuity After IBP only first derivatives of N and T appear, so a piecewise-linear (or bilinear) T is admissible. Second derivatives of a bilinear field would be zero or undefined at element edges. Purpose 2 · expose the natural condition The boundary term contains k dT/dx, the flux. Where the flux is specified it becomes a load; where it is zero
+
+[slides-8] Slide 8: Green’s theorem turns the area integral of a derivative into a boundary integral
+Block 1 · integration by parts in two dimensions · text (2.36) Green’s theorem turns the area integral of a derivative into a boundary integral Green’s theorem, x-direction (same for y) (2.36) Why n_x, n_y are the outward normal components and ds runs around the element boundary. Apply it to each row of {∂}[E]{∂}ᵀ. Watch out q_b = k ∂T/∂n is the boundary flux of (2.15), positive when heat enters . Text (2.41) writes the components with the opposite sign — use (2.15). SEAA 4243 · 2D Heat Transfer — Part 2 8
+
+[slides-9] Slide 9: Conductance matrix, heat-generation vector, boundary-flux vector
+Block 1 · rearrange and name the terms · text (2.37)–(2.42) Conductance matrix, heat-generation vector, boundary-flux vector (2.37) (2.15) (2.42) Why Read [k]’s integrand left to right: {N}ᵀ{∂} means the derivative acts on the weight {N}ᵀ (moved there by the IBP). {∂}ᵀ{N} is the last session’s 2 × 4 gradient matrix. SEAA 4243 · 2D Heat Transfer — Part 2 9
+
+[slides-10] Slide 10: Which term, which edge? Trace the boundary term around the plate
+6 MIN Activity 1 · pairs · reasoning Which term, which edge? Trace the boundary term around the plate For the text’s plate (top and left at 0 °C, right and bottom insulated) Which edges contribute to {b}? Write the value of q_b on each. On the two Dirichlet edges the flux is unknown — what happens to the boundary term there? How many equations does the weighted residual give for one 4-node element, and for the 2 × 2 mesh before boundary conditions? 6 minutes. Reveal follows. SEAA 4243 · 2D Heat Transfer — Part 2 10
+
+[slides-11] Slide 11: The element matrices
+2 Block 2 · 0:30 – 1:05 The element matrices Integrate in closed form over the rectangle: k₃₄ step by step, then the whole [k], then {q} and {b}. Text (2.43)–(2.50). SEAA 4243 · 2D Heat Transfer — Part 2 11
+
+[slides-12] Slide 12: Row 3 of {N}ᵀ, the operator, [E], the operator, column 4 of {N}
+Block 2 · k₃₄ in four symbolic steps · text (2.43)–(2.46) Row 3 of {N}ᵀ, the operator, [E], the operator, column 4 of {N} Step 1 Step 2 Step 3 Step 4 What happened Step 1→2: the operator acts on N_3 to its left (IBP moved it there). Step 2→3: multiply by [E]; k_x and k_y attach to the two derivatives. Step 3→4: the second operator acts to the right, on N_4. Step 5: integrate over the rectangle (next slide). SEAA 4243 · 2D Heat Transfer — Part 2 12
+
+[slides-13] Slide 13: Two separable integrals over 0 ≤ x ≤ a, 0 ≤ y ≤ b
+Block 2 · k₃₄, step 5: the integrals · text (2.47)–(2.48) Two separable integrals over 0 ≤ x ≤ a, 0 ≤ y ≤ b (2.47) (2.48) SEAA 4243 · 2D Heat Transfer — Part 2 13
+
+[slides-14] Slide 14: Four distinct values; symmetric; every row sums to zero
+Block 2 · the whole matrix · text (2.49) Four distinct values; symmetric; every row sums to zero (2.49) Check Row sums are zero because a uniform temperature produces no flux: [k]{1} = {0}. Use it as a check on every hand calculation. Watch out [k] is singular on its own (one zero eigenvalue). Only the Dirichlet conditions make the system solvable. SEAA 4243 · 2D Heat Transfer — Part 2 14
+
+[slides-15] Slide 15: Uniform generation splits equally; a uniform edge flux splits between the two edge nodes
+Block 2 · the load vectors · text (2.39)–(2.40) Uniform generation splits equally; a uniform edge flux splits between the two edge nodes (2.39) (2.40) Why {b} is assembled only on the elements whose edge lies on the flux boundary; interior edges never contribute. Check Dimensions with unit thickness: q_hab/4 is W m⁻³ × m² = W per metre of thickness; q_bb/2 likewise. SEAA 4243 · 2D Heat Transfer — Part 2 15
+
+[slides-16] Slide 16: Evaluate [k] and {q} for the text’s element, then check the row sums
+8 MIN Activity 2 · pairs · calculation Evaluate [k] and {q} for the text’s element, then check the row sums Given (text §2.3) a = b = 0.5 m (2 × 2 mesh of a 1 m × 1 m plate), unit thickness. k_x = k_y = 300 W m⁻¹ K⁻¹, q_h = 600 W m⁻³. Find s_1, s_2, s_3, s_4 and hence [k]. {q} for the element. Verify that each row of [k] sums to zero. Check Units: W K⁻¹ for [k]; W for {q} (per metre of thickness). 8 minutes. Early finishers: what changes in [k] if a is doubled and b kept? SEAA 4243 · 2D Heat Transfer — Part 2 16
+
+[slides-17] Slide 17: The same [k] and {r} for all four elements of the mesh
+Activity 2 · solution · text (2.51)–(2.52) The same [k] and {r} for all four elements of the mesh (2.51) Right: (2.52), the heat-generation vector of every element. SEAA 4243 · 2D Heat Transfer — Part 2 17
+
+[slides-18] Slide 18: Mesh and connectivity
+3 Block 3 · 1:05 – 1:25 Mesh and connectivity Number the global nodes, list each element’s nodes in local order, and you have the map from local to global. Text Fig. 2.6. SEAA 4243 · 2D Heat Transfer — Part 2 18
+
+[slides-19] Slide 19: A 1 m square plate meshed with four elements
+Block 3 · the worked example · text §2.3, Figs. 2.5–2.6 A 1 m square plate meshed with four elements q_h = 600 W m⁻³, k = 300 W m⁻¹ K⁻¹, unit thickness. Four elements, nine global nodes. Element 1 shaded; its local nodes (1)…(4) sit at global nodes 1, 2, 5, 4. Why Heat source, two cold edges, two insulated edges. Coarse on purpose: the hand calculation must be traceable; Block 5 refines it. SEAA 4243 · 2D Heat Transfer — Part 2 19
+
+[slides-20] Slide 20: Element e, local node i → global node conn(e, i): always anticlockwise from the bottom-lef
+Block 3 · the connectivity table Element e, local node i → global node conn(e, i): always anticlockwise from the bottom-left Element (1) (2) (3) (4) 1 1 2 5 4 2 2 3 6 5 3 4 5 8 7 4 5 6 9 8 Why The MATLAB line K([1 2 5 4],[1 2 5 4]) = K([1 2 5 4],[1 2 5 4]) + k is this table’s first row. Element 2: local (1)…(4) = global 2, 3, 6, 5. Node 5 is local 4 here, local 3 in element 1: the same unknown T_5. SEAA 4243 · 2D Heat Transfer — Part 2 20
+
+[slides-21] Slide 21: Write the connectivity table for the Assignment 4 strip
+6 MIN Activity 3 · pairs · bookkeeping Write the connectivity table for the Assignment 4 strip Do List the global nodes of elements 1, 2 and 3 in local order (1)…(4). Mark which global nodes have a known temperature. How many equations remain after imposing them? Keep this table — you will need it for Assignment 4. 6 minutes, then a 10-minute break. SEAA 4243 · 2D Heat Transfer — Part 2 21
+
+[slides-22] Slide 22: Three rows, two known nodes, six unknowns
+Activity 3 · solution Three rows, two known nodes, six unknowns Element (1) (2) (3) (4) 1 1 2 6 5 2 2 3 7 6 3 3 4 8 7 Known and unknown Known: T_1 = T_5 = 100 K (left edge). Unknown: T_2, T_3, T_4, T_6, T_7, T_8 — six equations. Insulated edges: nothing to do. Heat source on element 1 only: {r¹} ≠ 0, {r²} = {r³} = 0. SEAA 4243 · 2D Heat Transfer — Part 2 22
+
+[slides-23] Slide 23: Break
+1:25 – 1:35 Break Back in 10 minutes. Second half: assembly, Dirichlet conditions, solution, post-processing and MATLAB. SEAA 4243 · 2D Heat Transfer — Part 2 23
+
+[slides-24] Slide 24: Assembly and Dirichlet conditions
+4 Block 4 · 1:35 – 2:15 Assembly and Dirichlet conditions Scatter each [kᵉ] into [K] with the connectivity table, then remove the known temperatures. Text (2.53)–(2.55). SEAA 4243 · 2D Heat Transfer — Part 2 24
+
+[slides-25] Slide 25: Each local entry is added to the global position that the connectivity table names
+Block 4 · the scatter-add rule Each local entry is added to the global position that the connectivity table names In words Start with [K] = 0 (9 × 9) and {R} = 0 (9 × 1). For each element: read its row of the table; add k_{ij} to K_{IJ} and r_i to R_I. Shared nodes receive contributions from every element that touches them. Why ‘add’ Each element’s weighted-residual equations are statements about its own area; the equation for a global node sums the statements of all elements around it — heat balance at that node. Check
+
+[slides-26] Slide 26: Sixteen entries land in rows and columns 1, 2, 4, 5
+Block 4 · after element 1 · nodes [1 2 5 4] Sixteen entries land in rows and columns 1, 2, 4, 5 Maroon: element 1. Local (1)…(4) → global 1, 2, 5, 4: local k_{23} = s_4 = −50 goes to K_{25}; local k_{13} = −100 goes to K_{15}. SEAA 4243 · 2D Heat Transfer — Part 2 26
+
+[slides-27] Slide 27: Add element 2 (nodes [2 3 6 5]) to [K]
+8 MIN Activity 4 · pairs · assembly Add element 2 (nodes [2 3 6 5]) to [K] [K] after element 1 (maroon). Do Write the 10 distinct entries that element 2 (nodes 2, 3, 6, 5) adds; its [k] equals element 1’s. Which four entries now have contributions from both elements? Give their totals. Check: row 2 of [K] must still sum to zero. 8 minutes. Reveal follows. SEAA 4243 · 2D Heat Transfer — Part 2 27
+
+[slides-28] Slide 28: Shared entries are sums; the rest come from one element
+Activity 4 · solution · after elements 1 and 2 Shared entries are sums; the rest come from one element Maroon: element 1 · teal: element 2 · green: both elements add. Totals at the shared nodes K_{22} = 200 + 200 = 400 K_{55} = 200 + 200 = 400 K_{25} = K_{52} = −50 − 50 = −100 Check Row 2: −50 + 400 − 50 − 100 − 100 − 100 = 0. SEAA 4243 · 2D Heat Transfer — Part 2 28
+
+[slides-29] Slide 29: Nine equations, nine unknowns — but five temperatures are already known
+Block 4 · the complete global system · text (2.53) Nine equations, nine unknowns — but five temperatures are already known (2.53) Load vector: 37.5 at corner nodes (one element), 75 at edge nodes (two elements), 150 at the centre node (four elements). SEAA 4243 · 2D Heat Transfer — Part 2 29
+
+[slides-30] Slide 30: Known T: delete the equation, move the value right
+Block 4 · impose the known temperatures Known T: delete the equation, move the value right Row–column elimination (T̄ = 0) Known: T_1 = T_4 = T_7 = T_8 = T_9 = 0 (top and left edges). Delete rows and columns 1, 4, 7, 8, 9 of [K] and rows of {R}. Keep rows and columns 2, 3, 5, 6: a 4 × 4 system. Non-zero T̄ (e.g. 100 K in Assignment 4) The known column times T̄ is a known heat flow; it moves to the right-hand side before the row and column are deleted. MATLAB: F = F − K(:,dof_k)*To. (2.54) → (2.55) SEAA 4243 · 2D Heat Tr
+
+[slides-31] Slide 31: Verify the solution and read it physically
+6 MIN Activity 5 · pairs · verification Verify the solution and read it physically Do Substitute T_2 = 0.482, T_3 = 0.621, T_5 = 0.386, T_6 = 0.482 into row 1 of the reduced system (2.54). Does it give 75? Why is T_3 the largest and T_5 the smallest of the four? Why does T_2 equal T_6 exactly? 6 minutes. Reveal follows. SEAA 4243 · 2D Heat Transfer — Part 2 31
+
+[slides-32] Slide 32: Row 1 closes to within rounding; the pattern of the answer matches the physics
+Activity 5 · solution Row 1 closes to within rounding; the pattern of the answer matches the physics Hottest at node 3 Farthest from the two cold edges, enclosed by the two insulated edges: the prediction from Heat Transfer Part 1 is confirmed. T₂ = T₆ Symmetry about the diagonal through nodes 1, 5, 9: swapping x and y maps the problem onto itself, so the solution must be symmetric too. Use symmetry in exams If a problem is symmetric, equal temperatures are equal unknowns: fewer equations to solve by hand. SEAA 4243 · 2
+
+[slides-33] Slide 33: Post-processing and validation
+5 Block 5 · 2:15 – 2:40 Post-processing and validation Temperature and flux anywhere in the plate, then the honest question: how wrong is a 2 × 2 mesh? Text Table 2.1, Fig. 2.8. SEAA 4243 · 2D Heat Transfer — Part 2 33
+
+[slides-34] Slide 34: Find the element, go local, interpolate with its own nodal values
+Block 5 · temperature at any point: three steps Find the element, go local, interpolate with its own nodal values 1 Locate the element that contains the point (from the mesh geometry). 2 Local coordinates: subtract the coordinates of that element’s node 1. 3 Interpolate with the shape functions and the element’s four nodal temperatures, in local order. Watch out Nodal values in the element’s local order (1)…(4) = its connectivity row, not global order. SEAA 4243 · 2D Heat Transfer — Part 2 34
+
+[slides-35] Slide 35: Differentiate the same interpolation; the flux is constant along one direction in each ele
+Block 5 · flux at a point Differentiate the same interpolation; the flux is constant along one direction in each element Reading the sign At the centroid of element 2 (nodes 2, 3, 6, 5): q_x < 0, heat flows towards −x, from the hot corner at node 3 towards node 2; q_y > 0, towards the cold top edge. Discontinuity The flux jumps across element edges because the gradient of a bilinear field is not continuous. Software averages nodal fluxes; the size of the jump is a free error indicator. SEAA 4243 · 2D Heat Transfer — Par
+
+[slides-36] Slide 36: The 2 × 2 mesh is about 5% high; 16 × 16 matches software
+Block 5 · how wrong is a 2 × 2 mesh? · text Table 2.1, Fig. 2.8 The 2 × 2 mesh is about 5% high; 16 × 16 matches software Mesh T(L/2, 0) T(L, 0) Q4 2 × 2 (hand) 0.4821 0.6214 Q8 2 × 1 (hand) 0.4448 0.5836 Q4 16 × 16 0.4590 0.5898 Software (text) 0.4589 0.5897 Check Convergence check = the same problem on a finer mesh; refine until the answer stops moving. the ANSYS demo’s ANSYS exercise. SEAA 4243 · 2D Heat Transfer — Part 2 36
+
+[slides-37] Slide 37: Same equations, same checks, other codes
+Block 5 · the same steady conduction in other FE codes Same equations, same checks, other codes Code_Aster (open-source FE), solid plate heated from below, shown in Gmsh. preCICE tutorials, “Flow over a heated plate, steady state”, LGPL-3.0. ANSYS MAPDL, plate with two faces at 5 and 100 °C. PyMAPDL documentation, “Basic thermal analysis”, © ANSYS, Inc., MIT licence. Why Left: the field your Heat Transfer Part 2 script would produce for that plate — hot boundary below, cooled boundary above, contours parallel to the edg
+
+[slides-38] Slide 38: Interpolate the temperature at (0.3, 0.2) m in the solved plate
+8 MIN Activity 6 · pairs · calculation · Assignment pattern Interpolate the temperature at (0.3, 0.2) m in the solved plate Given Solution: T_2 = 0.482, T_5 = 0.386 °C; T_1 = T_4 = 0 (edge). Mesh: a = b = 0.5 m; element 1 has nodes [1 2 5 4]. Find Which element contains the point; its local coordinates. N_1…N_4 at the point and their sum. T(0.3, 0.2). Watch out Nodal order: {T̂¹} = {T_1, T_2, T_5, T_4}. 8 minutes. Reveal follows. SEAA 4243 · 2D Heat Transfer — Part 2 38
+
+[slides-39] Slide 39: Element 1, local coordinates equal to global, T ≈ 0.266 °C
+Activity 6 · solution Element 1, local coordinates equal to global, T ≈ 0.266 °C Same point shifted to (0.8, 0.2): element 2, local (0.3, 0.2), same N_i, nodal values {T_2, T_3, T_6, T_5}. SEAA 4243 · 2D Heat Transfer — Part 2 39
+
+[slides-40] Slide 40: Run the text’s plate on your phone
+6 MIN QR Explorer · pairs, one phone Run the text’s plate on your phone Scan, then do 1 Keep the 2 × 2 mesh: do T at the bottom-right corner and at the bottom middle match (2.55)? 2 Run the mesh study. From which mesh is the change below 1%? Which value would you report? 3 Make all four edges insulated. What does the Explorer say, and what does it mean physically? Heat Conduction Explorer razinutm.github.io/ My_Lectures/SEAA4243-FEM/ labs/heat.html 6 minutes, optional in class: if the block is running late, set it as ho
+
+[slides-41] Slide 41: The MATLAB code and Assignment 4
+6 Block 6 · 2:40 – 3:00 The MATLAB code and Assignment 4 Every line of the program is one of today’s steps. Then the assignment brief and the exit ticket. SEAA 4243 · 2D Heat Transfer — Part 2 41
+
+[slides-42] Slide 42: Left: input and [k]. Right: assembly, Dirichlet, solve
+Block 6 · the script, traced against the pipeline Left: input and [k]. Right: assembly, Dirichlet, solve % ---- input (text §2.3.1) ---- L = 1; H = 1; kx = 300; ky = 300; Q = 600; To = 0; % Dirichlet value Nx = 2; Ny = 2; ndof = 9; a = L/Nx; b = H/Ny; % ---- local conductance matrix: (2.49) ---- s1 = b*kx/(3*a) + a*ky/(3*b); s2 = -b*kx/(3*a) + a*ky/(6*b); s3 = -b*kx/(6*a) - a*ky/(6*b); s4 = b*kx/(6*a) - a*ky/(3*b); k = [s1 s2 s3 s4; s2 s1 s4 s3; s3 s4 s1 s2; s4 s3 s2 s1]; fQ = a*b*Q/4*[1; 1; 1; 1]; % (2.39) % ---- assem
+
+[slides-43] Slide 43: Three elements, a cold left edge, one heat source
+Block 6 · Assignment 4 · heat transfer · due [date] Three elements, a cold left edge, one heat source Parts (a) Local load vector {r¹} for the heat source Q = 20 W m⁻² on element 1 (unit thickness). (b) Global [K] in terms of k, with k_x = k_y = k, using your Activity 3 connectivity table. (c) With T_2 = T_6 = 150 K from the solution, interpolate T at (x, y) = (1.4, 2.2) m. Check Show the connectivity table, s_1…s_4 with a = 2 m, b = 3 m, and the local coordinates used in (c). Marks are for the method. SEAA 4243 · 2D He
+
+[slides-44] Slide 44: Three questions before you leave
+5 MIN Activity 7 · individual · exit ticket Three questions before you leave Questions In [k]{T̂}ᵀ = {q} + {b}, which vector does an insulated edge contribute to, and what is the contribution? Why must every row of [k] sum to zero, and what would a non-zero row sum tell you about your hand calculation? A 9-dof system has 5 Dirichlet nodes. How many equations do you solve, and what happens to the known values if they are not zero? Five minutes. Name and matric number; for feedback, not marks. SEAA 4243 · 2D Heat Transfer
+
+[slides-45] Slide 45: Same pipeline, two unknowns per node
+Wrap-up · heat transfer is done; plane stress starts the next session Same pipeline, two unknowns per node Today in four lines Galerkin + IBP: [k]{T̂}ᵀ = {q} + {b}; the operator acts on the weight to its left. [k] from four closed-form values s_1…s_4; rows sum to zero; {q} = q_hab/4; edge flux splits q_bb/2. Assembly = scatter-add by connectivity; Dirichlet = move known values right, delete rows and columns. Post-process in local coordinates; refine the mesh before you believe a number. Before the next session Assignmen
+
+[examples-y1] Contoh 1 · Conductance matrix dan nodal load bagi element segi empat sama
+Jenis soalan [k] of a Q4 element, two entries by integration, the rest by pattern; {b} for a boundary flux, {q} for a source Unit W, m, K Sumber FEM by Hand, Examples 8.2 and 8.3 (textbook Exercises 2.1–2.3) 20 markah Soalan A square element of side 0.025 m and thickness 0.005 m has k = 450 W m^{−1} K^{−1}. (a) Show the integration for k_{12} and k_{13} and complete [k] by the pattern of (2.49). (b) Determine the nodal loads for an inward heat flux of 10^6 W m^{−2} on its right side, 2–3, and (c) for an internal heat generation of 10^7 W m^{−3}. (d) In an examination plate of unit thickness, an element 2 m wide and 3 m high carries a heat source Q = 20 W m^{−2}; determine its load vector.
+[Rajah: Element bagi Contoh 1.]
+Gambaran fizikal. k_{ij} ialah haba yang mesti dibekalkan pada node i apabila node j ditahan 1 K lebih tinggi daripada yang lain, semuanya pada 0 K. Dalam segi empat sama ia negatif untuk i ≠ j, kerana node j yang lebih panas menolak haba ke arah node i dan bekalan di i mesti membawanya pergi. Bagi segi empat sama dengan k_x = k_y, matrix itu bergantung pada k dan t sahaja, bukan pada sisi. Haba yang masuk atau dijana dikongsi oleh node mengikut kadar liputan setiap shape function: setiap N_i ber-integral kepada ab/4 di atas element, dan di sepanjang satu sisi hanya dua node-nya mempunyai shape function bukan sifar, setiap satu mengambil separuh.
+Plan. Derivatives of N_1, N_2, N_3 → integrate k_{12}, k_{13} → s_1 to s_4 → the pattern → row-sum check → (b) {b} on side 2–3 → (c) {q} → (d) the same with Q per unit area → totals as checks.
+## Step 1 Derivative [2]
+Daripada (8.5), shape function Part 1:
+PERSAMAAN : [equation y1_dN: source not available in the page]
+## Step 2 (a) Dua entri melalui integration [5]
+PERSAMAAN : [equation y1_k12: source not available in the page]
+PERSAMAAN : [equation y1_k13: source not available in the page]
+## Step 3 (a) Nombor [3]
+Dengan a = b dan k_x = k_y = 450, didarab dengan t = 0.005 m:
+PERSAMAAN : [equation y1_nums: source not available in the page]
+## Step 4 (a) Matrix [2]
+PERSAMAAN : [equation y1_k: source not available in the page]
+Check. Every row: 1.5 − 0.375 − 0.75 − 0.375 = 0.
+Answer. (a) [k] as above: s_1 = 1.5, s_2 = s_4 = −0.375, s_3 = −0.75 W K^{−1}.
+## Step 5 (b) Flux pada sisi 2–3 [3]
+Pada x = a: N_1 = N_4 = 0, N_2 = (b − y)/b, N_3 = y/b. Setiap satu ber-integral kepada b/2 di sepanjang sisi:
+PERSAMAAN : [equation y1_b: source not available in the page]
+Check. Total 125 W = q_n t b = 10^6(0.005)(0.025), the heat crossing the side.
+## Step 6 (c) Heat generation [3]
+∫N_i dA = ab/4 bagi setiap node, jadi
+PERSAMAAN : [equation y1_q: source not available in the page]
+Check. Total 31.25 W = Q t ab.
+## Step 7 (d) Source yang diberi per unit luas [2]
+Q = 20 W m^{−2} ialah haba per unit luas plat dan sudah mengandungi ketebalan, jadi ia tidak didarab dengan t:
+PERSAMAAN : [equation y1_qc: source not available in the page]
+Answer. (b) 62.5 W at nodes 2 and 3. (c) 7.81 W at each node. (d) {r}^1 = {30, 30, 30, 30}ᵀ W. Perangkap · W m^{−2} atau W m^{−3} Source per unit isi padu (W m^{−3}) didarab dengan t. Source per unit luas plat (W m^{−2}), seperti dalam bahagian (d), sudah mengandungi ketebalan: jangan darab lagi. Tafsiran Pasangan pepenjuru (1–3) digandingkan dua kali lebih kuat daripada setiap pasangan sisi, −0.75 berbanding −0.375 W K^{−1}. Bagi pasangan sisi, dua arah itu bertentangan: dalam k_{12} term k_x negatif dan term k_y positif; bagi pasangan pepenjuru kedua-duanya negatif. Menggandakan sisi segi empat sama tidak mengubah [k]: laluan conduction yang lebih panjang dan keratan yang lebih lebar saling membatalkan. Bahagian sama rata ialah sifat load seragam; apa jua taburannya, load mesti berjumlah kepada jumlah haba, dan semakan itu menangkap ketebalan yang terlupa atau faktor 2 yang tersalah letak. Skema pemarkahan (cadangan) · 20 Apa yang diberi markah Markah
+Derivative shape function 2
+k_{12} dan k_{13} melalui integration, dengan integral dinilai 5
+s_1…s_4 berangka dengan t 3
+Matrix mengikut pola, semakan jumlah baris 2
+{b}: separuh flux × panjang × t pada setiap dua node, semakan jumlah 3
+{q}: tQab/4 pada setiap node, semakan jumlah 3
+Source per unit luas tidak didarab dengan t 2
+Jumlah 20
+
+[examples-y2] Contoh 2 · Empat element dengan temperature ditetapkan dan flux ke dalam
+Jenis soalan assembly of a 2 × 2 mesh, essential and natural conditions, solution by symmetry, energy balance Unit W, m, K Sumber FEM by Hand, Example 8.6 (textbook Exercise 2.4) 20 markah Soalan The square plate of the figure, 0.05 m by 0.05 m and 0.005 m thick, is divided into four equal elements. Its top and bottom are insulated, its left side is held at 400 K, and its right side receives an inward heat flux of 10^6 W m^{−2}. With k = 450 W m^{−1} K^{−1}, determine the temperature at node 5.
+[Rajah: Plat bagi Contoh 2 dengan nombor node global.]
+Gambaran fizikal. Haba yang masuk pada sisi kanan, 10^6(0.005)(0.05) = 250 W, mesti semuanya keluar melalui sisi kiri; dengan atas dan bawah insulated ia mengalir terus melintang, jadi T bergantung pada x sahaja. Tanpa source, gradient-nya malar, q_n/k = 2222 K m^{−1}, jadi jangkakan T = 400 + 2222x: 455.6 K pada lajur tengah dan 511.1 K pada sisi kanan. Element bilinear mengandungi field linear ini, jadi penyelesaian finite element sepatutnya menghasilkannya semula.
+Plan. [k] of Example 1 → assemble 9 × 9 → flux loads at nodes 3, 6, 9 → strike nodes 1, 4, 7 → solve by columns → check a full row → energy balance.
+## Step 1 Matrix element dan assembly [5]
+Keempat-empat element serupa dengan element Contoh 1. Dengan element 1 pada node 1, 2, 5, 4 (local 1, 2, 3, 4), element 2 pada 2, 3, 6, 5, element 3 pada 4, 5, 8, 7 dan element 4 pada 5, 6, 9, 8:
+PERSAMAAN : [equation y2_K: source not available in the page]
+Node bucu mempunyai ts_1 = 1.5, node sisi 2ts_1 = 3, pusat 4ts_1 = 6 W K^{−1}.
+## Step 2 Load [3]
+Flux masuk melalui sisi 3–6 dan 6–9, setiap satu memberi 62.5 W kepada setiap node-nya (Contoh 1):
+PERSAMAAN : [equation y2_loads: source not available in the page]
+## Step 3 Boundary condition [3]
+T_1 = T_4 = T_7 = 400 K: buang baris dan lajur 1, 4, 7 dan tolak K_{i1}(400) + K_{i4}(400) + K_{i7}(400) daripada sebelah kanan. Enam unknown tinggal.
+## Step 4 Penyelesaian mengikut lajur [5]
+Oleh kerana T tidak berubah dengan y, lajur tengah berkongsi satu nilai dan lajur kanan satu nilai lain. Menambah tiga persamaan lajur tengah (baris 2, 5, 8) dan tiga persamaan lajur kanan (baris 3, 6, 9):
+PERSAMAAN : [equation y2_cols: source not available in the page]
+PERSAMAAN : [equation y2_sol: source not available in the page]
+Check.
+PERSAMAAN : [equation y2_check: source not available in the page]
+Answer. T_5 = 455.6 K (and T_2 = T_8 = 455.6, T_3 = T_6 = T_9 = 511.1 K).
+## Step 5 Energy balance [4]
+PERSAMAAN : [equation y2_bal: source not available in the page]
+Tafsiran Temperature finite element sama dengan 400 + q_nx/k yang tepat pada setiap node, seperti dijangka: field tepat adalah linear, dan element bilinear mewakili field linear dengan tepat. Dua ciri data menjadikan jalan pintas lajur itu sah, iaitu atas dan bawah yang insulated dan keadaan seragam di kiri dan kanan; dengan flux pada sebahagian sisi sahaja, atau satu lubang, T akan berubah dengan y dan enam persamaan itu perlu diselesaikan bersama. Menggandakan ketebalan menggandakan [K] dan {R} dan tidak mengubah temperature.
+PERSAMAAN : [equation y2_exact: source not available in the page]
+Skema pemarkahan (cadangan) · 20 Apa yang diberi markah Markah
+[K] di-assemble dengan gandaan yang betul (1.5, 3, 6 pada pepenjuru) 5
+Load flux pada node 3, 6, 9 3
+Baris dan lajur 1, 4, 7 dibuang, 400 K dipindahkan ke kanan 3
+Persamaan lajur dan T_5; semakan satu baris penuh 5
+Baris yang dibuang memberi 250 W keluar = 250 W masuk 4
+Jumlah 20
+
+[examples-y3] Contoh 3 · Plat dengan heat source: contoh bekerja dalam teks
+Jenis soalan 2 × 2 mesh, assembly, symmetry, energy balance, accuracy Unit W, m, °C Sumber FEM by Hand, Example 8.7 (textbook §2.3) 20 markah Soalan The square plate of the figure, 1 m by 1 m and of unit thickness, generates Q = 600 W m^{−3} and has k = 300 W m^{−1} °C^{−1}. Its left and top edges are held at 0 °C; its bottom and right edges are insulated. With four equal Q4 elements, (a) form [k] and {r} of an element, (b) assemble, apply the boundary conditions and solve, and (c) check the energy balance and compare with the exact solution.
+[Rajah: Plat (teks Rajah 2.5 dan 2.6).]
+[Rajah: Mesh dengan nombor node global-nya.]
+Gambaran fizikal. Haba yang dijana di mana-mana mengalir ke tepi kiri dan atas yang sejuk, jadi titik paling panas ialah bucu paling jauh daripada kedua-duanya, node 3 pada (1, 0). Masalah ini simetri tentang pepenjuru melalui (0, 1) dan (1, 0), jadi T_2 = T_6. Tepi insulated ialah garis simetri: plat ini ialah satu perempat daripada segi empat sama 2 m dengan semua tepi pada 0 °C, yang temperature pusatnya 0.07367 Q(2)²/k = 0.589 °C.
+Plan. s_1 to s_4, Qab/4 → assemble 9 × 9 → strike nodes 1, 4, 7, 8, 9 → T_6 = T_2 → 3 × 3 → heat flows → exact solution and convergence.
+## Step 1 (a) Matrix element [3]
+PERSAMAAN : [equation y3_k: source not available in the page]
+## Step 2 (b) Assembly [4]
+Node bucu dimiliki satu element, node sisi dua dan node 5 empat:
+PERSAMAAN : [equation y3_K: source not available in the page]
+9 × 9 yang lengkap ialah (2.53) dalam teks; barisnya bagi node bebas, selepas membuang T_1 = T_4 = T_7 = T_8 = T_9 = 0 (tiada yang berpindah ke kanan, kerana temperature yang ditetapkan ialah sifar):
+PERSAMAAN : [equation y3_red: source not available in the page]
+## Step 3 (b) Penyelesaian dengan T₆ = T₂ [5]
+Baris 6 kemudian mengulang baris 2, dan tiga baris yang lain menjadi
+PERSAMAAN : [equation y3_sym: source not available in the page]
+Yang kedua memberi T_3 = 0.1875 + 0.5T_2 + 0.5T_5. Menggantikan ke dalam yang pertama dan ketiga:
+PERSAMAAN : [equation y3_solve: source not available in the page]
+PERSAMAAN : [equation y3_T: source not available in the page]
+Check. Row 1 of the reduced system: 400(0.4821) − 50(0.6214) − 100(0.3857) − 100(0.4821) = 75.0 ✓
+Answer. (b) T_2 = T_6 = 0.482, T_3 = 0.621, T_5 = 0.386 °C, the textbook’s (2.55).
+## Step 4 (c) Energy balance [4]
+PERSAMAAN : [equation y3_bal: source not available in the page]
+Semua haba yang dijana, Q × luas = 600 W, keluar melalui tepi sejuk.
+## Step 5 (c) Perbandingan dengan penyelesaian tepat [4]
+PERSAMAAN : [equation y3_exact: source not available in the page]
+Pada node 2, 3 dan 5, mesh 2 × 2 adalah 5.1%, 5.4% dan 6.5% tinggi. Bagi temperature bucu:
+mesh 1 × 1 2 × 2 4 × 4 8 × 8 16 × 16 tepat
+T_3 (°C) 0.7500 0.6214 0.5968 0.5912 0.5898 0.5894
+ralat +27.3% +5.4% +1.26% +0.31% +0.08% –
+Answer. (c) Energy balance 600 W in and out; the 2 × 2 mesh is 5–7% high at its nodes, and the error falls about four times each time the mesh is halved. Tafsiran Ralat jatuh sebagai h², kadar element bilinear bagi field yang licin, kira-kira empat kali bagi setiap pembahagian dua mesh. Temperature finite element bukan sempadan: mesh Q4 2 × 2 berada di atas nilai tepat, manakala dua element lapan node dalam teks memberi 0.4448 dan 0.5836 °C, di bawahnya. Nodal temperature tidak tepat di sini, tidak seperti dalam Contoh 2, kerana field tepat melengkung dalam kedua-dua arah. Node 5 menunjukkan sifat purata mesh segi empat sama: 800T_5 = 100(T_1 + … + T_9 tanpa T_5) + 150, min lapan jirannya ditambah kesan source. Skema pemarkahan (cadangan) · 20 Apa yang diberi markah Markah
+s_1…s_4 dan Qab/4 3
+Gandaan pepenjuru dan 4 × 4 terkurang 4
+Simetri digunakan, 3 × 3 diselesaikan, semakan satu baris 5
+Aliran haba pada node sejuk berjumlah −600 W 4
+Perbandingan dengan nilai tepat dan kadar h² 4
+Jumlah 20
+
+[exercises-b1] Latihan B1 · Empat nilai conductance matrix
+Soalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-b2] Latihan B2 · Load source dan flux tepi
+Soalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-b3] Latihan B3 · Entri assembly bagi jalur dua element
+Soalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-b4] Latihan B4 · Temperature dan flux pada satu titik mesh yang diselesaikan
+Soalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-quick] Latihan: soalan konsep pantas
+- Integration by parts digunakan pada weighted residual terutamanya untuk
+- Bagi plat dalam teks (tepi atas dan kiri pada 0 °C, kanan dan bawah insulated), boundary vector {b} setiap element ialah
+- Bagi element dengan a = 2 m, b = 1 m dan k_x = k_y = k, entri s_2 ialah
+- Dalam mesh 2 × 2, entri pepenjuru K_{55} bagi node pusat bersamaan
+- Baris yang dibuang bagi node dengan temperature yang ditetapkan berguna kerana ia memberi
+- Menghalusi mesh teks dari 2 × 2 kepada 4 × 4 mengubah T(1, 0) dari 0.6214 kepada 0.5968 °C (tepat 0.5894). Membahagi dua mesh sekali lagi sepatutnya meninggalkan ralat kira-kira
+- Seorang pelajar interpolate T pada (0.8, 0.2) m dalam mesh 2 × 2 teks yang telah diselesaikan (a = b = 0.5 m; T_2 = 0.482, T_3 = 0.621, T_5 = 0.386, T_6 = 0.482 °C). Satu baris mengandungi kesilapan. Yang mana?
+
+[lab-book2] Tugasan Explorer 1 · Kekalkan contoh teks pada mesh 2 × 2. Baca T pada bucu kanan bawah dan di tengah tepi bawah; ketik plat untuk probe.
+Ditanda sendiri: dikesan pada probe pertama dengan tetapan teks pada 2 × 2 · tidak ditanda? tanda selesai
+(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)
+
+[lab-study] Tugasan Explorer 2 · Jalankan kajian mesh. Dari mesh manakah temperature maksimum berubah kurang daripada 1%? Nilai mana yang akan anda laporkan?
+Ditanda sendiri: dikesan apabila kajian mesh dijalankan dengan tetapan teks · tidak ditanda? tanda selesai
+(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)
+
+[lab-right0] Tugasan Explorer 3 · Tetapkan tepi kanan kepada 0 °C juga. Di mana titik paling panas sekarang, dan mengapa di situ?
+Ditanda sendiri: dikesan apabila tiga tepi berada pada temperature yang sama dan bawah insulated · tidak ditanda? tanda selesai
+(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)
+
+[lab-allins] Tugasan Explorer 4 · Jadikan keempat-empat tepi insulated. Apa yang dilaporkan oleh Explorer, dan apa maksudnya secara fizikal?
+Ditanda sendiri: dikesan apabila keempat-empat tepi insulated · tidak ditanda? tanda selesai
+(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)
+
+[lab-code] Lab · Kod Python untuk assignment dan projek
+Kod Python untuk assignment dan projek Langkah dan notasi yang sama seperti nota, ditulis dalam Python biasa. Guna untuk menyemak setiap matrix dan nombor dalam pengiraan tangan, dan untuk menjalankan apa yang tidak praktikal dibuat dengan tangan: kajian mesh, contour plot, geometri dan beban anda sendiri. ⤓ Muat turun fe_heat_q4.py (.zip, 16 kB) ⤓ Semua kod kursus (.zip, 41 kB) Unzip, kemudian pasang Python 3.8 atau lebih baharu dan jalankan pip install numpy matplotlib (matplotlib hanya untuk plot). Jalankan python fe_heat_q4.py . Ia menghasilkan semula contoh kursus; README.txt menyenaraikan output yang sepatutnya keluar. Baca docstring di bahagian atas fail untuk notasi, penomboran dan unit, dan cara memanggilnya untuk masalah anda sendiri. Pengiraan tangan tetap pengiraan tangan: dalam ujian atau assignment yang meminta langkah, tunjukkan sendiri. Tunjuk kod · fe_heat_q4.py · 268 baris Salin """
+SEAA 4243 Finite Element Method - steady 2D heat conduction with 4-node elements
+================================================================================
+Companion code for the Heat Conduction Explorer (2D Heat Transfer, Part 2).
+It follows the seven steps of the course, in the text's notation
+(Mohd Yassin et al., MSNM 2020, Chapter 2):
+1-2 mesh of a rectangular plate, L x H, Nx x Ny four-node elements
+5 element matrix [k] from the closed-form s1...s4 text (2.49)
+source loads {q} = t Q ab/4 at each node text (2.39)
+edge-flux loads {b} = t q_n l/2 at each edge node text (2.40)
+6 assembly by the connectivity table (scatter-add),
+known temperatures by row-column elimination
+7 solve; heat flows at the fixed nodes (energy balance);
+temperature and heat flux at any point
+Mesh and numbering
+Nodes are numbered left to right, then bottom to top, starting at 1 in
+the printout (the text's 2 x 2 mesh: nodes 1-3 along the bottom, 7-9 along
+the top). El
+
+[lab-run] Lab · Jalankan kod dalam browser
+Jalankan kod dalam browser percubaan Ubah skrip pendek dan jalankan di sini, tanpa pemasangan. Python berjalan pada peranti anda sendiri; tiada apa yang dihantar ke mana-mana. Larian pertama memuat turun Python, lebih kurang 9 MB (lebih kurang 20 MB apabila skrip membuat plot), dan mengambil 10–30 s; larian seterusnya sesaat dua. Kajian mesh [K] dan {R}, mesh 2 × 2 Contoh kursus ▶ Jalankan ■ Henti Set semula skrip Ctrl+Enter (⌘+Enter) menjalankan skrip. Suntingan anda disimpan dalam browser ini; Set semula skrip memulihkan yang asal. Untuk assignment atau projek, muat turun kod di atas dan jalankan di komputer anda.
+
+[glossary-residual] Glosari: residual
+residual: Apa yang tinggal apabila approximation digantikan ke dalam PDE; sifar hanya untuk penyelesaian tepat.
+
+[glossary-weighted-residual] Glosari: weighted residual
+weighted residual: Residual didarab dengan weight function dan di-integrate; disamakan dengan sifar untuk mendapat satu persamaan setiap weight function.
+
+[glossary-galerkin-method] Glosari: Galerkin method
+Galerkin method: Weighted residual dengan shape function sebagai weight function; memberi [k] yang simetri.
+
+[glossary-integration-by-parts-green-s-theorem] Glosari: integration by parts · Green’s theorem
+integration by parts · Green’s theorem: Memindahkan satu derivative dari T kepada weight function dan menghasilkan boundary term; dalam 2D integral luas ditukar dengan integral sempadan.
+
+[glossary-weak-form] Glosari: weak form
+weak form: Pernyataan ter-integrate dengan derivative lebih rendah yang menjadi asal persamaan finite element.
+
+[glossary-conductance-matrix-k] Glosari: conductance matrix [k]
+conductance matrix [k]: 4 × 4, simetri, daripada ∫{N}ᵀ{∂}[E]{∂}ᵀ{N} dA; analog haba bagi stiffness. Unit W K^{−1} per unit ketebalan.
+
+[glossary-s-1-s-4] Glosari: s_1 …s_4
+s_1 …s_4: Empat entri berbeza [k] bagi segi empat tepat, (2.49); s_1 pepenjuru, s_2 sisi mendatar, s_4 sisi menegak, s_3 pasangan pepenjuru.
+
+[glossary-source-vector-q] Glosari: source vector {q}
+source vector {q}: Nodal load daripada haba yang dijana di dalam element, q_h ab/4 setiap satu bagi source seragam.
+
+[glossary-boundary-vector-b] Glosari: boundary vector {b}
+boundary vector {b}: Nodal load daripada flux yang diketahui pada satu tepi, q_b ℓ/2 pada setiap satu daripada dua node tepi itu.
+
+[glossary-row-sum-check] Glosari: row-sum check
+row-sum check: Setiap baris [k] berjumlah sifar kerana temperature seragam tidak mengalirkan haba.
+
+[glossary-connectivity-table] Glosari: connectivity table
+connectivity table: Bagi setiap element, nombor node global-nya mengikut susunan local lawan jam.
+
+[glossary-assembly-scatter-add] Glosari: assembly · scatter-add
+assembly · scatter-add: K_{IJ} += k_{ij} dengan I, J dibaca daripada connectivity table; sama untuk {R}.
+
+[glossary-global-system-k-t-r] Glosari: global system [K]{T} = {R}
+global system [K]{T} = {R}: Semua element di-assemble; singular sehingga sekurang-kurangnya satu temperature ditetapkan.
+
+[glossary-row-column-elimination] Glosari: row–column elimination
+row–column elimination: Mengenakan T̄ yang diketahui: pindahkan lajurnya × T̄ ke sebelah kanan, buang baris dan lajur itu.
+
+[glossary-reduced-system] Glosari: reduced system
+reduced system: Persamaan yang tinggal untuk temperature yang tidak diketahui selepas yang diketahui dibuang.
+
+[glossary-struck-rows-energy-balance] Glosari: struck rows · energy balance
+struck rows · energy balance: Baris node yang diketahui, dinilai selepas itu, memberi aliran haba di situ; jumlahnya mengimbangi haba yang dimasukkan.
+
+[glossary-local-coordinates] Glosari: local coordinates
+local coordinates: Kedudukan diukur dari node local 1 sesuatu element; itulah yang mesti digunakan untuk menilai N_i .
+
+[glossary-post-processing] Glosari: post-processing
+post-processing: Segala yang dikira daripada penyelesaian node: T pada satu titik, flux, titik paling panas, aliran haba.
+
+[glossary-mesh-refinement-convergence] Glosari: mesh refinement · convergence
+mesh refinement · convergence: Mengulang penyelesaian pada mesh yang lebih halus sehingga jawapan berhenti berubah; element bilinear converge sebagai h².
+
+[glossary-relative-error] Glosari: relative error
+relative error: (T_{mesh} − T_{ref} )/T_{ref} ; kira-kira +5% bagi mesh 2 × 2 plat dalam teks.
+
+[glossary-patch-test] Glosari: patch test
+patch test: Field yang mampu diwakili element dengan tepat (di sini T linear) mesti dihasilkan semula dengan tepat pada mana-mana mesh.
+
+[glossary-symmetry] Glosari: symmetry
+symmetry: Geometri, bahan, load dan boundary condition yang sama tentang satu garis memberi temperature yang sama pada node cermin; garis simetri tidak membawa haba merentasinya.

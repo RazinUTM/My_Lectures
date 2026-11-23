@@ -1,0 +1,6 @@
+# Address of the rz-tutor Worker that answers for Dr RJ on the SEAA 4243 part pages.
+# App "seaa4243" is registered in rz-tutor-worker. While the Worker's switch AI_SEAA4243 is off,
+# Dr RJ stays in offline mode: he points to matching sections and nothing typed leaves the browser.
+# To cut the pages off from the Worker: remove the address (leave only these comments) and run
+# tools/add_tutor.py again on the pages without the panel.
+https://rz-tutor.arazin.workers.dev/v1/chat

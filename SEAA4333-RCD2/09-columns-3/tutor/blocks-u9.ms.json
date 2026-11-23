@@ -1,0 +1,315 @@
+{
+ "part": "u9",
+ "title": "Unit 9 Columns III",
+ "lang": "ms",
+ "blocks": [
+  {
+   "id": "start-outcomes",
+   "text": "[start-outcomes] Selepas bahagian ini, anda sepatutnya boleh\n1. menerangkan mengapa moment dalam column slender bertambah dengan sendirinya, dan mencari second-order moment M_2 melalui nominal curvature dalam enam langkah, dengan creep (K_φ ) dan faktor axial load K_r ;\n2. mencari design moment bagi column slender braced daripada empat calonnya, atau bagi column unbraced daripada M_{02} + M_2 , dan melelar K_r dengan steel;\n3. memutuskan melalui saringan EC2 5.8.9(3) sama ada column memerlukan biaxial check, dan melaksanakannya dengan enhanced moment dan Eq. 5.39, dengan imperfection dalam satu arah pada satu masa;\n4. melengkapkan design column pada kedua-dua paksi, dan mencari kesilapan dalam pengiraan nominal curvature orang lain."
+  },
+  {
+   "id": "notes-n1",
+   "text": "[notes-n1] Nota 1. Second-order moment\nUnit 7 mengasingkan column dengan λ_{lim}; Unit 8 membuat design column pendek, untuk first-order moment dan imperfection. Unit ini membuat design column slender. Tiada apa daripada Unit 8 yang dibuang: cover, chart, semakan terus, bar dan link semuanya kekal. Dua perkara baharu: second-order moment, dan paksi kedua.\nSecond-order effect (EC2 5.8.1) Moment tambahan yang disebabkan oleh perubahan bentuk struktur. Dalam column terpencil, axial load N_{Ed} bertindak pada bentuk yang telah melentur, jadi pada section kritikal ia mempunyai lever arm e_2, iaitu deflection, di atas first-order eccentricity e_1 (moment analisis dan imperfection, dibahagi dengan N_{Ed}).\nPERSAMAAN (9.1): M = N_{Ed}\\,(e_1 + e_2)\n[Rajah: Hook: bending jalur yang slender menambah offset load, jadi moment bertambah lebih cepat daripada load.]\nMengapa “dengan sendirinya”: moment tambahan N_{Ed}e_2 melenturkan column lagi, yang menambah e_2, yang menambah moment sekali lagi. Dalam column yang cukup kuat, urutan ini stabil pada deflection yang lebih besar tetapi terhingga; berhampiran buckling load ia tidak pernah stabil. Bagi column pendek, moment tambahan itu kecil, kurang daripada lebih kurang 10% first-order moment, dan EC2 membenarkan anda mengabaikannya: itulah maksud λ ≤ λ_{lim} (EC2 5.8.2(6), 5.8.3.1).\nTiga kaedah (EC2 5.8.5) General method (5.8.6) mengikut kelakuan tidak linear langkah demi langkah. Dua kaedah ringkas menyusul: nominal stiffness (5.8.7) mengurangkan stiffness dan membesarkan moment; nominal curvature (5.8.8) mengandaikan curvature pada section kritikal dan menukarkannya kepada deflection. Kursus ini menggunakan nominal curvature, seperti RDF, nota kursus dan app RC Design. Ia sesuai bagi column terpencil dengan axial force yang malar dan l_0 yang diketahui.\nSemakan pantas (tidak dimarkah): Satu column slender melentur 30 mm di tengah ketinggian. N_{Ed} = 1000 kN dan first-order moment di situ ialah 50 kN m. Moment di tengah ketinggian ialah lebih kurang\nPilihan: 50 kN m | 80 kN m | 30 kN m | 1050 kN m\nPenjelasan yang dipaparkan selepas menjawab: 50 + 1000 × 0.030 = 80 kN m: deflection menambah 60% di sini. 50 mengabaikan second-order moment; 30 ialah N_{Ed}e_2 sahaja; 1050 menambah daya kepada moment.\nIsi penting:\n- Column slender membawa M = N_{Ed}(e_1 + e_2): deflection e_2 menambah second-order moment M_2 = N_{Ed}e_2.\n- λ ≤ λ_{lim}: M_2 boleh diabaikan (Unit 8). λ > λ_{lim}: tambahkannya (Unit ini).\n- Kaedah kursus ialah nominal curvature, EC2 5.8.8."
+  },
+  {
+   "id": "notes-n2",
+   "text": "[notes-n2] Nota 2. Nominal curvature\nNominal curvature tidak mengira deflection daripada stiffness. Ia mengandaikan section kritikal hampir gagal, dengan kedua-dua lapisan bar hampir yield, yang menetapkan curvature; ia membetulkan curvature itu bagi axial load yang tinggi (K_r) dan bagi creep (K_φ); dan bentuk deflection berbentuk sinus menukar curvature kepada deflection.\n[Rajah: Nominal curvature: kedua-dua lapisan pada yield memberi basic curvature 1/r_0; deflection berbentuk sinus sepanjang l_0 memberi e_2.]\nPERSAMAAN (9.2): \\frac{1}{r_0} = \\frac{\\varepsilon_{yd}}{0.45\\,d},\\qquad \\varepsilon_{yd} = \\frac{f_{yd}}{E_s} = \\frac{435}{200\\,000} = 0.00217\nd ialah effective depth dalam satah bending: d = h − d_2 bagi bar pada dua muka bertentangan (EC2 5.8.8.3(2)). Strain berubah sebanyak 2ε_{yd} merentasi lebih kurang 0.9d, maka 0.45d.\nPERSAMAAN (9.3): K_r = \\frac{n_u - n}{n_u - n_{bal}} \\le 1,\\qquad n = \\frac{N_{Ed}}{A_c f_{cd}},\\quad n_u = 1 + \\omega,\\quad \\omega = \\frac{A_s f_{yd}}{A_c f_{cd}},\\quad n_{bal} = 0.4\nK_r: pembetulan axial load (EC2 5.8.8.3(3)) Column yang dibebankan berat hancur sebelum tension bar-nya yield, jadi curvature-nya semasa gagal lebih kecil: K_r berkurang apabila n bertambah. ω di sini ialah A_sf_{yd}/(A_cf_{cd}), bukan A_sf_{yk}/(bhf_{ck}) chart. K_r memerlukan steel, yang memerlukan K_r: mulakan dengan K_r = 1 dan lelar (§4).\nPERSAMAAN (9.4): K_\\varphi = 1 + \\beta\\,\\varphi_{ef} \\ge 1,\\qquad \\beta = 0.35 + \\frac{f_{ck}}{200} - \\frac{\\lambda}{150},\\qquad \\varphi_{ef} = \\varphi(\\infty,t_0)\\,\\frac{M_{0Eqp}}{M_{0Ed}}\nK_φ: creep (EC2 5.8.8.3(4), 5.8.4) Creep membolehkan column terus melentur di bawah bahagian jangka panjang load-nya. φ(∞,t_0) diperoleh daripada EC2 Figure 3.1 atau Annex B; kursus dan app menggunakan Annex B dengan RH 80% (luar bangunan), t_0 = 30 hari, cement class R dan h_0 = 2A_c/u. M_{0Eqp}/M_{0Ed} ialah bahagian quasi-permanent bagi first-order moment: 0.67 melainkan analisis memberikannya. φ_{ef} boleh diambil sebagai 0 jika φ(∞,t_0) ≤ 2, λ ≤ 75 dan M_{0Ed}/N_{Ed} ≥ h (EC2 5.8.4(4)).\nPERSAMAAN (9.5): \\frac{1}{r} = K_r K_\\varphi\\,\\frac{1}{r_0},\\qquad e_2 = \\frac{1}{r}\\,\\frac{l_0^2}{c},\\ c = 10\\ (\\approx\\pi^2),\\qquad M_2 = N_{Ed}\\,e_2\nWorked Example 9.1, pada paksi z: 300 × 300, d = 254 mm, l_0 = 5.0 m, λ = 57.7, N_{Ed} = 1000 kN, C30/37. 1/r_0 = 0.002175/(0.45 × 254) = 1.903 × 10⁻⁵ per mm. Annex B dengan h_0 = 2 × 90 000/1200 = 150 mm memberi φ(∞,t_0) = 1.71, jadi φ_{ef} = 1.71 × 0.67 = 1.143; β = 0.35 + 0.15 − 57.7/150 = 0.115 dan K_φ = 1.132. Dengan K_r = 1: e_2 = 1.132 × 1.903 × 10⁻⁵ × 5000²/10 = 53.8 mm dan M_2 = 53.8 kN m. Lelaran §4 stabil pada K_r = 0.724: e_2 = 39.0 mm, M_2 = 39.0 kN m.\nSemakan pantas (tidak dimarkah): Satu column yang dilentur pada minor axis mempunyai d = 204 mm dan bar B500. Basic curvature 1/r_0-nya ialah\nPilihan: 1.90 × 10⁻⁵ /mm | 2.37 × 10⁻⁵ /mm | 4.74 × 10⁻⁵ /mm | 1.07 × 10⁻⁵ /mm\nPenjelasan yang dipaparkan selepas menjawab: 0.002175/(0.45 × 204) = 2.37 × 10⁻⁵ per mm. Section yang lebih cetek melentur lebih banyak untuk strain bar yang sama. 1.90 × 10⁻⁵ ialah bagi d = 254 mm; 4.74 × 10⁻⁵ menggandakannya; 1.07 × 10⁻⁵ menggunakan 0.002175/d.\nIsi penting:\n- 1/r_0 = ε_{yd}/(0.45d); 1/r = K_rK_φ/r_0; e_2 = (1/r)l_0²/10; M_2 = N_{Ed}e_2.\n- K_r ≤ 1 berkurang dengan axial load dan memerlukan steel; K_φ ≥ 1 bertambah dengan creep.\n- ω dalam K_r ialah A_sf_{yd}/(A_cf_{cd}), bukan ω chart."
+  },
+  {
+   "id": "notes-n3",
+   "text": "[notes-n3] Nota 3. Design moment: braced dan unbraced\nImperfection ialah sebahagian daripada first-order moment, seperti dalam Unit 8. Bagi empat calon, kursus mengambilnya seperti app RC Design (keputusan D16): di hujung ia ditambah kepada kedua-dua magnitud; dalam equivalent moment ia ditambah sekali, dalam arah M_{02}.\nPERSAMAAN (9.6): M_{02} = |M|_{max} + N_{Ed}e_i,\\quad M_{01} = |M|_{min} + N_{Ed}e_i,\\qquad M_{0e} = 0.6|M|_{max} \\pm 0.4|M|_{min} + N_{Ed}e_i \\ \\ge\\ 0.4M_{02}\nTanda tolak adalah bagi double curvature, apabila end moment mempunyai tanda bertentangan. RDF §14 dan Column3.xlsx juga menambah e_i kepada kedua-dua magnitud di dalam M_{0e}, yang dalam double curvature merendahkan M_{0e}; app mengambil bacaan yang lebih besar. Dalam contoh Unit ini, calon yang menentukan adalah sama dengan mana-mana cara.\nPERSAMAAN (9.7): \\text{braced:}\\quad M_{Ed} = \\max\\left(M_{02},\\; M_{0e} + M_2,\\; M_{01} + 0.5M_2,\\; N_{Ed}e_0\\right)\nPERSAMAAN (9.8): \\text{unbraced:}\\quad M_{Ed} = \\max\\left(M_{02} + M_2,\\; N_{Ed}e_0\\right)\n[Rajah: Di mana moment bertambah. Hujung braced tidak bergerak, jadi M_2 sifar di situ dan memuncak berhampiran tengah ketinggian, tempat first-order moment lebih kecil. Dalam column unbraced, hujung itu sendiri bergerak, dan M_2 ditambah di hujung.]\nM_{0e} + M_2 menyemak section berhampiran tengah ketinggian. M_{02} menyemak hujung. M_{01} + 0.5M_2 berasal daripada BS 8110 (3.8.3.2) melalui RDF dan boleh menentukan dalam double curvature apabila M_2 besar. Aktiviti 9A menemui keempat-empat cabang; jadual memberi keputusannya (kN m).\nKad Column M_2 M_{02} M_{0e} + M_2 M_{01} + 0.5M_2 N_{Ed}e_0 Menentukan\nA braced, double curvature, l_0 4.2 m (C5) 17.0 47.6 40.6 46.1 24.0 M_{02}\nB braced, double curvature, l_0 4.13 m (C7) 23.1 47.4 46.5 48.9 24.0 M_{01} + 0.5M_2\nC braced, single curvature, l_0 5.0 m (C8) 39.0 52.5 91.5 72.0 20.0 M_{0e} + M_2\nD unbraced, l_0 4.13 m (C9) 32.0 79.4 (M_{02} + M_2) – – 24.0 M_{02} + M_2\nSemakan pantas (tidak dimarkah): Satu column braced mempunyai end moment yang sama dalam single curvature: M_{02} = M_{01} = 52.5 kN m dengan imperfection, M_2 = 39.0 kN m, N_{Ed}e_0 = 20 kN m. M_{Ed} ialah\nPilihan: 52.5 kN m | 72.0 kN m | 91.5 kN m | 130.5 kN m\nPenjelasan yang dipaparkan selepas menjawab: Moment yang sama memberi M_{0e} = M_{02} = 52.5, jadi M_{0e} + M_2 = 91.5 kN m menentukan (Worked Example 9.1). 72.0 ialah M_{01} + 0.5M_2; 52.5 terlupa M_2; 130.5 menambah M_2 dua kali.\nIsi penting:\n- Braced: M_{Ed} = max(M_{02}, M_{0e} + M_2, M_{01} + 0.5M_2, N_{Ed}e_0); unbraced: max(M_{02} + M_2, N_{Ed}e_0).\n- M_{0e} = 0.6|M|_{max} ± 0.4|M|_{min} + N_{Ed}e_i ≥ 0.4M_{02}, tolak dalam double curvature.\n- Single curvature dengan M_2 yang besar: tengah ketinggian menentukan. Double curvature dengan M_2 yang kecil: hujung menentukan."
+  },
+  {
+   "id": "notes-n4",
+   "text": "[notes-n4] Nota 4. Gelung K_r dan bar\nK_r bergantung pada steel, dan steel pada design moment, yang bergantung pada K_r. Gelungnya: ambil K_r = 1, cari M_2 dan M_{Ed}, design A_s (chart atau Lab), kira ω dan K_r baharu, dan ulang sehingga K_r berhenti berubah. Dua hingga empat pusingan sudah memadai; K_r = 1 sahaja selamat tetapi membazir. Worked Example 9.1 pada paksi z (n = 0.654):\nPusingan K_r M_2 (kN m) M_{Ed} (kN m) A_{s,req} (mm²) ω = A_sf_{yd}/(A_cf_{cd}) K_r baharu\n1 1.000 53.8 106.3 1512 0.430 0.754\n2 0.754 40.6 93.1 1166 0.331 0.728\n3 0.728 39.2 91.7 1128 0.321 0.725\n4 0.724 39.0 91.5 1123 0.319 0.724\nLuas bagi setiap pusingan diperoleh daripada chart Unit 8 (ν = N_{Ed}/(bhf_{ck}), μ = M_{Ed}/(bh²f_{ck}), peraturan chart bagi d_2/h) atau daripada Lab tab 5. Kemudian bar yang disediakan, dan semakan akhir: dengan steel melebihi yang diperlukan, K_r naik sedikit, jadi M_2 dikira semula dengan bar yang disediakan (K′_r, M′_{Ed}) dan disemak dengan M_{Rd}. Bagi Worked Example 9.1, 4H20 = 1257 mm²: ω = 1257 × 435/(90 000 × 17.0) = 0.357, K′_r = (1.357 − 0.654)/(1.357 − 0.4) = 0.735, M′_2 = 39.6 dan M′_{Ed} = 92.1 kN m ≤ M_{Rd} = 96.5 kN m.\n[Rajah: Design chart bagi d_2/h = 0.15 (Unit 8, Nota §4). Chart bagi 0.10 dan 0.20 ada dalam halaman Unit 8 dan dalam workbook.]\nSemakan pantas (tidak dimarkah): Gelung stabil pada K_r = 0.72 bagi A_{s,req} = 1123 mm², dan anda menyediakan 1257 mm². Apa seterusnya?\nPilihan: tiada: steel tambahan hanya membantu | K_r naik sedikit: kira semula M_2 dan semak M′_{Ed} ≤ M_{Rd} | ambil K_r = 1 bagi bar yang disediakan | column itu menjadi pendek\nPenjelasan yang dipaparkan selepas menjawab: Steel tambahan menaikkan n_u = 1 + ω dan seterusnya K_r (0.735 di sini), dan M_2 bersamanya. Section mendapat lebih banyak daripada M_2, jadi bar masih berfungsi, tetapi semakan mesti menggunakan M′_{Ed}: 92.1 berbanding 96.5 kN m.\nIsi penting:\n- Lelar: K_r = 1 → M_{Ed} → A_s → ω → K_r, sehingga K_r stabil (dua hingga empat pusingan).\n- Dengan bar yang disediakan, kira semula K′_r, M′_2, M′_{Ed} dan semak M′_{Ed} ≤ M_{Rd}.\n- Chart dan peraturan chart adalah seperti Unit 8."
+  },
+  {
+   "id": "notes-n5",
+   "text": "[notes-n5] Nota 5. Kedua-dua paksi: saringan\nColumn mempunyai dua paksi, dan Unit 7 mengklasifikasikan kedua-duanya. Pada paksi tanpa moment analisis, hanya imperfection yang bertindak, jadi r_m = 1, C = 0.7 dan λ_{lim} rendah, lebih kurang 10 hingga 15: paksi itu biasanya slender. Worked Example 8.1 non-slender pada paksi z (λ_{lim} = 38.8) tetapi slender pada paksi y (λ_{lim} = 11.5 < 15.6).\nImperfection dalam satu arah (EC2 5.8.9(2)) Design setiap arah secara berasingan sebagai langkah pertama. Imperfection hanya perlu diambil dalam arah yang paling tidak menguntungkan. Kursus menggunakannya seperti app: dua kes, imperfection (dan lantai N_{Ed}e_0) pada paksi z dengan y pada moment-nya tanpa kedua-duanya, kemudian sebaliknya; kes yang lebih buruk menentukan. Tanpa imperfection-nya, paksi yang slender masih membawa M_2, kerana nominal curvature tidak bergantung pada first-order moment.\nPERSAMAAN (9.9): \\frac{\\lambda_y}{\\lambda_z} \\le 2 \\ \\text{and}\\ \\frac{\\lambda_z}{\\lambda_y} \\le 2,\\qquad \\frac{e_y/h}{e_z/b} \\le 0.2\\ \\ \\text{or}\\ \\ \\frac{e_z/b}{e_y/h} \\le 0.2,\\qquad e_y = \\frac{M_{Ed,z}}{N_{Ed}},\\ e_z = \\frac{M_{Ed,y}}{N_{Ed}}\nJika kedua-dua syarat dipenuhi, satu paksi mendominasi dan design berasingan sudah memadai (EC2 5.8.9(3)); M_{Ed,z} dan M_{Ed,y} merangkumi second-order moment, dan bagi segi empat tepat h_{eq} = h dan b_{eq} = b. Jika tidak, kedua-dua paksi disemak bersama (§6). Column3.xlsx menguji sama ada nisbah yang lebih besar melebihi 0.2, yang sentiasa benar kerana kedua-dua nisbah ialah salingan (audit C-15): ujiannya ialah salah satu daripadanya tidak melebihi 0.2.\n[Rajah: Saringan: berhampiran mana-mana paksi, satu moment mendominasi dan paksi boleh di-design secara berasingan. C12 dalam app lulus; Worked Example 9.1 dan Faded Example 9.2 tidak.]\nSemakan pantas (tidak dimarkah): Satu column 250 × 600 mempunyai λ_y/λ_z = 2.4, dan satu relative eccentricity ialah 0.1 kali yang lain. Adakah biaxial check diperlukan?\nPilihan: tidak: 0.1 ≤ 0.2 | ya: λ_y/λ_z > 2 | tidak: hanya column slender memerlukannya | hanya jika N_{Ed}/N_{Rd} > 0.1\nPenjelasan yang dipaparkan selepas menjawab: Kedua-dua syarat mesti dipenuhi untuk design berasingan; slenderness ratio gagal (2.4 > 2), jadi Eq. 5.39 diperlukan walau apa pun eccentricity-nya. N_{Ed}/N_{Rd} hanya menetapkan eksponen a.\nIsi penting:\n- Paksi tanpa moment analisis biasanya slender (C = 0.7): semaklah.\n- Imperfection dalam satu arah pada satu masa; N_{Ed}e_0 bersamanya; M_2 kekal pada paksi yang slender.\n- Design berasingan hanya jika λ_y/λ_z dan λ_z/λ_y ≤ 2 dan satu nisbah relative eccentricity ≤ 0.2."
+  },
+  {
+   "id": "notes-n6",
+   "text": "[notes-n6] Nota 6. Biaxial design: anggaran dan semakan\nApabila saringan gagal, kursus bekerja dalam dua langkah: anggaran bar dengan enhanced moment RDF §14 (kaedah BS 8110), kemudian semakan EC2, Eq. 5.39, dengan bar yang disediakan.\nPERSAMAAN (9.10): \\frac{M_{Ed,z}}{h'} \\ge \\frac{M_{Ed,y}}{b'}:\\quad M'_z = M_{Ed,z} + \\beta\\,\\frac{h'}{b'}\\,M_{Ed,y},\\qquad \\beta = 1 - \\frac{N_{Ed}}{b\\,h\\,f_{ck}} \\ \\ge 0.3\nh′ dan b′ ialah effective depth bagi bending pada paksi z dan y; jika M_{Ed,y}/b′ lebih besar, tukar peranannya. Section di-design pada satu paksi untuk M′, dengan chart atau Lab tab 5.\nPERSAMAAN (9.11): \\left(\\frac{M_{Ed,z}}{M_{Rd,z}}\\right)^{a} + \\left(\\frac{M_{Ed,y}}{M_{Rd,y}}\\right)^{a} \\le 1,\\qquad N_{Rd} = A_c f_{cd} + A_s f_{yd}\nN_{Ed}/N_{Rd} ≤ 0.1 0.7 ≥ 1.0\na 1.0 1.5 2.0\nM_{Rd,z} dan M_{Rd,y} ialah moment resistance bar yang disediakan pada setiap paksi pada N_{Ed}: baca μ daripada chart pada ν dan ω bar itu, atau gunakan Lab tab 5. a diinterpolasi secara linear antara nilai dalam jadual (EC2 5.8.9(4)). Kedua-dua kes imperfection §5 disemak; jumlah yang lebih besar menentukan.\nWorked Example 9.1 pada kedua-dua paksi (Contoh, Langkah 7–9). Pada paksi y column tiada moment analisis, tetapi ia sama slender seperti pada paksi z dan membawa M_2 yang sama:\nKuantiti z y\nλ; λ_{lim} 57.7; 13.3 57.7; 13.3\nK_r (gelung biaxial); M_2 0.788; 42.4 0.788; 42.4\nM_{Ed} 52.5 + 42.4 = 94.9 12.5 + 42.4 = 54.9\nsaringan (94.9/300)/(54.9/300) = 1.73 dan 0.58: semak\nanggaran β = 0.630; M′_z = 94.9 + 0.630 × 54.9 = 129.5 → A_s ≈ 2093 mm²\n8H20 (2513 mm²): K′_r 0.807 M′_{Ed} 95.9; M_{Rd} 125.7 M′_{Ed} 55.9; M_{Rd} 125.7\nEq. 5.39, a = 1.23 imperfection pada z: 95.9 dan 43.5 → 0.99 imperfection pada y: 83.5 dan 56.0 → 0.97\n[Rajah: Setiap lengkung ialah jumlah = 1 bagi satu set bar. Dua design point Worked Example 9.1 berada di dalam lengkung 8H20: satu paksi memerlukan 4H20, kedua-dua paksi memerlukan 8H20.]\nFaded Example 9.2 melengkapkan Worked Example 8.1 dengan cara yang sama: pada paksi y ia slender dengan imperfection sahaja, M_{Ed,y} = N_{Ed}e_0 = 48.0 kN m, saringan gagal, anggaran meminta lebih kurang 1100 mm² dan Eq. 5.39 memberi 1.02 dengan 4H16: bar menjadi 4H20 (0.74). Link mengikut Unit 8; dengan 8H20 dalam column 300 × 300, bar tengah muka berada 104 mm (pusat ke pusat) dari bar penjuru, dalam had 150 mm EC2 9.5.3(6), jadi link penjuru memegangnya.\nSemakan pantas (tidak dimarkah): M_{Ed,z} = 90 dan M_{Rd,z} = 120 kN m; M_{Ed,y} = 40 dan M_{Rd,y} = 100 kN m; a = 1.5. Jumlah interaction ialah\nPilihan: 0.90 | 1.15 | 0.72 | 1.05\nPenjelasan yang dipaparkan selepas menjawab: 0.75^{1.5} + 0.40^{1.5} = 0.650 + 0.253 = 0.90 ≤ 1. 1.15 menambah nisbah biasa (a = 1, kes paling teruk); 0.72 mengkuasaduakannya (a = 2).\nIsi penting:\n- Anggaran: M′ = M_{Ed,z} + β(h′/b′)M_{Ed,y}, β = 1 − N_{Ed}/(bhf_{ck}) ≥ 0.3 (RDF §14).\n- Semak: (M_{Ed,z}/M_{Rd,z})^a + (M_{Ed,y}/M_{Rd,y})^a ≤ 1, a daripada N_{Ed}/N_{Rd}, kedua-dua kes imperfection.\n- Paksi kedua boleh menggandakan steel: Worked Example 9.1, 4H20 → 8H20; Worked Example 8.1, 4H16 → 4H20."
+  },
+  {
+   "id": "slides-1",
+   "text": "[slides-1] Slide 1: Columns III\nSEAA 4333 Reinforced Concrete Design II · Week 10 Columns III Slender columns: the second-order moment, and bending about both axes Workbook ch. 9 ABCD card Calculator Phone or laptop Column Lab Scan for this page’s Explorer tab. Tab 6 is today’s."
+  },
+  {
+   "id": "slides-2",
+   "text": "[slides-2] Slide 2: How the next three hours run\nToday · 180 minutes How the next three hours run 0:00 Warm-up Units 7–8 in three votes 0:10 Hook A strip that bows 0:18 Why M₂ Nominal curvature 0:28 Six steps Four candidates 0:36 Six steps, four columns Activity 9A, pairs 1:01 WE 9.1, part A Kr and the bars 1:17 Break 10 minutes 1:27 Both axes? Activity 9B, teams 1:43 Eq. 5.39, WE 9.1 B I do 1:55 Faded example FE 9.2, pairs 2:13 Exam-size problem Alone, 25 minutes 2:38 Studio, exit Your column No talk longer than twelve minutes. Rust times are your turn to work. SEAA"
+  },
+  {
+   "id": "slides-3",
+   "text": "[slides-3] Slide 3: Three questions before the slender column\nWarm-up · no notes · cards up Three questions before the slender column W1 · Unit 7 A braced column has equal end moments in single curvature. Its rm and C are A rm = 1, C = 0.7 B rm = −1, C = 2.7 C rm = 0, C = 1.7 D rm = 0.5, C = 1.2 W2 · Unit 8 A non-slender column has M₀₂ = 40 kN m and NEd·e₀ = 30 kN m. MEd is A 70 kN m B 40 kN m C 30 kN m D 10 kN m W3 · Unit 8 Both bar layers yield, one in tension and one in compression. The strain changes across the bars by about A εcu B 2εyd over about 0.9d C εyd over d D 0.002 ev"
+  },
+  {
+   "id": "slides-4",
+   "text": "[slides-4] Slide 4: A, B, B, and what each means today\nWarm-up · answers A, B, B, and what each means today W1 A: rm = 1, C = 0.7 Equal moments, same face in tension. λlim is then low: about 13 for WE 9.1. W2 B: 40 kN m The larger of M₀₂ and NEd·e₀, never their sum. Today adds M₂ to a slender column. W3 B: 2εyd over ≈ 0.9d That is a curvature: 1/r₀ = εyd/(0.45d). Today’s first formula. SEAA 4333 · Unit 9 · Columns III Workbook 9.1"
+  },
+  {
+   "id": "slides-5",
+   "text": "[slides-5] Slide 5: Push on a strip a little off-centre\nHook · 5 minutes Push on a strip a little off-centre In pairs: press a ruler down on the desk with your palm a little off its centre line. Press harder. What happens to the bow, and to the moment N × offset? A slender column does the same: M = N(e₁ + e₂). SEAA 4333 · Unit 9 · Columns III Workbook 9.1"
+  },
+  {
+   "id": "slides-6",
+   "text": "[slides-6] Slide 6: Why does the moment in a slender column grow by itself?\nConcept check 1 · the big question · vote now, again after Activity 9A Why does the moment in a slender column grow by itself? A creep makes the concrete weaker B the column deflects, so N acts at a larger eccentricity C the beams push harder on a slender column D the bars yield first in a slender column Vote · convince your neighbour · vote again Workbook 9.1"
+  },
+  {
+   "id": "slides-7",
+   "text": "[slides-7] Slide 7: Today designs the columns Unit 7 called slender\nBlock A · where this sits Today designs the columns Unit 7 called slender Unit 7 · week 7 Classify Braced or unbraced; l₀; λ against λlim about each axis. Unit 8 · week 9 Short columns MEd = max(M₀₂, NEd·e₀); N–M interaction; charts; bars and links. Unit 9 · today Slender, biaxial Add M₂ by nominal curvature; then check both axes together. Everything from Unit 8 stays: cover, charts, the direct check, bars and links. Two things are new: M₂, and the second axis. SEAA 4333 · Unit 9 · Columns III Workbook 9.2"
+  },
+  {
+   "id": "slides-8",
+   "text": "[slides-8] Slide 8: The second-order moment: N times the deflection\nBlock A · talk 1 · 10 minutes The second-order moment: N times the deflection M = N (e₁ + e₂) e₁ : first-order eccentricity, from the analysis and eᵢ. e₂ : the deflection the load itself causes. λ > λlim → add M₂ Below λlim the extra moment is under 10%, so EC2 lets you ignore it (5.8.2(6)). nominal curvature (EC2 5.8.8) Assume the critical section reaches a curvature 1/r; e₂ follows from the deflected shape. The course method, and the RDF’s. SEAA 4333 · Unit 9 · Columns III Workbook 9.2"
+  },
+  {
+   "id": "slides-9",
+   "text": "[slides-9] Slide 9: Nominal curvature in six steps\nBlock A · talk 2 · 8 minutes Nominal curvature in six steps 1 First-order moments eᵢ = l₀/400 · M₀₂ · M₀₁ · M₀e = 0.6M₀₂ + 0.4M₀₁ ≥ 0.4M₀₂ 2 Creep φef = φ(∞,t₀)·M₀Eqp/M₀Ed · β = 0.35 + fck/200 − λ/150 · Kφ = 1 + βφef ≥ 1 3 Basic curvature 1/r₀ = εyd/(0.45d), εyd = 435/200 000 = 0.00217 4 Curvature 1/r = Kr Kφ (1/r₀) · Kr = (nu − n)/(nu − 0.4) ≤ 1, nu = 1 + ω 5 Deflection, moment e₂ = (1/r) l₀²/10 · M₂ = NEd e₂ 6 Design moment braced: max(M₀₂; M₀e + M₂; M₀₁ + 0.5M₂; NEd e₀) · unbraced: M₀₂ + M₂ SEAA 4333 · Unit 9 · Colum"
+  },
+  {
+   "id": "slides-10",
+   "text": "[slides-10] Slide 10: Four candidates for a braced column; one for an unbraced\nBlock A · talk 2 · where the moments add Four candidates for a braced column; one for an unbraced M₀₂ the end: a braced end does not move, so no M₂ there M₀e + M₂ near mid-height, with the equivalent moment M₀e M₀₁ + 0.5M₂ from BS 8110 and the RDF; can govern in double curvature unbraced: M₀₂ + M₂ the end itself moves: M₂ adds at the end SEAA 4333 · Unit 9 · Columns III Workbook 9.2"
+  },
+  {
+   "id": "slides-11",
+   "text": "[slides-11] Slide 11: Six steps, four columns: which candidate wins?\nActivity 9A · pairs · 25 minutes Six steps, four columns: which candidate wins? A braced · 250 × 300 about z · l₀ 4.2 m · NEd 1200 · M 35/25 double · C25/30 d 254 · φef 1.278 · Kr 0.354 B braced · 250 × 300 about y · l₀ 4.13 m · NEd 1200 · M 35/25 double · C25/30 d 204 · φef 1.278 · Kr 0.425 C braced · 300 × 300 about z · l₀ 5.0 m · NEd 1000 · M 40/40 single · C30/37 d 254 · φef 1.143 · Kr 0.724 D unbraced · 250 × 300 about y · l₀ 4.13 m · NEd 1200 · M 35/25 · C25/30 d 199.5 · φef 1.278 · Kr 0.577 Each pair takes one ca"
+  },
+  {
+   "id": "slides-12",
+   "text": "[slides-12] Slide 12: Four columns, four branches of EC2 5.8.8.2\nActivity 9A · reveal Four columns, four branches of EC2 5.8.8.2 A M₀₂ = 47.6 B M₀₁ + 0.5M₂ = 48.9 C M₀e + M₂ = 91.5 D M₀₂ + M₂ = 79.4 Big M₂ with single curvature: mid-height wins. Small M₂: the end wins. SEAA 4333 · Unit 9 · Columns III Workbook 9.3"
+  },
+  {
+   "id": "slides-13",
+   "text": "[slides-13] Slide 13: A tall braced column: 300 × 300, l₀ = 5.0 m\nWorked Example 9.1 · I do · part A A tall braced column: 300 × 300, l₀ = 5.0 m Calculation Output λ = 5000/86.6 = 57.7; λlim = 13.3 (C = 0.7) slender M₀₂ = M₀₁ = M₀e = 40 + 12.5 52.5 Kφ = 1 + 0.115 × 1.143 1.132 1/r₀ = 0.002175/(0.45 × 254) 1.903e-5 M₂ = 53.8 Kr; Kr: 1 → 0.754 → 0.728 → 0.724 39.0 MEd = M₀e + M₂ (M₀₁ + 0.5M₂ = 72.0) 91.5 ν 0.370, μ 0.113 → ω ≈ 0.21 (exact 1123) As ≈ 1130 4H20: K′r 0.735, M′Ed 92.1; MRd 96.5 ✓ SEAA 4333 · Unit 9 · Columns III Workbook 9.4"
+  },
+  {
+   "id": "slides-14",
+   "text": "[slides-14] Slide 14: You add bars to a slender column. What happens to Kr and M₂?\nConcept check 2 · think 60 seconds, then vote You add bars to a slender column. What happens to Kr and M₂? A Kr falls, so M₂ falls B Kr rises, so M₂ rises a little C nothing: Kr depends on N only D Kr becomes 1 Vote · convince your neighbour · vote again Workbook 9.5"
+  },
+  {
+   "id": "slides-15",
+   "text": "[slides-15] Slide 15: A column has two axes: check both\nBlock C · talk 3 · 8 minutes A column has two axes: check both the unloaded axis is slender too With only the imperfection, rm = 1 and C = 0.7: λlim is about 10 to 15. WE 9.1 about y: λ 57.7 > 13.3, so M₂ ≈ 42 kN m there too. EC2 5.8.9 Design each axis on its own first. Then screen: if one axis dominates, stop; if not, check both together with Eq. 5.39. Imperfection: in one direction at a time, the more unfavourable one (EC2 5.8.9(2)). The floor NEd·e₀ goes with it. SEAA 4333 · Unit 9 · Columns III Workbook 9.6"
+  },
+  {
+   "id": "slides-16",
+   "text": "[slides-16] Slide 16: Is a biaxial check needed? EC2 5.8.9(3)\nBlock C · talk 3 · the screening Is a biaxial check needed? EC2 5.8.9(3) λy/λz ≤ 2 and λz/λy ≤ 2 and (ey/h)/(ez/b) ≤ 0.2 or ≥ 5 ey = MEd,z/NEd, ez = MEd,y/NEd, with M₂ Both true: design each axis alone. Otherwise: Eq. 5.39. SEAA 4333 · Unit 9 · Columns III Workbook 9.6"
+  },
+  {
+   "id": "slides-17",
+   "text": "[slides-17] Slide 17: Which columns need a biaxial check?\nActivity 9B · teams · 8 minutes Which columns need a biaxial check? 1 300 × 500 · λz 20.8, λy 34.6 · MEd,z 229.0, MEd,y 24.0 · NEd 1200 2 250 × 600 · λz 17.3, λy 41.6 · MEd,z 161.3, MEd,y 42.3 · NEd 1500 3 300 × 350 · λz 36.6, λy 34.6 · MEd,z 94.0, MEd,y 63.4 · NEd 1800 4 400 × 400 · λz = λy = 15.6 · MEd,z 100.8, MEd,y 48.0 · NEd 2400 For each: the two λ ratios, ey/h and ez/b, the decision; if a check is needed, which axis governs (MEd,z/h′ or MEd,y/b′). Lab tab 6 checks your four answers. SEAA 4333 · Unit 9 · Columns I"
+  },
+  {
+   "id": "slides-18",
+   "text": "[slides-18] Slide 18: Only card 1 may be designed axis by axis\nActivity 9B · answers Only card 1 may be designed axis by axis Calculation Output 1 · 1.67 ≤ 2; (0.067)/(0.382) = 0.175 ≤ 0.2 no check 2 · λy/λz = 41.6/17.3 = 2.40 > 2 check, z 3 · 1.06 ≤ 2; ratio 1.27 (0.79) check, z 4 · 1.00; (42.0/400)/(20.0/400) = 2.10 (0.48) check, z SEAA 4333 · Unit 9 · Columns III Workbook 9.6"
+  },
+  {
+   "id": "slides-19",
+   "text": "[slides-19] Slide 19: Biaxial design: estimate the bars, then check\nBlock C · talk 4 · 6 minutes Biaxial design: estimate the bars, then check 1 · estimate (RDF §14, BS 8110) M′z = MEd,z + β(h′/b′)MEd,y when MEd,z/h′ ≥ MEd,y/b′; β = 1 − NEd/(bhfck) ≥ 0.3. Design about z for M′z. 2 · check (EC2 Eq. 5.39) (MEd,z/MRd,z)ᵃ + (MEd,y/MRd,y)ᵃ ≤ 1 a = 1.0 / 1.5 / 2.0 at NEd/NRd = 0.1 / 0.7 / 1.0; NRd = Ac fcd + As fyd. Two cases: imperfection (and e₀) about z with y at its moment without them; then the reverse. The larger sum governs. SEAA 4333 · Unit 9 · Columns III Workbook 9.6"
+  },
+  {
+   "id": "slides-20",
+   "text": "[slides-20] Slide 20: Both axes: 4H20 was not enough\nWorked Example 9.1 · I do · part B Both axes: 4H20 was not enough Calculation Output y: λ 57.7 > 13.3; M₀₂,y = 12.5 slender Kr (both axes) → 0.788; M₂ = 42.4 both axes MEd,z = 52.5 + 42.4; MEd,y = 12.5 + 42.4 94.9; 54.9 screening: (94.9/300)/(54.9/300) = 1.73 check β = 1 − 1000/2700 = 0.630; M′z = 94.9 + 0.630 × 54.9 129.5 μ 0.160, ν 0.370 → ω ≈ 0.39 As ≈ 2093 8H20 = 2513: MRd 125.7 each way; a = 1.23 sums 0.99 and 0.97 ≤ 1 ✓ SEAA 4333 · Unit 9 · Columns III Workbook 9.4"
+  },
+  {
+   "id": "slides-21",
+   "text": "[slides-21] Slide 21: Worked Example 8.1, seen about both axes\nFaded Example 9.2 · pairs · 15 minutes Worked Example 8.1, seen about both axes Given: λ = 15.6 both ways; MEd,z = 100.8 (Unit 8). 1 · About y: λlim with C = 0.7? 2 · M₂,y with φef 1.12, Kr 0.38, d 356 3 · MEd,y: is it M₀e + M₂ or NEd·e₀? 4 · screening 5 · M′z and As: is 4H16 enough? 6 · 4H20: Eq. 5.39, both cases SEAA 4333 · Unit 9 · Columns III Workbook 9.7"
+  },
+  {
+   "id": "slides-22",
+   "text": "[slides-22] Slide 22: 4H16 fails about both axes; 4H20 passes\nFaded Example 9.2 · check 4H16 fails about both axes; 4H20 passes Calculation Output λlim,y = 20 × 0.7 × 1.1 × 0.7/√0.882 11.5 < 15.6 e₂ = 0.38 × 1.442 × 1.358e-5 × 1806²/10 2.43 mm M₂,y = 2400 × 0.00243 5.8 MEd,y = max(10.8; 16.6; 13.7; 48.0) 48.0 (42.0/400)/(20.0/400) = 2.10 check M′z = 100.8 + 0.50 × 48.0 = 124.8 → As ≈ 1100 > 804 4H16, imperfection about y: 0.748 + 0.268 1.02 ✗ 4H20: (90.0/133.5)^1.56 + (48.0/133.5)^1.56 0.74 ✓ links 4H20: H6-400, H6-225 near floors SEAA 4333 · Unit 9 · Columns III Workbook 9.7"
+  },
+  {
+   "id": "slides-23",
+   "text": "[slides-23] Slide 23: 300 × 500 column: λy/λz = 1.67, ey/h = 0.38, ez/b = 0.067. What next?\nConcept check 3 · think 60 seconds, then vote 300 × 500 column: λy/λz = 1.67, ey/h = 0.38, ez/b = 0.067. What next? A Eq. 5.39 with both moments B separate designs about each axis are enough C the enhanced moment M′z D add M₂ about z Vote · convince your neighbour · vote again Workbook 9.8"
+  },
+  {
+   "id": "slides-24",
+   "text": "[slides-24] Slide 24: D9: a past-paper question (15 marks)\nBlock D · alone · 25 minutes D9: a past-paper question (15 marks) The D7 column, part (b): non-slender about both axes; C30/37; cnom 30; H6; H20 bars; 4H20 proposed. (a) MEd,z, MEd,y [3] (b) biaxial check needed? [3] (c) M′ and As: is 4H20 enough? [4] (d) MRd,z, MRd,y of 4H20 [2] (e) Eq. 5.39 and verdict [3] Ref | Calculations | Output. Charts allowed; app and Lab closed. Self-mark after class. SEAA 4333 · Unit 9 · Columns III Workbook 9.9"
+  },
+  {
+   "id": "slides-25",
+   "text": "[slides-25] Slide 25: A draft design of your column\nProject studio · 14 minutes A draft design of your column 1 Take your worst storey. About each axis: slender or not (Unit 7)? If slender, the six steps. 2 Screening. If a check is needed: M′, bars, then Eq. 5.39 in Lab tab 6. 3 Links, a section sketch with bar marks, and the same bars up the building or a change? Log it in Workbook 9.10. The draft column goes into the group report. SEAA 4333 · Unit 9 · Columns III Workbook 9.10"
+  },
+  {
+   "id": "slides-26",
+   "text": "[slides-26] Slide 26: A column has two axes: check both, every time\nProfessional Habit 9 A column has two axes: check both, every time C = 0.7 no moment about an axis: λlim ≈ 10–15, so that axis is often slender e₂ ≈ 4.8×10⁻⁴ l₀²/d a quick estimate with Kr = Kφ = 1 (B500): l₀ 5 m, d 254 → 48 mm 4H20 → 8H20 WE 9.1: one axis 1123 mm², both axes 2093 mm² Before the bars, list λ and λlim about both axes. Unit 8 left one axis open; today closed it. SEAA 4333 · Unit 9 · Columns III Workbook 9.10"
+  },
+  {
+   "id": "slides-27",
+   "text": "[slides-27] Slide 27: Before Unit 10\nAfter class Before Unit 10 Notes §1–§6 and the exercises on the Unit 9 page (45 min) Column S9 in Lab tab 3: four slips to find Self-mark D9 with the answer scheme on UTM eLearning Finish the draft design of your column SEAA 4333 · Unit 9 · Columns III Workbook 9.10"
+  },
+  {
+   "id": "slides-28",
+   "text": "[slides-28] Slide 28: Before you leave\nExit ticket · 5 minutes · Workbook 9.11 Before you leave 1 Braced 300 × 300, d = 254, l₀ = 5.0 m, NEd = 1000 kN, Kr = 0.72, Kφ = 1.13. What is M₂? Show 1/r₀, e₂. 2 Why does a braced column not add M₂ to M₀₂? 3 What is still unclear for you today? Tear off the slip and hand it in at the door. Next week: foundations. SEAA 4333 · Unit 9 · Columns III"
+  },
+  {
+   "id": "examples-x1",
+   "text": "[examples-x1] Contoh 1 · Worked Example 9.1: column braced yang tinggi, satu paksi dan kemudian kedua-duanya\nJenis soalan design column slender pada satu dan dua paksi Workbook 9.4 Masa ≈ 30 min\nSoalan Satu column braced 300 × 300 mempunyai l_0 = 5.0 m pada kedua-dua paksi. N_{Ed} = 1000 kN; first-order moment pada paksi z ialah 40 kN m di kedua-dua hujung, yang memberi tension pada muka yang sama; pada paksi y analisis tidak memberi moment. C30/37, B500, XC1, R60; link H6, bar diandaikan H20; creep daripada EC2 Annex B (RH 80%, t_0 = 30 hari, cement class R) dengan M_{0Eqp}/M_{0Ed} = 0.67. (A) Buat design bar bagi bending pada paksi z. (B) Semak column pada kedua-dua paksi dan ubah bar jika perlu. Dalam app: bahagian A ialah kes C8 dalam app RC Design Worked Solutions; bagi bahagian B pilih “About both axes” dengan l_{0,y} = 5.0 m dan 8H20 (satu H20 tambahan pada setiap muka).\n[Rajah: Worked Example 9.1: column segi empat sama yang tinggi, l_0 yang sama pada kedua-dua paksi, moment pada paksi z sahaja.]\nGambaran fizikal. Column yang tinggi dan slender: λ = 57.7 melebihi empat kali λ_{lim}-nya. End moment yang sama melenturkannya dalam satu lengkung, jadi deflection menambah moment di tengah ketinggian, tempat first-order moment sama besar dengan di hujung. Jangkakan M_2 menjadi bahagian besar design moment, dan jangkakan paksi tanpa load penting, kerana column itu sama slender pada paksi y.\nPelan. Slenderness pada kedua-dua arah; cover; first-order moment dengan e_i; creep dan curvature; bahagian A, gelung K_r dan bar pada paksi z; bahagian B, paksi y, saringan, enhanced moment, bar dan Eq. 5.39; link.\n## Langkah 1 Slender pada kedua-dua paksi (Unit 7)\nRef Pengiraan Output\n(7.5) λ = 5000/(300/√12) = 5000/86.6 (both axes) λ = 57.7\n(7.7)–(7.9) n = 1000 × 10³/(90 000 × 17.0) = 0.654; z: r_m = +40/40 = 1; y: tiada moment, r_m = 1; C = 0.7; λ_{lim} = 20 × 0.7 × 1.1 × 0.7/√0.654 λ_{lim} = 13.3 < 57.7: slender pada kedua-duanya\n## Langkah 2 Cover bagi bond, durability dan fire\nRef Pengiraan Output\nEC2 4.4.1.2 Bond pada link: max(6; 20 − 6) = 14 mm; durability, XC1 dengan C30/37 (S3): 10 mm; Δc_{dev} = 10 c_{nom} ≥ 24 mm\nEN 1992-1-2 Table 5.2a R60, μ_{fi} = 0.7, b = 300 (250 ≤ b < 350): a ≥ 46 mm, jadi c_{nom} ≥ 46 − 6 − 10 = 30 mm c_{nom} = 30; d_2 = 46; d = 254 mm\n## Langkah 3 First-order moment dengan imperfection\nRef Pengiraan Output\n(8.1) e_i = 5000/400 = 12.5 mm; N_{Ed}e_i = 1000 × 0.0125 12.5 kN m\n(9.6) z: M_{02} = M_{01} = 40 + 12.5; M_{0e} = 0.6 × 40 + 0.4 × 40 + 12.5 52.5 kN m\n(9.6) y: imperfection sahaja, M_{02} = M_{0e} = 0 + 12.5; N_{Ed}e_0 = 1000 × 0.020 = 20.0 kN m kedua-dua arah 12.5 kN m\n## Langkah 4 Creep dan curvature\nRef Pengiraan Output\nAnnex B h_0 = 2 × 90 000/1200 = 150 mm, RH 80%, t_0 = 30 hari, class R: φ(∞,t_0) = 1.71; φ_{ef} = 1.71 × 0.67 φ_{ef} = 1.143\n(9.4) β = 0.35 + 30/200 − 57.7/150 = 0.115; K_φ = 1 + 0.115 × 1.143 K_φ = 1.132\n(9.2) 1/r_0 = 0.002175/(0.45 × 254) 1.903 × 10⁻⁵ /mm\n(9.5) M_2 = 1000 × K_r × 1.132 × 1.903 × 10⁻⁵ × 5000²/10 × 10⁻³ (sama pada paksi z dan y) M_2 = 53.8K_r kN m\n## Langkah 5 Bahagian A: gelung K_r dan bar pada paksi z\nRef Pengiraan Output\n(9.3) K_r = 1 → M_{Ed} 106.3 → A_s 1512 → ω 0.430 → K_r 0.754 → 0.728 → 0.725 → 0.724 (Nota §4) K_r = 0.724; M_2 = 39.0\n(9.7) M_{Ed} = max(52.5; 52.5 + 39.0; 52.5 + 19.5; 20.0) 91.5 kN m (M_{0e} + M_2)\nChart 0.15 d_2/h = 46/300 = 0.153 → 0.15; ν = 1000 × 10³/(300 × 300 × 30) = 0.370; μ = 91.5 × 10⁶/(300 × 300² × 30) = 0.113; ω ≈ 0.21 A_s ≈ 1130 mm² (1123 tepat)\n§4 4H20 = 1257 mm²: ω = 1257 × 435/(90 000 × 17.0) = 0.357; K′_r = (1.357 − 0.654)/0.957 = 0.735; M′_{Ed} = 52.5 + 53.8 × 0.735 M′_{Ed} = 92.1 ≤ M_{Rd} = 96.5 kN m ✓\n## Langkah 6 Bahagian B: paksi y dan saringan\nRef Pengiraan Output\n(9.7) y juga slender (Langkah 1): M_{Ed,y} = M_{0e,y} + M_2; gelung kini berjalan pada luas biaxial (Langkah 7) dan stabil pada K_r = 0.788: M_2 = 42.4 pada kedua-dua paksi M_{Ed,z} = 94.9; M_{Ed,y} = 54.9 kN m\n(9.9) λ_y/λ_z = 1.0; e_y = 94.9 mm, e_z = 54.9 mm; (94.9/300)/(54.9/300) = 1.73 dan 0.58: tiada yang ≤ 0.2 biaxial check diperlukan\n## Langkah 7 Anggaran: enhanced moment\nRef Pengiraan Output\n(9.10) M_{Ed,z}/h′ = 94.9 × 10³/254 = 374 > M_{Ed,y}/b′ = 216; β = 1 − 1000 × 10³/(300 × 300 × 30) = 0.630 design pada paksi z\n(9.10) M′_z = 94.9 + 0.630 × (254/254) × 54.9 M′_z = 129.5 kN m\nChart 0.15 ν = 0.370; μ = 129.5 × 10⁶/(300 × 300² × 30) = 0.160; ω ≈ 0.39 A_s ≈ 2093 mm² > 1257: 4H20 tidak cukup; 8H20 = 2513\n## Langkah 8 Semakan: Eq. 5.39 dengan 8H20\nRef Pengiraan Output\n§4 ω = 2513 × 435/(90 000 × 17.0) = 0.714; K′_r = (1.714 − 0.654)/1.314 = 0.807; M′_2 = 53.8 × 0.807 = 43.4 (43.45) M′_{Ed,z} = 95.9; M′_{Ed,y} = 55.9\nLab tab 5 8H20 pada N_{Ed} = 1000 kN, mana-mana paksi (section segi empat sama) M_{Rd} = 125.7 kN m\n(9.11) N_{Rd} = 0.567 × 30 × 90 000 + 435 × 2513 = 2624 kN; N_{Ed}/N_{Rd} = 0.381 a = 1.234\n(9.11) imperfection pada z: (95.9/125.7)^{1.234} + (43.5/125.7)^{1.234} = 0.716 + 0.269; pada y: (83.5/125.7)^{1.234} + (55.9/125.7)^{1.234} = 0.603 + 0.368 0.99 ≤ 1 ✓; 0.97 ≤ 1 ✓\n## Langkah 9 Had dan link\nRef Pengiraan Output\nEC2 9.5.2 A_{s,min} = max(0.10 × 1000 × 10³/435; 0.002 × 90 000) = max(230; 180); A_{s,max} = 0.04 × 90 000 230 ≤ 2513 ≤ 3600 mm² ✓\nEC2 9.5.3 φ_{link} ≥ max(6; 20/4) = 6; s_{cl,max} = min(20 × 20; 300; 400) = 300; 0.6 × 300 = 180; bar tengah muka 104 mm (pusat ke pusat) dari bar penjuru ≤ 150 mm H6-300; H6-175 dalam 300 mm dari setiap lantai dan pada lap\nJawapan. (A) Pada paksi z sahaja: M_{Ed} = 91.5 kN m (M_{0e} + M_2), 4H20, M′_{Ed} = 92.1 ≤ M_{Rd} = 96.5 kN m. (B) Pada kedua-dua paksi: saringan gagal, M′_z = 129.5 kN m memerlukan lebih kurang 2093 mm²; 8H20 (2513 mm²) lulus Eq. 5.39 dengan 0.99 dan 0.97. Link H6-300, H6-175 berhampiran lantai dan pada lap.\nApa yang nombor ini katakan M_2 ialah 43% daripada design moment pada paksi z, dan keseluruhannya pada paksi y selain 12.5 kN m daripada imperfection. Paksi y tiada moment analisis, tetapi ia membawa 55.9 kN m, kerana nominal curvature tidak bertanya dari mana curvature itu datang. Itulah yang menggandakan steel: 4H20 bagi satu paksi, 8H20 bagi kedua-duanya. Dengan 4H20 jumlahnya 1.25 dan 1.22. Calon M_{01} + 0.5M_2 tidak pernah menentukan dengan end moment yang sama; M_{0e} + M_2 yang menentukan, seperti kad C Aktiviti 9A."
+  },
+  {
+   "id": "examples-x2",
+   "text": "[examples-x2] Contoh 2 · Faded Example 9.2: Worked Example 8.1 pada kedua-dua paksi\nJenis soalan semak column pada kedua-dua paksi Workbook 9.7 Masa ≈ 20 min\nSoalan Worked Example 8.1 membuat design column braced 400 × 400 bagi bending pada paksi z: l_0 = 1806 mm pada kedua-dua paksi (beam 300 × 600 dengan span 6.0 m pada keempat-empat sisi, fixed base), N_{Ed} = 2400 kN, end moment pada paksi z 90 dan 60 kN m dalam double curvature, tiada moment analisis pada paksi y, C30/37, c_{nom} = 30 mm, link H6: M_{Ed,z} = 100.8 kN m dan 4H16. Semak column pada kedua-dua paksi (creep daripada Annex B, M_{0Eqp}/M_{0Ed} = 0.67) dan ubah bar jika perlu. Dalam app: kes C4 dengan “About both axes”, M_y = 0, dan bar penjuru H16 atau H20.\n[Rajah: Faded Example 9.2: column minggu lepas, kini pada kedua-dua paksi.]\nGambaran fizikal. Column minggu lepas yang gemuk dan dibebankan berat. Pada paksi z tiada yang berubah. Pada paksi y ia hanya sedikit slender (15.6 berbanding 11.5) dan M_2 akan sangat kecil, tetapi lantai N_{Ed}e_0 = 48 kN m terpakai pada paksi y manakala 90 hingga 100 kN m bertindak pada paksi z. Adakah 4H16 masih cukup apabila kedua-duanya bertindak bersama?\nPelan. λ_{lim} pada paksi y; imperfection dan M_2 pada paksi y; M_{Ed,y}; saringan; enhanced moment dan luas; Eq. 5.39 bagi 4H16, kemudian 4H20; link.\n## Langkah 1 Pada paksi y: slender dengan imperfection sahaja\nRef Pengiraan Output\n(7.7)–(7.9) λ = 1806/115.5 = 15.6; n = 0.882; tiada moment analisis: r_m = 1, C = 0.7; λ_{lim} = 20 × 0.7 × 1.1 × 0.7/√0.882 λ_{lim} = 11.5 < 15.6: slender pada paksi y\n## Langkah 2 Second-order moment pada paksi y\nRef Pengiraan Output\n(8.1), (9.6) e_i = 1806/400 = 4.5 mm; M_{02,y} = M_{0e,y} = 0 + 2400 × 0.0045 10.8 kN m\nAnnex B, (9.4) h_0 = 200 mm: φ(∞,t_0) = 1.67, φ_{ef} = 1.12; β = 0.35 + 0.15 − 15.6/150 = 0.396; K_φ = 1 + 0.396 × 1.12 K_φ = 1.442\n(9.2), (9.5) 1/r_0 = 0.002175/(0.45 × 356) = 1.358 × 10⁻⁵; K_r = 0.38 daripada gelung; e_2 = 0.38 × 1.442 × 1.358 × 10⁻⁵ × 1806²/10 = 2.43 mm M_{2,y} = 5.8 kN m\n(9.7) M_{Ed,y} = max(10.8; 10.8 + 5.8; 10.8 + 2.9; 2400 × 0.020) 48.0 kN m: lantai menentukan\n## Langkah 3 Saringan\nRef Pengiraan Output\n(9.9) λ_y/λ_z = 1.0; e_y = 100.8/2400 = 42.0 mm; e_z = 48.0/2400 = 20.0 mm; (42.0/400)/(20.0/400) = 2.10 dan 0.48 semakan diperlukan\n## Langkah 4 Anggaran: adakah 4H16 cukup?\nRef Pengiraan Output\n(9.10) 283 > 135 (kN): about z; β = 1 − 2400 × 10³/(400 × 400 × 30) = 0.50; M′_z = 100.8 + 0.50 × 48.0 M′_z = 124.8 kN m\nChart 0.15 ν = 0.50; μ = 124.8 × 10⁶/(400 × 400² × 30) = 0.065; ω ≈ 0.11 A_s ≈ 1100 mm² > 804: 4H16 tidak cukup\n## Langkah 5 Eq. 5.39 bagi 4H16, untuk melihat sejauh mana\nRef Pengiraan Output\n(9.11) M_{Rd} = 107.5 setiap arah; N_{Rd} = 2721.6 + 349.8 = 3071 kN, nisbah 0.781, a = 1.636; imperfection pada y: z pada 90.0 (tanpa e_i), y pada 48.0: 0.748 + 0.268 1.02 > 1 ✗\n## Langkah 6 Eq. 5.39 bagi 4H20\nRef Pengiraan Output\nLab tab 5 4H20, d = 354 mm, at 2400 kN M_{Rd} = 133.5 kN m\n(9.11) N_{Rd} = 2721.6 + 435 × 1257 × 10⁻³ = 3268 kN; 2400/3268 = 0.734 a = 1.557\n(9.11) imperfection pada z: (100.8/133.5)^a + (6.1/133.5)^a = 0.646 + 0.008; pada y: (90.0/133.5)^a + (48.0/133.5)^a = 0.541 + 0.203 0.65 ✓; 0.74 ✓\nEC2 9.5.3 φ_{link} ≥ max(6; 20/4) = 6; s_{cl,max} = min(400; 400; 400); 0.6 × 400 = 240 H6-400; H6-225 dalam 400 mm dari setiap lantai dan pada lap\nJawapan. Slender pada paksi y (λ_{lim} = 11.5); M_{Ed,y} = N_{Ed}e_0 = 48.0 kN m; biaxial check diperlukan; 4H16 gagal (lebih kurang 1100 mm² diperlukan, Eq. 5.39 = 1.02); 4H20 lulus (0.74). Link H6-400, H6-225 berhampiran lantai dan pada lap.\nApa yang nombor ini katakan M_2 pada paksi y hanya 5.8 kN m: column itu hampir tidak slender. Yang menentukan ialah minimum eccentricity, yang bergerak bersama imperfection: dalam kes dengan imperfection pada paksi y, y membawa 48.0 kN m manakala z mengekalkan end moment 90 kN m-nya. Gabungan itu 2% terlalu banyak bagi 4H16. Worked Example 8.1 berhenti pada paksi z dengan sengaja; design lengkap column itu ialah 4H20."
+  },
+  {
+   "id": "examples-x3",
+   "text": "[examples-x3] Contoh 3 · Soalan jenis terangkan\nJenis soalan jawapan bertulis pendek Masa ≈ 3 min setiap satu\nSoalan\n- Moment column slender bertambah dengan sendirinya. Terangkan mengapa, dan mengapa EC2 membenarkan column pendek mengabaikannya.\n- Mengapa M_2 tidak ditambah kepada M_{02} dalam column braced, sedangkan ia ditambah dalam column unbraced?\n- Bar tambahan menaikkan design moment column slender. Mengapa, dan adakah menambah bar masih berbaloi?\n- Satu column tiada moment analisis pada paksi y. Mengapa ia masih mesti disemak pada paksi y, dan mengapa biaxial check boleh menentukan?\nTulis empat jawapan anda dahulu, kemudian buka jawapan model satu demi satu.\n## Jawapan 1 Deflection menambah lever arm\nAxial load bertindak pada column yang telah melentur, jadi pada section kritikal eccentricity-nya ialah e_1 + e_2. Moment tambahan N_{Ed}e_2 melenturkan column lagi, yang menambah e_2 dan moment sekali lagi; column yang cukup kuat stabil pada deflection yang lebih besar, column berhampiran buckling load-nya tidak. Dalam column pendek e_2 kecil dan moment tambahan kekal di bawah lebih kurang 10% first-order moment; EC2 menetapkan λ_{lim} supaya column di bawahnya boleh mengabaikannya (5.8.2(6), 5.8.3.1).\n## Jawapan 2 Di mana deflection berlaku\nDalam column braced, hujung tidak boleh bergerak ke sisi, jadi deflection, dan M_2, sifar di hujung, tempat first-order moment terbesar M_{02} bertindak; M_2 memuncak berhampiran tengah ketinggian, tempat first-order moment ialah M_{0e} yang lebih kecil. Maka calonnya M_{02}, M_{0e} + M_2 dan M_{01} + 0.5M_2. Dalam column unbraced, hujung itu sendiri bergoyang, jadi deflection dan M_{02} bertindak pada section yang sama: M_{02} + M_2.\n## Jawapan 3 Lebih steel, lebih curvature\nK_r = (n_u − n)/(n_u − 0.4) dengan n_u = 1 + ω: lebih steel menaikkan n_u dan seterusnya K_r, nominal curvature dan M_2. Secara fizikal, section yang lebih banyak reinforcement boleh melentur lebih jauh sebelum gagal. Ia masih berbaloi, kerana M_{Rd} bertambah lebih cepat daripada M_2: dalam Worked Example 9.1 bar yang disediakan menaikkan M_{Ed} daripada 91.5 kepada 92.1 kN m manakala M_{Rd} ialah 96.5 kN m. Itulah sebab semakan akhir menggunakan K′_r dengan bar yang disediakan.\n## Jawapan 4 Paksi tanpa load\nPada paksi y, imperfection masih bertindak, dan section mesti membawa sekurang-kurangnya N_{Ed}e_0. Tanpa end moment, r_m = 1 dan C = 0.7, jadi λ_{lim} rendah dan column sering slender pada paksi y; nominal curvature kemudian menambah M_2 walau apa pun first-order moment-nya. Moment ini bertindak pada masa yang sama dengan moment pada paksi z. Saringan bertanya sama ada satu paksi mendominasi; jika tidak, gabungan itu boleh memerlukan lebih banyak steel daripada mana-mana paksi sahaja: 4H16 kepada 4H20 dalam Faded Example 9.2, 4H20 kepada 8H20 dalam Worked Example 9.1."
+  },
+  {
+   "id": "exercises-b1",
+   "text": "[exercises-b1] Latihan B1 · First-order moment dengan imperfection\nSoalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)\nPetunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya."
+  },
+  {
+   "id": "exercises-b2",
+   "text": "[exercises-b2] Latihan B2 · Creep dan K_φ\nSoalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)\nPetunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya."
+  },
+  {
+   "id": "exercises-b3",
+   "text": "[exercises-b3] Latihan B3 · Curvature dan M_2\nSoalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)\nPetunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya."
+  },
+  {
+   "id": "exercises-b4",
+   "text": "[exercises-b4] Latihan B4 · Design moment column braced\nSoalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)\nPetunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya."
+  },
+  {
+   "id": "exercises-b5",
+   "text": "[exercises-b5] Latihan B5 · K_r daripada steel\nSoalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)\nPetunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya."
+  },
+  {
+   "id": "exercises-b6",
+   "text": "[exercises-b6] Latihan B6 · Biaxial interaction\nSoalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)\nPetunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya."
+  },
+  {
+   "id": "exercises-quick",
+   "text": "[exercises-quick] Latihan: soalan konsep pantas\n- Bilakah second-order moment bagi column terpencil boleh diabaikan?\n- Basic curvature 1/r_0 dalam kaedah nominal curvature mengandaikan bahawa\n- Satu column yang dibebankan sangat berat mempunyai n hampir dengan n_u . K_r -nya ialah\n- Satu column slender braced mempunyai end moment yang sama dalam single curvature. Calon manakah biasanya menentukan design moment-nya?\n- Bagi column slender unbraced, design moment-nya ialah\n- Dalam EC2 Eq. 5.39, eksponen a ialah 1.0 apabila\n- Satu column braced 250 × 300 dilentur pada paksi y dengan l_0 = 4.13 m dan N_{Ed} = 1200 kN; end moment-nya ialah 35 dan 25 kN m pada muka bertentangan, dan M_2 = 23.1 kN m. Satu baris mengandungi kesilapan. Yang mana?\n- Worked Example 8.1 (400 × 400, N_{Ed} = 2400 kN, 4H16) disemak pada kedua-dua paksi dalam kes dengan imperfection pada paksi y. Satu baris mengandungi kesilapan. Yang mana?"
+  },
+  {
+   "id": "lab-six",
+   "text": "[lab-six] Tugasan Explorer 1 · Tab 6: masukkan M_2 dan M_{Ed} bagi kad Aktiviti 9A anda (A, B, C atau D), kemudian bagi tiga kad yang lain. Calon manakah menentukan bagi setiap kad, dan mengapa?\nDitanda sendiri: apabila keempat-empat kad berada dalam 2% daripada nilai Lab · tidak ditanda? tanda selesai\n(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)"
+  },
+  {
+   "id": "lab-branch",
+   "text": "[lab-branch] Tugasan Explorer 2 · Tab 6: dengan slider, jadikan setiap tiga calon column braced menentukan secara bergilir: M_{02} , M_{0e} + M_2 dan M_{01} + 0.5M_2 . Apakah yang memindahkan jawapan dari satu cabang ke cabang yang lain?\nDitanda sendiri: apabila ketiga-tiga calon braced telah menentukan · tidak ditanda? tanda selesai\n(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)"
+  },
+  {
+   "id": "lab-sway9",
+   "text": "[lab-sway9] Tugasan Explorer 3 · Tab 6: tukar kad B kepada unbraced. Berapa banyak M_{Ed} bertambah, dan di mana sepanjang ketinggian M_2 kini bertindak?\nDitanda sendiri: apabila kad braced ditukar kepada unbraced · tidak ditanda? tanda selesai\n(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)"
+  },
+  {
+   "id": "lab-screen",
+   "text": "[lab-screen] Tugasan Explorer 4 · Tab 6, Aktiviti 9B: putuskan bagi empat kad saringan sama ada biaxial check diperlukan.\nDitanda sendiri: apabila keempat-empat keputusan betul · tidak ditanda? tanda selesai\n(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)"
+  },
+  {
+   "id": "lab-we81y",
+   "text": "[lab-we81y] Tugasan Explorer 5 · Tab 6: muatkan Worked Example 8.1 pada kedua-dua paksi. 4H16 gagal Eq. 5.39: cari bar yang lulus. 6H16 mempunyai 4% kurang steel daripada 4H20; mengapa halaman ini masih memilih 4H20?\nDitanda sendiri: apabila anda memilih bar bagi Worked Example 8.1 yang lulus semakan luas dan Eq. 5.39 · tidak ditanda? tanda selesai\n(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)"
+  },
+  {
+   "id": "lab-s9",
+   "text": "[lab-s9] Tugasan Explorer 6 · Tab 3: pilih Column S9, cari keempat-empat kesilapan, ketik barisnya dan tekan “Semak”.\nDitanda sendiri: apabila keempat-empat kesilapan S9 ditemui, sebelum Tunjuk · tidak ditanda? tanda selesai\n(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)"
+  },
+  {
+   "id": "glossary-axial-load-ratio-n",
+   "text": "[glossary-axial-load-ratio-n] Glosari: axial load ratio n\naxial load ratio n: N_{Ed} /(A_c f_{cd} ) dengan f_{cd} = 0.85f_{ck} /1.5: n dalam λ_{lim} dan K_r . Bukan ν chart."
+  },
+  {
+   "id": "glossary-basic-curvature-1-r-0",
+   "text": "[glossary-basic-curvature-1-r-0] Glosari: basic curvature 1/r_0\nbasic curvature 1/r_0: ε_{yd} /(0.45d): curvature apabila kedua-dua lapisan bar pada yield (EC2 5.8.8.3(1))."
+  },
+  {
+   "id": "glossary-biaxial-rdf-14",
+   "text": "[glossary-biaxial-rdf-14] Glosari: β (biaxial, RDF §14)\nβ (biaxial, RDF §14): 1 − N_{Ed} /(bhf_{ck} ), tidak kurang daripada 0.3: pekali enhanced moment."
+  },
+  {
+   "id": "glossary-creep-ec2-5-8-8-3-4",
+   "text": "[glossary-creep-ec2-5-8-8-3-4] Glosari: β (creep, EC2 5.8.8.3(4))\nβ (creep, EC2 5.8.8.3(4)): 0.35 + f_{ck} /200 − λ/150: sejauh mana creep menaikkan curvature column dengan slenderness λ."
+  },
+  {
+   "id": "glossary-biaxial-bending",
+   "text": "[glossary-biaxial-bending] Glosari: biaxial bending\nbiaxial bending: Moment pada kedua-dua paksi serentak. Design setiap paksi dahulu; semak bersama dengan Eq. 5.39 melainkan saringan menunjukkan satu paksi mendominasi (EC2 5.8.9)."
+  },
+  {
+   "id": "glossary-creep-coefficient-t-0",
+   "text": "[glossary-creep-coefficient-t-0] Glosari: creep coefficient φ(∞,t_0 )\ncreep coefficient φ(∞,t_0 ): Strain creep akhir berbanding strain elastik, daripada EC2 Figure 3.1 atau Annex B (RH, t_0 , h_0 , cement class)."
+  },
+  {
+   "id": "glossary-curvature-1-r",
+   "text": "[glossary-curvature-1-r] Glosari: curvature 1/r\ncurvature 1/r: K_r K_φ (1/r_0 ): nominal curvature section kritikal."
+  },
+  {
+   "id": "glossary-deflection-e-2",
+   "text": "[glossary-deflection-e-2] Glosari: deflection e_2\ndeflection e_2: (1/r)l_0 ²/c dengan c = 10: second-order eccentricity pada section kritikal."
+  },
+  {
+   "id": "glossary-effective-creep-ratio-ef",
+   "text": "[glossary-effective-creep-ratio-ef] Glosari: effective creep ratio φ_{ef}\neffective creep ratio φ_{ef}: φ(∞,t_0 ) × M_{0Eqp} /M_{0Ed} ; boleh 0 jika φ(∞,t_0 ) ≤ 2, λ ≤ 75 dan M_{0Ed} /N_{Ed} ≥ h (EC2 5.8.4)."
+  },
+  {
+   "id": "glossary-enhanced-moment-m",
+   "text": "[glossary-enhanced-moment-m] Glosari: enhanced moment M′\nenhanced moment M′: M_{Ed,z} + β(h′/b′)M_{Ed,y} (atau sebaliknya): satu moment pada satu paksi yang mewakili kedua-duanya, digunakan untuk menganggar bar (RDF §14, BS 8110)."
+  },
+  {
+   "id": "glossary-equivalent-first-order-moment-m-0e",
+   "text": "[glossary-equivalent-first-order-moment-m-0e] Glosari: equivalent first-order moment M_{0e}\nequivalent first-order moment M_{0e}: 0.6M_{02} + 0.4M_{01} ≥ 0.4M_{02} , tanda bertentangan dalam double curvature: first-order moment yang bergabung dengan M_2 berhampiran tengah ketinggian (EC2 5.8.8.2(2))."
+  },
+  {
+   "id": "glossary-exponent-a",
+   "text": "[glossary-exponent-a] Glosari: exponent a\nexponent a: 1.0 / 1.5 / 2.0 pada N_{Ed} /N_{Rd} = 0.1 / 0.7 / 1.0, diinterpolasi: kuasa dalam Eq. 5.39."
+  },
+  {
+   "id": "glossary-first-order-eccentricity-e-1",
+   "text": "[glossary-first-order-eccentricity-e-1] Glosari: first-order eccentricity e_1\nfirst-order eccentricity e_1: Eccentricity N_{Ed} sebelum column melentur: moment analisis campur imperfection, dibahagi N_{Ed} ."
+  },
+  {
+   "id": "glossary-imperfection-e-i",
+   "text": "[glossary-imperfection-e-i] Glosari: imperfection e_i\nimperfection e_i: l_0 /400 bagi column braced; dalam biaxial bending diambil pada satu paksi pada satu masa, yang lebih tidak menguntungkan (EC2 5.2, 5.8.9(2))."
+  },
+  {
+   "id": "glossary-interaction-check-eq-5-39",
+   "text": "[glossary-interaction-check-eq-5-39] Glosari: interaction check, Eq. 5.39\ninteraction check, Eq. 5.39: (M_{Ed,z} /M_{Rd,z} )^a + (M_{Ed,y} /M_{Rd,y} )^a ≤ 1 bagi bar yang disediakan (EC2 5.8.9(4))."
+  },
+  {
+   "id": "glossary-k-r",
+   "text": "[glossary-k-r] Glosari: K_r\nK_r: (n_u − n)/(n_u − n_{bal} ) ≤ 1: merendahkan curvature column yang dibebankan berat; dilelar dengan steel."
+  },
+  {
+   "id": "glossary-k",
+   "text": "[glossary-k] Glosari: K_φ\nK_φ: 1 + βφ_{ef} ≥ 1: menaikkan curvature bagi creep."
+  },
+  {
+   "id": "glossary-minimum-eccentricity-e-0",
+   "text": "[glossary-minimum-eccentricity-e-0] Glosari: minimum eccentricity e_0\nminimum eccentricity e_0: max(h/30, 20 mm): lantai bagi design moment; dalam biaxial bending ia bersama imperfection."
+  },
+  {
+   "id": "glossary-n-bal-n-u",
+   "text": "[glossary-n-bal-n-u] Glosari: n_{bal} , n_u\nn_{bal} , n_u: n_{bal} = 0.4, nisbah axial load pada moment resistance maksimum; n_u = 1 + ω, dengan ω = A_s f_{yd} /(A_c f_{cd} )."
+  },
+  {
+   "id": "glossary-n-rd",
+   "text": "[glossary-n-rd] Glosari: N_{Rd}\nN_{Rd}: A_c f_{cd} + A_s f_{yd} : axial resistance yang digunakan untuk eksponen a."
+  },
+  {
+   "id": "glossary-nominal-curvature-method",
+   "text": "[glossary-nominal-curvature-method] Glosari: nominal curvature method\nnominal curvature method: EC2 5.8.8: M_2 daripada curvature yang diandaikan pada section kritikal; kaedah kursus."
+  },
+  {
+   "id": "glossary-nominal-stiffness-method",
+   "text": "[glossary-nominal-stiffness-method] Glosari: nominal stiffness method\nnominal stiffness method: EC2 5.8.7: kaedah ringkas yang lain, yang mengurangkan stiffness dan membesarkan first-order moment. Tidak digunakan dalam kursus ini."
+  },
+  {
+   "id": "glossary-quasi-permanent-ratio-m-0eqp-m-0ed",
+   "text": "[glossary-quasi-permanent-ratio-m-0eqp-m-0ed] Glosari: quasi-permanent ratio M_{0Eqp} /M_{0Ed}\nquasi-permanent ratio M_{0Eqp} /M_{0Ed}: Bahagian first-order moment yang bertindak untuk tempoh lama; 0.67 dalam kursus melainkan analisis memberikannya."
+  },
+  {
+   "id": "glossary-relative-eccentricity",
+   "text": "[glossary-relative-eccentricity] Glosari: relative eccentricity\nrelative eccentricity: e_y /h dan e_z /b (h_{eq} , b_{eq} bagi bentuk lain): dibandingkan dalam saringan."
+  },
+  {
+   "id": "glossary-screening-ec2-5-8-9-3",
+   "text": "[glossary-screening-ec2-5-8-9-3] Glosari: screening (EC2 5.8.9(3))\nscreening (EC2 5.8.9(3)): Design berasingan memadai jika λ_y /λ_z dan λ_z /λ_y ≤ 2 dan satu nisbah relative eccentricity ≤ 0.2."
+  },
+  {
+   "id": "glossary-second-order-moment-m-2",
+   "text": "[glossary-second-order-moment-m-2] Glosari: second-order moment M_2\nsecond-order moment M_2: N_{Ed} e_2 : moment yang ditambah oleh deflection column slender."
+  }
+ ]
+}

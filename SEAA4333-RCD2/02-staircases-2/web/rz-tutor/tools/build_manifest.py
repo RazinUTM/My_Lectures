@@ -13,6 +13,11 @@ What: reads one or more part pages of a course built on the rz-tnl-app-template
                                   document the Worker sends with citations enabled (English,
                                   no Malay spans, no exercise answers, hints or solutions)
   <part>/tutor/content-<pk>.txt   the same blocks as one plain text, for reading and review
+  <part>/tutor/blocks-<pk>.ms.json the same sections, same ids and order, as the page reads in Bahasa
+                                  Melayu (every `.en` half removed, as the page hides it in BM): the
+                                  document the Worker sends when the student writes in Malay; written
+                                  only when the page has Malay text (`--no-malay` to skip)
+  <part>/tutor/content-<pk>.ms.txt the Malay blocks as one plain text
 
 and, for the course folder, `tutor/course.json`: every part's sections (ids and
 titles only), which the Worker sends as the course-wide navigation manifest.
@@ -43,7 +48,40 @@ from pathlib import Path
 from bs4 import BeautifulSoup, Tag
 
 SLIDE_TEXT_CHARS = 420   # per slide, enough for the flow of the lecture, not a second copy of the notes
+CARD_TEXT_CHARS = 1500   # per card of another view (e.g. the lab sheet)
+MS_LONGER = 1.25         # Malay runs 15-30 % longer than English, so the Malay blocks get that much more room
 MS_SELECTORS = [".ms"]   # bilingual pairs: <span class="en"> … <span class="ms"> …
+OTHER = {"en": "ms", "ms": "en"}
+
+# The words the builder itself adds around the page's text (the model reads them and may quote them), per language.
+# The Malay ones use the page's own names: Isi penting, Semakan pantas, Petunjuk, Nota, Tugasan Explorer, and the
+# Feedback tab's card titles.
+WORDS = {
+    "en": {
+        "equation": "EQUATION", "figure": "Figure", "no_caption": "no caption", "key_points": "Key points:",
+        "quick": "Quick check (not graded): ", "options": "Options: ", "explanation": "Explanation shown after answering: ",
+        "statement": "Statement: ", "hints": "Hints and the solution are in the app; the tutor gives the next hint only.",
+        "runtime": "generated in the app at run time (numbers change per attempt)",
+        "task_note": "(The task's answer fields are checked in the app; they are not included here.)",
+        "notes": "Notes", "task": "Explorer task", "feedback_label": "Feedback tab",
+        "feedback": ("The Feedback tab, the last tab of the page: rate this part from 1 to 5 and say what helped, write the "
+                     "muddiest point (what is still unclear), report a mistake in a section (a typo, a wrong sign, a broken "
+                     "button), like the page, and read What's new. It is anonymous and goes only to the lecturer, to improve "
+                     "the page; it is not used for marks."),
+    },
+    "ms": {
+        "equation": "PERSAMAAN", "figure": "Rajah", "no_caption": "tiada kapsyen", "key_points": "Isi penting:",
+        "quick": "Semakan pantas (tidak dimarkah): ", "options": "Pilihan: ", "explanation": "Penjelasan yang dipaparkan selepas menjawab: ",
+        "statement": "Soalan: ", "hints": "Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.",
+        "runtime": "dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)",
+        "task_note": "(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)",
+        "notes": "Nota", "task": "Tugasan Explorer", "feedback_label": "Tab Maklum balas",
+        "feedback": ("Tab Maklum balas, tab terakhir halaman ini: Nilai bahagian ini dari 1 hingga 5 dan nyatakan apa yang paling "
+                     "membantu, tulis Perkara paling mengelirukan (apa yang masih kurang jelas), Lapor kesilapan dalam sesuatu "
+                     "section (typo, tanda yang salah, butang yang tidak berfungsi), Suka halaman ini, dan baca Apa yang baharu. "
+                     "Ia tanpa nama dan hanya sampai kepada pensyarah, untuk menambah baik halaman ini; ia tidak digunakan untuk markah."),
+    },
+}
 
 
 def read(path: Path) -> str:
@@ -55,6 +93,20 @@ def strip_ms(node: Tag) -> None:
     for sel in MS_SELECTORS:
         for ms in node.select(sel):
             ms.decompose()
+
+
+def strip_lang(node: Tag, keep: str = "en") -> None:
+    """Remove the other language's half of every bilingual pair (in place): `.ms` when keeping English, `.en`
+    when keeping Malay. This is what the page itself does: in BM it hides every `.en` (and in EN every `.ms`)."""
+    if keep == "en":
+        strip_ms(node)
+        return
+    for x in node.select("." + OTHER[keep]):
+        x.decompose()
+
+
+def has_letters(s: str) -> bool:
+    return bool(re.search(r"[^\W\d_]", s or ""))
 
 
 def mark_subsup(soup: BeautifulSoup) -> None:
@@ -78,11 +130,22 @@ def text_of(node: Tag) -> str:
 
 
 def lang_text(node: Tag, lang: str) -> str:
-    """Text of one language of a bilingual node (falls back to the whole text)."""
+    """Text of one language of a bilingual node (falls back to the whole text; for Malay, to the node without its
+    English half, and to the English text when that leaves nothing, so a part the page has only in English stays)."""
     spans = node.select(f":scope > span.{lang}") or node.select(f"span.{lang}")
     if spans:
         return clean(" ".join(text_of(s) for s in spans))
-    return text_of(node)
+    if lang == "en":
+        return text_of(node)
+    copy = BeautifulSoup(str(node), "lxml").body
+    strip_lang(copy, "ms")
+    return text_of(copy) if has_letters(text_of(copy)) else lang_text(node, "en")
+
+
+def heading_in(h: Tag, lang: str) -> str:
+    """heading_text in `lang`, or the English heading when the page has no Malay one (no letters left)."""
+    t = heading_text(h, lang)
+    return t if lang == "en" or has_letters(t) else heading_text(h, "en")
 
 
 def heading_text(h: Tag, lang: str) -> str:
@@ -126,29 +189,30 @@ class Equations:
         return f"[equation {key or '?'}: source not available in the page]"
 
 
-def render_block(node: Tag, eqs: Equations) -> str:
+def render_block(node: Tag, eqs: Equations, lang: str = "en") -> str:
     """Plain text of a notes/example block: equations as LaTeX with their labels, lists as lines."""
+    w = WORDS[lang]
     node = BeautifulSoup(str(node), "lxml").body
-    strip_ms(node)
+    strip_lang(node, lang)
     for row in node.select(".eqrow"):
         wrap = row.select_one(".eqwrap") or row
         lbl = row.select_one(".lbl")
         label = text_of(lbl) if lbl else ""
-        row.replace_with(f"\nEQUATION {label}: {eqs.resolve(wrap)}\n")
+        row.replace_with(f"\n{w['equation']} {label}: {eqs.resolve(wrap)}\n")
     for fig in node.select("figure"):
         cap = fig.find("figcaption")
-        fig.replace_with(f"\n[Figure: {text_of(cap) if cap else 'no caption'}]\n")
+        fig.replace_with(f"\n[{w['figure']}: {text_of(cap) if cap else w['no_caption']}]\n")
     for kp in node.select("details.kp"):
         items = [text_of(li) for li in kp.select("li")]
-        kp.replace_with("\nKey points:\n" + "\n".join(f"- {i}" for i in items) + "\n")
+        kp.replace_with(f"\n{w['key_points']}\n" + "\n".join(f"- {i}" for i in items) + "\n")
     for qc in node.select(".qc"):
         q = qc.find("p")
         fb = qc.select_one(".fb")
         opts = [text_of(o) for o in qc.select(".opt")]
         qc.replace_with(
-            "\nQuick check (not graded): " + (text_of(q) if q else "")
-            + "\nOptions: " + " | ".join(opts)
-            + ("\nExplanation shown after answering: " + text_of(fb) if fb else "") + "\n")
+            "\n" + w["quick"] + (text_of(q) if q else "")
+            + "\n" + w["options"] + " | ".join(opts)
+            + ("\n" + w["explanation"] + text_of(fb) if fb else "") + "\n")
     for foot in node.select(".sfoot, .readck, .readtime, .credit"):
         foot.decompose()
     for h in node.select("h3, h4"):
@@ -193,24 +257,28 @@ def minutes_of(sec: Tag) -> int | None:
 ANSWER_SELECTORS = ".sol, .hintbox, .fb, .qbar, input, select, textarea, .tfs, .anstab, .tkok, .res, img, svg"
 
 
-def statement_of(node: Tag) -> str:
+def statement_of(node: Tag, lang: str = "en") -> str:
     """The student-facing text of an exercise or task: never its answers, hints or solution."""
     b = BeautifulSoup(str(node), "lxml").body
     for x in b.select(ANSWER_SELECTORS):
         x.decompose()
     for h in b.select("header, h4, h5"):
         h.decompose()
-    strip_ms(b)
+    strip_lang(b, lang)
     return text_of(b)
 
 
-def build_part(part_dir: Path, pk: str, app: str, eq_maps: list[Path]) -> tuple[dict, list[dict], str, Equations]:
+def build_part(part_dir: Path, pk: str, app: str, eq_maps: list[Path], lang: str = "en") -> tuple[dict, list[dict], str, Equations]:
     """Return (manifest, blocks, content text, equations) for one part page.
 
     Every navigable section becomes one citable block {id, text}; the blocks are what the Worker
     sends as a custom-content document with citations enabled, so a citation of block i is a
     citation of manifest section i and becomes a "Go to" button without any guessing.
+    `lang="ms"` gives the blocks as the page reads in Bahasa Melayu; the manifest (ids, both titles)
+    is the same in both languages, so the English and the Malay blocks line up one to one.
     """
+    w = WORDS[lang]
+    in_ms = lang == "ms"   # not "ms": the Explorer loop below uses that name for a task id
     html = read(part_dir / "index.html")
     soup = BeautifulSoup(html, "lxml")
     mark_subsup(soup)
@@ -226,15 +294,18 @@ def build_part(part_dir: Path, pk: str, app: str, eq_maps: list[Path]) -> tuple[
     sections: list[dict] = []
     blocks: list[dict] = []
 
-    def add(section: dict, body: str, label: str = "") -> None:
+    def add(section: dict, body: str, label: str = "", label_ms: str = "") -> None:
         sections.append(section)
-        head = f"[{section['id']}] {label or section['title_en']}"
+        name = (label_ms or section["title_ms"] or section["title_en"]) if in_ms else (label or section["title_en"])
+        head = f"[{section['id']}] {name}"
         blocks.append({"id": section["id"], "text": (head + "\n" + body.strip()).strip()})
 
     # Start: outcomes
     lo = [li for li in soup.select("#v-start ol.lo li") if not li.find_parent(class_="ms")]   # S2 keeps a whole <ol class="lo ms">
     if lo:
-        outcomes = "\n".join(f"{i}. {lang_text(li, 'en')}" for i, li in enumerate(lo, 1))
+        lo_ms = soup.select("#v-start ol.lo.ms li")
+        items = [lang_text(li, "ms") for li in lo_ms] if in_ms and lo_ms else [lang_text(li, lang) for li in lo]
+        outcomes = "\n".join(f"{i}. {t}" for i, t in enumerate(items, 1))
         add({"id": "start-outcomes", "view": "start", "anchor": None, "selector": "ol.lo",
              "title_en": "After this part you should be able to", "title_ms": "Selepas bahagian ini, anda sepatutnya boleh"}, outcomes)
 
@@ -246,22 +317,29 @@ def build_part(part_dir: Path, pk: str, app: str, eq_maps: list[Path]) -> tuple[
         body.find("h2").decompose()
         add({"id": f"notes-{sid}", "view": "notes", "anchor": sid,
              "title_en": heading_text(h2, "en"), "title_ms": heading_text(h2, "ms"), "minutes": minutes_of(sec)},
-            render_block(body, eqs), label=f"Notes {heading_text(h2, 'en')}")
+            render_block(body, eqs, lang), label=f"Notes {heading_text(h2, 'en')}", label_ms=f"{w['notes']} {heading_in(h2, 'ms')}")
 
     # Slides: slides/deck.html (div.sl[data-title]) or section.slide inside the page
     in_page = soup.select("#v-slides section.slide")
     if in_page:
-        for n, sl in enumerate(in_page, 1):
+        def slide_body(sl: Tag, keep: str) -> tuple[Tag, str | None]:
             body = BeautifulSoup(str(sl), "lxml").body
-            strip_ms(body)
+            strip_lang(body, keep)
             for x in body.select("style, script, svg, img"):
                 x.decompose()
             hd = body.select_one("h1, h2, h3, .t")
-            t = text_of(hd) if hd else f"Slide {n}"
+            t = text_of(hd) if hd else None
             if hd:
                 hd.decompose()
+            return body, t
+        for n, sl in enumerate(in_page, 1):
+            body, t = slide_body(sl, lang)
+            t_en = slide_body(sl, "en")[1] or f"Slide {n}"
+            t_ms = slide_body(sl, "ms")[1]
+            t_ms = t_ms if has_letters(t_ms) else t_en
+            limit = int(SLIDE_TEXT_CHARS * MS_LONGER) if in_ms else SLIDE_TEXT_CHARS
             add({"id": f"slides-{n}", "view": "slides", "anchor": str(n),
-                 "title_en": f"Slide {n}: {t}", "title_ms": f"Slide {n}: {t}"}, slide_text(body)[:SLIDE_TEXT_CHARS])
+                 "title_en": f"Slide {n}: {t_en}", "title_ms": f"Slide {n}: {t_ms}"}, slide_text(body)[:limit])
     deck = part_dir / "slides" / "deck.html"
     if deck.exists() and not in_page:
         dsoup = BeautifulSoup(read(deck), "lxml")
@@ -271,11 +349,13 @@ def build_part(part_dir: Path, pk: str, app: str, eq_maps: list[Path]) -> tuple[
             body = BeautifulSoup(str(sl), "lxml").body
             for x in body.select("style, script"):
                 x.decompose()
+            if in_ms:
+                strip_lang(body, "ms")
             txt = text_of(body)
             if txt.startswith(t):
                 txt = txt[len(t):].strip()
             add({"id": f"slides-{n}", "view": "slides", "anchor": str(n),
-                 "title_en": f"Slide {n}: {t}", "title_ms": f"Slide {n}: {t}"}, txt[:SLIDE_TEXT_CHARS])
+                 "title_en": f"Slide {n}: {t}", "title_ms": f"Slide {n}: {t}"}, txt[:int(SLIDE_TEXT_CHARS * MS_LONGER) if in_ms else SLIDE_TEXT_CHARS])
 
     # Examples (model answers, answer-scheme form: shown to students in full)
     for x in soup.select("#v-examples section.xsec"):
@@ -286,18 +366,18 @@ def build_part(part_dir: Path, pk: str, app: str, eq_maps: list[Path]) -> tuple[
         if body.find("h2"):
             body.find("h2").decompose()
         add({"id": f"examples-{xid}", "view": "examples", "anchor": xid,
-             "title_en": prefixed("Example", t_en), "title_ms": prefixed("Contoh", t_ms)}, render_block(body, eqs))
+             "title_en": prefixed("Example", t_en), "title_ms": prefixed("Contoh", t_ms)}, render_block(body, eqs, lang))
 
     # Exercises: statement only; hints, answers and solutions are left out on purpose
     for q in soup.select("#v-exercises article.qx"):
         qid = q.get("id") or q.get("data-ex")
         h4 = q.find("h4")
         t_en, t_ms = (heading_text(h4, "en"), heading_text(h4, "ms")) if h4 else (qid, qid)
-        stmt = statement_of(q.select_one(".exbody") or q) or "generated in the app at run time (numbers change per attempt)"
+        stmt = statement_of(q.select_one(".exbody") or q, lang) or w["runtime"]
         add({"id": f"exercises-{qid}", "view": "exercises", "anchor": qid,
              "title_en": prefixed("Exercise", t_en), "title_ms": prefixed("Latihan", t_ms)},
-            f"Statement: {stmt}\nHints and the solution are in the app; the tutor gives the next hint only.")
-    quick = [lang_text(q.find("p"), "en") for q in soup.select("#v-exercises div.q") if q.find("p")]
+            f"{w['statement']}{stmt}\n{w['hints']}")
+    quick = [lang_text(q.find("p"), lang) for q in soup.select("#v-exercises div.q") if q.find("p")]
     if quick:
         add({"id": "exercises-quick", "view": "exercises", "anchor": None, "selector": "#v-exercises div.q",
              "title_en": "Exercises: quick concept questions", "title_ms": "Latihan: soalan konsep pantas"},
@@ -318,8 +398,8 @@ def build_part(part_dir: Path, pk: str, app: str, eq_maps: list[Path]) -> tuple[
         add({"id": f"{tview}-{ms}", "view": tview, "anchor": ms if has_id else None,
              "selector": None if has_id else f'.tk[data-ms="{ms}"]',
              "title_en": f"Explorer task {num}: {short(t_en)}", "title_ms": f"Tugasan Explorer {num}: {short(t_ms)}"},
-            statement_of(tk) + "\n(The task's answer fields are checked in the app; they are not included here.)",
-            label=f"Explorer task {num} · {t_en}")
+            statement_of(tk, lang) + "\n" + w["task_note"],
+            label=f"Explorer task {num} · {t_en}", label_ms=f"{WORDS['ms']['task']} {num} · {t_ms}")
 
     # Other views: cards with a heading (e.g. the S2 lab sheet), navigable by id when they have one
     handled = {"start", "notes", "slides", "examples", "exercises", "glossary", "feedback"}
@@ -341,17 +421,15 @@ def build_part(part_dir: Path, pk: str, app: str, eq_maps: list[Path]) -> tuple[
                 continue
             add({"id": sid, "view": vname, "anchor": cid, "selector": None,
                  "title_en": f"{vname.capitalize()}: {short(t_en)}", "title_ms": f"{vname.capitalize()}: {short(t_ms)}"},
-                statement_of(card)[:1500], label=f"{vname.capitalize()} · {t_en}")
+                statement_of(card, lang)[:int(CARD_TEXT_CHARS * MS_LONGER) if in_ms else CARD_TEXT_CHARS],
+                label=f"{vname.capitalize()} · {t_en}", label_ms=f"{vname.capitalize()} · {t_ms}")
 
     # Feedback tab (template module feedback/): one fixed block, so that Dr RJ can send a student there to
     # report a mistake or say what is unclear; the forms themselves are drawn by script and hold no content
     if soup.select_one('section.view[data-view="feedback"]'):
         add({"id": "feedback-tab", "view": "feedback", "anchor": None, "selector": None,
-             "title_en": "Feedback tab", "title_ms": "Tab Maklum balas"},
-            "The Feedback tab, the last tab of the page: rate this part from 1 to 5 and say what helped, write the "
-            "muddiest point (what is still unclear), report a mistake in a section (a typo, a wrong sign, a broken "
-            "button), like the page, and read What's new. It is anonymous and goes only to the lecturer, to improve "
-            "the page; it is not used for marks.", label="Feedback tab")
+             "title_en": WORDS["en"]["feedback_label"], "title_ms": WORDS["ms"]["feedback_label"]},
+            w["feedback"], label=WORDS["en"]["feedback_label"], label_ms=WORDS["ms"]["feedback_label"])
 
     # Glossary: one block per term
     for tr in soup.select("#v-glossary table.gloss tr"):
@@ -364,7 +442,7 @@ def build_part(part_dir: Path, pk: str, app: str, eq_maps: list[Path]) -> tuple[
         while any(x["id"] == f"glossary-{slug}" for x in sections):
             slug, k = f"{base}-{k}", k + 1       # symbols such as x and x̄ can share a slug
         add({"id": f"glossary-{slug}", "view": "glossary", "anchor": None, "selector": None,
-             "title_en": f"Glossary: {term}", "title_ms": f"Glosari: {term}"}, f"{term}: {lang_text(tds[1], 'en')}")
+             "title_en": f"Glossary: {term}", "title_ms": f"Glosari: {term}"}, f"{term}: {lang_text(tds[1], lang)}")
 
     ids = [s["id"] for s in sections]
     dup = {i for i in ids if ids.count(i) > 1}
@@ -377,8 +455,32 @@ def build_part(part_dir: Path, pk: str, app: str, eq_maps: list[Path]) -> tuple[
         "sections": sections,
         "equations_missing": len(eqs.missing),
     }
-    text = f"# {title}\n{lang_text(sub, 'en') if sub else ''}\n\n" + "\n\n".join(b["text"] for b in blocks) + "\n"
+    text = f"# {title}\n{lang_text(sub, lang) if sub else ''}\n\n" + "\n\n".join(b["text"] for b in blocks) + "\n"
     return manifest, blocks, text, eqs
+
+
+def write_malay(pdir: Path, pk: str, app: str, maps: list[Path], manifest: dict, blocks: list[dict], out: Path, skip: bool = False) -> str:
+    """Write blocks-<pk>.ms.json and content-<pk>.ms.txt when the page has Malay text; remove stale ones when it has
+    none (or with skip). Returns a one-line summary. The Malay pass must find exactly the English pass's sections,
+    because the Worker maps a citation of block i to section i in either language."""
+    files = [out / f"blocks-{pk}.ms.json", out / f"content-{pk}.ms.txt"]
+    has_ms = bool(BeautifulSoup(read(pdir / "index.html"), "lxml").select(".ms"))
+    if not skip and has_ms:
+        manifest_ms, blocks_ms, text_ms, _ = build_part(pdir, pk, app, maps, lang="ms")
+        if manifest_ms["sections"] != manifest["sections"] or [b["id"] for b in blocks_ms] != [b["id"] for b in blocks]:
+            raise SystemExit(f"{pdir.name}: the Malay pass found other sections than the English pass")
+        files[0].write_text(json.dumps({"part": pk, "title": manifest["title"], "lang": "ms", "blocks": blocks_ms},
+                                       ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+        files[1].write_text(text_ms, encoding="utf-8")
+        body = lambda t: t.split("\n", 1)[-1]   # noqa: E731  (the first line is the block's name)
+        malay = sum(body(x["text"]) != body(y["text"]) for x, y in zip(blocks, blocks_ms))
+        words = len(text_ms.split())
+        rest = "" if malay == len(blocks) else " (the others have no Malay in the page)"
+        return f"{malay} of {len(blocks)} blocks in Malay{rest}, {words} words (~{words * 4 // 3} tokens)"
+    for f in files:
+        if f.exists():
+            f.unlink()
+    return "skipped (--no-malay)" if skip else "none: the page has no Malay text"
 
 
 def main() -> int:
@@ -387,6 +489,7 @@ def main() -> int:
     ap.add_argument("--app", required=True, help="app id used by the Worker, e.g. seaa4243")
     ap.add_argument("parts", nargs="+", help="<part folder>:<part key>, e.g. 01-heat-transfer-1:p1")
     ap.add_argument("--equations", action="append", default=[], help="extra equations.json map(s)")
+    ap.add_argument("--no-malay", action="store_true", help="do not write the Malay blocks (blocks-<pk>.ms.json)")
     a = ap.parse_args()
     course = Path(a.course)
     if not course.is_dir():
@@ -413,6 +516,7 @@ def main() -> int:
         words = len(text.split())
         print(f"{folder} ({pk}): {len(manifest['sections'])} sections, {words} words (~{words * 4 // 3} tokens), "
               f"{len(eqs.missing)} equations without source" + (f": {sorted(set(eqs.missing))[:8]}…" if eqs.missing else ""))
+        print("  Malay: " + write_malay(pdir, pk, a.app, maps, manifest, blocks, out, skip=a.no_malay))
     (course / "tutor").mkdir(exist_ok=True)
     (course / "tutor" / "course.json").write_text(json.dumps(index, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     print(f"wrote {course / 'tutor' / 'course.json'}")

@@ -1,0 +1,525 @@
+# Unit 14 Retaining Walls II
+SEAA 4333 Reinforced Concrete Design II, Minggu 15, Unit terakhir. Unit 13 menjadikan wall berdiri; Unit ini menjadikannya kuat. Cantilever wall ialah tiga cantilever yang bercantum di satu sudut: stem melentur ke hadapan, toe melentur ke atas dan heel melentur ke bawah, jadi setiap satu retak pada muka yang berbeza dan menerima bar utamanya di situ. Unit ini mencari design load pada setiap bahagian, menentukan saiz steel dalam bending, menyemak shear dan crack control, dan membuat detailing bar: secondary steel, lap dan curtailment. Kemudian ia bertanya apa yang berubah apabila backfill bercerun, apabila key dituang di bawah base, dan apabila saliran tersumbat lalu air naik di belakang wall. Muka manakah bagi setiap bahagian yang berada dalam tension? Nota, slides, jawapan model, latihan dengan nombor baharu pada setiap cubaan, dan Retaining Wall Lab.
+
+[start-outcomes] Selepas bahagian ini, anda sepatutnya boleh
+1. menyatakan muka manakah bagi stem, toe dan heel yang berada dalam tension, dan mencari design load pada setiap satu daripada combination STR: thrust pada stem dan net pressure pada base;
+2. membuat design stem, toe dan heel dalam bending dan menyemaknya dalam shear, dengan minimum steel;
+3. menyemak crack control melalui jarak bar dan membuat detailing wall: secondary steel, lap bagi starter bar dan curtailment bar stem;
+4. mengambil kira backfill bercerun, shear key dan air di belakang wall, dan menyatakan apa yang diubah oleh setiap satu.
+
+[notes-n1] Nota 1. Tiga cantilever: muka manakah dalam tension?
+Unit 13 menganggap wall sebagai satu jasad tegar dan bertanya sama ada tanah boleh menahannya. Unit ini membuka jasad itu. Cantilever wall ialah tiga slab yang bercantum di satu sudut, dan setiap satunya ialah cantilever: stem berdiri dari base, toe menganjur ke hadapan dari stem dan heel menganjur ke belakang. Setiap satu melentur, dan konkrit retak di tempat ia diregangkan. Sebelum sebarang nombor, pereka bentuk mesti nampak muka manakah bagi setiap bahagian yang meregang, kerana di situlah bar utama diletakkan.
+[Rajah: Satu lukisan dipulangkan oleh penyemak dengan satu bulatan merah. Bar stem berada di muka tanah, bar toe di bahagian bawah, bar heel di bahagian bawah. Yang manakah salah, dan mengapa?]
+Ambil setiap bahagian satu demi satu dan tanya apa yang menolaknya. Stem ditolak oleh tanah di belakangnya, ke hadapan. Ia dipegang di kakinya, jadi ia melentur seperti papan anjal yang didirikan: muka yang menghadap tanah meregang dan muka hadapan dimampatkan. Bar utamanya menegak, dekat dengan muka tanah .
+Toe ditolak ke atas oleh tanah: bearing pressure paling besar di sini. Hanya berat sendirinya yang menolak ke bawah, kerana tanah di hadapan mungkin digali dan diabaikan. Toe melentur ke atas, seperti tepi pad footing: bahagian bawahnya meregang.
+Heel ialah bahagian yang mengejutkan. Tanah menolaknya ke atas juga, tetapi backfill yang berada di atasnya, surcharge dan berat sendirinya menolak ke bawah dengan lebih kuat: kira-kira 144 kN/m² ke bawah berbanding 89 hingga 119 kN/m² ke atas bagi wall Unit 13. Net load menghala ke bawah, heel melentur ke bawah seperti balkoni, dan bahagian atasnya meregang. Bar di bahagian bawah heel, seperti dalam lukisan di atas, akan berada dalam compression zone dan tidak berfungsi.
+[Rajah: Tiga cantilever, tiga tension face: muka tanah bagi stem, bahagian bawah toe, bahagian atas heel. Critical section berada di pangkal stem dan di kedua-dua mukanya.]
+Lakar dahulu Lukis setiap bahagian sebagai satu garis, pegang ia di tempat ia bercantum dengan yang lain, lukis load padanya sebagai anak panah, dan biarkan ia melentur. Bar utama diletakkan di bahagian luar lengkung. Ia mengambil masa sepuluh saat dan menjawab soalan yang tidak dapat dijawab oleh formula: moment 109 kN m/m memberitahu berapa banyak steel, bukan muka yang mana. Setiap lukisan dalam Unit ini bermula dengan cara ini.
+Setiap cantilever mempunyai moment dan shear terbesar di tempat ia dipegang. Bagi stem, itu pangkalnya, di bahagian atas base. Bagi toe dan heel, itu muka hadapan dan muka belakang stem. Tiga section itulah yang direka bentuk; di tempat lain moment-nya lebih kecil.
+Semakan pantas (tidak dimarkah): Dalam cantilever wall dengan backfill yang rata, bar utama heel diletakkan
+Pilihan: di bahagian bawah, kerana tanah menolak base ke atas | di tengah kedalaman, di tempat shear paling besar | di bahagian atas, kerana tanah di atas heel lebih berat daripada bearing pressure | di kedua-dua muka sama banyak
+Penjelasan yang dipaparkan selepas menjawab: Net load pada heel menghala ke bawah, jadi ia melendut dan bahagian atasnya meregang. Toe ialah bahagian yang melentur ke atas: bar-nya di bahagian bawah.
+Semakan pantas (tidak dimarkah): Critical section bagi bending stem ialah
+Pilihan: pangkalnya, di bahagian atas base | bahagian bawah base | separuh tinggi stem | aras tanah di hadapan wall
+Penjelasan yang dipaparkan selepas menjawab: Stem ialah cantilever yang terikat ke dalam base: moment dan shear paling besar di pangkalnya. Bahagian bawah base ialah dasar gambar rajah tekanan bagi kestabilan, iaitu soalan yang berbeza (§3).
+Isi penting:
+- Cantilever wall ialah tiga cantilever: stem, toe dan heel, setiap satu terikat di simpang.
+- Tension face: muka tanah bagi stem, bahagian bawah toe, bahagian atas heel.
+- Lakar deflected shape dahulu; bar utama diletakkan di bahagian luar lengkung.
+- Critical section: pangkal stem; muka hadapan dan muka belakang stem.
+
+[notes-n2] Nota 2. Design load: tekanan di bawah base dan net load
+Semakan kestabilan bertanya sama ada setiap load membantu atau memudaratkan wall sebagai satu jasad, dan memberi berat faktor 0.9 atau 1.0. Design konkrit bertanya soalan yang berbeza: apakah bending terbesar yang boleh dialami oleh setiap bahagian? Itulah limit state STR, dan combination-nya ialah yang biasa: 1.35 pada setiap permanent action dan 1.5 pada setiap variable action, semuanya bertindak bersama.
+Berat dan earth thrust datang daripada satu punca, iaitu tanah dan wall yang menahannya, jadi kedua-duanya menerima γ_G = 1.35 yang sama (EN 1990, 6.4.3.1(4)). Surcharge menerima 1.5, sebagai thrust dan juga sebagai berat di atas heel: di sini beratnya tidak lagi favourable, kerana ia melenturkan heel. Jumlah-jumlahnya ialah yang ada dalam jadual Unit 13; hanya faktornya yang berubah:
+PERSAMAAN (14.1): N_d = 1.35\,\Sigma V_{k,G} + 1.5\,V_{k,Q}, \qquad \Delta M_d = 1.35\left(\Sigma M_{r,G} - M_{o,G}\right) + 1.5\left(M_{r,Q} - M_{o,Q}\right)
+PERSAMAAN (14.2): x_d = \frac{\Delta M_d}{N_d}, \qquad e_d = \frac{B}{2} - x_d, \qquad q_d = \frac{N_d}{B} \pm \frac{6N_d\,e_d}{B^2}
+Bagi wall Unit 13 yang telah diubah (toe 0.8 m, stem 0.4 m, heel 2.2 m, B = 3.4 m): ΣV_{k,G} = 258.1 kN dan V_{k,Q} = 22.0 kN; ΣM_{r,G} = 527.75, M_{r,Q} = 50.6, M_{o,G} = 100.96 dan M_{o,Q} = 32.53 kN m. Maka N_d = 1.35 × 258.1 + 1.5 × 22.0 = 381.435 kN dan ΔM_d = 1.35 × 426.79 + 1.5 × 18.07 = 603.27 kN m, jadi x_d = 1.58158 m, e_d = 1.7 − 1.58158 = 0.11842 m dan q_d = 112.187 ± 23.444: 135.63 kN/m² di toe dan 88.74 kN/m² di hujung heel.
+[Rajah: Design pressure (STR) dan net load pada base Worked Example 14.1. Toe ditolak ke atas; heel ditolak ke bawah.]
+Tekanan berkurang mengikut garis lurus dari toe ke hujung heel, jadi nilainya di setiap muka stem diperoleh melalui nisbah: 135.63 − (135.63 − 88.74) × 0.8/3.4 = 124.60 kN/m² di muka hadapan dan 88.74 + (135.63 − 88.74) × 2.2/3.4 = 119.08 kN/m² di muka belakang. Setiap bahagian base kemudian memikul beza antara apa yang menolaknya ke atas dengan apa yang menolaknya ke bawah:
+PERSAMAAN (14.3): n_{toe} = q_d - 1.35\,\gamma_c h \ \ (\text{upwards}), \qquad n_{heel} = 1.35\left(\gamma_c h + \gamma h_3\right) + 1.5\,w - q_d \ \ (\text{downwards})
+Base slab seberat 1.35 × 25 × 0.4 = 13.5 kN/m². Pada toe, net load ialah 135.63 − 13.5 = 122.1 kN/m² di hujungnya dan 124.60 − 13.5 = 111.1 kN/m² di stem, ke atas. Pada heel, slab, 4.5 m backfill dan surcharge menekan ke bawah dengan 1.35 × (10 + 85.5) + 1.5 × 10 = 143.925 kN/m²; net load ialah 143.925 − 119.08 = 24.8 kN/m² di stem dan 143.925 − 88.74 = 55.2 kN/m² di hujung heel, ke bawah. Setiap net load berbentuk trapezium, dan tandanya ialah tension face dalam §1 yang diterjemahkan kepada nombor.
+Jalan pintas nota Nota kursus tidak mengulang pengiraan bearing: nota mengambil net pressure di bawah service load dan mendarabnya dengan 1.35. Ini meletakkan 1.35 pada surcharge dan bukannya 1.5. Bagi wall dalam nota sendiri (heel 2.0 m), ia memberi 38.9 kN m/m pada toe dan 102.5 pada heel, berbanding 39.7 dan 105.7 dengan combination STR: 2 hingga 3 % lebih rendah. Halaman ini dan app RC Design menggunakan combination STR; app menyediakan kaedah nota sebagai pilihan, dan kedua-duanya diterima dalam Masalah D14, yang memberi design pressure.
+Semakan pantas (tidak dimarkah): Dalam design heel, berat surcharge yang berada di atas heel menerima faktor
+Pilihan: 0 | 1.0 | 1.35 | 1.5
+Penjelasan yang dipaparkan selepas menjawab: Di sini surcharge melenturkan heel: ia variable action yang unfavourable, 1.5. Dalam semakan sliding dan overturning Unit 13, berat yang sama membantu dan dikira sifar. Satu load, faktor yang berbeza bagi setiap soalan: Professional Habit 13.
+Semakan pantas (tidak dimarkah): Di bawah base selebar 3.0 m, design pressure ialah 140 kN/m² di toe dan 80 kN/m² di hujung heel. Heel sepanjang 1.8 m. Tekanan di muka belakang stem ialah
+Pilihan: 104 kN/m² | 116 kN/m² | 110 kN/m² | 128 kN/m²
+Penjelasan yang dipaparkan selepas menjawab: Dari hujung heel, tekanan naik sebanyak 60 kN/m² sepanjang 3.0 m: 80 + 60 × 1.8/3.0 = 116 kN/m². 104 mengukur 1.8 m itu dari toe; 110 ialah nilai purata.
+Isi penting:
+- Bahagian-bahagian wall direka bentuk bagi combination STR: 1.35 pada berat dan thrust tanah, 1.5 pada surcharge, sama ada thrust atau berat.
+- N_d dan ΔM_d memberi x_d, e_d dan design pressure q_d = N_d/B ± 6N_de_d/B².
+- Toe: q_d tolak slab, ke atas. Heel: slab, tanah dan surcharge tolak q_d, ke bawah.
+- Nota mendarab net pressure service dengan 1.35: 2 hingga 3 % lebih rendah.
+
+[notes-n3] Nota 3. Stem
+Stem ialah cantilever menegak selebar satu meter, terikat ke dalam base dan dibebani active pressure pada tingginya sendiri. Ia direka bentuk sama seperti slab: moment dan shear bagi setiap meter, section selebar 1000 mm dan sedalam ketebalan stem di pangkalnya.
+Tinggi yang mana? (sekali lagi) Bagi kestabilan, gambar rajah tekanan diambil hingga bahagian bawah base, H = 4.9 m, kerana seluruh jasad yang ditolak. Stem terikat di bahagian atas base, jadi hanya tekanan di atas aras itu yang melenturkannya: h_s = h_3 = 4.5 m. Menggunakan 4.9 m bagi stem melebihkan moment-nya sebanyak 26 %; menggunakan 4.5 m bagi kestabilan mengurangkan thrust sebanyak 16 %. Wall yang sama, dua soalan, dua tinggi.
+PERSAMAAN (14.4): P_{s,s} = \tfrac{1}{2}K_a\gamma h_s^2, \quad P_{q,s} = K_a w h_s; \qquad M_{Ed} = 1.35\,P_{s,s}\frac{h_s}{3} + 1.5\,P_{q,s}\frac{h_s}{2}, \quad V_{Ed} = 1.35\,P_{s,s} + 1.5\,P_{q,s}
+[Rajah: Stem Worked Example 14.1. Moment bertambah dengan kuasa tiga kedalaman bagi tanah dan dengan kuasa duanya bagi surcharge: pada separuh tinggi ia hanya satu perenam daripada moment di pangkal.]
+Bagi wall Unit 13 (K_a = 0.27099, γ = 19 kN/m³, w = 10 kN/m²): P_{s,s} = ½ × 0.27099 × 19 × 4.5² = 52.13 kN dan P_{q,s} = 0.27099 × 10 × 4.5 = 12.19 kN bagi setiap meter. Di pangkal, M_{Ed} = 1.35 × 52.13 × 1.5 + 1.5 × 12.19 × 2.25 = 105.6 + 41.1 = 146.7 kN m/m dan V_{Ed} = 1.35 × 52.13 + 1.5 × 12.19 = 88.7 kN/m. Section itu singly reinforced, seperti dalam slab:
+PERSAMAAN (14.5): K = \frac{M_{Ed}}{b\,d^2 f_{ck}} \le 0.167, \qquad z = d\left[0.5 + \sqrt{0.25 - \frac{K}{1.134}}\,\right] \le 0.95d, \qquad A_s = \frac{M_{Ed}}{0.87 f_{yk}\,z}
+PERSAMAAN (14.6): A_{s,min} = 0.26\,\frac{f_{ctm}}{f_{yk}}\,b\,d \ \ge\ 0.0013\,b\,d
+Dengan cover 45 mm dan bar H12, d = 400 − 45 − 6 = 349 mm. K = 146.7 × 10⁶/(1000 × 349² × 30) = 0.040; formula memberi z = 0.963d, jadi had yang menentukan: z = 0.95 × 349 = 331.6 mm. A_s = 146.7 × 10⁶/(0.87 × 500 × 331.6) = 1017 mm²/m. Bagi C30/37, f_{ctm} = 2.90 N/mm² dan A_{s,min} = 0.001506 × 1000 × 349 = 526 mm²/m. Sediakan H12 pada 100 (1131 mm²/m), menegak, 45 mm dari muka tanah.
+Wall tidak mempunyai link, jadi konkrit sahaja mesti memikul shear:
+PERSAMAAN (14.7): V_{Rd,c} = 0.12\,k\left(100\rho_1 f_{ck}\right)^{1/3} b\,d \ \ge\ 0.035\,k^{3/2} f_{ck}^{1/2}\,b\,d, \qquad k = 1 + \sqrt{\frac{200}{d}} \le 2, \quad \rho_1 = \frac{A_s}{b\,d} \le 0.02
+Di sini k = 1 + √(200/349) = 1.757 dan ρ_1 = 1131/(1000 × 349) = 0.00324: V_{Rd,c} = 0.12 × 1.757 × (100 × 0.00324 × 30)^{1/3} × 349 = 157.0 kN/m, sedikit di atas had bawah 155.8 kN/m. Shear 88.7 kN/m ialah 56 % daripadanya. Jika shear tidak lulus, penyelesaiannya ialah stem yang lebih tebal, bukan link.
+Semakan pantas (tidak dimarkah): Satu stem setinggi 4.0 m di atas base setebal 0.5 m; K_a = 0.30, γ = 18 kN/m³, tiada surcharge. Thrust tanah yang melenturkan stem ialah
+Pilihan: 54.7 kN/m | 43.2 kN/m | 21.6 kN/m | 86.4 kN/m
+Penjelasan yang dipaparkan selepas menjawab: ½ × 0.30 × 18 × 4.0² = 43.2 kN/m, sepanjang tinggi stem itu sendiri. 54.7 menggunakan 4.5 m, tinggi bagi kestabilan; 86.4 terlupa separuh.
+Semakan pantas (tidak dimarkah): Bagi slab section yang dibebani ringan, formula lever arm memberi z = 0.97d. Nilai yang digunakan untuk mencari A_s ialah
+Pilihan: 0.97d | d | 0.95d | 0.82d
+Penjelasan yang dipaparkan selepas menjawab: z ≤ 0.95d. Dalam setiap bahagian wall dalam Unit ini K kecil (0.01 hingga 0.05) dan had itu yang menentukan, jadi z = 0.95d dari awal: 331.6 mm bagi d = 349 mm.
+Isi penting:
+- Stem dilenturkan oleh tekanan pada tingginya sendiri: h_s = h_3, hingga bahagian atas base.
+- M_{Ed} = 1.35P_{s,s}h_s/3 + 1.5P_{q,s}h_s/2 di pangkal; V_{Ed} = 1.35P_{s,s} + 1.5P_{q,s}.
+- Design sebagai slab selebar 1 m: z ≤ 0.95d, A_s ≥ A_{s,min} = 0.001506bd bagi C30/37.
+- Tiada link dalam wall: V_{Ed} ≤ V_{Rd,c}, atau tebalkan stem.
+
+[notes-n4] Nota 4. Toe dan heel
+Toe dan heel ialah cantilever mendatar selebar satu meter, terikat di muka stem. Setiap satu memikul trapezium net load yang dicari dalam §2. Trapezium ialah segi empat tepat ditambah segi tiga; di sini keamatan yang lebih besar berada di hujung bebas bagi kedua-duanya, jadi puncak segi tiga berada di situ dan resultant-nya terletak dua pertiga jarak dari support.
+PERSAMAAN (14.8): M_{Ed} = n_f\,\frac{a^2}{2} + \left(n_e - n_f\right)\frac{a^2}{3}, \qquad V_{Ed} = \frac{n_f + n_e}{2}\,a
+Di sini n_f ialah net load di muka stem, n_e net load di hujung bebas dan a panjang cantilever. Toe (a = 0.8 m, ke atas, 111.1 kN/m² di stem dan 122.1 kN/m² di hujung): M_{Ed} = 111.1 × 0.8²/2 + 11.0 × 0.8²/3 = 35.55 + 2.35 = 37.9 kN m/m dan V_{Ed} = ½ × (111.1 + 122.1) × 0.8 = 93.3 kN/m. Dengan d = 349 mm dan z = 0.95d, A_s = 37.9 × 10⁶/(0.87 × 500 × 331.6) = 263 mm²/m: separuh daripada nilai minimum, jadi A_{s,min} = 526 mm²/m yang menentukan. Sediakan H12 pada 150 (754 mm²/m) di bahagian bawah , seperti dalam nota.
+Heel (a = 2.2 m, ke bawah, 24.8 kN/m² di stem dan 55.2 kN/m² di hujung): M_{Ed} = 24.8 × 2.2²/2 + 30.4 × 2.2²/3 = 60.02 + 49.05 = 109.1 kN m/m dan V_{Ed} = ½ × (24.8 + 55.2) × 2.2 = 88.0 kN/m. A_s = 109.1 × 10⁶/(0.87 × 500 × 331.6) = 756 mm²/m. H12 pada 150 dalam nota memberi 754 mm²/m: kurang sedikit sahaja, kerana heel kini 0.2 m lebih panjang daripada heel dalam nota. Sediakan H12 pada 125 (905 mm²/m) di bahagian atas .
+Shear disemak di muka yang sama dengan (14.7). Dengan nisbah steel yang rendah ini, had bawah yang menentukan, 0.035 × 1.757^{3/2} × √30 × 349 = 155.8 kN/m, dan kedua-dua shear lulus: 93.3 kN/m pada toe (60 %) dan 88.0 kN/m pada heel (56 %). Base setebal pangkal stem, peraturan cubaan pertama Unit 13, biasanya meninggalkan margin ini.
+Tiga bahagian, tiga jawapan Stem: 146.7 kN m/m, 1017 mm²/m, H12 pada 100 di muka tanah. Toe: 37.9 kN m/m, nilai minimum 526 mm²/m yang menentukan, H12 pada 150 di bahagian bawah. Heel: 109.1 kN m/m, 756 mm²/m, H12 pada 125 di bahagian atas. Heel memikul hampir tiga kali moment toe walaupun net load-nya lebih kecil, kerana ia hampir tiga kali lebih panjang dan moment bertambah dengan kuasa dua panjang.
+Semakan pantas (tidak dimarkah): Satu heel sepanjang 2.4 m memikul net load ke bawah sebanyak 10 kN/m² di stem, meningkat kepada 40 kN/m² di hujungnya. Moment di muka belakang stem ialah
+Pilihan: 57.6 kN m/m | 86.4 kN m/m | 72.0 kN m/m | 115.2 kN m/m
+Penjelasan yang dipaparkan selepas menjawab: 10 × 2.4²/2 + 30 × 2.4²/3 = 28.8 + 57.6 = 86.4 kN m/m. 57.6 menggunakan a²/6 bagi segi tiga, yang meletakkan puncaknya di stem; 72.0 menganggap load seragam pada 25 kN/m².
+Semakan pantas (tidak dimarkah): Satu toe memerlukan A_s = 263 mm²/m bagi moment-nya; A_{s,min} = 526 mm²/m. Steel yang perlu disediakan sekurang-kurangnya
+Pilihan: 263 mm²/m | 395 mm²/m | 526 mm²/m | 789 mm²/m
+Penjelasan yang dipaparkan selepas menjawab: Yang lebih besar antara kedua-duanya: 526 mm²/m, H12 pada 200 (565) atau lebih rapat. Toe yang pendek hampir sentiasa ditentukan oleh minimum steel.
+Isi penting:
+- Toe dan heel: cantilever dari muka stem di bawah trapezium net load.
+- M_{Ed} = n_fa²/2 + (n_e − n_f)a²/3; V_{Ed} = ½(n_f + n_e)a.
+- Toe: bar di bahagian bawah, biasanya A_{s,min}. Heel: bar di bahagian atas, biasanya moment yang lebih besar antara kedua-duanya.
+- Shear di muka yang sama, tanpa link: V_{Ed} ≤ V_{Rd,c}.
+
+[notes-n5] Nota 5. Crack control dan detailing
+Steel yang mencukupi bagi moment belum lagi menjadikan wall itu siap. Retaining wall menahan tanah yang lembap sepanjang hayatnya, jadi crack-nya mesti kekal halus; bar-nya mesti dijarakkan, di-lap dan dihentikan mengikut peraturan; dan muka yang tidak memikul moment masih memerlukan steel terhadap shrinkage. Seksyen ini melengkapkan lukisan.
+Crack control. Bagi bahagian yang lebih tebal daripada 200 mm, EC2 mengehadkan crack width kepada 0.3 mm. Tanpa pengiraan crack width, ini dilakukan dengan mengehadkan jarak bar kepada nilai Table 7.3N bagi steel stress di bawah quasi-permanent load (EC2 7.3.3):
+PERSAMAAN (14.9): \sigma_s = \frac{f_{yk}}{1.15}\times\frac{\text{quasi-permanent effect}}{\text{design effect}}\times\frac{A_{s,req}}{A_{s,prov}}
+Steel stress σ_s (N/mm²) 160 200 240 280 320 360
+Jarak bar maksimum (mm), w_k = 0.3 mm 300 250 200 150 100 50
+Di antara lajur jadual, jarak diinterpolasi. Nisbah kesan quasi-permanent kepada kesan design dicari bagi setiap bahagian daripada load-nya sendiri, dengan ψ_2 = 0.3 pada surcharge. Bagi stem , ia nisbah moment: M_{qp} = 52.13 × 1.5 + 0.3 × 12.19 × 2.25 = 86.4 kN m/m, jadi 86.4/146.7 = 0.589. Bagi toe dan heel , kursus mengambil nisbah load menegak: (258.1 + 0.3 × 22.0)/381.4 = 0.694.
+Stem, H12 pada 100: σ_s = 434.8 × 0.589 × 1017/1131 = 230.3 N/mm²; jadual memberi 250 − 50 × 30.3/40 = 212 mm, dan 100 mm jauh di dalam had. Heel, dengan H12 pada 150 dalam nota: σ_s = 434.8 × 0.694 × 756/754 = 302.6 N/mm²; jadual memberi 150 − 50 × 22.6/40 = 122 mm, jadi 150 mm terlalu jarang. Dengan H12 pada 125, stress turun kepada 434.8 × 0.694 × 756/905 = 252.1 N/mm² dan had naik kepada 200 − 50 × 12.1/40 = 185 mm: lulus. Toe: 434.8 × 0.694 × 263/754 = 105.3 N/mm², di bawah lajur pertama: 300 mm.
+Lebih banyak steel, atau steel yang lebih rapat? Semakan crack memberi ganjaran kepada kedua-duanya serentak. Merapatkan bar heel daripada 150 kepada 125 mm menambah 20 % steel, yang menurunkan stress, dan stress yang lebih rendah membenarkan jarak yang lebih lebar daripada yang kini disediakan. Bar yang hanya cukup-cukup memenuhi moment (756 berbanding 754 mm²/m) bekerja pada stress penuhnya di bawah design load dan pada kira-kira 300 N/mm² dalam service: ia biasanya gagal semakan jarak.
+[Rajah: Bar bagi Worked Example 14.1. Bar utama pada tiga tension face; distribution bar sepanjang wall; starter bar di-lap dengan bar stem di pangkal, di tempat moment paling besar.]
+Secondary steel. Bar mendatar dipasang sepanjang wall, diikat kepada bar utama. Dalam stem, bar ini mestilah sekurang-kurangnya satu perempat daripada steel menegak (EC2 9.6.3), dan nota menyediakan tidak kurang daripada minimum steel: max(0.25 × 1131, 526) = 526 mm²/m, H12 pada 200 (565 mm²/m). Distribution bar yang sama dipasang sepanjang base. Muka yang tidak berada dalam tension (hadapan stem, bahagian atas toe, bahagian bawah heel) menerima mesh ringan yang setara, terhadap cracking akibat shrinkage dan suhu. Bar utama dijarakkan tidak melebihi 3h atau 400 mm, secondary bar tidak melebihi 400 mm.
+Lap bagi starter bar. Base dituang dahulu, dengan starter bar menonjol keluar daripadanya; bar stem di-lap dengan starter bar itu betul-betul di atas base. Itulah section dengan moment terbesar, dan setiap bar di-lap di situ. EC2 8.7.3 memberi l_0 = α_6l_{b,rqd} dengan α_6 = 1.5 apabila semua bar di-lap pada satu section dan l_{b,rqd} = (φ/4)(σ_{sd}/f_{bd}). Bagi C30/37, f_{bd} = 2.25 × 0.7 × 2.896/1.5 = 3.041 N/mm²; dengan bar pada stress penuh, l_{b,rqd} = 3 × 434.8/3.041 = 428.9 mm dan l_0 = 1.5 × 428.9 = 643 mm, 54 kali diameter bar. Nota kursus menggunakan 40φ = 480 mm, yang lebih pendek: buat detailing lap mengikut EC2.
+Curtailment. Moment stem berkurang dengan cepat mengikut ketinggian: pada separuh tinggi ia 23.5 kN m/m, satu perenam daripada 146.7 kN m/m di pangkal. Nota menghentikan setiap bar stem kedua pada separuh tinggi, 2.25 m di atas base, meninggalkan H12 pada 200 (565 mm²/m) di atasnya. Ini dibenarkan dengan dua syarat: bar yang diteruskan masih memenuhi minimum steel, dan bar yang dihentikan dipanjangkan satu anchorage length melepasi aras ia tidak lagi diperlukan.
+Semakan pantas (tidak dimarkah): Satu heel mempunyai σ_s = 260 N/mm² di bawah quasi-permanent load. Table 7.3N memberi 200 mm pada 240 N/mm² dan 150 mm pada 280 N/mm². Jarak bar terbesar yang dibenarkan ialah
+Pilihan: 175 mm | 200 mm | 150 mm | 260 mm
+Penjelasan yang dipaparkan selepas menjawab: Di tengah-tengah antara dua lajur: 200 − 50 × 20/40 = 175 mm. Bar pada 200 mm akan gagal; pada 175 mm atau lebih rapat ia lulus.
+Semakan pantas (tidak dimarkah): Bar stem ialah H16 dalam C30/37 (f_{bd} = 3.04 N/mm²), semuanya di-lap dengan starter bar di pangkal dan pada stress penuh. Lap length mengikut EC2 ialah lebih kurang
+Pilihan: 480 mm | 572 mm | 640 mm | 858 mm
+Penjelasan yang dipaparkan selepas menjawab: l_{b,rqd} = (16/4) × 434.8/3.04 = 572 mm; l_0 = 1.5 × 572 = 858 mm, 54φ. 640 mm ialah 40φ, petua dalam nota; 572 mm terlupa α_6 = 1.5.
+Isi penting:
+- Crack control melalui jarak: σ_s = (f_{yk}/1.15) × nisbah × A_{s,req}/A_{s,prov}, kemudian Table 7.3N. Nisbah: M_{qp}/M_{Ed} bagi stem, N_{qp}/N_d bagi base.
+- Secondary steel: sekurang-kurangnya 25 % daripada steel menegak dan tidak kurang daripada A_{s,min}.
+- Lap bagi starter bar: l_0 = 1.5l_{b,rqd}, kira-kira 54φ dalam C30/37; 40φ terlalu pendek.
+- Separuh daripada bar stem boleh dihentikan pada separuh tinggi jika bakinya masih memberi A_{s,min} dan bar yang dihentikan mempunyai anchorage.
+
+[notes-n6] Nota 6. Backfill bercerun, key dan air
+Setakat ini backfill adalah rata dan bersaliran, dan friction sahaja menahan wall. Tiga perkara mengubah gambaran itu. Backfill yang bercerun ke atas menolak dengan lebih kuat, dan bukan secara mendatar. Key di bawah base menambah rintangan apabila friction tidak mencukupi. Dan air di belakang wall, apabila saliran gagal, ialah sebab paling lazim retaining wall bergerak. Setiap satu mengubah load; tiada satu pun mengubah kaedah.
+## Backfill bercerun
+Apabila permukaan naik pada sudut θ di belakang wall, active pressure Rankine bertindak selari dengan permukaan dan pekalinya bergantung pada θ serta φ:
+PERSAMAAN (14.10): K_a = \cos\theta\;\frac{\cos\theta - \sqrt{\cos^2\theta - \cos^2\varphi}}{\cos\theta + \sqrt{\cos^2\theta - \cos^2\varphi}}
+PERSAMAAN (14.11): P = \tfrac{1}{2}K_a\gamma H^2, \qquad P_h = P\cos\theta \ \ \text{at } \frac{H}{3}, \qquad P_v = P\sin\theta \ \ \text{at the heel end}; \qquad H = h_3 + a_2\tan\theta + h
+[Rajah: Backfill bercerun 15° (Contoh 2 nota kursus; kes app RW2). Thrust mempunyai komponen menegak, dan ia bertindak di hujung heel.]
+Virtual back lebih tinggi daripada sebelumnya, kerana permukaan lebih tinggi di atas hujung heel berbanding di atas stem: bagi wall kedua dalam nota (stem 4.5 m, base 4.0 × 0.4 m dengan heel 2.8 m, θ = 15°, φ = 30°, γ = 16 kN/m³), H = 4.5 + 2.8 tan 15° + 0.4 = 5.6503 m. K_a = 0.37295 berbanding 0.333 bagi permukaan yang rata, dan P = ½ × 0.37295 × 16 × 5.6503² = 95.25 kN bagi setiap meter: P_h = 92.0 kN dan P_v = 24.65 kN. Satu baji tanah, ½ × 16 × 0.75 × 2.8 = 16.8 kN, turut dimasukkan ke dalam jadual.
+P_v ialah load menegak pada virtual back, jadi dalam jadual kestabilan ia membantu: ia menambah friction dan restoring moment-nya ialah 24.65 × 4.0 = 98.6 kN m. Tetapi virtual back ialah hujung heel. Daya yang sama ialah line load di hujung cantilever heel: P_{v,d} = 1.35 × 24.65 = 33.28 kN pada 2.8 m dari stem, 93.2 kN m/m dengan sendirinya. Bersama net pressure dan baji tanah, moment heel ialah 168.7 kN m/m.
+Dikira sekali, terlupa sekali Contoh 2 nota kursus mengira P_v dalam jadual kestabilan dan meninggalkannya daripada heel. Moment heel dalam nota ialah 75.5 kN m/m dan bar-nya H12 pada 150 (754 mm²/m). Dengan P_v di hujung, moment-nya 168.7 kN m/m dan heel memerlukan 1170 mm²/m: bar itu hanya menyediakan 64 % daripadanya. Bearing pressure di bawah heel sudah mengandungi P_v, jadi heel yang direka bentuk tanpanya tidak berada dalam keseimbangan. Peraturannya: setiap daya dalam jadual mesti mendarat pada salah satu bahagian wall. Faded Example 14.2 membuat design heel ini.
+Stem dilenturkan oleh bahagian mendatar tekanan pada tingginya sendiri: P_{s,s} = ½ × 0.37295 × 16 × 4.5² × cos 15° = 58.36 kN dan M_{Ed} = 1.35 × 58.36 × 1.5 = 118.2 kN m/m. Nota pula mengambil gambar rajah sepanjang tinggi virtual back di atas base, 5.25 m, yang memberi 187.7 kN m/m: satu konvensyen di pihak selamat, 59 % lebih berat. App menggunakan kedalaman di bawah permukaan di stem dan menyediakan konvensyen nota sebagai pilihan.
+## Key
+Apabila friction sahaja tidak dapat menahan wall dan base tidak boleh dipanjangkan, satu key (Mosley: heel beam) dituang di bawah base. Untuk menggelongsor, wall kini mesti menolak tanah di hadapan key ke tepi, dan tanah menentang tolakan jauh lebih kuat daripada ia menolak: pekali pasif ialah songsangan pekali aktif.
+PERSAMAAN (14.12): K_p = \frac{1+\sin\varphi}{1-\sin\varphi} = \frac{1}{K_a}, \qquad H_p = \tfrac{1}{2}K_p\,\gamma\,a_k^2, \qquad H_d \le R_d + H_p
+[Rajah: Key menggantikan heel yang lebih panjang (kes app RW1K). Hanya kedalaman a_k di bawah bahagian bawah base yang dikira, dan muka hadapan mesti dituang rapat pada tanah yang tidak terganggu.]
+Hanya kedalaman a_k di bawah bahagian bawah base yang dikira; tanah di atasnya, di hadapan toe, mungkin digali. Faktor pada H_p ialah 1.0. Bagi wall dalam nota, yang menggelongsor dalam Combination 2 (100.2 berbanding 95.6 kN), key sedalam 0.6 m memberi K_p = 3.69 dan H_p = ½ × 3.69 × 19 × 0.6² = 12.6 kN. Combination 1: 103.4 ≤ 119.5 + 12.6 = 132.1 kN. Combination 2, dengan φ_d = 29.26°: K_{p,d} = 2.912, H_{p,2} = ½ × 2.912 × 19 × 0.6² = 10.0 kN dan 100.2 ≤ 95.6 + 10.0 = 105.6 kN.
+Passive pressure terhasil hanya apabila tanah dimampatkan, jadi sesuatu design tidak wajar bergantung pada kesemuanya. Di sini semakan memerlukan (100.2 − 95.6)/10.0 = 46 % daripada daya pasif; key 0.5 m akan lulus di atas kertas tetapi memerlukan 67 %. Key itu sendiri ialah cantilever pendek yang tergantung di bawah base, ditolak oleh passive pressure: V_{Ed} = 1.35 × 12.6 = 17.0 kN/m, M_{Ed} = 17.0 × ⅔ × 0.6 = 6.8 kN m/m, tension pada muka hadapannya. Dengan cover 75 mm terhadap tanah, d = 319 mm dan minimum steel yang menentukan: link H12 pada 200.
+## Air di belakang wall
+Setiap wall dalam kursus ini mempunyai backfill yang bersaliran: satu lapisan bahan bebas salir di belakang stem dan weep hole yang menembusinya. Jika saliran tersumbat, air bertakung dalam backfill. Di bawah water table, tanah diapungkan dan menolak dengan berat tenggelamnya γ′ = γ_{sat} − γ_w sahaja, tetapi air menolak dengan berat penuhnya, dan K_a tidak terpakai bagi air:
+PERSAMAAN (14.13): p = K_a\left[\gamma z_w + \gamma'\,(z - z_w) + w\right] + \gamma_w\,(z - z_w) \quad \text{for } z > z_w, \qquad \gamma' = \gamma_{sat} - \gamma_w
+[Rajah: Wall yang sama, bersaliran dan dengan water table 1.5 m di bawah permukaan (kes app RW3). Di bawah water table, setiap meter kedalaman menambah 2.8 kN/m² tekanan tanah dan 9.8 kN/m² tekanan air.]
+Ambil wall Unit 13 yang telah diubah, yang lulus setiap semakan, dan biarkan air naik hingga 1.5 m di bawah permukaan (γ_{sat} = 20 kN/m³, jadi γ′ = 10.19 kN/m³). Thrust tanah turun daripada 61.8 kepada 48.0 kN, tetapi thrust air sebanyak ½ × 9.81 × 3.4² = 56.7 kN menyertainya: 104.7 kN kesemuanya, 1.69 kali thrust bersaliran. Air juga mengangkat base: uplift sebanyak 56.7 kN membawa load menegak daripada 258.1 kepada 208.0 kN. Sliding dalam combination 1 menjadi 161.3 berbanding 104.0 kN: wall yang friction-nya 25 % melebihi daya sliding kini mempunyai daya sliding 55 % melebihi friction-nya, dan tekanan di toe naik daripada 98.6 kepada 123.8 kN/m².
+Untuk menahan air itu, heel perlu bertambah daripada 2.2 m kepada 4.0 m. Saliran jauh lebih murah daripada 1.8 m base, dan itulah sebabnya saliran dilukis, ditetapkan dan diperiksa secermat bar. Wall yang lebih tinggi membawa satu lagi perubahan, pada konkrit itu sendiri: melebihi 6 hingga 7 m, counterfort mengikat stem kepada heel, dan kedua-duanya menjadi slab yang merentang di antara counterfort dan bukan lagi cantilever. App RC Design menyelesaikan wall sebegitu (kes RW4); pengiraan tangannya di luar skop kursus ini.
+Semakan pantas (tidak dimarkah): Dengan backfill bercerun, komponen menegak P_v bagi thrust
+Pilihan: membantu kestabilan dan tidak memberi kesan kepada bahagian-bahagian wall | membantu kestabilan dan membebani hujung heel | mengurangkan moment pada stem | diabaikan, kerana wall direka bentuk bagi tekanan mendatar
+Penjelasan yang dipaparkan selepas menjawab: Ia bertindak pada virtual back, di hujung heel: favourable dalam jadual kestabilan, dan line load di hujung cantilever heel. Pada wall dalam nota ia menggandakan moment heel lebih daripada dua kali, 75.5 kepada 168.7 kN m/m.
+Semakan pantas (tidak dimarkah): Di bawah water table, setiap meter kedalaman tambahan menambah tekanan pada wall (K_a = 0.271, γ′ = 10.19 kN/m³)
+Pilihan: 2.8 kN/m²: hanya tanah yang tenggelam | 9.8 kN/m²: hanya air | 12.6 kN/m²: tanah yang tenggelam dan air | 5.1 kN/m²: seperti dalam tanah yang bersaliran
+Penjelasan yang dipaparkan selepas menjawab: 0.271 × 10.19 = 2.8 kN/m² daripada tanah ditambah 9.81 kN/m² daripada air: 12.6 kN/m², berbanding 0.271 × 19 = 5.1 kN/m² bagi tanah yang bersaliran. Itulah sebabnya thrust bertambah 69 % dalam contoh itu.
+Isi penting:
+- Backfill bercerun: K_a daripada (14.10), H hingga permukaan di atas hujung heel, thrust pada θ. P_v membantu kestabilan dan membebani hujung heel.
+- Key: H_p = ½K_pγa_k², faktor 1.0, kedalaman di bawah base sahaja; jangan bergantung pada kesemuanya.
+- Air: tekanan tanah tenggelam ditambah tekanan air penuh, dan uplift di bawah base. Thrust × 1.69 dalam contoh.
+- Saliran ialah sebahagian daripada design, bukan aksesori.
+
+[slides-1] Slide 1: Retaining Walls II
+SEAA 4333 Reinforced Concrete Design II · Week 15 Retaining Walls II The stem, the toe and the heel: three cantilevers, three tension faces, and the bars that go there Workbook ch. 14 ABCD card Calculator RDF Table 7.3N Phone or laptop Retaining Wall Lab Scan for this page’s Explorer tab. Two new tabs: Members; Key and water.
+
+[slides-2] Slide 2: How the next three hours run
+Today · 180 minutes How the next three hours run 0:00 Warm-up Unit 13 in three votes 0:10 Hook One red circle 0:16 Three cantilevers Faces, design loads 0:25 Activity 14A Sketch first, pairs 0:36 WE 14.1 Stem, toe, heel: I do 0:52 Cracks, detailing Spacing, laps, curtailment 1:01 Activity 14B The drains block, pairs 1:15 Break 10 minutes 1:25 Slope and key What changes 1:32 FE 14.2 · S14 Pairs, then teams 2:08 Exam-size problem Alone, 25 minutes 2:38 Review, exit The course, the exam, the project No talk longer than ten
+
+[slides-3] Slide 3: Three questions from last week and from statics
+Warm-up · no notes · cards up Three questions from last week and from statics W1 · Unit 13 For the stability checks, the pressure diagram runs from the surface to A the top of the base B the underside of the base, on the virtual back C the ground level in front D mid-depth of the base W2 · Unit 13 In the sliding check, the weight of the surcharge on the heel takes the factor A 1.5 B 1.0 C 0 D 1.35 W3 · Statics A cantilever of length a carries a load that grows from zero at the support to n at the free end. The moment at
+
+[slides-4] Slide 4: B, C, A, and what each means today
+Warm-up · answers B, C, A, and what each means today W1 B: the underside of the base That was the whole body. Today the stem is cut out at the top of the base: its diagram stops there. W2 C: zero It helped then, so it was left out. Today it bends the heel: it harms, and takes 1.5. W3 A: na²/3 The resultant na/2 acts 2a/3 from the support. The net load on the toe and the heel is largest at the free end. SEAA 4333 · Unit 14 · Retaining Walls II Workbook 14.1
+
+[slides-5] Slide 5: A drawing comes back with one red circle
+Hook · 5 minutes A drawing comes back with one red circle Three slabs, three sets of main bars. Stem: earth face. Toe: bottom. Heel: bottom. One set is on the wrong face. Which, and what pushes that slab? SEAA 4333 · Unit 14 · Retaining Walls II Workbook 14.2
+
+[slides-6] Slide 6: The ground pushes the whole base up. On which face do the main bars of the heel go?
+Concept check 1 · the big question · vote now, again after Activity 14A The ground pushes the whole base up. On which face do the main bars of the heel go? A The bottom: the ground pushes the heel up, as it does the toe B The top: the soil on the heel outweighs the ground pressure C Both faces equally: the load can go either way D Mid-depth: a heel carries mostly shear Vote · convince your neighbour · vote again Workbook 14.2
+
+[slides-7] Slide 7: Three cantilevers: fix it, load it, let it bend
+Block A · talk 1 · 4 minutes Three cantilevers: fix it, load it, let it bend Stem held at the top of the base; pushed by the soil behind it Toe held at the front face of the stem; the ground pushes up, its weight down Heel held at the back face of the stem; the ground pushes up, the soil on it down SEAA 4333 · Unit 14 · Retaining Walls II Notes §1 · Workbook 14.2
+
+[slides-8] Slide 8: Design loads: STR, and what acts on the base
+Block A · talk 2 · 5 minutes Design loads: STR, and what acts on the base N_d = 1.35ΣV_{k,G} + 1.5V_{k,Q} q_d = N_d/B ± 6N_d·e_d/B² Net load on a part = what pushes it from above − what pushes it from below, point by point. The surcharge on the heel now takes 1.5: here it harms. SEAA 4333 · Unit 14 · Retaining Walls II Notes §2 · Workbook 14.2
+
+[slides-9] Slide 9: Sketch first: how does each part bend?
+Activity 14A · pairs · 8 minutes Sketch first: how does each part bend? The wall of Unit 13: stem 4.5 m, toe 0.8 m, heel 2.2 m sand on the heel; surcharge 10 kN/m² under the base: 135.6 kN/m² (toe) to 88.7 (heel end) on the heel, downwards: 143.9 kN/m² 1 draw the stem, the toe and the heel as three lines, fixed where they meet 2 draw the load on each one, then its bent shape 3 mark the tension face of each and draw its main bars Sketch in Workbook 14.2. Then choose the three faces in Lab tab 4 and reveal. SEAA 4333 · Un
+
+[slides-10] Slide 10: Stem: earth face. Toe: bottom. Heel: top.
+Activity 14A · reveal Stem: earth face. Toe: bottom. Heel: top. stem earth face pushed forward by thrusts of 52.1 and 12.2 kN. toe bottom 111.1 to 122.1 kN/m² net, upwards: the ground less the slab. heel top 143.9 down against 119.1 to 88.7 up: 24.8 to 55.2 kN/m² net, downwards. The red circle was on the heel: its bars lay in the compression zone. Concept check 1, second vote: B. SEAA 4333 · Unit 14 · Retaining Walls II Lab tab 4 · Workbook 14.2
+
+[slides-11] Slide 11: The stem: one metre of a vertical slab
+Worked Example 14.1 · I do · part 1 The stem: one metre of a vertical slab Calculation Output P_{s,s} = ½ × 0.27099 × 19 × 4.5² 52.13 kN P_{q,s} = 0.27099 × 10 × 4.5 12.19 kN M: 1.35 × 52.13 × 1.5 + 1.5 × 12.19 × 2.25 146.7 kN m/m V: 1.35 × 52.13 + 1.5 × 12.19 88.7 kN/m d = 400 − 45 − 6; z = 0.95d 349; 331.6 mm A_s = 146.7 × 10⁶/(0.87 × 500 × 331.6) 1017 mm²/m A_{s,min} = 0.001506 × 1000 × 349 526 mm²/m H12 at 100, earth face 1131 ✓ SEAA 4333 · Unit 14 · Retaining Walls II Notes §3 · Workbook 14.3
+
+[slides-12] Slide 12: The toe and the heel: two trapeziums of net load
+Worked Example 14.1 · I do · part 2 The toe and the heel: two trapeziums of net load Calculation Output toe: 111.1 × 0.8²/2 + 11.0 × 0.8²/3 37.9 kN m/m A_s 263 < 526: the minimum governs H12 at 150 ✓ heel: 24.8 × 2.2²/2 + 30.4 × 2.2²/3 109.1 kN m/m A_s = 109.1 × 10⁶/(0.87 × 500 × 331.6) 756 mm²/m the notes’ H12 at 150 gives 754 ✗ short H12 at 125, top 905 ✓ shear 93.3 and 88.0 ≤ 155.8 ✓ SEAA 4333 · Unit 14 · Retaining Walls II Notes §4 · Workbook 14.3
+
+[slides-13] Slide 13: Crack control and detailing: finishing the drawing
+Block B · talk 3 · 6 minutes Crack control and detailing: finishing the drawing σ_s = (f_{yk}/1.15) × ratio × A_{s,req}/A_{s,prov} Table 7.3N: 160 → 300 … 360 → 50 mm Heel, H12 at 150: 302.6 N/mm², limit 122 mm ✗. H12 at 125: 252.1 N/mm², limit 185 mm ✓ Starter bars lap 643 mm, not 40φ = 480. Every second stem bar stops at mid-height. Horizontal H12 at 200 along the wall. SEAA 4333 · Unit 14 · Retaining Walls II Notes §5 · Workbook 14.3
+
+[slides-14] Slide 14: In Unit 13 the weight of the surcharge on the heel took the factor 0. In the design of the heel it takes
+Concept check 2 · think 60 seconds, then vote In Unit 13 the weight of the surcharge on the heel took the factor 0. In the design of the heel it takes A 0, as before: it is the same load B 1.0: it is a weight C 1.35: with the other weights D 1.5: here it bends the heel Vote · convince your neighbour · vote again Workbook 14.3
+
+[slides-15] Slide 15: The drains block. Water rises to 1.5 m below the top. The soil thrust of 61.8 kN…
+Activity 14B · pairs · 5 minutes The drains block. Water rises to 1.5 m below the top. The soil thrust of 61.8 kN… A stays about the same: water replaces soil B falls: submerged soil is lighter C rises by about a fifth D rises by about two thirds The permanent thrust on the virtual back, soil and water together. Choose, then reveal in Lab tab 5 and move the water table. SEAA 4333 · Unit 14 · Retaining Walls II Lab tab 5 · Workbook 14.3
+
+[slides-16] Slide 16: D: 61.8 becomes 104.7 kN, and the wall slides
+Activity 14B · reveal D: 61.8 becomes 104.7 kN, and the wall slides 61.8 → 104.7 kN soil 48.0 + water 56.7 kN; K_a does not apply to water uplift 56.7 kN: the weight on the ground falls to 208.0 kN sliding 161.3 against 104.0 kN A drain is cheaper than 1.8 m of heel. SEAA 4333 · Unit 14 · Retaining Walls II Notes §6 · Lab tab 5
+
+[slides-17] Slide 17: A sloping backfill: the thrust tilts
+Block C · talk 4 · 4 minutes A sloping backfill: the thrust tilts K_a = 0.373 (level: 0.333) P_h = P cos θ; P_v = P sin θ H runs to the surface above the heel end: 5.65 m. P_v helps the stability table and loads the tip of the heel. Every force in the table must land on a member. SEAA 4333 · Unit 14 · Retaining Walls II Notes §6 · Workbook 14.4
+
+[slides-18] Slide 18: A key: passive resistance when friction is not enough
+Block C · talk 4 · 3 minutes A key: passive resistance when friction is not enough H_p = ½K_p·γ·a_k² K_p = 1/K_a = 3.69 Factor 1.0; only the depth below the base; front face cast against undisturbed ground. The notes’ wall: 100.2 ≤ 95.6 + 10.0 kN. 46 % of the passive force: do not lean on all of it. SEAA 4333 · Unit 14 · Retaining Walls II Notes §6 · Lab tab 5
+
+[slides-19] Slide 19: The notes’ wall with a 15° backfill: design the heel
+Faded Example 14.2 · pairs · 18 minutes The notes’ wall with a 15° backfill: design the heel Given: steps 1–2 K_a = 0.37295; P_h = 92.0, P_v = 24.65 kN q_d = 115.70 (toe), 98.14 (heel end); 110.43 at the stem Your turn: steps 3–8 the net loads on the heel, the tip load, the heel moment and its bars; crack control and shear; then the stem and the toe Then check in the Lab, tab 4: case FE 14.2. SEAA 4333 · Unit 14 · Retaining Walls II Workbook 14.4
+
+[slides-20] Slide 20: The heel needs H16 at 125, not H12 at 150
+Faded Example 14.2 · check The heel needs H16 at 125, not H12 at 150 net load on the heel 0.27; 28.77 kN/m² ↓ tip load P_{v,d} 33.28 kN at 2.8 m heel moment 168.7 kN m/m steel, H16 1176 mm²/m H16 at 150 282.6 → 147 mm ✗ H16 at 125, top 235.5 → 206 mm ✓ Without P_v, as the notes: 75.5 kN m/m, and H12 at 150 (754 mm²/m) looks enough. Stem: 58.36 kN over 4.5 m, 118.2 kN m/m, 819 mm²/m: the notes’ H12 at 75 is ample. Toe: 32.3 kN m/m, the minimum steel. Heel shear 73.9 ≤ 176 kN/m. SEAA 4333 · Unit 14 · Retaining Walls II Wo
+
+[slides-21] Slide 21: A backfill slopes at 15°. The vertical component P v of its thrust
+Concept check 3 · think 60 seconds, then vote A backfill slopes at 15°. The vertical component P_v of its thrust A helps the stability and does nothing else B helps the stability and bends the heel C bends the stem D is ignored: walls are designed for horizontal pressure Vote · convince your neighbour · vote again Workbook 14.4
+
+[slides-22] Slide 22: Retaining Wall S14: four slips in the design of the members
+Spot the error · teams · 12 minutes Retaining Wall S14: four slips in the design of the members Lab tab 3, or Workbook 14.5. The wall of Faded Example 13.2 as revised: stem 4.0 m high, 400 mm at the root; base 3.3 × 0.4 m: toe 0.9 m, heel 2.0 m; γ = 18 kN/m³, φ = 33°, w = 10 kN/m²; C30/37, cover 45 mm, H12. Reader reads each line aloud; calculator rechecks; checker sketches each part and asks which way it bends. Reporter writes the line number and a one-line reason. As submitted every part passes. All four slips are on
+
+[slides-23] Slide 23: D14: the stem and the heel of a cantilever wall (20 marks)
+Block D · alone · 25 minutes D14: the stem and the heel of a cantilever wall (20 marks) (a) The thrusts on the stem; M_{Ed} and V_{Ed} at its root [5] (b) The stem: d, K, z, A_s and A_{s,min}; choose the bars [5] (c) The heel: the net loads, M_{Ed}, the tension face, A_s; choose the bars [6] (d) Crack control of the heel bars; sketch the main bars of the three parts [4] Ref | Calculations | Output. No app, no notes; the RDF is allowed. Self-mark with the scheme after class. SEAA 4333 · Unit 14 · Retaining Walls II Workb
+
+[slides-24] Slide 24: Fourteen Units in six questions
+Course review · 6 minutes Fourteen Units in six questions Staircases · U1–2 Which way does it span, and on what? Then it is a slab. Frame analysis · U3–6 Which sub-frame, which load pattern, gives the largest moment? Columns · U7–9 Short or slender, about which axis? N and M together. Foundations · U10–12 Service loads size it; ultimate loads reinforce it; punching and the truss decide the depth. Retaining walls · U13–14 Stability with the right factors; then three cantilevers. In the exam Sketch first. Ref | Calculatio
+
+[slides-25] Slide 25: The report goes in: the last log
+Project studio · 6 minutes The report goes in: the last log Submit The report, the drawings and the minutes, as the brief asks. Check Title block, names and the signed check sheets of Week 14. Log Last entry: what each member did, and one thing you would do differently. Survey Five items and one open question, two minutes, anonymous. SEAA 4333 · Unit 14 · Retaining Walls II Workbook 14.7
+
+[slides-26] Slide 26: Sketch how it bends before you place a bar
+Professional Habit 14 Sketch how it bends before you place a bar Fix it Where is the part held? That is its critical section. Load it What pushes it, and which way is the net load? Let it bend The outside of the curve stretches: the bars go there. Then calculate The moment says how much steel; the sketch says where. SEAA 4333 · Unit 14 · Retaining Walls II Workbook 14.8
+
+[slides-27] Slide 27: Before the final examination
+After class Before the final examination Notes §1–§6 46 min Exercises, all 14 45 min Explorer, 6 tasks with the key, the water and S14 30 min Self-mark D14 on eLearning 15 min Mosley §10.8, RDF §17 reading Every Unit page stays open for revision: the exercises give new numbers on every attempt. SEAA 4333 · Unit 14 · Retaining Walls II Workbook 14.8
+
+[slides-28] Slide 28: Before you leave
+Exit ticket · 5 minutes · Workbook 14.8 Before you leave 1 A stem 4.0 m high carries a soil thrust of 40 kN and a surcharge thrust of 12 kN. Find the design moment at its root. 2 A heel 2.0 m long carries a net downward load of 20 kN/m² at the stem and 50 kN/m² at its end. Find the moment at the stem; which face is in tension? 3 What is still unclear, in this Unit or in the course? Tear off the slip and hand it in at the door. SEAA 4333 · Unit 14 · Retaining Walls II
+
+[examples-x1] Contoh 1 · Worked Example 14.1: stem, toe dan heel
+Jenis soalan design bahagian-bahagian retaining wall Workbook 14.3 Masa ≈ 35 min
+Soalan Wall Worked Example 13.1 yang telah diubah: stem setinggi 4.5 m, setebal 400 mm di pangkal dan 240 mm di atas; base selebar 3.4 m dan setebal 400 mm, dengan toe 0.8 m dan heel 2.2 m. Pasir: γ = 19 kN/m³, φ = 35°, K_a = 0.27099; surcharge 10 kN/m², ψ_2 = 0.3. Konkrit C30/37, f_{yk} = 500 N/mm², cover 45 mm, bar H12. Daripada jadual Unit 13: ΣV_{k,G} = 258.1 kN, V_{k,Q} = 22.0 kN, ΣM_{r,G} = 527.75 kN m, M_{r,Q} = 50.6 kN m, M_{o,G} = 100.96 kN m, M_{o,Q} = 32.53 kN m. Buat design stem, toe dan heel, semak shear dan crack control, dan buat detailing bar. Dalam app: kes RW1R dalam app RC Design Worked Solutions (RetaningWall.xlsx Ex 12.1 dengan heel Unit 13); kes RW1 ialah wall dalam nota, dengan heel 2.0 m.
+[Rajah: Worked Example 14.1: tiga critical section, tiga set bar. Moment menentukan stem, minimum steel menentukan toe, crack spacing menentukan heel.]
+Gambaran fizikal. Unit 13 meninggalkan wall ini dalam keadaan berdiri: ia tidak menggelongsor, tidak terbalik dan tidak membebankan tanah secara berlebihan. Kini setiap satu daripada tiga slab-nya mesti memikul bending-nya sendiri. Stem menahan 4.5 m pasir; toe ditekan ke atas oleh tanah; heel memikul 4.5 m pasir yang hanya sebahagiannya disokong oleh tanah di bawahnya. Satu meter wall direka bentuk, seperti slab.
+Pelan. Design pressure di bawah base (STR); net load pada toe dan heel; stem; toe; heel; shear; crack control; kemudian secondary steel, lap dan curtailment.
+## Langkah 1 Design pressure di bawah base (STR)
+Ref Pengiraan Output
+(14.1) N_d = 1.35 × 258.1 + 1.5 × 22.0 381.435 kN
+(14.1) ΔM_d = 1.35 × (527.75 − 100.96) + 1.5 × (50.6 − 32.53) = 576.167 + 27.105 603.27 kN m
+(14.2) x_d = 603.27/381.435 = 1.58158 m; e_d = 3.4/2 − 1.58158 e_d = 0.11842 m
+(14.2) q_d = 381.435/3.4 ± 6 × 381.435 × 0.11842/3.4² = 112.187 ± 23.444 135.63 (toe); 88.74 (hujung heel) kN/m²
+## Langkah 2 Net load pada toe dan heel
+Ref Pengiraan Output
+§2 Di muka stem: 135.63 − 46.89 × 0.8/3.4 (hadapan); 88.74 + 46.89 × 2.2/3.4 (belakang) 124.60; 119.08 kN/m²
+(14.3) Toe, ke atas: slab 1.35 × 25 × 0.4 = 13.5; 135.63 − 13.5 di hujung; 124.60 − 13.5 di stem 122.1; 111.1 kN/m²
+(14.3) Heel, ke bawah: 1.35 × (25 × 0.4 + 19 × 4.5) + 1.5 × 10 = 143.925; 143.925 − 119.08 di stem; 143.925 − 88.74 di hujung 24.8; 55.2 kN/m²
+## Langkah 3 Stem: moment dan shear di pangkalnya
+Ref Pengiraan Output
+(14.4) Sepanjang h_s = 4.5 m: P_{s,s} = ½ × 0.27099 × 19 × 4.5² = 52.13 kN; P_{q,s} = 0.27099 × 10 × 4.5 = 12.19 kN 52.13; 12.19 kN
+(14.4) M_{Ed} = 1.35 × 52.13 × 4.5/3 + 1.5 × 12.19 × 4.5/2 = 105.56 + 41.14 146.7 kN m/m
+(14.4) V_{Ed} = 1.35 × 52.13 + 1.5 × 12.19 88.7 kN/m
+## Langkah 4 Stem: steel di muka tanah
+Ref Pengiraan Output
+§3 d = 400 − 45 − 12/2 349 mm
+(14.5) K = 146.7 × 10⁶/(1000 × 349² × 30) = 0.040 ≤ 0.167; formula memberi z = 0.963d, jadi z = 0.95 × 349 z = 331.6 mm
+(14.5) A_s = 146.7 × 10⁶/(0.87 × 500 × 331.6) 1017 mm²/m
+(14.6) A_{s,min} = 0.26 × (2.896/500) × 1000 × 349 526 mm²/m
+Sediakan H12 pada 100, menegak, muka tanah 1131 mm²/m ✓
+## Langkah 5 Toe
+Ref Pengiraan Output
+(14.8) M_{Ed} = 111.1 × 0.8²/2 + (122.1 − 111.1) × 0.8²/3 = 35.55 + 2.35 37.9 kN m/m
+(14.8) V_{Ed} = ½ × (111.1 + 122.1) × 0.8 93.3 kN/m
+(14.5), (14.6) A_s = 37.9 × 10⁶/(0.87 × 500 × 331.6) = 263 mm²/m < A_{s,min} = 526 mm²/m: nilai minimum yang menentukan 526 mm²/m
+Sediakan H12 pada 150, bahagian bawah (bar dalam nota) 754 mm²/m ✓
+## Langkah 6 Heel
+Ref Pengiraan Output
+(14.8) M_{Ed} = 24.8 × 2.2²/2 + (55.2 − 24.8) × 2.2²/3 = 60.02 + 49.05 109.1 kN m/m
+(14.8) V_{Ed} = ½ × (24.8 + 55.2) × 2.2 88.0 kN/m
+(14.5) A_s = 109.1 × 10⁶/(0.87 × 500 × 331.6) 756 mm²/m
+H12 pada 150 dalam nota memberi 754 mm²/m: tidak mencukupi. Sediakan H12 pada 125, bahagian atas 905 mm²/m ✓
+## Langkah 7 Shear, tanpa link
+Ref Pengiraan Output
+(14.7) k = 1 + √(200/349) = 1.757; had bawah 0.035 × 1.757^{3/2} × √30 × 349 155.8 kN/m
+(14.7) Stem: ρ_1 = 1131/(1000 × 349) = 0.00324; V_{Rd,c} = 0.12 × 1.757 × (100 × 0.00324 × 30)^{1/3} × 349 157.0 ≥ 88.7 ✓
+(14.7) Toe dan heel: ρ_1 = 0.00216 dan 0.00259 memberi 137.2 dan 145.8 kN/m, di bawah had: V_{Rd,c} = 155.8 kN/m ≥ 93.3; 88.0 ✓
+## Langkah 8 Crack control melalui jarak bar
+Ref Pengiraan Output
+(14.9) Stem: M_{qp} = 52.13 × 1.5 + 0.3 × 12.19 × 2.25 = 86.4 kN m/m; nisbah 86.4/146.7 = 0.589; σ_s = 434.8 × 0.589 × 1017/1131 = 230.3 N/mm² 250 − 50 × 30.3/40 = 212 mm ≥ 100 ✓
+(14.9) Base: nisbah (258.1 + 0.3 × 22.0)/381.4 = 0.694. Heel dengan H12 pada 150: σ_s = 434.8 × 0.694 × 756/754 = 302.6 N/mm² 150 − 50 × 22.6/40 = 122 mm < 150 ✗
+(14.9) Heel dengan H12 pada 125: σ_s = 434.8 × 0.694 × 756/905 = 252.1 N/mm² 200 − 50 × 12.1/40 = 185 mm ≥ 125 ✓
+(14.9) Toe: σ_s = 434.8 × 0.694 × 263/754 = 105.3 N/mm², di bawah 160 300 mm ≥ 150 ✓
+app App membawa setiap digit dan menunjukkan 230.4, 302.6, 252.2 dan 105.2 N/mm²; jarak-jaraknya sama
+## Langkah 9 Secondary steel, lap dan curtailment
+Ref Pengiraan Output
+§5 Steel mendatar dalam stem: max(0.25 × 1131, 526) = 526 mm²/m: H12 pada 200, sepanjang stem dan sepanjang base 565 mm²/m ✓
+§5 Lap bagi starter bar: f_{bd} = 2.25 × 0.7 × 2.896/1.5 = 3.041 N/mm²; l_{b,rqd} = 3 × 434.8/3.041 = 428.9 mm; l_0 = 1.5 × 428.9 643 mm (40φ = 480 terlalu pendek)
+§5 Curtailment: pada separuh tinggi M_{Ed} = 23.5 kN m/m; setiap bar stem kedua berhenti 2.25 m di atas base, H12 pada 200 diteruskan (565 ≥ A_{s,min}) ✓
+Jawapan. Stem: M_{Ed} = 146.7 kN m/m, H12 pada 100 di muka tanah (1131 ≥ 1017 mm²/m). Toe: 37.9 kN m/m, H12 pada 150 di bahagian bawah (754 ≥ 526, nilai minimum). Heel: 109.1 kN m/m, H12 pada 125 di bahagian atas (905 ≥ 756 mm²/m). Shear 88.7, 93.3 dan 88.0 kN/m berbanding 157.0, 155.8 dan 155.8 kN/m. Jarak crack control 212, 300 dan 185 mm, kesemuanya lebih lebar daripada bar yang disediakan. H12 mendatar pada 200; lap bagi starter bar 643 mm; setiap bar stem kedua dihentikan pada separuh tinggi.
+Apa yang nombor ini katakan Tiga bahagian, tiga peraturan berbeza yang menentukan bar: moment pada stem, minimum steel pada toe, crack spacing pada heel. Tiada satu pun yang ditentukan oleh shear. Tambahan 0.2 m pada heel dalam Unit 13 untuk menghentikan sliding menaikkan moment heel daripada 105.7 kepada 109.1 kN m/m dan menjadikan H12 pada 150 dalam nota daripada cukup-cukup kepada kurang sedikit: perubahan yang dibuat bagi kestabilan sentiasa kembali sebagai perubahan pada bahagian-bahagian wall, jadi bahagian-bahagian itu direka bentuk paling akhir. Dengan jalan pintas nota (1.35 pada net pressure service), wall ini akan memberi 37.2 kN m/m pada toe dan 105.7 pada heel, 2 dan 3 % kurang.
+
+[examples-x2] Contoh 2 · Faded Example 14.2: backfill bercerun
+Jenis soalan design bahagian-bahagian retaining wall Workbook 14.4 Masa ≈ 25 min
+Soalan Wall kedua dalam nota kursus: stem setinggi 4.5 m, setebal 400 mm di pangkal dan 200 mm di atas; base selebar 4.0 m dan setebal 400 mm, dengan toe 0.8 m dan heel 2.8 m. Backfill bercerun ke atas pada 15°: γ = 16 kN/m³, φ = 30°, tiada surcharge; μ = 0.5; allowable bearing pressure 160 kN/m². Konkrit C30/37, f_{yk} = 500 N/mm², cover 45 mm. Nota menyediakan H12 pada 75 dalam stem, H12 pada 150 dalam toe dan H12 pada 150 dalam heel. Langkah 1 dan 2 diberi. Buat design heel dan semak stem. Dalam app: kes RW2 (Contoh 2 nota kursus; RetaningWall.xlsx Ex 12.2, dengan bar dalam nota) dan kes RW2R (bar heel diubah).
+[Rajah: Faded Example 14.2: wall dalam nota dengan backfill bercerun 15°.]
+## Langkah 1 Thrust pada virtual back (diberi)
+Ref Pengiraan Output
+(14.11) h_4 = 2.8 tan 15° = 0.7503 m; H = 4.5 + 0.7503 + 0.4 H = 5.6503 m
+(14.10) K_a = 0.96593 × (0.96593 − 0.42780)/(0.96593 + 0.42780), with √(cos² 15° − cos² 30°) = 0.42780 K_a = 0.37295
+(14.11) P = ½ × 0.37295 × 16 × 5.6503² = 95.25 kN pada 15°: P_h = 95.25 cos 15° pada 5.6503/3 = 1.883 m; P_v = 95.25 sin 15° di hujung heel, 4.0 m dari toe P_h = 92.0 kN; P_v = 24.65 kN
+## Langkah 2 Kestabilan dan design pressure (diberi)
+Ref Pengiraan Output
+§6 Jadual, dengan baji tanah (16.81 kN pada 3.067 m) dan P_v (24.65 kN pada 4.0 m): ΣV_{k,G} = 316.81 kN; ΣM_{r,G} = 789.56 kN m; M_{o,G} = 173.29 kN m
+Unit 13 Overturning 190.6 ≤ 710.6 kN m; sliding 124.2 ≤ 158.4 kN dan, dalam Combination 2, 117.0 ≤ 129.4 kN; e = 0.055 m; bearing 85.7 dan 72.7 ≤ 160 kN/m² ✓
+(14.1), (14.2) N_d = 1.35 × 316.81 = 427.69 kN; ΔM_d = 1.35 × (789.56 − 173.29) = 831.96 kN m; q_d = 106.92 ± 8.78 115.70 (toe); 98.14 (hujung heel) kN/m²
+§2 Di muka belakang stem: 98.14 + (115.70 − 98.14) × 2.8/4.0 110.43 kN/m²
+## Langkah 3 Net load pada heel
+Ref Pengiraan Output
+(14.3) Slab dan tanah: 1.35 × (25 × 0.4 + 16 × 4.5) = 110.7 kN/m²; baji tanah menambah 1.35 × 16 × 0.7503 = 16.21 kN/m² di hujung heel dan tiada apa-apa di stem 110.7; + 16.21 kN/m²
+(14.3) Net, ke bawah: 110.7 − 110.43 di stem; 110.7 + 16.21 − 98.14 di hujung 0.27; 28.77 kN/m²
+## Langkah 4 Tip load dan moment heel
+Ref Pengiraan Output
+§6 P_v bertindak di hujung heel: P_{v,d} = 1.35 × 24.65 33.28 kN
+(14.8) M_{Ed} = 0.27 × 2.8²/2 + (28.77 − 0.27) × 2.8²/3 + 33.28 × 2.8 = 1.06 + 74.48 + 93.18 168.7 kN m/m
+(14.8) V_{Ed} = ½ × (0.27 + 28.77) × 2.8 + 33.28 73.9 kN/m
+nota Tanpa P_v, seperti nota: 1.06 + 74.48 75.5 kN m/m
+## Langkah 5 Heel: steel di bahagian atas
+Ref Pengiraan Output
+(14.5) Dengan H12 dalam nota, d = 349 mm: A_s = 168.7 × 10⁶/(0.87 × 500 × 331.6) = 1170 mm²/m; H12 pada 150 memberi 754 ✗
+(14.5) Cuba H16: d = 400 − 45 − 8 = 347 mm; z = 0.95 × 347 = 329.7 mm; A_s = 168.7 × 10⁶/(0.87 × 500 × 329.7) 1176 mm²/m
+H16 pada 150 memberi 1340 mm²/m; H16 pada 125 memberi 1608 mm²/m: kedua-duanya memikul moment
+## Langkah 6 Heel: crack control dan shear
+Ref Pengiraan Output
+(14.9) Nisbah 316.81/427.69 = 0.7407 (tiada variable load). H16 pada 150: σ_s = 434.8 × 0.7407 × 1176/1340 = 282.6 N/mm² 150 − 50 × 2.6/40 = 147 mm < 150 ✗
+(14.9) H16 pada 125: σ_s = 434.8 × 0.7407 × 1176/1608 = 235.5 N/mm² 250 − 50 × 35.5/40 = 206 mm ≥ 125 ✓
+(14.7) k = 1 + √(200/347) = 1.759; ρ_1 = 1608/(1000 × 347) = 0.00463; V_{Rd,c} = 0.12 × 1.759 × (100 × 0.00463 × 30)^{1/3} × 347 176 ≥ 73.9 kN/m ✓
+Sediakan H16 pada 125, bahagian atas 1608 mm²/m ✓
+## Langkah 7 Stem
+Ref Pengiraan Output
+(14.4) Bahagian mendatar tekanan sepanjang h_s = 4.5 m: P_{s,s} = ½ × 0.37295 × 16 × 4.5² × cos 15° 58.36 kN
+(14.4) M_{Ed} = 1.35 × 58.36 × 4.5/3; V_{Ed} = 1.35 × 58.36 118.2 kN m/m; 78.8 kN/m
+(14.5) A_s = 118.2 × 10⁶/(0.87 × 500 × 331.6) = 819 mm²/m; H12 pada 75 dalam nota memberi 1508 ✓
+(14.9) σ_s = 434.8 × 0.7407 × 819/1508 = 174.9 N/mm² 300 − 50 × 14.9/40 = 281 mm ≥ 75 ✓
+nota Nota mengambil gambar rajah sepanjang 5.25 m, tinggi virtual back di atas base: 187.7 kN m/m dan 1301 mm²/m, dan itulah sebabnya nota menyediakan H12 pada 75. Dengan h_s = 4.5 m, H12 pada 125 (905 mm²/m) juga akan lulus
+## Langkah 8 Toe, secondary steel dan lap
+Ref Pengiraan Output
+(14.3), (14.8) Toe: net 115.70 − 13.5 = 102.20 di hujung dan 112.19 − 13.5 = 98.69 di stem; M_{Ed} = 98.69 × 0.8²/2 + 3.51 × 0.8²/3 = 31.58 + 0.75 32.3 kN m/m
+(14.5), (14.6) A_s = 32.3 × 10⁶/(0.87 × 500 × 331.6) = 224 < 526 mm²/m: H12 pada 150, bahagian bawah 754 mm²/m ✓
+§5 Secondary: max(0.25 × 1508, 526) = 526 mm²/m: H12 pada 150 (nota); lap bagi starter bar H12 643 mm 754 mm²/m ✓
+Jawapan. Heel: M_{Ed} = 168.7 kN m/m dengan P_{v,d} = 33.28 kN di hujungnya; H16 pada 125 di bahagian atas (1608 ≥ 1176 mm²/m, jarak crack control 206 mm, shear 73.9 ≤ 176 kN/m). H12 pada 150 dalam nota (754 mm²/m) memikul 64 % daripada steel yang diperlukan, kerana moment heel dalam nota, 75.5 kN m/m, meninggalkan P_v. Stem: 118.2 kN m/m; H12 pada 75 dalam nota lebih daripada mencukupi. Toe: 32.3 kN m/m, minimum steel, H12 pada 150.
+Apa yang nombor ini katakan P_v ialah 24.65 kN, kecil berbanding 317 kN load menegak, dan dalam jadual kestabilan ia hanya membantu. Di hujung cantilever 2.8 m ia memberi 93.2 daripada 168.7 kN m/m pada heel: lebih daripada separuh. Cerun itu menaikkan K_a hanya 12 %, namun komponen menegak yang dihasilkannya melebihi separuh daripada moment heel. Dua pilihan bar memikul moment dan satu gagal semakan crack dengan beza 3 mm: semakan jarak itulah yang membezakan H16 pada 150 daripada H16 pada 125. Pengajarannya ialah soal simpan kira: setiap daya dalam jadual kestabilan mesti muncul pada salah satu bahagian wall, jika tidak wall yang anda reka bentuk bukanlah wall yang anda semak.
+
+[examples-x3] Contoh 3 · Soalan jenis terangkan
+Jenis soalan jawapan bertulis pendek Masa ≈ 3 min setiap satu
+Soalan
+- Tanah menolak seluruh base ke atas. Mengapakah bar utama heel berada di bahagian atas?
+- Bagi kestabilan, gambar rajah tekanan diambil sepanjang 4.9 m; bagi stem ia diambil sepanjang 4.5 m. Mengapakah dua tinggi bagi satu wall?
+- Dalam Worked Example 14.1, heel memerlukan 756 mm²/m dan H12 pada 150 memberi 754. Mengapakah satu milimeter bar tambahan tidak akan menyelesaikannya?
+- Satu wall telah berdiri selama sepuluh tahun dan mula condong selepas musim hujan. Tiada apa-apa ditambah pada backfill. Apakah yang berubah, dan apakah yang anda akan periksa dahulu?
+Tulis empat jawapan anda dahulu, kemudian buka jawapan model satu demi satu.
+## Jawapan 1 Net load menentukan muka
+Slab melentur ke arah ia ditolak, dan yang menolak heel ialah beza antara load di atasnya dengan tekanan di bawahnya. Di atas: berat sendirinya, 4.5 m backfill dan surcharge, 143.9 kN/m² pada nilai design. Di bawah: bearing pressure, 119.1 kN/m² di stem berkurang kepada 88.7 kN/m² di hujung heel. Bezanya ialah 24.8 hingga 55.2 kN/m² ke bawah, jadi heel melendut seperti balkoni dan bahagian atasnya meregang. Toe hampir tiada apa-apa di atasnya, jadi di situ tanah yang menang dan bahagian bawah yang meregang. Lakar net load dahulu; bar akan mengikut.
+## Jawapan 2 Dua soalan, dua free body
+Setiap semakan mempunyai free body sendiri. Bagi kestabilan, jasadnya ialah wall bersama tanah di atas heel-nya, dan thrust bertindak pada belakang jasad itu, iaitu virtual back, hingga bahagian bawah base: 4.9 m. Bagi bending stem, jasadnya ialah stem sahaja, dipotong di bahagian atas base tempat ia terikat, dan hanya tekanan di atas potongan itu yang melenturkannya: 4.5 m. Mengambil 4.5 m bagi kestabilan kehilangan 16 % daripada thrust, di pihak tidak selamat; mengambil 4.9 m bagi stem menambah 26 % kepada moment-nya, di pihak selamat tetapi membazir. Lukis free body, dan tinggi itu bukan lagi sesuatu yang perlu dihafal.
+## Jawapan 3 Kekuatan bukan satu-satunya had
+Kerana luas bukan satu-satunya masalah bagi H12 pada 150. Bar yang hanya cukup-cukup memenuhi moment bekerja pada design stress penuhnya, dan di bawah quasi-permanent load pada kira-kira 0.694 × 435 = 302 N/mm². Pada stress itu, Table 7.3N membenarkan jarak 122 mm, sedangkan bar berada pada 150 mm: crack akan terlalu lebar bagi wall yang menahan tanah lembap. Merapatkan bar kepada 125 mm menyelesaikan kedua-duanya: 905 mm²/m ialah 20 % lebih daripada yang diperlukan, stress service turun kepada 252 N/mm², dan jarak yang dibenarkan naik kepada 185 mm. Dalam wall dan slab, peraturan jarak sering menentukan bar sebelum kekuatan.
+## Jawapan 4 Air
+Air. Wall direka bentuk bagi backfill yang bersaliran; jika weep hole atau saliran di belakang stem tersumbat, air bertakung di belakang wall selepas hujan. Di bawah water table, tanah menolak dengan kurang (berat tenggelamnya), tetapi air menolak dengan seluruh beratnya, dan K_a tidak mengurangkannya: setiap meter kedalaman menambah 12.6 kN/m² dan bukannya 5.1. Bagi wall dalam Unit ini, water table 1.5 m di bawah permukaan menaikkan thrust daripada 61.8 kepada 104.7 kN/m, mengangkat base dengan 56.7 kN, dan menukar semakan sliding yang mempunyai lebihan 25 % kepada semakan yang gagal sebanyak 55 %. Periksa saliran dahulu: adakah weep hole mengalir, adakah kesan lembap atau takungan di belakang wall? Kemudian pangkal stem di muka tanah, tempat moment yang lebih besar akan meretakkannya.
+
+[exercises-b1] Latihan B1 · Stem: thrust, moment dan shear
+Soalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-b2] Latihan B2 · Design pressure di bawah base
+Soalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-b3] Latihan B3 · Toe
+Soalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-b4] Latihan B4 · Heel
+Soalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-b5] Latihan B5 · Steel dan crack control
+Soalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-b6] Latihan B6 · Backfill bercerun dan hujung heel
+Soalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-quick] Latihan: soalan konsep pantas
+- Dalam cantilever wall dengan backfill yang rata, bar utama toe, heel dan stem diletakkan, mengikut urutan itu, di
+- Bagi bending stem, gambar rajah tekanan diambil dari permukaan backfill hingga
+- Dalam design bahagian-bahagian wall (STR), thrust tanah, thrust surcharge dan berat surcharge di atas heel menerima faktor
+- Setiap bar stem kedua boleh dihentikan pada separuh tinggi kerana bending moment di situ, berbanding moment di pangkal, ialah lebih kurang
+- Key yang dituang di bawah base wall menentang sliding melalui
+- Saliran di belakang wall tersumbat dan water table naik dalam backfill. Thrust pada wall
+- Heel satu wall sepanjang 2.4 m di atas base selebar 3.6 m dan setebal 0.4 m. Design pressure di bawah base ialah 140 kN/m² di toe dan 80 kN/m² di hujung heel; stem setinggi 4.0 m, γ = 18 kN/m³, surcharge 10 kN/m²; d = 349 mm. Satu baris mengandungi kesilapan. Yang mana?
+- Satu wall dengan heel 2.8 m di atas base selebar 4.0 m menahan backfill bercerun 15° (φ = 30°, γ = 16 kN/m³); virtual back setinggi 5.65 m dan K_a = 0.373. Satu baris mengandungi kesilapan. Yang mana?
+
+[lab-faces] Tugasan Explorer 1 · Tab 4, Aktiviti 14A: lakar cara stem, toe dan heel melentur (Workbook 14.2), pilih tension face setiap satu, kemudian dedahkan.
+Ditanda sendiri: apabila tiga muka dipilih dan didedahkan · tidak ditanda? tanda selesai
+(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)
+
+[lab-bars] Tugasan Explorer 2 · Tab 4, kes WE 14.1 dengan bar dalam nota: heel gagal. Ubah bar sehingga stem, toe dan heel lulus setiap semakan. Semakan manakah yang terakhir lulus?
+Ditanda sendiri: apabila setiap semakan bahagian bagi wall WE 14.1 lulus selepas anda mengubah bar · tidak ditanda? tanda selesai
+(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)
+
+[lab-slope] Tugasan Explorer 3 · Tab 4, kes FE 14.2: wall dalam nota dengan backfill pada 15°. Kira P_v di hujung heel, perhatikan moment heel, dan ubah bar heel sehingga lulus.
+Ditanda sendiri: apabila wall bercerun lulus setiap semakan bahagian dengan P_v dikira pada heel · tidak ditanda? tanda selesai
+(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)
+
+[lab-water] Tugasan Explorer 4 · Tab 5, Aktiviti 14B: saliran tersumbat. Ramal apa yang berlaku kepada thrust, kemudian dedahkan dan gerakkan water table.
+Ditanda sendiri: apabila ramalan anda didedahkan · tidak ditanda? tanda selesai
+(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)
+
+[lab-key] Tugasan Explorer 5 · Tab 5: beri wall dalam nota, yang menggelongsor dalam Combination 2, satu key. Cari kedalaman yang lulus sambil menggunakan tidak lebih daripada separuh passive resistance.
+Ditanda sendiri: apabila sliding lulus dalam kedua-dua combination dengan paling banyak 50 % passive resistance key · tidak ditanda? tanda selesai
+(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)
+
+[lab-s14] Tugasan Explorer 6 · Tab 3: Retaining Wall S14, cari keempat-empat kesilapan, ketik barisnya dan tekan “Semak”.
+Ditanda sendiri: apabila keempat-empat kesilapan S14 ditemui, sebelum Tunjuk · tidak ditanda? tanda selesai
+(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)
+
+[glossary-anchorage-length] Glosari: anchorage length
+anchorage length: Panjang yang diperlukan oleh bar melepasi satu section untuk membina stress-nya melalui bond: l_{b,rqd} = (φ/4)(σ_{sd} /f_{bd} ).
+
+[glossary-a-s-min] Glosari: A_{s,min}
+A_{s,min}: Tension steel paling sedikit dalam satu section: 0.26(f_{ctm} /f_{yk} )bd, tidak kurang daripada 0.0013bd; 0.001506bd bagi C30/37. Ia biasanya menentukan toe yang pendek.
+
+[glossary-cover] Glosari: cover
+cover: Konkrit antara bar dengan muka terdekat: 45 mm dalam contoh, 75 mm apabila konkrit dituang rapat pada tanah, seperti pada key.
+
+[glossary-crack-control] Glosari: crack control
+crack control: Mengekalkan crack width dalam 0.3 mm. Bagi bahagian yang lebih tebal daripada 200 mm, dengan mengehadkan jarak bar kepada Table 7.3N bagi steel stress di bawah quasi-permanent load.
+
+[glossary-critical-section] Glosari: critical section
+critical section: Section tempat cantilever terikat dan moment serta shear-nya paling besar: pangkal stem; muka hadapan stem bagi toe; muka belakang bagi heel.
+
+[glossary-curtailment] Glosari: curtailment
+curtailment: Menghentikan bar di tempat moment tidak lagi memerlukannya. Setiap bar stem kedua boleh berhenti pada separuh tinggi jika bakinya masih memberi A_{s,min} dan bar yang dihentikan mempunyai anchorage.
+
+[glossary-deflected-shape] Glosari: deflected shape
+deflected shape: Deflected shape sesuatu bahagian di bawah load-nya, dibesar-besarkan. Tension face ialah bahagian luar lengkung; lakar ia sebelum meletakkan bar.
+
+[glossary-design-pressure-q-d] Glosari: design pressure, q_d
+design pressure, q_d: Bearing pressure di bawah combination STR: q_d = N_d /B ± 6N_d e_d /B². Ia membebani toe dan meringankan heel.
+
+[glossary-distribution-steel] Glosari: distribution steel
+distribution steel: Lihat secondary steel.
+
+[glossary-drainage] Glosari: drainage
+drainage: Lapisan bebas salir di belakang stem dan weep hole yang menembusinya, yang menghalang air daripada bertakung dalam backfill. Sebahagian daripada design.
+
+[glossary-effective-depth-d] Glosari: effective depth, d
+effective depth, d: Dari compression face ke pusat tension bar: ketebalan − cover − φ/2; 349 mm bagi slab 400 mm dengan bar H12 dan cover 45 mm.
+
+[glossary-heel-beam] Glosari: heel beam
+heel beam: Nama yang digunakan oleh Mosley bagi key di bawah base. Lihat key.
+
+[glossary-k] Glosari: K
+K: Moment ternormal M_{Ed} /(bd²f_{ck} ); di bawah 0.167 section adalah singly reinforced. Dalam wall ia kecil (0.01 hingga 0.05), jadi z = 0.95d.
+
+[glossary-key] Glosari: key
+key: Unjuran ke bawah yang dituang di bawah base. Tanah di hadapannya menentang sliding secara pasif: H_p = ½K_p γa_k ², sepanjang kedalamannya di bawah base sahaja.
+
+[glossary-k-p] Glosari: K_p
+K_p: Pekali passive pressure Rankine, (1 + sin φ)/(1 − sin φ) = 1/K_a ; 3.69 bagi φ = 35°.
+
+[glossary-lap-length-l-0] Glosari: lap length, l_0
+lap length, l_0: Pertindihan dua bar yang memindahkan daya daripada satu kepada yang lain: l_0 = α_6 l_{b,rqd} , dengan α_6 = 1.5 apabila semua bar di-lap pada satu section; kira-kira 54φ dalam C30/37.
+
+[glossary-lever-arm-z] Glosari: lever arm, z
+lever arm, z: Jarak antara tension steel dengan pusat compression: z = d[0.5 + √(0.25 − K/1.134)], tidak melebihi 0.95d.
+
+[glossary-net-load] Glosari: net load
+net load: Baki pada toe atau heel apabila tekanan dari bawah dibandingkan dengan load dari atas. Ke atas pada toe, ke bawah pada heel.
+
+[glossary-passive-pressure] Glosari: passive pressure
+passive pressure: Tekanan sisi terbesar yang boleh diberikan oleh tanah apabila ia ditolak: K_p γz. Ia memerlukan pergerakan untuk terhasil, jadi sesuatu design tidak wajar bergantung pada kesemuanya.
+
+[glossary-p-h-p-v] Glosari: P_h , P_v
+P_h , P_v: Komponen mendatar dan menegak bagi thrust backfill bercerun: P cos θ pada H/3 dan P sin θ di hujung heel.
+
+[glossary-quasi-permanent-load] Glosari: quasi-permanent load
+quasi-permanent load: Load yang bertindak pada kebanyakan masa: permanent action ditambah ψ_2 = 0.3 daripada surcharge. Crack control menggunakan steel stress di bawahnya.
+
+[glossary-secondary-steel] Glosari: secondary steel
+secondary steel: Bar yang bersudut tepat dengan bar utama, sepanjang wall: sekurang-kurangnya 25 % daripada steel menegak stem dan tidak kurang daripada A_{s,min} . Juga dipanggil distribution steel.
+
+[glossary-sloping-backfill] Glosari: sloping backfill
+sloping backfill: Backfill yang permukaannya naik di belakang wall pada θ. K_a lebih besar, thrust bertindak selari dengan permukaan, dan virtual back lebih tinggi sebanyak a_2 tan θ.
+
+[glossary-starter-bars] Glosari: starter bars
+starter bars: Bar yang dituang ke dalam base dan menonjol keluar daripadanya, yang di-lap dengan bar stem selepas base dikonkrit.
+
+[glossary-str] Glosari: STR
+STR: Limit state kekuatan struktur, digunakan bagi bahagian-bahagian wall: 1.35 pada permanent action, 1.5 pada variable action.
+
+[glossary-submerged-unit-weight] Glosari: submerged unit weight, γ′
+submerged unit weight, γ′: γ_{sat} − γ_w : berat yang digunakan oleh tanah di bawah water table untuk menekan dirinya sendiri; 10.19 kN/m³ bagi γ_{sat} = 20 kN/m³.
+
+[glossary-table-7-3n] Glosari: Table 7.3N
+Table 7.3N: Jadual EC2 yang memberi jarak bar terbesar bagi satu steel stress: 300 mm pada 160 N/mm² hingga 50 mm pada 360 N/mm², bagi crack width 0.3 mm.
+
+[glossary-tension-face] Glosari: tension face
+tension face: Muka sesuatu bahagian yang meregang apabila ia melentur: muka tanah bagi stem, bahagian bawah toe, bahagian atas heel. Bar utama diletakkan di situ.
+
+[glossary-tip-load-p-v-d] Glosari: tip load, P_{v,d}
+tip load, P_{v,d}: 1.35P_v : komponen menegak thrust bercerun, bertindak sebagai line load di hujung cantilever heel.
+
+[glossary-uplift] Glosari: uplift
+uplift: Tekanan air ke atas di bawah base apabila air bertakung dalam backfill; ia mengurangkan load menegak dan dengan itu friction.
+
+[glossary-water-table] Glosari: water table
+water table: Aras yang di bawahnya tanah adalah tepu. Di bawahnya wall memikul tekanan tanah tenggelam dan tekanan air sepenuhnya.
+
+[glossary-wedge] Glosari: wedge
+wedge: Segi tiga tanah yang berada di atas heel melebihi aras bahagian atas stem apabila backfill bercerun: satu berat dalam jadual dan load segi tiga pada heel.
+
+[glossary-weep-hole] Glosari: weep hole
+weep hole: Saliran melalui stem yang mengeluarkan air di belakang wall.

@@ -1,0 +1,335 @@
+{
+ "part": "u1",
+ "title": "Unit 1 Staircases I",
+ "lang": "ms",
+ "blocks": [
+  {
+   "id": "start-outcomes",
+   "text": "[start-outcomes] Selepas bahagian ini, anda sepatutnya boleh\n1. menetapkan rise R, going G dan bilangan riser bagi satu tingkat, dan menyemaknya dengan UBBL By-law 106 dan 108;\n2. menukar ketebalan waist kepada design load per m² on plan;\n3. memodelkan flight, dengan atau tanpa landing, sebagai beam on plan, dan mencari total load F, design moment M dan reaction;\n4. design dan detail waist sebagai one-way slab, dan mencari kesilapan dalam pengiraan orang lain."
+  },
+  {
+   "id": "notes-n1",
+   "text": "[notes-n1] Nota 1. Tangga ialah slab yang mendaki\nDari segi struktur, kebanyakan tangga dalam bangunan ialah slab. Slab condong di bawah anak tangga ialah waist; anak tangga duduk di atasnya sebagai segi tiga konkrit yang menambah berat tetapi hampir tidak menambah kekuatan. Tangga yang span sepanjang panjangnya membawa load dari satu support ke support yang lain seperti one-way slab, jadi design-nya ialah design slab RCD I dengan tiga langkah baharu: geometri, load on plan dan span on plan.\n[Rajah: Bahagian tangga. Waist h diukur tegak lurus dengan soffit; effective span L diukur on plan, dari tengah support A ke tengah support B.]\nTangga yang span sepanjang panjangnya Tangga yang disokong oleh support di kedua-dua hujungnya: beam, dinding atau tepi slab lantai. Ia di-design sebagai one-way slab pada strip selebar 1 m.\n- Waist h diukur tegak lurus dengan soffit, bukan secara menegak.\n- Going G ialah kedalaman mendatar tread, tanpa unjuran nosing.\n- Rise R ialah ketinggian satu anak tangga; riser ialah muka menegak yang membentuknya.\n- Effective span L diukur on plan, dari tengah ke tengah support.\nMinggu ini meliputi flight yang span sepanjang panjangnya, sendirian atau dengan landing di atas atau di bawah. Minggu 2 menambah tangga yang disokong oleh landing-nya, dua flight bersudut tegak, dan tangga yang sisinya terbina dalam dinding, yang masih span sepanjang panjangnya sementara dinding memikul satu jalur di sepanjang setiap sisi.\nIsi penting:\n- Tangga di-design sebagai one-way slab pada strip 1 m.\n- Tiga langkah baharu: geometri, load on plan dan span on plan.\n- h diukur tegak lurus dengan soffit; L on plan, tengah ke tengah.\nSemakan pantas (tidak dimarkah): Waist h bagi tangga diukur\nPilihan: secara menegak, dari soffit ke pangkal anak tangga | tegak lurus dengan soffit | dari nosing ke soffit | secara mendatar, di sepanjang going\nPenjelasan yang dipaparkan selepas menjawab: h ialah ketebalan slab itu sendiri, diukur tegak lurus dengan soffit. Ketebalan menegak lebih besar, y = h/cos θ, dan §3 menggunakannya untuk mencari load."
+  },
+  {
+   "id": "notes-n2",
+   "text": "[notes-n2] Nota 2. Geometri dan by-law\nTiga had daripada Uniform Building By-Laws 1984 (UBBL) dan satu peraturan keselesaan menetapkan geometri sebelum sebarang design struktur bermula.\nPeraturan Had Sumber\nRise R, sama pada setiap anak tangga ≤ 180 mm UBBL By-law 106\nGoing G, sama pada setiap anak tangga ≥ 255 mm UBBL By-law 106\nKedalaman landing ≥ lebar tangga UBBL By-law 106\nRiser dalam satu flight sebelum landing ≤ 16, bangunan selain kediaman UBBL By-law 108\nKeselesaan, 2R + G lebih kurang 600 mm (550 hingga 700) Nota kursus\nKeselesaan bukan undang-undang Keselesaan dan kesahan ialah dua ujian berasingan: tangga boleh lulus satu dan gagal yang lain. Sesetengah nota lama mencetak G ≤ 255 mm; By-law 106 menetapkan had minimum, G ≥ 255 mm.\n[Rajah: Tiga tangga: A dengan R 170 dan G 260, B dengan R 190 dan G 240, C dengan R 175 dan G 250 (mm). Yang mana sah? Semak cepat pertama di bawah bertanya kepada anda.]\nSemakan pantas (tidak dimarkah): Antara tiga tangga dalam rajah, yang manakah sah di bawah UBBL?\nPilihan: A sahaja | A dan C | Ketiga-tiganya | Tiada satu pun\nPenjelasan yang dipaparkan selepas menjawab: A sahaja: R = 170 ≤ 180 dan G = 260 ≥ 255. B gagal kedua-duanya (R = 190 > 180, G = 240 < 255). C selesa, 2R + G = 600 mm, tetapi going 250 mm itu kurang 5 mm daripada 255: keselesaan tidak menjadikan tangga sah.\n## Menetapkan riser bagi satu tingkat\n- Bilangan riser paling sedikit: n ≥ H/180, dibundarkan ke atas.\n- Rise: R = H/n, yang kini ≤ 180 mm.\n- Jika n > 16, bahagikan tangga kepada dua flight dengan landing di antaranya.\n- Pilih G ≥ 255 mm dan semak 2R + G dengan 550 hingga 700 mm.\n- Ingat kosnya pada pelan: setiap riser tambahan menambah satu going kepada panjang tangga.\nSemakan pantas (tidak dimarkah): Sekolah kita mempunyai tingkat setinggi 3.5 m. Berapakah bilangan riser paling sedikit, dan dalam berapa flight?\nPilihan: 19 riser, satu flight | 20 riser, dua flight | 20 riser, satu flight | 18 riser, dua flight\nPenjelasan yang dipaparkan selepas menjawab: n ≥ 3500/180 = 19.4, jadi n = 20, dibundarkan ke atas; R = 3500/20 = 175 mm ≤ 180. Oleh sebab 20 > 16, guna dua flight sebanyak 10 dengan half landing pada 1.75 m. Membundarkan ke bawah kepada 19 memberi R = 184 mm, yang tidak sah. Dengan G = 260 mm, 2R + G = 610 mm.\nIsi penting:\n- R ≤ 180 mm dan G ≥ 255 mm, seragam; paling banyak 16 riser setiap flight; kedalaman landing ≥ lebar tangga.\n- n = H/180 dibundarkan ke atas, bukan ke bawah.\n- 2R + G ≈ 600 mm ialah keselesaan, bukan undang-undang."
+  },
+  {
+   "id": "notes-n3",
+   "text": "[notes-n3] Nota 3. Average thickness dan load on plan\nTangga di-design sebagai beam on plan, jadi waist yang condong dan anak tangganya menjadi satu load per m² luas pelan. Finishes dan imposed load sudah diberi per m² on plan; hanya self-weight flight yang perlu ditukar.\n[Rajah: Section melalui flight (WE 1.1: h = 125, R = 175, G = 260 mm). y ialah ketebalan menegak waist; setiap anak tangga menambah segi tiga dengan purata tinggi R/2; t ialah purata ketebalan menegak.]\nPERSAMAAN (1.1): y = \\frac{h\\sqrt{R^2 + G^2}}{G}\nPERSAMAAN (1.2): t = y + \\frac{R}{2}\nPERSAMAAN (1.3): g_k = 25\\,t + g_{\\mathrm{fin}}\\ \\ \\text{(flight)}, \\qquad g_k = 25\\,h_L + g_{\\mathrm{fin}}\\ \\ \\text{(landing)}\nPERSAMAAN (1.4): n_d = 1.35\\,g_k + 1.5\\,q_k\n- y = h/cos θ, dengan tan θ = R/G: faktor √(R² + G²)/G ialah 1/cos θ.\n- Setiap anak tangga menambah segi tiga di atas going-nya dengan purata tinggi R/2, jadi t = y + R/2.\n- Self-weight on plan ialah 25t kN/m² bagi flight dan 25h_L bagi landing, dengan ketebalan dalam m dan konkrit 25 kN/m³. Landing ialah slab rata, jadi ia menggunakan ketebalannya sendiri.\nContoh kiraan: WE 1.1 y = 125 × √(175² + 260²)/260 = 150.7 mm; t = 150.7 + 87.5 = 238.2 mm; g_k = 25 × 0.2382 + 1.20 = 7.155 kN/m²; n_d = 1.35 × 7.155 + 1.5 × 4.0 = 15.66 kN/m².\nSemakan pantas (tidak dimarkah): Waist h = 150 mm dan going G = 260 mm kekal sama; rise R naik daripada 150 kepada 180 mm, iaitu 20% lebih. Berapa banyakkah self-weight on plan meningkat?\nPilihan: 0%: waist tidak berubah | Lebih kurang 10% | Lebih kurang 20%, sama seperti R | Lebih kurang 40%\nPenjelasan yang dipaparkan selepas menjawab: R = 150: y = 173.2, t = 248.2 mm, 25t = 6.20 kN/m². R = 180: y = 182.4, t = 272.4 mm, 25t = 6.81 kN/m². Kenaikannya +10%: R naik 20%, tetapi sebahagian besar t ialah waist y, yang hanya naik 5%; anak tangga cuma menambah R/2. Explorer tab 2 melukis lengkung ini.\nProfessional Habit 1, gambaran awal Flight sentiasa membawa lebih banyak per m² on plan berbanding landing dengan ketebalan yang sama, kerana t > h. Dalam contoh Unit ini nisbahnya lebih kurang 1.3. Nisbah 1.0 atau kurang bermakna ada kesilapan (§6).\nIsi penting:\n- y = h√(R² + G²)/G dan t = y + R/2.\n- Self-weight on plan: 25t bagi flight, 25h_L bagi landing (kN/m², ketebalan dalam m).\n- n_d = 1.35g_k + 1.5q_k; n_d flight lebih besar daripada n_d landing."
+  },
+  {
+   "id": "notes-n4",
+   "text": "[notes-n4] Nota 4. Tangga sebagai beam on plan\nAmbil strip selebar 1 m dan anggap ia sebagai beam on plan, dari tengah satu support ke tengah support yang lain. Flight dengan landing menjadi beam dengan dua segmen load: n_d flight di sepanjang flight dan n_d landing di sepanjang landing.\n[Rajah: Faded Example 1.2 sebagai beam on plan: 17.69 kN/m di sepanjang flight (2725 mm) dan 13.53 kN/m di sepanjang landing (1600 mm); A continuous, B simple. Kiraan penuh ialah Contoh 2.]\nItem Peraturan kursus\nSpan L Tengah ke tengah support, on plan, dibina daripada segmen: setiap flight atau landing tambah separuh lebar support di hujungnya\nTotal load F F = Σ n_d × panjang segmen, per meter lebar\nDesign moment M FL/10 apabila sekurang-kurangnya satu hujung continuous; FL/8 apabila kedua-dua hujung simply supported\nHogging moment FL/10 yang sama, di atas setiap support continuous\nReaction Statik, termasuk hogging moment di hujung continuous\nFaktor deflection K 1.5 dengan kedua-dua hujung continuous; 1.3 dengan satu hujung continuous (end span); 1.0 dengan kedua-dua hujung simple (EC2 Table 7.4N)\nPERSAMAAN (1.5): L = \\sum_i l_i \\qquad\\qquad F = \\sum_i n_{d,i}\\, l_i\nPERSAMAAN (1.6): M = \\begin{cases} FL/10 & \\text{at least one end continuous} \\\\ FL/8 & \\text{both ends simply supported} \\end{cases}\nPERSAMAAN (1.7): V_A = \\frac{\\sum_i F_i\\,(L - x_i)}{L} + \\frac{M_A - M_B}{L}, \\qquad V_B = F - V_A\nDi sini F_i ialah load pada segmen i, x_i centroid-nya diukur dari A, dan M_A, M_B hogging moment di A dan B, sifar di hujung simple. Oleh itu hujung continuous membawa lebih shear berbanding hujung simple: dalam Faded Example 1.2 hogging moment menambah M_A/L = 30.21/4.325 = 6.98 kN kepada reaction A dan mengurangkan jumlah yang sama daripada reaction B.\nMengapa FL/10 FL/10 ialah kaedah kursus (nota kuliah; Mosley, Bungey dan Hulse, §8.8). Bagi end span ia sedikit konservatif: BS 8110 memberi 0.086FL berhampiran tengah span.\nSemakan pantas (tidak dimarkah): Satu flight bersama landing-nya span dari beam monolitik (A) ke dinding bata (B). Pasangan manakah yang betul?\nPilihan: M = FL/8, K = 1.0 | M = FL/10, K = 1.3 | M = FL/10, K = 1.5 | M = FL/12, K = 1.5\nPenjelasan yang dipaparkan selepas menjawab: Satu hujung continuous memberi M = FL/10 mengikut kaedah kursus, dan faktor end span K = 1.3. C ialah kes dengan kedua-dua hujung continuous (K = 1.5); A menganggap hujung beam sebagai simple; D tiada asas dalam kaedah kursus.\nIsi penting:\n- L diukur on plan, tengah ke tengah support, dibina daripada segmen.\n- M = FL/10 dengan hujung continuous, FL/8 tanpanya; K = 1.5, 1.3 atau 1.0.\n- Hujung continuous membawa lebih shear: V_A termasuk (M_A − M_B)/L."
+  },
+  {
+   "id": "notes-n5",
+   "text": "[notes-n5] Nota 5. Design waist\nSetelah tangga menjadi beam on plan, waist di-design sebagai one-way slab. Design berjalan dalam sebelas langkah; langkah 3, 5 dan 6 baharu bagi tangga, dan langkah 11 menambah detailing khusus tangga.\nLangkah Apa yang anda buat Rujukan\n1 Design life, exposure class, fire resistance EN 1990 Table 2.1; EC2 Table 4.1 (RDF §1, §3, §5)\n2 Bahan: f_{ck}, f_{ctm}, f_{yk} EC2 Table 3.1\n3 Baharu: geometri dan average thickness t UBBL 106, 108; nota\n4 Cover c_{nom} = c_{min} + Δc_{dev}, dan semakan fire EC2 4.4.1; EC2-1-2 Table 5.8\n5 Baharu: action per m² on plan, g_k, q_k, n_d EN 1991-1-1; EN 1990 Eq. 6.10\n6 Baharu: analisis strip 1 m: L, F, M, V Nota; kaedah kursus\n7 Flexure: d, K, z, A_s, A_{s,min}, distribution bar RDF §6; EC2 9.2.1.1, 9.3.1.1\n8 Shear: V_{Rd,c} ≥ V_{Ed} EC2 6.2.2; RDF §7\n9 Deflection: (l/d)_{allow} ≥ L/d, dengan K yang betul EC2 7.4.2; RDF §8\n10 Cracking: peraturan jarak bar, bagi h ≤ 200 mm EC2 7.3.3, 9.3.1.1(3); RDF §9\n11 Detailing: top bar, dan bottom bar di kink Detailing kursus ; EC2 9.3.1.2(2)\nPERSAMAAN (1.8): K = \\frac{M}{b d^2 f_{ck}} \\le K_{bal} = 0.167, \\qquad z = d\\left[0.5 + \\sqrt{0.25 - \\frac{K}{1.134}}\\right] \\le 0.95\\,d\nPERSAMAAN (1.9): A_s = \\frac{M}{0.87\\,f_{yk}\\,z}, \\qquad A_{s,min} = 0.26\\,\\frac{f_{ctm}}{f_{yk}}\\,b d \\ \\ge\\ 0.0013\\,b d\nPERSAMAAN (1.10): V_{Rd,c} = 0.12\\,k\\,(100\\,\\rho_l f_{ck})^{1/3}\\, b d \\ \\ge\\ 0.035\\,k^{3/2} f_{ck}^{1/2}\\, b d, \\qquad k = 1 + \\sqrt{200/d} \\le 2.0\nPERSAMAAN (1.11): \\frac{l}{d} = K\\left[11 + 1.5\\sqrt{f_{ck}}\\,\\frac{\\rho_0}{\\rho} + 3.2\\sqrt{f_{ck}}\\left(\\frac{\\rho_0}{\\rho} - 1\\right)^{3/2}\\right], \\qquad \\rho \\le \\rho_0 = \\sqrt{f_{ck}} \\times 10^{-3}\nPersamaan (1.11) ialah EC2 Eq. 7.16a, digunakan apabila ρ = A_{s,req}/bd tidak melebihi ρ_0, seperti setiap tangga dalam Unit ini. Hasilnya didarab dengan A_{s,prov}/A_{s,req}, paling banyak 1.5, dan dibandingkan dengan L/d sebenar.\n## Apa yang tangga tambah kepada semakan slab\nSemakan Apa yang tangga tambah Rujukan\nShear Hujung continuous membawa lebih shear; ambil ρ_l daripada top bar di situ EC2 6.2.2; RDF §7\nDeflection K = 1.5 dengan kedua-dua hujung continuous, 1.3 dengan satu, 1.0 tanpa hujung continuous; × A_{s,prov}/A_{s,req} ≤ 1.5 EC2 7.4.2, Table 7.4N; RDF §8\nJarak main bar ≤ min(2h, 250) mm di tempat moment paling besar EC2 9.3.1.1(3)\nJarak distribution bar ≤ min(3h, 400) mm di tempat moment paling besar EC2 9.3.1.1(3)\nDistribution steel Sekurang-kurangnya 20% daripada main steel yang disediakan EC2 9.3.1.1(2)\nHad jarak yang digunakan Sesetengah contoh dalam nota menyemak jarak bar dengan had umum, 3h ≤ 400 mm bagi main bar dan 3.5h ≤ 450 mm bagi distribution bar. Di tempat moment paling besar, iaitu tengah span dan di atas support continuous bagi tangga, EC2 mengetatkannya kepada 2h ≤ 250 dan 3h ≤ 400 (RDF §9). Kursus ini dan RC Design app menggunakan had yang lebih ketat; had ini tidak pernah salah.\nSemakan pantas (tidak dimarkah): Satu waist setebal 175 mm. Di tempat moment paling besar, berapakah jarak paling besar yang dibenarkan bagi main bar?\nPilihan: 525 mm (3h) | 400 mm | 350 mm (2h) | 250 mm\nPenjelasan yang dipaparkan selepas menjawab: min(2h, 250) = min(350, 250) = 250 mm (EC2 9.3.1.1(3)). Faded Example 1.2 menggunakan H10-150, jauh di dalam had itu. Had umum 3h ≤ 400 mm terpakai jauh dari moment puncak.\nIsi penting:\n- Langkah 7 hingga 11 ialah design slab RCD I; langkah 3, 5 dan 6 baharu.\n- Shear: hujung continuous yang menentukan. Deflection: K mengikut bilangan hujung continuous.\n- Jarak di tempat M puncak: main ≤ min(2h, 250), distribution ≤ min(3h, 400) mm."
+  },
+  {
+   "id": "notes-n6",
+   "text": "[notes-n6] Nota 6. Detailing, dan kink\nBottom bar membawa span. Top bar membawa hogging moment di atas support continuous, dan support simple tetap diberi sedikit top steel untuk menampung partial fixity yang diberi oleh dinding atau beam dalam amalan.\nBar Peraturan Rujukan\n01 Main bar, bawah Di-design untuk M; jarak ≤ min(2h, 250) mm EC2 9.3.1.1(3)\n02 Top bar, hujung continuous Steel yang sama seperti 01, sepanjang 0.3L dari muka support Detailing kursus\n03 Top bar, hujung simple Sekurang-kurangnya 25% daripada steel span, sepanjang 0.2L dari muka support EC2 9.3.1.2(2)\n04 Distribution bar Sekurang-kurangnya 20% daripada 01; jarak ≤ min(3h, 400) mm EC2 9.3.1.1(2), (3)\n[Rajah: Reinforcement Faded Example 1.2: 01 main bar di sepanjang soffit, 02 top bar sepanjang 0.3L di hujung continuous A, 03 top bar sepanjang 0.2L di dinding B. Detail di kink ditinggalkan untuk semak cepat di bawah.]\nDi tempat flight bertemu landing atas, soffit membelok di sudut dalam (re-entrant corner): kink. Bar dalam tension face tidak boleh mengikut sudut itu begitu sahaja. Tentukan detail yang betul sebelum anda membuka jawapan.\nSemakan pantas (tidak dimarkah): Detail bottom bar yang manakah betul di kink?\nPilihan: Detail A | Detail B\nPenjelasan yang dipaparkan selepas menjawab: Dalam A, bar berada dalam tension pada kedua-dua belah bending. Di sudut dalam, dua tarikan itu bergabung menjadi satu daya yang menghala keluar dari konkrit, jadi bar itu cuba lurus dan memecahkan cover. Dalam B, bar bersilang, dan setiap satu diteruskan ke muka bertentangan lalu di-anchor di situ, dalam compression zone. Peraturan yang sama terpakai di mana-mana tension face yang membelok di sudut dalam, contohnya di tempat stem retaining wall bertemu base-nya (Minggu 14). [Rajah: A, salah: bar tercabut dan cover pecah.] [Rajah: B, betul: bar bersilang; setiap satu di-anchor dalam compression zone.]\n## Professional Habit 1: semak kewajaran load sebelum design\nFlight membawa lebih banyak per m² on plan berbanding landing-nya, kerana average thickness t lebih besar daripada ketebalan landing. Nisbah 1.0 atau kurang bermakna ada kesilapan.\nTangga n_d flight n_d landing Nisbah\nWE 1.1, dengan landing 125 mm sebagai perbandingan 15.66 11.84 1.32\nFaded Example 1.2 17.69 13.53 1.31\nTangga S1 seperti dihantar (Aktiviti 1D) 12.15 12.15 1.00\nDalam S1, satu pandangan ini menangkap slip A, iaitu self-weight yang diambil daripada waist h. Ia tidak dapat menangkap slip B, iaitu 1.35 pada imposed load, yang merendahkan kedua-dua load secara sama; jadi semak juga setiap partial factor baris demi baris.\nIsi penting:\n- Hujung continuous: top bar sama seperti main bar sepanjang 0.3L. Hujung simple: sekurang-kurangnya 25% steel span sepanjang 0.2L.\n- Di kink, bottom bar bersilang; setiap satu di-anchor dalam compression zone.\n- n_d flight ÷ n_d landing mesti melebihi 1; semak juga setiap partial factor."
+  },
+  {
+   "id": "slides-1",
+   "text": "[slides-1] Slide 1: Staircases I\nSEAA 4333 Reinforced Concrete Design II · Week 1 Staircases I Geometry, load on plan, and the stair as a beam Workbook ch. 1 ABCD card Phone or laptop Staircase Lab Scan for this page’s Explorer tab. You will use it in four activities today."
+  },
+  {
+   "id": "slides-2",
+   "text": "[slides-2] Slide 2: Four tools, one routine every week\nHow RCD2 runs Four tools, one routine every week 01 Deck Paces the session. No talk runs past ten minutes. 02 Workbook Your module book. You write in it every class, in exam format. 03 Lab and app Predict, then check. Feedback on every step of your working. 04 Studio Fifteen minutes a week on your own project building. Three habits Cards up when asked Phones for Lab windows only Hand calculation first, app second SEAA 4333 · Unit 1 · Staircases I Workbook, inside cover"
+  },
+  {
+   "id": "slides-3",
+   "text": "[slides-3] Slide 3: Five topics, fourteen Units\nThe semester · 12 Oct 2026 to 24 Jan 2027 Five topics, fourteen Units W1–2 Staircases today W3–6 Frame analysis sub-frames, wind, sway W7, 9–10 Columns short, slender, biaxial W11–13 Foundations pads, straps, pile caps W14–15 Retaining walls Assessment Weight When Test 1 15% Week 9 (7–13 Dec), after the mid-semester break Test 2 15% Week 13 (4–10 Jan) Project (group and individual) 15% Submitted as the brief states; built in studio every week Assignment 5% As announced Final exam 50% 31 Jan to 19 Feb 2027 SEAA 4333 · Un"
+  },
+  {
+   "id": "slides-4",
+   "text": "[slides-4] Slide 4: How the next three hours run\nToday · 180 minutes How the next three hours run 0:00 Welcome How RCD2 runs 0:08 Warm-up RCD I in five votes 0:18 Hook Is this stair legal? 0:22 Anatomy, rules UBBL 106 and 108 0:33 Stair Audit Measure a real stair 0:53 Stair to beam Load on plan, span, M 1:08 Faded example In pairs 1:30 Break 10 minutes 1:40 Checks, detailing And the kink 1:53 Spot the error In teams 2:10 Exam-size problem Alone, 25 minutes 2:35 Studio, exit Your building's stairs No talk longer than ten minutes. Rust times are your turn to work. SEAA"
+  },
+  {
+   "id": "slides-5",
+   "text": "[slides-5] Slide 5: Five questions on slab design, no notes\nWarm-up · RCD I recall · vote with your card Five questions on slab design, no notes W1. A one-way slab has K = M/(bd²fck) = 0.090. Does it need compression steel? A Yes, K > 0.05 · B No, K < Kbal = 0.167 · C Only if fyk = 500 · D Only if h > 200 mm W2. Deflection of a simply supported one-way slab: the structural factor K in Table 7.4N is A 1.0 · B 1.3 · C 1.5 · D 0.4 W3. Distribution (secondary) bars in a one-way slab must be at least A 0.13% of bh · B 20% of the main steel · C 50% of the main steel · D the same as th"
+  },
+  {
+   "id": "slides-6",
+   "text": "[slides-6] Slide 6: Two more\nWarm-up · RCD I recall · vote with your card Two more W4. The design action on a floor carrying gk and qk (EN 1990, Eq. 6.10) is A 1.35gk + 1.5qk · B 1.4gk + 1.6qk · C 1.5gk + 1.35qk · D gk + qk W5. In a slab no deeper than 200 mm, cracking is controlled by A computing the crack width · B the bar spacing rules · C Table 7.2N for every bar · D nothing at all Why this warm-up: a stair waist is a slab. Steps 7 to 11 of today's design are the slab design you did in RCD I. SEAA 4333 · Unit 1 · Staircases I Workbook 1.1"
+  },
+  {
+   "id": "slides-7",
+   "text": "[slides-7] Slide 7: B, A, B, A, B, and what each means for a stair\nWarm-up · answers B, A, B, A, B, and what each means for a stair Q Answer On a stair today W1 B: K < Kbal = 0.167, singly reinforced The waist uses the same K, z and As W2 A: K = 1.0 when simply supported Stairs use 1.0, 1.3 or 1.5 by their continuous ends W3 B: 20% of the main steel Same rule; we take 20% of the steel provided W4 A: 1.35gk + 1.5qk Same factors, with loads per m² on plan W5 B: bar spacing rules Same rules, tighter where the moment is largest SEAA 4333 · Unit 1 · Staircases I Workbook 1.1"
+  },
+  {
+   "id": "slides-8",
+   "text": "[slides-8] Slide 8: Which of these stairs is legal?\nHook · pairs · 4 minutes Which of these stairs is legal? Decide with your neighbour: A, B, C, all of them, or none? Write it down. We check in ten minutes. SEAA 4333 · Unit 1 · Staircases I Workbook 1.2"
+  },
+  {
+   "id": "slides-9",
+   "text": "[slides-9] Slide 9: A stair is a slab that climbs\nBlock A · the method A stair is a slab that climbs Geometry R, G, risers Load on plan waist, t, nd Beam on plan L, F, FL/10 Slab design as in RCD I Detailing top bars, kink By 3:00 you can set R, G and the risers for a storey, and check them against UBBL 106 and 108 turn a waist into a load per m² on plan model a flight, with or without its landing, as a beam on plan, and find F, M and the reactions design and detail the waist, and find the slips in someone else's calculation SEAA 4333 · Unit 1 · Staircases I Workbook 1"
+  },
+  {
+   "id": "slides-10",
+   "text": "[slides-10] Slide 10: The parts of a stair\nBlock A · anatomy The parts of a stair Waist h is measured square to the soffit, not vertically. The span is on plan, centre to centre of the supports. This week: flights that span along their length, with or without landings. SEAA 4333 · Unit 1 · Staircases I Workbook 1.2"
+  },
+  {
+   "id": "slides-11",
+   "text": "[slides-11] Slide 11: Four numbers fix the geometry\nBlock A · the by-laws Four numbers fix the geometry ≤ 180 mm rise R, the same on every step UBBL 106 ≥ 255 mm tread G, the same on every step UBBL 106 ≤ 16 risers in one flight, then a landing UBBL 108 ≈ 600 mm for 2R + G, for comfort (550 to 700) Course notes Hook answer: only A is legal. C is comfortable (2R + G = 600) but its 250 mm tread is short of 255. B fails both the rise and the tread. SEAA 4333 · Unit 1 · Staircases I Workbook 1.2"
+  },
+  {
+   "id": "slides-12",
+   "text": "[slides-12] Slide 12: Our school has a 3.5 m storey. What is the least number of risers, and in how many flights?\nConcept check 1 · think 60 s, then vote Our school has a 3.5 m storey. What is the least number of risers, and in how many flights? A 19 risers, one flight B 20 risers, two flights C 20 risers, one flight D 18 risers, two flights Vote · convince your neighbour · vote again Workbook 1.2"
+  },
+  {
+   "id": "slides-13",
+   "text": "[slides-13] Slide 13: B: 20 risers of 175 mm, in two flights of 10\nConcept check 1 · answer B: 20 risers of 175 mm, in two flights of 10 Step 1 n ≥ 3500/180 = 19.4 so n = 20, rounded up Step 2 R = 3500/20 = 175 mm ≤ 180, so legal Step 3 20 > 16 per flight two flights of 10, half landing at 1.75 m Rounding down to 19 gives R = 184 mm: illegal. With G = 260, 2R + G = 610 mm. This is the stair Lab tab 1 opens with. SEAA 4333 · Unit 1 · Staircases I Workbook 1.2"
+  },
+  {
+   "id": "slides-14",
+   "text": "[slides-14] Slide 14: Stair Audit: is our stair legal?\nActivity 1A · teams of four · 20 minutes Stair Audit: is our stair legal? Walk to the stair your lecturer names. Measure five risers and five goings, and take the averages. Count the risers in one flight. Measure the stair width and the landing depth. Back in your seat: Lab tab 1, Check a measured stair . Record each verdict in Workbook 1.3. The reporter adds your team to the class table and explains any fail. Measurer Recorder Checker Reporter Back in your seats by 0:46 · class table at 0:50 SEAA 4333 · Unit 1 · Stairc"
+  },
+  {
+   "id": "slides-15",
+   "text": "[slides-15] Slide 15: From waist to load on plan\nBlock B · load on plan From waist to load on plan y = h√(R² + G²)/G t = y + R/2 gk = 25t + finishes nd = 1.35gk + 1.5qk Why on plan? The span is measured on plan, and people stand on the treads. WE 1.1: h 125, R 175, G 260 → y 150.7, t 238.2 mm, self-weight 5.95 kN/m². SEAA 4333 · Unit 1 · Staircases I Workbook 1.4"
+  },
+  {
+   "id": "slides-16",
+   "text": "[slides-16] Slide 16: Same waist (150 mm) and going (260 mm). R rises from 150 to 180 mm. How much does the self-weight on plan rise?\nActivity 1B · Concept check 2 · predict, then reveal · pairs · 5 min Same waist (150 mm) and going (260 mm). R rises from 150 to 180 mm. How much does the self-weight on plan rise? A 0%: the waist did not change B About 10% C About 20%, like R D About 40% Vote in Workbook 1.4 · then reveal in Lab tab 2 Workbook 1.4"
+  },
+  {
+   "id": "slides-17",
+   "text": "[slides-17] Slide 17: B: about 10%, from 6.20 to 6.81 kN/m²\nActivity 1B · answer B: about 10%, from 6.20 to 6.81 kN/m² R (mm) y (mm) R/2 (mm) t (mm) 25t (kN/m²) 150 173.2 75 248.2 6.20 180 182.4 90 272.4 6.81 change +5% +20% +10% +10% R rose 20%, but most of t is the waist y, and y grew only 5%. The steps add R/2. SEAA 4333 · Unit 1 · Staircases I Workbook 1.4"
+  },
+  {
+   "id": "slides-18",
+   "text": "[slides-18] Slide 18: Model the stair as a beam on plan\nBlock B · from stair to beam Model the stair as a beam on plan Span L: centre to centre of the supports, on plan. F = Σ nd × length , per metre width: the flight part and the landing part. M = FL/10 with at least one continuous end; FL/8 when both ends are simply supported. Deflection K (Table 7.4N): 1.5 both ends continuous, 1.3 one end, 1.0 neither. SEAA 4333 · Unit 1 · Staircases I Workbook 1.4"
+  },
+  {
+   "id": "slides-19",
+   "text": "[slides-19] Slide 19: Flight 1 of our 3.5 m storey, between two beams\nBlock B · Worked Example 1.1 · I do Flight 1 of our 3.5 m storey, between two beams R 175 · G 260 mm 10 × 260 = 2600 mm between beam faces Beams 250 mm wide, both continuous Waist 125 mm; cover 25; H10 gk 1.2 finishes; qk 4.0 kN/m² C25/30; fyk 500 Calculation Output y = 125√(175² + 260²)/260 150.7 mm t = 150.7 + 175/2 238.2 mm gk = 25 × 0.2382 + 1.2 7.15 kN/m² nd = 1.35 × 7.15 + 1.5 × 4.0 15.66 kN/m² L = 2600 + 250/2 + 250/2 2850 mm F = 15.66 × 2.85 44.6 kN M = FL/10 = 44.6 × 2.85/10 12.7 kNm RCD I slab design, d = 95 m"
+  },
+  {
+   "id": "slides-20",
+   "text": "[slides-20] Slide 20: Eleven steps; three are new\nBlock B · the design procedure Eleven steps; three are new 1 Design life, exposure, fire 7 Flexure: K, z, As (RDF §6) 2 Materials 8 Shear (RDF §7) 3 Waist h, then average thickness t 9 Deflection, K by the ends (RDF §8) 4 Cover: durability, fire, bond 10 Cracking: bar spacing (RDF §9) 5 Actions per m² on plan 11 Detailing: top bars, the kink 6 Span, F, M = FL/10, reactions Dark rows are new for stairs. Steps 7 to 11 are RCD I slab design, with the stair's own d, K and spacing limits. SEAA 4333 · Unit 1 · Staircases I Wo"
+  },
+  {
+   "id": "slides-21",
+   "text": "[slides-21] Slide 21: Faded Example 1.2\nActivity 1C · pairs · 22 minutes Faded Example 1.2 R 175, G 260; waist and landing 175 mm A: beam 250, continuous · B: wall 200, simple gk 1.2 finishes, qk 4.0 kN/m²; C25/30; H10 Fill the blank lines in Workbook 1.6 by hand. Then pick FE 1.2 in Lab tab 3 and check L, F, M and the reactions. Check at 1:25 · answers at 1:27 SEAA 4333 · Unit 1 · Staircases I Workbook 1.6"
+  },
+  {
+   "id": "slides-22",
+   "text": "[slides-22] Slide 22: Check: L = 4325 mm, M = 30.2 kNm\nActivity 1C · answers Check: L = 4325 mm, M = 30.2 kNm t 298.4 mm nd flight 17.69 kN/m² nd landing 13.53 kN/m² L = 2725 + 1600 4325 mm F 69.9 kN M = FL/10 30.2 kNm VA, continuous end 44.0 kN VB, wall 25.8 kN Main steel, d = 145 mm As 506 → H10-150 (524) Deflection, K = 1.3 35.4 allowed ≥ 29.8 actual SEAA 4333 · Unit 1 · Staircases I Workbook 1.6"
+  },
+  {
+   "id": "slides-23",
+   "text": "[slides-23] Slide 23: Break\n1:30 Break 10 minutes. Back at 1:40. Next: the checks stairs get wrong, and a calculation with four slips in it."
+  },
+  {
+   "id": "slides-24",
+   "text": "[slides-24] Slide 24: What a stair adds to the slab checks\nBlock C · checks and detailing What a stair adds to the slab checks Shear: the continuous end carries more; take ρl from the top bars there. Deflection: K = 1.5, 1.3 or 1.0 by the continuous ends. Spacing where M peaks: main ≤ 2h and 250; distribution ≤ 3h and 400 mm. Distribution steel: at least 20% of the main steel provided. Top bars: 0.3L at a continuous end; at least 25% of the span steel over 0.2L at a simple end. SEAA 4333 · Unit 1 · Staircases I Workbook 1.7"
+  },
+  {
+   "id": "slides-25",
+   "text": "[slides-25] Slide 25: A flight with its landing spans from a monolithic beam (A) to a brick wall (B). Which pair is right?\nConcept check 3 · think 60 s, then vote A flight with its landing spans from a monolithic beam (A) to a brick wall (B). Which pair is right? A M = FL/8 and K = 1.0 B M = FL/10 and K = 1.3 C M = FL/10 and K = 1.5 D M = FL/12 and K = 1.5 Vote · convince your neighbour · vote again Workbook 1.7"
+  },
+  {
+   "id": "slides-26",
+   "text": "[slides-26] Slide 26: The flight meets its top landing. Which bottom-bar detail is right at the kink?\nConcept check 4 · think 60 s, then vote The flight meets its top landing. Which bottom-bar detail is right at the kink? A B Vote · convince your neighbour · vote again Workbook 1.7"
+  },
+  {
+   "id": "slides-27",
+   "text": "[slides-27] Slide 27: B and B\nConcept checks 3 and 4 · answers B and B CC3 · B One continuous end: M = FL/10, and the end-span factor K = 1.3. Both ends continuous would give K = 1.5; neither, FL/8 and K = 1.0. A, wrong: the bar straightens and spalls the corner. B, right: the bars cross and anchor in the compression zone. SEAA 4333 · Unit 1 · Staircases I Workbook 1.7"
+  },
+  {
+   "id": "slides-28",
+   "text": "[slides-28] Slide 28: Stair S1 has four slips. Find them.\nActivity 1D · teams of four · 17 minutes Stair S1 has four slips. Find them. Workbook 1.8 holds the submitted calculation: fifteen lines in Ref / Calculations / Output. Alone, 5 min: mark every line you doubt. Team, 8 min: agree on four, with a one-line reason each. Lab tab 5: tap your lines, press Check. Roles: reader, calculator, checker, reporter SEAA 4333 · Unit 1 · Staircases I Workbook 1.8"
+  },
+  {
+   "id": "slides-29",
+   "text": "[slides-29] Slide 29: Four small slips, one unsafe stair\nActivity 1D · answers Four small slips, one unsafe stair Slip Line What went wrong Correct A 4 Self-weight from the waist h From t: 25 × 0.274 = 6.85 kN/m² B 6, 7 1.35 on the imposed load 1.5: nd = 16.60 and 12.75 kN/m² C 8 Clear span, 3830 mm Centre to centre: 4030 mm D 13 K = 1.5 with one continuous end K = 1.3 (end span) Result: M = 17.8 kNm instead of 24.6. H10-225 gives 349 mm²/m where 461 is needed: 24% short . Correct design: H10-150. SEAA 4333 · Unit 1 · Staircases I Workbook 1.8"
+  },
+  {
+   "id": "slides-30",
+   "text": "[slides-30] Slide 30: D1: a flight with a bottom landing\nBlock D · exam-size problem · alone · 25 minutes D1: a flight with a bottom landing A: 200 mm wall, simply supported. B: 300 mm beam, continuous. Waist and landing 150 mm. Finishes 1.5, imposed 4.0 kN/m². C30/37, fyk 500, cover 25 mm, H10. Part Marks (a) Average thickness and design loads 6 (b) Span and design moment 4 (c) Main and distribution bars 8 (d) Deflection check, after class 7 Ref / Calculations / Output. No Lab, no app. SEAA 4333 · Unit 1 · Staircases I Workbook 1.9"
+  },
+  {
+   "id": "slides-31",
+   "text": "[slides-31] Slide 31: Propose the stairs for your building\nProject studio · project groups · 17 minutes Propose the stairs for your building Take each storey height from your brief (in 2024/25: 3.5 m, then 3.0 m). Choose n, R and G. Check UBBL 106 and 108 and 2R + G in Lab tab 1. Choose the arrangement: flights between beams, or a flight with its landing. Take a first waist of span/25 to span/30, using Lab tab 3 for the span. Log it in Workbook 1.10, with a sketch of the plan. Deliverable today One line per storey: n × R, G, flights, waist, arrangement. It starts your group's s"
+  },
+  {
+   "id": "slides-32",
+   "text": "[slides-32] Slide 32: Sanity-check the load before you design\nClose · 2:52 · Professional Habit 1 Sanity-check the load before you design Stair nd flight nd landing Ratio WE 1.1 15.66 11.84 1.32 FE 1.2 17.69 13.53 1.31 S1 as submitted 12.15 12.15 1.00 A flight carries more per m² on plan than its landing. A ratio of 1.0 or less means a slip. In S1 it catches slip A; slip B lowers both loads alike, so check the partial factors too. SEAA 4333 · Unit 1 · Staircases I Workbook 1.11"
+  },
+  {
+   "id": "slides-33",
+   "text": "[slides-33] Slide 33: Before Week 2\nAfter class Before Week 2 Finish D1 part (d), then self-mark all of D1 with the answer scheme. Explore RC Design app, Staircase tab: Ex 8.1(a) and 8.1(b), step by step. Read The staircase chapter of Yassin and Abdullah (2022), Examples 8.1 to 8.3. Bring Workbook chapter 1 and your ABCD card. Week 2: stairs supported by landings, two flights at right angles, and stairs with their sides built into walls. SEAA 4333 · Unit 1 · Staircases I Workbook 1.11"
+  },
+  {
+   "id": "slides-34",
+   "text": "[slides-34] Slide 34: Before you leave\nExit ticket · 5 minutes · Workbook 1.11 Before you leave 1 A stair has R = 175 mm and G = 250 mm. Is it legal under By-law 106? Why? 2 Waist h = 150 mm, R = 175 mm, G = 260 mm. Find the average thickness t. 3 What is still unclear for you today? Tear off the slip and hand it in at the door. Next week: stairs on landings. SEAA 4333 · Unit 1 · Staircases I"
+  },
+  {
+   "id": "examples-x1",
+   "text": "[examples-x1] Contoh 1 · Worked Example 1.1: flight di antara dua beam\nJenis soalan design dan detail waist Workbook 1.5 Masa ≈ 30 min\nSoalan Flight 1 bagi tingkat 3.5 m dalam Concept check 1 mempunyai R = 175 mm dan G = 260 mm, dengan 10 going (2600 mm) di antara muka dua beam selebar 250 mm, A dan B, kedua-duanya monolitik dan continuous. Waist h = 125 mm; finishes 1.2 kN/m² dan imposed 4.0 kN/m², kedua-duanya on plan; C25/30, f_{yk} = 500 N/mm², cover 25 mm, main bar H10; konkrit 25 kN/m³. Design dan detail waist itu. Andaian (data hanya memberi cover): design life 50 tahun, exposure XC1, fire resistance REI 60.\n[Rajah: Worked Example 1.1: 10 riser setinggi 175 mm dan 10 going sepanjang 260 mm di antara dua beam 250 mm.]\nGambaran fizikal. Flight lurus di antara dua beam monolitik. Kedua-dua hujung continuous, jadi strip itu ialah interior span (K = 1.5), dan moment ialah FL/10 di tengah span dan di atas setiap beam.\nPelan. Langkah 1, 2 dan 4 seperti mana-mana slab; langkah 3 menukar waist kepada t; langkah 5 memberi n_d on plan; langkah 6 ialah beam on plan; langkah 7 hingga 11 ialah design slab.\n## Langkah 1 Design life, exposure, fire\nRef Pengiraan Output\nEN 1990 Table 2.1 (RDF §1) Struktur bangunan, kategori 4 50 tahun\nEC2 Table 4.1 (RDF §5) Di dalam bangunan, kelembapan udara rendah XC1\nUBBL (RDF §3) Diandaikan bagi contoh ini REI 60\n## Langkah 2 Bahan\nRef Pengiraan Output\nEC2 Table 3.1 f_{ck} = 25 N/mm², f_{ctm} = 2.56 N/mm²; f_{yk} = 500 N/mm² C25/30, bar H\n## Langkah 3 Geometri dan average thickness (baharu bagi tangga)\nRef Pengiraan Output\nUBBL 106, 108 R = 175 ≤ 180; G = 260 ≥ 255; 10 riser ≤ 16; 2R + G = 610 mm Geometri OK\nNota y = h√(R² + G²)/G = 125 × √(175² + 260²)/260 = 125 × 313.4/260 y = 150.7 mm\nNota t = y + R/2 = 150.7 + 175/2 t = 238.2 mm\n## Langkah 4 Cover\nRef Pengiraan Output\nEC2 4.4.1.2 (RDF §5) c_{min,b} = 10 mm (saiz bar); c_{min,dur} = 15 mm (XC1, kelas S4); c_{min} = 15 mm\nEC2 4.4.1.3 c_{nom} = c_{min} + Δc_{dev} = 15 + 10 c_{nom} = 25 mm\nEC2-1-2 Table 5.8 (RDF §5) REI 60, one-way slab: h ≥ 80 mm, a ≥ 20 mm. Di sini h = 125 mm, a = 25 + 10/2 = 30 mm Fire OK\n## Langkah 5 Action per m² on plan (baharu bagi tangga)\nRef Pengiraan Output\nEN 1991-1-1 Self-weight 25 × 0.2382 = 5.955; finishes 1.20 g_k = 7.155 kN/m²\nDiberi Imposed q_k = 4.00 kN/m²\nEN 1990 Eq. 6.10 n_d = 1.35 × 7.155 + 1.5 × 4.00 n_d = 15.66 kN/m²\n## Langkah 6 Analisis strip 1 m (baharu bagi tangga)\nRef Pengiraan Output\nNota L = 250/2 + 2600 + 250/2, tengah ke tengah beam L = 2850 mm\nF = n_d × L = 15.66 × 2.85 F = 44.63 kN\nKaedah kursus Kedua-dua hujung continuous: M = FL/10 = 44.63 × 2.85/10 M = 12.72 kNm\nStatik Simetri, M_A = M_B: V_A = V_B = F/2 V = 22.3 kN\n[Rajah: Flight sebagai beam on plan: 15.66 kN/m sepanjang 2850 mm, kedua-dua hujung continuous.]\n## Langkah 7 Flexure\nRef Pengiraan Output\nd = h − c − φ/2 = 125 − 25 − 10/2 d = 95 mm\nRDF §6 K = M/(bd²f_{ck}) = 12.72 × 10⁶/(1000 × 95² × 25) = 0.056 < K_{bal} = 0.167 Tiada compression steel\nRDF §6 z = d[0.5 + √(0.25 − K/1.134)] = 0.9475d ≤ 0.95d z = 90.0 mm\nRDF §6 A_s = M/(0.87f_{yk}z) = 12.72 × 10⁶/(0.87 × 500 × 90.0) A_{s,req} = 325 mm²/m\nEC2 9.2.1.1 A_{s,min} = 0.26(f_{ctm}/f_{yk})bd = 0.26 × 2.56/500 × 1000 × 95 = 126, dan ≥ 0.0013bd = 124 Tidak menentukan\nMain bar H10-225 (349 mm²/m)\nEC2 9.3.1.1(2) Distribution ≥ 0.2 × 349 = 70 mm²/m H8-300 (168 mm²/m)\n## Langkah 8 Shear\nRef Pengiraan Output\nRDF §7 V_{Ed} = 22.3 kN; k = 1 + √(200/95) = 2.45 > 2.0, jadi k = 2.0; ρ_l = 349/(1000 × 95) = 0.00367\nEC2 6.2.2 V_{Rd,c} = 0.12 × 2.0 × (100 × 0.00367 × 25)^{1/3} × 1000 × 95 = 47.7 kN; minimum 0.035k^{1.5}f_{ck}^{0.5}bd = 47.0 kN 47.7 ≥ 22.3 kN, OK\n## Langkah 9 Deflection\nRef Pengiraan Output\nRDF §8 ρ = A_{s,req}/bd = 325/(1000 × 95) = 0.00342 < ρ_0 = √25 × 10⁻³ = 0.0050, jadi Eq. 7.16a\nEC2 Table 7.4N Kedua-dua hujung continuous: interior span K = 1.5\nRDF §8 (l/d)_{basic} = 1.5 × (11 + 10.96 + 5.02) = 1.5 × 27.0 40.5\nRDF §8 Span ≤ 7 m: × 1.0. A_{s,prov}/A_{s,req} = 349/325 = 1.074 ≤ 1.5: (l/d)_{allow} = 40.5 × 1.074 (l/d)_{allow} = 43.5\n(l/d)_{actual} = L/d = 2850/95 = 30.0 ≤ 43.5 Deflection OK\n## Langkah 10 Cracking\nRef Pengiraan Output\nEC2 7.3.3 (RDF §9) h = 125 ≤ 200 mm: peraturan jarak bar EC2 9.3 sudah memadai\nEC2 9.3.1.1(3) Main 225 ≤ min(2h, 250) = 250 mm; distribution 300 ≤ min(3h, 400) = 375 mm Cracking OK\n## Langkah 11 Detailing\nRef Pengiraan Output\nDetailing kursus Top bar di A dan B, kedua-duanya continuous: sama seperti main bar, sepanjang 0.3L = 0.3 × 2850 = 855 mm dari muka setiap beam H10-225 atas, 855 mm\n[Rajah: 01 main bar H10-225 di sepanjang soffit, 02 top bar H10-225 sepanjang 855 mm di setiap beam, distribution bar H8-300.]\nJawapan. Waist 125 mm: main bar H10-225 (349 mm²/m), distribution bar H8-300, top bar H10-225 sepanjang 855 mm dari muka setiap beam. Shear, deflection dan cracking lulus.\nApa yang nombor ini katakan Shear jauh daripada kritikal di sini (47.7 berbanding 22.3 kN). Deflection juga masih ada ruang: 30.0 berbanding 43.5. Waist awal span/25 hingga span/30 ialah 95 hingga 114 mm; 125 mm yang dipilih memberi margin, dan Explorer tab 2 menunjukkan kesan waist yang lebih nipis kepada load."
+  },
+  {
+   "id": "examples-x2",
+   "text": "[examples-x2] Contoh 2 · Faded Example 1.2: flight dengan landing atas\nJenis soalan dua segmen load, dua jenis hujung Workbook 1.6 Masa ≈ 35 min\nSoalan Tangga Contoh 1 kini berakhir pada landing 1500 mm yang disokong oleh dinding. R = 175 mm, G = 260 mm, flight 10 × 260 = 2600 mm on plan; waist dan landing kedua-duanya setebal 175 mm. A: beam selebar 250 mm, monolitik dan continuous. B: dinding bata selebar 200 mm, simply supported. Finishes 1.2 kN/m², imposed 4.0 kN/m²; C25/30, f_{yk} = 500 N/mm², cover 25 mm, H10. Langkah 1, 2 dan 4 sama seperti Contoh 1. Design dan detail tangga itu.\n[Rajah: Faded Example 1.2: beam di A, flight, landing atas 1500 mm dan dinding di B.]\nGambaran fizikal. Kini kedua-dua hujung berbeza: A continuous dengan beam, B terletak di atas dinding. Satu hujung continuous memberi M = FL/10 dan K = 1.3; hogging moment di A menjadikan reaction A lebih besar.\n## Langkah 3 Average thickness\nRef Pengiraan Output\nNota y = 175 × √(175² + 260²)/260 = 175 × 313.4/260 y = 210.9 mm\nNota t = y + R/2 = 210.9 + 87.5 t = 298.4 mm\n## Langkah 5 Action per m² on plan\nRef Pengiraan Output\nFlight Self-weight 25 × 0.2984 = 7.46; g_k = 7.46 + 1.20 = 8.66; n_d = 1.35 × 8.66 + 1.5 × 4.0 n_d = 17.69 kN/m²\nLanding Self-weight 25 × 0.175 = 4.375; g_k = 4.375 + 1.20 = 5.575; n_d = 1.35 × 5.575 + 1.5 × 4.0 n_d = 13.53 kN/m²\nHabit 1 Nisbah 17.69/13.53 = 1.31 > 1 Load munasabah\n## Langkah 6 Analisis strip 1 m\nRef Pengiraan Output\nNota L_1 = 2600 + 250/2 = 2725 mm; L_2 = 1500 + 200/2 = 1600 mm L = 4325 mm\nF = 17.69 × 2.725 + 13.53 × 1.600 = 48.205 + 21.648 F = 69.85 kN\nKaedah kursus Satu hujung continuous, jadi M = FL/10 = 69.85 × 4.325/10 M = 30.21 kNm\nStatik Centroid dari A: x_1 = 2.725/2 = 1.3625 m, x_2 = 2.725 + 1.600/2 = 3.525 m. ΣF_i(L − x_i) = 48.205 × 2.9625 + 21.648 × 0.800 = 160.13 kNm; M_A = 30.21 kNm, M_B = 0. V_A = (160.13 + 30.21)/4.325 V_A = 44.01 kN\nStatik V_B = F − V_A = 69.85 − 44.01 V_B = 25.84 kN\n[Rajah: Dua segmen load pada satu beam; reaction yang lebih besar berada di hujung continuous A.]\n## Langkah 7 Flexure\nRef Pengiraan Output\nd = 175 − 25 − 10/2 d = 145 mm\nRDF §6 K = 30.21 × 10⁶/(1000 × 145² × 25) = 0.057 < K_{bal} = 0.167 Tiada compression steel\nRDF §6 z = d[0.5 + √(0.25 − K/1.134)] = 0.946d ≤ 0.95d z = 137.2 mm\nRDF §6 A_s = 30.21 × 10⁶/(0.87 × 500 × 137.2); A_{s,min} = 0.26 × 2.56/500 × 1000 × 145 = 193, tidak menentukan A_{s,req} = 506 mm²/m\nEC2 9.3.1.1(3) Jarak ≤ min(2h, 250) = min(350, 250) = 250 mm H10-150 (524 mm²/m)\nEC2 9.3.1.1(2) Distribution ≥ 0.2 × 524 = 105 mm²/m, jarak ≤ min(3h, 400) = 400 mm H8-300 (168 mm²/m)\n## Langkah 8 Shear\nRef Pengiraan Output\nRDF §7 V_{Ed} = 44.0 kN di A, hujung continuous; k = 1 + √(200/145) = 2.17 > 2.0, jadi k = 2.0; ρ_l daripada top bar di A = 524/(1000 × 145) = 0.00361\nEC2 6.2.2 V_{Rd,c} = 0.12 × 2.0 × (100 × 0.00361 × 25)^{1/3} × 1000 × 145 = 72.5 kN; minimum 71.8 kN 72.5 ≥ 44.0 kN, OK\n## Langkah 9 Deflection\nRef Pengiraan Output\nRDF §8 ρ = 506/(1000 × 145) = 0.00349 < ρ_0 = 0.0050, jadi Eq. 7.16a\nEC2 Table 7.4N Satu hujung continuous: end span K = 1.3\nRDF §8 (l/d)_{basic} = 1.3 × (11 + 10.75 + 4.56) = 1.3 × 26.31 = 34.2; A_{s,prov}/A_{s,req} = 524/506 = 1.036; (l/d)_{allow} = 34.2 × 1.036 (l/d)_{allow} = 35.4\n(l/d)_{actual} = 4325/145 = 29.8 ≤ 35.4 Deflection OK\n## Langkah 10 Cracking\nRef Pengiraan Output\nEC2 7.3.3, 9.3.1.1(3) h = 175 ≤ 200 mm; main 150 ≤ 250 mm; distribution 300 ≤ 400 mm Cracking OK\n## Langkah 11 Detailing\nRef Pengiraan Output\nDetailing kursus Top bar di A: sama seperti main bar, sepanjang 0.3L = 0.3 × 4325 = 1298 mm dari muka beam H10-150 atas, 1298 mm\nEC2 9.3.1.2(2) Top bar di B: sekurang-kurangnya 0.25 × 524 = 131 mm²/m, sepanjang 0.2L = 0.2 × 4325 = 865 mm dari muka dinding H8-300 atas, 865 mm\nNota §6 Di kink, bottom bar bersilang, setiap satu di-anchor dalam compression zone Bar bersilang\n[Rajah: 01 main bar, 02 top bar sepanjang 1298 mm di A, 03 top bar sepanjang 865 mm di B, dan bottom bar bersilang di kink.]\nJawapan. Waist dan landing 175 mm: main bar H10-150 (524 mm²/m), distribution bar H8-300; top bar H10-150 sepanjang 1298 mm di A dan H8-300 sepanjang 865 mm di B; bottom bar bersilang di kink. Shear, deflection dan cracking lulus.\nMengapa A membawa lebih shear Hogging moment di hujung continuous menambah M_A/L = 30.21/4.325 = 6.98 kN kepada reaction A dan mengurangkan jumlah yang sama daripada reaction B. Oleh itu shear disemak di A, dengan ρ_l daripada top bar di situ."
+  },
+  {
+   "id": "examples-x3",
+   "text": "[examples-x3] Contoh 3 · Soalan jenis terangkan\nJenis soalan jawapan bertulis pendek Masa ≈ 3 min setiap satu\nSoalan\n- Terangkan mengapa flight membawa load per m² on plan yang lebih besar berbanding landing dengan ketebalan yang sama.\n- Satu flight bersama landing-nya span dari beam monolitik ke dinding bata. Nyatakan design moment dan faktor deflection K mengikut kaedah kursus, dan berikan justifikasi bagi setiap satu.\n- Mengapa hujung continuous tangga itu membawa lebih shear berbanding hujung simple?\n- Lakar dan terangkan detail bottom bar yang betul di tempat flight bertemu landing atas.\nTulis empat jawapan anda dahulu, kemudian buka jawapan model satu demi satu.\n## Jawapan 1 Flight lebih tebal on plan\nDiukur secara menegak, iaitu cara load on plan melihatnya, konkrit flight lebih tebal daripada h atas dua sebab. Waist ialah y = h/cos θ = h√(R² + G²)/G, dan setiap anak tangga menambah segi tiga dengan purata tinggi R/2, jadi t = y + R/2. Dengan h = 175, R = 175 dan G = 260 mm, t = 298.4 mm berbanding landing 175 mm, dan n_d = 17.69 berbanding 13.53 kN/m², nisbah 1.31.\n## Jawapan 2 FL/10 dan K = 1.3\nM = FL/10, kerana satu hujung continuous dengan beam: kaedah kursus menggunakan FL/10 apabila sekurang-kurangnya satu hujung continuous, dan FL/8 hanya apabila kedua-dua hujung simply supported. K = 1.3, kerana tangga itu ialah end span, continuous di satu hujung sahaja (EC2 Table 7.4N).\n## Jawapan 3 Hogging moment mengalihkan reaction\nBeam menahan putaran di A, jadi hogging moment M_A terhasil di situ. Dengan mengambil moment terhadap B, reaction A bertambah M_A/L dan reaction B berkurang sebanyak yang sama: V_A = ΣF_i(L − x_i)/L + M_A/L. Dalam Faded Example 1.2, M_A/L = 6.98 kN, jadi V_A = 44.01 kN berbanding V_B = 25.84 kN.\n## Jawapan 4 Silangkan bar di kink\nJangan bengkokkan bottom bar mengelilingi sudut dalam: dalam tension, tarikan pada kedua-dua kakinya bergabung menjadi daya yang menghala keluar dari konkrit, yang meluruskan bar itu dan memecahkan cover. Sebaliknya, teruskan setiap set bottom bar lurus melepasi sudut ke muka bertentangan, supaya kedua-dua set bersilang, dan anchor setiap satu dalam compression zone. Lakaran: Nota §6, Detail B."
+  },
+  {
+   "id": "exercises-b1",
+   "text": "[exercises-b1] Latihan B1 · Riser dan flight bagi satu tingkat\nSoalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)\nPetunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya."
+  },
+  {
+   "id": "exercises-b2",
+   "text": "[exercises-b2] Latihan B2 · Average thickness dan design load on plan\nSoalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)\nPetunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya."
+  },
+  {
+   "id": "exercises-b3",
+   "text": "[exercises-b3] Latihan B3 · Span, total load dan design moment\nSoalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)\nPetunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya."
+  },
+  {
+   "id": "exercises-b4",
+   "text": "[exercises-b4] Latihan B4 · Reaction bagi flight dengan landing-nya\nSoalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)\nPetunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya."
+  },
+  {
+   "id": "exercises-b5",
+   "text": "[exercises-b5] Latihan B5 · Flexure bagi waist\nSoalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)\nPetunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya."
+  },
+  {
+   "id": "exercises-b6",
+   "text": "[exercises-b6] Latihan B6 · Semakan deflection dengan K yang betul\nSoalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)\nPetunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya."
+  },
+  {
+   "id": "exercises-quick",
+   "text": "[exercises-quick] Latihan: soalan konsep pantas\n- Self-weight on plan bagi flight dikira daripada ketebalan yang mana?\n- Dalam n_d (EN 1990, Eq. 6.10), partial factor manakah yang mendarab imposed load q_k ?\n- Effective span L bagi tangga diukur\n- Satu flight span di antara dua beam monolitik, jadi kedua-dua hujung continuous. Pasangan manakah yang betul mengikut kaedah kursus?\n- Top steel apakah yang diletakkan di hujung simply supported, seperti dinding?\n- Satu tangga mempunyai R = 185 mm dan G = 260 mm, jadi 2R + G = 630 mm. Di bawah UBBL ia\n- Satu flight mempunyai h = 150 mm, R = 165 mm dan G = 280 mm, dengan landing setebal 150 mm; finishes 1.2 kN/m² dan imposed 4.0 kN/m², kedua-duanya on plan. Satu baris mengandungi kesilapan. Yang mana?\n- Dinding selebar 230 mm di A (simple) membawa landing bawah 1400 mm bersih, kemudian flight 10 riser setinggi 170 mm dan 10 going sepanjang 270 mm (2700 mm on plan) hingga beam selebar 250 mm di B (continuous). Diberi n_d = 12.60 kN/m² bagi landing dan 16.40 kN/m² bagi flight. Satu baris mengandungi kesilapan. Yang mana?"
+  },
+  {
+   "id": "lab-audit",
+   "text": "[lab-audit] Tugasan Explorer 1 · Tab 1, “Semak tangga yang diukur”: masukkan satu tangga, sama ada daripada Stair Audit atau tangga di rumah, dan tekan “Tambah ke jadual kelas”.\nDitanda sendiri: apabila satu baris ditambah ke jadual kelas · tidak ditanda? tanda selesai\n(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)"
+  },
+  {
+   "id": "lab-act1b",
+   "text": "[lab-act1b] Tugasan Explorer 2 · Tab 2: tetapkan R = 150, G = 260 dan h = 150, kemudian seret R ke 180. Bandingkan kenaikan self-weight dengan jawapan anda bagi Aktiviti 1B.\nDitanda sendiri: apabila R berubah daripada 150 kepada 180 dengan G = 260 dan h = 150 · tidak ditanda? tanda selesai\n(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)"
+  },
+  {
+   "id": "lab-fe12",
+   "text": "[lab-fe12] Tugasan Explorer 3 · Tab 3: pilih contoh “FE 1.2” dan bandingkan L, F, M dan dua reaction dengan workbook anda.\nDitanda sendiri: apabila FE 1.2 dipilih dalam tab 3 · tidak ditanda? tanda selesai\n(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)"
+  },
+  {
+   "id": "lab-ends",
+   "text": "[lab-ends] Tugasan Explorer 4 · Tab 3: jadikan kedua-dua hujung simply supported. Pekali apakah yang diambil oleh M sekarang, dan K yang mana?\nDitanda sendiri: apabila kedua-dua hujung ditetapkan simply supported · tidak ditanda? tanda selesai\n(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)"
+  },
+  {
+   "id": "lab-kink",
+   "text": "[lab-kink] Tugasan Explorer 5 · Tab 4: tentukan detail kink yang betul, A atau B, kemudian tekan “Dedahkan jawapan”.\nDitanda sendiri: apabila jawapan kink didedahkan · tidak ditanda? tanda selesai\n(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)"
+  },
+  {
+   "id": "lab-s1",
+   "text": "[lab-s1] Tugasan Explorer 6 · Tab 5: cari keempat-empat kesilapan dalam Tangga S1, ketik barisnya dan tekan “Semak”.\nDitanda sendiri: apabila Semak menunjukkan 4 daripada 4 · tidak ditanda? tanda selesai\n(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)"
+  },
+  {
+   "id": "glossary-flight",
+   "text": "[glossary-flight] Glosari: flight\nflight: Satu larian anak tangga yang condong di antara dua aras atau landing."
+  },
+  {
+   "id": "glossary-landing",
+   "text": "[glossary-landing] Glosari: landing\nlanding: Slab rata di atas atau di bawah flight, atau di antara dua flight."
+  },
+  {
+   "id": "glossary-waist-h",
+   "text": "[glossary-waist-h] Glosari: waist h\nwaist h: Ketebalan slab condong di bawah anak tangga, diukur tegak lurus dengan soffit."
+  },
+  {
+   "id": "glossary-rise-r-riser",
+   "text": "[glossary-rise-r-riser] Glosari: rise R · riser\nrise R · riser: R ialah ketinggian satu anak tangga; riser ialah muka menegak anak tangga. UBBL By-law 106: R ≤ 180 mm, sama pada setiap anak tangga."
+  },
+  {
+   "id": "glossary-going-g-tread",
+   "text": "[glossary-going-g-tread] Glosari: going G · tread\ngoing G · tread: G ialah kedalaman mendatar tread, tanpa nosing; tread ialah permukaan yang dipijak. UBBL By-law 106: G ≥ 255 mm."
+  },
+  {
+   "id": "glossary-nosing",
+   "text": "[glossary-nosing] Glosari: nosing\nnosing: Tepi hadapan tread, yang boleh terunjur melepasi riser di bawahnya."
+  },
+  {
+   "id": "glossary-soffit",
+   "text": "[glossary-soffit] Glosari: soffit\nsoffit: Permukaan bawah waist atau landing."
+  },
+  {
+   "id": "glossary-pitch",
+   "text": "[glossary-pitch] Glosari: pitch θ\npitch θ: Kecondongan flight: tan θ = R/G."
+  },
+  {
+   "id": "glossary-vertical-waist-thickness-y",
+   "text": "[glossary-vertical-waist-thickness-y] Glosari: vertical waist thickness y\nvertical waist thickness y: Waist yang diukur secara menegak: y = h/cos θ = h√(R² + G²)/G."
+  },
+  {
+   "id": "glossary-average-thickness-t",
+   "text": "[glossary-average-thickness-t] Glosari: average thickness t\naverage thickness t: t = y + R/2: purata ketebalan menegak waist dan anak tangga, digunakan untuk self-weight on plan, 25t kN/m²."
+  },
+  {
+   "id": "glossary-load-on-plan",
+   "text": "[glossary-load-on-plan] Glosari: load on plan\nload on plan: Load yang diberi per m² luas mendatar (pelan). Load dan span tangga kedua-duanya diambil on plan."
+  },
+  {
+   "id": "glossary-design-load-n-d",
+   "text": "[glossary-design-load-n-d] Glosari: design load n_d\ndesign load n_d: n_d = 1.35g_k + 1.5q_k per m² on plan (EN 1990, Eq. 6.10)."
+  },
+  {
+   "id": "glossary-partial-factors-g-q",
+   "text": "[glossary-partial-factors-g-q] Glosari: partial factors γ_G , γ_Q\npartial factors γ_G , γ_Q: 1.35 bagi permanent action dan 1.5 bagi variable action pada ultimate limit state."
+  },
+  {
+   "id": "glossary-effective-span-l",
+   "text": "[glossary-effective-span-l] Glosari: effective span L\neffective span L: Span beam on plan, tengah ke tengah support, dibina daripada segmen: setiap flight atau landing tambah separuh lebar support-nya."
+  },
+  {
+   "id": "glossary-one-way-slab-1-m-strip",
+   "text": "[glossary-one-way-slab-1-m-strip] Glosari: one-way slab · 1 m strip\none-way slab · 1 m strip: Slab yang melentur dalam satu arah. Tangga di-design pada strip selebar 1 m, jadi load-nya per meter lebar dan steel-nya per meter."
+  },
+  {
+   "id": "glossary-continuous-end",
+   "text": "[glossary-continuous-end] Glosari: continuous end\ncontinuous end: Hujung yang dibina secara monolitik ke dalam beam atau slab yang menahan putaran, jadi hogging moment terhasil di situ."
+  },
+  {
+   "id": "glossary-simply-supported-end",
+   "text": "[glossary-simply-supported-end] Glosari: simply supported end\nsimply supported end: Hujung yang bebas berputar, seperti slab yang terletak di atas dinding bata; moment sifar diandaikan di situ."
+  },
+  {
+   "id": "glossary-hogging-moment",
+   "text": "[glossary-hogging-moment] Glosari: hogging moment\nhogging moment: Moment yang menyebabkan muka atas dalam tension. Di atas support continuous tangga ia diambil sebagai FL/10."
+  },
+  {
+   "id": "glossary-k-two-meanings",
+   "text": "[glossary-k-two-meanings] Glosari: K, two meanings\nK, two meanings: Dalam flexure, K = M/(bd²f_{ck} ), dibandingkan dengan K_{bal} = 0.167. Dalam deflection, structural factor K daripada EC2 Table 7.4N: 1.0 simply supported, 1.3 end span, 1.5 interior span."
+  },
+  {
+   "id": "glossary-distribution-bars",
+   "text": "[glossary-distribution-bars] Glosari: distribution bars\ndistribution bars: Bar sekunder yang bersudut tegak dengan main bar: sekurang-kurangnya 20% daripada main steel, dengan jarak ≤ min(3h, 400) mm di tempat moment paling besar."
+  },
+  {
+   "id": "glossary-top-bars",
+   "text": "[glossary-top-bars] Glosari: top bars\ntop bars: Bar berhampiran muka atas di atas support: sama seperti main bar sepanjang 0.3L di hujung continuous; sekurang-kurangnya 25% steel span sepanjang 0.2L di hujung simple."
+  },
+  {
+   "id": "glossary-kink",
+   "text": "[glossary-kink] Glosari: kink\nkink: Sudut dalam (re-entrant) pada soffit di tempat flight bertemu landing. Bottom bar mesti bersilang di situ, bukan dibengkokkan mengelilinginya."
+  },
+  {
+   "id": "glossary-ubbl",
+   "text": "[glossary-ubbl] Glosari: UBBL\nUBBL: Uniform Building By-Laws 1984. By-law 106: rise, going dan kedalaman landing; By-law 108: riser dalam satu flight."
+  },
+  {
+   "id": "glossary-comfort-rule-2r-g",
+   "text": "[glossary-comfort-rule-2r-g] Glosari: comfort rule 2R + G\ncomfort rule 2R + G: Lebih kurang 600 mm, daripada 550 hingga 700 mm (nota kursus). Ujian keselesaan, berasingan daripada by-law."
+  },
+  {
+   "id": "glossary-professional-habit-1",
+   "text": "[glossary-professional-habit-1] Glosari: Professional Habit 1\nProfessional Habit 1: Semak kewajaran load sebelum design: n_d flight mesti melebihi n_d landing. Nisbah 1.0 atau kurang bermakna ada kesilapan."
+  }
+ ]
+}

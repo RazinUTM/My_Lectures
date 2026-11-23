@@ -63,7 +63,7 @@ REGIONS = [
     [".navrow", "Tabs", "Tab", "Start, Notes, Slides, Examples, Exercises, Explorer and Glossary. A badge shows done out of total.", "Mula, Nota, Slides, Contoh, Latihan, Explorer dan Glosari. Lencana menunjukkan selesai daripada jumlah."],
     [".prog", "Progress", "Kemajuan", "The mean over the tabs that count. It is your own record, kept in this browser, not a gradebook.", "Purata tab yang dikira. Ia rekod anda sendiri, disimpan dalam pelayar ini, bukan buku gred."],
     ["main", "Contents", "Kandungan", "The tab you chose. On Start, the plan shows what to do before, in and after class.", "Tab yang anda pilih. Di Mula, pelan menunjukkan apa perlu dibuat sebelum, semasa dan selepas kelas."],
-    ["#rzguide", "Dr RJ, your guide", "Dr RJ, panduan anda", "Ask a question in your own words; Dr RJ points to the matching sections of this page. Nothing you type leaves your browser.", "Tanya soalan dengan perkataan anda sendiri; Dr RJ menunjukkan bahagian yang berkaitan dalam halaman ini. Tiada apa yang anda taip keluar dari pelayar anda."],
+    ["#rzguide", "Dr RJ, your guide", "Dr RJ, panduan anda", "Ask a question in your own words; Dr RJ points to the matching sections of this page. When the AI tutor is on, a notice in his panel says what is sent.", "Tanya soalan dengan perkataan anda sendiri; Dr RJ menunjukkan bahagian yang berkaitan dalam halaman ini. Apabila tutor AI dihidupkan, notis dalam panelnya menyatakan apa yang dihantar."],
     ["footer.foot", "Credits and licence", "Kredit dan lesen", "Who made the page, what you may reuse, and what stays in your browser.", "Siapa yang menghasilkan halaman ini, apa yang boleh digunakan semula, dan apa yang kekal dalam pelayar anda."],
 ]
 

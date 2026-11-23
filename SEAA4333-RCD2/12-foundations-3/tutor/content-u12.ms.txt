@@ -1,0 +1,451 @@
+# Unit 12 Foundations III
+SEAA 4333 Reinforced Concrete Design II, Minggu 13. Unit 11 menentukan saiz kumpulan pile dan load pada setiap pile; Unit ini membuat design pile cap yang menghimpunkannya. Pile cap yang pendek dan dalam berfungsi sebagai truss: strut konkrit dari column ke setiap pile, ditahan oleh steel tie di bahagian bawah. Pile cap yang lebih panjang, atau yang menerima moment, dibuat design dengan beam theory di muka column. Kemudian shear section pada satu perlima diameter pile ke dalam dari muka pile, dengan enhancement EC2 6.2.2(6) dan hadnya, muka column, crack control dan detailing yang meng-anchor tie. Mengapakah pile cap dalam nota kursus, yang lulus dengan margin 1 %, gagal mengikut EC2? Nota, slides, jawapan model, latihan dengan nombor baharu pada setiap cubaan, dan Foundation Lab.
+
+[start-outcomes] Selepas bahagian ini, anda sepatutnya boleh
+1. menentukan saiz pile cap, pelannya daripada jarak pile dan kedalamannya daripada panduan, dan memilih antara truss analogy dengan beam theory;
+2. mencari daya tie bagi pile cap dua, tiga dan empat pile melalui truss analogy, dan membuat design serta meletakkan bar tie dengan anchorage-nya;
+3. mencari moment di muka column bagi pile cap enam pile daripada load pile-nya, dan membuat design bar dalam kedua-dua arah;
+4. menyemak shear pile cap pada section φ/5 ke dalam dari muka pile, dengan enhancement EC2 6.2.2(6) dan hadnya, menyemak muka column dan crack width, dan menyatakan bila punching mesti disemak.
+
+[notes-n1] Nota 1. Pile cap: tugasnya, pelan dan kedalaman
+Pile cap menghimpunkan load column dan membahagikannya kepada pile. Ia pendek dan dalam, jadi ia tidak melentur seperti slab: kebanyakan load mengalir terus dari column ke setiap kepala pile dalam compression, dan bahagian bawah pile cap ditarik apabila kepala pile cuba merenggang. Dua model digunakan untuk design-nya: truss analogy bagi pile cap yang padat, dan beam theory bagi yang lebih panjang.
+[Rajah: Pile cap bagi dua, tiga, empat dan enam pile, dengan s = 3φ dan tepi 150 mm melepasi muka pile (RDF §16). Garis karat: tie dalam truss analogy.]
+Pelan diperoleh daripada Unit 11: pile pada s = kφ dengan k = 3, dan tepi pile cap 150 mm melepasi muka pile, jadi pile cap empat pile segi empat sama ialah (k + 1)φ + 300 setiap arah dan pile cap enam pile (k + 1)φ + 300 kali (2k + 1)φ + 300. Kedalamannya mesti memberi ruang bagi anchorage bar pile dan starter bar column, serta shear resistance yang mencukupi. Mosley Table 10.5 memberi kedalaman awal bagi kumpulan sehingga enam pile; 2φ + 100 dalam nota kursus memberi nilai yang sama sehingga pile 550 mm.
+Saiz pile φ (mm) 300 350 400 450 500 550 600 750
+Kedalaman pile cap, Mosley Table 10.5 (mm) 700 800 900 1000 1100 1200 1400 1800
+2φ + 100, nota kursus (mm) 700 800 900 1000 1100 1200 1300 1600
+Panduan ini titik permulaan, bukan semakan. Akhirnya shear yang menentukan kedalaman (§4): pile cap empat pile dalam nota kursus memerlukan 1650 mm dan bukannya 1100 mm, dan pile cap enam pile dengan pile 300 mm dalam nota memerlukan 1100 mm yang diberi oleh nota (2φ + 500), bukan 700 mm daripada jadual, kerana setiap pile-nya memikul 720 kN pada ultimate limit state.
+Load yang digunakan untuk design pile cap Bilangan pile dan service load pile (N + W)/n ± Mx/Σx² telah disemak dalam Unit 11. Pile cap dibuat design dengan ultimate load pile N_{Ed}/n ± M_{Ed}x/Σx², tanpa berat pile cap itu sendiri, seperti nota kursus, Example 10.5 Mosley dan app RC Design: berat itu berada di atas pile dan menambah sedikit sahaja pada daya di section kritikal. Menambah 1.35W/n pada setiap pile ialah pilihan yang lebih selamat. Cover dalam contoh nota ialah 75 mm, diukur dari permukaan bawah; pile berhenti di lapisan bar bawah, 75 mm ke dalam pile cap.
+Semakan pantas (tidak dimarkah): Empat pile 450 mm pada s = 3φ. Mengikut peraturan kursus, pelan pile cap dan kedalaman awalnya ialah
+Pilihan: 1650 × 1650 mm, h = 900 mm | 2100 × 2100 mm, h = 1000 mm | 2400 × 2400 mm, h = 1100 mm | 1800 × 1800 mm, h = 1000 mm
+Penjelasan yang dipaparkan selepas menjawab: (3 + 1) × 450 + 300 = 2100 mm setiap arah; Table 10.5 dan 2φ + 100 kedua-duanya memberi 1000 mm. Inilah Example 10.5 Mosley dan pile cap dalam Foundation S12. Kedalaman itu masih perlu lulus semakan shear §4.
+Isi penting:
+- Pelan: s = 3φ dan tepi 150 mm melepasi muka pile; empat pile (k + 1)φ + 300 segi empat sama.
+- Kedalaman: mulakan daripada Mosley Table 10.5 (≈ 2φ + 100); shear yang menentukan.
+- Load design: ultimate load pile N_{Ed}/n ± M_{Ed}x/Σx², tanpa berat pile cap.
+
+[notes-n2] Nota 2. Truss analogy
+Bayangkan pile cap sebagai segi tiga. Strut konkrit mengalir dari column ke setiap kepala pile; steel tie di bahagian bawah menyambung kepala pile dan menghalangnya daripada merenggang. Column menolak puncak ke bawah, pile menolak bucu ke atas, dan tie membawa daya mendatar yang memastikan segi tiga itu kekal tertutup.
+[Rajah: Truss analogy bagi pile cap dua pile (Mosley §10.7.1). Nod atas berada di pusat column, nod bawah tempat tie merentasi garis tengah pile.]
+Di nod pile tiga daya bertemu: reaction pile N/2 ke atas, strut C sepanjang garis ke column, dan tie T. Segi tiga daya ini serupa dengan segi tiga truss, jadi T/(N/2) = (s/2)/d. Bagi dua pile:
+PERSAMAAN (12.1): T = \frac{N\,s}{4d} \qquad \text{(two piles; } d = h - c - \phi/2\text{)}
+Bagi tiga pile dalam segi tiga, penaakulan yang sama memberi daya dalam setiap sisi, dan bagi empat pile dalam segi empat sama, load dikongsi oleh dua truss selari dalam setiap arah (Mosley Table 10.4, dengan 2l = s; RDF Figure 16.2):
+PERSAMAAN (12.2): T = \frac{N\,s}{9d} \qquad \text{(three piles, each side; three bands in three layers, } d = h - c - 2.5\phi\text{)}
+PERSAMAAN (12.3): T = \frac{N\,s}{8d} \qquad \text{(four piles, each truss; two trusses each way, } d = h - c - 1.5\phi\text{)}
+PERSAMAAN (12.4): A_s = \frac{T}{0.87 f_{yk}} \ \ge\ A_{s,min} = \max\!\left(0.26\frac{f_{ctm}}{f_{yk}},\ 0.0013\right) b\,d
+[Rajah: Empat pile: dua truss setiap arah, setiap satu membawa N/2, jadi steel setiap arah ialah 2T/0.87f_{yk} = Ns/(4d × 0.87f_{yk}). Tempat bar boleh diletakkan bergantung pada jarak pile.]
+Kesilapan biasa bagi empat pile ialah berhenti pada T: bar merentas pile cap dalam satu arah berkhidmat kepada kedua-dua truss arah itu, jadi ia membawa 2T. Bar diletakkan dalam kedua-dua arah muka bawah. Dengan s ≤ 3φ ia boleh disebar sekata merentas lebar, seperti dalam semua contoh kursus; dengan jarak yang lebih besar hanya bar dalam lingkungan 1.5φ dari pusat pile yang dikira, jadi ia dihimpunkan dalam jalur di atas pile. Bar itu diteruskan melepasi setiap pile dan dibengkokkan ke atas untuk anchorage melepasi garis tengah pile (§6). Effective depth mengikut lapisan: tie pile cap dua pile ialah lapisan bawah, pile cap empat pile menggunakan lapisan atas bagi kedua-dua arah (di sisi selamat, seperti nota), dan tiga jalur pile cap tiga pile berada dalam tiga lapisan.
+Pile cap truss (kes app) N_{Ed}, s, d T A_s (setiap arah atau jalur) Bar
+Dua pile 450 mm (F10) 1545 kN, 1350, 915 mm 1545 × 1350/(4 × 915) = 569.9 kN 1310 mm² 5H20
+Tiga pile 450 mm (F11) 2250 kN, 1350, 875 mm 2250 × 1350/(9 × 875) = 385.7 kN 887; A_{s,min} 2606 menentukan 9H20 setiap jalur
+Empat pile 500 mm (F12, Contoh 5 nota) 8475 kN, 1500, 987.5 mm 8475 × 1500/(8 × 987.5) = 1609.2 kN setiap truss 2 × 3699 = 7399 mm² 16H25 setiap arah
+Semakan pantas (tidak dimarkah): Satu pile cap empat pile membawa N_{Ed} = 6000 kN di atas pile pada s = 1200 mm, dengan d = 800 mm. Steel yang diperlukan dalam setiap arah ialah
+Pilihan: 2586 mm² | 5172 mm² | 10345 mm² | 1293 mm²
+Penjelasan yang dipaparkan selepas menjawab: T = 6000 × 1200/(8 × 800) = 1125 kN setiap truss; dua truss setiap arah, jadi A_s = 2 × 1125 × 10³/435 = 5172 mm², sama seperti Ns/(4d × 0.87f_{yk}). 2586 mm² hanya satu truss: separuh steel.
+Isi penting:
+- Truss: T = Ns/4d (dua pile), Ns/9d setiap sisi (tiga), Ns/8d setiap truss (empat, dua truss setiap arah).
+- A_s = T/0.87f_{yk}, sekurang-kurangnya A_{s,min} merentas seluruh lebar; empat pile memerlukan 2T setiap arah.
+- s ≤ 3φ: sebarkan bar sekata; s > 3φ: hanya bar dalam lingkungan 1.5φ dari pusat pile yang dikira.
+
+[notes-n3] Nota 3. Beam theory
+Apabila pile cap lebih panjang, atau moment menjadikan load pile tidak sama, anggap ia sebagai beam lebar yang terbalik: pile menolak ke atas, column menahannya ke bawah, dan section kritikal bagi bending berada di muka column, seperti pad footing.
+[Rajah: Beam theory bagi pile cap enam pile: setiap moment di muka datang daripada pile di luar muka itu (kes app F13, Faded Example 12.2).]
+Moment di muka column ialah jumlah, bagi pile di luar muka itu, setiap load pile darab jaraknya ke muka:
+PERSAMAAN (12.5): M = \sum_{\text{piles beyond the face}} F_i\left(x_i - \frac{c}{2}\right)
+Dalam kumpulan 2 × 3 dengan moment pada paksi y, dua pile hujung memikul load terbesar, jadi M_{xx} = 2F_{max}(x_{max} − c/2) digunakan untuk design bar sepanjang panjang pile cap. Merentas, satu baris panjang tiga pile berjumlah tiga kali load purata walau apa pun moment pada paksi y, jadi M_{yy} = 3F_{mean}(s/2 − c/2). Moment yang lebih besar mengambil lapisan luar, d_x = h − c − φ/2; yang satu lagi menggunakan d_y = h − c − 1.5φ. Kemudian K, z ≤ 0.95d dan A_s seperti beam, dengan A_{s,min} merentas seluruh lebar, yang sering menentukan arah pendek.
+Pile cap enam pile (F13) Sepanjang panjang (x) Merentas (y)
+Moment di muka 2 × 720.8 × (0.90 − 0.20) = 1009.2 kN m 3 × 700 × (0.45 − 0.20) = 525.0 kN m
+d 1100 − 75 − 8 = 1017 mm 1100 − 75 − 24 = 1001 mm
+K, z 0.0217, 0.95d = 966.2 mm 0.0073, 0.95d = 951.0 mm
+A_s dan A_{s,min} 2401; 2298 mm² 1269; 3618 mm² (menentukan)
+Bar 12H16 (2413 mm²) 18H16 (3619 mm²)
+Kedua-dua model lebih hampir daripada yang disangka. Ns/4d, jumlah daya tie dalam satu arah pile cap empat pile, ialah moment di garis tengah column, Ns/4, dibahagi lever arm d; beam theory mengambil moment yang lebih kecil di muka, (N/2)(s/2 − c/2), dengan z = 0.95d. Bagi pile cap empat pile dalam nota kursus, truss memberi 7399 mm² setiap arah dan beam theory 5192 mm²: truss ialah model yang lebih selamat bagi pile cap yang padat. Mosley mengekalkan beam theory bagi pile cap yang rentangnya melebihi lebih kurang dua kali kedalamannya. Dalam kursus ini, pile cap dua, tiga dan empat pile menggunakan truss dan enam pile dengan moment menggunakan beam theory, seperti dalam dua Contoh 5 nota.
+Semakan pantas (tidak dimarkah): Dalam pile cap enam pile di atas (column 400 mm, pile pada x = 0, ±0.9 m, pile hujung 720.8 kN), moment yang digunakan untuk design bar sepanjang panjang ialah
+Pilihan: 1297.5 kN m | 1009.2 kN m | 980.0 kN m | 525.0 kN m
+Penjelasan yang dipaparkan selepas menjawab: Di muka column, 0.2 m dari pusat: 2 × 720.8 × (0.9 − 0.2) = 1009.2 kN m. 1297.5 diambil di garis tengah, 980.0 menggunakan load purata 700 kN, dan 525.0 ialah moment merentas.
+Isi penting:
+- Beam theory: M di setiap muka column = Σ F_i(x_i − c/2) bagi pile di luarnya.
+- Kumpulan 2 × 3: M_{xx} = 2F_{max}(x_{max} − c/2), M_{yy} = 3F_{mean}(s/2 − c/2); moment yang lebih besar di lapisan luar.
+- Truss menggunakan moment garis tengah dibahagi d, jadi ia memberi lebih banyak steel daripada beam theory bagi pile cap yang padat.
+
+[notes-n4] Nota 4. Shear: section pada φ/5 dan enhancement
+Pile cap tidak gagal dalam shear seperti beam panjang. Berhampiran column, load sampai ke pile melalui strut terus, yang membawa shear jauh lebih besar daripada yang dibenarkan oleh formula beam. EC2 membenarkan load yang dekat dengan support dikurangkan dengan faktor β = a_v/2d sebelum menyemak V_{Rd,c}, tetapi ia menghentikan pengurangan itu pada a_v = 0.5d.
+[Rajah: Shear section pile cap, φ/5 ke dalam dari muka pile (Mosley §10.7.2): V_{Ed} ialah load setiap pile di luarnya, merentas seluruh lebar apabila s ≤ 3φ.]
+Section kritikal terletak 20 % diameter pile ke dalam dari muka pile (Mosley §10.7.2, daripada BS 8110). V_{Ed} ialah jumlah load pile di luarnya: dalam pile cap empat pile, section merentas seluruh lebar, jadi dua pile berada di luarnya, bukan satu. Section itu berada a_v dari muka column. Bagi kumpulan segi empat sama:
+PERSAMAAN (12.6): a_v = \frac{s}{2} - \frac{c}{2} - \frac{\phi}{2} + \frac{\phi}{5} = \frac{s}{2} - \frac{c}{2} - 0.3\,\phi
+PERSAMAAN (12.7): \beta = \frac{\max(a_v,\ 0.5d)}{2d} \le 1 \qquad \text{(EC2 6.2.2(6); bars fully anchored at the piles)}
+PERSAMAAN (12.8): \beta\,V_{Ed} \le V_{Rd,c}, \qquad V_{Ed} \le 0.5\,b\,d\,\nu f_{cd}, \quad \nu = 0.6\left(1 - \frac{f_{ck}}{250}\right)
+PERSAMAAN (12.9): V_{Rd,c} = \left[0.12\,k\,(100\rho_l f_{ck})^{1/3}\right] b\,d \ \ge\ v_{min}\,b\,d, \qquad v_{min} = 0.035\,k^{3/2}\sqrt{f_{ck}}, \quad k = 1 + \sqrt{200/d} \le 2
+Tiga syarat datang bersama β. Ia memerlukan bar utama di-anchor sepenuhnya di support, di sini dibengkokkan ke atas melepasi setiap garis tengah pile (§6). Shear yang tidak dikurangkan masih mesti memenuhi V_{Ed} ≤ 0.5bdνf_{cd}. Dan bagi a_v < 0.5d, EC2 mengambil a_v = 0.5d, jadi β tidak pernah turun di bawah 0.25: shear boleh dibahagi empat paling banyak. Dalam V_{Rd,c}, bar dikira dalam ρ_l hanya jika ia melepasi section sejauh l_{bd} + d (EC2 Figure 6.3, konvensyen kursus daripada Unit 10); dalam setiap contoh kursus ia tidak, dan v_{min} menentukan. Dengan s ≤ 3φ, enhancement digunakan merentas seluruh section; dengan jarak yang lebih besar hanya pada jalur selebar 3φ di atas pile.
+[Rajah: β berbanding a_v/d: EC2 menetapkan lantai 0.25; nota kursus dan Mosley tidak.]
+Nota kursus dan Mosley menggunakan β tanpa lantai; Example 10.5 Mosley sendiri mempunyai a_v = 290 mm < 0.5d = 437.5 mm dan masih lulus dengannya (625 ≤ 633 kN). Kursus ini mengikut EC2, seperti app RC Design (pensyarah memilih pilihan konservatif pada 4 Oktober 2026). Bagi pile cap empat pile dalam nota, a_v = 350 mm < 0.5d = 494 mm, jadi β = 0.25 dan V_{Ed,red} = 0.25 × 4237.5 = 1059.4 kN berbanding V_{Rd,c} = 760.3 kN: pile cap 1100 mm gagal, sedangkan β = 0.177 dalam nota memberi 750.9 kN dan lulus dengan margin 1 %. Di dalam lantai, pile cap yang lebih dalam tidak menurunkan V_{Ed,red}; ia menaikkan V_{Rd,c}, melalui d lebih daripada melalui k. 1650 mm ialah kedalaman paling cetek, dalam langkah 50 mm, yang lulus; kes semakan app F12R menggunakan 1700 mm (Worked Example 12.1).
+Semakan pantas (tidak dimarkah): Pile cap empat pile dalam nota kursus: a_v = 350 mm dan d = 987.5 mm, bar dibengkokkan ke atas dan di-anchor melepasi pile. Mengikut EC2, faktor β ialah
+Pilihan: 0.177 | 0.25 | 0.354 | 1.0
+Penjelasan yang dipaparkan selepas menjawab: a_v = 350 < 0.5d = 494 mm, jadi a_v = 494 mm digunakan: β = 494/(2 × 987.5) = 0.25. 0.177 ialah nilai nota tanpa lantai; 1.0 terpakai jika bar tidak di-anchor di pile.
+Isi penting:
+- Shear section φ/5 ke dalam dari muka pile; V_{Ed} = semua pile di luarnya, merentas seluruh lebar.
+- β = max(a_v, 0.5d)/2d ≥ 0.25, hanya dengan bar di-anchor melepasi pile; V_{Ed} ≤ 0.5bdνf_{cd}.
+- Di dalam lantai, pile cap yang lebih dalam menaikkan V_{Rd,c}, bukan menurunkan V_{Ed,red}: pile cap 1100 mm dalam nota memerlukan 1650 mm.
+
+[notes-n5] Nota 5. Punching dan muka column
+Dengan pile pada 3φ, setiap pile berada di dalam basic control perimeter pada 2d, jadi shear merentasi section §4 dan bukannya perimeter punching. Yang tinggal ialah semakan penghancuran di muka column, dan semakan yang sama di sekeliling setiap pile.
+[Rajah: Pile yang rapat berada di dalam 2d dari column: tiada semakan punching pada 2d (Mosley §10.7.3); muka column disemak sebagai ganti.]
+Mosley §10.7.3, nota kursus dan RDF §16 menyemak punching pada control perimeter hanya apabila jarak pile melebihi 3φ, dengan cara Unit 10 bagi slab dan pad. Pada 3φ atau lebih rapat, pile berada di dalam perimeter 2d dan shear dibawa merentasi section §4. Muka column sentiasa disemak (EC2 6.4.5(3)), dengan effective depth purata d = h − c − φ:
+PERSAMAAN (12.10): v_{Ed,0} = \frac{\beta\,N_{Ed}}{u_0\,d} \le v_{Rd,max} = 0.4\,\nu f_{cd}, \qquad u_0 = 4c, \quad \beta = 1 + k\frac{M_{Ed}}{N_{Ed}}\frac{u_0}{W_0}
+Bagi axial load β = 1. Dengan moment, W_0 = c_1²/2 + c_1c_2 di perimeter column dan k daripada Table 6.1 (0.6 bagi column segi empat sama): pile cap enam pile dalam Faded Example 12.2 mempunyai β = 1 + 0.6 × (75/4200 m) × 1600/240000 = 1.071. Had 0.4νf_{cd} = 4.22 N/mm² bagi C30/37 ialah nilai pindaan 2014 EN 1992-1-1, yang digunakan oleh kursus dan app; nota kursus dan Mosley menggunakan 0.5νf_{cd} = 5.28 N/mm² daripada teks 2004. Perbezaan ini penting bagi pile cap empat pile dalam nota: 8475 × 10³/(2000 × 1000) = 4.24 N/mm², melebihi 4.22 sebanyak 0.3 % dan jauh di bawah 5.28. Nilai yang ditetapkan oleh National Annex Malaysia masih perlu disahkan. Setiap pile disemak dengan cara yang sama, F_{max}/(u_pd) dengan u_p = πφ bagi pile bulat (RDF §16); ia jarang menentukan.
+Semakan pantas (tidak dimarkah): Empat pile 500 mm pada 1500 mm (3φ) di bawah column 500 mm. Semakan shear manakah yang dibuat oleh kaedah kursus di sekeliling column dan pile?
+Pilihan: Punching pada 2d dan pada setiap perimeter di dalamnya, seperti pad | Muka column dan setiap perimeter pile berbanding v_{Rd,max}; tiada perimeter punching, kerana pile berada di dalam 2d | Punching pada 2d sahaja | Tiada: shear section §4 meliputi semuanya
+Penjelasan yang dipaparkan selepas menjawab: Pada s ≤ 3φ, pile berada di dalam perimeter 2d, jadi tiada semakan punching dibuat di situ (Mosley §10.7.3); muka column dan perimeter pile masih disemak bagi penghancuran.
+Isi penting:
+- s ≤ 3φ: tiada semakan punching pada 2d; s > 3φ: punching seperti slab.
+- Muka column: βN_{Ed}/(u_0d) ≤ 0.4νf_{cd} (kursus; 0.5νf_{cd} dalam nota), d = h − c − φ.
+- Setiap pile: F_{max}/(πφd) berbanding had yang sama.
+
+[notes-n6] Nota 6. Crack control dan detailing
+Pile cap ialah blok yang dalam dan dibebani berat. Kebanyakan detailing-nya memastikan tie di-anchor tempat strut bertemu dengannya, di atas pile, dan bucu serta muka blok kekal bersatu.
+[Rajah: Detailing pile cap (Mosley §10.7.4, RDF §16): tie dibengkokkan ke atas dan di-anchor melepasi garis tengah pile, link mendatar, starter bar, dan muka atas.]
+Anchorage. Bar utama diteruskan melepasi setiap pile dan dibengkokkan ke atas untuk memberi panjang anchorage penuh melepasi garis tengah pile: panjang tersedia (jarak tepi − c) + (d − c) ≥ l_{bd}, dengan l_{bd} = (φ/4)(0.87f_{yk}/f_{bd}) = 894 mm bagi H25 dalam C30/37 (f_{bd} = 3.04 N/mm², good bond). Bagi pile cap dalam nota (400 − 75) + (987.5 − 75) = 1237.5 mm ≥ 894 mm, yang menjadikan β sah. Bar yang sama melepasi shear section hanya 1387.5 mm, kurang daripada l_{bd} + d = 1881 mm, jadi ia tidak dikira dalam ρ_l: kedua-dua syarat berbeza, dan kedua-duanya disemak.
+Bahagian lain sangkar. A_{s,min} = 0.26(f_{ctm}/f_{yk})bd dalam kedua-dua arah muka bawah, dan Mosley meletakkan yang sama di muka atas; EC2 9.8.1(3) membenarkan bahagian atas dan sisi tanpa reinforcement jika tiada tension boleh terjadi, jadi lapisan atas ialah pilihan kursus, bukan tuntutan kod. Link mendatar yang bertindih penuh sekurang-kurangnya H12 pada tidak lebih daripada 250 mm mengelilingi sisi. Starter bar column diikat dengan link di dalam pile cap. Pile dipotong supaya ia tidak masuk ke dalam pile cap melepasi lapisan bawah, lebih kurang 75 mm, atau kekuatan punching menurun.
+Cracking. Seperti setiap tapak: σ_s = (N_{qp}/N_{Ed})(f_{yk}/1.15)(A_{s,req}/A_{s,prov}), had jarak daripada Table 7.3N bagi w_k = 0.3 mm, diinterpolasi, dan jarak yang disediakan (b − 2c − φ)/(n − 1). Bagi pile cap dalam nota σ_s = 0.50 × 434.8 × 7399/7854 = 205.4 N/mm², jadi s_{max} = 243 mm berbanding 142 mm yang disediakan.
+Langkah Pile cap truss (dua, tiga atau empat pile) Pile cap beam theory (enam pile)
+1 Pile, pelan, panduan kedalaman (§1) Pile, pelan, panduan kedalaman; load pile dengan moment (Unit 11)
+2 T melalui (12.1)–(12.3); A_s ≥ A_{s,min} M di kedua-dua muka (12.5); A_s dua arah ≥ A_{s,min}
+3 Shear pada φ/5: β ≥ 0.25, anchorage, v_{min} (12.6)–(12.9) Shear dalam kedua-dua arah, setiap satu dengan a_v dan d sendiri
+4 Muka column dan pile (12.10); punching jika s > 3φ Muka column dengan β bagi moment
+5 Cracking; bar dibengkokkan ke atas, link, lapisan atas Cracking dua arah; detailing yang sama
+Semakan pantas (tidak dimarkah): Mengapakah bar tie pile cap dibengkokkan ke atas di kedua-dua hujung?
+Pilihan: Untuk menahan tension di muka atas | Untuk memegang link mendatar di tempatnya | Untuk meng-anchor tie melepasi garis tengah pile, yang juga menjadikan pengurangan β sah | Untuk mengekalkan cover di hujung
+Penjelasan yang dipaparkan selepas menjawab: Daya tie paling besar di nod di atas pile, jadi ia mesti di-anchor melepasinya, dan bar lurus tidak mempunyai ruang yang cukup (400 − 75 = 325 mm berbanding 894 mm). EC2 6.2.2(6) membenarkan β hanya dengan bar di-anchor sepenuhnya di support.
+Isi penting:
+- Bengkokkan tie ke atas: (tepi − c) + (d − c) ≥ l_{bd} melepasi setiap garis tengah pile.
+- A_{s,min} dua arah, bawah (dan atas, Mosley); link mendatar H12 pada ≤ 250 mm; starter bar dengan link; pile dipotong di lapisan bawah.
+- Cracking: σ_s daripada quasi-permanent load dan jarak Table 7.3N, seperti setiap tapak.
+
+[slides-1] Slide 1: Foundations III
+SEAA 4333 Reinforced Concrete Design II · Week 13 Foundations III Pile caps: a truss of concrete struts and a steel tie, a beam for longer caps, and the shear limit that sets the depth Workbook ch. 12 ABCD card Calculator Phone or laptop Foundation Lab Scan for this page’s Explorer tab. Tab 6 is today’s.
+
+[slides-2] Slide 2: How the next three hours run
+Today · 180 minutes How the next three hours run 0:00 Warm-up Unit 11 in three votes 0:10 Hook One shear check, two answers 0:16 The cap Plan, depth, the truss 0:27 Activity 12A The tie at two depths, pairs 0:40 WE 12.1 A four-pile cap, I do 0:55 Shear at φ/5 β and its floor 1:03 Activity 12B A deeper cap?, pairs 1:10 Break 10 minutes 1:20 Face, detail, beam and six piles 1:32 FE 12.2 · S12 Pairs, then teams 2:08 Exam-size problem Alone, 25 minutes 2:38 Studio, exit The cap for your column No talk longer than ten minute
+
+[slides-3] Slide 3: Three questions from last week’s piles
+Warm-up · no notes · cards up Three questions from last week’s piles W1 · Unit 11 The ultimate pile loads that design a cap leave out A the column moment B the imposed load C the cap’s own weight D nothing W2 · Unit 11 Four 450 mm piles at 3φ, edges 150 mm past the piles: the side of the cap is A 2100 mm B 1650 mm C 1800 mm D 2400 mm W3 · Unit 11 In Faded Example 11.2 the largest service pile load, checked against 600 kN, is A 720.8 kN B 531.4 kN C 536.3 kN D 700.0 kN SEAA 4333 · Unit 12 · Foundations III Workbook 12.1
+
+[slides-4] Slide 4: C, A, B, and what each means today
+Warm-up · answers C, A, B, and what each means today W1 C: the cap weight N_{Ed}/n ± M_{Ed}·x/Σx², as the notes, Mosley and the app. It sits over the piles and adds little at the critical sections. W2 A: 2100 mm (3 + 1) × 450 + 300. Today’s depth guide for 450 mm piles: 1000 mm, and shear decides. W3 B: 531.4 kN (3000 + 99)/6 + 53.6 × 0.9/3.24. The ultimate 720.8 kN designs today’s cap in FE 12.2. SEAA 4333 · Unit 12 · Foundations III Workbook 12.1
+
+[slides-5] Slide 5: The notes’ four-pile cap: one shear check, two answers
+Hook · 5 minutes The notes’ four-pile cap: one shear check, two answers Same cap, same load, same section: 4237.5 kN of pile load beyond it. The notes reduce it to 750.9 kN and pass by 1 %. EC2 gives 1059.4 kN and a failure. What changed between the two calculations? SEAA 4333 · Unit 12 · Foundations III Workbook 12.2
+
+[slides-6] Slide 6: Why does the course notes’ cap pass by 1 % in the notes and fail under EC2?
+Concept check 1 · the big question · vote now, again after Activity 12B Why does the course notes’ cap pass by 1 % in the notes and fail under EC2? A the notes use service loads B the notes let β = a_v/2d fall below 0.25 C EC2 counts the bars in ρ_l D the notes use 0.5νf_{cd} Vote · convince your neighbour · vote again Workbook 12.2
+
+[slides-7] Slide 7: A pile cap: plan, depth, and two models
+Block A · talk 1 · 5 minutes A pile cap: plan, depth, and two models Plan s = 3φ, edges 150 mm past the piles: (k + 1)φ + 300 Depth Mosley Table 10.5 ≈ 2φ + 100 to start; shear decides Model compact caps: the truss; longer caps, six piles with a moment: beam theory SEAA 4333 · Unit 12 · Foundations III Notes §1 · Workbook 12.2
+
+[slides-8] Slide 8: The truss: concrete struts, a steel tie
+Block A · talk 2 · 6 minutes The truss: concrete struts, a steel tie two piles: T = Ns/4d three: T = Ns/9d each side four: T = Ns/8d each truss A_s = T/0.87f_{yk} ≥ A_{s,min} Four piles: two trusses each way, so the bars each way carry 2T. SEAA 4333 · Unit 12 · Foundations III Notes §2 · Workbook 12.2
+
+[slides-9] Slide 9: The tie force of the notes’ cap at two depths
+Activity 12A · pairs · 10 minutes The tie force of the notes’ cap at two depths F12: four 500 mm piles at s = 1500 mm N_{Ed} = 1.35 × 3500 + 1.5 × 2500 = 8475 kN cover 75 mm, H25 in two layers cap 2300 mm square, C30/37 1 d for h = 1100 mm and for h = 1700 mm (upper layer) 2 T in each truss, at both depths 3 the steel each way, against A_{s,min} Work in Workbook 12.2. Then type both T in Lab tab 6 and reveal. SEAA 4333 · Unit 12 · Foundations III Lab tab 6 · Workbook 12.2
+
+[slides-10] Slide 10: A deeper cap needs less tie, but more minimum steel
+Activity 12A · reveal A deeper cap needs less tie, but more minimum steel h = 1100 mm d = 987.5; T = 1609.2 kN steel each way 2 × 1609.2/0.435 = 7399 mm² → 16H25; A_{s,min} 3421. h = 1700 mm d = 1587.5; T = 1001.0 kN 4602 mm² each way, but A_{s,min} = 5499 governs → 12H25. the pattern T ∝ 1/d deeper: less tie, more minimum steel; the depth is set by shear, next. Each way the bars carry 2T = Ns/4d: the moment at the column centre line, Ns/4, divided by d. SEAA 4333 · Unit 12 · Foundations III Lab tab 6 · Workbook 12.2
+
+[slides-11] Slide 11: A four-pile cap: the notes’ 1100 mm, and why it fails
+Worked Example 12.1 · I do A four-pile cap: the notes’ 1100 mm, and why it fails Calculation Output n = 6200/1800 = 3.44; s = 1500 4 piles; 2300 × 2300 h = 2φ + 100; W = 145.5 1100 mm; 1536.4 ≤ 1800 ✓ T = 8475 × 1500/(8 × 987.5) 1609.2 kN A_s = 2T/435; A_{s,min} 3421 7399 → 16H25 V_{Ed} = 2 × 2118.75; a_v = 350 4237.5 kN a_v < 0.5d = 494: β 0.25 V_{Ed,red} against V_{Rd,c} (v_{min}) 1059.4 > 760.3 ✗ face 8475/(2000 × 1000) 4.24 > 4.22 ✗ SEAA 4333 · Unit 12 · Foundations III Notes §2–§5 · Workbook 12.3
+
+[slides-12] Slide 12: Shear at φ/5: the enhancement, and its floor
+Block B · talk 3 · 6 minutes Shear at φ/5: the enhancement, and its floor section φ/5 inside the pile face a_v = s/2 − c/2 − 0.3φ β = max(a_v, 0.5d)/2d ≥ 0.25 Only with the bars anchored beyond the piles; V_{Ed} ≤ 0.5bdνf_{cd}; ρ_l only if the bars run l_{bd} + d past the section. SEAA 4333 · Unit 12 · Foundations III Notes §4 · Workbook 12.3
+
+[slides-13] Slide 13: The notes’ cap: a v = 350 mm, d = 987.5 mm, the bars bent up and anchored beyond the piles. By EC2, β is
+Concept check 2 · think 60 seconds, then vote The notes’ cap: a_v = 350 mm, d = 987.5 mm, the bars bent up and anchored beyond the piles. By EC2, β is A 0.177 B 0.25 C 0.354 D 1.0 Vote · convince your neighbour · vote again Workbook 12.3
+
+[slides-14] Slide 14: Deepen the notes’ cap from 1100 to 1700 mm. V Ed,red …
+Activity 12B · pairs · 5 minutes Deepen the notes’ cap from 1100 to 1700 mm. V_{Ed,red}… A falls to about 470 kN, because a_v/2d falls B stays at 1059.4 kN C rises with the depth D depends on the bars a_v = 350 mm stays the same: the piles do not move. Choose, then reveal in Lab tab 6. SEAA 4333 · Unit 12 · Foundations III Lab tab 6 · Workbook 12.3
+
+[slides-15] Slide 15: It stays: β is on its floor; V Rd,c is what grows
+Activity 12B · reveal It stays: β is on its floor; V_{Rd,c} is what grows h = 1100 mm β = 0.25: 1059.4 kN V_{Rd,c} = 0.335 × 2300 × 987.5 = 760.3 ✗ h = 1700 mm, 12H25 β = 0.25: 1059.4 kN V_{Rd,c} = 0.302 × 2300 × 1587.5 = 1104.0 ✓ 1600 mm gives 1047.9 kN (✗), 1650 mm 1076.0 kN (✓). Concept check 1, second vote: the answer is B. SEAA 4333 · Unit 12 · Foundations III Lab tab 6 · Workbook 12.3
+
+[slides-16] Slide 16: Punching and the column face
+Block C · talk 4 · 4 minutes Punching and the column face s ≤ 3φ: no check at 2d s > 3φ: punching as a slab v_{Ed,0} = βN_{Ed}/(u_0·d) ≤ 0.4νf_{cd} 0.4νf_{cd} = 4.22 N/mm² (A1:2014, course); the notes use 0.5νf_{cd} = 5.28. SEAA 4333 · Unit 12 · Foundations III Notes §5 · Workbook 12.4
+
+[slides-17] Slide 17: Detailing: anchor the tie where the struts meet it
+Block C · talk 4 · 3 minutes Detailing: anchor the tie where the struts meet it (edge − c) + (d − c) ≥ l_{bd} H12 links @ ≤ 250, lapped A_{s,min} both ways, top too Anchored at the piles: β is valid. Running l_{bd} + d past the section: ρ_l counts. Two different checks. SEAA 4333 · Unit 12 · Foundations III Notes §6 · Workbook 12.4
+
+[slides-18] Slide 18: Beam theory: six piles under a moment
+Block C · talk 5 · 5 minutes Beam theory: six piles under a moment M = Σ F_i(x_i − c/2), at each face M_{xx} = 2F_{max}(x_{max} − c/2) M_{yy} = 3F_{mean}(s/2 − c/2) Larger moment in the outer layer; expect A_{s,min} across. Shear in both directions, each with its own a_v and d. SEAA 4333 · Unit 12 · Foundations III Notes §3 · Workbook 12.4
+
+[slides-19] Slide 19: The six-pile cap of FE 11.2, by beam theory
+Faded Example 12.2 · pairs · 18 minutes The six-pile cap of FE 11.2, by beam theory Given: steps 1–2 pile loads 720.8 / 700.0 / 679.2 kN d_x = 1017, d_y = 1001 mm Your turn: steps 3–8 face moments, bars both ways, shear both ways, column face, cracks Then check in the app: case F13. SEAA 4333 · Unit 12 · Foundations III Workbook 12.4
+
+[slides-20] Slide 20: 12H16 along, 18H16 across; shear passes both ways
+Faded Example 12.2 · check 12H16 along, 18H16 across; shear passes both ways M_{xx}; M_{yy} 1009.2; 525.0 kN m along x 2401 mm² → 12H16 across A_{s,min} 3618 → 18H16 shear along β 0.300: 432.4 ≤ 507.2 ✓ shear across β 0.25: 525.0 ≤ 801.6 ✓ face β 1.071: 2.79 ≤ 4.22 ✓ The notes check one direction and use d_y for V_{Rd,c} (501 kN); the long bars cross that section, so d_x gives 507.2 kN. At Mosley’s 700 mm the shear would fail by a factor of 2. SEAA 4333 · Unit 12 · Foundations III Workbook 12.4
+
+[slides-21] Slide 21: In Faded Example 12.2, where does β sit on its floor of 0.25?
+Concept check 3 · think 60 seconds, then vote In Faded Example 12.2, where does β sit on its floor of 0.25? A along the length (a_v = 610 mm) B across (a_v = 160 mm < 0.5d) C in both directions D in neither Vote · convince your neighbour · vote again Workbook 12.4
+
+[slides-22] Slide 22: Foundation S12: four slips in a four-pile cap
+Spot the error · teams · 12 minutes Foundation S12: four slips in a four-pile cap Lab tab 3, or Workbook 12.5. Column 400 mm, G_k 2200 + Q_k 1500 kN; four 450 mm bored piles, working load 1100 kN; cap 2100 mm square, h = 1000 mm; H20, cover 75 mm; C30/37. Reader reads each line aloud; calculator rechecks; checker names the clause or the truss; reporter writes the line number and a one-line reason. Three slips make the cap unsafe, and together they hide a failure; one does not change the outcome. Which is which? SEAA 433
+
+[slides-23] Slide 23: D12: a two-pile cap by the truss analogy (20 marks)
+Block D · alone · 25 minutes D12: a two-pile cap by the truss analogy (20 marks) (a) Piles, spacing, plan, depth; cap weight and pile load [6] (b) N_{Ed}, d, the tie force and the tie bars; bars across [4] (c) Shear at φ/5 with β, the anchorage and V_{Rd,c}; revise if needed [6] (d) Column face and the crack spacing [4] Ref | Calculations | Output. No app, no notes. Self-mark with the scheme after class. SEAA 4333 · Unit 12 · Foundations III Workbook 12.6
+
+[slides-24] Slide 24: The pile cap of your individual column
+Project studio · 12 minutes The pile cap of your individual column Your group The piles you sized in Unit 11 for your ground-floor column, if it needs piles. Your cap Plan from the spacing, depth from the guide; T by the truss, or M at the faces for six piles. Check it Shear at φ/5 with β ≥ 0.25: is the guide depth enough? If not, by how much deeper? Log it Cap size and depth, the tie bars, the shear ratio, and why that depth. SEAA 4333 · Unit 12 · Foundations III Workbook 12.7
+
+[slides-25] Slide 25: Take a reduction only with its limit
+Professional Habit 12 Take a reduction only with its limit β ≥ 0.25 a_v is never taken below 0.5d β needs anchorage bars bent up, l_{bd} beyond each pile ρ_l needs length bars count only if they run l_{bd} + d past the section Read the clause the textbook may quote the rule without its limit SEAA 4333 · Unit 12 · Foundations III Workbook 12.8
+
+[slides-26] Slide 26: Before Unit 13
+After class Before Unit 13 Notes §1–§6 42 min Exercises, all 14 45 min Explorer, 6 tasks with S12 30 min Self-mark D12 on eLearning 15 min Mosley §10.7, RDF §16 reading Unit 13: retaining walls: the thrust of the soil and the stability of a cantilever wall. SEAA 4333 · Unit 12 · Foundations III Workbook 12.8
+
+[slides-27] Slide 27: Before you leave
+Exit ticket · 5 minutes · Workbook 12.8 Before you leave 1 A two-pile cap carries N_{Ed} = 1500 kN on piles 1200 mm apart, with d = 800 mm. Find the tie force and the steel. 2 A four-pile cap has a_v = 300 mm and d = 900 mm, the bars anchored beyond the piles. Find β. 3 What is still unclear? Tear off the slip and hand it in at the door. SEAA 4333 · Unit 12 · Foundations III
+
+[examples-x1] Contoh 1 · Worked Example 12.1: pile cap empat pile melalui truss analogy
+Jenis soalan design pile cap (truss theory) Workbook 12.3 Masa ≈ 35 min
+Soalan Satu column 500 × 500 mm membawa G_k = 3500 kN dan Q_k = 2500 kN. Ia berdiri di atas prestressed spun pile berdiameter 500 mm dengan working load 1800 kN setiap satu. C30/37, B500, cover 75 mm, bar H25; andaikan berat pile cap 200 kN pada mulanya dan ambil kedalaman daripada panduan kursus. Buat design pile cap melalui truss analogy dan semak dengan kaedah kursus; ubah jika ia gagal. Dalam app: kes F12 (Contoh 5 nota kursus, truss theory; Foundation3.xlsx Ex 11.6) dan F12R (pile cap yang diubah) dalam app RC Design Worked Solutions.
+[Rajah: Worked Example 12.1: pile cap 1100 mm dalam nota gagal semakan shear kursus; pile cap 1700 mm lulus.]
+Gambaran fizikal. Column menolak ke bawah di tengah dan empat pile menolak ke atas di bucu, berjarak 1.5 m. Pile cap berkelakuan sebagai dua pasang truss: strut konkrit dari column ke setiap pile, steel tie di antara kepala pile. Pile berdiri dekat dengan column, jadi shear section juga dekat dengannya: enhancement akan berada pada hadnya, dan kedalaman mesti membekalkan shear resistance.
+Pelan. Pile dan pile cap; tie dan bar-nya; shear pada section φ/5 dengan β dan lantainya; muka column; kemudian ubah kedalaman dan semak semula; cracking dan detailing.
+## Langkah 1 Pile dan pile cap
+Ref Pengiraan Output
+Unit 11 N = 3500 + 2500 = 6000 kN; n = (6000 + 200)/1800 = 3.44 4 pile
+§1 s = 3 × 500 = 1500 mm; B = (3 + 1) × 500 + 300 = 2300 mm; h = 2 × 500 + 100 2300 × 2300 × 1100 mm
+EN 1991-1-1 W = 25 × 2.3² × 1.1 = 145.5 kN ≤ 200 kN; service load pada setiap pile (6000 + 145.5)/4 1536.4 ≤ 1800 kN ✓
+## Langkah 2 Tie
+Ref Pengiraan Output
+EN 1990 6.10 N_{Ed} = 1.35 × 3500 + 1.5 × 2500 = 8475 kN; setiap pile 2118.75 kN (tanpa berat pile cap)
+§2 Lapisan atas, kedua-dua arah: d = 1100 − 75 − 1.5 × 25 987.5 mm
+(12.3) T = 8475 × 1500/(8 × 987.5), setiap truss 1609.2 kN
+(12.4) Dua truss setiap arah: A_s = 2 × 1609.2 × 10³/435 7399 mm² setiap arah
+## Langkah 3 Bar
+Ref Pengiraan Output
+(12.4) A_{s,min} = 0.001506 × 2300 × 987.5 = 3421 mm²; A_{s,max} = 0.04 × 2300 × 1100 = 101200 mm²
+§2 s = 1500 mm = 3φ: disebar sekata; jarak (2300 − 150 − 25)/15 16H25 setiap arah (7854) pada 141.7 mm ✓
+## Langkah 4 Shear pada section φ/5
+Ref Pengiraan Output
+§4 Section φ/5 = 100 mm ke dalam dari muka pile; dua pile di luarnya: V_{Ed} = 2 × 2118.75 4237.5 kN
+(12.6) a_v = 1500/2 − 500/2 − 0.3 × 500 350 mm
+§6 Bar dibengkokkan ke atas melepasi garis tengah pile: (400 − 75) + (987.5 − 75) = 1237.5 ≥ l_{bd} = 894 mm: di-anchor, β dibenarkan ✓
+(12.7) a_v = 350 < 0.5d = 493.75 mm, jadi β = 493.75/(2 × 987.5) β = 0.25
+(12.8) V_{Ed,red} = 0.25 × 4237.5; tanpa pengurangan 4237.5 ≤ 0.5 × 2300 × 987.5 × 0.528 × 20 = 11992 kN ✓ 1059.4 kN
+## Langkah 5 Shear resistance
+Ref Pengiraan Output
+EC2 Fig. 6.3 Bar melepasi section: (1150 − 600 − 75) + (987.5 − 75) = 1387.5 < l_{bd} + d = 1881.4 mm, jadi ρ_l = 0
+(12.9) k = 1 + √(200/987.5) = 1.450; v_{min} = 0.035 × 1.450^{1.5} × √30 = 0.3347 N/mm²; V_{Rd,c} = 0.3347 × 2300 × 987.5 760.3 kN
+(12.8) V_{Ed,red} = 1059.4 > 760.3 kN ✗ gagal (1.39)
+nota Tanpa lantai, β = 350/1975 = 0.177: 750.9 ≤ 760.3 kN, lulus dengan margin 1 %. EC2 tidak membenarkannya.
+## Langkah 6 Muka column
+Ref Pengiraan Output
+(12.10) d = 1100 − 75 − 25 = 1000 mm; v_{Ed,0} = 8475 × 10³/(4 × 500 × 1000) 4.24 N/mm²
+(12.10) v_{Rd,max} = 0.4 × 0.528 × 30/1.5 = 4.22 N/mm² (0.5νf_{cd} dalam nota: 5.28) ✗ sebanyak 0.3 %
+## Langkah 7 Ubah: pile cap yang lebih dalam
+Ref Pengiraan Output
+§4 β kekal 0.25 dan V_{Ed,red} pada 1059.4 kN: hanya V_{Rd,c} boleh bertambah. 1600 mm memberi 1047.9 kN (✗), 1650 mm 1076.0 kN (✓); ambil h = 1700 mm daripada kes semakan app h = 1700 mm
+EN 1991-1-1 W = 25 × 2.3² × 1.7 = 224.8 kN; pile (6000 + 224.8)/4 = 1556.2 ≤ 1800 kN; n = (6000 + 300)/1800 = 3.5, masih 4 ✓
+(12.3), (12.4) d = 1587.5 mm; T = 8475 × 1500/(8 × 1587.5) = 1001.0 kN; A_s = 2 × 1001.0 × 10³/435 = 4602 mm²
+(12.4) A_{s,min} = 0.001506 × 2300 × 1587.5 = 5499 mm² menentukan; jarak (2300 − 150 − 25)/11 12H25 setiap arah (5890) pada 193.2 mm
+## Langkah 8 Shear dan muka column sekali lagi
+Ref Pengiraan Output
+(12.7) a_v = 350 < 0.5d = 793.75 mm: β = 0.25, V_{Ed,red} = 1059.4 kN; anchorage (400 − 75) + (1587.5 − 75) = 1837.5 ≥ 894 mm
+(12.9) Bar melepasi section 1987.5 < 2481.4 mm: ρ_l = 0; k = 1.355, v_{min} = 0.3024; V_{Rd,c} = 0.3024 × 2300 × 1587.5 1104.0 ≥ 1059.4 kN ✓
+(12.10) d = 1600 mm: v_{Ed,0} = 8475 × 10³/(2000 × 1600) = 2.65 ≤ 4.22; setiap pile 2118.75 × 10³/(π × 500 × 1600) = 0.84 N/mm² ✓
+## Langkah 9 Cracking dan detailing
+Ref Pengiraan Output
+Table 7.3N σ_s = (3500 + 0.3 × 2500)/8475 × 434.8 × 4602/5890 = 170.3 N/mm² → s_{max} = 287 mm; jarak 193 mm ✓
+§6 Bar dibengkokkan ke atas di kedua-dua hujung; link mendatar H12 @ 250 bertindih; starter bar column dengan link; lapisan atas A_{s,min} (Mosley); kepala pile 75 mm ke dalam pile cap
+Jawapan. Empat spun pile 500 mm pada 1500 mm di bawah pile cap 2300 × 2300 × 1700 mm dengan 12H25 setiap arah pada 193 mm, dibengkokkan ke atas di kedua-dua hujung, c_{nom} = 75 mm. Pile cap 1100 mm dengan 16H25 setiap arah dalam nota kursus gagal semakan shear kursus (1059.4 > 760.3 kN) dan muka column (4.24 > 4.22 N/mm²).
+Apa yang nombor ini katakan Pile berdiri begitu dekat dengan column sehingga a_v = 350 mm berada di bawah 0.5d pada mana-mana kedalaman yang berguna: β berada di lantainya 0.25 dan V_{Ed,red} tetap pada N_{Ed}/8 = 1059.4 kN. Mendalamkan pile cap hanya berkesan melalui V_{Rd,c} = v_{min}bd, yang memerlukan d ≈ 1.5 m di sini. Pile cap yang lebih dalam memerlukan kurang tie steel (T turun dari 1609 kepada 1001 kN) tetapi lebih banyak minimum steel, yang kini menentukan. Example 10.5 Mosley, dengan pile yang lebih ringan (1250 kN setiap satu di atas pile 450 mm), lulus walaupun dengan lantai (625 ≤ 633 kN); pile cap dalam nota, dengan 2119 kN pada setiap pile, tidak.
+
+[examples-x2] Contoh 2 · Faded Example 12.2: pile cap enam pile melalui beam theory
+Jenis soalan design pile cap (beam theory) Workbook 12.4 Masa ≈ 25 min
+Soalan Kumpulan enam pile dalam Faded Example 11.2: column 400 × 400 mm dengan N_{Ed} = 4200 kN dan M_{Ed} = 75 kN m pada paksi y, di atas pile 300 × 300 mm pada 900 mm di bawah pile cap 1.5 × 2.4 × 1.1 m. C30/37, B500, cover 75 mm, bar H16; ambil stress ratio quasi-permanent sebagai 0.55, seperti dalam nota. Buat design pile cap melalui beam theory. Dalam workbook, langkah 1 dan 2 diberi; lengkapkan langkah 3 hingga 8. Dalam app: kes F13 (Contoh 5 nota kursus, beam theory; Foundation3.xlsx Ex 11.7).
+[Rajah: Faded Example 12.2: pile cap Faded Example 11.2, dengan dua shear section-nya.]
+## Langkah 1 Load pile (diberi, daripada Faded Example 11.2)
+Ref Pengiraan Output
+Unit 11 Service: P_{max} = 531.4 ≤ 600 kN ✓. Ultimate, tanpa berat pile cap: 4200/6 ± 75 × 0.9/3.24 720.8, 700.0, 679.2 kN
+## Langkah 2 Effective depth (diberi)
+Ref Pengiraan Output
+§3 Bar sepanjang panjang, lapisan luar: d_x = 1100 − 75 − 8; merentas, lapisan dalam: d_y = 1100 − 75 − 24 1017; 1001 mm
+## Langkah 3 Moment di muka column
+Ref Pengiraan Output
+(12.5) Bar sepanjang x: dua pile hujung di luar muka, 0.9 − 0.2 = 0.70 m darinya: M_{xx} = 2 × 720.8 × 0.70 1009.2 kN m
+(12.5) Bar merentas: satu baris tiga, 0.45 − 0.2 = 0.25 m darinya: M_{yy} = 3 × 700 × 0.25 525.0 kN m
+## Langkah 4 Bar sepanjang panjang
+Ref Pengiraan Output
+RCD I K = 1009.2 × 10⁶/(30 × 1500 × 1017²) = 0.0217; z = 0.95d = 966.2 mm; A_s = 1009.2 × 10⁶/(435 × 966.2) 2401 mm²
+(12.4) A_{s,min} = 0.001506 × 1500 × 1017 = 2298 mm² 12H16 (2413) ✓
+## Langkah 5 Bar merentas
+Ref Pengiraan Output
+RCD I K = 525.0 × 10⁶/(30 × 2400 × 1001²) = 0.0073; z = 0.95d = 951.0 mm; A_s = 525.0 × 10⁶/(435 × 951.0) = 1269 mm²
+(12.4) A_{s,min} = 0.001506 × 2400 × 1001 = 3618 mm² menentukan 18H16 (3619) ✓
+## Langkah 6 Shear dalam kedua-dua arah
+Ref Pengiraan Output
+(12.6), (12.7) Section merentas lebar: dua pile hujung di luarnya, V_{Ed} = 1441.7 kN; a_v = 900 − 200 − 90 = 610 ≥ 0.5d = 508.5 mm: β = 610/2034 = 0.300; di-anchor (225 + 942 = 1167 ≥ 572 mm) V_{Ed,red} = 432.4 kN
+(12.9) Bar melepasi section 1257 < 572 + 1017 = 1589 mm: ρ_l = 0; V_{Rd,c} = 0.3325 × 1500 × 1017 507.2 ≥ 432.4 kN ✓
+(12.7), (12.9) Section sepanjang panjang: satu baris tiga di luarnya, V_{Ed} = 2100 kN; a_v = 450 − 200 − 90 = 160 < 0.5d = 500.5 mm: β = 0.25; V_{Rd,c} = 0.3337 × 2400 × 1001 = 801.6 kN 525.0 ≤ 801.6 kN ✓
+## Langkah 7 Muka column dan pile
+Ref Pengiraan Output
+(12.10) β = 1 + 0.6 × (75 × 10³/4200) × 1600/240000 = 1.071; d = 1100 − 75 − 16 = 1009 mm; v_{Ed,0} = 1.071 × 4200 × 10³/(1600 × 1009) 2.79 ≤ 4.22 N/mm² ✓
+RDF §16 Setiap pile: 720.8 × 10³/(4 × 300 × 1009) 0.60 N/mm² ✓
+## Langkah 8 Cracking dan detailing
+Ref Pengiraan Output
+Table 7.3N Sepanjang x: σ_s = 0.55 × 434.8 × 2401/2413 = 238.0 N/mm² → s_{max} = 202.5 mm; jarak (1500 − 150 − 16)/11 = 121.3 mm ✓
+Table 7.3N Merentas: σ_s = 0.55 × 434.8 × 1269/3619 = 83.9 N/mm² → 300 mm; jarak (2400 − 150 − 16)/17 = 131.4 mm ✓
+§6 Bar dibengkokkan ke atas di hujung; link mendatar H12 @ 250 (nota menunjukkan 4H12 binder); starter bar dengan link
+Jawapan. Pile cap 1500 × 2400 × 1100 mm: 12H16 sepanjang panjang pada 121 mm dan 18H16 merentas pada 131 mm, dibengkokkan ke atas di hujung, c_{nom} = 75 mm. Shear 432.4 ≤ 507.2 kN sepanjang dan 525.0 ≤ 801.6 kN merentas; muka column 2.79 ≤ 4.22 N/mm².
+Apa yang nombor ini katakan Di sini a_v = 610 mm melepasi 0.5d, jadi β = 0.30 datang daripada a_v/2d itu sendiri: lantai hanya berkesan dalam arah pendek, tempat a_v = 160 mm. Nota menyemak satu arah dan menggunakan d_y bagi V_{Rd,c} (501 kN); bar yang merentasi section itu ialah bar panjang, jadi d_x memberi 507.2 kN. A_{s,min} menentukan merentas, dan hampir sepanjang (2401 berbanding 2298 mm²): pada kedalaman ini pile cap hampir tidak melentur; shear yang mengekalkannya sedalam 1.1 m (Contoh 3, soalan 4).
+
+[examples-x3] Contoh 3 · Soalan jenis terangkan
+Jenis soalan jawapan bertulis pendek Masa ≈ 3 min setiap satu
+Soalan
+- Mengapakah truss analogy memberi lebih banyak steel daripada beam theory bagi pile cap empat pile yang sama?
+- Dalam Worked Example 12.1, mengapakah pile cap yang lebih dalam tidak mengurangkan shear V_{Ed,red}, dan bagaimanakah ia lulus?
+- Bilakah pile cap mesti disemak bagi punching, dan apakah yang disemak apabila ia tidak perlu?
+- Mosley Table 10.5 mencadangkan 700 mm bagi pile 300 mm. Apakah yang berlaku kepada pile cap Faded Example 12.2 pada 700 mm?
+Tulis empat jawapan anda dahulu, kemudian buka jawapan model satu demi satu.
+## Jawapan 1 Garis tengah berbanding muka
+Dalam satu arah truss membawa 2T = Ns/4d, iaitu moment di garis tengah column, (N/2)(s/2) = Ns/4, dibahagi d. Beam theory mengambil moment di muka column, (N/2)(s/2 − c/2), lebih kecil sebanyak separuh lebar column, dibahagi z = 0.95d. Bagi pile cap empat pile dalam nota, ia ialah 3178 kN m dibahagi 987.5 mm berbanding 2119 kN m dibahagi 938 mm: 7399 berbanding 5192 mm² setiap arah. Truss ialah model yang lebih selamat apabila strut curam dan pile cap padat; beam theory sesuai bagi pile cap yang lebih panjang.
+## Jawapan 2 Lantai β
+a_v = 350 mm ditetapkan oleh pelan; 0.5d ialah 494 mm pada kedalaman 1100 mm dan bertambah dengan d, jadi a_v kekal di bawah 0.5d dan β kekal pada lantainya, 0.25. V_{Ed,red} = 0.25 × 4237.5 = 1059.4 kN walau apa pun kedalamannya. Tanpa lantai, β = a_v/2d akan terus menurun dan pile cap yang lebih dalam seolah-olah menurunkan shear, iaitu penaakulan yang ditolak oleh EC2. Pile cap lulus kerana V_{Rd,c} = v_{min}bd bertambah dengan d (v_{min} sendiri menurun sedikit melalui k): 760 kN pada 1100 mm, 1104 kN pada 1700 mm.
+## Jawapan 3 Pile di luar 2d
+Apabila jarak pile melebihi 3φ, sesetengahnya berada di luar basic control perimeter pada 2d dari column, dan pile cap boleh mengalami punching seperti slab: ia disemak pada control perimeter seperti Unit 10, dan hanya bar dalam lingkungan 1.5φ dari pusat pile dikira dalam tie. Pada 3φ atau lebih rapat, pile berada di dalam 2d, shear merentasi section beam pada φ/5, dan tiada perimeter punching disemak (Mosley §10.7.3, amalan BS 8110). Semakan penghancuran kekal: muka column, βN_{Ed}/(u_0d) ≤ 0.4νf_{cd}, dan setiap perimeter pile.
+## Jawapan 4 Shear menentukan kedalaman
+Pada h = 700 mm, d_x = 617 mm. Bending memerlukan 3979 mm² sepanjang panjang (20H16 dan bukannya 12H16), yang boleh dilakukan. Shear tidak: a_v = 610 mm kini melepasi 0.5d, jadi β = 610/1234 = 0.49 dan V_{Ed,red} = 712.7 kN berbanding V_{Rd,c} = 348.8 kN, nisbah 2.0; muka column mencapai 4.62 > 4.22 N/mm². 1000 mm masih gagal (479.5 > 468.5 kN); 1100 mm dalam nota lulus. Table 10.5 sesuai bagi load pile biasa; pile 300 mm ini memikul 720 kN setiap satu pada ultimate limit state, dan pile cap mesti cukup dalam bagi shear itu.
+
+[exercises-b1] Latihan B1 · Pile cap dua pile: tie
+Soalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-b2] Latihan B2 · Pile cap empat pile: tie setiap arah
+Soalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-b3] Latihan B3 · Pile cap tiga pile: tie
+Soalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-b4] Latihan B4 · Pile cap enam pile: beam theory
+Soalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-b5] Latihan B5 · Shear pada section φ/5
+Soalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-b6] Latihan B6 · Muka column dengan moment
+Soalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-quick] Latihan: soalan konsep pantas
+- Mosley membuat design pile cap melalui truss analogy dan bukannya beam theory apabila
+- Dalam pile cap empat pile dengan daya tie T = Ns/8d dalam setiap truss, bar merentas pile cap dalam satu arah mesti membawa
+- Section kritikal bagi shear dalam pile cap diambil
+- Apabila a_v , jarak dari muka column ke shear section, kurang daripada 0.5d, EC2 6.2.2(6) mengambil
+- Pile pada 3φ di bawah pile cap. Punching pada basic control perimeter, 2d dari column,
+- Dalam pile cap enam pile Faded Example 12.2, 18H16 merentas pile cap ditentukan oleh
+- Pile cap empat pile dalam nota kursus: N_{Ed} = 8475 kN, s = 1500 mm, h = 1100 mm, cover 75 mm, H25. Satu baris mengandungi kesilapan. Yang mana?
+- Pile cap dua pile: N_{Ed} = 2000 kN, pile 450 mm pada 1350 mm, column 450 mm, pile cap selebar 750 mm dengan d = 915 mm, bar dibengkokkan ke atas dan di-anchor, tidak dikira dalam ρ_l ; C30/37. Satu baris mengandungi kesilapan. Yang mana?
+
+[lab-truss] Tugasan Explorer 1 · Tab 6, Aktiviti 12A: kira daya tie dalam setiap truss kes F12 bagi h = 1100 mm dan h = 1700 mm dengan tangan (Workbook 12.2), taip kedua-dua nilai, kemudian dedahkan.
+Ditanda sendiri: apabila kedua-dua nilai dimasukkan dan didedahkan · tidak ditanda? tanda selesai
+(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)
+
+[lab-floor] Tugasan Explorer 2 · Tab 6, Aktiviti 12B: ramal apa yang berlaku kepada shear terkurang V_{Ed,red} kes F12 apabila pile cap bertukar dari 1100 kepada 1700 mm dalam, kemudian dedahkan.
+Ditanda sendiri: apabila ramalan anda didedahkan · tidak ditanda? tanda selesai
+(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)
+
+[lab-deepen] Tugasan Explorer 3 · Tab 6: dengan load kes F12, naikkan h dalam langkah 50 mm sehingga semakan shear lulus. Kedalaman manakah yang pertama lulus, dan mengapakah β tidak berubah sepanjang jalan?
+Ditanda sendiri: apabila pile cap empat pile dengan load F12 lulus semakan shear selepas anda mengubah h · tidak ditanda? tanda selesai
+(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)
+
+[lab-wide] Tugasan Explorer 4 · Tab 6: tetapkan faktor jarak k melebihi 3 (pile lebih jauh daripada 3φ). Bar manakah yang masih dikira, dan semakan manakah yang kini diminta oleh Lab?
+Ditanda sendiri: apabila k melebihi 3 · tidak ditanda? tanda selesai
+(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)
+
+[lab-beam] Tugasan Explorer 5 · Tab 6: pilih kes F13, pile cap enam pile Faded Example 12.2. Baca M_{xx} dan M_{yy} di muka column dan dua shear section: dalam arah manakah β berada pada lantainya?
+Ditanda sendiri: apabila kes F13 dipaparkan · tidak ditanda? tanda selesai
+(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)
+
+[lab-s12] Tugasan Explorer 6 · Tab 3: Foundation S12, cari keempat-empat kesilapan, ketik barisnya dan tekan “Semak”.
+Ditanda sendiri: apabila keempat-empat kesilapan S12 ditemui, sebelum Tunjuk · tidak ditanda? tanda selesai
+(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)
+
+[glossary-a-v-shear-span-of-a-cap] Glosari: a_v (shear span of a cap)
+a_v (shear span of a cap): Jarak dari muka column ke shear section φ/5 ke dalam dari muka pile; bagi kumpulan segi empat sama a_v = s/2 − c/2 − 0.3φ.
+
+[glossary-anchorage-beyond-the-pile-centre-line] Glosari: anchorage beyond the pile centre line
+anchorage beyond the pile centre line: Panjang bar tie melepasi pusat pile, lurus dan naik kaki bengkoknya: (jarak tepi − c) + (d − c); ia mesti mencapai l_{bd} supaya β sah.
+
+[glossary-beam-theory] Glosari: beam theory
+beam theory: Membuat design pile cap sebagai beam lebar yang terbalik: moment di setiap muka column daripada pile di luarnya, M = ΣF_i (x_i − c/2).
+
+[glossary-bent-up-bar] Glosari: bent-up bar
+bent-up bar: Bar tie yang dibengkokkan ke atas di hujung pile cap supaya ia di-anchor melepasi garis tengah pile (Mosley §10.7.4).
+
+[glossary-shear-enhancement-factor] Glosari: β, shear enhancement factor
+β, shear enhancement factor: Faktor EC2 6.2.2(6) bagi load berhampiran support: β = max(a_v , 0.5d)/2d, jadi 0.25 ≤ β ≤ 1; sah hanya dengan bar di-anchor sepenuhnya di support.
+
+[glossary-column-face-check] Glosari: column face check
+column face check: Semakan penghancuran di perimeter column, βN_{Ed} /(u_0 d) ≤ v_{Rd,max} (EC2 6.4.5(3)), dibuat bagi setiap pile cap.
+
+[glossary-critical-shear-section] Glosari: critical shear section
+critical shear section: Dalam pile cap, section satu perlima diameter pile ke dalam dari muka pile; V_{Ed} ialah load setiap pile di luarnya.
+
+[glossary-depth-guide] Glosari: depth guide
+depth guide: Mosley Table 10.5: 700 mm bagi pile 300 mm hingga 1800 mm bagi pile 750 mm, bagi sehingga enam pile; lebih kurang 2φ + 100. Nilai permulaan: shear yang menentukan.
+
+[glossary-effective-depth-by-layers] Glosari: effective depth by layers
+effective depth by layers: d mengikut lapisan bar: h − c − φ/2 bagi satu lapisan, h − c − 1.5φ bagi yang atas daripada dua, h − c − 2.5φ bagi yang paling atas daripada tiga.
+
+[glossary-floor-of] Glosari: floor of β
+floor of β: Peraturan EC2 bahawa a_v tidak diambil kurang daripada 0.5d, jadi shear terkurang tidak pernah kurang daripada satu perempat V_{Ed} ; nota kursus dan Mosley tidak memasukkannya.
+
+[glossary-horizontal-links] Glosari: horizontal links
+horizontal links: Link yang bertindih penuh sekurang-kurangnya H12 pada tidak lebih daripada 250 mm mengelilingi sisi pile cap, memegang bucu dan bar yang dibengkokkan ke atas.
+
+[glossary-node] Glosari: node
+node: Sambungan dalam truss analogy: nod atas di pusat column, nod bawah tempat tie merentasi garis tengah pile.
+
+[glossary-strength-reduction-factor] Glosari: ν, strength reduction factor
+ν, strength reduction factor: ν = 0.6(1 − f_{ck} /250) bagi cracked concrete; 0.528 bagi C30/37. Ia menentukan v_{Rd,max} dan had bagi shear yang tidak dikurangkan.
+
+[glossary-pile-cap] Glosari: pile cap
+pile cap: Blok yang menyambung kumpulan pile kepada column-nya dan membahagikan load antara pile; dibuat design melalui truss analogy atau beam theory.
+
+[glossary-pile-cut-off-level] Glosari: pile cut-off level
+pile cut-off level: Aras kepala pile dipotong: tidak melepasi lapisan bar bawah, lebih kurang 75 mm ke dalam pile cap, supaya ia tidak melemahkan pile cap dalam punching.
+
+[glossary-pile-perimeter-check] Glosari: pile perimeter check
+pile perimeter check: F_{max} /(u_p d) ≤ v_{Rd,max} di sekeliling setiap pile, u_p = πφ bagi pile bulat (RDF §16).
+
+[glossary-punching-in-a-pile-cap] Glosari: punching in a pile cap
+punching in a pile cap: Disemak pada control perimeter, seperti slab, hanya apabila jarak pile melebihi 3φ dan oleh itu berada di luar 2d (Mosley §10.7.3).
+
+[glossary-l-in-a-pile-cap] Glosari: ρ_l in a pile cap
+ρ_l in a pile cap: Tension steel dikira dalam V_{Rd,c} hanya jika ia melepasi shear section sejauh l_{bd} + d (EC2 Figure 6.3); dalam contoh kursus ia tidak, jadi v_{min} menentukan.
+
+[glossary-spacing-factor-k] Glosari: spacing factor k
+spacing factor k: s = kφ; kursus menggunakan k = 3. Dengan k > 3 hanya bar dalam lingkungan 1.5φ dari pusat pile dikira, enhancement digunakan pada jalur selebar 3φ, dan punching disemak.
+
+[glossary-starter-bars] Glosari: starter bars
+starter bars: Bar yang dibiarkan terjulur dari pile cap untuk bertindih dengan bar column, diikat dengan link di dalam pile cap.
+
+[glossary-strut] Glosari: strut
+strut: Jalur konkrit dalam compression yang membawa load dari column ke kepala pile dalam truss analogy.
+
+[glossary-tie] Glosari: tie
+tie: Bottom reinforcement dalam truss analogy, menyambung kepala pile dan menahannya daripada merenggang.
+
+[glossary-tie-force-t] Glosari: tie force T
+tie force T: Dua pile Ns/4d; tiga pile Ns/9d setiap sisi; empat pile Ns/8d setiap truss, dua truss setiap arah (Mosley Table 10.4, RDF Figure 16.2).
+
+[glossary-truss-analogy] Glosari: truss analogy
+truss analogy: Model pile cap yang padat sebagai strut konkrit dari column ke pile dan steel tie di antara kepala pile; digunakan apabila rentang kurang daripada lebih kurang dua kali kedalaman.
+
+[glossary-v-rd-max] Glosari: v_{Rd,max}
+v_{Rd,max}: Had penghancuran di muka column: 0.4νf_{cd} = 4.22 N/mm² bagi C30/37 dalam kursus (EN 1992-1-1 A1:2014); 0.5νf_{cd} = 5.28 N/mm² dalam nota dan Mosley.
+
+[glossary-whole-width-enhancement] Glosari: whole-width enhancement
+whole-width enhancement: Dengan s ≤ 3φ pengurangan β digunakan merentas seluruh shear section; dengan jarak yang lebih besar hanya pada jalur selebar 3φ berpusat pada pile (Mosley §10.7.2).

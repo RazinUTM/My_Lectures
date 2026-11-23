@@ -1,0 +1,468 @@
+# Unit 10 Foundations I
+SEAA 4333 Reinforced Concrete Design II, Minggu 11. Jenis foundation dan apa yang mesti dilakukan oleh foundation; pad footing di bawah axial load dan di bawah load dengan moment; strip footing dan combined footing. Tentukan saiz tapak bagi bearing pressure, cari tekanan apabila load beralih dari tengah, kemudian semak bending, shear dan punching tapak pada section kritikalnya, termasuk perimeter di dalam 2d yang diminta oleh EC2 bagi column base. Apakah yang berlaku kepada tekanan tanah apabila load beralih dari tengah? Nota, slides, jawapan model, latihan dengan nombor baharu pada setiap cubaan, dan Foundation Lab.
+
+[start-outcomes] Selepas bahagian ini, anda sepatutnya boleh
+1. memilih jenis foundation bagi column atau dinding di atas tanah yang diberi, dan menyatakan semakan yang mesti dilepasi oleh tapak: bearing pressure dan settlement bagi tanah, kekuatan dan cover bagi konkrit;
+2. menentukan saiz pad atau strip footing daripada service load, dan mencari bearing pressure apabila load di luar tengah: e di bawah, pada dan di atas L/6, dan di bucu di bawah dua moment;
+3. membuat design pad footing pada section kritikalnya: bending di muka column, shear pada d, punching pada 2d dan pada perimeter di dalam 2d yang diminta oleh EC2 bagi column base, dan muka column;
+4. menentukan saiz dan kedudukan combined footing bagi dua column, melukis shear force diagram dan bending moment diagram-nya, dan meletakkan bar-nya pada muka yang tegang.
+
+[notes-n1] Nota 1. Foundation: jenis dan keperluan
+Foundation membawa load bangunan ke dalam tanah. Setiap tanah termampat di bawah load, jadi setiap bangunan mendap. Design memastikan jumlah settlement kecil, dan perbezaan antara column yang bersebelahan lebih kecil lagi, dengan menumpu pada lapisan tanah yang cukup kuat dan dengan menyebarkan load ke atas luas yang cukup besar (nota kursus).
+Dua semakan pada dua aras load Tanah. Di bawah service load, G_k + Q_k, bearing pressure tidak boleh melebihi allowable bearing pressure q_{all}. Jurutera geoteknik menetapkan q_{all} dengan faktor keselamatan terhadap bearing failure sudah di dalamnya (biasanya 2.5 hingga 3) dan cukup rendah untuk mengekalkan settlement yang boleh diterima, jadi load tidak difaktorkan sekali lagi. Konkrit. Tapak dibuat design pada ultimate limit state, 1.35G_k + 1.5Q_k, bagi bending, shear dan punching, seperti mana-mana member lain (EC2).
+[Rajah: Enam jenis foundation dalam nota kursus. Unit 10 hingga 12 membuat design kesemuanya kecuali raft.]
+Jenis Gunakan apabila Unit
+Pad footing Satu column di atas tanah yang cukup kuat berhampiran permukaan. Tapak paling mudah dan murah: segi empat sama atau segi empat tepat pada pelan, satu ketebalan. 10
+Strip footing Load-bearing wall; satu barisan column yang terlalu rapat untuk pad berasingan; atau tanah lemah yang memerlukan bearing area yang lebih besar. 10
+Combined footing Dua column yang begitu rapat sehingga pad-nya bertindih, atau column di sempadan tapak. Tapak diletakkan supaya centroid-nya berada di bawah paduan load. 10
+Strap footing Column di sempadan yang pad-nya tidak boleh menjulur melepasi sempadan: strap beam mengikatnya kepada footing dalam untuk menahan terbalik. 11
+Raft Load berat atau bearing pressure yang rendah, atau tanah berubah-ubah dengan lapisan boleh mampat: satu slab di bawah seluruh bangunan menghadkan differential settlement. tiada dalam kursus ini
+Pile dan pile cap Tanah keras lebih dalam daripada lebih kurang 3 m: pile membawa load ke bawah melalui end bearing, geseran, atau kedua-duanya. 11–12
+Kursus ini mengambil tekanan di bawah tapak tegar sebagai linear: seragam di bawah load di tengah, condong apabila ada moment. Tekanan sebenar lebih tinggi di tepi bagi tanah liat dan lebih tinggi di tengah bagi pasir (nota kursus); garis lurus ialah konvensyen design, dan itulah yang digunakan oleh pereka EC2 dan app RC Design.
+Cover pada muka tuangan (EC2 4.4.1.3(4)) c_{nom} = c_{min} + Δc_{dev} seperti dalam RCD I, dan tidak kurang daripada 40 mm apabila tapak dituang di atas tanah yang disediakan atau blinding, atau 75 mm apabila dituang terus di atas tanah. Contoh 1 nota kursus berhenti pada 35 mm; di atas blinding, 40 mm yang menentukan (Worked Example 10.1).
+Bagi projek anda, brief 2024/25 memberi 2 m made ground di atas mudstone dengan allowable bearing pressure 600 kN/m². Made ground ialah tanah tambak: berubah-ubah dan boleh mampat, jadi tiada footing patut menumpu padanya. Dua jawapan terbuka: pad yang diturunkan melalui tanah tambak hingga ke mudstone, atau pile. Studio meminta anda memilih dengan nombor.
+Semakan pantas (tidak dimarkah): Satu pad footing dituang di atas lapisan blinding 50 mm. c_{min} = 25 mm dan Δc_{dev} = 10 mm. Nominal cover ialah
+Pilihan: 35 mm | 40 mm | 50 mm | 75 mm
+Penjelasan yang dipaparkan selepas menjawab: c_{min} + Δc_{dev} = 35 mm, tetapi EC2 4.4.1.3(4) meminta sekurang-kurangnya 40 mm di atas blinding. 75 mm terpakai apabila konkrit dituang terus di atas tanah; ketebalan blinding tidak terlibat.
+Isi penting:
+- Pad bagi satu column, strip bagi dinding, combined bagi dua column yang rapat; strap, raft dan pile apabila ini tidak sesuai.
+- Tanah: service load berbanding q_{all}. Konkrit: ultimate load, EC2.
+- c_{nom} ≥ 40 mm di atas blinding, ≥ 75 mm terhadap tanah.
+
+[notes-n2] Nota 2. Menentukan saiz tapak
+Penentuan saiz didahulukan dan menggunakan service load; kedalaman dan bar menyusul dan menggunakan ultimate load. Asingkan kedua-duanya dan kebanyakan kesilapan footing akan hilang.
+PERSAMAAN (10.1): A_{req} = \frac{G_k + Q_k + W}{q_{all}},\qquad W \approx 0.1\,(G_k + Q_k)\ \text{at first, then } W = 25\,A\,h
+Pilih pelan hingga 0.1 m terdekat di atas A_{req}, kemudian kira semula W dengan saiz yang dipilih dan semak p = (G_k + Q_k + W)/A ≤ q_{all}. Jika hanya design load diberi, kursus membahagikannya dengan γ_F ≈ 1.4 untuk mendapatkan service load (nota kursus, Contoh 2 dan 3). Mosley membuat hasil tambah yang sama secara terbalik: net allowable pressure q_{all} − 25h membawa G_k + Q_k sahaja.
+PERSAMAAN (10.2): p_{Ed} = \frac{N_{Ed}}{A},\qquad N_{Ed} = 1.35\,G_k + 1.5\,Q_k
+Ultimate pressure tidak mengambil kira self-weight. Berat tapak terletak pada tanah betul-betul di bawahnya, jadi ia tidak melenturkan apa-apa dan tidak menghasilkan shear; hanya load column, yang disebarkan oleh tapak, yang berbuat demikian (Mosley §10.1). Menambah 1.35W kepada N_{Ed} melebihkan setiap moment dan shear dalam tapak.
+Kedalaman Bending jarang menentukan kedalaman footing; shear yang menentukan, melalui punching atau vertical shear pada d. Pilih h percubaan, buat design, dan dalamkan tapak jika semakan shear gagal. Muka column menetapkan had bawah, d ≥ N_{Ed}/(v_{Rd,max}u_0) (nota kursus), dan starter bar memerlukan anchorage compression di dalam h (Mosley §10.1). Bagi Worked Example 10.1 had bawah ini ialah 1410 × 10³/(3.60 × 1200) = 326 mm; semakan punching memerlukan lebih.
+Worked Example 10.1 Output
+Service load G_k + Q_k = 600 + 400 1000 kN
+Luas diperlukan (1000 + 100)/150 7.33 m²
+Pelan dipilih 3.0 × 3.0 m, h = 500 mm A = 9.0 m²
+Self-weight 25 × 9.0 × 0.50 112.5 kN
+Service pressure (1000 + 112.5)/9.0 123.6 ≤ 150 kN/m² ✓
+Ultimate pressure (1.35 × 600 + 1.5 × 400)/9.0 = 1410/9.0 156.7 kN/m²
+Semakan pantas (tidak dimarkah): Satu column membawa G_k + Q_k = 1000 kN ke atas tanah dengan q_{all} = 150 kN/m². Dengan self-weight diambil 10% pada mulanya, luas yang diperlukan ialah
+Pilihan: 6.67 m² | 7.33 m² | 10.3 m² | 9.00 m²
+Penjelasan yang dipaparkan selepas menjawab: (1000 + 100)/150 = 7.33 m². 6.67 terlupa self-weight; 10.3 menentukan saiz tapak dengan ultimate load 1410 kN, yang mengira faktor keselamatan dua kali; 9.00 m² ialah pelan 3.0 × 3.0 m yang kemudiannya dipilih.
+Isi penting:
+- Luas pelan daripada service load dan q_{all}, dengan self-weight; semak tekanan dengan self-weight sebenar.
+- Ultimate pressure p_{Ed} = N_{Ed}/A, tanpa self-weight.
+- Shear, bukan bending, biasanya menentukan kedalaman.
+
+[notes-n3] Nota 3. Tekanan apabila load di luar tengah
+Soalan besar hari ini. Tekan blok span melalui plat yang keras: di tengah ia tenggelam sama rata; alihkan jari anda dari tengah dan satu tepi tenggelam lebih; alihkan cukup jauh dan tepi yang jauh terangkat dari span. Tanah di bawah footing berkelakuan sama, dan nombornya terhasil daripada keseimbangan sahaja.
+[Rajah: Hook: semakin jauh load beralih dari tengah, semakin condong tekanan, sehingga sebahagian tapak terangkat.]
+PERSAMAAN (10.3): e = \frac{M}{N}\qquad \left(N = G_k + Q_k + W \text{ for the soil check};\ N = N_{Ed} \text{ at the ultimate limit state}\right)
+Moment pada tapak mengalihkan paduan load dari tengah sejauh e. Selagi seluruh tapak kekal bersentuhan, tekanannya sama seperti column pendek, axial load campur bending, dengan pelan tapak sebagai section (Mosley Eq. 10.2 dan 10.3):
+PERSAMAAN (10.4): p_{max,\,min} = \frac{N}{A} \pm \frac{M}{Z} = \frac{N}{A}\left(1 \pm \frac{6e}{L}\right),\qquad Z = \frac{B L^2}{6} \qquad (e \le L/6)
+Pada e = L/6 tekanan minimum mencapai sifar dan diagram menjadi segi tiga dengan p_{max} = 2N/A: paduan berada di tepi middle third, iaitu kern. Melepasi L/6, formula itu akan memberi tension di bawah tepi yang rendah, yang tidak boleh diberikan oleh tanah. Bahagian tapak itu terangkat, dan tekanan menjadi segi tiga sepanjang contact length L_c yang centroid-nya berada di bawah load: L_c/3 = L/2 − e.
+PERSAMAAN (10.5): L_c = 3\left(\frac{L}{2} - e\right),\qquad p_{max} = \frac{2N}{B\,L_c} \qquad (e > L/6)
+[Rajah: Tiga kes, dan kern: paduan di dalam rombus memastikan setiap bahagian tapak bersentuhan.]
+Nombor berkerja: tapak yang terangkat (kes app F3) Satu tapak 2.4 × 2.0 m membawa N_{Ed} = 600 kN dan M_{Ed} = 300 kN m sepanjang panjangnya: e = 300/600 = 0.50 m > L/6 = 0.40 m. Eq. (10.4) akan memberi 125 ± 156 = 281 dan −31 kN/m², iaitu tarikan yang tidak boleh diberikan oleh tanah. Sebaliknya L_c = 3(1.20 − 0.50) = 2.10 m dan p_{max} = 2 × 600/(2.0 × 2.10) = 286 kN/m²; 0.30 m terakhir terangkat. Di bawah service load dengan self-weight, e = 214.3/500.6 = 0.43 m, masih melepasi L/6: L_c = 2.32 m dan p_{max} = 216 ≤ 250 kN/m² ✓. EC7 6.5.4 meminta langkah berjaga-jaga khas sebaik sahaja e melebihi L/3, apabila kurang daripada separuh tapak bersentuhan.
+Dengan moment pada kedua-dua paksi, tekanan paling besar di satu bucu, dan setiap bucu kekal bersentuhan selagi paduan berada di dalam kern, rombus dengan bucunya pada L/6 pada setiap paksi:
+PERSAMAAN (10.6): p = \frac{N}{A} \pm \frac{M_x}{Z_x} \pm \frac{M_y}{Z_y},\qquad \text{all corners in contact if } \frac{6e_x}{L_x} + \frac{6e_y}{L_y} \le 1
+Menyemak e_x ≤ L_x/6 dan e_y ≤ L_y/6 secara berasingan tidak mencukupi: dengan e_x/L_x = e_y/L_y = 1/8 setiap satu lulus, tetapi 6/8 + 6/8 = 1.5 dan satu bucu terangkat. Kes app F4, pad segi empat sama 2.5 m di bawah N_{Ed} = 900 kN dengan 120 dan 80 kN m, memberi 220.8 dan 67.2 kN/m² di bucu yang bertentangan, dengan 6e_x/L_x + 6e_y/L_y = 0.47. Apabila satu moment mendominasi, tapak segi empat tepat yang panjang pada arah itu ialah bentuk yang ekonomik (Mosley §10.1).
+Semakan pantas (tidak dimarkah): Satu tapak sepanjang 2.4 m membawa N = 600 kN pada e = 0.5 m dari tengahnya. Panjang tapak yang bersentuhan dengan tanah ialah
+Pilihan: 2.40 m | 2.10 m | 1.40 m | 0.70 m
+Penjelasan yang dipaparkan selepas menjawab: e = 0.5 m > L/6 = 0.4 m, jadi sebahagian tapak terangkat: L_c = 3(1.2 − 0.5) = 2.10 m. 2.40 m memerlukan e ≤ L/6; 1.40 m ialah L − 2e, lebar berkesan dalam pengiraan bearing capacity, bukan contact length; 0.70 m ialah L/2 − e sahaja.
+Isi penting:
+- e ≤ L/6: p = (N/A)(1 ± 6e/L), trapezium. e = L/6: segi tiga, 2N/A hingga sifar.
+- e > L/6: sebahagian tapak terangkat; L_c = 3(L/2 − e), p_{max} = 2N/(BL_c). Melepasi L/3, langkah berjaga-jaga khas (EC7 6.5.4).
+- Dua moment: tekanan bucu N/A ± M_x/Z_x ± M_y/Z_y; kern 6e_x/L_x + 6e_y/L_y ≤ 1.
+
+[notes-n4] Nota 4. Section kritikal: bending, shear, punching
+Pad footing ialah cantilever slab yang pendek dan tebal yang diterbalikkan: tanah menolak ke atas, column menahannya ke bawah. Ia disemak di tempat ia paling melentur, di tempat ia menerima shear seperti beam, dan di tempat column cuba menembusinya.
+[Rajah: Section kritikal pad footing. Di bawah column base, EC2 6.4.4(2) menambah setiap perimeter yang lebih dekat daripada 2d.]
+Bending di muka column. Moment diambil pada section merentasi seluruh tapak, daripada tekanan pada satu sisinya. Dengan l = (L − c)/2, cantilever dari muka:
+PERSAMAAN (10.7): M_{Ed} = p_{Ed}\,B\,\frac{l^2}{2}\quad\text{(uniform)};\qquad M_{Ed} = B\left[p_f\,\frac{l^2}{2} + \left(p_{max} - p_f\right)\frac{l^2}{3}\right]\quad\text{(linear, } p_f \text{ at the face)}
+Dua lapisan bar bersilang. Dalam pad segi empat sama, kursus mengambil d lapisan dalam = h − c − 1.5φ bagi kedua-dua arah, yang selamat; dalam pad segi empat tepat, bar bagi moment yang lebih besar diletakkan pada lapisan luar, d_x = h − c − 0.5φ, dan yang lain di atasnya, d_y = h − c − 1.5φ. Kemudian RCD I: K = M/(f_{ck}bd²), z ≤ 0.95d, A_s = M/(0.87f_{yk}z), dan A_{s,min} = 0.26(f_{ctm}/f_{yk})bd ≥ 0.0013bd (EC2 9.2.1.1). Footing mempunyai stress yang rendah, jadi nilai minimum sering menentukan: dalam Faded Example 10.2 ia menentukan pada kedua-dua arah.
+Vertical shear pada d dari muka (EC2 6.2.1(8)). Shear ialah tekanan di luar section, ditahan oleh konkrit sahaja:
+PERSAMAAN (10.8): V_{Ed} = p_{Ed}\,B\,(l - d);\qquad V_{Rd,c} = \left[0.12\,k\,(100\rho_l f_{ck})^{1/3}\right] b\,d \ \ge\ v_{min}\,b\,d,\quad v_{min} = 0.035\,k^{3/2} f_{ck}^{1/2}
+Bar dikira dalam ρ_l hanya jika ia menjangkau sekurang-kurangnya l_{bd} + d melepasi section (EC2 Figure 6.3). Section pada d sering lebih dekat daripada itu ke tepi footing, jadi ρ_l = 0 dan v_{min} ialah keseluruhan rintangan: dalam Worked Example 10.1 bar mempunyai 868 mm melepasi section dan memerlukan 485 + 442 = 927 mm.
+Punching. Basic control perimeter terletak pada 2d dari column, dengan bucu yang dibundarkan. Tekanan tanah di dalamnya menolak terus kembali pada column, jadi ia tidak menghasilkan punching; hanya selebihnya yang berbuat demikian (EC2 Eq. 6.48). d ialah purata dua lapisan.
+PERSAMAAN (10.9): u(a) = 2(c_1 + c_2) + 2\pi a,\quad A(a) = c_1 c_2 + 2a(c_1 + c_2) + \pi a^2;\qquad V_{Ed,red} = N_{Ed} - p_{Ed}\,A(a),\quad v_{Ed} = \frac{\beta\,V_{Ed,red}}{u\,d}
+Column base: setiap perimeter di dalam 2d (EC2 6.4.4(2)) Bagi column base, semakan dibuat pada setiap a ≤ 2d, dengan rintangan dinaikkan apabila perimeter semakin dekat, v_{Rd} = v_{Rd,c} · 2d/a (Eq. 6.50). Perimeter yang lebih dekat lebih pendek dan mengekalkan lebih banyak load, tetapi rintangannya naik lebih cepat, jadi yang paling teruk terletak di antaranya, biasanya berhampiran a = d (antara lebih kurang 0.75d dan 1.25d dalam contoh Unit ini). Dengan tangan, semak a = d serta 2d; Foundation Lab dan app mengimbas 400 perimeter.
+PERSAMAAN (10.10): v_{Rd}(a) = v_{Rd,c}\,\frac{2d}{a}\qquad (a \le 2d)
+[Rajah: Imbasan punching Worked Example 10.1. Dengan h = 450 mm nota kursus, semakan pada 2d lulus, tetapi tapak gagal pada a ≈ 1.2d; h = 500 mm lulus di semua tempat.]
+Dengan moment , shear di sekeliling perimeter tidak sekata, dan β menaikkan puncaknya: β = 1 + k(M_{Ed}/V_{Ed})(u_1/W_1) (EC2 Eq. 6.39), dengan k daripada Table 6.1 (c_1/c_2 = 0.5, 1, 2, 3 memberi 0.45, 0.60, 0.70, 0.80; interpolasi) dan W_1 = c_1²/2 + c_1c_2 + 4c_2d + 16d² + 2πdc_1 (Eq. 6.41). Bagi perimeter pada a, 2d menjadi a: W = c_1²/2 + c_1c_2 + 2c_2a + 4a² + πac_1.
+PERSAMAAN (10.11): v_{Ed,0} = \frac{\beta\,N_{Ed}}{u_0\,d} \le v_{Rd,max} = 0.4\,\nu\,\frac{f_{ck}}{1.5},\qquad \nu = 0.6\left(1 - \frac{f_{ck}}{250}\right)
+Di muka column , kapasiti strut menghadkan stress (EC2 6.4.5(3)). Kursus menggunakan 0.4νf_{cd}, nilai pindaan EC2 tahun 2014; nota kursus mengekalkan 0.5νf_{cd} daripada teks tahun 2004.
+Semakan pantas (tidak dimarkah): Di bawah column base, v_{Rd,c} = 0.38 N/mm². Pada perimeter a = d, rintangan design ialah
+Pilihan: 0.19 N/mm² | 0.38 N/mm² | 0.76 N/mm² | 3.60 N/mm²
+Penjelasan yang dipaparkan selepas menjawab: v_{Rd} = v_{Rd,c} · 2d/a = 0.38 × 2 = 0.76 N/mm² (EC2 Eq. 6.50). 0.38 ialah rintangan pada 2d; terlupa 2d/a menjadikan tapak yang selamat kelihatan gagal (Latihan C2). 3.60 N/mm² ialah v_{Rd,max} di muka column bagi C25/30.
+Isi penting:
+- Bending di muka column merentasi seluruh lebar; shear pada d; punching pada 2d dengan V_{Ed,red} = N_{Ed} − p_{Ed}A.
+- Column base: setiap a ≤ 2d, v_{Rd} = v_{Rd,c}·2d/a; yang paling teruk biasanya berhampiran a = d.
+- ρ_l hanya mengira bar yang di-anchor l_{bd} + d melepasi section; sering v_{min} yang menentukan.
+
+[notes-n5] Nota 5. Combined footing
+Apabila dua column berdiri rapat, atau satu berdiri di sempadan tapak, satu tapak membawa kedua-duanya. Letakkannya dengan betul dan tekanan di bawahnya seragam; buat design-nya sebagai beam yang diterbalikkan.
+PERSAMAAN (10.12): \bar{x} = \frac{N_B\,s}{N_A + N_B}\ \ \text{(service loads, from column A)};\qquad \text{centroid of the base at } \bar{x} \ \Rightarrow\ p \text{ uniform}
+Pilih luas daripada Eq. (10.1) dengan kedua-dua load, kemudian panjang L supaya tengah segi empat tepat berada di bawah paduan; lebar B menyusul. Jika sempadan menghalang tapak daripada sampai sejauh itu, tapak menjadi trapezium (Unit 11).
+Sepanjang panjangnya , tapak ialah beam yang dibebankan ke atas oleh w = p_{Ed}B (kN/m) dan ditahan ke bawah oleh dua column. Dengan x dari hujung kiri dan load column pada x_A dan x_B:
+PERSAMAAN (10.13): V(x) = w\,x - \sum N_i,\qquad M(x) = \frac{w\,x^2}{2} - \sum N_i\,(x - x_i);\qquad V = 0 \text{ between the columns at } x_0 = \frac{N_A}{w}
+M positif menyebabkan bahagian bawah tegang: di bawah column dan pada kedua-dua cantilever. Di antara column, tapak melentur ke atas (hogging), bahagian atas tegang, dan hogging moment terbesar berada pada x_0. Jadi combined footing memerlukan bar pada kedua-dua muka sepanjang panjangnya.
+[Rajah: Kes app F6 (nota kursus Contoh 3): shear force dan bending moment sepanjang tapak, melalui Eq. (10.13).]
+Kes F6 Output
+Paduan (service) x̄ = 1392.9 × 3.4/2542.9 1.86 m dari A
+Tapak L = 6.0 m berpusat pada x̄; B = 2.7 m hujung kiri 1.14 m dari A
+Load ke atas w = (1610 + 1950)/6.0 593.3 kN/m
+Shear sifar x_0 = 1610/593.3 2.71 m
+Hogging, bar atas 593.3 × 2.71²/2 − 1610 × (2.71 − 1.14) −352.8 kN m
+Sagging di muka B daripada Eq. (10.13) 430 · 473 kN m
+Bar A_{s,min} = 2722 mm² menentukan atas dan bawah 25H12 · 25H12
+Merentasi lebar , di bawah setiap column, tapak menjulur (B − c)/2 pada setiap sisi dan dibuat design per meter, M = p_{Ed}l²/2: di bawah column A bagi F6, 219.8 × 1.2²/2 = 158 kN m/m, dan A_{s,min} memberi H12-100. Shear disemak pada d dari setiap muka column merentasi seluruh lebar, daripada diagram; punching perimeter setiap column berhenti di tepi bebas dan terus lurus kepadanya (EC2 6.4.2(4), Figure 6.15). Di bawah column B bagi F6, 2d = 1196 mm melepasi kedua-dua tepi panjang, 1150 mm jauhnya, jadi perimeter menjadi dua garis merentasi tapak, u = 2 × 2700 = 5400 mm.
+Semakan pantas (tidak dimarkah): Satu combined footing segi empat tepat membawa dua column, dengan tekanan seragam di bawahnya. Di manakah muka atasnya mesti diberi reinforcement bagi tension?
+Pilihan: di bawah setiap column | di antara column | pada kedua-dua hujung cantilever | tiada: seluruh tapak dalam compression
+Penjelasan yang dipaparkan selepas menjawab: Di antara column, tekanan ke atas melenturkan tapak seperti beam yang merentang dari column ke column, jadi ia melentur ke atas dan bahagian atas tegang (−352.8 kN m dalam F6). Di bawah column dan pada cantilever, bahagian bawah yang tegang.
+Isi penting:
+- Centroid tapak di bawah paduan service load: tekanan seragam.
+- Sepanjang tapak, beam yang terbalik: bar atas di antara column (hogging pada V = 0), bar bawah di bawahnya.
+- Merentasi lebar, cantilever di bawah setiap column; punching perimeter berhenti di tepi bebas.
+
+[notes-n6] Nota 6. Strip footing dan detailing
+Dinding memerlukan strip footing, yang dibuat design satu meter pada satu masa; dan setiap footing memerlukan bar-nya di-anchor, dijarakkan dan dilindungi supaya design itu benar-benar berfungsi di tapak bina.
+Strip footing di bawah dinding. Per meter panjang, tapak ialah cantilever pada setiap sisi dinding. Bagi dinding konkrit, bending section berada di muka dinding; bagi dinding batu bata, app RC Design mengambilnya di pertengahan antara muka dan garis tengah, amalan konservatif ACI 318, kerana dinding batu bata kurang tegar berbanding footing. Kes app F5:
+Kes F5: dinding bata 230 mm, G_k 120 + Q_k 60 kN/m Output
+Lebar (180 + 18)/150 = 1.32 m → B = 1.4 m; p = (180 + 12.3)/1.4 137 ≤ 150 kN/m² ✓
+Ultimate pressure (1.35 × 120 + 1.5 × 60)/1.4 = 252/1.4 180 kN/m²
+Bending section l = (1.4 − 0.23)/2 + 0.23/4 0.643 m
+Moment 180 × 0.643²/2 37.2 kN m/m
+Bar A_s = 306, A_{s,min} = 392 mm²/m menentukan; jarak ≤ 2h dan ≤ 250 mm H12-250 merentas, H10-300 sepanjang
+Shear pada d dari section yang sama: 180 × 0.349 63 ≤ 127 kN/m ✓
+Load garisan tidak mempunyai punching perimeter: vertical shear ialah semakan shear-nya (Mosley §10.4).
+[Rajah: Detailing pad (kiri) dan strip footing yang bar-nya tidak boleh di-anchor lurus berhampiran tepi (kanan).]
+Senarai semak detailing (EC2 9.8.2, Mosley §10.1, nota kursus) Anchorage. Bar menjangkau seluruh panjang dan lebar dan di-anchor melepasi setiap section kritikal. Berhampiran tepi, EC2 9.8.2.2 meminta daya bar pada x dari tepi, F_s = Rz_e/z_i, di-anchor di dalam x; bar lurus biasanya lulus dalam pad (dalam Worked Example 10.1 ia memerlukan 0.73 daripada panjang yang tersedia), tetapi strip F5 memerlukan bar-nya dibengkokkan ke atas. Jarak. Sebarkan bar sama rata merentasi tapak segi empat sama. Dalam tapak segi empat tepat, Mosley dan nota kursus meletakkan sekurang-kurangnya dua pertiga bar arah pendek dalam jalur c + 3d berpusat pada column; EC2 sendiri tidak menetapkan jalur. Cracking. σ_s di bawah load quasi-permanent, (G_k + 0.3Q_k)/N_{Ed} × (f_{yk}/1.15) × A_{s,req}/A_{s,prov}, memberi jarak terbesar daripada Table 7.3N (w_k = 0.3 mm), diinterpolasi; jarak yang disediakan ialah (b − 2c − φ)/(n − 1). Muka dan starter. Tiada bar pada muka atas atau sisi melainkan sebahagian tapak terangkat atau diangkat; cover 40 mm di atas blinding, 75 mm di atas tanah; starter bar dibengkokkan 90° dan diikat pada jaringan bawah, dengan kicker dan lap diukur dari atasnya.
+Semakan pantas (tidak dimarkah): Di bawah load quasi-permanent, bar pad bekerja pada σ_s = 213 N/mm². Table 7.3N (w_k = 0.3 mm) memberi 250 mm pada 200 N/mm² dan 200 mm pada 240 N/mm². Jarak bar terbesar ialah lebih kurang
+Pilihan: 250 mm | 233 mm | 200 mm | 300 mm
+Penjelasan yang dipaparkan selepas menjawab: 250 − (213 − 200)/40 × 50 = 233 mm. Membaca baris berikutnya, 200 mm, selamat tetapi membazir; 250 mm berada di pihak tidak selamat. 24H12 dalam Contoh 1 nota kursus berjarak 127 mm.
+Isi penting:
+- Strip footing: per meter; bending di muka dinding, atau separuh jalan ke garis tengah bagi batu bata; tiada punching.
+- Anchor bar melepasi setiap section kritikal dan berhampiran tepi (EC2 9.8.2.2); bengkokkan ke atas apabila bar lurus tidak boleh.
+- Jarak daripada Table 7.3N pada σ_s di bawah load quasi-permanent; cover 40/75 mm; starter bar dengan kicker.
+
+[slides-1] Slide 1: Foundations I
+SEAA 4333 Reinforced Concrete Design II · Week 11 Foundations I Pad, strip and combined footings: the soil pressure, and where the base bends, shears and punches Workbook ch. 10 ABCD card Calculator Phone or laptop Foundation Lab Scan for this page’s Explorer tab. Tabs 1 and 2 are today’s.
+
+[slides-2] Slide 2: How the next three hours run
+Today · 180 minutes How the next three hours run 0:00 Warm-up Units 8–9 in three votes 0:10 Hook A plate on foam 0:15 Two checks Soil and concrete 0:20 Off-centre e below, at, above L/6 0:27 Predict the pressure Activity 10A, pairs 0:45 WE 10.1 A pad, I do 0:57 Punching inside 2d Activity 10B 1:09 Faded example FE 10.2, pairs 1:30 Break 10 minutes 1:40 Combined footings Spot the error, teams 2:05 Exam-size problem Alone, 25 minutes 2:35 Studio, exit Your site No talk longer than ten minutes. Rust times are your turn to
+
+[slides-3] Slide 3: Three questions before the column reaches the ground
+Warm-up · no notes · cards up Three questions before the column reaches the ground W1 · Unit 9 A braced slender column: M₀₂ = 47.4, M₀ₑ + M₂ = 66.5, M₀₁ + 0.5M₂ = 48.9, N_{Ed}·e₀ = 24.0 kN m. M_{Ed} is A 47.4 kN m B 66.5 kN m C 48.9 kN m D 113.9 kN m W2 · Unit 9 You add bars to a slender column. Its K_r A falls B rises C stays the same D becomes zero W3 · Unit 8 400 × 400 column, C30/37, 4H16 (804 mm²). N_{Rd} = A_c·f_{cd} + A_s·f_{yd} is about A 3070 kN B 2720 kN C 4800 kN D 350 kN SEAA 4333 · Unit 10 · Foundations I W
+
+[slides-4] Slide 4: B, B, A, and what each means today
+Warm-up · answers B, B, A, and what each means today W1 B: 66.5 kN m The largest of the four candidates: M₀ₑ + M₂ wins in single curvature. W2 B: rises n_u = 1 + ω grows with the steel, so K_r and M₂ grow; M_{Rd} grows faster. W3 A: 3070 kN 2720 + 350. Today that load, factored, goes into the soil through a base. SEAA 4333 · Unit 10 · Foundations I Workbook 10.1
+
+[slides-5] Slide 5: Press a stiff plate on foam, off-centre
+Hook · 5 minutes Press a stiff plate on foam, off-centre Watch: one finger at the centre, then a little off it, then near the edge. Where does the plate sink most? When does the far edge leave the foam? The soil under a footing does the same. SEAA 4333 · Unit 10 · Foundations I Workbook 10.2
+
+[slides-6] Slide 6: A 2.4 m base carries N = 600 kN at e = 0.5 m. The pressure under it is
+Concept check 1 · the big question · vote now, again after Activity 10A A 2.4 m base carries N = 600 kN at e = 0.5 m. The pressure under it is A a trapezoid, 281 down to −31 kN/m² B a triangle over 2.1 m, 286 kN/m² at its peak C uniform, 125 kN/m² D a triangle over 2.4 m, 250 kN/m² at its peak Vote · convince your neighbour · vote again Workbook 10.2
+
+[slides-7] Slide 7: What a foundation must do, and which type
+Block A · talk 1 · 5 minutes What a foundation must do, and which type Soil service loads G_k + Q_k against q_{all}: the factor of safety is already in q_{all} Concrete ultimate loads 1.35Gk + 1.5Qk, EC2: bending, shear, punching c_{nom} ≥ 40 mm on blinding, ≥ 75 mm on soil (EC2 4.4.1.3(4)) SEAA 4333 · Unit 10 · Foundations I Notes §1–§2 · Workbook 10.2
+
+[slides-8] Slide 8: The pressure when the load moves off-centre
+Block A · talk 2 · 7 minutes The pressure when the load moves off-centre e = M/N e ≤ L/6: p = (N/A)(1 ± 6e/L) e > L/6: L_c = 3(L/2 − e) p_{max} = 2N/(B·L_c) Two moments: 6e_x/L_x + 6e_y/L_y ≤ 1 SEAA 4333 · Unit 10 · Foundations I Notes §3
+
+[slides-9] Slide 9: Predict the pressure under a 2.4 × 2.0 m base, N = 600 kN
+Activity 10A · pairs · 12 minutes Predict the pressure under a 2.4 × 2.0 m base, N = 600 kN 1 e = 0.2 m shape? p_{max}? 2 e = 0.4 m shape? p_{max}? 3 e = 0.5 m shape? p_{max}? Sketch each diagram in Workbook 10.3 with its peak value. Then reveal each case in Lab tab 1 and correct your sketch in another colour. SEAA 4333 · Unit 10 · Foundations I Lab tab 1 · Workbook 10.3
+
+[slides-10] Slide 10: Trapezoid, triangle, then part of the base lifts off
+Activity 10A · reveal Trapezoid, triangle, then part of the base lifts off e = 0.2 m < L/6 187.5 / 62.5 kN/m² A trapezoid: 125 × (1 ± 6 × 0.2/2.4) = 125 × (1 ± 0.5). e = 0.4 m = L/6 250 / 0 kN/m² A triangle over the whole length: 2N/A = 2 × 125. e = 0.5 m > L/6 285.7 kN/m², L_c = 2.1 m The last 0.3 m lifts off: 2 × 600/(2.0 × 2.1). Case F3 of the app. Concept check 1, second vote. The answer is B: past L/6 the formula N/A ± M/Z asks the soil to pull, and soil cannot. SEAA 4333 · Unit 10 · Foundations I Lab tab 1 · Workb
+
+[slides-11] Slide 11: A pad under 600 + 400 kN: size, moment, bars, shear
+Worked Example 10.1 · I do A pad under 600 + 400 kN: size, moment, bars, shear Calculation Output A_{req} = 1.1 × 1000/150 7.33 m² → 3.0 × 3.0 m p = (1000 + 112.5)/9.0 123.6 ≤ 150 ✓ p_{Ed} = 1410/9.0 156.7 kN/m² M = 156.7 × 3.0 × 1.35²/2 428.3 kN m d = 442; z = 0.95d; A_s 2345 → 24H12 V_{Ed} = 156.7 × 3.0 × 0.908 426.8 ≤ 502 kN ✓ SEAA 4333 · Unit 10 · Foundations I Notes §2, §4 · Workbook 10.4
+
+[slides-12] Slide 12: Punching under a column base: every perimeter inside 2d
+Block B · talk 3 · 6 minutes Punching under a column base: every perimeter inside 2d V_{Ed,red} = N_{Ed} − p_{Ed}·A(a) v_{Ed} = V_{Ed,red}/(u·d) v_{Rd} = v_{Rd,c} · 2d/a EC2 6.4.4(2): every a ≤ 2d. By hand, check a = d as well as 2d. SEAA 4333 · Unit 10 · Foundations I Notes §4
+
+[slides-13] Slide 13: The course notes’ pad, h = 450 mm: where is the worst perimeter?
+Activity 10B · pairs · 6 minutes The course notes’ pad, h = 450 mm: where is the worst perimeter? A at the column face B near a = d, inside 2d C at 2d D beyond 2d Choose, then reveal the scan in Lab tab 2 (case F1). Does the base pass? SEAA 4333 · Unit 10 · Foundations I Lab tab 2 · Workbook 10.4
+
+[slides-14] Slide 14: Passes at 2d, fails at 1.2d: 50 mm deeper
+Activity 10B · reveal Passes at 2d, fails at 1.2d: 50 mm deeper h = 450: worst 1.07 h = 500: worst 0.90 WE 10.1 uses h = 500 mm and c_{nom} = 40 mm: app case F1R. SEAA 4333 · Unit 10 · Foundations I Notes §4
+
+[slides-15] Slide 15: WE 10.1 at a = d: v Ed = 0.674 N/mm², v Rd,c = 0.377 N/mm². The verdict:
+Concept check 2 · think 60 seconds, then vote WE 10.1 at a = d: v_{Ed} = 0.674 N/mm², v_{Rd,c} = 0.377 N/mm². The verdict: A fails: 0.674 > 0.377 B passes: 0.674 ≤ 0.754, since 2d/a = 2 C passes: 0.674 ≤ 3.60 = v_{Rd,max} D cannot tell without β Vote · convince your neighbour · vote again Workbook 10.4
+
+[slides-16] Slide 16: A pad with a moment: N Ed = 1500 kN, M Ed = 50 kN m
+Faded Example 10.2 · pairs · 18 minutes A pad with a moment: N_{Ed} = 1500 kN, M_{Ed} = 50 kN m Given: steps 1–3 cover 40 mm p_{max,ser} = 131.8 ≤ 150 ✓ p = 153.1 ± 8.7 kN/m² Your turn: steps 4–8 moments, bars, shear at d, punching with β, cracks Then check in the app: case F2R. SEAA 4333 · Unit 10 · Foundations I Workbook 10.5
+
+[slides-17] Slide 17: The minimum steel governs both ways
+Faded Example 10.2 · check The minimum steel governs both ways M_x · M_y 552.8 · 435.4 kN m A_{s,min} governs 23H12 · 28H12 V_{Ed,x} at d 433 ≤ 641 kN ✓ β at 2d 1.06; v_{Ed} = 0.118 ≤ 0.380 inside 2d 0.57 at 0.82d cracks, x σ_s = 222 → s ≤ 222; 123 ✓ The notes’ 21H12 came from A_{s,min} = 0.0013bd; 0.26 × 2.90/500 = 0.0015 governs, so 23H12. SEAA 4333 · Unit 10 · Foundations I Workbook 10.5
+
+[slides-18] Slide 18: Two columns, one base: centre it on the resultant
+Block C · talk 4 · 6 minutes Two columns, one base: centre it on the resultant x = N_B·s/(N_A + N_B) w = p_{Ed}·B V = 0 at x₀ = N_A/w Top bars between the columns; bottom bars under them; crosswise cantilevers under each column. SEAA 4333 · Unit 10 · Foundations I Notes §5
+
+[slides-19] Slide 19: A rectangular combined footing carries two columns. Where must its top face be reinforced?
+Concept check 3 · think 60 seconds, then vote A rectangular combined footing carries two columns. Where must its top face be reinforced? A under each column B between the columns C in the two cantilever ends D nowhere: the base is in compression Vote · convince your neighbour · vote again Workbook 10.6
+
+[slides-20] Slide 20: Foundation S10: four slips in a pad design
+Spot the error · teams · 12 minutes Foundation S10: four slips in a pad design Lab tab 3, or Workbook 10.7. A 350 mm column, G_k 700 + Q_k 450 kN, q_{all} = 175 kN/m², C30/37, cast on blinding, h = 500 mm, H16. Reader reads each line aloud; calculator rechecks; checker names the clause; reporter writes the line number and a one-line reason. Two slips make the base unsafe, one is hidden by the margin, one costs depth for nothing. Which is which? SEAA 4333 · Unit 10 · Foundations I Lab tab 3 · Workbook 10.7
+
+[slides-21] Slide 21: Detailing, and the strip footing under a wall
+Block C · talk 5 · 4 minutes Detailing, and the strip footing under a wall Strip F5: per metre; masonry wall, bending halfway to the centre line; H12-250, ends bent up. Spacing from Table 7.3N at σ_s (quasi-permanent). Bars anchored past each critical section and near the edge (EC2 9.8.2.2). SEAA 4333 · Unit 10 · Foundations I Notes §6
+
+[slides-22] Slide 22: D10: a pad footing for a 400 mm column (20 marks)
+Block D · alone · 25 minutes D10: a pad footing for a 400 mm column (20 marks) (a) Plan size to 0.1 m and the service pressure [4] (b) Moment at the face and the H16 bars, with the crack-spacing check [6] (c) Vertical shear at d [4] (d) Punching at 2d and at a = d; the column face [6] Ref | Calculations | Output. No app, no notes. Self-mark with the scheme after class. SEAA 4333 · Unit 10 · Foundations I Workbook 10.8
+
+[slides-23] Slide 23: The foundation type for your site
+Project studio · 17 minutes The foundation type for your site Your ground 2 m of made ground over mudstone, q_{all} = 600 kN/m² (2024/25 brief). Option 1 Pads taken down through the fill to the mudstone: size one for your column. Option 2 Piles (Unit 11): when the fill is deep, wet or the loads are high. Log it Your choice, the ground-floor N of your column, and the plan size of its pad. SEAA 4333 · Unit 10 · Foundations I Workbook 10.9
+
+[slides-24] Slide 24: Soil with service loads, concrete with ultimate loads: say which
+Professional Habit 10 Soil with service loads, concrete with ultimate loads: say which Sizing G_k + Q_k + W against q_{all} Design N_{Ed}/A, without the self-weight Draw first the pressure diagram, before any formula Write it “service” or “ultimate” beside every load SEAA 4333 · Unit 10 · Foundations I Workbook 10.10
+
+[slides-25] Slide 25: Before Unit 11
+After class Before Unit 11 Notes §1–§6 46 min Exercises, all 14 45 min Explorer, 6 tasks with S10 30 min Self-mark D10 on eLearning 15 min Mosley §10.1–10.4 reading Unit 11: the strap footing (a boundary column that cannot sit centred on its base) and piles. SEAA 4333 · Unit 10 · Foundations I Workbook 10.10
+
+[slides-26] Slide 26: Before you leave
+Exit ticket · 5 minutes · Workbook 10.10 Before you leave 1 A 2.4 × 2.0 m base carries N = 480 kN (with its weight) and M = 144 kN m. Find e and p_{max}. 2 Name the three places a pad is checked, and which check usually sets its depth. 3 What is still unclear? Tear off the slip and hand it in at the door. SEAA 4333 · Unit 10 · Foundations I
+
+[examples-x1] Contoh 1 · Worked Example 10.1: pad footing di bawah axial load
+Jenis soalan design pad footing Workbook 10.4 Masa ≈ 30 min
+Soalan Satu column 300 × 300 mm membawa G_k = 600 kN dan Q_k = 400 kN ke atas tanah dengan allowable bearing pressure 150 kN/m². Buat design pad footing segi empat sama: C25/30, B500, exposure XC2, hayat 50 tahun, dituang di atas blinding, bar H12. (Contoh 1 nota kursus, dengan cover yang diperlukan di atas blinding dan h = 500 mm.) Dalam app: kes F1R dalam app RC Design Worked Solutions; kes F1 ialah tapak yang sama dengan h = 450 mm dan c_{nom} = 35 mm.
+[Rajah: Worked Example 10.1: pad segi empat sama 3.0 m, setebal 500 mm, di bawah 1410 kN pada ultimate limit state.]
+Gambaran fizikal. Tapak segi empat sama 3 m menyebarkan load column ke atas 9 m². Setiap sisi menjulur 1.35 m dari muka column dan tanah menolaknya ke atas, jadi bahagian bawah tegang pada kedua-dua arah. Tapak itu tebal dan stress-nya rendah: jangkakan shear, bukan bending, yang menentukan kedalamannya, dan jangkakan steel bending hampir dengan nilai minimum.
+Pelan. Cover; saiz pelan daripada service load; ultimate pressure dan moment di muka; bar; shear pada d; punching pada 2d, di dalam 2d dan di muka column; cracking dan detailing.
+## Langkah 1 Cover
+Ref Pengiraan Output
+EC2 4.4.1 Bond: c_{min,b} = φ = 12 mm; durability, XC2 dengan C25/30 (S4): 25 mm; c_{min} + Δc_{dev} = 25 + 10 35 mm
+EC2 4.4.1.3(4) Dituang di atas blinding: tidak kurang daripada 40 mm c_{nom} = 40 mm
+## Langkah 2 Saiz pelan daripada service load
+Ref Pengiraan Output
+(10.1) N = 600 + 400 = 1000 kN; W ≈ 10% = 100 kN; A_{req} = 1100/150 7.33 m²
+Cuba 3.0 × 3.0 m, h = 500 mm: W = 25 × 9.0 × 0.50 = 112.5 kN; p = (1000 + 112.5)/9.0 123.6 ≤ 150 kN/m² ✓
+## Langkah 3 Ultimate pressure dan moment di muka
+Ref Pengiraan Output
+(10.2) N_{Ed} = 1.35 × 600 + 1.5 × 400 = 1410 kN; p_{Ed} = 1410/9.0 156.7 kN/m²
+(10.7) l = (3.0 − 0.3)/2 = 1.35 m; M_{Ed} = 156.7 × 3.0 × 1.35²/2 428.3 kN m
+## Langkah 4 Bar, kedua-dua arah
+Ref Pengiraan Output
+§4 Lapisan dalam bagi kedua-dua arah: d = 500 − 40 − 1.5 × 12 d = 442 mm
+RCD I K = 428.3 × 10⁶/(25 × 3000 × 442²) = 0.029; z = 0.974d → 0.95d = 419.9 mm; A_s = 428.3 × 10⁶/(0.87 × 500 × 419.9) 2345 mm²
+EC2 9.2.1.1 A_{s,min} = max(0.26 × 2.56/500; 0.0013) × 3000 × 442 = 0.00133 × 3000 × 442 1769 mm²
+24H12 = 2714 mm² setiap arah, seperti dalam kes app F1R (21H12 = 2375 mm² juga memadai) 24H12 ✓
+## Langkah 5 Vertical shear pada d
+Ref Pengiraan Output
+(10.8) l − d = 1350 − 442 = 908 mm; V_{Ed} = 156.7 × 3.0 × 0.908 426.8 kN
+EC2 Fig. 6.3 Bar melepasi section: 908 − 40 = 868 mm < l_{bd} + d = 485 + 442 = 927 mm, jadi ρ_l = 0 ρ_l = 0
+(10.8) k = 1 + √(200/442) = 1.67; v_{min} = 0.035 × 1.67^{1.5} × √25 = 0.379; V_{Rd,c} = 0.379 × 3000 × 442 502 ≥ 426.8 kN ✓
+## Langkah 6 Punching pada 2d
+Ref Pengiraan Output
+(10.9) d = 500 − 40 − 12 = 448 mm; 2d = 896; u_1 = 1200 + 2π × 896 = 6830 mm; A_1 = 0.09 + 4 × 0.3 × 0.896 + π × 0.896² A_1 = 3.687 m²
+EC2 6.48 V_{Ed,red} = 1410 − 156.7 × 3.687; v_{Ed} = 832.3 × 10³/(6830 × 448) 0.272 N/mm²
+EC2 6.4.4 Bar melepasi 2d: 1350 − 896 − 40 = 414 < 933 mm, jadi v_{Rd,c} = v_{min} = 0.035 × 1.668^{1.5} × 5 0.377 N/mm² → 0.72 ✓
+## Langkah 7 Di dalam 2d, dan muka column
+Ref Pengiraan Output
+(10.9) a = d = 448: u = 1200 + 2π × 448 = 4015 mm; A = 0.09 + 1.2 × 0.448 + π × 0.448² = 1.258 m²; V = 1410 − 156.7 × 1.258 1212.9 kN
+(10.10) v_{Ed} = 1212.9 × 10³/(4015 × 448) = 0.674; v_{Rd} = 0.377 × 2d/a = 0.377 × 2 = 0.754 0.89 ✓ (imbasan: 0.90 pada a = 1.1d)
+(10.11) v_{Ed,0} = 1410 × 10³/(1200 × 448) = 2.62; v_{Rd,max} = 0.4 × 0.6(1 − 25/250) × 25/1.5 2.62 ≤ 3.60 N/mm² ✓
+## Langkah 8 Cracking dan detailing
+Ref Pengiraan Output
+EC2 7.3.3 σ_s = (600 + 0.3 × 400)/1410 × 435 × 2345/2714 = 0.511 × 435 × 0.864 191.8 N/mm²
+Table 7.3N s_{max} pada 191.8 N/mm² = 260 mm; jarak yang disediakan (3000 − 80 − 12)/23 126 ≤ 260 mm ✓
+EC2 9.8.2.2 Anchorage berhampiran tepi: bar lurus memerlukan 0.73 daripada panjang yang tersedia (app); bar bawah sahaja, tiada bar atas atau sisi bar lurus ✓
+Jawapan. Tapak 3.0 × 3.0 × 0.50 m, c_{nom} = 40 mm, 24H12 setiap arah di bawah, lurus. Service pressure 124 ≤ 150 kN/m²; shear 0.85 daripada V_{Rd,c}; punching 0.72 pada 2d dan 0.90 pada perimeter terburuk di dalamnya; muka column 0.73.
+Apa yang nombor ini katakan Perimeter di dalam 2d menentukan kedalaman, bukan bending dan bukan semakan pada 2d. Dengan h = 450 mm nota kursus, semakan pada 2d lulus (925 ≤ 983 kN), tetapi pada a ≈ 1.2d stress-nya 7% di atas rintangan (v_{Ed}/v_{Rd} = 1.07): langkah 50 mm seterusnya, 0.45 m³ konkrit bagi setiap tapak, ialah kos EC2 6.4.4(2) di sini (475 mm cukup-cukup lulus, pada 0.99). Steel bending hanya 1.3 kali nilai minimum, seperti yang dijangka bagi tapak yang tebal.
+
+[examples-x2] Contoh 2 · Faded Example 10.2: pad footing dengan moment
+Jenis soalan semak pad di bawah load dan moment Workbook 10.5 Masa ≈ 25 min
+Soalan Satu column 350 × 250 mm (350 mm sepanjang x) membawa N_{Ed} = 1500 kN dan M_{Ed} = 50 kN m, kedua-duanya ultimate, moment berputar pada paksi y; ambil nilai service sebagai nilai design dibahagi 1.4. Tanah membenarkan 150 kN/m². Tapak ialah 3.5 m sepanjang x, 2.8 m sepanjang y dan setebal 650 mm: C30/37, XC3, dituang di atas blinding, bar H12. Semak tapak dan pilih bar. Dalam workbook, langkah 1 hingga 3 diberi; lengkapkan langkah 4 hingga 8, kemudian bandingkan. (Contoh 2 nota kursus, dengan c_{nom} = 40 mm.) Dalam app: kes F2R; kes F2 mengekalkan c_{nom} = 35 mm dan 21H12 sepanjang x nota kursus.
+[Rajah: Faded Example 10.2: moment mencondongkan tekanan sebanyak ±8.7 kN/m²; tapak kekal bersentuhan sepenuhnya.]
+Gambaran fizikal. Moment 50 kN m pada column 1500 kN hanyalah eccentricity sebanyak 33 mm, jauh di dalam kern tapak 3.5 m. Tekanan condong sedikit, jadi tapak berkelakuan hampir seperti pad di bawah axial load; arah panjang, dengan cantilever yang lebih panjang, mengambil moment yang lebih besar dan mendapat lapisan luar bar.
+Pelan. Cover; service pressure dan kern; ultimate pressure; moment di kedua-dua muka; bar kedua-dua arah; shear pada d kedua-dua arah; punching dengan β; cracking.
+## Langkah 1 Cover (diberi)
+Ref Pengiraan Output
+EC2 4.4.1 XC3 dengan C30/37 (S4): c_{min,dur} = 25 mm; 25 + 10 = 35; di atas blinding ≥ 40 c_{nom} = 40 mm
+## Langkah 2 Service pressure dan kern (diberi)
+Ref Pengiraan Output
+(10.1) N = 1500/1.4 = 1071.4 kN; M = 50/1.4 = 35.7 kN m; W = 25 × 9.8 × 0.65 = 159.3 kN; Z = 2.8 × 3.5²/6 = 5.717 m³
+(10.4) p_{max} = (1071.4 + 159.3)/9.8 + 35.7/5.717 = 125.6 + 6.2 131.8 ≤ 150 kN/m² ✓
+(10.3) e = 35.7/1230.7 = 0.029 m ≤ L/6 = 3.5/6 = 0.583 m sentuhan penuh ✓
+## Langkah 3 Ultimate pressure (diberi)
+Ref Pengiraan Output
+(10.4) p = 1500/9.8 ± 50/5.717 = 153.1 ± 8.7 161.8 / 144.3 kN/m²
+Di muka column pada sisi tinggi, 0.175 m dari tengah: 153.1 + 8.7 × 0.175/1.75 p_f = 153.9 kN/m²
+## Langkah 4 Moment di muka
+Ref Pengiraan Output
+(10.7) l_x = (3.5 − 0.35)/2 = 1.575 m; M_x = [153.9 × 1.575²/2 + (161.8 − 153.9) × 1.575²/3] × 2.8 = 197.4 × 2.8 552.8 kN m
+(10.7) l_y = (2.8 − 0.25)/2 = 1.275 m; M_y = 153.1 × 1.275²/2 × 3.5 = 124.4 × 3.5 435.4 kN m
+## Langkah 5 Bar kedua-dua arah
+Ref Pengiraan Output
+§4 Sepanjang x, lapisan luar: d_x = 650 − 40 − 6 = 604; K = 0.018; z = 0.95d = 573.8; A_s = 2215; A_{s,min} = 0.00151 × 2800 × 604 = 2547 23H12 = 2601 mm² (minimum menentukan)
+§4 Sepanjang y, lapisan dalam: d_y = 592; A_s = 1780; A_{s,min} = 0.00151 × 3500 × 592 = 3121 28H12 = 3167 mm² (minimum menentukan)
+## Langkah 6 Shear pada d, kedua-dua arah
+Ref Pengiraan Output
+(10.8) x: section pada 1575 − 604 = 971 mm dari tepi; tekanan purata di luar (161.8 + 157.0)/2 = 159.4; V_{Ed} = 159.4 × 0.971 × 2.8 = 433.3 kN; ρ_l = 0 (931 < 429 + 604 mm); V_{Rd,c} = 0.379 × 2800 × 604 641 ≥ 433 kN ✓
+(10.8) y: 1275 − 592 = 683 mm; V_{Ed} = 153.1 × 0.683 × 3.5 = 365.9 kN; V_{Rd,c} = 0.381 × 3500 × 592 790 ≥ 366 kN ✓
+## Langkah 7 Punching dengan moment
+Ref Pengiraan Output
+(10.9) d = 598; u_1 = 1200 + 2π × 1196 = 8715 mm; A_1 = 6.017 m²; V_{Ed,red} = 1500 − 153.1 × 6.017 579.1 kN
+EC2 6.39 k = 0.64 (c_1/c_2 = 1.4); W_1 = 7.78 × 10⁶ mm²; β = 1 + 0.64 × (50 × 10⁶/579.1 × 10³) × (8715/7.78 × 10⁶) = 1.062; v_{Ed} = 1.062 × 579.1 × 10³/(8715 × 598) 0.118 ≤ 0.380 N/mm² ✓
+(10.10) Imbasan di dalam 2d (app): terburuk pada a = 0.82d 0.57 ✓
+(10.11) β_0 = 1 + 0.64 × (50 × 10⁶/1500 × 10³) × 1200/148 750 = 1.172; v_{Ed,0} = 1.172 × 1500 × 10³/(1200 × 598) 2.45 ≤ 4.22 N/mm² ✓
+## Langkah 8 Cracking
+Ref Pengiraan Output
+Table 7.3N x: σ_s = 0.6 × 435 × 2215/2601 = 222 N/mm² → s_{max} = 222 mm; jarak (2800 − 80 − 12)/22 = 123 mm ✓
+Table 7.3N y: σ_s = 0.6 × 435 × 1780/3167 = 147 N/mm² → s_{max} = 300 mm; jarak 126 mm ✓
+Jawapan. Tapak 3.5 × 2.8 × 0.65 m berfungsi: 23H12 sepanjang x pada lapisan luar, 28H12 sepanjang y di atasnya. Service pressure 132 ≤ 150 kN/m²; shear 0.68 daripada V_{Rd,c}; punching 0.31 pada 2d dan 0.57 di dalamnya; muka column 0.58.
+Apa yang nombor ini katakan Moment mengubah tekanan hanya ±6% dan menaikkan punching stress sebanyak 6% (β = 1.06): tapak ini ditentukan oleh steel minimum, kedua-dua arah, dan dalam bagi load-nya. 21H12 sepanjang x dalam nota kursus datang daripada A_{s,min} = 0.0013bd; 0.26 × 2.90/500 = 0.0015 yang menentukan, jadi 23H12. Tapak yang stress-nya serendah ini boleh dibuat lebih nipis: cuba h = 550 mm dalam app dan lihat apa yang menentukan seterusnya.
+
+[examples-x3] Contoh 3 · Soalan jenis terangkan
+Jenis soalan jawapan bertulis pendek Masa ≈ 3 min setiap satu
+Soalan
+- Mengapa self-weight tapak tidak diambil kira dalam tekanan bagi bending dan shear, tetapi dikekalkan dalam semakan bearing pressure?
+- Apabila e > L/6, mengapa N/A ± M/Z salah, dan apa yang berlaku kepada tekanan sebaliknya?
+- Mengapa EC2 meminta column base disemak bagi punching pada perimeter di dalam 2d, sedangkan slab biasanya disemak pada 2d?
+- Mengapa combined footing diletakkan dengan centroid-nya di bawah paduan load, dan di manakah ia memerlukan bar atas?
+Tulis empat jawapan anda dahulu, kemudian buka jawapan model satu demi satu.
+## Jawapan 1 Siapa yang membawa berat
+Tapak menekan tanah dengan beratnya sendiri, jadi semakan bearing mesti memasukkannya: tanah menerima load column campur tapak. Tetapi setiap bahagian tapak terletak pada tanah betul-betul di bawahnya; beratnya diseimbangkan di situ juga dan tidak melenturkan apa-apa. Moment dan shear dalam tapak datang hanya daripada load column yang disebarkan ke luar, jadi p_{Ed} = N_{Ed}/A (Mosley §10.1). Menambah 1.35W melebihkan setiap moment dan shear.
+## Jawapan 2 Tanah tidak boleh menarik
+Melepasi L/6, formula itu memberi tekanan negatif di bawah tepi yang rendah: tension yang tidak boleh diberikan oleh tanah. Sebaliknya tepi itu terangkat. Tekanan menjadi segi tiga sepanjang contact length L_c, dan keseimbangan yang menetapkannya: segi tiga itu mesti membawa N, dan centroid-nya, L_c/3 dari tepi yang tinggi, mesti berada di bawah load, jadi L_c = 3(L/2 − e) dan p_{max} = 2N/(BL_c). Dalam kes F3, 286 kN/m² bukannya 281, dengan 0.30 m terakhir terangkat dari tanah. Melepasi L/3, EC7 meminta langkah berjaga-jaga khas.
+## Jawapan 3 Kelegaan daripada tanah
+Di bawah column base, tanah menolak ke atas di dalam perimeter, dan bahagian load itu tidak pernah melintasinya: V_{Ed,red} = N_{Ed} − p_{Ed}A(a). Pada 2d, luasnya besar dan kelegaannya besar, jadi tapak boleh lulus pada 2d tetapi masih gagal lebih dekat, tempat perimeter pendek dan hampir seluruh load column melintasinya. Oleh itu EC2 6.4.4(2) menyemak setiap a ≤ 2d, dengan rintangan dinaikkan sebanyak 2d/a bagi permukaan kegagalan yang lebih curam. Dalam slab, load di dalam 2d kecil, jadi basic perimeter biasanya menentukan. Worked Example 10.1 dengan h = 450 mm lulus pada 2d dan gagal pada 1.2d.
+## Jawapan 4 Tekanan seragam, kemudian beam terbalik
+Dengan centroid di bawah paduan, load tidak mempunyai eccentricity pada tapak, jadi tekanannya seragam: tiada tepi yang terlebih beban dan tapak mendap sama rata. Sepanjang panjangnya, tapak kemudian menjadi beam dengan load seragam ke atas, ditahan ke bawah pada dua column. Di antara column ia melentur ke atas (hogging), jadi bahagian atas tegang di situ, dengan moment terbesar di tempat shear sifar (x_0 = N_A/w; −352.8 kN m dalam F6). Di bawah column dan pada cantilever, bahagian bawah yang tegang.
+
+[exercises-b1] Latihan B1 · Saiz pelan
+Soalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-b2] Latihan B2 · Tekanan di bawah load eksentrik
+Soalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-b3] Latihan B3 · Moment di muka dan bar
+Soalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-b4] Latihan B4 · Vertical shear pada d
+Soalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-b5] Latihan B5 · Punching di dalam 2d
+Soalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-b6] Latihan B6 · Combined footing
+Soalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-quick] Latihan: soalan konsep pantas
+- Load manakah yang menentukan saiz pelan pad footing berbanding allowable bearing pressure?
+- Tekanan tanah yang digunakan untuk membuat design bar pad footing ialah
+- Satu footing membawa load-nya pada e = L/6 tepat. Diagram tekanannya ialah
+- Section kritikal bagi bending dalam pad footing ialah
+- Dalam semakan shear footing, bar bawah dikira dalam ρ_l hanya jika
+- Combined footing segi empat tepat bagi dua column diletakkan supaya
+- Satu tapak 2.4 × 2.0 m di bawah column segi empat sama 400 mm membawa N_{Ed} = 600 kN dan M_{Ed} = 300 kN m sepanjang panjangnya. Satu baris mengandungi kesilapan. Yang mana?
+- Worked Example 10.1 (d = 448 mm, p_{Ed} = 156.7 kN/m², v_{Rd,c} = 0.377 N/mm²) disemak bagi punching pada perimeter a = d. Satu baris mengandungi kesilapan. Yang mana?
+
+[lab-kern] Tugasan Explorer 1 · Tab 1, Aktiviti 10A: ramal tekanan di bawah tapak bagi e di bawah, pada dan di atas L/6, kemudian dedahkan setiap satu. Lakar tiga diagram itu dalam Workbook 10.3.
+Ditanda sendiri: apabila ketiga-tiga ramalan didedahkan · tidak ditanda? tanda selesai
+(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)
+
+[lab-lift] Tugasan Explorer 2 · Tab 1: muatkan kes F3 dan ubah moment. Pada moment berapakah tapak mula terangkat, dan sejauh manakah ia boleh pergi sebelum e mencapai L/3?
+Ditanda sendiri: apabila anda telah menetapkan moment yang meletakkan e melepasi L/6 dan satu lagi yang mengekalkannya di dalam · tidak ditanda? tanda selesai
+(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)
+
+[lab-corner] Tugasan Explorer 3 · Tab 1, dua moment: muatkan kes F4 dan naikkan moment pada paksi x sehingga paduan mencapai tepi kern. Bucu manakah terangkat dahulu?
+Ditanda sendiri: apabila 6e_x/L_x + 6e_y/L_y mencapai 1 (dalam 2%) · tidak ditanda? tanda selesai
+(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)
+
+[lab-scan] Tugasan Explorer 4 · Tab 2, Aktiviti 10B: bagi kes F1, ramal di mana punching perimeter yang paling teruk terletak, kemudian dedahkan imbasan.
+Ditanda sendiri: apabila imbasan didedahkan · tidak ditanda? tanda selesai
+(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)
+
+[lab-revise] Tugasan Explorer 5 · Tab 2: kes F1 gagal di dalam 2d. Cari tapak paling nipis yang lulus, dalam langkah 25 mm. Adakah semakan pada 2d sahaja memberitahu anda?
+Ditanda sendiri: apabila F1, yang didalamkan, lulus keseluruhan imbasan · tidak ditanda? tanda selesai
+(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)
+
+[lab-s10] Tugasan Explorer 6 · Tab 3: Foundation S10, cari keempat-empat kesilapan, ketik barisnya dan tekan “Semak”.
+Ditanda sendiri: apabila keempat-empat kesilapan S10 ditemui, sebelum Tunjuk · tidak ditanda? tanda selesai
+(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)
+
+[glossary-allowable-bearing-pressure-q-all] Glosari: allowable bearing pressure q_{all}
+allowable bearing pressure q_{all}: Tekanan yang boleh dibawa oleh tanah di bawah service load, ditetapkan oleh jurutera geoteknik dengan faktor keselamatan terhadap bearing failure (biasanya 2.5 hingga 3) dan had settlement.
+
+[glossary-basic-control-perimeter-u-1] Glosari: basic control perimeter u_1
+basic control perimeter u_1: Punching perimeter pada 2d dari muka column, dengan bucu dibundarkan: 2(c_1 + c_2 ) + 4πd (EC2 6.4.2).
+
+[glossary-bearing-pressure] Glosari: bearing pressure
+bearing pressure: Tekanan antara tapak dan tanah; diambil sebagai linear di bawah tapak tegar.
+
+[glossary-blinding] Glosari: blinding
+blinding: Lapisan nipis konkrit lemah yang diletakkan di atas tanah yang digali supaya tapak boleh dituang dengan bersih dan rata; di atas blinding c_{nom} ≥ 40 mm (EC2 4.4.1.3(4)).
+
+[glossary-column-base-punching] Glosari: column base (punching)
+column base (punching): Footing atau pile cap di bawah column; EC2 6.4.4(2) menyemaknya pada setiap perimeter a ≤ 2d dengan v_{Rd} = v_{Rd,c} ·2d/a.
+
+[glossary-combined-footing] Glosari: combined footing
+combined footing: Satu tapak di bawah dua column, diletakkan supaya centroid-nya berada di bawah paduan load-nya.
+
+[glossary-contact-length-l-c] Glosari: contact length L_c
+contact length L_c: Panjang tapak yang masih menekan tanah apabila e > L/6: 3(L/2 − e).
+
+[glossary-critical-section] Glosari: critical section
+critical section: Section tempat tapak disemak: muka column (bending), d dari muka (shear), perimeter hingga 2d (punching).
+
+[glossary-differential-settlement] Glosari: differential settlement
+differential settlement: Perbezaan settlement antara bahagian bangunan, yang menyebabkannya retak; dihadkan oleh bearing yang kukuh dan dengan mengikat tapak bersama.
+
+[glossary-eccentricity-e] Glosari: eccentricity e
+eccentricity e: M/N: sejauh mana paduan load terletak dari centroid tapak.
+
+[glossary-kern-middle-third] Glosari: kern (middle third)
+kern (middle third): Zon di sekeliling centroid yang di dalamnya paduan memastikan seluruh tapak bersentuhan: e ≤ L/6 pada satu paksi; rombus 6e_x /L_x + 6e_y /L_y ≤ 1 bagi dua.
+
+[glossary-kicker] Glosari: kicker
+kicker: Bahagian column yang pendek, lebih kurang 75 mm, dituang bersama tapak untuk memegang acuan column; lap starter bar diukur dari atasnya.
+
+[glossary-pad-footing] Glosari: pad footing
+pad footing: Tapak terpencil, segi empat sama atau segi empat tepat, di bawah satu column.
+
+[glossary-partial-contact-lift-off] Glosari: partial contact (lift-off)
+partial contact (lift-off): Apabila e > L/6, sebahagian tapak meninggalkan tanah; tekanan menjadi segi tiga sepanjang L_c . Langkah berjaga-jaga khas sebaik e > L/3 (EC7 6.5.4).
+
+[glossary-pile-foundation] Glosari: pile foundation
+pile foundation: Pile membawa load ke bawah ke tanah keras melalui end bearing, geseran atau kedua-duanya, melalui pile cap (Unit 11–12).
+
+[glossary-punching-shear] Glosari: punching shear
+punching shear: Kegagalan slab atau tapak di sekeliling load tertumpu, pada kon terpenggal; disemak pada control perimeter (EC2 6.4).
+
+[glossary-raft-foundation] Glosari: raft foundation
+raft foundation: Satu slab di bawah seluruh bangunan, bagi load berat, tanah lemah atau tanah yang berubah-ubah.
+
+[glossary-reduced-punching-force-v-ed-red] Glosari: reduced punching force V_{Ed,red}
+reduced punching force V_{Ed,red}: N_{Ed} − p_{Ed} A: load column tolak tekanan tanah di dalam perimeter (EC2 Eq. 6.48).
+
+[glossary-self-weight-w] Glosari: self-weight W
+self-weight W: Berat tapak, 25 kN/m³ × isi padu: dalam semakan bearing, bukan dalam tekanan bending dan shear.
+
+[glossary-service-and-ultimate-loads] Glosari: service and ultimate loads
+service and ultimate loads: G_k + Q_k bagi tanah (berbanding q_{all} ); 1.35G_k + 1.5Q_k bagi konkrit.
+
+[glossary-settlement] Glosari: settlement
+settlement: Pergerakan ke bawah foundation apabila tanah di bawahnya termampat.
+
+[glossary-starter-bars] Glosari: starter bars
+starter bars: Bar yang dituang ke dalam tapak dengan bengkokan 90° diikat pada jaringan bawah, di-lap dengan bar column di atas kicker.
+
+[glossary-strap-footing] Glosari: strap footing
+strap footing: Pad sempadan yang diikat oleh strap beam kepada footing dalam supaya pasangan itu menahan terbalik pad yang eksentrik (Unit 11).
+
+[glossary-strip-footing] Glosari: strip footing
+strip footing: Tapak berterusan di bawah dinding atau barisan column, dibuat design per meter panjang.
+
+[glossary-v-min] Glosari: v_{min}
+v_{min}: 0.035k^{3/2} f_{ck}^{1/2} : shear resistance konkrit apabila tiada bar dikira; sering keseluruhan rintangan footing.
+
+[glossary-v-rd-max] Glosari: v_{Rd,max}
+v_{Rd,max}: 0.4νf_{cd} , ν = 0.6(1 − f_{ck} /250): had strut di muka column (EC2 6.4.5(3), pindaan 2014; nota kursus menggunakan 0.5νf_{cd} ).
+
+[glossary-punching] Glosari: β (punching)
+β (punching): 1 + k(M_{Ed} /V_{Ed} )(u/W): menaikkan punching stress bagi moment tidak seimbang (EC2 6.4.3(3)).

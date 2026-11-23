@@ -5,15 +5,16 @@
 
 What: after web/build_page.py has written index.html, this script
   1. writes the files the rz-tutor Worker and the offline guide read, from the page itself:
-     tutor/manifest.json, tutor/blocks-u11.json and tutor/content-u11.txt in this folder, and
+     tutor/manifest.json, tutor/blocks-u11.json and tutor/content-u11.txt in this folder (with their
+     .ms twins, the page as it reads in Bahasa Melayu), and
      ../tutor/course.json for the course, rebuilt from every Unit's manifest (exercise answers, hints and
      worked solutions are left out);
   2. adds the guide panel with Dr RJ to index.html: the panel CSS, a <meta name="rz-tutor"> with the
      Worker address, the panel beside <main>, the widget script and the page glue.
-The Worker address is read from shared/tutor_endpoint.txt in this folder. While it holds no address
-(as now), Dr RJ is in offline mode: he points to the matching sections of the page and nothing leaves
-the browser. The AI answers only once the owner registers app "seaa4333" in rz-tutor-worker, switches
-it on there, and puts the address in that file.
+The Worker address is read from shared/tutor_endpoint.txt in this folder (set on 23 Nov 2026; app
+"seaa4333" is registered in rz-tutor-worker). The AI answers only while the Worker's switch AI_SEAA4333
+is on. With the switch off, or with no address in that file, Dr RJ is in offline mode: he points to the
+matching sections of the page and nothing typed leaves the browser.
 
 How to call it, from this topic folder (build.sh runs both lines):
   python3 web/build_page.py && python3 web/add_tutor.py

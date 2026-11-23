@@ -1,3 +1,5 @@
-# Address of the rz-tutor Worker for this page, e.g. https://rz-tutor.<subdomain>.workers.dev/v1/chat
-# Empty (as now) = offline mode: Dr RJ points to matching sections of the page and nothing leaves the browser.
-# Before an address goes here, app "seaa4333" must be registered and switched on in rz-tutor-worker.
+# Address of the rz-tutor Worker that answers for Dr RJ on this page.
+# App "seaa4333" is registered in rz-tutor-worker (23 Nov 2026). While the Worker's switch AI_SEAA4333 is off,
+# Dr RJ stays in offline mode: he points to matching sections and nothing typed leaves the browser.
+# Remove the address (leave only these comments) and rebuild to cut the page off from the Worker.
+https://rz-tutor.arazin.workers.dev/v1/chat

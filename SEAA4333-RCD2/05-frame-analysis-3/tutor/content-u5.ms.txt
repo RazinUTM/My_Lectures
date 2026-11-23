@@ -1,0 +1,438 @@
+# Unit 5 Frame Analysis III
+SEAA 4333 Reinforced Concrete Design II, Minggu 5. Unit 3 dan 4 menganalisis braced frame di bawah load menegak. Unbraced frame juga perlu menanggung angin. Unit ini mencari berapa banyak: design wind speed MS 1553:2002 pada setiap aras bangunan, tekanan pada dinding windward dan leeward, dan daya yang dikumpul oleh satu frame pada setiap lantai. Muka bangunan yang ditiup angin menentukan frame mana yang menanggungnya, dan bangunan yang sama boleh memberi dua jawapan yang berbeza sebanyak suku. Nota, slides, jawapan model, latihan dengan nombor baharu pada setiap cubaan, dan Wind Lab.
+
+[start-outcomes] Selepas bahagian ini, anda sepatutnya boleh
+1. menyatakan sama ada frame itu braced atau unbraced, dan frame mana dalam bangunan yang menanggung angin dari setiap arah, dengan breadth b dan depth d MS 1553;
+2. mencari design wind speed pada setiap aras bangunan mengikut MS 1553:2002, daripada V_s , M_{z,cat} , M_s , M_h dan importance factor;
+3. mencari external pressure coefficient bagi kedua-dua dinding dan dynamic response factor, serta net design pressure pada setiap aras;
+4. menukar tekanan kepada daya angin yang ditanggung satu frame pada setiap lantai, dan menyemak minimum design wind load;
+5. menggunakan simplified procedure Appendix A bagi bangunan rendah, dan menambah geometric imperfection EC2 sebagai lateral load kedua.
+
+[notes-n1] Nota 1. Unbraced frame dan lateral load
+Unit 3 dan 4 menganalisis braced frame. Angin pada bangunan dihantar ke shear wall atau core, dan frame hanya menanggung load menegak. Tanpa bracing itu, frame sendiri perlu menahan angin, dan beam serta column menerima moment daripadanya pada setiap lantai. Unit ini mencari angin tersebut; Unit 6 menganalisis frame di bawahnya.
+Braced frame dan unbraced frame Braced frame tidak menyumbang kepada kestabilan keseluruhan bangunan: lateral action dihantar ke bracing member (shear wall, core lif atau tangga), dan frame hanya menyokong vertical action. Unbraced frame menyumbang kepada kestabilan: semua lateral action ditanggung oleh beam dan column-nya, yang menyokong vertical action dan lateral action (nota kursus, Types of Frame).
+[Rajah: Rajah 1. Frame menanggung daya mengufuk hanya melalui joint tegar atau tapak fixed (b); dengan joint pin ia memerlukan bracing (c).]
+Frame dengan sambungan beam-ke-column pin dan tapak pin tidak stabil di bawah daya lateral: ia terlipat ke sisi seperti segi empat selari (Rajah 1a). Ia menjadi stabil dengan dua cara. Joint tegar, atau tapak fixed, membolehkan frame menahan sway dengan melenturkan member-nya (b): inilah unbraced frame dalam Unit ini. Atau core atau dinding yang kaku menahan frame, dan frame itu kemudian boleh mempunyai joint pin (c).
+Dua lateral action bertindak pada unbraced frame. Yang pertama ialah angin , daripada MS 1553:2002, tajuk §2 hingga §5. Yang kedua datang daripada bangunan itu sendiri: tiada frame dibina tegak sepenuhnya, dan EC2 5.2 meminta kesan sedikit ketidaktegakan, dikenakan sebagai daya mengufuk pada setiap lantai (§6).
+Bagaimana angin sampai ke frame. Angin menekan dinding. Dinding merentang di antara lantai, jadi setiap slab lantai mengumpul tekanan pada separuh tingkat di atas dan separuh tingkat di bawah. Slab sangat kaku dalam satahnya sendiri dan menghantar daya itu kepada frame, setiap frame menerima bahagian pada lebarnya sendiri. Oleh itu plane frame menerima satu daya mengufuk pada setiap aras lantai, dan analisis Unit 6 bermula daripada daya tersebut.
+Semakan pantas (tidak dimarkah): Sebuah bangunan mempunyai joint beam-ke-column yang tegar dan tiada shear wall atau core. Kenyataan manakah yang betul?
+Pilihan: Frame-nya braced dan hanya menanggung load menegak | Slab menghantar angin ke asas dengan sendirinya | Frame-nya unbraced dan perlu menanggung angin juga | Angin boleh diabaikan di bawah 25 m
+Penjelasan yang dipaparkan selepas menjawab: Tanpa bracing, frame memberi bangunan kestabilannya: ia unbraced dan menanggung vertical action serta lateral action. Slab hanya mengumpul angin dan membahagikannya kepada frame.
+Isi penting:
+- Braced: bracing menanggung lateral load. Unbraced: beam dan column menanggungnya, melalui bending di joint tegar.
+- Dua lateral action: angin (MS 1553) dan geometric imperfection (EC2 5.2).
+- Lantai mengumpul angin dan memberi setiap frame satu daya bagi setiap lantai, mengikut lebarnya.
+
+[notes-n2] Nota 2. Angin pada bangunan, dan prosedur MS 1553
+Angin yang mengalir mengelilingi bangunan menolak muka yang ditemuinya dan menarik muka yang lain. Pada dinding windward , udara diperlahankan oleh bangunan dan tekanan meningkat (+). Aliran terpisah di sudut bangunan, jadi dinding sisi, bumbung dan dinding leeward di belakang berada dalam suction (−). Bagi frame, tolakan windward dan tarikan leeward bertindak dalam arah yang sama : kedua-duanya menolak bangunan ke arah angin bertiup.
+Keamatan wind action meningkat dengan kuasa dua laju angin, dan laju itu bergantung pada tapak: kawasannya, ketinggian dari tanah, topografi dan kekasaran terrain di sekelilingnya. Bangunan bertindak balas terhadap tiupan angin dalam dua bahagian: bahagian background , iaitu static deflection di bawah tekanan, dan bahagian resonant , iaitu getaran yang penting hanya bagi bangunan fleksibel. MS 1553 merawat kedua-duanya dengan tekanan statik, yang dinaikkan oleh dynamic response factor apabila bangunan itu fleksibel (§4).
+Prosedur MS 1553:2002 Gunakan bagi Tekanan
+Simplified , Appendix A bangunan segi empat sehingga 15 m tinggi, h/b_{min} ≤ 3, importance category I dan II, bukan di tapak terdedah 0.613 V_s² M_{z,cat}² (C_{p,e} − C_{p,i})
+Analytical , Seksyen 2 bangunan segi empat sehingga 200 m tinggi dan rentang bumbung sehingga 100 m 0.613 V_{des}² C_{fig} C_{dyn}
+Wind tunnel bentuk kompleks dan struktur yang sangat tinggi atau fleksibel daripada ujian model
+Unit ini menggunakan analytical procedure bagi bangunan kursus setinggi 25 m (§3 hingga §5) dan simplified procedure bagi bangunan rendah (§6). Kedua-duanya membawa kepada rantaian kuantiti yang sama:
+basic wind speed V_s → site wind speed V_{sit} → design wind speed V_{des} pada setiap aras → tekanan pada setiap dinding → net pressure pada setiap aras → daya W_k pada frame di setiap lantai.
+Semakan pantas (tidak dimarkah): Sebuah pejabat tiga tingkat, setinggi 11 m dan berbentuk segi empat pada pelan, terletak di kawasan pinggir bandar. Prosedur MS 1553 yang manakah boleh digunakan bagi wind load-nya?
+Pilihan: Hanya prosedur wind tunnel | Hanya Appendix A | Hanya analytical procedure | Appendix A atau analytical procedure
+Penjelasan yang dipaparkan selepas menjawab: Ia memenuhi had Appendix A (h ≤ 15 m, segi empat, pejabat ialah category II), dan analytical procedure meliputi mana-mana bangunan segi empat sehingga 200 m. Kedua-duanya dibenarkan; §6 membandingkannya bagi bangunan sebegini.
+Isi penting:
+- Tekanan windward dan suction leeward kedua-duanya menolak frame ke arah angin; net pressure ialah perbezaannya p_W − p_L.
+- Appendix A bagi bangunan segi empat yang rendah; analytical procedure sehingga 200 m; wind tunnel bagi yang lain.
+- Rantaian: V_s → V_{sit} → V_{des} → p → W_k pada setiap lantai.
+
+[notes-n3] Nota 3. Design wind speed
+Basic wind speed V_s dibaca daripada peta MS 1553 (Figure A1): 33.5 m/s di Zone I dan 32.5 m/s di Zone II; Kuala Lumpur terletak di Zone I. Site wind speed melaraskannya kepada tapak dan ketinggian, dan design wind speed menambah kepentingan bangunan:
+PERSAMAAN (5.1): V_{sit} = V_s\,M_d\,M_{z,cat}\,M_s\,M_h
+PERSAMAAN (5.2): V_{des} = V_{sit}\;I \qquad\qquad V_{des,z} = V_{des}\,\dfrac{M_{z,cat}(z)}{M_{z,cat}(h)}
+M_d = 1.0 ialah wind directional multiplier, sama bagi setiap arah dalam MS 1553. M_s = 1.0 apabila perlindungan oleh bangunan lain diabaikan, dan M_h = 1.0 di tanah rata; kedua-duanya naik atau turun hanya bagi tapak tertentu (Table 4.3, Seksyen 4.4). Multiplier yang paling banyak berubah ialah M_{z,cat} , terrain/height multiplier dalam Table 4.1: angin diperlahankan berhampiran tanah, dan lebih lagi di atas terrain yang kasar.
+Terrain category Persekitaran (MS 1553 4.2.1, ringkasan) M_{z,cat} pada 5 m pada 25 m
+1 terrain terbuka yang terdedah dengan sedikit atau tiada halangan, permukaan air 1.05 1.205
+2 terrain terbuka dengan halangan yang berselerak, seperti kawasan pertanian 0.91 1.100
+3 banyak halangan rapat sebesar rumah: kawasan pinggir bandar 0.75 0.970
+4 banyak halangan besar, tinggi dan rapat: pusat bandar, kompleks industri 0.75 0.775
+[Rajah: Rajah 2. M_{z,cat} meningkat dengan ketinggian dan berkurang dengan kekasaran terrain. Di antara ketinggian yang dijadualkan ia diinterpolasi secara linear.]
+Bagi bangunan dalam nota (terrain category 3, bumbung pada h = 25 m), M_{z,cat} terletak di antara 0.94 pada 20 m dan 1.00 pada 30 m: 0.970. Dengan V_s = 33.5 m/s, V_{sit} = 33.5 × 1.0 × 0.970 × 1.0 × 1.0 = 32.49 m/s.
+Importance factor I dalam Table 3.2 menaikkan laju bagi bangunan yang kegagalannya akan meragut lebih banyak nyawa. Ambil perhatian dua I yang berbeza dalam MS 1553: importance factor I di sini, dan turbulence intensity I_h dalam §4.
+Importance category (Table 3.2) Bangunan I
+I bahaya rendah kepada nyawa jika gagal: pertanian, sementara, stor kecil 0.87
+II semua bangunan kecuali category I, III dan IV: pejabat, rumah pangsa, kedai 1.00
+III lebih daripada 300 orang berkumpul di satu kawasan 1.15
+IV bangunan dan struktur yang penting 1.15
+Nota mengambil category III bagi bangunannya (I = 1.15), jadi V_{des} = 32.49 × 1.15 = 37.37 m/s di bumbung. Pejabat atau blok rumah pangsa biasa ialah category II, I = 1.0: semak category daripada kegunaan bangunan, bukan daripada contoh.
+Laju pada setiap aras. Tekanan windward berubah dengan ketinggian, jadi laju diperlukan pada setiap lantai. Menskalakan V_{des} dengan nisbah multiplier (5.2) memberi V_{des,z}: pada aras 1 (z = 4 m), M_{z,cat} = 0.750 dan V_{des,z} = 37.37 × 0.750/0.970 = 28.89 m/s. Nota kursus mengira setiap aras secara terus sebagai V_sM_{z,cat}(z) I, iaitu nombor yang sama.
+Semakan pantas (tidak dimarkah): Terrain category 3: M_{z,cat} = 0.75 pada 5 m dan 0.83 pada 10 m. Berapakah M_{z,cat} pada aras 2, z = 7.5 m?
+Pilihan: 0.75 | 0.79 | 0.83 | 0.80
+Penjelasan yang dipaparkan selepas menjawab: Separuh jalan di antara 5 dan 10 m: 0.75 + 0.5 × (0.83 − 0.75) = 0.79. Table 4.1 diinterpolasi secara linear; membaca baris bawah (0.75) akan mengurangkan laju pada aras itu.
+Semakan pantas (tidak dimarkah): Sebuah dewan sekolah yang menghimpunkan 400 murid direka bentuk untuk angin. Importance factor I yang manakah digunakan?
+Pilihan: 0.87 | 1.00 | 1.15 | 1.30
+Penjelasan yang dipaparkan selepas menjawab: Lebih daripada 300 orang berkumpul di satu kawasan: importance category III, I = 1.15 (Table 3.2). Ia menaikkan tekanan sebanyak 1.15² = 1.32.
+Isi penting:
+- V_{sit} = V_sM_dM_{z,cat}M_sM_h; V_{des} = V_{sit}I.
+- M_{z,cat} daripada Table 4.1 mengikut terrain category dan ketinggian, diinterpolasi; ia paling banyak berubah.
+- I daripada kegunaan bangunan (Table 3.2): 1.0 bagi pejabat dan rumah pangsa, 1.15 jika lebih daripada 300 orang berkumpul.
+
+[notes-n4] Nota 4. Daripada laju kepada tekanan
+Design pressure pada dinding diperoleh daripada dynamic pressure design wind speed, 0.613V_{des}² dalam Pa (iaitu ½ρV² dengan ρ = 1.225 kg/m³), didarab dengan dua faktor:
+PERSAMAAN (5.3), (5.4): p = 0.613\,V_{des}^{2}\,C_{fig}\,C_{dyn}\quad(\mathrm{Pa}) \qquad\qquad C_{fig} = C_{p,e}\,K_a\,K_c\,K_l\,K_p
+Aerodynamic shape factor C_{fig} ialah external pressure coefficient C_{p,e} didarab dengan empat faktor yang bernilai 1.0 bagi dinding frame: area reduction K_a, combination K_c, local pressure K_l (bagi cladding berhampiran tepi) dan porous cladding K_p. Jadi C_{fig} = C_{p,e}.
+Dinding windward (Table 5.2(a)): C_{p,e} = 0.8 dengan laju berubah mengikut ketinggian, V_{des,z} pada setiap aras. (Bagi h ≤ 25 m MS 1553 juga membenarkan 0.7 dengan laju pada z = h bagi setiap aras.) Dinding leeward (Table 5.2(b)): suction bergantung pada bentuk bangunan pada pelan, melalui d/b, dan laju diambil pada z = h bagi setiap aras (5.4.1), jadi suction leeward adalah sama sepanjang ketinggian.
+d/b (kecerunan bumbung α < 10°) ≤ 1 2 ≥ 4
+C_{p,e} dinding leeward, Table 5.2(b) −0.5 −0.3 −0.2
+b dan d: muka yang mana? MS 1553 (Figure 5.2) menamakan dimensi pelan mengikut angin: b ialah lebar bangunan yang normal kepada angin, iaitu muka yang ditiupnya, dan d ialah dalam bangunan sepanjang arah angin. Plane frame menanggung angin yang bertiup dalam satahnya sendiri. Frame ABCD bangunan kursus merentang lebar 18 m, jadi ia menanggung angin yang bertiup merentasi bangunan, ke atas muka 51 m: b = 51 m, d = 18 m, d/b = 0.35, C_{p,e} = −0.5.
+[Rajah: Rajah 3. Setiap arah angin mempunyai b dan d tersendiri, dan frame tersendiri.]
+Nota kursus (Contoh 5) mengambil b = 18 m dan d = 51 m, iaitu angin pada muka 18 m, dan kemudian mengenakan tekanannya pada frame ABCD. Angin itu bertiup sepanjang bangunan dan ditanggung oleh frame memanjang. Kursus mengikut keputusan D57 aplikasi RC Design (18 Nov 2026): frame ABCD menanggung angin pada muka 51 m. Bagi frame itu perbezaannya ialah +28.1 %: ΣW_k = 133.9 kN berbanding 104.5 kN dalam nota (§5).
+Dynamic response factor C_{dyn} mengambil kira bahagian resonant dalam tindak balas. Ia bergantung pada frekuensi tabii pertama n_a bangunan (MS 1553 6.1): n_a > 1 Hz, bangunan tidak wind-sensitive dan C_{dyn} = 1.0; 0.2 Hz ≤ n_a ≤ 1 Hz, C_{dyn} diperoleh daripada 6.2.1; di bawah 0.2 Hz bangunan itu di luar skop MS 1553.
+PERSAMAAN (5.5): C_{dyn} = \dfrac{1 + 2\,I_h\sqrt{g_v^{2}\,B_s + g_R^{2}\,S\,E_t/\zeta}}{1 + 2\,g_v\,I_h}
+I_h ialah turbulence intensity pada z = h (Table 6.1), g_v = 3.7 peak factor bagi halaju angin hulu, B_s background factor, S size reduction factor, E_t spectrum of turbulence, g_R = √(2 ln(600n_a)) resonant peak factor dan ζ nisbah redaman (0.05 bagi konkrit pada had keadaan muktamad, Table 6.2). Bagi bangunan kursus, dengan n_a = 0.2 Hz dan b = 51 m: I_h = 0.205, B_s = 0.743, S = 0.188, E_t = 0.623, g_R = 3.094, jadi C_{dyn} = 1.327. Worked Example 5.1 menunjukkan setiap sebutan.
+n_a = 0.2 Hz ialah nilai contoh dalam nota, dan tepat pada frekuensi terendah yang diliputi 6.1. Frame konkrit setinggi 25 m biasanya jauh lebih kaku, sekitar 1.8 Hz mengikut anggaran biasa 46/h; maka C_{dyn} = 1.0 dan setiap tekanan berkurang sebanyak suku (Aktiviti 5B). Ambil n_a daripada taklimat atau analisis, bukan daripada kebiasaan.
+Tekanan. Di bumbung, p_W = 0.613 × 37.37² × 0.8 × 1.327 = 0.909 kN/m², dan suction leeward p_L = 0.613 × 37.37² × (−0.5) × 1.327 = −0.568 kN/m² pada setiap aras. Net pressure pada bangunan, p_W − p_L, ialah 1.477 kN/m² di bumbung dan 1.111 pada aras 1 (Rajah 4).
+[Rajah: Rajah 4. Tekanan windward meningkat dengan ketinggian; suction leeward malar; kedua-duanya menolak frame ke arah angin.]
+Semakan pantas (tidak dimarkah): Sebuah bangunan sepanjang 36 m dan selebar 15 m; frame-nya merentang lebar 15 m. Berapakah d/b bagi angin yang ditanggung frame tersebut, dan C_{p,e} leeward?
+Pilihan: 15/36 = 0.42; −0.5 | 36/15 = 2.4; −0.28 | 15/36 = 0.42; −0.3 | 36/15 = 2.4; −0.5
+Penjelasan yang dipaparkan selepas menjawab: Frame tersebut menanggung angin yang bertiup merentasi bangunan, ke atas muka 36 m: b = 36, d = 15, d/b = 0.42 ≤ 1, jadi C_{p,e} = −0.5. Menukar b dan d (2.4) memberi −0.28 dan mengurangkan suction sebanyak 44 %.
+Semakan pantas (tidak dimarkah): Sebuah bangunan mempunyai frekuensi tabii pertama n_a = 1.8 Hz. Berapakah C_{dyn}?
+Pilihan: Daripada 6.2.1, seperti bangunan kursus | 1.0 | Di luar MS 1553 | 0.8
+Penjelasan yang dipaparkan selepas menjawab: n_a > 1 Hz: bangunan tidak wind-sensitive dan C_{dyn} = 1.0 (6.1). Seksyen 6.2.1 hanya diperlukan di antara 0.2 dan 1 Hz.
+Isi penting:
+- p = 0.613V_{des}²C_{fig}C_{dyn}; bagi dinding C_{fig} = C_{p,e}.
+- Windward 0.8 dengan V_{des,z}; leeward daripada d/b dengan V_{des} pada h, sama pada setiap aras.
+- b normal kepada angin, d sepanjangnya; plane frame menanggung angin dalam satahnya sendiri.
+- C_{dyn} = 1.0 apabila n_a > 1 Hz; Seksyen 6.2.1 di antara 0.2 dan 1 Hz.
+
+[notes-n5] Nota 5. Daripada tekanan kepada daya pada satu frame
+Setiap lantai mengumpul net pressure pada satu jalur dinding: selebar bahagian frame dalam bangunan, dan setinggi separuh tingkat di atas ditambah separuh tingkat di bawah.
+PERSAMAAN (5.6): W_k = \left(p_W - p_L\right)\,B_w\,h_{trib}
+B_w ialah separuh jarak ke frame seterusnya pada setiap sisi. Frame ABCD terletak di antara bay 4 m dan 5 m, jadi B_w = 2.0 + 2.5 = 4.5 m. h_{trib} ialah separuh tingkat di bumbung (1.75 m), satu tingkat penuh 3.5 m pada aras 2 hingga 6, dan pada aras 1 separuh daripada setiap dua tingkat yang berbeza, (4.0 + 3.5)/2 = 3.75 m. Separuh bawah tingkat bawah terus ke asas dan tidak pernah sampai ke beam frame.
+[Rajah: Rajah 5. Jalur dinding yang dikumpul oleh setiap lantai frame ABCD.]
+Aras z (m) p_W − p_L (kN/m²) h_{trib} (m) W_k (kN)
+Roof 25.0 1.477 1.75 11.63
+Level 6 21.5 1.438 3.50 22.65
+Level 5 18.0 1.385 3.50 21.82
+Level 4 14.5 1.323 3.50 20.83
+Level 3 11.0 1.253 3.50 19.73
+Level 2 7.5 1.171 3.50 18.44
+Level 1 4.0 1.111 3.75 18.75
+Jumlah 133.85
+Pada aras 1, W_k = 1.111 × 4.5 × 3.75 = 18.75 kN; di bumbung 1.477 × 4.5 × 1.75 = 11.63 kN. Daya bumbung paling kecil walaupun tekanannya paling besar di situ, kerana ia hanya mengumpul separuh tingkat.
+Minimum wind load (2.4.2). Wind load pada struktur utama tidak boleh kurang daripada 0.65 kN/m² didarab dengan luas yang diunjurkan pada satah menegak yang normal kepada angin. Puratakan net pressure sepanjang ketinggian, termasuk separuh bawah tingkat bawah: di sini p_{avg} = 1.279 kN/m² ≥ 0.65, jadi minimum tidak menguasai. Apabila ia menguasai, setiap daya aras diskalakan dengan 0.65/p_{avg} (§6). Frictional drag (2.5.3) hanya ditambah apabila d/h atau d/b melebihi 4; di sini nilainya 0.72 dan 0.35.
+Characteristic value dan design value. W_k ialah characteristic action. Kaedah kursus dalam nota (Contoh 6 dan 7) mengambil BS 8110 load combination 3: W_d = 1.2W_k, dengan 1.2G_k + 1.2Q_k pada setiap span. EN 1990 Eq. 6.10 menggunakan 1.5W_k apabila angin menjadi leading action dan 1.5 × 0.5 = 0.75W_k apabila imposed load menjadi leading action (ψ_0 = 0.5 bagi angin). Unit 6 membentuk kombinasi ini.
+Semakan pantas (tidak dimarkah): Aras 1 sebuah frame: tingkat di bawah 4.0 m, tingkat di atas 3.5 m, B_w = 4.5 m dan p_W − p_L = 1.111 kN/m². Berapakah W_k?
+Pilihan: 17.50 kN | 20.00 kN | 8.75 kN | 18.75 kN
+Penjelasan yang dipaparkan selepas menjawab: h_{trib} = (4.0 + 3.5)/2 = 3.75 m, jadi W_k = 1.111 × 4.5 × 3.75 = 18.75 kN. 17.50 mengambil tingkat 3.5 m dan 20.00 satu tingkat penuh 4.0 m.
+Isi penting:
+- W_k = (p_W − p_L) B_w h_{trib}: separuh bay di kedua-dua sisi, separuh tingkat di atas dan di bawah.
+- Bumbung mengambil separuh tingkat; aras 1 separuh daripada dua tingkat yang berbeza; bahagian bawah tingkat bawah terus ke asas.
+- Semak p_{avg} ≥ 0.65 kN/m² (2.4.2); jika tidak, skalakan setiap daya dengan 0.65/p_{avg}.
+- W_d = 1.2W_k dalam kaedah kursus (BS 8110 combination 3); 1.5W_k atau 0.75W_k mengikut EN 1990.
+
+[notes-n6] Nota 6. Bangunan rendah, dan lateral load kedua
+Appendix A meringkaskan prosedur bagi bangunan segi empat sehingga 15 m tinggi. Tiada importance factor, tiada directional, shielding atau hill multiplier dan tiada C_{dyn}; M_{z,cat} diperoleh daripada Table A1 dan pekali leeward daripada Table A2 (nilai yang sama dengan Table 4.1 dan 5.2(b) pada ketinggian ini):
+PERSAMAAN (5.7): p = 0.613\,V_s^{2}\,M_{z,cat}^{2}\,\left(C_{p,e} - C_{p,i}\right)\quad(\mathrm{Pa})
+Internal pressure coefficient C_{p,i} ialah +0.6 atau −0.3 bagi bangunan tertutup, kedua-duanya perlu dipertimbangkan bagi dinding dan cladding. Pada frame ia terbatal: tekanan dalaman yang sama menolak keluar pada bahagian dalam dinding windward dan bahagian dalam dinding leeward, jadi daya mengufuk bersih ialah 0.613V_s²M_{z,cat}² (C_{p,e,W} − C_{p,e,L}).
+Bagi bangunan tiga tingkat pada pelan kursus (h = 11 m, terrain category 3, angin pada muka 51 m), Faded Example 5.2 mendapati net pressure 0.634, 0.587 dan 0.553 kN/m² di bumbung, aras 2 dan aras 1. Puratanya sepanjang ketinggian ialah p_{avg} = 0.577 kN/m², di bawah 0.65: minimum A2.2 menguasai dan setiap daya didarab dengan 0.65/0.577 = 1.126. Pada bangunan rendah dalam terrain kasar, minimum sering menentukan wind load.
+Lateral load kedua: geometric imperfection (EC2 5.2). Tiada frame dibina tegak sepenuhnya. EC2 menganggap frame condong dengan sudut kecil θ_i dan mengenakan, pada setiap lantai, daya mengufuk yang sama dengan sudut itu didarab dengan load menegak yang memasuki frame di situ:
+PERSAMAAN (5.8), (5.9): \theta_i = \theta_0\,\alpha_h\,\alpha_m,\quad \alpha_h = \dfrac{2}{\sqrt{l}}\ \left(\tfrac{2}{3} \le \alpha_h \le 1\right),\quad \alpha_m = \sqrt{0.5\left(1 + \dfrac{1}{m}\right)} \qquad H_i = \theta_i\,N_i
+θ_0 = 1/200 ialah nilai asas yang disyorkan, l ketinggian frame dalam meter dan m bilangan column yang berkongsi load. Bagi frame kursus, l = 25 m memberi α_h = 2/√25 = 0.40, dinaikkan kepada had bawah 2/3; empat column memberi α_m = 0.791; jadi θ_i = (1/200)(2/3)(0.791) = 1/379. Satu lantai yang membawa kira-kira 1350 kN ke dalam frame kemudian menambah H_i ≈ 1350/379 = 3.6 kN.
+Laluan mana yang menggunakannya? Aplikasi RC Design menambah imperfection kepada angin dalam laluan EN 1990 secara default (keputusan D83, dipersetujui 15 Nov 2026): bagi frame kursus ia menaikkan daya lateral sebanyak kira-kira suku. Kaedah kursus dalam nota, BS 8110 combination 3, menganalisis angin sahaja. Unit 6 menyatakan laluan yang diambil oleh setiap contoh.
+Semakan pantas (tidak dimarkah): Sebuah frame setinggi 25 m mempunyai empat column. Berapakah θ_i mengikut EC2 Eq. 5.1, dengan θ_0 = 1/200?
+Pilihan: 1/200 | 1/379 | 1/632 | 1/253
+Penjelasan yang dipaparkan selepas menjawab: α_h = 2/√25 = 0.40 berada di bawah had, jadi α_h = 2/3; α_m = √(0.5 × 1.25) = 0.791; θ_i = 0.00264 = 1/379. 1/632 terlupa had bawah bagi α_h.
+Isi penting:
+- Appendix A: p = 0.613V_s²M_{z,cat}²(C_{p,e} − C_{p,i}); C_{p,i} terbatal pada frame.
+- Pada bangunan rendah, minimum 0.65 kN/m² sering menguasai.
+- Imperfection: θ_i = θ_0α_hα_m, H_i = θ_iN_i pada setiap lantai; bersama angin dalam laluan EN 1990.
+
+[slides-1] Slide 1: Frame Analysis III
+SEAA 4333 Reinforced Concrete Design II · Week 5 Frame Analysis III The wind on a building: how much one frame carries, and where it acts Workbook ch. 5 ABCD card Calculator MS 1553 tables Ruler Phone or laptop Wind Lab Scan for this page’s Explorer tab: which face, the pressures level by level, what matters most, Wind S5.
+
+[slides-2] Slide 2: How the next three hours run
+Today · 180 minutes How the next three hours run 0:00 Warm-up Unit 4 in three votes 0:10 Hook Two answers for one frame 0:17 Unbraced frames · wind speed What carries the wind; V_{des} 0:29 Activity 5A Which frames carry which wind? 0:44 WE 5.1 The notes’ building: I do 0:58 Pressure · forces C_{p,e}, C_{dyn}; one force per floor 1:12 FE 5.2 A low-rise building, pairs 1:30 Break 10 minutes 1:40 Activity 5B What matters most? 1:58 Wind S5 Spot the error, teams 2:10 Exam-size problem D5, alone, 30 minutes 2:40 Studio · ha
+
+[slides-3] Slide 3: Three questions from last week
+Warm-up · no notes · cards up Three questions from last week W1 · Unit 4 Which method gives the moment at an end support directly, in its own envelope? A The continuous beam on knife edges B The one-level sub-frame C The one-free-joint sub-frame D None of them W2 · Unit 4 Above column B: one-free-joint 24.25 kN m, one-level 30.29 kN m. The column is designed for A 24.25 kN m B 27.27 kN m (the mean) C 30.29 kN m D 54.54 kN m (the sum) W3 · Unit 4 In the two-free-joint sub-frame of beam BC, the beams AB and CD are taken a
+
+[slides-4] Slide 4: B, C, C, and what each means today
+Warm-up · answers B, C, C, and what each means today W1 B: the one-level sub-frame The continuous beam needs M_{c,u} + M_{c,l} as a separate check (D96). Today the frame carries the wind as well. W2 C: 30.29 kN m The larger of the two values (D53). Today’s wind adds column moments of its own (Unit 6). W3 C: ½K Neighbours fixed at their far ends are taken at half stiffness. Today: no sub-frames; the wind first. SEAA 4333 · Unit 5 · Frame Analysis III Workbook 5.1
+
+[slides-5] Slide 5: One building, one frame, two answers
+Hook · 5 minutes One building, one frame, two answers SEAA 4333 · Unit 5 · Frame Analysis III Workbook 5.2
+
+[slides-6] Slide 6: Frame ABCD spans the 18 m width of the building. Which wind does it carry?
+Concept check 1 · the big question · vote now, again after Activity 5A Frame ABCD spans the 18 m width of the building. Which wind does it carry? A The wind blowing onto the 18 m face B The wind blowing onto the 51 m face C Both winds, each in full D Neither: the floors carry the wind to the ground Vote · convince your neighbour · vote again Workbook 5.2
+
+[slides-7] Slide 7: Unbraced frames: the frame carries the wind itself
+Block A · talk 1 · 5 minutes Unbraced frames: the frame carries the wind itself Braced walls or a core take the wind; the frame carries vertical load only (Units 3–4) Unbraced rigid joints: the beams and columns carry the wind in bending Floors collect the wind from the walls and give each frame one force per floor SEAA 4333 · Unit 5 · Frame Analysis III Notes §1 · Workbook 5.2
+
+[slides-8] Slide 8: The design wind speed, level by level
+Block A · talk 2 · 7 minutes The design wind speed, level by level V_{sit} = V_s M_d M_{z,cat} M_s M_h V_{des} = V_{sit} × I V_{des,z} = V_{des} M_{z,cat}(z)/M_{z,cat}(h) V_s: 33.5 m/s (Zone I), 32.5 m/s (Zone II). M_{z,cat}: Table 4.1, by terrain category; interpolate. I: Table 3.2; 1.0 for offices and flats, 1.15 where more than 300 people gather. SEAA 4333 · Unit 5 · Frame Analysis III Notes §2–§3 · Workbook 5.3
+
+[slides-9] Slide 9: Which frames carry which wind?
+Activity 5A · teams of four · 12 minutes Which frames carry which wind? For each wind: the 51 m face, then the 18 m face 1 · Which frames resist it: the transverse frames (like ABCD) or the longitudinal frame lines? 2 · b, normal to the wind; d, along it; d/b. 3 · The leeward C_{p,e} from Table 5.2(b). 4 · Which of the two winds goes on frame ABCD? Table 5.2(b), roof pitch < 10°: d/b ≤ 1 → −0.5 · d/b = 2 → −0.3 · d/b ≥ 4 → −0.2 Plan 51 m × 18 m Frame ABCD: 6 + 6 + 6 m, across the width 12 transverse frames 4 longitudina
+
+[slides-10] Slide 10: Each wind has its own b, d and frames
+Activity 5A · reveal Each wind has its own b, d and frames SEAA 4333 · Unit 5 · Frame Analysis III Notes §4 · Workbook 5.3
+
+[slides-11] Slide 11: The notes’ building: the wind on frame ABCD
+Worked Example 5.1 · I do · 10 minutes The notes’ building: the wind on frame ABCD Level z (m) M_{z,cat} V_{des,z} p_W p_W − p_L Roof 25.0 0.970 37.37 0.909 1.477 Level 6 21.5 0.949 36.56 0.870 1.438 Level 5 18.0 0.920 35.44 0.818 1.385 Level 4 14.5 0.884 34.06 0.755 1.323 Level 3 11.0 0.842 32.44 0.685 1.253 Level 2 7.5 0.790 30.43 0.603 1.171 Level 1 4.0 0.750 28.89 0.543 1.111 Speed V_{sit} 32.49; I 1.15 → V_{des} 37.37 m/s Shape C_{p,e} 0.8 and −0.5 (d/b = 0.353) Dynamic n_a 0.2 Hz → 6.2.1: C_{dyn} = 1.327 Leeward p
+
+[slides-12] Slide 12: Level 1 of the notes’ building is at z = 4 m. Which speed gives the leeward suction there?
+Concept check 2 · think 60 seconds, then vote Level 1 of the notes’ building is at z = 4 m. Which speed gives the leeward suction there? A V_{des} at the roof, 37.37 m/s B V_{des,z} at 4 m, 28.89 m/s C V_s = 33.5 m/s D V_{sit} = 32.49 m/s Vote · convince your neighbour · vote again Workbook 5.3
+
+[slides-13] Slide 13: From speed to pressure
+Block B · talk 3 · 6 minutes From speed to pressure p = 0.613 V² C_{fig} C_{dyn} (Pa) C_{fig} = C_{p,e} K_a K_c K_l K_p Windward 0.8 with V_{des,z}; leeward from d/b with V_{des} at h. C_{dyn} = 1.0 if n_a > 1 Hz; 6.2.1 for 0.2–1 Hz. Net = p_W − p_L: both push downwind. SEAA 4333 · Unit 5 · Frame Analysis III Notes §4 · Workbook 5.4
+
+[slides-14] Slide 14: From pressure to one force per floor
+Block B · talk 4 · 6 minutes From pressure to one force per floor W_k = (p_W − p_L) B_w h_{trib} Roof: half a storey. Level 1: half of two different storeys. ΣW_k = 133.9 kN on frame ABCD. Minimum (2.4.2): p_{avg} = 1.279 ≥ 0.65 kN/m². SEAA 4333 · Unit 5 · Frame Analysis III Notes §5 · Workbook 5.4
+
+[slides-15] Slide 15: Over the height of a low frame the net pressure averages 0.58 kN/m². What happens to the level forces?
+Concept check 3 · vote Over the height of a low frame the net pressure averages 0.58 kN/m². What happens to the level forces? A Only the roof force is raised B Nothing: each level is checked alone C Every force is multiplied by 0.65/0.58 = 1.12 D 0.65 kN/m² replaces the pressure at the roof only Vote · convince your neighbour · vote again Workbook 5.4
+
+[slides-16] Slide 16: A low-rise building by Appendix A
+Faded Example 5.2 · pairs · 18 minutes A low-rise building by Appendix A Steps 1 and 3 are given. M_{z,cat} at 11, 7.5 and 4 m (Table A1). p = 0.613 V_s² M_{z,cat}² × C_{p,e}; C_{p,i} cancels. p_{avg} against 0.65 kN/m² (A2.2). The forces on frame ABCD. SEAA 4333 · Unit 5 · Frame Analysis III Lab tab 2 · Workbook 5.4
+
+[slides-17] Slide 17: The minimum decides the wind
+Faded Example 5.2 · check The minimum decides the wind Net pressures 0.634 · 0.587 · 0.553 kN/m² p_L = −0.244 at every level Minimum (A2.2) p_{avg} = 0.577 < 0.65 every force × 1.126 Forces 5.62 · 10.42 · 10.52 kN ΣW_k = 26.56 kN The analytical procedure with I = 1.0 and C_{dyn} = 1.0 gives the same 26.56 kN: Appendix A is that procedure with those factors fixed. SEAA 4333 · Unit 5 · Frame Analysis III Notes §6 · Workbook 5.4
+
+[slides-18] Slide 18: What matters most?
+Activity 5B · teams · 10 minutes What matters most? Worked Example 5.1 gives ΣW_k = 133.9 kN on frame ABCD. Rank the five changes by the size of their effect, biggest first, with the direction (up or down). Then reveal them one by one in Lab tab 3. Change 1 Terrain category 3 → 2 (open terrain) Change 2 Importance category III → II (I = 1.15 → 1.0) Change 3 n_a = 0.2 Hz → 1.8 Hz (C_{dyn} → 1.0) Change 4 Wind on the 18 m face instead (b = 18, d = 51 m) Change 5 Zone I → Zone II (V_s = 33.5 → 32.5 m/s) SEAA 4333 · Unit 5
+
+[slides-19] Slide 19: The terrain and the building matter more than the zone
+Activity 5B · reveal The terrain and the building matter more than the zone SEAA 4333 · Unit 5 · Frame Analysis III Notes §3–§4 · Workbook 5.5
+
+[slides-20] Slide 20: The second lateral load, and the design value
+Block C · talk 5 · 5 minutes The second lateral load, and the design value EC2 5.2 imperfections θ_i = (1/200) α_h α_m · H_i = θ_i N_i Course frame: l = 25 m → α_h = 2/3; m = 4 → α_m = 0.791; θ_i = 1/379. With the wind on the EN 1990 route (app default, D83). Design value of the wind Course method (notes Ex 6–7, BS 8110 combination 3): W_d = 1.2W_k, with 1.2G_k + 1.2Q_k. EN 1990 Eq. 6.10: 1.5W_k when the wind leads; 0.75W_k when the imposed load leads. Unit 6 forms the combinations. SEAA 4333 · Unit 5 · Frame Analysis I
+
+[slides-21] Slide 21: Wind S5: four slips in a wind calculation
+Spot the error · teams · 12 minutes Wind S5: four slips in a wind calculation Lab tab 4, or Workbook 5.6. Twelve lines. Reader reads each line aloud; calculator rechecks; checker draws the plan and the wind arrow first; reporter logs line and reason. Which slip would Professional Habit 5 catch before any number? SEAA 4333 · Unit 5 · Frame Analysis III Lab tab 4 · Workbook 5.6
+
+[slides-22] Slide 22: D5: the wind on a frame (20 marks)
+Block D · alone · 30 minutes D5: the wind on a frame (20 marks) (a) The wind on the frames: b, d and the leeward C_{p,e} [3] (b) V_{sit}, V_{des} and C_{dyn}, with reasons [4] (c) p_W at each level, p_L and the net pressures [6] (d) W_k at each level and ΣW_k [5] (e) The minimum of 2.4.2 [2] Ref | Calculations | Output. No app, no notes; the MS 1553 tables are allowed. Self-mark with the scheme after class. SEAA 4333 · Unit 5 · Frame Analysis III Workbook 5.6
+
+[slides-23] Slide 23: The wind on your group’s frame line
+Project studio · 12 minutes The wind on your group’s frame line Draw The plan, the wind arrow in the plane of your frame line, b and d. Speed Zone, terrain category, importance category, n_a: V_{des} and V_{des,z}. Pressure C_{p,e} both walls, C_{dyn}; the net pressure at each level. Log B_w, the level forces, ΣW_k, the minimum; who checks it before Unit 6. SEAA 4333 · Unit 5 · Frame Analysis III Workbook 5.7
+
+[slides-24] Slide 24: Draw the plan and the wind arrow before any number
+Professional Habit 5 Draw the plan and the wind arrow before any number The arrow in the plane of the frame you analyse b and d b across the arrow, d along it; d/b for the leeward wall The strip B_w: half the bay each side; h_{trib}: half the storeys above and below The site zone, terrain, importance, n_a: written before the first speed Wind S5’s slips at lines 5, 8 and 10 all start from not drawing this. SEAA 4333 · Unit 5 · Frame Analysis III Workbook 5.8
+
+[slides-25] Slide 25: Before Unit 6
+After class Before Unit 6 Notes §1–§6 47 min Exercises, all 14 45 min Explorer, 4 tasks: which face, pressures, what matters most, Wind S5 30 min Self-mark D5 on eLearning 15 min The notes, Frame Analysis, Wind Action and Example 5; MS 1553 Sections 2 and 5, 6.2.1, Appendix A reading The wind on your frame line, checked studio SEAA 4333 · Unit 5 · Frame Analysis III Workbook 5.8
+
+[slides-26] Slide 26: Before you leave
+Exit ticket · 5 minutes · Workbook 5.8 Before you leave 1 A building is 30 m long and 12 m wide; its frames span the 12 m width. For the wind these frames carry, find d/b and the leeward C_{p,e}. 2 The net pressure at the roof is 1.20 kN/m², the frames are at 5 m centres and the top storey is 3.5 m high. Find W_k at the roof. 3 What is still unclear? Tear off the slip and hand it in at the door. SEAA 4333 · Unit 5 · Frame Analysis III
+
+[examples-x1] Contoh 1 · Worked Example 5.1: bangunan nota, angin pada frame ABCD
+Jenis soalan wind load pada frame mengikut analytical procedure MS 1553:2002 Workbook 5.3 Masa ≈ 30 min
+Soalan Bangunan dalam nota kursus (Contoh 5) di Kuala Lumpur (Zone I), terrain pinggir bandar dalam semua arah, tanah rata: 51 m × 18 m pada pelan, tujuh tingkat (4.0 m, kemudian 6 × 3.5 m) hingga bumbung rata pada h = 25 m, importance category III, frekuensi tabii pertama n_a = 0.2 Hz, nisbah redaman 0.05, g_v = 3.7. Frame ABCD merentang lebar 18 m, di antara bay 4 m dan 5 m. Cari daya angin pada frame ABCD di setiap lantai: (a) design wind speed; (b) shape factor dan C_{dyn}; (c) net pressure pada setiap aras; (d) daya W_k dan jumlahnya. Dalam aplikasi: kes FA6 (angin) dan FA10 (daya pada frame) aplikasi RC Design Worked Solutions, seperti sejak v15.16 (angin pada muka 51 m).
+[Rajah: Worked Example 5.1: angin bertiup ke atas muka 51 m, dalam satah frame ABCD.]
+Gambaran fizikal. Angin menolak muka 51 m dan menarik muka di belakangnya. Lantai mengumpul kedua-duanya dan membahagikannya kepada dua belas frame melintang; frame ABCD mengambil bahagian bagi jalur selebar 4.5 m. Tekanan meningkat dengan ketinggian pada muka windward sahaja.
+Pelan. Angin dan frame; V_{des}; C_{p,e} bagi kedua-dua dinding; C_{dyn}; p_W, p_L dan net pressure pada setiap aras; daya dan minimum.
+## Langkah 1 Angin yang ditanggung frame ABCD
+Ref Pengiraan Output
+Fig. 5.2 Frame ABCD terletak merentasi bangunan, jadi ia menanggung angin yang bertiup merentasinya, ke atas muka 51 m: b (normal kepada angin) = 51 m, d (sepanjangnya) = 18 m b = 51 m; d = 18 m
+§5 B_w = 4.0/2 + 5.0/2 (separuh bay pada setiap sisi) 4.50 m
+## Langkah 2 Design wind speed
+Ref Pengiraan Output
+Table 4.1 Terrain category 3 pada h = 25 m: di antara 0.94 (20 m) dan 1.00 (30 m) M_{z,cat} = 0.970
+(5.1) V_{sit} = 33.5 × 1.0 × 0.970 × 1.0 × 1.0 32.49 m/s
+(5.2) Category III (lebih daripada 300 orang di satu kawasan, seperti yang diambil nota): I = 1.15; V_{des} = 32.49 × 1.15 37.37 m/s
+## Langkah 3 Shape factor
+Ref Pengiraan Output
+Table 5.2(a) Dinding windward, laju berubah mengikut ketinggian C_{p,e,W} = 0.8
+Table 5.2(b) Dinding leeward, kecerunan bumbung 0°: d/b = 18/51 = 0.353 ≤ 1 C_{p,e,L} = −0.5
+(5.4) K_a = K_c = K_l = K_p = 1.0 bagi dinding frame, jadi C_{fig} = C_{p,e} 0.8; −0.5
+## Langkah 4 Dynamic response factor
+Ref Pengiraan Output
+6.1 n_a = 0.2 Hz terletak dalam 0.2–1 Hz: bangunan wind-sensitive dan C_{dyn} diperoleh daripada 6.2.1 6.2.1
+Table 6.1 Terrain category 3 pada z = h = 25 m I_h = 0.205
+6.2.1 L_h = 1000 (25/10)^{0.25}; B_s = 1/[1 + √(36 × 25² + 64 × 51²)/L_h] 1257.43 m; 0.743
+6.2.1 S = 1/[(1 + 3.5n_ah(1 + g_vI_h)/V_{des})(1 + 4n_ab(1 + g_vI_h)/V_{des})] = 1/[(1 + 0.824)(1 + 1.920)] 0.188
+6.2.1 N = n_aL_h(1 + g_vI_h)/V_{des}; E_t = 0.47N/(2 + N)^{5/6}; g_R = √(2 ln(600 × 0.2)) 11.834; 0.623; 3.094
+(5.5) C_{dyn} = [1 + 2 × 0.205 √(3.7² × 0.743 + 3.094² × 0.188 × 0.623/0.05)]/(1 + 2 × 3.7 × 0.205) 1.327
+## Langkah 5 Tekanan pada aras (kN/m²)
+Ref Pengiraan Output
+(5.2) V_{des,z} = 37.37 × M_{z,cat}(z)/0.970, dengan M_{z,cat}(z) daripada Table 4.1 pada setiap aras jadual
+(5.3) p_W = 0.613 V_{des,z}² × 0.8 × 1.327/1000; p_L = 0.613 × 37.37² × (−0.5) × 1.327/1000 at every level p_L = −0.568
+Aras z (m) M_{z,cat} V_{des,z} (m/s) p_W p_L p_W − p_L
+Roof 25.0 0.970 37.37 0.909 −0.568 1.477
+Level 6 21.5 0.949 36.56 0.870 −0.568 1.438
+Level 5 18.0 0.920 35.44 0.818 −0.568 1.385
+Level 4 14.5 0.884 34.06 0.755 −0.568 1.323
+Level 3 11.0 0.842 32.44 0.685 −0.568 1.253
+Level 2 7.5 0.790 30.43 0.603 −0.568 1.171
+Level 1 4.0 0.750 28.89 0.543 −0.568 1.111
+## Langkah 6 Daya pada frame ABCD dan minimum
+Ref Pengiraan Output
+(5.6) W_k = (p_W − p_L) × 4.50 × h_{trib}: 1.75 m di bumbung, 3.5 m pada aras 2–6, (4.0 + 3.5)/2 = 3.75 m pada aras 1 ΣW_k = 133.85 kN
+2.4.2 Purata net pressure sepanjang 25 m, termasuk separuh bawah tingkat bawah: 1.279 ≥ 0.65 kN/m² minimum tidak menguasai
+2.5.3 d/h = 18/25 = 0.72; d/b = 0.35; both ≤ 4 tiada frictional drag
+Aras p_W − p_L (kN/m²) B_w (m) h_{trib} (m) W_k (kN)
+Roof 1.477 4.50 1.75 11.63
+Level 6 1.438 4.50 3.50 22.65
+Level 5 1.385 4.50 3.50 21.82
+Level 4 1.323 4.50 3.50 20.83
+Level 3 1.253 4.50 3.50 19.73
+Level 2 1.171 4.50 3.50 18.44
+Level 1 1.111 4.50 3.75 18.75
+Jumlah 133.85
+Jawapan. V_{des} = 37.37 m/s; C_{p,e} = 0.8 dan −0.5; C_{dyn} = 1.327; net pressure 1.477 kN/m² di bumbung hingga 1.111 pada aras 1; W_k = 11.63, 22.65, 21.82, 20.83, 19.73, 18.44, 18.75 kN dari bumbung ke bawah; ΣW_k = 133.85 kN.
+Apa yang nombor ini katakan Nota mengenakan angin muka 18 m pada frame ini dan mendapat ΣW_k = 104.5 kN; angin dalam satah frame itu sendiri adalah +28.1 % lebih, hampir semuanya daripada suction leeward (−0.5 bagi d/b = 0.35 berbanding −0.25 bagi 2.83). C_{dyn} menambah satu pertiga kepada setiap tekanan di sini; dengan n_a = 1.8 Hz, frekuensi biasa bagi frame sebegini, ia akan menjadi 1.0 dan ΣW_k = 100.9 kN. Unit 6 membawa daya ini, didarab 1.2 dalam kaedah kursus, melalui frame.
+
+[examples-x2] Contoh 2 · Faded Example 5.2: bangunan rendah mengikut Appendix A
+Jenis soalan wind load pada frame rendah mengikut simplified procedure Workbook 5.4 Masa ≈ 25 min
+Soalan Sebuah pejabat tiga tingkat pada pelan Worked Example 5.1 (51 m × 18 m), tingkat 4.0, 3.5 dan 3.5 m hingga bumbung rata pada h = 11 m, Zone I, terrain category 3, angin pada muka 51 m. Cari daya angin pada frame ABCD (B_w = 4.5 m) pada setiap lantai mengikut MS 1553 Appendix A, dengan minimum A2.2. Langkah 1 dan 3 diberi; lengkapkan yang lain dalam workbook, kemudian bukanya di sini. Dalam aplikasi: kes FA8 (frame rendah: Appendix A dan portal method), langkah anginnya.
+[Rajah: Faded Example 5.2: tiga tingkat, h = 11 m, jadi Appendix A terpakai.]
+## Langkah 1 Bolehkah Appendix A digunakan? (diberi)
+Ref Pengiraan Output
+A1 h = 11 m ≤ 15 m; h/b_{min} = 11/18 = 0.61 ≤ 3; pejabat: category II; pelan segi empat, tapak rata ya
+## Langkah 2 M_{z,cat} pada setiap aras
+Ref Pengiraan Output
+Table A1 Terrain category 3: 0.75 hingga 5 m, 0.83 pada 10 m, 0.89 pada 15 m; bumbung 11 m, aras 2 pada 7.5 m, aras 1 pada 4 m 0.842; 0.790; 0.750
+## Langkah 3 Pekali (diberi)
+Ref Pengiraan Output
+A2.3 Dinding windward C_{p,e,W} = 0.8
+Table A2 Dinding leeward, kecerunan bumbung 0°, d/b = 18/51 = 0.353 C_{p,e,L} = −0.5
+A2.1 C_{p,i} = +0.6 atau −0.3 bertindak pada bahagian dalam kedua-dua dinding dan terbatal dalam daya pada frame —
+## Langkah 4 Tekanan (kN/m²)
+Ref Pengiraan Output
+(5.7) 0.613 V_s² = 0.613 × 33.5²/1000; p_W = 0.688 M_{z,cat}(z)² × 0.8; p_L = 0.688 × 0.842² × (−0.5) 0.688; p_L = −0.244
+## Langkah 5 Minimum (A2.2)
+Ref Pengiraan Output
+A2.2 p_{avg} = (0.634 × 1.75 + 0.587 × 3.5 + 0.553 × 3.75 + 0.553 × 2.0)/11, 2.0 m bawah pada tekanan z = 1 m 0.577 kN/m²
+A2.2 0.577 < 0.65: minimum menguasai; setiap daya × 0.65/0.577 k = 1.126
+## Langkah 6 Daya pada frame ABCD
+Ref Pengiraan Output
+(5.6) W_k = (p_W − p_L) × 4.50 × h_{trib} × 1.126 ΣW_k = 26.56 kN
+Aras z (m) M_{z,cat} (Table A1) p_W p_L p_W − p_L h_{trib} (m) W_k (kN)
+Roof 11.0 0.842 0.390 −0.244 0.634 1.75 5.62
+Level 2 7.5 0.790 0.343 −0.244 0.587 3.50 10.42
+Level 1 4.0 0.750 0.310 −0.244 0.553 3.75 10.52
+Jumlah 26.56
+Jawapan. M_{z,cat} = 0.842, 0.790, 0.750; net pressure 0.634, 0.587, 0.553 kN/m²; p_{avg} = 0.577 < 0.65, k = 1.126; W_k = 5.62, 10.42, 10.52 kN; ΣW_k = 26.56 kN.
+Apa yang nombor ini katakan Minimum menambah +12.6 % kepada setiap daya: pada bangunan rendah di kawasan pinggir bandar, tekanan sahaja jatuh di bawah 0.65 kN/m². Analytical procedure dengan I = 1.0 dan C_{dyn} = 1.0 memberi tekanan yang sama dan 26.56 kN yang sama, kerana Appendix A ialah prosedur itu dengan faktor tersebut ditetapkan. Bagi setiap meter ketinggian, frame menanggung kira-kira suku daripada angin Worked Example 5.1: tiada C_{dyn}, tiada importance factor dan laju yang lebih rendah berhampiran tanah.
+
+[examples-x3] Contoh 3 · Soalan jenis terangkan
+Jenis soalan jawapan bertulis pendek Masa ≈ 3 min setiap satu
+Soalan
+- Mengapa suction leeward sama pada setiap aras, sedangkan tekanan windward meningkat dengan ketinggian?
+- Frame ABCD merentang lebar 18 m bangunan kursus. Mengapa ia menanggung angin pada muka 51 m, dan bukan angin pada muka 18 m yang digunakan dalam nota?
+- Internal pressure coefficient bagi bangunan tertutup ialah +0.6 atau −0.3. Mengapa ia tidak memasuki daya angin pada frame?
+- Bangunan rendah di kawasan pinggir bandar boleh direka bentuk untuk angin yang lebih besar daripada yang diberi oleh tekanannya. Mengapa?
+Tulis empat jawapan anda dahulu, kemudian buka jawapan model satu demi satu.
+## Jawapan 1 Suction ditentukan oleh aliran di belakang bangunan
+Dinding windward bertemu angin yang datang, yang lajunya meningkat dengan ketinggian, jadi p_W mengikut V_{des,z}. Dinding leeward berada dalam wake: aliran terpisah di tepi bumbung dan suction di belakang ditentukan oleh laju di bahagian atas, jadi MS 1553 5.4.1 mengambil V_{des} pada z = h bagi setiap aras.
+## Jawapan 2 Plane frame menanggung angin dalam satahnya sendiri
+Frame menahan sway dalam satahnya sendiri sahaja. Frame ABCD terletak merentasi bangunan, jadi ia menahan angin yang bertiup merentasinya, ke atas muka 51 m (b = 51, d = 18 m, leeward −0.5). Angin pada muka 18 m bertiup sepanjang bangunan dan dihantar ke frame memanjang. Pilihan nota memberi 104.5 kN pada ABCD berbanding 133.9 kN (keputusan D57).
+## Jawapan 3 Ia bertindak pada kedua-dua dinding dan terbatal
+Tekanan dalaman menolak keluar (atau menarik masuk) secara sama pada bahagian dalam dinding windward dan leeward. Paduan mengufuknya sama dan bertentangan, jadi daya bersih pada frame ialah 0.613V_s²M_{z,cat}²(C_{p,e,W} − C_{p,e,L}). Ia masih penting bagi dinding, cladding dan bumbung.
+## Jawapan 4 Minimum design wind load
+MS 1553 menetapkan had bawah 0.65 kN/m² pada luas unjuran bagi struktur utama (2.4.2, A2.2). Berhampiran tanah dalam terrain kasar, M_{z,cat} hampir 0.75 dan net pressure jatuh di bawahnya: Faded Example 5.2 berpurata 0.577 kN/m², jadi setiap daya diskalakan dengan 1.126.
+
+[exercises-b1] Latihan B1 · Design wind speed di bumbung dan pada satu aras
+Soalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-b2] Latihan B2 · Suction leeward: muka yang mana, d/b dan p_L
+Soalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-b3] Latihan B3 · Net pressure pada satu aras
+Soalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-b4] Latihan B4 · Daya pada frame pada satu aras
+Soalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-b5] Latihan B5 · Minimum design wind load
+Soalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-b6] Latihan B6 · Geometric imperfection EC2
+Soalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-quick] Latihan: soalan konsep pantas
+- Frame yang manakah menanggung angin pada bangunan melalui bending beam dan column-nya sendiri?
+- Terrain category 3 MS 1553 menerangkan
+- Sebuah blok rumah pangsa sepuluh tingkat direka bentuk untuk angin. Importance factor I-nya ialah
+- Bagi bangunan berbumbung rata dengan d/b = 2, C_{p,e} leeward dalam Table 5.2(b) ialah
+- Sebuah bangunan mempunyai n_a = 0.5 Hz. C_{dyn} -nya
+- Dalam frame yang semua tingkatnya di atas tingkat bawah sama tinggi, lantai manakah menerima daya angin paling kecil?
+- Sebuah bangunan sepanjang 40 m dan selebar 15 m; frame-nya merentang lebar 15 m. Di bumbung V_{des} = 36.0 m/s dan n_a = 1.5 Hz. Seorang pelajar mengira suction leeward pada frame ini. Baris manakah yang salah?
+- Sebuah frame terletak di antara bay 6 m; setiap tingkat di atas tingkat bawah setinggi 3.5 m. Net pressure ialah 1.05 kN/m² di bumbung dan 0.98 kN/m² pada aras 4, lantai di bawahnya. Seorang pelajar mengira daya. Baris manakah yang salah?
+
+[lab-face] Tugasan Explorer 1 · Tab 1, Aktiviti 5A: bagi setiap dua arah angin pada bangunan kursus, namakan frame yang menanggungnya dan taip b, d dan C_{p,e} leeward.
+Ditanda sendiri: apabila kedua-dua arah betul · tidak ditanda? tanda selesai
+(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)
+
+[lab-press] Tugasan Explorer 2 · Tab 2: kira net pressure pada tiga aras berturut-turut sebelum setiap baris ditunjukkan (mana-mana bangunan).
+Ditanda sendiri: apabila tiga aras berturut-turut betul · tidak ditanda? tanda selesai
+(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)
+
+[lab-sens] Tugasan Explorer 3 · Tab 3, Aktiviti 5B: susun lima perubahan mengikut kesannya pada ΣW_k , kemudian dedahkan setiap satu.
+Ditanda sendiri: apabila kelima-lima perubahan telah didedahkan selepas susunan dibuat · tidak ditanda? tanda selesai
+(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)
+
+[lab-s5] Tugasan Explorer 4 · Tab 4: cari keempat-empat kesilapan dalam Wind S5, ketik barisnya dan tekan “Semak”.
+Ditanda sendiri: apabila keempat-empat kesilapan ditemui, sebelum Tunjuk · tidak ditanda? tanda selesai
+(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)
+
+[glossary-unbraced-frame] Glosari: unbraced frame
+unbraced frame: Frame yang memberi bangunan kestabilannya: joint tegar atau tapak fixed membolehkan beam dan column-nya menanggung lateral action dan juga vertical action.
+
+[glossary-braced-frame] Glosari: braced frame
+braced frame: Frame yang lateral action-nya dihantar ke bracing member (shear wall, core); ia hanya menanggung vertical action.
+
+[glossary-basic-wind-speed-v-s] Glosari: basic wind speed V_s
+basic wind speed V_s: Laju angin kawasan daripada peta MS 1553 (Figure A1): 33.5 m/s di Zone I, 32.5 m/s di Zone II.
+
+[glossary-site-wind-speed-v-sit] Glosari: site wind speed V_{sit}
+site wind speed V_{sit}: V_s M_d M_{z,cat} M_s M_h : laju asas yang dilaraskan bagi arah, terrain dan ketinggian, perlindungan dan bukit (Eq. 1).
+
+[glossary-design-wind-speed-v-des] Glosari: design wind speed V_{des}
+design wind speed V_{des}: V_{sit} × I, di bumbung; pada aras yang lebih rendah V_{des,z} = V_{des} M_{z,cat} (z)/M_{z,cat} (h).
+
+[glossary-terrain-category] Glosari: terrain category
+terrain category: Kekasaran tanah di hulu angin, daripada 1 (permukaan air, tanah terbuka rata) hingga 4 (pusat bandar); ia menentukan M_{z,cat} .
+
+[glossary-m-z-cat] Glosari: M_{z,cat}
+M_{z,cat}: Terrain/height multiplier dalam Table 4.1 (Table A1 dalam Appendix A), diinterpolasi secara linear mengikut ketinggian.
+
+[glossary-importance-factor-i] Glosari: importance factor I
+importance factor I: Table 3.2: 0.87 (category I), 1.0 (II: pejabat, rumah pangsa), 1.15 (III: lebih daripada 300 orang di satu kawasan; IV: bangunan penting). Bukan turbulence intensity I_h .
+
+[glossary-windward-leeward] Glosari: windward, leeward
+windward, leeward: Dinding yang ditiup angin (tekanan, +) dan dinding di belakang (suction, −). Kedua-duanya menolak frame ke arah angin.
+
+[glossary-b-d] Glosari: b, d
+b, d: MS 1553 Figure 5.2: b ialah lebar bangunan yang normal kepada angin, d dalamnya sepanjang arah angin. Plane frame menanggung angin dalam satahnya sendiri.
+
+[glossary-c-p-e] Glosari: C_{p,e}
+C_{p,e}: External pressure coefficient: 0.8 pada dinding windward (Table 5.2(a)); pada dinding leeward daripada d/b (Table 5.2(b)): −0.5 bagi d/b ≤ 1, −0.3 pada 2, −0.2 mulai 4.
+
+[glossary-c-fig] Glosari: C_{fig}
+C_{fig}: Aerodynamic shape factor C_{p,e} K_a K_c K_l K_p ; bagi dinding frame, faktor K bernilai 1.0.
+
+[glossary-c-dyn] Glosari: C_{dyn}
+C_{dyn}: Dynamic response factor: 1.0 apabila n_a > 1 Hz; daripada 6.2.1 di antara 0.2 dan 1 Hz (Eq. 10).
+
+[glossary-n-a] Glosari: n_a
+n_a: Frekuensi tabii pertama bangunan dalam arah angin; ia menentukan sama ada bangunan itu wind-sensitive (6.1).
+
+[glossary-net-pressure] Glosari: net pressure
+net pressure: p_W − p_L pada satu aras: tekanan windward tolak suction leeward (negatif).
+
+[glossary-b-w-h-trib] Glosari: B_w , h_{trib}
+B_w , h_{trib}: Lebar bangunan yang ditanggung frame (separuh bay pada setiap sisi) dan ketinggian yang ditanggung lantai (separuh tingkat di atas dan di bawah).
+
+[glossary-minimum-design-wind-load] Glosari: minimum design wind load
+minimum design wind load: 0.65 kN/m² didarab dengan luas unjuran bagi struktur utama (2.4.2, A2.2): skalakan daya dengan 0.65/p_{avg} apabila purata net pressure lebih rendah.
+
+[glossary-c-p-i] Glosari: C_{p,i}
+C_{p,i}: Internal pressure coefficient, +0.6 atau −0.3 bagi bangunan tertutup; ia terbatal dalam daya pada frame.
+
+[glossary-geometric-imperfection] Glosari: geometric imperfection
+geometric imperfection: Ketidaktegakan EC2 5.2: θ_i = θ_0 α_h α_m , dikenakan sebagai H_i = θ_i N_i pada setiap lantai.
+
+[glossary-professional-habit-5] Glosari: Professional Habit 5
+Professional Habit 5: Lukis pelan dan anak panah angin sebelum sebarang nombor: tandakan b, d dan frame yang menanggung angin ini.

@@ -1,0 +1,502 @@
+# Unit 13 Retaining Walls I
+SEAA 4333 Reinforced Concrete Design II, Minggu 14. Unit 10 hingga 12 meletakkan column di atas tanah; Unit ini menahan tanah itu sendiri. Retaining wall mengekalkan tanah berdiri di tempat aras tanah berubah, dan tanah itu menolak balik. Wall boleh menggagalkan tanah dalam tiga cara: terbalik pada toe, menggelongsor ke hadapan di atas base, atau menekan tanah di bawah toe terlalu kuat. Unit ini membawa cantilever wall dalam nota kursus melalui earth pressure Rankine, jadual load dan moment pada toe, dan tiga semakan, setiap satu dengan partial factor tersendiri. Mengapakah wall yang lulus semakan sliding dengan lebihan 16 % menggelongsor di bawah combination kedua EC7? Nota, slides, jawapan model, latihan dengan nombor baharu pada setiap cubaan, dan Retaining Wall Lab.
+
+[start-outcomes] Selepas bahagian ini, anda sepatutnya boleh
+1. menamakan jenis retaining wall dan tiga cara wall menggagalkan tanah, dan memberi dimensi awal kepada cantilever wall;
+2. mencari active pressure Rankine dengan surcharge, dua thrust dan line of action-nya, dan menjadualkan setiap load pada wall dengan moment-nya pada toe;
+3. menyemak overturning (EQU) dan sliding, dalam combination 1 dan dalam EC7 Combination 2, dengan partial factor yang betul pada setiap load;
+4. mencari tempat resultant bertemu base, menyemak middle third dan bearing pressure, dan mengubah toe atau heel supaya wall lulus setiap semakan.
+
+[notes-n1] Nota 1. Retaining wall: apa yang dilakukannya dan bagaimana ia gagal
+Retaining wall menahan tanah pada muka yang lebih curam daripada yang tanah itu sendiri boleh kekalkan, di mana-mana aras tanah berubah secara mendadak: jalan dalam potongan, basement, pelantar di cerun. Tanah yang ditahan menolak wall ke sisi. Wall mesti menyalurkan tolakan itu ke tanah tanpa terbalik, menggelongsor atau membebankan tanah secara berlebihan, dan setiap bahagiannya mesti memikul bending dan shear-nya. Unit ini mengambil kestabilan; Unit 14 mengambil bahagian-bahagian wall.
+[Rajah: Tiga kegagalan kestabilan: overturning pada toe, sliding di atas base, dan kegagalan bearing di bawah toe (nota kursus: overturn, slide, settle).]
+Nota kursus menyenaraikan tiga cara wall menggagalkan tanah. Ia terbalik apabila moment thrust pada toe melebihi moment berat. Ia menggelongsor apabila thrust melebihi friction di bawah base. Ia mendap , atau gagal dalam bearing, apabila tekanan di bawah toe melebihi apa yang tanah boleh pikul. Ketiga-tiga semakan menggunakan jadual load yang sama; yang berbeza ialah partial factor dan perkara yang dibandingkan.
+[Rajah: Jenis wall. Gravity wall bergantung pada berat sendiri; cantilever wall pada berat backfill di atas heel-nya; counterfort dan buttress menyokong stem bagi wall yang tinggi.]
+Jenis Bagaimana ia berdiri Kegunaan lazim
+Gravity berat sendiri; konkrit biasa atau masonry, garis thrust dikekalkan dalam middle third supaya tiada tension terhasil wall rendah, hingga kira-kira 3 m
+Cantilever cantilever menegak (stem) di atas base slab yang lebar; berat tanah di atas heel yang paling banyak menahan ekonomi hingga kira-kira 8 m
+Counterfort stem dan base diikat bersama pada sela tertentu oleh dinding penyokong di belakang stem, dalam tension wall tinggi, melebihi 6 hingga 7 m
+Buttress sama, dengan penyokong di hadapan, dalam compression apabila ruang di hadapan boleh dikorbankan
+Nota juga menamakan wall jenis gabion, crib, tieback dan segmental (keystone), yang menahan tanah dengan cara lain. Kursus ini membuat design cantilever wall sepenuhnya (Unit 13 dan 14); app RC Design menambah gravity wall, counterfort wall dan basement wall sebagai perbandingan.
+[Rajah: Bahagian cantilever wall dan dimensi awal daripada nota kursus dan Mosley. Thrust diambil pada virtual back, sepanjang seluruh tinggi H.]
+Cantilever wall mempunyai stem , yang menahan tanah, dan base slab dengan toe di hadapan stem serta heel di belakangnya. Dimensi awal datang daripada pengalaman: base 0.6H hingga 0.7H, stem setebal kira-kira 80 mm di pangkalnya bagi setiap meter backfill, menirus kepada kira-kira 0.6 daripadanya di atas, base setebal pangkal stem, dan toe kira-kira dua kali ketebalan itu. Bagi stem 4.5 m wall dalam nota, ini memberi pangkal stem 400 mm, 240 mm di atas, base 400 mm selebar 3.2 m dan toe 800 mm. Ini cubaan pertama; tiga semakan itulah yang menentukan base.
+Semakan pantas (tidak dimarkah): Cantilever wall setinggi 4.9 m dari permukaan backfill ke bahagian bawah base-nya. Mengikut peraturan dimensi awal, base-nya kira-kira
+Pilihan: selebar 1.5 hingga 2.0 m | selebar 2.9 hingga 3.4 m | selebar 4.9 m | selebar 0.4 m
+Penjelasan yang dipaparkan selepas menjawab: B = 0.6H hingga 0.7H = 2.94 hingga 3.43 m; nota mengambil 3.2 m. 0.4 m ialah ketebalan pangkal stem (80 mm bagi setiap meter daripada 4.5 m backfill, dibundarkan ke atas).
+Isi penting:
+- Tiga kegagalan kestabilan: overturning pada toe, sliding di atas base, bearing di bawah toe.
+- Gravity wall berdiri dengan berat sendiri; cantilever wall dengan tanah di atas heel; counterfort dan buttress menyokong wall tinggi.
+- Cubaan pertama: B = 0.6H hingga 0.7H; pangkal stem 80 mm bagi setiap meter backfill; base setebal pangkal stem; toe kira-kira dua kali ketebalan itu.
+
+[notes-n2] Nota 2. Active pressure dan dua thrust
+Tanah bukan cecair: ia mempunyai shear strength, jadi ia menolak ke sisi dengan hanya sebahagian daripada tekanan menegaknya. Apabila wall beralah sedikit, tanah di belakangnya mengendur kepada tekanan sisi yang terkecil, iaitu active pressure. Teori Rankine memberi pecahan itu, K_a, daripada sudut shear resistance φ sahaja.
+PERSAMAAN (13.1): K_a = \frac{1-\sin\varphi}{1+\sin\varphi}
+Bagi pasir bersaliran baik pada wall dalam nota, φ = 35° dan K_a = (1 − 0.574)/(1 + 0.574) = 0.271. Pada kedalaman z di bawah permukaan yang rata, tekanan menegak ialah γz, ditambah apa-apa surcharge seragam w yang berada di atas backfill (trafik, bahan simpanan, slab di atas tanah). Tekanan pada wall ialah K_a kali nilai itu:
+PERSAMAAN (13.2): p = K_a\,(\gamma z + w)
+[Rajah: Active pressure bagi Worked Example 13.1: γ = 19 kN/m³, φ = 35°, w = 10 kN/m², H = 4.9 m.]
+Gambar rajah itu mempunyai dua bahagian. Tanah memberi segi tiga, sifar di permukaan dan K_aγH di bawah; resultant-nya bertindak pada satu pertiga tinggi. Surcharge memberi segi empat tepat, K_aw pada setiap kedalaman; resultant-nya bertindak pada separuh tinggi. Bagi setiap meter panjang wall:
+PERSAMAAN (13.3): P_s = \tfrac{1}{2}K_a\,\gamma\,H^2 \ \ \text{at } \frac{H}{3}, \qquad P_q = K_a\,w\,H \ \ \text{at } \frac{H}{2}
+Bagi wall dalam nota, P_s = ½ × 0.271 × 19 × 4.9² = 61.8 kN/m pada 1.63 m di atas bahagian bawah base, dan P_q = 0.271 × 10 × 4.9 = 13.3 kN/m pada 2.45 m. Thrust tanah ialah permanent action; thrust surcharge ialah variable action. Kedua-duanya diasingkan dalam setiap langkah seterusnya, kerana partial factor-nya berbeza.
+Tinggi yang mana? Bagi kestabilan, wall dan tanah di atas heel-nya bergerak bersama sebagai satu jasad. Oleh itu thrust diambil pada virtual back , satah menegak melalui hujung heel, dari permukaan hingga ke bahagian bawah base: H = h_3 + h = 4.5 + 0.4 = 4.9 m, bukan 4.5 m stem. Berhenti di bahagian atas base menghilangkan 16 % thrust tanah di sini (52.1 dan bukannya 61.8 kN/m) dan ialah kesilapan paling lazim dalam topik ini. Stem sahaja dibebani sepanjang 4.5 m; itu untuk bending-nya dalam Unit 14.
+Tiga syarat berada di sebalik formula ini: backfill rata, ia berbutir (c = 0, seperti dalam nota), dan ia bersaliran. Air di belakang wall menambah tekanan penuhnya, 9.81 kN/m² bagi setiap meter kedalaman berbanding kira-kira 5 kN/m² bagi pasir ini, dan mengangkat base juga; weep hole dan lapisan saliran di belakang stem menjauhkannya. Backfill bercerun dan paras air dibincangkan dalam Unit 14.
+Semakan pantas (tidak dimarkah): γ = 19 kN/m³, φ = 35°, w = 10 kN/m², H = 4.9 m. Jumlah characteristic thrust pada virtual back, P_s + P_q, ialah
+Pilihan: 61.8 kN/m | 75.1 kN/m | 64.3 kN/m | 136.9 kN/m
+Penjelasan yang dipaparkan selepas menjawab: 61.8 + 13.3 = 75.1 kN/m. 61.8 meninggalkan surcharge; 64.3 menggunakan tinggi stem 4.5 m; 136.9 terlupa ½ bagi segi tiga.
+Semakan pantas (tidak dimarkah): Surcharge seragam w di atas backfill menambah, pada wall,
+Pilihan: tekanan K_aw, sama pada setiap kedalaman | segi tiga tekanan, seperti tanah | tiada apa-apa: ia bertindak ke bawah sahaja | satu point load di atas stem
+Penjelasan yang dipaparkan selepas menjawab: Surcharge menaikkan tekanan menegak sebanyak w pada setiap kedalaman, jadi tekanan sisi naik sebanyak K_aw di mana-mana: segi empat tepat, dengan resultant K_awH pada separuh tinggi. Ia juga membebani heel, w bagi setiap meter, yang penting dalam §3.
+Isi penting:
+- K_a = (1 − sin φ)/(1 + sin φ); p = K_a(γz + w).
+- Tanah: segi tiga, P_s = ½K_aγH² pada H/3 (permanent). Surcharge: segi empat tepat, P_q = K_awH pada H/2 (variable).
+- H dari permukaan hingga bahagian bawah base, pada virtual back melalui hujung heel.
+- Backfill rata, berbutir dan bersaliran; air dan cerun dalam Unit 14.
+
+[notes-n3] Nota 3. Jadual load dan moment pada toe
+Setiap semakan kestabilan bermula daripada satu jadual: setiap load pada satu meter panjang wall, lever arm-nya pada toe A, dan moment-nya. Bina jadual itu sekali, dengan characteristic value dan tanpa faktor; tiga semakan itu kemudiannya memilih daripada jumlahnya.
+[Rajah: Load Worked Example 13.1 dan moment-nya pada toe A, bagi setiap meter panjang wall.]
+Load menegak ialah berat: stem, dibahagi kepada segi tiga dan segi empat tepat apabila ia menirus, base, dan tanah di atas heel (konkrit 25 kN/m³, tanah pada γ-nya sendiri). Setiap satu bertindak di centroid-nya; arm diukur dari A, hujung toe, kerana itulah titik wall akan berputar. Load mendatar ialah dua thrust §2, dengan arm H/3 dan H/2 diukur ke atas dari bahagian bawah base. Moment berat memutar wall kembali ke heel-nya: ia restoring . Moment thrust memutarnya melepasi toe: ia overturning .
+Load kN/m Arm pada A (m) Moment (kN m/m) Jenis
+W_1 stem, bahagian menirus: ½ × 0.16 × 4.5 × 25 9.0 0.8 + ⅔ × 0.16 = 0.907 8.2 permanent, restoring
+W_2 stem, segi empat tepat: 0.24 × 4.5 × 25 27.0 0.8 + 0.16 + 0.12 = 1.08 29.2 permanent, restoring
+W_3 base: 0.4 × 3.2 × 25 32.0 1.60 51.2 permanent, restoring
+W_4 tanah di atas heel: 19 × 4.5 × 2.0 171.0 0.8 + 0.4 + 1.0 = 2.20 376.2 permanent, restoring
+W_q surcharge di atas heel: 10 × 2.0 20.0 2.20 44.0 variable, restoring
+P_s thrust tanah 61.8 4.9/3 = 1.633 101.0 permanent, overturning
+P_q thrust surcharge 13.3 4.9/2 = 2.45 32.5 variable, overturning
+Empat jumlah terhasil daripada jadual, dan itulah sahaja yang diperlukan oleh semakan. Permanent, menegak: ΣV_{k,G} = 239.0 kN dengan ΣM_{r,G} = 464.7 kN m. Variable, menegak: V_{k,Q} = 20.0 kN dengan M_{r,Q} = 44.0 kN m. Permanent, mendatar: H_{k,G} = 61.8 kN dengan M_{o,G} = 101.0 kN m. Variable, mendatar: H_{k,Q} = 13.3 kN dengan M_{o,Q} = 32.5 kN m. Perhatikan dari mana berat itu datang: tanah di atas heel ialah 171 daripada 239 kN. Konkrit seluruh wall hanya 68 kN.
+Surcharge muncul dua kali Surcharge yang sama menolak wall supaya terbalik (thrust-nya, 13.3 kN) dan menahannya ke bawah (beratnya di atas heel, 20 kN). Dua kesan itu disenaraikan berasingan, kerana semakan kestabilan melayannya secara bertentangan: thrust ialah variable action yang unfavourable dan sentiasa dikira; berat di atas heel ialah variable action yang favourable, dan variable action yang favourable diambil sebagai sifar (§4). Surcharge itu mungkin hanya berada di luar heel.
+Dua perkara sengaja ditinggalkan. Tanah di hadapan wall boleh menentang sliding melalui passive pressure-nya, tetapi ia sering digali atau ditimbus semula secara longgar kemudian, jadi kursus mengabaikannya, seperti nota dan Mosley. Tanah di atas toe juga diabaikan. Kedua-dua pengabaian ini berada di pihak yang selamat.
+Semakan pantas (tidak dimarkah): Dalam wall nota (toe 0.8 m, stem 0.4 m, heel 2.0 m), lever arm pada A bagi tanah di atas heel ialah
+Pilihan: 1.0 m | 1.6 m | 2.2 m | 3.2 m
+Penjelasan yang dipaparkan selepas menjawab: Blok tanah selebar 2.0 m dan bermula 1.2 m dari A: 0.8 + 0.4 + 2.0/2 = 2.2 m. 1.6 m ialah pusat base; 3.2 m ialah hujung heel, tempat komponen menegak bagi thrust bercerun akan bertindak (Unit 14).
+Isi penting:
+- Satu jadual bagi setiap meter wall: load, arm pada toe A, moment; characteristic value.
+- Simpan empat jumlah: permanent dan variable, menegak (restoring) dan mendatar (overturning).
+- Surcharge disenaraikan dua kali: thrust-nya (unfavourable) dan beratnya di atas heel (favourable).
+- Passive resistance di hadapan dan tanah di atas toe diabaikan.
+
+[notes-n4] Nota 4. Overturning dan sliding
+Wall tidak stabil apabila tolakan yang besar bertemu berat yang kecil. Jadi semakan kestabilan melakukan perkara yang bertentangan dengan design column: ia memfaktorkan tolakan ke atas dan berat ke bawah. Peraturan di sebalik setiap nombor dalam seksyen ini ialah satu soalan, ditanya bagi setiap load dalam setiap semakan: adakah ia membantu atau memudaratkan?
+Semakan Berat (permanent, membantu) Thrust tanah (permanent, memudaratkan) Thrust surcharge (variable, memudaratkan) Surcharge di atas heel (variable, membantu)
+Overturning (EQU) 0.9 1.1 1.5 0
+Sliding, combination 1 1.0 1.35 1.5 0
+Sliding, EC7 Combination 2 1.0 1.0, dengan K_{a,d} 1.3, dengan K_{a,d} 0
+Overturning ialah semakan keseimbangan statik (EQU): moment pada toe A. Overturning moment menerima 1.1 (permanent) dan 1.5 (variable); restoring moment berat menerima 0.9; surcharge di atas heel tidak menerima apa-apa.
+PERSAMAAN (13.4): 1.1\,M_{o,G} + 1.5\,M_{o,Q} \ \le\ 0.9\,M_{r,G}
+Bagi wall dalam nota: 1.1 × 101.0 + 1.5 × 32.5 = 159.9 kN m berbanding 0.9 × 464.7 = 418.2 kN m. Wall itu 2.6 kali selamat terhadap overturning; wall yang base-nya memenuhi semakan lain hampir sentiasa begitu.
+Sliding ditentang oleh friction di bawah base: μ kali load menegak, dengan μ = tan δ pekali friction antara konkrit dengan tanah. Dalam combination 1, thrust menerima 1.35 dan 1.5 dan berat 1.0:
+PERSAMAAN (13.5): 1.35\,H_{k,G} + 1.5\,H_{k,Q} \ \le\ \mu\,\left(1.0\,V_{k,G}\right)
+Bagi wall dalam nota: 1.35 × 61.8 + 1.5 × 13.3 = 103.4 kN berbanding 0.5 × 239.0 = 119.5 kN. Semakan lulus dengan lebihan 16 %, dan nota kursus berhenti di sini. Sliding lazimnya semakan yang menentukan base, seperti yang dinyatakan oleh Mosley.
+[Rajah: Wall yang sama dalam dua semakan sliding. Combination 1 memfaktorkan load; Combination 2 memfaktorkan kekuatan tanah.]
+Mengapa combination kedua? Eurocode 7 (MS EN 1997-1, Design Approach 1) meminta dua combination, dan design mesti memenuhi kedua-duanya. Combination 1 meletakkan ketidakpastian pada load: 1.35 dan 1.5 pada action, tanah pada kekuatan cirinya. Combination 2 meletakkannya pada tanah: action menerima 1.0 dan 1.3, dan kekuatan tanah dibahagi dengan 1.25, sebagai tan φ. Tanah yang lebih lemah menolak lebih kuat (K_a naik) dan mencengkam kurang (μ turun), jadi kedua-dua belah semakan sliding bergerak ke arah yang salah. Nota kursus dan semakan sliding Mosley menggunakan load factor sahaja; app RC Design menyemak kedua-dua combination, dan begitu juga kursus ini.
+PERSAMAAN (13.6): \varphi_d = \tan^{-1}\!\left(\frac{\tan\varphi}{1.25}\right), \qquad K_{a,d} = \frac{1-\sin\varphi_d}{1+\sin\varphi_d}
+PERSAMAAN (13.7): \left(1.0\,H_{k,G} + 1.3\,H_{k,Q}\right)\frac{K_{a,d}}{K_a} \ \le\ \frac{\mu}{1.25}\,V_{k,G}
+Bagi wall dalam nota: φ_d = tan⁻¹(tan 35°/1.25) = 29.26°, K_{a,d} = 0.343, jadi setiap thrust bertambah sebanyak K_{a,d}/K_a = 1.267. Daya sliding ialah (61.8 + 1.3 × 13.3) × 1.267 = 100.2 kN; friction ialah (0.5/1.25) × 239.0 = 95.6 kN. Wall itu menggelongsor, sebanyak 5 %. Memanjangkan heel daripada 2.0 kepada 2.2 m menambah 19.1 kN berat dan membawa friction kepada 103.2 kN (Worked Example 13.1).
+Apabila friction tidak mencukupi dan base tidak boleh dibesarkan, key di bawah base (heel beam) menambah passive resistance tanah di hadapannya; itu Unit 14.
+Semakan pantas (tidak dimarkah): Dalam semakan sliding combination 1, berat tanah di atas heel didarab dengan
+Pilihan: 1.35 | 1.0 | 0.9 | 0
+Penjelasan yang dipaparkan selepas menjawab: Berat itu membantu wall menentang sliding: permanent action yang favourable menerima 1.0 di sini. 0.9 ialah faktornya dalam semakan overturning (EQU); 1.35 akan melebihkan friction sebanyak satu pertiga, di pihak yang tidak selamat; 0 ialah bagi variable action yang favourable, seperti surcharge di atas heel.
+Semakan pantas (tidak dimarkah): EC7 Combination 2 bagi pasir dengan φ = 35°: sudut design φ_d = tan⁻¹(tan φ/1.25) ialah
+Pilihan: 28.0° | 29.3° | 35.0° | 43.8°
+Penjelasan yang dipaparkan selepas menjawab: tan 35° = 0.700; 0.700/1.25 = 0.560; tan⁻¹ 0.560 = 29.3°. Faktor itu membahagi tan φ, bukan φ: 35/1.25 = 28.0° ialah kesilapan. Dengan 29.3°, K_{a,d} = 0.343 berbanding K_a = 0.271.
+Isi penting:
+- Overturning (EQU): 1.1M_{o,G} + 1.5M_{o,Q} ≤ 0.9M_{r,G}.
+- Sliding, combination 1: 1.35H_{k,G} + 1.5H_{k,Q} ≤ μ × 1.0V_{k,G}.
+- Sliding, EC7 Combination 2: φ_d = tan⁻¹(tan φ/1.25); thrust × 1.0 dan 1.3 dengan K_{a,d}; friction (μ/1.25)V_{k,G}.
+- Variable action yang favourable dikira sifar: tinggalkan surcharge di atas heel daripada setiap rintangan.
+- Passive resistance di hadapan base diabaikan.
+
+[notes-n5] Nota 5. Resultant, middle third dan bearing pressure
+Base bagi wall ialah strip footing di bawah load eccentric: semua load menegak, ditolak ke arah toe oleh moment thrust. Formula tekanan Unit 10 terpakai seadanya. Satu-satunya langkah baharu ialah mencari tempat resultant bertemu base.
+Kursus menyemak bearing pressure dengan characteristic load (service) berbanding allowable bearing pressure q_a, seperti nota. Di sini setiap load dikira, termasuk surcharge di atas heel: N_k = ΣV_{k,G} + V_{k,Q}, dan moment bersih pada toe ialah ΔM_k = restoring moment tolak overturning moment. Resultant bertemu base pada x dari A, dan eccentricity-nya diukur dari pusat base:
+PERSAMAAN (13.8): \bar{x} = \frac{\Delta M_k}{N_k}, \qquad e = \frac{B}{2} - \bar{x} \ \le\ \frac{B}{6}
+Bagi wall dalam nota: N_k = 239.0 + 20.0 = 259.0 kN; ΔM_k = 464.72 + 44.0 − 100.96 − 32.53 = 375.23 kN m; x = 375.23/259.0 = 1.4488 m; e = 1.6 − 1.4488 = 0.1512 m, jauh di dalam B/6 = 0.533 m. Di dalam middle third, seluruh base kekal bersentuhan dan tekanannya berbentuk trapezium:
+PERSAMAAN (13.9): q_{max},\ q_{min} = \frac{N_k}{B} \pm \frac{6\,N_k\,e}{B^2}, \qquad q_{max} \ \le\ q_a
+Di sini q = 259.0/3.2 ± 6 × 259.0 × 0.1512/3.2² = 80.94 ± 22.95, iaitu 103.9 kN/m² di toe dan 58.0 kN/m² di hujung heel, berbanding q_a = 200 kN/m². Semakan bearing lulus dengan mudah; di atas tanah yang lebih lemah, tekanan di toe yang menentukan saiz base (Faded Example 13.2).
+[Rajah: Resultant di dalam middle third memberi trapezium; di luarnya sebahagian base terangkat dan tekanan menjadi segi tiga.]
+Jika e melebihi B/6, hujung heel terangkat, kerana tanah tidak boleh menarik. Tekanan menjadi segi tiga yang centroid-nya berada di bawah resultant, jadi panjang sentuhan ialah 3 x dan
+PERSAMAAN (13.10): q_{max} = \frac{2\,N_k}{3\,\bar{x}} \qquad \text{(}e \gt B/6\text{: contact over } 3\bar{x}\text{)}
+Heel yang terangkat hilang friction di tempat ia terangkat dan menggoyangkan wall di bawah load yang berubah, jadi kursus tidak menerimanya di bawah service load: apabila e > B/6, lebarkan base, lazimnya di toe.
+Tekanan di toe pada ultimate limit state Mosley (§10.8.2) juga mencari tekanan di toe di bawah load berfaktor, dan app RC Design melakukannya bagi setiap wall: combination 1 (thrust × 1.35 dan 1.5), combination 2 (× 1.0 dan 1.3) dan EC7 Combination 2. Dalam combination 1, setiap berat menerima 1.35 jika ia menaikkan tekanan di toe dan 1.0 jika ia menurunkannya. Load menegak pada x dari toe mengubah tekanan di toe sebanyak (W/B)(4 − 6x/B), jadi ia menaikkannya apabila centroid-nya berada dalam 2B/3 dari toe: berat wall itu sendiri lazimnya begitu, tanah di atas heel lazimnya tidak. Bagi wall dalam nota, tiga nilainya ialah 146.5, 110.4 dan 132.8 kN/m², semuanya di bawah 200. App membandingkannya dengan q_a, iaitu nilai allowable (service): itu di pihak yang selamat, dan kegagalan di situ ditanda untuk semakan semula dan bukannya sebagai kegagalan wall yang pasti. Dalam pengiraan tangan, semakan service di atas ialah semakan kursus.
+Semakan pantas (tidak dimarkah): Wall di atas base 3.0 m mempunyai N_k = 240 kN dan moment bersih pada toe 300 kN m. Resultant-nya
+Pilihan: di dalam middle third: e = 0.25 m ≤ 0.50 m | di luarnya: e = 1.25 m | di pusat: e = 0 | di luarnya: e = 0.75 m
+Penjelasan yang dipaparkan selepas menjawab: x = 300/240 = 1.25 m dari toe; e = 3.0/2 − 1.25 = 0.25 m; B/6 = 0.50 m. 1.25 m ialah x , diukur dari toe, bukan eccentricity, yang diukur dari pusat.
+Semakan pantas (tidak dimarkah): Wall yang sama (B = 3.0 m, N_k = 240 kN, e = 0.25 m). Tekanan di toe ialah
+Pilihan: 80 kN/m² | 100 kN/m² | 120 kN/m² | 40 kN/m²
+Penjelasan yang dipaparkan selepas menjawab: N/B = 80; 6Ne/B² = 6 × 240 × 0.25/9 = 40; q_{max} = 80 + 40 = 120 kN/m² di toe dan 40 kN/m² di hujung heel.
+Isi penting:
+- Service load, kesemuanya: N_k = ΣV_{k,G} + V_{k,Q}; ΔM_k = restoring − overturning, pada toe.
+- x = ΔM_k/N_k dari toe; e = B/2 − x ≤ B/6 (middle third).
+- q = N_k/B ± 6N_ke/B²; q_{max} di toe ≤ q_a.
+- Di luar middle third: q_{max} = 2N_k/3 x sepanjang sentuhan 3 x ; kursus meminta base yang lebih lebar.
+- App juga melaporkan tekanan di toe pada ULS, dibandingkan dengan q_a di pihak yang selamat.
+
+[notes-n6] Nota 6. Menentukan saiz base: heel menahan, toe menyebarkan
+Apabila satu semakan gagal, base mesti berubah. Hujung yang mana? Heel dan toe melakukan kerja yang berbeza, dan satu meter bagi satu hujung tidak sama nilainya dengan satu meter hujung yang lain.
+Heel menahan. Setiap meter heel memikul satu turus backfill: 19 × 4.5 = 85.5 kN bagi wall dalam nota, berbanding 10 kN bagi satu meter base slab di bawahnya. Berat itulah punca friction dan sebahagian besar restoring moment. Jika wall menggelongsor, panjangkan heel.
+Toe menyebarkan. Toe yang lebih panjang hampir tidak menambah berat, tetapi ia menggerakkan tepi A ke hadapan: resultant kemudiannya bertemu base lebih dekat dengan pusatnya, eccentricity menurun, dan begitu juga tekanan di toe. Jika tekanan di toe terlalu tinggi atau resultant keluar dari middle third, panjangkan toe.
+[Rajah: Base 3.2 m yang sama dengan stem digerakkan sepanjangnya. Sliding mahukan heel yang panjang; tekanan di toe mahukan toe yang panjang; kedua-duanya lulus di antaranya.]
+Dua kerja itu saling bertentangan pada base yang lebarnya tetap: menggerakkan stem ke hadapan memanjangkan heel dan memendekkan toe. Bagi base 3.2 m dalam nota, semakan sliding dan tekanan di toe kedua-duanya lulus dengan toe antara 0.32 dan 0.66 m. Toe 0.8 m dalam nota berada sedikit di luar: wall menggelongsor dalam Combination 2. Toe 0.6 m dengan heel 2.2 m lulus setiap semakan tanpa konkrit tambahan berbanding wall yang gagal; memanjangkan heel sahaja (base 3.4 m, Worked Example 13.1) lulus dengan 3 % lebih.
+Gelung design 1. Dimensi awal daripada §1. 2. Tekanan dan thrust sepanjang H (§2). 3. Jadual load dan moment pada toe (§3). 4. Overturning; sliding dalam combination 1 dan dalam EC7 Combination 2 (§4). 5. Resultant, middle third dan bearing pressure (§5). 6. Jika satu semakan gagal: heel bagi sliding dan overturning, toe bagi tekanan; kemudian ulang dari langkah 3, kerana hanya berat dan arm-nya yang berubah. Thrust berubah hanya jika H berubah.
+Kestabilan menentukan saiz base; ia tidak membuat design konkrit. Base yang nipis mungkin lulus setiap semakan di sini dan masih gagal dalam bending atau shear di stem. Unit 14 membuat design stem, toe dan heel sebagai cantilever, dengan bar dan detailing-nya, dan menambah key, backfill bercerun dan paras air.
+Semakan pantas (tidak dimarkah): Wall lulus overturning dan bearing tetapi gagal sliding sebanyak 5 %. Perubahan yang memberi friction paling banyak dengan konkrit paling sedikit ialah
+Pilihan: base yang lebih tebal | toe yang lebih panjang | heel yang lebih panjang | stem yang lebih tebal
+Penjelasan yang dipaparkan selepas menjawab: Heel yang lebih panjang memikul lebih banyak backfill: 85.5 kN tanah bagi setiap 10 kN konkrit pada wall dalam nota. Toe yang lebih panjang hanya menambah konkritnya sendiri. Base yang lebih tebal menambah sedikit berat tetapi turut menaikkan H, jadi thrust bertambah lebih cepat daripada friction.
+Isi penting:
+- Heel menahan: tanahnya memberi berat, maka friction dan restoring moment.
+- Toe menyebarkan: ia memusatkan resultant dan menurunkan tekanan di toe.
+- Pada base yang tetap, kedua-duanya saling bertukar ganti; cari julat tempat kedua-duanya lulus.
+- Selepas perubahan, ulang dari jadual load; thrust kekal kecuali H berubah.
+
+[slides-1] Slide 1: Retaining Walls I
+SEAA 4333 Reinforced Concrete Design II · Week 14 Retaining Walls I Stability of a cantilever wall: the thrust of the soil, and the three checks that size the base Workbook ch. 13 ABCD card Calculator Phone or laptop Retaining Wall Lab Scan for this page’s Explorer tab. A new Lab: tabs 1 to 3 today.
+
+[slides-2] Slide 2: How the next three hours run
+Today · 180 minutes How the next three hours run 0:00 Warm-up Units 10 and 12 in three votes 0:10 Hook One wall, two sliding checks 0:16 The wall Failures, types, pressure 0:30 Activity 13A The two thrusts, pairs 0:40 WE 13.1 The notes’ wall, I do 0:55 Help or harm? Factors, EC7 Combination 2 1:05 Activity 13B Stop the sliding, pairs 1:15 Break 10 minutes 1:25 Bearing The middle third 1:31 FE 13.2 · S13 Pairs, then teams 2:11 Exam-size problem Alone, 25 minutes 2:41 Studio, exit Your report, checked No talk longer than
+
+[slides-3] Slide 3: Three questions from the foundations
+Warm-up · no notes · cards up Three questions from the foundations W1 · Unit 10 A pad carries N at an eccentricity e greater than L/6. Under it, A the pressure is uniform B the pressure is a trapezium C part of the base lifts: a triangle of pressure D the soil pulls down on one edge W2 · Unit 10 A pad B × L carries N and a moment M that bends it along L. The edge pressures are A N/BL ± 6M/BL² B N/BL ± M/BL² C N/BL ± 6M/B²L D N/BL ± 12M/BL³ W3 · Unit 12 In a pile cap with a_v less than 0.5d, EC2 takes the shear enhanceme
+
+[slides-4] Slide 4: C, A, B, and what each means today
+Warm-up · answers C, A, B, and what each means today W1 C: part of the base lifts Soil cannot pull. Today the base of a wall is the same strip: keep the resultant in the middle third. W2 A: N/BL ± 6M/BL² Per metre of wall, with M = Ne: q = N/B ± 6Ne/B². The largest pressure is at the toe. W3 B: 0.25 A reduction with its limit. Today: a factor with its direction, by whether the load helps or harms. SEAA 4333 · Unit 13 · Retaining Walls I Workbook 13.1
+
+[slides-5] Slide 5: The notes’ wall: one sliding check passes, one fails
+Hook · 5 minutes The notes’ wall: one sliding check passes, one fails Same wall, same sand, same surcharge. Combination 1: 103.4 against 119.5 kN, a pass with 16 % to spare. EC7 Combination 2: 100.2 against 95.6 kN, and the wall slides. What changed between the two checks? SEAA 4333 · Unit 13 · Retaining Walls I Workbook 13.2
+
+[slides-6] Slide 6: Why does the notes’ wall pass sliding in combination 1 and fail in EC7 Combination 2?
+Concept check 1 · the big question · vote now, again after Activity 13B Why does the notes’ wall pass sliding in combination 1 and fail in EC7 Combination 2? A Combination 2 has larger load factors B Combination 2 factors the soil’s strength: the thrust rises and the friction falls C Combination 2 adds the surcharge on the heel D Combination 2 leaves out the weight of the soil Vote · convince your neighbour · vote again Workbook 13.2
+
+[slides-7] Slide 7: Three ways a wall fails the ground
+Block A · talk 1 · 3 minutes Three ways a wall fails the ground Overturn moment of the thrust against moment of the weights, about the toe Slide thrust against friction under the base Settle toe pressure against what the ground can carry SEAA 4333 · Unit 13 · Retaining Walls I Notes §1 · Workbook 13.2
+
+[slides-8] Slide 8: Types of wall: what holds each one up
+Block A · talk 1 · 2 minutes Types of wall: what holds each one up Gravity: its own weight; low walls. Cantilever: the soil on its heel; to about 8 m. Counterfort, buttress: braced stems for high walls. SEAA 4333 · Unit 13 · Retaining Walls I Notes §1 · Workbook 13.2
+
+[slides-9] Slide 9: The parts of a cantilever wall, and a first trial
+Block A · talk 1 · 3 minutes The parts of a cantilever wall, and a first trial B = 0.6H to 0.7H stem root: 80 mm per m of backfill base = stem root; toe ≈ 2 × that A first trial only: the three checks decide the base. SEAA 4333 · Unit 13 · Retaining Walls I Notes §1 · Workbook 13.2
+
+[slides-10] Slide 10: Active pressure: a triangle and a rectangle
+Block A · talk 2 · 6 minutes Active pressure: a triangle and a rectangle K_a = (1 − sin φ)/(1 + sin φ) p = K_a(γz + w) P_s = ½K_a·γH² at H/3 P_q = K_a·wH at H/2 H runs to the underside of the base, on the virtual back. SEAA 4333 · Unit 13 · Retaining Walls I Notes §2 · Workbook 13.2
+
+[slides-11] Slide 11: The two thrusts on the notes’ wall
+Activity 13A · pairs · 7 minutes The two thrusts on the notes’ wall The notes’ wall: stem 4.5 m on a base 0.4 m thick sand: γ = 19 kN/m³, φ = 35° surcharge w = 10 kN/m² level backfill, drained 1 K_a, and the pressure at the surface and at the bottom of the diagram 2 the two thrusts per metre, and where each acts 3 their moments about the toe Work in Workbook 13.2. Then type both thrusts in Lab tab 1 and reveal. SEAA 4333 · Unit 13 · Retaining Walls I Lab tab 1 · Workbook 13.2
+
+[slides-12] Slide 12: H = 4.9 m: the diagram runs to the underside of the base
+Activity 13A · reveal H = 4.9 m: the diagram runs to the underside of the base soil · permanent P_s = 61.8 kN at 1.63 m ½ × 0.271 × 19 × 4.9²; moment about the toe 101.0 kN m. surcharge · variable P_q = 13.3 kN at 2.45 m 0.271 × 10 × 4.9; moment about the toe 32.5 kN m. the slip 52.1 and 12.2 kN with the stem height, 4.5 m: 16 % too little soil thrust, on the unsafe side. For stability the wall and the soil on its heel move as one body. The thrust acts on its back, the vertical plane through the heel end, over the whole
+
+[slides-13] Slide 13: The notes’ wall: the table, then the three checks
+Worked Example 13.1 · I do The notes’ wall: the table, then the three checks Calculation Output stem 9.0 + 27.0; base 32.0 68.0 kN of concrete soil on heel 19 × 4.5 × 2.0 171.0 kN at 2.2 m ΣV_{k,G}; ΣM_{r,G} about A 239.0 kN; 464.7 kN m surcharge on heel 10 × 2.0 20.0 kN; 44.0 kN m EQU: 1.1 × 101.0 + 1.5 × 32.5 159.9 ≤ 418.2 ✓ slide: 1.35 × 61.8 + 1.5 × 13.3 103.4 ≤ 119.5 ✓ EC7 C2: (61.8 + 1.3 × 13.3) × 1.267 100.2 > 95.6 ✗ heel 2.2 m: 0.4 × 258.1 103.2 ≥ 100.2 ✓ SEAA 4333 · Unit 13 · Retaining Walls I Notes §3–§5 · Wor
+
+[slides-14] Slide 14: Every load, every check: does it help or harm?
+Block B · talk 3 · 7 minutes Every load, every check: does it help or harm? Check Weights Soil thrust Surcharge thrust Surcharge on heel Overturning (EQU) 0.9 1.1 1.5 0 Sliding, combination 1 1.0 1.35 1.5 0 Sliding, EC7 Combination 2 1.0 1.0 × K_{a,d}/K_a 1.3 × K_{a,d}/K_a 0 EC7 Combination 2 φ_d = tan⁻¹(tan φ/1.25) a weaker soil pushes harder (K_{a,d}) and grips less (μ/1.25) The surcharge appears twice its thrust harms: always counted. Its weight on the heel helps: a favourable variable action counts as zero. SEAA 433
+
+[slides-15] Slide 15: Sliding, combination 1. The surcharge’s thrust and its weight on the heel take the factors
+Concept check 2 · think 60 seconds, then vote Sliding, combination 1. The surcharge’s thrust and its weight on the heel take the factors A 1.5 and 1.5 B 1.5 and 0 C 1.35 and 1.0 D 0 and 0 Vote · convince your neighbour · vote again Workbook 13.3
+
+[slides-16] Slide 16: The notes’ wall slides: 100.2 against 95.6 kN. Which change stops it?
+Activity 13B · pairs · 5 minutes The notes’ wall slides: 100.2 against 95.6 kN. Which change stops it? A the base 100 mm thicker B the toe 0.2 m longer C the heel 0.2 m longer D none of these stops it One change only, for the least concrete. Choose, then reveal in Lab tab 2 and try each change. SEAA 4333 · Unit 13 · Retaining Walls I Lab tab 2 · Workbook 13.3
+
+[slides-17] Slide 17: C: the heel holds the wall, with soil, not concrete
+Activity 13B · reveal C: the heel holds the wall, with soil, not concrete A · base + 100 mm 103.9 > 98.8 ✗ H grows to 5.0 m: the thrust grows as fast as the weight. + 0.32 m² of concrete. B · toe + 0.2 m 100.2 > 96.4 ✗ only 2 kN of slab is added. + 0.08 m². C · heel + 0.2 m 100.2 ≤ 103.2 ✓ 17.1 kN of sand on 2 kN of slab. The same + 0.08 m². A metre of heel carries 85.5 kN of soil on 10 kN of concrete. Concept check 1, second vote: the answer is B. SEAA 4333 · Unit 13 · Retaining Walls I Lab tab 2 · Workbook 13.3
+
+[slides-18] Slide 18: Where the resultant lands: the middle third
+Block C · talk 4 · 6 minutes Where the resultant lands: the middle third N_k = ΣV_{k,G} + V_{k,Q} x = ΔM_k/N_k from the toe e = B/2 − x ≤ B/6 q = N_k/B ± 6N_k·e/B² ≤ q_a Service loads, every one of them: here the surcharge on the heel is counted. SEAA 4333 · Unit 13 · Retaining Walls I Notes §5 · Workbook 13.4
+
+[slides-19] Slide 19: A wall on weaker ground: q a = 120 kN/m²
+Faded Example 13.2 · pairs · 18 minutes A wall on weaker ground: q_a = 120 kN/m² Given: steps 1–2 K_a = 0.2948; P_s = 51.37, P_q = 12.97 kN M_{o,G} = 75.34, M_{o,Q} = 28.54 kN m Your turn: steps 3–8 the table, overturning, sliding twice, the bearing pressure; then revise the base and check again Then check in the Lab, tab 2: enter this wall and its soil. SEAA 4333 · Unit 13 · Retaining Walls I Workbook 13.4
+
+[slides-20] Slide 20: Bearing fails first; a longer toe cures it
+Faded Example 13.2 · check Bearing fails first; a longer toe cures it ΣV_{k,G}; ΣM_{r,G} 204.5 kN; 319.0 kN m overturning 125.7 ≤ 287.1 ✓ sliding 88.8 ≤ 112.5; 85.4 ≤ 90.0 ✓ bearing e 0.281: 128.5 > 120 ✗ revise toe 0.9 m, B = 3.3 m again e 0.061: 77.3 ≤ 120 ✓ With the toe at 0.9 m: overturning 125.7 ≤ 380.3 kN m; sliding 88.8 ≤ 115.2 and 85.4 ≤ 92.2 kN; pressures 77.3 and 61.8 kN/m². The app’s toe pressure at the ULS: 110.9 ≤ 120. SEAA 4333 · Unit 13 · Retaining Walls I Workbook 13.4
+
+[slides-21] Slide 21: FE 13.2 fails bearing: 128.5 against 120 kN/m². With 0.5 m more base, the toe pressure is lowest if it is added
+Concept check 3 · think 60 seconds, then vote FE 13.2 fails bearing: 128.5 against 120 kN/m². With 0.5 m more base, the toe pressure is lowest if it is added A at the heel B at the toe C at either end: the same B, the same pressure D at neither: thicken the base Vote · convince your neighbour · vote again Workbook 13.4
+
+[slides-22] Slide 22: Sizing the base: the heel holds, the toe spreads
+Block C · talk 5 · 4 minutes Sizing the base: the heel holds, the toe spreads Heel 85.5 kN of soil per metre on 10 kN of slab: friction and restoring moment Toe almost no weight; it centres the resultant and lowers the toe pressure On a fixed base the two trade: look for the window where both pass. SEAA 4333 · Unit 13 · Retaining Walls I Notes §6 · Workbook 13.4
+
+[slides-23] Slide 23: Retaining Wall S13: four slips in a stability check
+Spot the error · teams · 12 minutes Retaining Wall S13: four slips in a stability check Lab tab 3, or Workbook 13.5. Stem 5.0 m, 500 mm at the root and 300 mm at the top; base 3.5 × 0.5 m: toe 1.0 m, heel 2.0 m; γ = 18 kN/m³, φ = 30°, w = 10 kN/m², μ = 0.5, q_a = 200 kN/m². Reader reads each line aloud; calculator rechecks; checker asks of each load: does it help or harm this check? Reporter writes the line number and a one-line reason. As submitted the wall passes everything. Three slips are on the unsafe side; one is
+
+[slides-24] Slide 24: D13: the stability of a cantilever wall (20 marks)
+Block D · alone · 25 minutes D13: the stability of a cantilever wall (20 marks) (a) K_a, the pressures, the two thrusts and where they act [4] (b) The table of loads and moments about A [6] (c) Overturning; sliding in combination 1 and in EC7 Combination 2 [6] (d) The resultant, the middle third, the bearing pressure; a remedy for any check that fails [4] Ref | Calculations | Output. No app, no notes. Self-mark with the scheme after class. SEAA 4333 · Unit 13 · Retaining Walls I Workbook 13.6
+
+[slides-25] Slide 25: Your report, checked before it is assembled
+Project studio · 12 minutes Your report, checked before it is assembled Swap Hand one finished calculation, your column or your footing, to a member of another group. Check As in S13: each load and its factor, each unit, and the Output column against the drawing. Fix The author corrects and initials; the checker signs the sheet. Log The corrections in the minutes, and what is left before the Week 15 submission. SEAA 4333 · Unit 13 · Retaining Walls I Workbook 13.7
+
+[slides-26] Slide 26: Ask of every load: does it help or harm this check?
+Professional Habit 13 Ask of every load: does it help or harm this check? The weight of the soil 0.9 against overturning, 1.0 against sliding: it helps The thrust 1.1, 1.35 or 1.5: it harms, in every check The surcharge 1.5 on its thrust, 0 on its weight on the heel: one load, two effects The soil’s strength factor it too: a weaker soil pushes harder and grips less SEAA 4333 · Unit 13 · Retaining Walls I Workbook 13.8
+
+[slides-27] Slide 27: Before Unit 14
+After class Before Unit 14 Notes §1–§6 43 min Exercises, all 14 45 min Explorer, 6 tasks with the design challenge and S13 30 min Self-mark D13 on eLearning 15 min Mosley §10.8, RDF §17 reading Unit 14: the stem, the toe and the heel as cantilevers; the key, a sloping backfill and water behind the wall. SEAA 4333 · Unit 13 · Retaining Walls I Workbook 13.8
+
+[slides-28] Slide 28: Before you leave
+Exit ticket · 5 minutes · Workbook 13.8 Before you leave 1 A wall has thrusts of 60 kN (soil) and 12 kN (surcharge), weights of 240 kN and μ = 0.5. Check sliding in combination 1. 2 The resultant of 260 kN meets a 3.2 m base 1.45 m from the toe. Find e and the largest pressure. 3 What is still unclear? Tear off the slip and hand it in at the door. SEAA 4333 · Unit 13 · Retaining Walls I
+
+[examples-x1] Contoh 1 · Worked Example 13.1: kestabilan cantilever wall
+Jenis soalan kestabilan retaining wall Workbook 13.3 Masa ≈ 35 min
+Soalan Satu cantilever wall menahan 4.0 m pasir bersaliran baik di atas tanah di hadapannya dan diasaskan 0.5 m di bawahnya: stem setinggi 4.5 m, setebal 400 mm di pangkal dan 240 mm di atas; base selebar 3.2 m dan setebal 400 mm, dengan toe 0.8 m dan heel 2.0 m. Pasir: γ = 19 kN/m³, φ = 35°, c = 0; surcharge 10 kN/m² di atas backfill; μ = 0.5; allowable bearing pressure 200 kN/m²; konkrit 25 kN/m³. Semak kestabilan wall bagi overturning, sliding dan bearing; ubah base jika satu semakan gagal. Dalam app: kes RW1 (Contoh 1 nota kursus; RetaningWall.xlsx Ex 12.1) dan RW1R (heel dipanjangkan) dalam app RC Design Worked Solutions.
+[Rajah: Worked Example 13.1: wall dalam nota menggelongsor dalam EC7 Combination 2; dengan heel 0.2 m lebih panjang, setiap semakan lulus.]
+Gambaran fizikal. Pasir menolak wall ke hadapan dengan kira-kira 75 kN pada setiap meter panjangnya. Yang menahan wall kebanyakannya bukan konkrit: ia ialah 171 kN pasir yang berada di atas heel, yang menekan base ke tanah dan memberinya friction. Persoalannya ialah sama ada berat itu mencukupi, setelah tolakan difaktorkan ke atas dan cengkaman difaktorkan ke bawah.
+Pelan. Tekanan dan thrust sepanjang H; jadual load dan moment pada toe; overturning; sliding dalam combination 1 dan dalam EC7 Combination 2; ubah heel; kemudian resultant, middle third dan bearing pressure.
+## Langkah 1 Dimensi dan active pressure
+Ref Pengiraan Output
+§1 h_3 = 4.0 + 0.5 = 4.5 m; H = 4.5 + 0.4 = 4.9 m; B = 0.8 + 0.4 + 2.0 = 3.2 m (0.65H) H = 4.9 m
+(13.1) K_a = (1 − sin 35°)/(1 + sin 35°) = 0.4264/1.5736 K_a = 0.271
+(13.2) Di permukaan: 0.271 × 10 = 2.71 kN/m²; di bahagian bawah base: 0.271 × (19 × 4.9 + 10) 2.71; 27.94 kN/m²
+## Langkah 2 Dua thrust
+Ref Pengiraan Output
+(13.3) Tanah (permanent): P_s = ½ × 0.271 × 19 × 4.9² = 61.81 kN pada 4.9/3 = 1.633 m: M = 61.81 × 1.633 61.8 kN; 101.0 kN m
+(13.3) Surcharge (variable): P_q = 0.271 × 10 × 4.9 = 13.28 kN pada 4.9/2 = 2.45 m: M = 13.28 × 2.45 13.3 kN; 32.5 kN m
+## Langkah 3 Berat dan moment pada toe A
+Ref Pengiraan Output
+§3 Stem, bahagian menirus: W_1 = ½ × 0.16 × 4.5 × 25 = 9.0 kN pada 0.8 + ⅔ × 0.16 = 0.907 m 8.16 kN m
+§3 Stem, segi empat tepat: W_2 = 0.24 × 4.5 × 25 = 27.0 kN pada 0.8 + 0.16 + 0.12 = 1.08 m 29.16 kN m
+§3 Base: W_3 = 0.4 × 3.2 × 25 = 32.0 kN pada 1.6 m 51.2 kN m
+§3 Tanah di atas heel: W_4 = 19 × 4.5 × 2.0 = 171.0 kN pada 0.8 + 0.4 + 1.0 = 2.2 m 376.2 kN m
+§3 Permanent: ΣV_{k,G} = 9.0 + 27.0 + 32.0 + 171.0; ΣM_{r,G} = 8.16 + 29.16 + 51.2 + 376.2 239.0 kN; 464.72 kN m
+§3 Surcharge di atas heel (variable): W_q = 10 × 2.0 = 20.0 kN pada 2.2 m 44.0 kN m
+## Langkah 4 Overturning (EQU)
+Ref Pengiraan Output
+(13.4) Overturning: 1.1 × 101.0 + 1.5 × 32.5 159.9 kN m
+(13.4) Restoring: 0.9 × 464.72 (surcharge di atas heel menerima 0) 418.2 kN m ✓
+## Langkah 5 Sliding, combination 1
+Ref Pengiraan Output
+(13.5) Daya sliding: 1.35 × 61.81 + 1.5 × 13.28 103.4 kN
+(13.5) Friction: 0.5 × (1.0 × 239.0 + 0 × 20.0) 119.5 kN ✓ (lebihan 16 %)
+nota Slide nota mendarab dengan 0.45 dan menunjukkan 108 kN; data memberi μ = 0.5. Semakan lulus dalam kedua-dua keadaan.
+## Langkah 6 Sliding, EC7 Combination 2
+Ref Pengiraan Output
+(13.6) φ_d = tan⁻¹(tan 35°/1.25) = tan⁻¹(0.5602) 29.26°
+(13.6) K_{a,d} = (1 − sin 29.26°)/(1 + sin 29.26°) = 0.3434; K_{a,d}/K_a = 0.3434/0.2710 1.267
+(13.7) Daya sliding: (1.0 × 61.81 + 1.3 × 13.28) × 1.267 100.2 kN
+(13.7) Friction: (0.5/1.25) × 239.0 95.6 kN ✗ (kurang 5 %)
+## Langkah 7 Ubah: heel yang lebih panjang
+Ref Pengiraan Output
+§6 Friction diperlukan: 100.2/0.4 = 250.5 kN berat, 11.5 kN lagi. Satu meter heel menambah 19 × 4.5 + 0.4 × 25 = 95.5 kN: 0.12 m diperlukan; ambil 0.2 m heel 2.2 m, B = 3.4 m
+§3 W_3 = 0.4 × 3.4 × 25 = 34.0 kN pada 1.7 m (57.8 kN m); W_4 = 19 × 4.5 × 2.2 = 188.1 kN pada 2.3 m (432.63 kN m); stem dan thrust seperti sebelumnya ΣV_{k,G} = 258.1 kN; ΣM_{r,G} = 527.75 kN m
+(13.4) Overturning: 159.9 ≤ 0.9 × 527.75 475.0 kN m ✓
+(13.5) Sliding, combination 1: 103.4 ≤ 0.5 × 258.1 129.1 kN ✓
+(13.7) Sliding, EC7 Combination 2: 100.2 ≤ 0.4 × 258.1 103.2 kN ✓
+## Langkah 8 Resultant dan bearing pressure
+Ref Pengiraan Output
+§5 Service load, kesemuanya: W_q = 10 × 2.2 = 22.0 kN pada 2.3 m (50.6 kN m); N_k = 258.1 + 22.0 280.1 kN
+(13.8) ΔM_k = 527.75 + 50.6 − 100.96 − 32.53 = 444.86 kN m; x = 444.86/280.1 1.5882 m
+(13.8) e = 3.4/2 − 1.5882 = 0.1118 m ≤ B/6 = 0.567 m middle third ✓
+(13.9) q = 280.1/3.4 ± 6 × 280.1 × 0.1118/3.4² = 82.38 ± 16.25 98.6; 66.1 ≤ 200 kN/m² ✓
+## Langkah 9 Tekanan di toe pada ULS (seperti yang dilaporkan app)
+Ref Pengiraan Output
+kotak §5 Combination 1: berat wall sendiri (70.0 kN, centroid 1.36 m dari A, dalam 2B/3 = 2.27 m) × 1.35; tanah di atas heel (2.3 m, di luarnya) × 1.0; surcharge di atas heel 0: N = 1.35 × 70.0 + 188.1 = 282.6 kN
+kotak §5 M = 1.35 × 95.12 + 432.63 − 1.35 × 100.96 − 1.5 × 32.53 = 375.95 kN m; x = 1.3303 m; e = 0.3697 m ≤ 0.567 m; q = 282.6/3.4 + 6 × 282.6 × 0.3697/3.4² 137.3 ≤ 200 kN/m² ✓
+app Combination 2: 104.1 kN/m²; EC7 Combination 2: 124.0 kN/m². Yang tinggal ialah konkrit: stem, toe dan heel, dalam Unit 14 ✓
+Jawapan. Base selebar 3.4 m dan setebal 0.4 m: toe 0.8 m, stem 0.4 m, heel 2.2 m. Overturning 159.9 ≤ 475.0 kN m; sliding 103.4 ≤ 129.1 kN (combination 1) dan 100.2 ≤ 103.2 kN (EC7 Combination 2); e = 0.112 ≤ 0.567 m; bearing 98.6 dan 66.1 ≤ 200 kN/m². Base 3.2 m dalam nota kursus memenuhi tiga semakan nota tetapi menggelongsor dalam EC7 Combination 2 (100.2 > 95.6 kN).
+Apa yang nombor ini katakan Overturning mempunyai rizab 2.6 dan bearing pressure separuh daripada q_a; sliding mempunyai lebihan 16 % dalam combination 1 dan kurang 5 % dalam Combination 2. Itulah corak lazim bagi cantilever wall di atas tanah yang baik: sliding menentukan base. Penyelesaiannya murah kerana ia tanah, bukan konkrit: 0.2 m heel memikul 17.1 kN pasir di atas 2.0 kN slab, 3 % lebih konkrit dalam section. Toe 0.6 m dengan heel 2.2 m di atas base 3.2 m yang sama juga lulus (Nota §6); key di bawah base ialah cara ketiga (Unit 14).
+
+[examples-x2] Contoh 2 · Faded Example 13.2: wall di atas tanah yang lebih lemah
+Jenis soalan kestabilan retaining wall Workbook 13.4 Masa ≈ 25 min
+Soalan Satu cantilever wall menahan 3.5 m tambakan berbutir yang bersaliran dan diasaskan 0.5 m di bawah tanah di hadapannya: stem setinggi 4.0 m, setebal 400 mm di pangkal dan 250 mm di atas; base setebal 400 mm. Tambakan: γ = 18 kN/m³, φ = 33°; surcharge 10 kN/m²; μ = 0.55; allowable bearing pressure 120 kN/m²; konkrit 25 kN/m³. Cubaan pertama: toe 0.4 m, heel 2.0 m. Semak kestabilan dan ubah base sehingga setiap semakan lulus. Dalam workbook, langkah 1 dan 2 diberi; lengkapkan langkah 3 hingga 8. Dalam app: buka modul Retaining wall, kes RW1, dan masukkan dimensi serta data tanah ini (h_1 = 3.5 m).
+[Rajah: Faded Example 13.2: cubaan pertama, B = 2.8 m = 0.64H.]
+## Langkah 1 Dimensi dan active pressure (diberi)
+Ref Pengiraan Output
+§1 h_3 = 3.5 + 0.5 = 4.0 m; H = 4.0 + 0.4 = 4.4 m; B = 0.4 + 0.4 + 2.0 = 2.8 m H = 4.4 m
+(13.1), (13.2) K_a = (1 − sin 33°)/(1 + sin 33°) = 0.2948; di permukaan 0.2948 × 10; di bahagian bawah 0.2948 × (18 × 4.4 + 10) 2.95; 26.30 kN/m²
+## Langkah 2 Dua thrust (diberi)
+Ref Pengiraan Output
+(13.3) P_s = ½ × 0.2948 × 18 × 4.4² = 51.37 kN pada 4.4/3 = 1.467 m; P_q = 0.2948 × 10 × 4.4 = 12.97 kN pada 2.2 m M_{o,G} = 75.34; M_{o,Q} = 28.54 kN m
+## Langkah 3 Berat dan moment pada toe A
+Ref Pengiraan Output
+§3 W_1 = ½ × 0.15 × 4.0 × 25 = 7.5 kN pada 0.4 + ⅔ × 0.15 = 0.5 m (3.75); W_2 = 0.25 × 4.0 × 25 = 25.0 kN pada 0.4 + 0.15 + 0.125 = 0.675 m (16.88)
+§3 W_3 = 0.4 × 2.8 × 25 = 28.0 kN pada 1.4 m (39.2); W_4 = 18 × 4.0 × 2.0 = 144.0 kN pada 0.4 + 0.4 + 1.0 = 1.8 m (259.2) ΣV_{k,G} = 204.5 kN; ΣM_{r,G} = 319.03 kN m
+§3 Surcharge di atas heel: W_q = 10 × 2.0 = 20.0 kN pada 1.8 m 36.0 kN m
+## Langkah 4 Overturning (EQU)
+Ref Pengiraan Output
+(13.4) 1.1 × 75.34 + 1.5 × 28.54 = 125.7 kN m ≤ 0.9 × 319.03 287.1 kN m ✓
+## Langkah 5 Sliding, kedua-dua combination
+Ref Pengiraan Output
+(13.5) Combination 1: 1.35 × 51.37 + 1.5 × 12.97 = 88.8 kN ≤ 0.55 × 204.5 112.5 kN ✓
+(13.6) φ_d = tan⁻¹(tan 33°/1.25) = 27.45°; K_{a,d} = 0.3689; K_{a,d}/K_a = 0.3689/0.2948 1.2514
+(13.7) EC7 Combination 2: (51.37 + 1.3 × 12.97) × 1.2514 = 85.4 kN ≤ (0.55/1.25) × 204.5 90.0 kN ✓
+## Langkah 6 Resultant dan bearing pressure
+Ref Pengiraan Output
+(13.8) N_k = 204.5 + 20.0 = 224.5 kN; ΔM_k = 319.03 + 36.0 − 75.34 − 28.54 = 251.15 kN m; x = 251.15/224.5 = 1.1187 m
+(13.8) e = 2.8/2 − 1.1187 = 0.2813 m ≤ B/6 = 0.467 m middle third ✓
+(13.9) q = 224.5/2.8 ± 6 × 224.5 × 0.2813/2.8² = 80.18 ± 48.33 128.5; 31.9 kN/m²: 128.5 > 120 ✗
+## Langkah 7 Ubah: toe yang lebih panjang
+Ref Pengiraan Output
+§6 Tekanan yang gagal, bukan sliding: panjangkan toe. Cuba 0.9 m (B = 3.3 m = 0.75H). Setiap arm bertambah 0.5 m; hanya base yang bertambah berat toe 0.9 m, B = 3.3 m
+§3 W_1 7.5 pada 1.0 m (7.5); W_2 25.0 pada 1.175 m (29.38); W_3 = 0.4 × 3.3 × 25 = 33.0 pada 1.65 m (54.45); W_4 144.0 pada 2.3 m (331.2); W_q 20.0 pada 2.3 m (46.0) ΣV_{k,G} = 209.5 kN; ΣM_{r,G} = 422.53 kN m
+(13.4), (13.5), (13.7) Overturning 125.7 ≤ 0.9 × 422.53 = 380.3 kN m; sliding 88.8 ≤ 0.55 × 209.5 = 115.2 kN dan 85.4 ≤ 0.44 × 209.5 = 92.2 kN ✓ ✓ ✓
+## Langkah 8 Bearing pressure sekali lagi
+Ref Pengiraan Output
+(13.8) N_k = 209.5 + 20.0 = 229.5 kN; ΔM_k = 422.53 + 46.0 − 75.34 − 28.54 = 364.65 kN m; x = 364.65/229.5 = 1.5889 m; e = 1.65 − 1.5889 = 0.0611 m ≤ 0.55 m middle third ✓
+(13.9) q = 229.5/3.3 ± 6 × 229.5 × 0.0611/3.3² = 69.55 ± 7.73 77.3; 61.8 ≤ 120 kN/m² ✓
+app Tekanan di toe pada ULS: 110.9 (combination 1), 83.1 dan 98.7 kN/m² ≤ 120 ✓
+Jawapan. Base selebar 3.3 m dan setebal 0.4 m: toe 0.9 m, stem 0.4 m, heel 2.0 m. Overturning 125.7 ≤ 380.3 kN m; sliding 88.8 ≤ 115.2 kN dan 85.4 ≤ 92.2 kN; e = 0.061 ≤ 0.55 m; bearing 77.3 dan 61.8 ≤ 120 kN/m². Cubaan pertama (toe 0.4 m) lulus overturning dan sliding tetapi tekanan di toe ialah 128.5 > 120 kN/m².
+Apa yang nombor ini katakan Di atas tanah ini bearing pressure yang menentukan, dan toe ialah jawapannya: 0.5 m toe tambahan menambah 5 kN dan membawa resultant daripada 0.281 m kepada 0.061 m dari pusat, jadi tekanan menjadi hampir seragam (77.3 dan 61.8). 0.5 m yang sama pada heel akan menambah 46 kN dan masih meninggalkan 112.2 kN/m² di toe. Toe 0.6 m mencukupi bagi semakan service (104.5 kN/m²), tetapi baris ULS app akan menunjukkan 143.9 > 120; 0.9 m memenuhi kedua-duanya. Semakan sliding tidak pernah hampir gagal: μ = 0.55 pada tambakan ini.
+
+[examples-x3] Contoh 3 · Soalan jenis terangkan
+Jenis soalan jawapan bertulis pendek Masa ≈ 3 min setiap satu
+Soalan
+- Bagi semakan kestabilan, mengapakah thrust diambil sepanjang H = 4.9 m dan bukan sepanjang 4.5 m stem?
+- Dalam design column, permanent load menerima 1.35. Mengapakah berat wall dan tanah menerima 0.9 terhadap overturning dan 1.0 terhadap sliding?
+- Bagaimanakah wall yang sama boleh lulus sliding dalam combination 1 dan gagal dalam EC7 Combination 2?
+- Satu wall lulus sliding, tetapi tekanan di toe melebihi q_a. Hujung base yang manakah anda akan panjangkan, dan mengapa?
+Tulis empat jawapan anda dahulu, kemudian buka jawapan model satu demi satu.
+## Jawapan 1 Virtual back
+Bagi kestabilan, wall dan blok tanah di atas heel-nya bertindak sebagai satu jasad, dan belakang jasad itu ialah satah menegak melalui hujung heel: virtual back. Thrust bertindak pada satah itu sepanjang seluruh tingginya, dari permukaan hingga bahagian bawah base, 4.9 m; base slab ialah sebahagian daripada jasad yang ditolak. Mengambil 4.5 m memberi thrust tanah 52.1 kN dan bukannya 61.8 kN, 16 % terlalu kecil dan di pihak yang tidak selamat. 4.5 m ialah tinggi yang betul bagi soalan lain, iaitu bending stem itu sendiri (Unit 14).
+## Jawapan 2 Favourable dan unfavourable
+Partial factor diletakkan di tempat ia menjadikan semakan lebih sukar untuk lulus. Dalam column, load ialah perkara yang mesti ditentang, jadi ia menerima 1.35. Dalam semakan kestabilan, berat ialah perkara yang menentang: melebihkannya tidak selamat, jadi ia menerima 0.9 terhadap overturning (EQU) dan 1.0 terhadap sliding, manakala thrust, yang memudaratkan, menerima 1.1 atau 1.35. Surcharge menunjukkan peraturan ini dengan paling jelas: thrust-nya menerima 1.5 dan beratnya di atas heel menerima 0. Dengan 1.35 pada berat, friction wall dalam nota akan menjadi 161.3 kN dan bukannya 119.5 kN.
+## Jawapan 3 Kekuatan tanah difaktorkan
+Combination 1 memfaktorkan action dan mengekalkan tanah pada kekuatan cirinya. Combination 2 mengekalkan action hampir pada nilai cirinya (1.0 dan 1.3) dan membahagi tan φ dan μ dengan 1.25. Bagi φ = 35°, K_a naik daripada 0.271 kepada 0.343: faktor 1.267 pada setiap thrust, hampir sama dengan 1.35 yang digantikannya, jadi daya sliding hampir tidak berubah (103.4 berbanding 100.2 kN). Friction pula turun sebanyak satu perlima, daripada 119.5 kepada 95.6 kN. Bagi sliding di atas base yang bergantung pada friction, Combination 2 hampir sama dengan combination 1 dengan satu perlima friction dibuang, jadi ia yang menentukan.
+## Jawapan 4 Toe
+Toe. Dalam Faded Example 13.2, cubaan pertama lulus sliding (85.4 ≤ 90.0 kN) tetapi tekanan di toe ialah 128.5 > 120 kN/m². Menambah 0.5 m pada toe menggerakkan tepi A ke hadapan: resultant bertemu base 0.061 m dari pusat dan bukannya 0.281 m, dan tekanan di toe turun kepada 77.3 kN/m² dengan hanya 5 kN load tambahan. 0.5 m yang sama ditambah pada heel membawa 46 kN load tambahan, dan tekanan di toe hanya turun kepada 112.2 kN/m². Heel memberi friction; toe memberi tekanan yang sekata.
+
+[exercises-b1] Latihan B1 · Active pressure
+Soalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-b2] Latihan B2 · Dua thrust dan overturning moment
+Soalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-b3] Latihan B3 · Berat dan restoring moment
+Soalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-b4] Latihan B4 · Overturning dan sliding, combination 1
+Soalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-b5] Latihan B5 · Sliding dalam EC7 Combination 2
+Soalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-b6] Latihan B6 · Resultant dan bearing pressure
+Soalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)
+Petunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya.
+
+[exercises-quick] Latihan: soalan konsep pantas
+- Cantilever retaining wall menentang sliding terutamanya melalui
+- Bagi semakan kestabilan, tinggi H gambar rajah tekanan diukur
+- Surcharge seragam w di atas backfill yang rata memberi thrust pada wall sebanyak
+- Dalam semakan overturning (EQU), partial factor pada overturning moment permanent, overturning moment variable dan restoring moment permanent ialah
+- Dalam semakan sliding, berat surcharge yang berada di atas heel
+- Satu wall lulus overturning dan kedua-dua semakan sliding, dan resultant-nya berada di dalam middle third, tetapi tekanan di toe 10 % melebihi q_a . Perubahan yang paling berkesan ialah
+- Satu wall setinggi 4.4 m hingga bahagian bawah base menahan tambakan dengan γ = 18 kN/m³ dan K_a = 0.2948 di bawah surcharge 10 kN/m². Satu baris mengandungi kesilapan. Yang mana?
+- Satu wall di atas base selebar 3.6 m: di bawah service load, load menegak ialah 300 kN, restoring moment pada toe berjumlah 660 kN m dan overturning moment 180 kN m. Satu baris mengandungi kesilapan. Yang mana?
+
+[lab-thrust] Tugasan Explorer 1 · Tab 1, Aktiviti 13A: kira dua thrust pada wall dalam nota kursus dengan tangan (Workbook 13.2), taip kedua-dua nilai, kemudian dedahkan.
+Ditanda sendiri: apabila kedua-dua nilai dimasukkan dan didedahkan · tidak ditanda? tanda selesai
+(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)
+
+[lab-heel] Tugasan Explorer 2 · Tab 2, Aktiviti 13B: wall dalam nota menggelongsor dalam EC7 Combination 2. Ramal perubahan tunggal manakah yang menghentikan sliding dengan konkrit paling sedikit, kemudian dedahkan.
+Ditanda sendiri: apabila ramalan anda didedahkan · tidak ditanda? tanda selesai
+(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)
+
+[lab-pass] Tugasan Explorer 3 · Tab 2: dengan tanah dan load wall dalam nota, ubah toe, heel atau base sehingga setiap semakan lulus. Semakan manakah yang terakhir lulus?
+Ditanda sendiri: apabila wall dalam nota lulus setiap semakan selepas anda mengubah satu dimensi · tidak ditanda? tanda selesai
+(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)
+
+[lab-light] Tugasan Explorer 4 · Tab 2, cabaran design: jadikan wall lulus setiap semakan tanpa konkrit melebihi wall dalam nota, 2.72 m² section bagi setiap meter.
+Ditanda sendiri: apabila setiap semakan lulus dengan section 2.72 m² atau kurang · tidak ditanda? tanda selesai
+(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)
+
+[lab-third] Tugasan Explorer 5 · Tab 2: pendekkan toe dan heel sehingga resultant keluar dari middle third. Apakah yang berlaku kepada gambar rajah tekanan, dan kepada hujung heel base?
+Ditanda sendiri: apabila resultant berada di luar middle third · tidak ditanda? tanda selesai
+(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)
+
+[lab-s13] Tugasan Explorer 6 · Tab 3: Retaining Wall S13, cari keempat-empat kesilapan, ketik barisnya dan tekan “Semak”.
+Ditanda sendiri: apabila keempat-empat kesilapan S13 ditemui, sebelum Tunjuk · tidak ditanda? tanda selesai
+(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)
+
+[glossary-active-pressure] Glosari: active pressure
+active pressure: Tekanan sisi terkecil bagi tanah, dicapai apabila wall beralah sedikit menjauhinya: p = K_a (γz + w).
+
+[glossary-allowable-bearing-pressure-q-a] Glosari: allowable bearing pressure, q_a
+allowable bearing pressure, q_a: Tekanan yang boleh dipikul oleh tanah di bawah service load; tekanan terbesar di bawah base, di toe, dibandingkan dengannya.
+
+[glossary-angle-of-shearing-resistance] Glosari: angle of shearing resistance, φ
+angle of shearing resistance, φ: Sudut geseran tanah; dengan c = 0 ia sahaja menentukan K_a . EC7 Combination 2 menggunakan φ_d = tan⁻¹(tan φ/1.25).
+
+[glossary-backfill] Glosari: backfill
+backfill: Tanah yang diletakkan di belakang wall selepas ia dibina; berbutir dan bersaliran dalam kursus ini.
+
+[glossary-base] Glosari: base
+base: Slab di bawah cantilever wall: toe di hadapan stem dan heel di belakangnya; lebar B, tebal h.
+
+[glossary-bearing-pressure] Glosari: bearing pressure
+bearing pressure: Tekanan antara base dengan tanah: q = N/B ± 6Ne/B² dengan service load, terbesar di toe.
+
+[glossary-buttress-wall] Glosari: buttress wall
+buttress wall: Wall yang stem-nya disokong oleh dinding di hadapannya, dalam compression.
+
+[glossary-cantilever-wall] Glosari: cantilever wall
+cantilever wall: Stem yang terikat kepada base slab; ia berdiri terutamanya dengan berat backfill di atas heel-nya. Ekonomi hingga kira-kira 8 m.
+
+[glossary-coefficient-of-friction] Glosari: coefficient of friction, μ
+coefficient of friction, μ: μ = tan δ antara base dengan tanah; rintangan sliding ialah μ kali load menegak. Dibahagi dengan 1.25 dalam EC7 Combination 2.
+
+[glossary-combination-1] Glosari: combination 1
+combination 1: Combination load factor bagi semakan kestabilan: thrust × 1.35 dan 1.5, berat × 1.0, tanah pada kekuatan cirinya.
+
+[glossary-combination-2-ec7-da1] Glosari: Combination 2 (EC7 DA1)
+Combination 2 (EC7 DA1): Combination kedua MS EN 1997-1 Design Approach 1: action × 1.0 dan 1.3, tan φ dan μ dibahagi dengan 1.25. Ia sering menentukan sliding.
+
+[glossary-counterfort-wall] Glosari: counterfort wall
+counterfort wall: Wall yang stem dan base-nya diikat bersama oleh dinding penyokong di belakang stem, dalam tension; bagi tinggi melebihi 6 hingga 7 m.
+
+[glossary-eccentricity-e] Glosari: eccentricity, e
+eccentricity, e: Jarak resultant dari pusat base: e = B/2 − x , dengan x diukur dari toe.
+
+[glossary-equ] Glosari: EQU
+EQU: Limit state keseimbangan statik, digunakan bagi overturning: 1.1 dan 1.5 pada perkara yang menterbalikkan, 0.9 pada perkara yang memulihkan.
+
+[glossary-favourable-action] Glosari: favourable action
+favourable action: Load yang membantu semakan yang dibuat. Permanent action yang favourable menerima 0.9 atau 1.0; variable action yang favourable dikira sifar.
+
+[glossary-gravity-wall] Glosari: gravity wall
+gravity wall: Wall konkrit biasa atau masonry yang berdiri dengan berat sendiri, dengan garis thrust dikekalkan dalam middle third; bagi wall rendah.
+
+[glossary-heel] Glosari: heel
+heel: Bahagian base di belakang stem. Backfill berada di atasnya: beratnya memberi friction dan sebahagian besar restoring moment.
+
+[glossary-k-a] Glosari: K_a
+K_a: Pekali active pressure Rankine bagi backfill berbutir yang rata: (1 − sin φ)/(1 + sin φ); 0.271 bagi φ = 35°.
+
+[glossary-lever-arm] Glosari: lever arm
+lever arm: Jarak satu load dari toe A: mendatar bagi berat, menegak (H/3 atau H/2 di atas bahagian bawah) bagi thrust.
+
+[glossary-middle-third] Glosari: middle third
+middle third: Satu pertiga tengah base. Dengan resultant di dalamnya (e ≤ B/6), seluruh base kekal bersentuhan dengan tanah.
+
+[glossary-overturning] Glosari: overturning
+overturning: Putaran wall pada toe-nya; disemak dengan moment pada A: 1.1M_{o,G} + 1.5M_{o,Q} ≤ 0.9M_{r,G} .
+
+[glossary-passive-resistance] Glosari: passive resistance
+passive resistance: Rintangan tanah di hadapan base apabila wall menolak ke dalamnya. Diabaikan dalam semakan kursus; digunakan bagi key di bawah base dalam Unit 14.
+
+[glossary-restoring-moment] Glosari: restoring moment
+restoring moment: Moment satu berat pada toe, yang memutar wall kembali ke heel-nya.
+
+[glossary-resultant] Glosari: resultant
+resultant: Daya tunggal yang setara dengan semua load pada wall; ia bertemu base pada x = ΔM/N dari toe.
+
+[glossary-sliding] Glosari: sliding
+sliding: Pergerakan wall ke hadapan di atas base-nya; ditentang oleh friction, μ kali load menegak permanent.
+
+[glossary-stem] Glosari: stem
+stem: Cantilever menegak yang menahan tanah; setebal kira-kira 80 mm di pangkal bagi setiap meter backfill.
+
+[glossary-surcharge-w] Glosari: surcharge, w
+surcharge, w: Load seragam di atas backfill. Ia bertindak dua kali: thrust K_a wH pada separuh tinggi (unfavourable) dan berat di atas heel (favourable, diambil sifar dalam semakan kestabilan).
+
+[glossary-thrust] Glosari: thrust
+thrust: Resultant active pressure bagi setiap meter wall: P_s = ½K_a γH² pada H/3 daripada tanah, P_q = K_a wH pada H/2 daripada surcharge.
+
+[glossary-toe] Glosari: toe
+toe: Bahagian base di hadapan stem. Toe yang lebih panjang memusatkan resultant dan menurunkan tekanan di toe. Hujungnya, A, ialah titik wall akan berputar.
+
+[glossary-virtual-back] Glosari: virtual back
+virtual back: Satah menegak melalui hujung heel, dari permukaan hingga bahagian bawah base (tinggi H); thrust bagi kestabilan bertindak padanya.
+
+[glossary-weep-hole] Glosari: weep hole
+weep hole: Saliran melalui stem yang menghalang air daripada bertakung di belakang wall.

@@ -1,0 +1,335 @@
+{
+ "part": "u7",
+ "title": "Unit 7 Columns I",
+ "lang": "ms",
+ "blocks": [
+  {
+   "id": "start-outcomes",
+   "text": "[start-outcomes] Selepas bahagian ini, anda sepatutnya boleh\n1. menyatakan apa yang dianggap column oleh EC2 dan bagaimana column pendek dan slender gagal, dan mengklasifikasikan column sebagai braced atau unbraced;\n2. mencari clear height dan relative flexibility k_1 dan k_2 di hujung column, dan effective length l_0 -nya dengan EC2 Eq. 5.15 atau 5.16;\n3. mengira slenderness ratio λ pada setiap paksi dan had λ_{lim} , dengan n dan r_m yang betul;\n4. mengklasifikasikan column sebagai non-slender atau slender pada setiap paksi, dan mencari kesilapan dalam semakan orang lain."
+  },
+  {
+   "id": "notes-n1",
+   "text": "[notes-n1] Nota 1. Column dalam frame\nColumn membawa lantai di atasnya turun ke foundation. Axial load-nya bertambah setingkat demi setingkat dari bumbung ke bawah, dan ia juga menerima moment: daripada continuity dengan beam apabila span atau load pada kedua-dua belah berbeza, daripada sway apabila angin menolak frame tanpa bracing, dan daripada eccentricity kecil yang diandaikan oleh EC2 bagi setiap compression member. Setiap design column bermula dengan satu soalan: adakah column itu short (non-slender) atau slender? Jawapannya menentukan sama ada design untuk N dan M dalam Unit 8 sudah mencukupi, atau second-order moment dalam Unit 9 perlu ditambah.\nColumn (EC2 5.3.1(7)) Member yang section depth-nya tidak melebihi 4 kali lebarnya (h ≤ 4b) dan ketinggiannya sekurang-kurangnya 3 kali section depth. Section yang lebih panjang dan nipis di-design sebagai wall.\n[Rajah: Column pendek gagal apabila section-nya hancur. Column slender melentur ke sisi dahulu: deflection e memberi load satu lengan tuas, moment tambahan N·e menambah deflection, dan column gagal pada load yang lebih rendah.]\nDesign column mengikut sembilan langkah (nota kursus). Unit ini ialah langkah 6; Unit 8 meliputi langkah 7 hingga 9 bagi column pendek, dan Unit 9 menambah second-order moment bagi column slender.\nLangkah Tugas Rujukan Unit\n1–2 Design life, exposure, fire resistance; bahan EN 1990 Table 2.1; EC2 Table 4.1 RCD I\n3–4 Saiz column bagi fire; cover bagi durability, fire dan bond EN 1992-1-2 Table 5.2a; EC2 4.4.1 8\n5 Axial force dan moment daripada analisis EC2 Section 5 3–6, 8\n6 Klasifikasi: braced atau unbraced, short atau slender EC2 5.8.3 7\n7 Design moment (dengan second-order moment jika slender) EC2 5.8.8 8, 9\n8–9 Bar longitudinal daripada N–M interaction; link dan detailing EC2 6.1; 9.5 8\nIsi penting:\n- Column EC2: h ≤ 4b dan ketinggian sekurang-kurangnya 3h; jika tidak, wall.\n- Column membawa axial load dan moment: continuity, sway dan minimum eccentricity.\n- Column pendek hancur; column slender melentur ke sisi dahulu, dan N·e menambah moment.\nSemakan pantas (tidak dimarkah): Setiap member di bawah setinggi 3.0 m. Yang manakah dianggap wall, bukan column, oleh EC2 5.3.1(7)?\nPilihan: 300 × 300 mm | 250 × 800 mm | 200 × 1000 mm | 400 × 600 mm\nPenjelasan yang dipaparkan selepas menjawab: 1000/200 = 5 > 4, jadi section 200 × 1000 ialah wall. Section 250 × 800 (3.2) masih column. Keempat-empatnya cukup tinggi: 3.0 m ≥ 3h memerlukan h ≤ 1000 mm."
+  },
+  {
+   "id": "notes-n2",
+   "text": "[notes-n2] Nota 2. Braced atau unbraced, short atau slender\nColumn itu braced apabila wall, lift core atau bracing membawa semua horizontal load bangunan, jadi hujung-hujungnya tidak boleh bergerak ke sisi relatif antara satu sama lain. Column itu unbraced apabila frame itu sendiri menahan horizontal load melalui bending column dan beam-nya: column itu sway. Frame projek yang anda analisis untuk angin dalam Unit 5 dan 6 tidak mempunyai wall atau core, jadi column-nya unbraced.\n[Rajah: Braced: shear wall menerima angin dan hujung column kekal segaris. Unbraced: frame sway sebanyak Δ dan setiap column melentur untuk menahannya.]\nBraced dan bracing member (EC2 5.8.1) Bracing member (wall, core) diandaikan menyumbang kepada kestabilan mendatar keseluruhan struktur. Braced member diandaikan tidak menyumbang kepadanya, jadi ia di-design tanpa sway.\nSetiap column melentur sedikit di bawah load, dan axial load yang bertindak pada deflection itu menambah moment: second-order effect . EC2 5.8.2(6) membenarkan anda mengabaikannya jika ia kurang daripada 10% first-order effect, dan 5.8.3.1 menukarkannya kepada ujian mudah: bandingkan slenderness λ dengan had λ_{lim} (§5 dan §6). Di bawah had itu column ialah non-slender ; di atasnya column ialah slender .\nNon-slender (λ ≤ λ_{lim}) Slender (λ > λ_{lim})\nBraced M_{Ed} daripada first-order moment (Unit 8) Tambah M_2 berhampiran separuh ketinggian (Unit 9)\nUnbraced Seperti braced, dengan sway moment (jarang: λ_{lim} rendah) Tambah M_2 di hujung (Unit 9)\nIsi penting:\n- Braced: wall atau core menerima horizontal load; column tidak sway. Unbraced: frame sway.\n- Second-order effect: N darab deflection. Abaikan hanya jika λ ≤ λ_{lim}.\n- Klasifikasi setiap column dua kali: braced atau unbraced, kemudian short atau slender, bagi setiap paksi.\nSemakan pantas (tidak dimarkah): Sebuah blok pejabat empat tingkat mempunyai reinforced concrete lift core dan dua shear wall yang membawa semua wind load. Column dalamannya ialah\nPilihan: unbraced, kerana bangunan itu empat tingkat | braced, kerana core dan wall menerima horizontal load | slender, kerana setiap column dalam bangunan adalah slender | bracing member\nPenjelasan yang dipaparkan selepas menjawab: Core dan wall ialah bracing member; column itu braced, jadi ia tidak membawa sway. Sama ada ia slender ialah soalan berasingan, dijawab dengan λ dan λ_{lim}."
+  },
+  {
+   "id": "notes-n3",
+   "text": "[notes-n3] Nota 3. Effective length\nTekan kedua-dua hujung sebatang pembaris panjang dan ia melengkung ke sisi pada daya kecil; pembaris separuh panjang memerlukan lebih kurang empat kali daya itu. Euler buckling load menerangkan sebabnya: ia berkurang dengan kuasa dua panjang.\nPERSAMAAN (7.1): N_{cr} = \\frac{\\pi^2 E I}{l_0^{\\,2}}\nEffective length l_0 (EC2 5.8.1) Panjang column yang pin di kedua-dua hujung dengan section dan buckling load yang sama seperti column sebenar. Pada bentuk buckled, ia ialah jarak antara dua titik moment sifar (point of contraflexure).\n[Rajah: Keadaan hujung unggul dan effective length-nya (berdasarkan EC2 Figure 5.7). Column sebenar dalam frame berada di antara kes unggul: braced, 0.5l ≤ l_0 ≤ l; unbraced, l_0 ≥ l.]\n- l ialah clear height di antara end restraint: dalam kursus ini, ketinggian tingkat tolak kedalaman beam dalam satah yang dipertimbangkan (yang lebih dalam jika dua berbeza).\n- Mengikat hujung daripada berputar memendekkan l_0: bentuk buckled melengkung balik, dan point of contraflexure bergerak ke dalam column.\n- Membenarkan hujung sway memanjangkan l_0: column yang fixed di dasar dan bebas di atas mengalami buckling seperti separuh column pin-ended yang dua kali lebih panjang.\n- Beam memberi restraint separa: bukan fixed dan bukan pinned. §4 mengukur sebanyak mana.\nIsi penting:\n- N_{cr} = π²EI/l_0²: separuh effective length, empat kali buckling load.\n- Kes unggul: l, 2l, 0.7l, 0.5l, dan l bagi hujung fixed yang sway.\n- l ialah clear height; braced 0.5l ≤ l_0 ≤ l, unbraced l_0 ≥ l.\nSemakan pantas (tidak dimarkah): Empat column mempunyai section dan clear height l yang sama. Yang manakah mempunyai buckling load paling rendah?\nPilihan: Pinned di kedua-dua hujung | Fixed di dasar, bebas di atas | Fixed di dasar, pinned di atas | Fixed di kedua-dua hujung\nPenjelasan yang dipaparkan selepas menjawab: Hujung atas yang bebas membenarkannya sway: l_0 = 2l, yang paling panjang antara keempat-empat, jadi N_{cr} ialah satu perempat nilai pin-ended dan satu per enam belas nilai bagi hujung fixed (l_0 = 0.5l)."
+  },
+  {
+   "id": "notes-n4",
+   "text": "[notes-n4] Nota 4. Effective length daripada beam\nBagi column dalam frame yang teratur, EC2 5.8.3.2(3) memberi l_0 daripada clear height l dan relative flexibility k_1 dan k_2 bagi restraint di hujung bawah dan atas.\nPERSAMAAN (7.2): \\text{Braced:}\\quad l_0 = 0.5\\,l\\sqrt{\\left(1+\\frac{k_1}{0.45+k_1}\\right)\\left(1+\\frac{k_2}{0.45+k_2}\\right)}\nPERSAMAAN (7.3): \\text{Unbraced:}\\quad l_0 = l\\cdot\\max\\left\\{\\sqrt{1+10\\,\\frac{k_1 k_2}{k_1+k_2}}\\;;\\;\\left(1+\\frac{k_1}{1+k_1}\\right)\\left(1+\\frac{k_2}{1+k_2}\\right)\\right\\}\nEC2 mentakrifkan k = (θ/M)(EI/l): putaran restraining member bagi setiap unit moment, didarab dengan stiffness column itu sendiri. Kaedah kursus (RDF §14, Mosley §9.2) menilainya sebagai nisbah stiffness di setiap hujung:\nPERSAMAAN (7.4): k = \\frac{(I/l)_{\\mathrm{column}}}{\\sum 2\\,(I/l)_{\\mathrm{beam}}} \\;\\ge\\; 0.1\n[Rajah: Setiap paksi mempunyai clear height dan beam sendiri: beam yang melentur bersama column dalam satah itu. Bending pada paksi z menggunakan I_z = bh³/12 dan main beam; bending pada paksi y menggunakan I_y = hb³/12 dan secondary beam.]\n- Setiap beam dikira sebagai 2EI/l, iaitu stiffness yang dikurangkan untuk mengambil kira cracking dalam beam (nota 2 RDF; EC2 5.8.3.2(5)). E terbatal, jadi I/l sudah memadai.\n- Column di atas dan di bawah diabaikan (nota 2 RDF). Jika column bersebelahan mungkin mengalami buckling bersama column ini dan memutarkan joint, EC2 5.8.3.2(4) menambah EI/l-nya kepada sebutan column, dan ini menaikkan k.\n- k = 0 bermaksud restraint tegar dan k = ∞ bermaksud tiada restraint. Restraint tegar sepenuhnya jarang berlaku, jadi EC2 mengesyorkan k ≥ 0.1. Column yang fixed ke dalam footing yang di-design untuk moment mengambil k_1 = 0.1; hujung pinned mengambil k = ∞, menjadikan kurungannya dalam (7.2) bernilai 2.\n- Beam pada satu sisi sahaja, seperti di edge column atau corner column, memberi k yang lebih besar: satu stiffness dalam jumlah, bukan dua.\nk_1 = k_2 = k 0.1 0.25 0.5 1.0 ∞\nBraced, l_0/l (7.2) 0.59 0.68 0.76 0.84 1.00\nUnbraced, l_0/l (7.3) 1.22 1.50 1.87 2.45 ∞\nBeam yang lebih kaku (k lebih kecil) memberi l_0 yang lebih pendek. Dengan k pada nilai minimum 0.1, column braced mempunyai l_0 = 0.59l dan column unbraced 1.22l: column dan beam yang sama memberi dua kali effective length apabila frame boleh sway.\nBaris contoh: Contoh 1 nota kursus, pada paksi z Column 275 × 350, tingkat 5.0 m, main beam 250 × 500 pada 6 m dan 8 m di kedua-dua lantai: l = 5000 − 500 = 4500 mm; K_c = (275 × 350³/12)/4500 = 2.183 × 10⁵ mm³; ΣK_b = 4.340 + 3.255 = 7.595 × 10⁵ mm³; k = 2.183/(2 × 7.595) = 0.1437 di kedua-dua hujung; l_0 = 0.5 × 4500 × (1 + 0.1437/0.5937) = 2795 mm. Nota mencetak b × h = 275 × 300 pada satu baris; section itu ialah 275 × 350, seperti yang ditunjukkan oleh rajah dan setiap nombor.\nIsi penting:\n- Braced (7.2), unbraced (7.3): ambil yang lebih besar antara dua sebutan bagi column unbraced.\n- k = (I/l)_{col}/Σ2(I/l)_{beam} di setiap hujung, tidak pernah di bawah 0.1; fixed base k_1 = 0.1, hujung pinned k = ∞.\n- Setiap paksi menggunakan clear height sendiri dan beam yang melentur dalam satahnya.\nSemakan pantas (tidak dimarkah): Bagi column braced di antara beam yang dalam, (I/l)_{col}/Σ2(I/l)_{beam} = 0.06 di kedua-dua hujung. Effective length manakah yang anda gunakan?\nPilihan: 0.50 l | 0.56 l | 0.59 l | 0.75 l\nPenjelasan yang dipaparkan selepas menjawab: k dinaikkan ke nilai minimum 0.1, jadi l_0 = 0.5l(1 + 0.1/0.55) = 0.59l. Dengan k = 0.06 anda akan mendapat 0.56l, column yang dikekang lebih tegar daripada yang diterima oleh EC2; 0.75l ialah nilai jadual BS 8110 dalam §5."
+  },
+  {
+   "id": "notes-n5",
+   "text": "[notes-n5] Nota 5. Slenderness ratio\nPERSAMAAN (7.5): \\lambda = \\frac{l_0}{i}, \\qquad i = \\sqrt{\\frac{I}{A}}\nPERSAMAAN (7.6): \\text{Rectangle:}\\quad i = \\frac{h}{\\sqrt{12}} = 0.289\\,h \\qquad\\Rightarrow\\qquad \\lambda \\approx 3.46\\,\\frac{l_0}{h}\n- i ialah radius of gyration bagi section konkrit tidak retak pada paksi bending; h ialah sisi dalam satah bending, tegak lurus dengan paksi itu.\n- Semak kedua-dua paksi. Pada minor axis, i lebih kecil, jadi λ biasanya lebih besar di situ, tetapi l_0 boleh berbeza antara paksi kerana beam-nya berbeza.\n- Contoh 1 nota kursus: i_z = 350/√12 = 101.0 mm dan λ_z = 2795/101.0 = 27.7; i_y = 275/√12 = 79.4 mm dan λ_y = 2718/79.4 = 34.2.\nKaedah ringkas dalam nota kursus Nota juga memberi l_0 = β × clear height daripada BS 8110 Table 3.19 (braced: β = 0.75 hingga 1.0) dan 3.20 (unbraced: β = 1.2 hingga 2.2), dengan keadaan hujung 1 hingga 4. Ia ialah anggaran cepat daripada kod yang telah ditarik balik, dan bagi column di antara beam yang kaku ia memberi l_0 yang lebih panjang daripada (7.2): dalam Contoh 1, 0.75 × 4600 = 3450 mm menjadikan λ_y = 43.5 dan column itu slender pada paksi y, sedangkan (7.2) memberi 2718 mm dan non-slender. Kursus ini membuat design dengan (7.2) dan (7.3) dan menggunakan jadual itu sebagai semakan silang.\nIsi penting:\n- λ = l_0/i; bagi segi empat tepat i = h/√12, dengan h dalam satah bending.\n- Anggar dahulu: λ ≈ 3.5 l_0/h.\n- Jadual β BS 8110: semakan silang sahaja; design dengan (7.2) dan (7.3).\nSemakan pantas (tidak dimarkah): Column braced 250 × 500 mempunyai l_0 = 3.0 m pada kedua-dua paksi. Pernyataan manakah yang betul?\nPilihan: λ = 20.8 pada kedua-dua paksi | λ = 41.6 pada minor axis dan 20.8 pada major axis | λ = 41.6 pada major axis | λ = 12.0 pada minor axis\nPenjelasan yang dipaparkan selepas menjawab: i = 250/√12 = 72.2 mm pada minor axis, jadi λ = 3000/72.2 = 41.6; pada major axis i = 500/√12 = 144.3 mm dan λ = 20.8. Nilai 12.0 ialah l_0/h, yang terlupa √12."
+  },
+  {
+   "id": "notes-n6",
+   "text": "[notes-n6] Nota 6. Slenderness limit\nEC2 5.8.3.1 menetapkan slenderness yang di bawahnya second-order effect boleh diabaikan. Ia bergantung pada creep, steel, bentuk moment diagram dan, yang paling utama, pada betapa kuat column itu ditekan.\nPERSAMAAN (7.7): \\lambda_{lim} = \\frac{20\\,A\\,B\\,C}{\\sqrt{n}}\nPERSAMAAN (7.8): A = \\frac{1}{1+0.2\\,\\varphi_{ef}}\\;(0.7),\\qquad B = \\sqrt{1+2\\omega}\\;(1.1),\\qquad C = 1.7 - r_m\nPERSAMAAN (7.9): n = \\frac{N_{Ed}}{A_c\\,f_{cd}}, \\quad f_{cd} = \\frac{0.85\\,f_{ck}}{1.5} = 0.567\\,f_{ck}, \\qquad r_m = \\frac{M_{01}}{M_{02}},\\;\\; |M_{02}| \\ge |M_{01}|\n- A = 0.7 dan B = 1.1 apabila effective creep ratio φ_{ef} dan steel ratio ω = A_sf_{yd}/(A_cf_{cd}) belum diketahui, seperti semasa anda menentukan saiz column. Kira C bila-bila boleh: ia memberi kesan paling besar.\n- n ialah relative axial force. Column yang membawa lebih banyak load mempunyai had yang lebih rendah: gandakan n dan λ_{lim} turun sebanyak 29%.\n[Rajah: Tanda r_m. Single curvature membonjolkan column paling banyak dan memberi had paling rendah; double curvature mengekalkan deflection yang kecil dan menaikkan had.]\nKes r_m C\nSingle curvature: M_{01} dan M_{02} memberi tension pada muka yang sama 0 hingga +1 1.7 turun ke 0.7\nDouble curvature: tension pada muka bertentangan 0 hingga −1 1.7 naik ke 2.7\nBraced, moment hanya atau kebanyakannya daripada imperfection atau transverse load: dalam kursus ini, apabila |M_{02}| ≤ N_{Ed}l_0/400, atau tiada end moment 1.0 0.7\nUnbraced, secara umum 1.0 0.7\nKemudian bandingkan, bagi setiap paksi secara berasingan (EC2 5.8.3.1(2)): λ ≤ λ_{lim} bermaksud non-slender, dan column di-design untuk first-order moment dengan minimum eccentricity (Unit 8); λ > λ_{lim} bermaksud slender, dan second-order moment M_2 ditambah (Unit 9). Contoh 1 nota kursus: n = 1050 × 10³/(275 × 350 × 14.17) = 0.770; pada paksi z, r_m = −12/40 = −0.30, C = 2.00 dan λ_{lim} = 20 × 0.7 × 1.1 × 2.00/√0.770 = 35.1 > 27.7; pada paksi y, r_m = −10/15 = −0.667, C = 2.367 dan λ_{lim} = 41.5 > 34.2. Non-slender pada kedua-dua paksi.\nDua kesilapan yang perlu dielakkan RDF §14 mencetak |M_{02}| ≤ |M_{01}|; EC2 menetapkan |M_{02}| ≥ |M_{01}|, jadi M_{02} sentiasa end moment yang lebih besar dan |r_m| ≤ 1. Tanda juga penting: spreadsheet asal kursus mengambil r_m positif walaupun bagi double curvature, yang memberi had lebih kurang separuh daripada nilai yang betul (Worked Example 7.1: 17.7 dan bukan 36.2).\nIsi penting:\n- λ_{lim} = 20ABC/√n dengan A = 0.7, B = 1.1 jika tidak diketahui; n = N_{Ed}/(A_cf_{cd}).\n- C = 1.7 − r_m: r_m negatif dalam double curvature; r_m = 1 (C = 0.7) apabila unbraced atau apabila imperfection mendominasi.\n- λ ≤ λ_{lim}: non-slender (Unit 8). λ > λ_{lim}: slender (Unit 9). Satu keputusan bagi setiap paksi.\nSemakan pantas (tidak dimarkah): Satu column braced mempunyai end moment 60 kN m di atas dan 35 kN m di bawah, yang memberi tension pada muka bertentangan. N_{Ed}l_0/400 = 9.6 kN m. Berapakah C?\nPilihan: 1.12 | 2.28 | 0.70 | 1.70\nPenjelasan yang dipaparkan selepas menjawab: Double curvature, jadi r_m = −35/60 = −0.583 dan C = 1.7 + 0.583 = 2.28. Mengambil r_m positif memberi 1.12; 0.7 hanya terpakai apabila unbraced atau apabila end moment tidak melebihi imperfection moment (60 > 9.6 di sini)."
+  },
+  {
+   "id": "slides-1",
+   "text": "[slides-1] Slide 1: Columns I\nSEAA 4333 Reinforced Concrete Design II · Week 7 Columns I Braced or unbraced, effective length, short or slender Workbook ch. 7 ABCD card Phone or laptop Column Lab Scan for this page’s Explorer tab. You will use it in three activities today."
+  },
+  {
+   "id": "slides-2",
+   "text": "[slides-2] Slide 2: How the next three hours run\nToday · 180 minutes How the next three hours run 0:00 Warm-up Units 3–6 in three votes 0:10 Hook The ruler 0:15 Columns, l₀ Braced or unbraced? 0:35 Predict, reveal Lab tab 1 0:45 k, λ, λlim The EC2 check 1:05 Faded example In pairs 1:30 Break 10 minutes 1:40 Concept checks Which axis? Which sign? 1:47 The race Eight columns, teams 2:05 Exam-size problem Alone, 30 minutes 2:35 Studio, exit Your column No talk longer than ten minutes. Rust times are your turn to work. SEAA 4333 · Unit 7 · Columns I Workbook 7.0"
+  },
+  {
+   "id": "slides-3",
+   "text": "[slides-3] Slide 3: Three questions from the frame analysis\nWarm-up · no notes · cards up Three questions from the frame analysis W1 · Unit 6 Portal method: in a sway frame under wind, where is the moment zero in each column? A at the base B at mid-height C at the top D nowhere W2 · Unit 5 Cantilever method: the axial forces in the columns of a storey are proportional to A their areas B their stiffnesses C their distances from the centroid of the column group D the bay widths W3 · Unit 3 One-free-joint sub-frame for column moments: the beams enter with A half their stiffness, 0."
+  },
+  {
+   "id": "slides-4",
+   "text": "[slides-4] Slide 4: B, C, A, and what each means for a column\nWarm-up · answers B, C, A, and what each means for a column W1 B: mid-height An unbraced column bends in double curvature, with a point of contraflexure in its height. W2 C: distance from the centroid Edge columns carry the largest wind axial force; it adds to N_{Ed} in the column design. W3 A: half stiffness Today EC2 counts each beam as 2EI/l in k: a cracked stiffness, used for buckling. SEAA 4333 · Unit 7 · Columns I Workbook 7.1"
+  },
+  {
+   "id": "slides-5",
+   "text": "[slides-5] Slide 5: Why does a long ruler buckle when a short one does not?\nHook · 5 minutes Why does a long ruler buckle when a short one does not? In pairs: press a ruler end to end until it bows. Then hold it at mid-length and press again. Write one sentence: what changed, and why? N_{cr} = π²EI/l₀² SEAA 4333 · Unit 7 · Columns I Workbook 7.1"
+  },
+  {
+   "id": "slides-6",
+   "text": "[slides-6] Slide 6: Three weeks of columns; today is step 6 of 9\nBlock A · where this sits Three weeks of columns; today is step 6 of 9 Unit 7 · today Classify Braced or unbraced; l₀ from the beams; λ against λlim about each axis. Unit 8 · week 9 Short columns Axial load and moment; the N–M interaction; bars and links. Unit 9 · week 10 Slender and biaxial The nominal curvature moment M₂; bending about both axes. Steps 1–5 (exposure, materials, size, cover, N and M) you know from RCD I and Units 3–6. Today: step 6, short or slender. Then the design moment, the bars and the detailing."
+  },
+  {
+   "id": "slides-7",
+   "text": "[slides-7] Slide 7: Short columns crush; slender ones bend first\nBlock A · talk 1 of 2 Short columns crush; slender ones bend first A column (EC2 5.3.1(7)): h ≤ 4b and a height of at least 3h. Otherwise a wall. It carries N and moments: continuity, sway, and a minimum eccentricity. Second-order effect: N times the deflection. EC2 ignores it only below λlim. SEAA 4333 · Unit 7 · Columns I Workbook 7.2"
+  },
+  {
+   "id": "slides-8",
+   "text": "[slides-8] Slide 8: Braced or unbraced? Ask who carries the wind\nBlock A · talk 1 of 2 Braced or unbraced? Ask who carries the wind Braced: walls or a core carry the horizontal load; the column does not sway. Unbraced: the frame bends to resist it; the column sways. Our project frame has no walls: its columns are unbraced. SEAA 4333 · Unit 7 · Columns I Workbook 7.2"
+  },
+  {
+   "id": "slides-9",
+   "text": "[slides-9] Slide 9: Effective length: the pin-ended column that buckles at the same load\nBlock A · talk 1 of 2 Effective length: the pin-ended column that buckles at the same load SEAA 4333 · Unit 7 · Columns I Workbook 7.3"
+  },
+  {
+   "id": "slides-10",
+   "text": "[slides-10] Slide 10: Four columns, same section and clear height l. Which has the lowest buckling load?\nConcept check 1 · think 60 s, then vote Four columns, same section and clear height l. Which has the lowest buckling load? A Pinned at both ends B Fixed at the base, free at the top C Fixed at the base, pinned at the top D Fixed at both ends Vote · convince your neighbour · vote again Workbook 7.3"
+  },
+  {
+   "id": "slides-11",
+   "text": "[slides-11] Slide 11: B: the free top sways, so l₀ = 2l\nConcept check 1 · answer B: the free top sways, so l₀ = 2l A l₀ = l N_{cr} as Euler B l₀ = 2l N_{cr} ÷ 4: the lowest C l₀ = 0.7l N_{cr} × 2.0 D l₀ = 0.5l N_{cr} × 4 From the weakest to the strongest the buckling loads differ sixteen-fold, for the same column. The ends decide. SEAA 4333 · Unit 7 · Columns I Workbook 7.3"
+  },
+  {
+   "id": "slides-12",
+   "text": "[slides-12] Slide 12: In a frame, the beams set k at each end\nBlock A · talk 2 of 2 In a frame, the beams set k at each end Braced (5.15) l₀ = 0.5l √[(1 + k₁/(0.45 + k₁))(1 + k₂/(0.45 + k₂))] Unbraced (5.16) l₀ = l · max{√(1 + 10k₁k₂/(k₁ + k₂)); (1 + k₁/(1 + k₁))(1 + k₂/(1 + k₂))} k ≥ 0.1. Fixed base: k₁ = 0.1. Pinned end: k = ∞. SEAA 4333 · Unit 7 · Columns I Workbook 7.4"
+  },
+  {
+   "id": "slides-13",
+   "text": "[slides-13] Slide 13: A braced column between stiff beams (k = 0.1 at both ends) has l₀ = 0.59l. The walls are taken away and the same column is now unbraced. Predict l₀.\nActivity 7A · predict, then reveal in Lab tab 1 A braced column between stiff beams (k = 0.1 at both ends) has l₀ = 0.59l. The walls are taken away and the same column is now unbraced. Predict l₀. A 0.59l: nothing changes B 0.85l C 1.22l D 2.0l Vote · convince your neighbour · vote again Workbook 7.4"
+  },
+  {
+   "id": "slides-14",
+   "text": "[slides-14] Slide 14: C: 1.22l, about twice as long, and λlim falls too\nActivity 7A · reveal C: 1.22l, about twice as long, and λlim falls too Braced l₀ = 0.5l × (1 + 0.1/0.55) = 0.59l C from the end moments: up to 2.7 Unbraced √(1 + 10 × 0.01/0.2) = 1.22 (1 + 0.1/1.1)² = 1.19 C = 0.7 whatever the moments So λ doubles and λlim drops: an unbraced column is almost always slender. SEAA 4333 · Unit 7 · Columns I Workbook 7.4"
+  },
+  {
+   "id": "slides-15",
+   "text": "[slides-15] Slide 15: Slenderness: λ = l₀/i, about each axis\nBlock B · talk Slenderness: λ = l₀/i, about each axis i = √(I/A) radius of gyration of the uncracked concrete section i = h/√12 = 0.289h rectangle; h is the side in the plane of bending λ ≈ 3.5 l₀/h estimate it first, then calculate Check both axes: each has its own l₀ (its own beams and clear height) and its own i. The minor axis usually governs, but not always. The notes also give BS 8110 β-factors (Tables 3.19, 3.20): a quick, usually longer, cross-check. Design with Eq. 5.15 and 5.16. SEAA 4333 · Unit 7 · Columns I"
+  },
+  {
+   "id": "slides-16",
+   "text": "[slides-16] Slide 16: The limit: λlim = 20ABC/√n\nBlock B · talk The limit: λlim = 20ABC/√n A = 0.7, B = 1.1 if unknown n = NEd/(Ac fcd), fcd = 0.567fck C = 1.7 − rm, rm = M01/M02 |M02| ≥ |M01|. Double curvature: rm < 0. rm = 1 (C = 0.7) if unbraced, or if |M02| ≤ NEd l₀/400. SEAA 4333 · Unit 7 · Columns I Workbook 7.5"
+  },
+  {
+   "id": "slides-17",
+   "text": "[slides-17] Slide 17: A braced column between stiff beams\nBlock B · Worked Example 7.1 · I do A braced column between stiff beams Braced ; floors 6.0 m apart Column 250 × 300; C30/37 z: one main beam 250 × 600, 6.0 m y: two secondary 250 × 600, 4.5 m NEd 1200 kN Mz 60 / 35 (opposite faces) My 1 / 0 kN m App case C1 Calculation Output l = 6000 − 600 (both axes) 5400 mm k = 1.042/(2 × 7.50); 0.7234/(2 × 20.0) 0.069; 0.018 → 0.1 l₀ = 0.5 × 5400 × 1.182 3191 mm λz = 3191/86.6; λy = 3191/72.2 36.8; 44.2 n = 1200 × 10³/(75 000 × 17.0) 0.941 Cz: rm = −35/60; Cy: 1 ≤ 9.6 kN m 2.283; 0"
+  },
+  {
+   "id": "slides-18",
+   "text": "[slides-18] Slide 18: The slenderness check in eight lines\nBlock B · the check The slenderness check in eight lines 1 Braced or unbraced? 2 Clear height l, per axis 3 K = I/l; k at each end, ≥ 0.1 4 l₀ by Eq. 5.15 or 5.16 5 i = h/√12; λ = l₀/i 6 n = NEd/(Ac fcd) 7 rm and C, with the imperfection check 8 λlim = 20ABC/√n; the verdict, per axis Rust steps are where most marks are lost: the bracing decision and the sign of rm. SEAA 4333 · Unit 7 · Columns I Workbook 7.5"
+  },
+  {
+   "id": "slides-19",
+   "text": "[slides-19] Slide 19: Faded Example 7.2: an unbraced column on a fixed base\nActivity 7B · pairs · 20 minutes Faded Example 7.2: an unbraced column on a fixed base Steps 1–2 are done for you in Workbook 7.6. Finish steps 3–6 in pairs. NEd 1600 kN; C30/37; z-beams 250 × 500 at 6.0 m both sides; y-beams 250 × 450 at 5.0 m both sides. Then check in Lab tab 1 (case FE 7.2). SEAA 4333 · Unit 7 · Columns I Workbook 7.6"
+  },
+  {
+   "id": "slides-20",
+   "text": "[slides-20] Slide 20: Slender about both axes; braced, it would not be\nActivity 7B · check Slender about both axes; braced, it would not be Calculation Output k₂: 5.333/(2 × 8.681); 2.951/(2 × 7.594) 0.3072; 0.1943 z: max(1.3245; 1.3473) × 3000 4042 mm y: max(1.2885; 1.2684) × 3050 3930 mm λz = 4042/115.5; λy = 3930/86.6 35.0; 45.4 n = 1600 × 10³/(120 000 × 17.0) 0.784 λlim = 20 × 0.7 × 1.1 × 0.7/√0.784 12.2 Braced, the same column: l₀ = 1933 / 1891 mm, λ = 16.7 / 21.8, λlim ≈ 44: non-slender. Bracing changes the verdict, not the column. SEAA 4333 · Unit 7 · Columns I Workbook 7.6"
+  },
+  {
+   "id": "slides-21",
+   "text": "[slides-21] Slide 21: Break\n1:30 Break 10 minutes. Back at 1:40. Next: two quick votes, then a race between the teams."
+  },
+  {
+   "id": "slides-22",
+   "text": "[slides-22] Slide 22: A braced 250 × 500 column has l₀ = 3.0 m about both axes. Which is right?\nConcept check 2 · think 60 s, then vote A braced 250 × 500 column has l₀ = 3.0 m about both axes. Which is right? A λ = 20.8 about both axes B λ = 41.6 about the minor axis, 20.8 about the major C λ = 41.6 about the major axis D λ = 12.0 about the minor axis Vote · convince your neighbour · vote again Workbook 7.7"
+  },
+  {
+   "id": "slides-23",
+   "text": "[slides-23] Slide 23: Braced column: end moments 60 kN m (top) and 35 kN m (bottom), tension on opposite faces. NEd l₀/400 = 9.6 kN m. What is C?\nConcept check 3 · think 60 s, then vote Braced column: end moments 60 kN m (top) and 35 kN m (bottom), tension on opposite faces. NEd l₀/400 = 9.6 kN m. What is C? A 1.12 B 2.28 C 0.70 D 1.70 Vote · convince your neighbour · vote again Workbook 7.7"
+  },
+  {
+   "id": "slides-24",
+   "text": "[slides-24] Slide 24: B and B\nConcept checks 2 and 3 · answers B and B CC2 i = 250/√12 = 72.2 mm λ = 3000/72.2 = 41.6 About the major axis i = 144.3 mm and λ = 20.8. The minor axis governs here. CC3 rm = −35/60 = −0.583 C = 1.7 + 0.583 = 2.28 Taking rm positive gives 1.12: a limit half the size, and columns sent to Unit 9 for nothing. SEAA 4333 · Unit 7 · Columns I Workbook 7.7"
+  },
+  {
+   "id": "slides-25",
+   "text": "[slides-25] Slide 25: The race: classify eight columns\nActivity 7C · teams of four · 18 minutes The race: classify eight columns 1 Braced (core, walls). 300 × 300, l = 3.3 m, k₁ = k₂ = 0.1. NEd 1300, C30/37. M 40 / 20, opposite faces. 2 As card 1, but the moments 40 / 20 give tension on the same face. 3 As card 1, with no end moments (balanced spans). 4 Bare frame, ground floor, fixed base. 300 × 400, major axis, l = 3.0 m, k₁ = 0.1, k₂ = 0.4. NEd 1600, C30/37. 5 Braced, top storey. 300 × 300, l = 3.0 m, k₁ = k₂ = 0.3. NEd 250, C30/37. M 60 / 30, opposite faces. 6 Braced. 2"
+  },
+  {
+   "id": "slides-26",
+   "text": "[slides-26] Slide 26: Five slender, three short\nActivity 7C · answers Five slender, three short Card l₀ (mm) λ λlim Verdict 1 1950 22.5 36.8 non-slender 2 1950 22.5 20.0 slender 3 1950 22.5 11.7 slender 4 4208 36.4 12.2 slender 5 2100 24.2 83.8 non-slender 6 2250 31.2 11.7 slender 7 5612 64.8 24.3 slender 8 2426 28.0 31.2 non-slender 1 → 2 → 3: the same column, only the moments change. 6: 8 kN m is less than NEd l₀/400 = 10.1 kN m, so C = 0.7. SEAA 4333 · Unit 7 · Columns I Workbook 7.8"
+  },
+  {
+   "id": "slides-27",
+   "text": "[slides-27] Slide 27: D7: a past-paper question (15 marks)\nBlock D · alone · 30 minutes D7: a past-paper question (15 marks) Braced. Classify the column about both axes, in the Ref | Calculations | Output format. C30/37. Beams 600 deep. Fixed base: k₁ = 0.1. No app, no Lab, notes closed. Then self-mark with the answer scheme after class. SEAA 4333 · Unit 7 · Columns I Workbook 7.9"
+  },
+  {
+   "id": "slides-28",
+   "text": "[slides-28] Slide 28: Is your column short or slender?\nProject studio · 17 minutes Is your column short or slender? 1 Your frame is unbraced: Eq. 5.16, C = 0.7. 2 Clear heights and k from your beam sizes, about both axes; fixed base k₁ = 0.1. 3 λ, λlim with your NEd from Unit 6; the verdict per axis. Write the log entry in Workbook 7.10: the numbers and one decision (for example, a deeper beam or a bigger column). SEAA 4333 · Unit 7 · Columns I Workbook 7.10"
+  },
+  {
+   "id": "slides-29",
+   "text": "[slides-29] Slide 29: Estimate λ before you calculate it\nProfessional Habit 7 Estimate λ before you calculate it λ ≈ 3.5 l₀/h a 300 mm column with l₀ = 3 m: λ ≈ 35 0.59l ≤ l₀ ≤ l braced, with k ≥ 0.1 l₀ ≥ 1.22l unbraced, with k ≥ 0.1 A result outside these ranges is a slip: find it before you go on. SEAA 4333 · Unit 7 · Columns I Workbook 7.10"
+  },
+  {
+   "id": "slides-30",
+   "text": "[slides-30] Slide 30: Before Unit 8\nAfter class Before Unit 8 Notes §1–§6 and the exercises on the Unit 7 page (45 min) Column S7 in Lab tab 3: four slips to find Self-mark D7 with the answer scheme on UTM eLearning Bring N and M of your column, and read notes Examples 2 and 3 SEAA 4333 · Unit 7 · Columns I Workbook 7.10"
+  },
+  {
+   "id": "slides-31",
+   "text": "[slides-31] Slide 31: Before you leave\nExit ticket · 5 minutes · Workbook 7.11 Before you leave 1 A braced 300 × 300 column, l = 3.0 m between stiff beams (k = 0.1 at both ends), NEd = 1500 kN, C30/37, no end moments. Slender or not? One line of working. 2 Why is an unbraced column almost always slender? 3 What is still unclear for you today? Survey Then the mid-semester survey on UTM eLearning: five items, one open question, two minutes, anonymous. Tear off the slip and hand it in at the door. After the break: Test 1 in Week 9, then short columns. SEAA 4333"
+  },
+  {
+   "id": "examples-x1",
+   "text": "[examples-x1] Contoh 1 · Worked Example 7.1: column braced di antara beam yang kaku\nJenis soalan klasifikasi column pada kedua-dua paksi Workbook 7.5 Masa ≈ 20 min\nSoalan Satu column braced berada di antara dua lantai yang berjarak 6.0 m, dengan susunan beam yang sama di kedua-dua lantai. Dalam satah bending pada paksi z, satu main beam 250 × 600 dengan span 6.0 m masuk dari satu sisi; dalam satah bending pada paksi y, dua secondary beam 250 × 600 dengan span 4.5 m masuk, satu pada setiap sisi. Column itu 250 × 300, dengan h = 300 mm dalam satah bending pada paksi z. N_{Ed} = 1200 kN; first-order end moment M_z = 60 kN m di atas dan 35 kN m di bawah, yang memberi tension pada muka bertentangan, dan M_y = 1 kN m di atas dan 0 di bawah; C30/37. Klasifikasikan column itu pada kedua-dua paksi. Dalam app: kes C1 dalam app RC Design Worked Solutions ialah column ini.\n[Rajah: Worked Example 7.1: column, beam-nya dalam pelan dan first-order end moment-nya.]\nGambaran fizikal. Column yang nipis membawa load yang berat (n hampir 1) di antara beam yang dua kali lebih dalam. Beam itu memegang hujungnya dengan kukuh, jadi l_0 akan pendek, tetapi load yang berat menurunkan had, dan pada paksi y hampir tiada end moment.\nPelan. Clear height; stiffness; k di setiap hujung; l_0 dengan Eq. (7.2); λ pada setiap paksi; n; r_m dan C, dengan semakan imperfection; λ_{lim} dan keputusan, paksi demi paksi.\n## Langkah 1 Clear height dan section\nRef Pengiraan Output\nEC2 5.8.3.2(3) Ketinggian tingkat tolak kedalaman beam dalam setiap satah: 6000 − 600 = 5400 mm pada kedua-dua paksi l_z = l_y = 5400 mm\nA_c = 250 × 300 75 000 mm²\n## Langkah 2 Second moment of area dan stiffness\nRef Pengiraan Output\nI = bh³/12 I_z = 250 × 300³/12 = 0.5625 × 10⁹ mm⁴; K_{c,z} = 0.5625 × 10⁹/5400 1.042 × 10⁵ mm³\nI_y = 300 × 250³/12 = 0.3906 × 10⁹ mm⁴; K_{c,y} = 0.3906 × 10⁹/5400 0.7234 × 10⁵ mm³\nK = I/l Beam: I_b = 250 × 600³/12 = 4.50 × 10⁹ mm⁴; main 4.50 × 10⁹/6000; secondary 4.50 × 10⁹/4500, setiap satu 7.50 × 10⁵; 10.0 × 10⁵ mm³\n## Langkah 3 Relative flexibility\nRef Pengiraan Output\nEq. (7.4), RDF §14 Pada paksi z: k = 1.042/(2 × 7.50) = 0.069 < 0.1, di kedua-dua hujung k_1 = k_2 = 0.1\nEC2 5.8.3.2(3) note Pada paksi y: k = 0.7234/(2 × (10.0 + 10.0)) = 0.018 < 0.1, di kedua-dua hujung k_1 = k_2 = 0.1\n## Langkah 4 Effective length\nRef Pengiraan Output\nEC2 Eq. 5.15, (7.2) l_0 = 0.5 × 5400 × √[(1 + 0.1/0.55)(1 + 0.1/0.55)] = 0.5 × 5400 × 1.182 l_0 = 3191 mm (kedua-dua paksi)\n## Langkah 5 Slenderness ratio\nRef Pengiraan Output\nEC2 Eq. 5.14, (7.5) i_z = 300/√12 = 86.6 mm; λ_z = 3191/86.6 λ_z = 36.8\ni_y = 250/√12 = 72.2 mm; λ_y = 3191/72.2 λ_y = 44.2\n## Langkah 6 Relative axial force\nRef Pengiraan Output\nEC2 3.1.6 f_{cd} = 0.85 × 30/1.5 17.0 N/mm²\n(7.9) n = 1200 × 10³/(75 000 × 17.0) n = 0.941\n## Langkah 7 Moment ratio dan C\nRef Pengiraan Output\nEC2 5.2(9) Imperfection moment N_{Ed}l_0/400 = 1200 × 3.191/400 9.6 kN m\nEC2 5.8.3.1(1) Pada paksi z: 60 > 9.6, dan end moment memberi tension pada muka bertentangan, jadi r_m = −35/60 = −0.583; C = 1.7 + 0.583 C_z = 2.283\nEC2 5.8.3.1(1) Pada paksi y: 1 ≤ 9.6, jadi first-order moment datang terutamanya daripada imperfection: r_m = 1 C_y = 0.7\n## Langkah 8 Slenderness limit dan keputusan\nRef Pengiraan Output\nEC2 Eq. 5.13N, (7.7) Pada paksi z: λ_{lim} = 20 × 0.7 × 1.1 × 2.283/√0.941 = 36.2 < λ_z = 36.8 Slender pada paksi z\nPada paksi y: λ_{lim} = 20 × 0.7 × 1.1 × 0.7/√0.941 = 11.1 < λ_y = 44.2 Slender pada paksi y\nJawapan. l_0 = 3191 mm pada kedua-dua paksi (k pada nilai minimum 0.1). λ_z = 36.8 > 36.2 dan λ_y = 44.2 > 11.1: slender pada kedua-dua paksi, jadi design moment memerlukan second-order moment dalam Unit 9.\nApa yang nombor ini katakan Kedua-dua nilai k mencapai nilai minimum: beam jauh lebih kaku daripada column (0.069 dan 0.018 sebelum nilai minimum dikenakan), jadi l_0 = 0.59l, yang paling pendek dibenarkan oleh EC2. Pada paksi z column itu hanya sedikit melepasi had slender, 36.8 berbanding 36.2; jika r_m diambil positif, seperti dalam spreadsheet asal kursus, had itu menjadi 17.7. Pada paksi y end moment 1 kN m lebih kecil daripada imperfection moment 9.6 kN m, jadi column dianggap melengkung akibat imperfection-nya: C = 0.7 dan had 11.1, satu perempat daripada λ_y. Jadual BS 8110 dalam §5 (β = 0.75) memberi l_0 = 4050 mm dan keputusan yang sama."
+  },
+  {
+   "id": "examples-x2",
+   "text": "[examples-x2] Contoh 2 · Faded Example 7.2: column unbraced pada fixed base\nJenis soalan column unbraced, Eq. 5.16 Workbook 7.6 Masa ≈ 20 min\nSoalan Frame projek tidak mempunyai wall atau core. Satu column tingkat bawah 300 × 400, dengan h = 400 mm dalam satah bending pada paksi z, berdiri di atas pad footing yang di-design untuk moment, jadi base-nya fixed. Lantai pertama berada 3.5 m di atas permukaan footing. Di situ, dua beam 250 × 500 dengan span 6.0 m masuk ke column dalam satah bending pada paksi z, satu pada setiap sisi, dan dua beam 250 × 450 dengan span 5.0 m dalam satah bending pada paksi y. N_{Ed} = 1600 kN; analisis sway memberi M_z = 85 dan 70 kN m dan M_y = 30 dan 25 kN m, semuanya dalam double curvature; C30/37. Klasifikasikan column itu pada kedua-dua paksi.\n[Rajah: Faded Example 7.2: column tingkat bawah bagi frame projek yang unbraced.]\nGambaran fizikal. Frame sway di bawah angin, jadi bahagian atas column bergerak ke sisi relatif kepada base-nya. Beam mengekang bahagian atas sahaja; footing memegang base.\nPelan. Seperti Contoh 1, dengan Eq. (7.3) bagi l_0, k_1 = 0.1 bagi fixed base, dan C = 0.7 kerana column itu unbraced.\n## Langkah 1 Braced atau unbraced, dan clear height\nRef Pengiraan Output\nEC2 5.8.1 Tiada wall atau core: frame menahan angin melalui bending Unbraced\nEC2 5.8.3.2(3) l_z = 3500 − 500; l_y = 3500 − 450 3000; 3050 mm\n## Langkah 2 Stiffness\nRef Pengiraan Output\nK = I/l I_z = 300 × 400³/12 = 1.600 × 10⁹ mm⁴; K_{c,z} = 1.600 × 10⁹/3000 5.333 × 10⁵ mm³\nI_y = 400 × 300³/12 = 0.900 × 10⁹ mm⁴; K_{c,y} = 0.900 × 10⁹/3050 2.951 × 10⁵ mm³\nBeam pada paksi z: 250 × 500³/12 = 2.604 × 10⁹ mm⁴, /6000 = 4.340 × 10⁵ setiap satu; ΣK_{b,z} = 2 × 4.340 8.681 × 10⁵ mm³\nBeam pada paksi y: 250 × 450³/12 = 1.898 × 10⁹ mm⁴, /5000 = 3.797 × 10⁵ setiap satu; ΣK_{b,y} = 2 × 3.797 7.594 × 10⁵ mm³\n## Langkah 3 Relative flexibility\nRef Pengiraan Output\nEq. (7.4) Atas, pada paksi z: k_2 = 5.333/(2 × 8.681); pada paksi y: k_2 = 2.951/(2 × 7.594) 0.3072; 0.1943\nEC2 5.8.3.2(3) note Bawah: fixed ke dalam footing yang di-design untuk moment k_1 = 0.1\n## Langkah 4 Effective length, unbraced\nRef Pengiraan Output\nEC2 Eq. 5.16, (7.3) Pada paksi z: √(1 + 10 × 0.1 × 0.3072/0.4072) = √1.7544 = 1.3245; (1 + 0.1/1.1)(1 + 0.3072/1.3072) = 1.0909 × 1.2350 = 1.3473, yang lebih besar; 1.3473 × 3000 l_{0,z} = 4042 mm\nPada paksi y: √(1 + 10 × 0.1 × 0.1943/0.2943) = √1.6602 = 1.2885, yang lebih besar; (1.0909)(1 + 0.1943/1.1943) = 1.0909 × 1.1627 = 1.2684; 1.2885 × 3050 l_{0,y} = 3930 mm\n## Langkah 5 Slenderness ratio\nRef Pengiraan Output\n(7.5), (7.6) i_z = 400/√12 = 115.5 mm; λ_z = 4042/115.5 λ_z = 35.0\ni_y = 300/√12 = 86.6 mm; λ_y = 3930/86.6 λ_y = 45.4\n## Langkah 6 Slenderness limit dan keputusan\nRef Pengiraan Output\n(7.9) n = 1600 × 10³/(120 000 × 17.0) n = 0.784\nEC2 5.8.3.1(1) Unbraced: r_m = 1 walau apa pun end moment-nya, jadi C = 0.7 pada kedua-dua paksi C = 0.7\n(7.7) λ_{lim} = 20 × 0.7 × 1.1 × 0.7/√0.784 = 12.2 < 35.0 dan 45.4 Slender pada kedua-dua paksi\nJawapan. l_{0,z} = 4042 mm (1.35l) dan l_{0,y} = 3930 mm (1.29l); λ_z = 35.0 dan λ_y = 45.4, kedua-duanya melebihi λ_{lim} = 12.2: slender pada kedua-dua paksi.\nApa yang nombor ini katakan Pada paksi z sebutan hasil darab dalam (7.3) menentukan; pada paksi y sebutan punca kuasa dua yang menentukan, jadi kira kedua-duanya setiap kali. Letakkan column yang sama dalam bangunan braced dan l_0 turun kepada 1933 dan 1891 mm, λ kepada 16.7 dan 21.8, manakala double curvature menaikkan C kepada 2.52 dan 2.53 dan λ_{lim} kepada 43.9 dan 44.1: non-slender. Bracing mengubah keputusan, bukan column."
+  },
+  {
+   "id": "examples-x3",
+   "text": "[examples-x3] Contoh 3 · Soalan jenis terangkan\nJenis soalan jawapan bertulis pendek Masa ≈ 3 min setiap satu\nSoalan\n- Terangkan mengapa column di antara beam yang dalam mempunyai effective length yang lebih pendek berbanding column yang sama di antara beam yang cetek.\n- Terangkan mengapa column unbraced hampir selalu slender mengikut EC2.\n- Satu column braced melentur dalam double curvature. Mengapa slenderness limit-nya lebih tinggi berbanding dalam single curvature?\n- Analisis tidak memberi sebarang end moment bagi satu column braced dalaman. Mengapa anda tidak boleh mengambil r_m = 0 dan C = 1.7?\nTulis empat jawapan anda dahulu, kemudian buka jawapan model satu demi satu.\n## Jawapan 1 Beam yang kaku memegang hujung\nBeam yang dalam adalah kaku, jadi ia menahan putaran hujung column: k = (I/l)_{col}/Σ2(I/l)_{beam} kecil. Bentuk buckled kemudian melengkung balik berhampiran setiap hujung dan point of contraflexure bergerak ke dalam column, yang memendekkan effective length: l_0 menghampiri 0.5l, dan 0.59l pada nilai minimum k = 0.1. Beam yang cetek membenarkan hujung berputar, k bertambah, dan l_0 menghampiri l (braced).\n## Jawapan 2 l_0 panjang, had rendah\nDua kesan bertindak bersama. Hujungnya boleh bergerak ke sisi, jadi l_0 ≥ l, sekurang-kurangnya 1.22l dengan k ≥ 0.1 (Eq. 7.3), yang menjadikan λ besar: column 300 mm dengan l = 3.0 m mempunyai λ ≥ 1.22 × 3000/86.6 = 42. Dan EC2 mengambil r_m = 1, C = 0.7, bagi member unbraced walau apa pun end moment-nya, jadi λ_{lim} = 10.8/√n, hanya 11 hingga 15 bagi n antara 1.0 dan 0.5.\n## Jawapan 3 Bentuk S kurang membonjol\nDalam double curvature end moment melenturkan column menjadi bentuk S dengan point of contraflexure pada ketinggiannya, jadi deflection ke sisi kekal kecil dan N darab deflection itu hanya menambah sedikit kepada moment di hujung kritikal. Dalam single curvature column melengkung ke satu sisi, dengan deflection terbesar di tengah ketinggian, tempat first-order moment juga besar. EC2 menggambarkan perkara ini melalui r_m: negatif dalam double curvature, jadi C = 1.7 − r_m > 1.7 dan λ_{lim} lebih tinggi.\n## Jawapan 4 Imperfection melenturkannya dalam single curvature\nTiada column yang lurus sempurna atau dibebankan dengan sempurna: EC2 mengandaikan imperfection e_i = l_0/400, yang melengkungkan column ke satu sisi, jadi satu-satunya first-order moment adalah dalam single curvature. Oleh itu EC2 5.8.3.1(1) mengambil r_m = 1 dan C = 0.7. Menggunakan C = 1.7 akan menaikkan λ_{lim} sebanyak 2.4 kali dan boleh meluluskan column slender sebagai column pendek."
+  },
+  {
+   "id": "exercises-b1",
+   "text": "[exercises-b1] Latihan B1 · Stiffness dan relative flexibility k\nSoalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)\nPetunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya."
+  },
+  {
+   "id": "exercises-b2",
+   "text": "[exercises-b2] Latihan B2 · Effective length bagi column braced\nSoalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)\nPetunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya."
+  },
+  {
+   "id": "exercises-b3",
+   "text": "[exercises-b3] Latihan B3 · Effective length bagi column unbraced\nSoalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)\nPetunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya."
+  },
+  {
+   "id": "exercises-b4",
+   "text": "[exercises-b4] Latihan B4 · Slenderness ratio pada kedua-dua paksi\nSoalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)\nPetunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya."
+  },
+  {
+   "id": "exercises-b5",
+   "text": "[exercises-b5] Latihan B5 · Slenderness limit\nSoalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)\nPetunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya."
+  },
+  {
+   "id": "exercises-b6",
+   "text": "[exercises-b6] Latihan B6 · Klasifikasi column\nSoalan: dijana dalam halaman ini semasa digunakan (nombor berubah bagi setiap cubaan)\nPetunjuk dan penyelesaian ada dalam halaman ini; tutor hanya memberi petunjuk seterusnya."
+  },
+  {
+   "id": "exercises-quick",
+   "text": "[exercises-quick] Latihan: soalan konsep pantas\n- Effective length l_0 bagi column ialah\n- Column manakah yang braced?\n- Lantai berjarak 3.8 m dan beam dalam satah yang dipertimbangkan sedalam 500 mm. Dalam kaedah kursus, clear height l ialah\n- Di bahagian atas column braced, (I/l)_{col} /Σ2(I/l)_{beam} = 0.04. k yang manakah dimasukkan ke dalam Eq. (7.2)?\n- Satu column unbraced mempunyai end moment 90 dan 75 kN m dalam double curvature. Dalam λ_{lim} , C ialah\n- Axial load N_{Ed} pada column berganda; tiada perkara lain berubah. λ_{lim} didarab dengan\n- Satu column tingkat bawah unbraced 300 × 300 mempunyai clear height 3000 mm, k_1 = 0.1 (fixed base) dan k_2 = 0.25; N_{Ed} = 1100 kN; C30/37. Satu baris mengandungi kesilapan. Yang mana?\n- Satu column braced dalaman 300 × 300 mempunyai clear height 2700 mm dan k_1 = k_2 = 0.1; N_{Ed} = 1300 kN; C30/37; end moment 5 kN m di atas dan 2.5 kN m di bawah, dalam single curvature. Satu baris mengandungi kesilapan. Yang mana?"
+  },
+  {
+   "id": "lab-we71",
+   "text": "[lab-we71] Tugasan Explorer 1 · Tab 1: pilih kes “WE 7.1” dan bandingkan k, l_0 , λ dan λ_{lim} pada kedua-dua paksi dengan workbook anda.\nDitanda sendiri: apabila WE 7.1 dipilih dalam tab 1, atau telah dipaparkan di situ selama 12 saat · tidak ditanda? tanda selesai\n(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)"
+  },
+  {
+   "id": "lab-floor",
+   "text": "[lab-floor] Tugasan Explorer 2 · Tab 1: jadikan beam lebih dalam sehingga k berhenti berubah. Pada nilai berapakah ia berhenti, dan apa yang berlaku kepada l_0 ?\nDitanda sendiri: apabila perubahan kedalaman beam membawa k ke bawah nilai minimum 0.1 · tidak ditanda? tanda selesai\n(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)"
+  },
+  {
+   "id": "lab-sway",
+   "text": "[lab-sway] Tugasan Explorer 3 · Tab 1: tukar column daripada braced kepada unbraced. Berapa kali lebih panjang l_0 , dan apa yang berlaku kepada C dan λ_{lim} ?\nDitanda sendiri: apabila column ditetapkan unbraced · tidak ditanda? tanda selesai\n(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)"
+  },
+  {
+   "id": "lab-curv",
+   "text": "[lab-curv] Tugasan Explorer 4 · Tab 1: dengan column braced, tukar moment pada paksi z daripada double kepada single curvature. Sebanyak mana λ_{lim} turun?\nDitanda sendiri: apabila curvature pada paksi z ditukar bagi column braced · tidak ditanda? tanda selesai\n(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)"
+  },
+  {
+   "id": "lab-race",
+   "text": "[lab-race] Tugasan Explorer 5 · Tab 2: klasifikasikan kesemua lapan column dalam perlumbaan dan tekan “Semak”.\nDitanda sendiri: apabila Semak ditekan dengan kesemua lapan column dijawab · tidak ditanda? tanda selesai\n(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)"
+  },
+  {
+   "id": "lab-s7",
+   "text": "[lab-s7] Tugasan Explorer 6 · Tab 3: cari keempat-empat kesilapan dalam Column S7, ketik barisnya dan tekan “Semak”.\nDitanda sendiri: apabila Semak menunjukkan 4 daripada 4 · tidak ditanda? tanda selesai\n(Medan jawapan tugasan ini disemak dalam halaman ini; ia tidak dimasukkan di sini.)"
+  },
+  {
+   "id": "glossary-column",
+   "text": "[glossary-column] Glosari: column\ncolumn: Compression member yang section depth-nya paling banyak 4 kali lebarnya dan ketinggiannya sekurang-kurangnya 3 kali kedalamannya (EC2 5.3.1(7)); jika tidak, ia ialah wall."
+  },
+  {
+   "id": "glossary-braced-member",
+   "text": "[glossary-braced-member] Glosari: braced member\nbraced member: Member yang diandaikan tidak menyumbang kepada kestabilan mendatar struktur: wall atau core membawa horizontal load, jadi hujungnya tidak sway (EC2 5.8.1)."
+  },
+  {
+   "id": "glossary-bracing-member-bracing-system",
+   "text": "[glossary-bracing-member-bracing-system] Glosari: bracing member · bracing system\nbracing member · bracing system: Wall, lift core atau cross-bracing yang membawa horizontal load bangunan dan menghalang frame daripada sway."
+  },
+  {
+   "id": "glossary-unbraced-member-sway",
+   "text": "[glossary-unbraced-member-sway] Glosari: unbraced member · sway\nunbraced member · sway: Member dalam frame yang menahan horizontal load melalui bending, jadi hujung-hujungnya bergerak ke sisi relatif antara satu sama lain (sway)."
+  },
+  {
+   "id": "glossary-non-slender-short-column",
+   "text": "[glossary-non-slender-short-column] Glosari: non-slender (short) column\nnon-slender (short) column: Column dengan λ ≤ λ_{lim} pada paksi yang dipertimbangkan: second-order effect boleh diabaikan, dan ia gagal apabila section-nya hancur."
+  },
+  {
+   "id": "glossary-slender-column",
+   "text": "[glossary-slender-column] Glosari: slender column\nslender column: Column dengan λ > λ_{lim} : second-order moment mesti ditambah kepada design moment (Unit 9)."
+  },
+  {
+   "id": "glossary-first-order-effects",
+   "text": "[glossary-first-order-effects] Glosari: first-order effects\nfirst-order effects: Action effect yang dikira tanpa mengambil kira ubah bentuk struktur, tetapi termasuk geometric imperfection (EC2 5.8.1)."
+  },
+  {
+   "id": "glossary-second-order-effects-p",
+   "text": "[glossary-second-order-effects-p] Glosari: second-order effects · P–Δ\nsecond-order effects · P–Δ: Kesan tambahan akibat ubah bentuk struktur: axial load yang bertindak pada lateral deflection menambah moment."
+  },
+  {
+   "id": "glossary-buckling-euler-load-n-cr",
+   "text": "[glossary-buckling-euler-load-n-cr] Glosari: buckling · Euler load N_{cr}\nbuckling · Euler load N_{cr}: Kegagalan akibat ketidakstabilan member di bawah axial compression. Bagi member elastik pin-ended N_{cr} = π²EI/l_0 ²."
+  },
+  {
+   "id": "glossary-effective-length-l-0",
+   "text": "[glossary-effective-length-l-0] Glosari: effective length l_0\neffective length l_0: Panjang column pin-ended dengan section dan buckling load yang sama seperti column sebenar; juga dipanggil buckling length."
+  },
+  {
+   "id": "glossary-clear-height-l",
+   "text": "[glossary-clear-height-l] Glosari: clear height l\nclear height l: Ketinggian column di antara end restraint-nya. Dalam kursus ini: ketinggian tingkat tolak kedalaman beam dalam satah yang dipertimbangkan."
+  },
+  {
+   "id": "glossary-point-of-contraflexure",
+   "text": "[glossary-point-of-contraflexure] Glosari: point of contraflexure\npoint of contraflexure: Titik moment sifar tempat curvature bertukar tanda. Effective length ialah jarak antara dua titik sedemikian pada bentuk buckled."
+  },
+  {
+   "id": "glossary-end-restraint",
+   "text": "[glossary-end-restraint] Glosari: end restraint\nend restraint: Rintangan terhadap putaran di hujung column yang diberi oleh beam atau foundation."
+  },
+  {
+   "id": "glossary-relative-flexibility-k",
+   "text": "[glossary-relative-flexibility-k] Glosari: relative flexibility k\nrelative flexibility k: k = (θ/M)(EI/l) di hujung column; dalam kursus ini (I/l)_{col} /Σ2(I/l)_{beam} , tidak pernah di bawah 0.1. k kecil: restraint yang kaku."
+  },
+  {
+   "id": "glossary-stiffness-k-i-l",
+   "text": "[glossary-stiffness-k-i-l] Glosari: stiffness K = I/l\nstiffness K = I/l: Stiffness relatif bagi member, digunakan dalam k dan dalam moment distribution; E terbatal apabila semua member menggunakan konkrit yang sama."
+  },
+  {
+   "id": "glossary-fixed-base-pinned-end",
+   "text": "[glossary-fixed-base-pinned-end] Glosari: fixed base · pinned end\nfixed base · pinned end: Base yang fixed ke dalam footing yang di-design untuk moment mengambil k_1 = 0.1 (nilai minimum EC2); hujung pinned mengambil k = ∞."
+  },
+  {
+   "id": "glossary-radius-of-gyration-i",
+   "text": "[glossary-radius-of-gyration-i] Glosari: radius of gyration i\nradius of gyration i: i = √(I/A) bagi section konkrit tidak retak pada paksi bending; h/√12 = 0.289h bagi segi empat tepat, dengan h dalam satah bending."
+  },
+  {
+   "id": "glossary-slenderness-ratio",
+   "text": "[glossary-slenderness-ratio] Glosari: slenderness ratio λ\nslenderness ratio λ: λ = l_0 /i, pada setiap paksi (EC2 Eq. 5.14)."
+  },
+  {
+   "id": "glossary-slenderness-limit-lim",
+   "text": "[glossary-slenderness-limit-lim] Glosari: slenderness limit λ_{lim}\nslenderness limit λ_{lim}: λ_{lim} = 20ABC/√n (EC2 Eq. 5.13N); di bawahnya, second-order effect boleh diabaikan."
+  },
+  {
+   "id": "glossary-relative-axial-force-n",
+   "text": "[glossary-relative-axial-force-n] Glosari: relative axial force n\nrelative axial force n: n = N_{Ed} /(A_c f_{cd} ): betapa kuat column ditekan berbanding kekuatan konkritnya."
+  },
+  {
+   "id": "glossary-moment-ratio-r-m",
+   "text": "[glossary-moment-ratio-r-m] Glosari: moment ratio r_m\nmoment ratio r_m: r_m = M_{01} /M_{02} dengan |M_{02} | ≥ |M_{01} |; negatif dalam double curvature; diambil sebagai 1 bagi column unbraced dan apabila imperfection mendominasi."
+  },
+  {
+   "id": "glossary-single-curvature-double-curvature",
+   "text": "[glossary-single-curvature-double-curvature] Glosari: single curvature · double curvature\nsingle curvature · double curvature: Single: end moment memberi tension pada muka yang sama dan column melengkung ke satu sisi. Double: tension pada muka bertentangan, bentuk S dengan point of contraflexure."
+  },
+  {
+   "id": "glossary-geometric-imperfection-e-i",
+   "text": "[glossary-geometric-imperfection-e-i] Glosari: geometric imperfection e_i\ngeometric imperfection e_i: Eccentricity yang diandaikan bagi ketidaklurusan dan load yang tersasar; e_i = l_0 /400 bagi column braced terpencil (EC2 5.2(9))."
+  },
+  {
+   "id": "glossary-minimum-eccentricity-e-0",
+   "text": "[glossary-minimum-eccentricity-e-0] Glosari: minimum eccentricity e_0\nminimum eccentricity e_0: e_0 = max(h/30, 20 mm): setiap column di-design untuk sekurang-kurangnya N_{Ed} e_0 (EC2 6.1(4), Unit 8)."
+  },
+  {
+   "id": "glossary-effective-creep-ratio-ef",
+   "text": "[glossary-effective-creep-ratio-ef] Glosari: effective creep ratio φ_{ef}\neffective creep ratio φ_{ef}: Creep di bawah quasi-permanent load, didarab dengan nisbah moment; ia masuk ke dalam A = 1/(1 + 0.2φ_{ef} ), diambil sebagai 0.7 jika tidak diketahui."
+  },
+  {
+   "id": "glossary-mechanical-reinforcement-ratio",
+   "text": "[glossary-mechanical-reinforcement-ratio] Glosari: mechanical reinforcement ratio ω\nmechanical reinforcement ratio ω: ω = A_s f_{yd} /(A_c f_{cd} ); ia masuk ke dalam B = √(1 + 2ω), diambil sebagai 1.1 jika tidak diketahui."
+  },
+  {
+   "id": "glossary-major-axis-minor-axis",
+   "text": "[glossary-major-axis-minor-axis] Glosari: major axis · minor axis\nmajor axis · minor axis: Paksi yang lebih kaku dan yang lebih lemah bagi section; dalam nota kursus z (I_z = bh³/12) dan y (I_y = hb³/12)."
+  },
+  {
+   "id": "glossary-nominal-curvature-method",
+   "text": "[glossary-nominal-curvature-method] Glosari: nominal curvature method\nnominal curvature method: Kaedah EC2 5.8.8 yang menambah nominal second-order moment M_2 = N_{Ed} e_2 kepada column slender (Unit 9)."
+  }
+ ]
+}

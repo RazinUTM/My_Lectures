@@ -19,7 +19,7 @@ Force · Pressure · Heat Flux · Internal Heat Generation natural conditions an
 nothing on an edge insulated or traction-free: the boundary integral vanishes Heat Transfer Part 1
 Averaged · Unaveraged · Elemental Mean nodal average · element values · centroid value Plane Stress Part 3
 Force Reaction · Moment Reaction (probes) struck rows: [K]{U} − {R} at the fixed dofs equilibrium check
-Menu names vary by version The names here are those of recent Mechanical releases (2023–2025), as on the slides. In other versions an option may sit in a different panel (for example Analysis Type under the Geometry cell’s properties, or Display Option under Integration Point Results); the object and its meaning do not change. ANSYS Student is enough for every model on this page.
+Menu names vary by version The names here are those of recent Mechanical releases (2023–2026), as on the slides; §7 collects the steps the demonstrations skip (curved edges, holes, varying loads, results along a line). In other versions an option may sit in a different panel (for example Analysis Type under the Geometry cell’s properties, or Display Option under Integration Point Results); the object and its meaning do not change. ANSYS Student is enough for every model on this page.
 ## Units first, then the five numbers of each problem
 - Unit system: Metric (m, kg, N, s, V, A), set before anything else. Mechanical prints the unit beside every input field: read it.
 - 2D: Analysis Type = 2D on the Geometry cell before the geometry is drawn; in Mechanical, 2D Behavior = Plane Stress and the Thickness (0.01 m for the cantilever).
@@ -189,6 +189,62 @@ Key points:
 Quick check (not graded): Your group’s solver reproduces the tension patch test to 10^{−17} m. Can you conclude that it is correct?
 Options: yes: an exact patch test proves the element | no: it proves consistency for that stress state only; a wrong shear term passes it, so Gate 2 (bending against Timoshenko) is still needed | yes, if ANSYS gives the same displacement
 Explanation shown after answering: In uniform tension σ_{xy} = 0, so the shear row of [E] is never exercised: with Ē in place of Ē(1 − ν)/2 the patch is still exact, while the cantilever comes out 11.6% stiff. Each gate proves something specific; together they build the case. ANSYS would agree on the patch too — for the same reason.
+
+[notes-n7] Notes 7. Workbench how-to: the steps students ask about
+The demonstrations use rectangles. Your project structure will not: it has arcs, holes and fillets, loads that vary along an edge, and results you want as a curve rather than a colour plot. This section collects those steps for ANSYS Student, the free version downloaded from the Ansys website, which includes Workbench, DesignModeler, Discovery and Mechanical. The menu names were checked against the Ansys Help for release 2026 R1; if a menu sits elsewhere in your version, the object and its name are the same.
+## “A curve in ANSYS”: four different things
+Students ask “how do I draw a curve in ANSYS?” and mean one of four things. Decide which first; the steps are in different places.
+You mean Where Step
+a curved edge of the structure: an arc, a fillet, a hole, a spline Geometry: a DesignModeler sketch 2
+a load that varies along an edge, such as water pressure on a wall Mechanical: Pressure → Magnitude → Function 4
+a result plotted along a line: σ_x across the depth, T along an edge Mechanical: Construction Geometry → Path 5
+a convergence curve: one result against the mesh your mesh-study table, plotted; or a Convergence object 5
+## Step 1 · Open DesignModeler, not the default editor
+- Toolbox → Static Structural (or Steady-State Thermal ), dragged onto the Project Schematic.
+- Select the Geometry cell and, in its Properties, set Analysis Type = 2D . Do it now: it can be switched later, but switching may invalidate settings already made.
+- Right-click the Geometry cell → New DesignModeler Geometry . A double-click opens the default editor, which in recent releases is Discovery; Surfaces From Sketches and the steps below are DesignModeler’s.
+- In DesignModeler, choose the length unit (Units → Meter) before drawing, so that the dimensions match the numbers on this page.
+## Step 2 · Draw a curved outline, a hole or a fillet
+- Tree Outline → select XYPlane → New Sketch ; then the Sketching tab under the Tree Outline. Look At turns the view normal to the plane.
+- Draw toolbox: Line or Polyline for straight edges; Arc by Center — click the centre, click the start point (it sets the radius), click the end point; Arc by 3 Points — click the start, the end, then a third point that sets the side and the radius; Arc by Tangent — an arc that leaves an edge tangentially; Circle for a hole; Spline — click at least three points, then right-click → Open End or Closed End.
+- Modify toolbox: Fillet — type the radius in the Radius box beside the tool, then click the corner point or the two edges; right-click offers Trim Both, Trim 1st, Trim 2nd or Trim None. Trim removes the unwanted part of an edge where two curves cross.
+- Dimensions toolbox: General, click an edge, type the value in the Details View. Constraints toolbox: Tangent, Concentric or Equal Radius when a shape must stay smooth or symmetric.
+- Modeling tab → Concept → Surfaces From Sketches → select the sketch → Apply → Generate . The sketch must be closed and must not cross itself.
+- A hole: draw the circle in the same sketch as the outer boundary; the inner loop becomes the hole. Look at the surface before going on — a filled circle means the loop was not recognised as a hole.
+- A quarter model of a plate with a hole (Plane Stress Part 3): the two outer edges, the two cut edges and an Arc by Center at the corner; the symmetry conditions go on the cut edges in Step 4.
+## Step 3 · Mesh a curved shape
+- Mesh → Details: Element Order Linear or Quadratic. Quadratic elements follow a curved edge with curved sides; linear ones replace it with straight segments, so a hole needs more of them.
+- Mesh → Insert → Sizing : on an edge, Type = Number of Divisions (the divisions round a hole set how well its stress peak is resolved); on the face, an Element Size.
+- Face Meshing (mapped) works on four-sided faces; on a face with a hole, keep the free quadrilateral mesh or split the face.
+- Generate, then read Mesh → Details → Statistics (nodes and elements). For the mesh study, change one sizing at a time and halve it each run.
+## Step 4 · Supports and loads, including a load that varies along an edge
+- Choose the Edge selection filter, select the edge(s), then Insert → Fixed Support, Displacement, Force or Pressure. A symmetry edge: Displacement with the normal component 0 and the other Free.
+- Pressure, Define By = Normal To: a positive value pushes into the edge (compression). In 2D a Pressure acts on edges.
+- A varying load: Magnitude → Function , then an expression that starts with “=” and uses x or y (one variable only). Set the unit system first: the function keeps the units active when Function was chosen. Example · water 5 m deep against a wall whose base is at y = 0 (m, N): the pressure is γ_w(5 − y), entered as =9810*(5-y) in Pa. Check after Solve: the horizontal reaction must equal ½ γ_w H² t = ½ × 9810 × 5² × t = 122.6 kN per metre of thickness.
+## Step 5 · A result as a curve: probes, paths and convergence
+- A value at a point: Solution → Insert → Probe (Deformation, or Force Reaction on a support).
+- A result along a line: Model → Insert → Construction Geometry , then add a Path . Path Type = Two Points : Start and End coordinates (x, y, 0) and the Number of Sampling Points (up to 200, evenly spaced); or Path Type = Edge to follow an edge, a curved one included (the edge of a hole).
+- Insert the result (for example Stress → Normal, Orientation X), set Scoping Method = Path , choose the path, and evaluate. The graph and its table appear under the plot; right-click the result → Export writes a tab-delimited text file that opens in Excel.
+- A convergence curve: the course way is your own table of three or four meshes (§3), plotted against the number of elements. Mechanical can also refine for you: right-click a result → Insert → Convergence , set the Allowable Change (20% by default) and the Refinement Depth in the Solution details. Never converge on a singular point: its value grows without limit. Example · σ_x across the depth of the cantilever at x = 2 m: a Two Points path from (2, 0, 0) to (2, 2, 0) with 41 points, then Normal Stress X on that path. Beam theory predicts a straight line through zero at mid-depth: M = 20 kN·m, so σ_x = M(y − 1)/I = 1500 kN m^{−2} at y = 1.5 m (§4) and ±3000 kN m^{−2} at the top and bottom faces. A kink or an offset in the graph is a modelling error to explain.
+## When it goes wrong
+What you see Usual cause What to do
+no 2D Behavior or Thickness under Geometry in Mechanical Analysis Type left at 3D: the surface became a shell set Analysis Type = 2D on the Geometry cell (Step 1) and check the setup again
+Surfaces From Sketches gives an error or no surface the sketch is not closed, or it crosses itself close the gap (Coincident constraint), Trim the crossing parts
+the model is rejected as not planar, or sits in the wrong plane the sketch was drawn on a plane other than XY draw on XYPlane: 2D models must lie in the x-y plane
+a warning about rigid-body motion or weak springs the supports do not stop every rigid motion §4, wrong model (c): fix the support, do not accept the springs
+displacements wrong by a factor of 10³ or 10⁶ mixed units: geometry in mm, E in Pa §1: one unit system, set first; predict before Solve
+Face Meshing shows a warning on a face with a hole a mapped mesh needs a four-sided face delete Face Meshing and keep the free quadrilateral mesh, or split the face into four-sided pieces
+the solve stops at the problem-size limit of the licence ANSYS Student solves structural models up to 128K nodes or elements refine locally (Edge Sizing at the hole), not the whole face
+the maximum stress keeps rising with every refinement a singular point: a re-entrant corner, a point load, a fixed corner Plane Stress Part 3: report the stress away from the point; do not chase it
+Check these against your own screen Menus move between releases, and videos online often use another release or another geometry editor. When a step here and a video disagree, follow the object names here and check the result against a prediction, as in §2–§5; ask the lecturer when a menu named here cannot be found.
+Key points:
+- “Curve” means a curved edge (Geometry), a varying load (Function), a result along a line (Path) or a convergence curve (your table).
+- Analysis Type 2D first; right-click Geometry → New DesignModeler Geometry; sketch on XYPlane; Surfaces From Sketches needs a closed sketch.
+- Path: Construction Geometry → Path (Two Points or Edge), then the result with Scoping Method = Path; Export for Excel.
+- A varying pressure: Magnitude → Function, =9810*(5-y); check the reaction against ½ γ H² t.
+Quick check (not graded): You need σ_x across the depth of the cantilever at x = 2 m as a graph for your report. What do you add in Mechanical?
+Options: a Path from (2, 0, 0) to (2, 2, 0), then Normal Stress X with Scoping Method = Path | a Probe at (2, 1, 0) | a finer mesh, then read the colours of the contour plot
+Explanation shown after answering: A path samples the result at evenly spaced points along the line and gives the graph and its table, ready to export. A probe gives one value (here σ_x ≈ 0 at mid-depth); colours give a range, not a curve.
 
 [slides-1] Slide 1: ANSYS demo: hand calculation versus software
 SEAA 4243 Finite Element Method · computer lab · 3 hours ANSYS demo: hand calculation versus software The two textbook problems rebuilt in Workbench — predict, run, compare, explain — then your project model gets its first run Assoc. Prof. Ts. Dr. Ahmad Razin Zainal Abidin · Dr. Yip Bao Fang Faculty of Civil Engineering, Universiti Teknologi Malaysia Text: Mohd Yassin et al., MSNM 2020 — §2.3 (plate) and §3.4 (cantil
@@ -528,6 +584,18 @@ observed order p: The rate measured from three meshes: successive changes shrink
 
 [glossary-kirsch-solution] Glossary: Kirsch solution
 Kirsch solution: The exact stresses around a circular hole in an infinite plate in tension: 3σ_0 at the edge of the hole (K_t = 3).
+
+[glossary-designmodeler-discovery] Glossary: DesignModeler · Discovery
+DesignModeler · Discovery: Two geometry editors opened from the Geometry cell: right-click → New DesignModeler Geometry for the sketch-based editor used on this page; a double-click opens the default editor, Discovery in recent releases.
+
+[glossary-surfaces-from-sketches] Glossary: Surfaces From Sketches
+Surfaces From Sketches: DesignModeler’s Concept command that turns a closed sketch on the XY plane into the surface body of a 2D model; an inner loop becomes a hole.
+
+[glossary-path-construction-geometry] Glossary: Path (Construction Geometry)
+Path (Construction Geometry): A line (Two Points) or an edge along which a result is sampled; a result with Scoping Method = Path gives a graph and a table.
+
+[glossary-function-load] Glossary: Function load
+Function load: A load magnitude given as an expression in x or y, starting with “=”, such as =9810*(5-y) for water pressure.
 
 [glossary-genai-log] Glossary: GenAI log
 GenAI log: The record of prompts, accepted and rejected AI output, and the gate that caught each error; marked with the reflection.

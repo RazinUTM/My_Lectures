@@ -11,7 +11,8 @@
    "n3",
    "n4",
    "n5",
-   "n6"
+   "n6",
+   "n7"
   ],
   "slides": 36,
   "examples": [
@@ -79,6 +80,14 @@
    "title_en": "6. Verification, validation and the hybrid project",
    "title_ms": "6. Verification, validation dan projek hibrid",
    "minutes": 9
+  },
+  {
+   "id": "notes-n7",
+   "view": "notes",
+   "anchor": "n7",
+   "title_en": "7. Workbench how-to: the steps students ask about",
+   "title_ms": "7. Panduan Workbench: langkah yang sering ditanya pelajar",
+   "minutes": 10
   },
   {
    "id": "slides-1",
@@ -604,6 +613,38 @@
    "selector": null,
    "title_en": "Glossary: Kirsch solution",
    "title_ms": "Glosari: Kirsch solution"
+  },
+  {
+   "id": "glossary-designmodeler-discovery",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: DesignModeler · Discovery",
+   "title_ms": "Glosari: DesignModeler · Discovery"
+  },
+  {
+   "id": "glossary-surfaces-from-sketches",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: Surfaces From Sketches",
+   "title_ms": "Glosari: Surfaces From Sketches"
+  },
+  {
+   "id": "glossary-path-construction-geometry",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: Path (Construction Geometry)",
+   "title_ms": "Glosari: Path (Construction Geometry)"
+  },
+  {
+   "id": "glossary-function-load",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: Function load",
+   "title_ms": "Glosari: Function load"
   },
   {
    "id": "glossary-genai-log",

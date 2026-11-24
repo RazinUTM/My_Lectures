@@ -2258,6 +2258,11 @@
      "title_ms": "6. Verification, validation dan projek hibrid"
     },
     {
+     "id": "notes-n7",
+     "title_en": "7. Workbench how-to: the steps students ask about",
+     "title_ms": "7. Panduan Workbench: langkah yang sering ditanya pelajar"
+    },
+    {
      "id": "slides-1",
      "title_en": "Slide 1: ANSYS demo: hand calculation versus software",
      "title_ms": "Slide 1: ANSYS demo: hand calculation versus software"
@@ -2611,6 +2616,26 @@
      "id": "glossary-kirsch-solution",
      "title_en": "Glossary: Kirsch solution",
      "title_ms": "Glosari: Kirsch solution"
+    },
+    {
+     "id": "glossary-designmodeler-discovery",
+     "title_en": "Glossary: DesignModeler · Discovery",
+     "title_ms": "Glosari: DesignModeler · Discovery"
+    },
+    {
+     "id": "glossary-surfaces-from-sketches",
+     "title_en": "Glossary: Surfaces From Sketches",
+     "title_ms": "Glosari: Surfaces From Sketches"
+    },
+    {
+     "id": "glossary-path-construction-geometry",
+     "title_en": "Glossary: Path (Construction Geometry)",
+     "title_ms": "Glosari: Path (Construction Geometry)"
+    },
+    {
+     "id": "glossary-function-load",
+     "title_en": "Glossary: Function load",
+     "title_ms": "Glosari: Function load"
     },
     {
      "id": "glossary-genai-log",

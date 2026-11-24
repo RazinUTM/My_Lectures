@@ -19,7 +19,7 @@ Force · Pressure · Heat Flux · Internal Heat Generation natural condition dan
 tiada apa pada tepi insulated atau bebas traction: boundary integral hilang Heat Transfer Part 1
 Averaged · Unaveraged · Elemental Mean purata nodal · nilai element · nilai centroid Plane Stress Part 3
 Force Reaction · Moment Reaction (probes) baris yang dibuang: [K]{U} − {R} pada dof tetap semakan keseimbangan
-Nama menu berbeza mengikut versi Nama di sini ialah nama dalam keluaran Mechanical terkini (2023–2025), seperti dalam slides. Dalam versi lain sesuatu pilihan mungkin berada di panel lain (contohnya Analysis Type di bawah properties sel Geometry, atau Display Option di bawah Integration Point Results); objek dan maknanya tidak berubah. ANSYS Student mencukupi untuk setiap model di halaman ini.
+Nama menu berbeza mengikut versi Nama di sini ialah nama dalam keluaran Mechanical terkini (2023–2026), seperti dalam slides; §7 menghimpunkan langkah yang tidak ditunjukkan dalam demonstrasi (tepi melengkung, lubang, load yang berubah, keputusan sepanjang garisan). Dalam versi lain sesuatu pilihan mungkin berada di panel lain (contohnya Analysis Type di bawah properties sel Geometry, atau Display Option di bawah Integration Point Results); objek dan maknanya tidak berubah. ANSYS Student mencukupi untuk setiap model di halaman ini.
 ## Unit dahulu, kemudian lima nombor bagi setiap masalah
 - Unit system: Metric (m, kg, N, s, V, A), ditetapkan sebelum perkara lain. Mechanical mencetak unit di sebelah setiap ruang input: bacalah.
 - 2D: Analysis Type = 2D pada sel Geometry sebelum geometri dilukis; dalam Mechanical, 2D Behavior = Plane Stress dan Thickness (0.01 m untuk cantilever).
@@ -189,6 +189,62 @@ Isi penting:
 Semakan pantas (tidak dimarkah): Solver kumpulan anda menghasilkan semula patch test tegangan hingga 10^{−17} m. Bolehkah anda simpulkan bahawa ia betul?
 Pilihan: ya: patch test yang tepat membuktikan element itu | tidak: ia membuktikan konsistensi bagi keadaan stress itu sahaja; term shear yang salah melepasinya, jadi Gate 2 (bending berbanding Timoshenko) masih diperlukan | ya, jika ANSYS memberi displacement yang sama
 Penjelasan yang dipaparkan selepas menjawab: Dalam tegangan seragam σ_{xy} = 0, jadi baris shear [E] tidak pernah diuji: dengan Ē menggantikan Ē(1 − ν)/2 patch masih tepat, manakala cantilever menjadi 11.6% terlalu kaku. Setiap gate membuktikan sesuatu yang khusus; bersama-sama ia membina hujah. ANSYS juga akan sepakat pada patch itu — atas sebab yang sama.
+
+[notes-n7] Nota 7. Panduan Workbench: langkah yang sering ditanya pelajar
+Demonstrasi menggunakan segi empat tepat. Struktur projek anda tidak begitu: ia ada arc, lubang dan fillet, load yang berubah sepanjang tepi, dan keputusan yang anda mahu sebagai lengkung, bukan contour plot. Bahagian ini menghimpunkan langkah-langkah itu untuk ANSYS Student, versi percuma yang dimuat turun dari laman web Ansys, yang mengandungi Workbench, DesignModeler, Discovery dan Mechanical. Nama menu telah disemak dengan Ansys Help bagi release 2026 R1; jika sesuatu menu berada di tempat lain dalam versi anda, objek dan namanya tetap sama.
+## “Curve dalam ANSYS”: empat perkara berbeza
+Pelajar bertanya “macam mana nak lukis curve dalam ANSYS?” dan maksudnya salah satu daripada empat perkara. Tentukan yang mana dahulu; langkahnya berada di tempat berbeza.
+Maksud anda Di mana Langkah
+tepi struktur yang melengkung: arc, fillet, lubang, spline Geometry: sketch DesignModeler 2
+load yang berubah sepanjang tepi, seperti tekanan air pada dinding Mechanical: Pressure → Magnitude → Function 4
+keputusan diplot sepanjang garisan: σ_x merentasi kedalaman, T sepanjang tepi Mechanical: Construction Geometry → Path 5
+lengkung convergence: satu keputusan berbanding mesh jadual kajian mesh anda, diplot; atau objek Convergence 5
+## Langkah 1 · Buka DesignModeler, bukan editor lalai
+- Toolbox → Static Structural (atau Steady-State Thermal ), diseret ke Project Schematic.
+- Pilih sel Geometry dan, dalam Properties-nya, tetapkan Analysis Type = 2D . Buat sekarang: ia boleh ditukar kemudian, tetapi pertukaran itu mungkin membatalkan tetapan yang sudah dibuat.
+- Klik kanan sel Geometry → New DesignModeler Geometry . Klik dua kali membuka editor lalai, iaitu Discovery dalam release terkini; Surfaces From Sketches dan langkah di bawah ialah langkah DesignModeler.
+- Dalam DesignModeler, pilih unit panjang (Units → Meter) sebelum melukis, supaya dimensi sepadan dengan nombor di halaman ini.
+## Langkah 2 · Lukis garis luar melengkung, lubang atau fillet
+- Tree Outline → pilih XYPlane → New Sketch ; kemudian tab Sketching di bawah Tree Outline. Look At memusingkan pandangan supaya normal kepada satah.
+- Toolbox Draw : Line atau Polyline untuk tepi lurus; Arc by Center — klik pusat, klik titik mula (ia menetapkan jejari), klik titik akhir; Arc by 3 Points — klik titik mula, titik akhir, kemudian titik ketiga yang menetapkan arah dan jejari; Arc by Tangent — arc yang keluar dari satu tepi secara tangen; Circle untuk lubang; Spline — klik sekurang-kurangnya tiga titik, kemudian klik kanan → Open End atau Closed End.
+- Toolbox Modify : Fillet — taip jejari dalam kotak Radius di sebelah alat itu, kemudian klik titik bucu atau dua tepi; klik kanan memberi Trim Both, Trim 1st, Trim 2nd atau Trim None. Trim membuang bahagian tepi yang tidak dikehendaki di tempat dua lengkung bersilang.
+- Toolbox Dimensions : General, klik satu tepi, taip nilai dalam Details View. Toolbox Constraints : Tangent, Concentric atau Equal Radius apabila sesuatu bentuk mesti kekal licin atau simetri.
+- Tab Modeling → Concept → Surfaces From Sketches → pilih sketch → Apply → Generate . Sketch mesti tertutup dan tidak bersilang dengan dirinya.
+- Lubang: lukis bulatan dalam sketch yang sama dengan sempadan luar; gelung dalam menjadi lubang. Lihat permukaan itu sebelum meneruskan — bulatan yang penuh bermaksud gelung itu tidak dikenali sebagai lubang.
+- Model suku bagi plat berlubang (Plane Stress Part 3): dua tepi luar, dua tepi potongan dan Arc by Center di bucu; keadaan simetri diletakkan pada tepi potongan dalam Langkah 4.
+## Langkah 3 · Mesh bentuk melengkung
+- Mesh → Details: Element Order Linear atau Quadratic. Quadratic element mengikut tepi melengkung dengan sisi melengkung; linear element menggantikannya dengan segmen lurus, jadi lubang memerlukan lebih banyak element.
+- Mesh → Insert → Sizing : pada satu tepi, Type = Number of Divisions (bilangan bahagian di sekeliling lubang menentukan sejauh mana puncak stress-nya dapat dikira); pada muka, satu Element Size.
+- Face Meshing (berpeta) berfungsi pada muka empat sisi; pada muka berlubang, kekalkan mesh segi empat bebas atau pecahkan muka itu.
+- Generate, kemudian baca Mesh → Details → Statistics (node dan element). Untuk kajian mesh, ubah satu sizing pada satu masa dan bahagi duanya setiap run.
+## Langkah 4 · Support dan load, termasuk load yang berubah sepanjang tepi
+- Pilih Edge selection filter, pilih tepi, kemudian Insert → Fixed Support, Displacement, Force atau Pressure. Tepi simetri: Displacement dengan komponen normal 0 dan komponen lain Free.
+- Pressure, Define By = Normal To: nilai positif menolak ke dalam tepi (mampatan). Dalam 2D, Pressure bertindak pada tepi.
+- Load yang berubah: Magnitude → Function , kemudian ungkapan yang bermula dengan “=” dan menggunakan x atau y (satu pemboleh ubah sahaja). Tetapkan unit system dahulu: fungsi itu mengekalkan unit yang aktif ketika Function dipilih. Contoh · air sedalam 5 m menolak dinding yang tapaknya pada y = 0 (m, N): tekanannya γ_w(5 − y), dimasukkan sebagai =9810*(5-y) dalam Pa. Semak selepas Solve: reaction mendatar mesti sama dengan ½ γ_w H² t = ½ × 9810 × 5² × t = 122.6 kN bagi setiap meter ketebalan.
+## Langkah 5 · Keputusan sebagai lengkung: probe, path dan convergence
+- Nilai pada satu titik: Solution → Insert → Probe (Deformation, atau Force Reaction pada support).
+- Keputusan sepanjang garisan: Model → Insert → Construction Geometry , kemudian tambah Path . Path Type = Two Points : koordinat Start dan End (x, y, 0) dan Number of Sampling Points (sehingga 200, berjarak sama); atau Path Type = Edge untuk mengikut satu tepi, termasuk tepi melengkung (tepi lubang).
+- Masukkan keputusan (contohnya Stress → Normal, Orientation X), tetapkan Scoping Method = Path , pilih path itu, dan evaluate. Graf dan jadualnya muncul di bawah plot; klik kanan keputusan → Export menulis fail teks tab-delimited yang boleh dibuka dalam Excel.
+- Lengkung convergence: cara kursus ialah jadual anda sendiri bagi tiga atau empat mesh (§3), diplot berbanding bilangan element. Mechanical juga boleh refine untuk anda: klik kanan satu keputusan → Insert → Convergence , tetapkan Allowable Change (20% secara lalai) dan Refinement Depth dalam details Solution. Jangan sekali-kali converge pada titik singular: nilainya bertambah tanpa had. Contoh · σ_x merentasi kedalaman cantilever pada x = 2 m: path Two Points dari (2, 0, 0) ke (2, 2, 0) dengan 41 titik, kemudian Normal Stress X pada path itu. Beam theory meramalkan garis lurus melalui sifar di tengah kedalaman: M = 20 kN·m, jadi σ_x = M(y − 1)/I = 1500 kN m^{−2} pada y = 1.5 m (§4) dan ±3000 kN m^{−2} di permukaan atas dan bawah. Bengkok atau anjakan dalam graf ialah ralat pemodelan yang perlu diterangkan.
+## Apabila berlaku masalah
+Apa yang anda lihat Punca biasa Apa perlu dibuat
+tiada 2D Behavior atau Thickness di bawah Geometry dalam Mechanical Analysis Type kekal 3D: permukaan menjadi shell tetapkan Analysis Type = 2D pada sel Geometry (Langkah 1) dan semak semula setup
+Surfaces From Sketches memberi ralat atau tiada permukaan sketch tidak tertutup, atau bersilang dengan dirinya tutup ruang (constraint Coincident), Trim bahagian yang bersilang
+model ditolak kerana tidak satah, atau berada pada satah yang salah sketch dilukis pada satah selain XY lukis pada XYPlane: model 2D mesti terletak pada satah x-y
+amaran tentang rigid-body motion atau weak springs support tidak menghalang setiap rigid motion §4, model salah (c): betulkan support, jangan terima springs itu
+displacement salah dengan faktor 10³ atau 10⁶ unit bercampur: geometri dalam mm, E dalam Pa §1: satu unit system, ditetapkan dahulu; ramal sebelum Solve
+Face Meshing menunjukkan amaran pada muka berlubang mesh berpeta memerlukan muka empat sisi padam Face Meshing dan kekalkan mesh segi empat bebas, atau pecahkan muka kepada bahagian empat sisi
+solve berhenti pada had saiz masalah lesen ANSYS Student menyelesaikan model struktur sehingga 128K node atau element refine secara setempat (Edge Sizing di lubang), bukan seluruh muka
+stress maksimum terus naik setiap kali refine titik singular: bucu masuk ke dalam, point load, bucu tetap Plane Stress Part 3: laporkan stress jauh dari titik itu; jangan kejar
+Semak semua ini dengan skrin anda sendiri Menu berubah tempat antara release, dan video dalam talian sering menggunakan release lain atau editor geometri lain. Apabila satu langkah di sini dan sebuah video tidak sepadan, ikut nama objek di sini dan semak keputusan dengan ramalan, seperti dalam §2–§5; tanya pensyarah apabila menu yang dinamakan di sini tidak dapat dijumpai.
+Isi penting:
+- “Curve” bermaksud tepi melengkung (Geometry), load yang berubah (Function), keputusan sepanjang garisan (Path) atau lengkung convergence (jadual anda).
+- Analysis Type 2D dahulu; klik kanan Geometry → New DesignModeler Geometry; sketch pada XYPlane; Surfaces From Sketches memerlukan sketch tertutup.
+- Path: Construction Geometry → Path (Two Points atau Edge), kemudian keputusan dengan Scoping Method = Path; Export untuk Excel.
+- Tekanan yang berubah: Magnitude → Function, =9810*(5-y); semak reaction dengan ½ γ H² t.
+Semakan pantas (tidak dimarkah): Anda perlukan σ_x merentasi kedalaman cantilever pada x = 2 m sebagai graf untuk laporan. Apa yang anda tambah dalam Mechanical?
+Pilihan: Path dari (2, 0, 0) ke (2, 2, 0), kemudian Normal Stress X dengan Scoping Method = Path | Probe pada (2, 1, 0) | mesh yang lebih halus, kemudian baca warna contour plot
+Penjelasan yang dipaparkan selepas menjawab: Path mengambil sampel keputusan pada titik berjarak sama sepanjang garisan dan memberi graf serta jadualnya, sedia untuk di-export. Probe memberi satu nilai (di sini σ_x ≈ 0 di tengah kedalaman); warna memberi julat, bukan lengkung.
 
 [slides-1] Slide 1: ANSYS demo: hand calculation versus software
 SEAA 4243 Finite Element Method · computer lab · 3 hours ANSYS demo: hand calculation versus software The two textbook problems rebuilt in Workbench — predict, run, compare, explain — then your project model gets its first run Assoc. Prof. Ts. Dr. Ahmad Razin Zainal Abidin · Dr. Yip Bao Fang Faculty of Civil Engineering, Universiti Teknologi Malaysia Text: Mohd Yassin et al., MSNM 2020 — §2.3 (plate) and §3.4 (cantilever) · ANSYS Mechanical (Workbench), Student edition is sufficient
@@ -534,6 +590,18 @@ observed order p: Kadar yang diukur daripada tiga mesh: perubahan berturut-turut
 
 [glossary-kirsch-solution] Glosari: Kirsch solution
 Kirsch solution: Stress tepat di sekeliling lubang bulat dalam plat tak terhingga dalam tegangan: 3σ_0 di tepi lubang (K_t = 3).
+
+[glossary-designmodeler-discovery] Glosari: DesignModeler · Discovery
+DesignModeler · Discovery: Dua editor geometri yang dibuka dari sel Geometry: klik kanan → New DesignModeler Geometry untuk editor berasaskan sketch yang digunakan di halaman ini; klik dua kali membuka editor lalai, iaitu Discovery dalam release terkini.
+
+[glossary-surfaces-from-sketches] Glosari: Surfaces From Sketches
+Surfaces From Sketches: Arahan Concept dalam DesignModeler yang menukar sketch tertutup pada satah XY menjadi surface body bagi model 2D; gelung dalam menjadi lubang.
+
+[glossary-path-construction-geometry] Glosari: Path (Construction Geometry)
+Path (Construction Geometry): Garisan (Two Points) atau tepi yang sepanjangnya keputusan diambil sampel; keputusan dengan Scoping Method = Path memberi graf dan jadual.
+
+[glossary-function-load] Glosari: Function load
+Function load: Magnitud load yang diberi sebagai ungkapan dalam x atau y, bermula dengan “=”, seperti =9810*(5-y) bagi tekanan air.
 
 [glossary-genai-log] Glosari: GenAI log
 GenAI log: Rekod prompt, output AI yang diterima dan ditolak, dan gate yang menangkap setiap ralat; dinilai bersama refleksi.

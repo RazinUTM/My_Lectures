@@ -2,7 +2,7 @@
 accuracy of stresses and singularities, the 8-node element, reporting an FE result, and the project brief.
 Every number was recomputed with SEAA4243-FEM/code/fe_plane_stress.py (and a sparse copy of it for the 64 x 32 and
 128 x 64 meshes); the worked examples follow FEM by Hand, Examples 9.7, 10.5 and 10.6."""
-from sitelib import B, P, LI, OL, H3, DEF, NOTE, OK, STEP, KP, QC, SB, XSTEP, ANS, CHK, PLAN, PIC, INTERP, SCHEME
+from sitelib import B, P, LI, OL, H3, DEF, NOTE, OK, STEP, KP, TRY, QC, SB, XSTEP, ANS, CHK, PLAN, PIC, INTERP, SCHEME
 from content_p1 import MCQ
 import re
 
@@ -133,6 +133,7 @@ def notes(A):
         + OK("Invariant check", "Semakan invariant",
              "σ<sub>1</sub> + σ<sub>2</sub> = σ<sub>xx</sub> + σ<sub>yy</sub> for any rotation: 494.4 − 224.1 = 270.3 = 315.2 − 44.9. A slip in the square root fails this check at once.",
              "σ<sub>1</sub> + σ<sub>2</sub> = σ<sub>xx</sub> + σ<sub>yy</sub> bagi sebarang putaran: 494.4 − 224.1 = 270.3 = 315.2 − 44.9. Kesilapan dalam punca kuasa dua akan gagal semakan ini serta-merta.")
+        + TRY("p13")
         + KP([("σ<sub>1,2</sub> = centre ± radius of Mohr’s circle; θ<sub>p</sub> = ½ tan<sup>−1</sup>[2σ<sub>xy</sub>/(σ<sub>xx</sub> − σ<sub>yy</sub>)].", "σ<sub>1,2</sub> = pusat ± jejari Mohr’s circle; θ<sub>p</sub> = ½ tan<sup>−1</sup>[2σ<sub>xy</sub>/(σ<sub>xx</sub> − σ<sub>yy</sub>)]."),
               ("Cantilever at (3.5, 1.3): σ<sub>1</sub> = 494.4, σ<sub>2</sub> = −224.1 at −30.0°; σ<sub>vM</sub> = 636.8 kN m<sup>−2</sup>.", "Cantilever pada (3.5, 1.3): σ<sub>1</sub> = 494.4, σ<sub>2</sub> = −224.1 pada −30.0°; σ<sub>vM</sub> = 636.8 kN m<sup>−2</sup>."),
               ("Concrete: σ<sub>1</sub> and its direction. Steel: σ<sub>vM</sub> against f<sub>y</sub>.", "Konkrit: σ<sub>1</sub> dan arahnya. Keluli: σ<sub>vM</sub> berbanding f<sub>y</sub>.")])
@@ -168,6 +169,7 @@ def notes(A):
         + OK("Where to read a stress", "Di mana membaca stress",
              "At element centroids, on a mesh that has converged, at least one depth away from supports and concentrated loads. Use beam theory there as the check, and quote the difference with its sign.",
              "Pada centroid element, pada mesh yang telah converge, sekurang-kurangnya satu kedalaman jauh dari support dan load tertumpu. Gunakan beam theory di situ sebagai semakan, dan nyatakan perbezaannya bersama tandanya.")
+        + TRY("refine")
         + KP([("Stresses are derivatives of the displacements: less accurate, and discontinuous between elements.", "Stress ialah derivative displacement: kurang tepat, dan tidak continuous antara element."),
               ("2 × 2 centroids: 73% of the converged bending stress; 32 × 16 centroids at mid-span: within 0.25% of beam theory.", "Centroid 2 × 2: 73% daripada bending stress yang converge; centroid 32 × 16 di tengah rentang: dalam 0.25% daripada beam theory."),
               ("Beam theory is a valid check only away from the ends (St-Venant).", "Beam theory ialah semakan yang sah hanya jauh dari hujung (St-Venant).")])
@@ -204,6 +206,7 @@ def notes(A):
         + A.eq("wn_peterson")
         + SB(P("The net-section check: the nominal stress across the remaining width is 10.0/(1 − 0.3) = 14.3 MPa, and 33.4/14.3 = 2.34. That is the kind of independent check the project asks for.",
                "Semakan keratan bersih: stress nominal merentasi lebar yang tinggal ialah 10.0/(1 − 0.3) = 14.3 MPa, dan 33.4/14.3 = 2.34. Itulah jenis semakan bebas yang diminta dalam projek."))
+        + TRY("corner disp3")
         + KP([("Elemental mean = centroids; Unaveraged shows the jumps; Averaged is smooth but not more accurate.", "Elemental mean = centroid; Unaveraged menunjukkan lompatan; Averaged licin tetapi tidak lebih tepat."),
               ("Fixed corner: 4134 → 5372 → 6400 → 7467 kN m<sup>−2</sup>, no limit. Never report a peak at a singularity.", "Bucu tetap: 4134 → 5372 → 6400 → 7467 kN m<sup>−2</sup>, tiada had. Jangan sekali-kali laporkan puncak pada singularity."),
               ("A smooth hole converges: K<sub>t</sub> = 2.34 against Peterson’s 2.35.", "Lubang yang licin converge: K<sub>t</sub> = 2.34 berbanding 2.35 Peterson.")])

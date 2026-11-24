@@ -3,7 +3,7 @@
 English is the primary text; Malay carries the explanation with technical terms left in English.
 Numbers quoted in the notes are those of the deck (verified against fe_core and the text).
 """
-from sitelib import B, P, LI, OL, H3, DEF, NOTE, OK, STEP, KP, QC, SB, XSTEP, ANS, CHK, PLAN, PIC, INTERP, SCHEME
+from sitelib import B, P, LI, OL, H3, DEF, NOTE, OK, STEP, KP, TRY, QC, SB, XSTEP, ANS, CHK, PLAN, PIC, INTERP, SCHEME
 
 PART = {
     "n": 1, "slug": "01-heat-transfer-1", "deck": "deck_w9", "eqs": ["eqs_w9", "eqs_ex"], "figs": ["figs_w9", "figs_ex"],
@@ -245,6 +245,7 @@ def notes(A):
                + A.eq("e_act4_N") + A.eq("e_act4_sum") + A.eq("e_act4_T")
                + P("Node 2 carries half the weight because the point is nearest to it. The sum of the four weights is 1, as it must be.",
                    "Node 2 membawa separuh daripada weight kerana titik itu paling hampir dengannya. Hasil tambah empat weight ialah 1, sebagaimana sepatutnya."))
+        + TRY("node3 diag")
         + KP([("T = {N}{T̂}ᵀ with the bilinear N<sub>i</sub> of (2.21).", "T = {N}{T̂}ᵀ dengan N<sub>i</sub> bilinear daripada (2.21)."),
               ("Kronecker delta, partition of unity, linear edges: three checks that catch most errors.", "Kronecker delta, partition of unity, tepi linear: tiga semakan yang menangkap kebanyakan kesilapan."),
               ("At (1.5, 0.3): N = 0.175, 0.525, 0.225, 0.075 and T = 136.0 K.", "Pada (1.5, 0.3): N = 0.175, 0.525, 0.225, 0.075 dan T = 136.0 K.")])
@@ -279,6 +280,7 @@ def notes(A):
                "Tambah satu node di tengah setiap tepi dan polynomial itu mendapat empat term lagi, (2.31). Shape function-nya quadratic di sepanjang setiap tepi, jadi ia mengikut profil temperature yang melengkung dengan element yang lebih sedikit. "
                "Prosedurnya serupa: nilaikan pada lapan node, inverse, kumpulkan mengikut nilai node. Fungsi bucu kini jatuh di bawah sifar antara dua jiran tengah sisinya, dan lapan fungsi itu tetap berjumlah satu."))
         + A.eq("e_poly8", "(2.31)") + A.eq("e_N8")
+        + TRY("act4 q8n1")
         + KP([("Gradient = {∂}ᵀ{N}{T̂}ᵀ, a 2 × 4 matrix times the nodal vector; flux = −[E] × gradient.", "Gradient = {∂}ᵀ{N}{T̂}ᵀ, matrix 2 × 4 didarab nodal vector; flux = −[E] × gradient."),
               ("At (1.5, 0.3) with k = 2: ∂T/∂x = ∂T/∂y = 20 K m<sup>−1</sup>, q<sub>x</sub> = q<sub>y</sub> = −40 W m<sup>−2</sup>.", "Pada (1.5, 0.3) dengan k = 2: ∂T/∂x = ∂T/∂y = 20 K m<sup>−1</sup>, q<sub>x</sub> = q<sub>y</sub> = −40 W m<sup>−2</sup>."),
               ("The eight-node element is the same procedure with quadratic edges.", "Eight-node element ialah prosedur yang sama dengan tepi quadratic.")])

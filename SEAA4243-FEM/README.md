@@ -18,8 +18,9 @@ The pages follow the lecturer's T&L app template, the same as the SEAA 4333 Unit
 way back (For My Students › My Lectures › SEAA 4243 › part), the lecturer's email, a foldable
 description, a search box over the page, the part switcher, Short notes, and the settings buttons
 (BM/EN · theme · text size AA · screen guide ⓘ with a tour). Each part page has eight tabs: Start (plan
-and progress), Notes, Slides (viewer and PDF), Examples (model answers in exam form), Exercises (new
-numbers each attempt), Explorer, Glossary and Feedback. The slide viewer has first/last buttons, a page
+and progress), Notes (with quick checks and “Try it yourself” boxes that open the matching Explorer task
+and lead back to the same place in the notes), Slides (viewer and PDF), Examples (model answers in exam
+form), Exercises (new numbers each attempt), Explorer, Glossary and Feedback. The slide viewer has first/last buttons, a page
 slider, mouse-wheel and swipe paging, and a PDF download. Explanations switch between English and
 Bahasa Melayu; technical terms stay in English.
 

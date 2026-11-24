@@ -1,6 +1,6 @@
 """Content of Part 2 — 2D Heat Transfer (Part 2): Galerkin, element matrices, assembly, solution,
 post-processing. Numbers are those of the deck and the companion (verified against fe_core/fe_heat)."""
-from sitelib import B, P, LI, OL, H3, DEF, NOTE, OK, STEP, KP, QC, SB, XSTEP, ANS, CHK, PLAN, PIC, INTERP, SCHEME
+from sitelib import B, P, LI, OL, H3, DEF, NOTE, OK, STEP, KP, TRY, QC, SB, XSTEP, ANS, CHK, PLAN, PIC, INTERP, SCHEME
 from content_p1 import MCQ, EXAMPLES_INTRO as _INTRO1
 
 PART = {
@@ -169,6 +169,7 @@ def notes(A):
                A.eq("w_act5") + LI([("T<sub>3</sub> is the largest: the corner farthest from both cold edges, between the two insulated edges, where heat accumulates.", "T<sub>3</sub> paling besar: bucu paling jauh daripada kedua-dua tepi sejuk, antara dua tepi insulated, tempat haba terkumpul."),
                                     ("T<sub>5</sub> is the smallest of the four: the centre is closer to the cold edges than node 3.", "T<sub>5</sub> paling kecil antara empat: pusat lebih hampir dengan tepi sejuk berbanding node 3."),
                                     ("T<sub>2</sub> = T<sub>6</sub> exactly: the mesh, loads and boundary conditions are symmetric about the diagonal from node 1 to node 9.", "T<sub>2</sub> = T<sub>6</sub> dengan tepat: mesh, load dan boundary condition simetri tentang pepenjuru dari node 1 ke node 9.")]))
+        + TRY("book2 right0 allins")
         + KP([("Scatter-add: K<sub>IJ</sub> += k<sub>ij</sub> with I, J from the connectivity table; same for {R}.", "Scatter-add: K<sub>IJ</sub> += k<sub>ij</sub> dengan I, J daripada connectivity table; sama untuk {R}."),
               ("Known T: move its column × T̄ to the right, delete row and column; the struck rows later give the heat flows.", "T yang diketahui: pindahkan lajurnya × T̄ ke kanan, buang baris dan lajur; baris yang dibuang kemudian memberi aliran haba."),
               ("Text plate: T<sub>2</sub> = T<sub>6</sub> = 0.482, T<sub>3</sub> = 0.621, T<sub>5</sub> = 0.386 °C.", "Plat teks: T<sub>2</sub> = T<sub>6</sub> = 0.482, T<sub>3</sub> = 0.621, T<sub>5</sub> = 0.386 °C.")])
@@ -206,6 +207,7 @@ def notes(A):
         + '<div class="figrow"><img src="slides/img/w10_aster.png" alt="Temperature in a solid plate computed with Code_Aster, shown in Gmsh" class="figimg" style="flex:1 1 300px"><img src="slides/img/w10_mapdl_thermal.png" alt="ANSYS MAPDL nodal temperature in a plate held at 5 and 100 degrees on two opposite faces" class="figimg" style="flex:1 1 300px"></div>'
         + '<p class="credit">' + B("Other codes, the same equations. Left: Code_Aster, preCICE tutorials “Flow over a heated plate, steady state”, LGPL-3.0. Right: ANSYS MAPDL, PyMAPDL documentation “Basic thermal analysis”, © ANSYS, Inc., MIT licence. With no source and two fixed faces the solution is linear and any mesh reproduces it exactly: a quick check of any new model.",
                                    "Kod lain, persamaan yang sama. Kiri: Code_Aster, tutorial preCICE “Flow over a heated plate, steady state”, LGPL-3.0. Kanan: ANSYS MAPDL, dokumentasi PyMAPDL “Basic thermal analysis”, © ANSYS, Inc., lesen MIT. Tanpa source dan dengan dua muka tetap, penyelesaiannya linear dan mana-mana mesh menghasilkannya dengan tepat: semakan pantas untuk mana-mana model baharu.") + '</p>'
+        + TRY("study")
         + KP([("Post-process per element: locate, convert to local coordinates, interpolate with the nodal values in local order.", "Post-process setiap element: cari, tukar kepada koordinat local, interpolate dengan nilai node mengikut susunan local."),
               ("T(0.3, 0.2) = 0.266 °C; flux at the centroid of element 2 = (−70.7, +70.7) W m<sup>−2</sup>.", "T(0.3, 0.2) = 0.266 °C; flux pada centroid element 2 = (−70.7, +70.7) W m<sup>−2</sup>."),
               ("The 2 × 2 mesh is about 5% high; 16 × 16 matches software. Refine before you believe a number.", "Mesh 2 × 2 kira-kira 5% tinggi; 16 × 16 sepadan dengan perisian. Refine sebelum anda percaya sesuatu nombor.")])

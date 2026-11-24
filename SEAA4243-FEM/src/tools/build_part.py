@@ -21,6 +21,10 @@ slides_html, nslides = slides_block(MJ / PART["deck"], blob_map, OUT / "slides/i
 (OUT / "slides/deck.html").write_text(slides_html)   # fetched by the viewer when the Slides tab opens
 
 NOTES = mod.notes(A)
+# "Try it yourself" boxes: every Explorer task sits in exactly one box of the notes (sitelib.TRY)
+tried = [t for _, _, _, body in NOTES for ids in re.findall(r'<aside class="try" data-tasks="([^"]*)"', body) for t in ids.split()]
+if sorted(tried) != sorted(t[0] for t in mod.LAB_TASKS):
+    raise SystemExit(f"{sys.argv[1]}: the TRY() boxes list {sorted(tried)}, the Explorer tasks are {sorted(t[0] for t in mod.LAB_TASKS)}")
 minutes = PART["minutes"]
 EXAMPLES = mod.examples(A)
 LAB = PART["lab"]

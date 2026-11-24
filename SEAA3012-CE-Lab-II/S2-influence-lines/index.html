@@ -1643,7 +1643,7 @@ window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]]},svg
 
 
 <footer><span class="en">Geometry from the laboratory manual, experiment S2: AB = 250, BC = 190, CD = 250, DE = 190, EF = 250 mm; halts 1–11 at 100 mm intervals from A. Example readings are illustrative, not measured data. Answers, readings and progress are stored only in this browser; questions to Dr RJ and the Feedback tab are the only things sent out.</span><span class="ms">Geometri daripada manual makmal, eksperimen S2: AB = 250, BC = 190, CD = 250, DE = 190, EF = 250 mm; halt 1–11 pada sela 100 mm dari A. Bacaan contoh adalah ilustrasi, bukan data ukuran. Jawapan, bacaan dan kemajuan disimpan dalam pelayar ini sahaja; hanya soalan kepada Dr RJ dan tab Maklum balas dihantar keluar.</span>
-<p class="copy"><img data-avsrc="badge" alt="" aria-hidden="true" class="fbadge"><span class="en">© 2026 Ahmad Razin Zainal Abidin and co-authors, Faculty of Civil Engineering, Universiti Teknologi Malaysia. Free to share and adapt for non-commercial teaching and learning.</span><span class="ms">© 2026 Ahmad Razin Zainal Abidin dan pengarang bersama, Fakulti Kejuruteraan Awam, Universiti Teknologi Malaysia. Bebas dikongsi dan diubah suai untuk pengajaran dan pembelajaran bukan komersial.</span></p></footer>
+<p class="copy"><img data-avsrc="badge" alt="" aria-hidden="true" class="fbadge"><span class="en">© 2026 Ahmad Razin Zainal Abidin and Universiti Teknologi Malaysia (Faculty of Civil Engineering). Free to share and adapt for non-commercial teaching and learning.</span><span class="ms">© 2026 Ahmad Razin Zainal Abidin dan Universiti Teknologi Malaysia (Fakulti Kejuruteraan Awam). Bebas dikongsi dan diubah suai untuk pengajaran dan pembelajaran bukan komersial.</span></p></footer>
 </div>
 
 <!-- =============================================================== SHORT NOTES DRAWER -->
@@ -2046,7 +2046,7 @@ langHooks.push(syncRead);
    Slides
    ===================================================================== */
 var slides=[].slice.call(document.querySelectorAll("#deck .slide")),slideIdx=Math.min(ST.slide||0,slides.length-1);
-slides.forEach(function(s,i){var f=document.createElement("div");f.className="foot";f.innerHTML="<span><img class=\"fbadge\" src=\""+AVS.badge+"\" alt=\"\">© 2026 Ahmad Razin Zainal Abidin and co-authors · SEAA 3012 · Lab S2 Influence Lines</span><span>"+(i+1)+" / "+slides.length+"</span>";s.appendChild(f)});
+slides.forEach(function(s,i){var f=document.createElement("div");f.className="foot";f.innerHTML="<span><img class=\"fbadge\" src=\""+AVS.badge+"\" alt=\"\">© 2026 Ahmad Razin Zainal Abidin and Universiti Teknologi Malaysia · SEAA 3012 Lab S2</span><span>"+(i+1)+" / "+slides.length+"</span>";s.appendChild(f)});
 function goSlide(i){slideIdx=Math.max(0,Math.min(slides.length-1,i));slides.forEach(function(s,j){s.classList.toggle("on",j===slideIdx)});
   document.getElementById("scount").textContent=(slideIdx+1)+" / "+slides.length;
   var sc=document.getElementById("sscrub");sc.max=slides.length;sc.value=slideIdx+1;

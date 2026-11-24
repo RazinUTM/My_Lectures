@@ -14,6 +14,8 @@ const FONTS=[face('IBM Plex Sans','plex-sans','IBMPlexSans-Regular.woff2',400),f
 const PRINT=`@page{size:1280px 720px;margin:0}
 html,body{margin:0!important;padding:0!important;background:#fff!important}
 body>*:not(.wrap),header.top,.navwrap,footer,.slidebar,input.scrub,.view:not(#v-slides){display:none!important}
+#rzguide,#rjfab{display:none!important}
+.wrap>.cols{display:block!important}
 .wrap,main,#v-slides,.stage{margin:0!important;padding:0!important;max-width:none!important}
 .frame{width:1280px!important;height:720px!important;border:0!important;border-radius:0!important}`;
 const OUT=path.resolve(__dirname,'..','pdf');const TMP=fs.mkdtempSync(path.join(require('os').tmpdir(),'slides-'));

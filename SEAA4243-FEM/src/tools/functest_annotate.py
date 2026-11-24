@@ -39,7 +39,9 @@ window.__view = () => { const v = document.querySelector('.view:not([hidden])');
 window.__slide = () => { const s = document.querySelector('.sl.on, .slide.on'); return s ? Array.prototype.indexOf.call(s.parentNode.children, s) : -1; };
 """
 def near(p, rgb, tol=40): return p[3] > 200 and all(abs(p[i] - rgb[i]) <= tol for i in range(3))
-RED, BLUE, BLACK, WHITE, YELLOW = (224, 32, 44), (20, 99, 214), (17, 17, 17), (255, 255, 255), (246, 196, 0)
+RED, BLUE, GREEN, BLACK, WHITE, YELLOW = (224, 32, 44), (20, 99, 214), (18, 150, 74), (17, 17, 17), (255, 255, 255), (246, 196, 0)
+SET = "(v => { const r = document.querySelectorAll('.rzan-size input')[%d]; r.value = v; r.dispatchEvent(new Event('input', { bubbles: true })); })"   # 0: thickness, 1: blank page
+PAPER = "getComputedStyle(__cv()).backgroundColor"
 
 def open_page(b, width, height, touch=False, scale=1, hash_="#notes"):
     ctx = b.new_context(viewport={"width": width, "height": height}, has_touch=touch, device_scale_factor=scale)
@@ -92,7 +94,7 @@ with sync_playwright() as p:
     stroke(pg, 300, 400, 600, 400)
     check(near(pg.evaluate("__px(450, 400)"), RED) and pg.evaluate("__px(450, 330)")[3] == 0, f"{T}: a red line where the mouse went ({pg.evaluate('__px(450, 400)')})")
     th = pg.evaluate("__thick(450, 380, 420)"); check(4.5 <= th <= 7.5, f"{T}: thickness 6 draws about 6 px ({th})")
-    for slot, rgb, y in (("blue", BLUE, 440), ("ink", BLACK, 480), ("yellow", YELLOW, 520)):
+    for slot, rgb, y in (("blue", BLUE, 440), ("ink", BLACK, 480), ("yellow", YELLOW, 520), ("green", GREEN, 548)):
         pg.click(f'.rzan-c[data-c="{slot}"]'); stroke(pg, 300, y, 600, y)
         check(near(pg.evaluate(f"__px(450, {y})"), rgb), f"{T}: {slot} pen draws its colour ({pg.evaluate(f'__px(450, {y})')})")
         check(pg.evaluate(f"""document.querySelector('.rzan-c[data-c="{slot}"]').getAttribute('aria-pressed')""") == "true", f"{T}: {slot} is shown as the pen in use")
@@ -102,10 +104,31 @@ with sync_playwright() as p:
     check(val >= 18 and abs(bar1["x"] - bar2["x"]) < 1 and abs(bar1["y"] - bar2["y"]) < 1, f"{T}: the slider sets the thickness by mouse ({val}) and does not drag the toolbar")
     pg.click('.rzan-c[data-c="red"]'); stroke(pg, 300, 580, 600, 580)
     th = pg.evaluate("__thick(450, 550, 610)"); check(val - 2.5 <= th <= val + 2.5, f"{T}: thickness {val} draws about {val} px ({th})")
-    pg.click('.rzan-b[data-act="eraser"]'); stroke(pg, 450, 370, 450, 425)
-    check(pg.evaluate("__px(450, 400)")[3] == 0 and near(pg.evaluate("__px(340, 400)"), RED) and near(pg.evaluate("__px(340, 440)"), BLUE), f"{T}: the eraser removes what it crosses and nothing else")
+    # the eraser works by object: the line it touches goes as a whole, its neighbours stay
+    n0 = pg.evaluate("__count()")
+    pg.click('.rzan-b[data-act="eraser"]'); stroke(pg, 450, 386, 450, 412)
+    check(pg.evaluate("__px(450, 400)")[3] == 0 and pg.evaluate("__px(310, 400)")[3] == 0 and pg.evaluate("__px(590, 400)")[3] == 0 and near(pg.evaluate("__px(340, 440)"), BLUE),
+          f"{T}: the eraser removes the whole line it crosses, and only that line")
     pg.keyboard.press("Control+z"); pg.wait_for_timeout(80)
-    check(near(pg.evaluate("__px(450, 400)"), RED), f"{T}: Ctrl+Z takes back the last stroke")
+    check(near(pg.evaluate("__px(450, 400)"), RED) and near(pg.evaluate("__px(310, 400)"), RED) and pg.evaluate("__count()") == n0, f"{T}: Ctrl+Z brings the erased line back")
+    pg.mouse.click(520, 441); pg.wait_for_timeout(60)
+    check(pg.evaluate("__px(340, 440)")[3] == 0 and near(pg.evaluate("__px(340, 400)"), RED) and near(pg.evaluate("__px(340, 480)"), BLACK), f"{T}: one click with the eraser on a line removes that line")
+    stroke(pg, 700, 300, 760, 340); check(pg.evaluate("__count()") < n0 and near(pg.evaluate("__px(340, 400)"), RED), f"{T}: the eraser on empty space removes nothing more")
+    stroke(pg, 320, 470, 330, 556, steps=3)
+    check(all(pg.evaluate(f"__px(450, {y})")[3] == 0 for y in (480, 520, 548)) and near(pg.evaluate("__px(450, 400)"), RED), f"{T}: a quick sweep of the eraser removes every line it crosses")
+    for _ in range(2): pg.keyboard.press("Control+z")
+    pg.wait_for_timeout(80); check(pg.evaluate("__count()") == n0, f"{T}: Ctrl+Z twice brings back the sweep and the single line")
+    pg.click('.rzan-b[data-act="clear"]'); pg.wait_for_timeout(60); empty = pg.evaluate("__count()"); pg.keyboard.press("Control+z"); pg.wait_for_timeout(80)
+    check(empty == 0 and pg.evaluate("__count()") == n0, f"{T}: Ctrl+Z brings back what Clear all removed")
+    # the blank page behind the ink
+    check(pg.evaluate(PAPER) == "rgba(0, 0, 0, 0)" and pg.evaluate("document.querySelectorAll('.rzan-size input')[1].value") == "0", f"{T}: the blank page starts at 0%: the canvas is see-through")
+    pg.evaluate(SET % 1 + "(100)"); full = pg.evaluate(PAPER); pg.evaluate(SET % 1 + "(50)"); half = pg.evaluate(PAPER)
+    check(full == "rgb(255, 255, 255)" and half == "rgba(255, 255, 255, 0.5)" and near(pg.evaluate("__px(450, 400)"), RED), f"{T}: the blank page is white at 100% and half see-through at 50%, under the ink ({full} / {half})")
+    rv = pg.evaluate("__rect('.rzan-pg + input')"); barA = pg.evaluate("__rect('.rzan-bar')")
+    pg.mouse.click(rv["x"] + rv["w"] * 0.9, rv["y"] + rv["h"] / 2); pg.wait_for_timeout(100); barB = pg.evaluate("__rect('.rzan-bar')")
+    cov = int(pg.evaluate("document.querySelectorAll('.rzan-size input')[1].value"))
+    check(cov >= 75 and abs(barA["x"] - barB["x"]) < 1 and "%d%%" % cov in pg.evaluate("document.querySelectorAll('.rzan-size input')[1].title"), f"{T}: the blank-page slider works by mouse ({cov}%) and does not drag the toolbar")
+    pg.evaluate(SET % 1 + "(0)"); check(pg.evaluate(PAPER) == "rgba(0, 0, 0, 0)", f"{T}: back at 0% the page shows through again")
     pg.click('.rzan-c[data-c="red"]')
     check(pg.evaluate("document.querySelector('.rzan-b[data-act=\"eraser\"]').getAttribute('aria-pressed')") == "false", f"{T}: choosing a colour goes back to the pen")
     # off and on again; the ink stays on what it was written on
@@ -114,7 +137,7 @@ with sync_playwright() as p:
     pg.mouse.move(700, 450); pg.mouse.wheel(0, 150); pg.wait_for_timeout(300); y1 = pg.evaluate("scrollY")
     check(y1 == y0 + 150, f"{T}: off again: the page scrolls ({y0} -> {y1})")
     toggle(pg)
-    check(near(pg.evaluate("__px(340, 250)"), RED) and pg.evaluate("__px(340, 400)")[3] == 0, f"{T}: the ink is kept, and moved with the page it was written on ({pg.evaluate('__px(340, 250)')})")
+    check(near(pg.evaluate("__px(340, 250)"), RED) and near(pg.evaluate("__px(340, 290)"), BLUE) and pg.evaluate("__px(340, 270)")[3] == 0, f"{T}: the ink is kept, and moved with the page it was written on ({pg.evaluate('__px(340, 250)')})")
     pg.keyboard.press("Escape"); pg.wait_for_timeout(100)
     check(pg.evaluate("window.RZAnnotate.isOn()") is False, f"{T}: Esc turns annotation off")
     if part:
@@ -161,10 +184,10 @@ with sync_playwright() as p:
     check(bb["x"] >= 0 and bb["y"] >= 0 and bb["r"] <= 1400 and bb["b"] <= 900 and bb["r"] >= 1380, f"{T}: dragged past the corner, the toolbar stops at the edge ({bb})")
     pg.mouse.move(g["x"] + 8, g["y"] + 18); toggle(pg)
     b0 = pg.evaluate("__rect('.rzan-toggle')"); pg.mouse.move(b0["x"] + 18, b0["y"] + 18); pg.mouse.down(); pg.mouse.move(b0["x"] - 400, b0["y"] - 300, steps=8); pg.mouse.up(); pg.wait_for_timeout(450)
-    b1 = pg.evaluate("__rect('.rzan-toggle')"); pg.click('.rzan-toggle'); pg.click('.rzan-c[data-c="yellow"]'); toggle(pg)
+    b1 = pg.evaluate("__rect('.rzan-toggle')"); pg.click('.rzan-toggle'); pg.click('.rzan-c[data-c="yellow"]'); pg.evaluate(SET % 1 + "(100)"); toggle(pg)
     pg.reload(); pg.wait_for_timeout(700)
     b2 = pg.evaluate("__rect('.rzan-toggle')"); toggle(pg)
-    check(abs(b2["x"] - b1["x"]) <= 2 and abs(b2["y"] - b1["y"]) <= 2 and pg.evaluate("document.querySelector('.rzan-c[data-c=\"yellow\"]').getAttribute('aria-pressed')") == "true" and pg.evaluate("__count()") == 0,
+    check(abs(b2["x"] - b1["x"]) <= 2 and abs(b2["y"] - b1["y"]) <= 2 and pg.evaluate("document.querySelector('.rzan-c[data-c=\"yellow\"]').getAttribute('aria-pressed')") == "true" and pg.evaluate("__count()") == 0 and pg.evaluate(PAPER) == "rgba(0, 0, 0, 0)",
           f"{T}: after a reload the toolbar's place and the pen are kept, and no ink is stored ({b1['x']:.0f},{b1['y']:.0f} -> {b2['x']:.0f},{b2['y']:.0f})")
     toggle(pg); pg.set_viewport_size({"width": 700, "height": 500}); pg.wait_for_timeout(300); bb = pg.evaluate("__rect('.rzan-bar')")
     check(bb["x"] >= 0 and bb["y"] >= 0 and bb["r"] <= 700 and bb["b"] <= 500, f"{T}: a smaller window keeps the toolbar on screen ({bb})")
@@ -176,20 +199,24 @@ with sync_playwright() as p:
     dark = pg.evaluate("({ bg: getComputedStyle(document.querySelector('.rzan-bar')).backgroundColor, ink: document.querySelector('.rzan-c[data-c=\"ink\"]').title, sw: getComputedStyle(document.querySelector('.rzan-c[data-c=\"ink\"] i')).backgroundColor, theme: document.documentElement.getAttribute('data-theme') })")
     panel_d = pg.evaluate("(() => { const d = document.createElement('div'); d.style.background = 'var(--panel)'; document.body.appendChild(d); const c = getComputedStyle(d).backgroundColor; d.remove(); return c; })")
     check(light["bg"] == panel and dark["bg"] == panel_d and panel != panel_d, f"{T}: the toolbar takes the page's panel colour in both themes ({light['bg']} / {dark['bg']})")
-    check({light["ink"], dark["ink"]} == {"Black pen", "White pen"} and {light["sw"], dark["sw"]} == {"rgb(17, 17, 17)", "rgb(255, 255, 255)"}, f"{T}: the fourth pen is black on the light theme and white on the dark one ({light['ink']} / {dark['ink']})")
+    check({light["ink"], dark["ink"]} == {"Black pen", "White pen"} and {light["sw"], dark["sw"]} == {"rgb(17, 17, 17)", "rgb(255, 255, 255)"}, f"{T}: the black pen is white on the dark theme ({light['ink']} / {dark['ink']})")
+    pg.click(".rzan-toggle"); pg.evaluate(SET % 1 + "(100)"); pd = pg.evaluate(PAPER)
+    check(pd == ("rgb(22, 24, 28)" if dark["theme"] == "dark" else "rgb(255, 255, 255)"), f"{T}: the blank page is dark on the dark theme and white on the light one ({pd}, theme {dark['theme']})")
+    pg.evaluate(SET % 1 + "(0)"); pg.click(".rzan-toggle")
     toggle(pg); pg.click('.rzan-c[data-c="ink"]'); stroke(pg, 300, 300, 500, 300)
     is_dark = dark["theme"] == "dark"
     check(near(pg.evaluate("__px(400, 300)"), WHITE if is_dark else BLACK), f"{T}: that pen writes {'white' if is_dark else 'black'} now ({pg.evaluate('__px(400, 300)')})"); toggle(pg)
     pg.click("#btn-theme"); pg.click("#btn-lang"); pg.wait_for_timeout(150)
     ms = pg.evaluate("[document.querySelector('.rzan-toggle').title, document.querySelector('.rzan-b[data-act=\"eraser\"]').title, document.querySelector('.rzan-b[data-act=\"clear\"]').title, document.querySelector('.rzan-bar').getAttribute('aria-label')]")
     pg.click("#btn-lang"); pg.wait_for_timeout(150); en = pg.evaluate("[document.querySelector('.rzan-toggle').title, document.querySelector('.rzan-b[data-act=\"eraser\"]').title]")
-    check({tuple(ms[:2]), tuple(en)} == {("Tulis pada skrin", "Pemadam"), ("Write on the screen", "Eraser")} and "Padam semua" in ms[2] + en[0] + pg.evaluate("document.querySelector('.rzan-b[data-act=\"clear\"]').title") + ms[2], f"{T}: labels in Malay and English ({ms} / {en})")
+    both = {tuple(ms[:2]), tuple(en)}
+    check(both == {("Tulis pada skrin", "Pemadam: sentuh satu garisan untuk memadam seluruh garisan itu"), ("Write on the screen", "Eraser: touch a line to remove the whole line")}, f"{T}: labels in Malay and English ({ms} / {en})")
     pg.emulate_media(media="print"); check(pg.evaluate("getComputedStyle(document.querySelector('.rzan')).display") == "none", f"{T}: nothing of it in print"); pg.emulate_media(media="screen")
     # the exercise timer sits in the same corner: the pencil moves above it
     if pg.locator(".tpill").count():                              # shown here by hand; the engine hides it again at its next tick, so read at once
         a, c = pg.evaluate("(async () => { const t = document.querySelector('.tpill'); t.hidden = false; if (!t.textContent) t.textContent = '00:42'; await new Promise(r => setTimeout(r, 60)); const o = [__rect('.rzan-bar'), __rect('.tpill')]; t.hidden = true; return o; })()")
         if c["shown"]: check(a["b"] <= c["y"] or a["x"] >= c["r"] or a["r"] <= c["x"], f"{T}: the pencil button stays clear of the exercise timer ({a} / {c})")
-        else: print(f"note {T}: the exercise timer belongs to another view of this page; that check was not made")
+        else: print(f"note {T}: the exercise timer was not on screen (another view, or hidden again by the page); that check was not made")
     check(not errs, f"{T}: no page errors {errs[:2]}"); print(f"{T}: done"); ctx.close()
 
     # ================= tablet: touch and pen =================
@@ -235,6 +262,9 @@ with sync_playwright() as p:
     g = pg.evaluate("__rect('.rzan-grip')"); bb0 = pg.evaluate("__rect('.rzan-bar')")
     touch_line(g["x"] + 8, g["y"] + 18, g["x"] + 8 - 60, g["y"] + 18 - 300, n=8); pg.wait_for_timeout(400); bb1 = pg.evaluate("__rect('.rzan-bar')")
     check(abs((bb0["y"] - bb1["y"]) - 300) <= 6 and bb1["x"] >= 0 and bb1["r"] <= 820, f"{T}: the toolbar is dragged by touch ({bb0['y']:.0f} -> {bb1['y']:.0f})")
+    er = pg.evaluate("__rect('.rzan-b[data-act=\"eraser\"]')"); pg.touchscreen.tap(er["x"] + 18, er["y"] + 18); pg.wait_for_timeout(800)
+    was = near(pg.evaluate("__px(350, 600)"), RED); touch_line(330, 640, 372, 558, n=6)
+    check(was and pg.evaluate("__px(350, 600)")[3] == 0 and pg.evaluate("__px(230, 520)")[3] == 0 and near(pg.evaluate("__px(350, 300)"), BLUE), f"{T}: a finger with the eraser removes the whole line it crosses, and only that one")
     cl = pg.evaluate("__rect('.rzan-b[data-act=\"clear\"]')"); pg.touchscreen.tap(cl["x"] + 18, cl["y"] + 18); pg.wait_for_timeout(100)
     check(pg.evaluate("__count()") == 0, f"{T}: Clear all by a tap")
     tb = pg.evaluate("__rect('.rzan-toggle')"); pg.touchscreen.tap(tb["x"] + 18, tb["y"] + 18); pg.wait_for_timeout(200)

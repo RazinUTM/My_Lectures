@@ -1,0 +1,888 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="451" height="295" viewBox="0 0 451.266286 295.488" aria-label="Four-node plane-stress element with two displacement degrees of freedom u and v at each node">
+ <defs>
+ </defs>
+ <g id="fig_ps_q4_point-figure_1">
+  <g id="fig_ps_q4_point-patch_1">
+   <path d="M 0 295.48
+L 451.26 295.48
+L 451.26 0
+L 0 0
+L 0 295.48
+z
+" style="fill: none"/>
+  </g>
+  <g id="fig_ps_q4_point-axes_1">
+   <g id="fig_ps_q4_point-patch_2">
+    <path d="M 129.96 215.40
+L 329.99 215.40
+L 329.99 91.85
+L 129.96 91.85
+z
+" clip-path="url(#fig_ps_q4_point-p98d61fae36)" style="fill: #dce6f0; stroke: #15223b; stroke-width: 2.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="fig_ps_q4_point-line2d_1">
+    <path d="M 129.96 268.35
+L 329.99 268.35
+" clip-path="url(#fig_ps_q4_point-p98d61fae36)" style="fill: none; stroke: #1b2330; stroke-width: 1.2; stroke-linecap: square"/>
+   </g>
+   <g id="fig_ps_q4_point-line2d_2">
+    <path d="M 129.96 274.23
+L 129.96 262.47
+" clip-path="url(#fig_ps_q4_point-p98d61fae36)" style="fill: none; stroke: #1b2330; stroke-width: 1.2; stroke-linecap: square"/>
+   </g>
+   <g id="fig_ps_q4_point-line2d_3">
+    <path d="M 329.99 274.23
+L 329.99 262.47
+" clip-path="url(#fig_ps_q4_point-p98d61fae36)" style="fill: none; stroke: #1b2330; stroke-width: 1.2; stroke-linecap: square"/>
+   </g>
+   <g id="fig_ps_q4_point-line2d_4">
+    <path d="M 65.24 215.40
+L 65.24 91.85
+" clip-path="url(#fig_ps_q4_point-p98d61fae36)" style="fill: none; stroke: #1b2330; stroke-width: 1.2; stroke-linecap: square"/>
+   </g>
+   <g id="fig_ps_q4_point-line2d_5">
+    <path d="M 59.36 215.40
+L 71.12 215.40
+" clip-path="url(#fig_ps_q4_point-p98d61fae36)" style="fill: none; stroke: #1b2330; stroke-width: 1.2; stroke-linecap: square"/>
+   </g>
+   <g id="fig_ps_q4_point-line2d_6">
+    <path d="M 59.36 91.85
+L 71.12 91.85
+" clip-path="url(#fig_ps_q4_point-p98d61fae36)" style="fill: none; stroke: #1b2330; stroke-width: 1.2; stroke-linecap: square"/>
+   </g>
+   <g id="fig_ps_q4_point-text_1">
+    <g style="fill: #8c1d2f" transform="translate(42.874286 240.748719) scale(0.14 -0.14)">
+     <defs>
+      <path id="fig_ps_q4_point-Cmr10-77" d="M 1984 -1588
+Q 1628 -1306 1370 -942
+Q 1113 -578 948 -165
+Q 784 247 703 697
+Q 622 1147 622 1600
+Q 622 2059 703 2509
+Q 784 2959 951 3375
+Q 1119 3791 1378 4153
+Q 1638 4516 1984 4788
+Q 1984 4800 2016 4800
+L 2075 4800
+Q 2094 4800 2109 4783
+Q 2125 4766 2125 4744
+Q 2125 4716 2113 4703
+Q 1800 4397 1592 4047
+Q 1384 3697 1257 3301
+Q 1131 2906 1075 2482
+Q 1019 2059 1019 1600
+Q 1019 -434 2106 -1491
+Q 2125 -1509 2125 -1544
+Q 2125 -1559 2108 -1579
+Q 2091 -1600 2075 -1600
+L 2016 -1600
+Q 1984 -1600 1984 -1588
+z
+" transform="scale(0.015625)"/>
+      <path id="fig_ps_q4_point-Cmr10-28" d="M 1600 -141
+Q 816 -141 533 504
+Q 250 1150 250 2041
+Q 250 2597 351 3087
+Q 453 3578 754 3920
+Q 1056 4263 1600 4263
+Q 2022 4263 2290 4056
+Q 2559 3850 2700 3523
+Q 2841 3197 2892 2823
+Q 2944 2450 2944 2041
+Q 2944 1491 2842 1011
+Q 2741 531 2444 195
+Q 2147 -141 1600 -141
+z
+M 1600 25
+Q 1956 25 2131 390
+Q 2306 756 2347 1200
+Q 2388 1644 2388 2144
+Q 2388 2625 2347 3031
+Q 2306 3438 2132 3767
+Q 1959 4097 1600 4097
+Q 1238 4097 1063 3765
+Q 888 3434 847 3029
+Q 806 2625 806 2144
+Q 806 1788 823 1472
+Q 841 1156 916 820
+Q 991 484 1158 254
+Q 1325 25 1600 25
+z
+" transform="scale(0.015625)"/>
+      <path id="fig_ps_q4_point-Cmmi10-2c" d="M 634 -1153
+Q 634 -1125 659 -1100
+Q 891 -878 1019 -587
+Q 1147 -297 1147 25
+L 1147 103
+Q 1044 0 891 0
+Q 744 0 641 103
+Q 538 206 538 353
+Q 538 503 641 603
+Q 744 703 891 703
+Q 1119 703 1216 492
+Q 1313 281 1313 25
+Q 1313 -331 1170 -651
+Q 1028 -972 769 -1228
+Q 744 -1241 728 -1241
+Q 697 -1241 665 -1212
+Q 634 -1184 634 -1153
+z
+" transform="scale(0.015625)"/>
+      <path id="fig_ps_q4_point-Cmsy10-11" d="M 653 1472
+Q 600 1472 565 1512
+Q 531 1553 531 1600
+Q 531 1647 565 1687
+Q 600 1728 653 1728
+L 4325 1728
+Q 4375 1728 4408 1687
+Q 4441 1647 4441 1600
+Q 4441 1553 4408 1512
+Q 4375 1472 4325 1472
+L 653 1472
+z
+" transform="scale(0.015625)"/>
+      <path id="fig_ps_q4_point-Cmmi10-33" d="M 538 353
+Q 538 497 644 600
+Q 750 703 891 703
+Q 978 703 1062 656
+Q 1147 609 1194 525
+Q 1241 441 1241 353
+Q 1241 213 1137 106
+Q 1034 0 891 0
+Q 750 0 644 106
+Q 538 213 538 353
+z
+" transform="scale(0.015625)"/>
+      <path id="fig_ps_q4_point-Cmr10-3b" d="M 178 1056
+L 178 1281
+L 2156 4231
+Q 2178 4263 2222 4263
+L 2316 4263
+Q 2388 4263 2388 4191
+L 2388 1281
+L 3016 1281
+L 3016 1056
+L 2388 1056
+L 2388 428
+Q 2388 297 2575 261
+Q 2763 225 3009 225
+L 3009 0
+L 1247 0
+L 1247 225
+Q 1494 225 1681 261
+Q 1869 297 1869 428
+L 1869 1056
+L 178 1056
+z
+M 391 1281
+L 1906 1281
+L 1906 3547
+L 391 1281
+z
+" transform="scale(0.015625)"/>
+      <path id="fig_ps_q4_point-Cmr10-6e" d="M 609 494
+Q 759 275 1012 169
+Q 1266 63 1556 63
+Q 1928 63 2084 380
+Q 2241 697 2241 1100
+Q 2241 1281 2208 1462
+Q 2175 1644 2097 1800
+Q 2019 1956 1883 2050
+Q 1747 2144 1550 2144
+L 1125 2144
+Q 1069 2144 1069 2203
+L 1069 2259
+Q 1069 2309 1125 2309
+L 1478 2338
+Q 1703 2338 1851 2506
+Q 2000 2675 2069 2917
+Q 2138 3159 2138 3378
+Q 2138 3684 1994 3881
+Q 1850 4078 1556 4078
+Q 1313 4078 1091 3986
+Q 869 3894 738 3706
+Q 750 3709 759 3711
+Q 769 3713 781 3713
+Q 925 3713 1022 3613
+Q 1119 3513 1119 3372
+Q 1119 3234 1022 3134
+Q 925 3034 781 3034
+Q 641 3034 541 3134
+Q 441 3234 441 3372
+Q 441 3647 606 3850
+Q 772 4053 1033 4158
+Q 1294 4263 1556 4263
+Q 1750 4263 1965 4205
+Q 2181 4147 2356 4039
+Q 2531 3931 2642 3762
+Q 2753 3594 2753 3378
+Q 2753 3109 2633 2881
+Q 2513 2653 2303 2487
+Q 2094 2322 1844 2241
+Q 2122 2188 2372 2031
+Q 2622 1875 2773 1631
+Q 2925 1388 2925 1106
+Q 2925 753 2731 467
+Q 2538 181 2222 20
+Q 1906 -141 1556 -141
+Q 1256 -141 954 -26
+Q 653 88 461 316
+Q 269 544 269 863
+Q 269 1022 375 1128
+Q 481 1234 641 1234
+Q 744 1234 830 1186
+Q 916 1138 964 1050
+Q 1013 963 1013 863
+Q 1013 706 903 600
+Q 794 494 641 494
+L 609 494
+z
+" transform="scale(0.015625)"/>
+      <path id="fig_ps_q4_point-Cmr10-44" d="M 416 -1600
+Q 359 -1600 359 -1544
+Q 359 -1516 372 -1503
+Q 1466 -434 1466 1600
+Q 1466 3634 384 4691
+Q 359 4706 359 4744
+Q 359 4766 376 4783
+Q 394 4800 416 4800
+L 475 4800
+Q 494 4800 506 4788
+Q 966 4425 1272 3906
+Q 1578 3388 1720 2800
+Q 1863 2213 1863 1600
+Q 1863 1147 1786 708
+Q 1709 269 1542 -157
+Q 1375 -584 1119 -945
+Q 863 -1306 506 -1588
+Q 494 -1600 475 -1600
+L 416 -1600
+z
+" transform="scale(0.015625)"/>
+     </defs>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-77"/>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-28" transform="translate(38.818359 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmmi10-2c" transform="translate(88.818359 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmsy10-11" transform="translate(173.171068 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-28" transform="translate(270.856672 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmmi10-33" transform="translate(320.856672 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-28" transform="translate(348.542219 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-3b" transform="translate(398.542219 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-6e" transform="translate(448.542219 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-44" transform="translate(498.542219 0)"/>
+    </g>
+   </g>
+   <g id="fig_ps_q4_point-text_2">
+    <g style="fill: #8c1d2f" transform="translate(341.764571 240.748719) scale(0.14 -0.14)">
+     <defs>
+      <path id="fig_ps_q4_point-Cmr10-64" d="M 594 0
+L 594 225
+Q 1394 225 1394 428
+L 1394 3788
+Q 1063 3628 556 3628
+L 556 3853
+Q 1341 3853 1741 4263
+L 1831 4263
+Q 1853 4263 1873 4245
+Q 1894 4228 1894 4206
+L 1894 428
+Q 1894 225 2694 225
+L 2694 0
+L 594 0
+z
+" transform="scale(0.015625)"/>
+     </defs>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-77"/>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-28" transform="translate(38.818359 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmmi10-2c" transform="translate(88.818359 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmsy10-11" transform="translate(173.171068 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-28" transform="translate(270.856672 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmmi10-33" transform="translate(320.856672 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-64" transform="translate(348.542219 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-6e" transform="translate(398.542219 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-28" transform="translate(448.542219 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-44" transform="translate(498.542219 0)"/>
+    </g>
+   </g>
+   <g id="fig_ps_q4_point-text_3">
+    <g style="fill: #8c1d2f" transform="translate(341.764571 73.642857) scale(0.14 -0.14)">
+     <defs>
+      <path id="fig_ps_q4_point-Cmr10-31" d="M 319 0
+L 319 172
+Q 319 188 331 206
+L 1325 1306
+Q 1550 1550 1690 1715
+Q 1831 1881 1968 2097
+Q 2106 2313 2186 2536
+Q 2266 2759 2266 3009
+Q 2266 3272 2169 3511
+Q 2072 3750 1880 3894
+Q 1688 4038 1416 4038
+Q 1138 4038 916 3870
+Q 694 3703 603 3438
+Q 628 3444 672 3444
+Q 816 3444 917 3347
+Q 1019 3250 1019 3097
+Q 1019 2950 917 2848
+Q 816 2747 672 2747
+Q 522 2747 420 2851
+Q 319 2956 319 3097
+Q 319 3338 409 3548
+Q 500 3759 670 3923
+Q 841 4088 1055 4175
+Q 1269 4263 1509 4263
+Q 1875 4263 2190 4108
+Q 2506 3953 2690 3670
+Q 2875 3388 2875 3009
+Q 2875 2731 2753 2481
+Q 2631 2231 2440 2026
+Q 2250 1822 1953 1562
+Q 1656 1303 1563 1216
+L 838 519
+L 1453 519
+Q 1906 519 2211 526
+Q 2516 534 2534 550
+Q 2609 631 2688 1141
+L 2875 1141
+L 2694 0
+L 319 0
+z
+" transform="scale(0.015625)"/>
+     </defs>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-77"/>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-28" transform="translate(38.818359 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmmi10-33" transform="translate(88.818359 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-28" transform="translate(116.503906 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-3b" transform="translate(166.503906 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-31" transform="translate(216.503906 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmmi10-2c" transform="translate(266.503906 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmsy10-11" transform="translate(350.856615 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-28" transform="translate(448.542219 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmmi10-33" transform="translate(498.542219 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-64" transform="translate(526.227766 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-6e" transform="translate(576.227766 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-64" transform="translate(626.227766 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-44" transform="translate(676.227766 0)"/>
+    </g>
+   </g>
+   <g id="fig_ps_q4_point-text_4">
+    <g style="fill: #8c1d2f" transform="translate(17.954286 73.642857) scale(0.14 -0.14)">
+     <defs>
+      <path id="fig_ps_q4_point-Cmr10-45" d="M 1600 -141
+Q 1203 -141 937 70
+Q 672 281 526 617
+Q 381 953 325 1322
+Q 269 1691 269 2069
+Q 269 2575 466 3084
+Q 663 3594 1045 3928
+Q 1428 4263 1953 4263
+Q 2172 4263 2361 4180
+Q 2550 4097 2658 3936
+Q 2766 3775 2766 3547
+Q 2766 3416 2677 3327
+Q 2588 3238 2456 3238
+Q 2331 3238 2240 3328
+Q 2150 3419 2150 3547
+Q 2150 3672 2240 3762
+Q 2331 3853 2456 3853
+L 2491 3853
+Q 2409 3969 2261 4023
+Q 2113 4078 1953 4078
+Q 1759 4078 1595 3993
+Q 1431 3909 1300 3765
+Q 1169 3622 1081 3448
+Q 994 3275 945 3053
+Q 897 2831 884 2637
+Q 872 2444 872 2150
+Q 984 2413 1190 2580
+Q 1397 2747 1656 2747
+Q 1941 2747 2175 2631
+Q 2409 2516 2578 2311
+Q 2747 2106 2836 1843
+Q 2925 1581 2925 1313
+Q 2925 938 2758 598
+Q 2591 259 2287 59
+Q 1984 -141 1600 -141
+z
+M 1600 63
+Q 1847 63 1997 175
+Q 2147 288 2217 473
+Q 2288 659 2305 848
+Q 2322 1038 2322 1313
+Q 2322 1675 2287 1931
+Q 2253 2188 2100 2383
+Q 1947 2578 1631 2578
+Q 1372 2578 1205 2403
+Q 1038 2228 961 1961
+Q 884 1694 884 1447
+Q 884 1363 891 1319
+Q 891 1309 889 1303
+Q 888 1297 884 1288
+Q 884 1013 940 731
+Q 997 450 1156 256
+Q 1316 63 1600 63
+z
+" transform="scale(0.015625)"/>
+     </defs>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-77"/>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-28" transform="translate(38.818359 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmmi10-33" transform="translate(88.818359 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-28" transform="translate(116.503906 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-6e" transform="translate(166.503906 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-64" transform="translate(216.503906 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmmi10-2c" transform="translate(266.503906 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmsy10-11" transform="translate(350.856615 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-28" transform="translate(448.542219 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmmi10-33" transform="translate(498.542219 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-28" transform="translate(526.227766 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-3b" transform="translate(576.227766 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-45" transform="translate(626.227766 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-44" transform="translate(676.227766 0)"/>
+    </g>
+   </g>
+   <g id="fig_ps_q4_point-text_5">
+    <g style="fill: #1b2330" transform="translate(201.249429 287.15373) scale(0.17 -0.17)">
+     <defs>
+      <path id="fig_ps_q4_point-Cmmi10-79" d="M 1113 -72
+Q 709 -72 476 233
+Q 244 538 244 953
+Q 244 1363 456 1803
+Q 669 2244 1030 2536
+Q 1391 2828 1806 2828
+Q 1997 2828 2147 2725
+Q 2297 2622 2381 2444
+Q 2453 2700 2663 2700
+Q 2744 2700 2798 2651
+Q 2853 2603 2853 2522
+Q 2853 2503 2851 2493
+Q 2850 2484 2847 2472
+L 2400 684
+Q 2356 494 2356 372
+Q 2356 97 2541 97
+Q 2741 97 2845 351
+Q 2950 606 3022 941
+Q 3034 978 3072 978
+L 3150 978
+Q 3175 978 3190 956
+Q 3206 934 3206 916
+Q 3094 469 2961 198
+Q 2828 -72 2528 -72
+Q 2313 -72 2147 54
+Q 1981 181 1941 391
+Q 1528 -72 1113 -72
+z
+M 1119 97
+Q 1350 97 1567 270
+Q 1784 444 1941 678
+Q 1947 684 1947 697
+L 2291 2088
+L 2297 2106
+Q 2259 2334 2132 2498
+Q 2006 2663 1791 2663
+Q 1575 2663 1389 2486
+Q 1203 2309 1075 2069
+Q 950 1813 836 1366
+Q 722 919 722 672
+Q 722 450 817 273
+Q 913 97 1119 97
+z
+" transform="scale(0.015625)"/>
+      <path id="fig_ps_q4_point-Cmr10-29" d="M 481 850
+Q 428 850 393 890
+Q 359 931 359 978
+Q 359 1031 393 1068
+Q 428 1106 481 1106
+L 4500 1106
+Q 4547 1106 4581 1068
+Q 4616 1031 4616 978
+Q 4616 931 4581 890
+Q 4547 850 4500 850
+L 481 850
+z
+M 481 2094
+Q 428 2094 393 2131
+Q 359 2169 359 2222
+Q 359 2269 393 2309
+Q 428 2350 481 2350
+L 4500 2350
+Q 4547 2350 4581 2309
+Q 4616 2269 4616 2222
+Q 4616 2169 4581 2131
+Q 4547 2094 4500 2094
+L 481 2094
+z
+" transform="scale(0.015625)"/>
+      <path id="fig_ps_q4_point-Cmr10-38" d="M 191 0
+L 191 225
+Q 409 225 550 259
+Q 691 294 691 428
+L 691 2175
+Q 691 2347 639 2423
+Q 588 2500 491 2517
+Q 394 2534 191 2534
+L 191 2759
+L 1119 2828
+L 1119 2203
+Q 1247 2478 1498 2653
+Q 1750 2828 2047 2828
+Q 2784 2828 2913 2228
+Q 3041 2497 3287 2662
+Q 3534 2828 3828 2828
+Q 4119 2828 4317 2734
+Q 4516 2641 4616 2448
+Q 4716 2256 4716 1966
+L 4716 428
+Q 4716 294 4858 259
+Q 5000 225 5216 225
+L 5216 0
+L 3750 0
+L 3750 225
+Q 3969 225 4109 259
+Q 4250 294 4250 428
+L 4250 1947
+Q 4250 2269 4159 2466
+Q 4069 2663 3788 2663
+Q 3419 2663 3178 2366
+Q 2938 2069 2938 1691
+L 2938 428
+Q 2938 294 3078 259
+Q 3219 225 3438 225
+L 3438 0
+L 1972 0
+L 1972 225
+Q 2191 225 2331 259
+Q 2472 294 2472 428
+L 2472 1947
+Q 2472 2259 2381 2461
+Q 2291 2663 2009 2663
+Q 1638 2663 1398 2366
+Q 1159 2069 1159 1691
+L 1159 428
+Q 1159 294 1300 259
+Q 1441 225 1656 225
+L 1656 0
+L 191 0
+z
+" transform="scale(0.015625)"/>
+     </defs>
+     <use xlink:href="#fig_ps_q4_point-Cmmi10-79" transform="translate(0 0.390625)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-29" transform="translate(72.78326 0.390625)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-31" transform="translate(170.468864 0.390625)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-38" transform="translate(253.80196 0.390625)"/>
+    </g>
+   </g>
+   <g id="fig_ps_q4_point-text_6">
+    <g style="fill: #1b2330" transform="translate(3.6 158.043444) scale(0.17 -0.17)">
+     <defs>
+      <path id="fig_ps_q4_point-Cmmi10-4b" d="M 1106 -72
+Q 719 -72 503 231
+Q 288 534 288 941
+Q 288 1000 317 1173
+Q 347 1347 347 1388
+L 966 3872
+Q 991 3981 997 4044
+Q 997 4147 581 4147
+Q 519 4147 519 4231
+Q 522 4247 533 4287
+Q 544 4328 561 4350
+Q 578 4372 609 4372
+L 1472 4441
+Q 1550 4441 1550 4359
+L 1075 2472
+Q 1438 2828 1806 2828
+Q 2078 2828 2273 2684
+Q 2469 2541 2566 2306
+Q 2663 2072 2663 1806
+Q 2663 1497 2542 1167
+Q 2422 838 2209 555
+Q 1997 272 1712 100
+Q 1428 -72 1106 -72
+z
+M 1119 97
+Q 1338 97 1528 280
+Q 1719 463 1838 691
+Q 1966 947 2077 1386
+Q 2188 1825 2188 2088
+Q 2188 2316 2092 2489
+Q 1997 2663 1791 2663
+Q 1559 2663 1348 2492
+Q 1138 2322 978 2088
+L 800 1363
+Q 697 959 691 716
+Q 691 475 795 286
+Q 900 97 1119 97
+z
+" transform="scale(0.015625)"/>
+     </defs>
+     <use xlink:href="#fig_ps_q4_point-Cmmi10-4b" transform="translate(0 0.609375)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-29" transform="translate(62.919979 0.609375)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-64" transform="translate(160.605583 0.609375)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-38" transform="translate(243.938679 0.609375)"/>
+    </g>
+   </g>
+   <g id="fig_ps_q4_point-text_7">
+    <g style="fill: #8c1d2f" transform="translate(215.443429 166.012686) scale(0.14 -0.14)">
+     <defs>
+      <path id="fig_ps_q4_point-Cmr10-78" d="M 556 728
+Q 622 541 758 387
+Q 894 234 1080 148
+Q 1266 63 1466 63
+Q 1928 63 2103 422
+Q 2278 781 2278 1294
+Q 2278 1516 2270 1667
+Q 2263 1819 2228 1959
+Q 2169 2184 2020 2353
+Q 1872 2522 1656 2522
+Q 1441 2522 1286 2456
+Q 1131 2391 1034 2303
+Q 938 2216 863 2119
+Q 788 2022 769 2016
+L 697 2016
+Q 681 2016 657 2036
+Q 634 2056 634 2075
+L 634 4213
+Q 634 4228 654 4245
+Q 675 4263 697 4263
+L 716 4263
+Q 1147 4056 1631 4056
+Q 2106 4056 2547 4263
+L 2566 4263
+Q 2588 4263 2606 4247
+Q 2625 4231 2625 4213
+L 2625 4153
+Q 2625 4122 2613 4122
+Q 2394 3831 2064 3668
+Q 1734 3506 1381 3506
+Q 1125 3506 856 3578
+L 856 2369
+Q 1069 2541 1236 2614
+Q 1403 2688 1663 2688
+Q 2016 2688 2295 2484
+Q 2575 2281 2725 1954
+Q 2875 1628 2875 1288
+Q 2875 903 2686 575
+Q 2497 247 2172 53
+Q 1847 -141 1466 -141
+Q 1150 -141 886 21
+Q 622 184 470 459
+Q 319 734 319 1044
+Q 319 1188 412 1278
+Q 506 1369 647 1369
+Q 788 1369 883 1276
+Q 978 1184 978 1044
+Q 978 906 883 811
+Q 788 716 647 716
+Q 625 716 597 720
+Q 569 725 556 728
+z
+" transform="scale(0.015625)"/>
+     </defs>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-77"/>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-64" transform="translate(38.818359 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmmi10-33" transform="translate(88.818359 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-78" transform="translate(116.503906 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmmi10-2c" transform="translate(166.503906 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-28" transform="translate(230.856558 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmmi10-33" transform="translate(280.856558 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-6e" transform="translate(308.542105 0)"/>
+     <use xlink:href="#fig_ps_q4_point-Cmr10-44" transform="translate(358.542105 0)"/>
+    </g>
+   </g>
+   <g id="fig_ps_q4_point-patch_3">
+    <path d="M 129.96 221.87
+C 131.67 221.87 133.32 221.19 134.53 219.97
+C 135.75 218.76 136.43 217.11 136.43 215.40
+C 136.43 213.68 135.75 212.04 134.53 210.82
+C 133.32 209.61 131.67 208.93 129.96 208.93
+C 128.24 208.93 126.59 209.61 125.38 210.82
+C 124.17 212.04 123.48 213.68 123.48 215.40
+C 123.48 217.11 124.17 218.76 125.38 219.97
+C 126.59 221.19 128.24 221.87 129.96 221.87
+z
+" clip-path="url(#fig_ps_q4_point-p98d61fae36)" style="fill: #fbfaf6; stroke: #8c1d2f; stroke-width: 2.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="fig_ps_q4_point-patch_4">
+    <path d="M 329.99 221.87
+C 331.71 221.87 333.36 221.19 334.57 219.97
+C 335.78 218.76 336.46 217.11 336.46 215.40
+C 336.46 213.68 335.78 212.04 334.57 210.82
+C 333.36 209.61 331.71 208.93 329.99 208.93
+C 328.28 208.93 326.63 209.61 325.42 210.82
+C 324.20 212.04 323.52 213.68 323.52 215.40
+C 323.52 217.11 324.20 218.76 325.42 219.97
+C 326.63 221.19 328.28 221.87 329.99 221.87
+z
+" clip-path="url(#fig_ps_q4_point-p98d61fae36)" style="fill: #fbfaf6; stroke: #8c1d2f; stroke-width: 2.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="fig_ps_q4_point-patch_5">
+    <path d="M 329.99 98.32
+C 331.71 98.32 333.36 97.64 334.57 96.42
+C 335.78 95.21 336.46 93.56 336.46 91.85
+C 336.46 90.13 335.78 88.48 334.57 87.27
+C 333.36 86.06 331.71 85.37 329.99 85.37
+C 328.28 85.37 326.63 86.06 325.42 87.27
+C 324.20 88.48 323.52 90.13 323.52 91.85
+C 323.52 93.56 324.20 95.21 325.42 96.42
+C 326.63 97.64 328.28 98.32 329.99 98.32
+z
+" clip-path="url(#fig_ps_q4_point-p98d61fae36)" style="fill: #fbfaf6; stroke: #8c1d2f; stroke-width: 2.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="fig_ps_q4_point-patch_6">
+    <path d="M 129.96 98.32
+C 131.67 98.32 133.32 97.64 134.53 96.42
+C 135.75 95.21 136.43 93.56 136.43 91.85
+C 136.43 90.13 135.75 88.48 134.53 87.27
+C 133.32 86.06 131.67 85.37 129.96 85.37
+C 128.24 85.37 126.59 86.06 125.38 87.27
+C 124.17 88.48 123.48 90.13 123.48 91.85
+C 123.48 93.56 124.17 95.21 125.38 96.42
+C 126.59 97.64 128.24 98.32 129.96 98.32
+z
+" clip-path="url(#fig_ps_q4_point-p98d61fae36)" style="fill: #fbfaf6; stroke: #8c1d2f; stroke-width: 2.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="fig_ps_q4_point-text_8">
+    <g style="fill: #8c1d2f" transform="translate(124.742783 219.299913) scale(0.15 -0.15)">
+     <defs>
+      <path id="fig_ps_q4_point-DejaVuSerif-Bold-14" d="M 878 0
+L 878 378
+L 1753 378
+L 1753 4153
+L 781 3578
+L 781 4044
+L 1953 4750
+L 2938 4750
+L 2938 378
+L 3816 378
+L 3816 0
+L 878 0
+z
+" transform="scale(0.015625)"/>
+     </defs>
+     <use xlink:href="#fig_ps_q4_point-DejaVuSerif-Bold-14"/>
+    </g>
+   </g>
+   <g id="fig_ps_q4_point-text_9">
+    <g style="fill: #8c1d2f" transform="translate(324.779355 219.299913) scale(0.15 -0.15)">
+     <defs>
+      <path id="fig_ps_q4_point-DejaVuSerif-Bold-15" d="M 844 3513
+L 469 3513
+L 469 4519
+Q 850 4634 1223 4692
+Q 1597 4750 1978 4750
+Q 2869 4750 3367 4386
+Q 3866 4022 3866 3372
+Q 3866 2909 3591 2542
+Q 3316 2175 2541 1672
+L 1241 819
+L 3450 819
+L 3450 1369
+L 3878 1369
+L 3878 0
+L 428 0
+L 428 763
+L 1119 1241
+Q 2003 1850 2297 2278
+Q 2591 2706 2591 3278
+Q 2591 3819 2367 4101
+Q 2144 4384 1716 4384
+Q 1347 4384 1125 4161
+Q 903 3938 844 3513
+z
+" transform="scale(0.015625)"/>
+     </defs>
+     <use xlink:href="#fig_ps_q4_point-DejaVuSerif-Bold-15"/>
+    </g>
+   </g>
+   <g id="fig_ps_q4_point-text_10">
+    <g style="fill: #8c1d2f" transform="translate(324.779355 95.747913) scale(0.15 -0.15)">
+     <defs>
+      <path id="fig_ps_q4_point-DejaVuSerif-Bold-16" d="M 550 4531
+Q 963 4641 1350 4695
+Q 1738 4750 2106 4750
+Q 2950 4750 3401 4448
+Q 3853 4147 3853 3584
+Q 3853 3163 3593 2900
+Q 3334 2638 2834 2547
+Q 3444 2450 3744 2131
+Q 4044 1813 4044 1259
+Q 4044 606 3526 257
+Q 3009 -91 2028 -91
+Q 1659 -91 1267 -28
+Q 875 34 447 159
+L 447 1184
+L 825 1184
+Q 859 741 1103 508
+Q 1347 275 1778 275
+Q 2253 275 2512 539
+Q 2772 803 2772 1288
+Q 2772 1794 2501 2069
+Q 2231 2344 1734 2344
+L 1528 2344
+L 1528 2719
+L 1691 2719
+Q 2150 2719 2381 2931
+Q 2613 3144 2613 3566
+Q 2613 3963 2395 4173
+Q 2178 4384 1772 4384
+Q 1403 4384 1187 4182
+Q 972 3981 928 3597
+L 550 3597
+L 550 4531
+z
+" transform="scale(0.015625)"/>
+     </defs>
+     <use xlink:href="#fig_ps_q4_point-DejaVuSerif-Bold-16"/>
+    </g>
+   </g>
+   <g id="fig_ps_q4_point-text_11">
+    <g style="fill: #8c1d2f" transform="translate(124.742783 95.747913) scale(0.15 -0.15)">
+     <defs>
+      <path id="fig_ps_q4_point-DejaVuSerif-Bold-17" d="M 4084 0
+L 1516 0
+L 1516 378
+L 2209 378
+L 2209 1228
+L 263 1228
+L 263 1588
+L 2216 4750
+L 3391 4750
+L 3391 1631
+L 4191 1631
+L 4191 1228
+L 3391 1228
+L 3391 378
+L 4084 378
+L 4084 0
+z
+M 2209 1631
+L 2209 3897
+L 819 1631
+L 2209 1631
+z
+" transform="scale(0.015625)"/>
+     </defs>
+     <use xlink:href="#fig_ps_q4_point-DejaVuSerif-Bold-17"/>
+    </g>
+   </g>
+   <g id="fig_ps_q4_point-line2d_7">
+    <path d="M 279.98 178.33
+" clip-path="url(#fig_ps_q4_point-p98d61fae36)" style="fill: none; stroke: #8c1d2f; stroke-width: 1.5; stroke-linecap: square"/>
+    <defs>
+     <path id="fig_ps_q4_point-m336831f6b5" d="M -6.5 6.5
+L 6.5 -6.5
+M -6.5 -6.5
+L 6.5 6.5
+" style="stroke: #8c1d2f; stroke-width: 3"/>
+    </defs>
+    <g clip-path="url(#fig_ps_q4_point-p98d61fae36)">
+     <use xlink:href="#fig_ps_q4_point-m336831f6b5" x="279.988571" y="178.337829" style="fill: #8c1d2f; stroke: #8c1d2f; stroke-width: 3"/>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="fig_ps_q4_point-p98d61fae36">
+   <rect x="41.709714" y="3.6" width="405.956571" height="288.288"/>
+  </clipPath>
+ </defs>
+</svg>

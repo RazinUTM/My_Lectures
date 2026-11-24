@@ -1,0 +1,221 @@
+<title>Stress Recovery Explorer</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500;600&family=Source+Serif+4:opsz,wght@8..60,600&display=swap">
+<style>
+/*{{CSS}}*/
+#plot { cursor: crosshair; }
+.probe-grid { display: grid; gap: 14px; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 640px) { .probe-grid { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); } }
+#mohr svg { display: block; width: 100%; height: auto; }
+.checks { display: flex; flex-wrap: wrap; gap: 14px; font-size: 14px; color: var(--body); }
+.checks label { display: inline-flex; gap: 6px; align-items: center; }
+</style>
+<div class="wrap">
+  <header class="top">
+    <p class="eyebrow">SEAA 4243 Finite Element Method · QR Explorer</p>
+    <h1>Stress Recovery Explorer</h1>
+    <p class="lede">Stresses of the text’s cantilever from its nodal displacements, {σ} = [E][B]{û}. Tap the plate to probe a point; switch the display option the way you will in ANSYS.</p>
+  </header>
+  <main class="lab">
+    <section class="tasks" aria-labelledby="tasks-h">
+      <h2 id="tasks-h">Your tasks</h2>
+      <ol>
+        <li>4-node 2 × 2 mesh, probe (3.5, 1.3): the lecture point (Plane Stress Part 3, Activity 1). Compare with your hand calculation.
+          <details><summary>Check answer</summary><p>σ<sub>xx</sub> = 315, σ<sub>yy</sub> = −45, σ<sub>xy</sub> = −311 kN/m²; σ<sub>1</sub> = 494, σ<sub>2</sub> = −224; von Mises 637. By hand you need the displacements to five decimals: ε<sub>yy</sub> is the difference of v<sub>6</sub> = −0.13042 and v<sub>9</sub> = −0.13058, and rounding them to three decimals doubles it.</p></details></li>
+        <li>Keep the point and refine: 8-node 16 × 8, then 32 × 16. Does σ<sub>xx</sub> approach beam theory’s 225 kN/m²? Then probe mid-span, (2.0, 1.3).
+          <details><summary>Check answer</summary><p>No. It settles near 150 kN/m², because 0.5 m from the loaded edge the uniform end traction is not the parabolic shear that beam theory assumes (St-Venant). At mid-span the FE gives 900 kN/m², equal to beam theory. Check against beam theory only away from the ends.</p></details></li>
+        <li>Run the corner study. Does the peak σ<sub>xx</sub> next to the fixed corner converge?
+          <details><summary>Check answer</summary><p>No: 4 134 → 5 372 → 6 400 → 7 467 kN/m² as the elements shrink, and it passes the beam value. A re-entrant corner of a fully fixed edge is a stress singularity of the elastic model; do not report that peak.</p></details></li>
+        <li>On the 4-node 4 × 2 mesh compare Elemental mean, Unaveraged and Averaged. Where do neighbouring elements disagree most?
+          <details><summary>Check answer</summary><p>Near the fixed edge, especially at its corners, and wherever the stress changes fastest. The jumps shrink as you refine: their size is a free indicator of the mesh error. ANSYS shows the same three options.</p></details></li>
+      </ol>
+    </section>
+    <section class="viewer card" aria-label="Stress field">
+      <div class="canvas-wrap"><canvas id="plot" aria-label="Stress contour on the cantilever with the probe point and the maximum and minimum tags"></canvas></div>
+      <div class="legend" id="legend"></div>
+      <div class="probe-grid"><div class="readouts" id="ro"></div><div id="mohr" aria-label="Mohr circle of the probed stress state"></div></div>
+    </section>
+    <section class="controls card" aria-label="Controls">
+      <div class="group"><h3>Element</h3><div id="c-nen"></div></div>
+      <div class="group"><h3>Mesh</h3><div id="c-mesh"></div></div>
+      <div class="group"><h3>Quantity</h3><div id="c-comp"></div></div>
+      <div class="group"><h3>Display option</h3><div id="c-disp"></div><div class="checks"><label><input id="k-clip" type="checkbox"> Clip the colour scale at the 98th percentile</label><label><input id="k-mesh" type="checkbox" checked> Element edges</label></div></div>
+      <div class="group"><h3>Probe point</h3>
+        <div class="fields"><label class="field"><span>x (m)</span><input id="i-x" type="number" step="0.1" min="0" max="4" value="3.5"></label><label class="field"><span>y (m)</span><input id="i-y" type="number" step="0.1" min="0" max="2" value="1.3"></label></div>
+        <div class="row"><button id="b-p13" type="button">lecture point (3.5, 1.3)</button><button id="b-mid" class="ghost" type="button">Mid-span (2.0, 1.3)</button></div>
+      </div>
+    </section>
+    <section class="study card" aria-labelledby="study-h">
+      <div class="row" style="justify-content: space-between"><h2 id="study-h">Corner study</h2><button id="b-study" type="button">Run corner study</button></div>
+      <p class="hint">4-node meshes 8 × 4 to 64 × 32; σ<sub>xx</sub> at the centroid of the element in the top-left corner, against beam theory at the same point.</p>
+      <div class="study-grid"><div id="s-table"></div><div class="chart" id="s-chart"></div></div>
+    </section>
+  </main>
+  <footer class="foot">
+    <p>Cantilever of text §3.4 (4 m × 2 m, t = 0.01 m, E = 200 MPa, ν = 0.33, 5 kN/m edge traction, left edge fixed). Point values use [E][B]{û} at the probe’s natural coordinates. Elemental mean = the value at the element centroid; Unaveraged = each element’s own values at its nodes, interpolated; Averaged = nodal values averaged over the elements that share the node, as in a default contour plot. Beam theory: σ<sub>xx</sub> = M(y − H/2)/I and τ = V(c² − y′²)/(2I).</p>
+    <p>Text: Mohd Yassin et al., <i>Two-Dimensional Finite Element Formulations for Heat, Solids and Fluids (with Matlab)</i>, MSNM 2020, §3.4. SEAA 4243, Faculty of Civil Engineering, UTM.</p>
+  </footer>
+</div>
+<script>/*{{CORE}}*/</script>
+<script>/*{{UI}}*/</script>
+<script>
+(function () {
+  "use strict";
+  var BOOK = { L: 4, H: 2, E: 200e6, nu: 0.33, t: 0.01, plane: "stress", q: -5000, load: "edge", support: "fixed" };
+  var DEF = { nen: 4, Nx: 2, Ny: 2, comp: "sxx", disp: "avg", clip: false, edges: true, probe: [3.5, 1.3] };
+  var S = JSON.parse(JSON.stringify(DEF)), R = null, NS = null, V = null, cv = UI.$("#plot");
+  var PRE = { 4: [[2, 2], [4, 2], [8, 4], [16, 8], [32, 16]], 8: [[2, 1], [4, 2], [8, 4], [16, 8], [32, 16]] };
+  var COMP = { sxx: "σxx", syy: "σyy", sxy: "σxy", vm: "von Mises", s1: "σ1 (max principal)" };
+  function comp(s0, s1, s2) {
+    if (S.comp === "sxx") return s0; if (S.comp === "syy") return s1; if (S.comp === "sxy") return s2;
+    var c = (s0 + s1) / 2, r = Math.hypot((s0 - s1) / 2, s2);
+    return S.comp === "s1" ? c + r : Math.sqrt(s0 * s0 - s0 * s1 + s1 * s1 + 3 * s2 * s2);
+  }
+  var cen, unav, avg;
+  function solve() {
+    R = FE.solvePlane(Object.assign({ nen: S.nen, Nx: S.Nx, Ny: S.Ny }, BOOK)); NS = FE.nodalStresses(R); prep();
+  }
+  function prep() {
+    var m = R.mesh, nen = m.nen, e, i;
+    cen = new Float64Array(m.ne); unav = new Float64Array(m.ne * nen); avg = new Float64Array(m.nn);
+    for (e = 0; e < m.ne; e++) { cen[e] = comp(NS.cen[3 * e], NS.cen[3 * e + 1], NS.cen[3 * e + 2]) / 1e3; for (i = 0; i < nen; i++) { var k = (e * nen + i) * 3; unav[e * nen + i] = comp(NS.unav[k], NS.unav[k + 1], NS.unav[k + 2]) / 1e3; } }
+    for (i = 0; i < m.nn; i++) avg[i] = comp(NS.avg[3 * i], NS.avg[3 * i + 1], NS.avg[3 * i + 2]) / 1e3;
+  }
+  function val(x, y) {
+    var m = R.mesh, L = FE.locate(m, x, y);
+    if (S.disp === "cen") return cen[L.e];
+    var N = FE.shape(m.nen, L.xi, L.eta).N, v = 0;
+    for (var i = 0; i < m.nen; i++) v += N[i] * (S.disp === "unav" ? unav[L.e * m.nen + i] : avg[m.conn[L.e * m.nen + i]]);
+    return v;
+  }
+  function extremes() {
+    var m = R.mesh, best = { max: -Infinity, min: Infinity }, e, i, arr = [];
+    function consider(v, x, y) { arr.push(v); if (v > best.max) { best.max = v; best.xmax = [x, y]; } if (v < best.min) { best.min = v; best.xmin = [x, y]; } }
+    if (S.disp === "cen") for (e = 0; e < m.ne; e++) { var ci = e % m.Nx, cj = Math.floor(e / m.Nx); consider(cen[e], (ci + 0.5) * m.a, (cj + 0.5) * m.b); }
+    else if (S.disp === "unav") for (e = 0; e < m.ne; e++) for (i = 0; i < m.nen; i++) { var n = m.conn[e * m.nen + i]; consider(unav[e * m.nen + i], m.X[n], m.Y[n]); }
+    else for (i = 0; i < m.nn; i++) consider(avg[i], m.X[i], m.Y[i]);
+    arr.sort(function (a, b) { return Math.abs(a) - Math.abs(b); });
+    best.p98 = Math.abs(arr[Math.min(arr.length - 1, Math.floor(0.98 * (arr.length - 1)))]);
+    return best;
+  }
+  function draw() {
+    var f = UI.fitCanvas(cv, 1.85, 520), ctx = f.ctx, ink = UI.css("--ink"), muted = UI.css("--muted");
+    ctx.clearRect(0, 0, f.w, f.h);
+    var m = R.mesh, L = BOOK.L, H = BOOK.H;
+    V = UI.view([-0.2, L + 0.1, -0.15, H + 0.15], f.w, f.h, 16);
+    var ex = extremes(), signed = S.comp !== "vm", lo, hi;
+    if (signed) { var amax = S.clip ? ex.p98 : Math.max(Math.abs(ex.max), Math.abs(ex.min)); lo = -amax; hi = amax; }
+    else { lo = 0; hi = S.clip ? ex.p98 : ex.max; }
+    if (!(hi > lo)) { hi = lo + 1; }
+    UI.paintField(ctx, V, [0, L, 0, H], f.dpr, val, lo, hi, FE.lut(signed ? "div" : "mag", UI.mode()));
+    if (S.edges && m.Nx <= 32) {
+      ctx.strokeStyle = ink; ctx.globalAlpha = m.Nx > 16 ? 0.25 : 0.5; ctx.lineWidth = 1; ctx.beginPath();
+      for (var i = 0; i <= m.Nx; i++) { ctx.moveTo(V.X(i * m.a), V.Y(0)); ctx.lineTo(V.X(i * m.a), V.Y(H)); }
+      for (var j = 0; j <= m.Ny; j++) { ctx.moveTo(V.X(0), V.Y(j * m.b)); ctx.lineTo(V.X(L), V.Y(j * m.b)); }
+      ctx.stroke(); ctx.globalAlpha = 1;
+    }
+    ctx.strokeStyle = ink; ctx.lineWidth = 1.5;
+    for (var k = 0; k <= 10; k++) { var yy = H * k / 10; ctx.beginPath(); ctx.moveTo(V.X(0), V.Y(yy)); ctx.lineTo(V.X(-0.12), V.Y(yy - 0.09)); ctx.stroke(); }
+    function tag(txt, p) {
+      var x = V.X(p[0]), y = V.Y(p[1]);
+      ctx.font = "600 12px IBM Plex Sans, system-ui, sans-serif"; var w = ctx.measureText(txt).width + 12, bx = Math.min(f.w - w - 4, Math.max(4, x + 8)), by = Math.max(4, Math.min(f.h - 24, y - 26));
+      ctx.fillStyle = ink; ctx.fillRect(bx, by, w, 20); ctx.fillStyle = UI.css("--surface"); ctx.textAlign = "left"; ctx.textBaseline = "middle"; ctx.fillText(txt, bx + 6, by + 10);
+      ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(bx, by + 10); ctx.strokeStyle = ink; ctx.lineWidth = 1; ctx.stroke();
+      ctx.beginPath(); ctx.arc(x, y, 3.5, 0, 2 * Math.PI); ctx.fillStyle = ink; ctx.fill();
+    }
+    tag("Max " + UI.fmtSig(ex.max, 4), ex.xmax); tag("Min " + UI.fmtSig(ex.min, 4), ex.xmin);
+    var px = V.X(S.probe[0]), py = V.Y(S.probe[1]);
+    ctx.beginPath(); ctx.arc(px, py, 7, 0, 2 * Math.PI); ctx.fillStyle = UI.css("--surface"); ctx.fill(); ctx.lineWidth = 2.5; ctx.strokeStyle = ink; ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(px - 11, py); ctx.lineTo(px + 11, py); ctx.moveTo(px, py - 11); ctx.lineTo(px, py + 11); ctx.lineWidth = 1.5; ctx.stroke();
+    UI.legend(UI.$("#legend"), signed ? "div" : "mag", lo, hi, COMP[S.comp] + " (kN/m²) · " + { cen: "Elemental mean", unav: "Unaveraged", avg: "Averaged" }[S.disp] + (S.clip ? " · clipped at the 98th percentile" : ""));
+    readouts();
+  }
+  function card(host, k, v, s, flag) { var d = UI.el("div", { class: "ro" + (flag ? " flag" : "") }); d.appendChild(UI.el("span", { class: "k" }, k)); d.appendChild(UI.el("span", { class: "v" }, v)); if (s) d.appendChild(UI.el("span", { class: "s" }, s)); host.appendChild(d); }
+  function readouts() {
+    var X = S.probe[0], Y = S.probe[1], st = FE.stressAt(R, X, Y), s = st.sig.map(function (v) { return v / 1e3; }), d = FE.derived(s), b = FE.beamStress(BOOK, X, Y);
+    var L = st.loc, ro = UI.$("#ro"); ro.innerHTML = "";
+    var near = X < BOOK.H || BOOK.L - X < BOOK.H;
+    card(ro, "Probe", "(" + X.toFixed(2) + ", " + Y.toFixed(2) + ") m", "element " + (L.e + 1) + ", local (" + L.x.toFixed(2) + ", " + L.y.toFixed(2) + ")");
+    card(ro, "Strains × 10⁻³", UI.fmt(st.eps[0] * 1e3, 3) + ", " + UI.fmt(st.eps[1] * 1e3, 3) + ", " + UI.fmt(st.eps[2] * 1e3, 3), "εxx, εyy, εxy = [B]{û}");
+    card(ro, "Stresses (kN/m²)", UI.fmt(s[0], 1) + ", " + UI.fmt(s[1], 1) + ", " + UI.fmt(s[2], 1), "σxx, σyy, σxy = [E][B]{û}");
+    card(ro, "Principal and von Mises", UI.fmt(d.s1, 1) + ", " + UI.fmt(d.s2, 1), "σ1, σ2 at " + UI.fmt(d.theta, 1) + "° · von Mises " + UI.fmt(d.vm, 1));
+    card(ro, "Beam theory here", "σxx " + UI.fmt(b.sxx / 1e3, 1) + ", τ " + UI.fmt(b.sxy / 1e3, 1), near ? "within one depth of an end: beam theory is not a valid check here" : "away from both ends: a valid check", near);
+    mohr(s, d);
+  }
+  function mohr(s, d) {
+    var host = UI.$("#mohr"), W = 300, H = 230, NSv = "http://www.w3.org/2000/svg"; host.innerHTML = "";
+    var svg = document.createElementNS(NSv, "svg"); svg.setAttribute("viewBox", "0 0 " + W + " " + H); svg.setAttribute("role", "img");
+    svg.setAttribute("aria-label", "Mohr circle with centre " + d.c.toFixed(0) + " and radius " + d.R.toFixed(0) + " kN per square metre");
+    function add(tag, at) { var e = document.createElementNS(NSv, tag); for (var k in at) e.setAttribute(k, at[k]); svg.appendChild(e); return e; }
+    function txt(x, y, t, at) { var e = add("text", Object.assign({ x: x, y: y, fill: UI.css("--muted"), "font-size": 12, "font-family": "IBM Plex Sans, system-ui, sans-serif" }, at || {})); e.textContent = t; }
+    var ext = Math.max(Math.abs(d.c) + d.R, 1), sc = (Math.min(W, H) / 2 - 26) / ext, cx = W / 2, cy = H / 2;
+    var X = function (v) { return cx + v * sc; }, Y = function (v) { return cy - v * sc; };
+    add("line", { x1: 8, x2: W - 8, y1: cy, y2: cy, stroke: UI.css("--axis"), "stroke-width": 1 });
+    add("line", { x1: X(0), x2: X(0), y1: 8, y2: H - 8, stroke: UI.css("--axis"), "stroke-width": 1 });
+    txt(W - 10, cy - 6, "σ", { "text-anchor": "end" }); txt(X(0) + 6, 18, "τ");
+    add("circle", { cx: X(d.c), cy: cy, r: d.R * sc, fill: "none", stroke: UI.css("--s1"), "stroke-width": 2 });
+    add("line", { x1: X(s[0]), y1: Y(s[2]), x2: X(s[1]), y2: Y(-s[2]), stroke: UI.css("--ink"), "stroke-width": 1 });
+    [[s[0], s[2], "x"], [s[1], -s[2], "y"]].forEach(function (p) { add("circle", { cx: X(p[0]), cy: Y(p[1]), r: 4.5, fill: UI.css("--ink"), stroke: UI.css("--surface"), "stroke-width": 2 }); txt(X(p[0]) + 7, Y(p[1]) - 6, p[2], { fill: UI.css("--ink") }); });
+    [[d.s1, "σ1 " + d.s1.toFixed(0)], [d.s2, "σ2 " + d.s2.toFixed(0)]].forEach(function (p, k) { add("circle", { cx: X(p[0]), cy: cy, r: 4.5, fill: UI.css("--s2"), stroke: UI.css("--surface"), "stroke-width": 2 }); txt(X(p[0]), cy + (k ? -10 : 18), p[1], { "text-anchor": "middle", fill: UI.css("--body") }); });
+    host.appendChild(svg);
+  }
+  function meshSeg() {
+    var cur = S.Nx + "x" + S.Ny;
+    UI.seg(UI.$("#c-mesh"), "mesh", PRE[S.nen].map(function (p) { return { value: p[0] + "x" + p[1], label: p[0] + " × " + p[1] }; }), cur, function (v) { var p = v.split("x"); S.Nx = +p[0]; S.Ny = +p[1]; solve(); draw(); });
+  }
+  function segs() {
+    UI.seg(UI.$("#c-nen"), "nen", [{ value: 4, label: "4-node" }, { value: 8, label: "8-node" }], S.nen, function (v) { S.nen = +v; var p = PRE[S.nen].filter(function (q) { return q[0] === S.Nx && q[1] === S.Ny; }); if (!p.length) { S.Nx = PRE[S.nen][0][0]; S.Ny = PRE[S.nen][0][1]; } meshSeg(); solve(); draw(); });
+    meshSeg();
+    UI.seg(UI.$("#c-comp"), "comp", Object.keys(COMP).map(function (k) { return { value: k, label: { sxx: "σ<sub>xx</sub>", syy: "σ<sub>yy</sub>", sxy: "σ<sub>xy</sub>", vm: "von Mises", s1: "σ<sub>1</sub>" }[k] }; }), S.comp, function (v) { S.comp = v; prep(); draw(); });
+    UI.seg(UI.$("#c-disp"), "disp", [{ value: "cen", label: "Elemental mean" }, { value: "unav", label: "Unaveraged" }, { value: "avg", label: "Averaged" }], S.disp, function (v) { S.disp = v; draw(); });
+  }
+  function setProbe(x, y) { S.probe = [Math.max(0, Math.min(BOOK.L, x)), Math.max(0, Math.min(BOOK.H, y))]; UI.$("#i-x").value = S.probe[0].toFixed(2); UI.$("#i-y").value = S.probe[1].toFixed(2); draw(); }
+  function bind() {
+    UI.$("#k-clip").addEventListener("change", function () { S.clip = this.checked; draw(); });
+    UI.$("#k-mesh").addEventListener("change", function () { S.edges = this.checked; draw(); });
+    UI.$("#i-x").addEventListener("change", function () { setProbe(parseFloat(this.value) || 0, S.probe[1]); });
+    UI.$("#i-y").addEventListener("change", function () { setProbe(S.probe[0], parseFloat(this.value) || 0); });
+    UI.$("#b-p13").addEventListener("click", function () { setProbe(3.5, 1.3); });
+    UI.$("#b-mid").addEventListener("click", function () { setProbe(2.0, 1.3); });
+    cv.addEventListener("click", function (ev) { var r = cv.getBoundingClientRect(), w = V.inv(ev.clientX - r.left, ev.clientY - r.top); setProbe(w[0], w[1]); });
+    UI.$("#b-study").addEventListener("click", study);
+  }
+  /* Milestones for the course page (Plane Stress Part 3), recorded only after the student has acted:
+     the default state is already the lecture point on the 2 x 2 mesh. */
+  var userActed = false, seen = {}, studied = false;
+  document.addEventListener("pointerdown", function () { userActed = true; }, true);
+  document.addEventListener("change", function () { userActed = true; }, true);
+  function atLecturePoint() { return Math.abs(S.probe[0] - 3.5) < 0.051 && Math.abs(S.probe[1] - 1.3) < 0.051; }
+  function milestones() {
+    if (!userActed || !R) return;
+    if (S.nen === 4 && S.Nx === 2 && S.Ny === 2 && atLecturePoint()) UI.milestone("stress", "p13");
+    if (S.nen === 8 && atLecturePoint()) { seen["r" + S.Nx + "x" + S.Ny] = 1; if (seen.r16x8 && seen.r32x16) UI.milestone("stress", "refine"); }
+    if (studied) UI.milestone("stress", "corner");
+    if (S.nen === 4 && S.Nx === 4 && S.Ny === 2) { seen["d" + S.disp] = 1; if (seen.dcen && seen.dunav && seen.davg) UI.milestone("stress", "disp3"); }
+  }
+  var drawOnly = draw;
+  draw = function () { drawOnly(); milestones(); };
+  function study() {
+    var btn = UI.$("#b-study"); btn.disabled = true; btn.textContent = "Running…"; studied = true; userActed = true; setTimeout(milestones, 50);
+    setTimeout(function () {
+      var rows = [], fe = [], bm = [];
+      [[8, 4], [16, 8], [32, 16], [64, 32]].forEach(function (p) {
+        var r = FE.solvePlane(Object.assign({ nen: 4, Nx: p[0], Ny: p[1] }, BOOK)), m = r.mesh, x = m.a / 2, y = BOOK.H - m.b / 2;
+        var sx = FE.stressAt(r, x, y).sig[0] / 1e3, b = FE.beamStress(BOOK, x, y).sxx / 1e3;
+        rows.push([p[0] + " × " + p[1], "(" + UI.fmtSig(x, 3) + ", " + UI.fmtSig(y, 4) + ")", UI.group(Math.round(sx)), UI.group(Math.round(b)), UI.fmt(sx / b, 2)]);
+        fe.push({ x: p[0], y: sx, label: "FE centroid" }); bm.push({ x: p[0], y: b, label: "Beam theory" });
+      });
+      UI.table(UI.$("#s-table"), ["Mesh", "Centroid (m)", "FE σxx", "Beam σxx", "FE / beam"], rows);
+      UI.lineChart(UI.$("#s-chart"), [{ name: "FE, top-left element centroid", color: UI.css("--s2"), points: fe }, { name: "Beam theory at the same point", color: UI.css("--s1"), points: bm }],
+        { xlog: true, xticks: [8, 16, 32, 64], xfmt: function (v) { return v + "×" + v / 2; }, xname: "Mesh", xlabel: "Mesh (log scale)", ylabel: "σxx (kN/m²)", yfmt: function (v) { return UI.group(Math.round(v)); }, aria: "Corner stress against mesh size" });
+      btn.disabled = false; btn.textContent = "Run corner study";
+    }, 30);
+  }
+  segs(); bind(); solve(); draw();
+  UI.onTheme(function () { draw(); if (UI.$("#s-chart").firstChild) study(); });
+  var lastW = 0, onResize = UI.debounce(function () { var w = cv.parentElement.clientWidth; if (w !== lastW) { lastW = w; draw(); } }, 80);
+  if (window.ResizeObserver) new ResizeObserver(onResize).observe(cv.parentElement); else window.addEventListener("resize", onResize);
+})();
+</script>

@@ -363,7 +363,7 @@ langHooks.push(syncRead);
    Slides
    ===================================================================== */
 var slides=[].slice.call(document.querySelectorAll("#deck .slide")),slideIdx=Math.min(ST.slide||0,slides.length-1);
-slides.forEach(function(s,i){var f=document.createElement("div");f.className="foot";f.innerHTML="<span><img class=\"fbadge\" src=\""+AVS.badge+"\" alt=\"\">© 2026 Ahmad Razin Zainal Abidin and co-authors · SEAA 3012 · Lab S2 Influence Lines</span><span>"+(i+1)+" / "+slides.length+"</span>";s.appendChild(f)});
+slides.forEach(function(s,i){var f=document.createElement("div");f.className="foot";f.innerHTML="<span><img class=\"fbadge\" src=\""+AVS.badge+"\" alt=\"\">© 2026 Ahmad Razin Zainal Abidin and Universiti Teknologi Malaysia · SEAA 3012 Lab S2</span><span>"+(i+1)+" / "+slides.length+"</span>";s.appendChild(f)});
 function goSlide(i){slideIdx=Math.max(0,Math.min(slides.length-1,i));slides.forEach(function(s,j){s.classList.toggle("on",j===slideIdx)});
   document.getElementById("scount").textContent=(slideIdx+1)+" / "+slides.length;
   var sc=document.getElementById("sscrub");sc.max=slides.length;sc.value=slideIdx+1;

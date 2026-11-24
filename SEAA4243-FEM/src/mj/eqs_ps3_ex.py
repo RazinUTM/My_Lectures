@@ -1,0 +1,44 @@
+"""LaTeX sources for the Plane Stress Part 3 page of the course site (notes: wn_*, worked examples: w1_*, w2_*, w3_*).
+Every number was recomputed with site/SEAA4243-FEM/code/fe_plane_stress.py (and a sparse copy of it for the 128 x 64 mesh).
+Book notation (FEM by Hand, Chapters 9-10): {d} element displacements, E-bar = E/(1 - nu^2), kN and m unless stated.
+Lines are stacked so that each equation stays near 1000 px wide at em 44 (readable on a phone)."""
+EQS = [
+ # ---------------- notes ----------------
+ ("wn_recover", r"\{\varepsilon\}=[B]\{\hat u\},\qquad\{\sigma\}=[E]\{\varepsilon\}=[E][B]\{\hat u\}"),
+ ("wn_B", r"\begin{aligned}&[B]=\big[\,[B_1]\ [B_2]\ [B_3]\ [B_4]\,\big],\qquad[B_i]=\begin{bmatrix}N_{i,x}&0\\0&N_{i,y}\\N_{i,y}&N_{i,x}\end{bmatrix}\\[6pt]&\{N_{,x}\}=\frac{1}{ab}\{-(b-y),\ b-y,\ y,\ -y\}\\[4pt]&\{N_{,y}\}=\frac{1}{ab}\{-(a-x),\ -x,\ x,\ a-x\}\end{aligned}"),
+ ("wn_rows", r"\begin{aligned}\varepsilon_{xx}&=\frac{(b-y)(u_2-u_1)+y\,(u_3-u_4)}{ab}\\[4pt]\varepsilon_{yy}&=\frac{(a-x)(v_4-v_1)+x\,(v_3-v_2)}{ab}\\[4pt]\varepsilon_{xy}&=\frac{(a-x)(u_4-u_1)+x\,(u_3-u_2)}{ab}\\&\quad+\frac{(b-y)(v_2-v_1)+y\,(v_3-v_4)}{ab}\end{aligned}"),
+ ("wn_centre", r"\begin{aligned}\text{centre: }\ \varepsilon_{xx}&=\frac{(u_2-u_1)+(u_3-u_4)}{2a}\\\varepsilon_{yy}&=\frac{(v_4-v_1)+(v_3-v_2)}{2b}\end{aligned}"),
+ ("wn_pt", r"\begin{aligned}&(3.5,\,1.3)\in\text{element 4, nodes }(5,\,6,\,9,\,8),\ \text{node 5 at }(2,\,1)\\&x=1.5,\quad y=0.3,\qquad a=2,\quad b=1,\quad ab=2\ \mathrm{m^2}\end{aligned}"),
+ ("wn_eps", r"\begin{aligned}\varepsilon_{xx}&=\tfrac12\big[0.7(0)+0.3(0.011001)\big]=0.0016501\\[2pt]\varepsilon_{yy}&=\tfrac12\big[0.5(-0.002507)+1.5(-0.000157)\big]=-0.0007445\\[2pt]\varepsilon_{xy}&=\tfrac12\big[0.5(0.030966)+1.5(0.041967)\big]\\&\quad+\tfrac12\big[0.7(-0.087408)+0.3(-0.085058)\big]\\&=0.0392168-0.0433515=-0.0041348\end{aligned}"),
+ ("wn_E", r"\begin{aligned}\bar E&=\frac{E}{1-\nu^2}=\frac{200\times10^{6}}{0.8911}=224.44\times10^{6}\ \mathrm{N\,m^{-2}}\\\nu\bar E&=74.07\times10^{6},\qquad\tfrac{1-\nu}{2}\bar E=75.19\times10^{6}\ \mathrm{N\,m^{-2}}\end{aligned}"),
+ ("wn_sig", r"\begin{aligned}\sigma_{xx}&=224.44(1.6501)-74.07(0.7445)=315.2\\\sigma_{yy}&=74.07(1.6501)-224.44(0.7445)=-44.9\\\sigma_{xy}&=75.19(-4.1348)=-310.9\qquad(\mathrm{kN\,m^{-2}})\end{aligned}"),
+ ("wn_round", r"\begin{aligned}\text{3 decimals: }\varepsilon_{yy}&=\tfrac12\big[0.5(-0.003)+1.5(-0.001)\big]=-0.0015\\\{\sigma\}&=\{259,\ -214,\ -297\}\ \mathrm{kN\,m^{-2}}\\&\text{instead of}\ \{315,\ -45,\ -311\}\end{aligned}"),
+ ("wn_principal", r"\begin{aligned}\sigma_{1,2}&=\frac{\sigma_{xx}+\sigma_{yy}}{2}\pm\sqrt{\Big(\frac{\sigma_{xx}-\sigma_{yy}}{2}\Big)^2+\sigma_{xy}^2}\\&=135.1\pm\sqrt{180.0^2+310.9^2}=135.1\pm359.3\\\sigma_1&=494.4,\qquad\sigma_2=-224.1\ \mathrm{kN\,m^{-2}}\\\theta_p&=\tfrac12\tan^{-1}\frac{2\sigma_{xy}}{\sigma_{xx}-\sigma_{yy}}=\tfrac12\tan^{-1}\frac{-621.8}{360.1}=-30.0^{\circ}\end{aligned}"),
+ ("wn_vm", r"\begin{aligned}\sigma_{\mathrm{vM}}&=\sqrt{\sigma_{xx}^2-\sigma_{xx}\sigma_{yy}+\sigma_{yy}^2+3\sigma_{xy}^2}\\&=\sqrt{\sigma_1^2-\sigma_1\sigma_2+\sigma_2^2}=636.8\ \mathrm{kN\,m^{-2}}\end{aligned}"),
+ ("wn_beam", r"\begin{aligned}\sigma_{xx}^{\mathrm{beam}}&=\frac{M\,(y-H/2)}{I},\qquad M=P\,(L-x),\qquad I=\frac{tH^{3}}{12}\\\tau_{\mathrm{avg}}&=\frac{V}{tH}\\\text{cantilever: }&P=V=10\ \mathrm{kN},\quad I=6.667\times10^{-3}\ \mathrm{m^{4}}\end{aligned}"),
+ ("wn_beam_pt", r"\begin{aligned}(3.5,\,1.3):\quad M&=10(4-3.5)=5\ \mathrm{kN\,m}\\\sigma_{xx}^{\mathrm{beam}}&=\frac{5\,(0.3)}{6.667\times10^{-3}}=225\ \mathrm{kN\,m^{-2}}\end{aligned}"),
+ ("wn_peterson", r"\begin{aligned}K_t&=3-3.14\,r+3.667\,r^2-1.527\,r^3,\qquad r=\frac{d}{W}=0.3\\K_t&=2.35\qquad(\text{MAPDL: }2.34)\end{aligned}"),
+ ("wn_q8load", r"\begin{aligned}&\text{corner }\frac{q\ell}{6},\qquad\text{mid-side }\frac{2q\ell}{3},\qquad\text{corner }\frac{q\ell}{6}\\&\text{cantilever, }\ell=2\ \mathrm{m}:\ \ -1667,\ \ -6667,\ \ -1667\ \mathrm{N}\end{aligned}"),
+ ("wn_rich", r"Q\approx Q_{h/2}+\frac{Q_{h/2}-Q_h}{2^{p}-1},\qquad 2^{p}\approx\frac{Q_h-Q_{h/2}}{Q_{h/2}-Q_{h/4}}"),
+ ("wn_ratio", r"\frac{\theta_{\mathrm{Q4}}}{\theta_{\mathrm{exact}}}=\frac{1-\nu^2}{1+\frac{1-\nu}{2}\,(a/b)^2}"),
+ # ---------------- Example 1: the cantilever of the text (FEM by Hand, Example 9.7) ----------------
+ ("w1_s", r"\begin{aligned}\bar Et&=\frac{200\times10^{6}(0.01)}{1-0.33^2}=2.2444\times10^{6}\ \mathrm{N\,m^{-1}}\\s_1&=0.875,\ \ s_2=0.373,\ \ s_3=-0.123,\ \ s_5=-0.438\\s_7&=-0.314,\ \ s_8=0.003,\ \ s_9=1.622,\ \ s_{10}=0.623\\s_{11}&=-0.811,\ \ s_{12}=-1.434\qquad(\times10^{6}\ \mathrm{N\,m^{-1}})\end{aligned}"),
+ ("w1_r", r"\begin{aligned}q_y\,H&=5000(2)=10\ \mathrm{kN}\\R_6&=-2500,\quad R_{12}=-5000,\quad R_{18}=-2500\ \mathrm{N}\end{aligned}"),
+ ("w1_d1", r"\begin{aligned}\{d\}^{1}&=\{u_1\ v_1\ \ u_2\ v_2\ \ u_5\ v_5\ \ u_4\ v_4\}^{T}\\&=\{0,\ 0,\ -0.03097,\ -0.04552,\\&\qquad 0,\ -0.04301,\ 0,\ 0\}^{T}\ \mathrm{m}\end{aligned}"),
+ ("w1_eps", r"\begin{aligned}\varepsilon_{xx}&=\frac{(u_2-u_1)+(u_3-u_4)}{2a}=\frac{-0.03097}{4}=-7.742\times10^{-3}\\[4pt]\varepsilon_{yy}&=\frac{(v_4-v_1)+(v_3-v_2)}{2b}=\frac{-0.04301+0.04552}{2}\\&=1.255\times10^{-3}\\[4pt]\varepsilon_{xy}&=\frac{(u_4-u_1)+(u_3-u_2)}{2b}+\frac{(v_2-v_1)+(v_3-v_4)}{2a}\\&=\frac{0.03097}{2}+\frac{-0.04552-0.04301}{4}=-6.648\times10^{-3}\end{aligned}"),
+ ("w1_sig", r"\begin{aligned}\sigma_{xx}&=\bar E(\varepsilon_{xx}+\nu\varepsilon_{yy})\\&=224.44(-7.742+0.33\times1.255)=-1645\\\sigma_{yy}&=\bar E(\nu\varepsilon_{xx}+\varepsilon_{yy})=224.44(-2.555+1.255)=-292\\\sigma_{xy}&=\tfrac{1-\nu}{2}\bar E\,\varepsilon_{xy}=75.19(-6.648)=-500\quad(\mathrm{kN\,m^{-2}})\end{aligned}"),
+ ("w1_beam", r"\begin{aligned}M&=10(4-1)=30\ \mathrm{kN\,m}\\I&=\frac{0.01(2)^3}{12}=6.667\times10^{-3}\ \mathrm{m^4}\\\sigma_{xx}^{\mathrm{beam}}&=\frac{M\,y}{I}=\frac{30(0.5)}{6.667\times10^{-3}}=2250\ \mathrm{kN\,m^{-2}}\\\tau_{\mathrm{avg}}&=\frac{V}{tH}=\frac{10}{0.02}=500\ \mathrm{kN\,m^{-2}}\end{aligned}"),
+ ("w1_R", r"\begin{aligned}\text{node 1: }&(20.0,\ 6.44)\ \mathrm{kN}\\\text{node 4: }&(0,\ -2.87)\ \mathrm{kN}\\\text{node 7: }&(-20.0,\ 6.44)\ \mathrm{kN}\\\textstyle\sum R_y&=6.44-2.87+6.44=10.0\ \mathrm{kN}\\\text{couple: }&20.0\times2=40\ \mathrm{kN\,m}=10\times4\end{aligned}"),
+ ("w1_acc", r"\begin{aligned}\frac{0.1306}{0.1919}&=68\%\ \text{of the deflection}\\\frac{1645}{2250}&=73\%\ \text{of the bending stress}\end{aligned}"),
+ # ---------------- Example 2: an error estimate from three meshes (FEM by Hand, Example 10.5 method; Example 9.7 data) ----------------
+ ("w2_rate", r"\begin{aligned}\Delta_1&=0.1886-0.1824=0.0062\ \mathrm{m}\\\Delta_2&=0.1906-0.1886=0.0020\ \mathrm{m}\\2^{p}&\approx\frac{\Delta_1}{\Delta_2}=\frac{0.0062}{0.0020}=3.10,\qquad p=\frac{\ln3.10}{\ln2}=1.63\end{aligned}"),
+ ("w2_ext", r"\begin{aligned}\text{measured rate: }\ Q&\approx0.1906+\frac{0.0020}{3.10-1}\\&=0.1906+0.00095=0.19155\ \mathrm{m}\\\text{assumed }p=2:\ \ Q&\approx0.1906+\frac{0.0020}{3}=0.19127\ \mathrm{m}\end{aligned}"),
+ ("w2_err", r"\begin{aligned}\frac{0.1906-0.19155}{0.19155}&=-0.50\%\quad(\text{measured rate})\\\frac{0.1906-0.19127}{0.19127}&=-0.35\%\quad(p=2)\end{aligned}"),
+ ("w2_chk", r"\begin{aligned}128\times64\ \text{mesh}&=0.1915\ \mathrm{m}\\0.19155\ &\text{is}\ {+}0.03\%,\qquad0.19127\ \text{is}\ {-}0.12\%\\\text{Timoshenko }0.1919\ &\text{is}\ {+}0.2\%\ \text{above}\ 0.1915\end{aligned}"),
+ # ---------------- Example 3: why a Q4 is too stiff in bending (FEM by Hand, Example 10.6) ----------------
+ ("w3_field", r"\begin{aligned}u&=-\kappa'xy,\qquad v=0\\\Rightarrow\ \varepsilon_{xx}&=-\kappa'y,\quad\varepsilon_{yy}=0,\quad\gamma_{xy}=\frac{\partial u}{\partial y}+\frac{\partial v}{\partial x}=-\kappa'x\end{aligned}"),
+ ("w3_U", r"U=\frac12\int_A\big(\bar E\varepsilon_{xx}^2+G\gamma_{xy}^2\big)\,dA=\frac{\kappa'^2}{2}\Big(\bar E\,\frac{ab^3}{12}+G\,\frac{a^3b}{12}\Big)"),
+ ("w3_M", r"\begin{aligned}U=\tfrac12M\kappa'a\ \ &\Rightarrow\ \ M=\frac{\kappa'\big(\bar E\,b^3+G\,a^2b\big)}{12}\\\text{exact beam: }\ &M=E\,\frac{b^3}{12}\,\kappa\end{aligned}"),
+ ("w3_ratio", r"\frac{\theta_{\mathrm{Q4}}}{\theta_{\mathrm{exact}}}=\frac{\kappa'}{\kappa}=\frac{E}{\bar E+G\,(a/b)^2}=\frac{1-\nu^2}{1+\frac{1-\nu}{2}\,(a/b)^2}"),
+ ("w3_nums", r"\begin{aligned}\nu=0.3:\quad&\frac{a}{b}=0.5:\ 0.84,\qquad\frac{a}{b}=1:\ 0.67\\&\frac{a}{b}=2:\ 0.38,\qquad\ \frac{a}{b}=4:\ 0.14\end{aligned}"),
+]

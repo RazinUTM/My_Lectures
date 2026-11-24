@@ -4,5 +4,7 @@ byte-identical to 0.4.0 (commit 54c6d31), the copy the SEAA 4333 Units carry. To
 from a newer rz-tutor-worker release over this folder, run tools/add_tutor.py on the pages without the panel,
 and check them in a browser.
 
-Not copied: feedback/ (these pages have no Feedback tab; the Worker has "feedback": false for app "seaa4243").
+feedback/ added 24 Nov 2026 from the SEAA 3012 Lab S2 copy (rz-tutor-worker 0.4.0, unchanged in 0.4.3), with the
+new Feedback tab of the template header. Its forms stay disabled until the Worker has "feedback": true for app
+"seaa4243" (false on 24 Nov 2026).
 No local patch.

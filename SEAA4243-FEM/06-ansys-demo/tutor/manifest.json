@@ -1,0 +1,618 @@
+{
+ "app": "seaa4243",
+ "part": "p6",
+ "title": "ANSYS Demo",
+ "folder": "06-ansys-demo",
+ "course_meta": {
+  "key": "seaa4243-p6-v1",
+  "notes": [
+   "n1",
+   "n2",
+   "n3",
+   "n4",
+   "n5",
+   "n6"
+  ],
+  "slides": 36,
+  "examples": [
+   "y1",
+   "y2",
+   "y3",
+   "y4"
+  ],
+  "cando": 6,
+  "targetMin": 30
+ },
+ "sections": [
+  {
+   "id": "start-outcomes",
+   "view": "start",
+   "anchor": null,
+   "selector": "ol.lo",
+   "title_en": "After this part you should be able to",
+   "title_ms": "Selepas bahagian ini, anda sepatutnya boleh"
+  },
+  {
+   "id": "notes-n1",
+   "view": "notes",
+   "anchor": "n1",
+   "title_en": "1. From the textbook to Workbench",
+   "title_ms": "1. Dari buku teks ke Workbench",
+   "minutes": 9
+  },
+  {
+   "id": "notes-n2",
+   "view": "notes",
+   "anchor": "n2",
+   "title_en": "2. Demo 1 · the heat plate",
+   "title_ms": "2. Demo 1 · plat haba",
+   "minutes": 7
+  },
+  {
+   "id": "notes-n3",
+   "view": "notes",
+   "anchor": "n3",
+   "title_en": "3. Demo 2 · the cantilever and the mesh study",
+   "title_ms": "3. Demo 2 · cantilever dan kajian mesh",
+   "minutes": 9
+  },
+  {
+   "id": "notes-n4",
+   "view": "notes",
+   "anchor": "n4",
+   "title_en": "4. Stresses on screen, and four wrong models",
+   "title_ms": "4. Stress pada skrin, dan empat model yang salah",
+   "minutes": 8
+  },
+  {
+   "id": "notes-n5",
+   "view": "notes",
+   "anchor": "n5",
+   "title_en": "5. Your project model: the first verified run",
+   "title_ms": "5. Model projek anda: run pertama yang disahkan",
+   "minutes": 6
+  },
+  {
+   "id": "notes-n6",
+   "view": "notes",
+   "anchor": "n6",
+   "title_en": "6. Verification, validation and the hybrid project",
+   "title_ms": "6. Verification, validation dan projek hibrid",
+   "minutes": 9
+  },
+  {
+   "id": "slides-1",
+   "view": "slides",
+   "anchor": "1",
+   "title_en": "Slide 1: ANSYS demo: hand calculation versus software",
+   "title_ms": "Slide 1: ANSYS demo: hand calculation versus software"
+  },
+  {
+   "id": "slides-2",
+   "view": "slides",
+   "anchor": "2",
+   "title_en": "Slide 2: Before any software: write down what the answers must be",
+   "title_ms": "Slide 2: Before any software: write down what the answers must be"
+  },
+  {
+   "id": "slides-3",
+   "view": "slides",
+   "anchor": "3",
+   "title_en": "Slide 3: By the end of this session you should be able to",
+   "title_ms": "Slide 3: By the end of this session you should be able to"
+  },
+  {
+   "id": "slides-4",
+   "view": "slides",
+   "anchor": "4",
+   "title_en": "Slide 4: Two demos, one mesh study, four mistakes, then your own model",
+   "title_ms": "Slide 4: Two demos, one mesh study, four mistakes, then your own model"
+  },
+  {
+   "id": "slides-5",
+   "view": "slides",
+   "anchor": "5",
+   "title_en": "Slide 5: From the textbook to Workbench",
+   "title_ms": "Slide 5: From the textbook to Workbench"
+  },
+  {
+   "id": "slides-6",
+   "view": "slides",
+   "anchor": "6",
+   "title_en": "Slide 6: Six Workbench cells, six steps you have already done by hand",
+   "title_ms": "Slide 6: Six Workbench cells, six steps you have already done by hand"
+  },
+  {
+   "id": "slides-7",
+   "view": "slides",
+   "anchor": "7",
+   "title_en": "Slide 7: Lines, area, mesh, solve: a corner bracket in ANSYS MAPDL",
+   "title_ms": "Slide 7: Lines, area, mesh, solve: a corner bracket in ANSYS MAPDL"
+  },
+  {
+   "id": "slides-8",
+   "view": "slides",
+   "anchor": "8",
+   "title_en": "Slide 8: ANSYS object ↔ textbook quantity",
+   "title_ms": "Slide 8: ANSYS object ↔ textbook quantity"
+  },
+  {
+   "id": "slides-9",
+   "view": "slides",
+   "anchor": "9",
+   "title_en": "Slide 9: Units first, then the five numbers of each problem",
+   "title_ms": "Slide 9: Units first, then the five numbers of each problem"
+  },
+  {
+   "id": "slides-10",
+   "view": "slides",
+   "anchor": "10",
+   "title_en": "Slide 10: Convert the textbook data for the dialog boxes",
+   "title_ms": "Slide 10: Convert the textbook data for the dialog boxes"
+  },
+  {
+   "id": "slides-11",
+   "view": "slides",
+   "anchor": "11",
+   "title_en": "Slide 11: Total force or pressure: both put −10 kN on the edge, distributed consistently",
+   "title_ms": "Slide 11: Total force or pressure: both put −10 kN on the edge, distributed consistently"
+  },
+  {
+   "id": "slides-12",
+   "view": "slides",
+   "anchor": "12",
+   "title_en": "Slide 12: Demo 1 · the heat plate",
+   "title_ms": "Slide 12: Demo 1 · the heat plate"
+  },
+  {
+   "id": "slides-13",
+   "view": "slides",
+   "anchor": "13",
+   "title_en": "Slide 13: Every object on this sketch is a line of the Heat Transfer Part 2 hand calculation",
+   "title_ms": "Slide 13: Every object on this sketch is a line of the Heat Transfer Part 2 hand calculation"
+  },
+  {
+   "id": "slides-14",
+   "view": "slides",
+   "anchor": "14",
+   "title_en": "Slide 14: Predict before Solve is pressed",
+   "title_ms": "Slide 14: Predict before Solve is pressed"
+  },
+  {
+   "id": "slides-15",
+   "view": "slides",
+   "anchor": "15",
+   "title_en": "Slide 15: Linear 2 × 2 in ANSYS = the hand calculation; the difference should be in the fourth decim",
+   "title_ms": "Slide 15: Linear 2 × 2 in ANSYS = the hand calculation; the difference should be in the fourth decim"
+  },
+  {
+   "id": "slides-16",
+   "view": "slides",
+   "anchor": "16",
+   "title_en": "Slide 16: Demo 2 · the cantilever",
+   "title_ms": "Slide 16: Demo 2 · the cantilever"
+  },
+  {
+   "id": "slides-17",
+   "view": "slides",
+   "anchor": "17",
+   "title_en": "Slide 17: Fixed Support, an edge force, plane stress with thickness — then the mesh of Plane Stress",
+   "title_ms": "Slide 17: Fixed Support, an edge force, plane stress with thickness — then the mesh of Plane Stress"
+  },
+  {
+   "id": "slides-18",
+   "view": "slides",
+   "anchor": "18",
+   "title_en": "Slide 18: Linear elements lock; quadratic elements converge with a tenth of the dofs",
+   "title_ms": "Slide 18: Linear elements lock; quadratic elements converge with a tenth of the dofs"
+  },
+  {
+   "id": "slides-19",
+   "view": "slides",
+   "anchor": "19",
+   "title_en": "Slide 19: Before you press Solve: the expected numbers on your phone",
+   "title_ms": "Slide 19: Before you press Solve: the expected numbers on your phone"
+  },
+  {
+   "id": "slides-20",
+   "view": "slides",
+   "anchor": "20",
+   "title_en": "Slide 20: Run the mesh study and write the convergence table",
+   "title_ms": "Slide 20: Run the mesh study and write the convergence table"
+  },
+  {
+   "id": "slides-21",
+   "view": "slides",
+   "anchor": "21",
+   "title_en": "Slide 21: Converged to within 0.35% at 8 × 4 quadratic; the linear element needs 16 × 8 for the same",
+   "title_ms": "Slide 21: Converged to within 0.35% at 8 × 4 quadratic; the linear element needs 16 × 8 for the same"
+  },
+  {
+   "id": "slides-22",
+   "view": "slides",
+   "anchor": "22",
+   "title_en": "Slide 22: Break",
+   "title_ms": "Slide 22: Break"
+  },
+  {
+   "id": "slides-23",
+   "view": "slides",
+   "anchor": "23",
+   "title_en": "Slide 23: Stresses on screen, and four wrong models",
+   "title_ms": "Slide 23: Stresses on screen, and four wrong models"
+  },
+  {
+   "id": "slides-24",
+   "view": "slides",
+   "anchor": "24",
+   "title_en": "Slide 24: Three display options, three things from Plane Stress Part 3",
+   "title_ms": "Slide 24: Three display options, three things from Plane Stress Part 3"
+  },
+  {
+   "id": "slides-25",
+   "view": "slides",
+   "anchor": "25",
+   "title_en": "Slide 25: Before a single contour plot: do the supports carry what was applied?",
+   "title_ms": "Slide 25: Before a single contour plot: do the supports carry what was applied?"
+  },
+  {
+   "id": "slides-26",
+   "view": "slides",
+   "anchor": "26",
+   "title_en": "Slide 26: Four mistakes, four signatures (course-solver numbers, 32 × 16 mesh)",
+   "title_ms": "Slide 26: Four mistakes, four signatures (course-solver numbers, 32 × 16 mesh)"
+  },
+  {
+   "id": "slides-27",
+   "view": "slides",
+   "anchor": "27",
+   "title_en": "Slide 27: Spot the wrong model from its numbers",
+   "title_ms": "Slide 27: Spot the wrong model from its numbers"
+  },
+  {
+   "id": "slides-28",
+   "view": "slides",
+   "anchor": "28",
+   "title_en": "Slide 28: Every mistake leaves a signature: a factor, a location, a warning, or an extra stress comp",
+   "title_ms": "Slide 28: Every mistake leaves a signature: a factor, a location, a warning, or an extra stress comp"
+  },
+  {
+   "id": "slides-29",
+   "view": "slides",
+   "anchor": "29",
+   "title_en": "Slide 29: Project lab · first verified run",
+   "title_ms": "Slide 29: Project lab · first verified run"
+  },
+  {
+   "id": "slides-30",
+   "view": "slides",
+   "anchor": "30",
+   "title_en": "Slide 30: In this order; stop at the first failure and fix it",
+   "title_ms": "Slide 30: In this order; stop at the first failure and fix it"
+  },
+  {
+   "id": "slides-31",
+   "view": "slides",
+   "anchor": "31",
+   "title_en": "Slide 31: Predict K t , resolve the hot spot, compare: 2.34 against 2.35",
+   "title_ms": "Slide 31: Predict K t , resolve the hot spot, compare: 2.34 against 2.35"
+  },
+  {
+   "id": "slides-32",
+   "view": "slides",
+   "anchor": "32",
+   "title_en": "Slide 32: Build the first mesh of your project model and verify it",
+   "title_ms": "Slide 32: Build the first mesh of your project model and verify it"
+  },
+  {
+   "id": "slides-33",
+   "view": "slides",
+   "anchor": "33",
+   "title_en": "Slide 33: Wrap-up",
+   "title_ms": "Slide 33: Wrap-up"
+  },
+  {
+   "id": "slides-34",
+   "view": "slides",
+   "anchor": "34",
+   "title_en": "Slide 34: The software is faster; it is not more right",
+   "title_ms": "Slide 34: The software is faster; it is not more right"
+  },
+  {
+   "id": "slides-35",
+   "view": "slides",
+   "anchor": "35",
+   "title_en": "Slide 35: Three questions before you leave",
+   "title_ms": "Slide 35: Three questions before you leave"
+  },
+  {
+   "id": "slides-36",
+   "view": "slides",
+   "anchor": "36",
+   "title_en": "Slide 36: The last session closes the course: practical issues, then the project submission",
+   "title_ms": "Slide 36: The last session closes the course: practical issues, then the project submission"
+  },
+  {
+   "id": "examples-y1",
+   "view": "examples",
+   "anchor": "y1",
+   "title_en": "Example 1 · The plate in Workbench: predict the hand mesh, check the heat balance, judge the refinement",
+   "title_ms": "Contoh 1 · Plat dalam Workbench: ramal mesh tangan, semak keseimbangan haba, nilai refine"
+  },
+  {
+   "id": "examples-y2",
+   "view": "examples",
+   "anchor": "y2",
+   "title_en": "Example 2 · The cantilever in Workbench: inputs, reactions, the convergence table and the reported value",
+   "title_ms": "Contoh 2 · Cantilever dalam Workbench: input, reaction, convergence table dan nilai yang dilaporkan"
+  },
+  {
+   "id": "examples-y3",
+   "view": "examples",
+   "anchor": "y3",
+   "title_en": "Example 3 · Four runs of the cantilever, three of them wrong: diagnose from the numbers",
+   "title_ms": "Contoh 3 · Empat run cantilever, tiga daripadanya salah: diagnosis daripada nombor"
+  },
+  {
+   "id": "examples-y4",
+   "view": "examples",
+   "anchor": "y4",
+   "title_en": "Example 4 · Gate 1 for your own solver: one element, the patch test and the reactions — and what they miss",
+   "title_ms": "Contoh 4 · Gate 1 bagi solver anda sendiri: satu element, patch test dan reaction — dan apa yang terlepas"
+  },
+  {
+   "id": "exercises-b1",
+   "view": "exercises",
+   "anchor": "b1",
+   "title_en": "Exercise B1 · An edge load for the ANSYS dialog, and what the software does with it",
+   "title_ms": "Latihan B1 · Edge load untuk kotak dialog ANSYS, dan apa yang perisian lakukan dengannya"
+  },
+  {
+   "id": "exercises-b2",
+   "view": "exercises",
+   "anchor": "b2",
+   "title_en": "Exercise B2 · Change between meshes, observed order and the extrapolated value",
+   "title_ms": "Latihan B2 · Perubahan antara mesh, observed order dan nilai ekstrapolasi"
+  },
+  {
+   "id": "exercises-b3",
+   "view": "exercises",
+   "anchor": "b3",
+   "title_en": "Exercise B3 · Reactions and the independent check of a cantilever run",
+   "title_ms": "Latihan B3 · Reaction dan semakan bebas bagi run cantilever"
+  },
+  {
+   "id": "exercises-quick",
+   "view": "exercises",
+   "anchor": null,
+   "selector": "#v-exercises div.q",
+   "title_en": "Exercises: quick concept questions",
+   "title_ms": "Latihan: soalan konsep pantas"
+  },
+  {
+   "id": "lab-book22",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"book22\"]",
+   "title_en": "Explorer task 1: Press “Text example” (4-node, 2 × 2): −0.1306 m is your predict…",
+   "title_ms": "Tugasan Explorer 1: Tekan “Text example” (4-node, 2 × 2): −0.1306 m ialah ramalan a…"
+  },
+  {
+   "id": "lab-study",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"study\"]",
+   "title_en": "Explorer task 2: Run the mesh study (in class, from the QR on your phone)",
+   "title_ms": "Tugasan Explorer 2: Jalankan kajian mesh (dalam kelas, dari QR pada telefon anda)"
+  },
+  {
+   "id": "lab-pstrain",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"pstrain\"]",
+   "title_en": "Explorer task 3: Wrong model (a): on one mesh, switch from plane stress to plane…",
+   "title_ms": "Tugasan Explorer 3: Model salah (a): pada satu mesh, tukar dari plane stress ke pla…"
+  },
+  {
+   "id": "lab-point",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"point\"]",
+   "title_en": "Explorer task 4: Wrong model (b): replace the edge traction by a point force at…",
+   "title_ms": "Tugasan Explorer 4: Model salah (b): gantikan traction tepi dengan point force pada…"
+  },
+  {
+   "id": "lab-vonly",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"vonly\"]",
+   "title_en": "Explorer task 5: Wrong model (c): change the support to “Vertical only: v = 0”",
+   "title_ms": "Tugasan Explorer 5: Model salah (c): tukar support kepada “Vertical only: v = 0”"
+  },
+  {
+   "id": "lab-thick",
+   "view": "lab",
+   "anchor": null,
+   "selector": ".tk[data-ms=\"thick\"]",
+   "title_en": "Explorer task 6: Wrong model (d): in “Model data”, change the thickness t",
+   "title_ms": "Tugasan Explorer 6: Model salah (d): dalam “Model data”, tukar ketebalan t"
+  },
+  {
+   "id": "lab-code",
+   "view": "lab",
+   "anchor": "code",
+   "selector": null,
+   "title_en": "Lab: Python code for assignments and projects",
+   "title_ms": "Lab: Kod Python untuk assignment dan projek"
+  },
+  {
+   "id": "lab-run",
+   "view": "lab",
+   "anchor": "run",
+   "selector": null,
+   "title_en": "Lab: Run the code in your browser",
+   "title_ms": "Lab: Jalankan kod dalam browser"
+  },
+  {
+   "id": "feedback-tab",
+   "view": "feedback",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Feedback tab",
+   "title_ms": "Tab Maklum balas"
+  },
+  {
+   "id": "glossary-workbench-project-schematic",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: Workbench project schematic",
+   "title_ms": "Glosari: Workbench project schematic"
+  },
+  {
+   "id": "glossary-analysis-type-2d-2d-behavior",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: Analysis Type 2D · 2D Behavior",
+   "title_ms": "Glosari: Analysis Type 2D · 2D Behavior"
+  },
+  {
+   "id": "glossary-element-order",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: Element Order",
+   "title_ms": "Glosari: Element Order"
+  },
+  {
+   "id": "glossary-edge-sizing-element-size-face-meshing",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: Edge Sizing · Element Size · Face Meshing",
+   "title_ms": "Glosari: Edge Sizing · Element Size · Face Meshing"
+  },
+  {
+   "id": "glossary-enhanced-strain-element-control",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: enhanced strain · Element Control",
+   "title_ms": "Glosari: enhanced strain · Element Control"
+  },
+  {
+   "id": "glossary-fixed-support-displacement",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: Fixed Support · Displacement",
+   "title_ms": "Glosari: Fixed Support · Displacement"
+  },
+  {
+   "id": "glossary-force-pressure-on-an-edge",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: Force · Pressure (on an edge)",
+   "title_ms": "Glosari: Force · Pressure (on an edge)"
+  },
+  {
+   "id": "glossary-internal-heat-generation",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: Internal Heat Generation",
+   "title_ms": "Glosari: Internal Heat Generation"
+  },
+  {
+   "id": "glossary-reaction-probe",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: Reaction probe",
+   "title_ms": "Glosari: Reaction probe"
+  },
+  {
+   "id": "glossary-averaged-unaveraged-elemental-mean",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: Averaged · Unaveraged · Elemental Mean",
+   "title_ms": "Glosari: Averaged · Unaveraged · Elemental Mean"
+  },
+  {
+   "id": "glossary-rigid-body-mode-weak-springs",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: rigid-body mode · weak springs",
+   "title_ms": "Glosari: rigid-body mode · weak springs"
+  },
+  {
+   "id": "glossary-input-error-idealisation-error",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: input error · idealisation error",
+   "title_ms": "Glosari: input error · idealisation error"
+  },
+  {
+   "id": "glossary-verification",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: verification",
+   "title_ms": "Glosari: verification"
+  },
+  {
+   "id": "glossary-validation",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: validation",
+   "title_ms": "Glosari: validation"
+  },
+  {
+   "id": "glossary-patch-test",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: patch test",
+   "title_ms": "Glosari: patch test"
+  },
+  {
+   "id": "glossary-stage-gate",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: stage gate",
+   "title_ms": "Glosari: stage gate"
+  },
+  {
+   "id": "glossary-observed-order-p",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: observed order p",
+   "title_ms": "Glosari: observed order p"
+  },
+  {
+   "id": "glossary-kirsch-solution",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: Kirsch solution",
+   "title_ms": "Glosari: Kirsch solution"
+  },
+  {
+   "id": "glossary-genai-log",
+   "view": "glossary",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Glossary: GenAI log",
+   "title_ms": "Glosari: GenAI log"
+  }
+ ],
+ "equations_missing": 34
+}

@@ -1,0 +1,92 @@
+{
+ "v": 4,
+ "createdOnFiles": {
+  "v": 1,
+  "at": "2026-10-26T17:40:00Z"
+ },
+ "lists": "css",
+ "title": "FEM \u2014 ANSYS Demo: Hand Calculation vs Software",
+ "order": [
+  "cover",
+  "warmup",
+  "outcomes",
+  "session",
+  "d1",
+  "wbflow",
+  "w14-mapdl",
+  "vocab",
+  "units",
+  "act1",
+  "act1-reveal",
+  "d2",
+  "plate-setup",
+  "act2",
+  "plate-compare",
+  "d3",
+  "cant-setup",
+  "predict",
+  "qr-predict",
+  "act3",
+  "act3-reveal",
+  "break",
+  "d4",
+  "stress-read",
+  "reaction",
+  "wrong",
+  "act4",
+  "act4-reveal",
+  "d5",
+  "checklist",
+  "w14-verify",
+  "act5",
+  "d6",
+  "summary-hv",
+  "exit",
+  "summary"
+ ],
+ "sections": {
+  "s1": {
+   "description": "Opening: predictions on paper, outcomes and the 3-hour plan",
+   "start": "cover"
+  },
+  "s2": {
+   "description": "Block 1: the Workbench workflow mapped onto the hand calculation, the ANSYS vocabulary and the unit conversions the inputs need",
+   "start": "d1"
+  },
+  "s3": {
+   "description": "Block 2: live demonstration of the text \u00a72.3 plate in Steady-State Thermal \u2014 set-up, prediction, run, comparison with the hand results",
+   "start": "d2"
+  },
+  "s4": {
+   "description": "Block 3: live demonstration of the text \u00a73.4 cantilever in Static Structural \u2014 linear versus quadratic elements, the mesh study and the convergence table",
+   "start": "d3"
+  },
+  "s5": {
+   "description": "Block 4: reading stress results in Mechanical, the reaction check, and four deliberately wrong versions of the cantilever and their symptoms",
+   "start": "d4"
+  },
+  "s6": {
+   "description": "Block 5: groups build and run the first mesh of their project model with a verification checklist; lecturers review each group's plan",
+   "start": "d5"
+  },
+  "s7": {
+   "description": "Block 6: summary of the hand-versus-software comparison, exit ticket and the bridge to the last session\u2019s practical issues",
+   "start": "d6"
+  }
+ },
+ "faces": {
+  "source-serif-4": {
+   "family": "Source Serif 4",
+   "href": "https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700&display=swap"
+  },
+  "ibm-plex-sans": {
+   "family": "IBM Plex Sans",
+   "href": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+  },
+  "jetbrains-mono": {
+   "family": "JetBrains Mono",
+   "href": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap"
+  }
+ },
+ "designSystems": []
+}

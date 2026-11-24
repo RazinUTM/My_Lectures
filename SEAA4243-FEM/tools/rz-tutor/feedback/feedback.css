@@ -1,0 +1,42 @@
+/* SPDX-License-Identifier: MIT
+   Copyright (c) 2026 Ahmad Razin Zainal Abidin and Universiti Teknologi Malaysia
+   rz feedback — the Feedback tab. Uses the template's tokens (--panel, --line, --fg, --muted, --accent,
+   --chip…) with fallbacks, and em units so that the page's text-size button scales it. */
+.rzf { font-family: var(--font-ui, inherit); color: var(--fg, inherit); }
+.rzf-note { background: var(--tint, #eaf2fa); border: 1px solid var(--tint-line, #b9d2ea); border-radius: var(--radius, 10px); padding: .75em 1em; margin-bottom: 1em; }
+.rzf-note p { margin: 0; }
+.rzf-note .rzf-offline { margin-top: .5em; color: var(--muted, #5a6571); font-style: italic; }
+.rzf-grid { columns: 2 22em; column-gap: 1em; }          /* cards of different heights pack without gaps */
+.rzf-card { background: var(--panel, #fff); border: 1px solid var(--line, #d4d9dc); border-radius: var(--radius, 10px); padding: 1em 1.1em; min-width: 0;
+  break-inside: avoid; margin: 0 0 1em; display: inline-block; width: 100%; box-sizing: border-box; }
+.rzf-h { margin: 0 0 .6em; font-size: 1.05em; }
+.rzf-lab { margin: .8em 0 .4em; color: var(--muted, #5a6571); font-size: .92em; }
+.rzf-row { display: flex; flex-wrap: wrap; align-items: center; gap: .6em; margin-top: .6em; }
+.rzf-stars { display: inline-flex; gap: .15em; }
+.rzf-star { font-size: 1.7em; line-height: 1; padding: .05em .1em; border: 0; background: none; color: var(--line, #c4cbd0); cursor: pointer; border-radius: 6px; }
+.rzf-star.on { color: var(--note-line, #e0a63a); }
+.rzf-star:focus-visible, .rzf-chip:focus-visible, .rzf-btn:focus-visible, .rzf-likebtn:focus-visible { outline: 2px solid var(--accent, #1f6fb2); outline-offset: 2px; }
+.rzf-starlab { color: var(--muted, #5a6571); font-size: .92em; }
+.rzf-chips { display: flex; flex-wrap: wrap; gap: .4em; }
+.rzf-chip { font: inherit; font-size: .88em; padding: .3em .75em; border-radius: 999px; border: 1px solid var(--line, #d4d9dc); background: var(--chip, #eceff2); color: var(--fg, inherit); cursor: pointer; }
+.rzf-chip[aria-pressed="true"] { background: var(--chip-on, #1f6fb2); border-color: var(--chip-on, #1f6fb2); color: var(--chip-on-fg, #fff); }
+.rzf-ta { position: relative; margin-top: .6em; }
+.rzf-text { width: 100%; box-sizing: border-box; font: inherit; font-size: .95em; padding: .5em .6em 1.4em; border: 1px solid var(--line, #d4d9dc); border-radius: 8px; background: var(--panel2, #f7f8f5); color: var(--fg, inherit); resize: vertical; min-height: 4.5em; }
+.rzf-count { position: absolute; right: .6em; bottom: .45em; font-size: .75em; color: var(--muted, #5a6571); font-family: var(--font-num, inherit); }
+.rzf-sel { width: 100%; font: inherit; font-size: .95em; padding: .4em .5em; border: 1px solid var(--line, #d4d9dc); border-radius: 8px; background: var(--panel2, #f7f8f5); color: var(--fg, inherit); }
+.rzf-btn { font: inherit; font-size: .95em; padding: .45em 1.1em; border-radius: 8px; border: 1px solid var(--line, #d4d9dc); background: var(--panel2, #f7f8f5); color: var(--fg, inherit); cursor: pointer; }
+.rzf-btn.rzf-primary { background: var(--accent, #1f6fb2); border-color: var(--accent, #1f6fb2); color: var(--accent-fg, #fff); }
+.rzf-likebtn { display: inline-flex; align-items: center; gap: .5em; font: inherit; padding: .5em 1em; border-radius: 999px; border: 1px solid var(--line, #d4d9dc); background: var(--chip, #eceff2); color: var(--fg, inherit); cursor: pointer; }
+.rzf-likebtn[aria-pressed="true"] { background: var(--good-bg, #e3f3ea); border-color: var(--good, #237a4d); }
+.rzf-heart { font-size: 1.2em; }
+.rzf-counts { margin: .7em 0 0; color: var(--muted, #5a6571); font-size: .92em; }
+.rzf-counts:empty { display: none; }
+.rzf-status { margin: .5em 0 0; font-size: .9em; min-height: 1.2em; }
+.rzf-status.rzf-ok { color: var(--good, #237a4d); }
+.rzf-status.rzf-warn { color: var(--bad, #a3262f); }
+.rzf-newslist { list-style: none; margin: 0; padding: 0; }
+.rzf-newslist li { display: grid; grid-template-columns: 6.5em 1fr; gap: .6em; padding: .35em 0; border-bottom: 1px solid var(--grid, #e6e9eb); }
+.rzf-newslist li:last-child { border-bottom: 0; }
+.rzf-date { color: var(--muted, #5a6571); font-family: var(--font-num, inherit); font-size: .85em; padding-top: .1em; }
+.rzf-off .rzf-card button, .rzf-off .rzf-card textarea, .rzf-off .rzf-card select { opacity: .55; cursor: not-allowed; }
+.rzf button:disabled { cursor: not-allowed; }

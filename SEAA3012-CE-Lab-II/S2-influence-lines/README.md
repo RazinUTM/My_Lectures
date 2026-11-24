@@ -141,4 +141,4 @@ termbase in the browser when a decision changes.
 
 ## Copyright
 
-© 2026 Ahmad Razin Zainal Abidin and co-authors, Faculty of Civil Engineering, Universiti Teknologi Malaysia. Free to share and adapt for non-commercial teaching and learning.
+© 2026 Ahmad Razin Zainal Abidin and Universiti Teknologi Malaysia (Faculty of Civil Engineering). Free to share and adapt for non-commercial teaching and learning.

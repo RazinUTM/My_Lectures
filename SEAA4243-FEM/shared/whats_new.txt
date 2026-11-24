@@ -1,0 +1,7 @@
+# What's new on the SEAA 4243 part pages: shown on the Feedback tab, newest first (tools/add_tutor.py reads this file).
+# One line per change:  YYYY-MM-DD | English | Bahasa Melayu
+# Edit it on GitHub (pencil icon), commit, and the next build shows it. Lines starting with # are ignored.
+2026-11-24 | New header: search, short notes, language, theme, text size (AA) and a screen guide (ⓘ) with a tour | Header baharu: carian, nota ringkas, bahasa, tema, saiz teks (AA) dan panduan skrin (ⓘ) dengan tour
+2026-11-24 | New Feedback tab: rate a part, tell the lecturer what is still unclear, report a mistake | Tab Maklum balas baharu: beri penilaian bahagian, beritahu pensyarah perkara yang masih kabur, laporkan kesilapan
+2026-11-23 | Dr RJ, the lecturer's guide, joins the pages and points to the matching sections | Dr RJ, panduan pensyarah, kini ada di halaman ini dan menunjukkan bahagian yang berkaitan
+2026-11-04 | Slides: first and last buttons, a page slider, mouse-wheel and swipe paging, Download PDF | Slides: butang pertama dan terakhir, slider halaman, tukar halaman dengan roda tetikus dan leret, Muat turun PDF

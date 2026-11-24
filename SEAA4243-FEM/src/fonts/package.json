@@ -1,0 +1,17 @@
+{
+  "name": "fonts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fontsource/ibm-plex-sans": "^5.0.20",
+    "@fontsource/jetbrains-mono": "^5.0.20",
+    "@fontsource/source-serif-4": "^5.0.19"
+  }
+}

@@ -1,0 +1,99 @@
+{
+ "v": 4,
+ "createdOnFiles": {
+  "v": 1,
+  "at": "2026-10-26T16:20:00Z"
+ },
+ "lists": "css",
+ "title": "FEM \u2014 Plane Stress (Part 2)",
+ "order": [
+  "cover",
+  "warmup",
+  "outcomes",
+  "session",
+  "d1",
+  "galerkin",
+  "B",
+  "kB",
+  "act1",
+  "d2",
+  "k34-1",
+  "k34-2",
+  "k34-3",
+  "k-pattern",
+  "k-vals-a",
+  "k-vals",
+  "w12-gauss",
+  "act2",
+  "act2-reveal",
+  "d3",
+  "loads",
+  "act3",
+  "act3-reveal",
+  "break",
+  "d4",
+  "dofmap",
+  "Kmap",
+  "act4",
+  "act4-reveal",
+  "solution",
+  "act5",
+  "act5-reveal",
+  "d5",
+  "deflected",
+  "convergence",
+  "w12-conv-other",
+  "act6",
+  "act6-reveal",
+  "qr-cant-w12",
+  "d6",
+  "matlab",
+  "exit",
+  "summary"
+ ],
+ "sections": {
+  "s1": {
+   "description": "Opening: retrieval warm-up, outcomes and the 3-hour plan",
+   "start": "cover"
+  },
+  "s2": {
+   "description": "Block 1: Galerkin weighted residual and integration by parts for the vector problem, and the strain\u2013displacement matrix B",
+   "start": "d1"
+  },
+  "s3": {
+   "description": "Block 2: the k34 derivation in three steps, the twelve closed-form entries and the numerical stiffness matrix of the cantilever element",
+   "start": "d2"
+  },
+  "s4": {
+   "description": "Block 3: equivalent nodal loads from edge tractions and body forces, and the global load vector of the cantilever",
+   "start": "d3"
+  },
+  "s5": {
+   "description": "Block 4: the dof map, scatter-add assembly of the 18-by-18 system, imposition of the fixed-edge conditions and the reduced system",
+   "start": "d4"
+  },
+  "s6": {
+   "description": "Block 5: mesh convergence of the tip deflection, the beam-theory check, and why the bilinear element is too stiff in bending",
+   "start": "d5"
+  },
+  "s7": {
+   "description": "Block 6: the plane-stress MATLAB script by diff against the heat-transfer script, exit ticket and preparation for Plane Stress Part 3",
+   "start": "d6"
+  }
+ },
+ "faces": {
+  "source-serif-4": {
+   "family": "Source Serif 4",
+   "href": "https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700&display=swap"
+  },
+  "ibm-plex-sans": {
+   "family": "IBM Plex Sans",
+   "href": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+  },
+  "jetbrains-mono": {
+   "family": "JetBrains Mono",
+   "href": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap"
+  }
+ },
+ "designSystems": []
+}

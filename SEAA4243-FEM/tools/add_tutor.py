@@ -3,26 +3,29 @@
 # Copyright (c) 2026 Ahmad Razin Zainal Abidin and Universiti Teknologi Malaysia
 """Add Dr RJ (the guide panel of the T&L app template) to SEAA 4243 part pages, and write their tutor files.
 
-What: for each part page given (all five by default), this script
+What: for each part page given (all six by default), this script
   1. writes the files the rz-tutor Worker and the offline guide read, from the page itself:
      <part>/tutor/manifest.json, blocks-<pk>.json and content-<pk>.txt (with their .ms twins, the page as it
      reads in Bahasa Melayu), and tutor/course.json for the course, rebuilt from every part's manifest
      (exercise answers, hints and worked solutions are left out);
   2. adds the guide panel with Dr RJ to <part>/index.html: the panel CSS, a <meta name="rz-tutor"> with the
-     Worker address, the panel beside <main>, the widget script, the page glue, and one hook in the engine
-     that gives the panel window.RZ = {show, goTo, goSlide, current, lang} and window.RZ_AVS (the avatar poses).
+     Worker address, the panel beside <main>, the widget script and the page glue (the engine in
+     shared/course.js gives the panel window.RZ = {show, goTo, goSlide, current, lang} and window.RZ_AVS itself);
+  3. fills the Feedback tab (<div id="rzfeedback">): rating, the point still unclear, mistake report, and
+     "What's new" from shared/whats_new.txt. Feedback goes to the same Worker (/v1/feedback); its forms stay
+     disabled until rz-tutor-worker has "feedback": true for app "seaa4243".
 The Worker address is read from shared/tutor_endpoint.txt (set on 23 Nov 2026; app "seaa4243" is registered in
 rz-tutor-worker). The AI answers only while the Worker's switch AI_SEAA4243 is on. With the switch off, or with
 no address in that file, Dr RJ is in offline mode: he points to the matching sections of the page and nothing
 typed leaves the browser.
 
 How to call it, from the course folder (needs beautifulsoup4 and lxml):
-  python3 tools/add_tutor.py                      all five parts
+  python3 tools/add_tutor.py                      all six parts
   python3 tools/add_tutor.py 03-plane-stress-1    one part
 
-Why it is like this: the part pages are single files with the engine inlined and no build step, so the panel is
-inlined too and the script refuses a page that already has it. To change a page's text later, edit the page
-without the panel (git history: the commit before "SEAA 4243: Dr RJ guide panel"), then run this script again.
+Why it is like this: the part pages are generated (src/build.sh runs the page builder, then this script), so the
+panel has to be added by the build, or the next build would drop Dr RJ; the script refuses a page that already
+has it.
 The panel code in tools/rz-tutor/ is a pinned copy of rz-tutor-worker (see tools/rz-tutor/VERSION).
 """
 import json
@@ -37,17 +40,9 @@ tools = course / "tools" / "rz-tutor" / "tools"
 
 APP = "seaa4243"
 PARTS = {"01-heat-transfer-1": "p1", "02-heat-transfer-2": "p2", "03-plane-stress-1": "p3",
-         "04-plane-stress-2": "p4", "05-plane-stress-3": "p5"}
-CSS = ":root{--rz-top:72px}"                      # height of the page's sticky tab bar (.navwrap, 69 px at 1400 px wide)
-AVATARS = '"welcome","wave","explain","think","present","tablet","ok","cheer","arms-crossed","thumbs-up","head"'
-HOOKS = [(
-    "if (VIEWS.length) { updateProgress(); fromHash(); }", "before",
-    "var AVS={};[" + AVATARS + "].forEach(function(p){AVS[p]=\"../shared/avatar/\"+p+\".webp\";});"
-    "AVS.offer=AVS.welcome;AVS.badge=AVS.head;AVS.crossed=AVS[\"arms-crossed\"];AVS.thumbs=AVS[\"thumbs-up\"];window.RZ_AVS=AVS;"
-    "window.RZ={show:function(v){show(v);},goTo:function(v,a){show(v,{anchor:a});},"
-    "goSlide:function(i){if(current!==\"slides\")show(\"slides\");goSlide(i);},"
-    "current:function(){return current;},lang:function(){return P.lang;}};",
-)]
+         "04-plane-stress-2": "p4", "05-plane-stress-3": "p5", "06-ansys-demo": "p6"}
+CSS = ":root{--rz-top:86px}"                      # height of the sticky tab bar and progress line (.navwrap), as on SEAA 4333
+HOOKS = []                                        # the engine exposes window.RZ and window.RZ_AVS itself (since 24 Nov 2026)
 
 
 def endpoint() -> str:
@@ -94,9 +89,12 @@ def main(argv: list[str]) -> int:
     sys.path.insert(0, str(tools))
     import add_panel
     url = endpoint()
+    news = add_panel.read_whats_new(course / "shared" / "whats_new.txt")
     for f in folders:
         page = course / f / "index.html"
         out, log = add_panel.inject(page.read_text(encoding="utf-8"), APP, PARTS[f], url, HOOKS, CSS)
+        out, more = add_panel.inject_feedback(out, APP, PARTS[f], news)
+        log += more
         page.write_text(out, encoding="utf-8")
         print(f"{f}/index.html: Dr RJ added, " + (f"Worker {url}" if url else "offline mode (shared/tutor_endpoint.txt holds no address)"))
         for line in log:

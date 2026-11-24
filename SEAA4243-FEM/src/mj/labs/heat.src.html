@@ -1,0 +1,223 @@
+<title>Heat Conduction Explorer</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500;600&family=Source+Serif+4:opsz,wght@8..60,600&display=swap">
+<style>
+/*{{CSS}}*/
+#plot { cursor: crosshair; }
+.edges { display: grid; grid-template-columns: minmax(64px, auto) minmax(0, 1.4fr) minmax(0, 1fr); gap: 8px 10px; align-items: center; }
+.edges .nm { font-size: 14px; font-weight: 600; color: var(--ink); }
+.edges select, .edges input { font: 500 14px var(--f-mono); color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; width: 100%; min-width: 0; }
+.edges input:disabled { opacity: 0.45; }
+.checks { display: flex; flex-wrap: wrap; gap: 14px; font-size: 14px; color: var(--body); }
+.checks label { display: inline-flex; gap: 6px; align-items: center; }
+</style>
+<div class="wrap">
+  <header class="top">
+    <p class="eyebrow">SEAA 4243 Finite Element Method · QR Explorer</p>
+    <h1>Heat Conduction Explorer</h1>
+    <p class="lede">Steady two-dimensional conduction in a square plate, solved live with the 4-node elements of Heat Transfer Part 2: [K]{T̂} = {q} + {b}, known temperatures imposed, then interpolation.</p>
+  </header>
+  <main class="lab">
+    <section class="tasks" aria-labelledby="tasks-h">
+      <h2 id="tasks-h">Your tasks</h2>
+      <ol>
+        <li>Keep the text’s example on a 2 × 2 mesh. Read T at the bottom-right corner and at the middle of the bottom edge.
+          <details><summary>Check answer</summary><p>0.6214 °C and 0.4821 °C, equation (2.55). The plate is hottest at the corner farthest from both cold edges, between the two insulated edges.</p></details></li>
+        <li>Run the mesh study. From which mesh does the maximum temperature change by less than 1% from the previous one? Which value would you report?
+          <details><summary>Check answer</summary><p>8 × 8 changes by −0.95% from 4 × 4; 16 × 16 by −0.23%. Report 16 × 16, 0.5898 °C, which matches the software value 0.5897 °C in text Table 2.1. The 2 × 2 hand mesh is 5% high.</p></details></li>
+        <li>Set the right edge to 0 °C as well. Where is the hottest point now, and why there?
+          <details><summary>Check answer</summary><p>At the middle of the bottom edge, (0.5, 0), about 0.228 °C on a fine mesh. It is the point farthest from the three cold edges, and the insulated bottom edge behaves as a line of symmetry, so heat cannot leave through it.</p></details></li>
+        <li>Make all four edges insulated. What does the Explorer report, and what does it mean physically?
+          <details><summary>Check answer</summary><p>No temperature is fixed anywhere, so [K] is singular: adding a constant to every T̂ changes nothing. Physically there is no steady state at all, because the source keeps adding 600 W per metre of thickness and nothing can leave.</p></details></li>
+      </ol>
+    </section>
+    <section class="viewer card" aria-label="Temperature field">
+      <div class="canvas-wrap"><canvas id="plot" aria-label="Temperature field in the plate with its boundary conditions"></canvas></div>
+      <div class="legend" id="legend"></div>
+      <p class="notice" id="notice" hidden></p>
+      <p class="hint">Tap the plate to probe the temperature and heat flux at a point.</p>
+      <div class="readouts" id="ro"></div>
+    </section>
+    <section class="controls card" aria-label="Controls">
+      <div class="group"><h3>Mesh (elements per side)</h3><div id="c-n"></div></div>
+      <div class="group"><h3>Edges</h3><div class="edges" id="edges"></div></div>
+      <div class="group"><h3>Material and source</h3>
+        <div class="fields">
+          <label class="field"><span>k (W m⁻¹ K⁻¹)</span><input id="i-k" type="number" step="10" min="1" value="300"></label>
+          <label class="field"><span>q<sub>h</sub> (W m⁻³)</span><input id="i-q" type="number" step="50" value="600"></label>
+          <label class="field"><span>L (m)</span><input id="i-L" type="number" step="0.1" min="0.1" value="1"></label>
+        </div>
+      </div>
+      <div class="group"><h3>Show</h3>
+        <div class="checks"><label><input id="k-mesh" type="checkbox" checked> Mesh lines</label><label><input id="k-flux" type="checkbox"> Heat-flux arrows</label><label><input id="k-vals" type="checkbox" checked> Nodal values (up to 4 × 4)</label></div>
+      </div>
+      <div class="row"><button id="b-reset" type="button">Text example</button></div>
+    </section>
+    <section class="study card" aria-labelledby="study-h">
+      <div class="row" style="justify-content: space-between"><h2 id="study-h">Mesh study</h2><button id="b-study" type="button">Run mesh study</button></div>
+      <p class="hint">Same edges, material and source as above; meshes 2 × 2 to 64 × 64. The quantity tracked is the maximum temperature.</p>
+      <div class="study-grid"><div id="s-table"></div><div class="chart" id="s-chart"></div></div>
+    </section>
+  </main>
+  <footer class="foot">
+    <p>4-node elements with the conductance matrix of text (2.49), uniform generation q<sub>h</sub>ab/4 per node, edge flux q<sub>b</sub>a/2 per edge node (positive when heat enters, text (2.15)), known temperatures imposed by eliminating their equations, solved by banded Cholesky. Results are per metre of thickness.</p>
+    <p>Text: Mohd Yassin et al., <i>Two-Dimensional Finite Element Formulations for Heat, Solids and Fluids (with Matlab)</i>, MSNM 2020, §2.3 and Table 2.1. SEAA 4243, Faculty of Civil Engineering, UTM.</p>
+  </footer>
+</div>
+<script>/*{{CORE}}*/</script>
+<script>/*{{UI}}*/</script>
+<script>
+(function () {
+  "use strict";
+  var DEF = { n: 2, k: 300, q: 600, L: 1, edges: { top: { type: "T", value: 0 }, left: { type: "T", value: 0 }, right: { type: "ins", value: 0 }, bottom: { type: "ins", value: 0 } }, mesh: true, flux: false, vals: true, probe: [0.3, 0.2] };
+  var S = JSON.parse(JSON.stringify(DEF)), R = null, V = null, cv = UI.$("#plot");
+  var NAMES = { top: "Top", left: "Left", right: "Right", bottom: "Bottom" };
+  function isBook() { var e = S.edges; return S.k === 300 && S.q === 600 && S.L === 1 && e.top.type === "T" && e.top.value === 0 && e.left.type === "T" && e.left.value === 0 && e.right.type === "ins" && e.bottom.type === "ins"; }
+  function solve() { R = FE.solveHeat({ L: S.L, n: S.n, k: S.k, q: S.q, edges: S.edges }); }
+  function draw() {
+    var f = UI.fitCanvas(cv, 1.18, 560), ctx = f.ctx, ink = UI.css("--ink"), muted = UI.css("--muted"), acc = UI.css("--accent"), teal = UI.css("--teal");
+    ctx.clearRect(0, 0, f.w, f.h);
+    V = UI.view([0, S.L, 0, S.L], f.w, f.h, 58);
+    var notice = UI.$("#notice");
+    if (R.error) {
+      notice.hidden = false; notice.textContent = R.error.message + (R.error.kind === "float" ? " Physically: with a heat source and no edge to remove the heat, no steady state exists." : "");
+      ctx.fillStyle = UI.css("--panel"); ctx.fillRect(V.X(0), V.Y(S.L), V.s * S.L, V.s * S.L);
+    } else {
+      notice.hidden = true;
+      var lo = Infinity, hi = -Infinity; for (var i = 0; i < R.nn; i++) { lo = Math.min(lo, R.T[i]); hi = Math.max(hi, R.T[i]); }
+      if (hi - lo < 1e-12) { hi = lo + 1; }
+      UI.paintField(ctx, V, [0, S.L, 0, S.L], f.dpr, function (x, y) { return FE.heatAt(R, x, y).T; }, lo, hi, FE.lut("heat", UI.mode()));
+      UI.legend(UI.$("#legend"), "heat", lo, hi, "Temperature T (°C)");
+    }
+    if (S.mesh && S.n <= 32) {
+      ctx.strokeStyle = ink; ctx.globalAlpha = S.n > 16 ? 0.18 : 0.35; ctx.lineWidth = 1; ctx.beginPath();
+      for (var k = 0; k <= S.n; k++) { var c = k * S.L / S.n; ctx.moveTo(V.X(c), V.Y(0)); ctx.lineTo(V.X(c), V.Y(S.L)); ctx.moveTo(V.X(0), V.Y(c)); ctx.lineTo(V.X(S.L), V.Y(c)); }
+      ctx.stroke(); ctx.globalAlpha = 1;
+    }
+    if (!R.error && S.flux) {
+      var m = Math.min(S.n, 10), qmax = 0, pts = [];
+      for (var a = 0; a < m; a++) for (var b = 0; b < m; b++) { var x = (a + 0.5) * S.L / m, y = (b + 0.5) * S.L / m, h = FE.heatAt(R, x, y); pts.push([x, y, h.qx, h.qy]); qmax = Math.max(qmax, Math.hypot(h.qx, h.qy)); }
+      var len = 0.42 * S.L / m;
+      ctx.strokeStyle = ink; ctx.fillStyle = ink; ctx.lineWidth = 1.5;
+      pts.forEach(function (p) {
+        var mag = Math.hypot(p[2], p[3]); if (mag < 1e-9 * (qmax || 1)) return;
+        var sc = len * mag / qmax, ux = p[2] / mag, uy = p[3] / mag, x0 = V.X(p[0] - ux * sc / 2), y0 = V.Y(p[1] - uy * sc / 2), x1 = V.X(p[0] + ux * sc / 2), y1 = V.Y(p[1] + uy * sc / 2);
+        ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1); ctx.stroke();
+        var ang = Math.atan2(y1 - y0, x1 - x0); ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x1 - 7 * Math.cos(ang - 0.45), y1 - 7 * Math.sin(ang - 0.45)); ctx.lineTo(x1 - 7 * Math.cos(ang + 0.45), y1 - 7 * Math.sin(ang + 0.45)); ctx.closePath(); ctx.fill();
+      });
+    }
+    drawEdges(ctx, acc, teal, muted);
+    if (!R.error && S.vals && S.n <= 4) for (var p = 0; p < R.nn; p++) {
+      var nx = R.X[p], ny = R.Y[p], al = nx < 1e-9 ? "left" : (nx > S.L - 1e-9 ? "right" : "center");
+      UI.halo(ctx, R.T[p].toFixed(4), V.X(nx) + (al === "left" ? 8 : al === "right" ? -8 : 0), V.Y(ny) + (ny > S.L - 1e-9 ? 14 : -12), ink, al, 12, 600);
+    }
+    if (!R.error) {
+      var mx = V.X(R.X[R.imax]), my = V.Y(R.Y[R.imax]);
+      ctx.beginPath(); ctx.moveTo(mx, my - 9); ctx.lineTo(mx + 8, my + 6); ctx.lineTo(mx - 8, my + 6); ctx.closePath(); ctx.fillStyle = ink; ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = UI.css("--surface"); ctx.stroke();
+      var px = V.X(S.probe[0]), py = V.Y(S.probe[1]);
+      ctx.beginPath(); ctx.arc(px, py, 7, 0, 2 * Math.PI); ctx.fillStyle = UI.css("--surface"); ctx.fill(); ctx.lineWidth = 2.5; ctx.strokeStyle = ink; ctx.stroke();
+    }
+    readouts();
+  }
+  function drawEdges(ctx, acc, teal, muted) {
+    var L = S.L, segs = { bottom: [[0, 0], [L, 0], 0, 1], right: [[L, 0], [L, L], -1, 0], top: [[L, L], [0, L], 0, -1], left: [[0, L], [0, 0], 1, 0] };
+    for (var nm in segs) {
+      var e = S.edges[nm], s = segs[nm], x0 = V.X(s[0][0]), y0 = V.Y(s[0][1]), x1 = V.X(s[1][0]), y1 = V.Y(s[1][1]), mx = (x0 + x1) / 2, my = (y0 + y1) / 2;
+      var ox = -s[3] * 26, oy = -s[2] * 26; /* outward offset in screen space */
+      if (nm === "bottom") { ox = 0; oy = 26; } else if (nm === "top") { ox = 0; oy = -26; } else if (nm === "left") { ox = -26; oy = 0; } else { ox = 26; oy = 0; }
+      ctx.save(); ctx.lineCap = "butt";
+      if (e.type === "T") { ctx.strokeStyle = acc; ctx.lineWidth = 6; ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1); ctx.stroke(); }
+      else if (e.type === "ins") { ctx.strokeStyle = muted; ctx.lineWidth = 3; ctx.setLineDash([7, 5]); ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1); ctx.stroke(); }
+      else {
+        ctx.strokeStyle = teal; ctx.fillStyle = teal; ctx.lineWidth = 2; var na = 5, dir = e.value >= 0 ? 1 : -1;
+        for (var k = 1; k <= na; k++) {
+          var t = k / (na + 1), ax = x0 + (x1 - x0) * t, ay = y0 + (y1 - y0) * t, bx = ax + ox * 0.8, by = ay + oy * 0.8;
+          var fx = dir > 0 ? bx : ax, fy = dir > 0 ? by : ay, tx = dir > 0 ? ax : bx, ty = dir > 0 ? ay : by;
+          ctx.beginPath(); ctx.moveTo(fx, fy); ctx.lineTo(tx, ty); ctx.stroke();
+          var ang = Math.atan2(ty - fy, tx - fx); ctx.beginPath(); ctx.moveTo(tx, ty); ctx.lineTo(tx - 7 * Math.cos(ang - 0.5), ty - 7 * Math.sin(ang - 0.5)); ctx.lineTo(tx - 7 * Math.cos(ang + 0.5), ty - 7 * Math.sin(ang + 0.5)); ctx.closePath(); ctx.fill();
+        }
+      }
+      ctx.restore();
+      var label = e.type === "T" ? "T = " + e.value + " °C" : e.type === "ins" ? "insulated" : "q = " + e.value + " W/m²";
+      var col = e.type === "T" ? acc : e.type === "ins" ? muted : teal;
+      if (nm === "left" || nm === "right") { ctx.save(); ctx.translate(mx + ox * (nm === "right" ? 1.25 : 1.25), my); ctx.rotate(nm === "left" ? -Math.PI / 2 : Math.PI / 2); UI.halo(ctx, label, 0, 0, col, "center", 13, 600); ctx.restore(); }
+      else UI.halo(ctx, label, mx, my + oy * 0.8, col, "center", 13, 600);
+    }
+  }
+  function card(host, k, v, s, flag) { var d = UI.el("div", { class: "ro" + (flag ? " flag" : "") }); d.appendChild(UI.el("span", { class: "k" }, k)); d.appendChild(UI.el("span", { class: "v" }, v)); if (s) d.appendChild(UI.el("span", { class: "s" }, s)); host.appendChild(d); }
+  function readouts() {
+    var ro = UI.$("#ro"); ro.innerHTML = "";
+    if (R.error) { card(ro, "Status", "Not solvable", "Fix at least one edge temperature", true); return; }
+    var c = FE.heatAt(R, S.L, 0), m = FE.heatAt(R, S.L / 2, 0), p = FE.heatAt(R, S.probe[0], S.probe[1]);
+    card(ro, "T at bottom-right (L, 0)", UI.fmt(c.T, 4) + " °C", isBook() && S.n === 2 ? "text (2.55): 0.6214" : "");
+    card(ro, "T at bottom middle (L/2, 0)", UI.fmt(m.T, 4) + " °C", isBook() && S.n === 2 ? "text (2.55): 0.4821" : "");
+    card(ro, "Hottest point", UI.fmt(R.T[R.imax], 4) + " °C", "at (" + R.X[R.imax].toFixed(3) + ", " + R.Y[R.imax].toFixed(3) + ") m");
+    card(ro, "Probe (" + S.probe[0].toFixed(2) + ", " + S.probe[1].toFixed(2) + ")", UI.fmt(p.T, 4) + " °C", "q = (" + UI.fmt(p.qx, 1) + ", " + UI.fmt(p.qy, 1) + ") W/m², element " + (p.e + 1));
+    var out = -R.reaction;
+    card(ro, "Energy balance", UI.fmt(R.generated + R.fluxIn, 1) + " W in", "generated " + UI.fmt(R.generated, 1) + " + through flux edges " + UI.fmt(R.fluxIn, 1) + "; out through cold edges " + UI.fmt(out, 1) + " W (per m thickness)");
+    card(ro, "Model", S.n * S.n + " elements", (S.n + 1) * (S.n + 1) + " nodes, " + R.fixed.length + " known temperatures");
+  }
+  var userActed = false, studied = false;
+  document.addEventListener("pointerdown", function () { userActed = true; }, true);
+  document.addEventListener("change", function () { userActed = true; }, true);
+  function milestones() {
+    if (!userActed || !R) return;
+    var e = S.edges, allIns = ["top", "left", "right", "bottom"].every(function (k) { return e[k].type === "ins"; });
+    if (isBook() && S.n === 2) UI.milestone("heat", "book2");
+    if (studied && isBook()) UI.milestone("heat", "study");
+    if (!R.error && e.top.type === "T" && e.left.type === "T" && e.right.type === "T" && e.right.value === e.top.value && e.bottom.type === "ins") UI.milestone("heat", "right0");
+    if (allIns && R.error) UI.milestone("heat", "allins");
+  }
+  function update() { solve(); draw(); milestones(); }
+  function edgesUI() {
+    var host = UI.$("#edges"); host.innerHTML = "";
+    ["top", "left", "right", "bottom"].forEach(function (nm) {
+      var e = S.edges[nm], sel = UI.el("select", { id: "e-" + nm, "aria-label": NAMES[nm] + " edge condition" }), inp = UI.el("input", { id: "v-" + nm, type: "number", step: "any", value: String(e.value), "aria-label": NAMES[nm] + " edge value" });
+      [["T", "Temperature (°C)"], ["ins", "Insulated"], ["flux", "Heat flux in (W/m²)"]].forEach(function (o) { var op = UI.el("option", { value: o[0] }, o[1]); if (o[0] === e.type) op.selected = true; sel.appendChild(op); });
+      inp.disabled = e.type === "ins";
+      sel.addEventListener("change", function () { e.type = sel.value; inp.disabled = e.type === "ins"; if (e.type === "flux" && e.value === 0) { e.value = 200; inp.value = "200"; } update(); });
+      inp.addEventListener("change", function () { var v = parseFloat(inp.value); if (isFinite(v)) { e.value = v; update(); } });
+      host.appendChild(UI.el("span", { class: "nm" }, NAMES[nm])); host.appendChild(sel); host.appendChild(inp);
+    });
+  }
+  function segs() { UI.seg(UI.$("#c-n"), "n", [1, 2, 4, 8, 16, 32].map(function (n) { return { value: n, label: n + " × " + n }; }), S.n, function (v) { S.n = +v; update(); }); }
+  function sync() {
+    UI.$("#i-k").value = S.k; UI.$("#i-q").value = S.q; UI.$("#i-L").value = S.L;
+    UI.$("#k-mesh").checked = S.mesh; UI.$("#k-flux").checked = S.flux; UI.$("#k-vals").checked = S.vals; segs(); edgesUI();
+  }
+  function bind() {
+    [["#i-k", "k"], ["#i-q", "q"], ["#i-L", "L"]].forEach(function (p) { UI.$(p[0]).addEventListener("change", function () { var v = parseFloat(this.value); if (isFinite(v) && (p[1] === "q" || v > 0)) { S[p[1]] = v; if (p[1] === "L") S.probe = [Math.min(S.probe[0], v), Math.min(S.probe[1], v)]; update(); } }); });
+    [["#k-mesh", "mesh"], ["#k-flux", "flux"], ["#k-vals", "vals"]].forEach(function (p) { UI.$(p[0]).addEventListener("change", function () { S[p[1]] = this.checked; draw(); }); });
+    UI.$("#b-reset").addEventListener("click", function () { S = JSON.parse(JSON.stringify(DEF)); sync(); update(); });
+    cv.addEventListener("click", function (ev) { var r = cv.getBoundingClientRect(), w = V.inv(ev.clientX - r.left, ev.clientY - r.top); S.probe = [Math.max(0, Math.min(S.L, w[0])), Math.max(0, Math.min(S.L, w[1]))]; draw(); milestones(); });
+    UI.$("#b-study").addEventListener("click", study);
+  }
+  function study() {
+    var btn = UI.$("#b-study"); btn.disabled = true; btn.textContent = "Running…"; studied = true; userActed = true; setTimeout(milestones, 50);
+    setTimeout(function () {
+      var rows = [], pts = [], prev = null, failed = false;
+      [2, 4, 8, 16, 32, 64].forEach(function (n) {
+        var r = FE.solveHeat({ L: S.L, n: n, k: S.k, q: S.q, edges: S.edges });
+        if (r.error) { failed = true; return; }
+        var t = r.T[r.imax];
+        rows.push([n + " × " + n, UI.group((n + 1) * (n + 1)), UI.fmt(t, 4), prev == null ? "—" : UI.pct((t - prev) / t * 100)]);
+        pts.push({ x: n, y: t }); prev = t;
+      });
+      if (failed) UI.$("#s-table").textContent = "Not solvable with these edges: fix at least one edge temperature.";
+      else {
+        UI.table(UI.$("#s-table"), ["Mesh", "Nodes", "T max (°C)", "Change"], rows);
+        UI.lineChart(UI.$("#s-chart"), [{ name: "Maximum temperature", color: UI.css("--s1"), points: pts }],
+          { xlog: true, xticks: [2, 4, 8, 16, 32, 64], xfmt: function (v) { return v + "×" + v; }, xname: "Mesh", xlabel: "Elements per side (log scale)", ylabel: "T max (°C)",
+            yfmt: function (v) { return UI.fmt(v, 3); }, ref: isBook() ? { y: 0.5897, label: "Software, text Table 2.1: 0.5897" } : null, aria: "Maximum temperature against mesh size" });
+      }
+      btn.disabled = false; btn.textContent = "Run mesh study";
+    }, 30);
+  }
+  sync(); bind(); update();
+  UI.onTheme(function () { draw(); if (UI.$("#s-chart").firstChild) study(); });
+  var lastW = 0, onResize = UI.debounce(function () { var w = cv.parentElement.clientWidth; if (w !== lastW) { lastW = w; draw(); } }, 80);
+  if (window.ResizeObserver) new ResizeObserver(onResize).observe(cv.parentElement); else window.addEventListener("resize", onResize);
+})();
+</script>

@@ -1,10 +1,17 @@
 /* SEAA 4243 course pages — shared engine (no dependencies).
-   Preferences (language, theme) are course-wide; progress is per part. Everything lives in
-   this browser's localStorage: it is the student's own record, not a gradebook. */
+   Taken from the SEAA 4333 engine on 24 Nov 2026 (the T&L app template), with the SEAA 4243 pieces it lacks:
+   the code zip built in the browser, the Copy button of the code view, and the Run in browser panel (Pyodide).
+   Derived from the SEAA 4243 engine (views, progress, notes, slides, exercises, Explorer milestones) and
+   brought to the T&L app template: the standard settings buttons (rz-settings-buttons: BM/EN · theme · AA · ⓘ),
+   a foldable description, a search box over this page, a screen guide with a tour, examples revealed one step
+   at a time, and the two hooks the Dr RJ guide panel needs (window.RZ, window.RZ_AVS).
+   Preferences are course-wide; progress is per part. Everything lives in this browser's localStorage: it is
+   the student's own record, not a gradebook. */
 (function () {
   "use strict";
   var C = window.COURSE || {};
-  var PREFS = C.prefs || "seaa4243-prefs", KEY = C.key || "seaa4243-p0-v1";
+  var PFX = C.prefix || "seaa4243";
+  var PREFS = C.prefs || PFX + "-prefs", KEY = C.key || PFX + "-u0-v1";
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   function ld(k, d) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } }
@@ -15,43 +22,85 @@
   function mmss(s) { s = Math.max(0, Math.round(s)); var m = Math.floor(s / 60); return m + ":" + (s % 60 < 10 ? "0" : "") + (s % 60); }
   function fmt(v, d) { if (!isFinite(v)) return "—"; var s = Math.abs(v) < 1e-12 ? 0 : v; return s.toFixed(d).replace("-", "−"); }
   function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  var reduced = (function () { try { return matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) { return false; } })();
 
-  /* ---------- preferences: language and theme ---------- */
-  var P = ld(PREFS, { lang: "en", theme: "auto", ts: 1 });
-  function savePrefs() { sv(PREFS, P); }
+  /* ---------- the lecturer's avatar: one file per pose; the Dr RJ panel reads window.RZ_AVS ---------- */
+  var AVB = C.avatarBase || "../shared/avatar/";
+  var AVS = {};
+  ["welcome", "wave", "explain", "think", "present", "tablet", "ok", "cheer", "arms-crossed", "thumbs-up", "head"].forEach(function (p) { AVS[p] = AVB + p + ".webp"; });
+  AVS.offer = AVS.welcome; AVS.badge = AVS.head; AVS.crossed = AVS["arms-crossed"]; AVS.thumbs = AVS["thumbs-up"];
+  window.RZ_AVS = AVS;
+  $$("img[data-avsrc]").forEach(function (im) { var k = im.getAttribute("data-avsrc"); if (AVS[k]) im.src = AVS[k]; });
+  /* inside an embedding frame (claude.ai preview), open the links that leave the page in a new tab */
+  (function () { var framed = true; try { framed = window.top !== window.self; } catch (e) {}
+    if (framed) $$(".crumbs a, .contact a, a.homeicon").forEach(function (l) { l.target = "_blank"; l.rel = "noopener"; }); })();
+
+  /* ---------- preferences: language · theme · text size · folded description (rz-settings-buttons) ---------- */
+  var FONT_STEPS = [0.9, 1, 1.15, 1.3];
+  var P = (function () {
+    var p = ld(PREFS, null); if (!p || typeof p !== "object") p = {};
+    return { lang: p.lang === "en" || p.lang === "ms" ? p.lang : (C.lang || "ms"),
+      theme: p.theme === "light" || p.theme === "dark" ? p.theme : "",
+      font: +p.font || +p.ts || 1, fold: !!p.fold, guided: !!p.guided };
+  })();
+  function savePrefs() { sv(PREFS, { lang: P.lang, theme: P.theme, font: P.font, fold: P.fold, guided: P.guided }); }
+  function L2(en, ms) { return P.lang === "ms" ? ms : en; }
+  var langHooks = [];
   function applyLang() {
-    document.documentElement.setAttribute("data-lang", P.lang); document.documentElement.setAttribute("lang", P.lang === "ms" ? "ms" : "en");
-    $$("[data-setlang]").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-setlang") === P.lang)); });
+    var r = document.documentElement; r.setAttribute("data-lang", P.lang); r.setAttribute("lang", P.lang === "ms" ? "ms" : "en");
+    var lb = $("#btn-lang");
+    if (lb) { lb.textContent = P.lang === "ms" ? "EN" : "BM"; lb.title = P.lang === "ms" ? "Language" : "Bahasa"; lb.setAttribute("aria-label", P.lang === "ms" ? "Language: English" : "Bahasa: Melayu"); }
+    $$("[data-ph-en]").forEach(function (e) { e.placeholder = L2(e.getAttribute("data-ph-en"), e.getAttribute("data-ph-ms")); });
+    $$("[data-tt-en]").forEach(function (e) { var t = L2(e.getAttribute("data-tt-en"), e.getAttribute("data-tt-ms")); e.title = t; e.setAttribute("aria-label", t); });
+    langHooks.forEach(function (f) { try { f(); } catch (e) {} });
   }
-  var ICON = {
-    auto: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="7"/><path d="M10 3v14" /><path d="M10 3a7 7 0 0 1 0 14z" fill="currentColor" stroke="none"/></svg>',
-    light: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="10" cy="10" r="3.6"/><path d="M10 2v2M10 16v2M2 10h2M16 10h2M4.3 4.3l1.4 1.4M14.3 14.3l1.4 1.4M4.3 15.7l1.4-1.4M14.3 5.7l1.4-1.4"/></svg>',
-    dark: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M15.5 12.5A6.5 6.5 0 0 1 7.5 4.5a6.5 6.5 0 1 0 8 8z"/></svg>'
-  };
+  var SUN = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></svg>';
+  var MOON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>';
+  var mq = null; try { mq = window.matchMedia("(prefers-color-scheme: dark)"); } catch (e) {}
+  function effTheme() { return P.theme || (mq && mq.matches ? "dark" : "light"); }
   function applyTheme() {
-    var r = document.documentElement; if (P.theme === "auto") r.removeAttribute("data-theme"); else r.setAttribute("data-theme", P.theme);
-    var b = $("#themebtn"); if (b) { b.innerHTML = ICON[P.theme]; b.setAttribute("aria-label", "Theme: " + P.theme); b.title = "Theme: " + P.theme; }
+    var r = document.documentElement; if (P.theme) r.setAttribute("data-theme", P.theme); else r.removeAttribute("data-theme");
+    var b = $("#btn-theme"), dk = effTheme() === "dark", t = dk ? L2("Light theme", "Tema cerah") : L2("Dark theme", "Tema gelap");
+    if (b) { b.innerHTML = dk ? SUN : MOON; b.title = t; b.setAttribute("aria-label", t); }
     window.dispatchEvent(new Event("themechange"));
   }
-  /* text size: one scale factor for every font size (CSS var --ts); equations zoom with it */
-  var TS = [0.9, 1, 1.12, 1.25, 1.4];
-  function applyTs() {
-    var t = TS.indexOf(+P.ts) >= 0 ? +P.ts : 1; P.ts = t; document.documentElement.style.setProperty("--ts", String(t));
-    $$("[data-ts]").forEach(function (b) { var up = +b.getAttribute("data-ts") > 0, i = TS.indexOf(t);
-      b.disabled = up ? i === TS.length - 1 : i === 0;
-      b.title = (up ? "Larger text" : "Smaller text") + " · " + Math.round(t * 100) + " %"; });
+  if (mq) { var mqf = function () { if (!P.theme) applyTheme(); }; if (mq.addEventListener) mq.addEventListener("change", mqf); else if (mq.addListener) mq.addListener(mqf); }
+  function fontStep(f) { var k = 0; FONT_STEPS.forEach(function (v, i) { if (Math.abs(v - f) < Math.abs(FONT_STEPS[k] - f)) k = i; }); return k; }
+  function nextFont(f, dir) {
+    var i; if (dir > 0) { for (i = 0; i < FONT_STEPS.length; i++) if (FONT_STEPS[i] > f + 1e-6) return FONT_STEPS[i]; return FONT_STEPS[0]; }
+    for (i = FONT_STEPS.length - 1; i >= 0; i--) if (FONT_STEPS[i] < f - 1e-6) return FONT_STEPS[i]; return FONT_STEPS[FONT_STEPS.length - 1];
+  }
+  function applyFont() {
+    var r = document.documentElement; r.style.setProperty("--font-scale", String(P.font)); r.style.setProperty("--ts", String(P.font));
+    var fb = $("#btn-font");
+    if (fb) { var k = fontStep(P.font); $$(".lvl i", fb).forEach(function (d, i) { d.classList.toggle("on", i <= k); });
+      var pct = Math.round(P.font * 100), nx = Math.round(nextFont(P.font, 1) * 100), t = L2("Text size " + pct + "% (click: " + nx + "%)", "Saiz teks " + pct + "% (klik: " + nx + "%)");
+      fb.title = t; fb.setAttribute("aria-label", t); }
     window.dispatchEvent(new Event("resize"));
   }
-  $$("[data-ts]").forEach(function (b) { b.addEventListener("click", function () { var i = TS.indexOf(+P.ts); if (i < 0) i = 1;
-    P.ts = TS[clamp(i + (+b.getAttribute("data-ts")), 0, TS.length - 1)]; savePrefs(); applyTs(); }); });
-  applyTs();
-  $$("[data-setlang]").forEach(function (b) { b.addEventListener("click", function () { P.lang = b.getAttribute("data-setlang"); savePrefs(); applyLang(); }); });
-  var tb = $("#themebtn"); if (tb) tb.addEventListener("click", function () { P.theme = P.theme === "auto" ? "light" : P.theme === "light" ? "dark" : "auto"; savePrefs(); applyTheme(); });
-  applyLang(); applyTheme();
+  function applyFold() {
+    document.documentElement.classList.toggle("subfold", !!P.fold);
+    var b = $("#foldbtn"); if (!b) return; b.setAttribute("aria-expanded", String(!P.fold));
+    var t = P.fold ? L2("Show description", "Tunjuk penerangan") : L2("Hide description", "Sembunyi penerangan"), s = $(".vh", b);
+    if (s) s.textContent = t; b.title = t;
+  }
+  langHooks.push(applyTheme, applyFont, applyFold);
+  var lbtn = $("#btn-lang"); if (lbtn) lbtn.addEventListener("click", function () { P.lang = P.lang === "ms" ? "en" : "ms"; savePrefs(); applyLang(); });
+  var tbtn = $("#btn-theme"); if (tbtn) tbtn.addEventListener("click", function () { P.theme = effTheme() === "dark" ? "light" : "dark"; savePrefs(); applyTheme(); });
+  var fbtn = $("#btn-font"); if (fbtn) fbtn.addEventListener("click", function (e) { P.font = nextFont(P.font, e.shiftKey ? -1 : 1); savePrefs(); applyFont(); });
+  var fold = $("#foldbtn"); if (fold) fold.addEventListener("click", function () { P.fold = !P.fold; savePrefs(); applyFold(); });
+  /* another tab of the course (or its Explorer) changed the preferences: follow them */
+  window.addEventListener("storage", function (e) {
+    if (e.key !== PREFS) return; var p = ld(PREFS, {}) || {};
+    if (p.lang === "en" || p.lang === "ms") P.lang = p.lang; P.theme = p.theme === "light" || p.theme === "dark" ? p.theme : ""; if (+p.font) P.font = +p.font; P.fold = !!p.fold;
+    applyLang();
+  });
+  applyLang();
 
   /* ---------- part state ---------- */
   function fresh() {
-    return { view: "start", nmode: "full", read: {}, qc: {}, seen: {}, slide: 0,
+    return { view: "start", nmode: "full", read: {}, qc: {}, seen: {}, slide: 0, xrev: {},
       ex: { seed: {}, v: {}, chk: {}, first: {}, att: {}, hint: {}, conf: {}, sol: {}, t: {}, timer: { el: 0, run: false, t0: 0 } },
       lab: {}, cando: {}, last: 0, opened: 0 };
   }
@@ -63,14 +112,20 @@
   window.addEventListener("pagehide", saveNow);
 
   /* ---------- views (tabs) ---------- */
-  var VIEWS = $$(".view").map(function (v) { return v.getAttribute("data-view"); }), current = null;
+  var VIEWS = $$(".view").map(function (v) { return v.getAttribute("data-view"); }), current = null, pendingSlide = null;
   function show(v, opts) {
     if (!VIEWS.length) return;
     opts = opts || {}; if (VIEWS.indexOf(v) < 0) v = VIEWS[0]; current = v; ST.view = v; save();
     $$(".view").forEach(function (s) { s.hidden = s.getAttribute("data-view") !== v; });
-    $$(".tab").forEach(function (t) { t.setAttribute("aria-selected", String(t.getAttribute("data-view") === v)); });
+    $$(".tab").forEach(function (t) { var on = t.getAttribute("data-view") === v; t.setAttribute("aria-selected", String(on)); t.tabIndex = on ? 0 : -1; });
+    /* on a phone the tab bar scrolls sideways: bring the current tab into view */
+    var at = $('.tab[aria-selected="true"]'), nav = at && at.parentNode;
+    if (nav && nav.scrollWidth > nav.clientWidth) { var nr = nav.getBoundingClientRect(), tr = at.getBoundingClientRect();
+      if (tr.left < nr.left) nav.scrollLeft += tr.left - nr.left - 8; else if (tr.right > nr.right) nav.scrollLeft += tr.right - nr.right + 8; }
     if (!opts.keepHash) { try { history.replaceState(null, "", "#" + v + (opts.anchor ? "-" + opts.anchor : "")); } catch (e) {} }
-    if (opts.anchor) { var a = document.getElementById(opts.anchor); if (a) setTimeout(function () { a.scrollIntoView({ block: "start", behavior: "smooth" }); }, 30); }
+    var slideNo = v === "slides" && opts.anchor && /^\d+$/.test(opts.anchor);
+    if (slideNo) { pendingSlide = +opts.anchor - 1; if (svInit) goSlide(pendingSlide); }
+    if (opts.anchor && !slideNo) { var a = document.getElementById(opts.anchor); if (a) setTimeout(function () { var d = a.closest && a.closest("details:not([open])"); if (d) d.open = true; a.scrollIntoView({ block: "start", behavior: reduced ? "auto" : "smooth" }); }, 30); }
     else if (!opts.noscroll) window.scrollTo({ top: 0 });
     if (v === "start") renderStart();
     if (v === "slides") fitSlides();
@@ -79,7 +134,12 @@
     if (typeof eqSoon === "function") eqSoon();
     updatePill();
   }
-  $$(".tab").forEach(function (t) { t.addEventListener("click", function () { show(t.getAttribute("data-view")); }); });
+  $$(".tab").forEach(function (t, i, all) {
+    /* a mouse or touch click leaves no focus on the tab, so ← → then page the slides (SEAA 4243 viewer);
+       keyboard users who reach the tab bar with Tab keep the usual ← → between tabs */
+    t.addEventListener("click", function (e) { show(t.getAttribute("data-view")); if (e.detail > 0) t.blur(); });
+    t.addEventListener("keydown", function (e) { if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return; var n = all[(i + (e.key === "ArrowRight" ? 1 : all.length - 1)) % all.length]; n.focus(); show(n.getAttribute("data-view")); e.preventDefault(); });
+  });
   $$("[data-goto]").forEach(function (b) { if (b.id === "contbtn") return; b.addEventListener("click", function (ev) { ev.preventDefault(); var p = b.getAttribute("data-goto").split("/"); show(p[0], { anchor: p[1] }); }); });
   window.addEventListener("hashchange", function () { fromHash(); });
   function fromHash() { var h = decodeURIComponent(location.hash.replace("#", "")), m = /^([a-z]+)(?:[-\/](.+))?$/.exec(h);
@@ -117,6 +177,7 @@
       var k = li.getAttribute("data-stage-item"), done = false, m;
       if ((m = /^read:(.+)$/.exec(k))) done = !!ST.read[m[1]];
       else if ((m = /^qc:(.+)$/.exec(k))) done = !!ST.qc[m[1]];
+      else if ((m = /^ex:(.+)$/.exec(k))) done = !!ST.ex.chk[m[1]];
       else if (k === "notes") done = p.notes && p.notes[0] >= p.notes[1];
       else if (k === "slides") done = p.slides && p.slides[0] >= p.slides[1];
       else if (k === "examples") done = p.examples && p.examples[0] >= p.examples[1];
@@ -129,10 +190,10 @@
     $$("[data-stage]").forEach(function (st) { var items = $$("[data-stage-item]", st), d = items.filter(function (i) { return i.classList.contains("done"); }).length; var s = $(".st", st); if (s) s.textContent = d + "/" + items.length; });
     var c = $("#contbtn"), w = $("#contwhen");
     if (c) { var nx = nextStep(); tx(c, nx.en, nx.ms); c.setAttribute("data-goto", nx.go); }
-    if (w) { w.textContent = ST.last ? (P.lang === "ms" ? "Terakhir dibuka: " : "Last opened: ") + new Date(ST.last).toLocaleDateString(undefined, { day: "numeric", month: "short", year: "numeric" }) : ""; }
+    if (w) { w.textContent = ST.last ? L2("Last opened: ", "Terakhir dibuka: ") + new Date(ST.last).toLocaleDateString(P.lang === "ms" ? "ms-MY" : "en-GB", { day: "numeric", month: "short", year: "numeric" }) : ""; }
   }
   function nextStep() {
-    for (var i = 0; i < NOTES.length; i++) if (!ST.read[NOTES[i]]) { var h = $("#" + NOTES[i] + " h2"); return { en: "Continue: Notes §" + (i + 1), ms: "Sambung: Nota §" + (i + 1), go: "notes/" + NOTES[i] }; }
+    for (var i = 0; i < NOTES.length; i++) if (!ST.read[NOTES[i]]) return { en: "Continue: Notes §" + (i + 1), ms: "Sambung: Nota §" + (i + 1), go: "notes/" + NOTES[i] };
     if (NSLIDES && cnt(ST.seen) < NSLIDES) return { en: "Continue: Slides " + (ST.slide + 1) + "/" + NSLIDES, ms: "Sambung: Slides " + (ST.slide + 1) + "/" + NSLIDES, go: "slides" };
     for (var x = 0; x < XS.length; x++) if (!ST.read[XS[x]]) return { en: "Continue: Example " + (x + 1), ms: "Sambung: Contoh " + (x + 1), go: "examples/" + XS[x] };
     for (var j = 0; j < EXIDS.length; j++) if (!ST.ex.chk[EXIDS[j]]) return { en: "Continue: Exercises", ms: "Sambung: Latihan", go: "exercises/" + EXIDS[j] };
@@ -159,12 +220,40 @@
   $$(".readck input").forEach(function (ck) { ck.addEventListener("change", function () { var sec = ck.closest(".nsec, .xsec"); ST.read[sec.id] = ck.checked; syncRead(); updateProgress(); }); });
   $$("[data-nmode]").forEach(function (b) { b.addEventListener("click", function () { ST.nmode = b.getAttribute("data-nmode"); applyNmode(); save(); }); });
   function applyNmode() { var art = $(".article"); if (!art) return; art.classList.toggle("keyonly", ST.nmode === "key"); $$("[data-nmode]").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-nmode") === ST.nmode)); }); $$("details.kp").forEach(function (d) { if (ST.nmode === "key") d.open = true; }); }
+  /* an option button is a flex box: its words must be one flex item, or a bare <sub> becomes an item of its own ("1.2G k").
+     Options already in one span, or in the paired .en/.ms spans, are left as they are. */
+  $$("button.opt").forEach(function (o) {
+    var kids = Array.prototype.filter.call(o.childNodes, function (n) { return n.nodeType === 1 || (n.nodeType === 3 && n.textContent.trim() !== ""); });
+    if (kids.length < 2 || kids.every(function (n) { return n.nodeType === 1 && n.tagName === "SPAN" && (n.classList.contains("en") || n.classList.contains("ms")); })) return;
+    var w = document.createElement("span"); while (o.firstChild) w.appendChild(o.firstChild); o.appendChild(w);
+  });
   $$(".qc").forEach(function (q) {
     var id = q.getAttribute("data-qc"), ans = q.getAttribute("data-ans"), opts = $$(".opt", q), fb = $(".fb", q);
     function paint() { var r = ST.qc[id]; if (!r) return; markOpts(opts, ans, r.pick); q.setAttribute("data-done", r.ok ? "ok" : "no");
       if (fb) { fb.hidden = false; fb.setAttribute("data-ok", String(!!r.ok)); var vv = $(".verdict", fb); if (vv) vv.remove(); fb.insertAdjacentHTML("afterbegin", verdict(r.ok) + " "); } }
     opts.forEach(function (o) { o.addEventListener("click", function () { if (ST.qc[id]) return; ST.qc[id] = { pick: o.getAttribute("data-k"), ok: o.getAttribute("data-k") === ans, at: Date.now() }; paint(); updateProgress(); }); });
     if (fb) fb.hidden = !ST.qc[id]; paint();
+  });
+
+  /* ---------- examples: the steps of a model answer appear one at a time; the last one completes the example ---------- */
+  $$(".xsec").forEach(function (sec) {
+    var steps = $$(".xstep", sec), id = sec.id; if (!steps.length) return;
+    var bar = el("div", { class: "xbar" }), nb = el("button", { class: "btn", type: "button" }), ab = el("button", { class: "btn ghost", type: "button" }, bi("Show all steps", "Tunjuk semua langkah")),
+      hb = el("button", { class: "linkbtn", type: "button" }, bi("Hide the steps again", "Sembunyikan semula langkah")), after = $(".xafter", sec);
+    function paint() {
+      var n = Math.min(ST.xrev[id] || 0, steps.length);
+      steps.forEach(function (s, i) { s.hidden = i >= n; });
+      nb.hidden = ab.hidden = n >= steps.length; hb.hidden = n === 0;
+      nb.innerHTML = bi("Show step " + (n + 1) + " of " + steps.length, "Tunjuk langkah " + (n + 1) + " daripada " + steps.length);
+      if (after) after.hidden = n < steps.length;
+    }
+    function done() { if (!ST.read[id]) { ST.read[id] = true; syncRead(); updateProgress(); } }
+    nb.addEventListener("click", function () { ST.xrev[id] = Math.min((ST.xrev[id] || 0) + 1, steps.length); save(); paint(); var s = steps[ST.xrev[id] - 1]; if (s) s.scrollIntoView({ block: "nearest", behavior: reduced ? "auto" : "smooth" }); if (ST.xrev[id] >= steps.length) done(); });
+    ab.addEventListener("click", function () { ST.xrev[id] = steps.length; save(); paint(); done(); });
+    hb.addEventListener("click", function () { ST.xrev[id] = 0; save(); paint(); });
+    bar.appendChild(nb); bar.appendChild(ab); bar.appendChild(hb);
+    var last = steps[steps.length - 1]; last.parentNode.insertBefore(bar, last.nextSibling);
+    paint();
   });
 
   /* ---------- slides viewer (the deck fragment is fetched when the tab is first shown) ---------- */
@@ -176,10 +265,10 @@
       .catch(function (e) { svLoading = false; var l = $("#svload"); if (l) l.innerHTML = bi("The slides could not be loaded (" + e.message + "). Use the PDF.", "Slides tidak dapat dimuatkan (" + e.message + "). Guna PDF."); });
   }
   function goSlide(i) {
-    if (!slides.length || !isFinite(i)) return; i = clamp(Math.round(i), 0, slides.length - 1); ST.slide = i; ST.seen["s" + i] = true;
+    if (!slides.length || !isFinite(i)) { if (isFinite(i)) pendingSlide = i; return; }
+    i = clamp(Math.round(i), 0, slides.length - 1); ST.slide = i; ST.seen["s" + i] = true; pendingSlide = null;
     slides.forEach(function (s, k) { s.classList.toggle("on", k === i); });
     var c = $("#svcount"); if (c) c.textContent = (i + 1) + " / " + slides.length;
-    var pr = $("#sprog"); if (pr) pr.firstElementChild.style.width = ((i + 1) / slides.length * 100) + "%";
     $$(".thumbs button").forEach(function (b, k) { b.setAttribute("aria-current", String(k === i)); b.classList.toggle("seen", !!ST.seen["s" + k]); });
     var pv = $("#svprev"), nx = $("#svnext"), f0 = $("#svfirst"), fn = $("#svlast"), at0 = i === 0, atN = i === slides.length - 1;
     if (pv) pv.disabled = at0; if (f0) f0.disabled = at0; if (nx) nx.disabled = atN; if (fn) fn.disabled = atN;
@@ -190,7 +279,7 @@
     slides = $$(".sl", cv); svInit = true; if (!slides.length) return;
     var th = $("#thumbs");
     if (th) { th.innerHTML = ""; slides.forEach(function (s, k) { var b = el("button", { type: "button" }, '<span class="n">' + (k + 1) + '</span><span>' + (s.getAttribute("data-title") || "") + '</span>'); b.addEventListener("click", function () { goSlide(k); }); th.appendChild(b); }); }
-    goSlide(ST.slide || 0);
+    goSlide(pendingSlide != null ? pendingSlide : (ST.slide || 0));
   }
   /* the bar under the slide is a slider: drag it (or click it) to any page; the tip shows the slide's title */
   function scrubFill() { var sc = $("#svscrub"); if (!sc) return; var f = sc.max > 1 ? (sc.value - 1) / (sc.max - 1) : 1; sc.style.setProperty("--fill", (f * 100) + "%"); }
@@ -210,19 +299,18 @@
       var d = Math.abs(ev.deltaY) >= Math.abs(ev.deltaX) ? ev.deltaY : ev.deltaX;
       if ((d < 0 && ST.slide === 0) || (d > 0 && ST.slide === slides.length - 1)) return;   /* past either end the page scrolls as usual */
       ev.preventDefault();
-      clearTimeout(wheelT); wheelT = setTimeout(function () { wheelLock = false; wheelSum = 0; }, 220);   /* a gesture ends after 220 ms of quiet */
+      clearTimeout(wheelT); wheelT = setTimeout(function () { wheelLock = false; wheelSum = 0; }, 220);
       if (wheelLock) return;
       wheelSum += d;
       if (Math.abs(wheelSum) >= 40) { wheelLock = true; goSlide(ST.slide + (wheelSum > 0 ? 1 : -1)); }
     }, { passive: false });
     /* a horizontal swipe on a phone */
-    var tx0 = null, ty0 = null;
+    var tx0 = null, ty0 = null, swiped = 0;
     frame.addEventListener("touchstart", function (ev) { if (ev.touches.length === 1) { tx0 = ev.touches[0].clientX; ty0 = ev.touches[0].clientY; } }, { passive: true });
     frame.addEventListener("touchend", function (ev) {
       if (tx0 == null) return; var t = ev.changedTouches[0], dx = t.clientX - tx0, dy = t.clientY - ty0; tx0 = null;
       if (Math.abs(dx) > 50 && Math.abs(dx) > 1.5 * Math.abs(dy)) { swiped = Date.now(); goSlide(ST.slide + (dx < 0 ? 1 : -1)); }
     }, { passive: true });
-    var swiped = 0;
     var f0 = $("#svfirst"), fn = $("#svlast");
     if (f0) f0.addEventListener("click", function () { goSlide(0); });
     if (fn) fn.addEventListener("click", function () { goSlide(slides.length - 1); });
@@ -242,7 +330,7 @@
 
   /* ---------- exercises ---------- */
   var L = { check: ["Check", "Semak"], newnum: ["New numbers", "Nombor baharu"], hint: ["Hint", "Petunjuk"], sol: ["Show solution", "Tunjuk penyelesaian"],
-    sure: ["Sure", "Yakin"], unsure: ["Not sure", "Tak pasti"], confq: ["Before you check:", "Sebelum semak:"],
+    sure: ["Sure", "Yakin"], unsure: ["Not sure", "Tidak pasti"], confq: ["Before you check:", "Sebelum semak:"],
     right: ["✓ Correct.", "✓ Betul."], wrong: ["✗ Not yet. Fix the fields marked ✗: try again, open a hint, or show the solution.", "✗ Belum tepat. Betulkan ruang bertanda ✗: cuba lagi, buka petunjuk, atau tunjuk penyelesaian."],
     partial: ["✗ {n} of {m} correct. Fix the fields marked ✗.", "✗ {n} daripada {m} betul. Betulkan ruang bertanda ✗."], viewed: ["Solution shown: counted as answered, not as right.", "Penyelesaian dipaparkan: dikira sebagai dijawab, bukan betul."], youwere: ["you were", "anda"],
     attempt: ["attempt", "cubaan"], within: ["within tolerance", "dalam toleransi"], hintused: ["hints used", "petunjuk digunakan"] };
@@ -282,7 +370,7 @@
     chk.addEventListener("click", function () {
       var f = {}, all = true;
       s.fields.forEach(function (fd) { var inp = $('input.ans[data-f="' + fd.id + '"]', body), x = parseFloat(String(inp.value).replace(/[−–]/g, "-").replace(",", ".")), ref = fd.fn(Pm);
-        var tol = Math.max(fd.atol != null ? fd.atol : 0, (fd.rtol != null ? fd.rtol : 0.01) * Math.abs(ref)); var ok = isFinite(x) && Math.abs(x - ref) <= tol; f[fd.id] = ok; if (!ok) all = false; });
+        var tol = Math.max(fd.atol != null ? fd.atol : 0, (fd.rtol != null ? fd.rtol : 0.01) * Math.abs(ref)); var ok = isFinite(x) && Math.abs(x - ref) <= tol + 1e-9; f[fd.id] = ok; if (!ok) all = false; });
       ST.ex.att[id] = (ST.ex.att[id] || 0) + 1; if (!ST.ex.first[id]) ST.ex.first[id] = { ok: all, conf: ST.ex.conf[id] || null, at: Date.now(), hints: ST.ex.hint[id] || 0 };
       if (!ST.ex.t[id]) ST.ex.t[id] = exElapsed() - (ST.ex.t0 && ST.ex.t0[id] || 0);
       ST.ex.chk[id] = { f: f, ok: all, at: Date.now() }; save(); paintRes(); updateProgress(); renderStats();
@@ -296,7 +384,6 @@
   /* multiple choice (also used for error-spotting lines) */
   function initChoice(q) {
     var id = q.getAttribute("data-q"), ans = q.getAttribute("data-ans"), opts = $$("[data-k]", q), fb = $(".fb", q), conf = $(".conf", q);
-    EXIDS.push(id);
     function paint() { var r = ST.ex.chk[id]; if (!r) return; markOpts(opts, ans, r.pick); q.setAttribute("data-done", r.ok ? "ok" : "no");
       if (fb) { fb.hidden = false; fb.setAttribute("data-ok", String(!!r.ok)); var m = $(".meta", fb); if (m) m.innerHTML = verdict(r.ok) + (r.conf ? ' <span class="qmeta">· ' + T("youwere") + " " + T(r.conf).toLowerCase() + '</span>' : ""); }
       if (conf) $$("button", conf).forEach(function (b) { b.disabled = true; b.setAttribute("aria-pressed", String(b.getAttribute("data-c") === r.conf)); }); }
@@ -324,36 +411,37 @@
     var ids = EXIDS, done = ids.filter(function (i) { return ST.ex.chk[i]; }), firstOk = ids.filter(function (i) { return ST.ex.first[i] && ST.ex.first[i].ok; });
     var cal = { sr: [], sw: [], ur: [], uw: [] };
     ids.forEach(function (i) { var f = ST.ex.first[i]; if (!f || !f.conf) return; cal[(f.conf === "sure" ? "s" : "u") + (f.ok ? "r" : "w")].push(i); });
-    var tt = 0; ids.forEach(function (i) { if (ST.ex.t[i]) tt += ST.ex.t[i]; });
     var tgt = C.targetMin || 0;
     var h = '<div class="kv"><div><b>' + done.length + '/' + ids.length + '</b><span>' + bi("answered", "dijawab") + '</span></div>' +
-      '<div><b>' + firstOk.length + '/' + done.length + '</b><span>' + bi("right first time", "betul cubaan pertama") + '</span></div>' +
-      '<div><b>' + mmss(exElapsed()) + '</b><span>' + bi("on the timer", "pada timer") + (tgt ? ' · ' + bi("target", "sasaran") + ' ' + tgt + ' min' : "") + '</span></div></div>';
+      '<div><b>' + firstOk.length + '/' + done.length + '</b><span>' + bi("right first time", "betul pada cubaan pertama") + '</span></div>' +
+      '<div><b>' + mmss(exElapsed()) + '</b><span>' + bi("on the timer", "pada pemasa") + (tgt ? ' · ' + bi("target", "sasaran") + ' ' + tgt + ' min' : "") + '</span></div></div>';
     var names = function (arr) { return arr.length ? arr.map(function (i) { return '<a href="#exercises-' + i + '" data-exlink="' + i + '">' + i.toUpperCase() + '</a>'; }).join(", ") : "—"; };
     h += '<div class="tbl"><table class="cal"><tr><th class="l">' + bi("Your confidence", "Keyakinan anda") + '</th><th>' + bi("Right", "Betul") + '</th><th>' + bi("Wrong", "Salah") + '</th></tr>' +
       '<tr><td class="l">' + bi("Sure", "Yakin") + '</td><td>' + cal.sr.length + '</td><td>' + cal.sw.length + '</td></tr>' +
-      '<tr><td class="l">' + bi("Not sure", "Tak pasti") + '</td><td>' + cal.ur.length + '</td><td>' + cal.uw.length + '</td></tr></table></div>';
-    h += '<p class="muted" style="font-size:13.5px;margin:8px 0 0">' + bi("Sure and wrong: ", "Yakin tetapi salah: ") + names(cal.sw) + '. ' + bi("Not sure and right: ", "Tak pasti tetapi betul: ") + names(cal.ur) + '.</p>';
+      '<tr><td class="l">' + bi("Not sure", "Tidak pasti") + '</td><td>' + cal.ur.length + '</td><td>' + cal.uw.length + '</td></tr></table></div>';
+    h += '<p class="muted" style="font-size:13.5px;margin:8px 0 0">' + bi("Sure and wrong: ", "Yakin tetapi salah: ") + names(cal.sw) + '. ' + bi("Not sure and right: ", "Tidak pasti tetapi betul: ") + names(cal.ur) + '.</p>';
     box.innerHTML = h;
     $$("[data-exlink]", box).forEach(function (a) { a.addEventListener("click", function (ev) { ev.preventDefault(); show("exercises", { anchor: a.getAttribute("data-exlink") }); }); });
   }
+  /* every exercise, in page order (Part A, B, C), so that "Continue" goes to the first one not done */
+  $$(".q[data-q], article.qx[data-ex]").forEach(function (q) { EXIDS.push(q.getAttribute("data-q") || q.getAttribute("data-ex")); });
   $$(".q[data-q]").forEach(initChoice);
-  $$("article.qx[data-ex]").forEach(function (a) { EXIDS.push(a.getAttribute("data-ex")); });
   Object.keys(EX.specs).forEach(renderEx);
   EX.ready = function () { Object.keys(EX.specs).forEach(renderEx); updateProgress(); };
 
-  /* ---------- lab milestones (postMessage from the lab, or its localStorage record) ---------- */
-  function labKey() { return C.lab ? "seaa4243-lab-" + C.lab.id : null; }
-  function syncLab() { var k = labKey(); if (!k) return; var rec = ld(k, {}); var changed = false; MS.forEach(function (m) { if (rec[m.id] && !ST.lab[m.id]) { ST.lab[m.id] = true; changed = true; } });
+  /* ---------- Explorer milestones (postMessage from the Explorer, or its localStorage record) ---------- */
+  function labKey() { return C.lab ? PFX + "-lab-" + C.lab.id : null; }
+  function syncLab() { var k = labKey(); if (!k) return; var rec = ld(k, {}) || {}; var changed = false; MS.forEach(function (m) { if (rec[m.id] && !ST.lab[m.id]) { ST.lab[m.id] = true; changed = true; } });
     MS.forEach(function (m) { var t = $('.tk[data-ms="' + m.id + '"]'); if (t) t.classList.toggle("done", !!ST.lab[m.id]); }); if (changed) { save(); } updateProgress(); }
-  window.addEventListener("message", function (ev) { var d = ev.data; if (!d || d.type !== "seaa4243-lab" || !C.lab || d.lab !== C.lab.id) return; if (!ST.lab[d.id]) { ST.lab[d.id] = true; save(); } syncLab(); });
+  window.addEventListener("message", function (ev) { var d = ev.data; if (!d || d.type !== PFX + "-lab" || !C.lab || d.lab !== C.lab.id) return; if (!ST.lab[d.id]) { ST.lab[d.id] = true; save(); } syncLab(); });
   window.addEventListener("focus", syncLab); document.addEventListener("visibilitychange", function () { if (!document.hidden) syncLab(); });
+  window.addEventListener("storage", function (e) { if (e.key === labKey()) syncLab(); });
   /* the iframe is lazy and sits in a hidden tab, so the "did not load" note is armed only when the
      Explorer tab is first shown, and removed if the Explorer loads after all */
   var lf = $("#labframe"), labLoaded = false, labArmed = false, labNote = null;
   if (lf) lf.addEventListener("load", function () { labLoaded = true; if (labNote) { labNote.remove(); labNote = null; } });
   function armLab() { if (!lf || labArmed) return; labArmed = true;
-    setTimeout(function () { if (!labLoaded && !labNote) { labNote = el("p", { class: "note" }, bi("The Explorer did not load inside this page. Open it in its own tab with the link below; tasks done there are still recorded here.", "Explorer tidak dimuatkan di dalam halaman ini. Buka dalam tab sendiri melalui pautan di bawah; tugasan yang selesai di situ tetap direkod di sini.")); lf.parentNode.insertBefore(labNote, lf); } }, 8000); }
+    setTimeout(function () { if (!labLoaded && !labNote) { labNote = el("p", { class: "note" }, bi("The Explorer did not load inside this page. Open it in its own tab with the link below; tasks done there are still recorded here.", "Explorer tidak dimuatkan di dalam halaman ini. Buka dalam tab sendiri melalui pautan di bawah; tugasan yang selesai di situ tetap direkodkan di sini.")); lf.parentNode.insertBefore(labNote, lf); } }, 8000); }
   $$(".tk[data-ms] .tkself").forEach(function (b) { b.addEventListener("click", function () { var t = b.closest(".tk"); ST.lab[t.getAttribute("data-ms")] = true; save(); syncLab(); }); });
 
   /* ---------- can-do checklist ---------- */
@@ -402,18 +490,21 @@
         else if (c === "rate_limited") say("Another download is waiting for your answer; try again in a moment.", "Satu lagi muat turun menunggu jawapan anda; cuba sebentar lagi.");
         else blocked();
       });
-      if (FRAMED) { blocked(); return; }      /* a host page that frames this one without the capability blocks page downloads */
+      if (FRAMED) { blocked(); return; }
       anchorSave(blob, name, href, say);
     }).catch(function (e) { say("Could not get " + name + " (" + e.message + ").", "Tidak dapat mendapatkan " + name + " (" + e.message + ")."); })
       .then(function () { if (btn) btn.disabled = false; });
     function blocked() {
-      var home = document.querySelector(".homelink") ? ' <a href="../index.html">⌂ Course home</a>' : "";
-      var homeMs = document.querySelector(".homelink") ? ' <a href="../index.html">⌂ Laman kursus</a>' : "";
       var dir = href ? ' <a href="' + href + '" target="_blank" rel="noopener">' : "";
-      say("This view does not allow downloads." + (home ? " Download from" + home + "," : "") + (href ? dir + " open the file directly</a>," : "") + " or use “Show the code” and Copy where offered.",
-          "Paparan ini tidak membenarkan muat turun." + (homeMs ? " Muat turun dari" + homeMs + "," : "") + (href ? dir + " buka fail terus</a>," : "") + " atau guna “Tunjuk kod” dan Salin jika ada.");
+      say("This view does not allow downloads." + (href ? dir + " Open the file directly</a>." : ""), "Paparan ini tidak membenarkan muat turun." + (href ? dir + " Buka fail terus</a>." : ""));
     }
   }
+  dlCap();
+  $$("[data-save]").forEach(function (b) { b.addEventListener("click", function () {
+    var box = b.closest(".recbar, .cardacts, .slidebar") || b.parentNode, m = box ? $(".savemsg", box) : null;
+    saveFile(b.getAttribute("data-save"), b.getAttribute("data-name"), m, b); }); });
+
+  /* ---------- code packs: a zip built in the browser from the .py files and the README; Copy for the code view ---------- */
   /* zip (store method) built in the browser from files the site serves as text */
   var CRC = (function () { var t = new Uint32Array(256); for (var n = 0; n < 256; n++) { var c = n; for (var k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
   function crc32(u) { var c = 0xFFFFFFFF; for (var i = 0; i < u.length; i++) c = CRC[(c ^ u[i]) & 255] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; }
@@ -458,6 +549,107 @@
   var eqT = null; function eqSoon() { clearTimeout(eqT); eqT = setTimeout(eqHints, 120); }
   window.addEventListener("resize", eqSoon); document.addEventListener("scroll", function (ev) { if (ev.target && ev.target.classList && ev.target.classList.contains("eqwrap")) eqSoon(); }, true);
   document.addEventListener("toggle", eqSoon, true);
+
+  /* ---------- header search: client-side, over this page only (no network) ---------- */
+  function biText(node, lang) { if (!node) return ""; var c = node.cloneNode(true);
+    $$((lang === "ms" ? ".en" : ".ms") + ",script,style,svg,.vh,.tkok,.mk,.tkn,.mk-badge,.xbar,.readck,.conf", c).forEach(function (x) { x.remove(); });
+    $$("p,li,div,h2,h3,h4,td,th,tr,br,dt,dd", c).forEach(function (x) { x.appendChild(document.createTextNode(" ")); });
+    return c.textContent.replace(/\s+/g, " ").trim(); }
+  function nrm(s) { return (s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase(); }
+  function goEl(view, node, anchor) { show(view, { noscroll: true, anchor: anchor }); setTimeout(function () { var d = node.closest && node.closest("details:not([open])"); if (d) d.open = true;
+    if (node.hidden && node.classList.contains("xstep")) { var sec = node.closest(".xsec"); if (sec) { ST.xrev[sec.id] = 999; save(); $$(".xstep", sec).forEach(function (s) { s.hidden = false; }); } }
+    node.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" }); node.classList.add("hflash"); setTimeout(function () { node.classList.remove("hflash"); }, 1800); }, 80); }
+  var SIDX = null;
+  function sEntry(tag, node, titleNode, bodyNode, go, prefix) { var e = { tag: tag, go: go, t: {}, b: {} };
+    ["en", "ms"].forEach(function (l) { e.t[l] = (prefix ? prefix[l === "ms" ? 1 : 0] + " · " : "") + biText(titleNode, l); e.b[l] = biText(bodyNode || node, l); });
+    e.n = { en: nrm(e.t.en), ms: nrm(e.t.ms) }; e.nb = { en: nrm(e.b.en), ms: nrm(e.b.ms) }; return e; }
+  function buildIndex() {
+    var X = [], TG = { start: ["Start", "Mula"], notes: ["Notes", "Nota"], slides: ["Slides", "Slides"], examples: ["Examples", "Contoh"], exercises: ["Exercises", "Latihan"], lab: ["Explorer", "Explorer"], glossary: ["Glossary", "Glosari"] };
+    $$("#v-start .card > h2").forEach(function (h) { X.push(sEntry(TG.start, h.parentNode, h, null, function () { goEl("start", h.parentNode); })); });
+    $$("#v-notes section.nsec").forEach(function (s) { X.push(sEntry(TG.notes, s, $("h2", s), null, function () { show("notes", { anchor: s.id }); })); });
+    (C.slideTitles || []).forEach(function (t, i) { var e = { tag: TG.slides, go: function () { show("slides", { anchor: String(i + 1) }); }, t: { en: "Slide " + (i + 1) + " · " + t, ms: "Slide " + (i + 1) + " · " + t }, b: { en: "", ms: "" } };
+      e.n = { en: nrm(e.t.en), ms: nrm(e.t.ms) }; e.nb = { en: "", ms: "" }; X.push(e); });
+    $$("#v-examples section.xsec").forEach(function (s) { X.push(sEntry(TG.examples, s, $("h2", s), null, function () { show("examples", { anchor: s.id }); })); });
+    $$("#v-exercises .q[data-q], #v-exercises article.qx").forEach(function (q) { var h = $("h4", q) || $("p", q); X.push(sEntry(TG.exercises, q, h, null, function () { goEl("exercises", q, q.id); })); });
+    $$("#v-lab .tk").forEach(function (t) { X.push(sEntry(TG.lab, t, $("h4", t), null, function () { goEl("lab", t); })); });
+    $$("#v-glossary table.gloss tr").forEach(function (r) { var c = $$("td", r); if (c.length < 2) return; X.push(sEntry(TG.glossary, r, c[0], c[1], function () { goEl("glossary", r); })); });
+    return X;
+  }
+  var hq = $("#hq"), hres = $("#hres"), hsel = -1, hhits = [];
+  function markUp(s, toks) { var h = esc(s), n = nrm(h); if (n.length !== h.length) return h; var spans = [];
+    toks.forEach(function (t) { var i = n.indexOf(t); while (i >= 0 && t) { spans.push([i, i + t.length]); i = n.indexOf(t, i + t.length); } });
+    if (!spans.length) return h; spans.sort(function (a, b) { return a[0] - b[0]; }); var out = "", p = 0;
+    spans.forEach(function (sp) { if (sp[0] < p) return; out += h.slice(p, sp[0]) + "<mark>" + h.slice(sp[0], sp[1]) + "</mark>"; p = sp[1]; }); return out + h.slice(p); }
+  function snippet(b, nb, t) { var i = nb.indexOf(t); if (i < 0) return b.length > 90 ? b.slice(0, 88) + "…" : b; var a = Math.max(0, i - 30); return (a ? "…" : "") + b.slice(a, a + 90) + (a + 90 < b.length ? "…" : ""); }
+  function runSearch() {
+    var q = nrm(hq.value).trim(), toks = q.split(/\s+/).filter(Boolean), l = P.lang === "ms" ? "ms" : "en";
+    if (!toks.length) { closeRes(); return; } if (!SIDX) SIDX = buildIndex();
+    hhits = SIDX.map(function (e) { var tt = e.n[l], tb = e.nb[l], scr = 0;
+      for (var i = 0; i < toks.length; i++) { var k = toks[i]; if (tt.indexOf(k) >= 0) scr += 3; else if (tb.indexOf(k) >= 0) scr += 1; else return null; }
+      if (tt.indexOf(q) === 0) scr += 2; return { e: e, s: scr }; }).filter(Boolean).sort(function (a, b) { return b.s - a.s; }).slice(0, 8);
+    hsel = hhits.length ? 0 : -1;
+    hres.innerHTML = hhits.length ? hhits.map(function (h, i) { var e = h.e; return '<button type="button" role="option" id="hr' + i + '" aria-selected="' + (i === hsel) + '"><span class="tg">' + esc(e.tag[l === "ms" ? 1 : 0]) + '</span><span>' + markUp(e.t[l], toks) + '</span><span class="sn">' + markUp(snippet(e.b[l], e.nb[l], toks[0]), toks) + '</span></button>'; }).join("")
+      : '<div class="none">' + esc(L2("Nothing on this page matches. Try a shorter word, e.g. flux or strain.", "Tiada padanan dalam halaman ini. Cuba perkataan yang lebih pendek, contohnya flux atau strain.")) + '</div>';
+    hres.hidden = false; hq.setAttribute("aria-expanded", "true");
+    $$("button", hres).forEach(function (b, i) { b.addEventListener("click", function () { pickRes(i); }); });
+  }
+  function closeRes() { if (!hres) return; hres.hidden = true; hq.setAttribute("aria-expanded", "false"); hsel = -1; }
+  function pickRes(i) { var h = hhits[i]; if (!h) return; closeRes(); hq.blur(); h.e.go(); }
+  function markSel() { $$("button", hres).forEach(function (b, i) { b.setAttribute("aria-selected", String(i === hsel)); if (i === hsel) b.scrollIntoView({ block: "nearest" }); }); }
+  if (hq && hres) {
+    hq.addEventListener("input", runSearch);
+    hq.addEventListener("focus", function () { if (hq.value.trim()) runSearch(); });
+    hq.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowDown" && hhits.length) { hsel = (hsel + 1) % hhits.length; markSel(); e.preventDefault(); }
+      else if (e.key === "ArrowUp" && hhits.length) { hsel = (hsel - 1 + hhits.length) % hhits.length; markSel(); e.preventDefault(); }
+      else if (e.key === "Enter") { if (hsel >= 0) { pickRes(hsel); e.preventDefault(); } }
+      else if (e.key === "Escape") { if (!hres.hidden) { closeRes(); e.stopPropagation(); } else hq.blur(); } });
+    document.addEventListener("pointerdown", function (e) { if (!hres.hidden && !e.target.closest("#hsearch")) closeRes(); });
+    langHooks.push(function () { if (!hres.hidden) runSearch(); });
+    document.addEventListener("keydown", function (e) { var sg = $("#sguide"); if (e.key === "/" && !e.ctrlKey && !e.metaKey && !(e.target.closest && e.target.closest("input,textarea,select,[contenteditable]")) && (!sg || sg.hidden)) { e.preventDefault(); hq.focus(); } });
+  }
+
+  /* ---------- screen guide (ⓘ) and a short tour of the screen ---------- */
+  var REGIONS = C.regions || [];
+  var sguide = $("#sguide"), sgscrim = $("#sgscrim"), binfo = $("#btn-info"), ring = $("#tourring"), tcard = $("#tourcard"), tourI = -1, tourList = [];
+  function visRegions() { return REGIONS.filter(function (r) { var n = $(r[0]); return n && n.getClientRects().length; }); }
+  function renderGuide() { var l = P.lang === "ms" ? 1 : 0; tourList = visRegions();
+    $("#sglist").innerHTML = tourList.map(function (r, i) { return '<li><button type="button" data-ti="' + i + '"><b>' + esc(r[1 + l]) + '</b><span class="d">' + esc(r[3 + l]) + '</span></button></li>'; }).join("");
+    $$("#sglist button").forEach(function (b) { b.addEventListener("click", function () { closeGuide(true); startTour(+b.getAttribute("data-ti")); }); }); }
+  function openGuide() { endTour(true); renderGuide(); sguide.hidden = false; sgscrim.hidden = false; binfo.setAttribute("aria-expanded", "true"); binfo.classList.remove("hint");
+    if (!P.guided) { P.guided = true; savePrefs(); } var f = $("#sglist button", sguide); if (f) f.focus(); }
+  function closeGuide(keepFocus) { sguide.hidden = true; sgscrim.hidden = true; binfo.setAttribute("aria-expanded", "false"); if (!keepFocus) binfo.focus(); }
+  function startTour(i) { tourList = visRegions(); if (!tourList.length) return; tourI = clamp(i, 0, tourList.length - 1); ring.hidden = false; tcard.hidden = false;
+    var n = $(tourList[tourI][0]), r = n.getBoundingClientRect(), tall = r.height > innerHeight * 0.6;
+    n.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: tall ? "start" : "center" });
+    placeTour(); setTimeout(placeTour, 350); setTimeout(placeTour, 700); $("#tcnext").focus({ preventScroll: true }); }
+  function placeTour() { if (tourI < 0) return; var rg = tourList[tourI], l = P.lang === "ms" ? 1 : 0, n = $(rg[0]); if (!n) { endTour(); return; }
+    var r = n.getBoundingClientRect(), p = 6, top = Math.max(4, r.top - p), bot = Math.min(innerHeight - 4, r.bottom + p), left = Math.max(4, r.left - p), right = Math.min(innerWidth - 4, r.right + p);
+    ring.style.top = top + "px"; ring.style.left = left + "px"; ring.style.width = Math.max(0, right - left) + "px"; ring.style.height = Math.max(0, bot - top) + "px";
+    $("#tctitle").textContent = rg[1 + l]; $("#tctext").textContent = rg[3 + l]; $("#tcn").textContent = (tourI + 1) + " / " + tourList.length;
+    $("#tcprev").disabled = tourI === 0;
+    tx($("#tcnext"), tourI === tourList.length - 1 ? "Finish" : "Next", tourI === tourList.length - 1 ? "Selesai" : "Seterusnya");
+    var cw = tcard.offsetWidth, ch = tcard.offsetHeight, cx = Math.min(Math.max(8, left), innerWidth - cw - 8), cy;
+    if (bot + 12 + ch < innerHeight) cy = bot + 12; else if (top - 12 - ch > 0) cy = top - 12 - ch; else cy = innerHeight - ch - 12;
+    tcard.style.left = cx + "px"; tcard.style.top = cy + "px"; }
+  function endTour(silent) { if (tourI < 0) return; tourI = -1; ring.hidden = true; tcard.hidden = true; if (!silent && binfo) binfo.focus(); }
+  if (sguide && binfo) {
+    binfo.addEventListener("click", function () { sguide.hidden ? openGuide() : closeGuide(); });
+    $("#sgclose").addEventListener("click", function () { closeGuide(); });
+    sgscrim.addEventListener("click", function () { closeGuide(); });
+    $("#sgtour").addEventListener("click", function () { closeGuide(true); startTour(0); });
+    $("#tcnext").addEventListener("click", function () { if (tourI >= tourList.length - 1) endTour(); else startTour(tourI + 1); });
+    $("#tcprev").addEventListener("click", function () { startTour(tourI - 1); });
+    $("#tcclose").addEventListener("click", function () { endTour(); });
+    langHooks.push(function () { if (!sguide.hidden) renderGuide(); if (tourI >= 0) placeTour(); $("#sgclose").setAttribute("aria-label", L2("Close", "Tutup")); });
+    if (!P.guided) binfo.classList.add("hint");
+    window.addEventListener("scroll", function () { if (tourI >= 0) placeTour(); }, { passive: true });
+    window.addEventListener("resize", function () { if (tourI >= 0) placeTour(); });
+    document.addEventListener("keydown", function (e) {
+      if (tourI >= 0) { if (e.key === "Escape") endTour(); else if (e.key === "ArrowRight") { if (tourI < tourList.length - 1) startTour(tourI + 1); else endTour(); } else if (e.key === "ArrowLeft") startTour(tourI - 1); else return;
+        e.preventDefault(); e.stopImmediatePropagation(); return; }
+      if (!sguide.hidden && e.key === "Escape") { closeGuide(); e.preventDefault(); e.stopImmediatePropagation(); } }, true);
+  }
 
   /* ---------- run Python in the browser: Pyodide (CPython compiled to WebAssembly) in a Web Worker ----------
      A worker keeps the page responsive and lets Stop end a runaway script. Pyodide is loaded only where the
@@ -633,6 +825,10 @@
   $$(".pyrun").forEach(pyPanel);
 
   /* ---------- go ---------- */
-  syncRead(); applyNmode(); syncLab(); if (VIEWS.length) { updateProgress(); fromHash(); }
-  window.COURSE_API = { show: show, state: ST, save: save, fmt: fmt, bi: bi, saveFile: saveFile, makeZip: makeZip };
+  syncRead(); applyNmode(); syncLab(); applyLang();
+  /* the Dr RJ guide panel navigates through these, exactly like a "Go to" button (rz-tutor-worker panel-mount.js) */
+  window.RZ = { show: function (v) { show(v); }, goTo: function (v, a) { show(v, { anchor: a }); },
+    goSlide: function (i) { if (current !== "slides") show("slides"); goSlide(i); }, current: function () { return current; }, lang: function () { return P.lang; } };
+  if (VIEWS.length) { updateProgress(); fromHash(); }
+  window.COURSE_API = { show: show, state: ST, save: save, fmt: fmt, bi: bi, saveFile: saveFile, makeZip: makeZip, lang: function () { return P.lang; } };
 })();

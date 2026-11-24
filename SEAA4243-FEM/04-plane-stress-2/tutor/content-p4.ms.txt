@@ -525,6 +525,9 @@ stresses {sigma} = [E][B]{u}
 [lab-run] Lab · Jalankan kod dalam browser
 Jalankan kod dalam browser percubaan Ubah skrip pendek dan jalankan di sini, tanpa pemasangan. Python berjalan pada peranti anda sendiri; tiada apa yang dihantar ke mana-mana. Larian pertama memuat turun Python, lebih kurang 9 MB (lebih kurang 20 MB apabila skrip membuat plot), dan mengambil 10–30 s; larian seterusnya sesaat dua. [k] element Kajian mesh cantilever Contoh kursus ▶ Jalankan ■ Henti Set semula skrip Ctrl+Enter (⌘+Enter) menjalankan skrip. Suntingan anda disimpan dalam browser ini; Set semula skrip memulihkan yang asal. Untuk assignment atau projek, muat turun kod di atas dan jalankan di komputer anda.
 
+[feedback-tab] Tab Maklum balas
+Tab Maklum balas, tab terakhir halaman ini: Nilai bahagian ini dari 1 hingga 5 dan nyatakan apa yang paling membantu, tulis Perkara paling mengelirukan (apa yang masih kurang jelas), Lapor kesilapan dalam sesuatu section (typo, tanda yang salah, butang yang tidak berfungsi), Suka halaman ini, dan baca Apa yang baharu. Ia tanpa nama dan hanya sampai kepada pensyarah, untuk menambah baik halaman ini; ia tidak digunakan untuk markah.
+
 [glossary-galerkin-vector-version] Glosari: Galerkin, vector version
 Galerkin, vector version: Weighted residual dengan [N]ᵀ sebagai weight: lapan persamaan setiap four-node element, satu setiap dof.
 

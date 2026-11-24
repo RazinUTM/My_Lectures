@@ -1,0 +1,533 @@
+# ANSYS Demo
+The two textbook problems rebuilt in ANSYS Workbench — predict, run, compare, explain: the heat plate and the cantilever, the mesh study, what a stress plot averages, four wrong models and their signatures, the first verified run of your project model, and how verification differs from validation in the hybrid project.
+
+[start-outcomes] After this part you should be able to
+1. Build a 2D steady-state thermal model and a 2D plane-stress model in ANSYS Workbench, with units, material, thickness, mesh, supports and loads entered correctly.
+2. Map every ANSYS object to the hand calculation: element order, consistent loads, essential and natural conditions, averaged and element stresses, reactions.
+3. Predict a result before running it, run a mesh study, and check the model against one independent calculation before reading any contour plot.
+4. Distinguish verification from validation, recognise four classic modelling mistakes from their symptoms, and take a project model through the stage gates of the hybrid project.
+
+[notes-n1] Notes 1. From the textbook to Workbench
+Nothing in ANSYS Workbench is new mathematics. Its six cells are the six steps you have done with pen and paper: Engineering Data is [E] or k, Geometry is the domain, Mesh chooses the shape functions, Setup holds the loads and the essential conditions, Solution solves [K]{U} = {R}, and Results is [E][B]{û}. What is new is speed, and with speed the temptation to believe the first colour plot.
+[Figure: The six Workbench cells above the matching steps of the hand calculation.]
+## ANSYS object ↔ textbook quantity
+In Mechanical In the textbook Where you met it
+Element Order: Linear / Quadratic (PLANE182 / PLANE183; thermal PLANE55 / PLANE77) 4-node Q4 / 8-node Q8 shear locking of Q4 in bending (Plane Stress Parts 2–3)
+Element Size · Edge Sizing (divisions) · Face Meshing a, b and the structured mesh convergence tables
+Fixed Support · Displacement · Temperature essential conditions: rows struck, Û known reduced system (Heat Transfer Part 2)
+Force · Pressure · Heat Flux · Internal Heat Generation natural conditions and sources: {b}, {q}, {r} consistent loads qb/2 and 1/6 – 2/3 – 1/6
+nothing on an edge insulated or traction-free: the boundary integral vanishes Heat Transfer Part 1
+Averaged · Unaveraged · Elemental Mean nodal average · element values · centroid value Plane Stress Part 3
+Force Reaction · Moment Reaction (probes) struck rows: [K]{U} − {R} at the fixed dofs equilibrium check
+Menu names vary by version The names here are those of recent Mechanical releases (2023–2025), as on the slides. In other versions an option may sit in a different panel (for example Analysis Type under the Geometry cell’s properties, or Display Option under Integration Point Results); the object and its meaning do not change. ANSYS Student is enough for every model on this page.
+## Units first, then the five numbers of each problem
+- Unit system: Metric (m, kg, N, s, V, A), set before anything else. Mechanical prints the unit beside every input field: read it.
+- 2D: Analysis Type = 2D on the Geometry cell before the geometry is drawn; in Mechanical, 2D Behavior = Plane Stress and the Thickness (0.01 m for the cantilever).
+- Material: the cantilever’s E = 2 × 10⁸ Pa and ν = 0.33 are the textbook’s, a thousand times softer than steel — keep them so that the numbers match the book. The plate’s k = 300 W m^{−1} K^{−1} (the §2.3 figure says 400: an erratum).
+## Worked conversion · the cantilever’s load and mesh (Activity 1)
+The text gives q_y = −5 kN m^{−1} on the 2 m right edge of a 0.01 m plate: force per unit length of edge, thickness already included. The dialog wants either a total Force or a Pressure:
+EQUATION : [equation p6_load: source not available in the page]
+EQUATION : [equation p6_load_chk: source not available in the page]
+The hand mesh has rectangular 2 m × 1 m elements, so it is set by divisions per edge, not by one element size (an Element Size of 1 m would give 4 × 2). The plate’s 16 × 16 mesh is a single size:
+EQUATION : [equation p6_size: source not available in the page]
+Element Order: Linear for the hand element. Mechanical never asks for nodal loads: it integrates the Force or Pressure into the consistent loads of Plane Stress Parts 2–3 itself.
+The most common failure in student projects A wrong unit system: geometry drawn in mm with loads in N and E in Pa is a model of a different structure, and nothing in the solver objects. A wrong unit shows up as a factor of 10³ or 10⁶ somewhere — which is why every result is predicted first.
+Key points:
+- Six Workbench cells = six hand steps; the software integrates and assembles, you decide the idealisation.
+- q_y = −5 kN m^{−1} on a 2 m edge, t = 0.01 m: Force −10 000 N or Pressure −500 kPa; Pressure × edge area gives the Force back.
+- Hand mesh: Edge Sizing 2 and 2, Linear. Plate 16 × 16: Element Size 0.0625 m.
+Quick check (not graded): A load of 3 kN m^{−1} acts on a 1.5 m edge of a plate 0.02 m thick. The Pressure to enter is
+Options: 150 kPa | 4.5 kPa | 0.06 kPa
+Explanation shown after answering: p = q/t = 3/0.02 = 150 kN m^{−2} = 150 kPa. Check: 150 × (1.5 × 0.02) = 4.5 kN = q × 1.5, the total Force. 4.5 is that Force in kN, not a pressure; 0.06 is q × t.
+
+[notes-n2] Notes 2. Demo 1 · the heat plate
+The first demonstration is the plate of Heat Transfer Part 2: 1 m square, k = 300 W m^{−1} K^{−1}, 600 W m^{−3} generated inside, 0 °C on the top and left edges, nothing on the other two. Its answers are already known, so the run is a test of the model, not a source of new numbers.
+[Figure: The plate in ANSYS terms: Temperature 0 °C on the top and left edges, nothing on the other two (insulated), Internal Heat Generation on the body, a probe at the bottom-right corner.]
+## Build order
+- Toolbox → Steady-State Thermal ; Geometry cell properties → Analysis Type: 2D.
+- Engineering Data: new material, Isotropic Thermal Conductivity 300 W m^{−1} K^{−1}.
+- Geometry: sketch a 1 m × 1 m rectangle on the XY plane; Surfaces From Sketches; assign the material.
+- Mesh: Face Meshing, Element Size 0.5 m, Element Order Linear → 4 elements, 9 nodes: the hand mesh.
+- Temperature 0 °C on the top and left edges; Internal Heat Generation 600 W m^{−3} on the body.
+- Solve → Temperature; a probe at the bottom-right vertex; Total Heat Flux as vectors; a Reaction probe on the Temperature conditions.
+## Predict before Solve (Activity 2)
+Run Prediction From
+4 linear elements, bottom-right corner 0.6214 Heat Transfer Part 2, text (2.55)
+4 linear elements, mid-point of the bottom edge 0.4821 same solution (symmetry: also the right mid-edge)
+256 linear elements (0.0625 m), corner 0.5898 text Table 2.1
+4 quadratic elements, corner ≈ 0.584 – 0.590 text Q8 2 × 1: 0.5836; record your value
+converged reference 0.5897 text Table 2.1 (software)
+The linear 2 × 2 run uses the same element and the same consistent {q} as the hand calculation, so it must agree to three or four decimals. The refined runs measure how far the hand mesh was from the answer:
+EQUATION : [equation p6_plate_err: source not available in the page]
+## The independent check: heat in = heat out
+EQUATION : [equation p6_heat: source not available in the page]
+The reaction at a node with a prescribed temperature is the heat that must be removed there to hold it at 0 °C: the struck rows of [K]{T} − {R}, exactly as for the forces at a support. Their sum over both cold edges must equal what the body generates, on any mesh. Thickness does not change the temperatures; it scales every heat flow, so read the reaction with the model’s thickness in mind.
+If the 2 × 2 run does not give 0.6214 Check the node count first: 9 nodes means the hand mesh, 25 means a 4 × 4 mesh (corner 0.5968). Then the element order: Program Controlled gives quadratic elements. Both are common, and both are found in a minute because the answer was predicted.
+Key points:
+- Linear 2 × 2: 0.6214 at the corner, 0.4821 at the mid-edges — the hand calculation, to four decimals.
+- 16 × 16: 0.5898, +0.02% from the converged 0.5897; the hand mesh is +5.4%.
+- Reaction on the cold edges = −Q A t: heat out equals heat generated on every mesh.
+Quick check (not graded): Your “linear 2 × 2” plate run shows 0.5968 °C at the corner instead of 0.6214. The most likely cause is
+Options: the mesh is 4 × 4, not 2 × 2 | the thickness is wrong | the heat generation was entered per unit area
+Explanation shown after answering: 0.5968 is exactly the 4 × 4 linear value: an Element Size of 0.25 m instead of 0.5 m. Thickness cannot change a temperature in this problem; a source in the wrong unit would change it by a large factor, not by 4%. Check Mesh → Statistics: 25 nodes.
+
+[notes-n3] Notes 3. Demo 2 · the cantilever and the mesh study
+The second demonstration is the cantilever of Plane Stress Part 2: 4 m × 2 m, t = 0.01 m, fixed on the left, −10 kN on the right edge. Two things are predicted: the 2 × 2 linear run must give the hand value, 0.1306 m, and a refined quadratic mesh must approach Timoshenko beam theory, 0.1919 m.
+[Figure: The cantilever in ANSYS terms: Fixed Support on the left edge, a Force of −10 kN in y on the right edge (or −500 kPa), plane stress with t = 0.01 m, a deformation probe at the tip.]
+## Build order
+- Toolbox → Static Structural ; Analysis Type 2D; Engineering Data: Isotropic Elasticity, E = 2 × 10⁸ Pa, ν = 0.33.
+- Geometry: 4 m × 2 m surface body. In Mechanical: Geometry → 2D Behavior: Plane Stress; the body’s Thickness 0.01 m.
+- Mesh: Face Meshing; Edge Sizing, 2 divisions on all four edges (Behavior: Hard); Element Order Linear → 4 elements, 9 nodes.
+- Fixed Support on the left edge; Force on the right edge, Define By: Components, Y = −10 000 N.
+- Solve → Force Reaction and Moment Reaction probes on the Fixed Support first; then Directional Deformation (Y) and a probe at the top-right vertex.
+EQUATION : [equation p6_reaction: source not available in the page]
+ANSYS’s linear element is not the textbook Q4 With Element Control on Program Controlled, Mechanical may give PLANE182 an enhanced-strain formulation that bends far better than the textbook Q4. If your 2 × 2 linear run is much closer to 0.19 m than 0.1306 m, that is why: set Element Control to Manual with full integration to see the textbook element. Report which one you used; do not hide the difference — explaining it is the point.
+## The mesh study (Activity 3)
+The course solvers give the numbers a correct quadratic (PLANE183) study should come within about 1% of. Dofs are twice the nodes in plane stress; Mesh → Statistics shows the nodes.
+Quadratic mesh Nodes Dofs v_{tip} (m) Change from previous R_y (N)
+2 × 1 13 26 −0.1780 — +10 000
+4 × 2 37 74 −0.1885 5.57% +10 000
+8 × 4 121 242 −0.1906 1.12% +10 000
+16 × 8 433 866 −0.1913 0.35% +10 000
+EQUATION : [equation p6_change: source not available in the page]
+Linear elements on the same meshes: 0.1306 (2 × 2), 0.1643 (4 × 2), 0.1824 (8 × 4), 0.1886 (16 × 8) m — the linear 8 × 4 is 4.3% stiffer than the quadratic 8 × 4, and the linear element needs 16 × 8 to come within 2% of beam theory. The independent check is Timoshenko:
+EQUATION : [equation p6_timo: source not available in the page]
+Which mesh to report Report the first mesh after which the change falls below your tolerance. At 1%: the 8 × 4 quadratic mesh, because the next refinement changed the deflection by only 0.35%; it is 0.7% below Timoshenko, the 16 × 8 0.35% below. Say it in one sentence with both numbers. The reaction column never changes: equilibrium holds exactly for every mesh, because the struck rows of [K]{U} − {R} balance the applied loads whatever the displacements. A reaction checks the loads and the supports; it says nothing about accuracy.
+Key points:
+- Linear 2 × 2 = the hand calculation (0.1306 m) when the element is the textbook Q4; quadratic 2 × 1 already gives 0.1780 m.
+- Quadratic study: changes 5.57%, 1.12%, 0.35%; report 8 × 4 or finer; Timoshenko 0.1919 m.
+- R_y = +10 000 N and M = 40 000 N m on every mesh: the first number to read.
+Quick check (not graded): A group’s quadratic study gives tip deflections whose changes are 5.6%, 1.1% and 0.35% (meshes 4 × 2, 8 × 4, 16 × 8). With a 1% tolerance they should report
+Options: the 4 × 2 mesh, because the change from 2 × 1 is the largest | the 8 × 4 mesh (or finer): the next refinement changed it by 0.35% | only a mesh with zero change
+Explanation shown after answering: The change attached to a mesh tells how much that refinement moved the result. After 8 × 4 the next step moved it 0.35%, below 1%, so 8 × 4 is converged to the tolerance; reporting 16 × 8 is also fine. A zero change never comes: each halving only shrinks the error.
+
+[notes-n4] Notes 4. Stresses on screen, and four wrong models
+A stress contour is the most persuasive and the least reliable picture Mechanical draws. Three questions from Plane Stress Part 3 decide what it means: what is being averaged, where the maximum sits, and whether that maximum converges.
+Result object Display Option Textbook meaning Use it for
+Normal Stress (X Axis) Averaged nodal average of the element values contour plots away from boundaries
+Normal Stress (X Axis) Unaveraged each element’s own values at its nodes seeing how rough the mesh still is
+Normal Stress (X Axis) Elemental Mean the centroid value the number to compare with M(y − H/2)/I
+Equivalent (von Mises) any σ_{vM} steel yield check
+Maximum Principal any σ_1 concrete cracking, direction of reinforcement
+Stress probe — [E][B]{û} at a chosen point a checkable number
+The Max tag of this cantilever Every stress plot of the cantilever puts its Max tag at the fixed corner. That is the singularity of Plane Stress Part 3: it rises with every refinement and is not a design stress. Read stresses where they converge.
+## Worked check · the bending stress at mid-span
+EQUATION : [equation p6_beam_mid: source not available in the page]
+The course Q8 16 × 8 solution gives 1500.3 kN m^{−2} at (2, 1.5), and 1757.8 at the centroid (2.125, 1.625) of the element above it, where beam theory also gives 1757.8. The Q4 16 × 8 mesh shows why Elemental Mean is the honest display for a linear element: its centroid value, 1744, is 0.8% low, but the stress its element evaluates at the corner node (2, 1.5) is 1338 — 10.8% low.
+## Four wrong models, each a one-field change (Activity 4)
+[Figure: Four deliberately wrong versions of the cantilever: plane strain, a force on one vertex, a support that fixes only v, and a thickness left at a default.]
+Mistake Signature (course Q8 32 × 16; correct tip 0.1915 m) Why
+(a) 2D Behavior: Plane Strain tip 0.1722 m (−10.1%); a σ_{zz} appears in the results stiffer [E]: ratio ≈ 1 − ν²
+(b) Force on the top-right vertex loaded node 0.2298 m (+20%); mid-depth 0.1875 m (−0.7%); von Mises under the load ×10 a point load is a singularity; St-Venant
+(c) Displacement Y = 0 only rigid-body warning; weak springs added; large x-displacement nothing stops translation in x
+(d) Thickness 1 m instead of 0.01 m tip 0.001915 m: a clean factor of 100 v ∝ 1/t
+EQUATION : [equation p6_strain_ratio: source not available in the page]
+EQUATION : [equation p6_thick: source not available in the page]
+The reaction was right in all four R_y = +10 000 N in every wrong model (the thickness one included): equilibrium does not catch idealisation errors. A wrong reaction means an input error — load, unit, direction, a missing or doubled support. A right reaction with a wrong deflection means an idealisation error. Different fixes.
+Key points:
+- Elemental Mean = centroid value: compare it with M(y − H/2)/I; ignore the Max tag at the fixed corner.
+- Plane strain −10%; vertex force +20% at the node; v-only support: warning; thickness: a power of ten.
+- Wrong reaction → input error; right reaction, wrong result → idealisation error.
+Quick check (not graded): A run of the cantilever reads R_y = +10 000 N and a tip deflection of 0.0019 m. What do you check first?
+Options: the load: it must be a hundred times too small | the thickness (and the unit system): the deflection is off by exactly 100 | the mesh: refine until it reaches 0.19 m
+Explanation shown after answering: The reaction is right, so the load and supports are right. A clean factor of 100 in a linear model points at a scaling input: t = 1 m instead of 0.01 m gives exactly 0.0019 m. Refinement never repairs an idealisation.
+
+[notes-n5] Notes 5. Your project model: the first verified run
+The last block of the session is your own structure, from the model plan of Plane Stress Part 3. The aim is not a refined answer; it is a coarse model you can trust enough to refine. That takes eight checks, in this order, stopping at the first failure.
+- Units and 2D. Metric (m, kg, N); Analysis Type 2D; plane stress or plane strain stated, with the reason.
+- Geometry. Dimensions checked against the sketch; thickness entered.
+- Material. E and ν (or k) with units, and where they came from.
+- Supports. Only what is really restrained; nothing that is free is fixed.
+- Loads. Tractions on edges and body forces; no forces on single vertices.
+- Coarse mesh. Quadratic, a few elements; it must solve.
+- Reaction. Equal to the applied load, with the right sign.
+- Hand estimate. A deflection or a stress within a factor of 2 — then, and only then, refine. Steps 7 and 8 are the gate A model that fails step 7 or 8 is not refined; it is fixed. Refinement never repairs an idealisation: it converges, very precisely, to the answer of the wrong model.
+## What a verified result looks like · a plate with a hole
+Predicted before Solve: Peterson’s K_t for a central hole with d/W = 0.3. Computed with a mesh refined at the hole (MAPDL example on the slides): 2.34.
+EQUATION : [equation wn_peterson: source not available in the page]
+Reported as: “K_t = 2.34 against Peterson’s 2.35 (−0.4%), on a mesh whose last refinement changed it by less than 1%.” A hand-check number, a mesh that resolves the hot spot, and the comparison in one sentence: that is the standard for the project.
+- Common first-run problems: geometry in mm; thickness not set; a point force on a vertex; a whole edge fixed where the structure sits on a bearing; no restraint in one in-plane direction (rigid-body warning).
+- Deliverable at the end of the lab: a screenshot of the reaction probe and of the coarse-mesh result, with the hand estimate written on the model plan.
+Key points:
+- Eight checks in order; stop at the first failure.
+- Reaction = load, and a hand estimate within a factor of 2, before any refinement.
+- Report: number, check, signed difference, convergence — one sentence.
+Quick check (not graded): Your coarse project model has the right reaction, but its deflection is 3.1 mm where your hand estimate is 0.9 mm. Next step?
+Options: refine the mesh until the deflection settles | look for an idealisation or input error (supports, thickness, E, plane strain/stress) before refining | report 3.1 mm, since the software is more accurate than a hand estimate
+Explanation shown after answering: A factor of 3.4 is outside the factor-of-2 gate. The reaction is right, so the loads are; the difference lies in stiffness or restraint — or in the hand estimate itself, which then needs fixing too. Refinement would converge to the same wrong model.
+
+[notes-n6] Notes 6. Verification, validation and the hybrid project
+Two different questions hide behind “is the model right?”. Asking them separately is what turns a colour plot into evidence.
+Verification — solving the equations right Does the computer solve the mathematical model correctly? Checked against things that are exact for that model: a hand calculation on one element, a patch test, convergence to a known analytical solution, equilibrium of the reactions, an independent second code.
+Validation — solving the right equations Does the mathematical model represent the real structure — plane stress or not, linear elastic or not, these supports or others? Only measurements can answer it: a load test, strain gauges, monitoring data. Without them, say plainly what the model cannot tell you.
+The two demonstrations of this session were verification: ANSYS against hand calculations and textbook solutions. Agreement there says the software solves the idealised plate correctly; it cannot say that the idealisation was right — the four wrong models solved their own equations perfectly.
+## The hybrid project: ANSYS first, your own tool as the independent check
+In the project, ANSYS is the primary analysis. Each group also builds a small solver of its own — written with generative AI if you wish (“vibe coding”), deployed on GitHub — as an independent check of the ANSYS model. Two implementations that agree are stronger evidence than either alone; when they disagree, the difference is explained, never averaged away. The tool is only trusted after it passes the stage gates below, in order.
+Gate What must be shown What it proves — and what it does not
+0 Specification and validation plan, written before any code: the problem, the idealisation, the quantities of interest, the checks and their tolerances. That the group knows what “right” will mean. Nothing about the code yet.
+1 Core solver: one element against a hand calculation (an entry of [k]); the patch test, exact to round-off; ΣR equal to the physical load. Element, assembly, loads and supports are consistent. Not that bending is right (Example 4).
+2 Verification against a known solution: convergence to Timoshenko (cantilever) or Kirsch (plate with a hole, K_t → 3) with the observed order. The equations are solved right. Not that they are the right equations.
+3 ANSYS cross-check on the project structure: same idealisation, comparable mesh; every difference above the tolerance explained (element formulation, load application, averaging). Two independent implementations agree. Not that the model matches the real structure.
+4 UI and deployment: the tool runs from the group’s GitHub repository (GitHub Pages), with a README that states what it verifies and its limits. Others can run and check the tool.
+5 Individual viva and demonstration: each member runs a gate live and explains the code and the numbers behind it. The understanding is the student’s, not the AI’s.
+What the gates catch (Example 4) A load bug that gives every edge node σ_0tb instead of σ_0tb/2 still balances its own load vector: ΣR must be compared with the physical load, σ_0tH. A shear-modulus bug (Ē instead of Ē(1 − ν)/2) passes a tension patch test exactly, because the shear strain is zero there, and is caught only at Gate 2: the Q8 16 × 8 cantilever tip becomes 0.1696 m, 11.6% below Timoshenko.
+## How the project is marked
+Component Marks
+Verification and ANSYS cross-check (Gates 1–3) 35
+Interpretation of the results for design 20
+Individual viva and demonstration (Gate 5) 25
+UI, deployment and repository (Gate 4) 10
+GenAI log and reflection 10
+Total 100
+- GenAI log. Keep the prompts, what you accepted and rejected, and which gate caught which AI error. The reflection says what you would check differently next time.
+- Every line is yours to explain. The viva asks each member to run a gate and explain the code behind it; a tool nobody in the group can explain earns no verification marks. The brief, the group arrangement, the weight in the course and the dates are in Part 5, Notes §6, and are announced by the lecturer; this section adds the verification side.
+EQUATION : [equation p6_predict: source not available in the page]
+Key points:
+- Verification: the equations solved right (hand check, patch test, convergence, a second code). Validation: the right equations (measurements).
+- Gates 0–5: plan → core solver → known solution → ANSYS cross-check → deploy → viva. In order; no skipping.
+- Marks: 35 verification and cross-check · 20 interpretation · 25 viva and demo · 10 UI, deploy, repository · 10 GenAI log and reflection.
+Quick check (not graded): Your group’s solver reproduces the tension patch test to 10^{−17} m. Can you conclude that it is correct?
+Options: yes: an exact patch test proves the element | no: it proves consistency for that stress state only; a wrong shear term passes it, so Gate 2 (bending against Timoshenko) is still needed | yes, if ANSYS gives the same displacement
+Explanation shown after answering: In uniform tension σ_{xy} = 0, so the shear row of [E] is never exercised: with Ē in place of Ē(1 − ν)/2 the patch is still exact, while the cantilever comes out 11.6% stiff. Each gate proves something specific; together they build the case. ANSYS would agree on the patch too — for the same reason.
+
+[slides-1] Slide 1: ANSYS demo: hand calculation versus software
+SEAA 4243 Finite Element Method · computer lab · 3 hours ANSYS demo: hand calculation versus software The two textbook problems rebuilt in Workbench — predict, run, compare, explain — then your project model gets its first run Assoc. Prof. Ts. Dr. Ahmad Razin Zainal Abidin · Dr. Yip Bao Fang Faculty of Civil Engineering, Universiti Teknologi Malaysia Text: Mohd Yassin et al., MSNM 2020 — §2.3 (plate) and §3.4 (cantil
+
+[slides-2] Slide 2: Before any software: write down what the answers must be
+5 MIN Activity 0 · individual · predictions on paper Before any software: write down what the answers must be Write down The temperature at the bottom-right corner of the text’s plate (converged value). The tip deflection of the text’s cantilever (converged value) and its 2 × 2 hand value. The element that corresponds to the hand calculation (4-node or 8-node?) and the one ANSYS uses by default. Why Rule for today: n
+
+[slides-3] Slide 3: By the end of this session you should be able to
+Learning outcomes · today By the end of this session you should be able to 1 Build a 2D steady-state thermal model and a 2D plane-stress model in ANSYS Workbench from a sketch, with units, material, mesh, supports and loads entered correctly. 2 Map every ANSYS object to the hand calculation of the heat-transfer and plane-stress sessions (element order, consistent loads, essential and natural conditions, averaged vers
+
+[slides-4] Slide 4: Two demos, one mesh study, four mistakes, then your own model
+Session map · 180 minutes Two demos, one mesh study, four mistakes, then your own model 0:00 Workbench & vocabulary 30 min A1 · 8 min 0:30 Demo 1: heat plate 30 min A2 · 5 min 1:00 Demo 2: cantilever 35 min A3 + QR 1:35 Break 10 min no activity 1:45 Stresses & wrong models 30 min A4 · 8 min 2:15 Project lab 35 min A5 · 35 min 2:50 Wrap-up 10 min Exit ticket Bring forward Heat Transfer Part 2: plate results 0.6214 (2
+
+[slides-5] Slide 5: From the textbook to Workbench
+1 Block 1 · 0:00 – 0:30 From the textbook to Workbench The six cells of a Workbench analysis are the six steps of the hand calculation. Same mathematics, different names. SEAA 4243 · ANSYS demo · hand calculation vs software 5
+
+[slides-6] Slide 6: Six Workbench cells, six steps you have already done by hand
+Block 1 · the workflow Six Workbench cells, six steps you have already done by hand Why Engineering Data is [E] or k; Geometry is the domain; Mesh chooses the shape functions; Setup is {r} and the essential conditions; Solution solves [K]{U} = {R}; Results is [E][B]{û}. SEAA 4243 · ANSYS demo · hand calculation vs software 6
+
+[slides-7] Slide 7: Lines, area, mesh, solve: a corner bracket in ANSYS MAPDL
+Block 1 · the same sequence in MAPDL Lines, area, mesh, solve: a corner bracket in ANSYS MAPDL 1 · Lines 2 · Area 3 · Mesh (PLANE183) 4 · Solve: von Mises Why Workbench hides these steps behind its cells; MAPDL and its Python interface expose them as commands. Same element, same plane-stress idealisation, same the heat-transfer and plane-stress sessions mathematics. Images: PyMAPDL documentation, “Static analysis of
+
+[slides-8] Slide 8: ANSYS object ↔ textbook quantity
+Block 1 · vocabulary ANSYS object ↔ textbook quantity In Mechanical In the textbook (the heat-transfer and plane-stress sessions) Where it bit you by hand Element order: Linear / Quadratic (PLANE182 / PLANE183; thermal PLANE55 / PLANE77) 4-node Q4 (2.21) / 8-node Q8 (2.31) shear locking of Q4 in bending (Plane Stress Part 2) Element Size, Edge Sizing (number of divisions), Face Meshing a, b and the structured mesh co
+
+[slides-9] Slide 9: Units first, then the five numbers of each problem
+Block 1 · inputs the software asks for Units first, then the five numbers of each problem Cantilever (text §3.4) · Static Structural Unit system: Metric (m, kg, N, s, V, A). Geometry: 4 m × 2 m surface body in XY; Analysis Type = 2D (Geometry cell properties) before importing or sketching. 2D Behavior = Plane Stress; Thickness = 0.01 m. Material: Isotropic Elasticity, E = 2 × 10⁸ Pa, ν = 0.33 — the textbook’s value,
+
+[slides-10] Slide 10: Convert the textbook data for the dialog boxes
+8 MIN Activity 1 · pairs · conversion Convert the textbook data for the dialog boxes Fill in Textbook ANSYS input Value q_y = 5 kN m⁻¹ down, right edge, t = 0.01 m Force on the edge, components F_y = ? same load Pressure, components p_y = ? E = 200 × 10⁶ N m⁻² Young’s Modulus ? Pa 2 × 2 hand mesh of the cantilever Edge Sizing, divisions (top/bottom, left/right) ?, ? 16 × 16 plate mesh Element Size (with Face Meshing)
+
+[slides-11] Slide 11: Total force or pressure: both put −10 kN on the edge, distributed consistently
+Activity 1 · solution Total force or pressure: both put −10 kN on the edge, distributed consistently The rest E = 2 × 10⁸ Pa; ν = 0.33. Edge Sizing: 2 divisions on every edge of the cantilever → the 2 m × 1 m elements of the text; Face Meshing for a mapped (structured) mesh. Element Size 0.0625 m on the plate → 16 × 16. Element Order: Linear for the hand element; Quadratic is the default. Check Mechanical converts an
+
+[slides-12] Slide 12: Demo 1 · the heat plate
+2 Block 2 · 0:30 – 1:00 Demo 1 · the heat plate Steady-State Thermal, 1 m square, two cold edges, two insulated edges, uniform heat source. Predicted before Solve: 0.6214 on the hand mesh, 0.5897 converged. SEAA 4243 · ANSYS demo · hand calculation vs software 12
+
+[slides-13] Slide 13: Every object on this sketch is a line of the Heat Transfer Part 2 hand calculation
+Demo 1 · the model in ANSYS terms Every object on this sketch is a line of the Heat Transfer Part 2 hand calculation Build order (click path in the notes) Steady-State Thermal system → Engineering Data: new material, Isotropic Thermal Conductivity 300. Geometry (2D): sketch a 1 m square; one surface body. Mesh: Face Meshing + Element Size 0.5 m, Element Order Linear → the hand mesh. Temperature 0 °C on top and left e
+
+[slides-14] Slide 14: Predict before Solve is pressed
+5 MIN Activity 2 · pairs · prediction Predict before Solve is pressed Fill the prediction column Run Prediction (Heat Transfer Part 2) ANSYS (fill in live) 4 linear elements (0.5 m), T at the bottom-right corner ? 4 linear elements, T at the mid-point of the bottom edge ? 256 linear elements (0.0625 m), corner ? 4 quadratic elements, corner ? And sketch The direction of the heat-flux vectors on the insulated edges. W
+
+[slides-15] Slide 15: Linear 2 × 2 in ANSYS = the hand calculation; the difference should be in the fourth decim
+Demo 1 · compare and explain Linear 2 × 2 in ANSYS = the hand calculation; the difference should be in the fourth decimal Run Hand / text ANSYS [your run] Comment 4 linear elements, corner 0.6214 [ ] same element, same consistent {q}: should agree to 3–4 decimals 4 linear elements, bottom mid-edge 0.4821 [ ] ditto 256 linear elements, corner 0.5898 [ ] Table 2.1 4 quadratic elements, corner ≈ 0.584–0.590 [ ] Q8 2 × 1
+
+[slides-16] Slide 16: Demo 2 · the cantilever
+3 Block 3 · 1:00 – 1:35 Demo 2 · the cantilever Static Structural, plane stress, 4 m × 2 m, t = 0.01 m. Predicted: 0.131 m on the hand mesh with linear elements, 0.192 m converged. SEAA 4243 · ANSYS demo · hand calculation vs software 16
+
+[slides-17] Slide 17: Fixed Support, an edge force, plane stress with thickness — then the mesh of Plane Stress
+Demo 2 · the model in ANSYS terms Fixed Support, an edge force, plane stress with thickness — then the mesh of Plane Stress Part 2 Watch out First number to read is not the deflection: it is the reaction. +10 000 N in Y, moment 40 000 N m, or something is wrong. Build order (click path in the notes) Static Structural → Engineering Data: new material, Isotropic Elasticity E = 2 × 10⁸ Pa, ν = 0.33. Geometry (2D): 4 m ×
+
+[slides-18] Slide 18: Linear elements lock; quadratic elements converge with a tenth of the dofs
+Demo 2 · predictions from the course solvers Linear elements lock; quadratic elements converge with a tenth of the dofs Mesh (N_x × N_y) Linear (m) Quadratic (m) 2 × 2 / 2 × 1 0.131 0.178 8 × 4 0.182 0.191 16 × 8 0.189 0.191 32 × 16 0.191 0.192 Timoshenko 0.192 0.192 Why ANSYS’s linear element (PLANE182) is not formulated exactly like the textbook Q4; expect the same trend and close numbers, not identical ones. Recor
+
+[slides-19] Slide 19: Before you press Solve: the expected numbers on your phone
+6 MIN QR Explorer · pairs, one phone Before you press Solve: the expected numbers on your phone Scan, then do 1 Cantilever Explorer: 8-node 2 × 1 and 8 × 4. Write both tip deflections in your prediction column. 2 Stress Recovery Explorer: 8-node 16 × 8, Elemental mean. Probe (2.0, 1.5): what σ_{xx} should ANSYS show there? 3 Cantilever Explorer, “More to try”: produce each wrong-model signature before you see it in A
+
+[slides-20] Slide 20: Run the mesh study and write the convergence table
+10 MIN Activity 3 · groups · mesh study Run the mesh study and write the convergence table Do, in your group Quadratic elements, Edge Sizing (N_x, N_y) = (2, 1), (4, 2), (8, 4), (16, 8). Record nodes, tip deflection v at the top-right vertex, and the reaction. Compute the change between successive meshes with the formula below. Switch the 8 × 4 case to Linear: how much stiffer? Decide which mesh you would report, and
+
+[slides-21] Slide 21: Converged to within 0.35% at 8 × 4 quadratic; the linear element needs 16 × 8 for the same
+Activity 3 · solution Converged to within 0.35% at 8 × 4 quadratic; the linear element needs 16 × 8 for the same Quadratic mesh Nodes Dofs v_{tip} (m) Change from previous Reaction R_y (N) 2 × 1 13 26 −0.178 — +10 000 4 × 2 37 74 −0.189 5.6% +10 000 8 × 4 121 242 −0.191 1.1% +10 000 16 × 8 433 866 −0.191 0.35% +10 000 Check Report the 8 × 4 quadratic mesh (or finer); say so in one sentence with the 0.35%. Timoshenko
+
+[slides-22] Slide 22: Break
+1:35 – 1:45 Break Back in 10 minutes. Second half: reading stresses, four wrong models, and your project model. SEAA 4243 · ANSYS demo · hand calculation vs software 22
+
+[slides-23] Slide 23: Stresses on screen, and four wrong models
+4 Block 4 · 1:45 – 2:15 Stresses on screen, and four wrong models What the contour plot averages, where its maximum lies, and how a modelling mistake shows up in the numbers. SEAA 4243 · ANSYS demo · hand calculation vs software 23
+
+[slides-24] Slide 24: Three display options, three things from Plane Stress Part 3
+Block 4 · reading stresses in Mechanical Three display options, three things from Plane Stress Part 3 Result object Display option Textbook meaning (Plane Stress Part 3) Use it for Normal Stress (X axis) Averaged nodal average of element values contour plots away from boundaries Normal Stress (X axis) Unaveraged element values at the nodes seeing how rough the mesh still is Normal Stress (X axis) Elemental Mean the c
+
+[slides-25] Slide 25: Before a single contour plot: do the supports carry what was applied?
+Block 4 · the first check is always the reaction Before a single contour plot: do the supports carry what was applied? Force Reaction probe Boundary Condition: Fixed Support. Expect X = 0, Y = +10 000 N for any mesh and either element order. Moment Reaction probe Summation about the support: 40 000 N m. Check the sign convention of the summation point before reading it. What a wrong value means The load was entered i
+
+[slides-26] Slide 26: Four mistakes, four signatures (course-solver numbers, 32 × 16 mesh)
+Block 4 · four wrong models, each a one-field change Four mistakes, four signatures (course-solver numbers, 32 × 16 mesh) Mistake Symptom in the results Why (a) 2D Behavior: Plane Strain tip 0.172 m, not 0.191 m (−10%) stiffer [E]: ratio ≈ 1 − ν² = 0.89 (b) Force on the top-right vertex tip node 0.230 m (+20%); von Mises under the load 10×; mid-span unchanged point load = singularity; St-Venant (c) Displacement Y = 0
+
+[slides-27] Slide 27: Spot the wrong model from its numbers
+8 MIN Activity 4 · pairs · diagnosis Spot the wrong model from its numbers Four runs of the cantilever, 32 × 16 quadratic Run Reaction Y (N) Tip v (m) Max von Mises (kN m⁻²) Note A +10 000 −0.0019 at the fixed corner B +10 000 −0.230 at the top-right vertex mid-span stresses normal C +10 000 −0.172 at the fixed corner σ_{zz} ≠ 0 in the results D +10 000 −0.191 at the fixed corner warning: 1 rigid-body mode For each r
+
+[slides-28] Slide 28: Every mistake leaves a signature: a factor, a location, a warning, or an extra stress comp
+Activity 4 · solution Every mistake leaves a signature: a factor, a location, a warning, or an extra stress component Run Mistake Signature A (d) thickness at default deflection off by a clean power of ten; reaction unchanged B (b) force on a vertex max stress at the loaded vertex; tip node deflects more than its neighbours; mid-span unchanged C (a) plane strain deflection −10%; a σ_{zz} appears in the results D (c)
+
+[slides-29] Slide 29: Project lab · first verified run
+5 Block 5 · 2:15 – 2:50 Project lab · first verified run Your structure, your model plan from Plane Stress Part 3, one coarse mesh, one reaction check, one hand estimate. Lecturers circulate. SEAA 4243 · ANSYS demo · hand calculation vs software 29
+
+[slides-30] Slide 30: In this order; stop at the first failure and fix it
+Block 5 · the first-run checklist In this order; stop at the first failure and fix it 1 Units & 2D Metric (m, kg, N); Analysis Type 2D; plane stress or strain stated 2 Geometry dimensions checked against the sketch; thickness entered 3 Material E, ν (or k) with units; source written down 4 Supports only what is really restrained; nothing free is fixed 5 Loads tractions on edges, body force; no vertex forces 6 Coarse
+
+[slides-31] Slide 31: Predict K t , resolve the hot spot, compare: 2.34 against 2.35
+Block 5 · what a verified result looks like Predict K_t, resolve the hot spot, compare: 2.34 against 2.35 1 · Geometry 2 · Mesh refined at the hole 3 · Von Mises Check Predicted before Solve: Peterson K_t = 2.35 for d/W = 0.3. Computed: 2.34. Reported with the signed difference (−0.4%). Why This is the standard for your project: a hand-check number, a mesh that resolves the hot spot, and the comparison in one sentenc
+
+[slides-32] Slide 32: Build the first mesh of your project model and verify it
+35 MIN Activity 5 · groups · project lab Build the first mesh of your project model and verify it Do Open the model plan returned from Plane Stress Part 3; build steps 1–6 of the checklist. Solve on the coarse mesh; read the reaction probe first; compare with the applied load. Write the hand estimate (beam theory, statics, or a stress-concentration factor) next to the FE value. If both agree within a factor of 2, run
+
+[slides-33] Slide 33: Wrap-up
+6 Block 6 · 2:50 – 3:00 Wrap-up The habit of the course, the exit ticket, and what the last session adds. SEAA 4243 · ANSYS demo · hand calculation vs software 33
+
+[slides-34] Slide 34: The software is faster; it is not more right
+Block 6 · hand calculation versus software, in one table The software is faster; it is not more right Question By hand (the heat-transfer and plane-stress sessions) In ANSYS (today) Which element? you derived Q4; you read about Q8 Element Order: Linear / Quadratic — default quadratic Loads on nodes qb/2; 1/6–2/3–1/6 automatic from Force / Pressure / Heat Generation Essential conditions rows deleted, Û = 0 Fixed Suppo
+
+[slides-35] Slide 35: Three questions before you leave
+5 MIN Activity 6 · individual · exit ticket Three questions before you leave Questions Your ANSYS reaction is +10 000 N but the tip deflection is 0.0019 m. What do you check first? Which display option gives the stress value closest to the centroid value you computed in Plane Stress Part 3? Your mesh study shows 0.35% change between the last two meshes, but the maximum stress still rises 18%. Explain. Five minutes. N
+
+[slides-36] Slide 36: The last session closes the course: practical issues, then the project submission
+Wrap-up · before the last session The last session closes the course: practical issues, then the project submission Today in four lines Every Workbench cell is a step you did by hand; predict before Solve. Reaction first; then a hand estimate; then refine — in that order. Quadratic elements converge with a tenth of the dofs; linear ones lock in bending. Four mistakes, four signatures: a factor, a location, a warning,
+
+[examples-y1] Example 1 · The plate in Workbench: predict the hand mesh, check the heat balance, judge the refinement
+Exam type predict a software run; energy check Units W, m, °C Source text §2.3; Heat Transfer Part 2 15 marks Question The 1 m square plate of the text (k = 300 W m^{−1} K^{−1}, 600 W m^{−3} generated, 0 °C on the top and left edges, the other edges insulated, t = 1 m) is set up in Steady-State Thermal with four linear elements (Element Size 0.5 m). (a) Predict, by hand, the temperatures the run must show at the free nodes. (b) What must the reactions on the two Temperature conditions add up to, and why? (c) Runs with 4 × 4, 8 × 8 and 16 × 16 elements give 0.5968, 0.5912 and 0.5898 °C at the corner; the converged value is 0.5897 °C. Judge the 2 × 2 run.
+[Figure: The plate with its ANSYS conditions; nodes 1–3 along the bottom, 7–9 along the top.]
+Physical picture. Heat is generated everywhere and can leave only through the cold top and left edges, so the hottest point is the corner farthest from both, the bottom-right. The plate is symmetric about the diagonal from (0, 1) to (1, 0): the bottom mid-edge and the right mid-edge must have the same temperature.
+Plan. [k] for a = b = 0.5 → {q} → assemble the free rows (nodes 2, 3, 5, 6) → T_6 = T_2 → solve → heat balance → percentages.
+## Step 1 (a) Element matrix and loads [4]
+EQUATION : [equation x1_k: source not available in the page]
+EQUATION : [equation x1_q: source not available in the page]
+Check. Each row of [k] adds up to zero (a uniform temperature carries no heat), and the four element loads add up to Q a b t = 150 W.
+## Step 2 (a) The free equations [4]
+Nodes 1, 4, 7, 8, 9 are at 0 °C, so only the rows and columns of nodes 2, 3, 5, 6 remain:
+EQUATION : [equation x1_sys: source not available in the page]
+With T_6 = T_2 (symmetry), the first three rows become
+EQUATION : [equation x1_red: source not available in the page]
+EQUATION : [equation x1_T: source not available in the page]
+Check. Row 2: 300(0.48214) − 50(0.62143) − 100(0.38571) = 75.00.
+Answer. (a) The run must show T_3 = 0.6214 °C at the corner, 0.4821 °C at both mid-edges and 0.3857 °C at the centre — the text’s (2.55), to four decimals.
+## Step 3 (b) The heat balance [3]
+The reactions are the struck rows [K]{T} − {R} at the fixed nodes, the heat removed there:
+EQUATION : [equation x1_heat: source not available in the page]
+Answer. (b) −600 W in total (with t = 1 m): in a steady state all the heat generated, 600 × 1 × 1 W, must leave through the cold edges, on any mesh.
+## Step 4 (c) The refinement [4]
+EQUATION : [equation x1_err: source not available in the page]
+Answer. (c) The 2 × 2 run over-predicts the peak by 5.4%; the error falls by about 4 to 5 times per halving, and 16 × 16 is within 0.02%. Interpretation The linear 2 × 2 run is a test of the model, not of the physics: it must reproduce the hand calculation exactly, because it is the same element with the same consistent loads. If it does not, the mesh or the element order is not what you think. The heat balance is the thermal version of the reaction check — exact on any mesh, so it checks the conditions and the source, not the accuracy. Accuracy comes only from the refinement, and here it is quick: the error drops roughly as h², so 8 × 8 is already within 0.3%. Marking scheme (suggested) · 15 What earns the marks Marks
+Element matrix and the nodal loads 4
+Free equations, symmetry, solution and a check 4
+Heat balance with the reason 3
+Percentages and the judgement 4
+Total 15
+
+[examples-y2] Example 2 · The cantilever in Workbench: inputs, reactions, the convergence table and the reported value
+Exam type set up a run and judge a mesh study Units N, m Source text §3.4; Plane Stress Parts 2–3 20 marks Question The text’s cantilever (4 m × 2 m, t = 0.01 m, E = 200 × 10⁶ N m^{−2}, ν = 0.33, fixed on the left, q_y = −5 kN m^{−1} on the right edge) is to be run in Static Structural. (a) Give the Force or Pressure, E and the Edge Sizing that reproduce the 2 × 2 hand mesh. (b) What must the Force and Moment Reaction probes show? (c) Quadratic meshes give the tip deflections below: compute the changes and choose the mesh to report at a 1% tolerance. (d) Compare with Timoshenko beam theory and estimate the converged value. (e) Linear elements give 0.1824 m (8 × 4) and 0.1886 m (16 × 8). Comment. quadratic mesh 2 × 1 4 × 2 8 × 4 16 × 8
+|v_{tip}| (m) 0.17796 0.18846 0.19059 0.19125
+Values from the course Q8 solver; a PLANE183 run should be within about 1% of them.
+[Figure: The cantilever with its ANSYS inputs.]
+Physical picture. The end load bends the cantilever down and every section carries 10 kN of shear. The supports must carry the load and its moment about the fixed edge whatever the mesh. The deflection rises towards the Timoshenko value as the mesh is refined, quickly with quadratic elements, slowly with linear ones.
+Plan. Convert → reactions from statics → changes → tolerance → Timoshenko → Richardson → linear against quadratic.
+## Step 1 (a) Inputs [3]
+EQUATION : [equation x2_in: source not available in the page]
+Check. −500 × 10³ × (2 × 0.01) = −10 000 N: the Pressure gives the Force back.
+## Step 2 (b) Reactions [3]
+EQUATION : [equation p6_reaction: source not available in the page]
+Answer. (b) Force Reaction X = 0, Y = +10 000 N; Moment Reaction 40 000 N m — on every mesh and for either element order.
+## Step 3 (c) The convergence table [4]
+EQUATION : [equation x2_chg: source not available in the page]
+Answer. (c) Report the 8 × 4 mesh (or finer): the refinement after it changed the deflection by 0.35%, below 1%.
+## Step 4 (d) Independent check and the converged value [6]
+EQUATION : [equation p6_timo: source not available in the page]
+EQUATION : [equation x2_diff: source not available in the page]
+EQUATION : [equation x2_rich: source not available in the page]
+Check. The course Q8 32 × 16 mesh gives 0.19151 m, 0.02% from the extrapolated 0.19155 m.
+Answer. (d) 8 × 4 is 0.69% and 16 × 8 0.35% below Timoshenko’s 0.1919 m; the extrapolated plane-stress value is 0.1916 m, about 0.2% below beam theory, which is a different model (κ = 5/6, no restraint of the Poisson contraction at the support).
+## Step 5 (e) Linear elements [4]
+EQUATION : [equation x2_lin: source not available in the page]
+Answer. (e) The linear element is 4.3% stiffer on the 8 × 4 mesh and needs 16 × 8 to come within 2% of beam theory: shear locking. Expect an enhanced-strain PLANE182 to do better than these textbook-Q4 values; say which formulation was used. Interpretation Three numbers carry the result: the reaction (inputs right), the change between the last two meshes (discretisation small enough) and the difference from Timoshenko (an independent model agrees). The report sentence follows directly: “The 8 × 4 quadratic mesh gives a tip deflection of 0.1906 m; the next refinement changed it by 0.35%, and it lies 0.7% below Timoshenko beam theory; the reactions are 10.0 kN and 40.0 kN m.” Richardson adds an error estimate without a finer mesh, and the 32 × 16 result confirms it to 0.02%. The remaining 0.2% between the converged plate and beam theory is a modelling difference, not a mesh error — which is why beam theory is a check, not the truth. Marking scheme (suggested) · 20 What earns the marks Marks
+Force or Pressure, E, Edge Sizing 3
+Both reactions with the reason they do not change 3
+Three changes and the mesh to report 4
+Timoshenko, signed differences, Richardson 6
+Linear against quadratic, with the mechanism 4
+Total 20
+
+[examples-y3] Example 3 · Four runs of the cantilever, three of them wrong: diagnose from the numbers
+Exam type diagnose software output Units N, m, kN m⁻² Source W14 Activity 4; Cantilever Explorer 12 marks Question Four quadratic 32 × 16 runs of the text’s cantilever give the results below; the correct model gives a tip deflection of 0.1915 m and, in the element under the right edge’s top corner, σ_{vM} = 523 kN m^{−2}. For each run, name the mistake (plane strain, a vertex force, a support that fixes only v, a wrong thickness) or say it is correct, and give the evidence. Run R_y (N) tip v (m) other output
+A +10 000 −0.001915 —
+B +10 000 −0.2298 mid-depth of the free end −0.1875 m; σ_{vM} 5353 kN m^{−2} under the load
+C +10 000 −0.1722 σ_{zz} listed among the results
+D +10 000 −0.1915 no warnings; σ_{vM} 523 kN m^{−2} in the corner element
+Physical picture. Every run has the right reaction, so the loads and supports carry 10 kN: the differences are in the idealisation. Each idealisation error scales the response in its own way — the thickness divides everything, plane strain stiffens by about 1 − ν², a point load disturbs only its neighbourhood.
+Plan. Reaction → ratio to the correct deflection → where the change is (everywhere or local) → the extra output.
+## Step 1 Ratios to the correct model [4]
+EQUATION : [equation x3_ratio: source not available in the page]
+EQUATION : [equation x3_vm: source not available in the page]
+## Step 2 A and C [3]
+A is a clean factor of 0.0100 everywhere: v ∝ 1/t, so the thickness is 1 m instead of 0.01 m. C is 10% stiffer, close to 1 − ν², and lists σ_{zz} = ν(σ_{xx} + σ_{yy}), which exists only in plane strain.
+Answer. A: thickness. C: plane strain.
+## Step 3 B and D [3]
+B is 20% too flexible at the loaded vertex but within 0.7% at mid-depth, and the stress under the load is ten times the correct value: a local disturbance, the signature of a point force (St-Venant). D matches the correct model in deflection and stress, with no warning.
+Answer. B: a force on the top-right vertex. D: correct. The fourth mistake, a support fixing only v, is not among them: it would have produced a rigid-body warning.
+## Step 4 Why the reaction did not help [2]
+Equilibrium of the whole plate fixes R_y = 10 000 N for any stiffness, thickness or idealisation. It catches a wrong load or a missing support, never a wrong model.
+Interpretation A modelling mistake leaves a signature: a clean factor (thickness, units), a factor tied to a material constant (1 − ν² for plane strain), a local disturbance (a point load), or a warning (a mechanism). Reading it needs a prediction to compare against — the correct deflection here, a hand estimate in the project. That is why the reaction is the first check but never the last. Marking scheme (suggested) · 12 What earns the marks Marks
+Three ratios and the stress ratio 4
+A and C named with evidence 3
+B and D named with evidence 3
+Why equilibrium cannot catch them 2
+Total 12
+
+[examples-y4] Example 4 · Gate 1 for your own solver: one element, the patch test and the reactions — and what they miss
+Exam type verify a code; explain what a check proves Units N, m Source hybrid project, Gates 1–2 15 marks Question A group’s plane-stress solver (4-node rectangles) is at Gate 1. (a) For one element with a = 2 m, b = 1 m, t = 0.01 m, E = 200 × 10⁶ N m^{−2}, ν = 0.33, what must k_{11} be? (b) The patch of the figure (E = 200 × 10⁶ N m^{−2}, ν = 0.3, t = 0.01 m) is pulled by σ_0 = 1000 kN m^{−2} on its right edge. Give the nodal loads, the exact displacements, the stresses and the reaction that a correct solver must reproduce. (c) Two bugs are planted: the edge nodes receive σ_0tb instead of σ_0tb/2, and the shear entry of [E] is Ē instead of Ē(1 − ν)/2. Which Gate 1 check catches each, and what catches the other?
+[Figure: The patch: four rectangles of unequal size, rollers on the left edge, a pin at node 1, uniform tension σ_0 on the right edge.]
+Physical picture. A uniform tension in a plate gives a constant stress, a displacement linear in x and y, and no shear. Bilinear elements contain linear fields exactly, so a consistent solver must reproduce that state on any mesh, however uneven — to round-off, not approximately. Anything else is a bug.
+Plan. k_{11} closed form → edge loads → exact field → stresses → ΣR against σ_0tH → each bug against each check.
+## Step 1 (a) One element against the hand calculation [3]
+EQUATION : [equation p6_k11: source not available in the page]
+Answer. (a) k_{11} = 0.8753 × 10⁶ N m^{−1} — the s_1 = 0.875 of the text’s cantilever. Compare the whole first row, not one entry: it must also add up to zero in u.
+## Step 2 (b) Loads and the exact solution [4]
+EQUATION : [equation x4_loads: source not available in the page]
+EQUATION : [equation x4_exact: source not available in the page]
+## Step 3 (b) Stresses and reactions [3]
+σ_{xx} = 1000, σ_{yy} = 0, σ_{xy} = 0 kN m^{−2} at every point of every element — centroid and corners alike. The course element routine, assembled on this patch, reproduces u and v to 10^{−17} m and these stresses exactly.
+EQUATION : [equation x4_R: source not available in the page]
+Answer. (b) Loads 2000, 5000, 3000 N; u = 0.0100 m on the right edge, v = −0.0015 m on the top; σ = {1000, 0, 0} kN m^{−2} everywhere; ΣR_x = −10 000 N.
+## Step 4 (c) The two bugs [5]
+EQUATION : [equation x4_bug: source not available in the page]
+The load bug doubles every displacement and its reactions still balance its own load vector, −20 000 N: ΣR catches it only when compared with the physical load σ_0tH = 10 000 N, and the patch’s exact u catches it too. The shear bug is invisible here, because σ_{xy} = 0 in uniform tension; it is caught at Gate 2, where the cantilever, which carries shear, comes out 11.6% too stiff against Timoshenko.
+Answer. (c) Load bug: the patch displacements and ΣR against σ_0tH (Gate 1). Shear bug: passes Gate 1; caught by the Timoshenko convergence of Gate 2. Interpretation Each gate proves one thing. One element against the closed form checks the integration of [k]; the patch test checks that element, assembly, loads and supports reproduce a constant-stress state exactly; ΣR against the physical load checks the load bookkeeping. None of them exercises every term — a tension patch never touches the shear modulus — which is why the gates come in sequence and why a bending problem with a known answer follows. With an AI-written solver this matters more, not less: the code can look right and pass the checks it happens to exercise. The GenAI log records which gate caught which error. Marking scheme (suggested) · 15 What earns the marks Marks
+k_{11} from the closed form 3
+Edge loads and the exact displacements 4
+Stresses and ΣR against σ_0tH 3
+Each bug matched to the check that catches it, with the reason 5
+Total 15
+
+[exercises-b1] Exercise B1 · An edge load for the ANSYS dialog, and what the software does with it
+Statement: generated in the app at run time (numbers change per attempt)
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-b2] Exercise B2 · Change between meshes, observed order and the extrapolated value
+Statement: generated in the app at run time (numbers change per attempt)
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-b3] Exercise B3 · Reactions and the independent check of a cantilever run
+Statement: generated in the app at run time (numbers change per attempt)
+Hints and the solution are in the app; the tutor gives the next hint only.
+
+[exercises-quick] Exercises: quick concept questions
+- Which Workbench cell decides the shape functions of the analysis?
+- In Steady-State Thermal, an edge with no condition applied is
+- To reproduce the text’s 2 × 2 cantilever mesh (2 m × 1 m elements, hand value 0.1306 m) you set
+- The textbook cantilever in ANSYS shows a Force Reaction of +20 000 N in Y. The most likely cause is
+- Refining the cantilever from 16 × 8 to 32 × 16 (quadratic) changes the tip deflection by 0.14% but raises the maximum von Mises stress from 7937 to 9358 kN m^{−2} (+18%). Which statement is right?
+- Comparing the FE deflection of a shear wall with a load test on the real wall is
+- A student writes the input sheet for the text’s cantilever (4 m × 2 m, t = 0.01 m, q_y = −5 kN m^{−1} on the right edge) before building it in Workbench. One line contains the slip. Which one?
+
+[lab-book22] Explorer task 1 · Press “Text example” (4-node, 2 × 2): −0.1306 m is your prediction for the ANSYS run with Element Order Linear and Edge Sizing 2 and 2. Write it in the prediction column.
+Ticks itself: detected when the 4-node 2 × 2 mesh is solved with the text’s data · not ticked? mark done
+(The task's answer fields are checked in the app; they are not included here.)
+
+[lab-study] Explorer task 2 · Run the mesh study (in class, from the QR on your phone). Read the 8-node 2 × 1 and 8 × 4 tip deflections: the values ANSYS’s quadratic element should come within about 1% of.
+Ticks itself: detected when the mesh study runs with the text’s data · not ticked? mark done
+(The task's answer fields are checked in the app; they are not included here.)
+
+[lab-pstrain] Explorer task 3 · Wrong model (a): on one mesh, switch from plane stress to plane strain. How much stiffer, and does the ratio match 1 − ν²?
+Ticks itself: detected when the same mesh has been solved in plane stress and in plane strain with the text’s data · not ticked? mark done
+(The task's answer fields are checked in the app; they are not included here.)
+
+[lab-point] Explorer task 4 · Wrong model (b): replace the edge traction by a point force at the top corner (same total). Compare the loaded node with mid-depth.
+Ticks itself: detected when the point force at the top corner is solved with the text’s data otherwise · not ticked? mark done
+(The task's answer fields are checked in the app; they are not included here.)
+
+[lab-vonly] Explorer task 5 · Wrong model (c): change the support to “Vertical only: v = 0”. What does the Explorer report — and what would ANSYS do instead?
+Ticks itself: detected when the vertical-only support leaves the model unsolvable · not ticked? mark done
+(The task's answer fields are checked in the app; they are not included here.)
+
+[lab-thick] Explorer task 6 · Wrong model (d): in “Model data”, change the thickness t. Check that the deflection scales exactly as 1/t while the reaction stays the same.
+Ticks itself: detected when t differs from 0.01 m with the text’s data otherwise · not ticked? mark done
+(The task's answer fields are checked in the app; they are not included here.)
+
+[lab-code] Lab · Python code for assignments and projects
+Python code for assignments and projects The same steps and notation as the notes, written out in plain Python. Use it to check every matrix and number of a hand calculation, and to run what is impractical by hand: mesh studies, contour plots, your own geometry and loads. ⤓ Download fe_plane_stress.py (.zip, 18 kB) ⤓ All course code (.zip, 41 kB) Unzip, then install Python 3.8 or newer and run pip install numpy matplotlib (matplotlib only for the plots). Run python fe_plane_stress.py . It reproduces the course example; README.txt lists the output you should see. Read the docstring at the top of the file for the notation, numbering and units, and how to call it for your own problem. A hand calculation is still a hand calculation: in a test or an assignment that asks for the steps, show them yourself. Show the code · fe_plane_stress.py · 323 lines Copy """
+SEAA 4243 Finite Element Method - plane stress with 4-node and 8-node elements
+==============================================================================
+Companion code for the Cantilever and Stress Recovery Explorers (Plane Stress).
+It follows the course's steps in the text's notation (Mohd Yassin et al.,
+MSNM 2020, Chapter 3):
+[E] 3 x 3 material matrix, plane stress or plane strain text (3.10)
+[B] strains from nodal displacements, {eps} = [d]^T[N]{u} weak form (3.31)-(3.38)
+[k] = t * integral [B]^T [E] [B] dA closed form (3.42);
+here by Gauss quadrature (2 x 2 points for the 4-node
+element, 3 x 3 for the 8-node), which
+
+[lab-run] Lab · Run the code in your browser
+Run the code in your browser trial Edit a short script and run it here, with no installation. Python runs on your own device; nothing is sent anywhere. The first run downloads Python, about 9 MB (about 20 MB once a script plots), and takes 10–30 s; later runs take a second or two. Patch test (Gate 1) Wrong-model signatures Course example ▶ Run ■ Stop Reset script Ctrl+Enter (⌘+Enter) runs. Your edits are kept in this browser; Reset script brings back the original. For an assignment or a project, download the code above and run it on your computer.
+
+[feedback-tab] Feedback tab
+The Feedback tab, the last tab of the page: rate this part from 1 to 5 and say what helped, write the muddiest point (what is still unclear), report a mistake in a section (a typo, a wrong sign, a broken button), like the page, and read What's new. It is anonymous and goes only to the lecturer, to improve the page; it is not used for marks.
+
+[glossary-workbench-project-schematic] Glossary: Workbench project schematic
+Workbench project schematic: The chain of cells Engineering Data → Geometry → Model/Mesh → Setup → Solution → Results: the six steps of the hand calculation.
+
+[glossary-analysis-type-2d-2d-behavior] Glossary: Analysis Type 2D · 2D Behavior
+Analysis Type 2D · 2D Behavior: Geometry-cell setting that makes the model two-dimensional; in Mechanical, the choice Plane Stress or Plane Strain, with a Thickness for plane stress.
+
+[glossary-element-order] Glossary: Element Order
+Element Order: Linear (4-node: PLANE182, thermal PLANE55) or Quadratic (8-node: PLANE183, thermal PLANE77); Program Controlled gives quadratic for 2D solids.
+
+[glossary-edge-sizing-element-size-face-meshing] Glossary: Edge Sizing · Element Size · Face Meshing
+Edge Sizing · Element Size · Face Meshing: Number of divisions on an edge, one target size for the whole face, and the request for a mapped (structured) quadrilateral mesh.
+
+[glossary-enhanced-strain-element-control] Glossary: enhanced strain · Element Control
+enhanced strain · Element Control: An option of the linear element that adds internal modes so it bends without locking; Element Control: Manual with full integration gives the textbook Q4.
+
+[glossary-fixed-support-displacement] Glossary: Fixed Support · Displacement
+Fixed Support · Displacement: Essential conditions: all dofs, or chosen components, of an edge set to zero or a value.
+
+[glossary-force-pressure-on-an-edge] Glossary: Force · Pressure (on an edge)
+Force · Pressure (on an edge): Natural conditions: a total force spread over the edge, or a force per unit area of the edge face; Mechanical turns either into consistent nodal loads.
+
+[glossary-internal-heat-generation] Glossary: Internal Heat Generation
+Internal Heat Generation: The source q_h in W m^{−3} on a body; with thickness t its total is q_h × area × t.
+
+[glossary-reaction-probe] Glossary: Reaction probe
+Reaction probe: Force Reaction, Moment Reaction or heat reaction on a support or prescribed temperature: the struck rows of [K]{U} − {R}. The first check of every run.
+
+[glossary-averaged-unaveraged-elemental-mean] Glossary: Averaged · Unaveraged · Elemental Mean
+Averaged · Unaveraged · Elemental Mean: Display Options of a stress result: nodal average, each element’s own nodal values, one centroid value per element.
+
+[glossary-rigid-body-mode-weak-springs] Glossary: rigid-body mode · weak springs
+rigid-body mode · weak springs: A motion the supports do not stop (here, translation in x); the solver warns and may add weak springs to solve anyway — the warning is the evidence.
+
+[glossary-input-error-idealisation-error] Glossary: input error · idealisation error
+input error · idealisation error: A wrong load, unit or support (shows in the reaction) against a wrong modelling choice that equilibrium cannot catch (shows only against a prediction).
+
+[glossary-verification] Glossary: verification
+verification: Solving the equations right: checks that are exact for the model — hand calculation, patch test, analytical solution, reactions, a second code.
+
+[glossary-validation] Glossary: validation
+validation: Solving the right equations: comparison of the model with measurements on the real structure.
+
+[glossary-patch-test] Glossary: patch test
+patch test: A small mesh of unequal elements under a load whose exact solution is a constant stress; a consistent element reproduces it to round-off.
+
+[glossary-stage-gate] Glossary: stage gate
+stage gate: A check that must be passed, with evidence, before the next stage of the project starts.
+
+[glossary-observed-order-p] Glossary: observed order p
+observed order p: The rate measured from three meshes: successive changes shrink by 2^p per halving of the element size.
+
+[glossary-kirsch-solution] Glossary: Kirsch solution
+Kirsch solution: The exact stresses around a circular hole in an infinite plate in tension: 3σ_0 at the edge of the hole (K_t = 3).
+
+[glossary-genai-log] Glossary: GenAI log
+GenAI log: The record of prompts, accepted and rejected AI output, and the gate that caught each error; marked with the reflection.

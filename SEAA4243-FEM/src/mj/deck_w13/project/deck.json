@@ -1,0 +1,96 @@
+{
+ "v": 4,
+ "createdOnFiles": {
+  "v": 1,
+  "at": "2026-10-26T16:55:00Z"
+ },
+ "lists": "css",
+ "title": "FEM \u2014 Plane Stress (Part 3) & Project Briefing",
+ "order": [
+  "cover",
+  "warmup",
+  "outcomes",
+  "session",
+  "d1",
+  "recover",
+  "point",
+  "act1",
+  "act1-reveal",
+  "principal",
+  "d2",
+  "beam-compare",
+  "sxx",
+  "singular",
+  "w13-hole",
+  "act2",
+  "act2-reveal",
+  "qr-stress",
+  "d3",
+  "q8",
+  "q8-loads",
+  "act3",
+  "act3-reveal",
+  "break",
+  "d4",
+  "report",
+  "report-ex",
+  "act4",
+  "d5",
+  "brief",
+  "gates",
+  "candidates",
+  "rubric",
+  "workflow",
+  "w13-symmetry",
+  "act5",
+  "d6",
+  "summary-ps",
+  "exit",
+  "summary"
+ ],
+ "sections": {
+  "s1": {
+   "description": "Opening: retrieval warm-up, outcomes and the 3-hour plan",
+   "start": "cover"
+  },
+  "s2": {
+   "description": "Block 1: strain and stress recovery at a point from the nodal displacements, principal and von Mises stresses",
+   "start": "d1"
+  },
+  "s3": {
+   "description": "Block 2: accuracy of recovered stresses, centroid versus point values, mesh convergence of stresses, and the singularity at the fixed corner",
+   "start": "d2"
+  },
+  "s4": {
+   "description": "Block 3: the eight-node serendipity element, its load distribution and its accuracy compared with the four-node element",
+   "start": "d3"
+  },
+  "s5": {
+   "description": "Block 4: the standard for reporting finite element results \u2014 idealisation, convergence table, independent check, quantified conclusion",
+   "start": "d4"
+  },
+  "s6": {
+   "description": "Block 5: the hybrid group project: brief, stage gates, candidate structures, rubric, workflow and the Gate 0 plan drafted in class",
+   "start": "d5"
+  },
+  "s7": {
+   "description": "Block 6: summary of the plane-stress sessions, exit ticket and preparation for the ANSYS demonstration",
+   "start": "d6"
+  }
+ },
+ "faces": {
+  "source-serif-4": {
+   "family": "Source Serif 4",
+   "href": "https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700&display=swap"
+  },
+  "ibm-plex-sans": {
+   "family": "IBM Plex Sans",
+   "href": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+  },
+  "jetbrains-mono": {
+   "family": "JetBrains Mono",
+   "href": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap"
+  }
+ },
+ "designSystems": []
+}

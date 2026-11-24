@@ -26,7 +26,7 @@ one per tab (`qr_s2_explorer.png`, `qr_s2_notes.png`, …).
 |---|---|
 | Mark as read, key points, quick checks (Notes) | self-paced reading, short notes, retrieval practice |
 | “Try it yourself” boxes at the end of Notes §2, §3 and §5 (`#notes-try-n2`, …) | open the matching Explorer task and lead back to the same place in the notes |
-| Annotation toolbar (pencil button, bottom right): five pens, line thickness, an eraser that removes whole lines, clear all, a blank page behind the writing (0–100%); mouse, touch or pen | the lecturer writes on the screen while teaching; while it is on the page cannot be clicked or scrolled |
+| Annotation toolbar (pencil button, bottom right): five pens, two see-through highlighters, line thickness, an eraser that removes whole lines, clear all, a blank page behind the writing (0–100%); mouse, touch or pen | the lecturer writes on the screen while teaching; while it is on the page cannot be clicked or scrolled |
 | Progress bar and tab badges | shows what is done in each part |
 | Exercise timer (suggested 60 min), first-attempt score, confidence rating, hint count | self-monitoring during practice |
 | Learning record (Start) | summary the student can copy into the report |

@@ -353,6 +353,11 @@
      "title_ms": "Lab: Jalankan kod dalam browser"
     },
     {
+     "id": "feedback-tab",
+     "title_en": "Feedback tab",
+     "title_ms": "Tab Maklum balas"
+    },
+    {
      "id": "glossary-field-problem",
      "title_en": "Glossary: field problem",
      "title_ms": "Glosari: field problem"
@@ -810,6 +815,11 @@
      "title_ms": "Lab: Jalankan kod dalam browser"
     },
     {
+     "id": "feedback-tab",
+     "title_en": "Feedback tab",
+     "title_ms": "Tab Maklum balas"
+    },
+    {
      "id": "glossary-residual",
      "title_en": "Glossary: residual",
      "title_ms": "Glosari: residual"
@@ -1215,6 +1225,11 @@
      "id": "lab-run",
      "title_en": "Lab: Run the code in your browser",
      "title_ms": "Lab: Jalankan kod dalam browser"
+    },
+    {
+     "id": "feedback-tab",
+     "title_en": "Feedback tab",
+     "title_ms": "Tab Maklum balas"
     },
     {
      "id": "glossary-plane-stress",
@@ -1654,6 +1669,11 @@
      "title_ms": "Lab: Jalankan kod dalam browser"
     },
     {
+     "id": "feedback-tab",
+     "title_en": "Feedback tab",
+     "title_ms": "Tab Maklum balas"
+    },
+    {
      "id": "glossary-galerkin-vector-version",
      "title_en": "Glossary: Galerkin, vector version",
      "title_ms": "Glosari: Galerkin, vector version"
@@ -2069,6 +2089,11 @@
      "id": "lab-run",
      "title_en": "Lab: Run the code in your browser",
      "title_ms": "Lab: Jalankan kod dalam browser"
+    },
+    {
+     "id": "feedback-tab",
+     "title_en": "Feedback tab",
+     "title_ms": "Tab Maklum balas"
     },
     {
      "id": "glossary-stress-recovery-post-processing",

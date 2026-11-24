@@ -33,7 +33,7 @@ with sync_playwright() as p:
     check("your answer" in pg.inner_text('.qc[data-qc="r2"] .opt[data-k="a"]').lower() and "✗ Not quite" in pg.inner_text('.qc[data-qc="r2"] .fb'), "recall r2: 'your answer' tag and ✗ verdict")
     check("done" in (pg.get_attribute('li[data-stage-item="qc:r1"]', "class") or ""), "plan item for recall 1 ticked")
     # way-finding: home button, breadcrumb, part switcher, plan item links
-    check(pg.get_attribute(".homeicon", "href") == "../index.html" and pg.get_attribute(".crumbs .homelink", "href") == "../index.html", "home icon and breadcrumb link to the course home")
+    check(pg.get_attribute(".homeicon", "href") == "../index.html" and pg.get_attribute('.crumbs a[href="../index.html"]', "href") == "../index.html" and pg.locator(".crumbs a").first.get_attribute("href").startswith("https://people.utm.my/arazin/"), "home icon and breadcrumb link to the course home; the chain starts at For My Students")
     check(pg.evaluate("document.querySelectorAll('.partsw a').length") == 2 and pg.get_attribute('.partsw a[aria-current="page"]', "href").startswith("../01-"), "part switcher: Part 1 current, Part 2 linked")
     check(pg.evaluate("document.querySelectorAll('.pagenav a.phome').length") == 1, "page footer has a course-home link")
     pg.click('li[data-stage-item="read:n1"] a'); pg.wait_for_timeout(300)
@@ -127,14 +127,34 @@ with sync_playwright() as p:
     # notes 2/6, slides 0/49, exercises 6/10, lab 2/4, checklist 1.5/4 -> mean = (0.3333+0+0.6+0.5+0.375)/5 = 0.3617 -> 36 %
     check(pct.strip() == "30 %", f"progress arithmetic 30 % (six parts, examples unread) (got {pct})")
     # --- language toggle and persistence
-    pg.click('[data-setlang="ms"]'); pg.wait_for_timeout(100)
+    check(pg.inner_text("#btn-lang").strip() == "BM", "language button offers BM while the page is in English")
+    pg.click("#btn-lang"); pg.wait_for_timeout(100)
     check(pg.evaluate("getComputedStyle(document.querySelector('#t-notes .ms')).display") != "none" and pg.evaluate("getComputedStyle(document.querySelector('#t-notes .en')).display") == "none", "BM shows Malay, hides English")
-    pg.click("#themebtn"); pg.click("#themebtn")  # auto -> light -> dark
+    pg.click("#btn-theme")  # follows the system (light) -> dark
     check(pg.get_attribute("html", "data-theme") == "dark", "theme cycles to dark")
     pg.reload(); pg.wait_for_timeout(800)
     check(pg.get_attribute("html", "data-lang") == "ms" and pg.get_attribute("html", "data-theme") == "dark", "prefs persist after reload")
     check(pg.inner_text("#ppct").strip() == "30 %", "progress persists after reload")
     check(pg.inner_text('[data-bd="exercises"]') == "6/10", "exercise records persist")
+    # --- T&L template header: text size, fold, search, screen guide, Feedback tab, Dr RJ
+    fs = lambda: pg.evaluate("getComputedStyle(document.documentElement).getPropertyValue('--font-scale').trim()")
+    seq = []
+    for _ in range(4): pg.click("#btn-font"); seq.append(fs())
+    check(seq == ["1.15", "1.3", "0.9", "1"], f"AA steps 115 -> 130 -> 90 -> 100 % ({seq})")
+    pg.click("#btn-font", modifiers=["Shift"]); check(fs() == "0.9", "Shift+AA goes one step down"); pg.click("#btn-font")
+    pg.click("#foldbtn"); check(pg.evaluate("document.documentElement.classList.contains('subfold')") and not pg.is_visible("#hsub"), "fold hides the description")
+    pg.click("#foldbtn"); check(pg.is_visible("#hsub"), "fold shows it again")
+    pg.fill("#hq", "flux"); pg.wait_for_timeout(200)
+    check(pg.is_visible("#hres") and pg.locator("#hres [role=option]").count() > 0, f"search finds flux ({pg.locator('#hres [role=option]').count()} hits)")
+    pg.fill("#hq", ""); pg.keyboard.press("Escape")
+    pg.click("#btn-info"); pg.wait_for_timeout(150)
+    check(pg.is_visible("#sguide") and pg.locator("#sglist li").count() >= 10, f"screen guide lists the regions ({pg.locator('#sglist li').count()})")
+    pg.click("#sgtour"); pg.wait_for_timeout(250); check(pg.is_visible("#tourcard"), "tour opens"); pg.keyboard.press("Escape"); pg.wait_for_timeout(150)
+    check(not pg.is_visible("#tourcard") and not pg.is_visible("#sguide"), "Esc closes the tour")
+    pg.click('.tab[data-view="feedback"]'); pg.wait_for_timeout(300)
+    check(pg.is_visible("#v-feedback") and pg.locator("#rzfeedback").count() == 1, "Feedback tab opens with the feedback module")
+    check(pg.locator("#rzguide").count() == 1, "Dr RJ panel present")
+    check(pg.evaluate("typeof window.RZ === 'object' && typeof window.RZ.goTo === 'function' && !!window.RZ_AVS.badge"), "engine exposes window.RZ and window.RZ_AVS")
     # examples: mark one worked through
     pg.click('.tab[data-view="examples"]'); pg.wait_for_timeout(200); pg.check('#x1 .readck input'); pg.wait_for_timeout(100)
     check(pg.inner_text('[data-bd="examples"]') == "1/3", "examples badge 1/3 after marking x1")

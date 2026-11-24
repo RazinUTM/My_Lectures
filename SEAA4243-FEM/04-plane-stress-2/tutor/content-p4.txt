@@ -519,6 +519,9 @@ element, 3 x 3 for the 8-node), which
 [lab-run] Lab · Run the code in your browser
 Run the code in your browser trial Edit a short script and run it here, with no installation. Python runs on your own device; nothing is sent anywhere. The first run downloads Python, about 9 MB (about 20 MB once a script plots), and takes 10–30 s; later runs take a second or two. Element [k] Cantilever mesh study Course example ▶ Run ■ Stop Reset script Ctrl+Enter (⌘+Enter) runs. Your edits are kept in this browser; Reset script brings back the original. For an assignment or a project, download the code above and run it on your computer.
 
+[feedback-tab] Feedback tab
+The Feedback tab, the last tab of the page: rate this part from 1 to 5 and say what helped, write the muddiest point (what is still unclear), report a mistake in a section (a typo, a wrong sign, a broken button), like the page, and read What's new. It is anonymous and goes only to the lecturer, to improve the page; it is not used for marks.
+
 [glossary-galerkin-vector-version] Glossary: Galerkin, vector version
 Galerkin, vector version: Weighted residual with [N]ᵀ as the weight: eight equations per four-node element, one per dof.
 

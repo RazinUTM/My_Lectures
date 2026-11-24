@@ -31,11 +31,10 @@ with sync_playwright() as p:
     y0 = pg.evaluate("scrollY"); pg.click("#svfirst"); pg.mouse.move(box["x"] + 50, box["y"] + 50); pg.mouse.wheel(0, -200); pg.wait_for_timeout(300)
     check(cnt() == f"1 / {n}", "wheel up on the first slide does not wrap")
     pdf = pg.locator(".slidebar [data-save]"); check("Download PDF" in pdf.inner_text(), "PDF button labelled Download PDF")
-    # avatar heads on every tab
-    for v in ["start", "notes", "slides", "examples", "exercises", "lab", "glossary"]:
-        pg.click(f'.tab[data-view="{v}"]'); pg.wait_for_timeout(150)
-        img = pg.locator(f'section[data-view="{v}"] .vhead .vava')
-        check(img.count() == 1 and pg.evaluate(f"(() => {{ const i = document.querySelector('section[data-view=\"{v}\"] .vhead .vava'); return i.complete && i.naturalWidth > 100; }})()"), f"avatar on the {v} tab")
+    # the avatar: Dr RJ in the guide panel, the badge in the contact line (the tab heads carry none since the template, 24 Nov 2026)
+    loaded = lambda sel: pg.evaluate(f"(() => {{ const i = document.querySelector('{sel}'); return !!i && i.complete && i.naturalWidth > 20; }})()")
+    check(loaded("#rzguide img"), "Dr RJ in the guide panel")
+    check(loaded("#hcontact img"), "avatar badge in the contact line")
     check(pg.locator("footer.foot .fava").is_visible(), "head badge in the footer")
     fr = pg.frame_locator("#labframe"); pg.click('.tab[data-view="lab"]'); pg.wait_for_timeout(1200)
     check(fr.locator("header.top .labava").is_visible(), "avatar in the Explorer header (inside the part page)")

@@ -458,6 +458,14 @@
    "title_ms": "Lab: Jalankan kod dalam browser"
   },
   {
+   "id": "feedback-tab",
+   "view": "feedback",
+   "anchor": null,
+   "selector": null,
+   "title_en": "Feedback tab",
+   "title_ms": "Tab Maklum balas"
+  },
+  {
    "id": "glossary-stress-recovery-post-processing",
    "view": "glossary",
    "anchor": null,

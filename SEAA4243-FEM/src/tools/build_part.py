@@ -29,7 +29,9 @@ marks_a, marks_b, marks_c = len(mod.QUICK), sum(c[2] for c in mod.CALC), 2
 cfg = {"title": f"SEAA 4243 · {PART['title']}", "description": PART["sub"][0],
        "course": {"part": PART["n"], "key": f"seaa4243-p{PART['n']}-v1", "prefs": "seaa4243-prefs", "notes": [n[0] for n in NOTES], "slides": nslides,
                   "examples": [x[0] for x in EXAMPLES],
-                  "lab": {"id": LAB["id"], "milestones": [{"id": t[0]} for t in mod.LAB_TASKS]}, "cando": len(mod.CANDO), "targetMin": PART["target_min"]}}
+                  "lab": {"id": LAB["id"], "milestones": [{"id": t[0]} for t in mod.LAB_TASKS]}, "cando": len(mod.CANDO), "targetMin": PART["target_min"],
+                  "prefix": "seaa4243", "lang": "en", "avatarBase": "../shared/avatar/", "regions": REGIONS,
+                  "slideTitles": [html.unescape(t) for t in re.findall(r'<div class="sl" data-title="([^"]*)"', slides_html)]}}
 
 # siblings in the same topic, and the previous / next built part
 built = [p for p in COURSE_PARTS if p[5]]
@@ -53,32 +55,38 @@ switch = "".join(
     (f'<a href="../{p[1]}/index.html"' + (' aria-current="page"' if p[0] == PART["n"] else "") + f'>{partlabel(p)}</a>') if p[5]
     else f'<span class="off" title="coming">{partlabel(p)}</span>' for p in sibs)
 
-# ---- header + nav --------------------------------------------------------
+# ---- header + nav (T&L app template, as on the SEAA 4333 Units) -----------------
 head = f'''
 <div class="wrap">
-<header class="top">
-  <div>
-    <nav class="crumbs" aria-label="Breadcrumb"><a class="homelink" href="../index.html"><span aria-hidden="true">⌂</span> {B("Course home", "Laman kursus")}</a><span class="sep" aria-hidden="true">›</span><span>{PART["topic"][0]}</span><span class="sep" aria-hidden="true">›</span><span aria-current="page">{PART["part"]}</span></nav>
-    <h1>{PART["title"]}</h1>
-    <p class="sub">{B(*PART["sub"])}</p>
+<header class="top" id="hdr">
+  <div class="hrow">
+    {crumbs("../index.html", PART["topic"][0] + ", " + PART["part"].split(" ·")[0])}
+    {CONTACT}
   </div>
-  <div class="tools">
-    <div class="seg partsw" role="group" aria-label="{topic} parts">{switch}</div>
-    <button class="toolbtn" id="snbtn" type="button" aria-controls="drawer" aria-expanded="false">{B("Short notes", "Nota ringkas")}</button>
-    <div class="seg" role="group" aria-label="Language / Bahasa"><button type="button" data-setlang="ms" aria-pressed="false">BM</button><button type="button" data-setlang="en" aria-pressed="true">EN</button></div>
-    <div class="seg tsz" role="group" aria-label="Text size"><button type="button" data-ts="-1" aria-label="Smaller text">A−</button><button type="button" data-ts="1" aria-label="Larger text">A+</button></div>
-    <button class="iconbtn" id="themebtn" type="button" aria-label="Theme" title="Theme"></button>
+  <div class="hmain">
+    <div class="htitle">
+      {KICKER}
+      {fold_h1(PART["title"].replace(" — ", ' <span class="lab">— ') + "</span>" if " — " in PART["title"] else PART["title"])}
+      <p class="sub" id="hsub">{B(*PART["sub"])}</p>
+    </div>
+    <div class="tools">
+      {SEARCH}
+      <div class="seg partsw" role="group" aria-label="{topic} parts">{switch}</div>
+      <button class="toolbtn" id="snbtn" type="button" aria-controls="drawer" aria-expanded="false">{B("Short notes", "Nota ringkas")}</button>
+      {PREFS_BTNS.format(info=INFO_BTN)}
+    </div>
   </div>
 </header>
-<div class="navwrap">
+<div class="navwrap" id="navwrap">
   <div class="navrow">
-    <a class="homeicon" href="../index.html" title="Course home" aria-label="Course home"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5 10 3.5l7 6"/><path d="M5 8.2V16.5h3.6v-4.2h2.8v4.2H15V8.2"/></svg></a>
+    <a class="homeicon" href="../index.html" title="SEAA 4243 course home" aria-label="SEAA 4243 course home"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5 10 3.5l7 6"/><path d="M5 8.2V16.5h3.6v-4.2h2.8v4.2H15V8.2"/></svg></a>
     <nav class="tabs" role="tablist" aria-label="Sections">
-      {tab("start", "Start", "Mula", False)}{tab("notes", "Notes", "Nota")}{tab("slides", "Slides", "Slides")}{tab("examples", "Examples", "Contoh")}{tab("exercises", "Exercises", "Latihan")}{tab("lab", "Explorer", "Explorer")}{tab("glossary", "Glossary", "Glosari", False)}
+      {tab("start", "Start", "Mula", False)}{tab("notes", "Notes", "Nota")}{tab("slides", "Slides", "Slides")}{tab("examples", "Examples", "Contoh")}{tab("exercises", "Exercises", "Latihan")}{tab("lab", "Explorer", "Explorer")}{tab("glossary", "Glossary", "Glosari", False)}{tab("feedback", "Feedback", "Maklum balas", False)}
     </nav>
   </div>
   <div class="prog"><span class="pct">{B("Progress", "Kemajuan")}</span><div class="bar" id="pbar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Progress"><i></i></div><span class="pct" id="ppct">0 %</span></div>
 </div>
+{SCREEN_GUIDE}
 <main>
 '''
 
@@ -237,6 +245,14 @@ gl_v = f'''
   <div class="tbl"><table class="gloss"><tbody>{grows}</tbody></table></div></div>
 </section>'''
 
+
+# ---- feedback (the rz-tutor feedback module is mounted in #rzfeedback by tools/add_tutor.py) ---------
+fb_v = f'''
+<section class="view" data-view="feedback" id="v-feedback" role="tabpanel" aria-labelledby="t-feedback" hidden>
+  {vhead("Feedback", "Maklum balas", "Tell the lecturer what works for you and what does not: rate this part, name the point that is still unclear, or report a mistake. The page is improved from time to time with what students say; the changes are listed under What’s new.", "Beritahu pensyarah apa yang membantu anda dan apa yang tidak: beri penilaian bahagian ini, nyatakan perkara yang masih kabur, atau laporkan kesilapan. Halaman ini ditambah baik dari semasa ke semasa berdasarkan maklum balas pelajar; perubahannya disenaraikan di bawah Apa yang baharu.")}
+  <div id="rzfeedback"><p class="lead">{B("The feedback forms open on the course website, razinutm.github.io/My_Lectures.", "Borang maklum balas dibuka di laman web kursus, razinutm.github.io/My_Lectures.")}</p></div>
+</section>'''
+
 # ---- footer: home and neighbouring parts ----------------------------------------
 def pnav(p, en, ms, cls):
     if not p: return f'<span class="{cls}"></span>'
@@ -250,7 +266,7 @@ footnav = (f'<nav class="pagenav" aria-label="Parts">{pnav(prev_p, "← Previous
 drawer = f'''
 {footnav}
 </main>
-<footer class="foot"><p class="lect">{avatar("head", "fava")}SEAA 4243 Finite Element Method · Faculty of Civil Engineering, Universiti Teknologi Malaysia. {B("Lecturer: Assoc. Prof. Ts. Dr. Ahmad Razin Zainal Abidin.", "Pensyarah: Prof. Madya Ts. Dr. Ahmad Razin Zainal Abidin.")}</p>
+<footer class="foot"><p class="lect"><img class="fava" data-avsrc="head" alt="" width="40" height="40" decoding="async">SEAA 4243 Finite Element Method · Faculty of Civil Engineering, Universiti Teknologi Malaysia. {B("Lecturer: Assoc. Prof. Ts. Dr. Ahmad Razin Zainal Abidin.", "Pensyarah: Prof. Madya Ts. Dr. Ahmad Razin Zainal Abidin.")}</p>
 <p>{B("Third-party images are credited where they appear (MIT, BSD, LGPL and CC BY licences).", "Imej pihak ketiga dikreditkan di tempat ia muncul (lesen MIT, BSD, LGPL dan CC BY).")}</p>
 {TUTOR_LINE}
 {copyright_line()}</footer>
@@ -260,7 +276,7 @@ drawer = f'''
 <button class="tpill" id="tpill" type="button" hidden>0:00</button>
 '''
 
-body = head + start + notes_v + slides_v + examples_v + ex_v + lab_v + gl_v + drawer
+body = head + start + notes_v + slides_v + examples_v + ex_v + lab_v + gl_v + fb_v + drawer
 html_out = page(cfg, body, script_extra=f"<script>\n{mod.EX_JS}\n</script>")
 (OUT / "index.html").write_text(html_out)
 print(PART["slug"], "written:", len(html_out) // 1024, "KB,", nslides, "slides,", len(NOTES), "sections")

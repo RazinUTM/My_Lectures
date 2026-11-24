@@ -113,10 +113,10 @@ with sync_playwright() as p:
     ed.fill("print('again')\n"); page.locator(".pyrun [data-pyrun]").click(); t = wait_done(page)
     check(page.locator(".pyrun .pyout").inner_text().strip() == "again", f"run after Stop works ({t:.1f} s)")
     # language: the status follows BM
-    page.locator('[data-setlang="ms"]').first.click()
+    page.locator("#btn-lang").click()
     page.locator(".pyrun [data-pyrun]").click(); wait_done(page)
     check(page.locator(".pyrun .pystat").inner_text().startswith("Siap dalam"), "status in BM: " + page.locator(".pyrun .pystat").inner_text())
-    page.locator('[data-setlang="en"]').first.click()
+    page.locator("#btn-lang").click()
     page.evaluate("() => { for (const k of Object.keys(localStorage)) if (k.startsWith('seaa4243-py-')) localStorage.removeItem(k); }")
 
     # phone width, dark, largest text: no sideways scroll of the page

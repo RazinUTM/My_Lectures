@@ -445,6 +445,9 @@ stresses {sigma} = [E][B]{u}
 [lab-run] Lab · Jalankan kod dalam browser
 Jalankan kod dalam browser percubaan Ubah skrip pendek dan jalankan di sini, tanpa pemasangan. Python berjalan pada peranti anda sendiri; tiada apa yang dihantar ke mana-mana. Larian pertama memuat turun Python, lebih kurang 9 MB (lebih kurang 20 MB apabila skrip membuat plot), dan mengambil 10–30 s; larian seterusnya sesaat dua. Stress pada satu titik Plot von Mises Contoh kursus ▶ Jalankan ■ Henti Set semula skrip Ctrl+Enter (⌘+Enter) menjalankan skrip. Suntingan anda disimpan dalam browser ini; Set semula skrip memulihkan yang asal. Untuk assignment atau projek, muat turun kod di atas dan jalankan di komputer anda.
 
+[feedback-tab] Tab Maklum balas
+Tab Maklum balas, tab terakhir halaman ini: Nilai bahagian ini dari 1 hingga 5 dan nyatakan apa yang paling membantu, tulis Perkara paling mengelirukan (apa yang masih kurang jelas), Lapor kesilapan dalam sesuatu section (typo, tanda yang salah, butang yang tidak berfungsi), Suka halaman ini, dan baca Apa yang baharu. Ia tanpa nama dan hanya sampai kepada pensyarah, untuk menambah baik halaman ini; ia tidak digunakan untuk markah.
+
 [glossary-stress-recovery-post-processing] Glosari: stress recovery · post-processing
 stress recovery · post-processing: Mengira strain dan stress daripada nodal displacement yang diselesaikan, {σ} = [E][B]{û}.
 

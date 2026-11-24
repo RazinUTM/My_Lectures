@@ -1,8 +1,14 @@
-/* SEAA 4243 course pages — shared stylesheet.
-   UTM palette: maroon #830f3e (the logo colour) for actions and headings, gold #e3a130 for highlights,
-   sand #ffe0b1 for note boxes. Dark mode is selected, not flipped: gold carries the actions there,
-   because maroon on a dark ground has too little contrast.
-   Text size: every font size is multiplied by --ts (set by the A− / A+ control); equations zoom with it. */
+/* SEAA 4243 course pages — styles. Taken from the SEAA 4333 styles on 24 Nov 2026 (the T&L app template),
+   with the Run in browser panel added at the end. */
+/* SEAA 4333 course pages — shared stylesheet (rz-tnl-app-template: header · contents · Dr RJ guide panel · footer).
+   Derived from the SEAA 4243 stylesheet; the header block at the end comes from the template's reference page
+   (SEAA 3012 Lab S2, web/src/header.css) and is NOT scaled, so the header and tab bar keep their size at every
+   text-size step. Everything else multiplies its font size by --ts, which the AA button sets (90/100/115/130 %).
+   UTM palette: maroon #830f3e for actions and headings, gold #e3a130 for highlights, sand #ffe0b1 for note boxes.
+   Dark mode is selected, not flipped: gold carries the actions there, because maroon on a dark ground has too
+   little contrast.
+   Widths: the Dr RJ panel takes 340 px + 20 px beside the contents above 900 px, so two-column layouts inside a
+   view switch on when the CONTENTS column is wide enough (viewport 792–900 px, panel below; or >= 1152 px). */
 :root{
   --bg:#f7f5f2; --panel:#ffffff; --panel2:#fbf8f4; --fg:#21191c; --muted:#6b5f63; --line:#ded5d0; --grid:#ede6e1;
   --tint:#f9eef2; --tint-line:#e7c7d3;
@@ -42,7 +48,8 @@ html{scroll-padding-top:120px}
 body{margin:0;background:linear-gradient(var(--band),var(--band)) 0 0/100% 5px no-repeat,linear-gradient(var(--gold),var(--gold)) 0 0/100% 7px no-repeat,var(--bg);color:var(--fg);font:calc(15px*var(--ts))/1.55 var(--font-ui);
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
-.wrap{max-width:1180px;margin:0 auto}
+.wrap{max-width:1340px;margin:0 auto}
+[hidden]{display:none!important}
 img{max-width:100%;height:auto}
 a{color:var(--accent)}
 button{font-family:inherit}
@@ -103,7 +110,7 @@ th{color:var(--muted);font-weight:600}
 td.r,th.r{text-align:right}
 .tbl{overflow-x:auto;max-width:100%}
 .grid2{display:grid;gap:18px}
-@media (min-width:860px){.grid2{grid-template-columns:1fr 1fr}}
+@media (min-width:792px) and (max-width:900px),(min-width:1152px){.grid2{grid-template-columns:1fr 1fr}}
 .grid3{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
 .kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin:10px 0}
 .kv > div{border:1px solid var(--line);border-radius:8px;padding:8px 10px;min-width:0}
@@ -129,7 +136,7 @@ figcaption{font:calc(13.5px*var(--ts))/1.45 var(--font-ui);color:var(--muted);ma
 
 /* ---------- start ---------- */
 .start-hero{display:grid;gap:18px}
-@media (min-width:900px){.start-hero{grid-template-columns:1.25fr 1fr;align-items:start}}
+@media (min-width:792px) and (max-width:900px),(min-width:1152px){.start-hero{grid-template-columns:1.25fr 1fr;align-items:start}}
 .start-hero > *{min-width:0}
 ol.lo{margin:6px 0 0;padding-left:20px}
 ol.lo li{margin:4px 0}
@@ -154,9 +161,9 @@ ol.lo li{margin:4px 0}
 /* ---------- notes ---------- */
 .notes{display:grid;gap:28px;grid-template-columns:minmax(0,1fr)}
 .notes > *{min-width:0}
-@media (min-width:1020px){.notes{grid-template-columns:210px minmax(0,1fr)}}
+@media (min-width:852px) and (max-width:900px),(min-width:1212px){.notes{grid-template-columns:200px minmax(0,1fr)}}
 .toc{font-size:calc(13.5px*var(--ts))}
-@media (min-width:1020px){.toc{position:sticky;top:120px;align-self:start}}
+@media (min-width:852px) and (max-width:900px),(min-width:1212px){.toc{position:sticky;top:120px;align-self:start}}
 .toc ol{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:2px}
 .toc a{color:var(--muted);text-decoration:none;display:block;padding:3px 0}
 .toc a:hover{color:var(--fg)}
@@ -342,10 +349,9 @@ input.ans[data-state="wrong"]{border:2px solid var(--bad);background:var(--bad-b
 
 /* ---------- lab ---------- */
 .labgrid{display:grid;gap:18px}
-@media (min-width:860px){.labgrid{grid-template-columns:minmax(0,1.4fr) minmax(0,1fr)}}
+@media (min-width:1560px){.labgrid{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)}}
 .labgrid > *{min-width:0}
-.labframe{width:100%;aspect-ratio:4/5;max-height:80vh;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
-@media (min-width:860px){.labframe{aspect-ratio:16/11}}
+.labframe{display:block;width:100%;height:min(86vh,940px);min-height:560px;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
 .tk{border-top:1px solid var(--line);padding:12px 0}
 .tk:first-child{border-top:0}
 .tk > header{display:flex;justify-content:space-between;align-items:center;gap:10px}
@@ -398,9 +404,6 @@ footer.foot{margin-top:28px;color:var(--muted);font-size:calc(13px*var(--ts));bo
 .topic{font-size:calc(13px*var(--ts));letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:22px 0 8px}
 
 
-.tsz button{min-width:40px;font-weight:700}
-.tsz button:first-child{font-size:calc(12px*var(--ts))}
-.tsz button:disabled{opacity:.4;cursor:default}
 /* ---------- way-finding: breadcrumb, part switcher, home icon, page navigation ---------- */
 .crumbs{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center;font:600 calc(12.5px*var(--ts)) var(--font-ui);color:var(--muted);margin-bottom:6px}
 .crumbs .sep{color:var(--line)}
@@ -454,29 +457,13 @@ pre.code{margin:0;max-height:480px;overflow:auto;padding:12px 14px;border-top:1p
 .partcard .go{font:600 calc(13px*var(--ts)) var(--font-ui);color:var(--accent)}
 .excard .pp{font-size:calc(12px*var(--ts))}
 
-/* ---------- run in browser (Pyodide) ---------- */
-.pyrun{margin-top:18px}
-.pyrun h2 .trial{font:600 calc(11px*var(--ts)) var(--font-ui);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:2px 8px;vertical-align:middle;margin-left:6px;white-space:nowrap}
-.pyseg{margin:2px 0 10px}
-.pyedit{display:block;width:100%;min-height:120px;resize:vertical;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg);font:calc(13px*var(--ts))/1.5 var(--font-num);tab-size:4;white-space:pre;overflow:auto}
-.pybar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0}
-.pybar [hidden]{display:none}
-.pystat{font-size:calc(13.5px*var(--ts));color:var(--muted);flex:1 1 220px}
-.pystat.pyok{color:var(--good)}.pystat.pybad{color:var(--bad)}
-.pystat a{color:var(--accent)}
-pre.pyout{margin:0;max-height:420px;overflow:auto;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:var(--panel2);font:calc(12.5px*var(--ts))/1.5 var(--font-num);white-space:pre}
-pre.pyout[hidden]{display:none}
-pre.pyout .e{color:var(--bad)}
-.pyfigs figure{margin:12px 0 0}
-.pyfigs img{display:block;max-width:100%;height:auto;background:#fff;border:1px solid var(--line);border-radius:8px;padding:6px}
-.pyfigs figcaption{font:calc(12.5px*var(--ts)) var(--font-num);color:var(--muted);margin-top:4px}
-.pynote{font-size:calc(13px*var(--ts));color:var(--muted);margin:10px 0 0}
 footer.foot p.copy{margin-top:10px}
 
 /* ---------- print: notes only ---------- */
 @media print{
   body{background:#fff;color:#000;padding:0}
-  .navwrap,.tools,.drawer,.scrim,.tpill,.sfoot,.qc,.toc,.crumbs,.vhead,.pagenav,.pyrun{display:none!important}
+  .navwrap,.tools,.drawer,.scrim,.tpill,.sfoot,.qc,.toc,.crumbs,.vhead,.pagenav,.explain,.rjfab,.xbar{display:none!important}
+  .xstep[hidden],.xafter[hidden]{display:block!important}
   footer.foot p:not(.copy){display:none}
   .view[hidden]{display:none!important}
   .article{max-width:none}
@@ -512,3 +499,202 @@ footer.foot .fava{flex:none;width:calc(40px*var(--ts));height:calc(40px*var(--ts
 #svscrub::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--accent);border:2px solid var(--panel)}
 .sstip{position:absolute;bottom:26px;transform:translateX(-50%);background:var(--fg);color:var(--bg);font:500 calc(12px*var(--ts)) var(--font-ui);padding:3px 8px;border-radius:6px;white-space:nowrap;max-width:70vw;overflow:hidden;text-overflow:ellipsis;opacity:0;pointer-events:none;transition:opacity .15s}
 .sstip.on{opacity:1}
+
+/* ---------- SEAA 4333 additions ---------- */
+/* examples: the steps of a model answer appear one at a time */
+.xbar{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin:14px 0 4px;padding:10px 12px;border:1px dashed var(--line);border-radius:8px;background:var(--panel2);font-family:var(--font-ui)}
+.xbar .linkbtn{font-size:calc(13.5px*var(--ts))}
+.xafter{margin-top:6px}
+.xtry{font:calc(14px*var(--ts))/1.5 var(--font-ui);color:var(--muted);margin:8px 0 0}
+/* figures drawn for the notes (PNG/WebP on a white ground in both themes) */
+.paper img{display:block;margin:0 auto;max-width:100%;height:auto}
+.figpair{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));align-items:start}
+.figpair figure{margin:0}
+/* the by-law table and other compact tables in the notes */
+.article .tbl table{width:100%}
+.article td,.article th{font-size:calc(14.5px*var(--ts))}
+/* in-class activities listed on Start (done on paper and in the room, not tracked) */
+.acts{margin:6px 0 0;padding-left:20px;font-size:calc(14.5px*var(--ts))}
+.acts li{margin:3px 0}
+.acts b{font-family:var(--font-num);font-weight:600;color:var(--accent)}
+/* references */
+.refs{margin:6px 0 0;padding-left:20px;font-size:calc(14px*var(--ts));color:var(--muted)}
+/* model answers in the exam's Ref | Calculations | Output format */
+.rco{width:100%;font-family:var(--font-ui)}
+.rco th{font-size:calc(11.5px*var(--ts));text-transform:uppercase;letter-spacing:.05em;padding-top:2px}
+.rco td{font-size:calc(14px*var(--ts));line-height:1.45}
+.rco td.rf{width:9.5em;color:var(--muted);font-size:calc(12.5px*var(--ts))}
+.rco td.o,.rco th.o{text-align:right;font-weight:600;white-space:nowrap}
+.rco tr:last-child td{border-bottom:0}
+@media (max-width:620px){.rco td.rf{width:auto}.rco td.o{white-space:normal}}
+.xsec.isread .readck{border-style:solid;border-color:var(--good);background:var(--good-bg);color:var(--good)}
+.xsec.isread .rk-todo{display:none}
+.xsec.isread .rk-done{display:inline}
+.xsec.isread .xhead h2::after{content:" ✓";color:var(--good);font-size:.8em}
+.qc .figpair,.fb .figpair{margin:10px 0}
+article.qx + article.qx{border-top:1px solid var(--line);padding-top:16px;margin-top:20px}
+.paper a{display:block;cursor:zoom-in}
+.fb .figpair figcaption{margin-top:4px}
+/* footer under both columns */
+footer.foot{max-width:none}
+footer.foot p{max-width:96ch}
+/* the tab badges and the progress text stay the same size at every text size, like the tabs */
+.tab .bd{font-size:11px}
+.prog .pct{font-size:12.5px}
+
+/* ===== Header on the rz-tnl-app-template and the standard settings buttons (rz-settings-buttons).
+   From SEAA 3012 Lab S2 (web/src/header.css, 8 Nov 2026), appended unscaled. */
+:root{--radius:8px;--card-head:var(--panel2);--ink:var(--fg);--acc-guide:var(--accent)}
+header.top{display:block;padding:14px 0 4px}
+.hrow{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 18px}
+.crumbs{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center;font:500 13px var(--font-ui);color:var(--muted);margin:0}
+.crumbs a{color:var(--accent);text-decoration:none}
+.crumbs a:hover{text-decoration:underline}
+.crumbs .sep{color:var(--line)}
+.crumbs [aria-current]{color:var(--fg);font-weight:600}
+.contact{display:flex;flex-wrap:wrap;align-items:center;gap:4px 14px;margin:0;font:400 12.5px var(--font-ui);color:var(--muted)}
+.contact img{width:26px;height:26px;border-radius:50%;flex:none;margin-right:-6px}
+.contact .who{color:var(--fg);font-weight:600}
+.contact .who .muted{font-weight:400}
+.contact a{display:inline-flex;align-items:center;gap:5px;color:var(--muted);text-decoration:none;white-space:nowrap}
+.contact a:hover{color:var(--accent)}
+.contact svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.hmain{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px;margin-top:12px}
+.htitle{flex:1 1 420px;min-width:0}
+.kicker{font:700 12px var(--font-ui);letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.h1row{display:flex;align-items:center;gap:6px 12px;margin:4px 0}
+header.top h1{font-size:clamp(26px,4vw,36px);line-height:1.12;margin:0}
+header.top h1 .lab{font-weight:500;color:var(--muted)}
+.foldbtn{flex:none;display:inline-grid;place-items:center;width:26px;height:26px;padding:0;border:1px solid var(--line);border-radius:50%;background:var(--card-head);color:var(--muted);cursor:pointer;align-self:center}
+.foldbtn:hover{border-color:var(--accent);color:var(--accent)}
+.foldbtn svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+@media (prefers-reduced-motion:no-preference){.foldbtn svg{transition:transform .15s}}
+.foldbtn[aria-expanded="false"] svg{transform:rotate(-90deg)}
+header.top .sub{font-size:14.5px;line-height:1.5;margin:0;color:var(--muted);max-width:72ch}
+:root.subfold header.top .sub{display:none}
+.vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.toolbtn{height:30px;border:1px solid var(--line);background:var(--card-head);color:var(--fg);border-radius:var(--radius);padding:0 12px;font:600 13px var(--font-ui);cursor:pointer;white-space:nowrap}
+.toolbtn:hover{border-color:var(--accent);color:var(--accent)}
+/* search: client-side only, over this page */
+.hsearch{position:relative;display:flex;align-items:center}
+.hsearch > svg{position:absolute;left:9px;width:15px;height:15px;fill:none;stroke:var(--muted);stroke-width:2;stroke-linecap:round;pointer-events:none}
+.hsearch input{width:210px;height:30px;box-sizing:border-box;padding:0 10px 0 30px;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);color:var(--fg);font:400 13.5px var(--font-ui)}
+.hsearch input:focus{outline:2px solid var(--accent);outline-offset:-1px;border-color:var(--accent)}
+.hres{position:absolute;right:0;top:calc(100% + 6px);z-index:30;width:min(420px,calc(100vw - 32px));max-height:min(62vh,460px);overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:10px;box-shadow:0 12px 32px rgba(0,0,0,.2);padding:6px}
+.hres button{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;width:100%;text-align:left;border:0;background:none;color:var(--fg);padding:8px 10px;border-radius:7px;cursor:pointer;font:400 14px/1.35 var(--font-ui)}
+.hres button[aria-selected="true"],.hres button:hover{background:var(--tint)}
+.hres .tg{grid-row:1 / span 2;align-self:start;margin-top:1px;font:600 10.5px var(--font-ui);letter-spacing:.05em;text-transform:uppercase;color:var(--accent);background:var(--chip);border-radius:4px;padding:2px 6px;white-space:nowrap}
+.hres .sn{font-size:12.5px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hres mark{background:color-mix(in srgb,var(--accent) 22%,transparent);color:inherit;border-radius:2px}
+.hres .none{padding:10px;color:var(--muted);font:400 13.5px var(--font-ui)}
+/* settings buttons: language · theme · text size · screen guide (rz-settings-buttons) */
+.prefs{display:flex;align-items:center;gap:4px;flex-wrap:nowrap}
+.prefs button{border:1px solid var(--line);border-radius:var(--radius);background:var(--card-head);color:var(--ink);cursor:pointer}
+.prefs .iconbtn{display:inline-grid;place-items:center;width:30px;height:30px;min-width:0;padding:0;font:700 12px var(--font-ui);line-height:1}
+.prefs .iconbtn:hover{border-color:var(--accent);color:var(--accent)}
+.prefs .iconbtn svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.prefs .langbtn{letter-spacing:.02em}
+.prefs .fontbtn{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.prefs .fontbtn .aa{font-size:13px;line-height:1}
+.prefs .fontbtn .aa small{font-size:9px}
+.prefs .fontbtn .lvl{display:flex;gap:2px}
+.prefs .fontbtn .lvl i{width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.25}
+.prefs .fontbtn .lvl i.on{opacity:1}
+#btn-info svg{stroke-width:2}
+#btn-info.hint{border-color:var(--acc-guide);animation:infohint 1.6s ease-in-out 4}
+@keyframes infohint{0%,100%{box-shadow:0 0 0 3px color-mix(in srgb,var(--acc-guide) 35%,transparent)}50%{box-shadow:0 0 0 7px color-mix(in srgb,var(--acc-guide) 8%,transparent)}}
+@media (prefers-reduced-motion:reduce){#btn-info.hint{animation:none}}
+.prefs button:focus-visible,.toolbtn:focus-visible,.foldbtn:focus-visible,.homeicon:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* tab bar with the home icon */
+.navwrap{margin:10px 0 20px}
+.navrow{display:flex;align-items:stretch;gap:4px}
+.navrow nav.tabs{flex:1;min-width:0;border-bottom:0}
+.homeicon{flex:none;display:grid;place-items:center;width:42px;color:var(--muted);border-right:1px solid var(--line);margin:6px 2px 6px 0;text-decoration:none}
+.homeicon svg{width:20px;height:20px}
+.homeicon:hover{color:var(--accent)}
+nav.tabs .tab{font-size:14.5px}
+/* screen guide */
+.sgscrim{position:fixed;inset:0;z-index:40;background:rgba(10,14,20,.45)}
+.sguide{position:fixed;z-index:41;top:50%;left:50%;transform:translate(-50%,-50%);width:min(560px,calc(100vw - 24px));max-height:calc(100dvh - 32px);overflow:auto;box-sizing:border-box;background:var(--panel);color:var(--fg);border:1px solid var(--line);border-radius:14px;box-shadow:0 20px 50px rgba(0,0,0,.3);padding:16px 18px;font:400 14.5px/1.5 var(--font-ui)}
+.sghead{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.sghead h2{display:flex;align-items:center;gap:8px;margin:0;font-size:18px}
+.sghead h2 svg{width:20px;height:20px;fill:none;stroke:var(--accent);stroke-width:2;stroke-linecap:round}
+.sghead .iconbtn{width:32px;height:32px;min-width:0;font-size:15px;border:1px solid var(--line);border-radius:var(--radius);background:var(--card-head);color:var(--fg);cursor:pointer}
+.sglead{margin:6px 0 10px;color:var(--muted);font-size:13.5px}
+.sglist{list-style:none;margin:0;padding:0;display:grid;gap:4px;counter-reset:sg}
+.sglist button{display:grid;grid-template-columns:24px 1fr;gap:0 10px;width:100%;text-align:left;border:1px solid var(--line);border-radius:9px;background:var(--panel2);color:var(--fg);padding:8px 10px;cursor:pointer;font:inherit}
+.sglist button:hover{border-color:var(--accent)}
+.sglist button::before{counter-increment:sg;content:counter(sg);grid-row:1 / span 2;display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--chip);font:600 12px var(--font-num);color:var(--accent)}
+.sglist b{font-size:14px}
+.sglist span.d{font-size:13px;color:var(--muted)}
+.sguide h3{font-size:14px;margin:14px 0 4px}
+.sgsym{margin:0;padding:0 0 0 2px;list-style:none;display:grid;gap:4px;font-size:13.5px}
+.sgsym b{display:inline-block;min-width:44px;font-family:var(--font-num)}
+.sgsym .bdx{font:500 11px var(--font-num);background:var(--chip);border-radius:4px;padding:1px 5px;min-width:0;margin-right:6px}
+.sgfoot{display:flex;justify-content:flex-end;margin-top:12px}
+.tourring{position:fixed;z-index:42;pointer-events:none;border:3px solid var(--accent);border-radius:12px;box-shadow:0 0 0 9999px rgba(10,14,20,.38)}
+@media (prefers-reduced-motion:no-preference){.tourring{transition:top .2s,left .2s,width .2s,height .2s}}
+.tourcard{position:fixed;z-index:43;width:min(360px,calc(100vw - 24px));box-sizing:border-box;background:var(--panel);color:var(--fg);border:1px solid var(--line);border-radius:12px;box-shadow:0 14px 36px rgba(0,0,0,.3);padding:12px 14px;font:400 14px/1.5 var(--font-ui)}
+.tourcard .tch{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.tourcard .tcn{font:500 12px var(--font-num);color:var(--muted)}
+.tourcard p{margin:6px 0 10px}
+.tourcard .tcbar{display:flex;gap:8px;align-items:center}
+.tourcard .tcbar .linkbtn{margin-left:auto}
+/* phones and narrow tablets */
+@media (max-width:760px){
+  .contact .who{display:none}
+  .contact img{display:none}
+  .hmain{margin-top:8px}
+  .tools{width:100%;justify-content:space-between;flex-wrap:nowrap;gap:6px}
+  .hsearch{flex:1 1 auto;min-width:0}
+  .hsearch input{width:100%}
+  .hres{right:auto;left:0}
+}
+@media (max-width:420px){
+  .toolbtn{padding:0 8px}
+  .kicker{font-size:11px;letter-spacing:.06em}
+  header.top h1{font-size:25px}
+  .h1row{gap:8px}
+  .hsearch input{padding:0 4px 0 28px}
+  .hsearch > svg{left:8px}
+}
+@media (pointer:coarse),(max-width:700px){.hsearch input{font-size:16px!important}}
+@media print{.tools,.navwrap,.sguide,.sgscrim,.tourring,.tourcard,.foldbtn{display:none!important}}
+/* search targets: clear of the sticky tab bar, and a brief outline on arrival */
+main [id],main h2,main h3,main tr{scroll-margin-top:118px}
+.hflash{outline:3px solid var(--accent);outline-offset:4px;border-radius:6px}
+/* search and anchor targets land just below the sticky tab bar (SEAA 4333: one offset, not two) */
+html{scroll-padding-top:0}
+main [id],main h2,main h3,main tr{scroll-margin-top:104px}
+
+/* ---------- run in browser (Pyodide) ---------- */
+.pyrun{margin-top:18px}
+.pyrun h2 .trial{font:600 calc(11px*var(--ts)) var(--font-ui);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:2px 8px;vertical-align:middle;margin-left:6px;white-space:nowrap}
+.pyseg{margin:2px 0 10px}
+.pyedit{display:block;width:100%;min-height:120px;resize:vertical;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg);font:calc(13px*var(--ts))/1.5 var(--font-num);tab-size:4;white-space:pre;overflow:auto}
+.pybar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0}
+.pybar [hidden]{display:none}
+.pystat{font-size:calc(13.5px*var(--ts));color:var(--muted);flex:1 1 220px}
+.pystat.pyok{color:var(--good)}.pystat.pybad{color:var(--bad)}
+.pystat a{color:var(--accent)}
+pre.pyout{margin:0;max-height:420px;overflow:auto;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:var(--panel2);font:calc(12.5px*var(--ts))/1.5 var(--font-num);white-space:pre}
+pre.pyout[hidden]{display:none}
+pre.pyout .e{color:var(--bad)}
+.pyfigs figure{margin:12px 0 0}
+.pyfigs img{display:block;max-width:100%;height:auto;background:#fff;border:1px solid var(--line);border-radius:8px;padding:6px}
+.pyfigs figcaption{font:calc(12.5px*var(--ts)) var(--font-num);color:var(--muted);margin-top:4px}
+.pynote{font-size:calc(13px*var(--ts));color:var(--muted);margin:10px 0 0}
+footer.foot p.copy{margin-top:10px}
+
+
+@media print{.pyrun{display:none!important}}
+/* ---------- SEAA 4243: the part switcher in the header tools ---------- */
+.tools .partsw{flex-wrap:nowrap;height:30px;align-items:stretch}
+.tools .partsw a,.tools .partsw .off{white-space:nowrap;padding:0 11px;line-height:28px;font-size:13px}
+@media (max-width:900px){
+  .tools{flex-wrap:wrap}
+  .tools .partsw{order:-1;flex:1 1 100%}
+  .tools .partsw a,.tools .partsw .off{flex:1 1 0;text-align:center}
+}
+@media (max-width:760px){.tools .hsearch{flex:1 1 0;min-width:96px}}

@@ -14,10 +14,14 @@ Website: <https://razinutm.github.io/My_Lectures/SEAA4243-FEM/>
 | Plane Stress, Part 3 | [`05-plane-stress-3/`](05-plane-stress-3/) | stress recovery, principal and von Mises stresses, accuracy and singularities, the 8-node element, the project |
 | ANSYS demo | coming | the plate and the cantilever rebuilt in Workbench |
 
-The slide viewer has first/last buttons, a page slider, mouse-wheel and swipe paging, and a PDF
-download. Each part page has seven tabs: Start (plan and progress), Notes, Slides (viewer and PDF),
-Examples (model answers in exam form), Exercises (new numbers each attempt), Explorer, Glossary.
-Explanations switch between English and Bahasa Melayu; technical terms stay in English.
+The pages follow the lecturer's T&L app template, the same as the SEAA 4333 Units: a header with the
+way back (For My Students › My Lectures › SEAA 4243 › part), the lecturer's email, a foldable
+description, a search box over the page, the part switcher, Short notes, and the settings buttons
+(BM/EN · theme · text size AA · screen guide ⓘ with a tour). Each part page has eight tabs: Start (plan
+and progress), Notes, Slides (viewer and PDF), Examples (model answers in exam form), Exercises (new
+numbers each attempt), Explorer, Glossary and Feedback. The slide viewer has first/last buttons, a page
+slider, mouse-wheel and swipe paging, and a PDF download. Explanations switch between English and
+Bahasa Melayu; technical terms stay in English.
 
 ## Folder layout
 
@@ -32,8 +36,9 @@ SEAA4243-FEM/
 ├── labs/                     the Explorers (interactive, also linked by QR codes in the slides)
 ├── code/                     companion Python code and READMEs (the pages zip them on download)
 ├── tutor/                    course.json and extra/ for Dr RJ (each part folder has its own tutor/)
-├── tools/                    add_tutor.py and the pinned rz-tutor panel code
-└── shared/                   course.css and course.js, the engine the pages inline; avatar/; tutor_endpoint.txt
+├── tools/                    add_tutor.py and the pinned rz-tutor panel and feedback code
+├── src/                      the sources the pages are built from (see src/README.md)
+└── shared/                   course.css and course.js, the engine the pages inline; avatar/; tutor_endpoint.txt; whats_new.txt
 ```
 
 Progress, language, theme and text size are kept in the student's own browser
@@ -54,6 +59,10 @@ English and as the page reads in Bahasa Melayu), `tutor/course.json` for the cou
 `tutor/extra/` (the lecturer's rz-tools heat-conduction text, a supplementary document for Parts 1–2).
 `tools/add_tutor.py` writes them and adds the panel; `tools/rz-tutor/` is the pinned panel code
 (see its VERSION); `shared/tutor_endpoint.txt` holds the Worker address.
+
+The Feedback tab (rating, the point still unclear, mistake report, and "What's new" from
+`shared/whats_new.txt`) sends to the same Worker (`/v1/feedback`). Its forms stay disabled until the
+Worker has `"feedback": true` for app `seaa4243`.
 
 ## Python code
 

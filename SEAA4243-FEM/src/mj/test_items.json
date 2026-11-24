@@ -1,0 +1,6 @@
+[
+ {"name":"pde_steady","tex":"\\frac{\\partial}{\\partial x}\\left(k_x\\frac{\\partial T}{\\partial x}\\right)+\\frac{\\partial}{\\partial y}\\left(k_y\\frac{\\partial T}{\\partial y}\\right)=-q_h"},
+ {"name":"matrix_form","tex":"\\left\\{\\dfrac{\\partial}{\\partial x}\;\;\\dfrac{\\partial}{\\partial y}\\right\\}\\begin{bmatrix}k_x&0\\\\0&k_y\\end{bmatrix}\\begin{Bmatrix}\\dfrac{\\partial}{\\partial x}\\\\[6pt]\\dfrac{\\partial}{\\partial y}\\end{Bmatrix}T=-q_h"},
+ {"name":"kglobal","tex":"\\begin{bmatrix}200&-50&0&-50&-100&0&0&0&0\\\\-50&400&-50&-100&-100&-100&0&0&0\\\\0&-50&200&0&-100&-50&0&0&0\\\\-50&-100&0&400&-100&0&-50&-100&0\\\\-100&-100&-100&-100&800&-100&-100&-100&-100\\\\0&-100&-50&0&-100&400&0&-100&-50\\\\0&0&0&-50&-100&0&200&-50&0\\\\0&0&0&-100&-100&-100&-50&400&-50\\\\0&0&0&0&-100&-50&0&-50&200\\end{bmatrix}\\begin{Bmatrix}T_1\\\\T_2\\\\T_3\\\\T_4\\\\T_5\\\\T_6\\\\T_7\\\\T_8\\\\T_9\\end{Bmatrix}=\\begin{Bmatrix}37.5\\\\75\\\\37.5\\\\75\\\\150\\\\75\\\\37.5\\\\75\\\\37.5\\end{Bmatrix}"},
+ {"name":"shape","tex":"N_1=\\frac{(a-x)(b-y)}{ab},\\quad N_2=\\frac{x(b-y)}{ab},\\quad N_3=\\frac{xy}{ab},\\quad N_4=\\frac{y(a-x)}{ab}"}
+]

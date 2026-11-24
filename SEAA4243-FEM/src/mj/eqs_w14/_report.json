@@ -1,0 +1,56 @@
+[
+ {
+  "name": "t_load_conv",
+  "w": 1714,
+  "h": 90,
+  "bytes": 17411
+ },
+ {
+  "name": "t_check_load",
+  "w": 1229,
+  "h": 52,
+  "bytes": 14992
+ },
+ {
+  "name": "t_conv_pct",
+  "w": 1896,
+  "h": 93,
+  "bytes": 22000
+ },
+ {
+  "name": "t_strain_E",
+  "w": 2003,
+  "h": 177,
+  "bytes": 19227
+ },
+ {
+  "name": "t_strain_ratio",
+  "w": 1454,
+  "h": 95,
+  "bytes": 20901
+ },
+ {
+  "name": "t_thick",
+  "w": 1499,
+  "h": 90,
+  "bytes": 15422
+ },
+ {
+  "name": "t_reaction",
+  "w": 1580,
+  "h": 119,
+  "bytes": 30668
+ },
+ {
+  "name": "t_heat_check",
+  "w": 2019,
+  "h": 101,
+  "bytes": 27971
+ },
+ {
+  "name": "t_predict",
+  "w": 1412,
+  "h": 40,
+  "bytes": 15587
+ }
+]

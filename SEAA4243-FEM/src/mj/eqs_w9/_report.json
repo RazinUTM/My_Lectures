@@ -1,0 +1,272 @@
+[
+ {
+  "name": "e_QE",
+  "w": 442,
+  "h": 109,
+  "bytes": 8206
+ },
+ {
+  "name": "e_Qx",
+  "w": 1045,
+  "h": 125,
+  "bytes": 8801
+ },
+ {
+  "name": "e_Qy",
+  "w": 1034,
+  "h": 126,
+  "bytes": 8799
+ },
+ {
+  "name": "e_Qh",
+  "w": 311,
+  "h": 47,
+  "bytes": 5375
+ },
+ {
+  "name": "e_balance",
+  "w": 1146,
+  "h": 123,
+  "bytes": 10906
+ },
+ {
+  "name": "e_balance2",
+  "w": 640,
+  "h": 123,
+  "bytes": 8483
+ },
+ {
+  "name": "e_fourier",
+  "w": 720,
+  "h": 119,
+  "bytes": 7095
+ },
+ {
+  "name": "e_pde_t",
+  "w": 993,
+  "h": 125,
+  "bytes": 11090
+ },
+ {
+  "name": "e_pde",
+  "w": 815,
+  "h": 125,
+  "bytes": 8993
+ },
+ {
+  "name": "e_poisson",
+  "w": 1307,
+  "h": 291,
+  "bytes": 21604
+ },
+ {
+  "name": "e_units",
+  "w": 858,
+  "h": 117,
+  "bytes": 11429
+ },
+ {
+  "name": "e_matrix",
+  "w": 886,
+  "h": 290,
+  "bytes": 14164
+ },
+ {
+  "name": "e_compact",
+  "w": 483,
+  "h": 59,
+  "bytes": 6666
+ },
+ {
+  "name": "e_defs",
+  "w": 915,
+  "h": 127,
+  "bytes": 10444
+ },
+ {
+  "name": "e_neumann",
+  "w": 794,
+  "h": 125,
+  "bytes": 10003
+ },
+ {
+  "name": "e_dirichlet",
+  "w": 180,
+  "h": 69,
+  "bytes": 2547
+ },
+ {
+  "name": "e_rect_v",
+  "w": 701,
+  "h": 109,
+  "bytes": 9269
+ },
+ {
+  "name": "e_rect_h",
+  "w": 698,
+  "h": 119,
+  "bytes": 9356
+ },
+ {
+  "name": "e_insul",
+  "w": 853,
+  "h": 109,
+  "bytes": 12584
+ },
+ {
+  "name": "e_poly",
+  "w": 634,
+  "h": 46,
+  "bytes": 6759
+ },
+ {
+  "name": "e_nodes",
+  "w": 920,
+  "h": 374,
+  "bytes": 15611
+ },
+ {
+  "name": "e_nodes_matrix",
+  "w": 721,
+  "h": 332,
+  "bytes": 14966
+ },
+ {
+  "name": "e_coeffs",
+  "w": 1805,
+  "h": 126,
+  "bytes": 10328
+ },
+ {
+  "name": "e_collect",
+  "w": 1774,
+  "h": 125,
+  "bytes": 14601
+ },
+ {
+  "name": "e_shape",
+  "w": 1771,
+  "h": 112,
+  "bytes": 11169
+ },
+ {
+  "name": "e_T_N",
+  "w": 1053,
+  "h": 67,
+  "bytes": 8262
+ },
+ {
+  "name": "e_N_vec",
+  "w": 1016,
+  "h": 332,
+  "bytes": 12674
+ },
+ {
+  "name": "e_kron",
+  "w": 651,
+  "h": 125,
+  "bytes": 9271
+ },
+ {
+  "name": "e_pou",
+  "w": 875,
+  "h": 155,
+  "bytes": 11516
+ },
+ {
+  "name": "e_edge",
+  "w": 1612,
+  "h": 96,
+  "bytes": 17149
+ },
+ {
+  "name": "e_act4_N",
+  "w": 2008,
+  "h": 271,
+  "bytes": 19395
+ },
+ {
+  "name": "e_act4_T",
+  "w": 1244,
+  "h": 120,
+  "bytes": 12851
+ },
+ {
+  "name": "e_act4_sum",
+  "w": 1064,
+  "h": 73,
+  "bytes": 7374
+ },
+ {
+  "name": "e_grad",
+  "w": 1495,
+  "h": 332,
+  "bytes": 21027
+ },
+ {
+  "name": "e_dN",
+  "w": 1107,
+  "h": 125,
+  "bytes": 10881
+ },
+ {
+  "name": "e_flux_vec",
+  "w": 642,
+  "h": 127,
+  "bytes": 10719
+ },
+ {
+  "name": "e_k_preview",
+  "w": 965,
+  "h": 229,
+  "bytes": 15098
+ },
+ {
+  "name": "e_act5_dN",
+  "w": 1639,
+  "h": 109,
+  "bytes": 14532
+ },
+ {
+  "name": "e_act5_grad",
+  "w": 1545,
+  "h": 209,
+  "bytes": 18765
+ },
+ {
+  "name": "e_act5_q",
+  "w": 900,
+  "h": 109,
+  "bytes": 9990
+ },
+ {
+  "name": "e_act5_qy",
+  "w": 1995,
+  "h": 119,
+  "bytes": 15752
+ },
+ {
+  "name": "e_poly8",
+  "w": 1320,
+  "h": 57,
+  "bytes": 10869
+ },
+ {
+  "name": "e_N8",
+  "w": 1161,
+  "h": 114,
+  "bytes": 12703
+ },
+ {
+  "name": "e_exit3",
+  "w": 865,
+  "h": 62,
+  "bytes": 11978
+ },
+ {
+  "name": "e_cent",
+  "w": 952,
+  "h": 112,
+  "bytes": 11795
+ }
+]

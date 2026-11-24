@@ -1,0 +1,232 @@
+<title>Cantilever Explorer</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500;600&family=Source+Serif+4:opsz,wght@8..60,600&display=swap">
+<style>
+/*{{CSS}}*/
+.more { font-size: 15px; color: var(--ink); }
+.more ul { margin: 6px 0 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+.checks { display: flex; flex-wrap: wrap; gap: 14px; font-size: 14px; color: var(--body); }
+.checks label { display: inline-flex; gap: 6px; align-items: center; }
+</style>
+<div class="wrap">
+  <header class="top">
+    <p class="eyebrow">SEAA 4243 Finite Element Method · QR Explorer</p>
+    <h1>Cantilever Explorer</h1>
+    <p class="lede">The text’s cantilever plate (§3.4): 4 m × 2 m, t = 0.01 m, E = 200 MPa, ν = 0.33, 5 kN/m down on the free end. Change the element, the mesh and the idealisation, and watch the tip deflection.</p>
+  </header>
+  <main class="lab">
+    <section class="tasks" aria-labelledby="tasks-h">
+      <h2 id="tasks-h">Your tasks</h2>
+      <ol>
+        <li>4-node elements, 2 × 2 mesh: read the tip deflection. How far is it from beam theory?
+          <details><summary>Check answer</summary><p>−0.1306 m, the text’s (3.49). Timoshenko beam theory gives −0.192 m (0.160 bending + 0.032 shear), so the hand mesh is 32% too stiff.</p></details></li>
+        <li>Same eight elements, two layouts: 4-node 4 × 2 and 8 × 1. Then try 2 × 4. Which is stiffest, and why?
+          <details><summary>Check answer</summary><p>4 × 2: −0.164 m; 8 × 1: −0.166 m; 2 × 4: −0.133 m. Elements that are long in the bending direction (a/b large) cannot bend without a spurious shear strain, so they lock. Element shape matters more than element count.</p></details></li>
+        <li>Find the coarsest mesh within 2% of −0.192 m, first with 4-node and then with 8-node elements. Compare their degrees of freedom.
+          <details><summary>Check answer</summary><p>4-node 16 × 8: −0.1886 m (−1.7%) with 306 dofs. 8-node 4 × 2: −0.1885 m (−1.8%) with 74 dofs. The quadratic element needs about a quarter of the unknowns because its edges can curve.</p></details></li>
+        <li>Switch to plane strain on a fine mesh. What is the ratio of the two deflections, and why?
+          <details><summary>Check answer</summary><p>About 0.90 (−0.171 against −0.191 m on 32 × 16). Plane strain stops the plate thinning, so the bending stiffness rises from E to E/(1 − ν²); 1 − ν² = 0.89.</p></details></li>
+      </ol>
+      <details class="more"><summary>More to try (the ANSYS demo’s wrong models)</summary>
+        <ul>
+          <li>Load: point force at the top corner. The loaded corner deflects more than under the edge traction, and more with every refinement (4-node 8 × 4, 16 × 8, 32 × 16: −0.197, −0.210, −0.219 m against −0.182, −0.189, −0.191 m): a point force in 2D gives an infinite local displacement. Mid-span is unchanged.</li>
+          <li>Support: vertical only. Nothing stops the plate sliding in x, and the solver refuses.</li>
+          <li>Model data: thickness 1 m instead of 0.01 m. The deflection falls by exactly 100.</li>
+        </ul>
+      </details>
+    </section>
+    <section class="viewer card" aria-label="Deformed shape">
+      <div class="canvas-wrap"><canvas id="plot" aria-label="The cantilever mesh in its deformed shape, coloured by displacement"></canvas></div>
+      <div class="legend" id="legend"></div>
+      <p class="notice" id="notice" hidden></p>
+      <div class="readouts" id="ro"></div>
+    </section>
+    <section class="controls card" aria-label="Controls">
+      <div class="group"><h3>Element</h3><div id="c-nen"></div></div>
+      <div class="group"><h3>Mesh (along × through the depth)</h3><div id="c-mesh"></div>
+        <div class="fields"><label class="field"><span>Elements along, Nx</span><input id="i-nx" type="number" min="1" max="64" step="1" value="2"></label><label class="field"><span>Elements through, Ny</span><input id="i-ny" type="number" min="1" max="32" step="1" value="2"></label></div>
+      </div>
+      <div class="group"><h3>Idealisation</h3><div id="c-plane"></div></div>
+      <div class="group"><h3>Load on the free end</h3><div id="c-load"></div></div>
+      <div class="group"><h3>Support on the left edge</h3><div id="c-sup"></div></div>
+      <div class="group"><h3>Display</h3><div id="c-col"></div><div id="c-scale"></div><div class="checks"><label><input id="k-mesh" type="checkbox" checked> Element edges</label></div></div>
+      <details><summary>Model data</summary>
+        <div class="fields" style="margin-top: 8px">
+          <label class="field"><span>L (m)</span><input id="i-L" type="number" step="0.5" min="0.5" value="4"></label>
+          <label class="field"><span>H (m)</span><input id="i-H" type="number" step="0.5" min="0.2" value="2"></label>
+          <label class="field"><span>t (m)</span><input id="i-t" type="number" step="0.01" min="0.001" value="0.01"></label>
+          <label class="field"><span>E (MPa)</span><input id="i-E" type="number" step="10" min="1" value="200"></label>
+          <label class="field"><span>ν</span><input id="i-nu" type="number" step="0.01" min="0" max="0.49" value="0.33"></label>
+          <label class="field"><span>q (kN/m, + up)</span><input id="i-q" type="number" step="0.5" value="-5"></label>
+        </div>
+      </details>
+      <div class="row"><button id="b-reset" type="button">Text example</button></div>
+    </section>
+    <section class="study card" aria-labelledby="study-h">
+      <div class="row" style="justify-content: space-between"><h2 id="study-h">Mesh study</h2><button id="b-study" type="button">Run mesh study</button></div>
+      <p class="hint">Both element types, five meshes each, with the current idealisation, load, support and model data.</p>
+      <div class="study-grid"><div id="s-table"></div><div class="chart" id="s-chart"></div></div>
+    </section>
+  </main>
+  <footer class="foot">
+    <p>Rectangular 4-node (2 × 2 Gauss points) and 8-node serendipity (3 × 3) elements; [k] = t∫[B]ᵀ[E][B] dA, text (3.42); edge traction lumped consistently (qb/2, or b/6, 2b/3, b/6); fixed dofs eliminated; banded Cholesky. The 4-node element reproduces the text’s closed-form stiffness exactly. Timoshenko reference: PL³/(3EI) + PL/(κGA) with κ = 5/6.</p>
+    <p>Text: Mohd Yassin et al., <i>Two-Dimensional Finite Element Formulations for Heat, Solids and Fluids (with Matlab)</i>, MSNM 2020, §3.4, Tables 3.1–3.2. SEAA 4243, Faculty of Civil Engineering, UTM.</p>
+  </footer>
+</div>
+<script>/*{{CORE}}*/</script>
+<script>/*{{UI}}*/</script>
+<script>
+(function () {
+  "use strict";
+  var DEF = { nen: 4, Nx: 2, Ny: 2, plane: "stress", load: "edge", support: "fixed", L: 4, H: 2, t: 0.01, E: 200, nu: 0.33, q: -5, color: "mag", scale: 1, edges: true };
+  var S = JSON.parse(JSON.stringify(DEF)), R = null, cv = UI.$("#plot");
+  var PRE = { 4: [[2, 2], [4, 2], [8, 1], [2, 4], [8, 4], [16, 8], [32, 16]], 8: [[2, 1], [2, 2], [4, 2], [8, 4], [16, 8], [32, 16]] };
+  function opts(o) { return Object.assign({ nen: S.nen, L: S.L, H: S.H, Nx: S.Nx, Ny: S.Ny, E: S.E * 1e6, nu: S.nu, t: S.t, plane: S.plane, q: S.q * 1e3, load: S.load, support: S.support }, o || {}); }
+  function solve() { R = FE.solvePlane(opts()); }
+  function nodeVal(i) { var u = R.U[2 * i], v = R.U[2 * i + 1]; return S.color === "mag" ? Math.hypot(u, v) : -v; }
+  function draw() {
+    var f = UI.fitCanvas(cv, 1.75, 520), ctx = f.ctx, ink = UI.css("--ink"), muted = UI.css("--muted"), acc = UI.css("--accent"), teal = UI.css("--teal");
+    ctx.clearRect(0, 0, f.w, f.h);
+    var m = R.mesh, L = S.L, H = S.H, vmax = 0, i;
+    if (!R.error) for (i = 0; i < m.nn; i++) vmax = Math.max(vmax, Math.abs(R.U[2 * i + 1]));
+    var dmin = -vmax * S.scale, V = UI.view([-0.16 * H, L + (f.w < 640 ? 0.85 : 0.45) * H, Math.min(0, dmin) - 0.12 * H, H + 0.12 * H], f.w, f.h, 18);
+    ctx.lineWidth = 1; ctx.strokeStyle = muted; ctx.setLineDash([5, 4]); ctx.strokeRect(V.X(0), V.Y(H), V.s * L, V.s * H); ctx.setLineDash([]);
+    ctx.strokeStyle = ink; ctx.lineWidth = 1.5;
+    for (var k = 0; k <= 10; k++) { var yy = H * k / 10; ctx.beginPath(); ctx.moveTo(V.X(0), V.Y(yy)); ctx.lineTo(V.X(-0.08 * H), V.Y(yy - 0.06 * H)); ctx.stroke(); }
+    if (S.support === "vonly") for (k = 0; k <= 4; k++) { ctx.beginPath(); ctx.arc(V.X(-0.035 * H), V.Y(H * k / 4), 5, 0, 2 * Math.PI); ctx.stroke(); }
+    var notice = UI.$("#notice");
+    if (R.error) {
+      notice.hidden = false; notice.textContent = R.error.message + " ANSYS reports the same situation as an under-constrained model and may add weak springs; fix it by restraining x as well.";
+      ctx.fillStyle = UI.css("--panel"); ctx.fillRect(V.X(0), V.Y(H), V.s * L, V.s * H); UI.$("#legend").innerHTML = ""; readouts(); return;
+    }
+    notice.hidden = true;
+    var lo = Infinity, hi = -Infinity; for (i = 0; i < m.nn; i++) { var nv = nodeVal(i); lo = Math.min(lo, nv); hi = Math.max(hi, nv); }
+    if (hi - lo < 1e-15) hi = lo + 1e-9;
+    var lut = FE.lut("mag", UI.mode()), nen = m.nen, sub = Math.max(1, Math.min(12, Math.ceil(28 / m.Nx)));
+    function pos(e, xi, eta) {
+      var N = FE.shape(nen, xi, eta).N, x = 0, y = 0, u = 0, v = 0;
+      for (var a = 0; a < nen; a++) { var n = m.conn[e * nen + a]; x += N[a] * m.X[n]; y += N[a] * m.Y[n]; u += N[a] * R.U[2 * n]; v += N[a] * R.U[2 * n + 1]; }
+      return [x + S.scale * u, y + S.scale * v, S.color === "mag" ? Math.hypot(u, v) : -v];
+    }
+    for (var e = 0; e < m.ne; e++) for (var p = 0; p < sub; p++) for (var q = 0; q < sub; q++) {
+      var x0 = -1 + 2 * p / sub, x1 = -1 + 2 * (p + 1) / sub, y0 = -1 + 2 * q / sub, y1 = -1 + 2 * (q + 1) / sub;
+      var A = pos(e, x0, y0), B = pos(e, x1, y0), C = pos(e, x1, y1), D = pos(e, x0, y1), c = pos(e, (x0 + x1) / 2, (y0 + y1) / 2);
+      var t = Math.max(0, Math.min(255, Math.round((c[2] - lo) / (hi - lo) * 255))) * 3;
+      ctx.fillStyle = "rgb(" + lut[t] + "," + lut[t + 1] + "," + lut[t + 2] + ")"; ctx.strokeStyle = ctx.fillStyle; ctx.lineWidth = 0.6;
+      ctx.beginPath(); ctx.moveTo(V.X(A[0]), V.Y(A[1])); ctx.lineTo(V.X(B[0]), V.Y(B[1])); ctx.lineTo(V.X(C[0]), V.Y(C[1])); ctx.lineTo(V.X(D[0]), V.Y(D[1])); ctx.closePath(); ctx.fill(); ctx.stroke();
+    }
+    if (S.edges && m.Nx <= 40) {
+      ctx.strokeStyle = ink; ctx.globalAlpha = m.Nx > 16 ? 0.35 : 0.7; ctx.lineWidth = 1;
+      var path = [[-1, -1, 1, -1], [1, -1, 1, 1], [1, 1, -1, 1], [-1, 1, -1, -1]];
+      for (e = 0; e < m.ne; e++) path.forEach(function (sg) {
+        ctx.beginPath(); for (var s = 0; s <= 8; s++) { var P = pos(e, sg[0] + (sg[2] - sg[0]) * s / 8, sg[1] + (sg[3] - sg[1]) * s / 8); if (s) ctx.lineTo(V.X(P[0]), V.Y(P[1])); else ctx.moveTo(V.X(P[0]), V.Y(P[1])); } ctx.stroke();
+      });
+      ctx.globalAlpha = 1;
+    }
+    ctx.strokeStyle = teal; ctx.fillStyle = teal; ctx.lineWidth = 2;
+    function arrow(xa, ya, xb, yb) { ctx.beginPath(); ctx.moveTo(xa, ya); ctx.lineTo(xb, yb); ctx.stroke(); var g = Math.atan2(yb - ya, xb - xa); ctx.beginPath(); ctx.moveTo(xb, yb); ctx.lineTo(xb - 8 * Math.cos(g - 0.45), yb - 8 * Math.sin(g - 0.45)); ctx.lineTo(xb - 8 * Math.cos(g + 0.45), yb - 8 * Math.sin(g + 0.45)); ctx.closePath(); ctx.fill(); }
+    var dir = S.q <= 0 ? 1 : -1, xr = V.X(L + 0.12 * H);
+    if (S.load === "edge") for (k = 0; k <= 6; k++) { var yk = H * k / 6, yd = yk - vmax * S.scale * (S.q <= 0 ? 1 : -1); var ys = V.Y(yd); arrow(xr, ys - dir * 16, xr, ys + dir * 2); }
+    else { var tipy = V.Y(H - vmax * S.scale * (S.q <= 0 ? 1 : -1)); arrow(V.X(L), tipy - dir * 46, V.X(L), tipy - dir * 4); }
+    UI.halo(ctx, (S.load === "edge" ? "q = " : "P = ") + (S.load === "edge" ? Math.abs(S.q) + " kN/m" : Math.abs(S.q * S.H) + " kN"), xr + 10, V.Y(H * 0.5), teal, "left", 13, 600);
+    var tn = R.tipNode, tx = V.X(m.X[tn] + S.scale * R.U[2 * tn]), ty = V.Y(m.Y[tn] + S.scale * R.U[2 * tn + 1]);
+    ctx.beginPath(); ctx.arc(tx, ty, 6, 0, 2 * Math.PI); ctx.fillStyle = ink; ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = UI.css("--surface"); ctx.stroke();
+    UI.halo(ctx, "v = " + UI.fmt(R.tip, 4) + " m", tx - 10, ty - 16, ink, "right", 14, 600);
+    UI.halo(ctx, S.scale === 1 ? "true scale" : "displacements × " + S.scale, V.X(0), V.Y(Math.min(0, dmin) - 0.08 * H), muted, "left", 12, 500);
+    UI.legend(UI.$("#legend"), "mag", lo, hi, S.color === "mag" ? "Displacement magnitude |u| (m)" : "Downward deflection −v (m)");
+    readouts();
+  }
+  function card(host, k, v, s, flag) { var d = UI.el("div", { class: "ro" + (flag ? " flag" : "") }); d.appendChild(UI.el("span", { class: "k" }, k)); d.appendChild(UI.el("span", { class: "v" }, v)); if (s) d.appendChild(UI.el("span", { class: "s" }, s)); host.appendChild(d); }
+  function readouts() {
+    var ro = UI.$("#ro"); ro.innerHTML = ""; var m = R.mesh;
+    if (R.error) { card(ro, "Status", "Not solvable", "rigid-body mode in x", true); card(ro, "Model", m.ne + " elements", m.nn + " nodes, " + R.nd + " dofs"); return; }
+    var tb = FE.timoshenko(opts()), ref = -tb.total;
+    card(ro, "Tip deflection v", UI.fmt(R.tip, 4) + " m", "top-right node" + (S.nen === 4 && S.Nx === 2 && S.Ny === 2 && isBook() ? " · text (3.49): −0.131" : ""));
+    card(ro, "Beam theory (Timoshenko)", UI.fmt(ref, 4) + " m", UI.fmt(tb.bend, 4) + " bending + " + UI.fmt(tb.shear, 4) + " shear" + (S.plane === "strain" ? ", E/(1 − ν²)" : ""));
+    var comparable = S.load === "edge";
+    card(ro, "FE against beam theory", comparable ? UI.pct((R.tip - ref) / ref * 100) : "not comparable", comparable ? (R.tip > ref ? "FE is stiffer than beam theory" : "FE is more flexible") : "a point force is not the end load beam theory assumes", !comparable);
+    card(ro, "Reactions", "ΣRy = " + UI.fmt(R.reaction.Ry / 1e3, 2) + " kN", "ΣRx = " + UI.fmt(Math.abs(R.reaction.Rx) < 1e-6 ? 0 : R.reaction.Rx / 1e3, 2) + " kN · moment " + UI.fmt(Math.abs(R.reaction.M) / 1e3, 2) + " kN·m");
+    card(ro, "Model", m.ne + " elements", m.nn + " nodes, " + R.nd + " dofs · a/b = " + UI.fmt(m.a / m.b, 2));
+  }
+  function isBook() { return S.L === 4 && S.H === 2 && S.t === 0.01 && S.E === 200 && S.nu === 0.33 && S.q === -5 && S.plane === "stress" && S.load === "edge" && S.support === "fixed"; }
+  /* Milestones for the course pages (Plane Stress Parts 1 and 2). Recorded only after the student
+     has acted, because the default state is already the text's 2 x 2 example. */
+  var userActed = false, seen = {}, studied = false;
+  document.addEventListener("pointerdown", function () { userActed = true; }, true);
+  document.addEventListener("change", function () { userActed = true; }, true);
+  function bookBut(skip) {   /* the text's data, ignoring the listed keys */
+    var d = { L: 4, H: 2, t: 0.01, E: 200, nu: 0.33, q: -5, plane: "stress", load: "edge", support: "fixed" };
+    return Object.keys(d).every(function (k) { return skip.indexOf(k) >= 0 || S[k] === d[k]; });
+  }
+  function milestones() {
+    if (!userActed || !R) return;
+    var key = S.nen + ":" + S.Nx + "x" + S.Ny;
+    if (bookBut(["plane"])) seen["pl:" + key + ":" + S.plane] = 1;
+    if (bookBut(["plane", "nu"]) && S.nu === 0) seen["nu0:" + key + ":" + S.plane] = 1;
+    if (seen["pl:" + key + ":stress"] && seen["pl:" + key + ":strain"]) UI.milestone("cant", "pstrain");
+    if (seen["nu0:" + key + ":stress"] && seen["nu0:" + key + ":strain"]) UI.milestone("cant", "nu0");
+    if (S.support === "vonly" && R.error) UI.milestone("cant", "vonly");
+    if (bookBut(["t"]) && S.t !== 0.01 && !R.error) UI.milestone("cant", "thick");
+    if (bookBut([]) && S.nen === 4) { seen["lay:" + S.Nx + "x" + S.Ny] = 1;
+      if (S.Nx === 2 && S.Ny === 2) UI.milestone("cant", "book22");
+      if (seen["lay:4x2"] && seen["lay:8x1"] && seen["lay:2x4"]) UI.milestone("cant", "layouts"); }
+    if (studied && bookBut([])) UI.milestone("cant", "study");
+    if (bookBut(["load"]) && S.load === "point" && !R.error) UI.milestone("cant", "point");
+  }
+  function update() { solve(); draw(); milestones(); }
+  function meshSeg() {
+    var cur = S.Nx + "x" + S.Ny;
+    UI.seg(UI.$("#c-mesh"), "mesh", PRE[S.nen].map(function (p) { return { value: p[0] + "x" + p[1], label: p[0] + " × " + p[1] }; }), cur, function (v) { var p = v.split("x"); S.Nx = +p[0]; S.Ny = +p[1]; UI.$("#i-nx").value = S.Nx; UI.$("#i-ny").value = S.Ny; update(); });
+  }
+  function segs() {
+    UI.seg(UI.$("#c-nen"), "nen", [{ value: 4, label: "4-node (linear)" }, { value: 8, label: "8-node (quadratic)" }], S.nen, function (v) { S.nen = +v; if (S.nen === 8 && S.Nx === 2 && S.Ny === 2) { S.Nx = 2; S.Ny = 1; } UI.$("#i-nx").value = S.Nx; UI.$("#i-ny").value = S.Ny; meshSeg(); update(); });
+    meshSeg();
+    UI.seg(UI.$("#c-plane"), "plane", [{ value: "stress", label: "Plane stress" }, { value: "strain", label: "Plane strain" }], S.plane, function (v) { S.plane = v; update(); });
+    UI.seg(UI.$("#c-load"), "load", [{ value: "edge", label: "Edge traction" }, { value: "point", label: "Point force at top corner" }], S.load, function (v) { S.load = v; update(); });
+    UI.seg(UI.$("#c-sup"), "sup", [{ value: "fixed", label: "Fixed: u = v = 0" }, { value: "vonly", label: "Vertical only: v = 0" }], S.support, function (v) { S.support = v; update(); });
+    UI.seg(UI.$("#c-col"), "col", [{ value: "mag", label: "Colour by |u|" }, { value: "v", label: "Colour by −v" }], S.color, function (v) { S.color = v; draw(); });
+    UI.seg(UI.$("#c-scale"), "scale", [{ value: 1, label: "True scale" }, { value: 2, label: "× 2" }, { value: 5, label: "× 5" }], S.scale, function (v) { S.scale = +v; draw(); });
+  }
+  function sync() {
+    UI.$("#i-nx").value = S.Nx; UI.$("#i-ny").value = S.Ny; UI.$("#k-mesh").checked = S.edges;
+    [["#i-L", "L"], ["#i-H", "H"], ["#i-t", "t"], ["#i-E", "E"], ["#i-nu", "nu"], ["#i-q", "q"]].forEach(function (p) { UI.$(p[0]).value = S[p[1]]; });
+    segs();
+  }
+  function bind() {
+    UI.$("#i-nx").addEventListener("change", function () { var v = Math.round(+this.value); if (v >= 1 && v <= 64) { S.Nx = v; meshSeg(); update(); } });
+    UI.$("#i-ny").addEventListener("change", function () { var v = Math.round(+this.value); if (v >= 1 && v <= 32) { S.Ny = v; meshSeg(); update(); } });
+    UI.$("#k-mesh").addEventListener("change", function () { S.edges = this.checked; draw(); });
+    [["#i-L", "L"], ["#i-H", "H"], ["#i-t", "t"], ["#i-E", "E"], ["#i-nu", "nu"], ["#i-q", "q"]].forEach(function (p) {
+      UI.$(p[0]).addEventListener("change", function () { var v = parseFloat(this.value); if (!isFinite(v)) return; if (p[1] === "nu" && (v < 0 || v >= 0.5)) return; if (p[1] !== "q" && p[1] !== "nu" && v <= 0) return; S[p[1]] = v; update(); });
+    });
+    UI.$("#b-reset").addEventListener("click", function () { S = JSON.parse(JSON.stringify(DEF)); sync(); update(); });
+    UI.$("#b-study").addEventListener("click", study);
+  }
+  function study() {
+    var btn = UI.$("#b-study"); btn.disabled = true; btn.textContent = "Running…"; studied = true; userActed = true; setTimeout(milestones, 50);
+    setTimeout(function () {
+      if (S.support === "vonly") { UI.$("#s-table").textContent = "Not solvable with the vertical-only support."; btn.disabled = false; btn.textContent = "Run mesh study"; return; }
+      var ref = -FE.timoshenko(opts()).total, rows = [], series = [];
+      [[4, [[2, 2], [4, 2], [8, 4], [16, 8], [32, 16]], "4-node", UI.css("--s1")], [8, [[2, 1], [2, 2], [4, 2], [8, 4], [16, 8]], "8-node", UI.css("--s2")]].forEach(function (cfg) {
+        var prev = null, pts = [];
+        cfg[1].forEach(function (p) {
+          var r = FE.solvePlane(opts({ nen: cfg[0], Nx: p[0], Ny: p[1] }));
+          rows.push([cfg[2], p[0] + " × " + p[1], UI.group(r.nd), UI.fmt(r.tip, 4), prev == null ? "—" : UI.pct((r.tip - prev) / r.tip * 100), S.load === "edge" ? UI.pct((r.tip - ref) / ref * 100) : "—"]);
+          pts.push({ x: r.nd, y: Math.abs(r.tip), label: cfg[2] + " " + p[0] + "×" + p[1] }); prev = r.tip;
+        });
+        series.push({ name: cfg[2], color: cfg[3], points: pts });
+      });
+      UI.table(UI.$("#s-table"), ["Element", "Mesh", "Dofs", "v tip (m)", "Change", "vs beam"], rows);
+      UI.lineChart(UI.$("#s-chart"), series, { xlog: true, xticks: [20, 50, 100, 200, 500, 1000, 3000], xname: "dofs", xlabel: "Degrees of freedom (log scale)", ylabel: "|v tip| (m)",
+        yfmt: function (v) { return UI.fmt(v, 3); }, ref: S.load === "edge" ? { y: Math.abs(ref), label: "Timoshenko " + UI.fmt(Math.abs(ref), 3) + " m" } : null, aria: "Tip deflection against degrees of freedom for both element types" });
+      btn.disabled = false; btn.textContent = "Run mesh study";
+    }, 30);
+  }
+  sync(); bind(); update();
+  UI.onTheme(function () { draw(); if (UI.$("#s-chart").firstChild) study(); });
+  var lastW = 0, onResize = UI.debounce(function () { var w = cv.parentElement.clientWidth; if (w !== lastW) { lastW = w; draw(); } }, 80);
+  if (window.ResizeObserver) new ResizeObserver(onResize).observe(cv.parentElement); else window.addEventListener("resize", onResize);
+})();
+</script>

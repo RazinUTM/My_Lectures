@@ -1,0 +1,105 @@
+{
+ "v": 4,
+ "createdOnFiles": {
+  "v": 1,
+  "at": "2026-10-26T14:30:00Z"
+ },
+ "lists": "css",
+ "title": "FEM \u2014 2D Heat Transfer (Part 1)",
+ "order": [
+  "cover",
+  "map",
+  "outcomes",
+  "session",
+  "d1",
+  "fem-nothing",
+  "scalar-vector",
+  "civil",
+  "w9-practice",
+  "act1",
+  "d2",
+  "diffelem",
+  "balance",
+  "act2",
+  "act2-reveal",
+  "fourier",
+  "pde-steady",
+  "matrix-form",
+  "d3",
+  "bc-types",
+  "bc-rect",
+  "bc-fem",
+  "act3",
+  "act3-reveal",
+  "break",
+  "d4",
+  "q4-dofs",
+  "poly",
+  "nodes",
+  "coeffs",
+  "shape",
+  "shape-pictures",
+  "w9-ansys-N",
+  "props",
+  "w9-tent",
+  "act4",
+  "act4-reveal",
+  "qr-shape",
+  "d5",
+  "grad",
+  "flux",
+  "act5",
+  "act5-reveal",
+  "q8",
+  "d6",
+  "pipeline",
+  "matlab",
+  "exit",
+  "summary"
+ ],
+ "sections": {
+  "s1": {
+   "description": "Opening: where this session sits, what students will be able to do, and the 3-hour plan",
+   "start": "cover"
+  },
+  "s2": {
+   "description": "Block 1: FEM as a PDE solver, scalar versus vector fields, where civil engineers meet heat conduction",
+   "start": "d1"
+  },
+  "s3": {
+   "description": "Block 2: derivation of the steady heat conduction PDE from an energy balance and Fourier\u2019s law, and its matrix form",
+   "start": "d2"
+  },
+  "s4": {
+   "description": "Block 3: Dirichlet and Neumann conditions, the rectangular-domain simplification, and what each type means for FEM",
+   "start": "d3"
+  },
+  "s5": {
+   "description": "Block 4: degrees of freedom and derivation of the bilinear shape functions of the four-node rectangular element, with their properties",
+   "start": "d4"
+  },
+  "s6": {
+   "description": "Block 5: derivatives of the shape functions, the gradient and flux inside an element, and a one-slide preview of the eight-node element",
+   "start": "d5"
+  },
+  "s7": {
+   "description": "Block 6: the seven-step FEM pipeline, the MATLAB skeleton that follows it, exit ticket and preparation for Heat Transfer Part 2",
+   "start": "d6"
+  }
+ },
+ "faces": {
+  "source-serif-4": {
+   "family": "Source Serif 4",
+   "href": "https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700&display=swap"
+  },
+  "ibm-plex-sans": {
+   "family": "IBM Plex Sans",
+   "href": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+  },
+  "jetbrains-mono": {
+   "family": "JetBrains Mono",
+   "href": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap"
+  }
+ },
+ "designSystems": []
+}

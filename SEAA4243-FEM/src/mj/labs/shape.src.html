@@ -1,0 +1,184 @@
+<title>Shape Function Explorer</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500;600&family=Source+Serif+4:opsz,wght@8..60,600&display=swap">
+<style>
+/*{{CSS}}*/
+#plot { touch-action: none; cursor: crosshair; }
+.ntab td, .ntab th { padding: 5px 8px; }
+.ntab .barcell { width: 30%; min-width: 44px; }
+.nbar { position: relative; height: 10px; border-radius: 5px; background: var(--panel); }
+.nbar span { position: absolute; top: 0; bottom: 0; border-radius: 5px; background: var(--s1); }
+.nbar .zero { position: absolute; top: -3px; bottom: -3px; width: 1px; background: var(--axis); }
+.ntab input { width: 62px; font: 500 14px var(--f-mono); color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 4px 6px; text-align: right; }
+.ntab tr.hl td { background: var(--panel); }
+.sumrow td { font-weight: 600; border-top: 2px solid var(--axis); }
+</style>
+<div class="wrap">
+  <header class="top">
+    <p class="eyebrow">SEAA 4243 Finite Element Method · QR Explorer</p>
+    <h1>Shape Function Explorer</h1>
+    <p class="lede">Drag the point P inside the element. The table shows the weight N<sub>i</sub> each node gives to P, and how those weights build the temperature T(P) = Σ N<sub>i</sub> T̂<sub>i</sub>.</p>
+  </header>
+  <main class="lab">
+    <section class="tasks" aria-labelledby="tasks-h">
+      <h2 id="tasks-h">Your tasks</h2>
+      <ol>
+        <li>Drag P onto node 3. Read N<sub>1</sub> … N<sub>4</sub>.
+          <details><summary>Check answer</summary><p>N = (0, 0, 1, 0). Each function is 1 at its own node and 0 at the others (Kronecker delta), so T at node 3 is exactly T̂<sub>3</sub>: the unknowns really are nodal temperatures.</p></details></li>
+        <li>Press <b>Activity 4 point</b>: P = (1.5, 0.3). Check your hand answers from Activity 4.
+          <details><summary>Check answer</summary><p>N = 0.175, 0.525, 0.225, 0.075; the sum is 1 (partition of unity); T = 136.0 K. Node 2 carries half the weight because P is nearest to it. Activity 5: ∂T/∂x = ∂T/∂y = 20 K/m, so q<sub>x</sub> = q<sub>y</sub> = −40 W/m² with k = 2.</p></details></li>
+        <li>Find three points where N<sub>1</sub> = N<sub>3</sub>. What line joins them?
+          <details><summary>Check answer</summary><p>The diagonal from node 2 to node 4, x/a + y/b = 1. On it (a − x)(b − y) = xy, so the two functions are equal. Try it with a different a and b: it is still that diagonal.</p></details></li>
+        <li>Switch to the 8-node element and show N<sub>1</sub>. Where is it negative, and how can the weights still sum to 1?
+          <details><summary>Check answer</summary><p>N<sub>1</sub> is negative over most of the element away from corner 1 (−0.25 at the centre). A corner function of the 8-node element must vanish at the two mid-side nodes beside it, so it dips below zero between them. The mid-side functions (up to 1.0) make up the difference: Σ N<sub>i</sub> = 1 everywhere.</p></details></li>
+      </ol>
+    </section>
+    <section class="viewer card" aria-label="Element and field">
+      <div class="canvas-wrap"><canvas id="plot" aria-label="The element with its nodes, the selected field as colour, and the point P"></canvas></div>
+      <div class="legend" id="legend"></div>
+      <p class="hint">Drag anywhere on the element to move P, or type its coordinates in the controls.</p>
+      <div class="table-wrap"><table class="ntab" id="ntab"></table></div>
+      <div class="readouts" id="ro"></div>
+    </section>
+    <section class="controls card" aria-label="Controls">
+      <div class="group"><h3>Element</h3><div id="c-nen"></div></div>
+      <div class="group"><h3>Colour shows</h3><div id="c-view"></div></div>
+      <div class="group"><h3>Geometry and point</h3>
+        <div class="fields">
+          <label class="field"><span>a (m)</span><input id="i-a" type="number" min="0.5" max="6" step="0.1" value="2"></label>
+          <label class="field"><span>b (m)</span><input id="i-b" type="number" min="0.5" max="6" step="0.1" value="1"></label>
+          <label class="field"><span>x of P (m)</span><input id="i-x" type="number" step="0.05" value="1.5"></label>
+          <label class="field"><span>y of P (m)</span><input id="i-y" type="number" step="0.05" value="0.3"></label>
+          <label class="field"><span>k (W m⁻¹ K⁻¹)</span><input id="i-k" type="number" step="0.5" value="2"></label>
+        </div>
+      </div>
+      <div class="row"><button id="b-act4" type="button">Activity 4 point</button><button id="b-n3" class="ghost" type="button">P on node 3</button><button id="b-reset" class="ghost" type="button">Reset</button></div>
+    </section>
+  </main>
+  <footer class="foot">
+    <p>Shape functions of text (2.21) for the 4-node element and (2.31) for the 8-node element, evaluated in natural coordinates ξ = 2x/a − 1, η = 2y/b − 1. Nodes are numbered anticlockwise from the bottom-left; mid-side nodes 5 to 8 start on the bottom edge.</p>
+    <p>Text: Mohd Yassin et al., <i>Two-Dimensional Finite Element Formulations for Heat, Solids and Fluids (with Matlab)</i>, MSNM 2020, §2.2. SEAA 4243, Faculty of Civil Engineering, UTM.</p>
+  </footer>
+</div>
+<script>/*{{CORE}}*/</script>
+<script>/*{{UI}}*/</script>
+<script>
+(function () {
+  "use strict";
+  var DEF = { nen: 4, a: 2, b: 1, x: 1.5, y: 0.3, view: "T", k: 2, T: [100, 140, 160, 120, 120, 150, 140, 110] };
+  var S = JSON.parse(JSON.stringify(DEF));
+  var cv = UI.$("#plot"), V = null, dragging = false, nodeR = 12;
+  function nodesXY() { var a = S.a, b = S.b; return [[0, 0], [a, 0], [a, b], [0, b], [a / 2, 0], [a, b / 2], [a / 2, b], [0, b / 2]].slice(0, S.nen); }
+  function evalAt(x, y) {
+    var s = FE.shape(S.nen, 2 * x / S.a - 1, 2 * y / S.b - 1), T = 0, gx = 0, gy = 0, sum = 0;
+    for (var i = 0; i < S.nen; i++) { T += s.N[i] * S.T[i]; gx += s.dxi[i] * 2 / S.a * S.T[i]; gy += s.deta[i] * 2 / S.b * S.T[i]; sum += s.N[i]; }
+    return { N: s.N, T: T, gx: gx, gy: gy, sum: sum };
+  }
+  function fieldVal(x, y) {
+    var s = FE.shape(S.nen, 2 * x / S.a - 1, 2 * y / S.b - 1);
+    if (S.view === "T") { var T = 0; for (var i = 0; i < S.nen; i++) T += s.N[i] * S.T[i]; return T; }
+    return s.N[+S.view.slice(1) - 1];
+  }
+  function range() {
+    if (S.view !== "T") return [-1, 1];
+    var lo = Infinity, hi = -Infinity;
+    for (var i = 0; i <= 40; i++) for (var j = 0; j <= 40; j++) { var v = fieldVal(S.a * i / 40, S.b * j / 40); lo = Math.min(lo, v); hi = Math.max(hi, v); }
+    if (hi - lo < 1e-9) { lo -= 1; hi += 1; }
+    return [lo, hi];
+  }
+  function draw() {
+    var asp = Math.max(1.2, Math.min(2.4, (S.a + 0.9) / (S.b + 0.9)));
+    var f = UI.fitCanvas(cv, asp, 470), ctx = f.ctx, ink = UI.css("--ink"), muted = UI.css("--muted"), acc = UI.css("--accent");
+    ctx.clearRect(0, 0, f.w, f.h);
+    V = UI.view([0, S.a, 0, S.b], f.w, f.h, 44);
+    var box = [0, S.a, 0, S.b], r = range(), ramp = S.view === "T" ? "heat" : "div";
+    UI.paintField(ctx, V, box, f.dpr, fieldVal, r[0], r[1], FE.lut(ramp, UI.mode()));
+    /* contour lines */
+    var levels = S.view === "T" ? [1, 2, 3, 4, 5].map(function (k) { return r[0] + (r[1] - r[0]) * k / 6; }) : (S.nen === 8 ? [0, 0.25, 0.5, 0.75] : [0.25, 0.5, 0.75]);
+    ctx.lineWidth = 1; ctx.strokeStyle = ink; ctx.globalAlpha = 0.45;
+    levels.forEach(function (lv) {
+      UI.contours(fieldVal, box, 60, Math.max(20, Math.round(60 * S.b / S.a)), lv).forEach(function (s) { ctx.beginPath(); ctx.moveTo(V.X(s[0]), V.Y(s[1])); ctx.lineTo(V.X(s[2]), V.Y(s[3])); ctx.stroke(); });
+    });
+    ctx.globalAlpha = 1;
+    ctx.lineWidth = 2; ctx.strokeStyle = ink; ctx.strokeRect(V.X(0), V.Y(S.b), V.s * S.a, V.s * S.b);
+    /* diagonal hint for task 3 is left for the student to find */
+    nodesXY().forEach(function (p, i) {
+      var sel = S.view === "N" + (i + 1), x = V.X(p[0]), y = V.Y(p[1]);
+      ctx.beginPath(); ctx.arc(x, y, nodeR, 0, 2 * Math.PI); ctx.fillStyle = sel ? acc : UI.css("--surface"); ctx.fill();
+      ctx.lineWidth = 2; ctx.strokeStyle = acc; ctx.stroke();
+      ctx.font = "600 13px IBM Plex Sans, system-ui, sans-serif"; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillStyle = sel ? UI.css("--surface") : acc; ctx.fillText(String(i + 1), x, y + 0.5);
+    });
+    UI.halo(ctx, "a = " + S.a.toFixed(2) + " m", V.X(S.a / 2), V.Y(0) + 28, muted, "center", 13, 500);
+    ctx.save(); ctx.translate(V.X(0) - 28, V.Y(S.b / 2)); ctx.rotate(-Math.PI / 2); UI.halo(ctx, "b = " + S.b.toFixed(2) + " m", 0, 0, muted, "center", 13, 500); ctx.restore();
+    var px = V.X(S.x), py = V.Y(S.y);
+    ctx.beginPath(); ctx.arc(px, py, 8, 0, 2 * Math.PI); ctx.fillStyle = ink; ctx.fill(); ctx.lineWidth = 3; ctx.strokeStyle = UI.css("--surface"); ctx.stroke();
+    var lab = "P (" + S.x.toFixed(2) + ", " + S.y.toFixed(2) + ")", right = px < f.w - 130;
+    UI.halo(ctx, lab, px + (right ? 14 : -14), py - 14, ink, right ? "left" : "right", 14, 600);
+    UI.legend(UI.$("#legend"), ramp, r[0], r[1], S.view === "T" ? "Temperature T(x, y) in K — lines every sixth of the range" : "N" + S.view.slice(1) + "(x, y) — blue below zero, red above; lines at " + levels.join(", "));
+    readouts();
+  }
+  var diagPts = {}, userActed = false;
+  document.addEventListener("pointerdown", function () { userActed = true; }, true);
+  document.addEventListener("change", function () { userActed = true; }, true);
+  function milestones(e) {
+    if (!userActed) return;   /* the default state already sits at the Activity 4 point */
+    if (S.nen === 4 && Math.abs(S.x - S.a) < 1e-6 && Math.abs(S.y - S.b) < 1e-6) UI.milestone("shape", "node3");
+    if (S.nen === 4 && S.a === 2 && S.b === 1 && Math.abs(S.x - 1.5) < 1e-6 && Math.abs(S.y - 0.3) < 1e-6) UI.milestone("shape", "act4");
+    if (S.nen === 4 && Math.abs(e.N[0] - e.N[2]) < 0.01 && e.N[0] > 0.02) { diagPts[S.x.toFixed(1) + "," + S.y.toFixed(1)] = 1; if (Object.keys(diagPts).length >= 3) UI.milestone("shape", "diag"); }
+    if (S.nen === 8 && S.view === "N1") UI.milestone("shape", "q8n1");
+  }
+  function readouts() {
+    var e = evalAt(S.x, S.y), tab = UI.$("#ntab"), sel = S.view === "T" ? -1 : +S.view.slice(1) - 1;
+    milestones(e);
+    tab.innerHTML = "";
+    var head = UI.el("tr"); ["Node", "Nᵢ(P)", "Weight", "T̂ᵢ (K)", "Nᵢ T̂ᵢ"].forEach(function (h) { head.appendChild(UI.el("th", { scope: "col" }, h)); }); tab.appendChild(head);
+    for (var i = 0; i < S.nen; i++) {
+      var tr = UI.el("tr"); if (i === sel) tr.className = "hl";
+      tr.appendChild(UI.el("td", null, String(i + 1)));
+      tr.appendChild(UI.el("td", null, UI.fmt(e.N[i], 3)));
+      var bc = UI.el("td", { class: "barcell" }), bar = UI.el("div", { class: "nbar" }), span = UI.el("span"), z = UI.el("div", { class: "zero" });
+      var lo = S.nen === 8 ? -0.25 : 0, w = 1 - lo, x0 = (0 - lo) / w * 100, x1 = (e.N[i] - lo) / w * 100;
+      span.style.left = Math.min(x0, x1) + "%"; span.style.width = Math.abs(x1 - x0) + "%"; if (e.N[i] < 0) span.style.background = UI.css("--s2");
+      z.style.left = x0 + "%"; bar.appendChild(span); bar.appendChild(z); bc.appendChild(bar); tr.appendChild(bc);
+      var td = UI.el("td"), inp = UI.el("input", { type: "number", step: "1", value: String(S.T[i]), "aria-label": "Nodal temperature at node " + (i + 1) });
+      (function (k) { inp.addEventListener("change", function () { var v = parseFloat(inp.value); if (isFinite(v)) { S.T[k] = v; draw(); } }); })(i);
+      td.appendChild(inp); tr.appendChild(td);
+      tr.appendChild(UI.el("td", null, UI.fmt(e.N[i] * S.T[i], 2)));
+      tab.appendChild(tr);
+    }
+    var sr = UI.el("tr", { class: "sumrow" });
+    [ "Σ", UI.fmt(e.sum, 3), "", "T(P)", UI.fmt(e.T, 2) ].forEach(function (c) { sr.appendChild(UI.el("td", null, c)); }); tab.appendChild(sr);
+    var ro = UI.$("#ro"); ro.innerHTML = "";
+    [["T(P)", UI.fmt(e.T, 2) + " K", "Σ Nᵢ T̂ᵢ"], ["Σ Nᵢ", UI.fmt(e.sum, 4), "partition of unity"],
+     ["∂T/∂x, ∂T/∂y", UI.fmt(e.gx, 2) + ", " + UI.fmt(e.gy, 2), "K/m"], ["q = −k ∇T", UI.fmt(-S.k * e.gx, 1) + ", " + UI.fmt(-S.k * e.gy, 1), "W/m², with k = " + S.k]].forEach(function (r) {
+      var d = UI.el("div", { class: "ro" }); d.appendChild(UI.el("span", { class: "k" }, r[0])); d.appendChild(UI.el("span", { class: "v" }, r[1])); d.appendChild(UI.el("span", { class: "s" }, r[2])); ro.appendChild(d);
+    });
+  }
+  function setP(x, y) { S.x = Math.max(0, Math.min(S.a, x)); S.y = Math.max(0, Math.min(S.b, y)); UI.$("#i-x").value = S.x.toFixed(2); UI.$("#i-y").value = S.y.toFixed(2); draw(); }
+  function fromEvent(ev) { var r = cv.getBoundingClientRect(), w = V.inv(ev.clientX - r.left, ev.clientY - r.top); return w; }
+  cv.addEventListener("pointerdown", function (ev) { dragging = true; cv.setPointerCapture(ev.pointerId); var w = fromEvent(ev); setP(w[0], w[1]); });
+  cv.addEventListener("pointermove", function (ev) { if (!dragging) return; var w = fromEvent(ev); setP(w[0], w[1]); });
+  cv.addEventListener("pointerup", function () { dragging = false; });
+  cv.addEventListener("pointercancel", function () { dragging = false; });
+  function views() { var o = [{ value: "T", label: "Field T" }]; for (var i = 1; i <= S.nen; i++) o.push({ value: "N" + i, label: "N<sub>" + i + "</sub>" }); return o; }
+  function segs() {
+    UI.seg(UI.$("#c-nen"), "nen", [{ value: 4, label: "4-node" }, { value: 8, label: "8-node" }], S.nen, function (v) { S.nen = +v; if (S.view !== "T" && +S.view.slice(1) > S.nen) S.view = "T"; segs(); draw(); });
+    UI.seg(UI.$("#c-view"), "view", views(), S.view, function (v) { S.view = v; draw(); });
+  }
+  function bind() {
+    [["#i-a", "a"], ["#i-b", "b"], ["#i-k", "k"]].forEach(function (p) { UI.$(p[0]).addEventListener("change", function () { var v = parseFloat(this.value); if (isFinite(v) && v > 0) { S[p[1]] = v; setP(S.x, S.y); } }); });
+    UI.$("#i-x").addEventListener("change", function () { setP(parseFloat(this.value) || 0, S.y); });
+    UI.$("#i-y").addEventListener("change", function () { setP(S.x, parseFloat(this.value) || 0); });
+    UI.$("#b-act4").addEventListener("click", function () { S.nen = 4; S.a = 2; S.b = 1; S.k = 2; S.T = DEF.T.slice(); S.view = "T"; sync(); setP(1.5, 0.3); });
+    UI.$("#b-n3").addEventListener("click", function () { setP(S.a, S.b); });
+    UI.$("#b-reset").addEventListener("click", function () { S = JSON.parse(JSON.stringify(DEF)); sync(); draw(); });
+  }
+  function sync() { UI.$("#i-a").value = S.a; UI.$("#i-b").value = S.b; UI.$("#i-k").value = S.k; UI.$("#i-x").value = S.x; UI.$("#i-y").value = S.y; segs(); }
+  segs(); bind(); draw();
+  UI.onTheme(draw);
+  var lastW = 0; var onResize = UI.debounce(function () { var w = cv.parentElement.clientWidth; if (w !== lastW) { lastW = w; draw(); } }, 80);
+  if (window.ResizeObserver) new ResizeObserver(onResize).observe(cv.parentElement); else window.addEventListener("resize", onResize);
+})();
+</script>

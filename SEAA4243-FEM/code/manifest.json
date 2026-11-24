@@ -1,0 +1,51 @@
+{
+ "shape": {
+  "zip": "seaa4243-shape-functions.zip",
+  "files": [
+   "fe_shape_functions.py"
+  ],
+  "title": "Shape functions of the 4-node and 8-node rectangles",
+  "readme": "seaa4243-shape-functions-README.txt",
+  "explorers": [
+   "shape"
+  ],
+  "bytes": 10706
+ },
+ "heat": {
+  "zip": "seaa4243-heat-q4.zip",
+  "files": [
+   "fe_heat_q4.py"
+  ],
+  "title": "Steady 2D heat conduction with 4-node elements",
+  "readme": "seaa4243-heat-q4-README.txt",
+  "explorers": [
+   "heat"
+  ],
+  "bytes": 16096
+ },
+ "ps": {
+  "zip": "seaa4243-plane-stress.zip",
+  "files": [
+   "fe_plane_stress.py"
+  ],
+  "title": "Plane stress and plane strain with 4-node and 8-node elements",
+  "readme": "seaa4243-plane-stress-README.txt",
+  "explorers": [
+   "cant",
+   "stress"
+  ],
+  "bytes": 18588
+ },
+ "all": {
+  "zip": "seaa4243-fem-python-all.zip",
+  "files": [
+   "fe_shape_functions.py",
+   "fe_heat_q4.py",
+   "fe_plane_stress.py"
+  ],
+  "title": "All companion code (shape functions, heat conduction, plane stress)",
+  "readme": "seaa4243-fem-python-all-README.txt",
+  "explorers": [],
+  "bytes": 41491
+ }
+}

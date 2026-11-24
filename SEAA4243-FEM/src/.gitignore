@@ -1,0 +1,5 @@
+node_modules/
+__pycache__/
+mj/test_out/
+mj/labs/shots/
+mj/labs/out/

@@ -1,0 +1,188 @@
+[
+ {
+  "name": "p_sumF",
+  "w": 600,
+  "h": 73,
+  "bytes": 4849
+ },
+ {
+  "name": "p_eqx_full",
+  "w": 1856,
+  "h": 123,
+  "bytes": 13360
+ },
+ {
+  "name": "p_eqx",
+  "w": 527,
+  "h": 123,
+  "bytes": 5931
+ },
+ {
+  "name": "p_eqy_full",
+  "w": 1832,
+  "h": 123,
+  "bytes": 13371
+ },
+ {
+  "name": "p_eqy",
+  "w": 518,
+  "h": 123,
+  "bytes": 5930
+ },
+ {
+  "name": "p_units",
+  "w": 1345,
+  "h": 118,
+  "bytes": 16112
+ },
+ {
+  "name": "p_matrix",
+  "w": 831,
+  "h": 310,
+  "bytes": 14040
+ },
+ {
+  "name": "p_compact",
+  "w": 361,
+  "h": 59,
+  "bytes": 5340
+ },
+ {
+  "name": "p_dop",
+  "w": 751,
+  "h": 310,
+  "bytes": 8711
+ },
+ {
+  "name": "p_hooke",
+  "w": 692,
+  "h": 424,
+  "bytes": 12556
+ },
+ {
+  "name": "p_E",
+  "w": 1369,
+  "h": 251,
+  "bytes": 17972
+ },
+ {
+  "name": "p_Estrain",
+  "w": 1267,
+  "h": 251,
+  "bytes": 13874
+ },
+ {
+  "name": "p_strain",
+  "w": 1053,
+  "h": 119,
+  "bytes": 7905
+ },
+ {
+  "name": "p_strain_matrix",
+  "w": 1080,
+  "h": 471,
+  "bytes": 18140
+ },
+ {
+  "name": "p_sigma_u",
+  "w": 459,
+  "h": 59,
+  "bytes": 6458
+ },
+ {
+  "name": "p_pde",
+  "w": 535,
+  "h": 59,
+  "bytes": 6989
+ },
+ {
+  "name": "p_compare",
+  "w": 1352,
+  "h": 59,
+  "bytes": 10704
+ },
+ {
+  "name": "p_bx",
+  "w": 1182,
+  "h": 65,
+  "bytes": 8149
+ },
+ {
+  "name": "p_rect_v",
+  "w": 1024,
+  "h": 65,
+  "bytes": 8536
+ },
+ {
+  "name": "p_rect_h",
+  "w": 1018,
+  "h": 65,
+  "bytes": 8536
+ },
+ {
+  "name": "p_dirichlet",
+  "w": 451,
+  "h": 65,
+  "bytes": 4197
+ },
+ {
+  "name": "p_interp",
+  "w": 1619,
+  "h": 46,
+  "bytes": 8570
+ },
+ {
+  "name": "p_N",
+  "w": 1265,
+  "h": 562,
+  "bytes": 14352
+ },
+ {
+  "name": "p_general",
+  "w": 1101,
+  "h": 59,
+  "bytes": 9442
+ },
+ {
+  "name": "p_act3",
+  "w": 1290,
+  "h": 127,
+  "bytes": 12171
+ },
+ {
+  "name": "p_act3_E",
+  "w": 1198,
+  "h": 297,
+  "bytes": 15052
+ },
+ {
+  "name": "p_act5_N",
+  "w": 1723,
+  "h": 52,
+  "bytes": 15426
+ },
+ {
+  "name": "p_act5_u",
+  "w": 1872,
+  "h": 140,
+  "bytes": 17963
+ },
+ {
+  "name": "p_B_preview",
+  "w": 1068,
+  "h": 59,
+  "bytes": 11331
+ },
+ {
+  "name": "p_k_preview",
+  "w": 881,
+  "h": 125,
+  "bytes": 11384
+ },
+ {
+  "name": "p_cent",
+  "w": 1147,
+  "h": 64,
+  "bytes": 14650
+ }
+]

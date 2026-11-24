@@ -1,0 +1,35 @@
+"""LaTeX sources for the Plane Stress Part 2 site page: a few notes equations (v0_) and the worked
+examples (v1_, v2_, v3_) from FEM by Hand, Examples 9.2, 9.3, 9.4 and 9.6. Book notation:
+E-bar = E/(1 - nu^2), G = E-bar (1 - nu)/2, s1..s12 of Eq. (9.4) = text (3.42); loads r_i."""
+EQS = [
+ # ---- notes ----
+ ("v0_Bnum", r"[B]_{(1.5,\,0.3)}=\begin{bmatrix}-0.35&0&0.35&0&0.15&0&-0.15&0\\0&-0.25&0&-0.75&0&0.75&0&0.25\\-0.25&-0.35&-0.75&0.35&0.75&0.15&0.25&-0.15\end{bmatrix}\ \mathrm{m^{-1}}"),
+ ("v0_lin", r"r_i=\frac{\ell\,(2p_i+p_j)}{6},\qquad r_j=\frac{\ell\,(p_i+2p_j)}{6}\qquad(\ell=\text{side length})"),
+ ("v0_Kdiag", r"\begin{aligned}K_{3,3}&=k^{1}_{3,3}+k^{2}_{1,1}=2s_1=1.751\times10^{6}\\K_{9,9}&=k^{1}_{5,5}+k^{2}_{7,7}+k^{3}_{3,3}+k^{4}_{1,1}=4s_1=3.501\times10^{6}\ \mathrm{N\,m^{-1}}\end{aligned}"),
+ ("v0_K910", r"\begin{aligned}K_{9,10}&=k^{1}_{5,6}+k^{2}_{7,8}+k^{3}_{3,4}+k^{4}_{1,2}\\&=s_2+s_6+s_6+s_2=0\qquad(s_6=-s_2)\end{aligned}"),
+ ("v0_err", r"\begin{aligned}2\times2:&\quad\frac{0.1306-0.1919}{0.1919}=-32\%\\[4pt]16\times16:&\quad\frac{0.1893-0.1919}{0.1919}=-1.4\%\\[4pt]32\times16:&\quad\frac{0.1906-0.1919}{0.1919}=-0.7\%\end{aligned}"),
+ ("v0_react", r"\begin{aligned}\textstyle\sum R_y&=+10\,000\ \mathrm{N}=-\textstyle\sum_i r_i\\\textstyle\sum M_{\text{fixed edge}}&=10\,000\times4=40\,000\ \mathrm{N\,m}\end{aligned}"),
+ # ---- Example 1: stiffness matrix of a square element (book Example 9.2) ----
+ ("v1_Bcols", r"\{B\}_1=\frac{1}{ab}\begin{Bmatrix}-(b-y)\\0\\-(a-x)\end{Bmatrix},\qquad\{B\}_2=\frac{1}{ab}\begin{Bmatrix}0\\-(a-x)\\-(b-y)\end{Bmatrix}"),
+ ("v1_k11", r"\begin{aligned}k_{11}&=t\int_0^a\!\!\int_0^b\{B\}_1^{\mathsf T}[E]\{B\}_1\,dy\,dx\\[4pt]&=t\int_0^a\!\!\int_0^b\frac{\bar E(b-y)^2+G(a-x)^2}{a^2b^2}\,dy\,dx\\[4pt]&=t\Big(\frac{\bar E\,b}{3a}+\frac{G\,a}{3b}\Big)=s_1\end{aligned}"),
+ ("v1_k12", r"\begin{aligned}k_{12}&=t\int_0^a\!\!\int_0^b\frac{(\bar E\nu+G)(a-x)(b-y)}{a^2b^2}\,dy\,dx=\frac{t}{4}\big(\bar E\nu+G\big)\\[4pt]&=\frac{\bar E\,t}{4}\Big(\nu+\frac{1-\nu}{2}\Big)=\frac{E\,t}{8(1-\nu)}=s_2\end{aligned}"),
+ ("v1_nums", r"\begin{aligned}\bar E t&=\frac{2.05\times10^{8}(0.05)}{0.91}=1.1264\times10^{7}\ \mathrm{kN\,m^{-1}}\\[4pt]s_1&=\bar Et\,\frac{2+0.7}{6}=5.069\times10^{6}\\[4pt]s_3&=\bar Et\,\frac{0.7-4}{12}=-3.098\times10^{6}\\[4pt]s_5&=-\bar Et\,\frac{0.7+2}{12}=-2.534\times10^{6}\\[4pt]s_7&=\bar Et\,\frac{1-0.7}{6}=0.563\times10^{6}\\[4pt]s_2&=\frac{2.05\times10^{8}(0.05)}{8(0.7)}=1.830\times10^{6}\\[4pt]s_8&=\bar Et\,\frac{1-0.9}{8}=0.141\times10^{6}\end{aligned}"),
+ ("v1_sq", r"\begin{aligned}a=b:\quad&s_9=s_1,\quad s_{10}=s_7,\quad s_{11}=s_5,\quad s_{12}=s_3\\&s_4=-s_8,\quad s_6=-s_2\end{aligned}"),
+ ("v1_rows", r"\begin{aligned}\text{row 1, }u\text{ entries: }&5.069-3.098-2.534+0.563=0\\\text{row 1, }v\text{ entries: }&1.830-0.141-1.830+0.141=0\end{aligned}"),
+ ("v1_rot", r"\begin{aligned}&u=-\theta y,\ v=\theta x\ \Rightarrow\ \{d\}=\theta\{0\ \ 0\ \ 0\ \ a\ \ {-b}\ \ a\ \ {-b}\ \ 0\}^{\mathsf T}\\[4pt]&\text{row 1 of }[k]\{d\}=\theta\big[a(s_4+s_6)-b(s_5+s_7)\big]\\&=0.5\theta\big[(-0.141-1.830)-(-2.534+0.563)\big]\times10^{6}=0\end{aligned}"),
+ # ---- Example 2: nodal loads (book Example 9.3) and global entries (book Example 9.4) ----
+ ("v2_edge", r"\begin{aligned}r_4=r_6&=\frac{p\,\ell}{2}=\frac{(-25)(0.5)}{2}=-6.25\ \mathrm{kN}\\\text{total}&=-12.5\ \mathrm{kN}=p\,\ell\end{aligned}"),
+ ("v2_self", r"\begin{aligned}W&=\gamma\,t\,ab=78.5(0.05)(0.5)(0.5)=0.981\ \mathrm{kN}\\r_2&=r_4=r_6=r_8=-\frac{W}{4}=-0.245\ \mathrm{kN}\end{aligned}"),
+ ("v2_lin", r"\begin{aligned}r_4&=\frac{\ell(2p_2+p_3)}{6}=\frac{0.5\,(0-25)}{6}=-2.083\ \mathrm{kN}\\[4pt]r_6&=\frac{\ell(p_2+2p_3)}{6}=\frac{0.5\,(0-50)}{6}=-4.167\ \mathrm{kN}\end{aligned}"),
+ ("v2_linchk", r"\begin{aligned}&\text{total: }-2.083-4.167=-6.25=\tfrac12(-25)(0.5)\ \mathrm{kN}\\&\text{moment about node 2: }4.167(0.5)=2.083\ \mathrm{kN\,m}\\&\qquad=6.25\times\tfrac23(0.5)\ \checkmark\end{aligned}"),
+ ("v2_K", r"\begin{aligned}K_{9,11}&=k^{4}_{1,3}=-1.44\\K_{16,16}&=k^{2}_{6,6}+k^{3}_{8,8}=2.44+2.44=4.88\\K_{8,7}&=k^{1}_{8,7}+k^{2}_{4,3}+k^{3}_{2,1}=-0.83-0.83+0.83=-0.83\\K_{13,20}&=0\end{aligned}"),
+ ("v2_nu", r"\begin{aligned}\frac{k_{12}}{k_{11}}&=\frac{s_2}{s_1}=\frac{3(1+\nu)}{4(3-\nu)}=\frac{0.83}{2.44}\ \Rightarrow\ \nu=0.25\\[4pt]\bar E t\,\frac{2.75}{6}&=2.44\ \Rightarrow\ Et=5\end{aligned}"),
+ # ---- Example 3: one element in tension (book Example 9.6) ----
+ ("v3_s", r"\begin{aligned}\bar Et&=\frac{200\times10^{6}(0.01)}{0.91}=2.1978\times10^{6}\ \mathrm{kN\,m^{-1}}\\s_1&=0.98901,\quad s_2=0.35714\\s_3&=-0.60440,\quad s_4=-0.02747\\s_5&=-0.49451,\quad s_7=0.10989\quad(\times10^{6}\ \mathrm{kN\,m^{-1}})\end{aligned}"),
+ ("v3_load", r"r_3=r_5=\frac{\sigma\,t\,\ell}{2}=\frac{1000(0.01)(1)}{2}=5\ \mathrm{kN}\qquad(u_2,\ u_3)"),
+ ("v3_exact", r"\begin{aligned}u_2=u_3&=\frac{\sigma}{E}=5\times10^{-6}\ \mathrm{m}\\v_3=v_4&=-\frac{\nu\sigma}{E}=-1.5\times10^{-6}\ \mathrm{m}\end{aligned}"),
+ ("v3_row3", r"\begin{aligned}&s_1u_2+s_7u_3+s_4v_3+s_2v_4\\&=0.98901(5)+0.10989(5)\\&\quad+0.02747(1.5)-0.35714(1.5)\\&=4.9451+0.5495+0.0412-0.5357\\&=5.000\ \mathrm{kN}=r_3\end{aligned}"),
+ ("v3_sym", r"\begin{aligned}(s_1+s_7)\,u_2+(s_6-s_4)\,v_2&=5\\(s_6+s_8)\,u_2+(s_9-s_{12})\,v_2&=0\\[6pt]1.0989\,u_2-0.32967\,v_2&=5\\-0.32967\,u_2+1.5934\,v_2&=0\qquad(\times10^{6})\end{aligned}"),
+ ("v3_solve", r"\begin{aligned}v_2&=0.20690\,u_2\\(1.0989-0.0682)\,u_2&=5\\u_2=u_3&=4.851\times10^{-6}\ \mathrm{m}\\v_2=-v_3&=1.004\times10^{-6}\ \mathrm{m}\end{aligned}"),
+ ("v3_react", r"\begin{aligned}&R_1=-5,\quad R_2=-0.993\ \mathrm{kN}\\&R_7=-5,\quad R_8=+0.993\ \mathrm{kN}\\&\textstyle\sum R_x=-10\ \mathrm{kN},\quad\sum R_y=0\end{aligned}"),
+]

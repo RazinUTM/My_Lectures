@@ -26,6 +26,7 @@ one per tab (`qr_s2_explorer.png`, `qr_s2_notes.png`, …).
 |---|---|
 | Mark as read, key points, quick checks (Notes) | self-paced reading, short notes, retrieval practice |
 | “Try it yourself” boxes at the end of Notes §2, §3 and §5 (`#notes-try-n2`, …) | open the matching Explorer task and lead back to the same place in the notes |
+| Annotation toolbar (pencil button, bottom right): four pens, line thickness, eraser, clear all; mouse, touch or pen | the lecturer writes on the screen while teaching; while it is on the page cannot be clicked or scrolled |
 | Progress bar and tab badges | shows what is done in each part |
 | Exercise timer (suggested 60 min), first-attempt score, confidence rating, hint count | self-monitoring during practice |
 | Learning record (Start) | summary the student can copy into the report |
@@ -40,7 +41,8 @@ one per tab (`qr_s2_explorer.png`, `qr_s2_notes.png`, …).
 
 Everything a student enters in the tabs is stored only in that student's browser (`localStorage`):
 answers and progress under `s2-il-v3`, and the preferences (language, theme, text size, folded description)
-under `seaa3012-prefs`, one key for every SEAA 3012 page.
+under `seaa3012-prefs`, one key for every SEAA 3012 page. What is written with the annotation toolbar is never
+stored; only its pen and its place are remembered (`rz-annotate`).
 Two things leave the browser. A question typed to Dr RJ once his AI is switched on goes through the course's
 rz-tutor Worker to the Claude API (Anthropic) to be answered; the Worker keeps counts (questions, the sections
 he points to), never the text, and the panel asks students not to type names, matric numbers or other personal
@@ -115,6 +117,9 @@ widget and tools of rz-tutor-worker (MIT; see its `VERSION`).
 `web/build_web.py` inserts the photo and QR code from `shared/*_b64.txt` and writes `index.html`
 and `activity/influence-line-explorer.html` (the form published as a claude.ai artifact).
 `shared/s2_numbers.py` computes every number used in the notes, slides and keys.
+
+The annotation toolbar is `web/src/annotate.js`, a copy of `SEAA4243-FEM/shared/annotate.js` (the source of record:
+change it there, then copy it); `web/build_web.py` adds it to the page as its own script.
 
 A “Try it yourself” box is one empty line in `web/src/p1_start_notes.html`, at the end of a notes section,
 just before its “Mark this section as read” line: `<aside class="try" data-tasks="tk3 tk4"></aside>`, with the

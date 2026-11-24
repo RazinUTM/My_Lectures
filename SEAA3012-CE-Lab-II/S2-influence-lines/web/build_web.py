@@ -40,13 +40,14 @@ def avatars(t):
     return t
 body = avatars(body.replace("%%PHOTO%%", photo).replace("%%QR%%", qr))
 js = avatars(js)
+annot = (src / "annotate.js").read_text()      # the annotation toolbar: a copy of SEAA4243-FEM/shared/annotate.js, its own script
 assert "%%" not in body
 art = (TITLE + "\n" + PREFS + '\n<meta name="claude:viewport-fit-sides" content="cover">\n' + FONTS + "\n<style>\n" + css + "</style>\n" + MJCONF
-       + "\n" + body + "\n<script>\n" + js + "</script>\n")
+       + "\n" + body + "\n<script>\n" + js + "</script>\n<script>\n" + annot + "</script>\n")
 (here.parent / "activity" / "influence-line-explorer.html").write_text(art)
 doc = ('<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
        '<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">\n' + TITLE + "\n"
        '<meta name="description" content="SEAA 3012 Civil Engineering Laboratory II, Lab S2 Influence Lines: notes, slides, interactive explorer, exercises and lab data sheet.">\n'
-       + PREFS + "\n" + FONTS + "\n<style>\nhtml,body{margin:0}\n" + css + "</style>\n" + MJCONF + "\n</head>\n<body>\n" + body + "\n<script>\n" + js + "</script>\n</body>\n</html>\n")
+       + PREFS + "\n" + FONTS + "\n<style>\nhtml,body{margin:0}\n" + css + "</style>\n" + MJCONF + "\n</head>\n<body>\n" + body + "\n<script>\n" + js + "</script>\n<script>\n" + annot + "</script>\n</body>\n</html>\n")
 (here.parent / "index.html").write_text(doc)
 print("artifact", len(art), "bytes; index.html", len(doc), "bytes")

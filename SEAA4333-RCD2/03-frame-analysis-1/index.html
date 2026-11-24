@@ -469,10 +469,23 @@ pre.code{margin:0;max-height:480px;overflow:auto;padding:12px 14px;border-top:1p
 
 footer.foot p.copy{margin-top:10px}
 
+/* ---------- "Try it yourself" boxes in the notes, and the way back from the Explorer ---------- */
+aside.try{border:1px solid var(--tint-line);border-left:4px solid var(--accent);border-radius:8px;padding:10px 14px;margin:18px 0;background:var(--tint);font:calc(15px*var(--ts))/1.5 var(--font-ui)}
+aside.try .h{font-size:calc(12px*var(--ts));letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:700}
+aside.try ul{list-style:none;margin:6px 0 4px;padding:0}
+aside.try li{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;padding:8px 0;border-top:1px solid var(--tint-line)}
+aside.try li:first-child{border-top:0}
+aside.try li .tt{flex:1 1 260px;min-width:0}
+aside.try li .btn{margin-left:auto}
+aside.try li.done .tkok{visibility:visible}aside.try li.done .tkn{background:var(--good-bg);color:var(--good)}
+aside.try .tryfoot{margin:2px 0 0;font-size:calc(12.5px*var(--ts));color:var(--muted)}
+.tryback{position:sticky;top:calc(var(--rz-top,86px) + 4px);z-index:5;display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;padding:8px 12px;margin:0 0 12px;border:1px solid var(--tint-line);border-radius:10px;background:var(--panel2,var(--bg));box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.tryback .muted{font-size:calc(13px*var(--ts))}
+
 /* ---------- print: notes only ---------- */
 @media print{
   body{background:#fff;color:#000;padding:0}
-  .navwrap,.tools,.drawer,.scrim,.tpill,.sfoot,.qc,.toc,.crumbs,.vhead,.pagenav,.explain,.rjfab,.xbar{display:none!important}
+  .navwrap,.tools,.drawer,.scrim,.tpill,.sfoot,.qc,.try,.toc,.crumbs,.vhead,.pagenav,.explain,.rjfab,.xbar{display:none!important}
   .xstep[hidden],.xafter[hidden]{display:block!important}
   footer.foot p:not(.copy){display:none}
   .view[hidden]{display:none!important}
@@ -967,6 +980,7 @@ main [id],main h2,main h3,main tr{scroll-margin-top:104px}
 <p><span class="en">The table gives the course notes’ frame of §3 (three 6 m spans), distributed to convergence. Notice the last row: all spans loaded is not the worst case for any section. It gives 201.5 kN m at B against 217.6 with AB and BC loaded, 7 % less. With unequal spans the gap grows: in the course workbook’s frame, spans 6, 5 and 8 m, M<sub>B</sub> is 129.5 kN m with all spans loaded and 164.9 with AB and BC loaded, 21 % less, because the load on the long span CD turns joint C and relieves B. The National Annex permits Load Set 2; know what it leaves out when you use it.</span><span class="ms">Jadual memberi frame nota kursus dalam §3 (tiga span 6 m), diagihkan hingga converge. Perhatikan baris terakhir: semua span dibebani bukan kes paling teruk bagi mana-mana section. Ia memberi 201.5 kN m di B berbanding 217.6 apabila AB dan BC dibebani, 7 % kurang. Dengan span yang tidak sama, jurangnya membesar: dalam frame workbook kursus, span 6, 5 dan 8 m, M<sub>B</sub> ialah 129.5 kN m apabila semua span dibebani dan 164.9 apabila AB dan BC dibebani, 21 % kurang, kerana load pada span panjang CD memutarkan joint C dan melegakan B. National Annex membenarkan Load Set 2; ketahui apa yang ditinggalkannya apabila anda menggunakannya.</span></p>
 <div class="qc" data-ans="c" data-qc="n2" id="q-n2"><div class="h"><span class="en">Quick check</span><span class="ms">Semak cepat</span></div><p><span class="en">A beam has three spans AB, BC and CD. Which arrangement gives the largest hogging moment at C?</span><span class="ms">Satu beam mempunyai tiga span AB, BC dan CD. Susunan manakah yang memberi hogging moment terbesar di C?</span></p><div class="opts"><button class="opt" data-k="a" type="button"><span class="en">All three spans at w<sub>max</sub></span><span class="ms">Ketiga-tiga span pada w<sub>max</sub></span></button><button class="opt" data-k="b" type="button"><span class="en">AB and CD at w<sub>max</sub>, BC at w<sub>min</sub></span><span class="ms">AB dan CD pada w<sub>max</sub>, BC pada w<sub>min</sub></span></button><button class="opt" data-k="c" type="button"><span class="en">BC and CD at w<sub>max</sub>, AB at w<sub>min</sub></span><span class="ms">BC dan CD pada w<sub>max</sub>, AB pada w<sub>min</sub></span></button><button class="opt" data-k="d" type="button"><span class="en">BC alone at w<sub>max</sub></span><span class="ms">BC sahaja pada w<sub>max</sub></span></button></div><p class="fb" hidden="" role="status"><span class="en">Load the two spans either side of C. The load on AB lifts BC and so relieves C a little: leaving AB light makes the hogging at C largest. That is case (b) of Load Set 1; Load Set 2 has no such case.</span><span class="ms">Bebani dua span di kiri dan kanan C. Load pada AB mengangkat BC dan dengan itu melegakan C sedikit: membiarkan AB ringan menjadikan hogging di C terbesar. Itu kes (b) Load Set 1; Load Set 2 tiada kes sedemikian.</span></p></div>
 <div class="qc" data-ans="a" data-qc="n2b" id="q-n2b"><div class="h"><span class="en">Quick check</span><span class="ms">Semak cepat</span></div><p><span class="en">In the course notes’ frame the middle span BC hogs along its whole length (least moment −25.0 kN m). Under which arrangement?</span><span class="ms">Dalam frame nota kursus, span tengah BC hogging di sepanjang panjangnya (moment terkecil −25.0 kN m). Di bawah susunan manakah?</span></p><div class="opts"><button class="opt" data-k="a" type="button"><span class="en">AB and CD at w<sub>max</sub>, BC at w<sub>min</sub></span><span class="ms">AB dan CD pada w<sub>max</sub>, BC pada w<sub>min</sub></span></button><button class="opt" data-k="b" type="button"><span class="en">BC alone at w<sub>max</sub></span><span class="ms">BC sahaja pada w<sub>max</sub></span></button><button class="opt" data-k="c" type="button"><span class="en">All spans at w<sub>max</sub></span><span class="ms">Semua span pada w<sub>max</sub></span></button><button class="opt" data-k="d" type="button"><span class="en">AB and BC at w<sub>max</sub></span><span class="ms">AB dan BC pada w<sub>max</sub></span></button></div><p class="fb" hidden="" role="status"><span class="en">The heavy outer spans hog the supports B and C, and the light middle span cannot sag enough to overcome them. BC then needs top bars along its whole length, not only over the supports.</span><span class="ms">Span luar yang berat menyebabkan hogging di support B dan C, dan span tengah yang ringan tidak cukup sagging untuk mengatasinya. BC kemudian memerlukan bar atas di sepanjang panjangnya, bukan hanya di atas support.</span></p></div>
+<aside class="try" data-tasks="arr ls"></aside>
 <details class="kp"><summary><span class="en">Key points</span><span class="ms">Perkara utama</span></summary><ul>
 <li><span class="en">w<sub>max</sub> = 1.35G<sub>k</sub> + 1.5Q<sub>k</sub> on loaded spans, w<sub>min</sub> = 1.35G<sub>k</sub> on the others.</span><span class="ms">w<sub>max</sub> = 1.35G<sub>k</sub> + 1.5Q<sub>k</sub> pada span yang dibebani, w<sub>min</sub> = 1.35G<sub>k</sub> pada span lain.</span></li>
 <li><span class="en">Sagging in a span: alternate spans. Hogging at a support: the two adjacent spans. Least span moment: the neighbours loaded, the span light.</span><span class="ms">Sagging dalam span: span berselang. Hogging di support: dua span bersebelahan. Moment span terkecil: span jiran dibebani, span itu ringan.</span></li>
@@ -1009,6 +1023,7 @@ main [id],main h2,main h3,main tr{scroll-margin-top:104px}
 <p><span class="en">After five cycles M<sub>B</sub> = 217.87 and M<sub>C</sub> = 137.24 kN m, as in the notes. Carried to convergence they are 217.63 and 137.03: five cycles were enough. The moments at A and D stay zero, because they are pins.</span><span class="ms">Selepas lima cycle, M<sub>B</sub> = 217.87 dan M<sub>C</sub> = 137.24 kN m, seperti dalam nota. Apabila diteruskan hingga converge, nilainya 217.63 dan 137.03: lima cycle sudah memadai. Moment di A dan D kekal sifar, kerana kedua-duanya pin.</span></p>
 <div class="qc" data-ans="a" data-qc="n4" id="q-n4"><div class="h"><span class="en">Quick check</span><span class="ms">Semak cepat</span></div><p><span class="en">At joint B, the end span AB (far end pinned) has I/L = 6.0 and BC has 8.0. What is the distribution factor F<sub>BA</sub>?</span><span class="ms">Di joint B, span hujung AB (hujung jauh pin) mempunyai I/L = 6.0 dan BC mempunyai 8.0. Berapakah distribution factor F<sub>BA</sub>?</span></p><div class="opts"><button class="opt" data-k="a" type="button">0.36</button><button class="opt" data-k="b" type="button">0.43</button><button class="opt" data-k="c" type="button">0.57</button><button class="opt" data-k="d" type="button">0.75</button></div><p class="fb" hidden="" role="status"><span class="en">AB has a pinned far end, so K′ = ¾ × 6.0 = 4.5; F<sub>BA</sub> = 4.5/(4.5 + 8.0) = 0.36 and F<sub>BC</sub> = 0.64. 0.43 forgets the ¾.</span><span class="ms">AB mempunyai hujung jauh pin, jadi K′ = ¾ × 6.0 = 4.5; F<sub>BA</sub> = 4.5/(4.5 + 8.0) = 0.36 dan F<sub>BC</sub> = 0.64. 0.43 terlupa faktor ¾.</span></p></div>
 <div class="qc" data-ans="d" data-qc="n4b" id="q-n4b"><div class="h"><span class="en">Quick check</span><span class="ms">Semak cepat</span></div><p><span class="en">After A has been released in the first row, how much of the next balancing moment at B is carried to A?</span><span class="ms">Selepas A dilepaskan dalam baris pertama, berapa banyak balancing moment seterusnya di B dibawa ke A?</span></p><div class="opts"><button class="opt" data-k="a" type="button"><span class="en">Half, as at any far end</span><span class="ms">Separuh, seperti di mana-mana hujung jauh</span></button><button class="opt" data-k="b" type="button"><span class="en">All of it</span><span class="ms">Kesemuanya</span></button><button class="opt" data-k="c" type="button"><span class="en">A quarter, because of the ¾ stiffness</span><span class="ms">Suku, kerana stiffness ¾</span></button><button class="opt" data-k="d" type="button"><span class="en">None: A is a released pin</span><span class="ms">Tiada: A ialah pin yang telah dilepaskan</span></button></div><p class="fb" hidden="" role="status"><span class="en">The ¾K already allows for the pin. Carrying moments back to A, and balancing it again, would count the pin twice; with ¾K the pin is released once and then left alone.</span><span class="ms">¾K sudah mengambil kira pin. Membawa moment kembali ke A, dan mengimbanginya semula, bermakna pin itu dikira dua kali; dengan ¾K, pin dilepaskan sekali dan kemudian dibiarkan.</span></p></div>
+<aside class="try" data-tasks="md"></aside>
 <details class="kp"><summary><span class="en">Key points</span><span class="ms">Perkara utama</span></summary><ul>
 <li><span class="en">K = I/L (relative); ¾K for an end span with its far end pinned.</span><span class="ms">K = I/L (relatif); ¾K bagi span hujung dengan hujung jauhnya pin.</span></li>
 <li><span class="en">F = K/ΣK at a joint; F = 1 at a pin.</span><span class="ms">F = K/ΣK di satu joint; F = 1 di pin.</span></li>
@@ -1049,6 +1064,7 @@ main [id],main h2,main h3,main tr{scroll-margin-top:104px}
 <div class="sb"><p><span class="en">How good is the one-free-joint sub-frame? It relieves one joint at a time with the far ends fixed, so it does not see the load on the spans beyond. Against the one-level sub-frame of Unit 4, the interior column B of the notes’ frame gets 24.25 kN m where the one-level sub-frame gives 30.29 (20 % less), and the end columns get 14 % more. The RC Design app takes the larger of the two at each column for design (its decision D53). The course method, and Problem D3 today, use the one-free-joint values.</span><span class="ms">Sejauh manakah ketepatan one-free-joint sub-frame? Ia melegakan satu joint pada satu masa dengan hujung jauh fixed, jadi ia tidak nampak load pada span di luarnya. Berbanding one-level sub-frame dalam Unit 4, column dalaman B dalam frame nota mendapat 24.25 kN m sedangkan one-level sub-frame memberi 30.29 (20 % kurang), dan column hujung mendapat 14 % lebih. RC Design app mengambil yang lebih besar antara keduanya di setiap column bagi design (keputusan D53 app itu). Kaedah kursus, dan Masalah D3 hari ini, menggunakan nilai one-free-joint.</span></p></div>
 <div class="qc" data-ans="c" data-qc="n6" id="q-n6"><div class="h"><span class="en">Quick check</span><span class="ms">Semak cepat</span></div><p><span class="en">An interior joint has two 6 m spans with w<sub>max</sub> = 50 and w<sub>min</sub> = 30 kN/m. What is ΔFEM for the column sub-frame?</span><span class="ms">Satu joint dalaman mempunyai dua span 6 m dengan w<sub>max</sub> = 50 dan w<sub>min</sub> = 30 kN/m. Berapakah ΔFEM bagi sub-frame column?</span></p><div class="opts"><button class="opt" data-k="a" type="button">150 kN m</button><button class="opt" data-k="b" type="button">0</button><button class="opt" data-k="c" type="button">60 kN m</button><button class="opt" data-k="d" type="button">240 kN m</button></div><p class="fb" hidden="" role="status"><span class="en">One side at w<sub>max</sub>, the other at w<sub>min</sub>: ΔFEM = (50 − 30) × 6²/12 = 60 kN m. With both spans at w<sub>max</sub> the joint would be balanced and the columns would get nothing, which is not the worst case.</span><span class="ms">Satu sisi pada w<sub>max</sub>, sisi lain pada w<sub>min</sub>: ΔFEM = (50 − 30) × 6²/12 = 60 kN m. Jika kedua-dua span pada w<sub>max</sub>, joint akan seimbang dan column tidak mendapat apa-apa, yang bukan kes paling teruk.</span></p></div>
 <div class="qc" data-ans="b" data-qc="n6b" id="q-n6b"><div class="h"><span class="en">Quick check</span><span class="ms">Semak cepat</span></div><p><span class="en">In the one-free-joint sub-frame, each beam’s stiffness is taken as</span><span class="ms">Dalam one-free-joint sub-frame, stiffness setiap beam diambil sebagai</span></p><div class="opts"><button class="opt" data-k="a" type="button"><span class="en">¾ of its I/L, as in the continuous beam</span><span class="ms">¾ daripada I/L-nya, seperti dalam continuous beam</span></button><button class="opt" data-k="b" type="button"><span class="en">½ of its I/L</span><span class="ms">½ daripada I/L-nya</span></button><button class="opt" data-k="c" type="button"><span class="en">its full I/L</span><span class="ms">I/L penuhnya</span></button><button class="opt" data-k="d" type="button"><span class="en">zero: only the columns resist</span><span class="ms">sifar: hanya column yang menahan</span></button></div><p class="fb" hidden="" role="status"><span class="en">Half the actual stiffness, with the far end fixed (RDF §11.0). The ¾ belongs to an end span of the continuous beam with a pinned far end.</span><span class="ms">Separuh stiffness sebenar, dengan hujung jauh fixed (RDF §11.0). Faktor ¾ adalah bagi span hujung continuous beam dengan hujung jauh pin.</span></p></div>
+<aside class="try" data-tasks="col s3"></aside>
 <details class="kp"><summary><span class="en">Key points</span><span class="ms">Perkara utama</span></summary><ul>
 <li><span class="en">One-free-joint sub-frame: far ends fixed, beams at ½K, w<sub>max</sub> on one side and w<sub>min</sub> on the other.</span><span class="ms">One-free-joint sub-frame: hujung jauh fixed, beam pada ½K, w<sub>max</sub> pada satu sisi dan w<sub>min</sub> pada sisi lain.</span></li>
 <li><span class="en">ΔFEM = FEM(w<sub>max</sub> side) − FEM(w<sub>min</sub> side); at an end column, the whole FEM at w<sub>max</sub>.</span><span class="ms">ΔFEM = FEM(sisi w<sub>max</sub>) − FEM(sisi w<sub>min</sub>); di column hujung, seluruh FEM pada w<sub>max</sub>.</span></li>
@@ -1707,7 +1723,8 @@ main [id],main h2,main h3,main tr{scroll-margin-top:104px}
   /* ---------- Explorer milestones (postMessage from the Explorer, or its localStorage record) ---------- */
   function labKey() { return C.lab ? PFX + "-lab-" + C.lab.id : null; }
   function syncLab() { var k = labKey(); if (!k) return; var rec = ld(k, {}) || {}; var changed = false; MS.forEach(function (m) { if (rec[m.id] && !ST.lab[m.id]) { ST.lab[m.id] = true; changed = true; } });
-    MS.forEach(function (m) { var t = $('.tk[data-ms="' + m.id + '"]'); if (t) t.classList.toggle("done", !!ST.lab[m.id]); }); if (changed) { save(); } updateProgress(); }
+    MS.forEach(function (m) { var t = $('.tk[data-ms="' + m.id + '"]'); if (t) t.classList.toggle("done", !!ST.lab[m.id]); });
+    $$("#v-notes .try li[data-ms]").forEach(function (li) { li.classList.toggle("done", !!ST.lab[li.getAttribute("data-ms")]); }); if (changed) { save(); } updateProgress(); }
   window.addEventListener("message", function (ev) { var d = ev.data; if (!d || d.type !== PFX + "-lab" || !C.lab || d.lab !== C.lab.id) return; if (!ST.lab[d.id]) { ST.lab[d.id] = true; save(); } syncLab(); });
   window.addEventListener("focus", syncLab); document.addEventListener("visibilitychange", function () { if (!document.hidden) syncLab(); });
   window.addEventListener("storage", function (e) { if (e.key === labKey()) syncLab(); });
@@ -1718,6 +1735,55 @@ main [id],main h2,main h3,main tr{scroll-margin-top:104px}
   function armLab() { if (!lf || labArmed) return; labArmed = true;
     setTimeout(function () { if (!labLoaded && !labNote) { labNote = el("p", { class: "note" }, bi("The Explorer did not load inside this page. Open it in its own tab with the link below; tasks done there are still recorded here.", "Explorer tidak dimuatkan di dalam halaman ini. Buka dalam tab sendiri melalui pautan di bawah; tugasan yang selesai di situ tetap direkodkan di sini.")); lf.parentNode.insertBefore(labNote, lf); } }, 8000); }
   $$(".tk[data-ms] .tkself").forEach(function (b) { b.addEventListener("click", function () { var t = b.closest(".tk"); ST.lab[t.getAttribute("data-ms")] = true; save(); syncLab(); }); });
+
+  /* ---------- "Try it yourself": from a place in the notes to an Explorer task, and back ----------
+     The notes carry <aside class="try" data-tasks="id id"> where a task fits the reading; the box is filled here from
+     the task cards of the Explorer view (one text to maintain), each with a button that opens the Explorer on the
+     task's tab. A bar at the top of the Explorer then leads back to the same place in the notes. */
+  var tryRet = null, tryBar = null;
+  function tkCard(id) { return $('#v-lab .tk[data-ms="' + id + '"]'); }
+  function labTabOf(card) { var m = /^\s*Tab\s+(\d+)/.exec(($("h4 .en", card) || card).textContent); return m ? +m[1] : 0; }
+  function setLabTab(n) {
+    if (!lf || !n) return;
+    function go() { try { var d = lf.contentWindow.document, tabs = d.querySelectorAll("button.tab[data-tab]"), t = null;
+      for (var i = 0; i < tabs.length; i++) { var k = tabs[i].querySelector(".n"); if (k && +k.textContent === n) { t = tabs[i]; break; } }
+      if (!t) t = tabs[n - 1]; if (t) lf.contentWindow.location.hash = t.getAttribute("data-tab"); } catch (e) {} }
+    if (labLoaded) go(); else lf.addEventListener("load", go, { once: true });
+  }
+  function secLabel(box) { var sec = box.closest("section.nsec"), h = sec && $("h2", sec);
+    if (!h) return { en: "Notes", ms: "Nota" };
+    var n = (/^\s*(\d+)\./.exec(h.textContent) || [])[1], en = $(".en", h), ms = $(".ms", h);
+    return { en: "Notes §" + n + " · " + (en ? en.innerHTML : ""), ms: "Nota §" + n + " · " + (ms ? ms.innerHTML : "") }; }
+  function tryBack() { var r = tryRet; tryRet = null; if (tryBar) tryBar.hidden = true; if (!r) return;
+    show("notes", { anchor: r.id }); var box = document.getElementById(r.id);
+    if (box) setTimeout(function () { box.classList.add("hflash"); setTimeout(function () { box.classList.remove("hflash"); }, 1800); }, 120); }
+  function tryOpen(box, id) {
+    var card = tkCard(id); if (!card) return;
+    tryRet = { id: box.id };
+    if (!tryBar) { tryBar = el("div", { class: "tryback", role: "region", "aria-label": "Back to the notes" });
+      var lv = $("#v-lab"), vh = lv && $(".vhead", lv); if (vh) vh.parentNode.insertBefore(tryBar, vh.nextSibling); else if (lv) lv.insertBefore(tryBar, lv.firstChild); }
+    var lab = secLabel(box);
+    tryBar.innerHTML = '<button class="btn" type="button">' + bi("← Back to " + lab.en, "← Kembali ke " + lab.ms) + '</button><span class="muted">' +
+      bi("Task " + ($(".tkn", card) || {}).textContent + " is marked below the Explorer.", "Tugasan " + ($(".tkn", card) || {}).textContent + " ditanda di bawah Explorer.") + "</span>";
+    $("button", tryBar).addEventListener("click", tryBack); tryBar.hidden = false;
+    show("lab", { noscroll: true }); setLabTab(labTabOf(card));
+    setTimeout(function () { var nav = $(".navwrap"), g = $("#v-lab .labgrid") || tryBar;
+      var y = g.getBoundingClientRect().top + window.pageYOffset - (nav ? nav.offsetHeight : 0) - tryBar.offsetHeight - 16;
+      window.scrollTo({ top: Math.max(0, y), behavior: reduced ? "auto" : "smooth" });
+      card.classList.add("hflash"); setTimeout(function () { card.classList.remove("hflash"); }, 2400); }, 60);
+  }
+  $$("#v-notes aside.try[data-tasks]").forEach(function (box) {
+    var sec = box.closest("section.nsec"), base = "try-" + (sec ? sec.id : "n"), id = base, k = 2;
+    while (document.getElementById(id)) id = base + "-" + k++; if (!box.id) box.id = id;
+    var ids = box.getAttribute("data-tasks").split(/\s+/).filter(function (id) { return tkCard(id); }); if (!ids.length) { box.hidden = true; return; }
+    var html = '<div class="h">' + bi("Try it yourself · Explorer", "Cuba sendiri · Explorer") + "</div><ul>";
+    ids.forEach(function (id) { var c = tkCard(id), en = $("h4 .en", c), ms = $("h4 .ms", c);
+      html += '<li data-ms="' + id + '"><span class="tkn">' + $(".tkn", c).textContent + '</span><span class="tt">' + bi(en ? en.innerHTML : "", ms ? ms.innerHTML : "") +
+        '</span><span class="tkok" aria-label="done">✓</span><button class="btn ghost" type="button" data-try="' + id + '">' + bi("Open in the Explorer →", "Buka dalam Explorer →") + "</button></li>"; });
+    box.innerHTML = html + '</ul><p class="tryfoot">' + bi("A button at the top of the Explorer brings you back here to carry on reading.", "Butang di atas Explorer membawa anda kembali ke sini untuk menyambung bacaan.") + "</p>";
+    $$("button[data-try]", box).forEach(function (b) { b.addEventListener("click", function () { tryOpen(box, b.getAttribute("data-try")); }); });
+  });
+  $$(".tab").forEach(function (t) { t.addEventListener("click", function () { if (t.getAttribute("data-view") !== "lab" && tryBar) { tryRet = null; tryBar.hidden = true; } }); });
 
   /* ---------- can-do checklist ---------- */
   $$(".cando .row").forEach(function (r) { var id = r.getAttribute("data-c"); $$("button", r).forEach(function (b) { var v = +b.getAttribute("data-v");

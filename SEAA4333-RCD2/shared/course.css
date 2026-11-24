@@ -457,10 +457,23 @@ pre.code{margin:0;max-height:480px;overflow:auto;padding:12px 14px;border-top:1p
 
 footer.foot p.copy{margin-top:10px}
 
+/* ---------- "Try it yourself" boxes in the notes, and the way back from the Explorer ---------- */
+aside.try{border:1px solid var(--tint-line);border-left:4px solid var(--accent);border-radius:8px;padding:10px 14px;margin:18px 0;background:var(--tint);font:calc(15px*var(--ts))/1.5 var(--font-ui)}
+aside.try .h{font-size:calc(12px*var(--ts));letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:700}
+aside.try ul{list-style:none;margin:6px 0 4px;padding:0}
+aside.try li{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;padding:8px 0;border-top:1px solid var(--tint-line)}
+aside.try li:first-child{border-top:0}
+aside.try li .tt{flex:1 1 260px;min-width:0}
+aside.try li .btn{margin-left:auto}
+aside.try li.done .tkok{visibility:visible}aside.try li.done .tkn{background:var(--good-bg);color:var(--good)}
+aside.try .tryfoot{margin:2px 0 0;font-size:calc(12.5px*var(--ts));color:var(--muted)}
+.tryback{position:sticky;top:calc(var(--rz-top,86px) + 4px);z-index:5;display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;padding:8px 12px;margin:0 0 12px;border:1px solid var(--tint-line);border-radius:10px;background:var(--panel2,var(--bg));box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.tryback .muted{font-size:calc(13px*var(--ts))}
+
 /* ---------- print: notes only ---------- */
 @media print{
   body{background:#fff;color:#000;padding:0}
-  .navwrap,.tools,.drawer,.scrim,.tpill,.sfoot,.qc,.toc,.crumbs,.vhead,.pagenav,.explain,.rjfab,.xbar{display:none!important}
+  .navwrap,.tools,.drawer,.scrim,.tpill,.sfoot,.qc,.try,.toc,.crumbs,.vhead,.pagenav,.explain,.rjfab,.xbar{display:none!important}
   .xstep[hidden],.xafter[hidden]{display:block!important}
   footer.foot p:not(.copy){display:none}
   .view[hidden]{display:none!important}

@@ -469,10 +469,23 @@ pre.code{margin:0;max-height:480px;overflow:auto;padding:12px 14px;border-top:1p
 
 footer.foot p.copy{margin-top:10px}
 
+/* ---------- "Try it yourself" boxes in the notes, and the way back from the Explorer ---------- */
+aside.try{border:1px solid var(--tint-line);border-left:4px solid var(--accent);border-radius:8px;padding:10px 14px;margin:18px 0;background:var(--tint);font:calc(15px*var(--ts))/1.5 var(--font-ui)}
+aside.try .h{font-size:calc(12px*var(--ts));letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:700}
+aside.try ul{list-style:none;margin:6px 0 4px;padding:0}
+aside.try li{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;padding:8px 0;border-top:1px solid var(--tint-line)}
+aside.try li:first-child{border-top:0}
+aside.try li .tt{flex:1 1 260px;min-width:0}
+aside.try li .btn{margin-left:auto}
+aside.try li.done .tkok{visibility:visible}aside.try li.done .tkn{background:var(--good-bg);color:var(--good)}
+aside.try .tryfoot{margin:2px 0 0;font-size:calc(12.5px*var(--ts));color:var(--muted)}
+.tryback{position:sticky;top:calc(var(--rz-top,86px) + 4px);z-index:5;display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;padding:8px 12px;margin:0 0 12px;border:1px solid var(--tint-line);border-radius:10px;background:var(--panel2,var(--bg));box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.tryback .muted{font-size:calc(13px*var(--ts))}
+
 /* ---------- print: notes only ---------- */
 @media print{
   body{background:#fff;color:#000;padding:0}
-  .navwrap,.tools,.drawer,.scrim,.tpill,.sfoot,.qc,.toc,.crumbs,.vhead,.pagenav,.explain,.rjfab,.xbar{display:none!important}
+  .navwrap,.tools,.drawer,.scrim,.tpill,.sfoot,.qc,.try,.toc,.crumbs,.vhead,.pagenav,.explain,.rjfab,.xbar{display:none!important}
   .xstep[hidden],.xafter[hidden]{display:block!important}
   footer.foot p:not(.copy){display:none}
   .view[hidden]{display:none!important}
@@ -979,6 +992,7 @@ main [id],main h2,main h3,main tr{scroll-margin-top:104px}
 <p><span class="en">M<sub>0e</sub> + M<sub>2</sub> checks the section near mid-height. M<sub>02</sub> checks the end. M<sub>01</sub> + 0.5M<sub>2</sub> comes from BS 8110 (3.8.3.2) through the RDF and can govern in double curvature when M<sub>2</sub> is large. Activity 9A found all four branches; the table gives the results (kN m).</span><span class="ms">M<sub>0e</sub> + M<sub>2</sub> menyemak section berhampiran tengah ketinggian. M<sub>02</sub> menyemak hujung. M<sub>01</sub> + 0.5M<sub>2</sub> berasal daripada BS 8110 (3.8.3.2) melalui RDF dan boleh menentukan dalam double curvature apabila M<sub>2</sub> besar. Aktiviti 9A menemui keempat-empat cabang; jadual memberi keputusannya (kN m).</span></p>
 <div class="tbl"><table><thead><tr><th><span class="en">Card</span><span class="ms">Kad</span></th><th><span class="en">Column</span><span class="ms">Column</span></th><th>M<sub>2</sub></th><th>M<sub>02</sub></th><th>M<sub>0e</sub> + M<sub>2</sub></th><th>M<sub>01</sub> + 0.5M<sub>2</sub></th><th>N<sub>Ed</sub>e<sub>0</sub></th><th><span class="en">Governs</span><span class="ms">Menentukan</span></th></tr></thead><tbody><tr><td>A</td><td><span class="en">braced, double curvature, l<sub>0</sub> 4.2 m (C5)</span><span class="ms">braced, double curvature, l<sub>0</sub> 4.2 m (C5)</span></td><td>17.0</td><td><b>47.6</b></td><td>40.6</td><td>46.1</td><td>24.0</td><td>M<sub>02</sub></td></tr><tr><td>B</td><td><span class="en">braced, double curvature, l<sub>0</sub> 4.13 m (C7)</span><span class="ms">braced, double curvature, l<sub>0</sub> 4.13 m (C7)</span></td><td>23.1</td><td>47.4</td><td>46.5</td><td><b>48.9</b></td><td>24.0</td><td>M<sub>01</sub> + 0.5M<sub>2</sub></td></tr><tr><td>C</td><td><span class="en">braced, single curvature, l<sub>0</sub> 5.0 m (C8)</span><span class="ms">braced, single curvature, l<sub>0</sub> 5.0 m (C8)</span></td><td>39.0</td><td>52.5</td><td><b>91.5</b></td><td>72.0</td><td>20.0</td><td>M<sub>0e</sub> + M<sub>2</sub></td></tr><tr><td>D</td><td><span class="en">unbraced, l<sub>0</sub> 4.13 m (C9)</span><span class="ms">unbraced, l<sub>0</sub> 4.13 m (C9)</span></td><td>32.0</td><td><span class="en"><b>79.4</b> (M<sub>02</sub> + M<sub>2</sub>)</span><span class="ms"><b>79.4</b> (M<sub>02</sub> + M<sub>2</sub>)</span></td><td>–</td><td>–</td><td>24.0</td><td>M<sub>02</sub> + M<sub>2</sub></td></tr></tbody></table></div>
 <div class="qc" data-ans="c" data-qc="n3" id="q-n3"><div class="h"><span class="en">Quick check</span><span class="ms">Semak cepat</span></div><p><span class="en">A braced column has equal end moments in single curvature: M<sub>02</sub> = M<sub>01</sub> = 52.5 kN m with the imperfection, M<sub>2</sub> = 39.0 kN m, N<sub>Ed</sub>e<sub>0</sub> = 20 kN m. M<sub>Ed</sub> is</span><span class="ms">Satu column braced mempunyai end moment yang sama dalam single curvature: M<sub>02</sub> = M<sub>01</sub> = 52.5 kN m dengan imperfection, M<sub>2</sub> = 39.0 kN m, N<sub>Ed</sub>e<sub>0</sub> = 20 kN m. M<sub>Ed</sub> ialah</span></p><div class="opts"><button class="opt" data-k="a" type="button">52.5 kN m</button><button class="opt" data-k="b" type="button">72.0 kN m</button><button class="opt" data-k="c" type="button">91.5 kN m</button><button class="opt" data-k="d" type="button">130.5 kN m</button></div><p class="fb" hidden="" role="status"><span class="en">Equal moments give M<sub>0e</sub> = M<sub>02</sub> = 52.5, so M<sub>0e</sub> + M<sub>2</sub> = 91.5 kN m governs (Worked Example 9.1). 72.0 is M<sub>01</sub> + 0.5M<sub>2</sub>; 52.5 forgets M<sub>2</sub>; 130.5 adds M<sub>2</sub> twice.</span><span class="ms">Moment yang sama memberi M<sub>0e</sub> = M<sub>02</sub> = 52.5, jadi M<sub>0e</sub> + M<sub>2</sub> = 91.5 kN m menentukan (Worked Example 9.1). 72.0 ialah M<sub>01</sub> + 0.5M<sub>2</sub>; 52.5 terlupa M<sub>2</sub>; 130.5 menambah M<sub>2</sub> dua kali.</span></p></div>
+<aside class="try" data-tasks="six branch sway9"></aside>
 <details class="kp"><summary><span class="en">Key points</span><span class="ms">Perkara utama</span></summary><ul>
 <li><span class="en">Braced: M<sub>Ed</sub> = max(M<sub>02</sub>, M<sub>0e</sub> + M<sub>2</sub>, M<sub>01</sub> + 0.5M<sub>2</sub>, N<sub>Ed</sub>e<sub>0</sub>); unbraced: max(M<sub>02</sub> + M<sub>2</sub>, N<sub>Ed</sub>e<sub>0</sub>).</span><span class="ms">Braced: M<sub>Ed</sub> = max(M<sub>02</sub>, M<sub>0e</sub> + M<sub>2</sub>, M<sub>01</sub> + 0.5M<sub>2</sub>, N<sub>Ed</sub>e<sub>0</sub>); unbraced: max(M<sub>02</sub> + M<sub>2</sub>, N<sub>Ed</sub>e<sub>0</sub>).</span></li>
 <li><span class="en">M<sub>0e</sub> = 0.6|M|<sub>max</sub> ± 0.4|M|<sub>min</sub> + N<sub>Ed</sub>e<sub>i</sub> ≥ 0.4M<sub>02</sub>, minus in double curvature.</span><span class="ms">M<sub>0e</sub> = 0.6|M|<sub>max</sub> ± 0.4|M|<sub>min</sub> + N<sub>Ed</sub>e<sub>i</sub> ≥ 0.4M<sub>02</sub>, tolak dalam double curvature.</span></li>
@@ -1006,6 +1020,7 @@ main [id],main h2,main h3,main tr{scroll-margin-top:104px}
 <p><span class="en">If both conditions hold, one axis dominates and the separate designs are enough (EC2 5.8.9(3)); M<sub>Ed,z</sub> and M<sub>Ed,y</sub> include the second-order moments, and for a rectangle h<sub>eq</sub> = h and b<sub>eq</sub> = b. If not, the two axes are checked together (§6). Column3.xlsx tests whether the larger ratio exceeds 0.2, which is always true because the two ratios are reciprocals (audit C-15): the test is that one of them is at most 0.2.</span><span class="ms">Jika kedua-dua syarat dipenuhi, satu paksi mendominasi dan design berasingan sudah memadai (EC2 5.8.9(3)); M<sub>Ed,z</sub> dan M<sub>Ed,y</sub> merangkumi second-order moment, dan bagi segi empat tepat h<sub>eq</sub> = h dan b<sub>eq</sub> = b. Jika tidak, kedua-dua paksi disemak bersama (§6). Column3.xlsx menguji sama ada nisbah yang lebih besar melebihi 0.2, yang sentiasa benar kerana kedua-dua nisbah ialah salingan (audit C-15): ujiannya ialah salah satu daripadanya tidak melebihi 0.2.</span></p>
 <figure><div class="paper"><a href="img/screen9.webp" rel="noopener" target="_blank"><img alt="The plane of relative eccentricities ez/b against ey/h with two shaded zones near the axes, where one relative eccentricity is at most 0.2 times the other. C12 lies in the zone near the vertical axis: no check. Worked Example 9.1 and Faded Example 9.2 lie outside: check needed." decoding="async" height="860" loading="lazy" src="img/screen9.webp" width="1400"/></a></div><figcaption><span class="en">The screening: near either axis one moment dominates and the axes may be designed separately. C12 of the app passes; Worked Example 9.1 and Faded Example 9.2 do not.</span><span class="ms">Saringan: berhampiran mana-mana paksi, satu moment mendominasi dan paksi boleh di-design secara berasingan. C12 dalam app lulus; Worked Example 9.1 dan Faded Example 9.2 tidak.</span></figcaption></figure>
 <div class="qc" data-ans="b" data-qc="n5" id="q-n5"><div class="h"><span class="en">Quick check</span><span class="ms">Semak cepat</span></div><p><span class="en">A 250 × 600 column has λ<sub>y</sub>/λ<sub>z</sub> = 2.4, and one relative eccentricity is 0.1 times the other. Is a biaxial check needed?</span><span class="ms">Satu column 250 × 600 mempunyai λ<sub>y</sub>/λ<sub>z</sub> = 2.4, dan satu relative eccentricity ialah 0.1 kali yang lain. Adakah biaxial check diperlukan?</span></p><div class="opts"><button class="opt" data-k="a" type="button"><span class="en">no: 0.1 ≤ 0.2</span><span class="ms">tidak: 0.1 ≤ 0.2</span></button><button class="opt" data-k="b" type="button"><span class="en">yes: λ<sub>y</sub>/λ<sub>z</sub> &gt; 2</span><span class="ms">ya: λ<sub>y</sub>/λ<sub>z</sub> &gt; 2</span></button><button class="opt" data-k="c" type="button"><span class="en">no: only slender columns need it</span><span class="ms">tidak: hanya column slender memerlukannya</span></button><button class="opt" data-k="d" type="button"><span class="en">only if N<sub>Ed</sub>/N<sub>Rd</sub> &gt; 0.1</span><span class="ms">hanya jika N<sub>Ed</sub>/N<sub>Rd</sub> &gt; 0.1</span></button></div><p class="fb" hidden="" role="status"><span class="en">Both conditions must hold for separate designs; the slenderness ratios fail (2.4 &gt; 2), so Eq. 5.39 is needed whatever the eccentricities. N<sub>Ed</sub>/N<sub>Rd</sub> only sets the exponent a.</span><span class="ms">Kedua-dua syarat mesti dipenuhi untuk design berasingan; slenderness ratio gagal (2.4 &gt; 2), jadi Eq. 5.39 diperlukan walau apa pun eccentricity-nya. N<sub>Ed</sub>/N<sub>Rd</sub> hanya menetapkan eksponen a.</span></p></div>
+<aside class="try" data-tasks="screen"></aside>
 <details class="kp"><summary><span class="en">Key points</span><span class="ms">Perkara utama</span></summary><ul>
 <li><span class="en">An axis with no analysed moment usually is slender (C = 0.7): check it.</span><span class="ms">Paksi tanpa moment analisis biasanya slender (C = 0.7): semaklah.</span></li>
 <li><span class="en">Imperfection in one direction at a time; N<sub>Ed</sub>e<sub>0</sub> goes with it; M<sub>2</sub> stays on a slender axis.</span><span class="ms">Imperfection dalam satu arah pada satu masa; N<sub>Ed</sub>e<sub>0</sub> bersamanya; M<sub>2</sub> kekal pada paksi yang slender.</span></li>
@@ -1025,6 +1040,7 @@ main [id],main h2,main h3,main tr{scroll-margin-top:104px}
 <figure><div class="paper"><a href="img/biax9.webp" rel="noopener" target="_blank"><img alt="Eq. 5.39 at NEd = 1000 kN in the plane of MEd,z against MEd,y: the boundary for 4H20 with a = 1.32 and the larger boundary for 8H20 with a = 1.23; the two design points of Worked Example 9.1, for the imperfection about z and about y, lie inside the 8H20 curve and outside the 4H20 curve." decoding="async" height="900" loading="lazy" src="img/biax9.webp" width="1400"/></a></div><figcaption><span class="en">Each curve is the sum = 1 for one set of bars. The two design points of Worked Example 9.1 lie inside the 8H20 curve: one axis needed 4H20, both axes need 8H20.</span><span class="ms">Setiap lengkung ialah jumlah = 1 bagi satu set bar. Dua design point Worked Example 9.1 berada di dalam lengkung 8H20: satu paksi memerlukan 4H20, kedua-dua paksi memerlukan 8H20.</span></figcaption></figure>
 <p><span class="en">Faded Example 9.2 completes Worked Example 8.1 the same way: about y it is slender with only the imperfection, M<sub>Ed,y</sub> = N<sub>Ed</sub>e<sub>0</sub> = 48.0 kN m, the screening fails, the estimate asks for about 1100 mm² and Eq. 5.39 gives 1.02 with 4H16: the bars become 4H20 (0.74). The links follow Unit 8; with 8H20 in a 300 × 300 column the mid-face bars are 104 mm (centre to centre) from the corner bars, within the 150 mm of EC2 9.5.3(6), so the corner links hold them.</span><span class="ms">Faded Example 9.2 melengkapkan Worked Example 8.1 dengan cara yang sama: pada paksi y ia slender dengan imperfection sahaja, M<sub>Ed,y</sub> = N<sub>Ed</sub>e<sub>0</sub> = 48.0 kN m, saringan gagal, anggaran meminta lebih kurang 1100 mm² dan Eq. 5.39 memberi 1.02 dengan 4H16: bar menjadi 4H20 (0.74). Link mengikut Unit 8; dengan 8H20 dalam column 300 × 300, bar tengah muka berada 104 mm (pusat ke pusat) dari bar penjuru, dalam had 150 mm EC2 9.5.3(6), jadi link penjuru memegangnya.</span></p>
 <div class="qc" data-ans="a" data-qc="n6" id="q-n6"><div class="h"><span class="en">Quick check</span><span class="ms">Semak cepat</span></div><p><span class="en">M<sub>Ed,z</sub> = 90 and M<sub>Rd,z</sub> = 120 kN m; M<sub>Ed,y</sub> = 40 and M<sub>Rd,y</sub> = 100 kN m; a = 1.5. The interaction sum is</span><span class="ms">M<sub>Ed,z</sub> = 90 dan M<sub>Rd,z</sub> = 120 kN m; M<sub>Ed,y</sub> = 40 dan M<sub>Rd,y</sub> = 100 kN m; a = 1.5. Jumlah interaction ialah</span></p><div class="opts"><button class="opt" data-k="a" type="button">0.90</button><button class="opt" data-k="b" type="button">1.15</button><button class="opt" data-k="c" type="button">0.72</button><button class="opt" data-k="d" type="button">1.05</button></div><p class="fb" hidden="" role="status"><span class="en">0.75<sup>1.5</sup> + 0.40<sup>1.5</sup> = 0.650 + 0.253 = 0.90 ≤ 1. 1.15 adds the plain ratios (a = 1, the most severe case); 0.72 squares them (a = 2).</span><span class="ms">0.75<sup>1.5</sup> + 0.40<sup>1.5</sup> = 0.650 + 0.253 = 0.90 ≤ 1. 1.15 menambah nisbah biasa (a = 1, kes paling teruk); 0.72 mengkuasaduakannya (a = 2).</span></p></div>
+<aside class="try" data-tasks="we81y s9"></aside>
 <details class="kp"><summary><span class="en">Key points</span><span class="ms">Perkara utama</span></summary><ul>
 <li><span class="en">Estimate: M′ = M<sub>Ed,z</sub> + β(h′/b′)M<sub>Ed,y</sub>, β = 1 − N<sub>Ed</sub>/(bhf<sub>ck</sub>) ≥ 0.3 (RDF §14).</span><span class="ms">Anggaran: M′ = M<sub>Ed,z</sub> + β(h′/b′)M<sub>Ed,y</sub>, β = 1 − N<sub>Ed</sub>/(bhf<sub>ck</sub>) ≥ 0.3 (RDF §14).</span></li>
 <li><span class="en">Check: (M<sub>Ed,z</sub>/M<sub>Rd,z</sub>)<sup>a</sup> + (M<sub>Ed,y</sub>/M<sub>Rd,y</sub>)<sup>a</sup> ≤ 1, a from N<sub>Ed</sub>/N<sub>Rd</sub>, both imperfection cases.</span><span class="ms">Semak: (M<sub>Ed,z</sub>/M<sub>Rd,z</sub>)<sup>a</sup> + (M<sub>Ed,y</sub>/M<sub>Rd,y</sub>)<sup>a</sup> ≤ 1, a daripada N<sub>Ed</sub>/N<sub>Rd</sub>, kedua-dua kes imperfection.</span></li>
@@ -1677,7 +1693,8 @@ main [id],main h2,main h3,main tr{scroll-margin-top:104px}
   /* ---------- Explorer milestones (postMessage from the Explorer, or its localStorage record) ---------- */
   function labKey() { return C.lab ? PFX + "-lab-" + C.lab.id : null; }
   function syncLab() { var k = labKey(); if (!k) return; var rec = ld(k, {}) || {}; var changed = false; MS.forEach(function (m) { if (rec[m.id] && !ST.lab[m.id]) { ST.lab[m.id] = true; changed = true; } });
-    MS.forEach(function (m) { var t = $('.tk[data-ms="' + m.id + '"]'); if (t) t.classList.toggle("done", !!ST.lab[m.id]); }); if (changed) { save(); } updateProgress(); }
+    MS.forEach(function (m) { var t = $('.tk[data-ms="' + m.id + '"]'); if (t) t.classList.toggle("done", !!ST.lab[m.id]); });
+    $$("#v-notes .try li[data-ms]").forEach(function (li) { li.classList.toggle("done", !!ST.lab[li.getAttribute("data-ms")]); }); if (changed) { save(); } updateProgress(); }
   window.addEventListener("message", function (ev) { var d = ev.data; if (!d || d.type !== PFX + "-lab" || !C.lab || d.lab !== C.lab.id) return; if (!ST.lab[d.id]) { ST.lab[d.id] = true; save(); } syncLab(); });
   window.addEventListener("focus", syncLab); document.addEventListener("visibilitychange", function () { if (!document.hidden) syncLab(); });
   window.addEventListener("storage", function (e) { if (e.key === labKey()) syncLab(); });
@@ -1688,6 +1705,55 @@ main [id],main h2,main h3,main tr{scroll-margin-top:104px}
   function armLab() { if (!lf || labArmed) return; labArmed = true;
     setTimeout(function () { if (!labLoaded && !labNote) { labNote = el("p", { class: "note" }, bi("The Explorer did not load inside this page. Open it in its own tab with the link below; tasks done there are still recorded here.", "Explorer tidak dimuatkan di dalam halaman ini. Buka dalam tab sendiri melalui pautan di bawah; tugasan yang selesai di situ tetap direkodkan di sini.")); lf.parentNode.insertBefore(labNote, lf); } }, 8000); }
   $$(".tk[data-ms] .tkself").forEach(function (b) { b.addEventListener("click", function () { var t = b.closest(".tk"); ST.lab[t.getAttribute("data-ms")] = true; save(); syncLab(); }); });
+
+  /* ---------- "Try it yourself": from a place in the notes to an Explorer task, and back ----------
+     The notes carry <aside class="try" data-tasks="id id"> where a task fits the reading; the box is filled here from
+     the task cards of the Explorer view (one text to maintain), each with a button that opens the Explorer on the
+     task's tab. A bar at the top of the Explorer then leads back to the same place in the notes. */
+  var tryRet = null, tryBar = null;
+  function tkCard(id) { return $('#v-lab .tk[data-ms="' + id + '"]'); }
+  function labTabOf(card) { var m = /^\s*Tab\s+(\d+)/.exec(($("h4 .en", card) || card).textContent); return m ? +m[1] : 0; }
+  function setLabTab(n) {
+    if (!lf || !n) return;
+    function go() { try { var d = lf.contentWindow.document, tabs = d.querySelectorAll("button.tab[data-tab]"), t = null;
+      for (var i = 0; i < tabs.length; i++) { var k = tabs[i].querySelector(".n"); if (k && +k.textContent === n) { t = tabs[i]; break; } }
+      if (!t) t = tabs[n - 1]; if (t) lf.contentWindow.location.hash = t.getAttribute("data-tab"); } catch (e) {} }
+    if (labLoaded) go(); else lf.addEventListener("load", go, { once: true });
+  }
+  function secLabel(box) { var sec = box.closest("section.nsec"), h = sec && $("h2", sec);
+    if (!h) return { en: "Notes", ms: "Nota" };
+    var n = (/^\s*(\d+)\./.exec(h.textContent) || [])[1], en = $(".en", h), ms = $(".ms", h);
+    return { en: "Notes §" + n + " · " + (en ? en.innerHTML : ""), ms: "Nota §" + n + " · " + (ms ? ms.innerHTML : "") }; }
+  function tryBack() { var r = tryRet; tryRet = null; if (tryBar) tryBar.hidden = true; if (!r) return;
+    show("notes", { anchor: r.id }); var box = document.getElementById(r.id);
+    if (box) setTimeout(function () { box.classList.add("hflash"); setTimeout(function () { box.classList.remove("hflash"); }, 1800); }, 120); }
+  function tryOpen(box, id) {
+    var card = tkCard(id); if (!card) return;
+    tryRet = { id: box.id };
+    if (!tryBar) { tryBar = el("div", { class: "tryback", role: "region", "aria-label": "Back to the notes" });
+      var lv = $("#v-lab"), vh = lv && $(".vhead", lv); if (vh) vh.parentNode.insertBefore(tryBar, vh.nextSibling); else if (lv) lv.insertBefore(tryBar, lv.firstChild); }
+    var lab = secLabel(box);
+    tryBar.innerHTML = '<button class="btn" type="button">' + bi("← Back to " + lab.en, "← Kembali ke " + lab.ms) + '</button><span class="muted">' +
+      bi("Task " + ($(".tkn", card) || {}).textContent + " is marked below the Explorer.", "Tugasan " + ($(".tkn", card) || {}).textContent + " ditanda di bawah Explorer.") + "</span>";
+    $("button", tryBar).addEventListener("click", tryBack); tryBar.hidden = false;
+    show("lab", { noscroll: true }); setLabTab(labTabOf(card));
+    setTimeout(function () { var nav = $(".navwrap"), g = $("#v-lab .labgrid") || tryBar;
+      var y = g.getBoundingClientRect().top + window.pageYOffset - (nav ? nav.offsetHeight : 0) - tryBar.offsetHeight - 16;
+      window.scrollTo({ top: Math.max(0, y), behavior: reduced ? "auto" : "smooth" });
+      card.classList.add("hflash"); setTimeout(function () { card.classList.remove("hflash"); }, 2400); }, 60);
+  }
+  $$("#v-notes aside.try[data-tasks]").forEach(function (box) {
+    var sec = box.closest("section.nsec"), base = "try-" + (sec ? sec.id : "n"), id = base, k = 2;
+    while (document.getElementById(id)) id = base + "-" + k++; if (!box.id) box.id = id;
+    var ids = box.getAttribute("data-tasks").split(/\s+/).filter(function (id) { return tkCard(id); }); if (!ids.length) { box.hidden = true; return; }
+    var html = '<div class="h">' + bi("Try it yourself · Explorer", "Cuba sendiri · Explorer") + "</div><ul>";
+    ids.forEach(function (id) { var c = tkCard(id), en = $("h4 .en", c), ms = $("h4 .ms", c);
+      html += '<li data-ms="' + id + '"><span class="tkn">' + $(".tkn", c).textContent + '</span><span class="tt">' + bi(en ? en.innerHTML : "", ms ? ms.innerHTML : "") +
+        '</span><span class="tkok" aria-label="done">✓</span><button class="btn ghost" type="button" data-try="' + id + '">' + bi("Open in the Explorer →", "Buka dalam Explorer →") + "</button></li>"; });
+    box.innerHTML = html + '</ul><p class="tryfoot">' + bi("A button at the top of the Explorer brings you back here to carry on reading.", "Butang di atas Explorer membawa anda kembali ke sini untuk menyambung bacaan.") + "</p>";
+    $$("button[data-try]", box).forEach(function (b) { b.addEventListener("click", function () { tryOpen(box, b.getAttribute("data-try")); }); });
+  });
+  $$(".tab").forEach(function (t) { t.addEventListener("click", function () { if (t.getAttribute("data-view") !== "lab" && tryBar) { tryRet = null; tryBar.hidden = true; } }); });
 
   /* ---------- can-do checklist ---------- */
   $$(".cando .row").forEach(function (r) { var id = r.getAttribute("data-c"); $$("button", r).forEach(function (b) { var v = +b.getAttribute("data-v");

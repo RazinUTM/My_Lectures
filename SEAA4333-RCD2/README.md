@@ -25,7 +25,8 @@ Website: <https://razinutm.github.io/My_Lectures/SEAA4333-RCD2/>
 
 Each Unit page is built on the lecturer's T&L app template: a header with breadcrumbs, search, Short notes
 and the settings buttons (BM/EN · theme · text size · screen guide); seven tabs (Start with the plan before,
-in and after class; Notes with quick checks; Slides; Examples in answer-scheme form; Exercises with new
+in and after class; Notes with quick checks and “Try it yourself” boxes that open the matching Explorer task
+and lead back to the same place in the notes; Slides; Examples in answer-scheme form; Exercises with new
 numbers on every attempt; Explorer; Glossary); Dr RJ, the guide panel; and the licence footer.
 Explanations switch between English and Bahasa Melayu; technical terms stay in English (`glossary-bm.md`
 lists the terms and the everyday Malay words that stay Malay). The printed workbook stays the book students

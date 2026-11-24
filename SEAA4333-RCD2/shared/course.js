@@ -428,7 +428,8 @@
   /* ---------- Explorer milestones (postMessage from the Explorer, or its localStorage record) ---------- */
   function labKey() { return C.lab ? PFX + "-lab-" + C.lab.id : null; }
   function syncLab() { var k = labKey(); if (!k) return; var rec = ld(k, {}) || {}; var changed = false; MS.forEach(function (m) { if (rec[m.id] && !ST.lab[m.id]) { ST.lab[m.id] = true; changed = true; } });
-    MS.forEach(function (m) { var t = $('.tk[data-ms="' + m.id + '"]'); if (t) t.classList.toggle("done", !!ST.lab[m.id]); }); if (changed) { save(); } updateProgress(); }
+    MS.forEach(function (m) { var t = $('.tk[data-ms="' + m.id + '"]'); if (t) t.classList.toggle("done", !!ST.lab[m.id]); });
+    $$("#v-notes .try li[data-ms]").forEach(function (li) { li.classList.toggle("done", !!ST.lab[li.getAttribute("data-ms")]); }); if (changed) { save(); } updateProgress(); }
   window.addEventListener("message", function (ev) { var d = ev.data; if (!d || d.type !== PFX + "-lab" || !C.lab || d.lab !== C.lab.id) return; if (!ST.lab[d.id]) { ST.lab[d.id] = true; save(); } syncLab(); });
   window.addEventListener("focus", syncLab); document.addEventListener("visibilitychange", function () { if (!document.hidden) syncLab(); });
   window.addEventListener("storage", function (e) { if (e.key === labKey()) syncLab(); });
@@ -439,6 +440,55 @@
   function armLab() { if (!lf || labArmed) return; labArmed = true;
     setTimeout(function () { if (!labLoaded && !labNote) { labNote = el("p", { class: "note" }, bi("The Explorer did not load inside this page. Open it in its own tab with the link below; tasks done there are still recorded here.", "Explorer tidak dimuatkan di dalam halaman ini. Buka dalam tab sendiri melalui pautan di bawah; tugasan yang selesai di situ tetap direkodkan di sini.")); lf.parentNode.insertBefore(labNote, lf); } }, 8000); }
   $$(".tk[data-ms] .tkself").forEach(function (b) { b.addEventListener("click", function () { var t = b.closest(".tk"); ST.lab[t.getAttribute("data-ms")] = true; save(); syncLab(); }); });
+
+  /* ---------- "Try it yourself": from a place in the notes to an Explorer task, and back ----------
+     The notes carry <aside class="try" data-tasks="id id"> where a task fits the reading; the box is filled here from
+     the task cards of the Explorer view (one text to maintain), each with a button that opens the Explorer on the
+     task's tab. A bar at the top of the Explorer then leads back to the same place in the notes. */
+  var tryRet = null, tryBar = null;
+  function tkCard(id) { return $('#v-lab .tk[data-ms="' + id + '"]'); }
+  function labTabOf(card) { var m = /^\s*Tab\s+(\d+)/.exec(($("h4 .en", card) || card).textContent); return m ? +m[1] : 0; }
+  function setLabTab(n) {
+    if (!lf || !n) return;
+    function go() { try { var d = lf.contentWindow.document, tabs = d.querySelectorAll("button.tab[data-tab]"), t = null;
+      for (var i = 0; i < tabs.length; i++) { var k = tabs[i].querySelector(".n"); if (k && +k.textContent === n) { t = tabs[i]; break; } }
+      if (!t) t = tabs[n - 1]; if (t) lf.contentWindow.location.hash = t.getAttribute("data-tab"); } catch (e) {} }
+    if (labLoaded) go(); else lf.addEventListener("load", go, { once: true });
+  }
+  function secLabel(box) { var sec = box.closest("section.nsec"), h = sec && $("h2", sec);
+    if (!h) return { en: "Notes", ms: "Nota" };
+    var n = (/^\s*(\d+)\./.exec(h.textContent) || [])[1], en = $(".en", h), ms = $(".ms", h);
+    return { en: "Notes §" + n + " · " + (en ? en.innerHTML : ""), ms: "Nota §" + n + " · " + (ms ? ms.innerHTML : "") }; }
+  function tryBack() { var r = tryRet; tryRet = null; if (tryBar) tryBar.hidden = true; if (!r) return;
+    show("notes", { anchor: r.id }); var box = document.getElementById(r.id);
+    if (box) setTimeout(function () { box.classList.add("hflash"); setTimeout(function () { box.classList.remove("hflash"); }, 1800); }, 120); }
+  function tryOpen(box, id) {
+    var card = tkCard(id); if (!card) return;
+    tryRet = { id: box.id };
+    if (!tryBar) { tryBar = el("div", { class: "tryback", role: "region", "aria-label": "Back to the notes" });
+      var lv = $("#v-lab"), vh = lv && $(".vhead", lv); if (vh) vh.parentNode.insertBefore(tryBar, vh.nextSibling); else if (lv) lv.insertBefore(tryBar, lv.firstChild); }
+    var lab = secLabel(box);
+    tryBar.innerHTML = '<button class="btn" type="button">' + bi("← Back to " + lab.en, "← Kembali ke " + lab.ms) + '</button><span class="muted">' +
+      bi("Task " + ($(".tkn", card) || {}).textContent + " is marked below the Explorer.", "Tugasan " + ($(".tkn", card) || {}).textContent + " ditanda di bawah Explorer.") + "</span>";
+    $("button", tryBar).addEventListener("click", tryBack); tryBar.hidden = false;
+    show("lab", { noscroll: true }); setLabTab(labTabOf(card));
+    setTimeout(function () { var nav = $(".navwrap"), g = $("#v-lab .labgrid") || tryBar;
+      var y = g.getBoundingClientRect().top + window.pageYOffset - (nav ? nav.offsetHeight : 0) - tryBar.offsetHeight - 16;
+      window.scrollTo({ top: Math.max(0, y), behavior: reduced ? "auto" : "smooth" });
+      card.classList.add("hflash"); setTimeout(function () { card.classList.remove("hflash"); }, 2400); }, 60);
+  }
+  $$("#v-notes aside.try[data-tasks]").forEach(function (box) {
+    var sec = box.closest("section.nsec"), base = "try-" + (sec ? sec.id : "n"), id = base, k = 2;
+    while (document.getElementById(id)) id = base + "-" + k++; if (!box.id) box.id = id;
+    var ids = box.getAttribute("data-tasks").split(/\s+/).filter(function (id) { return tkCard(id); }); if (!ids.length) { box.hidden = true; return; }
+    var html = '<div class="h">' + bi("Try it yourself · Explorer", "Cuba sendiri · Explorer") + "</div><ul>";
+    ids.forEach(function (id) { var c = tkCard(id), en = $("h4 .en", c), ms = $("h4 .ms", c);
+      html += '<li data-ms="' + id + '"><span class="tkn">' + $(".tkn", c).textContent + '</span><span class="tt">' + bi(en ? en.innerHTML : "", ms ? ms.innerHTML : "") +
+        '</span><span class="tkok" aria-label="done">✓</span><button class="btn ghost" type="button" data-try="' + id + '">' + bi("Open in the Explorer →", "Buka dalam Explorer →") + "</button></li>"; });
+    box.innerHTML = html + '</ul><p class="tryfoot">' + bi("A button at the top of the Explorer brings you back here to carry on reading.", "Butang di atas Explorer membawa anda kembali ke sini untuk menyambung bacaan.") + "</p>";
+    $$("button[data-try]", box).forEach(function (b) { b.addEventListener("click", function () { tryOpen(box, b.getAttribute("data-try")); }); });
+  });
+  $$(".tab").forEach(function (t) { t.addEventListener("click", function () { if (t.getAttribute("data-view") !== "lab" && tryBar) { tryRet = null; tryBar.hidden = true; } }); });
 
   /* ---------- can-do checklist ---------- */
   $$(".cando .row").forEach(function (r) { var id = r.getAttribute("data-c"); $$("button", r).forEach(function (b) { var v = +b.getAttribute("data-v");

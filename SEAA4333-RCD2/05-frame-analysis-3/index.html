@@ -469,10 +469,23 @@ pre.code{margin:0;max-height:480px;overflow:auto;padding:12px 14px;border-top:1p
 
 footer.foot p.copy{margin-top:10px}
 
+/* ---------- "Try it yourself" boxes in the notes, and the way back from the Explorer ---------- */
+aside.try{border:1px solid var(--tint-line);border-left:4px solid var(--accent);border-radius:8px;padding:10px 14px;margin:18px 0;background:var(--tint);font:calc(15px*var(--ts))/1.5 var(--font-ui)}
+aside.try .h{font-size:calc(12px*var(--ts));letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:700}
+aside.try ul{list-style:none;margin:6px 0 4px;padding:0}
+aside.try li{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;padding:8px 0;border-top:1px solid var(--tint-line)}
+aside.try li:first-child{border-top:0}
+aside.try li .tt{flex:1 1 260px;min-width:0}
+aside.try li .btn{margin-left:auto}
+aside.try li.done .tkok{visibility:visible}aside.try li.done .tkn{background:var(--good-bg);color:var(--good)}
+aside.try .tryfoot{margin:2px 0 0;font-size:calc(12.5px*var(--ts));color:var(--muted)}
+.tryback{position:sticky;top:calc(var(--rz-top,86px) + 4px);z-index:5;display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;padding:8px 12px;margin:0 0 12px;border:1px solid var(--tint-line);border-radius:10px;background:var(--panel2,var(--bg));box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.tryback .muted{font-size:calc(13px*var(--ts))}
+
 /* ---------- print: notes only ---------- */
 @media print{
   body{background:#fff;color:#000;padding:0}
-  .navwrap,.tools,.drawer,.scrim,.tpill,.sfoot,.qc,.toc,.crumbs,.vhead,.pagenav,.explain,.rjfab,.xbar{display:none!important}
+  .navwrap,.tools,.drawer,.scrim,.tpill,.sfoot,.qc,.try,.toc,.crumbs,.vhead,.pagenav,.explain,.rjfab,.xbar{display:none!important}
   .xstep[hidden],.xafter[hidden]{display:block!important}
   footer.foot p:not(.copy){display:none}
   .view[hidden]{display:none!important}
@@ -1006,6 +1019,7 @@ main [id],main h2,main h3,main tr{scroll-margin-top:104px}
 <figure><div class="paper"><a href="img/press5.webp" rel="noopener" target="_blank"><img alt="A section across the wind with windward pressure arrows growing with height and constant leeward suction arrows; stacked bars give the net pressure at each level: roof 1.477, level 6 1.438, level 5 1.385, level 4 1.323, level 3 1.253, level 2 1.171, level 1 1.111 kN/m²." decoding="async" height="640" loading="lazy" src="img/press5.webp" width="1400"/></a></div><figcaption><span class="en">Figure 4. The windward pressure grows with height; the leeward suction is constant; both push the frame downwind.</span><span class="ms">Rajah 4. Tekanan windward meningkat dengan ketinggian; suction leeward malar; kedua-duanya menolak frame ke arah angin.</span></figcaption></figure>
 <div class="qc" data-ans="a" data-qc="n4a" id="q-n4a"><div class="h"><span class="en">Quick check 4.1</span><span class="ms">Semakan pantas 4.1</span></div><p><span class="en">A building is 36 m long and 15 m wide; its frames span the 15 m width. What is d/b for the wind those frames carry, and the leeward C<sub>p,e</sub>?</span><span class="ms">Sebuah bangunan sepanjang 36 m dan selebar 15 m; frame-nya merentang lebar 15 m. Berapakah d/b bagi angin yang ditanggung frame tersebut, dan C<sub>p,e</sub> leeward?</span></p><div class="opts"><button class="opt" data-k="a" type="button">15/36 = 0.42; −0.5</button><button class="opt" data-k="b" type="button">36/15 = 2.4; −0.28</button><button class="opt" data-k="c" type="button">15/36 = 0.42; −0.3</button><button class="opt" data-k="d" type="button">36/15 = 2.4; −0.5</button></div><p class="fb" hidden="" role="status"><span class="en">Those frames carry the wind blowing across the building, onto the 36 m face: b = 36, d = 15, d/b = 0.42 ≤ 1, so C<sub>p,e</sub> = −0.5. Swapping b and d (2.4) gives −0.28 and understates the suction by 44 %.</span><span class="ms">Frame tersebut menanggung angin yang bertiup merentasi bangunan, ke atas muka 36 m: b = 36, d = 15, d/b = 0.42 ≤ 1, jadi C<sub>p,e</sub> = −0.5. Menukar b dan d (2.4) memberi −0.28 dan mengurangkan suction sebanyak 44 %.</span></p></div>
 <div class="qc" data-ans="b" data-qc="n4b" id="q-n4b"><div class="h"><span class="en">Quick check 4.2</span><span class="ms">Semakan pantas 4.2</span></div><p><span class="en">A building has a first natural frequency n<sub>a</sub> = 1.8 Hz. What is C<sub>dyn</sub>?</span><span class="ms">Sebuah bangunan mempunyai frekuensi tabii pertama n<sub>a</sub> = 1.8 Hz. Berapakah C<sub>dyn</sub>?</span></p><div class="opts"><button class="opt" data-k="a" type="button"><span class="en">From 6.2.1, as for the course building</span><span class="ms">Daripada 6.2.1, seperti bangunan kursus</span></button><button class="opt" data-k="b" type="button">1.0</button><button class="opt" data-k="c" type="button"><span class="en">Outside MS 1553</span><span class="ms">Di luar MS 1553</span></button><button class="opt" data-k="d" type="button">0.8</button></div><p class="fb" hidden="" role="status"><span class="en">n<sub>a</sub> &gt; 1 Hz: the building is not wind-sensitive and C<sub>dyn</sub> = 1.0 (6.1). Section 6.2.1 is needed only between 0.2 and 1 Hz.</span><span class="ms">n<sub>a</sub> &gt; 1 Hz: bangunan tidak wind-sensitive dan C<sub>dyn</sub> = 1.0 (6.1). Seksyen 6.2.1 hanya diperlukan di antara 0.2 dan 1 Hz.</span></p></div>
+<aside class="try" data-tasks="face press"></aside>
 <details class="kp"><summary><span class="en">Key points</span><span class="ms">Perkara utama</span></summary><ul>
 <li><span class="en">p = 0.613V<sub>des</sub>²C<sub>fig</sub>C<sub>dyn</sub>; for walls C<sub>fig</sub> = C<sub>p,e</sub>.</span><span class="ms">p = 0.613V<sub>des</sub>²C<sub>fig</sub>C<sub>dyn</sub>; bagi dinding C<sub>fig</sub> = C<sub>p,e</sub>.</span></li>
 <li><span class="en">Windward 0.8 with V<sub>des,z</sub>; leeward from d/b with V<sub>des</sub> at h, the same at every level.</span><span class="ms">Windward 0.8 dengan V<sub>des,z</sub>; leeward daripada d/b dengan V<sub>des</sub> pada h, sama pada setiap aras.</span></li>
@@ -1024,6 +1038,7 @@ main [id],main h2,main h3,main tr{scroll-margin-top:104px}
 <p><span class="en"><b>The minimum wind load (2.4.2).</b> The wind load on the main structure shall not be less than 0.65 kN/m² times the area projected on a vertical plane normal to the wind. Average the net pressure over the height, the bottom half of the ground storey included: here p<sub>avg</sub> = 1.279 kN/m² ≥ 0.65, so the minimum does not govern. When it does, every level force is scaled by 0.65/p<sub>avg</sub> (§6). Frictional drag (2.5.3) is added only when d/h or d/b exceeds 4; here they are 0.72 and 0.35.</span><span class="ms"><b>Minimum wind load (2.4.2).</b> Wind load pada struktur utama tidak boleh kurang daripada 0.65 kN/m² didarab dengan luas yang diunjurkan pada satah menegak yang normal kepada angin. Puratakan net pressure sepanjang ketinggian, termasuk separuh bawah tingkat bawah: di sini p<sub>avg</sub> = 1.279 kN/m² ≥ 0.65, jadi minimum tidak menguasai. Apabila ia menguasai, setiap daya aras diskalakan dengan 0.65/p<sub>avg</sub> (§6). Frictional drag (2.5.3) hanya ditambah apabila d/h atau d/b melebihi 4; di sini nilainya 0.72 dan 0.35.</span></p>
 <p><span class="en"><b>Characteristic and design values.</b> W<sub>k</sub> is a characteristic action. The course method of the notes (Examples 6 and 7) takes BS 8110 load combination 3: W<sub>d</sub> = 1.2W<sub>k</sub>, with 1.2G<sub>k</sub> + 1.2Q<sub>k</sub> on every span. EN 1990 Eq. 6.10 uses 1.5W<sub>k</sub> when the wind leads and 1.5 × 0.5 = 0.75W<sub>k</sub> when the imposed load leads (ψ<sub>0</sub> = 0.5 for wind). Unit 6 forms these combinations.</span><span class="ms"><b>Characteristic value dan design value.</b> W<sub>k</sub> ialah characteristic action. Kaedah kursus dalam nota (Contoh 6 dan 7) mengambil BS 8110 load combination 3: W<sub>d</sub> = 1.2W<sub>k</sub>, dengan 1.2G<sub>k</sub> + 1.2Q<sub>k</sub> pada setiap span. EN 1990 Eq. 6.10 menggunakan 1.5W<sub>k</sub> apabila angin menjadi leading action dan 1.5 × 0.5 = 0.75W<sub>k</sub> apabila imposed load menjadi leading action (ψ<sub>0</sub> = 0.5 bagi angin). Unit 6 membentuk kombinasi ini.</span></p>
 <div class="qc" data-ans="d" data-qc="n5a" id="q-n5a"><div class="h"><span class="en">Quick check 5.1</span><span class="ms">Semakan pantas 5.1</span></div><p><span class="en">Level 1 of a frame: the storey below is 4.0 m, the storey above 3.5 m, B<sub>w</sub> = 4.5 m and p<sub>W</sub> − p<sub>L</sub> = 1.111 kN/m². What is W<sub>k</sub>?</span><span class="ms">Aras 1 sebuah frame: tingkat di bawah 4.0 m, tingkat di atas 3.5 m, B<sub>w</sub> = 4.5 m dan p<sub>W</sub> − p<sub>L</sub> = 1.111 kN/m². Berapakah W<sub>k</sub>?</span></p><div class="opts"><button class="opt" data-k="a" type="button">17.50 kN</button><button class="opt" data-k="b" type="button">20.00 kN</button><button class="opt" data-k="c" type="button">8.75 kN</button><button class="opt" data-k="d" type="button">18.75 kN</button></div><p class="fb" hidden="" role="status"><span class="en">h<sub>trib</sub> = (4.0 + 3.5)/2 = 3.75 m, so W<sub>k</sub> = 1.111 × 4.5 × 3.75 = 18.75 kN. 17.50 takes a 3.5 m storey and 20.00 a full 4.0 m one.</span><span class="ms">h<sub>trib</sub> = (4.0 + 3.5)/2 = 3.75 m, jadi W<sub>k</sub> = 1.111 × 4.5 × 3.75 = 18.75 kN. 17.50 mengambil tingkat 3.5 m dan 20.00 satu tingkat penuh 4.0 m.</span></p></div>
+<aside class="try" data-tasks="sens"></aside>
 <details class="kp"><summary><span class="en">Key points</span><span class="ms">Perkara utama</span></summary><ul>
 <li><span class="en">W<sub>k</sub> = (p<sub>W</sub> − p<sub>L</sub>) B<sub>w</sub> h<sub>trib</sub>: half the bays either side, half the storeys above and below.</span><span class="ms">W<sub>k</sub> = (p<sub>W</sub> − p<sub>L</sub>) B<sub>w</sub> h<sub>trib</sub>: separuh bay di kedua-dua sisi, separuh tingkat di atas dan di bawah.</span></li>
 <li><span class="en">The roof takes half a storey; level 1 half of two different storeys; the bottom of the ground storey goes to the foundation.</span><span class="ms">Bumbung mengambil separuh tingkat; aras 1 separuh daripada dua tingkat yang berbeza; bahagian bawah tingkat bawah terus ke asas.</span></li>
@@ -1042,6 +1057,7 @@ main [id],main h2,main h3,main tr{scroll-margin-top:104px}
 <p><span class="en">θ<sub>0</sub> = 1/200 is the recommended basic value, l the height of the frame in metres and m the number of columns that share the load. For the course frame, l = 25 m gives α<sub>h</sub> = 2/√25 = 0.40, raised to the lower limit 2/3; four columns give α<sub>m</sub> = 0.791; so θ<sub>i</sub> = (1/200)(2/3)(0.791) = 1/379. A floor that brings about 1350 kN into the frame then adds H<sub>i</sub> ≈ 1350/379 = 3.6 kN.</span><span class="ms">θ<sub>0</sub> = 1/200 ialah nilai asas yang disyorkan, l ketinggian frame dalam meter dan m bilangan column yang berkongsi load. Bagi frame kursus, l = 25 m memberi α<sub>h</sub> = 2/√25 = 0.40, dinaikkan kepada had bawah 2/3; empat column memberi α<sub>m</sub> = 0.791; jadi θ<sub>i</sub> = (1/200)(2/3)(0.791) = 1/379. Satu lantai yang membawa kira-kira 1350 kN ke dalam frame kemudian menambah H<sub>i</sub> ≈ 1350/379 = 3.6 kN.</span></p>
 <div class="sb"><p><span class="en">Which route uses them? The RC Design app adds the imperfections to the wind on the EN 1990 route by default (decision D83, agreed 15 Nov 2026): for the course frame they raise the lateral forces by about a quarter. The course method of the notes, BS 8110 combination 3, analyses the wind alone. Unit 6 states which route each example takes.</span><span class="ms">Laluan mana yang menggunakannya? Aplikasi RC Design menambah imperfection kepada angin dalam laluan EN 1990 secara default (keputusan D83, dipersetujui 15 Nov 2026): bagi frame kursus ia menaikkan daya lateral sebanyak kira-kira suku. Kaedah kursus dalam nota, BS 8110 combination 3, menganalisis angin sahaja. Unit 6 menyatakan laluan yang diambil oleh setiap contoh.</span></p></div>
 <div class="qc" data-ans="b" data-qc="n6a" id="q-n6a"><div class="h"><span class="en">Quick check 6.1</span><span class="ms">Semakan pantas 6.1</span></div><p><span class="en">A frame 25 m high has four columns. What is θ<sub>i</sub> by EC2 Eq. 5.1, with θ<sub>0</sub> = 1/200?</span><span class="ms">Sebuah frame setinggi 25 m mempunyai empat column. Berapakah θ<sub>i</sub> mengikut EC2 Eq. 5.1, dengan θ<sub>0</sub> = 1/200?</span></p><div class="opts"><button class="opt" data-k="a" type="button">1/200</button><button class="opt" data-k="b" type="button">1/379</button><button class="opt" data-k="c" type="button">1/632</button><button class="opt" data-k="d" type="button">1/253</button></div><p class="fb" hidden="" role="status"><span class="en">α<sub>h</sub> = 2/√25 = 0.40 is below the limit, so α<sub>h</sub> = 2/3; α<sub>m</sub> = √(0.5 × 1.25) = 0.791; θ<sub>i</sub> = 0.00264 = 1/379. 1/632 forgets the lower limit on α<sub>h</sub>.</span><span class="ms">α<sub>h</sub> = 2/√25 = 0.40 berada di bawah had, jadi α<sub>h</sub> = 2/3; α<sub>m</sub> = √(0.5 × 1.25) = 0.791; θ<sub>i</sub> = 0.00264 = 1/379. 1/632 terlupa had bawah bagi α<sub>h</sub>.</span></p></div>
+<aside class="try" data-tasks="s5"></aside>
 <details class="kp"><summary><span class="en">Key points</span><span class="ms">Perkara utama</span></summary><ul>
 <li><span class="en">Appendix A: p = 0.613V<sub>s</sub>²M<sub>z,cat</sub>²(C<sub>p,e</sub> − C<sub>p,i</sub>); C<sub>p,i</sub> cancels on the frame.</span><span class="ms">Appendix A: p = 0.613V<sub>s</sub>²M<sub>z,cat</sub>²(C<sub>p,e</sub> − C<sub>p,i</sub>); C<sub>p,i</sub> terbatal pada frame.</span></li>
 <li><span class="en">On low buildings the minimum of 0.65 kN/m² often governs.</span><span class="ms">Pada bangunan rendah, minimum 0.65 kN/m² sering menguasai.</span></li>
@@ -1688,7 +1704,8 @@ main [id],main h2,main h3,main tr{scroll-margin-top:104px}
   /* ---------- Explorer milestones (postMessage from the Explorer, or its localStorage record) ---------- */
   function labKey() { return C.lab ? PFX + "-lab-" + C.lab.id : null; }
   function syncLab() { var k = labKey(); if (!k) return; var rec = ld(k, {}) || {}; var changed = false; MS.forEach(function (m) { if (rec[m.id] && !ST.lab[m.id]) { ST.lab[m.id] = true; changed = true; } });
-    MS.forEach(function (m) { var t = $('.tk[data-ms="' + m.id + '"]'); if (t) t.classList.toggle("done", !!ST.lab[m.id]); }); if (changed) { save(); } updateProgress(); }
+    MS.forEach(function (m) { var t = $('.tk[data-ms="' + m.id + '"]'); if (t) t.classList.toggle("done", !!ST.lab[m.id]); });
+    $$("#v-notes .try li[data-ms]").forEach(function (li) { li.classList.toggle("done", !!ST.lab[li.getAttribute("data-ms")]); }); if (changed) { save(); } updateProgress(); }
   window.addEventListener("message", function (ev) { var d = ev.data; if (!d || d.type !== PFX + "-lab" || !C.lab || d.lab !== C.lab.id) return; if (!ST.lab[d.id]) { ST.lab[d.id] = true; save(); } syncLab(); });
   window.addEventListener("focus", syncLab); document.addEventListener("visibilitychange", function () { if (!document.hidden) syncLab(); });
   window.addEventListener("storage", function (e) { if (e.key === labKey()) syncLab(); });
@@ -1699,6 +1716,55 @@ main [id],main h2,main h3,main tr{scroll-margin-top:104px}
   function armLab() { if (!lf || labArmed) return; labArmed = true;
     setTimeout(function () { if (!labLoaded && !labNote) { labNote = el("p", { class: "note" }, bi("The Explorer did not load inside this page. Open it in its own tab with the link below; tasks done there are still recorded here.", "Explorer tidak dimuatkan di dalam halaman ini. Buka dalam tab sendiri melalui pautan di bawah; tugasan yang selesai di situ tetap direkodkan di sini.")); lf.parentNode.insertBefore(labNote, lf); } }, 8000); }
   $$(".tk[data-ms] .tkself").forEach(function (b) { b.addEventListener("click", function () { var t = b.closest(".tk"); ST.lab[t.getAttribute("data-ms")] = true; save(); syncLab(); }); });
+
+  /* ---------- "Try it yourself": from a place in the notes to an Explorer task, and back ----------
+     The notes carry <aside class="try" data-tasks="id id"> where a task fits the reading; the box is filled here from
+     the task cards of the Explorer view (one text to maintain), each with a button that opens the Explorer on the
+     task's tab. A bar at the top of the Explorer then leads back to the same place in the notes. */
+  var tryRet = null, tryBar = null;
+  function tkCard(id) { return $('#v-lab .tk[data-ms="' + id + '"]'); }
+  function labTabOf(card) { var m = /^\s*Tab\s+(\d+)/.exec(($("h4 .en", card) || card).textContent); return m ? +m[1] : 0; }
+  function setLabTab(n) {
+    if (!lf || !n) return;
+    function go() { try { var d = lf.contentWindow.document, tabs = d.querySelectorAll("button.tab[data-tab]"), t = null;
+      for (var i = 0; i < tabs.length; i++) { var k = tabs[i].querySelector(".n"); if (k && +k.textContent === n) { t = tabs[i]; break; } }
+      if (!t) t = tabs[n - 1]; if (t) lf.contentWindow.location.hash = t.getAttribute("data-tab"); } catch (e) {} }
+    if (labLoaded) go(); else lf.addEventListener("load", go, { once: true });
+  }
+  function secLabel(box) { var sec = box.closest("section.nsec"), h = sec && $("h2", sec);
+    if (!h) return { en: "Notes", ms: "Nota" };
+    var n = (/^\s*(\d+)\./.exec(h.textContent) || [])[1], en = $(".en", h), ms = $(".ms", h);
+    return { en: "Notes §" + n + " · " + (en ? en.innerHTML : ""), ms: "Nota §" + n + " · " + (ms ? ms.innerHTML : "") }; }
+  function tryBack() { var r = tryRet; tryRet = null; if (tryBar) tryBar.hidden = true; if (!r) return;
+    show("notes", { anchor: r.id }); var box = document.getElementById(r.id);
+    if (box) setTimeout(function () { box.classList.add("hflash"); setTimeout(function () { box.classList.remove("hflash"); }, 1800); }, 120); }
+  function tryOpen(box, id) {
+    var card = tkCard(id); if (!card) return;
+    tryRet = { id: box.id };
+    if (!tryBar) { tryBar = el("div", { class: "tryback", role: "region", "aria-label": "Back to the notes" });
+      var lv = $("#v-lab"), vh = lv && $(".vhead", lv); if (vh) vh.parentNode.insertBefore(tryBar, vh.nextSibling); else if (lv) lv.insertBefore(tryBar, lv.firstChild); }
+    var lab = secLabel(box);
+    tryBar.innerHTML = '<button class="btn" type="button">' + bi("← Back to " + lab.en, "← Kembali ke " + lab.ms) + '</button><span class="muted">' +
+      bi("Task " + ($(".tkn", card) || {}).textContent + " is marked below the Explorer.", "Tugasan " + ($(".tkn", card) || {}).textContent + " ditanda di bawah Explorer.") + "</span>";
+    $("button", tryBar).addEventListener("click", tryBack); tryBar.hidden = false;
+    show("lab", { noscroll: true }); setLabTab(labTabOf(card));
+    setTimeout(function () { var nav = $(".navwrap"), g = $("#v-lab .labgrid") || tryBar;
+      var y = g.getBoundingClientRect().top + window.pageYOffset - (nav ? nav.offsetHeight : 0) - tryBar.offsetHeight - 16;
+      window.scrollTo({ top: Math.max(0, y), behavior: reduced ? "auto" : "smooth" });
+      card.classList.add("hflash"); setTimeout(function () { card.classList.remove("hflash"); }, 2400); }, 60);
+  }
+  $$("#v-notes aside.try[data-tasks]").forEach(function (box) {
+    var sec = box.closest("section.nsec"), base = "try-" + (sec ? sec.id : "n"), id = base, k = 2;
+    while (document.getElementById(id)) id = base + "-" + k++; if (!box.id) box.id = id;
+    var ids = box.getAttribute("data-tasks").split(/\s+/).filter(function (id) { return tkCard(id); }); if (!ids.length) { box.hidden = true; return; }
+    var html = '<div class="h">' + bi("Try it yourself · Explorer", "Cuba sendiri · Explorer") + "</div><ul>";
+    ids.forEach(function (id) { var c = tkCard(id), en = $("h4 .en", c), ms = $("h4 .ms", c);
+      html += '<li data-ms="' + id + '"><span class="tkn">' + $(".tkn", c).textContent + '</span><span class="tt">' + bi(en ? en.innerHTML : "", ms ? ms.innerHTML : "") +
+        '</span><span class="tkok" aria-label="done">✓</span><button class="btn ghost" type="button" data-try="' + id + '">' + bi("Open in the Explorer →", "Buka dalam Explorer →") + "</button></li>"; });
+    box.innerHTML = html + '</ul><p class="tryfoot">' + bi("A button at the top of the Explorer brings you back here to carry on reading.", "Butang di atas Explorer membawa anda kembali ke sini untuk menyambung bacaan.") + "</p>";
+    $$("button[data-try]", box).forEach(function (b) { b.addEventListener("click", function () { tryOpen(box, b.getAttribute("data-try")); }); });
+  });
+  $$(".tab").forEach(function (t) { t.addEventListener("click", function () { if (t.getAttribute("data-view") !== "lab" && tryBar) { tryRet = null; tryBar.hidden = true; } }); });
 
   /* ---------- can-do checklist ---------- */
   $$(".cando .row").forEach(function (r) { var id = r.getAttribute("data-c"); $$("button", r).forEach(function (b) { var v = +b.getAttribute("data-v");

@@ -46,8 +46,8 @@ Progress, language, theme and text size are kept in the student's own browser
 (localStorage); the course home can export and import it.
 
 Every page has a pencil button at the bottom right: the annotation toolbar, for writing on the screen while
-teaching (five pens, line thickness, an eraser that removes whole lines, clear all, and a blank page behind the
-writing from 0% to 100%; mouse, touch or pen). While it is on, the page cannot
+teaching (five pens, two see-through highlighters, line thickness, an eraser that removes whole lines, clear all,
+and a blank page behind the writing from 0% to 100%; mouse, touch or pen). While it is on, the page cannot
 be clicked or scrolled; Esc or the pencil turns it off. What is written stays only while the page is open and
 is never stored or sent; the browser remembers only the pen and where the toolbar was put (`rz-annotate`).
 The code is one file, `shared/annotate.js`: the source of record for the lecturer's other courses, which carry a copy.

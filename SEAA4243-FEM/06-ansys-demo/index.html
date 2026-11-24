@@ -17962,7 +17962,7 @@ if __name__ == &quot;__main__&quot;:
 
 </script>
 <script>
-/* Annotation toolbar: write on the screen while teaching. T&L app template, version 1.1 (24 Nov 2026).
+/* Annotation toolbar: write on the screen while teaching. T&L app template, version 1.2 (24 Nov 2026).
    Source of record: My_Lectures/SEAA4243-FEM/shared/annotate.js. The other courses carry a copy of this file;
    change it here first, then copy it.
 
@@ -17986,8 +17986,12 @@ if __name__ == &quot;__main__&quot;:
 
    Only the pen (slot, size) and the toolbar's place are remembered, in localStorage under "rz-annotate".
 
+   Two highlighters, magenta and cyan, are see-through and have one thickness, for marking what matters on the
+   page; the thickness slider is for the pens.
+
    1.1: a green pen; the eraser removes whole lines (it rubbed out pixels in 1.0); the blank page behind the ink;
         Ctrl/Cmd+Z also takes back an erasure and a Clear all.
+   1.2: the magenta and cyan highlighters.
 
    SPDX-License-Identifier: MIT
    Copyright (c) 2026 Ahmad Razin Zainal Abidin and Universiti Teknologi Malaysia */
@@ -17999,8 +18003,9 @@ if __name__ == &quot;__main__&quot;:
   if (!ctx) return;
 
   var STORE = "rz-annotate";
-  var INK = { red: "#e0202c", blue: "#1463d6", green: "#12964a", yellow: "#f6c400" };   /* the slot "ink" follows the theme: black or white */
-  var SLOTS = ["red", "blue", "green", "ink", "yellow"];
+  var INK = { red: "#e0202c", blue: "#1463d6", green: "#12964a", yellow: "#f6c400", magenta: "#ff1fc0", cyan: "#00c2ee" };   /* the slot "ink" follows the theme: black or white */
+  var SLOTS = ["red", "blue", "green", "ink", "yellow", "magenta", "cyan"];
+  var HL = { magenta: 1, cyan: 1 }, HL_W = 20, HL_A = 0.4;               /* the highlighters: one thickness, see-through */
   var on = false, tool = "pen", slot = "red", size = 4, pos = null;      /* pos: {r, b} from the right and bottom edges, null = the default corner */
   var layers = {}, hists = {}, layer = [], hist = [], cur = null, penAt = 0, dpr = 1, dragEnd = 0;
   var cover = 0;                                       /* the blank page behind the ink, 0 to 100 %; not remembered */
@@ -18016,6 +18021,7 @@ if __name__ == &quot;__main__&quot;:
   function L(en, ms) { return isMs() ? ms : en; }
   function isDark() { var t = H.getAttribute("data-theme"); return t ? t === "dark" : !!(window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches); }
   function inkOf(s) { return INK[s] || (isDark() ? "#ffffff" : "#111111"); }
+  function rgba(hex, a) { var n = parseInt(hex.slice(1), 16); return "rgba(" + (n >> 16) + "," + ((n >> 8) & 255) + "," + (n & 255) + "," + a + ")"; }
   function fsEl() { return D.fullscreenElement || D.webkitFullscreenElement || null; }
 
   /* ---------- styles and markup ---------- */
@@ -18037,6 +18043,8 @@ if __name__ == &quot;__main__&quot;:
     ".rzan-c{display:inline-grid;place-items:center;width:28px;height:36px;padding:0;border:0;background:none;cursor:pointer}" +
     ".rzan-c i{display:block;width:20px;height:20px;border-radius:50%;box-shadow:0 0 0 1px rgba(128,128,128,.6);pointer-events:none}" +
     ".rzan-c[aria-pressed=true] i{box-shadow:0 0 0 2px var(--panel,Canvas),0 0 0 4px var(--accent,#830f3e)}" +
+    ".rzan-c[data-hl] i{width:22px;height:13px;border-radius:3px}" +
+    ".rzan-size input:disabled{opacity:.4;cursor:default}" +
     ".rzan-size{display:inline-flex;align-items:center;gap:4px;height:36px;padding:0 2px}" +
     ".rzan-dot{display:inline-grid;place-items:center;width:24px;height:24px}.rzan-dot i{display:block;border-radius:50%;box-shadow:0 0 0 1px rgba(128,128,128,.45)}" +
     ".rzan-size input{width:68px;height:28px;margin:0;padding:0;accent-color:var(--accent,#830f3e);cursor:pointer;touch-action:none}" +
@@ -18060,7 +18068,7 @@ if __name__ == &quot;__main__&quot;:
   bar.setAttribute("role", "toolbar"); tools.hidden = true;
   var grip = el("span", "rzan-grip", IC.grip), swatch = {};
   tools.appendChild(grip);
-  SLOTS.forEach(function (s) { var b = btn("rzan-c", "colour", "<i></i>"); b.setAttribute("data-c", s); swatch[s] = b; tools.appendChild(b); });
+  SLOTS.forEach(function (s) { var b = btn("rzan-c", "colour", "<i></i>"); b.setAttribute("data-c", s); if (HL[s]) b.setAttribute("data-hl", "1"); swatch[s] = b; tools.appendChild(b); });
   var sizeBox = el("span", "rzan-size", '<span class="rzan-dot" aria-hidden="true"><i></i></span>'), dot = sizeBox.querySelector("i");
   var range = el("input"); range.type = "range"; range.min = "1"; range.max = "24"; range.step = "1"; range.value = String(size); sizeBox.appendChild(range);
   var bErase = btn("rzan-b", "eraser", IC.eraser), bClear = btn("rzan-b", "clear", IC.clear), bToggle = btn("rzan-b rzan-toggle", "toggle", IC.pen);
@@ -18073,16 +18081,21 @@ if __name__ == &quot;__main__&quot;:
   function tip(x, t) { x.title = t; x.setAttribute("aria-label", t); }
   function sync() {                                   /* labels, pressed states, swatches: language, theme and tool */
     var names = { red: L("Red pen", "Pen merah"), blue: L("Blue pen", "Pen biru"), green: L("Green pen", "Pen hijau"), yellow: L("Yellow pen", "Pen kuning"),
+      magenta: L("Magenta highlighter", "Penyerlah magenta"), cyan: L("Cyan highlighter", "Penyerlah sian"),
       ink: isDark() ? L("White pen", "Pen putih") : L("Black pen", "Pen hitam") };
     bar.setAttribute("aria-label", L("Annotation tools", "Alat anotasi"));
     tip(bToggle, on ? L("Stop writing on the screen (Esc)", "Henti menulis pada skrin (Esc)") : L("Write on the screen", "Tulis pada skrin"));
     bToggle.setAttribute("aria-pressed", String(on));
-    SLOTS.forEach(function (s) { var b = swatch[s]; b.firstChild.style.background = inkOf(s); tip(b, names[s]); b.setAttribute("aria-pressed", String(tool === "pen" && slot === s)); });
+    SLOTS.forEach(function (s) { var b = swatch[s]; b.firstChild.style.background = HL[s] ? rgba(INK[s], 0.6) : inkOf(s); tip(b, names[s]); b.setAttribute("aria-pressed", String(tool === "pen" && slot === s)); });
     tip(bErase, L("Eraser: touch a line to remove the whole line", "Pemadam: sentuh satu garisan untuk memadam seluruh garisan itu")); bErase.setAttribute("aria-pressed", String(tool === "eraser"));
     cv.setAttribute("data-tool", tool);
     tip(bClear, L("Clear all the writing on this screen", "Padam semua tulisan pada skrin ini"));
-    tip(range, L("Line thickness", "Ketebalan garisan")); grip.title = L("Drag to move the toolbar", "Seret untuk mengalih bar alat");
-    var d = Math.max(3, Math.min(22, size)); dot.style.width = dot.style.height = d + "px"; dot.style.background = tool === "eraser" ? "transparent" : inkOf(slot);
+    var hl = tool === "pen" && !!HL[slot];
+    range.disabled = hl;                               /* the highlighters have one thickness */
+    tip(range, hl ? L("Line thickness: fixed for the highlighters", "Ketebalan garisan: tetap bagi penyerlah") : L("Line thickness", "Ketebalan garisan"));
+    grip.title = L("Drag to move the toolbar", "Seret untuk mengalih bar alat");
+    var d = Math.max(3, Math.min(22, hl ? HL_W : size)); dot.style.width = dot.style.height = d + "px";
+    dot.style.background = tool === "eraser" ? "transparent" : hl ? rgba(INK[slot], 0.6) : inkOf(slot);
     /* the blank page behind the ink: the canvas's own background, so the ink and the eraser never touch it */
     var rgb = isDark() ? "22,24,28" : "255,255,255", paper = cover ? "rgba(" + rgb + "," + cover / 100 + ")" : "";
     cv.style.backgroundColor = paper; page.style.background = paper;
@@ -18118,7 +18131,7 @@ if __name__ == &quot;__main__&quot;:
     var w = Math.max(1, Math.round(rc.width * dpr)), h = Math.max(1, Math.round(rc.height * dpr));
     if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; }
   }
-  function style(s) { ctx.strokeStyle = ctx.fillStyle = s.c; ctx.lineWidth = s.w; ctx.lineCap = ctx.lineJoin = "round"; }
+  function style(s) { ctx.globalAlpha = s.a || 1; ctx.strokeStyle = ctx.fillStyle = s.c; ctx.lineWidth = s.w; ctx.lineCap = ctx.lineJoin = "round"; }
   function paint(s) {                                  /* a whole stroke, smoothed through the midpoints */
     var p = s.p, n = p.length / 2, i; style(s); ctx.beginPath();
     if (n === 1) { ctx.arc(p[0], p[1], s.w / 2, 0, 6.2832); ctx.fill(); return; }
@@ -18131,13 +18144,27 @@ if __name__ == &quot;__main__&quot;:
     ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, cv.width, cv.height);
     ctx.setTransform(dpr, 0, 0, dpr, -o.x * dpr, -o.y * dpr);
     for (var i = 0; i < layer.length; i++) paint(layer[i]);
+    ctx.globalAlpha = 1;
+  }
+  /* a see-through line in hand is drawn whole each time, over a picture of the canvas kept when it began: pieces laid
+     one on another, as for the pens, would show a darker spot at every joint */
+  var snap = null;
+  function keep() {
+    if (!snap) snap = D.createElement("canvas");
+    if (snap.width !== cv.width || snap.height !== cv.height) { snap.width = cv.width; snap.height = cv.height; }
+    var c = snap.getContext("2d"); c.clearRect(0, 0, snap.width, snap.height); c.drawImage(cv, 0, 0);
+  }
+  function live() {
+    var o = origin(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.clearRect(0, 0, cv.width, cv.height); ctx.drawImage(snap, 0, 0);
+    ctx.setTransform(dpr, 0, 0, dpr, -o.x * dpr, -o.y * dpr); paint(cur.s); ctx.globalAlpha = 1;
   }
   function point(e) { var rc = cv.getBoundingClientRect(), o = origin(); return [e.clientX - rc.left + o.x, e.clientY - rc.top + o.y]; }
-  function extend(x, y) {                              /* the newest piece of the stroke in hand, drawn at once */
-    var p = cur.s.p, n = p.length, dx = x - p[n - 2], dy = y - p[n - 1];
-    if (dx * dx + dy * dy < 0.6) return;
-    style(cur.s); ctx.beginPath(); ctx.moveTo(p[n - 2], p[n - 1]); ctx.lineTo(x, y); ctx.stroke(); p.push(x, y);
-    var s = cur.s; if (x < s.x0) s.x0 = x; if (x > s.x1) s.x1 = x; if (y < s.y0) s.y0 = y; if (y > s.y1) s.y1 = y;
+  function extend(x, y) {                              /* the newest piece of the stroke in hand; a pen's piece is drawn at once */
+    var s = cur.s, p = s.p, n = p.length, dx = x - p[n - 2], dy = y - p[n - 1];
+    if (dx * dx + dy * dy < 0.6) return false;
+    if (!s.a) { style(s); ctx.beginPath(); ctx.moveTo(p[n - 2], p[n - 1]); ctx.lineTo(x, y); ctx.stroke(); }
+    p.push(x, y); if (x < s.x0) s.x0 = x; if (x > s.x1) s.x1 = x; if (y < s.y0) s.y0 = y; if (y > s.y1) s.y1 = y;
+    return true;
   }
 
   /* the eraser works by object: a line that the eraser touches goes as a whole */
@@ -18189,16 +18216,19 @@ if __name__ == &quot;__main__&quot;:
       if (eraseAt(pt[0], pt[1])) redraw();
       return;
     }
-    var s = { c: inkOf(slot), w: size, p: pt, x0: pt[0], y0: pt[1], x1: pt[0], y1: pt[1] };
+    var hl = !!HL[slot], s = { c: inkOf(slot), w: hl ? HL_W : size, p: pt, x0: pt[0], y0: pt[1], x1: pt[0], y1: pt[1] };
+    if (hl) { s.a = HL_A; keep(); }                     /* the picture is kept before the new line is on it */
     cur = { id: e.pointerId, type: e.pointerType, s: s }; layer.push(s); did({ a: "add", s: s });
-    style(s); ctx.beginPath(); ctx.arc(pt[0], pt[1], s.w / 2, 0, 6.2832); ctx.fill();
+    if (hl) live(); else { style(s); ctx.beginPath(); ctx.arc(pt[0], pt[1], s.w / 2, 0, 6.2832); ctx.fill(); }
   });
   cv.addEventListener("pointermove", function (e) {
     if (e.pointerType === "pen") penAt = Date.now();
     if (!cur || e.pointerId !== cur.id) return;
     var evs = e.getCoalescedEvents ? e.getCoalescedEvents() : null, i, pt;
     if (!evs || !evs.length) evs = [e];
-    for (i = 0; i < evs.length; i++) { pt = point(evs[i]); if (cur.gone) eraseTo(pt[0], pt[1]); else extend(pt[0], pt[1]); }
+    var grown = false;
+    for (i = 0; i < evs.length; i++) { pt = point(evs[i]); if (cur.gone) eraseTo(pt[0], pt[1]); else if (extend(pt[0], pt[1])) grown = true; }
+    if (grown && cur.s.a) live();
   });
   ["pointerup", "pointercancel", "lostpointercapture"].forEach(function (t) { cv.addEventListener(t, finish); });
   cv.addEventListener("contextmenu", function (e) { e.preventDefault(); });
@@ -18296,7 +18326,7 @@ if __name__ == &quot;__main__&quot;:
   if (window.matchMedia) { var mq = matchMedia("(prefers-color-scheme: dark)"); if (mq.addEventListener) mq.addEventListener("change", sync); else if (mq.addListener) mq.addListener(sync); }
 
   D.body.appendChild(root); sync(); place();
-  window.RZAnnotate = { version: "1.1", on: function () { setOn(true); }, off: function () { setOn(false); }, toggle: function () { setOn(!on); },
+  window.RZAnnotate = { version: "1.2", on: function () { setOn(true); }, off: function () { setOn(false); }, toggle: function () { setOn(!on); },
     clear: clearAll, undo: undo, isOn: function () { return on; } };
 })();
 </script>

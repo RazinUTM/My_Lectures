@@ -33,12 +33,14 @@ window.__cv = () => document.querySelector('.rzan-cv');
 window.__k = () => { const c = __cv(); return c.width / c.getBoundingClientRect().width; };
 window.__px = (x, y) => { const c = __cv(), k = __k(); return Array.from(c.getContext('2d').getImageData(Math.round(x * k), Math.round(y * k), 1, 1).data); };
 window.__count = () => { const c = __cv(), a = c.getContext('2d').getImageData(0, 0, c.width, c.height).data; let n = 0; for (let i = 3; i < a.length; i += 4) if (a[i] > 0) n++; return n; };
-window.__thick = (x, y0, y1) => { const c = __cv(), k = __k(), a = c.getContext('2d').getImageData(Math.round(x * k), Math.round(y0 * k), 1, Math.round((y1 - y0) * k)).data; let n = 0; for (let i = 3; i < a.length; i += 4) if (a[i] > 128) n++; return n / k; };
+window.__thick = (x, y0, y1, min = 128) => { const c = __cv(), k = __k(), a = c.getContext('2d').getImageData(Math.round(x * k), Math.round(y0 * k), 1, Math.round((y1 - y0) * k)).data; let n = 0; for (let i = 3; i < a.length; i += 4) if (a[i] > min) n++; return n / k; };
 window.__rect = s => { const e = document.querySelector(s); if (!e) return null; const r = e.getBoundingClientRect(); return { x: r.left, y: r.top, w: r.width, h: r.height, r: r.right, b: r.bottom, shown: !e.hidden && e.getClientRects().length > 0 }; };
 window.__view = () => { const v = document.querySelector('.view:not([hidden])'); return v ? v.getAttribute('data-view') : ''; };
 window.__slide = () => { const s = document.querySelector('.sl.on, .slide.on'); return s ? Array.prototype.indexOf.call(s.parentNode.children, s) : -1; };
 """
 def near(p, rgb, tol=40): return p[3] > 200 and all(abs(p[i] - rgb[i]) <= tol for i in range(3))
+MAGENTA, CYAN = (255, 31, 192), (0, 194, 238)
+def glaze(p, rgb): return 88 <= p[3] <= 116 and all(abs(p[i] - rgb[i]) <= 22 for i in range(3))     # a highlighter: the colour at about 40 %
 RED, BLUE, GREEN, BLACK, WHITE, YELLOW = (224, 32, 44), (20, 99, 214), (18, 150, 74), (17, 17, 17), (255, 255, 255), (246, 196, 0)
 SET = "(v => { const r = document.querySelectorAll('.rzan-size input')[%d]; r.value = v; r.dispatchEvent(new Event('input', { bubbles: true })); })"   # 0: thickness, 1: blank page
 PAPER = "getComputedStyle(__cv()).backgroundColor"
@@ -129,6 +131,22 @@ with sync_playwright() as p:
     cov = int(pg.evaluate("document.querySelectorAll('.rzan-size input')[1].value"))
     check(cov >= 75 and abs(barA["x"] - barB["x"]) < 1 and "%d%%" % cov in pg.evaluate("document.querySelectorAll('.rzan-size input')[1].title"), f"{T}: the blank-page slider works by mouse ({cov}%) and does not drag the toolbar")
     pg.evaluate(SET % 1 + "(0)"); check(pg.evaluate(PAPER) == "rgba(0, 0, 0, 0)", f"{T}: back at 0% the page shows through again")
+    # the highlighters: see-through, one thickness, the same strength all along the line, also while it is still being drawn
+    pg.evaluate(SET % 0 + "(3)"); pg.click('.rzan-c[data-c="magenta"]')
+    fixed = pg.evaluate("document.querySelectorAll('.rzan-size input')[0].disabled")
+    pg.mouse.move(700, 640); pg.mouse.down(); pg.mouse.move(1000, 640, steps=24)
+    held = [pg.evaluate(f"__px({x}, 640)") for x in (730, 790, 850, 910, 970)]
+    pg.mouse.up(); pg.wait_for_timeout(60)
+    done = [pg.evaluate(f"__px({x}, 640)") for x in (730, 790, 850, 910, 970)]
+    check(all(glaze(p, MAGENTA) for p in held + done) and max(p[3] for p in held + done) - min(p[3] for p in held + done) <= 3,
+          f"{T}: the magenta highlighter is see-through and even along the line, while drawn and after ({held[2]} / {done[2]})")
+    th = pg.evaluate("__thick(850, 600, 680, 40)"); check(fixed and 18.5 <= th <= 21.5, f"{T}: the highlighter has its own thickness, about 20 px ({th}); the thickness slider is switched off for it ({fixed})")
+    pg.click('.rzan-c[data-c="cyan"]'); stroke(pg, 760, 600, 760, 700)
+    cross, alone = pg.evaluate("__px(760, 640)"), pg.evaluate("__px(760, 690)")
+    check(glaze(alone, CYAN) and 150 <= cross[3] <= 175, f"{T}: the cyan highlighter; where two highlighter lines cross the colour is stronger ({alone} / {cross})")
+    pg.click('.rzan-c[data-c="green"]'); free = pg.evaluate("document.querySelectorAll('.rzan-size input')[0].disabled")
+    pg.click('.rzan-b[data-act="eraser"]'); pg.mouse.click(900, 641); pg.wait_for_timeout(60)
+    check(free is False and pg.evaluate("__px(970, 640)")[3] == 0 and glaze(pg.evaluate("__px(760, 690)"), CYAN), f"{T}: a pen has the slider back; the eraser removes a highlighter line whole")
     pg.click('.rzan-c[data-c="red"]')
     check(pg.evaluate("document.querySelector('.rzan-b[data-act=\"eraser\"]').getAttribute('aria-pressed')") == "false", f"{T}: choosing a colour goes back to the pen")
     # off and on again; the ink stays on what it was written on
@@ -255,6 +273,9 @@ with sync_playwright() as p:
     check(near(pg.evaluate("__px(650, 900)"), BLUE), f"{T}: a moment later the finger draws again")
     pg.wait_for_timeout(800); touch("touchStart", [(600, 950)]); touch("touchMove", [(640, 950)]); pen_line(200, 450, 400, 450); touch("touchEnd", []); pg.wait_for_timeout(80)
     check(pg.evaluate("__px(620, 950)")[3] == 0 and near(pg.evaluate("__px(300, 450)"), BLUE), f"{T}: a palm that lands first gives way to the pen, and its mark is removed")
+    pg.wait_for_timeout(800); cy_ = pg.evaluate("__rect('.rzan-c[data-c=\"cyan\"]')"); pg.touchscreen.tap(cy_["x"] + 14, cy_["y"] + 18); touch_line(150, 1000, 450, 1000)
+    check(glaze(pg.evaluate("__px(300, 1000)"), CYAN) and glaze(pg.evaluate("__px(200, 1000)"), CYAN), f"{T}: a finger highlights in cyan ({pg.evaluate('__px(300, 1000)')})")
+    bl = pg.evaluate("__rect('.rzan-c[data-c=\"blue\"]')"); pg.touchscreen.tap(bl["x"] + 14, bl["y"] + 18)
     # a tap where a page control is does nothing; the toolbar can be dragged by touch
     if pg.locator("#t-slides").count():
         t = pg.evaluate("__rect('#t-slides')"); pg.wait_for_timeout(800); pg.touchscreen.tap(t["x"] + t["w"] / 2, t["y"] + t["h"] / 2); pg.wait_for_timeout(150)

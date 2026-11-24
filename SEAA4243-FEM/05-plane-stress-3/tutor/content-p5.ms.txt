@@ -146,15 +146,30 @@ Nombor tanpa kajian mesh dan semakan hanyalah pendapat. Projek dinilai berdasark
 ## Perenggan model · cantilever dalam lima ayat
 (Ditulis dalam bahasa Inggeris kerana laporan projek ditulis dalam bahasa Inggeris.) The cantilever (4 m × 2 m, t = 0.01 m, E = 200 × 10⁶ N m^{−2}, ν = 0.33) was idealised as plane stress with the left edge fully fixed and the 5 kN m^{−1} end load applied as an edge traction. Four-node meshes of 2 × 2, 8 × 4, 16 × 8 and 32 × 16 elements gave tip deflections of 0.131, 0.182, 0.189 and 0.191 m; the change between the last two meshes is 1.0%, so the 32 × 16 results are reported. Timoshenko beam theory gives 0.192 m (0.160 m bending, 0.032 m shear), 0.7% above the FE value. The bending stress at element centroids at mid-span agrees with M(y − 1)/I to within 0.25%; the stress at the fixed corner increases without bound under refinement and is not reported. The reactions sum to 10.0 kN upward and 40.0 kN m, equal to the applied load and its moment.
 Setiap ayat membawa nombor, perbandingan atau keputusan. Tiada kata sifat.
-## Projek kumpulan
-CLO4: mengkaji masalah struktur 2D dengan FEM, secara berkumpulan, menggunakan perisian, dan mempertahankan nombor-nombornya. Item dalam kurungan segi empat akan disahkan oleh pensyarah.
+## Projek kumpulan: ANSYS dahulu, alat anda sendiri sebagai semakan bebas
+CLO4: mengkaji masalah struktur 2D dengan FEM, secara berkumpulan, menggunakan perisian, dan mempertahankan nombor-nombornya. ANSYS ialah analisis utama. Setiap kumpulan juga membina solver plane stress kecil sendiri, ditulis dengan generative AI jika mahu (“vibe coding”) dan di-deploy di GitHub Pages, sebagai semakan bebas bagi model ANSYS. Item dalam kurungan segi empat akan diumumkan oleh pensyarah.
 Perkara Ringkasan
-Tugasan Pilih masalah struktur 2D, idealkan, modelkan dalam ANSYS (plane stress atau plane strain), sahkan model, tafsirkan keputusan untuk reka bentuk.
-Kumpulan dan wajaran Kumpulan [4–5] orang; 15% daripada kursus; laporan [70%], pembentangan [30%].
-Hasil Laporan [10–15] halaman; pembentangan [10] minit pada [tarikh]; fail model dan helaian semakan tangan.
+Tugasan Pilih masalah struktur 2D, idealkan, modelkan dalam ANSYS (plane stress atau plane strain), sahkan solver anda sendiri langkah demi langkah, semak silang model ANSYS dengannya, dan tafsirkan keputusan untuk reka bentuk.
+Kumpulan dan wajaran Kumpulan [4–5] orang; 15% daripada kursus (CLO4). Satu repository dan satu laporan bagi setiap kumpulan, dengan satu baris tentang siapa buat apa.
+Hasil (1) Laporan, paling banyak 15 halaman: idealisation, convergence table ANSYS, bukti Gate 1–3, tafsiran, had. (2) Alat: repository GitHub awam, pautan GitHub Pages, README dengan jadual verification, had dan lesen. (3) Log GenAI dan refleksi satu halaman. (4) Fail ANSYS (arkib .wbpj) dan helaian semakan tangan. (5) Demonstrasi dan viva individu, kira-kira 20 minit bagi setiap kumpulan, pada [tarikh].
 Calon struktur Shear wall dengan bukaan (Latihan 3.4 teks) · deep beam atau transfer girder · gusset atau connection plate · keratan empangan atau tembok penahan (plane strain).
-Pemarkahan (cadangan) Idealisation dan pemodelan 30% · pengesahan 30% · tafsiran 20% · laporan dan pembentangan 20%.
-Di mana markah hilang Menetapkan tepi yang sepatutnya bebas; satu point load pada satu node; satu mesh sahaja; “keputusan sepadan dengan baik” tanpa nombor; memetik puncak di bucu sebagai design stress. Enam puluh peratus markah adalah untuk keputusan pemodelan dan pengesahan, bukan untuk plot berwarna.
+Titik mula Anda boleh bermula daripada kod Python kursus (lesen MIT) atau kod yang ditulis oleh AI; nyatakan yang mana dalam README. Markah diberi untuk apa yang anda sahkan dan boleh terangkan, bukan untuk menulis setiap baris dari kosong.
+## Stage gate, mengikut urutan
+Gate Apa yang mesti ditunjukkan Bila
+0 Pelan, sebelum sebarang kod: struktur dan lakarannya, idealisation, kuantiti yang akan dilaporkan, semakan dan toleransinya, nama repository. hujung sesi ini
+1 Core solver: satu element berbanding nilai tangan [k]; patch test tepat hingga round-off; ΣR sama dengan load fizikal. sesi demo ANSYS
+2 Penyelesaian diketahui: convergence solver anda kepada Timoshenko (cantilever kursus) atau Kirsch (plat berlubang), dengan observed order. [date]
+3 Semakan silang ANSYS pada struktur anda: idealisation yang sama, mesh dan element yang setanding; setiap perbezaan melebihi toleransi anda diterangkan, tidak sekali-kali dipuratakan. [date]
+4 UI dan deployment: alat berjalan dari GitHub Pages; README menyatakan apa yang disahkan dan hadnya. [date]
+5 Demonstrasi dan viva individu: setiap ahli menjalankan satu gate secara langsung dan menerangkan kod serta nombor di sebaliknya. [date]
+Komponen dinilai Markah
+Verification dan semakan silang ANSYS (Gate 1–3) 35
+Tafsiran keputusan untuk reka bentuk 20
+Demonstrasi dan viva individu (Gate 5) 25
+UI, deployment dan repository (Gate 4) 10
+Log GenAI dan refleksi 10
+Jumlah 100
+Di mana markah hilang Menetapkan tepi yang sepatutnya bebas; satu point load pada satu node; satu mesh sahaja; “keputusan sepadan dengan baik” tanpa nombor; memetik puncak di bucu sebagai design stress; alat yang disemak dengan dirinya sendiri sahaja, atau dilaraskan sehingga sama dengan ANSYS; alat yang tiada ahli kumpulan boleh terangkan, yang tidak mendapat markah verification. Part 6, Nota §6, menunjukkan apa yang dibuktikan oleh setiap gate dan apa yang terlepas.
 ## Dua tabiat yang menyelamatkan markah
 [Rajah: Ujian indirect tensile (Brazilian) bagi cakera 150 mm, plane strain: dua garis simetri, jadi satu perempat dimodelkan dengan roller pada tepi yang dipotong. Load ialah point force: baca stress jauh daripadanya. Imej: dokumentasi SfePy, Primer, lesen BSD-3-Clause.]
 - Gunakan simetri. Model satu perempat empat kali lebih kecil; tepi yang dipotong diberi roller (tiada displacement normal kepadanya).
@@ -162,7 +177,7 @@ Di mana markah hilang Menetapkan tepi yang sepatutnya bebas; satu point load pad
 Isi penting:
 - Idealisation · convergence table · satu semakan · kesimpulan yang dikuantifikasi.
 - Setiap ayat dalam bahagian keputusan membawa nombor.
-- Projek: 2D, ANSYS, disahkan; 60% markah untuk pemodelan dan pengesahan.
+- Projek: ANSYS dahulu, alat anda sendiri sebagai semakan bebas, Gate 0–5 mengikut urutan; 35 markah untuk verification dan semakan silang, 25 untuk viva.
 Semakan pantas (tidak dimarkah): Ayat mana yang memenuhi piawai pelaporan?
 Pilihan: “The FE results agree well with beam theory.” | “The 32 × 16 tip deflection, 0.191 m, is 0.7% below Timoshenko beam theory; the last refinement changed it by 1.0%.” | “The maximum bending stress is 7467 kN m^{−2}, at the fixed corner.”
 Penjelasan yang dipaparkan selepas menjawab: (b) memberi nombor, perbandingan bersama tandanya dan convergence. (a) tiada nombor. (c) memetik puncak singular: 7467 kN m^{−2} ialah σ_{xx} pada centroid bucu mesh 64 × 32, dan ia akan naik lagi pada mesh seterusnya.
@@ -252,37 +267,40 @@ Block 4 · the cantilever written up in five sentences A model paragraph for the
 8 MIN Activity 4 · pairs · writing Write the heat-transfer plate up in three sentences Data · Heat Transfer Part 2 Mesh T(L, 0) (°C) Q4 2 × 2 0.6214 Q4 16 × 16 0.5898 Software 0.5897 Plate 1 m × 1 m, k = 300 W m⁻¹ K⁻¹, q_h = 600 W m⁻³, two edges at 0 °C, two insulated. Write Sentence 1: the idealisation. Sentence 2: the convergence, with the percentage change. Sentence 3: the check against software, with the signed difference. Rule: every sentence has at least one number. 8 minutes. Two pairs read theirs out. SEAA 4243
 
 [slides-29] Slide 29: Project briefing
-5 Block 5 · 2:00 – 2:40 Project briefing CLO4: investigate a structural problem with FEM, in a group, with software — and defend the numbers. 15% of the course. SEAA 4243 · Plane Stress — Part 3 · Project 29
+5 Block 5 · 2:00 – 2:40 Project briefing CLO4: ANSYS as the primary analysis, a solver of your own as the independent check, six stage gates — and defend the numbers. 15% of the course. SEAA 4243 · Plane Stress — Part 3 · Project 29
 
-[slides-30] Slide 30: One real structure, one FE model, one verified answer, one report, one presentation
-Block 5 · the brief One real structure, one FE model, one verified answer, one report, one presentation Task Choose a 2D structural problem, idealise it, model it in ANSYS (plane stress or plane strain), verify the model, and interpret the results for design. Team Groups of [4–5]. One submission per group; a one-line statement of who did what. Weight 15% of the course (CLO4). Report [70%] · presentation [30%] — lecturer to confirm. Deliverables Technical report, [10–15] pages: idealisation, mesh study, check, results, i
+[slides-30] Slide 30: One structure: ANSYS as the primary analysis, your own tool as the independent check
+Block 5 · the brief One structure: ANSYS as the primary analysis, your own tool as the independent check Task Model a 2D structure in ANSYS (plane stress or strain). Build and verify a small solver of your own — with generative AI if you wish — and use it to cross-check ANSYS. Interpret the results for design. Team Groups of [4–5]. One repository and one report per group, with a line on who did what. Weight 15% of the course (CLO4), marked by the rubric two slides on. Deliverables Report, at most 15 pages: idealisation,
 
-[slides-31] Slide 31: Four families that fit the course; propose your own if it is 2D and checkable
+[slides-31] Slide 31: Six gates, in order: the tool is trusted only after it passes them
+Block 5 · stage gates Six gates, in order: the tool is trusted only after it passes them 0 Plan Before any code: structure, idealisation, quantities to report, checks and tolerances, repository name. today 1 Core solver One element against a hand value of [k]; patch test exact to round-off; ΣR = the physical load. ANSYS demo 2 Known solution Converges to Timoshenko (the course cantilever) or Kirsch (plate with a hole), with the observed order. [date] 3 ANSYS cross-check Your structure in both: same idealisation, compara
+
+[slides-32] Slide 32: Four families that fit the course; propose your own if it is 2D and checkable
 Block 5 · candidate structures Four families that fit the course; propose your own if it is 2D and checkable Shear wall with openings Text Exercise 3.4: 5 m × 6 m, t = 0.2 m, 125 kN m⁻¹ on top, two openings. Plane stress. Check: cantilever beam + stress concentration at opening corners. Deep beam or transfer girder Span-to-depth about 2; point or distributed load; supports on bearing pads. Plane stress. Check: beam theory for deflection, strut-and-tie for the stress path. Gusset or connection plate Steel plate with bolt
 
-[slides-32] Slide 32: Proposed rubric — lecturer to confirm weights
-Block 5 · how it is marked Proposed rubric — lecturer to confirm weights Criterion Weight Full marks look like Common failure Idealisation and modelling 30% plane stress/strain justified; supports and loads realistic; units consistent; sketch of the model fixing edges that are free; point loads at a node; wrong thickness Verification 30% three-mesh convergence table; one independent hand check with a signed difference single mesh; “results agree well” with no number Interpretation 20% where the maximum is and why; what
+[slides-33] Slide 33: Five components; the viva carries a quarter of the marks
+Block 5 · how it is marked Five components; the viva carries a quarter of the marks Component Marks Full marks look like Common failure Verification and ANSYS cross-check (Gates 1–3) 35 the Gate 1–2 checks with numbers; ANSYS convergence table; tool vs ANSYS with signed differences, each above tolerance explained one passed test taken as proof; a tool tuned until it matches Interpretation 20 where the maximum is and why; what it means for the design; singularities identified and excluded quoting the corner peak; “result
 
-[slides-33] Slide 33: Eight steps; the project report follows the same order
+[slides-34] Slide 34: Eight steps; the project report follows the same order
 Block 5 · the modelling workflow Eight steps; the project report follows the same order 1 Idealise 2D? stress or strain? what is left out 2 Geometry dimensions, thickness, openings 3 Material E, ν, units 4 Mesh element type, size, three levels 5 Supports fixed, roller, symmetry 6 Loads tractions, body force, not point loads 7 Solve & verify reactions, convergence, hand check 8 Interpret where, why, what it means Check the ANSYS demo runs exactly this sequence in ANSYS on the cantilever and the plate, then on your struct
 
-[slides-34] Slide 34: Use symmetry, and do not read stresses under a point load
+[slides-35] Slide 35: Use symmetry, and do not read stresses under a point load
 Block 5 · two modelling tips for the project Use symmetry, and do not read stresses under a point load Indirect tensile (Brazilian) test A 150 mm disk squeezed across its diameter by two loads P; plane strain. Two lines of symmetry → model one quarter: rollers on the cut edges (no displacement normal to them). The load is a point force: the stress under it is singular. Read results away from it, or spread it over the real contact width. Images: SfePy documentation, Primer (indirect tensile test in 2D), BSD-3-Clause lice
 
-[slides-35] Slide 35: Draft your model plan on one page
-12 MIN Activity 5 · groups · planning Draft your model plan on one page Write, as a group The structure, with a sketch and dimensions; the source of the geometry and loads. Idealisation: plane stress or plane strain, thickness, material (E, ν, units). Supports and loads, each one justified in a few words. The quantity you will report (deflection? stress where?) and the hand check you will use. Three mesh sizes you will run. Watch out Lecturers circulate. A plan with a fixed edge that should be free, or no hand check, is
+[slides-36] Slide 36: Gate 0: your plan on one page
+12 MIN Activity 5 · groups · planning Gate 0: your plan on one page Write, as a group The structure, with a sketch and dimensions; the source of the geometry and loads. Idealisation: plane stress or plane strain, thickness, material (E, ν, units); supports and loads, each justified. The quantities you will report, the hand check for ANSYS, and three mesh sizes. Your tool: the Gate 1–2 tests and the tolerances that count as agreement. The repository name, and who leads which gate. Watch out Lecturers circulate. A plan wi
 
-[slides-36] Slide 36: Wrap-up
-6 Block 6 · 2:40 – 3:00 Wrap-up Three sessions of plane stress in one page, the exit ticket, and what to bring to the ANSYS session. SEAA 4243 · Plane Stress — Part 3 · Project 36
+[slides-37] Slide 37: Wrap-up
+6 Block 6 · 2:40 – 3:00 Wrap-up Three sessions of plane stress in one page, the exit ticket, and what to bring to the ANSYS session. SEAA 4243 · Plane Stress — Part 3 · Project 37
 
-[slides-37] Slide 37: From equilibrium to a verified stress
+[slides-38] Slide 38: From equilibrium to a verified stress
 Block 6 · plane stress in one page From equilibrium to a verified stress Part Step Result 1 equilibrium + Hooke + strain–displacement [∂][E][∂]ᵀ{u}ᵀ = −{f}; traction natural, displacement essential; [N] 2 × 8 2 Galerkin + IBP; [B] = [∂]ᵀ[N] [k] = t∫[B]ᵀ[E][B] dA, s₁…s₁₂; loads qb/2; assembly by dof map; 2 × 2 cantilever 32% too stiff 3 post-processing and judgement {σ} = [E][B]{û}; trust centroids on converged meshes; corners are singular; Q8 curves Why The heat-transfer pipeline, with two unknowns per node. Nothing els
 
-[slides-38] Slide 38: Three questions before you leave
-5 MIN Activity 6 · individual · exit ticket Three questions before you leave Questions Order the three operations that take nodal displacements to a stress at a point. Your model shows its highest stress at a fixed corner. What do you do? Which element would you choose for a wall in bending with a limited number of elements, Q4 or Q8, and why? Five minutes. Name and matric number; for feedback, not marks. SEAA 4243 · Plane Stress — Part 3 · Project 38
+[slides-39] Slide 39: Three questions before you leave
+5 MIN Activity 6 · individual · exit ticket Three questions before you leave Questions Order the three operations that take nodal displacements to a stress at a point. Your model shows its highest stress at a fixed corner. What do you do? Which element would you choose for a wall in bending with a limited number of elements, Q4 or Q8, and why? Five minutes. Name and matric number; for feedback, not marks. SEAA 4243 · Plane Stress — Part 3 · Project 39
 
-[slides-39] Slide 39: Bring the model plan, the two textbook examples and a laptop with ANSYS access
-Wrap-up · before the ANSYS session Bring the model plan, the two textbook examples and a laptop with ANSYS access Today in four lines {σ} = [E][B]{û}: two products; use centroid values on converged meshes. Stresses converge slower than displacements; fixed corners and point loads are singular. Q8: quadratic edges, 1/6–2/3–1/6 loads, far fewer elements for the same error. A results section = idealisation + convergence table + one check + numbers. Before the ANSYS demo Install or confirm access to ANSYS Student / Workbenc
+[slides-40] Slide 40: Bring the Gate 0 plan, the two textbook examples and a laptop with ANSYS access
+Wrap-up · before the ANSYS session Bring the Gate 0 plan, the two textbook examples and a laptop with ANSYS access Today in four lines {σ} = [E][B]{û}: two products; use centroid values on converged meshes. Stresses converge slower than displacements; fixed corners and point loads are singular. Q8: quadratic edges, 1/6–2/3–1/6 loads, far fewer elements for the same error. A results section = idealisation + convergence table + one check + numbers. Before the ANSYS demo Install or confirm access to ANSYS Student / Workben
 
 [examples-z1] Contoh 1 · Cantilever dalam teks: stress pada pusat element, reaction dan ketepatan
 Jenis soalan given {U} from a computer: stresses, reactions, accuracy of Q4 in bending Unit N, m Sumber FEM by Hand, Example 9.7 (text §3.4) 20 markah Soalan Cantilever dalam rajah, panjang 4 m, dalam 2 m dan tebal 0.01 m (E = 200 × 10⁶ N m^{−2}, ν = 0.33), membawa q_y = 5 kN m^{−1} ke bawah pada hujung bebasnya. Dengan empat Q4 element yang sama, (a) beri pemalar element dan load, (b) ambil displacement yang dikira di bawah, (c) cari stress pada pusat element 1 dan 3 dan bandingkan dengan beam theory, (d) semak reaction, dan (e) nilai ketepatan. node 2 3 5 6 8 9

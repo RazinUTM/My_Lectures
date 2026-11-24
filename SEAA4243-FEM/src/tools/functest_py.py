@@ -27,13 +27,14 @@ PORT = srv.server_address[1]
 threading.Thread(target=srv.serve_forever, daemon=True).start()
 BASE = f"http://localhost:{PORT}/SEAA4243-FEM/"
 
-PARTS = {1: "01-heat-transfer-1", 2: "02-heat-transfer-2", 3: "03-plane-stress-1", 4: "04-plane-stress-2", 5: "05-plane-stress-3"}
+PARTS = {1: "01-heat-transfer-1", 2: "02-heat-transfer-2", 3: "03-plane-stress-1", 4: "04-plane-stress-2", 5: "05-plane-stress-3", 6: "06-ansys-demo"}
 EXPECT = {  # (substring in the output, number of figures)
     1: [("T      = 136.0", 0), ("partition of unity: True", 1), ("(expected 136.0)", 2)],
     2: [("8 x 8: T(1, 0) = 0.5912", 1), ("T   = [0.     0.4821 0.6214", 0), ("T2 = T6 = 0.4821", 1)],
     3: [("[[224.44  74.07   0.  ]", 0), ("sxx = 9.01, syy = -6.03, sxy = 0.56 kN/m2", 0), ("tip deflection = -0.1306 m", 1)],
     4: [("row sums: [ 0.  0.  0.  0.  0.  0.  0. -0.]", 0), ("16 x 8   tip = -0.1886 m  (-1.7 %)", 0), ("principal 494.4, -224.1", 1)],
     5: [("von Mises = 636.8 kN/m2", 0), ("saved von_mises.png", 1), ("8-node 16 x 8: sxx(2.0, 1.3)", 1)],
+    6: [("sum Rx = -10000.0 N   physical load s0*t*H = 10000.0 N", 0), ("(a) plane strain   tip =  -0.17184 m", 0), ("8-node 16 x 8: sxx(2.0, 1.3) = 900.4", 1)],
 }
 fails, notes = [], []
 def check(cond, msg):

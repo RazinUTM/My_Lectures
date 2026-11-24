@@ -159,6 +159,50 @@ plot_von_mises(r)
 '''),
         ("Course example", "Contoh kursus", course_example("fe_plane_stress.py")),
     ],
+    6: [
+        ("Patch test (Gate 1)", "Patch test (Gate 1)",
+         '''# Gate 1 of the hybrid project: four unequal rectangles in uniform tension.
+# A consistent solver reproduces u = s0 x/E, v = -nu s0 y/E and sigma = (s0, 0, 0)
+# to round-off, and the reactions add up to the PHYSICAL load s0*t*H.
+import numpy as np
+from fe_plane_stress import E_matrix, element_stiffness, B_matrix, dofs_of
+
+E, nu, t, s0 = 200e6, 0.3, 0.01, 1e6            # N/m2, -, m, N/m2
+xs, ys = [0, 0.7, 2.0], [0, 0.4, 1.0]           # node lines (m): try others
+nodes = np.array([(x, y) for y in ys for x in xs]); n = len(nodes)
+conn = [[j * 3 + i, j * 3 + i + 1, j * 3 + i + 4, j * 3 + i + 3] for j in range(2) for i in range(2)]
+Em = E_matrix(E, nu); K = np.zeros((2 * n, 2 * n)); F = np.zeros(2 * n)
+for c in conn:
+    a, b = nodes[c[1], 0] - nodes[c[0], 0], nodes[c[3], 1] - nodes[c[0], 1]
+    K[np.ix_(dofs_of(c), dofs_of(c))] += element_stiffness(4, a, b, Em, t)
+    if np.isclose(nodes[c[1], 0], xs[-1]):        # side 2-3 on the loaded edge: s0*t*b/2 to each node
+        F[2 * c[1]] += s0 * t * b / 2; F[2 * c[2]] += s0 * t * b / 2
+fixed = [2 * i for i in range(n) if nodes[i, 0] == 0] + [1]      # u = 0 on x = 0, v = 0 at node 1
+free = np.setdiff1d(np.arange(2 * n), fixed)
+U = np.zeros(2 * n); U[free] = np.linalg.solve(K[np.ix_(free, free)], F[free])
+print("max error in u, v:", abs(U[0::2] - s0 * nodes[:, 0] / E).max(), abs(U[1::2] + nu * s0 * nodes[:, 1] / E).max())
+R = K[fixed] @ U - F[fixed]
+print("sum Rx = %.1f N   physical load s0*t*H = %.1f N" % (R[:-1].sum(), s0 * t * ys[-1]))
+for e, c in enumerate(conn):
+    a, b = nodes[c[1], 0] - nodes[c[0], 0], nodes[c[3], 1] - nodes[c[0], 1]
+    print("element", e + 1, "sigma at the centre (kN/m2):", (Em @ B_matrix(4, a, b, 0, 0) @ U[dofs_of(c)] / 1e3).round(6))
+'''),
+        ("Wrong-model signatures", "Tanda model yang salah",
+         '''# The four wrong cantilevers of Activity 4 (three of them here), against the correct one.
+# The reaction is right in every case: only a prediction catches an idealisation error.
+from fe_plane_stress import solve_cantilever, timoshenko_tip
+
+base = dict(L=4.0, H=2.0, E=200e6, nu=0.33, t=0.01, q=-5000.0, Nx=16, Ny=8, nen=8)
+ok = solve_cantilever(**base)
+runs = {"correct": {}, "(a) plane strain": dict(plane="strain"),
+        "(b) vertex force": dict(load="point"), "(d) t = 1 m": dict(t=1.0)}
+for name, change in runs.items():
+    r = solve_cantilever(**{**base, **change})
+    print(f"{name:18s} tip = {r['tip']:9.5f} m  ratio = {r['tip'] / ok['tip']:6.3f}  Ry = {r['reactions']['Ry']:8.1f} N")
+print("Timoshenko:", round(sum(timoshenko_tip(4.0, 2.0, 200e6, 0.33, 0.01, -5000.0)), 5), "m")
+'''),
+        ("Course example", "Contoh kursus", course_example("fe_plane_stress.py")),
+    ],
 }
 
 

@@ -240,17 +240,35 @@ D.activity("act4", 4, 8, "pairs · writing", "Write the heat-transfer plate up i
 # =============================================================================
 # Block 5 — Project briefing
 # =============================================================================
-D.divider("d5", "5", "Project briefing", "CLO4: investigate a structural problem with FEM, in a group, with software — and defend the numbers. 15% of the course.",
-          "Block 5 · 2:00 – 2:40", section="Block 5: the group project brief, candidate structures, deliverables, rubric, timeline and the in-class model plan",
-          notes="Forty minutes. Items in square brackets are to be confirmed by the lecturer before the session. Walk through the brief, the candidates, the rubric, then give the groups twelve minutes to draft a model plan.")
+D.divider("d5", "5", "Project briefing", "CLO4: ANSYS as the primary analysis, a solver of your own as the independent check, six stage gates — and defend the numbers. 15% of the course.",
+          "Block 5 · 2:00 – 2:40", section="Block 5: the hybrid group project: brief, stage gates, candidate structures, rubric, workflow and the Gate 0 plan drafted in class",
+          notes="Forty minutes. Only the group size and the dates are in square brackets; announce them in the session. Walk through the brief, the gates, the candidates and the rubric, then give the groups twelve minutes to draft their Gate 0 plan.")
 
-D.content("brief", "Block 5 · the brief", "One real structure, one FE model, one verified answer, one report, one presentation",
-          col(row(D.card(D.h3("Task") + D.p("Choose a 2D structural problem, idealise it, model it in ANSYS (plane stress or plane strain), verify the model, and interpret the results for design.", 28), extra="flex:1"),
-                  D.card(D.h3("Team") + D.p("Groups of [4–5]. One submission per group; a one-line statement of who did what.", 28), extra="flex:1"),
-                  D.card(D.h3("Weight") + D.p("15% of the course (CLO4). Report [70%] · presentation [30%] — lecturer to confirm.", 28), extra="flex:1"), align="stretch"),
-              row(D.card(D.h3("Deliverables") + D.ul(["Technical report, [10–15] pages: idealisation, mesh study, check, results, interpretation, limitations.", "Presentation, [10] minutes + questions, [date].", "Model files (.wbpj or archive) and the hand-check sheet."], 28, gap=6), extra="flex:1"),
-                  D.card(D.h3("Dates") + D.ul(["Today: groups formed, model plan drafted.", "ANSYS demo: bring your plan and start the model in the lab.", "[date]: report and presentation."], 28, gap=6), extra="flex:1"), align="stretch")),
-          notes="Confirm the bracketed items. The course information lists Project as 15% with project-based learning in groups on a truss, frame or 2D plane-stress case; 2D is required here because that is what the 2D sessions teach.")
+D.content("brief", "Block 5 · the brief", "One structure: ANSYS as the primary analysis, your own tool as the independent check",
+          col(row(D.card(D.h3("Task") + D.p("Model a 2D structure in ANSYS (plane stress or strain). Build and verify a small solver of your own — with generative AI if you wish — and use it to cross-check ANSYS. Interpret the results for design.", 26), extra="flex:1.5"),
+                  D.card(D.h3("Team") + D.p("Groups of [4–5]. One repository and one report per group, with a line on who did what.", 26), extra="flex:1"),
+                  D.card(D.h3("Weight") + D.p("15% of the course (CLO4), marked by the rubric two slides on.", 26), extra="flex:1"), align="stretch"),
+              row(D.card(D.h3("Deliverables") + D.ul(["Report, at most 15 pages: idealisation, convergence, Gates 1–3 evidence, interpretation, limits.", "The tool: GitHub repository and Pages link; README with verification table, limits, licence.",
+                                                       "GenAI log and one-page reflection; ANSYS files; hand-check sheet."], 25, gap=6), extra="flex:1.4"),
+                  D.card(D.h3("Dates") + D.ul(["Today: groups formed, Gate 0 plan handed in.", "ANSYS demo: Gate 1 shown; ANSYS model started.", "[date]: Gates 2–5, report, demo and individual viva (≈ 20 min per group)."], 25, gap=6), extra="flex:1"), align="stretch")),
+          notes="ANSYS stays the primary analysis: the course outcome is FE with software. The group's own solver is there to check it, and to teach verification: a tool written with AI is only trusted after it passes the gates. "
+                "Students may start from the course Python code (MIT) or from AI-written code; they say which in the README. Announce the group size and the dates.")
+
+gates = [("0", "Plan", "Before any code: structure, idealisation, quantities to report, checks and tolerances, repository name.", "today"),
+         ("1", "Core solver", "One element against a hand value of [k]; patch test exact to round-off; ΣR = the physical load.", "ANSYS demo"),
+         ("2", "Known solution", "Converges to Timoshenko (the course cantilever) or Kirsch (plate with a hole), with the observed order.", "[date]"),
+         ("3", "ANSYS cross-check", "Your structure in both: same idealisation, comparable mesh; every difference above tolerance explained.", "[date]"),
+         ("4", "UI and deploy", "Runs from GitHub Pages; README states what it verifies and its limits.", "[date]"),
+         ("5", "Demo and viva", "Each member runs one gate live and explains the code and the numbers behind it.", "[date]")]
+D.content("gates", "Block 5 · stage gates", "Six gates, in order: the tool is trusted only after it passes them",
+          f'<div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:18px">'
+          + "".join(f'<div style="background:{WHITE};border:1px solid {HAIR};border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:8px;min-width:0">'
+                    f'<div style="display:flex;align-items:baseline;gap:14px"><p style="font-family:{SERIF};font-size:48px;font-weight:600;line-height:1;color:{MAROON}">{n}</p><p style="font-size:30px;font-weight:600;line-height:1.2;color:{DARK}">{t}</p></div>'
+                    f'<p style="font-size:25px;line-height:1.3;color:{BODY}">{d}</p><p style="font-size:22px;line-height:1.2;color:{MUTED}">{w}</p></div>' for n, t, d, w in gates) + "</div>"
+          + row(callout("Each gate proves one thing. A tension patch test never exercises the shear term; a wrong shear modulus passes it and is caught only at Gate 2.", "warn", 25),
+                callout("When the tool and ANSYS disagree, explain the difference. Never tune the tool until it matches.", "why", 25), align="stretch"),
+          notes="The gates are the verification ladder of Part 6, Notes §6. Gate 1 at the ANSYS demo is deliberately early: a solver that cannot reproduce one element and a patch test cannot check anything. "
+                "Gate 3 compares like with like: in ANSYS set PLANE182 to full integration to match a plain 4-node element, or compare converged values.")
 
 cands = [("Shear wall with openings", "Text Exercise 3.4: 5 m × 6 m, t = 0.2 m, 125 kN m⁻¹ on top, two openings. Plane stress. Check: cantilever beam + stress concentration at opening corners."),
          ("Deep beam or transfer girder", "Span-to-depth about 2; point or distributed load; supports on bearing pads. Plane stress. Check: beam theory for deflection, strut-and-tie for the stress path."),
@@ -261,14 +279,15 @@ D.content("candidates", "Block 5 · candidate structures", "Four families that f
           + row(figbox(D11.fig("fig_shearwall", height=110)), col(callout("Choose something with a known hand check. A structure you cannot check is a structure you cannot defend in the presentation.", "warn", 26), extra="flex:1"), align="center"),
           notes="Steer groups toward the first two: they map directly onto what was taught, and the checks are in this course. The dam needs plane strain — a good choice for a strong group.")
 
-D.content("rubric", "Block 5 · how it is marked", "Proposed rubric — lecturer to confirm weights",
-          col(table(["Criterion", "Weight", "Full marks look like", "Common failure"],
-                    [["Idealisation and modelling", "30%", "plane stress/strain justified; supports and loads realistic; units consistent; sketch of the model", "fixing edges that are free; point loads at a node; wrong thickness"],
-                     ["Verification", "30%", "three-mesh convergence table; one independent hand check with a signed difference", "single mesh; “results agree well” with no number"],
-                     ["Interpretation", "20%", "where the maximum is and why; what it means for the design; singularities identified and excluded", "quoting the corner peak as the design stress"],
-                     ["Report and presentation", "20%", "five-sentence results paragraph; labelled figures with units; questions answered with numbers", "screenshots without scales; reading slides aloud"]], [22, 10, 38, 30], 28),
-              callout("Sixty per cent of the marks are for modelling decisions and verification — not for the colour plots. A plain model that is checked beats an elaborate one that is not.", "why", 26)),
-          notes="The rubric is proposed; adjust the weights to the faculty template. The right-hand column tells students exactly what loses marks.")
+D.content("rubric", "Block 5 · how it is marked", "Five components; the viva carries a quarter of the marks",
+          col(table(["Component", "Marks", "Full marks look like", "Common failure"],
+                    [["Verification and ANSYS cross-check (Gates 1–3)", "35", "the Gate 1–2 checks with numbers; ANSYS convergence table; tool vs ANSYS with signed differences, each above tolerance explained", "one passed test taken as proof; a tool tuned until it matches"],
+                     ["Interpretation", "20", "where the maximum is and why; what it means for the design; singularities identified and excluded", "quoting the corner peak; “results agree well”"],
+                     ["Demonstration and individual viva (Gate 5)", "25", "each member runs a gate live and explains [B], assembly or a number on request", "one member answers for all; “the AI wrote that part”"],
+                     ["UI, deployment and repository (Gate 4)", "10", "runs from GitHub Pages; README with verification table, limits, licence", "screenshots instead of a working link"],
+                     ["GenAI log and reflection", "10", "prompts; what was accepted and rejected; which gate caught which AI error", "a log written after the event"]], [24, 9, 40, 27], 25),
+              callout("Sixty marks (verification 35, viva 25) need you to understand the numbers. A plain tool that is verified beats a polished one that is not.", "why", 26)),
+          notes="A tool nobody in the group can explain earns no verification marks: the viva protects the 35. The GenAI log is marked for honesty about what was rejected, not for the number of prompts.")
 
 D.content("workflow", "Block 5 · the modelling workflow", "Eight steps; the project report follows the same order",
           f'<div style="display:grid;grid-template-columns:repeat(8, 1fr);gap:12px">'
@@ -290,11 +309,11 @@ D.content("w13-symmetry", "Block 5 · two modelling tips for the project", "Use 
           notes="Two habits that save the project marks: exploit symmetry (a quarter model is four times smaller and the cut edges get rollers), and never report the stress under a concentrated load. "
                 "The SfePy primer builds this quarter model in Gmsh and applies the symmetry conditions as zero normal displacement on the cut edges.")
 
-D.activity("act5", 5, 12, "groups · planning", "Draft your model plan on one page",
-           D.card(D.h3("Write, as a group") + D.ul(["The structure, with a sketch and dimensions; the source of the geometry and loads.", "Idealisation: plane stress or plane strain, thickness, material (E, ν, units).",
-                                                    "Supports and loads, each one justified in a few words.", "The quantity you will report (deflection? stress where?) and the hand check you will use.", "Three mesh sizes you will run."], 29, gap=8), extra="width:1060px"),
+D.activity("act5", 5, 12, "groups · planning", "Gate 0: your plan on one page",
+           D.card(D.h3("Write, as a group") + D.ul(["The structure, with a sketch and dimensions; the source of the geometry and loads.", "Idealisation: plane stress or plane strain, thickness, material (E, ν, units); supports and loads, each justified.",
+                                                    "The quantities you will report, the hand check for ANSYS, and three mesh sizes.", "Your tool: the Gate 1–2 tests and the tolerances that count as agreement.", "The repository name, and who leads which gate."], 28, gap=8), extra="width:1060px"),
            col(callout("Lecturers circulate. A plan with a fixed edge that should be free, or no hand check, is sent back now rather than in the report.", "warn", 26),
-               callout("Hand in the plan at the end; it comes back with comments at the ANSYS session.", "ok", 26), extra="flex:1"),
+               callout("Hand in the plan at the end; it comes back with comments at the ANSYS session, where Gate 1 is shown.", "ok", 26), extra="flex:1"),
            "12 minutes. Hand in before you leave.",
            notes="Use the time to visit every group once. The two questions to ask: what is your hand check, and what is free and what is fixed.")
 
@@ -320,14 +339,14 @@ D.activity("exit", 6, 5, "individual · exit ticket", "Three questions before yo
            "Five minutes. Name and matric number; for feedback, not marks.",
            notes="Answers: (1) locate and take local nodal displacements → [B]{û} → [E]{ε}. (2) Do not report it; it is a singularity — refine to show it diverges, report stresses away from the corner or model the support realistically. (3) Q8: quadratic edges avoid shear locking; fewer elements for the same accuracy.")
 
-D.content("summary", "Wrap-up · before the ANSYS session", "Bring the model plan, the two textbook examples and a laptop with ANSYS access",
+D.content("summary", "Wrap-up · before the ANSYS session", "Bring the Gate 0 plan, the two textbook examples and a laptop with ANSYS access",
           two_col(D.card(D.h3("Today in four lines") + D.ul(["{σ} = [E][B]{û}: two products; use centroid values on converged meshes.", "Stresses converge slower than displacements; fixed corners and point loads are singular.",
                                                               "Q8: quadratic edges, 1/6–2/3–1/6 loads, far fewer elements for the same error.", "A results section = idealisation + convergence table + one check + numbers."], 28, gap=10)),
                   col(D.card(D.h3("Before the ANSYS demo") + D.ul(["Install or confirm access to ANSYS Student / Workbench; bring a laptop.", "Re-read Heat Transfer Part 2 §2.3 and Plane Stress Part 2 §3.4: we rebuild both in ANSYS and compare.",
-                                                            "Finish the group model plan if it was returned with comments."], 28, gap=10)),
+                                                            "Gate 1 of your tool: one element, the patch test and ΣR, ready to show."], 28, gap=10)),
                       D.p("Questions: arazin@utm.my · Office M50-02-29", 26, MUTED)),
                   lw=940),
-          notes="Close on time. Collect the model plans and the exit tickets.")
+          notes="Close on time. Collect the Gate 0 plans and the exit tickets.")
 
 order = D.write("2026-10-26T16:55:00Z")
 print(len(order), "slides:", order)

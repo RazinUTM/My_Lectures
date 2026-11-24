@@ -1,5 +1,7 @@
-node_modules/
+node_modules
 __pycache__/
 mj/test_out/
 mj/labs/shots/
 mj/labs/out/
+mj/deck_*/_*.png
+mj/deck_*/_preview.html

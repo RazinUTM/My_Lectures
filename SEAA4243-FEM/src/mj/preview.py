@@ -19,7 +19,7 @@ table{border-collapse:collapse;width:100%} td,th{border:1px solid #ddd;padding:0
 x-shape[kind=arrow-right]{display:block;clip-path:polygon(0 25%,60% 25%,60% 0,100% 50%,60% 100%,60% 75%,0 75%)} img{display:block} svg{display:block}'''
 sys.path.insert(0, str(pathlib.Path(__file__).parent)); from fontcss import font_css; css=font_css()+css
 html=f'<html><head><style>{css}</style></head><body>'+''.join(secs)+'</body></html>'
-(root/'_preview.html').write_text(html)
+(root/'_preview.html').write_text(html.replace('<html><head>', '<html><head><meta charset="utf-8">', 1))
 with sync_playwright() as p:
     b=p.chromium.launch(); pg=b.new_page(viewport={'width':1920,'height':1080}); pg.goto('file://'+str(root/'_preview.html')); pg.wait_for_timeout(500); pg.evaluate('document.fonts.ready')
     pg.screenshot(path=str(root/'_full.png'), full_page=True); b.close()

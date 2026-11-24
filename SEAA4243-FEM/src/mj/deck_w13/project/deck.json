@@ -37,6 +37,7 @@
   "act4",
   "d5",
   "brief",
+  "gates",
   "candidates",
   "rubric",
   "workflow",
@@ -69,7 +70,7 @@
    "start": "d4"
   },
   "s6": {
-   "description": "Block 5: the group project brief, candidate structures, deliverables, rubric, timeline and the in-class model plan",
+   "description": "Block 5: the hybrid group project: brief, stage gates, candidate structures, rubric, workflow and the Gate 0 plan drafted in class",
    "start": "d5"
   },
   "s7": {

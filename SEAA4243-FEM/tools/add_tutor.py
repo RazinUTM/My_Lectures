@@ -3,7 +3,7 @@
 # Copyright (c) 2026 Ahmad Razin Zainal Abidin and Universiti Teknologi Malaysia
 """Add Dr RJ (the guide panel of the T&L app template) to SEAA 4243 part pages, and write their tutor files.
 
-What: for each part page given (all five by default), this script
+What: for each part page given (all six by default), this script
   1. writes the files the rz-tutor Worker and the offline guide read, from the page itself:
      <part>/tutor/manifest.json, blocks-<pk>.json and content-<pk>.txt (with their .ms twins, the page as it
      reads in Bahasa Melayu), and tutor/course.json for the course, rebuilt from every part's manifest
@@ -20,7 +20,7 @@ no address in that file, Dr RJ is in offline mode: he points to the matching sec
 typed leaves the browser.
 
 How to call it, from the course folder (needs beautifulsoup4 and lxml):
-  python3 tools/add_tutor.py                      all five parts
+  python3 tools/add_tutor.py                      all six parts
   python3 tools/add_tutor.py 03-plane-stress-1    one part
 
 Why it is like this: the part pages are generated (src/build.sh runs the page builder, then this script), so the
@@ -40,7 +40,7 @@ tools = course / "tools" / "rz-tutor" / "tools"
 
 APP = "seaa4243"
 PARTS = {"01-heat-transfer-1": "p1", "02-heat-transfer-2": "p2", "03-plane-stress-1": "p3",
-         "04-plane-stress-2": "p4", "05-plane-stress-3": "p5"}
+         "04-plane-stress-2": "p4", "05-plane-stress-3": "p5", "06-ansys-demo": "p6"}
 CSS = ":root{--rz-top:86px}"                      # height of the sticky tab bar and progress line (.navwrap), as on SEAA 4333
 HOOKS = []                                        # the engine exposes window.RZ and window.RZ_AVS itself (since 24 Nov 2026)
 

@@ -55,18 +55,24 @@ switch = "".join(
     (f'<a href="../{p[1]}/index.html"' + (' aria-current="page"' if p[0] == PART["n"] else "") + f'>{partlabel(p)}</a>') if p[5]
     else f'<span class="off" title="coming">{partlabel(p)}</span>' for p in sibs)
 
+# the h1 mutes the part label ("Plane Stress — Part 1"); a one-part topic ("ANSYS Demo — Hand ...") keeps the short name only
+_t1, _, _t2 = PART["title"].partition(" — ")
+h1_html = f'{_t1} <span class="lab">— {_t2}</span>' if _t2.startswith("Part") else _t1
+_pl = PART["part"].split(" ·")[0]
+crumb_cur = f'{PART["topic"][0]}, {_pl}' if _pl.startswith("Part") else f'{PART["topic"][0]} {_pl}'
+
 # ---- header + nav (T&L app template, as on the SEAA 4333 Units) -----------------
 head = f'''
 <div class="wrap">
 <header class="top" id="hdr">
   <div class="hrow">
-    {crumbs("../index.html", PART["topic"][0] + ", " + PART["part"].split(" ·")[0])}
+    {crumbs("../index.html", crumb_cur)}
     {CONTACT}
   </div>
   <div class="hmain">
     <div class="htitle">
       {KICKER}
-      {fold_h1(PART["title"].replace(" — ", ' <span class="lab">— ') + "</span>" if " — " in PART["title"] else PART["title"])}
+      {fold_h1(h1_html)}
       <p class="sub" id="hsub">{B(*PART["sub"])}</p>
     </div>
     <div class="tools">

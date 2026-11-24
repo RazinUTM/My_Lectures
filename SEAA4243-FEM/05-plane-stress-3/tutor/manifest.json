@@ -13,7 +13,7 @@
    "n5",
    "n6"
   ],
-  "slides": 39,
+  "slides": 40,
   "examples": [
    "z1",
    "z2",
@@ -286,71 +286,78 @@
    "id": "slides-30",
    "view": "slides",
    "anchor": "30",
-   "title_en": "Slide 30: One real structure, one FE model, one verified answer, one report, one presentation",
-   "title_ms": "Slide 30: One real structure, one FE model, one verified answer, one report, one presentation"
+   "title_en": "Slide 30: One structure: ANSYS as the primary analysis, your own tool as the independent check",
+   "title_ms": "Slide 30: One structure: ANSYS as the primary analysis, your own tool as the independent check"
   },
   {
    "id": "slides-31",
    "view": "slides",
    "anchor": "31",
-   "title_en": "Slide 31: Four families that fit the course; propose your own if it is 2D and checkable",
-   "title_ms": "Slide 31: Four families that fit the course; propose your own if it is 2D and checkable"
+   "title_en": "Slide 31: Six gates, in order: the tool is trusted only after it passes them",
+   "title_ms": "Slide 31: Six gates, in order: the tool is trusted only after it passes them"
   },
   {
    "id": "slides-32",
    "view": "slides",
    "anchor": "32",
-   "title_en": "Slide 32: Proposed rubric — lecturer to confirm weights",
-   "title_ms": "Slide 32: Proposed rubric — lecturer to confirm weights"
+   "title_en": "Slide 32: Four families that fit the course; propose your own if it is 2D and checkable",
+   "title_ms": "Slide 32: Four families that fit the course; propose your own if it is 2D and checkable"
   },
   {
    "id": "slides-33",
    "view": "slides",
    "anchor": "33",
-   "title_en": "Slide 33: Eight steps; the project report follows the same order",
-   "title_ms": "Slide 33: Eight steps; the project report follows the same order"
+   "title_en": "Slide 33: Five components; the viva carries a quarter of the marks",
+   "title_ms": "Slide 33: Five components; the viva carries a quarter of the marks"
   },
   {
    "id": "slides-34",
    "view": "slides",
    "anchor": "34",
-   "title_en": "Slide 34: Use symmetry, and do not read stresses under a point load",
-   "title_ms": "Slide 34: Use symmetry, and do not read stresses under a point load"
+   "title_en": "Slide 34: Eight steps; the project report follows the same order",
+   "title_ms": "Slide 34: Eight steps; the project report follows the same order"
   },
   {
    "id": "slides-35",
    "view": "slides",
    "anchor": "35",
-   "title_en": "Slide 35: Draft your model plan on one page",
-   "title_ms": "Slide 35: Draft your model plan on one page"
+   "title_en": "Slide 35: Use symmetry, and do not read stresses under a point load",
+   "title_ms": "Slide 35: Use symmetry, and do not read stresses under a point load"
   },
   {
    "id": "slides-36",
    "view": "slides",
    "anchor": "36",
-   "title_en": "Slide 36: Wrap-up",
-   "title_ms": "Slide 36: Wrap-up"
+   "title_en": "Slide 36: Gate 0: your plan on one page",
+   "title_ms": "Slide 36: Gate 0: your plan on one page"
   },
   {
    "id": "slides-37",
    "view": "slides",
    "anchor": "37",
-   "title_en": "Slide 37: From equilibrium to a verified stress",
-   "title_ms": "Slide 37: From equilibrium to a verified stress"
+   "title_en": "Slide 37: Wrap-up",
+   "title_ms": "Slide 37: Wrap-up"
   },
   {
    "id": "slides-38",
    "view": "slides",
    "anchor": "38",
-   "title_en": "Slide 38: Three questions before you leave",
-   "title_ms": "Slide 38: Three questions before you leave"
+   "title_en": "Slide 38: From equilibrium to a verified stress",
+   "title_ms": "Slide 38: From equilibrium to a verified stress"
   },
   {
    "id": "slides-39",
    "view": "slides",
    "anchor": "39",
-   "title_en": "Slide 39: Bring the model plan, the two textbook examples and a laptop with ANSYS access",
-   "title_ms": "Slide 39: Bring the model plan, the two textbook examples and a laptop with ANSYS access"
+   "title_en": "Slide 39: Three questions before you leave",
+   "title_ms": "Slide 39: Three questions before you leave"
+  },
+  {
+   "id": "slides-40",
+   "view": "slides",
+   "anchor": "40",
+   "title_en": "Slide 40: Bring the Gate 0 plan, the two textbook examples and a laptop with ANSYS access",
+   "title_ms": "Slide 40: Bring the Gate 0 plan, the two textbook examples and a laptop with ANSYS access"
   },
   {
    "id": "examples-z1",

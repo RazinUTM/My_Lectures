@@ -196,13 +196,13 @@ D.activity("act3", 3, 10, "groups · mesh study", "Run the mesh study and write 
            col(D.card(D.h3("Change between meshes") + D.p("(v<sub>fine</sub> − v<sub>coarse</sub>) / v<sub>fine</sub> × 100%", 28) + D.p("Report the first mesh after which the change is below your tolerance (say 2%).", 24, MUTED)),
                callout("Mesh → Statistics shows nodes and elements. Dofs = 2 × nodes for plane stress.", "ok", 24), extra="flex:1"),
            "10 minutes. One group reads out its table.",
-           notes="Expected (course solver, quadratic): 0.178, 0.1885, 0.1906, 0.1913 m; changes 5.6%, 1.1%, 0.4%. Linear 8 × 4: 0.182 (course solver). Report the 8 × 4 or 16 × 8 quadratic mesh: change below 1%. "
+           notes="Expected (course solver, quadratic): 0.178, 0.1885, 0.1906, 0.1913 m; changes 5.6%, 1.1%, 0.35%. Linear 8 × 4: 0.182 (course solver). Report the 8 × 4 or 16 × 8 quadratic mesh: change below 1%. "
                  "Reaction must read +10 000 N on every mesh — it is independent of refinement.")
 
-D.content("act3-reveal", "Activity 3 · solution", "Converged to within 0.4% at 8 × 4 quadratic; the linear element needs 16 × 8 for the same",
+D.content("act3-reveal", "Activity 3 · solution", "Converged to within 0.35% at 8 × 4 quadratic; the linear element needs 16 × 8 for the same",
           col(table(["Quadratic mesh", "Nodes", "Dofs", "v<sub>tip</sub> (m)", "Change from previous", "Reaction R<sub>y</sub> (N)"],
-                    [["2 × 1", "13", "26", "−0.178", "—", "+10 000"], ["4 × 2", "37", "74", "−0.189", "5.6%", "+10 000"], ["8 × 4", "121", "242", "−0.191", "1.1%", "+10 000"], ["16 × 8", "433", "866", "−0.191", "0.4%", "+10 000"]], [22, 12, 12, 18, 20, 16], 26),
-              row(callout("Report the 8 × 4 quadratic mesh (or finer); say so in one sentence with the 0.4%. Timoshenko 0.192 m is the independent check: 0.5% away.", "ok", 26),
+                    [["2 × 1", "13", "26", "−0.178", "—", "+10 000"], ["4 × 2", "37", "74", "−0.189", "5.6%", "+10 000"], ["8 × 4", "121", "242", "−0.191", "1.1%", "+10 000"], ["16 × 8", "433", "866", "−0.191", "0.35%", "+10 000"]], [22, 12, 12, 18, 20, 16], 26),
+              row(callout("Report the 8 × 4 quadratic mesh (or finer); say so in one sentence with the 0.35%. Timoshenko 0.192 m is the independent check: 0.7% away.", "ok", 26),
                   callout("The reaction never changes with the mesh: equilibrium is exact for any mesh. It checks the loads and supports, not the accuracy.", "why", 26), align="stretch")),
           notes="Values are from the course Q8 solver; the groups’ ANSYS values should be within about 1% of these. Then break.")
 
@@ -238,15 +238,15 @@ D.content("reaction", "Block 4 · the first check is always the reaction", "Befo
 
 D.content("wrong", "Block 4 · four wrong models, each a one-field change", "Four mistakes, four signatures (course-solver numbers, 32 × 16 mesh)",
           col(img(WRONG, "Four deliberately wrong versions of the cantilever model: plane strain instead of plane stress, a force on a single vertex, a support that fixes only the vertical direction, and a thickness left at its default", 1100, 250),
-              table(["Mistake", "Symptom in the results", "Why"], [["(a) 2D Behavior: Plane Strain", "tip 0.171 m, not 0.191 m (−10%)", "stiffer [E]: ratio ≈ 1 − ν² = 0.89"], ["(b) Force on the top-right vertex", "tip node 0.230 m (+20%); von Mises under the load 10×; mid-span unchanged", "point load = singularity; St-Venant"],
+              table(["Mistake", "Symptom in the results", "Why"], [["(a) 2D Behavior: Plane Strain", "tip 0.172 m, not 0.191 m (−10%)", "stiffer [E]: ratio ≈ 1 − ν² = 0.89"], ["(b) Force on the top-right vertex", "tip node 0.230 m (+20%); von Mises under the load 10×; mid-span unchanged", "point load = singularity; St-Venant"],
                                                                  ["(c) Displacement Y = 0 only", "rigid-body warning; weak springs; huge x-displacement", "nothing stops translation in x"], ["(d) Thickness left at default", "tip 0.0019 m for t = 1 m: a clean factor of 100", "v ∝ 1/t"]], [28, 46, 26], 25)),
-          notes="Numbers: plane strain 32 × 16 Q4 solver 0.1712 m; point load Q8 32 × 16: v = 0.2298 at the loaded node, 0.1874 at mid-depth, element under the load σ_vM 5353 vs 523 kN/m² with the edge traction, mid-span top element σ_x 2924 vs 2900. "
+          notes="Numbers: plane strain 32 × 16: Q8 0.1722 m (Q4 0.1712 m); point load Q8 32 × 16: v = 0.2298 at the loaded node, 0.1874 at mid-depth, element under the load σ_vM 5353 vs 523 kN/m² with the edge traction, mid-span top element σ_x 2924 vs 2900. "
                 "(c) Mechanical offers to add weak springs; the warning is the lesson. (d) If the thickness is not set, check what the lab version assumes; the scaling argument holds whatever the default.")
 
 D.activity("act4", 4, 8, "pairs · diagnosis", "Spot the wrong model from its numbers",
            D.card(D.h3("Four runs of the cantilever, 32 × 16 quadratic") + table(["Run", "Reaction Y (N)", "Tip v (m)", "Max von Mises (kN m⁻²)", "Note"],
                                                                                   [["A", "+10 000", "−0.0019", "at the fixed corner", ""], ["B", "+10 000", "−0.230", "at the top-right vertex", "mid-span stresses normal"],
-                                                                                   ["C", "+10 000", "−0.171", "at the fixed corner", "σ<sub>zz</sub> ≠ 0 in the results"], ["D", "+10 000", "−0.191", "at the fixed corner", "warning: 1 rigid-body mode"]], [10, 22, 18, 28, 22], 25), extra="width:1120px"),
+                                                                                   ["C", "+10 000", "−0.172", "at the fixed corner", "σ<sub>zz</sub> ≠ 0 in the results"], ["D", "+10 000", "−0.191", "at the fixed corner", "warning: 1 rigid-body mode"]], [10, 22, 18, 28, 22], 25), extra="width:1120px"),
            D.card(D.h3("For each run") + D.ul(["Which of the four mistakes (a)–(d), or none?", "One sentence of evidence.", "Is the corner maximum itself a mistake?"], 28, gap=10), extra="flex:1"),
            "8 minutes. Reveal follows.",
            notes="Answers: A → (d) thickness (factor 100); B → (b) vertex force (deflection +20%, max at the loaded vertex); C → (a) plane strain (−10%, σ_zz present); D → (c) under-constrained (rigid-body warning; the deflection may still look right once weak springs are added — the warning is the evidence). "
@@ -312,7 +312,7 @@ D.content("summary-hv", "Block 6 · hand calculation versus software, in one tab
 D.activity("exit", 6, 5, "individual · exit ticket", "Three questions before you leave",
            D.card(D.h3("Questions") + D.ul(["Your ANSYS reaction is +10 000 N but the tip deflection is 0.0019 m. What do you check first?",
                                             "Which display option gives the stress value closest to the centroid value you computed in Plane Stress Part 3?",
-                                            "Your mesh study shows 0.4% change between the last two meshes, but the maximum stress still rises 20%. Explain."], 30, gap=12), extra="width:1300px"),
+                                            "Your mesh study shows 0.35% change between the last two meshes, but the maximum stress still rises 18%. Explain."], 30, gap=12), extra="width:1300px"),
            None,
            "Five minutes. Name and matric number; for feedback, not marks.",
            notes="Answers: (1) thickness (and the unit system) — the reaction is right, so the load is right; a factor of 100 points at t. (2) Elemental Mean. (3) The deflection has converged; the maximum stress sits at the fixed corner, a singularity, and will keep rising — it is not a reportable value.")

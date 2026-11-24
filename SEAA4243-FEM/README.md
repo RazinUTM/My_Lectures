@@ -12,7 +12,7 @@ Website: <https://razinutm.github.io/My_Lectures/SEAA4243-FEM/>
 | Plane Stress, Part 1 | [`03-plane-stress-1/`](03-plane-stress-1/) | equilibrium, Hooke’s law (plane stress and plane strain), strain–displacement, boundary conditions, [N] |
 | Plane Stress, Part 2 | [`04-plane-stress-2/`](04-plane-stress-2/) | Galerkin, [B], the 8 × 8 [k], consistent loads, assembly, the cantilever solved and checked |
 | Plane Stress, Part 3 | [`05-plane-stress-3/`](05-plane-stress-3/) | stress recovery, principal and von Mises stresses, accuracy and singularities, the 8-node element, the project |
-| ANSYS demo | coming | the plate and the cantilever rebuilt in Workbench |
+| ANSYS demo | [`06-ansys-demo/`](06-ansys-demo/) | the plate and the cantilever rebuilt in Workbench, four wrong models, verification against validation and the stage gates of the project |
 
 The pages follow the lecturer's T&L app template, the same as the SEAA 4333 Units: a header with the
 way back (For My Students › My Lectures › SEAA 4243 › part), the lecturer's email, a foldable

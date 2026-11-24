@@ -210,13 +210,13 @@ COURSE_PARTS = [
     (3, "03-plane-stress-1", "Plane Stress", "Part 1 of 3", ("Equilibrium, Hooke, strain–displacement, the PDE in matrix form, boundary conditions, [N] with two dofs per node.", "Equilibrium, Hooke, strain–displacement, PDE dalam bentuk matrix, boundary condition, [N] dengan dua dof setiap node."), True),
     (4, "04-plane-stress-2", "Plane Stress", "Part 2 of 3", ("[B], the 8 × 8 [k], consistent loads, assembly by dof map, the cantilever solved and refined.", "[B], [k] 8 × 8, consistent load, assembly mengikut dof map, cantilever diselesaikan dan di-refine."), True),
     (5, "05-plane-stress-3", "Plane Stress", "Part 3 of 3 · Project", ("Stress recovery, principal stresses, convergence and singularities, the 8-node element, reporting; project briefing.", "Stress recovery, principal stress, convergence dan singularity, 8-node element, pelaporan; taklimat projek."), True),
-    (6, "06-ansys-demo", "ANSYS", "Demo", ("Hand calculation versus software: the plate and the cantilever rebuilt in Workbench, reaction checks, wrong models.", "Pengiraan tangan berbanding perisian: plat dan cantilever dibina semula dalam Workbench, semakan reaction, model yang salah."), False),
+    (6, "06-ansys-demo", "ANSYS", "Demo", ("Hand calculation versus software: the plate and the cantilever rebuilt in Workbench, reaction checks, wrong models.", "Pengiraan tangan berbanding perisian: plat dan cantilever dibina semula dalam Workbench, semakan reaction, model yang salah."),True),
 ]
 # (id, name, home blurb pair, where it is used pair, code pack id)
 EXPLORERS = [
     ("shape", "Shape Function Explorer", ("N<sub>1</sub>…N<sub>8</sub> as colour maps; drag a point and read the weights.", "N<sub>1</sub>…N<sub>8</sub> sebagai peta warna; seret satu titik dan baca nilai N<sub>i</sub>."), ("Heat Transfer · Part 1", "Heat Transfer · Part 1"), "shape"),
     ("heat", "Heat Conduction Explorer", ("The 1 m plate solved live: edit edges and mesh, probe, energy balance, mesh study.", "Plat 1 m diselesaikan secara langsung: ubah tepi dan mesh, probe, energy balance, kajian mesh."), ("Heat Transfer · Part 2", "Heat Transfer · Part 2"), "heat"),
-    ("cant", "Cantilever Explorer", ("Q4 and Q8 meshes of the cantilever: tip deflection, reactions, convergence.", "Mesh Q4 dan Q8 bagi cantilever: tip deflection, reaction, convergence."), ("Plane Stress · Parts 1–2", "Plane Stress · Part 1–2"), "ps"),
+    ("cant", "Cantilever Explorer", ("Q4 and Q8 meshes of the cantilever: tip deflection, reactions, convergence.", "Mesh Q4 dan Q8 bagi cantilever: tip deflection, reaction, convergence."), ("Plane Stress · Parts 1–2 · ANSYS demo", "Plane Stress · Part 1–2 · Demo ANSYS"), "ps"),
     ("stress", "Stress Recovery Explorer", ("Stresses from displacements: unaveraged, averaged, principal, Mohr’s circle, the corner singularity.", "Stress daripada displacement: unaveraged, averaged, principal, Mohr’s circle, singularity di bucu."), ("Plane Stress · Part 3", "Plane Stress · Part 3"), "ps"),
 ]
 

@@ -39,11 +39,17 @@ SEAA4243-FEM/
 ├── tutor/                    course.json and extra/ for Dr RJ (each part folder has its own tutor/)
 ├── tools/                    add_tutor.py and the pinned rz-tutor panel and feedback code
 ├── src/                      the sources the pages are built from (see src/README.md)
-└── shared/                   course.css and course.js, the engine the pages inline; avatar/; tutor_endpoint.txt; whats_new.txt
+└── shared/                   course.css and course.js, the engine the pages inline; annotate.js, the annotation toolbar; avatar/; tutor_endpoint.txt; whats_new.txt
 ```
 
 Progress, language, theme and text size are kept in the student's own browser
 (localStorage); the course home can export and import it.
+
+Every page has a pencil button at the bottom right: the annotation toolbar, for writing on the screen while
+teaching (four pens, line thickness, eraser, clear all; mouse, touch or pen). While it is on, the page cannot
+be clicked or scrolled; Esc or the pencil turns it off. What is written stays only while the page is open and
+is never stored or sent; the browser remembers only the pen and where the toolbar was put (`rz-annotate`).
+The code is one file, `shared/annotate.js`: the source of record for the lecturer's other courses, which carry a copy.
 
 ## Dr RJ, the guide panel
 

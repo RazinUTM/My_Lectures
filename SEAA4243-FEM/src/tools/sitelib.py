@@ -350,6 +350,7 @@ def slides_block(deck_dir, blob_map, img_out, img_rel="slides/img"):
 # ---- page --------------------------------------------------------------------
 def page(cfg, body, head_extra="", script_extra=""):
     css = (SHARED / "course.css").read_text(); js = (SHARED / "course.js").read_text()
+    annot = (SHARED / "annotate.js").read_text()        # the annotation toolbar: its own script, after the engine
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -373,6 +374,8 @@ def page(cfg, body, head_extra="", script_extra=""):
 {js}
 </script>
 {script_extra}
+<script>
+{annot}</script>
 </body>
 </html>
 """

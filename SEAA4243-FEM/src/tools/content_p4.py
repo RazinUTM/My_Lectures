@@ -1,7 +1,7 @@
 """Content of Plane Stress Part 2 (site part 4): Galerkin for the vector field, [B], the 8 x 8 [k],
 nodal loads, assembly with two dofs per node, the cantilever solved and checked.
 Numbers are those of deck W12 and the text, recomputed with fe_plane_stress.py (see functest_p4.py)."""
-from sitelib import B, P, LI, OL, H3, DEF, NOTE, OK, STEP, KP, SB, XSTEP, ANS, CHK, PLAN, PIC, INTERP, SCHEME
+from sitelib import B, P, LI, OL, H3, DEF, NOTE, OK, STEP, KP, TRY, SB, XSTEP, ANS, CHK, PLAN, PIC, INTERP, SCHEME
 from sitelib import QC as _QC
 from content_p1 import MCQ as _MCQ
 
@@ -201,6 +201,7 @@ def notes(A):
                + A.eq("r_R", "(3.47)")
                + P("The six entries B<sub>i</sub> at the fixed dofs 1, 2, 7, 8, 13 and 14 are the unknown support reactions. The total applied load is −10 000 N, which the reactions must balance.",
                    "Enam entri B<sub>i</sub> pada dof fixed 1, 2, 7, 8, 13 dan 14 ialah support reaction yang tidak diketahui. Jumlah load yang dikenakan ialah −10 000 N, yang mesti diimbangi oleh reaction."))
+        + TRY("point")
         + KP([("Uniform edge load: p ℓ/2 at each of the two edge nodes, only in the dofs of its direction.", "Edge load seragam: p ℓ/2 pada setiap satu daripada dua node tepi, hanya pada dof arahnya."),
               ("Linearly varying: ℓ(2p<sub>i</sub> + p<sub>j</sub>)/6 and ℓ(p<sub>i</sub> + 2p<sub>j</sub>)/6; self-weight: γtab/4 in each v-dof.", "Berubah secara linear: ℓ(2p<sub>i</sub> + p<sub>j</sub>)/6 dan ℓ(p<sub>i</sub> + 2p<sub>j</sub>)/6; self-weight: γtab/4 pada setiap dof v."),
               ("Cantilever: R<sub>6</sub> = R<sub>18</sub> = −2500 N, R<sub>12</sub> = −5000 N; six unknown reactions.", "Cantilever: R<sub>6</sub> = R<sub>18</sub> = −2500 N, R<sub>12</sub> = −5000 N; enam reaction yang tidak diketahui.")])
@@ -249,6 +250,7 @@ def notes(A):
         + SB(P("Evaluate the struck rows, [K]{U} − {R}, at the six fixed dofs. Their sum must balance the applied load and their moment must balance its moment about the fixed edge. The 2 × 2 mesh gives exactly these values, as every correct model must, whatever its mesh:",
                "Nilaikan baris yang dibuang, [K]{U} − {R}, pada enam dof fixed. Jumlahnya mesti mengimbangi load yang dikenakan dan momennya mesti mengimbangi momen load itu terhadap tepi fixed. Mesh 2 × 2 memberi nilai ini dengan tepat, seperti yang mesti diberi oleh setiap model yang betul, tanpa mengira mesh-nya:"))
         + A.eq("v0_react")
+        + TRY("book22")
         + KP([("Dof map: node n → 2n − 1, 2n; scatter-add 8 × 8 blocks; K<sub>ii</sub> collects s<sub>1</sub> (or s<sub>9</sub>) once per element at the node.", "Dof map: node n → 2n − 1, 2n; scatter-add blok 8 × 8; K<sub>ii</sub> mengumpul s<sub>1</sub> (atau s<sub>9</sub>) sekali bagi setiap element pada node itu."),
               ("Six fixed dofs struck → 12 × 12; tip v = −0.1306 m.", "Enam dof fixed dibuang → 12 × 12; v hujung = −0.1306 m."),
               ("Reactions: ΣR<sub>y</sub> = +10 kN, moment 40 kN·m about the fixed edge.", "Reaction: ΣR<sub>y</sub> = +10 kN, momen 40 kN·m terhadap tepi fixed.")])
@@ -307,6 +309,7 @@ def notes(A):
                  ("Loads in the v-dofs of the loaded edge; six fixed dofs instead of fixed temperatures. The solve line is unchanged.", "Load pada dof v tepi yang dibebankan; enam dof fixed menggantikan temperature tetap. Baris penyelesaian tidak berubah.")]))
         + P("The Python version, fe_plane_stress.py, is in the Explorer tab; it builds [k] by Gauss quadrature, reproduces (3.49) and runs the convergence study above.",
             "Versi Python, fe_plane_stress.py, ada dalam tab Explorer; ia membina [k] melalui Gauss quadrature, menghasilkan semula (3.49) dan menjalankan kajian convergence di atas.")
+        + TRY("layouts study")
         + KP([("Two independent checks: beam theory (0.192 m) and mesh refinement; plus the reactions.", "Dua semakan bebas: beam theory (0.192 m) dan mesh refinement; serta reaction."),
               ("The 2 × 2 Q4 mesh is 32% too stiff: straight-sided elements lock in bending.", "Mesh Q4 2 × 2 terlalu stiff sebanyak 32%: element bertepi lurus mengalami locking dalam lenturan."),
               ("About 32 elements along the length for 1%; elements long in the bending direction lock most.", "Kira-kira 32 element sepanjang panjangnya untuk 1%; element yang panjang dalam arah lenturan paling teruk locking.")])

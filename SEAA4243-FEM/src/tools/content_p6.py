@@ -4,7 +4,7 @@ model, and verification against validation with the stage gates of the hybrid pr
 Every number was recomputed with SEAA4243-FEM/code/fe_heat_q4.py and fe_plane_stress.py; the patch test of Example 4
 with a small independent assembly that calls fe_plane_stress.element_stiffness. ANSYS values are never quoted as
 measured: the page gives the predictions a correct run must reproduce, and says where Mechanical may differ."""
-from sitelib import B, P, LI, OL, H3, DEF, NOTE, OK, STEP, KP, QC, SB, XSTEP, ANS, CHK, PLAN, PIC, INTERP, SCHEME
+from sitelib import B, P, LI, OL, H3, DEF, NOTE, OK, STEP, KP, TRY, QC, SB, XSTEP, ANS, CHK, PLAN, PIC, INTERP, SCHEME
 from content_p1 import MCQ
 import re
 
@@ -184,6 +184,7 @@ def notes(A):
              "Laporkan mesh pertama yang selepasnya perubahan jatuh di bawah toleransi anda. Pada 1%: mesh quadratic 8 × 4, kerana refine seterusnya hanya mengubah deflection sebanyak 0.35%; ia 0.7% di bawah Timoshenko, dan 16 × 8 0.35% di bawah. Nyatakan dalam satu ayat dengan kedua-dua nombor.")
         + SB(P("The reaction column never changes: equilibrium holds exactly for every mesh, because the struck rows of [K]{U} − {R} balance the applied loads whatever the displacements. A reaction checks the loads and the supports; it says nothing about accuracy.",
                "Lajur reaction tidak pernah berubah: keseimbangan tepat bagi setiap mesh, kerana baris yang dibuang [K]{U} − {R} mengimbangi load yang dikenakan tanpa mengira displacement. Reaction menyemak load dan support; ia tidak memberitahu apa-apa tentang ketepatan."))
+        + TRY("book22 study")
         + KP([("Linear 2 × 2 = the hand calculation (0.1306 m) when the element is the textbook Q4; quadratic 2 × 1 already gives 0.1780 m.", "Linear 2 × 2 = pengiraan tangan (0.1306 m) apabila element ialah Q4 buku teks; quadratic 2 × 1 sudah memberi 0.1780 m."),
               ("Quadratic study: changes 5.57%, 1.12%, 0.35%; report 8 × 4 or finer; Timoshenko 0.1919 m.", "Kajian quadratic: perubahan 5.57%, 1.12%, 0.35%; laporkan 8 × 4 atau lebih halus; Timoshenko 0.1919 m."),
               ("R<sub>y</sub> = +10 000 N and M = 40 000 N m on every mesh: the first number to read.", "R<sub>y</sub> = +10 000 N dan M = 40 000 N m pada setiap mesh: nombor pertama yang dibaca.")])
@@ -224,6 +225,7 @@ def notes(A):
         + OK("The reaction was right in all four", "Reaction betul dalam keempat-empatnya",
              "R<sub>y</sub> = +10 000 N in every wrong model (the thickness one included): equilibrium does not catch idealisation errors. A wrong reaction means an input error — load, unit, direction, a missing or doubled support. A right reaction with a wrong deflection means an idealisation error. Different fixes.",
              "R<sub>y</sub> = +10 000 N dalam setiap model yang salah (termasuk model ketebalan): keseimbangan tidak menangkap ralat idealisation. Reaction yang salah bermaksud ralat input — load, unit, arah, support yang tertinggal atau berganda. Reaction yang betul dengan deflection yang salah bermaksud ralat idealisation. Pembetulan yang berbeza.")
+        + TRY("pstrain point vonly thick")
         + KP([("Elemental Mean = centroid value: compare it with M(y − H/2)/I; ignore the Max tag at the fixed corner.", "Elemental Mean = nilai centroid: bandingkan dengan M(y − H/2)/I; abaikan tag Max di bucu tetap."),
               ("Plane strain −10%; vertex force +20% at the node; v-only support: warning; thickness: a power of ten.", "Plane strain −10%; daya bucu +20% pada node; support v sahaja: amaran; ketebalan: kuasa sepuluh."),
               ("Wrong reaction → input error; right reaction, wrong result → idealisation error.", "Reaction salah → ralat input; reaction betul, keputusan salah → ralat idealisation.")])

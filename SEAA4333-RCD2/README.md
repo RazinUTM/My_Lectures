@@ -66,7 +66,7 @@ SEAA4333-RCD2/
 ├── labs/column.html          the Column Lab (Explorer of Units 7 to 9, six tabs; QR codes on the first slides)
 ├── labs/foundation.html      the Foundation Lab (Explorer of Units 10 to 12: bearing pressure, critical sections, spot the error, strap footing, pile group, pile cap)
 ├── labs/retaining-wall.html  the Retaining Wall Lab (Explorer of Units 13 and 14: earth pressure, stability with a design challenge, spot the error, members, key and water)
-├── shared/                   course.css, course.js, the avatar poses, the course home source
+├── shared/                   course.css, course.js, annotate.js (the annotation toolbar), the avatar poses, the course home source
 ├── survey/                   the perception survey of Weeks 7 and 15: questions for a UTM eLearning Feedback activity, the paper slip, and make_survey.py, which writes both from one list of items
 └── tutor/course.json         every Unit's sections, for the tutor (generated)
 ```
@@ -87,6 +87,10 @@ student then types go through the Worker to the Claude API (Anthropic) to be ans
 the Worker keeps counts (questions, the sections he points to, modes), never the questions or the answers. With the
 switch off nothing typed leaves the browser. The model is Claude Haiku 5.5 (Anthropic), reached through rz-tutor-worker
 0.4.1 (app `seaa4333`, registered 23 Nov 2026); Dr RJ answers only from the Unit's own text and can be wrong. Graded work stays in UTM eLearning.
+
+Every page has a pencil button at the bottom right: the annotation toolbar (`shared/annotate.js`, a copy of the
+SEAA 4243 file), for writing on the screen while teaching. What is written stays only while the page is open and is
+never stored or sent; the browser remembers only the pen and where the toolbar was put (`rz-annotate`).
 
 ## Records and licence
 

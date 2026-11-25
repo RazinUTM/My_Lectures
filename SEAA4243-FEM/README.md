@@ -18,8 +18,9 @@ The pages follow the lecturer's T&L app template, the same as the SEAA 4333 Unit
 way back (For My Students › My Lectures › SEAA 4243 › part), the lecturer's email, a foldable
 description, a search box over the page, the part switcher, Short notes, and the settings buttons
 (BM/EN · theme · text size AA · screen guide ⓘ with a tour). Each part page has eight tabs: Start (plan
-and progress), Notes, Slides (viewer and PDF), Examples (model answers in exam form), Exercises (new
-numbers each attempt), Explorer, Glossary and Feedback. The slide viewer has first/last buttons, a page
+and progress), Notes (with quick checks and “Try it yourself” boxes that open the matching Explorer task
+and lead back to the same place in the notes), Slides (viewer and PDF), Examples (model answers in exam
+form), Exercises (new numbers each attempt), Explorer, Glossary and Feedback. The slide viewer has first/last buttons, a page
 slider, mouse-wheel and swipe paging, and a PDF download. Explanations switch between English and
 Bahasa Melayu; technical terms stay in English.
 
@@ -38,11 +39,20 @@ SEAA4243-FEM/
 ├── tutor/                    course.json and extra/ for Dr RJ (each part folder has its own tutor/)
 ├── tools/                    add_tutor.py and the pinned rz-tutor panel and feedback code
 ├── src/                      the sources the pages are built from (see src/README.md)
-└── shared/                   course.css and course.js, the engine the pages inline; avatar/; tutor_endpoint.txt; whats_new.txt
+└── shared/                   course.css and course.js, the engine the pages inline; annotate.js, the annotation toolbar; avatar/; tutor_endpoint.txt; whats_new.txt
 ```
 
 Progress, language, theme and text size are kept in the student's own browser
 (localStorage); the course home can export and import it.
+
+Every page has a pencil button at the bottom right: the annotation toolbar, for writing on the screen while
+teaching (five pens, two see-through highlighters, a laser pointer whose line fades by itself, line thickness, an
+eraser that removes whole lines, undo, clear all, and a blank page behind the writing from 0% to 100%; mouse,
+touch or pen). While it is on, the page cannot be clicked or scrolled; Esc or the pencil turns it off. With a
+slide on screen, the arrow keys and Page Up/Down (a clicker) still turn the slide, and each slide keeps its own
+writing. What is written stays only while the page is open and
+is never stored or sent; the browser remembers only the pen and where the toolbar was put (`rz-annotate`).
+The code is one file, `shared/annotate.js`: the source of record for the lecturer's other courses, which carry a copy.
 
 ## Dr RJ, the guide panel
 

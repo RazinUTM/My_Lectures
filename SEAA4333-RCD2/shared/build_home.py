@@ -67,6 +67,7 @@ def main() -> int:
     body = (shared / "home_src.html").read_text(encoding="utf-8")
     css = (shared / "course.css").read_text(encoding="utf-8")
     js = (shared / "course.js").read_text(encoding="utf-8")
+    annot = (shared / "annotate.js").read_text(encoding="utf-8")      # the annotation toolbar, its own script
     conf = json.dumps(COURSE, ensure_ascii=False).replace("</", "<\\/")
     doc = ('<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
            '<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">\n'
@@ -75,7 +76,7 @@ def main() -> int:
            '<meta name="description" content="Course home of SEAA 4333 Reinforced Concrete Design II, Faculty of Civil Engineering, UTM: '
            'the Units with their progress, the Explorers, assessment, and progress export.">\n'
            + PREFS + "\n" + FONTS + "\n<style>\n" + css + "</style>\n</head>\n<body>\n" + body
-           + f"\n<script>window.COURSE = {conf};</script>\n<script>\n{js}</script>\n<script>{HOME_JS}</script>\n</body>\n</html>\n")
+           + f"\n<script>window.COURSE = {conf};</script>\n<script>\n{js}</script>\n<script>{HOME_JS}</script>\n<script>\n{annot}</script>\n</body>\n</html>\n")
     (course / "index.html").write_text(doc, encoding="utf-8")
     print(f"index.html: {len(doc):,} bytes")
     return 0

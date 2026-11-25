@@ -22,6 +22,13 @@ Order of work after a content change:
    (read the live files first; the site reads the same deck through `tools/build_part.py`).
 3. `./build.sh` for the site; `python3 tools/make_pdf.py <part-folder> <file>.pdf` for a slide PDF.
 4. Run the checks: `python3 tools/functest.py 01-heat-transfer-1`, `functest_p2.py` … `functest_p5.py`,
-   `functest_slides.py`, `functest_py.py` (needs a local Pyodide 0.29.5 in `$PYODIDE_DIR`).
+   `functest_slides.py`, `functest_py.py` (needs a local Pyodide 0.29.5 in `$PYODIDE_DIR`), and
+   `functest_try.py` (every “Try it yourself” button of the six parts, at 1400 px and 400 px), and
+   `functest_annotate.py` (the annotation toolbar with a mouse, with touch and a pen, and on a phone;
+   `--site <course folder> <page>` runs it on a page of another course).
+
+“Try it yourself” boxes: in `tools/content_pN.py`, `TRY("id id")` just before a section's `KP([...])` lists
+the Explorer tasks (`LAB_TASKS` ids) that the section prepares. The box is empty in the page;
+`shared/course.js` fills it from the task cards. The build stops unless every task is placed exactly once.
 
 A fresh clone rebuilds to the committed pages byte for byte (checked 24 Nov 2026).

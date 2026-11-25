@@ -1,7 +1,7 @@
 """Content of Plane Stress Part 1 (site part 3): equilibrium, Hooke's law, strain-displacement, boundary
 conditions and the shape-function matrix [N]. Numbers are those of deck W11 and the text (Mohd Yassin et al.,
 MSNM 2020, Ch. 3); every value in the examples and exercises was recomputed in Python before it was written."""
-from sitelib import B, P, LI, OL, H3, DEF, NOTE, OK, STEP, KP, QC, SB, XSTEP, ANS, CHK, PLAN, PIC, INTERP, SCHEME
+from sitelib import B, P, LI, OL, H3, DEF, NOTE, OK, STEP, KP, TRY, QC, SB, XSTEP, ANS, CHK, PLAN, PIC, INTERP, SCHEME
 from content_p1 import MCQ
 
 PART = {
@@ -189,6 +189,7 @@ def notes(A):
                "Apabila ν menghampiri 0.5 (getah, undrained clay), pemalar plane strain membesar tanpa had: bahan itu menjadi incompressible, topik untuk kursus kemudian."))
         + NOTE("In this course", "Dalam kursus ini", "We formulate and calculate by hand in plane stress (text Chapter 3). Plane strain is the same [k] with the other [E]: one line in the code, one option in ANSYS.",
                "Kita memformulasi dan mengira dengan tangan dalam plane stress (teks Bab 3). Plane strain ialah [k] yang sama dengan [E] yang lain: satu baris dalam kod, satu pilihan dalam ANSYS.")
+        + TRY("pstrain nu0")
         + KP([("{σ}ᵀ = [E]{ε}ᵀ; plane stress [E] = E/(1 − ν²)·[1 ν 0; ν 1 0; 0 0 (1 − ν)/2].", "{σ}ᵀ = [E]{ε}ᵀ; plane stress [E] = E/(1 − ν²)·[1 ν 0; ν 1 0; 0 0 (1 − ν)/2]."),
               ("ε<sub>xy</sub> is the engineering shear strain; the (3,3) entry equals G.", "ε<sub>xy</sub> ialah engineering shear strain; entri (3,3) sama dengan G."),
               ("Plane strain: only [E] changes; stiffer in the normal entries, same G.", "Plane strain: hanya [E] berubah; lebih kaku dalam entri normal, G sama.")])
@@ -272,6 +273,7 @@ def notes(A):
                "Plat boleh translate dalam arah x, translate dalam arah y dan berputar dalam satahnya tanpa sebarang strain: untuk putaran kecil θ, u = −θy dan v = θx memberi ε<sub>xx</sub> = ε<sub>yy</sub> = 0 dan ε<sub>xy</sub> = −θ + θ = 0. "
                "Pergerakan sebegini tidak memerlukan daya, jadi [K] singular sehingga support menghapuskan ketiga-tiganya. Menahan v sahaja di sepanjang tepi kiri menghalang translation y tetapi tidak menghalang translation x, mahupun putaran terhadap satu titik pada tepi itu (titik-titiknya bergerak dalam arah x, bukan y); "
                "support “vertical only” dalam Explorer menunjukkan solver menolak. Menahan u sahaja di sepanjang tepi itu menghalang translation x dan putaran tetapi membiarkan plat bebas menggelongsor dalam arah y."))
+        + TRY("vonly thick")
         + KP([("Traction known → natural → load (or nothing on a free edge). Displacement known → essential → imposed.", "Traction diketahui → natural → beban (atau tiada pada tepi bebas). Displacement diketahui → essential → dikenakan."),
               ("One condition per direction at every boundary point.", "Satu condition setiap arah pada setiap titik sempadan."),
               ("Supports must remove two translations and one rotation, or [K] is singular.", "Support mesti menghapuskan dua translation dan satu putaran, jika tidak [K] singular.")])

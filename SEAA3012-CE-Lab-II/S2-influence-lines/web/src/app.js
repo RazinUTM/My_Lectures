@@ -523,9 +523,49 @@ function tkPaint(tk,show){var fl=[].slice.call(tk.querySelectorAll("input.tans")
   if(show){tk.querySelector(".tkgood").hidden=!all;tk.querySelector(".tkbad").hidden=all;tx(tk.querySelector(".res"),ok+" of "+fl.length+" correct",ok+" daripada "+fl.length+" betul")}return all}
 function tkScore(){var n=cnt(ST.tk.ok);document.getElementById("avtasks").src=n>=5?AVS.cheer:AVS.ok;tx(document.getElementById("tkscore"),n+" / 5 done",n+" / 5 selesai")}
 TKS.forEach(function(tk){tk.querySelectorAll("input.tans").forEach(function(el){if(ST.tk.v[el.id]!=null)el.value=ST.tk.v[el.id];el.addEventListener("input",function(){ST.tk.v[el.id]=el.value;el.removeAttribute("data-state");save()})});
-  tk.querySelector(".tkchk").addEventListener("click",function(){if(tkPaint(tk,false)){ST.tk.ok[tk.id]=1}tkPaint(tk,true);save();tkScore();updateProgress()});
+  tk.querySelector(".tkchk").addEventListener("click",function(){if(tkPaint(tk,false)){ST.tk.ok[tk.id]=1}tkPaint(tk,true);save();tkScore();trySync();updateProgress()});
   if(ST.tk.ok[tk.id])tkPaint(tk,true)});
 tkScore();langHooks.push(function(){tkScore();TKS.forEach(function(tk){if(tk.querySelector(".res").textContent)tkPaint(tk,true)})});
+
+/* ---------- "Try it yourself": from a place in the notes to an Explorer task, and back ----------
+   The T&L app template's feature (source of record: SEAA 4243 shared/course.js; first built in SEAA 4333),
+   written for this page's own engine. The notes carry <aside class="try" data-tasks="tk1 tk2"> at the end of
+   the section that prepares a task; the box is filled here from the task cards of the Explorer view
+   (#v-explorer article.tk: number and title), so the task text is written once. Its button opens the Explorer
+   view at that task card, and a bar at the top of the Explorer view leads back to the same box.
+   Different from the course engine: the cards carry their own id (tk1…tk5; data-ms holds Malay text on this
+   page), the Explorer is part of this page and has no tabs (no Lab tab to set), and the page lands on the task
+   card, where the instruction and the answer boxes are, with the Explorer just above it. */
+var tryRet=null,tryBar=null;
+function tkCard(id){var c=document.getElementById(id);return c&&c.classList.contains("tk")&&c.closest("#v-explorer")?c:null}
+function trySec(box){var sec=box.closest("section.nsec"),h=sec&&sec.querySelector("h2"),o={en:"Notes",ms:"Nota"};if(!h)return o;
+  [["en","Notes"],["ms","Nota"]].forEach(function(p){var t=h.querySelector("."+p[0]),m=t&&/^\s*(\d+)\s+([\s\S]*)$/.exec(t.innerHTML);if(m)o[p[0]]=p[1]+" §"+m[1]+" · "+m[2]});return o}
+function tryFlash(el,ms){el.classList.add("hflash");setTimeout(function(){el.classList.remove("hflash")},ms)}
+function trySync(){document.querySelectorAll("#v-notes .try li[data-tk]").forEach(function(li){li.classList.toggle("done",!!ST.tk.ok[li.getAttribute("data-tk")])})}
+function tryBack(){var id=tryRet;tryRet=null;if(tryBar)tryBar.hidden=true;if(!id)return;
+  goTo("notes",id);var box=document.getElementById(id);if(box)setTimeout(function(){tryFlash(box,1800)},120)}
+function tryOpen(box,id){var card=tkCard(id);if(!card)return;tryRet=box.id;
+  if(!tryBar){tryBar=document.createElement("div");tryBar.className="tryback";tryBar.setAttribute("role","region");tryBar.setAttribute("aria-label","Back to the notes");
+    var ev=document.getElementById("v-explorer");ev.insertBefore(tryBar,ev.firstChild)}
+  var lab=trySec(box),n=card.querySelector(".tkn").textContent;
+  tryBar.innerHTML='<button class="btn" type="button">'+B("← Back to "+lab.en,"← Kembali ke "+lab.ms)+'</button><span class="muted">'+
+    B("Task "+n+" is marked; the Explorer is above the tasks.","Tugasan "+n+" ditanda; Explorer berada di atas tugasan.")+"</span>";
+  tryBar.querySelector("button").addEventListener("click",tryBack);tryBar.hidden=false;
+  show("explorer",true);
+  setTimeout(function(){var top=parseFloat(getComputedStyle(tryBar).top)||document.getElementById("navwrap").offsetHeight;
+    var y=card.getBoundingClientRect().top+window.pageYOffset-top-tryBar.offsetHeight-12;
+    window.scrollTo({top:Math.max(0,y),behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});tryFlash(card,2400)},60)}
+document.querySelectorAll("#v-notes aside.try[data-tasks]").forEach(function(box){
+  var sec=box.closest("section.nsec"),base="try-"+(sec?sec.id:"n"),id=base,k=2;while(document.getElementById(id))id=base+"-"+k++;if(!box.id)box.id=id;
+  var ids=box.getAttribute("data-tasks").split(/\s+/).filter(function(t){return tkCard(t)});if(!ids.length){box.hidden=true;return}
+  var html='<div class="h">'+B("Try it yourself · Explorer","Cuba sendiri · Explorer")+"</div><ul>";
+  ids.forEach(function(t){var c=tkCard(t),en=c.querySelector("h4 .en"),ms=c.querySelector("h4 .ms");
+    html+='<li data-tk="'+t+'"><span class="tkn">'+c.querySelector(".tkn").textContent+'</span><span class="tt">'+B(en?en.innerHTML:"",ms?ms.innerHTML:"")+
+      '</span><span class="tkok" aria-label="done">✓</span><button class="btn ghost" type="button" data-try="'+t+'">'+B("Open in the Explorer →","Buka dalam Explorer →")+"</button></li>"});
+  box.innerHTML=html+'</ul><p class="tryfoot">'+B("A button at the top of the Explorer brings you back here to carry on reading.","Butang di atas Explorer membawa anda kembali ke sini untuk menyambung bacaan.")+"</p>";
+  box.querySelectorAll("button[data-try]").forEach(function(b){b.addEventListener("click",function(){tryOpen(box,b.getAttribute("data-try"))})})});
+document.querySelectorAll(".tab").forEach(function(t){t.addEventListener("click",function(){if(t.getAttribute("data-view")!=="explorer"&&tryBar){tryRet=null;tryBar.hidden=true}})});
+trySync();
 
 /* ---------- Müller–Breslau demo ---------- */
 var mbchips=document.getElementById("mbchips"),mbd=document.getElementById("mbd"),mbdv=document.getElementById("mbdv");

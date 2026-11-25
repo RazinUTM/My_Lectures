@@ -156,6 +156,13 @@ def KP(pairs):
     return ('<details class="kp"><summary>' + B("Key points", "Perkara utama") + "</summary>"
             + "<ul>" + "".join(f"<li>{B(e, m)}</li>" for e, m in pairs) + "</ul></details>")
 
+def TRY(ids):
+    """Marker for a "Try it yourself" box, placed just before the section's KP(): the ids of the Explorer tasks
+    (LAB_TASKS) that the section prepares, separated by spaces. The marker is empty on purpose: shared/course.js
+    fills the box from the task cards of the Explorer view at load, so the task text is written once.
+    Every task of a part is placed in exactly one box (build_part.py checks this)."""
+    return f'<aside class="try" data-tasks="{ids}"></aside>'
+
 def QC(qid, q_en, q_ms, options, ans, fb_en, fb_ms):
     """Ungraded one-try question inside the notes (\"Quick check\") or on the Start tab (ids r1, r2: \"Recall\")."""
     opts = "".join(f'<button class="opt" type="button" data-k="{k}">{B(e, m)}</button>' for k, e, m in options)
@@ -343,6 +350,7 @@ def slides_block(deck_dir, blob_map, img_out, img_rel="slides/img"):
 # ---- page --------------------------------------------------------------------
 def page(cfg, body, head_extra="", script_extra=""):
     css = (SHARED / "course.css").read_text(); js = (SHARED / "course.js").read_text()
+    annot = (SHARED / "annotate.js").read_text()        # the annotation toolbar: its own script, after the engine
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -366,6 +374,8 @@ def page(cfg, body, head_extra="", script_extra=""):
 {js}
 </script>
 {script_extra}
+<script>
+{annot}</script>
 </body>
 </html>
 """

@@ -146,6 +146,7 @@ def main() -> int:
         body = body.replace(token, svg)
     css = (course / "shared" / "course.css").read_text(encoding="utf-8")
     js = (course / "shared" / "course.js").read_text(encoding="utf-8")
+    annot = (course / "shared" / "annotate.js").read_text(encoding="utf-8")   # the annotation toolbar, its own script
     ex = (here / "src" / "exercises.js").read_text(encoding="utf-8")
     conf = json.dumps(meta, ensure_ascii=False).replace("</", "<\\/")
     doc = ('<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
@@ -154,7 +155,7 @@ def main() -> int:
            '<meta name="claude:viewport-fit-sides" content="cover">\n'
            f'<meta name="description" content="{html.escape(DESCRIPTION, quote=True)}">\n'
            + PREFS + "\n" + FONTS + "\n<style>\n" + css + "</style>\n</head>\n<body>\n"
-           + body + f"\n<script>window.COURSE = {conf};</script>\n<script>\n{js}</script>\n<script>\n{ex}</script>\n</body>\n</html>\n")
+           + body + f"\n<script>window.COURSE = {conf};</script>\n<script>\n{js}</script>\n<script>\n{ex}</script>\n<script>\n{annot}</script>\n</body>\n</html>\n")
     (topic / "index.html").write_text(doc, encoding="utf-8")
     print(f"index.html: {len(doc):,} bytes; {len(eqs)} equations as SVG, {n_img} images sized, "
           f"{len(meta['notes'])} notes sections, {deck_n} slides, {len(meta['examples'])} examples, "

@@ -12,4 +12,5 @@ python3 build_home.py
 python3 sync_labs.py
 cd ../..
 python3 tools/add_tutor.py          # Dr RJ panel and tutor files, always after the page build
+python3 src/tools/build_ansys_extra.py   # Part 6 §7 as Dr RJ's supplementary file for Parts 1-5 (needs the tutor files)
 echo "built; check with: git diff --stat"

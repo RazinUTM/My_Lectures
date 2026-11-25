@@ -8984,7 +8984,7 @@ if __name__ == &quot;__main__&quot;:
 
 </script>
 <script>
-/* Annotation toolbar: write on the screen while teaching. T&L app template, version 1.2 (24 Nov 2026).
+/* Annotation toolbar: write on the screen while teaching. T&L app template, version 1.3 (25 Nov 2026).
    Source of record: My_Lectures/SEAA4243-FEM/shared/annotate.js. The other courses carry a copy of this file;
    change it here first, then copy it.
 
@@ -8995,13 +8995,15 @@ if __name__ == &quot;__main__&quot;:
 
    Annotation off: the canvas is hidden and the page works as usual; only the pencil button shows.
    Annotation on:  the canvas takes every mouse, touch and pen input, so the page cannot be clicked or
-                   scrolled (wheel, touch and keys); Esc or the pencil button turns it off.
+                   scrolled (wheel, touch and keys); Esc or the pencil button turns it off. One exception:
+                   while a slide is on screen, the keys that turn it (the left and right arrows, and Page Up
+                   and Page Down as a clicker sends them) go to the page, and the ink follows the slide.
 
    The ink is kept in memory while the page is open and is never stored or sent. A stroke is recorded in
    page coordinates, so it stays on what it was written on when the page has been scrolled in between, and
    each view of a part page (and each slide, and the full-screen slide viewer) keeps its own ink.
    The eraser works by object: touching a line removes the whole line. "Clear all" clears the ink of the view
-   on screen. Ctrl/Cmd+Z takes back the last thing done (a line, an erasure, a Clear all).
+   on screen. The Undo button, or Ctrl/Cmd+Z, takes back the last thing done (a line, an erasure, a Clear all).
 
    The second slider puts a blank page behind the ink, from 0% (the page shows through) to 100% (a clean page
    to write on): white on the light theme, dark on the dark theme. It starts at 0% each time the page is opened.
@@ -9013,7 +9015,11 @@ if __name__ == &quot;__main__&quot;:
 
    1.1: a green pen; the eraser removes whole lines (it rubbed out pixels in 1.0); the blank page behind the ink;
         Ctrl/Cmd+Z also takes back an erasure and a Clear all.
+   The laser pointer is for pointing while explaining: its line stays for 0.7 s after the pen lifts, fades in
+   another 0.7 s, and is never part of the ink (nothing to erase or undo).
+
    1.2: the magenta and cyan highlighters.
+   1.3: the Undo button; the laser pointer; the arrow and Page keys turn the slide while annotation is on.
 
    SPDX-License-Identifier: MIT
    Copyright (c) 2026 Ahmad Razin Zainal Abidin and Universiti Teknologi Malaysia */
@@ -9031,6 +9037,9 @@ if __name__ == &quot;__main__&quot;:
   var on = false, tool = "pen", slot = "red", size = 4, pos = null;      /* pos: {r, b} from the right and bottom edges, null = the default corner */
   var layers = {}, hists = {}, layer = [], hist = [], cur = null, penAt = 0, dpr = 1, dragEnd = 0;
   var cover = 0;                                       /* the blank page behind the ink, 0 to 100 %; not remembered */
+  var key = "";                                        /* the screen whose ink is in hand (ctxKey) */
+  var LASER = { c: "#ff2a2a", w: 5, hold: 700, fade: 700 }, lasers = [], lraf = 0, base = false;   /* the laser pointer's lines, never part of the ink */
+  var PAGING = { ArrowLeft: 1, ArrowRight: 1, PageUp: 1, PageDown: 1 };
 
   try { var saved = JSON.parse(localStorage.getItem(STORE) || "null") || {};
     if (SLOTS.indexOf(saved.c) >= 0) slot = saved.c;
@@ -9060,6 +9069,7 @@ if __name__ == &quot;__main__&quot;:
     ".rzan-b{display:inline-grid;place-items:center;width:36px;height:36px;padding:0;border:1px solid var(--line,#cfcfcf);border-radius:8px;background:var(--panel2,var(--panel,Canvas));color:inherit;cursor:pointer}" +
     ".rzan-b:hover{border-color:var(--accent,#830f3e);color:var(--accent,#830f3e)}" +
     ".rzan-b[aria-pressed=true],.rzan-b[aria-pressed=true]:hover{background:var(--accent,#830f3e);border-color:var(--accent,#830f3e);color:var(--accent-fg,#fff)}" +
+    ".rzan-b:disabled,.rzan-b:disabled:hover{opacity:.4;cursor:default;border-color:var(--line,#cfcfcf);color:inherit}" +
     ".rzan-b svg,.rzan-grip svg{display:block;width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}" +
     ".rzan-grip{display:inline-grid;place-items:center;width:14px;height:36px;color:var(--muted,GrayText);cursor:grab}.rzan-grip svg{width:14px;fill:currentColor;stroke:none}" +
     ".rzan-c{display:inline-grid;place-items:center;width:28px;height:36px;padding:0;border:0;background:none;cursor:pointer}" +
@@ -9079,6 +9089,8 @@ if __name__ == &quot;__main__&quot;:
   var IC = {
     pen: SVG + '<path d="M4 20l1.2-4.6L16.6 4a2 2 0 0 1 2.9 0l.5.5a2 2 0 0 1 0 2.9L8.6 18.8 4 20z"/><path d="M14.6 6l3.4 3.4"/></svg>',
     eraser: SVG + '<path d="M8.6 19.5l-4.7-4.7a1.6 1.6 0 0 1 0-2.3l8.6-8.6a1.6 1.6 0 0 1 2.3 0l5.3 5.3a1.6 1.6 0 0 1 0 2.3l-8 8"/><path d="M5.5 19.5H20"/><path d="M8.2 8.8l7 7"/></svg>',
+    undo: SVG + '<path d="M9 14.5L4 9.5l5-5"/><path d="M4 9.5h10a5.5 5.5 0 0 1 0 11h-3"/></svg>',
+    laser: SVG + '<path d="M4 20l7.5-7.5"/><circle cx="16" cy="8" r="2.2" fill="currentColor" stroke="none"/><path d="M16 2.6v1.6M16 11.8v1.6M10.6 8h1.6M19.8 8h1.6M12.2 4.2l1.1 1.1M19.8 4.2l-1.1 1.1M19.8 11.8l-1.1-1.1"/></svg>',
     clear: SVG + '<path d="M4 7h16"/><path d="M9.5 7V4.5h5V7"/><path d="M6.5 7l.9 12.5h9.2L17.5 7"/><path d="M10 10.8v5.4M14 10.8v5.4"/></svg>',
     grip: SVG + '<circle cx="8" cy="5" r="1.7"/><circle cx="16" cy="5" r="1.7"/><circle cx="8" cy="12" r="1.7"/><circle cx="16" cy="12" r="1.7"/><circle cx="8" cy="19" r="1.7"/><circle cx="16" cy="19" r="1.7"/></svg>'
   };
@@ -9094,9 +9106,11 @@ if __name__ == &quot;__main__&quot;:
   var sizeBox = el("span", "rzan-size", '<span class="rzan-dot" aria-hidden="true"><i></i></span>'), dot = sizeBox.querySelector("i");
   var range = el("input"); range.type = "range"; range.min = "1"; range.max = "24"; range.step = "1"; range.value = String(size); sizeBox.appendChild(range);
   var bErase = btn("rzan-b", "eraser", IC.eraser), bClear = btn("rzan-b", "clear", IC.clear), bToggle = btn("rzan-b rzan-toggle", "toggle", IC.pen);
+  var bLaser = btn("rzan-b", "laser", IC.laser), bUndo = btn("rzan-b", "undo", IC.undo); bUndo.disabled = true;
+  tools.appendChild(bLaser);
   var coverBox = el("span", "rzan-size", '<span class="rzan-pg" aria-hidden="true"><i></i></span>'), page = coverBox.querySelector("i");
   var veil = el("input"); veil.type = "range"; veil.min = "0"; veil.max = "100"; veil.step = "5"; veil.value = "0"; coverBox.appendChild(veil);
-  tools.appendChild(sizeBox); tools.appendChild(bErase); tools.appendChild(bClear); tools.appendChild(coverBox);
+  tools.appendChild(sizeBox); tools.appendChild(bErase); tools.appendChild(bUndo); tools.appendChild(bClear); tools.appendChild(coverBox);
   bar.appendChild(bToggle); bar.appendChild(tools);          /* the pencil first in the tab order, last on screen (row-reverse): the bar grows left and up from it */
   root.appendChild(cv); root.appendChild(bar);
 
@@ -9111,13 +9125,15 @@ if __name__ == &quot;__main__&quot;:
     SLOTS.forEach(function (s) { var b = swatch[s]; b.firstChild.style.background = HL[s] ? rgba(INK[s], 0.6) : inkOf(s); tip(b, names[s]); b.setAttribute("aria-pressed", String(tool === "pen" && slot === s)); });
     tip(bErase, L("Eraser: touch a line to remove the whole line", "Pemadam: sentuh satu garisan untuk memadam seluruh garisan itu")); bErase.setAttribute("aria-pressed", String(tool === "eraser"));
     cv.setAttribute("data-tool", tool);
+    tip(bLaser, L("Laser pointer: the line fades by itself", "Penunjuk laser: garisan hilang dengan sendiri")); bLaser.setAttribute("aria-pressed", String(tool === "laser"));
+    tip(bUndo, L("Undo (Ctrl/Cmd+Z)", "Buat asal (Ctrl/Cmd+Z)"));
     tip(bClear, L("Clear all the writing on this screen", "Padam semua tulisan pada skrin ini"));
-    var hl = tool === "pen" && !!HL[slot];
-    range.disabled = hl;                               /* the highlighters have one thickness */
-    tip(range, hl ? L("Line thickness: fixed for the highlighters", "Ketebalan garisan: tetap bagi penyerlah") : L("Line thickness", "Ketebalan garisan"));
+    var hl = tool === "pen" && !!HL[slot], las = tool === "laser";
+    range.disabled = hl || las;                        /* the highlighters and the laser pointer have one thickness */
+    tip(range, hl || las ? L("Line thickness: fixed for this tool", "Ketebalan garisan: tetap bagi alat ini") : L("Line thickness", "Ketebalan garisan"));
     grip.title = L("Drag to move the toolbar", "Seret untuk mengalih bar alat");
-    var d = Math.max(3, Math.min(22, hl ? HL_W : size)); dot.style.width = dot.style.height = d + "px";
-    dot.style.background = tool === "eraser" ? "transparent" : hl ? rgba(INK[slot], 0.6) : inkOf(slot);
+    var d = Math.max(3, Math.min(22, hl ? HL_W : las ? LASER.w : size)); dot.style.width = dot.style.height = d + "px";
+    dot.style.background = tool === "eraser" ? "transparent" : las ? LASER.c : hl ? rgba(INK[slot], 0.6) : inkOf(slot);
     /* the blank page behind the ink: the canvas's own background, so the ink and the eraser never touch it */
     var rgb = isDark() ? "22,24,28" : "255,255,255", paper = cover ? "rgba(" + rgb + "," + cover / 100 + ")" : "";
     cv.style.backgroundColor = paper; page.style.background = paper;
@@ -9145,8 +9161,9 @@ if __name__ == &quot;__main__&quot;:
     if (v) { k = v.getAttribute("data-view") || v.id || ""; var s = v.querySelector(".sl.on, .slide.on"); if (s) k += "/" + Array.prototype.indexOf.call(s.parentNode.children, s); }
     return k + (fsEl() ? "|fs" : "");
   }
-  function useLayer() { var k = ctxKey(); layer = layers[k] || (layers[k] = []); hist = hists[k] || (hists[k] = []); }
-  function did(act) { hist.push(act); if (hist.length > 300) hist.shift(); }                  /* what Ctrl/Cmd+Z takes back, newest last */
+  function can() { bUndo.disabled = !hist.length; }                                           /* the Undo button shows whether there is something to take back */
+  function useLayer() { key = ctxKey(); layer = layers[key] || (layers[key] = []); hist = hists[key] || (hists[key] = []); lasers.length = 0; can(); }
+  function did(act) { hist.push(act); if (hist.length > 300) hist.shift(); can(); }           /* what Undo takes back, newest last */
   function origin() { return fsEl() ? { x: 0, y: 0 } : { x: window.pageXOffset || 0, y: window.pageYOffset || 0 }; }
   function fit() {
     var rc = cv.getBoundingClientRect(); dpr = Math.min(3, window.devicePixelRatio || 1);
@@ -9166,8 +9183,25 @@ if __name__ == &quot;__main__&quot;:
     ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, cv.width, cv.height);
     ctx.setTransform(dpr, 0, 0, dpr, -o.x * dpr, -o.y * dpr);
     for (var i = 0; i < layer.length; i++) paint(layer[i]);
-    ctx.globalAlpha = 1;
+    ctx.globalAlpha = 1; base = false;
+    if (lasers.length) { keep(); base = true; shine(); tick(); }
   }
+  /* the laser pointer: its lines are drawn over a kept picture of the ink, frame by frame, until they have faded */
+  function shine() {
+    var now = Date.now(), i, z, a;
+    for (i = lasers.length - 1; i >= 0; i--) { z = lasers[i]; a = z.t ? 1 - (now - z.t - LASER.hold) / LASER.fade : 1; if (a <= 0) lasers.splice(i, 1); else z.a = a > 1 ? 1 : a; }
+    if (!lasers.length) { base = false; return; }
+    ctx.shadowColor = LASER.c; ctx.shadowBlur = 8 * dpr;
+    for (i = 0; i < lasers.length; i++) paint(lasers[i]);
+    ctx.shadowBlur = 0; ctx.shadowColor = "transparent"; ctx.globalAlpha = 1;
+  }
+  function beam() {                                    /* the ink as kept, and the laser lines over it */
+    if (!base) { redraw(); return; }
+    var o = origin(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.clearRect(0, 0, cv.width, cv.height); ctx.drawImage(snap, 0, 0);
+    ctx.setTransform(dpr, 0, 0, dpr, -o.x * dpr, -o.y * dpr); shine();
+  }
+  function frame() { lraf = 0; if (!on || !lasers.length) return; beam(); tick(); }
+  function tick() { if (!lraf && lasers.length) lraf = window.requestAnimationFrame ? requestAnimationFrame(frame) : setTimeout(frame, 16); }
   /* a see-through line in hand is drawn whole each time, over a picture of the canvas kept when it began: pieces laid
      one on another, as for the pens, would show a darker spot at every joint */
   var snap = null;
@@ -9215,13 +9249,17 @@ if __name__ == &quot;__main__&quot;:
 
   function drop() {                                    /* what the pointer in hand has done is undone: a palm that came before the pen */
     if (!cur) return;
-    if (cur.gone) putBack(cur.gone); else { var i = layer.indexOf(cur.s); if (i >= 0) layer.splice(i, 1); hist.pop(); }
+    var i;
+    if (cur.gone) putBack(cur.gone);
+    else if (cur.laser) { i = lasers.indexOf(cur.s); if (i >= 0) lasers.splice(i, 1); }
+    else { i = layer.indexOf(cur.s); if (i >= 0) layer.splice(i, 1); hist.pop(); can(); }
     try { cv.releasePointerCapture(cur.id); } catch (e) {} cur = null; redraw();
   }
   function finish(e) {
     if (!cur || (e && e.pointerId !== cur.id)) return;
     if (cur.type === "pen") penAt = Date.now();
     if (cur.gone && cur.gone.length) did({ a: "erase", gone: cur.gone });
+    if (cur.laser) cur.s.t = Date.now();                /* the laser line starts to fade from here */
     cur = null; redraw();
   }
 
@@ -9238,6 +9276,13 @@ if __name__ == &quot;__main__&quot;:
       if (eraseAt(pt[0], pt[1])) redraw();
       return;
     }
+    if (tool === "laser") {
+      var z = { c: LASER.c, w: LASER.w, a: 1, t: 0, p: pt, x0: pt[0], y0: pt[1], x1: pt[0], y1: pt[1] };
+      cur = { id: e.pointerId, type: e.pointerType, s: z, laser: true }; lasers.push(z);
+      beam(); tick();
+      return;
+    }
+    if (lasers.length) { lasers.length = 0; redraw(); }   /* real ink begins: the pointer's last lines go at once */
     var hl = !!HL[slot], s = { c: inkOf(slot), w: hl ? HL_W : size, p: pt, x0: pt[0], y0: pt[1], x1: pt[0], y1: pt[1] };
     if (hl) { s.a = HL_A; keep(); }                     /* the picture is kept before the new line is on it */
     cur = { id: e.pointerId, type: e.pointerType, s: s }; layer.push(s); did({ a: "add", s: s });
@@ -9250,7 +9295,8 @@ if __name__ == &quot;__main__&quot;:
     if (!evs || !evs.length) evs = [e];
     var grown = false;
     for (i = 0; i < evs.length; i++) { pt = point(evs[i]); if (cur.gone) eraseTo(pt[0], pt[1]); else if (extend(pt[0], pt[1])) grown = true; }
-    if (grown && cur.s.a) live();
+    if (grown && cur.laser) beam();
+    else if (grown && cur.s.a) live();
   });
   ["pointerup", "pointercancel", "lostpointercapture"].forEach(function (t) { cv.addEventListener(t, finish); });
   cv.addEventListener("contextmenu", function (e) { e.preventDefault(); });
@@ -9265,17 +9311,18 @@ if __name__ == &quot;__main__&quot;:
   function setOn(v) {
     v = !!v; if (v === on) return;
     if (!v && cur) finish();
+    if (!v) lasers.length = 0;
     on = v; cv.hidden = !on; tools.hidden = !on;
     if (on) { var a = D.activeElement; if (a && a !== D.body && !root.contains(a) && a.blur) try { a.blur(); } catch (e) {} useLayer(); fit(); redraw(); }
     sync(); place();
   }
-  function clearAll() { if (cur) finish(); if (layer.length) did({ a: "clear", all: layer.slice() }); layer.length = 0; redraw(); }
+  function clearAll() { if (cur) finish(); if (layer.length) did({ a: "clear", all: layer.slice() }); layer.length = 0; lasers.length = 0; redraw(); }
   function undo() {
     if (cur) return; var act = hist.pop(), i; if (!act) return;
     if (act.a === "add") { i = layer.indexOf(act.s); if (i >= 0) layer.splice(i, 1); }
     else if (act.a === "erase") putBack(act.gone);
     else if (act.a === "clear") Array.prototype.unshift.apply(layer, act.all);
-    redraw();
+    can(); redraw();
   }
 
   bar.addEventListener("click", function (e) {
@@ -9285,6 +9332,8 @@ if __name__ == &quot;__main__&quot;:
     if (act === "toggle") setOn(!on);
     else if (act === "colour") { slot = b.getAttribute("data-c"); tool = "pen"; save(); sync(); }
     else if (act === "eraser") { tool = tool === "eraser" ? "pen" : "eraser"; sync(); }
+    else if (act === "laser") { tool = tool === "laser" ? "pen" : "laser"; sync(); }
+    else if (act === "undo") undo();
     else if (act === "clear") clearAll();
   });
   range.addEventListener("input", function () { size = Math.max(1, Math.min(24, Math.round(+range.value) || 4)); save(); sync(); });
@@ -9315,15 +9364,20 @@ if __name__ == &quot;__main__&quot;:
     DRAG.forEach(function (t) { window.addEventListener(t, dragOn(t), true); });
   });
 
-  /* while annotation is on the page gets no keys either; the browser's own shortcuts and the toolbar keep theirs */
+  /* while annotation is on the page gets no keys either; the browser's own shortcuts and the toolbar keep theirs.
+     With a slide on screen, the keys that turn it go to the page, and the ink then follows the slide. */
+  function slideOn() { var v = D.querySelector(".view:not([hidden])"); return !!(v && v.querySelector(".sl.on, .slide.on")); }
+  function turned() { if (!on || ctxKey() === key) return; if (cur) finish(); useLayer(); redraw(); }
   window.addEventListener("keydown", function (e) {
     if (!on) return;
     function stop() { e.preventDefault(); e.stopImmediatePropagation(); }
     if (e.key === "Escape") { stop(); setOn(false); return; }
     if ((e.ctrlKey || e.metaKey) && !e.altKey && (e.key === "z" || e.key === "Z")) { stop(); undo(); return; }
     if (e.ctrlKey || e.metaKey || e.altKey || /^F\d+$/.test(e.key) || e.key === "Tab") return;
-    /* the toolbar keeps the keys its controls need: Enter and Space on a button, every key on a slider */
-    if (e.target && e.target.nodeType === 1 && root.contains(e.target) && (e.target === range || e.target === veil || e.key === "Enter" || e.key === " " || e.key === "Spacebar")) return;
+    /* the toolbar keeps the keys its controls need (Enter and Space on a button, every key on a slider); the page does not hear them */
+    var t = e.target, slider = t === range || t === veil;
+    if (t && t.nodeType === 1 && root.contains(t) && (slider || e.key === "Enter" || e.key === " " || e.key === "Spacebar")) { e.stopImmediatePropagation(); return; }
+    if (PAGING[e.key] && slideOn()) { setTimeout(turned, 0); return; }
     stop();
   }, true);
 
@@ -9348,7 +9402,7 @@ if __name__ == &quot;__main__&quot;:
   if (window.matchMedia) { var mq = matchMedia("(prefers-color-scheme: dark)"); if (mq.addEventListener) mq.addEventListener("change", sync); else if (mq.addListener) mq.addListener(sync); }
 
   D.body.appendChild(root); sync(); place();
-  window.RZAnnotate = { version: "1.2", on: function () { setOn(true); }, off: function () { setOn(false); }, toggle: function () { setOn(!on); },
+  window.RZAnnotate = { version: "1.3", on: function () { setOn(true); }, off: function () { setOn(false); }, toggle: function () { setOn(!on); },
     clear: clearAll, undo: undo, isOn: function () { return on; } };
 })();
 </script>

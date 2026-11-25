@@ -44,6 +44,8 @@ def glaze(p, rgb): return 88 <= p[3] <= 116 and all(abs(p[i] - rgb[i]) <= 22 for
 RED, BLUE, GREEN, BLACK, WHITE, YELLOW = (224, 32, 44), (20, 99, 214), (18, 150, 74), (17, 17, 17), (255, 255, 255), (246, 196, 0)
 SET = "(v => { const r = document.querySelectorAll('.rzan-size input')[%d]; r.value = v; r.dispatchEvent(new Event('input', { bubbles: true })); })"   # 0: thickness, 1: blank page
 PAPER = "getComputedStyle(__cv()).backgroundColor"
+UNDO = '.rzan-b[data-act="undo"]'
+CAN_UNDO = "!document.querySelector('.rzan-b[data-act=\"undo\"]').disabled"
 
 def open_page(b, width, height, touch=False, scale=1, hash_="#notes"):
     ctx = b.new_context(viewport={"width": width, "height": height}, has_touch=touch, device_scale_factor=scale)
@@ -82,7 +84,7 @@ with sync_playwright() as p:
     pg.mouse.move(700, 450); pg.mouse.wheel(0, 400); pg.wait_for_timeout(200)
     for key in ("PageDown", "End", "ArrowDown"): pg.keyboard.press(key)        # the focus is still on the pencil button
     pg.evaluate("document.activeElement.blur()")
-    for key in ("PageDown", "Space", "End", "ArrowDown", "/"): pg.keyboard.press(key)
+    for key in ("PageDown", "Space", "End", "ArrowDown", "/", "ArrowRight", "PageUp"): pg.keyboard.press(key)   # no slide on screen here: the paging keys are held back too
     pg.wait_for_timeout(250)
     check(pg.evaluate("scrollY") == y0 and pg.evaluate("window.RZAnnotate.isOn()") and pg.evaluate("document.activeElement.tagName") != "INPUT",
           f"{T}: on: wheel and keys do not scroll or reach the page ({pg.evaluate('scrollY')} vs {y0})")
@@ -147,6 +149,23 @@ with sync_playwright() as p:
     pg.click('.rzan-c[data-c="green"]'); free = pg.evaluate("document.querySelectorAll('.rzan-size input')[0].disabled")
     pg.click('.rzan-b[data-act="eraser"]'); pg.mouse.click(900, 641); pg.wait_for_timeout(60)
     check(free is False and pg.evaluate("__px(970, 640)")[3] == 0 and glaze(pg.evaluate("__px(760, 690)"), CYAN), f"{T}: a pen has the slider back; the eraser removes a highlighter line whole")
+    # the Undo button does what Ctrl/Cmd+Z does
+    pg.click(UNDO); pg.wait_for_timeout(60)
+    check(glaze(pg.evaluate("__px(970, 640)"), MAGENTA), f"{T}: the Undo button brings back the erased highlighter line")
+    n1 = pg.evaluate("__count()"); pg.click('.rzan-c[data-c="blue"]'); stroke(pg, 800, 300, 1000, 300); drawn = pg.evaluate("__count()"); pg.click(UNDO); pg.wait_for_timeout(60)
+    check(drawn > n1 and pg.evaluate("__count()") == n1 and pg.evaluate(CAN_UNDO), f"{T}: the Undo button takes back the last line")
+    # the laser pointer: seen while pointing and a moment after, then gone by itself; never part of the ink
+    pg.click('.rzan-b[data-act="laser"]'); n2 = pg.evaluate("__count()"); hist_before = pg.evaluate("window.RZAnnotate.isOn() && " + CAN_UNDO)
+    las = pg.evaluate("[document.querySelector('.rzan-b[data-act=\"laser\"]').getAttribute('aria-pressed'), document.querySelectorAll('.rzan-size input')[0].disabled]")
+    pg.mouse.move(800, 250); pg.mouse.down(); pg.mouse.move(1100, 250, steps=16); held = pg.evaluate("__px(950, 250)")
+    pg.mouse.move(450, 380, steps=6); pg.mouse.move(450, 420, steps=4); over = pg.evaluate("__px(450, 400)"); pg.mouse.up(); pg.wait_for_timeout(300); after = pg.evaluate("__px(950, 250)")
+    red = lambda p: p[3] > 150 and p[0] > 200 and p[1] < 120 and p[2] < 120
+    check(las == ["true", True] and red(held) and red(after), f"{T}: the laser pointer's line shows while pointing and just after ({held} / {after})")
+    pg.wait_for_timeout(1800)
+    check(pg.evaluate("__px(950, 250)")[3] == 0 and pg.evaluate("__count()") == n2 and near(pg.evaluate("__px(450, 400)"), RED) and near(pg.evaluate("__px(340, 440)"), BLUE),
+          f"{T}: the laser line fades by itself and leaves the ink exactly as it was ({pg.evaluate('__px(950, 250)')}, {pg.evaluate('__count()')} vs {n2})")
+    check(pg.evaluate(CAN_UNDO) == hist_before, f"{T}: a laser line is not something to undo")
+    pg.click('.rzan-c[data-c="green"]'); check(pg.evaluate("document.querySelector('.rzan-b[data-act=\"laser\"]').getAttribute('aria-pressed')") == "false", f"{T}: choosing a pen leaves the laser pointer")
     pg.click('.rzan-c[data-c="red"]')
     check(pg.evaluate("document.querySelector('.rzan-b[data-act=\"eraser\"]').getAttribute('aria-pressed')") == "false", f"{T}: choosing a colour goes back to the pen")
     # off and on again; the ink stays on what it was written on
@@ -162,7 +181,7 @@ with sync_playwright() as p:
         # each view, and each slide, keeps its own ink
         pg.click("#t-slides"); pg.wait_for_timeout(400)
         pg.evaluate("document.querySelector('.sl.on, .slide.on').scrollIntoView({ block: 'center' })"); pg.wait_for_timeout(200); toggle(pg)   # the whole slide on screen: the test's mouse must stay inside the window
-        check(pg.evaluate("__count()") == 0, f"{T}: the Slides view starts with no ink of the Notes")
+        check(pg.evaluate("__count()") == 0 and not pg.evaluate(CAN_UNDO), f"{T}: the Slides view starts with no ink of the Notes, and nothing to undo")
         fr = pg.evaluate("__rect('.sl.on, .slide.on')"); cx, cy = fr["x"] + fr["w"] / 2, fr["y"] + fr["h"] / 2
         pg.click('.rzan-c[data-c="blue"]'); s0 = pg.evaluate("__slide()"); stroke(pg, cx - 80, cy, cx + 80, cy)
         pg.mouse.click(cx + 150, cy + 60); pg.mouse.wheel(0, 300); pg.wait_for_timeout(200)
@@ -172,6 +191,13 @@ with sync_playwright() as p:
         toggle(pg); pg.click(first(pg, "#svprev", "#sprev")); pg.wait_for_timeout(250); toggle(pg)
         fr = pg.evaluate("__rect('.sl.on, .slide.on')"); cx, cy = fr["x"] + fr["w"] / 2, fr["y"] + fr["h"] / 2
         check(near(pg.evaluate(f"__px({cx}, {cy})"), BLUE), f"{T}: back on the slide, its ink is there again")
+        # with a slide on screen the arrow and Page keys turn it while annotation stays on, and each slide shows its own ink
+        seen = []
+        for key in ("ArrowRight", "ArrowLeft", "PageDown", "PageUp"):
+            pg.keyboard.press(key); pg.wait_for_timeout(200); seen.append((pg.evaluate("__slide()") - s0, pg.evaluate("__count()") > 0, pg.evaluate("window.RZAnnotate.isOn()")))
+        check(seen == [(1, False, True), (0, True, True), (1, False, True), (0, True, True)] and near(pg.evaluate(f"__px({cx}, {cy})"), BLUE), f"{T}: the arrow and Page keys turn the slide with annotation on, and the ink follows the slide ({seen})")
+        pg.click('.rzan-c[data-c="blue"]'); pg.keyboard.press("Space"); pg.wait_for_timeout(150)
+        check(pg.evaluate("__slide()") == s0 and pg.evaluate("window.RZAnnotate.isOn()"), f"{T}: Space on a toolbar button stays with the toolbar: the slide does not turn")
         pg.click('.rzan-b[data-act="clear"]'); pg.wait_for_timeout(60)
         check(pg.evaluate("__count()") == 0, f"{T}: Clear all clears the screen")
         toggle(pg); pg.click("#t-notes"); pg.wait_for_timeout(300); pg.evaluate(f"window.scrollTo(0, {y1})"); pg.wait_for_timeout(200); toggle(pg)
@@ -185,6 +211,9 @@ with sync_playwright() as p:
             toggle(pg); check(pg.evaluate("__count()") == 0, f"{T}: full screen starts with no ink")
             mx, my = fs["vw"] / 2, fs["vh"] / 2; s0 = pg.evaluate("__slide()"); stroke(pg, mx - 100, my, mx + 100, my); pg.mouse.click(mx + 200, my + 100); pg.wait_for_timeout(150)
             check(near(pg.evaluate(f"__px({mx}, {my})"), BLUE) and pg.evaluate("__slide()") == s0, f"{T}: full screen: writing works and does not turn the slide")
+            pg.keyboard.press("ArrowRight"); pg.wait_for_timeout(250); fwd = (pg.evaluate("__slide()") - s0, pg.evaluate("__count()"))
+            pg.keyboard.press("ArrowLeft"); pg.wait_for_timeout(250)
+            check(fwd == (1, 0) and pg.evaluate("__slide()") == s0 and near(pg.evaluate(f"__px({mx}, {my})"), BLUE) and pg.evaluate("!!document.fullscreenElement"), f"{T}: full screen: the arrow keys turn the slide with annotation on ({fwd})")
             toggle(pg); pg.evaluate("document.exitFullscreen()"); pg.wait_for_timeout(500)
             check(pg.evaluate("document.querySelector('.rzan').parentNode === document.body && __rect('.rzan-bar').shown"), f"{T}: leaving full screen brings the toolbar back to the page")
             toggle(pg); check(pg.evaluate("__count()") == 0, f"{T}: the full-screen ink is not shown on the windowed slide"); toggle(pg)
@@ -275,6 +304,11 @@ with sync_playwright() as p:
     check(pg.evaluate("__px(620, 950)")[3] == 0 and near(pg.evaluate("__px(300, 450)"), BLUE), f"{T}: a palm that lands first gives way to the pen, and its mark is removed")
     pg.wait_for_timeout(800); cy_ = pg.evaluate("__rect('.rzan-c[data-c=\"cyan\"]')"); pg.touchscreen.tap(cy_["x"] + 14, cy_["y"] + 18); touch_line(150, 1000, 450, 1000)
     check(glaze(pg.evaluate("__px(300, 1000)"), CYAN) and glaze(pg.evaluate("__px(200, 1000)"), CYAN), f"{T}: a finger highlights in cyan ({pg.evaluate('__px(300, 1000)')})")
+    un = pg.evaluate("__rect('.rzan-b[data-act=\"undo\"]')"); pg.touchscreen.tap(un["x"] + 18, un["y"] + 18); pg.wait_for_timeout(100)
+    check(pg.evaluate("__px(300, 1000)")[3] == 0 and near(pg.evaluate("__px(350, 300)"), BLUE), f"{T}: a tap on Undo takes back the last line only")
+    lz = pg.evaluate("__rect('.rzan-b[data-act=\"laser\"]')"); pg.touchscreen.tap(lz["x"] + 18, lz["y"] + 18); nb = pg.evaluate("__count()"); touch_line(150, 965, 420, 965); shown_ = pg.evaluate("__px(300, 965)")
+    pg.wait_for_timeout(1900)
+    check(shown_[3] > 150 and shown_[0] > 200 and pg.evaluate("__px(300, 965)")[3] == 0 and pg.evaluate("__count()") == nb, f"{T}: a finger points with the laser, and the line goes by itself ({shown_})")
     bl = pg.evaluate("__rect('.rzan-c[data-c=\"blue\"]')"); pg.touchscreen.tap(bl["x"] + 14, bl["y"] + 18)
     # a tap where a page control is does nothing; the toolbar can be dragged by touch
     if pg.locator("#t-slides").count():
